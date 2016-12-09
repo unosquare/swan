@@ -99,7 +99,7 @@
 
                         // TODO: connect logging here
 
-                        // Skip over stuff we can't display so we don't setress the output too much.
+                        // Skip over stuff we can't display so we don't stress the output too much.
                         if (OutputQueue.Count > Console.BufferHeight)
                             continue;
 
@@ -165,7 +165,6 @@
                 }
                 Terminal.WriteLine();
             }
-
         }
 
         /// <summary>
@@ -259,7 +258,7 @@
         }
 
         /// <summary>
-        /// Reads a line of thext from the console
+        /// Reads a line of text from the console
         /// </summary>
         /// <returns></returns>
         static public string ReadLine()

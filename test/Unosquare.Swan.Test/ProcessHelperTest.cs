@@ -1,7 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,9 +43,15 @@ namespace Unosquare.Swan.Test
                 if (output == null) output = Encoding.GetEncoding(0).GetString(data);
 
             }, true, default(CancellationToken));
-            
+
             Assert.IsTrue(result == ErrorCode);
             Assert.IsNotNull(output);
+        }
+
+        [Test]
+        public void GetCancellationAtRunProcessAsyncTest()
+        {
+            Assert.Ignore("Pending");
         }
     }
 }
