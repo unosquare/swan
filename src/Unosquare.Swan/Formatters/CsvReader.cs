@@ -2,12 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Dynamic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using System.Threading.Tasks;
+#if NET452
+    using System.Dynamic;
+#endif
 
     /// <summary>
     /// Represents a reader designed for CSV text.
@@ -186,6 +187,7 @@
             }
         }
 
+#if NET452
         /// <summary>
         /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headers
         /// </summary>
@@ -220,6 +222,7 @@
                 return resultObject;
             }
         }
+#endif
 
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
@@ -255,7 +258,7 @@
                 var result = Activator.CreateInstance<T>();
                 if (CachedTypes.ContainsKey(typeof(T)) == false)
                 {
-                    var targetProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    var targetProperties = typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Where(x => x.CanWrite && Constants.BasicTypesInfo.ContainsKey(x.PropertyType));
                     CachedTypes[typeof(T)] = targetProperties.ToArray();
                 }
@@ -432,7 +435,7 @@
             return values.ToArray();
         }
 
-        #region IDisposable Support
+#region IDisposable Support
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
@@ -468,7 +471,7 @@
             Dispose(true);
         }
 
-        #endregion
+#endregion
 
 
     }

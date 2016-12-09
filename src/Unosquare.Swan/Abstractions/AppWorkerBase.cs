@@ -56,13 +56,14 @@
             WorkerThread = new Thread(() =>
             {
                 IsBusy = true;
+
                 try
                 {
                     WorkerThreadLoop();
                 }
                 catch (Exception ex)
                 {
-                    //Logger.Error(ex);
+                    ex.Message.Debug();
                     OnWorkerThreadLoopException(ex);
                 }
                 finally
@@ -84,7 +85,8 @@
         /// <param name="ex">The ex.</param>
         protected virtual void OnWorkerThreadLoopException(Exception ex)
         {
-            //Logger.Error(ex, "Service exception detected.");
+            ex.Message.Debug();
+            "Service exception detected.".Debug();
         }
 
         /// <summary>
@@ -92,7 +94,7 @@
         /// </summary>
         protected virtual void OnWorkerThreadExit()
         {
-            //Logger.Debug("Service thread is stopping.");
+            "Service thread is stopping.".Debug();
         }
 
         /// <summary>
@@ -122,11 +124,6 @@
         #region Properties
 
         /// <summary>
-        /// Gets the logger.
-        /// </summary>
-//        protected virtual Logger Logger { get; }
-
-        /// <summary>
         /// Gets the state of the application service.
         /// In other words, useful to know whether the service is running.
         /// </summary>
@@ -139,7 +136,7 @@
                 {
                     if (value == WorkerState) return;
 
-                    //Logger.Debug("Service state changing from {0} to {1}", _state, value);
+                    $"Service state changing from {State} to {value}".Debug();
                     var newState = value;
                     var oldState = WorkerState;
                     WorkerState = value;
@@ -197,7 +194,7 @@
         {
             if (State != AppWorkerState.Running) return;
 
-            //Logger.Debug("Service stop requested.");
+            "Service stop requested.".Debug();
             CancellationPending = true;
             WorkerThread.Join();
             IsBusy = false;
@@ -217,12 +214,14 @@
 
             if (isDisposing)
             {
-                //Logger.Debug("Service disposing.");
+                "Service disposing.".Debug();
 
                 if (WorkerThread != null)
                 {
+#if NET452
                     if (WorkerThread.IsAlive)
                         WorkerThread.Abort();
+#endif
 
                     WorkerThread = null;
                 }

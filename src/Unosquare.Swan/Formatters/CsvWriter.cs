@@ -106,7 +106,7 @@
             if (TypeCache.ContainsKey(type))
                 return TypeCache[type];
 
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] properties = type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance);
             TypeCache[type] = properties;
             return properties;
         }

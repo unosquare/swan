@@ -1,11 +1,13 @@
 ﻿namespace Unosquare.Swan
 {
+    using System.Security.Cryptography;
+    using System.Text;
+#if NET452
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Security.Cryptography;
-    using System.ServiceProcess;
-    using System.Text;
     using System.Threading;
+    using System.ServiceProcess;
+#endif
 
     static public partial class Extensions
     {

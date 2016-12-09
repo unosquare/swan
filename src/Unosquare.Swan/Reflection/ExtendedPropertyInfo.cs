@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Reflection
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -8,13 +8,13 @@
     /// <summary>
     /// Represents a Property object from a Object Reflection Property with extended values
     /// </summary>
-    public class PropertyDto
+    public class ExtendedPropertyInfo
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyDto{T}"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedPropertyInfo{T}"/> class.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        public PropertyDto(PropertyInfo propertyInfo)
+        public ExtendedPropertyInfo(PropertyInfo propertyInfo)
         {
             Property = propertyInfo.Name;
 
@@ -93,13 +93,13 @@
     /// <summary>
     /// Represents a Property object from a Object Reflection Property with extended values
     /// </summary>
-    public class PropertyDto<T> : PropertyDto
+    public class ExtendedPropertyInfo<T> : ExtendedPropertyInfo
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyDto{T}"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedPropertyInfo{T}"/> class.
         /// </summary>
         /// <param name="property">The property.</param>
-        public PropertyDto(string property) : base(typeof(T).GetTypeInfo().GetProperty(property))
+        public ExtendedPropertyInfo(string property) : base(typeof(T).GetTypeInfo().GetProperty(property))
         {
         }
     }
