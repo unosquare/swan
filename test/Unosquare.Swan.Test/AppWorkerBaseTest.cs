@@ -29,9 +29,10 @@ namespace Unosquare.Swan.Test
         }
         
         [Test]
-        public void IsBusyTest()
+        public async Task IsBusyTest()
         {
             mock.Start();
+            await Task.Delay(TimeSpan.FromMilliseconds(100));
             Assert.IsTrue(mock.IsBusy);
         }
 
