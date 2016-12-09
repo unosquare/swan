@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Security.Cryptography;
     using System.ServiceProcess;
+    using System.Text;
     using System.Threading;
 
     static public partial class Extensions
     {
-
         /// <summary>
         /// Runs a service in console mode.
         /// </summary>
@@ -59,6 +60,22 @@
                 thread.Join();
 
             "Stopped all services.".Info();
+        }
+
+        public static string CalculateMD5(this string inputString)
+        {
+            var md5 = MD5.Create();
+            var inputBytes = Encoding.UTF8.GetBytes(inputString.Trim().ToLower());
+            var hash = md5.ComputeHash(inputBytes);
+
+            var sb = new StringBuilder();
+
+            foreach (var t in hash)
+            {
+                sb.Append(t.ToString("X2"));
+            }
+
+            return sb.ToString();
         }
     }
 }

@@ -4,17 +4,91 @@
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
-
-
+    using System.Threading;
+    
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
     /// </summary>
     static public class CurrentApp
     {
+        private static Mutex _applicationMutex;
+        private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
+
         static private readonly object SyncLock = new object();
 
         static private Assembly m_EntryAssembly = null;
         static private Process m_Process = null;
+        static private Os ApplicationOs = Os.Unknown;
+
+        /// <summary>
+        /// Determines if the app is running at mono
+        /// </summary>
+        public static readonly bool IsRunningAtMono = Type.GetType("Mono.Runtime") != null;
+
+        /// <summary>
+        /// Checks if this process is unique using a MUTEX.
+        /// </summary>
+        public static bool IsSingleInstance
+        {
+            get
+            {
+                lock (SyncLock)
+                {
+                    try
+                    {
+                        // Try to open existing mutex.
+                        Mutex.OpenExisting(ApplicationMutexName);
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            // If exception occurred, there is no such mutex.
+                            _applicationMutex = new Mutex(true, ApplicationMutexName);
+
+                            // Only one instance.
+                            return true;
+                        }
+                        catch
+                        {
+                            // Sometimes the user can't create the Global Mutex
+                        }
+                    }
+
+                    // More than one instance.
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the OS.
+        /// </summary>
+        public static Os OS
+        {
+            get
+            {
+                if (ApplicationOs == Os.Unknown)
+                {
+                    var p = (int)Environment.OSVersion.Platform;
+
+                    if ((p == 4) || (p == 6) || (p == 128))
+                    {
+                        var uname = ProcessHelper.GetProcessOutputAsync("uname").Result;
+
+                        ApplicationOs = string.IsNullOrWhiteSpace(uname) == false && uname.ToLower().Contains("darwin")
+                            ? Os.Osx
+                            : Os.Unix;
+                    }
+                    else
+                    {
+                        ApplicationOs = Os.Windows;
+                    }
+                }
+
+                return ApplicationOs;
+            }
+        }
 
         /// <summary>
         /// Gets the process associated with the current application.

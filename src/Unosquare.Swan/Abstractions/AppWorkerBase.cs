@@ -33,7 +33,6 @@
             State = AppWorkerState.Stopped;
             CancellationPending = false;
             IsBusy = false;
-            // TODO: Log
         }
 
         #endregion

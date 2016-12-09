@@ -14,6 +14,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan", "src\Unosq
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan.Samples", "src\Unosquare.Swan.Samples\Unosquare.Swan.Samples.xproj", "{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan.Nlog", "src\Unosquare.Swan.Nlog\Unosquare.Swan.Nlog.xproj", "{DE11A4DB-9229-496D-A0CD-4E8B0596934B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE11A4DB-9229-496D-A0CD-4E8B0596934B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE11A4DB-9229-496D-A0CD-4E8B0596934B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE11A4DB-9229-496D-A0CD-4E8B0596934B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE11A4DB-9229-496D-A0CD-4E8B0596934B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,5 +41,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F6849B76-E09A-4F84-B299-804A63F12ADC} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
+		{DE11A4DB-9229-496D-A0CD-4E8B0596934B} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 	EndGlobalSection
 EndGlobal

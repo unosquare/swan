@@ -4,7 +4,6 @@
 
     partial class Terminal
     {
-
         /// <summary>
         /// Logs a message
         /// </summary>

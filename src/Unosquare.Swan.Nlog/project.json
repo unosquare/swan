@@ -1,0 +1,10 @@
+﻿{
+  "version": "1.0.0-*",
+  "dependencies": {
+    "NLog": "4.3.11",
+    "Unosquare.Swan": "1.0.0-*"
+  },
+  "frameworks": {
+    "net452": {}
+  }
+  }
