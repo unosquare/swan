@@ -16,6 +16,9 @@
         /// </summary>
         protected static T Instance;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SingletonBase{T}"/> class.
+        /// </summary>
         protected SingletonBase()
         {
             // placeholder
