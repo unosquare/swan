@@ -66,6 +66,24 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(exit);
         }
 
+        [Test]
+        public void OnStateChangedTest()
+        {
+            var start = false;
+            var stop = false;
+
+            mock.StateChanged += (s, e) =>
+            {
+                if (e.NewState == AppWorkerState.Running) start = true;
+                if (e.NewState == AppWorkerState.Stopped) stop = true;
+            };
+
+            mock.Start();
+            mock.Stop();
+            Assert.IsTrue(start);
+            Assert.IsTrue(stop);
+        }
+        
         [TearDown]
         public void Kill()
         {
