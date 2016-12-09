@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Unosquare.Swan.Test
@@ -11,8 +12,12 @@ namespace Unosquare.Swan.Test
         {
             Task.Factory.StartNew(async () =>
             {
-                var data = await ProcessHelper.GetProcessOutputAsync("dotnet", "--help");
-                data.Info();
+                var result = await ProcessHelper.RunProcessAsync("dotnet", $"--help", (data, proc) =>
+                {
+                    $"Code {proc.ExitCode}".Info();
+                }, null, true, default(CancellationToken));
+
+                $"Result {result}".Info();
             });
 
             "Waiting".Info();
