@@ -5,7 +5,8 @@
     "net452": {
       "frameworkAssemblies": {
         "System.ServiceProcess": "",
-        "System.Web.Extensions":  ""
+        "System.Web.Extensions": "",
+        "System.ComponentModel.DataAnnotations":  ""
       }
     }
   }
