@@ -26,7 +26,15 @@ namespace Unosquare.Swan.Samples
 
             var input = "Please provide an option".ReadPrompt(SampleOptions, "Exit this program");
 
+            
+
+            byte output = 255;
+            var success = Constants.BasicTypesInfo[typeof(byte)].TryParse("4", out output);
+            $"Success: {success}, Output: {output}".Info();
+
             "Enter any key to exit".ReadKey();
+
+            
         }
     }
 }
