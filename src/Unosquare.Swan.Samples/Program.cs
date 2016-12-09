@@ -10,10 +10,8 @@ namespace Unosquare.Swan.Samples
     {
         public static void Main(string[] args)
         {
-            CurrentApp.OS.ToString().Info();
-            CurrentApp.IsRunningAtMono.ToString().Info();
-            CurrentApp.IsSingleInstance.ToString().Info();
-
+            $"Running at {CurrentApp.OS} {(CurrentApp.IsRunningAtMono ? "with MONO" : string.Empty)}".Info();
+            
             Dictionary<ConsoleKey, string> SampleOptions = new Dictionary<ConsoleKey, string>
             {
                 { ConsoleKey.A, "Sample A" },
@@ -28,9 +26,7 @@ namespace Unosquare.Swan.Samples
             $"This is for debugging stuff".Debug();
 
             var input = "Please provide an option".ReadPrompt(SampleOptions, "Exit this program");
-
             
-
             byte output = 255;
             var success = Constants.BasicTypesInfo[typeof(byte)].TryParse("4", out output);
             $"Success: {success}, Output: {output}".Info();

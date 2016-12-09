@@ -53,7 +53,7 @@
         }
 
         /// <summary>
-        /// Converst the date to a YYYY-MM-DD HH:II:SS string
+        /// Converts the date to a YYYY-MM-DD HH:II:SS string
         /// </summary>
         /// <param name="date">The date.</param>
         /// <returns></returns>

@@ -86,8 +86,15 @@
                         ApplicationOs = Os.Windows;
                     }
 #else
-                    // TODO: pending NETCORE
-                    ApplicationOs = Os.Windows;
+                    var windir = Environment.GetEnvironmentVariable("windir");
+                    if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
+                    {
+                        ApplicationOs = Os.Windows;
+                    }
+                    else
+                    {
+                        ApplicationOs = File.Exists(@"/proc/sys/kernel/ostype") ? Os.Unix : Os.Osx;
+                    }
 #endif
                 }
 

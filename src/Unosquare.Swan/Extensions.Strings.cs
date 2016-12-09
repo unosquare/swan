@@ -7,6 +7,11 @@
     {
         static private readonly MD5 MD5Hasher = MD5.Create();
 
+        /// <summary>
+        /// Computes the m d5.
+        /// </summary>
+        /// <param name="inputString">The input string.</param>
+        /// <returns></returns>
         public static string ComputeMD5(this string inputString)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString.Trim().ToLower());

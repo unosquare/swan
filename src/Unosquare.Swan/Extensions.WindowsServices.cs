@@ -5,12 +5,10 @@
     using System.Reflection;
     using System.Threading;
     using System.ServiceProcess;
-#endif
 
     partial class Extensions
     {
-
-#if NET452
+        
         /// <summary>
         /// Runs a service in console mode.
         /// </summary>
@@ -63,7 +61,6 @@
 
             "Stopped all services.".Info();
         }
-#endif
-
     }
+#endif
 }
