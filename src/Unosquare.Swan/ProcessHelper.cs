@@ -9,12 +9,14 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides methods to help create external processes.
+    /// Provides methods to help create external processes, caputre the
+    /// standar error and standard input streams.
     /// </summary>
     static public class ProcessHelper
     {
         /// <summary>
-        /// Defines a delegate to handle binary data reception from a process
+        /// Defines a delegate to handle binary data reception from the snadard 
+        /// output or standard error streams from a process
         /// </summary>
         /// <param name="processData">The process data.</param>
         /// <param name="process">The process.</param>
@@ -29,31 +31,71 @@
         /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        private static async Task<ulong> CopyStreamAsync(Process process, Stream baseStream, ProcessDataReceivedCallback onDataCallback, bool syncEvents, CancellationToken ct)
+        private static async Task<ulong> CopyStreamAsync(Process process, Stream baseStream, ProcessDataReceivedCallback onDataCallback, 
+            bool syncEvents, CancellationToken ct)
         {
             return await Task.Factory.StartNew(async () =>
             {
-                var swapBuffer = new byte[2048];
-                var readCount = -1;
-                ulong totalCount = 0;
+                // define some state variables
+                var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to teh next
+                var readCount = -1; // the bytes read in any given event
+                ulong totalCount = 0; // the total amount of bytes read
+                bool hasExited = false;
 
                 while (ct.IsCancellationRequested == false)
                 {
                     try
                     {
+                        // Check if process is no longer valid
+                        // if this condition holds, simply read the last bits of data available.
                         if (process.HasExited || process.WaitForExit(1) == true)
                         {
-                            readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
-                            if (readCount > 0) onDataCallback?.Invoke(swapBuffer, process);
-                            break;
+                            while (true)
+                            {
+                                try
+                                {
+                                    readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
+                                    if (readCount > 0)
+                                    {
+                                        totalCount += (ulong)readCount;
+                                        onDataCallback?.Invoke(swapBuffer, process);
+                                    }
+                                    else
+                                    {
+                                        hasExited = true;
+                                        break;
+                                    }
+                                }
+                                catch
+                                {
+                                    hasExited = true;
+                                    break;
+                                }
+                            }
                         }
 
+                        if (hasExited) break;
+
+                        // Try reading from the stream. < 0 means no read occurred.
                         readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
-                        if (readCount <= 0) continue;
+
+                        // When no read is done, we need to let is rest for a bit
+                        if (readCount <= 0)
+                        {
+                            await Task.Delay(1); // do not hog CPU cycles fdoing nothing.
+                            continue;
+                        }
+                            
+                        totalCount += (ulong)readCount;
                         if (onDataCallback != null)
                         {
+                            // Create the buffer to pass to the callback
                             var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
+
+                            // Create the dcata processing callback invocation
                             var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); });
+                            
+                            // wait for the event to process before the next read occurs
                             if (syncEvents) eventTask.Wait(ct);
                         }
                     }
@@ -83,7 +125,7 @@
                 (data, proc) =>
             {
                 result.Append(Encoding.GetEncoding(0).GetString(data));
-            }, null, false, ct);
+            }, null, true, ct);
 
             return processReturn == -1 ? errorResult : result.ToString();
         }

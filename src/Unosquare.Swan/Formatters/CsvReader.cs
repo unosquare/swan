@@ -19,22 +19,38 @@
     /// <seealso cref="System.IDisposable" />
     public class CsvReader : IDisposable
     {
+        #region Static Declarations
+
         static public readonly Encoding Windows1252Encoding = Encoding.GetEncoding(1252);
         static private readonly Dictionary<Type, PropertyInfo[]> CachedTypes = new Dictionary<Type, PropertyInfo[]>();
 
-        private readonly object SyncLock = new object();
+        #endregion
+
+        #region Property Backing
+
         private int m_ReadCount = 0;
         private char m_EscapeCharacter = '"';
         private char m_SeparatorCharacter = ',';
+
+        #endregion
+
+        #region State Variables
+
+        private readonly object SyncLock = new object();
+        private bool HasDisposed = false; // To detect redundant calls
         private string[] Headers = null;
         private Dictionary<string, string> DefaultMap = null;
-        private bool HasDisposed = false; // To detect redundant calls
-
         private Stream InputStream = null;
         private StreamReader Reader = null;
+        private bool LeaveInputStreamOpen = false;
+
+        #endregion
+
+        #region Enumerations
 
         /// <summary>
         /// Defines the 3 different read states
+        /// for the parsing state machine
         /// </summary>
         private enum ReadState
         {
@@ -43,47 +59,66 @@
             PushingQuoted,
         }
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="CsvReader"/> class.
+        /// Initializes a new instance of the <see cref="CsvReader" /> class.
         /// </summary>
-        /// <param name="stream">The stream.</param>
+        /// <param name="inputStream">The stream.</param>
+        /// <param name="leaveOpen">if set to <c>true</c> leaves the input stream open</param>
         /// <param name="textEncoding">The text encoding.</param>
-        public CsvReader(Stream stream, Encoding textEncoding)
+        public CsvReader(Stream inputStream, bool leaveOpen, Encoding textEncoding)
         {
-            InputStream = stream;
-            Reader = new StreamReader(stream, textEncoding);
+            if (inputStream == null)
+                throw new NullReferenceException(nameof(inputStream));
+
+            if (textEncoding == null)
+                throw new NullReferenceException(nameof(textEncoding));
+
+            InputStream = inputStream;
+            LeaveInputStreamOpen = leaveOpen;
+            Reader = new StreamReader(inputStream, textEncoding, true, 2048, leaveOpen);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It uses the Windows 1252 Encoding by default
+        /// It uses the Windows 1252 Encoding by default and it automatically closes the file
+        /// when this reader is disposed of.
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvReader(string filename)
-            : this(File.OpenRead(filename), Windows1252Encoding)
+            : this(File.OpenRead(filename), false, Windows1252Encoding)
         {
             // placeholder
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
+        /// It automatically closes the file when disposing this reader
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="encoding">The encoding.</param>
         public CsvReader(string filename, Encoding encoding)
-            : this(File.OpenRead(filename), encoding)
+            : this(File.OpenRead(filename), false, encoding)
         {
             // placehoder
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
+        /// It automatically closes the stream when disposing this reader
         /// </summary>
         /// <param name="stream">The stream.</param>
         public CsvReader(Stream stream)
-            : this(stream, Windows1252Encoding)
+            : this(stream, false, Windows1252Encoding)
         {
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets number of lines that have been read, including the header
@@ -121,6 +156,29 @@
                 }
             }
         }
+
+
+        /// <summary>
+        /// Gets a value indicating whether the stream reader is at the end of the stream
+        /// In other words, if no more data can be read, this will be set to true.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [end of stream]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EndOfStream
+        {
+            get
+            {
+                lock (SyncLock)
+                {
+                    return Reader.EndOfStream;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Read Methods
 
         /// <summary>
         /// Skips a line of CSV text.
@@ -191,10 +249,12 @@
         /// <summary>
         /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headers
         /// </summary>
+        /// <param name="map">The mapppings between CSV headings (keys) and object properties (values)</param>
         /// <returns></returns>
         /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
-        public dynamic ReadObject()
+        /// <exception cref="System.ArgumentNullException">map</exception>
+        public dynamic ReadObject(IDictionary<string, string> map)
         {
             lock (SyncLock)
             {
@@ -204,6 +264,8 @@
                 if (Reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
+                if (map == null)
+                    throw new ArgumentNullException(nameof(map));
 
                 var line = Reader.ReadLine();
                 m_ReadCount++;
@@ -222,6 +284,16 @@
                 return resultObject;
             }
         }
+
+        /// <summary>
+        /// Reads a line of CSV text, converting it into a dynamic object
+        /// The property names ocrrespond to the names of the CSV headings
+        /// </summary>
+        /// <returns></returns>
+        public dynamic ReadObject()
+        {
+            return ReadObject(DefaultMap);
+        }
 #endif
 
         /// <summary>
@@ -232,36 +304,36 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="map">The map.</param>
         /// <param name="result">The result.</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// map
+        /// <exception cref="System.ArgumentNullException">map
         /// or
-        /// result
-        /// </exception>
+        /// result</exception>
         /// <exception cref="System.InvalidOperationException">ReadHeader</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public void ReadObject<T>(IDictionary<string, string> map, ref T result)
         {
             lock (SyncLock)
             {
-                if (map == null)
-                    throw new ArgumentNullException(nameof(map));
+                // Check arguments
+                {
+                    if (map == null)
+                        throw new ArgumentNullException(nameof(map));
 
-                if (Headers == null)
-                    throw new InvalidOperationException($"Call the {nameof(ReadHeader)} method before reading as an object.");
+                    if (Headers == null)
+                        throw new InvalidOperationException($"Call the {nameof(ReadHeader)} method before reading as an object.");
 
-                if (Reader.EndOfStream)
-                    throw new EndOfStreamException("Cannot read past the end of the stream");
+                    if (Reader.EndOfStream)
+                        throw new EndOfStreamException("Cannot read past the end of the stream");
 
-                if (result == null)
-                    throw new ArgumentNullException(nameof(result));
+                    if (result == null)
+                        throw new ArgumentNullException(nameof(result));
+                }
 
-
+                // Read line and extract values
                 var line = Reader.ReadLine();
                 m_ReadCount++;
                 var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
 
-
-                
+                // Read target properties
                 if (CachedTypes.ContainsKey(typeof(T)) == false)
                 {
                     var targetProperties = typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -269,23 +341,31 @@
                     CachedTypes[typeof(T)] = targetProperties.ToArray();
                 }
 
+                // Extract properties from cache
                 var properties = CachedTypes[typeof(T)];
 
+                // Assign property values for each heading
                 for (var i = 0; i < Headers.Length; i++)
                 {
+                    // break if no more headings are matched
                     if (i > values.Length - 1)
                         break;
 
+                    // skip if no header is availabale or the header is empty
                     if (map.ContainsKey(Headers[i]) == false &&
                         string.IsNullOrWhiteSpace(map[Headers[i]]) == false)
                         continue;
 
+                    // Prepare the target property
                     var propertyName = map[Headers[i]];
                     var propertyStringValue = values[i];
                     var targetProperty = properties.FirstOrDefault(p => p.Name.Equals(propertyName));
+
+                    // Skip if the property is not found
                     if (targetProperty == null)
                         continue;
 
+                    // Parse and assign the basic type value to the property
                     try
                     {
                         object propertyValue = null;
@@ -300,7 +380,6 @@
             }
         }
 
-
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
         /// where the keys are the names of the headers and the values are the names of the instance properties
@@ -313,7 +392,7 @@
         /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public T ReadObject<T>(IDictionary<string, string> map)
-            where T: new()
+            where T : new()
         {
             var result = Activator.CreateInstance<T>();
             ReadObject(map, ref result);
@@ -334,23 +413,9 @@
             return ReadObject<T>(DefaultMap);
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the stream reader is at the end of the stream
-        /// In other words, if no more data can be read, this will be set to true.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [end of stream]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EndOfStream
-        {
-            get
-            {
-                lock (SyncLock)
-                {
-                    return Reader.EndOfStream;
-                }
-            }
-        }
+        #endregion
+
+        #region Static Methods
 
         /// <summary>
         /// Parses a line of standard CSV text into an array of strings.
@@ -451,6 +516,8 @@
             return values.ToArray();
         }
 
+        #endregion
+
         #region IDisposable Support
 
         /// <summary>
@@ -466,12 +533,10 @@
                     try
                     {
                         Reader.Dispose();
-                        InputStream.Dispose();
                     }
                     finally
                     {
                         Reader = null;
-                        InputStream = null;
                     }
                 }
 
