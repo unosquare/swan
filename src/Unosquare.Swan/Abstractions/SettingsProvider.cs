@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Abstractions
 {
+    using Reflection;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -81,7 +82,7 @@
         /// Updates settings from list.
         /// </summary>
         /// <param name="list">The list.</param>
-        public void UpdateFromList(List<PropertyDto> list)
+        public void UpdateFromList(List<ExtendedPropertyInfo> list)
         {
             foreach (var property in list)
             {
@@ -115,14 +116,14 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        private PropertyDto ParseProperty(string value)
+        private ExtendedPropertyInfo ParseProperty(string value)
         {
             if (value == null) return null;
 
             var sets = value.Split('|');
             if (sets.Length != 3) return null;
 
-            var prop = new PropertyDto<T>(sets[1]);
+            var prop = new ExtendedPropertyInfo<T>(sets[1]);
             prop.Value = sets[2];
 
             return prop;
@@ -132,12 +133,12 @@
         /// Gets the list.
         /// </summary>
         /// <returns></returns>
-        internal List<PropertyDto<T>> GetList()
+        internal List<ExtendedPropertyInfo<T>> GetList()
         {
             var dict = javaScriptSerializer.Deserialize<Dictionary<string, object>>(GetJsonData());
 
             return dict.Keys
-                    .Select(x => new PropertyDto<T>(x) { Value = dict[x] })
+                    .Select(x => new ExtendedPropertyInfo<T>(x) { Value = dict[x] })
                     .ToList();
         }
     }
