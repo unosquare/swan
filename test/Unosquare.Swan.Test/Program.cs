@@ -9,6 +9,14 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
+            Task.Factory.StartNew(async () =>
+            {
+                var data = await ProcessHelper.GetProcessOutputAsync("dotnet", "--help");
+                data.Info();
+            });
+
+            "Waiting".Info();
+            Console.ReadLine();
         }
     }
 }

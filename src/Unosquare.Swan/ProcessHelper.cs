@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -41,7 +42,11 @@
                     try
                     {
                         if (process.HasExited || process.WaitForExit(1) == true)
+                        {
+                            readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
+                            if (readCount > 0) onDataCallback?.Invoke(swapBuffer, process);
                             break;
+                        }
 
                         readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
                         if (readCount <= 0) continue;
@@ -67,17 +72,21 @@
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
+        /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
+        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", bool syncEvents = false, CancellationToken ct = default(CancellationToken))
         {
             var result = string.Empty;
-            await RunProcessAsync(filename, arguments, (data, proc) =>
-            {
-                result = proc.StandardOutput.ReadToEnd();
-            }, null, true, ct);
+            var errorResult = string.Empty;
 
-            return result;
+            var processReturn = await RunProcessAsync(filename, arguments,
+                (data, proc) =>
+            {
+                result += Encoding.GetEncoding(0).GetString(data);
+            }, null, false, ct);
+
+            return processReturn == -1 ? errorResult : result;
         }
 
         /// <summary>

@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Unosquare.Swan.Test
 {
@@ -45,6 +41,13 @@ namespace Unosquare.Swan.Test
         {
             Assert.IsNotNull(CurrentApp.EntryAssembly);
             Assert.IsTrue(CurrentApp.EntryAssembly.FullName.StartsWith("dotnet-test-nunit"));
+        }
+
+        [Test]
+        public void GetEntryAssemblyDirectoryTest()
+        {
+            Assert.IsNotNull(CurrentApp.EntryAssemblyDirectory);
+            // TODO: What else?
         }
     }
 }
