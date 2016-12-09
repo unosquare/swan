@@ -70,6 +70,7 @@
             {
                 if (ApplicationOs == Os.Unknown)
                 {
+#if NET452
                     var p = (int)Environment.OSVersion.Platform;
 
                     if ((p == 4) || (p == 6) || (p == 128))
@@ -84,9 +85,39 @@
                     {
                         ApplicationOs = Os.Windows;
                     }
+#else
+                    // TODO: pending NETCORE
+                    ApplicationOs = Os.Windows;
+#endif
                 }
 
                 return ApplicationOs;
+            }
+        }
+
+        /// <summary>
+        /// Gets the local storage path.
+        /// </summary>
+        /// <value>
+        public static string LocalStoragePath
+        {
+            get
+            {
+                var localAppDataPath =
+#if NET452
+                Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
+#else
+                Path.GetDirectoryName(EntryAssembly.Location);
+#endif
+
+                var returnPath = Path.Combine(localAppDataPath, EntryAssembly.GetName().Version.ToString());
+
+                if (Directory.Exists(returnPath) == false)
+                {
+                    Directory.CreateDirectory(returnPath);
+                }
+
+                return returnPath;
             }
         }
 

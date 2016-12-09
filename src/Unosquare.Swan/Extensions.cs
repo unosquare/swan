@@ -9,6 +9,7 @@
 
     static public partial class Extensions
     {
+#if NET452
         /// <summary>
         /// Runs a service in console mode.
         /// </summary>
@@ -61,6 +62,7 @@
 
             "Stopped all services.".Info();
         }
+#endif
 
         public static string CalculateMD5(this string inputString)
         {

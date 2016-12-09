@@ -105,7 +105,9 @@
                         RedirectStandardError = true,
                         RedirectStandardOutput = true,
                         UseShellExecute = false,
+#if NET452
                         WindowStyle = ProcessWindowStyle.Hidden
+#endif
                     }
                 };
 

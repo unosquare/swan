@@ -2,11 +2,19 @@
   "version": "1.0.0-*",
 
   "frameworks": {
+    "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.1",
+        "System.Threading": "4.3.0",
+        "System.Diagnostics.Process": "4.3.0",
+        "System.ComponentModel.Annotations":  "4.3.0"
+      }
+    },
     "net452": {
       "frameworkAssemblies": {
         "System.ServiceProcess": "",
         "System.Web.Extensions": "",
-        "System.ComponentModel.DataAnnotations":  ""
+        "System.ComponentModel.DataAnnotations": ""
       }
     }
   }

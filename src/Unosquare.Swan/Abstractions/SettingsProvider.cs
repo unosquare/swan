@@ -5,7 +5,9 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+#if NET452
     using System.Web.Script.Serialization;
+#endif
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
@@ -14,7 +16,9 @@
     /// <seealso cref="Unosquare.Swan.Abstractions.SingletonBase{Unosquare.Swan.Abstractions.SettingsProvider{T}}" />
     public class SettingsProvider<T> : SingletonBase<SettingsProvider<T>>
     {
+#if NET452
         private JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+#endif
         private T _global;
 
         public string ConfigurationFilePath { get; set; } = CurrentApp.EntryAssemblyDirectory;
@@ -49,7 +53,9 @@
                     PersistGlobalSettings();
                 }
 
+#if NET452
                 _global = javaScriptSerializer.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+#endif
             }
         }
 
@@ -72,8 +78,10 @@
         {
             lock (SyncRoot)
             {
+#if NET452
                 var stringData = javaScriptSerializer.Serialize(Global);
                 File.WriteAllText(ConfigurationFilePath, stringData);
+#endif
             }
         }
 
@@ -134,11 +142,15 @@
         /// <returns></returns>
         internal List<PropertyDto<T>> GetList()
         {
+#if NET452
             var dict = javaScriptSerializer.Deserialize<Dictionary<string, object>>(GetJsonData());
 
             return dict.Keys
                     .Select(x => new PropertyDto<T>(x) { Value = dict[x] })
                     .ToList();
+#else
+            return null;
+#endif
         }
     }
 }

@@ -99,7 +99,7 @@
         /// Initializes a new instance of the <see cref="PropertyDto{T}"/> class.
         /// </summary>
         /// <param name="property">The property.</param>
-        public PropertyDto(string property) : base(typeof(T).GetProperty(property))
+        public PropertyDto(string property) : base(typeof(T).GetTypeInfo().GetProperty(property))
         {
         }
     }
