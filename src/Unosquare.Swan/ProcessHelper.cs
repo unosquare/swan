@@ -60,7 +60,24 @@
 
                 return totalCount;
             }).Unwrap();
+        }
 
+        /// <summary>
+        /// Gets the process output asynchronous without retrieving error output.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
+        {
+            var result = string.Empty;
+            await RunProcessAsync(filename, arguments, (data, proc) =>
+            {
+                result = proc.StandardOutput.ReadToEnd();
+            }, null, true, ct);
+
+            return result;
         }
 
         /// <summary>

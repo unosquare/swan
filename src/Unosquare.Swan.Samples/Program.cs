@@ -10,6 +10,9 @@ namespace Unosquare.Swan.Samples
     {
         public static void Main(string[] args)
         {
+            CurrentApp.OS.ToString().Info();
+            CurrentApp.IsRunningAtMono.ToString().Info();
+            CurrentApp.IsSingleInstance.ToString().Info();
 
             Dictionary<ConsoleKey, string> SampleOptions = new Dictionary<ConsoleKey, string>
             {
