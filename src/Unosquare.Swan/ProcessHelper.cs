@@ -29,13 +29,13 @@
         /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        private static async Task<int> CopyStreamAsync(Process process, Stream baseStream, ProcessDataReceivedCallback onDataCallback, bool syncEvents, CancellationToken ct)
+        private static async Task<ulong> CopyStreamAsync(Process process, Stream baseStream, ProcessDataReceivedCallback onDataCallback, bool syncEvents, CancellationToken ct)
         {
             return await Task.Factory.StartNew(async () =>
             {
                 var swapBuffer = new byte[2048];
                 var readCount = -1;
-                var totalCount = 0;
+                ulong totalCount = 0;
 
                 while (ct.IsCancellationRequested == false)
                 {
@@ -68,25 +68,24 @@
         }
 
         /// <summary>
-        /// Gets the process output asynchronous without retrieving error output.
+        /// Runs the process asynchronously and returns all of the standard output text.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
-        /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", bool syncEvents = false, CancellationToken ct = default(CancellationToken))
+        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
-            var result = string.Empty;
+            var result = new StringBuilder();
             var errorResult = string.Empty;
 
             var processReturn = await RunProcessAsync(filename, arguments,
                 (data, proc) =>
             {
-                result += Encoding.GetEncoding(0).GetString(data);
+                result.Append(Encoding.GetEncoding(0).GetString(data));
             }, null, false, ct);
 
-            return processReturn == -1 ? errorResult : result;
+            return processReturn == -1 ? errorResult : result.ToString();
         }
 
         /// <summary>
@@ -103,6 +102,7 @@
         {
             var task = Task.Factory.StartNew(() =>
             {
+                // Setup the process and its corresponding start info
                 var process = new Process
                 {
                     EnableRaisingEvents = false,
@@ -120,16 +120,19 @@
                     }
                 };
 
+                // Launch the process and discard any buffered data for stadard error and standar output
                 process.Start();
                 process.StandardError.DiscardBufferedData();
                 process.StandardOutput.DiscardBufferedData();
 
+                // Launch the asynchronous stream reading tasks
                 var readTasks = new Task[2];
                 readTasks[0] = CopyStreamAsync(process, process.StandardOutput.BaseStream, onOutputData, syncEvents, ct);
                 readTasks[1] = CopyStreamAsync(process, process.StandardError.BaseStream, onErrorData, syncEvents, ct);
 
                 try
                 {
+                    // Wait for all tasks to complete
                     Task.WaitAll(readTasks, ct);
                 }
                 catch (TaskCanceledException)
@@ -142,6 +145,7 @@
                 }
                 finally
                 {
+                    // Wait for the process to exit
                     while (ct.IsCancellationRequested == false)
                     {
                         if (process.HasExited)
@@ -151,6 +155,7 @@
                             break;
                     }
 
+                    // Forcefully kill the process if it dod not exit
                     try
                     {
                         if (process.HasExited == false)
@@ -164,6 +169,8 @@
 
                 try
                 {
+                    // Retrieve and return the exit code.
+                    // -1 signals error
                     if (process.HasExited)
                         return process.ExitCode;
                     else
