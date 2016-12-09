@@ -7,6 +7,16 @@
     {
 
         /// <summary>
+        /// Reads a key from the terminal preventing the key from being echoed.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <returns></returns>
+        static public ConsoleKeyInfo ReadKey(this string prompt)
+        {
+            return prompt.ReadKey(true);
+        }
+
+        /// <summary>
         /// Reads a key from the Terminal
         /// </summary>
         /// <param name="prompt">The prompt.</param>
@@ -14,10 +24,12 @@
         /// <returns></returns>
         static public ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
         {
-            $" {DateTime.Now:HH:mm:ss} USR << {prompt} ".Write(ConsoleColor.White);
-            var input = Console.ReadKey(true);
+            if (prompt != null)
+                $" {DateTime.Now:HH:mm:ss} USR << {prompt} ".Write(ConsoleColor.White);
+
+            var input = ReadKey(true);
             var echo = preventEcho ? string.Empty : input.Key.ToString();
-            Console.WriteLine(echo);
+            echo.WriteLine();
             return input;
         }
 
@@ -30,7 +42,7 @@
         static public int ReadNumber(this string prompt, int defaultNumber)
         {
             $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
-            var input = Console.ReadLine();
+            var input = ReadLine();
             var parsedInt = defaultNumber;
             if (int.TryParse(input, out parsedInt) == false)
             {
@@ -47,15 +59,18 @@
         /// <param name="options">The options.</param>
         /// <param name="anyKeyOption">Any key option.</param>
         /// <returns></returns>
-        static public ConsoleKeyInfo ReadPrompt(string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
+        static public ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
-            lock (SyncLock)
-            {
-                var textColor = ConsoleColor.White;
-                var lineLength = Console.BufferWidth;
-                var lineAlign = -(lineLength - 2);
-                var textFormat = "{0," + lineAlign.ToString() + "}";
+            var inputLeft = 0;
+            var inputTop = 0;
 
+            var textColor = ConsoleColor.White;
+            var lineLength = Console.BufferWidth;
+            var lineAlign = -(lineLength - 2);
+            var textFormat = "{0," + lineAlign.ToString() + "}";
+
+            lock (SyncLock) // lock the output as an atomic operation
+            {
                 { // Top border
                     Table.TopLeft();
                     Table.Horizontal(-lineAlign);
@@ -68,7 +83,7 @@
                         string.IsNullOrWhiteSpace(title) ?
                             $" Select an option from the list below." :
                             $" {title}");
-                    titleText.Write(textColor);
+                    titleText.Write(textColor); //, titleText);
                     Table.Vertical();
                 }
 
@@ -100,8 +115,8 @@
                     Table.Vertical();
                 }
 
-                var inputLeft = 12;
-                var inputTop = Console.CursorTop - 1;
+                inputLeft = 12;
+                inputTop = CursorTop - 1;
 
                 { // Input
                     Table.LeftTee();
@@ -111,7 +126,7 @@
                     Table.Vertical();
                     string.Format(textFormat,
                         $" Option: ").Write(ConsoleColor.Green);
-                    inputTop = Console.CursorTop;
+                    inputTop = CursorTop;
                     Table.Vertical();
 
                     Table.BottomLeft();
@@ -119,17 +134,17 @@
                     Table.BottomRight();
                 }
 
-                var currentTop = Console.CursorTop;
-                var currentLeft = Console.CursorLeft;
-
-                Console.SetCursorPosition(inputLeft, inputTop);
-                var userInput = Console.ReadKey(true);
-                userInput.Key.ToString().Write(ConsoleColor.Gray);
-
-                Console.SetCursorPosition(currentLeft, currentTop);
-                return userInput;
             }
 
+            var currentTop = CursorTop;
+            var currentLeft = CursorLeft;
+
+            SetCursorPosition(inputLeft, inputTop);
+            var userInput = ReadKey(true);
+            userInput.Key.ToString().Write(ConsoleColor.Gray);
+
+            SetCursorPosition(currentLeft, currentTop);
+            return userInput;
         }
     }
 }

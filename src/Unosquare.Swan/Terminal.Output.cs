@@ -28,18 +28,18 @@
 
                 if (newLine)
                 {
-                    var newLineBytes = Console.OutputEncoding.GetBytes(Environment.NewLine);
+                    var newLineBytes = OutputEncoding.GetBytes(Environment.NewLine);
                     bytes = bytes.Union(newLineBytes).ToArray();
                 }
 
-                var buffer = Console.OutputEncoding.GetChars(bytes);
+                var buffer = OutputEncoding.GetChars(bytes);
                 var context = new OutputContext()
                 {
                     OutputColor = color,
                     OutputText = buffer
                 };
 
-                OutputQueue.Enqueue(context);
+                EnqueueOutput(context);
             }
 
         }
@@ -55,13 +55,13 @@
 
             lock (SyncLock)
             {
-                var buffer = Console.OutputEncoding.GetBytes(text);
+                var buffer = OutputEncoding.GetBytes(text);
                 var context = new OutputContext()
                 {
                     OutputColor = color,
-                    OutputText = Console.OutputEncoding.GetChars(buffer)
+                    OutputText = OutputEncoding.GetChars(buffer)
                 };
-                OutputQueue.Enqueue(context);
+                EnqueueOutput(context);
             }
         }
 
@@ -71,7 +71,7 @@
         /// <param name="text">The text.</param>
         static public void Write(this string text)
         {
-            text?.Write(Console.ForegroundColor);
+            text?.Write(Settings.DefaultColor);
         }
 
         #endregion
@@ -92,7 +92,7 @@
         /// <param name="text">The text.</param>
         static public void WriteLine(this string text)
         {
-            text?.WriteLine(Console.ForegroundColor);
+            text?.WriteLine(Settings.DefaultColor);
         }
 
         /// <summary>

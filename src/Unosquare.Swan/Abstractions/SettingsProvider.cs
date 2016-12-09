@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Providers
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.IO;
@@ -9,7 +9,7 @@
         private JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
         private T _global;
 
-        public string ConfigurationFilePath { get; set; } = CurrentApplication.EntryAssemblyDirectory;
+        public string ConfigurationFilePath { get; set; } = CurrentApp.EntryAssemblyDirectory;
 
         public T Global
         {

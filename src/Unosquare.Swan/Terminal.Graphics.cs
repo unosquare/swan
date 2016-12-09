@@ -67,7 +67,7 @@ namespace Unosquare.Swan
 
             static public void BottomRight()
             {
-                ((byte)179).Write(BorderColor, 217, false);
+                ((byte)217).Write(BorderColor, 1, false);
             }
 
             static public void TopLeft()

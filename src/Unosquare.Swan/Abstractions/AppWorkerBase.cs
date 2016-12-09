@@ -1,20 +1,20 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// A base implementation of an Application service containing a worker thread.
+    /// A base implementation of an Application service containing a worker thread that performs background processing.
     /// </summary>
     public abstract class AppWorkerBase
     {
         #region Property Backing
 
-        private Thread _workerThread;
-        private AppWorkerState _state = AppWorkerState.Stopped;
-        private readonly object _syncLock = new object();
-        private bool _hasDisposed;
+        private Thread WorkerThread;
+        private AppWorkerState WorkerState = AppWorkerState.Stopped;
+        private readonly object SyncLock = new object();
+        private volatile bool HasDisposed;
 
         /// <summary>
         /// Occurs when [state changed].
@@ -30,9 +30,9 @@
         /// </summary>
         protected AppWorkerBase()
         {
-            this.State = AppWorkerState.Stopped;
-            this.CancellationPending = false;
-            this.IsBusy = false;
+            State = AppWorkerState.Stopped;
+            CancellationPending = false;
+            IsBusy = false;
             // TODO: Log
         }
 
@@ -46,15 +46,15 @@
         /// <exception cref="InvalidOperationException">Worker Thread seems to be still running.</exception>
         private void CreateWorkerThread()
         {
-            if (_workerThread != null)
+            if (WorkerThread != null)
             {
-                if (_workerThread.IsAlive)
+                if (WorkerThread.IsAlive)
                     throw new InvalidOperationException("Worker Thread seems to be still running.");
 
-                _workerThread = null;
+                WorkerThread = null;
             }
 
-            _workerThread = new Thread(() =>
+            WorkerThread = new Thread(() =>
             {
                 IsBusy = true;
                 try
@@ -76,7 +76,7 @@
                 }
             });
 
-            _workerThread.IsBackground = true;
+            WorkerThread.IsBackground = true;
         }
 
         /// <summary>
@@ -133,17 +133,17 @@
         /// </summary>
         public AppWorkerState State
         {
-            get { return _state; }
+            get { return WorkerState; }
             private set
             {
-                lock (_syncLock)
+                lock (SyncLock)
                 {
-                    if (value == _state) return;
+                    if (value == WorkerState) return;
 
                     //Logger.Debug("Service state changing from {0} to {1}", _state, value);
                     var newState = value;
-                    var oldState = _state;
-                    _state = value;
+                    var oldState = WorkerState;
+                    WorkerState = value;
 
                     StateChanged?.Invoke(this, new AppWorkerStateChangedEventArgs(oldState, newState));
                 }
@@ -162,7 +162,7 @@
 
         #endregion
 
-        #region IApplicationService Support
+        #region AppWorkerBase Methods
 
         /// <summary>
         /// Performs internal service initialization tasks required before starting the service.
@@ -186,7 +186,7 @@
                 throw new InvalidOperationException("Service cannot be started because it seems to be currently running");
 
             CreateWorkerThread();
-            _workerThread.Start();
+            WorkerThread.Start();
             State = AppWorkerState.Running;
         }
 
@@ -200,7 +200,7 @@
 
             //Logger.Debug("Service stop requested.");
             CancellationPending = true;
-            _workerThread.Join();
+            WorkerThread.Join();
             IsBusy = false;
         }
 
@@ -214,22 +214,22 @@
         /// <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool isDisposing)
         {
-            if (_hasDisposed) return;
+            if (HasDisposed) return;
 
             if (isDisposing)
             {
                 //Logger.Debug("Service disposing.");
 
-                if (_workerThread != null)
+                if (WorkerThread != null)
                 {
-                    if (_workerThread.IsAlive)
-                        _workerThread.Abort();
+                    if (WorkerThread.IsAlive)
+                        WorkerThread.Abort();
 
-                    _workerThread = null;
+                    WorkerThread = null;
                 }
             }
 
-            _hasDisposed = true;
+            HasDisposed = true;
         }
 
         /// <summary>

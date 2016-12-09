@@ -5,7 +5,7 @@
     /// <summary>
     /// Provides various extension methods
     /// </summary>
-    static public partial class Extensions
+    partial class Extensions
     {
         /// <summary>
         /// Clamps the specified value between the minimum and the maximum

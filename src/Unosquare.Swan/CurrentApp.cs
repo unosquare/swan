@@ -9,7 +9,7 @@
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
     /// </summary>
-    static public class CurrentApplication
+    static public class CurrentApp
     {
         static private readonly object SyncLock = new object();
 

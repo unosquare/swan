@@ -1,0 +1,13 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "frameworks": {
+    "net452": {
+    }
+  },
+  "dependencies": {
+    "Unosquare.Swan": "1.0.0-*"
+  }
+}

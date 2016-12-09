@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
 

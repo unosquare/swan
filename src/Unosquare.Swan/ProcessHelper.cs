@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="processData">The process data.</param>
         /// <param name="process">The process.</param>
-        public delegate void OnProcessData(byte[] processData, Process process);
+        public delegate void ProcessDataReceivedCallback(byte[] processData, Process process);
 
         /// <summary>
         /// Copies the stream asynchronously.
@@ -28,7 +28,7 @@
         /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        private static async Task<int> CopyStreamAsync(Process process, Stream baseStream, OnProcessData onDataCallback, bool syncEvents, CancellationToken ct)
+        private static async Task<int> CopyStreamAsync(Process process, Stream baseStream, ProcessDataReceivedCallback onDataCallback, bool syncEvents, CancellationToken ct)
         {
             return await Task.Factory.StartNew(async () =>
             {
@@ -73,7 +73,7 @@
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        public static async Task<int> RunProcessAsync(string filename, string arguments, OnProcessData onOutputData, OnProcessData onErrorData, bool syncEvents, CancellationToken ct)
+        public static async Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents, CancellationToken ct)
         {
             var task = Task.Factory.StartNew(() =>
             {
