@@ -8,7 +8,7 @@
         static private readonly MD5 MD5Hasher = MD5.Create();
 
         /// <summary>
-        /// Computes the m d5.
+        /// Computes the MD5 of the string and outputs it ina a hexadecimal, uppercase string representation.
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <returns></returns>

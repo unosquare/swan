@@ -227,15 +227,19 @@
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
         /// where the keys are the names of the headers and the values are the names of the instance properties
-        /// in the given Type.
+        /// in the given Type. The result object must be already intantiated.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="map">The map of CSV headers (keys) and Type property names (values).</param>
-        /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">map</exception>
-        /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
+        /// <param name="map">The map.</param>
+        /// <param name="result">The result.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// map
+        /// or
+        /// result
+        /// </exception>
+        /// <exception cref="System.InvalidOperationException">ReadHeader</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
-        public T ReadObject<T>(IDictionary<string, string> map)
+        public void ReadObject<T>(IDictionary<string, string> map, ref T result)
         {
             lock (SyncLock)
             {
@@ -248,6 +252,8 @@
                 if (Reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
+                if (result == null)
+                    throw new ArgumentNullException(nameof(result));
 
 
                 var line = Reader.ReadLine();
@@ -255,7 +261,7 @@
                 var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
 
 
-                var result = Activator.CreateInstance<T>();
+                
                 if (CachedTypes.ContainsKey(typeof(T)) == false)
                 {
                     var targetProperties = typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -291,9 +297,27 @@
                         // swallow
                     }
                 }
-
-                return result;
             }
+        }
+
+
+        /// <summary>
+        /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
+        /// where the keys are the names of the headers and the values are the names of the instance properties
+        /// in the given Type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="map">The map of CSV headers (keys) and Type property names (values).</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">map</exception>
+        /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        public T ReadObject<T>(IDictionary<string, string> map)
+            where T: new()
+        {
+            var result = Activator.CreateInstance<T>();
+            ReadObject(map, ref result);
+            return result;
         }
 
         /// <summary>
@@ -305,17 +329,9 @@
         /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public T ReadObject<T>()
+            where T : new()
         {
-            lock (SyncLock)
-            {
-                if (Headers == null)
-                    throw new InvalidOperationException($"Call the {nameof(ReadHeader)} method before reading as an object.");
-
-                if (Reader.EndOfStream)
-                    throw new EndOfStreamException("Cannot read past the end of the stream");
-
-                return ReadObject<T>(DefaultMap);
-            }
+            return ReadObject<T>(DefaultMap);
         }
 
         /// <summary>
@@ -435,7 +451,7 @@
             return values.ToArray();
         }
 
-#region IDisposable Support
+        #region IDisposable Support
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
@@ -471,7 +487,7 @@
             Dispose(true);
         }
 
-#endregion
+        #endregion
 
 
     }
