@@ -156,7 +156,7 @@
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
                 var line = Reader.ReadLine();
-                Headers = ParseLine(line);
+                Headers = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
                 DefaultMap = new Dictionary<string, string>();
                 foreach (var header in Headers)
                 {
@@ -182,7 +182,7 @@
 
                 var line = Reader.ReadLine();
                 m_ReadCount++;
-                return ParseLine(line);
+                return ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
             }
         }
 
@@ -207,7 +207,7 @@
                 m_ReadCount++;
                 dynamic resultObject = new ExpandoObject();
                 var result = resultObject as IDictionary<string, object>;
-                var values = ParseLine(line);
+                var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
 
                 for (var i = 0; i < Headers.Length; i++)
                 {
@@ -249,7 +249,7 @@
 
                 var line = Reader.ReadLine();
                 m_ReadCount++;
-                var values = ParseLine(line);
+                var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
 
 
                 var result = Activator.CreateInstance<T>();
@@ -337,8 +337,10 @@
         /// Parses a line of standard CSV text into an array of strings.
         /// </summary>
         /// <param name="line">The line of CSV text.</param>
+        /// <param name="escapeCharacter">The escape character.</param>
+        /// <param name="separatorCharacter">The separator character.</param>
         /// <returns></returns>
-        static public string[] ParseLine(string line)
+        static public string[] ParseLine(string line, char escapeCharacter = '"', char separatorCharacter = ',')
         {
             var values = new List<string>();
             var currentValue = new StringBuilder(1024);
@@ -358,12 +360,12 @@
                     case ReadState.WaitingForNewField:
                         {
                             currentValue.Clear();
-                            if (currentChar == m_EscapeCharacter)
+                            if (currentChar == escapeCharacter)
                             {
                                 currentState = ReadState.PushingQuoted;
                                 continue;
                             }
-                            else if (currentChar == m_SeparatorCharacter)
+                            else if (currentChar == separatorCharacter)
                             {
                                 values.Add(currentValue.ToString());
                                 currentState = ReadState.WaitingForNewField;
@@ -379,7 +381,7 @@
                     case ReadState.PushingNormal:
                         {
                             // Handle field content delimiter by comma
-                            if (currentChar == m_SeparatorCharacter)
+                            if (currentChar == separatorCharacter)
                             {
                                 currentState = ReadState.WaitingForNewField;
                                 values.Add(currentValue.ToString().Trim());
@@ -388,7 +390,7 @@
                             }
 
                             // Handle double quote escaping
-                            if (currentChar == m_EscapeCharacter && nextChar == m_EscapeCharacter)
+                            if (currentChar == escapeCharacter && nextChar == escapeCharacter)
                             {
                                 // advance 1 character now. The loop will advance one more.
                                 currentValue.Append(currentChar);
@@ -402,14 +404,14 @@
                     case ReadState.PushingQuoted:
                         {
                             // Handle field content delimiter by ending double quotes
-                            if (currentChar == m_EscapeCharacter && nextChar != m_EscapeCharacter)
+                            if (currentChar == escapeCharacter && nextChar != escapeCharacter)
                             {
                                 currentState = ReadState.PushingNormal;
                                 continue;
                             }
 
                             // Handle double quote escaping
-                            if (currentChar == m_EscapeCharacter && nextChar == m_EscapeCharacter)
+                            if (currentChar == escapeCharacter && nextChar == escapeCharacter)
                             {
                                 // advance 1 character now. The loop will advance one more.
                                 currentValue.Append(currentChar);
