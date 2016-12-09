@@ -14,9 +14,16 @@ namespace Unosquare.Swan.Test
         private SettingsProvider<AppSettingMock> mock = new SettingsProvider<AppSettingMock>();
 
         [Test]
-        public void GlobalTest()
+        public void TryGlobalTest()
         {
             Assert.IsNotNull(mock.Global);
+            Assert.IsNotNull(mock.Global.WebServerHostname);
+            Assert.IsNotNull(mock.Global.WebServerPort);
+
+            var appSettings = new AppSettingMock();
+
+            Assert.AreEqual(appSettings.WebServerHostname, mock.Global.WebServerHostname);
+            Assert.AreEqual(appSettings.WebServerPort, mock.Global.WebServerPort);
         }
     }
 }

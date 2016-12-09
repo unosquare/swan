@@ -6,7 +6,7 @@
 
     /// <summary>
     /// Provides extended information about a type
-    /// This class is mainly used to define sets of types within the COnstants class
+    /// This class is mainly used to define sets of types within the Constants class
     /// and it is not meant for other than querying the VasicTypesInfo dictionary.
     /// </summary>
     public class ExtendedTypeInfo
