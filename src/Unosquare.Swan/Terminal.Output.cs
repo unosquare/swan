@@ -18,6 +18,8 @@
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
         static public void Write(this byte charCode, ConsoleColor color, int count, bool newLine)
         {
+            if (IsConsolePresent == false) return;
+
             lock (SyncLock)
             {
                 var bytes = new byte[count];
@@ -51,6 +53,7 @@
         /// <param name="color">The color.</param>
         static public void Write(this string text, ConsoleColor color)
         {
+            if (IsConsolePresent == false) return;
             if (text == null) return;
 
             lock (SyncLock)

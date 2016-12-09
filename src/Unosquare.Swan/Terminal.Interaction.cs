@@ -13,6 +13,8 @@
         /// <returns></returns>
         static public ConsoleKeyInfo ReadKey(this string prompt)
         {
+            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+
             return prompt.ReadKey(true);
         }
 
@@ -24,6 +26,8 @@
         /// <returns></returns>
         static public ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
         {
+            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+
             if (prompt != null)
                 $" {DateTime.Now:HH:mm:ss} USR << {prompt} ".Write(ConsoleColor.White);
 
@@ -41,6 +45,8 @@
         /// <returns></returns>
         static public int ReadNumber(this string prompt, int defaultNumber)
         {
+            if (IsConsolePresent == false) return defaultNumber;
+
             $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
             var input = ReadLine();
             var parsedInt = defaultNumber;
@@ -61,6 +67,8 @@
         /// <returns></returns>
         static public ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
+            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+
             var inputLeft = 0;
             var inputTop = 0;
 

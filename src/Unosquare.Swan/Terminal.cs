@@ -19,6 +19,8 @@
         static private readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
         static private readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
+        static public bool? m_IsConsolePresent;
+
         /// <summary>
         /// Represents an asynchronous output context
         /// </summary>
@@ -52,19 +54,29 @@
         /// </summary>
         static Terminal()
         {
-            if (System.Diagnostics.Debugger.IsAttached)
+            if (IsConsolePresent)
             {
-                Settings.ConsoleOptions =
-                    LoggingMessageType.Debug |
-                    LoggingMessageType.Error |
-                    LoggingMessageType.Info |
-                    LoggingMessageType.Trace |
-                    LoggingMessageType.Warning;
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    Settings.ConsoleOptions =
+                        LoggingMessageType.Debug |
+                        LoggingMessageType.Error |
+                        LoggingMessageType.Info |
+                        LoggingMessageType.Trace |
+                        LoggingMessageType.Warning;
+                }
+                else
+                {
+                    Settings.ConsoleOptions =
+                        LoggingMessageType.Error |
+                        LoggingMessageType.Info |
+                        LoggingMessageType.Warning;
+                }
             }
-            else
-            {
-                Settings.ConsoleOptions = LoggingMessageType.None;
-            }
+
+
+            if (IsConsolePresent == false)
+                return;
 
             OutputTask = Task.Factory.StartNew(async () =>
             {
@@ -101,10 +113,32 @@
         }
 
         /// <summary>
+        /// Gets a value indicating whether the Console is present
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is console present; otherwise, <c>false</c>.
+        /// </value>
+        static public bool IsConsolePresent
+        {
+            get
+            {
+                if (m_IsConsolePresent == null)
+                {
+                    m_IsConsolePresent = true;
+                    try { int window_height = Console.WindowHeight; }
+                    catch { m_IsConsolePresent = false; }
+                }
+                return m_IsConsolePresent.Value;
+            }
+        }
+
+        /// <summary>
         /// Prints all characters in the current code page.
         /// </summary>
         static public void PrintCurrentCodePage()
         {
+            if (IsConsolePresent == false) return;
+
             lock (SyncLock)
             {
                 $"Output Encoding: {OutputEncoding.ToString()}".WriteLine();
@@ -156,13 +190,15 @@
         {
             get
             {
-
+                if (IsConsolePresent == false) return -1;
                 OutputDone.Wait();
                 InputDone.Reset();
                 try { return Console.CursorLeft; } finally { InputDone.Set(); }
             }
             set
             {
+                if (IsConsolePresent == false) return;
+
                 OutputDone.Wait();
                 InputDone.Reset();
                 try { Console.CursorLeft = value; } finally { InputDone.Set(); }
@@ -179,13 +215,15 @@
         {
             get
             {
-
+                if (IsConsolePresent == false) return -1;
                 OutputDone.Wait();
                 InputDone.Reset();
                 try { return Console.CursorTop; } finally { InputDone.Set(); }
             }
             set
             {
+                if (IsConsolePresent == false) return;
+
                 OutputDone.Wait();
                 InputDone.Reset();
                 try { Console.CursorTop = value; } finally { InputDone.Set(); }
@@ -199,6 +237,8 @@
         /// <param name="top">The top.</param>
         static public void SetCursorPosition(int left, int top)
         {
+            if (IsConsolePresent == false) return;
+
             OutputDone.Wait();
             InputDone.Reset();
             try { Console.SetCursorPosition(left, top); } finally { InputDone.Set(); }
@@ -211,6 +251,8 @@
         /// <returns></returns>
         static public ConsoleKeyInfo ReadKey(bool intercept)
         {
+            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+
             OutputDone.Wait();
             InputDone.Reset();
             try { return Console.ReadKey(intercept); } finally { InputDone.Set(); }
@@ -222,6 +264,8 @@
         /// <returns></returns>
         static public string ReadLine()
         {
+            if (IsConsolePresent == false) return null;
+
             OutputDone.Wait();
             InputDone.Reset();
             try { return Console.ReadLine(); } finally { InputDone.Set(); }

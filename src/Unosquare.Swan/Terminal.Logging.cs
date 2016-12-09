@@ -44,7 +44,7 @@
             if (string.IsNullOrWhiteSpace(source) == false)
                 output = $"{text} - {source}";
 
-            if (Settings.ConsoleOptions.HasFlag(messageType))
+            if (IsConsolePresent && Settings.ConsoleOptions.HasFlag(messageType))
             {
                 if (string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat))
                     $" {prefix} >> {output}".WriteLine(color);
