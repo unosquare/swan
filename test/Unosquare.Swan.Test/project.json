@@ -1,0 +1,31 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "NUnit": "3.5.0",
+    "dotnet-test-nunit": "3.4.0-beta-3",
+    "Unosquare.Swan": { "target": "project" }
+  },
+
+  "testRunner": "nunit",
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": [ "dnxcore50", "netcoreapp1.0" ],
+      "dependencies": {
+        "NETStandard.Library": "1.6.1"
+      }
+    },
+    "net452": {
+    }
+  },
+
+  "runtimes": {
+    "win8-x64": {},
+    "ubuntu.14.04-x64": {},
+    "osx.10.11-x64": {}
+  }
+}
