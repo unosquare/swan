@@ -1,4 +1,4 @@
-﻿#if UNCOMMENTME
+﻿
 namespace Unosquare.Swan.Formatters
 {
     using System;
@@ -15,13 +15,13 @@ namespace Unosquare.Swan.Formatters
     /// </summary>
     public class CsvWriter
     {
-#region Static Variables
+        #region Static Variables
 
         private static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeCache = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
-#endregion
+        #endregion
 
-#region State Variables
+        #region State Variables
 
         private readonly object SyncLock = new object();
         private Stream OutputStream = null;
@@ -29,9 +29,9 @@ namespace Unosquare.Swan.Formatters
 
         private ulong m_Count = 0;
 
-#endregion
+        #endregion
 
-#region Constructors
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter"/> class.
@@ -44,9 +44,9 @@ namespace Unosquare.Swan.Formatters
             Encoding = encoding;
         }
 
-#endregion
+        #endregion
 
-#region Properties
+        #region Properties
 
         /// <summary>
         /// Gets or sets the field separator character.
@@ -73,56 +73,62 @@ namespace Unosquare.Swan.Formatters
         /// </summary>
         public ulong Count { get { lock (SyncLock) { return m_Count; } } }
 
-#endregion
+        #endregion
 
-        private void WriteValues(object[] values)
+        #region Generic, main Write Method
+
+        public void Write(object[] items)
         {
-            var length = values.Length;
-            var separatorBytes = Encoding.GetBytes(new char[] { SeparatorCharacter });
-            var endOfLineBytes = Encoding.GetBytes(NewLineSequence);
-            var needsEnclosing = false;
-            object value = null;
-            string textValue = null;
-            byte[] output = null;
-
-            for (var i = 0; i < length; i++)
+            lock (SyncLock)
             {
-                // convert the value as a string value
-                value = values[i];
-                textValue = value == null ? string.Empty : value.ToString();
+                var length = items.Length;
+                var separatorBytes = Encoding.GetBytes(new char[] { SeparatorCharacter });
+                var endOfLineBytes = Encoding.GetBytes(NewLineSequence);
+                var needsEnclosing = false;
+                object value = null;
+                string textValue = null;
+                byte[] output = null;
 
-                // Determine if we need the string to be enclosed 
-                // (it either contains an escape or separator char)
-                needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                    || textValue.IndexOf(EscapeCharacter) >= 0;
+                for (var i = 0; i < length; i++)
+                {
+                    // convert the value as a string value
+                    value = items[i];
+                    textValue = value == null ? string.Empty : value.ToString();
 
-                // Escape the escape characters by repeating them twice for every instance
-                textValue = textValue.Replace($"{EscapeCharacter}",
-                    $"{EscapeCharacter}{EscapeCharacter}");
+                    // Determine if we need the string to be enclosed 
+                    // (it either contains an escape or separator char)
+                    needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
+                        || textValue.IndexOf(EscapeCharacter) >= 0;
 
-                // Enclose the text value if we need to
-                if (needsEnclosing)
-                    textValue = string.Format($"{EscapeCharacter}{0}{EscapeCharacter}", textValue);
+                    // Escape the escape characters by repeating them twice for every instance
+                    textValue = textValue.Replace($"{EscapeCharacter}",
+                        $"{EscapeCharacter}{EscapeCharacter}");
 
-                // Get the bytes to write to the stream and write them
-                output = Encoding.GetBytes(textValue);
-                OutputStream.Write(output, 0, output.Length);
+                    // Enclose the text value if we need to
+                    if (needsEnclosing)
+                        textValue = string.Format($"{EscapeCharacter}{0}{EscapeCharacter}", textValue);
 
-                // only write a separator if we are moving in between values.
-                // the last value should not be written.
-                if (i < length - 1)
-                    OutputStream.Write(separatorBytes, 0, separatorBytes.Length);
+                    // Get the bytes to write to the stream and write them
+                    output = Encoding.GetBytes(textValue);
+                    OutputStream.Write(output, 0, output.Length);
+
+                    // only write a separator if we are moving in between values.
+                    // the last value should not be written.
+                    if (i < length - 1)
+                        OutputStream.Write(separatorBytes, 0, separatorBytes.Length);
+                }
+
+                // output the newline sequence
+                OutputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
+                m_Count += 1;
             }
-
-            // output the newline sequence
-            OutputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
-            m_Count += 1;
         }
 
+        #endregion
 
-#region Write Line Methods
+        #region Write Line Method
 
-        private void WriteLine(object item)
+        public void WriteItem(object item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
@@ -143,106 +149,78 @@ namespace Unosquare.Swan.Formatters
                     if (typedItem != null)
                     {
                         WriteDictionaryValues(typedItem);
+                        return;
                     }
                 }
 
                 { // Handling as array
-                    var typedItem = item as Array;
+                    var typedItem = item as ICollection;
                     if (typedItem != null)
                     {
-                        WriteArrayValues(typedItem);
+                        WriteCollectionValues(typedItem);
+                        return;
                     }
                 }
 
-                { // Handling as I
-                    var typedItem = item as Array;
-                    if (typedItem != null)
-                    {
-                        WriteArrayValues(typedItem);
-                    }
+                { // Handling as a regular type
+                    WriteObjectValues(item);
                 }
-
-                { // Handling as object with regular poperties
-
-                }
-
-
             }
 
         }
 
-        public void WriteLine<T>(T item)
+        private void WriteObjectValues(object item)
         {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-
-            // Ty to cast as dictionary
-            var dictionary = item as IDictionary;
-            if (dictionary != null)
-            {
-                WriteDictionary(dictionary);
-                return;
-            }
-
-            // Try to cast as IEnumerable
-
-
-            var properties = GetFilteredTypeProperties(typeof(T));
-            var valuesList = new List<object>();
-
+            var properties = GetFilteredTypeProperties(item.GetType());
+            var values = new List<object>();
             foreach (var property in properties)
             {
                 try
                 {
-                    var value = property.GetValue(item, null);
-                    valuesList.Add(value);
+                    var value = property.GetValue(item);
+                    values.Add(value);
                 }
                 catch
                 {
-                    valuesList.Add(null);
+                    values.Add(null);
                 }
             }
 
-            WriteObjects(valuesList.ToArray());
+            Write(values.ToArray());
         }
 
-        private void WriteDictionary(IDictionary dictionary)
+        private void WriteCollectionValues(ICollection typedItem)
         {
             var values = new List<object>();
-            foreach (var key in dictionary.Keys)
+            foreach (var item in typedItem)
             {
-                if (key == null)
-                    continue;
-
-                var stringKey = key.ToString();
-
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                values.Add(dictionary[key]);
+                values.Add(item);
             }
 
-            WriteObjects(values.ToArray());
+            Write(values.ToArray());
         }
 
-        public void WriteEnumerable(IEnumerable values)
+        private void WriteDictionaryValues(IDictionary typedItem)
         {
-            WriteObjects(values.Cast<object>().ToArray());
+            Write(GetFilteredDictionaryValues(typedItem));
         }
 
-#endregion
+        private void WriteDynamicObjectValues(IDictionary<string, object> typedItem)
+        {
+            Write(GetFilteredDictionaryValues(typedItem));
+        }
 
+        #endregion
 
-#region Write Header Methods
+        #region Write Header Methods
 
         public void WriteHeader(Type type)
         {
-            lock (SyncLock)
-            {
-                var properties = GetFilteredTypeProperties(type);
-                var valuesList = properties.Select(p => p.Name).Cast<object>().ToArray();
-                WriteObjects(valuesList);
-            }
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
+            var properties = GetFilteredTypeProperties(type).Select(p => p.Name).Cast<object>().ToArray();
+            Write(properties);
         }
 
         public void WriteHeader<T>()
@@ -252,49 +230,98 @@ namespace Unosquare.Swan.Formatters
 
         public void WriteHeader(IDictionary dictionary)
         {
-            lock (SyncLock)
-            {
-                if (dictionary == null)
-                    throw new ArgumentNullException(nameof(dictionary));
+            if (dictionary == null)
+                throw new ArgumentNullException(nameof(dictionary));
 
-                var stringKeys = new List<string>();
-                foreach (var key in dictionary.Keys)
-                {
-                    if (key == null)
-                        continue;
+            Write(GetFilteredDictionaryKeys(dictionary));
+        }
 
-                    var stringKey = key.ToString();
+        public void WriteHeader(IDictionary<string, object> dictionary)
+        {
+            if (dictionary == null)
+                throw new ArgumentNullException(nameof(dictionary));
 
-                    if (IgnorePropertyNames.Contains(stringKey))
-                        continue;
-
-                    stringKeys.Add(stringKey);
-                }
-
-                WriteObjects(stringKeys
-                    .Cast<object>().ToArray());
-
-            }
+            Write(GetFilteredDictionaryKeys(dictionary));
         }
 
 #if NET452
-
-        public void WriteHeader(dynamic obj)
+        public void WriteHeader(dynamic item)
         {
-            var dictionary = obj as IDictionary<string, object>;
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
+            var dictionary = item as IDictionary<string, object>;
             if (dictionary == null)
-                throw new InvalidCastException("Could not convert dynamic object to dictionary");
+                throw new ArgumentException("Unable to cast dynamic object to a suitable dictionary", nameof(item));
 
-            WriteObjects(dictionary.Keys
-                .Where(d => IgnorePropertyNames.Contains(d) == false)
-                .Cast<object>().ToArray());
+            WriteHeader(dictionary);
         }
-
 #endif
 
-#endregion
+        #endregion
 
-#region Support Methods
+        #region Support Methods
+
+        private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
+        {
+            var keys = new List<object>();
+            foreach (var key in dictionary.Keys)
+            {
+                var stringKey = key == null ? string.Empty : key.ToString();
+                if (IgnorePropertyNames.Contains(stringKey))
+                    continue;
+
+                keys.Add(stringKey);
+            }
+
+            return keys.ToArray();
+        }
+
+        private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
+        {
+            var keys = new List<object>();
+            foreach (var key in dictionary.Keys)
+            {
+                var stringKey = key == null ? string.Empty : key;
+                if (IgnorePropertyNames.Contains(stringKey))
+                    continue;
+
+                keys.Add(stringKey);
+            }
+
+            return keys.ToArray();
+        }
+
+        private object[] GetFilteredDictionaryValues(IDictionary dictionary)
+        {
+            var values = new List<object>();
+            foreach (var key in dictionary.Keys)
+            {
+                var stringKey = key == null ? string.Empty : key.ToString();
+                if (IgnorePropertyNames.Contains(stringKey))
+                    continue;
+
+                values.Add(dictionary[key]);
+            }
+
+            return values.ToArray();
+        }
+
+        private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
+        {
+            var values = new List<object>();
+            foreach (var key in dictionary.Keys)
+            {
+                var stringKey = key == null ? string.Empty : key;
+                if (IgnorePropertyNames.Contains(stringKey))
+                    continue;
+
+                values.Add(dictionary[key]);
+            }
+
+            return values.ToArray();
+        }
+
 
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
         {
@@ -312,8 +339,7 @@ namespace Unosquare.Swan.Formatters
             }
         }
 
-#endregion
+        #endregion
 
     }
 }
-#endif
