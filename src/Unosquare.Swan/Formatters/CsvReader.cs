@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using System.Collections.Concurrent;
+
 #if NET452
     using System.Dynamic;
 #endif
@@ -21,14 +23,13 @@
     {
         #region Static Declarations
 
-        static public readonly Encoding Windows1252Encoding = Encoding.GetEncoding(1252);
-        static private readonly Dictionary<Type, PropertyInfo[]> CachedTypes = new Dictionary<Type, PropertyInfo[]>();
+        static private readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeCache = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
         #endregion
 
         #region Property Backing
 
-        private int m_ReadCount = 0;
+        private ulong m_Count = 0;
         private char m_EscapeCharacter = '"';
         private char m_SeparatorCharacter = ',';
 
@@ -89,7 +90,7 @@
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvReader(string filename)
-            : this(File.OpenRead(filename), false, Windows1252Encoding)
+            : this(File.OpenRead(filename), false, Constants.Windows1252Encoding)
         {
             // placeholder
         }
@@ -112,7 +113,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         public CsvReader(Stream stream)
-            : this(stream, false, Windows1252Encoding)
+            : this(stream, false, Constants.Windows1252Encoding)
         {
         }
 
@@ -123,7 +124,7 @@
         /// <summary>
         /// Gets number of lines that have been read, including the header
         /// </summary>
-        public int ReadCount { get { return m_ReadCount; } }
+        public ulong Count { get { lock (SyncLock) { return m_Count; } } }
 
         /// <summary>
         /// Gets or sets the escape character.
@@ -208,7 +209,7 @@
         {
             lock (SyncLock)
             {
-                if (m_ReadCount != 0)
+                if (m_Count != 0)
                     throw new InvalidOperationException("Reading headers is only supported as the first read operation.");
 
                 if (Reader.EndOfStream)
@@ -222,7 +223,7 @@
                     DefaultMap[header] = header;
                 }
 
-                m_ReadCount++;
+                m_Count++;
                 return Headers.ToArray();
             }
         }
@@ -240,7 +241,7 @@
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
                 var line = Reader.ReadLine();
-                m_ReadCount++;
+                m_Count++;
                 return ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
             }
         }
@@ -268,7 +269,7 @@
                     throw new ArgumentNullException(nameof(map));
 
                 var line = Reader.ReadLine();
-                m_ReadCount++;
+                m_Count++;
                 dynamic resultObject = new ExpandoObject();
                 var result = resultObject as IDictionary<string, object>;
                 var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
@@ -330,19 +331,19 @@
 
                 // Read line and extract values
                 var line = Reader.ReadLine();
-                m_ReadCount++;
+                m_Count++;
                 var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
 
                 // Read target properties
-                if (CachedTypes.ContainsKey(typeof(T)) == false)
+                if (TypeCache.ContainsKey(typeof(T)) == false)
                 {
                     var targetProperties = typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Where(x => x.CanWrite && Constants.BasicTypesInfo.ContainsKey(x.PropertyType));
-                    CachedTypes[typeof(T)] = targetProperties.ToArray();
+                    TypeCache[typeof(T)] = targetProperties.ToArray();
                 }
 
                 // Extract properties from cache
-                var properties = CachedTypes[typeof(T)];
+                var properties = TypeCache[typeof(T)];
 
                 // Assign property values for each heading
                 for (var i = 0; i < Headers.Length; i++)
@@ -553,7 +554,6 @@
         }
 
         #endregion
-
 
     }
 }
