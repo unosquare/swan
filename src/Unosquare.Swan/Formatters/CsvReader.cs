@@ -1,16 +1,12 @@
 ﻿namespace Unosquare.Swan.Formatters
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using System.Collections.Concurrent;
-
-#if NET452
-    using System.Dynamic;
-#endif
 
     /// <summary>
     /// Represents a reader designed for CSV text.
@@ -39,7 +35,7 @@
 
         private readonly object SyncLock = new object();
         private bool HasDisposed = false; // To detect redundant calls
-        private string[] Headers = null;
+        private string[] Headings = null;
         private Dictionary<string, string> DefaultMap = null;
         private Stream InputStream = null;
         private StreamReader Reader = null;
@@ -122,7 +118,7 @@
         #region Properties
 
         /// <summary>
-        /// Gets number of lines that have been read, including the header
+        /// Gets number of lines that have been read, including the headings
         /// </summary>
         public ulong Count { get { lock (SyncLock) { return m_Count; } } }
 
@@ -179,54 +175,7 @@
 
         #endregion
 
-        #region Read Methods
-
-        /// <summary>
-        /// Skips a line of CSV text.
-        /// This operation does not increment the ReadCount property
-        /// </summary>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
-        public void SkipLine()
-        {
-            lock (SyncLock)
-            {
-                if (Reader.EndOfStream)
-                    throw new EndOfStreamException("Cannot read past the end of the stream");
-
-                var line = Reader.ReadLine();
-                return;
-            }
-        }
-
-        /// <summary>
-        /// Reads a line of CSV text and stores the values read as a representation of the column names
-        /// to be used for parsing objects. You have to call this method before calling ReadObject methods.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">Reading headers is only supported as the first read operation.</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
-        public string[] ReadHeader()
-        {
-            lock (SyncLock)
-            {
-                if (m_Count != 0)
-                    throw new InvalidOperationException("Reading headers is only supported as the first read operation.");
-
-                if (Reader.EndOfStream)
-                    throw new EndOfStreamException("Cannot read past the end of the stream");
-
-                var line = Reader.ReadLine();
-                Headers = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
-                DefaultMap = new Dictionary<string, string>();
-                foreach (var header in Headers)
-                {
-                    DefaultMap[header] = header;
-                }
-
-                m_Count++;
-                return Headers.ToArray();
-            }
-        }
+        #region Generic, Main ReadLine method
 
         /// <summary>
         /// Reads a line of CSV text into an array of strings
@@ -246,43 +195,90 @@
             }
         }
 
-#if NET452
+        #endregion
+
+        #region Read Methods
+
         /// <summary>
-        /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headers
+        /// Skips a line of CSV text.
+        /// This operation does not increment the Count property and it is useful when you need to read the headings
+        /// skipping over a few lines.
         /// </summary>
-        /// <param name="map">The mapppings between CSV headings (keys) and object properties (values)</param>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
-        /// <exception cref="System.ArgumentNullException">map</exception>
-        public dynamic ReadObject(IDictionary<string, string> map)
+        public void SkipLine()
         {
             lock (SyncLock)
             {
-                if (Headers == null)
-                    throw new InvalidOperationException($"Call the {nameof(ReadHeader)} method before reading as an object.");
-
                 if (Reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
+
+                var line = Reader.ReadLine();
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Reads a line of CSV text and stores the values read as a representation of the column names
+        /// to be used for parsing objects. You have to call this method before calling ReadObject methods.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// Reading headings is only supported as the first read operation.
+        /// or
+        /// ReadHeadings
+        /// </exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        public string[] ReadHeadings()
+        {
+            lock (SyncLock)
+            {
+                if (m_Count != 0)
+                    throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
+
+                if (Headings != null)
+                    throw new InvalidOperationException($"The {nameof(ReadHeadings)} method had already been called.");
+
+                Headings = ReadLine();
+                DefaultMap = new Dictionary<string, string>();
+                foreach (var heading in Headings)
+                {
+                    DefaultMap[heading] = heading;
+                }
+
+                return Headings.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings
+        /// </summary>
+        /// <param name="map">The mapppings between CSV headings (keys) and object properties (values)</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
+        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
+        /// <exception cref="System.ArgumentNullException">map</exception>
+        public IDictionary<string, object> ReadObject(IDictionary<string, string> map)
+        {
+            lock (SyncLock)
+            {
+                if (Headings == null)
+                    throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
 
                 if (map == null)
                     throw new ArgumentNullException(nameof(map));
 
-                var line = Reader.ReadLine();
-                m_Count++;
-                dynamic resultObject = new ExpandoObject();
-                var result = resultObject as IDictionary<string, object>;
-                var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
+                var result = new Dictionary<string, object>();
+                var values = ReadLine();
 
-                for (var i = 0; i < Headers.Length; i++)
+                for (var i = 0; i < Headings.Length; i++)
                 {
                     if (i > values.Length - 1)
                         break;
 
-                    result[Headers[i]] = values[i];
+                    result[Headings[i]] = values[i];
                 }
 
-                return resultObject;
+                return result;
             }
         }
 
@@ -291,15 +287,14 @@
         /// The property names ocrrespond to the names of the CSV headings
         /// </summary>
         /// <returns></returns>
-        public dynamic ReadObject()
+        public IDictionary<string, object> ReadObject()
         {
             return ReadObject(DefaultMap);
         }
-#endif
 
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
-        /// where the keys are the names of the headers and the values are the names of the instance properties
+        /// where the keys are the names of the headings and the values are the names of the instance properties
         /// in the given Type. The result object must be already intantiated.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -308,7 +303,7 @@
         /// <exception cref="System.ArgumentNullException">map
         /// or
         /// result</exception>
-        /// <exception cref="System.InvalidOperationException">ReadHeader</exception>
+        /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public void ReadObject<T>(IDictionary<string, string> map, ref T result)
         {
@@ -319,8 +314,8 @@
                     if (map == null)
                         throw new ArgumentNullException(nameof(map));
 
-                    if (Headers == null)
-                        throw new InvalidOperationException($"Call the {nameof(ReadHeader)} method before reading as an object.");
+                    if (Headings == null)
+                        throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
 
                     if (Reader.EndOfStream)
                         throw new EndOfStreamException("Cannot read past the end of the stream");
@@ -330,9 +325,7 @@
                 }
 
                 // Read line and extract values
-                var line = Reader.ReadLine();
-                m_Count++;
-                var values = ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
+                var values = ReadLine();
 
                 // Read target properties
                 if (TypeCache.ContainsKey(typeof(T)) == false)
@@ -346,19 +339,19 @@
                 var properties = TypeCache[typeof(T)];
 
                 // Assign property values for each heading
-                for (var i = 0; i < Headers.Length; i++)
+                for (var i = 0; i < Headings.Length; i++)
                 {
                     // break if no more headings are matched
                     if (i > values.Length - 1)
                         break;
 
-                    // skip if no header is availabale or the header is empty
-                    if (map.ContainsKey(Headers[i]) == false &&
-                        string.IsNullOrWhiteSpace(map[Headers[i]]) == false)
+                    // skip if no heading is availabale or the heading is empty
+                    if (map.ContainsKey(Headings[i]) == false &&
+                        string.IsNullOrWhiteSpace(map[Headings[i]]) == false)
                         continue;
 
                     // Prepare the target property
-                    var propertyName = map[Headers[i]];
+                    var propertyName = map[Headings[i]];
                     var propertyStringValue = values[i];
                     var targetProperty = properties.FirstOrDefault(p => p.Name.Equals(propertyName));
 
@@ -383,14 +376,14 @@
 
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
-        /// where the keys are the names of the headers and the values are the names of the instance properties
+        /// where the keys are the names of the headings and the values are the names of the instance properties
         /// in the given Type.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="map">The map of CSV headers (keys) and Type property names (values).</param>
+        /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">map</exception>
-        /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
+        /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public T ReadObject<T>(IDictionary<string, string> map)
             where T : new()
@@ -402,12 +395,11 @@
 
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, and assuming
-        /// the property names of the target type match the header names of the file.
+        /// the property names of the target type match the heading names of the file.
+        /// </summary>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">ReadHeaders</exception>
-        /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public T ReadObject<T>()
             where T : new()
         {
@@ -416,7 +408,7 @@
 
         #endregion
 
-        #region Static Methods
+        #region Static Support Methods
 
         /// <summary>
         /// Parses a line of standard CSV text into an array of strings.

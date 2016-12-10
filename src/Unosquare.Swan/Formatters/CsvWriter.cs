@@ -11,7 +11,7 @@ namespace Unosquare.Swan.Formatters
     using System.Text;
 
     /// <summary>
-    /// A CSV writer for 
+    /// A CSV writer useful for exporting a set of objects or a 
     /// </summary>
     public class CsvWriter
     {
@@ -69,15 +69,21 @@ namespace Unosquare.Swan.Formatters
         public List<string> IgnorePropertyNames { get; } = new List<string>();
 
         /// <summary>
-        /// Gets number of lines that have been written, including the header
+        /// Gets number of lines that have been written, including the headings line
         /// </summary>
         public ulong Count { get { lock (SyncLock) { return m_Count; } } }
 
         #endregion
 
-        #region Generic, main Write Method
+        #region Generic, main Write Line Method
 
-        public void Write(object[] items)
+        /// <summary>
+        /// Writes a line of CSV text. Items are converted to strings.
+        /// If items are found to be null, empty strings are written out.
+        /// If items are not string, the ToString() method is called on them
+        /// </summary>
+        /// <param name="items">The items.</param>
+        public void WriteLine(params object[] items)
         {
             lock (SyncLock)
             {
@@ -126,9 +132,17 @@ namespace Unosquare.Swan.Formatters
 
         #endregion
 
-        #region Write Line Method
+        #region Write Object Method
 
-        public void WriteItem(object item)
+        /// <summary>
+        /// Writes a row of CSV text. It handles the special cases where the object is
+        /// a dynamic object or and array. It also handles non-collection objects fine.
+        /// If you do not like the way the output is handled, you can simply write an extension
+        /// method of this class and use the WriteLine method instead.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <exception cref="System.ArgumentNullException">item</exception>
+        public void WriteObject(object item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
@@ -169,6 +183,39 @@ namespace Unosquare.Swan.Formatters
 
         }
 
+        /// <summary>
+        /// Writes a row of CSV text. It handles the special cases where the object is
+        /// a dynamic object or and array. It also handles non-collection objects fine.
+        /// If you do not like the way the output is handled, you can simply write an extension
+        /// method of this class and use the WriteLine method instead.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item">The item.</param>
+        public void WriteObject<T>(T item)
+        {
+            WriteObject(item as object);
+        }
+
+        /// <summary>
+        /// Writes a set of items, one per line and atomically by repeatedly calling the
+        /// WriteObject method. For more info check out the description of the WriteObject
+        /// method.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        public void WriteObjects<T>(IEnumerable<T> items)
+        {
+            lock (SyncLock)
+            {
+                foreach (var item in items)
+                    WriteObject(item);
+            }
+        }
+
+        /// <summary>
+        /// Writes the object values.
+        /// </summary>
+        /// <param name="item">The item.</param>
         private void WriteObjectValues(object item)
         {
             var properties = GetFilteredTypeProperties(item.GetType());
@@ -186,9 +233,13 @@ namespace Unosquare.Swan.Formatters
                 }
             }
 
-            Write(values.ToArray());
+            WriteLine(values.ToArray());
         }
 
+        /// <summary>
+        /// Writes the collection values.
+        /// </summary>
+        /// <param name="typedItem">The typed item.</param>
         private void WriteCollectionValues(ICollection typedItem)
         {
             var values = new List<object>();
@@ -197,55 +248,63 @@ namespace Unosquare.Swan.Formatters
                 values.Add(item);
             }
 
-            Write(values.ToArray());
+            WriteLine(values.ToArray());
         }
 
+        /// <summary>
+        /// Writes the dictionary values.
+        /// </summary>
+        /// <param name="typedItem">The typed item.</param>
         private void WriteDictionaryValues(IDictionary typedItem)
         {
-            Write(GetFilteredDictionaryValues(typedItem));
+            WriteLine(GetFilteredDictionaryValues(typedItem));
         }
 
+        /// <summary>
+        /// Writes the dynamic object values.
+        /// </summary>
+        /// <param name="typedItem">The typed item.</param>
         private void WriteDynamicObjectValues(IDictionary<string, object> typedItem)
         {
-            Write(GetFilteredDictionaryValues(typedItem));
+            WriteLine(GetFilteredDictionaryValues(typedItem));
         }
 
         #endregion
 
-        #region Write Header Methods
+        #region Write Headings Methods
 
-        public void WriteHeader(Type type)
+        public void WriteHeadings(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
             var properties = GetFilteredTypeProperties(type).Select(p => p.Name).Cast<object>().ToArray();
-            Write(properties);
+            WriteLine(properties);
         }
 
-        public void WriteHeader<T>()
+        public void WriteHeadings<T>()
         {
-            WriteHeader(typeof(T));
+            WriteHeadings(typeof(T));
         }
 
-        public void WriteHeader(IDictionary dictionary)
-        {
-            if (dictionary == null)
-                throw new ArgumentNullException(nameof(dictionary));
-
-            Write(GetFilteredDictionaryKeys(dictionary));
-        }
-
-        public void WriteHeader(IDictionary<string, object> dictionary)
+        public void WriteHeadings(IDictionary dictionary)
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary));
 
-            Write(GetFilteredDictionaryKeys(dictionary));
+            WriteLine(GetFilteredDictionaryKeys(dictionary));
+        }
+
+        public void WriteHeadings(IDictionary<string, object> dictionary)
+        {
+            if (dictionary == null)
+                throw new ArgumentNullException(nameof(dictionary));
+
+            WriteLine(GetFilteredDictionaryKeys(dictionary));
         }
 
 #if NET452
-        public void WriteHeader(dynamic item)
+        public void WriteHeadings(dynamic item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
@@ -254,7 +313,7 @@ namespace Unosquare.Swan.Formatters
             if (dictionary == null)
                 throw new ArgumentException("Unable to cast dynamic object to a suitable dictionary", nameof(item));
 
-            WriteHeader(dictionary);
+            WriteHeadings(dictionary);
         }
 #endif
 
@@ -262,6 +321,11 @@ namespace Unosquare.Swan.Formatters
 
         #region Support Methods
 
+        /// <summary>
+        /// Gets the filtered dictionary keys using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns></returns>
         private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
             var keys = new List<object>();
@@ -277,6 +341,11 @@ namespace Unosquare.Swan.Formatters
             return keys.ToArray();
         }
 
+        /// <summary>
+        /// Gets the filtered dictionary keys using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns></returns>
         private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
         {
             var keys = new List<object>();
@@ -292,6 +361,11 @@ namespace Unosquare.Swan.Formatters
             return keys.ToArray();
         }
 
+        /// <summary>
+        /// Gets the filtered dictionary values using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns></returns>
         private object[] GetFilteredDictionaryValues(IDictionary dictionary)
         {
             var values = new List<object>();
@@ -307,6 +381,11 @@ namespace Unosquare.Swan.Formatters
             return values.ToArray();
         }
 
+        /// <summary>
+        /// Gets the filtered dictionary values using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns></returns>
         private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
         {
             var values = new List<object>();
@@ -323,13 +402,21 @@ namespace Unosquare.Swan.Formatters
         }
 
 
+        /// <summary>
+        /// Gets the filtered type properties using the IgnoreProperties list.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
         {
             lock (SyncLock)
             {
                 if (TypeCache.ContainsKey(type) == false)
                 {
-                    var properties = type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    var properties = type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(p => p.CanRead)
+                        .ToArray();
+
                     TypeCache[type] = properties;
                 }
 
