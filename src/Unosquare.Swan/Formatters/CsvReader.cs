@@ -465,7 +465,7 @@
                                 if (currentChar == separatorCharacter)
                                 {
                                     currentState = ReadState.WaitingForNewField;
-                                    values.Add(currentValue.ToString().Trim());
+                                    values.Add(currentValue.ToString());
                                     currentValue.Clear();
                                     continue;
                                 }
