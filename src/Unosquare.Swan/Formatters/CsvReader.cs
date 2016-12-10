@@ -189,9 +189,9 @@
                 if (Reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
-                var line = Reader.ReadLine();
+                var values = ParseRecord(Reader, m_EscapeCharacter, m_SeparatorCharacter);
                 m_Count++;
-                return ParseLine(line, m_EscapeCharacter, m_SeparatorCharacter);
+                return values;
             }
         }
 
@@ -202,17 +202,17 @@
         /// <summary>
         /// Skips a line of CSV text.
         /// This operation does not increment the Count property and it is useful when you need to read the headings
-        /// skipping over a few lines.
+        /// skipping over a few lines as Reading headings is only supported as the first read operation (i.e. while count is still 0)
         /// </summary>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
-        public void SkipLine()
+        public void SkipRecord()
         {
             lock (SyncLock)
             {
                 if (Reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
-                var line = Reader.ReadLine();
+                var line = ParseRecord(Reader, m_EscapeCharacter, m_SeparatorCharacter);
                 return;
             }
         }
@@ -408,104 +408,131 @@
 
         #endregion
 
-        #region Static Support Methods
+        #region Support Methods
 
         /// <summary>
         /// Parses a line of standard CSV text into an array of strings.
+        /// Note that quoted values might have new line sequences in them. Field values will contain such sequences
         /// </summary>
-        /// <param name="line">The line of CSV text.</param>
+        /// <param name="reader">The reader.</param>
         /// <param name="escapeCharacter">The escape character.</param>
         /// <param name="separatorCharacter">The separator character.</param>
         /// <returns></returns>
-        static public string[] ParseLine(string line, char escapeCharacter = '"', char separatorCharacter = ',')
+        static private string[] ParseRecord(StreamReader reader, char escapeCharacter = '"', char separatorCharacter = ',')
         {
             var values = new List<string>();
             var currentValue = new StringBuilder(1024);
             char currentChar;
-            Nullable<char> nextChar = null;
+            char? nextChar = null;
             var currentState = ReadState.WaitingForNewField;
+            string line = null;
 
-            for (var charIndex = 0; charIndex < line.Length; charIndex++)
+            while ((line = reader.ReadLine()) != null)
             {
-                // Get the current and next character
-                currentChar = line[charIndex];
-                nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : new Nullable<char>();
-
-                // Perform logic based on state and decide on next state
-                switch (currentState)
+                for (var charIndex = 0; charIndex < line.Length; charIndex++)
                 {
-                    case ReadState.WaitingForNewField:
-                        {
-                            currentValue.Clear();
-                            if (currentChar == escapeCharacter)
+                    // Get the current and next character
+                    currentChar = line[charIndex];
+                    nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : new char?();
+
+                    // Perform logic based on state and decide on next state
+                    switch (currentState)
+                    {
+                        case ReadState.WaitingForNewField:
                             {
-                                currentState = ReadState.PushingQuoted;
-                                continue;
-                            }
-                            else if (currentChar == separatorCharacter)
-                            {
-                                values.Add(currentValue.ToString());
-                                currentState = ReadState.WaitingForNewField;
-                                continue;
-                            }
-                            else
-                            {
-                                currentValue.Append(currentChar);
-                                currentState = ReadState.PushingNormal;
-                                continue;
-                            }
-                        }
-                    case ReadState.PushingNormal:
-                        {
-                            // Handle field content delimiter by comma
-                            if (currentChar == separatorCharacter)
-                            {
-                                currentState = ReadState.WaitingForNewField;
-                                values.Add(currentValue.ToString().Trim());
                                 currentValue.Clear();
-                                continue;
+                                if (currentChar == escapeCharacter)
+                                {
+                                    currentState = ReadState.PushingQuoted;
+                                    continue;
+                                }
+                                else if (currentChar == separatorCharacter)
+                                {
+                                    values.Add(currentValue.ToString());
+                                    currentState = ReadState.WaitingForNewField;
+                                    continue;
+                                }
+                                else
+                                {
+                                    currentValue.Append(currentChar);
+                                    currentState = ReadState.PushingNormal;
+                                    continue;
+                                }
                             }
-
-                            // Handle double quote escaping
-                            if (currentChar == escapeCharacter && nextChar == escapeCharacter)
+                        case ReadState.PushingNormal:
                             {
-                                // advance 1 character now. The loop will advance one more.
+                                // Handle field content delimiter by comma
+                                if (currentChar == separatorCharacter)
+                                {
+                                    currentState = ReadState.WaitingForNewField;
+                                    values.Add(currentValue.ToString().Trim());
+                                    currentValue.Clear();
+                                    continue;
+                                }
+
+                                // Handle double quote escaping
+                                if (currentChar == escapeCharacter && nextChar.HasValue && nextChar == escapeCharacter)
+                                {
+                                    // advance 1 character now. The loop will advance one more.
+                                    currentValue.Append(currentChar);
+                                    charIndex++;
+                                    continue;
+                                }
+
                                 currentValue.Append(currentChar);
-                                charIndex++;
-                                continue;
+                                break;
                             }
-
-                            currentValue.Append(currentChar);
-                            break;
-                        }
-                    case ReadState.PushingQuoted:
-                        {
-                            // Handle field content delimiter by ending double quotes
-                            if (currentChar == escapeCharacter && nextChar != escapeCharacter)
+                        case ReadState.PushingQuoted:
                             {
-                                currentState = ReadState.PushingNormal;
-                                continue;
-                            }
+                                // Handle field content delimiter by ending double quotes
+                                if (currentChar == escapeCharacter && nextChar.HasValue && nextChar != escapeCharacter)
+                                {
+                                    currentState = ReadState.PushingNormal;
+                                    continue;
+                                }
 
-                            // Handle double quote escaping
-                            if (currentChar == escapeCharacter && nextChar == escapeCharacter)
-                            {
-                                // advance 1 character now. The loop will advance one more.
+                                // Handle double quote escaping
+                                if (currentChar == escapeCharacter && nextChar.HasValue && nextChar == escapeCharacter)
+                                {
+                                    // advance 1 character now. The loop will advance one more.
+                                    currentValue.Append(currentChar);
+                                    charIndex++;
+                                    continue;
+                                }
+
                                 currentValue.Append(currentChar);
-                                charIndex++;
-                                continue;
+                                break;
                             }
 
-                            currentValue.Append(currentChar);
-                            break;
-                        }
+                    }
 
                 }
 
+                // determine if we need to continue reading a new line if it is part of the quoted
+                // field value
+                if (currentState == ReadState.PushingQuoted)
+                {
+                    // we need to add the new line sequence to the output of the field
+                    // because we were pushing a quoted value
+                    currentValue.Append(Environment.NewLine);
+                }
+                else
+                {
+                    // push anything that has not been pushed (flush) into a last value
+                    values.Add(currentValue.ToString());
+                    currentValue.Clear();
+                    // stop reading more lines we have reached the end of the CSV record
+                    break;
+                }
             }
 
-            // push anything that has not been pushed (flush)
-            values.Add(currentValue.ToString().Trim());
+            // If we ended up pushing quoted and no closing closing quotes we might
+            // have additional text in yt 
+            if (currentValue.Length > 0)
+            {
+                values.Add(currentValue.ToString());
+            }
+
             return values.ToArray();
         }
 

@@ -8,7 +8,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsSingleInstanceTest()
         {
-            Assert.IsTrue(CurrentApp.IsSingleInstance);
+            Assert.IsTrue(CurrentApp.IsTheOnlyInstance);
         }
 
         [Test]

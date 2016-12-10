@@ -41,7 +41,7 @@
 
             var output = text;
             if (string.IsNullOrWhiteSpace(source) == false)
-                output = $"{text} - {source}";
+                output = $"[{source}] {text}";
 
             if (IsConsolePresent && Settings.ConsoleOptions.HasFlag(messageType))
             {

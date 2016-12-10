@@ -11,24 +11,31 @@
     /// </summary>
     static public class CurrentApp
     {
-        private static Mutex _applicationMutex;
-        private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
+        #region State Variables
 
+        static private Mutex ApplicationMutex = null;
+        static private readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
         static private readonly object SyncLock = new object();
+
+        #endregion
+
+        #region Property Backing
 
         static private Assembly m_EntryAssembly = null;
         static private Process m_Process = null;
         static private Os ApplicationOs = Os.Unknown;
 
-        /// <summary>
-        /// Determines if the app is running at mono
-        /// </summary>
-        public static readonly bool IsRunningAtMono = Type.GetType("Mono.Runtime") != null;
+        #endregion
 
         /// <summary>
-        /// Checks if this process is unique using a MUTEX.
+        /// Determines if the current application is using the Mono runtime
         /// </summary>
-        public static bool IsSingleInstance
+        public static readonly bool IsUsingMonoRuntime = Type.GetType("Mono.Runtime") != null;
+
+        /// <summary>
+        /// Checks if this application (including version number) is the only instance currently running.
+        /// </summary>
+        public static bool IsTheOnlyInstance
         {
             get
             {
@@ -44,7 +51,7 @@
                         try
                         {
                             // If exception occurred, there is no such mutex.
-                            _applicationMutex = new Mutex(true, ApplicationMutexName);
+                            ApplicationMutex = new Mutex(true, ApplicationMutexName);
 
                             // Only one instance.
                             return true;
@@ -102,6 +109,19 @@
             }
         }
 
+#if NET452
+        /// <summary>
+        /// Build a full path pointing to the current user's desktop with the given filename
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <returns></returns>
+        public static string GetDesktopFilePath(string filename)
+        {
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            var pathWithFilename = Path.Combine(path, filename);
+            return Path.GetFullPath(pathWithFilename);
+        }
+#endif
         /// <summary>
         /// Gets the local storage path.
         /// </summary>

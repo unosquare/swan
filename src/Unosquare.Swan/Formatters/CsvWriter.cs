@@ -102,9 +102,11 @@ namespace Unosquare.Swan.Formatters
                     textValue = value == null ? string.Empty : value.ToString();
 
                     // Determine if we need the string to be enclosed 
-                    // (it either contains an escape or separator char)
+                    // (it either contains an escape, ne line, or separator char)
                     needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                        || textValue.IndexOf(EscapeCharacter) >= 0;
+                        || textValue.IndexOf(EscapeCharacter) >= 0 
+                        || textValue.IndexOf('\r') >=0 
+                        || textValue.IndexOf('\n') >=0;
 
                     // Escape the escape characters by repeating them twice for every instance
                     textValue = textValue.Replace($"{EscapeCharacter}",
@@ -112,7 +114,7 @@ namespace Unosquare.Swan.Formatters
 
                     // Enclose the text value if we need to
                     if (needsEnclosing)
-                        textValue = string.Format($"{EscapeCharacter}{0}{EscapeCharacter}", textValue);
+                        textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
 
                     // Get the bytes to write to the stream and write them
                     output = Encoding.GetBytes(textValue);
