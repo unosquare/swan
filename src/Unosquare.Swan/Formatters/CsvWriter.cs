@@ -1,6 +1,7 @@
 ﻿
 namespace Unosquare.Swan.Formatters
 {
+    using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Concurrent;
@@ -11,13 +12,13 @@ namespace Unosquare.Swan.Formatters
     using System.Text;
 
     /// <summary>
-    /// A CSV writer useful for exporting a set of objects or a 
+    /// A CSV writer useful for exporting a set of objects
     /// </summary>
     public class CsvWriter : IDisposable
     {
         #region Static Variables
 
-        private static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeCache = new ConcurrentDictionary<Type, PropertyInfo[]>();
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         #endregion
 
@@ -132,7 +133,7 @@ namespace Unosquare.Swan.Formatters
         /// <summary>
         /// Writes a line of CSV text. Items are converted to strings.
         /// If items are found to be null, empty strings are written out.
-        /// If items are not string, the ToString() method is called on them
+        /// If items are not string, the ToStringInvariant() method is called on them
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
@@ -151,7 +152,7 @@ namespace Unosquare.Swan.Formatters
                 {
                     // convert the value as a string value
                     value = items[i];
-                    textValue = value == null ? string.Empty : value.ToString();
+                    textValue = value == null ? string.Empty : value.ToStringInvariant();
 
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, ne line, or separator char)
@@ -385,7 +386,7 @@ namespace Unosquare.Swan.Formatters
             var keys = new List<object>();
             foreach (var key in dictionary.Keys)
             {
-                var stringKey = key == null ? string.Empty : key.ToString();
+                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
                 if (IgnorePropertyNames.Contains(stringKey))
                     continue;
 
@@ -425,7 +426,7 @@ namespace Unosquare.Swan.Formatters
             var values = new List<object>();
             foreach (var key in dictionary.Keys)
             {
-                var stringKey = key == null ? string.Empty : key.ToString();
+                var stringKey = key == null ? string.Empty : key.ToStringInvariant();
                 if (IgnorePropertyNames.Contains(stringKey))
                     continue;
 
@@ -465,18 +466,13 @@ namespace Unosquare.Swan.Formatters
         {
             lock (SyncLock)
             {
-                if (TypeCache.ContainsKey(type) == false)
-                {
-                    var properties = type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(p => p.CanRead)
-                        .ToArray();
-
-                    TypeCache[type] = properties;
-                }
-
-                return TypeCache[type]
-                    .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
-                    .ToArray();
+                return TypeCache.Retrieve(type, () => 
+                    {
+                        return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                            .Where(p => p.CanRead)
+                            .ToArray();
+                    })
+                    .Where(p => IgnorePropertyNames.Contains(p.Name) == false).ToArray();
             }
         }
 

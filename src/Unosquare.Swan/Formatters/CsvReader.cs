@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Formatters
 {
+    using Reflection;
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -11,7 +11,7 @@
     /// <summary>
     /// Represents a reader designed for CSV text.
     /// It is capable of deserializing objects from individual lines of CSV text,
-    /// transforming CSV lines of text into Expando Objects,
+    /// transforming CSV lines of text into objects,
     /// or simply reading the lines of CSV as an array of strings
     /// </summary>
     /// <seealso cref="System.IDisposable" />
@@ -19,7 +19,7 @@
     {
         #region Static Declarations
 
-        static private readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeCache = new ConcurrentDictionary<Type, PropertyInfo[]>();
+        static private readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         #endregion
 
@@ -340,16 +340,11 @@
                 // Read line and extract values
                 var values = ReadLine();
 
-                // Read target properties
-                if (TypeCache.ContainsKey(typeof(T)) == false)
-                {
-                    var targetProperties = typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(x => x.CanWrite && Constants.BasicTypesInfo.ContainsKey(x.PropertyType));
-                    TypeCache[typeof(T)] = targetProperties.ToArray();
-                }
-
                 // Extract properties from cache
-                var properties = TypeCache[typeof(T)];
+                var properties = TypeCache.Retrieve<T>(() => {
+                    return typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(x => x.CanWrite && Constants.BasicTypesInfo.ContainsKey(x.PropertyType));
+                });
 
                 // Assign property values for each heading
                 for (var i = 0; i < Headings.Length; i++)

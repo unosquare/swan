@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Unosquare.Swan.Formatters;
-
-namespace Unosquare.Swan.Samples
+﻿namespace Unosquare.Swan.Samples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using Unosquare.Swan.Formatters;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -59,21 +59,40 @@ namespace Unosquare.Swan.Samples
 
         static void TestCsvFormatters()
         {
-            var writeTestFilePath = CurrentApp.GetDesktopFilePath("WriterTest.csv");
-            var rewriteTestFilePath = CurrentApp.GetDesktopFilePath("RewriterTest.csv");
+            var action = new Action(() =>
+            {
+                var test01FilePath = CurrentApp.GetDesktopFilePath("csv-writer-test-01.csv");
+                var test02FilePath = CurrentApp.GetDesktopFilePath("csv-witer-test-02.csv");
 
-            var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
-            $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
+                var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
+                $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
 
-            var savedRecordCount = CsvWriter.SaveRecords(generatedRecords, writeTestFilePath);
-            $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(writeTestFilePath)}.".Info(nameof(TestCsvFormatters));
+                var savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test01FilePath);
+                $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}.".Info(nameof(TestCsvFormatters));
 
-            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(writeTestFilePath);
-            $"Loaded {(loadedRecords.Count)} records from file: {Path.GetFileName(writeTestFilePath)}.".Info(nameof(TestCsvFormatters));
+                var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(test01FilePath);
+                $"Loaded {(loadedRecords.Count)} records from file: {Path.GetFileName(test01FilePath)}.".Info(nameof(TestCsvFormatters));
 
-            savedRecordCount = CsvWriter.SaveRecords(generatedRecords, rewriteTestFilePath);
-            $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(rewriteTestFilePath)}.".Info(nameof(TestCsvFormatters));
+                savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test02FilePath);
+                $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}.".Info(nameof(TestCsvFormatters));
+
+                var sourceObject = loadedRecords[generatedRecords.Count / 2];
+                var targetObject = new StubCopyTargetTest();
+                var copiedProperties = sourceObject.CopyPropertiesTo(targetObject);
+                $"{nameof(Extensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another".Info(nameof(TestCsvFormatters));
+            });
+
+            var elapsed = action.Benchmark();
+            $"Elapsed: {Math.Round(elapsed.TotalMilliseconds, 3)} milliseconds".Trace();
         }
+    }
+
+    internal class StubCopyTargetTest
+    {
+        public float ID { get; set; }
+        public decimal AlternateId { get; set; }
+        public string Score { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 
     internal class SampleCsvRecord

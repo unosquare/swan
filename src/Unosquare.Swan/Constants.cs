@@ -10,7 +10,7 @@
 
         static Constants()
         {
-
+            // placeholder
         }
 
         /// <summary>

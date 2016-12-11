@@ -13,37 +13,39 @@
         static private readonly Dictionary<Type, ExtendedTypeInfo> InternalBasicTypeInfo =
             new Dictionary<Type, ExtendedTypeInfo> {
                 // Non-Nullables
-                { typeof(DateTime), new ExtendedTypeInfo(typeof(DateTime)) },
-                { typeof(byte), new ExtendedTypeInfo(typeof(byte)) },
-                { typeof(sbyte), new ExtendedTypeInfo(typeof(sbyte)) },
-                { typeof(int), new ExtendedTypeInfo(typeof(int)) },
-                { typeof(uint), new ExtendedTypeInfo(typeof(uint)) },
-                { typeof(short), new ExtendedTypeInfo(typeof(short)) },
-                { typeof(ushort), new ExtendedTypeInfo(typeof(ushort)) },
-                { typeof(long), new ExtendedTypeInfo(typeof(long)) },
-                { typeof(ulong), new ExtendedTypeInfo(typeof(ulong)) },
-                { typeof(float), new ExtendedTypeInfo(typeof(float)) },
-                { typeof(double), new ExtendedTypeInfo(typeof(double)) },
-                { typeof(char), new ExtendedTypeInfo(typeof(char)) },
-                { typeof(bool), new ExtendedTypeInfo(typeof(bool)) },
-                { typeof(decimal), new ExtendedTypeInfo(typeof(decimal)) },
-                // String is also considered a primitive type
-                { typeof(string), new ExtendedTypeInfo(typeof(string)) },
+                { typeof(DateTime), new ExtendedTypeInfo<DateTime>() },
+                { typeof(byte), new ExtendedTypeInfo<byte>() },
+                { typeof(sbyte), new ExtendedTypeInfo<sbyte>() },
+                { typeof(int), new ExtendedTypeInfo<int>() },
+                { typeof(uint), new ExtendedTypeInfo<uint>() },
+                { typeof(short), new ExtendedTypeInfo<short>() },
+                { typeof(ushort), new ExtendedTypeInfo<ushort>() },
+                { typeof(long), new ExtendedTypeInfo<long>() },
+                { typeof(ulong), new ExtendedTypeInfo<ulong>() },
+                { typeof(float), new ExtendedTypeInfo<float>() },
+                { typeof(double), new ExtendedTypeInfo<double>() },
+                { typeof(char), new ExtendedTypeInfo<char>() },
+                { typeof(bool), new ExtendedTypeInfo<bool>() },
+                { typeof(decimal), new ExtendedTypeInfo<decimal>() },
+                { typeof(Guid), new ExtendedTypeInfo<Guid>() },
+                // Strings is also considered a basic type (it's the only basic reference type)
+                { typeof(string), new ExtendedTypeInfo<string>() },
                 // Nullables
-                { typeof(DateTime?), new ExtendedTypeInfo(typeof(DateTime?)) },
-                { typeof(byte?), new ExtendedTypeInfo(typeof(byte?)) },
-                { typeof(sbyte?), new ExtendedTypeInfo(typeof(sbyte?)) },
-                { typeof(int?), new ExtendedTypeInfo(typeof(int?)) },
-                { typeof(uint?), new ExtendedTypeInfo(typeof(uint?)) },
-                { typeof(short?), new ExtendedTypeInfo(typeof(short?)) },
-                { typeof(ushort?), new ExtendedTypeInfo(typeof(ushort?)) },
-                { typeof(long?), new ExtendedTypeInfo(typeof(long?)) },
-                { typeof(ulong?), new ExtendedTypeInfo(typeof(ulong?)) },
-                { typeof(float?), new ExtendedTypeInfo(typeof(float?)) },
-                { typeof(double?), new ExtendedTypeInfo(typeof(double?)) },
-                { typeof(char?), new ExtendedTypeInfo(typeof(char?)) },
-                { typeof(bool?), new ExtendedTypeInfo(typeof(bool?)) },
-                { typeof(decimal?), new ExtendedTypeInfo(typeof(decimal?)) },
+                { typeof(DateTime?), new ExtendedTypeInfo<DateTime?>() },
+                { typeof(byte?), new ExtendedTypeInfo<byte?>() },
+                { typeof(sbyte?), new ExtendedTypeInfo<sbyte?>() },
+                { typeof(int?), new ExtendedTypeInfo<int?>() },
+                { typeof(uint?), new ExtendedTypeInfo<uint?>() },
+                { typeof(short?), new ExtendedTypeInfo<short?>() },
+                { typeof(ushort?), new ExtendedTypeInfo<ushort?>() },
+                { typeof(long?), new ExtendedTypeInfo<long?>() },
+                { typeof(ulong?), new ExtendedTypeInfo<ulong?>() },
+                { typeof(float?), new ExtendedTypeInfo<float?>() },
+                { typeof(double?), new ExtendedTypeInfo<double?>() },
+                { typeof(char?), new ExtendedTypeInfo<char?>() },
+                { typeof(bool?), new ExtendedTypeInfo<bool?>() },
+                { typeof(decimal?), new ExtendedTypeInfo<decimal?>() },
+                { typeof(Guid?), new ExtendedTypeInfo<Guid?>() },
             };
 
         #endregion
@@ -58,6 +60,26 @@
         /// Contains all basic types, including string, date time, and all of their nullable counterparts
         /// </summary>
         static public ReadOnlyCollection<Type> AllBasicTypes { get; } = new ReadOnlyCollection<Type>(BasicTypesInfo.Keys.ToArray());
+
+        /// <summary>
+        /// Gets all numeric types including their nullable counterparts. 
+        /// Note that Booleans and Guids are not considered numeric types
+        /// </summary>
+        static public ReadOnlyCollection<Type> AllNumericTypes { get; } = new ReadOnlyCollection<Type>(
+            BasicTypesInfo
+                .Where(kvp => kvp.Value.IsNumeric)
+                .Select(kvp => kvp.Key).ToArray()
+            );
+
+        /// <summary>
+        /// Gets all numeric types without their nullable counterparts. 
+        /// Note that Booleans and Guids are not considered numeric types
+        /// </summary>
+        static public ReadOnlyCollection<Type> AllNumericValueTypes { get; } = new ReadOnlyCollection<Type>(
+            BasicTypesInfo
+                .Where(kvp => kvp.Value.IsNumeric && kvp.Value.IsNullableValueType == false)
+                .Select(kvp => kvp.Key).ToArray()
+            );
 
         /// <summary>
         /// Contains all basic value types. i.e. excludes string and nullables

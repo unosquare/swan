@@ -1,7 +1,10 @@
 ﻿namespace Unosquare.Swan.Reflection
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
+    using System.Linq;
     using System.Reflection;
 
     /// <summary>
@@ -11,7 +14,36 @@
     /// </summary>
     public class ExtendedTypeInfo
     {
-        private const string TryParseMethodName = "TryParse";
+        #region Static Declarations
+
+        private const string TryParseMethodName = nameof(byte.TryParse);
+        private const string ToStringMethodName = nameof(object.ToString);
+
+        static private readonly Type[] NumericTypes = new Type[]
+        {
+            typeof (byte),
+            typeof (sbyte),
+            typeof (decimal),
+            typeof (double),
+            typeof (float),
+            typeof (int),
+            typeof (uint),
+            typeof (long),
+            typeof (ulong),
+            typeof (short),
+            typeof (ushort),
+        };
+
+        #endregion
+
+        #region State Management
+
+        private ParameterInfo[] TryParseParameters = null;
+        private int ToStringArgumentLength = 0;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedTypeInfo"/> class.
@@ -29,9 +61,46 @@
                 new NullableConverter(Type).UnderlyingType :
                 Type;
 
-            Type[] argumentTypes = { typeof(string), UnderlyingType.MakeByRefType() };
-            TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName, argumentTypes);
+            IsNumeric = NumericTypes.Contains(UnderlyingType);
+
+            // Extract the TryParse method info
+            try
+            {
+                TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
+                    new Type[] { typeof(string), typeof(NumberStyles), typeof(IFormatProvider), UnderlyingType.MakeByRefType() });
+
+                if (TryParseMethodInfo == null)
+                    TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
+                        new Type[] { typeof(string), UnderlyingType.MakeByRefType() });
+
+                TryParseParameters = TryParseMethodInfo == null ? null : TryParseMethodInfo.GetParameters();
+            }
+            catch { }
+
+
+            // Extract the ToString method Info
+            try
+            {
+                ToStringMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
+                    new Type[] { typeof(IFormatProvider) });
+
+                if (ToStringMethodInfo == null)
+                {
+                    ToStringMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
+                        new Type[] { });
+
+                }
+
+                ToStringArgumentLength = ToStringMethodInfo == null ? 0 : ToStringMethodInfo.GetParameters().Length;
+            }
+            catch { }
+
+
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets the type this extended info class provides for.
@@ -42,6 +111,11 @@
         /// Gets a value indicating whether the type is a nullable value type.
         /// </summary>
         public bool IsNullableValueType { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the type or underlying type is numeric.
+        /// </summary>
+        public bool IsNumeric { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the type is value type.
@@ -63,9 +137,19 @@
         public MethodInfo TryParseMethodInfo { get; private set; }
 
         /// <summary>
+        /// Gets the ToString method info
+        /// It will prefer the overload containing the IFormatProvider argument
+        /// </summary>
+        public MethodInfo ToStringMethodInfo { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether the type contains a suitable TryParse method.
         /// </summary>
         public bool CanParseNatively { get { return TryParseMethodInfo != null; } }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Gets the default value of this type. For reference types it return null.
@@ -81,37 +165,9 @@
         }
 
         /// <summary>
-        /// Tries to parse a string into the given type. Te T type argument HAS
-        /// to be equal to Type. Otherwise it will return null or default and it will
-        /// fail the parsing process automatically.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="s">The s.</param>
-        /// <param name="result">The result.</param>
-        /// <returns></returns>
-        public bool TryParse<T>(string s, out T result)
-        {
-            result = default(T);
-
-            if (typeof(T) != Type)
-            {
-                return false;
-            }
-
-            object innerResult = null;
-            var success = TryParse(s, out innerResult);
-            if (success && innerResult != null)
-            {
-                result = (T)innerResult;
-            }
-
-            return success;
-        }
-
-        /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
         /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
-        /// for any reason.
+        /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
@@ -143,16 +199,30 @@
                     return false;
                 }
 
-                object[] parseAeguments = { s, null };
-                var parseResult = (bool)TryParseMethodInfo.Invoke(null, parseAeguments);
+                // Build the arguments of the TryParse method
+                var dynamicArguments = new List<object>();
+                dynamicArguments.Add(s);
+                for (var pi = 1; pi < TryParseParameters.Length - 1; pi++)
+                {
+                    var argInfo = TryParseParameters[pi];
+                    if (argInfo.ParameterType == typeof(IFormatProvider))
+                        dynamicArguments.Add(CultureInfo.InvariantCulture);
+                    else if (argInfo.ParameterType == typeof(NumberStyles))
+                        dynamicArguments.Add(NumberStyles.Any);
+                    else
+                        dynamicArguments.Add(null);
+                }
+                dynamicArguments.Add(null);
+                object[] parseArguments = dynamicArguments.ToArray();
 
+                var parseResult = (bool)TryParseMethodInfo.Invoke(null, parseArguments);
                 if (parseResult == false)
                 {
                     result = GetDefault();
                     return false;
                 }
 
-                result = parseAeguments[1];
+                result = parseArguments[parseArguments.Length - 1];
                 return true;
             }
             catch
@@ -160,6 +230,82 @@
                 return false;
             }
 
+        }
+
+        /// <summary>
+        /// Converts this instance to its string representation, 
+        /// trying to use the CultureInfo.InvariantCulture
+        /// IFormat provider if the overload is available
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns></returns>
+        public string ToStringInvariant(object instance)
+        {
+            if (instance == null)
+                return string.Empty;
+
+            object[] arguments = null;
+
+            if (ToStringArgumentLength == 1)
+            {
+                arguments = new object[] { CultureInfo.InvariantCulture };
+                return ToStringMethodInfo.Invoke(instance, arguments) as string;
+            }
+
+            return instance.ToString();
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Provides extended information about a type
+    /// This class is mainly used to define sets of types within the Constants class
+    /// and it is not meant for other than querying the VasicTypesInfo dictionary.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ExtendedTypeInfo<T> : ExtendedTypeInfo
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExtendedTypeInfo{T}"/> class.
+        /// </summary>
+        public ExtendedTypeInfo()
+            : base(typeof(T))
+        {
+            // placeholder
+        }
+
+        /// <summary>
+        /// Tries to parse the string into an object of the type this instance represents.
+        /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
+        /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="s">The s.</param>
+        /// <param name="result">The result.</param>
+        /// <returns></returns>
+        public bool TryParse(string s, out T result)
+        {
+            result = default(T);
+
+            object innerResult = null;
+            var success = TryParse(s, out innerResult);
+            if (success && innerResult != null)
+            {
+                result = (T)innerResult;
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Converts this instance to its string representation, 
+        /// trying to use the CultureInfo.InvariantCulture
+        /// IFormat provider if the overload is available
+        /// </summary>
+        public string ToStringInvariant(T instance)
+        {
+            return base.ToStringInvariant(instance);
         }
     }
 }

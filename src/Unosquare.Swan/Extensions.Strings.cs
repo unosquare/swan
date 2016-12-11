@@ -27,5 +27,43 @@
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Returns a string that represents the given item
+        /// It tries to use InvariantCulture if the ToString(IFormatProvider)
+        /// overload exists.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static string ToStringInvariant(this object item)
+        {
+            if (item == null)
+                return string.Empty;
+
+            var itemType = item.GetType();
+
+            if (itemType == typeof(string))
+                return item as string;
+
+            return Constants.BasicTypesInfo.ContainsKey(itemType) ?
+                Constants.BasicTypesInfo[itemType].ToStringInvariant(item) :
+                item.ToString();
+        }
+
+        /// <summary>
+        /// Returns a string that represents the given item
+        /// It tries to use InvariantCulture if the ToString(IFormatProvider)
+        /// overload exists.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static string ToStringInvariant<T>(this T item)
+        {
+            if (typeof(string) == typeof(T))
+                return item == null ? string.Empty : item as string;
+
+            return ToStringInvariant(item as object);
+        }
     }
 }
