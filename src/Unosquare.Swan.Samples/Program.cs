@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Unosquare.Swan;
+using Unosquare.Swan.Formatters;
 
 namespace Unosquare.Swan.Samples
 {
@@ -61,49 +59,20 @@ namespace Unosquare.Swan.Samples
 
         static void TestCsvFormatters()
         {
+            var writeTestFilePath = CurrentApp.GetDesktopFilePath("WriterTest.csv");
+            var rewriteTestFilePath = CurrentApp.GetDesktopFilePath("RewriterTest.csv");
 
-            var records = SampleCsvRecord.CreateSampleSet(100);
-            var writeTestFilename = "WriterTest.csv"; ;
-            var rewriteTestFilename = "RewriterTest.csv";
+            var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
+            $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
 
-            var writeTestFilePath = CurrentApp.GetDesktopFilePath(writeTestFilename);
-            var rewriteTestFilePath = CurrentApp.GetDesktopFilePath(rewriteTestFilename);
+            var savedRecordCount = CsvWriter.SaveRecords(generatedRecords, writeTestFilePath);
+            $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(writeTestFilePath)}.".Info(nameof(TestCsvFormatters));
 
-            if (File.Exists(writeTestFilePath))
-                File.Delete(writeTestFilePath);
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(writeTestFilePath);
+            $"Loaded {(loadedRecords.Count)} records from file: {Path.GetFileName(writeTestFilePath)}.".Info(nameof(TestCsvFormatters));
 
-            if (File.Exists(rewriteTestFilePath))
-                File.Delete(rewriteTestFilePath);
-
-            using (var stream = File.OpenWrite(writeTestFilePath))
-            {
-                var writer = new Formatters.CsvWriter(stream, Constants.Windows1252Encoding);
-                writer.WriteHeadings<SampleCsvRecord>();
-                writer.WriteObjects(records);
-            }
-
-            var recordsWithNewLines = records.Where(s => s.Description.Contains("\r") || s.Description.Contains("\r")).ToArray();
-            $"Records (a total of {recordsWithNewLines.Length}) {string.Join(", ", recordsWithNewLines.Select(r => r.Id))} have a newline sequence in the description".Trace(nameof(TestCsvFormatters));
-
-            var parsedRecords = new List<SampleCsvRecord>();
-            using (var reader = new Formatters.CsvReader(writeTestFilePath))
-            {
-                reader.ReadHeadings();
-                while (reader.EndOfStream == false)
-                {
-                    var record = reader.ReadObject<SampleCsvRecord>();
-                    parsedRecords.Add(record);
-                }
-            }
-
-            $"Parsed a total of {parsedRecords.Count} records".Trace(nameof(TestCsvFormatters));
-
-            using (var stream = File.OpenWrite(rewriteTestFilePath))
-            {
-                var writer = new Formatters.CsvWriter(stream, Constants.Windows1252Encoding);
-                writer.WriteHeadings<SampleCsvRecord>();
-                writer.WriteObjects(parsedRecords);
-            }
+            savedRecordCount = CsvWriter.SaveRecords(generatedRecords, rewriteTestFilePath);
+            $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(rewriteTestFilePath)}.".Info(nameof(TestCsvFormatters));
         }
     }
 

@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Formatters
     /// <summary>
     /// A CSV writer useful for exporting a set of objects or a 
     /// </summary>
-    public class CsvWriter
+    public class CsvWriter : IDisposable
     {
         #region Static Variables
 
@@ -26,7 +26,8 @@ namespace Unosquare.Swan.Formatters
         private readonly object SyncLock = new object();
         private Stream OutputStream = null;
         private Encoding Encoding = null;
-
+        private bool LeaveStreamOpen = false;
+        private bool IsDisposing = false;
         private ulong m_Count = 0;
 
         #endregion
@@ -34,14 +35,65 @@ namespace Unosquare.Swan.Formatters
         #region Constructors
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CsvWriter" /> class.
+        /// </summary>
+        /// <param name="outputStream">The output stream.</param>
+        /// <param name="leaveOpen">if set to <c>true</c> [leave open].</param>
+        /// <param name="encoding">The encoding.</param>
+        public CsvWriter(Stream outputStream, bool leaveOpen, Encoding encoding)
+        {
+            OutputStream = outputStream;
+            Encoding = encoding;
+            LeaveStreamOpen = leaveOpen;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter"/> class.
+        /// It automatically closes the stream when disposing this writer
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         /// <param name="encoding">The encoding.</param>
         public CsvWriter(Stream outputStream, Encoding encoding)
+            : this(outputStream, false, encoding)
         {
-            OutputStream = outputStream;
-            Encoding = encoding;
+            // placeholder
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvWriter"/> class.
+        /// It uses the Windows 1252 encoding and automatically closes
+        /// the stream upon disposing this writer
+        /// </summary>
+        /// <param name="outputStream">The output stream.</param>
+        public CsvWriter(Stream outputStream)
+            : this(outputStream, false, Constants.Windows1252Encoding)
+        {
+            // placeholder
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvWriter"/> class.
+        /// It opens the file given file, automatically closes the stream upon 
+        /// disposing of this writer, and uses the Windows 1252 encoding
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        public CsvWriter(string filename)
+            : this(File.OpenRead(filename), false, Constants.Windows1252Encoding)
+        {
+            // placeholder
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvWriter"/> class.
+        /// It opens the file given file, automatically closes the stream upon 
+        /// disposing of this writer, and uses the given text encoiding for output
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="encoding">The encoding.</param>
+        public CsvWriter(string filename, Encoding encoding)
+            : this(File.OpenRead(filename), false, encoding)
+        {
+            // placehoder
         }
 
         #endregion
@@ -104,9 +156,9 @@ namespace Unosquare.Swan.Formatters
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, ne line, or separator char)
                     needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                        || textValue.IndexOf(EscapeCharacter) >= 0 
-                        || textValue.IndexOf('\r') >=0 
-                        || textValue.IndexOf('\n') >=0;
+                        || textValue.IndexOf(EscapeCharacter) >= 0
+                        || textValue.IndexOf('\r') >= 0
+                        || textValue.IndexOf('\n') >= 0;
 
                     // Escape the escape characters by repeating them twice for every instance
                     textValue = textValue.Replace($"{EscapeCharacter}",
@@ -426,6 +478,70 @@ namespace Unosquare.Swan.Formatters
                     .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
                     .ToArray();
             }
+        }
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Saves the items to a CSV file.
+        /// If the file exits, it overwrites it. If it does not, it creates it.
+        /// It uses the Windows 1252 text encoding for output
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="filePath">The file path.</param>
+        /// <returns></returns>
+        static public int SaveRecords<T>(IEnumerable<T> items, string filePath)
+        {
+            var fullPath = Path.GetFullPath(filePath);
+
+            using (var stream = File.OpenWrite(fullPath))
+            {
+                // truncate the file if it had data
+                if (stream.Length > 0)
+                    stream.SetLength(0);
+
+                using (var writer = new CsvWriter(stream))
+                {
+                    writer.WriteHeadings<T>();
+                    writer.WriteObjects(items);
+                    return (int)writer.Count;
+                }
+            }
+        }
+
+        #endregion
+
+        #region IDisposable Support
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposeAlsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposeAlsoManaged)
+        {
+            if (!IsDisposing)
+            {
+                if (disposeAlsoManaged)
+                {
+                    if (LeaveStreamOpen == false)
+                    {
+                        OutputStream.Dispose();
+                    }
+                }
+
+                IsDisposing = true;
+            }
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
         }
 
         #endregion

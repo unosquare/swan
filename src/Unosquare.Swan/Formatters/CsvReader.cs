@@ -81,6 +81,29 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
+        /// It will automatically close the stream upn disposing
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="textEncoding">The text encoding.</param>
+        public CsvReader(Stream stream, Encoding textEncoding)
+            : this(stream, false, textEncoding)
+        {
+            // placeholder
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvReader"/> class.
+        /// It automatically closes the stream when disposing this reader
+        /// and uses the Windows 1253 encoding
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        public CsvReader(Stream stream)
+            : this(stream, false, Constants.Windows1252Encoding)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvReader"/> class.
         /// It uses the Windows 1252 Encoding by default and it automatically closes the file
         /// when this reader is disposed of.
         /// </summary>
@@ -101,16 +124,6 @@
             : this(File.OpenRead(filename), false, encoding)
         {
             // placehoder
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It automatically closes the stream when disposing this reader
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        public CsvReader(Stream stream)
-            : this(stream, false, Constants.Windows1252Encoding)
-        {
         }
 
         #endregion
@@ -534,6 +547,34 @@
             }
 
             return values.ToArray();
+        }
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Loads the records from the give file path.
+        /// This method uses Windows 1252 encoding
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath">The file path.</param>
+        /// <returns></returns>
+        static public IList<T> LoadRecords<T>(string filePath)
+            where T : new()
+        {
+            var result = new List<T>();
+            using (var reader = new Formatters.CsvReader(filePath))
+            {
+                reader.ReadHeadings();
+                while (reader.EndOfStream == false)
+                {
+                    var record = reader.ReadObject<T>();
+                    result.Add(record);
+                }
+            }
+
+            return result;
         }
 
         #endregion
