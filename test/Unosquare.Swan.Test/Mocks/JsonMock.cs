@@ -11,6 +11,10 @@ namespace Unosquare.Swan.Test.Mocks
 
         public int IntData { get; set; }
 
+        public int NegativeInt { get; set; }
+
+        public decimal DecimalData { get; set; }
+
         public bool BoolData { get; set; }
 
         public string StringNull { get; set; }
