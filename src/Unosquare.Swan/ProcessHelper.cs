@@ -40,7 +40,7 @@
                 var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
                 var readCount = -1; // the bytes read in any given event
                 ulong totalCount = 0; // the total amount of bytes read
-                bool hasExited = false;
+                var hasExited = false;
 
                 while (ct.IsCancellationRequested == false)
                 {
@@ -82,7 +82,7 @@
                         // When no read is done, we need to let is rest for a bit
                         if (readCount <= 0)
                         {
-                            await Task.Delay(1); // do not hog CPU cycles doing nothing.
+                            await Task.Delay(1, ct); // do not hog CPU cycles doing nothing.
                             continue;
                         }
                             
@@ -93,7 +93,7 @@
                             var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
 
                             // Create the data processing callback invocation
-                            var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); });
+                            var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); }, ct);
                             
                             // wait for the event to process before the next read occurs
                             if (syncEvents) eventTask.Wait(ct);

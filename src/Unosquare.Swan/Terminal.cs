@@ -34,7 +34,7 @@
                 OriginalColor = Settings.DefaultColor;
             }
 
-            public ConsoleColor OriginalColor { get; set; }
+            public ConsoleColor OriginalColor { get; }
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
         }

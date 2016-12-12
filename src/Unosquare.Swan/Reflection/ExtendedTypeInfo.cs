@@ -73,7 +73,7 @@
                     TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
                         new Type[] { typeof(string), UnderlyingType.MakeByRefType() });
 
-                TryParseParameters = TryParseMethodInfo == null ? null : TryParseMethodInfo.GetParameters();
+                TryParseParameters = TryParseMethodInfo?.GetParameters();
             }
             catch { }
 
@@ -91,11 +91,12 @@
 
                 }
 
-                ToStringArgumentLength = ToStringMethodInfo == null ? 0 : ToStringMethodInfo.GetParameters().Length;
+                ToStringArgumentLength = ToStringMethodInfo?.GetParameters().Length ?? 0;
             }
-            catch { }
-
-
+            catch
+            {
+                // ignored
+            }
         }
 
         #endregion
@@ -105,12 +106,12 @@
         /// <summary>
         /// Gets the type this extended info class provides for.
         /// </summary>
-        public Type Type { get; private set; }
+        public Type Type { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type is a nullable value type.
         /// </summary>
-        public bool IsNullableValueType { get; private set; }
+        public bool IsNullableValueType { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type or underlying type is numeric.
@@ -128,24 +129,24 @@
         /// return the underlying value type of the nullable,
         /// Otherwise it will return the same type as the Type property
         /// </summary>
-        public Type UnderlyingType { get; private set; }
+        public Type UnderlyingType { get; }
 
         /// <summary>
         /// Gets the try parse method information. If the type does not contain
         /// a suitable TryParse static method, it will return null.
         /// </summary>
-        public MethodInfo TryParseMethodInfo { get; private set; }
+        public MethodInfo TryParseMethodInfo { get; }
 
         /// <summary>
         /// Gets the ToString method info
         /// It will prefer the overload containing the IFormatProvider argument
         /// </summary>
-        public MethodInfo ToStringMethodInfo { get; private set; }
+        public MethodInfo ToStringMethodInfo { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type contains a suitable TryParse method.
         /// </summary>
-        public bool CanParseNatively { get { return TryParseMethodInfo != null; } }
+        public bool CanParseNatively => TryParseMethodInfo != null;
 
         #endregion
 
@@ -200,8 +201,8 @@
                 }
 
                 // Build the arguments of the TryParse method
-                var dynamicArguments = new List<object>();
-                dynamicArguments.Add(s);
+                var dynamicArguments = new List<object> {s};
+
                 for (var pi = 1; pi < TryParseParameters.Length - 1; pi++)
                 {
                     var argInfo = TryParseParameters[pi];
@@ -212,8 +213,9 @@
                     else
                         dynamicArguments.Add(null);
                 }
+
                 dynamicArguments.Add(null);
-                object[] parseArguments = dynamicArguments.ToArray();
+                var parseArguments = dynamicArguments.ToArray();
 
                 var parseResult = (bool)TryParseMethodInfo.Invoke(null, parseArguments);
                 if (parseResult == false)
@@ -244,11 +246,9 @@
             if (instance == null)
                 return string.Empty;
 
-            object[] arguments = null;
-
             if (ToStringArgumentLength == 1)
             {
-                arguments = new object[] { CultureInfo.InvariantCulture };
+                var arguments = new object[] { CultureInfo.InvariantCulture };
                 return ToStringMethodInfo.Invoke(instance, arguments) as string;
             }
 
@@ -288,7 +288,7 @@
         {
             result = default(T);
 
-            object innerResult = null;
+            object innerResult;
             var success = TryParse(s, out innerResult);
             if (success && innerResult != null)
             {

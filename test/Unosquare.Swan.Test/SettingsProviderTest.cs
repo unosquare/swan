@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Unosquare.Swan.Abstractions;
@@ -11,7 +12,10 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class SettingsProviderTest
     {
-        private SettingsProvider<AppSettingMock> mock = new SettingsProvider<AppSettingMock>();
+        private readonly SettingsProvider<AppSettingMock> mock = new SettingsProvider<AppSettingMock>()
+        {
+            ConfigurationFilePath = Path.GetTempFileName()
+        };
 
         [Test]
         public void TryGlobalTest()

@@ -8,7 +8,6 @@
 
     public static partial class Extensions
     {
-
         private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
         private static readonly Lazy<PropertyTypeCache> CopyPropertiesSources = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
 

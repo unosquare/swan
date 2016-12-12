@@ -1,28 +1,22 @@
 ﻿namespace Unosquare.Swan.Abstractions
 {
     using Reflection;
+    using Unosquare.Swan.Formatters;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-#if NET452
-    using System.Web.Script.Serialization;
-#endif
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <seealso cref="Unosquare.Swan.Abstractions.SingletonBase{Unosquare.Swan.Abstractions.SettingsProvider{T}}" />
     public class SettingsProvider<T> : SingletonBase<SettingsProvider<T>>
     {
-#if NET452
-        private JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
-#endif
         private T _global;
 
-        public string ConfigurationFilePath { get; set; } = CurrentApp.EntryAssemblyDirectory;
+        public string ConfigurationFilePath { get; set; } = Path.Combine(CurrentApp.EntryAssemblyDirectory, "appsettings.json");
 
         /// <summary>
         /// Gets the global settings object
@@ -48,15 +42,13 @@
         {
             lock (SyncRoot)
             {
-                if (File.Exists(ConfigurationFilePath) == false)
+                if (File.Exists(ConfigurationFilePath) == false || File.ReadAllText(ConfigurationFilePath).Length == 0)
                 {
                     _global = Activator.CreateInstance<T>();
                     PersistGlobalSettings();
                 }
-
-#if NET452
-                _global = javaScriptSerializer.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
-#endif
+                
+                _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
             }
         }
 
@@ -79,10 +71,8 @@
         {
             lock (SyncRoot)
             {
-#if NET452
-                var stringData = javaScriptSerializer.Serialize(Global);
+                var stringData = Json.Serialize(Global);
                 File.WriteAllText(ConfigurationFilePath, stringData);
-#endif
             }
         }
 
@@ -94,10 +84,9 @@
         {
             foreach (var property in list)
             {
-                // TODO: evaluate if the value changed and report back
-
                 var prop = Current.Global.GetType().GetTypeInfo().GetProperty(property.Property);
-                var originalValue = prop.GetValue(Current.Global);
+                // TODO: evaluate if the value changed and report back
+                //var originalValue = prop.GetValue(Current.Global);
 
                 if (prop.PropertyType == typeof(bool))
                     prop.SetValue(Current.Global, Convert.ToBoolean(property.Value));
@@ -105,8 +94,8 @@
                     prop.SetValue(Current.Global, Convert.ToInt32(property.Value));
                 else if (prop.PropertyType == typeof(int?))
                 {
-                    if (property.Value == null) prop.SetValue(Current.Global, property.Value);
-                    else prop.SetValue(Current.Global, Convert.ToInt32(property.Value));
+                    prop.SetValue(Current.Global,
+                        property.Value == null ? property.Value : Convert.ToInt32(property.Value));
                 }
                 else if (prop.PropertyType == typeof(int[]))
                     prop.SetValue(Current.Global, property.Value.ToString().Split(',').Select(int.Parse).ToArray());
@@ -118,40 +107,18 @@
                 Current.PersistGlobalSettings();
             }
         }
-
-        /// <summary>
-        /// Parses the property.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        private ExtendedPropertyInfo ParseProperty(string value)
-        {
-            if (value == null) return null;
-
-            var sets = value.Split('|');
-            if (sets.Length != 3) return null;
-
-            var prop = new ExtendedPropertyInfo<T>(sets[1]);
-            prop.Value = sets[2];
-
-            return prop;
-        }
-
+        
         /// <summary>
         /// Gets the list.
         /// </summary>
         /// <returns></returns>
         internal List<ExtendedPropertyInfo<T>> GetList()
         {
-#if NET452
-            var dict = javaScriptSerializer.Deserialize<Dictionary<string, object>>(GetJsonData());
+            var dict = Json.Deserialize<Dictionary<string, object>>(GetJsonData());
 
             return dict.Keys
                     .Select(x => new ExtendedPropertyInfo<T>(x) { Value = dict[x] })
                     .ToList();
-#else
-            return null;
-#endif
         }
     }
 }

@@ -19,8 +19,8 @@
             where T : struct, IComparable
         {
             if (value.CompareTo(min) < 0) return min;
-            if (value.CompareTo(max) > 0) return max;
-            return value;
+
+            return value.CompareTo(max) > 0 ? max : value;
         }
 
         /// <summary>
@@ -38,8 +38,8 @@
         {
             if (value.CompareTo(min) < 0 || value.CompareTo(max) > 0)
                 return false;
-            else
-                return true;
+
+            return true;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@
         /// <returns></returns>
         public static string ToSortableDate(this DateTime date)
         {
-            return $"{date.Year.ToString("0000")}-{date.Month.ToString("00")}-{date.Day.ToString("00")}";
+            return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}";
         }
 
         /// <summary>
@@ -59,7 +59,7 @@
         /// <returns></returns>
         public static string ToSortableDateTime(this DateTime date)
         {
-            return $"{date.Year.ToString("0000")}-{date.Month.ToString("00")}-{date.Day.ToString("00")} {date.Hour.ToString("00")}:{date.Minute.ToString("00")}:{date.Second.ToString("00")}";
+            return $"{date.Year:0000}-{date.Month:00}-{date.Day:00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
         }
 
         /// <summary>
@@ -76,31 +76,27 @@
             if (string.IsNullOrWhiteSpace(sortableDate))
                 throw new ArgumentNullException(nameof(sortableDate));
 
-            var year = 2000;
-            var month = 1;
-            var day = 1;
-
             var hour = 0;
             var minute = 0;
             var second = 0;
 
-            var dateTimeParts = sortableDate.Split(new char[] { ' ' });
+            var dateTimeParts = sortableDate.Split(' ');
 
             try
             {
                 if (dateTimeParts.Length != 1 && dateTimeParts.Length != 2)
                     throw new Exception();
 
-                var dateParts = dateTimeParts[0].Split(new char[] { '-' });
+                var dateParts = dateTimeParts[0].Split('-');
                 if (dateParts.Length != 3) throw new Exception();
 
-                year = int.Parse(dateParts[0]);
-                month = int.Parse(dateParts[1]);
-                day = int.Parse(dateParts[2]);
+                var year = int.Parse(dateParts[0]);
+                var month = int.Parse(dateParts[1]);
+                var day = int.Parse(dateParts[2]);
 
                 if (dateTimeParts.Length > 1)
                 {
-                    var timeParts = dateTimeParts[1].Split(new char[] { ':' });
+                    var timeParts = dateTimeParts[1].Split(':');
                     if (timeParts.Length != 3) throw new Exception();
 
                     hour = int.Parse(timeParts[0]);

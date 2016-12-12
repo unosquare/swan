@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Unosquare.Swan
 {
@@ -18,7 +15,7 @@ namespace Unosquare.Swan
             /// <value>
             /// The color of the border.
             /// </value>
-            public static ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGreen;
+            private static ConsoleColor BorderColor { get; } = ConsoleColor.DarkGreen;
 
             public static void Vertical()
             {

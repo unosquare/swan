@@ -405,7 +405,6 @@
         /// Reads a line of CSV text converting it into an object of the given type, and assuming
         /// the property names of the target type match the heading names of the file.
         /// </summary>
-        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public T ReadObject<T>()

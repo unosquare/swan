@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Unosquare.Swan.Abstractions;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Test.Mocks;
 
@@ -10,8 +12,16 @@ namespace Unosquare.Swan.Test
 {
     public class Program
     {
+        private static readonly SettingsProvider<AppSettingMock> mock = new SettingsProvider<AppSettingMock>()
+        {
+            ConfigurationFilePath = Path.GetTempFileName()
+        };
+
         public static void Main(string[] args)
         {
+            mock.ConfigurationFilePath.Info();
+            mock.Global.ToStringInvariant().Info();
+
             #region basic obj
 
             var basicObj = new BasicJson { StringData = "string", IntData = 1, NegativeInt = -1, DecimalData = 10.33M, BoolData = true };

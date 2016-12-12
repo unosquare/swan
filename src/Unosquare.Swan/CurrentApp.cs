@@ -5,7 +5,7 @@
     using System.IO;
     using System.Reflection;
     using System.Threading;
-    
+
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
     /// </summary>
@@ -77,22 +77,6 @@
             {
                 if (ApplicationOs == Os.Unknown)
                 {
-#if NET452
-                    var p = (int)Environment.OSVersion.Platform;
-
-                    if ((p == 4) || (p == 6) || (p == 128))
-                    {
-                        var uname = ProcessHelper.GetProcessOutputAsync("uname").Result;
-
-                        ApplicationOs = string.IsNullOrWhiteSpace(uname) == false && uname.ToLower().Contains("darwin")
-                            ? Os.Osx
-                            : Os.Unix;
-                    }
-                    else
-                    {
-                        ApplicationOs = Os.Windows;
-                    }
-#else
                     var windir = Environment.GetEnvironmentVariable("windir");
                     if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
                     {
@@ -102,7 +86,6 @@
                     {
                         ApplicationOs = File.Exists(@"/proc/sys/kernel/ostype") ? Os.Unix : Os.Osx;
                     }
-#endif
                 }
 
                 return ApplicationOs;
@@ -110,11 +93,11 @@
         }
 
 #if NET452
-        /// <summary>
-        /// Build a full path pointing to the current user's desktop with the given filename
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <returns></returns>
+/// <summary>
+/// Build a full path pointing to the current user's desktop with the given filename
+/// </summary>
+/// <param name="filename">The filename.</param>
+/// <returns></returns>
         public static string GetDesktopFilePath(string filename)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -122,19 +105,19 @@
             return Path.GetFullPath(pathWithFilename);
         }
 #endif
+
         /// <summary>
         /// Gets the local storage path.
         /// </summary>
-        /// <value>
         public static string LocalStoragePath
         {
             get
             {
                 var localAppDataPath =
 #if NET452
-                Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
+                        Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
 #else
-                Path.GetDirectoryName(EntryAssembly.Location);
+                    Path.GetDirectoryName(EntryAssembly.Location);
 #endif
 
                 var returnPath = Path.Combine(localAppDataPath, EntryAssembly.GetName().Version.ToString());
@@ -157,9 +140,7 @@
             {
                 lock (SyncLock)
                 {
-                    if (m_Process == null)
-                        m_Process = Process.GetCurrentProcess();
-                    return m_Process;
+                    return m_Process ?? (m_Process = Process.GetCurrentProcess());
                 }
             }
         }
@@ -167,16 +148,7 @@
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
-        public static Assembly EntryAssembly
-        {
-            get
-            {
-                if (m_EntryAssembly == null)
-                    m_EntryAssembly = Assembly.GetEntryAssembly();
-
-                return m_EntryAssembly;
-            }
-        }
+        public static Assembly EntryAssembly => m_EntryAssembly ?? (m_EntryAssembly = Assembly.GetEntryAssembly());
 
         /// <summary>
         /// Gets the full path of the assembly that started the application.
