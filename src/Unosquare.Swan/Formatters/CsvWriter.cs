@@ -25,9 +25,9 @@ namespace Unosquare.Swan.Formatters
         #region State Variables
 
         private readonly object SyncLock = new object();
-        private Stream OutputStream = null;
-        private Encoding Encoding = null;
-        private bool LeaveStreamOpen = false;
+        private readonly Stream OutputStream = null;
+        private readonly Encoding Encoding = null;
+        private readonly bool LeaveStreamOpen = false;
         private bool IsDisposing = false;
         private ulong m_Count = 0;
 
@@ -87,14 +87,14 @@ namespace Unosquare.Swan.Formatters
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvWriter"/> class.
         /// It opens the file given file, automatically closes the stream upon 
-        /// disposing of this writer, and uses the given text encoiding for output
+        /// disposing of this writer, and uses the given text encoding for output
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="encoding">The encoding.</param>
         public CsvWriter(string filename, Encoding encoding)
             : this(File.OpenRead(filename), false, encoding)
         {
-            // placehoder
+            // placeholder
         }
 
         #endregion
@@ -155,7 +155,7 @@ namespace Unosquare.Swan.Formatters
                     textValue = value == null ? string.Empty : value.ToStringInvariant();
 
                     // Determine if we need the string to be enclosed 
-                    // (it either contains an escape, ne line, or separator char)
+                    // (it either contains an escape, new line, or separator char)
                     needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
                         || textValue.IndexOf(EscapeCharacter) >= 0
                         || textValue.IndexOf('\r') >= 0
@@ -406,7 +406,7 @@ namespace Unosquare.Swan.Formatters
             var keys = new List<object>();
             foreach (var key in dictionary.Keys)
             {
-                var stringKey = key == null ? string.Empty : key;
+                var stringKey = key ?? string.Empty;
                 if (IgnorePropertyNames.Contains(stringKey))
                     continue;
 
@@ -446,7 +446,7 @@ namespace Unosquare.Swan.Formatters
             var values = new List<object>();
             foreach (var key in dictionary.Keys)
             {
-                var stringKey = key == null ? string.Empty : key;
+                var stringKey = key ?? string.Empty;
                 if (IgnorePropertyNames.Contains(stringKey))
                     continue;
 

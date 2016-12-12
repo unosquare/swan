@@ -90,10 +90,7 @@
             {
                 lock (SyncLock)
                 {
-                    if (Cache.ContainsKey(type))
-                        return Cache[type];
-
-                    return null;
+                    return Cache.ContainsKey(type) ? Cache[type] : null;
                 }
             }
             set

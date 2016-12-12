@@ -125,9 +125,10 @@
                 if (m_IsConsolePresent == null)
                 {
                     m_IsConsolePresent = true;
-                    try { int window_height = Console.WindowHeight; }
+                    try { var windowHeight = Console.WindowHeight; }
                     catch { m_IsConsolePresent = false; }
                 }
+
                 return m_IsConsolePresent.Value;
             }
         }
@@ -141,10 +142,10 @@
 
             lock (SyncLock)
             {
-                $"Output Encoding: {OutputEncoding.ToString()}".WriteLine();
+                $"Output Encoding: {OutputEncoding}".WriteLine();
                 for (byte b = 0; b < byte.MaxValue; b++)
                 {
-                    char c = OutputEncoding.GetChars(new byte[] { b })[0];
+                    char c = OutputEncoding.GetChars(new[] { b })[0];
                     switch (b)
                     {
                         case 8: // Backspace

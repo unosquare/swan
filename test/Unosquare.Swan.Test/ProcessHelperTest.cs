@@ -18,7 +18,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task GetValidRunProcessAsyncTest()
         {
-            const int OkCode = 0;
+            const int okCode = 0;
             string output = null;
 
             var result = await ProcessHelper.RunProcessAsync("dotnet", "--help", (data, proc) =>
@@ -27,7 +27,7 @@ namespace Unosquare.Swan.Test
 
             }, null, true, default(CancellationToken));
 
-            Assert.IsTrue(result == OkCode);
+            Assert.IsTrue(result == okCode);
             Assert.IsNotNull(output);
         }
 
@@ -35,7 +35,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task GetInvalidRunProcessAsyncTest()
         {
-            const int ErrorCode = 1;
+            const int errorCode = 1;
             string output = null;
 
             var result = await ProcessHelper.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
@@ -44,7 +44,7 @@ namespace Unosquare.Swan.Test
 
             }, true, default(CancellationToken));
 
-            Assert.IsTrue(result == ErrorCode);
+            Assert.IsTrue(result == errorCode);
             Assert.IsNotNull(output);
         }
 

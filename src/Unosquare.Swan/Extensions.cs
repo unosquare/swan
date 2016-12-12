@@ -8,12 +8,12 @@
 
     public static partial class Extensions
     {
-        private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
-        private static readonly Lazy<PropertyTypeCache> CopyPropertiesSources = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
+        private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+        private static readonly Lazy<PropertyTypeCache> CopyPropertiesSources = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writeable property in the destination
+        /// tries to write a compatible value to a public, instance, writable property in the destination
         /// This method only supports basic types and it is not multi level
         /// </summary>
         /// <typeparam name="T">The type of the source.</typeparam>
@@ -27,7 +27,7 @@
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
-        /// tries to write a compatible value to a public, instance, writeable property in the destination
+        /// tries to write a compatible value to a public, instance, writable property in the destination
         /// This method only supports basic types and it is not multi level
         /// </summary>
         /// <param name="source">The source.</param>
@@ -36,7 +36,6 @@
         /// <returns>Returns the number of properties that were successfully copied</returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
         {
-
             var copiedProperties = 0;
 
             // Sources
@@ -90,7 +89,7 @@
 
                     // String to target type conversion
                     var sourceStringValue = sourceProperty.GetValue(source).ToStringInvariant();
-                    object targetValue = null;
+                    object targetValue;
                     if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue, out targetValue))
                     {
                         targetProperty.SetValue(target, targetValue);

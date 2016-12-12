@@ -37,9 +37,7 @@
         private bool HasDisposed = false; // To detect redundant calls
         private string[] Headings = null;
         private Dictionary<string, string> DefaultMap = null;
-        private Stream InputStream = null;
         private StreamReader Reader = null;
-        private bool LeaveInputStreamOpen = false;
 
         #endregion
 
@@ -73,15 +71,13 @@
 
             if (textEncoding == null)
                 throw new NullReferenceException(nameof(textEncoding));
-
-            InputStream = inputStream;
-            LeaveInputStreamOpen = leaveOpen;
+            
             Reader = new StreamReader(inputStream, textEncoding, true, 2048, leaveOpen);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvReader"/> class.
-        /// It will automatically close the stream upn disposing
+        /// It will automatically close the stream upon disposing
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="textEncoding">The text encoding.</param>
@@ -226,7 +222,6 @@
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
                 var line = ParseRecord(Reader, m_EscapeCharacter, m_SeparatorCharacter);
-                return;
             }
         }
 
@@ -265,7 +260,7 @@
         /// <summary>
         /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings
         /// </summary>
-        /// <param name="map">The mapppings between CSV headings (keys) and object properties (values)</param>
+        /// <param name="map">The mappings between CSV headings (keys) and object properties (values)</param>
         /// <returns></returns>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
@@ -297,7 +292,7 @@
 
         /// <summary>
         /// Reads a line of CSV text, converting it into a dynamic object
-        /// The property names ocrrespond to the names of the CSV headings
+        /// The property names correspond to the names of the CSV headings
         /// </summary>
         /// <returns></returns>
         public IDictionary<string, object> ReadObject()
@@ -308,7 +303,7 @@
         /// <summary>
         /// Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
         /// where the keys are the names of the headings and the values are the names of the instance properties
-        /// in the given Type. The result object must be already intantiated.
+        /// in the given Type. The result object must be already instantiated.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="map">The map.</param>
@@ -353,7 +348,7 @@
                     if (i > values.Length - 1)
                         break;
 
-                    // skip if no heading is availabale or the heading is empty
+                    // skip if no heading is available or the heading is empty
                     if (map.ContainsKey(Headings[i]) == false &&
                         string.IsNullOrWhiteSpace(map[Headings[i]]) == false)
                         continue;
@@ -533,7 +528,7 @@
                 }
             }
 
-            // If we ended up pushing quoted and no closing closing quotes we might
+            // If we ended up pushing quoted and no closing quotes we might
             // have additional text in yt 
             if (currentValue.Length > 0)
             {

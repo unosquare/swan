@@ -38,10 +38,9 @@
         /// <param name="oldState">The old state.</param>
         /// <param name="newState">The new state.</param>
         public AppWorkerStateChangedEventArgs(AppWorkerState oldState, AppWorkerState newState)
-            : base()
         {
-            this.OldState = oldState;
-            this.NewState = newState;
+            OldState = oldState;
+            NewState = newState;
         }
     }
 

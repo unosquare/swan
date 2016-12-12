@@ -19,8 +19,7 @@
         private const string TryParseMethodName = nameof(byte.TryParse);
         private const string ToStringMethodName = nameof(object.ToString);
 
-        private static readonly Type[] NumericTypes = new Type[]
-        {
+        private static readonly Type[] NumericTypes = {
             typeof (byte),
             typeof (sbyte),
             typeof (decimal),
@@ -38,8 +37,8 @@
 
         #region State Management
 
-        private ParameterInfo[] TryParseParameters = null;
-        private int ToStringArgumentLength = 0;
+        private readonly ParameterInfo[] TryParseParameters;
+        private readonly int ToStringArgumentLength;
 
         #endregion
 
@@ -67,22 +66,25 @@
             try
             {
                 TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
-                    new Type[] { typeof(string), typeof(NumberStyles), typeof(IFormatProvider), UnderlyingType.MakeByRefType() });
+                    new[] { typeof(string), typeof(NumberStyles), typeof(IFormatProvider), UnderlyingType.MakeByRefType() });
 
                 if (TryParseMethodInfo == null)
                     TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
-                        new Type[] { typeof(string), UnderlyingType.MakeByRefType() });
+                        new[] { typeof(string), UnderlyingType.MakeByRefType() });
 
                 TryParseParameters = TryParseMethodInfo?.GetParameters();
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
 
             // Extract the ToString method Info
             try
             {
                 ToStringMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
-                    new Type[] { typeof(IFormatProvider) });
+                    new[] { typeof(IFormatProvider) });
 
                 if (ToStringMethodInfo == null)
                 {
@@ -159,10 +161,7 @@
         /// <returns></returns>
         public object GetDefault()
         {
-            if (Type.GetTypeInfo().IsValueType)
-                return Activator.CreateInstance(Type);
-
-            return null;
+            return Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
         }
 
         /// <summary>

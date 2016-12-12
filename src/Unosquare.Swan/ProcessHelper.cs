@@ -48,7 +48,7 @@
                     {
                         // Check if process is no longer valid
                         // if this condition holds, simply read the last bits of data available.
-                        if (process.HasExited || process.WaitForExit(1) == true)
+                        if (process.HasExited || process.WaitForExit(1))
                         {
                             while (true)
                             {
