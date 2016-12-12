@@ -24,27 +24,8 @@ install:
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; fi
   - if [[ $DOTNETCORE == "1" ]]; then dotnet restore; else nuget restore Unosquare.Swan.sln; fi
   - if [[ $DOTNETCORE == "" ]]; then nuget install NUnit.ConsoleRunner -OutputDirectory testrunner; fi
-  - if [[ $DOTNETCORE == "" ]]; then nuget install coveralls.net -Version 0.6.0 -OutputDirectory coveralls; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then sudo apt-get install gtk-sharp2; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then curl -sS https://api.nuget.org/packages/mono.cecil.0.9.6.4.nupkg > /tmp/mono.cecil.0.9.6.4.nupkg.zip; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then unzip /tmp/mono.cecil.0.9.6.4.nupkg.zip -d /tmp/cecil; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then cp /tmp/cecil/lib/net40/Mono.Cecil.dll .; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then git clone --depth=50 git://github.com/csMACnz/monocov.git ../../unosquare/monocov; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then cd ../../unosquare/monocov; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then cp /tmp/cecil/Mono.Cecil.dll .; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then ./configure; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then make; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then sudo make install; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then cd ../../unosquare/swan; fi
 before_script:
   - if [[ $DOTNETCORE == "" ]]; then export LD_LIBRARY_PATH=/usr/local/lib; fi
-  - if [[ $DOTNETCORE == "" ]]; then export MONO_IOMAP=all; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then REPO_COMMIT_AUTHOR=$(git show -s --pretty=format:"%cn"); fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then REPO_COMMIT_AUTHOR_EMAIL=$(git show -s --pretty=format:"%ce"); fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then REPO_COMMIT_MESSAGE=$(git show -s --pretty=format:"%s"); fi
 script:
   - if [[ $DOTNETCORE == "" ]]; then xbuild Unosquare.Swan.sln /p:Configuration=Release; else dotnet test ./test/Unosquare.Swan.Test; fi
-  - if [[ $DOTNETCORE == "" ]]; then mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[Unosquare.Swan] ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe --process=Single ./test/Unosquare.Swan.Test/bin/Release/Unosquare.Swan.Tests.dll; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then monocov --export-xml=monocovCoverage monocovCoverage.cov; fi
-  - if [[ $DOTNETCORE == "" ]] && [[ $TRAVIS_OS_NAME == "linux" ]]; then mono ./coveralls/coveralls.net.0.6.0/tools/csmacnz.Coveralls.exe --monocov -i ./monocovCoverage --repoToken CI2B6yXBei8O8COPvNCpNyHlO5njsBFOK --commitId $TRAVIS_COMMIT --commitBranch $TRAVIS_BRANCH --commitAuthor "$REPO_COMMIT_AUTHOR" --commitEmail "$REPO_COMMIT_AUTHOR_EMAIL" --commitMessage "$REPO_COMMIT_MESSAGE" --jobId $TRAVIS_JOB_ID  --serviceName travis-ci  --useRelativePaths; fi
+  - if [[ $DOTNETCORE == "" ]]; then mono --debug ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe --process=Single ./test/Unosquare.Swan.Test/bin/Release/Unosquare.Swan.Tests.dll; fi
