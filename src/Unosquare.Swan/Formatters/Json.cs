@@ -21,6 +21,11 @@ namespace Unosquare.Swan.Formatters
 
         const char StringEscapeCharacter = '\\';
         const char StringQuotedCharacter = '"';
+        const char MinusNumberCharacter = '-';
+
+        const string TrueValue = "true";
+        const string FalseValue = "false";
+        const string NullValue = "null";
 
         #endregion
 
@@ -90,7 +95,6 @@ namespace Unosquare.Swan.Formatters
         {
             var result = Activator.CreateInstance<T>();
             var currentState = ReadState.WaitingForNewField;
-            var currentIsString = false;
             var currentPropertyName = new StringBuilder(1024);
             var currentValue = new StringBuilder(1024);
 
@@ -101,7 +105,7 @@ namespace Unosquare.Swan.Formatters
                     .Where(x => x.CanWrite && Constants.BasicTypesInfo.ContainsKey(x.PropertyType));
             });
 
-            var setPropertyAction = new Action<string, string>((propertyName, propertyStringValue) =>
+            var setPropertyAction = new Action<string, string, bool>((propertyName, propertyStringValue, isNull) =>
             {
                 if (string.IsNullOrWhiteSpace(propertyName)) return;
 
@@ -114,9 +118,16 @@ namespace Unosquare.Swan.Formatters
                 // Parse and assign the basic type value to the property
                 try
                 {
-                    object propertyValue = null;
-                    if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyStringValue, out propertyValue))
-                        targetProperty.SetValue(result, propertyValue);
+                    if (isNull)
+                    {
+                        targetProperty.SetValue(result, null);
+                    }
+                    else
+                    {
+                        object propertyValue = null;
+                        if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyStringValue, out propertyValue))
+                            targetProperty.SetValue(result, propertyValue);
+                    }
                 }
                 catch
                 {
@@ -136,7 +147,7 @@ namespace Unosquare.Swan.Formatters
                     case ReadState.WaitingForNewField:
                         {
                             // clean up
-                            setPropertyAction(currentPropertyName.ToString(), currentValue.ToString());
+                            setPropertyAction(currentPropertyName.ToString(), currentValue.ToString(), false);
                             currentPropertyName.Clear();
                             currentValue.Clear();
 
@@ -166,12 +177,39 @@ namespace Unosquare.Swan.Formatters
                             {
                                 currentState = ReadState.PushingValue;
                             }
+                            else if (currentChar == MinusNumberCharacter ||
+                                char.IsNumber(currentChar))
+                            {
+                                currentState = ReadState.PushingValue;
+                                currentValue.Append(currentChar);
+                            }
+                            else if (currentChar == TrueValue[0] && nextChar.HasValue && nextChar == TrueValue[1])
+                            {
+                                setPropertyAction(currentPropertyName.ToString(), true.ToStringInvariant(), false);
+                                charIndex += TrueValue.Length;
 
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
+                            {
+                                setPropertyAction(currentPropertyName.ToString(), false.ToStringInvariant(), false);
+                                charIndex += FalseValue.Length;
+
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
+                            {
+                                setPropertyAction(currentPropertyName.ToString(), null, true);
+                                charIndex += NullValue.Length;
+
+                                currentState = ReadState.WaitingForNewField;
+                            }
                             break;
                         }
                     case ReadState.PushingValue:
                         {
-                            if (currentChar == StringQuotedCharacter)
+                            if (currentChar == StringQuotedCharacter || 
+                                currentChar == FieldSeparatorCharacter)
                             {
                                 currentState = ReadState.WaitingForNewField;
                             }
