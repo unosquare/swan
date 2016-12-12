@@ -9,13 +9,13 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides methods to help create external processes, caputre the
-    /// standar error and standard input streams.
+    /// Provides methods to help create external processes, capture the
+    /// standard error and standard input streams.
     /// </summary>
     static public class ProcessHelper
     {
         /// <summary>
-        /// Defines a delegate to handle binary data reception from the snadard 
+        /// Defines a delegate to handle binary data reception from the standard 
         /// output or standard error streams from a process
         /// </summary>
         /// <param name="processData">The process data.</param>
@@ -37,7 +37,7 @@
             return await Task.Factory.StartNew(async () =>
             {
                 // define some state variables
-                var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to teh next
+                var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
                 var readCount = -1; // the bytes read in any given event
                 ulong totalCount = 0; // the total amount of bytes read
                 bool hasExited = false;
@@ -82,7 +82,7 @@
                         // When no read is done, we need to let is rest for a bit
                         if (readCount <= 0)
                         {
-                            await Task.Delay(1); // do not hog CPU cycles fdoing nothing.
+                            await Task.Delay(1); // do not hog CPU cycles doing nothing.
                             continue;
                         }
                             
@@ -92,7 +92,7 @@
                             // Create the buffer to pass to the callback
                             var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
 
-                            // Create the dcata processing callback invocation
+                            // Create the data processing callback invocation
                             var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); });
                             
                             // wait for the event to process before the next read occurs
@@ -162,7 +162,7 @@
                     }
                 };
 
-                // Launch the process and discard any buffered data for stadard error and standar output
+                // Launch the process and discard any buffered data for standard error and standard output
                 process.Start();
                 process.StandardError.DiscardBufferedData();
                 process.StandardOutput.DiscardBufferedData();
@@ -197,7 +197,7 @@
                             break;
                     }
 
-                    // Forcefully kill the process if it dod not exit
+                    // Forcefully kill the process if it do not exit
                     try
                     {
                         if (process.HasExited == false)

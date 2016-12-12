@@ -123,7 +123,7 @@
         public CsvReader(string filename, Encoding encoding)
             : this(File.OpenRead(filename), false, encoding)
         {
-            // placehoder
+            // placeholder
         }
 
         #endregion

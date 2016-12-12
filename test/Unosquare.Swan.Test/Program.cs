@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Unosquare.Swan.Formatters;
+using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
 {
@@ -10,17 +12,15 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            Task.Factory.StartNew(async () =>
-            {
-                var result = await ProcessHelper.RunProcessAsync("dotnet", $"--help", (data, proc) =>
-                {
-                    $"Code {proc.ExitCode}".Info();
-                }, null, true, default(CancellationToken));
+            var basicObj = new BasicJson { StringData = "string", IntData = 1, BoolData = true };
+            var basicStr = "{ \"StringData\" : \"string\", \"IntData\" : 1, \"BoolData\" : true, \"StringNull\" : null}";
 
-                $"Result {result}".Info();
-            });
+            var data = Json.Serialize(basicObj);
+            data.Info();
 
-            "Waiting".Info();
+            var obj = Json.Deserialize<BasicJson>(basicStr);
+            obj.ToStringInvariant().Info();
+
             Console.ReadLine();
         }
     }

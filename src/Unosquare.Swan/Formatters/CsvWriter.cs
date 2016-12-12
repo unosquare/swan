@@ -117,7 +117,7 @@ namespace Unosquare.Swan.Formatters
         public string NewLineSequence { get; set; } = Environment.NewLine;
 
         /// <summary>
-        /// Defines a list of properties to ignore when outputing CSV lines
+        /// Defines a list of properties to ignore when outputting CSV lines
         /// </summary>
         public List<string> IgnorePropertyNames { get; } = new List<string>();
 
