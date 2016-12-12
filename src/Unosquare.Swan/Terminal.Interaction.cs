@@ -11,7 +11,7 @@
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <returns></returns>
-        static public ConsoleKeyInfo ReadKey(this string prompt)
+        public static ConsoleKeyInfo ReadKey(this string prompt)
         {
             if (IsConsolePresent == false) return new ConsoleKeyInfo();
 
@@ -24,7 +24,7 @@
         /// <param name="prompt">The prompt.</param>
         /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
         /// <returns></returns>
-        static public ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
+        public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
         {
             if (IsConsolePresent == false) return new ConsoleKeyInfo();
 
@@ -43,7 +43,7 @@
         /// <param name="prompt">The prompt.</param>
         /// <param name="defaultNumber">The default number.</param>
         /// <returns></returns>
-        static public int ReadNumber(this string prompt, int defaultNumber)
+        public static int ReadNumber(this string prompt, int defaultNumber)
         {
             if (IsConsolePresent == false) return defaultNumber;
 
@@ -65,7 +65,7 @@
         /// <param name="options">The options.</param>
         /// <param name="anyKeyOption">Any key option.</param>
         /// <returns></returns>
-        static public ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
+        public static ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
             if (IsConsolePresent == false) return new ConsoleKeyInfo();
 

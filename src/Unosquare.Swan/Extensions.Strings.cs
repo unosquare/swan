@@ -6,7 +6,7 @@
 
     partial class Extensions
     {
-        static private readonly Lazy<MD5> MD5Hasher = new Lazy<MD5>(() => { return MD5.Create(); }, true);
+        private static readonly Lazy<MD5> MD5Hasher = new Lazy<MD5>(() => { return MD5.Create(); }, true);
 
         /// <summary>
         /// Computes the MD5 of the string and outputs it in a hexadecimal, uppercase string.

@@ -5,7 +5,7 @@
     /// <summary>
     /// Contains useful constants
     /// </summary>
-    static public partial class Constants
+    public static partial class Constants
     {
         static Constants()
         {
@@ -24,6 +24,6 @@
         /// The MS Windows codepage 1252 encoding used in some legacy scenarios
         /// such as default CSV text encoding from Excel
         /// </summary>
-        static public readonly Encoding Windows1252Encoding;
+        public static readonly Encoding Windows1252Encoding;
     }
 }

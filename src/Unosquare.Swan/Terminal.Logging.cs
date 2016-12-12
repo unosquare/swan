@@ -10,7 +10,7 @@
         /// <param name="messageType">Type of the message.</param>
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
-        static private void LogMessage(LoggingMessageType messageType, string text, string source)
+        private static void LogMessage(LoggingMessageType messageType, string text, string source)
         {
             var color = Settings.DefaultColor;
             string prefix = string.Empty;
@@ -54,52 +54,52 @@
             // TODO: Implement a logging callback
         }
 
-        static public void Debug(this string text)
+        public static void Debug(this string text)
         {
             LogMessage(LoggingMessageType.Debug, text, null);
         }
 
-        static public void Debug(this string text, string source)
+        public static void Debug(this string text, string source)
         {
             LogMessage(LoggingMessageType.Debug, text, source);
         }
 
-        static public void Trace(this string text)
+        public static void Trace(this string text)
         {
             LogMessage(LoggingMessageType.Trace, text, null);
         }
 
-        static public void Trace(this string text, string source)
+        public static void Trace(this string text, string source)
         {
             LogMessage(LoggingMessageType.Trace, text, source);
         }
 
-        static public void Warn(this string text)
+        public static void Warn(this string text)
         {
             LogMessage(LoggingMessageType.Warning, text, null);
         }
 
-        static public void Warn(this string text, string source)
+        public static void Warn(this string text, string source)
         {
             LogMessage(LoggingMessageType.Warning, text, source);
         }
 
-        static public void Info(this string text)
+        public static void Info(this string text)
         {
             LogMessage(LoggingMessageType.Info, text, null);
         }
 
-        static public void Info(this string text, string source)
+        public static void Info(this string text, string source)
         {
             LogMessage(LoggingMessageType.Info, text, source);
         }
 
-        static public void Error(this string text)
+        public static void Error(this string text)
         {
             LogMessage(LoggingMessageType.Error, text, null);
         }
 
-        static public void Error(this string text, string source)
+        public static void Error(this string text, string source)
         {
             LogMessage(LoggingMessageType.Error, text, source);
         }

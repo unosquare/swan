@@ -16,7 +16,7 @@
         /// <param name="color">The color.</param>
         /// <param name="count">The count.</param>
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
-        static public void Write(this byte charCode, ConsoleColor color, int count, bool newLine)
+        public static void Write(this byte charCode, ConsoleColor color, int count, bool newLine)
         {
             if (IsConsolePresent == false) return;
 
@@ -51,7 +51,7 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        static public void Write(this string text, ConsoleColor color)
+        public static void Write(this string text, ConsoleColor color)
         {
             if (IsConsolePresent == false) return;
             if (text == null) return;
@@ -72,7 +72,7 @@
         /// Writes the specified text in the current consoloe's foreground color.
         /// </summary>
         /// <param name="text">The text.</param>
-        static public void Write(this string text)
+        public static void Write(this string text)
         {
             text?.Write(Settings.DefaultColor);
         }
@@ -84,7 +84,7 @@
         /// <summary>
         /// Writes a New Line Sequence
         /// </summary>
-        static public void WriteLine()
+        public static void WriteLine()
         {
             Environment.NewLine.Write();
         }
@@ -93,7 +93,7 @@
         /// Writes a line of text in the current console foreground color
         /// </summary>
         /// <param name="text">The text.</param>
-        static public void WriteLine(this string text)
+        public static void WriteLine(this string text)
         {
             text?.WriteLine(Settings.DefaultColor);
         }
@@ -103,7 +103,7 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        static public void WriteLine(this string text, ConsoleColor color)
+        public static void WriteLine(this string text, ConsoleColor color)
         {
             if (text == null) return;
             $"{text}{Environment.NewLine}".Write(color);

@@ -6,11 +6,11 @@
     using System.Reflection;
     using Unosquare.Swan.Reflection;
 
-    static public partial class Extensions
+    public static partial class Extensions
     {
 
-        static private readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
-        static private readonly Lazy<PropertyTypeCache> CopyPropertiesSources = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
+        private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
+        private static readonly Lazy<PropertyTypeCache> CopyPropertiesSources = new Lazy<PropertyTypeCache>(() => { return new PropertyTypeCache(); });
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -21,7 +21,7 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <returns></returns>
-        static public int CopyPropertiesTo<T>(this T source, object target)
+        public static int CopyPropertiesTo<T>(this T source, object target)
         {
             return CopyPropertiesTo(source, target, null);
         }
@@ -35,7 +35,7 @@
         /// <param name="target">The destination.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>Returns the number of properties that were successfully copied</returns>
-        static public int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
+        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
         {
 
             var copiedProperties = 0;
@@ -113,7 +113,7 @@
         /// </summary>
         /// <param name="target">The target.</param>
         /// <returns></returns>
-        static public TimeSpan Benchmark(this Action target)
+        public static TimeSpan Benchmark(this Action target)
         {
             var sw = new Stopwatch();
             

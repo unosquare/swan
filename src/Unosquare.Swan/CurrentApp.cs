@@ -9,21 +9,21 @@
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
     /// </summary>
-    static public class CurrentApp
+    public static class CurrentApp
     {
         #region State Variables
 
-        static private Mutex ApplicationMutex = null;
-        static private readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
-        static private readonly object SyncLock = new object();
+        private static Mutex ApplicationMutex = null;
+        private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
+        private static readonly object SyncLock = new object();
 
         #endregion
 
         #region Property Backing
 
-        static private Assembly m_EntryAssembly = null;
-        static private Process m_Process = null;
-        static private Os ApplicationOs = Os.Unknown;
+        private static Assembly m_EntryAssembly = null;
+        private static Process m_Process = null;
+        private static Os ApplicationOs = Os.Unknown;
 
         #endregion
 
@@ -151,7 +151,7 @@
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
-        static public Process Process
+        public static Process Process
         {
             get
             {
@@ -167,7 +167,7 @@
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
-        static public Assembly EntryAssembly
+        public static Assembly EntryAssembly
         {
             get
             {
@@ -181,7 +181,7 @@
         /// <summary>
         /// Gets the full path of the assembly that started the application.
         /// </summary>
-        static public string EntryAssemblyDirectory
+        public static string EntryAssemblyDirectory
         {
             get
             {

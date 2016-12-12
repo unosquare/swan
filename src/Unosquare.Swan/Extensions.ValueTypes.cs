@@ -15,7 +15,7 @@
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns></returns>
-        static public T Clamp<T>(this T value, T min, T max)
+        public static T Clamp<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
             if (value.CompareTo(min) < 0) return min;
@@ -33,7 +33,7 @@
         /// <returns>
         ///   <c>true</c> if the specified minimum is between; otherwise, <c>false</c>.
         /// </returns>
-        static public bool IsBetween<T>(this T value, T min, T max)
+        public static bool IsBetween<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
             if (value.CompareTo(min) < 0 || value.CompareTo(max) > 0)
@@ -47,7 +47,7 @@
         /// </summary>
         /// <param name="date">The date.</param>
         /// <returns></returns>
-        static public string ToSortableDate(this DateTime date)
+        public static string ToSortableDate(this DateTime date)
         {
             return $"{date.Year.ToString("0000")}-{date.Month.ToString("00")}-{date.Day.ToString("00")}";
         }
@@ -57,7 +57,7 @@
         /// </summary>
         /// <param name="date">The date.</param>
         /// <returns></returns>
-        static public string ToSortableDateTime(this DateTime date)
+        public static string ToSortableDateTime(this DateTime date)
         {
             return $"{date.Year.ToString("0000")}-{date.Month.ToString("00")}-{date.Day.ToString("00")} {date.Hour.ToString("00")}:{date.Minute.ToString("00")}:{date.Second.ToString("00")}";
         }
@@ -71,7 +71,7 @@
         /// <exception cref="Exception">
         /// </exception>
         /// <exception cref="ArgumentException">Unable to parse sortable date and time. - sortableDate</exception>
-        static public DateTime ToDateTime(this string sortableDate)
+        public static DateTime ToDateTime(this string sortableDate)
         {
             if (string.IsNullOrWhiteSpace(sortableDate))
                 throw new ArgumentNullException(nameof(sortableDate));

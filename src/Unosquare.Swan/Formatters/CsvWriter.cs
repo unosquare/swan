@@ -489,7 +489,7 @@ namespace Unosquare.Swan.Formatters
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
         /// <returns></returns>
-        static public int SaveRecords<T>(IEnumerable<T> items, string filePath)
+        public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
             var fullPath = Path.GetFullPath(filePath);
 

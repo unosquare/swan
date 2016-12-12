@@ -10,7 +10,7 @@ namespace Unosquare.Swan
         /// <summary>
         /// Represents a Table to print in console
         /// </summary>
-        static private class Table
+        private static class Table
         {
             /// <summary>
             /// Gets or sets the color of the border.
@@ -18,59 +18,59 @@ namespace Unosquare.Swan
             /// <value>
             /// The color of the border.
             /// </value>
-            static public ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGreen;
+            public static ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGreen;
 
-            static public void Vertical()
+            public static void Vertical()
             {
                 ((byte)179).Write(BorderColor, 1, false);
             }
 
-            static public void RightTee()
+            public static void RightTee()
             {
                 ((byte)180).Write(BorderColor, 1, false);
             }
 
-            static public void TopRight()
+            public static void TopRight()
             {
                 ((byte)191).Write(BorderColor, 1, false);
             }
 
-            static public void BottomLeft()
+            public static void BottomLeft()
             {
                 ((byte)192).Write(BorderColor, 1, false);
             }
 
-            static public void BottomTee()
+            public static void BottomTee()
             {
                 ((byte)193).Write(BorderColor, 1, false);
             }
 
-            static public void TopTee()
+            public static void TopTee()
             {
                 ((byte)194).Write(BorderColor, 1, false);
             }
 
-            static public void LeftTee()
+            public static void LeftTee()
             {
                 ((byte)195).Write(BorderColor, 1, false);
             }
 
-            static public void Horizontal(int length)
+            public static void Horizontal(int length)
             {
                 ((byte)196).Write(BorderColor, length, false);
             }
 
-            static public void Tee()
+            public static void Tee()
             {
                 ((byte)197).Write(BorderColor, 1, false);
             }
 
-            static public void BottomRight()
+            public static void BottomRight()
             {
                 ((byte)217).Write(BorderColor, 1, false);
             }
 
-            static public void TopLeft()
+            public static void TopLeft()
             {
                 ((byte)218).Write(BorderColor, 1, false);
             }

@@ -19,7 +19,7 @@
     {
         #region Static Declarations
 
-        static private readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         #endregion
 
@@ -426,7 +426,7 @@
         /// <param name="escapeCharacter">The escape character.</param>
         /// <param name="separatorCharacter">The separator character.</param>
         /// <returns></returns>
-        static private string[] ParseRecord(StreamReader reader, char escapeCharacter = '"', char separatorCharacter = ',')
+        private static string[] ParseRecord(StreamReader reader, char escapeCharacter = '"', char separatorCharacter = ',')
         {
             var values = new List<string>();
             var currentValue = new StringBuilder(1024);
@@ -555,7 +555,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="filePath">The file path.</param>
         /// <returns></returns>
-        static public IList<T> LoadRecords<T>(string filePath)
+        public static IList<T> LoadRecords<T>(string filePath)
             where T : new()
         {
             var result = new List<T>();

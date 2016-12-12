@@ -10,16 +10,16 @@
     /// A console terminal helper to create nicer output and receive input from the user
     /// This class is thread-safe :)
     /// </summary>
-    static public partial class Terminal
+    public static partial class Terminal
     {
-        static private readonly object SyncLock = new object();
+        private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
         private static readonly Task OutputTask;
 
-        static private readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
-        static private readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
+        private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
+        private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
-        static public bool? m_IsConsolePresent;
+        public static bool? m_IsConsolePresent;
 
         /// <summary>
         /// Represents an asynchronous output context
@@ -43,7 +43,7 @@
         /// Enqueues the output to be written to the console
         /// </summary>
         /// <param name="context">The context.</param>
-        static private void EnqueueOutput(OutputContext context)
+        private static void EnqueueOutput(OutputContext context)
         {
             OutputDone.Reset();
             OutputQueue.Enqueue(context);
@@ -118,7 +118,7 @@
         /// <value>
         /// <c>true</c> if this instance is console present; otherwise, <c>false</c>.
         /// </value>
-        static public bool IsConsolePresent
+        public static bool IsConsolePresent
         {
             get
             {
@@ -135,7 +135,7 @@
         /// <summary>
         /// Prints all characters in the current code page.
         /// </summary>
-        static public void PrintCurrentCodePage()
+        public static void PrintCurrentCodePage()
         {
             if (IsConsolePresent == false) return;
 
@@ -173,7 +173,7 @@
         /// <value>
         /// The output encoding.
         /// </value>
-        static public Encoding OutputEncoding
+        public static Encoding OutputEncoding
         {
             get { return Console.OutputEncoding; }
             set { Console.OutputEncoding = value; }
@@ -185,7 +185,7 @@
         /// <value>
         /// The cursor left.
         /// </value>
-        static public int CursorLeft
+        public static int CursorLeft
         {
             get
             {
@@ -210,7 +210,7 @@
         /// <value>
         /// The cursor top.
         /// </value>
-        static public int CursorTop
+        public static int CursorTop
         {
             get
             {
@@ -234,7 +234,7 @@
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
-        static public void SetCursorPosition(int left, int top)
+        public static void SetCursorPosition(int left, int top)
         {
             if (IsConsolePresent == false) return;
 
@@ -248,7 +248,7 @@
         /// </summary>
         /// <param name="intercept">if set to <c>true</c> [intercept].</param>
         /// <returns></returns>
-        static public ConsoleKeyInfo ReadKey(bool intercept)
+        public static ConsoleKeyInfo ReadKey(bool intercept)
         {
             if (IsConsolePresent == false) return new ConsoleKeyInfo();
 
@@ -261,7 +261,7 @@
         /// Reads a line of text from the console
         /// </summary>
         /// <returns></returns>
-        static public string ReadLine()
+        public static string ReadLine()
         {
             if (IsConsolePresent == false) return null;
 

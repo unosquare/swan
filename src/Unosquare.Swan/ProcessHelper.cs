@@ -12,7 +12,7 @@
     /// Provides methods to help create external processes, capture the
     /// standard error and standard input streams.
     /// </summary>
-    static public class ProcessHelper
+    public static class ProcessHelper
     {
         /// <summary>
         /// Defines a delegate to handle binary data reception from the standard 
