@@ -12,16 +12,8 @@ namespace Unosquare.Swan.Test
 {
     public class Program
     {
-        private static readonly SettingsProvider<AppSettingMock> mock = new SettingsProvider<AppSettingMock>()
-        {
-            ConfigurationFilePath = Path.GetTempFileName()
-        };
-
         public static void Main(string[] args)
         {
-            mock.ConfigurationFilePath.Info();
-            mock.Global.ToStringInvariant().Info();
-
             #region basic obj
 
             var basicObj = new BasicJson { StringData = "string", IntData = 1, NegativeInt = -1, DecimalData = 10.33M, BoolData = true };
@@ -58,8 +50,19 @@ namespace Unosquare.Swan.Test
             if (dataArr == basicAStr) "Ok serialize".Info(); else "Error serialize".Error();
 
             var arr = Json.Deserialize<List<string>>(basicAStr);
-            
+
             if (string.Join(",", basicArray) == string.Join(",", arr)) "Ok array".Info(); else "Error array".Error();
+
+            #endregion
+
+            #region basic obj with array
+
+            var arrObj = new BasicArrayJson {Id = 1, Properties = new[] {"One", "Two", "Babu"}};
+
+            var dataArrObj = Json.Serialize(arrObj);
+            dataArrObj.Info();
+
+            var basicArrObj = Json.Deserialize<BasicArrayJson>(dataArrObj);
 
             #endregion
 

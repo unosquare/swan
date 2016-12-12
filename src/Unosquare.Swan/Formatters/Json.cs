@@ -56,6 +56,9 @@ namespace Unosquare.Swan.Formatters
 
         public static string Serialize(IEnumerable coll)
         {
+            if (coll == null)
+                return NullValue;
+
             var firstItem = coll.Cast<object>().FirstOrDefault(x => x != null);
             var quotedValues = firstItem is string;
 
@@ -66,7 +69,10 @@ namespace Unosquare.Swan.Formatters
 
         public static string Serialize(object obj)
         {
-            var props = GetTypeProperties(obj.GetType());
+            if (obj == null)
+                return NullValue;
+
+            var props = GetTypeProperties(obj.GetType()).Where(x => x.CanRead);
             var sb = new StringBuilder();
 
             foreach (var prop in props)
@@ -76,6 +82,11 @@ namespace Unosquare.Swan.Formatters
                 if (value == null)
                 {
                     sb.Append($"\"{prop.Name}\" : null, ");
+                }
+                else if (prop.PropertyType != typeof(string) &&
+                         typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(prop.PropertyType))
+                {
+                    sb.Append($"\"{prop.Name}\" : {Serialize(value as IEnumerable)}, ");
                 }
                 else if (Constants.AllNumericTypes.Contains(prop.PropertyType))
                 {
@@ -123,7 +134,7 @@ namespace Unosquare.Swan.Formatters
             }
         }
 
-        private static void SetPropertyValue<T>(PropertyInfo[] properties, string propertyName,
+        private static void SetPropertyValue<T>(IEnumerable<PropertyInfo> properties, string propertyName,
             string propertyStringValue, T result)
         {
             if (string.IsNullOrWhiteSpace(propertyName)) return;
@@ -229,17 +240,7 @@ namespace Unosquare.Swan.Formatters
         private static T ParseObject<T>(string source)
         {
             var result = Activator.CreateInstance<T>();
-            PropertyInfo[] properties;
-
-            lock (SyncLock)
-            {
-                // Extract properties from cache
-                properties = TypeCache.Retrieve<T>(() =>
-                {
-                    return typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(x => x.CanWrite && Constants.BasicTypesInfo.ContainsKey(x.PropertyType));
-                });
-            }
+            var props = GetTypeProperties(result.GetType()).Where(x => x.CanWrite);
 
             var currentState = ReadState.WaitingForNewField;
             var currentPropertyName = new StringBuilder(1024);
@@ -257,7 +258,7 @@ namespace Unosquare.Swan.Formatters
                     case ReadState.WaitingForNewField:
                     {
                         // clean up
-                        SetPropertyValue(properties, currentPropertyName.ToString(), currentValue.ToString(), result);
+                        SetPropertyValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
                         currentPropertyName.Clear();
                         currentValue.Clear();
 
@@ -293,7 +294,7 @@ namespace Unosquare.Swan.Formatters
                         }
                         else if (currentChar == TrueValue[0] && nextChar.HasValue && nextChar == TrueValue[1])
                         {
-                            SetPropertyValue(properties, currentPropertyName.ToString(), true.ToStringInvariant(),
+                            SetPropertyValue(props, currentPropertyName.ToString(), true.ToStringInvariant(),
                                 result);
                             charIndex += TrueValue.Length;
 
@@ -301,7 +302,7 @@ namespace Unosquare.Swan.Formatters
                         }
                         else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
                         {
-                            SetPropertyValue(properties, currentPropertyName.ToString(), false.ToStringInvariant(),
+                            SetPropertyValue(props, currentPropertyName.ToString(), false.ToStringInvariant(),
                                 result);
                             charIndex += FalseValue.Length;
 
@@ -309,7 +310,7 @@ namespace Unosquare.Swan.Formatters
                         }
                         else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
                         {
-                            SetPropertyValue(properties, currentPropertyName.ToString(), null, result);
+                            SetPropertyValue(props, currentPropertyName.ToString(), null, result);
                             charIndex += NullValue.Length;
 
                             currentState = ReadState.WaitingForNewField;
@@ -335,16 +336,16 @@ namespace Unosquare.Swan.Formatters
             return result;
         }
 
-        private static PropertyInfo[] GetTypeProperties(Type type)
+        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
         {
             lock (SyncLock)
             {
                 return TypeCache.Retrieve(type, () =>
                 {
                     return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(p => p.CanRead)
+                        .Where(p => p.CanRead || p.CanWrite)
                         .ToArray();
-                }).ToArray();
+                });
             }
         }
     }

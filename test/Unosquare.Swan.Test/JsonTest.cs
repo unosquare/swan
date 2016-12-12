@@ -23,6 +23,9 @@ namespace Unosquare.Swan.Test
         private readonly string[] _basicArray = {"One", "Two", "Three"};
         private string _basicAStr = "[\"One\",\"Two\",\"Three\"]";
 
+        private readonly BasicArrayJson _basicAObj = new BasicArrayJson { Id = 1, Properties = new[] { "One", "Two", "Babu" } };
+        private string _basicAObjStr = "{\"Id\" : 1, \"Properties\" : [\"One\",\"Two\",\"Babu\"]}";
+
         [Test]
         public void SerializeBasicObjectTest()
         {
@@ -61,6 +64,26 @@ namespace Unosquare.Swan.Test
             var arr = Json.Deserialize<List<string>>(_basicAStr);
             Assert.IsNotNull(arr);
             Assert.AreEqual(string.Join(",", _basicArray), string.Join(",", arr));
+        }
+
+        [Test]
+        public void SerializeBasicObjectWithArrayTest()
+        {
+            var data = Json.Serialize(_basicAObj);
+            
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_basicAObjStr, data);
+        }
+
+        [Test]
+        public void DeserializeBasicObjectWithArrayTest()
+        {
+            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_basicAObj.Id, data.Id);
+            Assert.IsNotNull(_basicAObj.Properties);
+            Assert.AreEqual(string.Join(",", _basicAObj.Properties), string.Join(",", data.Properties));
         }
     }
 }

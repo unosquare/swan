@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
     public class BasicJson
     {
@@ -18,5 +13,12 @@ namespace Unosquare.Swan.Test.Mocks
         public bool BoolData { get; set; }
 
         public string StringNull { get; set; }
+    }
+
+    public class BasicArrayJson
+    {
+        public int Id { get; set; }
+
+        public string[] Properties { get; set; }
     }
 }
