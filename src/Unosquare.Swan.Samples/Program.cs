@@ -111,18 +111,18 @@
         public DateTime? AccessDate { get; set; }
 
         private static readonly string[] RandomWords = (
-            "Hello, this is a test of the beautifu SWAN linbrary. \r \r \r \r "
-            + "It is helpful because it contains some easy to use code and stuff that is handy at all thimes. \r\n \r\n \r\n \r\n \r\n  "
+            "Hello, this is a test of the beautiful SWAN library. \r \r \r \r "
+            + "It is helpful because it contains some easy to use code and stuff that is handy at all times. \r\n \r\n \r\n \r\n \r\n  "
             + "Swan is free to use and it is MIT licensed. It is a collection of patterns and helpful classes that make it super easy to code complex stuff \n "
             + "For example the AppWorker class allows you to write threaded background services and catch start and stop events. "
             + "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. "
             + "Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime. "
-            + "The CSV formatters anllow you to quickly and easily read to and from CSV files.  \r \r \r \r \r  "
+            + "The CSV formatters allow you to quickly and easily read to and from CSV files.  \r \r \r \r \r  "
             + "\n \n \n \n \n \n \n \n \n \n \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"quoted\""
             + "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like."
             + "SWAN also provides helpful extension methods for string manipulation").Split(new string[] { " " }, StringSplitOptions.None);
 
-        static public List<SampleCsvRecord> CreateSampleSet(int size)
+        public static List<SampleCsvRecord> CreateSampleSet(int size)
         {
             var result = new List<SampleCsvRecord>();
             var random = new Random();
