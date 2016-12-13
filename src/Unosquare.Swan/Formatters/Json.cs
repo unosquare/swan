@@ -49,7 +49,8 @@ namespace Unosquare.Swan.Formatters
             WaitingForNewField,
             PushingFieldName,
             WaitingForValue,
-            PushingValue
+            PushingValue,
+            WaitingForArrayEnd
         }
 
         #endregion
@@ -131,6 +132,41 @@ namespace Unosquare.Swan.Formatters
                     return default(T);
                 default:
                     return default(T);
+            }
+        }
+
+        private static void SetPropertyValue<T>(IEnumerable<PropertyInfo> properties, string propertyName,
+            IEnumerable propertyValue, T result)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName)) return;
+
+            var targetProperty = properties.FirstOrDefault(p => p.Name.Equals(propertyName));
+
+            // Skip if the property is not found
+            if (targetProperty == null)
+                return;
+
+            var itemType = targetProperty.PropertyType.GetElementType();
+
+            // Parse and assign the basic type value to the property
+            try
+            {
+                var arr = Array.CreateInstance(itemType, propertyValue.Cast<object>().Count());
+
+                var i = 0;
+                foreach (var value in propertyValue)
+                {
+                    object itemvalue;
+                    if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
+                        arr.SetValue(itemvalue, i++);
+                }
+
+                targetProperty.SetValue(result, arr);
+            }
+            catch (Exception ex)
+            {
+                ex.ToStringInvariant().Info();
+                // swallow
             }
         }
 
@@ -296,7 +332,8 @@ namespace Unosquare.Swan.Formatters
                         {
                             SetPropertyValue(props, currentPropertyName.ToString(), true.ToStringInvariant(),
                                 result);
-                            charIndex += TrueValue.Length;
+                                currentPropertyName.Clear();
+                                charIndex += TrueValue.Length;
 
                             currentState = ReadState.WaitingForNewField;
                         }
@@ -304,16 +341,38 @@ namespace Unosquare.Swan.Formatters
                         {
                             SetPropertyValue(props, currentPropertyName.ToString(), false.ToStringInvariant(),
                                 result);
-                            charIndex += FalseValue.Length;
+                                currentPropertyName.Clear();
+                                charIndex += FalseValue.Length;
 
                             currentState = ReadState.WaitingForNewField;
                         }
                         else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
                         {
                             SetPropertyValue(props, currentPropertyName.ToString(), null, result);
-                            charIndex += NullValue.Length;
+                                currentPropertyName.Clear();
+                                charIndex += NullValue.Length;
 
                             currentState = ReadState.WaitingForNewField;
+                        }
+                        else if (currentChar == InitialArrayCharacter)
+                        {
+                                currentState = ReadState.WaitingForArrayEnd;
+                                currentValue.Append(currentChar);
+                            }
+                        break;
+                    }
+                    case ReadState.WaitingForArrayEnd:
+                    {
+                        if (currentChar == FinalArrayCharacter)
+                        {
+                            currentValue.Append(currentChar);
+                            var array = ParseArray(typeof(string), currentValue.ToString());
+                            SetPropertyValue(props, currentPropertyName.ToString(), array, result);
+                            currentState = ReadState.WaitingForNewField;
+                        }
+                        else
+                        {
+                            currentValue.Append(currentChar);
                         }
                         break;
                     }
