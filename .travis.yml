@@ -27,5 +27,5 @@ install:
 before_script:
   - if [[ $DOTNETCORE == "" ]]; then export LD_LIBRARY_PATH=/usr/local/lib; fi
 script:
-  - if [[ $DOTNETCORE == "" ]]; then xbuild Unosquare.Swan.sln /p:Configuration=Release; else dotnet test ./test/Unosquare.Swan.Test; fi
+  - if [[ $DOTNETCORE == "" ]]; then xbuild Unosquare.Swan.sln /p:Configuration=Release; else dotnet test ./test/Unosquare.Swan.Test -f netstandard1.6; fi
   - if [[ $DOTNETCORE == "" ]]; then mono --debug ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe --process=Single ./test/Unosquare.Swan.Test/bin/Release/Unosquare.Swan.Tests.dll; fi
