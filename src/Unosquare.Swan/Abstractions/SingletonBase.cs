@@ -9,6 +9,9 @@
     public abstract class SingletonBase<T> : IDisposable
         where T : class
     {
+        /// <summary>
+        /// The synchronize root
+        /// </summary>
         protected static readonly object SyncRoot = new object();
 
         /// <summary>

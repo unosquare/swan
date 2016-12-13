@@ -19,7 +19,7 @@
         private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
         private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
-        public static bool? m_IsConsolePresent;
+        private static bool? m_IsConsolePresent;
 
         /// <summary>
         /// Represents an asynchronous output context

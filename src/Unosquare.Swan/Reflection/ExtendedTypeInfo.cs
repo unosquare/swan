@@ -279,7 +279,6 @@
         /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
         /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
         /// <returns></returns>

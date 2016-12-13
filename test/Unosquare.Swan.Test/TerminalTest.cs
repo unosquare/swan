@@ -12,8 +12,15 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsConsolePresentTest()
         {
-            // Funny, the console is not here :P
-            Assert.IsFalse(Terminal.IsConsolePresent);
+            if (CurrentApp.OS == Os.Unix)
+            {
+                Assert.IsTrue(Terminal.IsConsolePresent);
+            }
+            else
+            {
+                // Funny, the console is not here :P
+                Assert.IsFalse(Terminal.IsConsolePresent);
+            }
         }
     }
 }

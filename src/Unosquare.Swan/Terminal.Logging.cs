@@ -54,51 +54,96 @@
             // TODO: Implement a logging callback
         }
 
+        /// <summary>
+        /// Debugs the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public static void Debug(this string text)
         {
             LogMessage(LoggingMessageType.Debug, text, null);
         }
 
+        /// <summary>
+        /// Debugs the specified source.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="source">The source.</param>
         public static void Debug(this string text, string source)
         {
             LogMessage(LoggingMessageType.Debug, text, source);
         }
 
+        /// <summary>
+        /// Traces the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public static void Trace(this string text)
         {
             LogMessage(LoggingMessageType.Trace, text, null);
         }
 
+        /// <summary>
+        /// Traces the specified source.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="source">The source.</param>
         public static void Trace(this string text, string source)
         {
             LogMessage(LoggingMessageType.Trace, text, source);
         }
 
+        /// <summary>
+        /// Warns the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public static void Warn(this string text)
         {
             LogMessage(LoggingMessageType.Warning, text, null);
         }
 
+        /// <summary>
+        /// Warns the specified source.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="source">The source.</param>
         public static void Warn(this string text, string source)
         {
             LogMessage(LoggingMessageType.Warning, text, source);
         }
 
+        /// <summary>
+        /// Informations the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public static void Info(this string text)
         {
             LogMessage(LoggingMessageType.Info, text, null);
         }
 
+        /// <summary>
+        /// Informations the specified source.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="source">The source.</param>
         public static void Info(this string text, string source)
         {
             LogMessage(LoggingMessageType.Info, text, source);
         }
 
+        /// <summary>
+        /// Errors the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public static void Error(this string text)
         {
             LogMessage(LoggingMessageType.Error, text, null);
         }
 
+        /// <summary>
+        /// Errors the specified source.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="source">The source.</param>
         public static void Error(this string text, string source)
         {
             LogMessage(LoggingMessageType.Error, text, source);

@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan.Abstractions
 {
     using Reflection;
-    using Unosquare.Swan.Formatters;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using Unosquare.Swan.Formatters;
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
@@ -16,6 +16,10 @@
     {
         private T _global;
 
+        /// <summary>
+        /// Gets or sets the configuration file path. By default the entry assembly directory is used
+        /// and the filename is appsettings.json.
+        /// </summary>
         public string ConfigurationFilePath { get; set; } = Path.Combine(CurrentApp.EntryAssemblyDirectory, "appsettings.json");
 
         /// <summary>

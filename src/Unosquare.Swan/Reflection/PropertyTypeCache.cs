@@ -38,7 +38,6 @@
         /// <summary>
         /// Determines whether the cache contains the specified type.
         /// </summary>
-        /// <param name="type">The type.</param>
         public bool Contains<T>()
         {
             return Contains(typeof(T));

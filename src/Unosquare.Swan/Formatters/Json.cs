@@ -8,6 +8,13 @@ using Unosquare.Swan.Reflection;
 
 namespace Unosquare.Swan.Formatters
 {
+    /// <summary>
+    /// Represents a light JSON serializer. You can serialize/deserialize
+    /// objects with primitives and arrays, and one dimensional arrays only.
+    /// 
+    /// This is an useful helper for small task but it doesn't represent a full
+    /// serializer as Json:NET
+    /// </summary>
     public static class Json
     {
         #region Constants 
@@ -55,6 +62,11 @@ namespace Unosquare.Swan.Formatters
 
         #endregion
 
+        /// <summary>
+        /// Serializes the specified collection.
+        /// </summary>
+        /// <param name="coll">The coll.</param>
+        /// <returns></returns>
         public static string Serialize(IEnumerable coll)
         {
             if (coll == null)
@@ -68,6 +80,11 @@ namespace Unosquare.Swan.Formatters
                        coll.Cast<object>().Select(x => quotedValues ? $"\"{x}\"" : x.ToStringInvariant())) + "]";
         }
 
+        /// <summary>
+        /// Serializes the specified object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns></returns>
         public static string Serialize(object obj)
         {
             if (obj == null)
@@ -110,11 +127,13 @@ namespace Unosquare.Swan.Formatters
             return $"{{{sb}}}";
         }
 
-        public static object Deserialize(string source)
-        {
-            return null;
-        }
-
+        /// <summary>
+        /// Deserializes the specified JSON string.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">source</exception>
         public static T Deserialize<T>(string source)
         {
             if (string.IsNullOrEmpty(source))
@@ -134,6 +153,8 @@ namespace Unosquare.Swan.Formatters
                     return default(T);
             }
         }
+
+        #region Support Methods
 
         private static void SetPropertyValue<T>(IEnumerable<PropertyInfo> properties, string propertyName,
             IEnumerable propertyValue, T result)
@@ -332,8 +353,8 @@ namespace Unosquare.Swan.Formatters
                         {
                             SetPropertyValue(props, currentPropertyName.ToString(), true.ToStringInvariant(),
                                 result);
-                                currentPropertyName.Clear();
-                                charIndex += TrueValue.Length;
+                            currentPropertyName.Clear();
+                            charIndex += TrueValue.Length;
 
                             currentState = ReadState.WaitingForNewField;
                         }
@@ -341,24 +362,24 @@ namespace Unosquare.Swan.Formatters
                         {
                             SetPropertyValue(props, currentPropertyName.ToString(), false.ToStringInvariant(),
                                 result);
-                                currentPropertyName.Clear();
-                                charIndex += FalseValue.Length;
+                            currentPropertyName.Clear();
+                            charIndex += FalseValue.Length;
 
                             currentState = ReadState.WaitingForNewField;
                         }
                         else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
                         {
                             SetPropertyValue(props, currentPropertyName.ToString(), null, result);
-                                currentPropertyName.Clear();
-                                charIndex += NullValue.Length;
+                            currentPropertyName.Clear();
+                            charIndex += NullValue.Length;
 
                             currentState = ReadState.WaitingForNewField;
                         }
                         else if (currentChar == InitialArrayCharacter)
                         {
-                                currentState = ReadState.WaitingForArrayEnd;
-                                currentValue.Append(currentChar);
-                            }
+                            currentState = ReadState.WaitingForArrayEnd;
+                            currentValue.Append(currentChar);
+                        }
                         break;
                     }
                     case ReadState.WaitingForArrayEnd:
@@ -407,5 +428,8 @@ namespace Unosquare.Swan.Formatters
                 });
             }
         }
+
+        #endregion
+
     }
 }

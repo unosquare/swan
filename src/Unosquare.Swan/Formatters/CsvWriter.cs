@@ -328,6 +328,11 @@ namespace Unosquare.Swan.Formatters
 
         #region Write Headings Methods
 
+        /// <summary>
+        /// Writes the headings.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <exception cref="System.ArgumentNullException">type</exception>
         public void WriteHeadings(Type type)
         {
             if (type == null)
@@ -337,11 +342,20 @@ namespace Unosquare.Swan.Formatters
             WriteLine(properties);
         }
 
+        /// <summary>
+        /// Writes the headings.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public void WriteHeadings<T>()
         {
             WriteHeadings(typeof(T));
         }
 
+        /// <summary>
+        /// Writes the headings.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <exception cref="System.ArgumentNullException">dictionary</exception>
         public void WriteHeadings(IDictionary dictionary)
         {
             if (dictionary == null)
@@ -350,6 +364,11 @@ namespace Unosquare.Swan.Formatters
             WriteLine(GetFilteredDictionaryKeys(dictionary));
         }
 
+        /// <summary>
+        /// Writes the headings.
+        /// </summary>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <exception cref="System.ArgumentNullException">dictionary</exception>
         public void WriteHeadings(IDictionary<string, object> dictionary)
         {
             if (dictionary == null)
@@ -359,6 +378,12 @@ namespace Unosquare.Swan.Formatters
         }
 
 #if NET452
+        /// <summary>
+        /// Writes the headings.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <exception cref="System.ArgumentNullException">item</exception>
+        /// <exception cref="System.ArgumentException">Unable to cast dynamic object to a suitable dictionary - item</exception>
         public void WriteHeadings(dynamic item)
         {
             if (item == null)
@@ -384,6 +409,7 @@ namespace Unosquare.Swan.Formatters
         private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
             var keys = new List<object>();
+
             foreach (var key in dictionary.Keys)
             {
                 var stringKey = key == null ? string.Empty : key.ToStringInvariant();
@@ -404,6 +430,7 @@ namespace Unosquare.Swan.Formatters
         private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
         {
             var keys = new List<object>();
+
             foreach (var key in dictionary.Keys)
             {
                 var stringKey = key ?? string.Empty;
@@ -424,6 +451,7 @@ namespace Unosquare.Swan.Formatters
         private object[] GetFilteredDictionaryValues(IDictionary dictionary)
         {
             var values = new List<object>();
+
             foreach (var key in dictionary.Keys)
             {
                 var stringKey = key == null ? string.Empty : key.ToStringInvariant();
@@ -444,6 +472,7 @@ namespace Unosquare.Swan.Formatters
         private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
         {
             var values = new List<object>();
+
             foreach (var key in dictionary.Keys)
             {
                 var stringKey = key ?? string.Empty;

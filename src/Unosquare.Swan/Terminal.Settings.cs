@@ -4,18 +4,40 @@
 
     partial class Terminal
     {
-
         /// <summary>
         /// Defines the bitwise flags to determine
         /// which types of messages get printed on the current console
         /// </summary>
         public enum LoggingMessageType
         {
+            /// <summary>
+            /// The none message type
+            /// </summary>
             None = 0,
+
+            /// <summary>
+            /// The information message type
+            /// </summary>
             Info = 1,
+
+            /// <summary>
+            /// The debug message type
+            /// </summary>
             Debug = 2,
+
+            /// <summary>
+            /// The trace message type
+            /// </summary>
             Trace = 4,
+
+            /// <summary>
+            /// The error message type
+            /// </summary>
             Error = 8,
+
+            /// <summary>
+            /// The warning message type
+            /// </summary>
             Warning = 16,
         }
 
@@ -27,6 +49,9 @@
         /// <param name="source">The source.</param>
         public delegate void LoggingMessageCallback(LoggingMessageType messageType, string text, string source);
 
+        /// <summary>
+        /// Terminal global settings
+        /// </summary>
         public static class Settings
         {
             /// <summary>
@@ -36,6 +61,7 @@
             /// The default color.
             /// </value>
             public static ConsoleColor DefaultColor { get; set; } = Console.ForegroundColor;
+
             /// <summary>
             /// Gets or sets the color of the information output logging.
             /// </summary>
@@ -43,6 +69,7 @@
             /// The color of the information.
             /// </value>
             public static ConsoleColor InfoColor { get; set; } = ConsoleColor.Cyan;
+
             /// <summary>
             /// Gets or sets the color of the debug output logging.
             /// </summary>
@@ -50,6 +77,7 @@
             /// The color of the debug.
             /// </value>
             public static ConsoleColor DebugColor { get; set; } = ConsoleColor.Gray;
+
             /// <summary>
             /// Gets or sets the color of the trace output logging.
             /// </summary>
@@ -57,6 +85,7 @@
             /// The color of the trace.
             /// </value>
             public static ConsoleColor TraceColor { get; set; } = ConsoleColor.DarkGray;
+
             /// <summary>
             /// Gets or sets the color of the warning logging.
             /// </summary>
@@ -64,6 +93,7 @@
             /// The color of the warn.
             /// </value>
             public static ConsoleColor WarnColor { get; set; } = ConsoleColor.Yellow;
+
             /// <summary>
             /// Gets or sets the color of the error logging.
             /// </summary>
@@ -79,6 +109,7 @@
             /// The information prefix.
             /// </value>
             public static string InfoPrefix { get; set; } = "INF";
+
             /// <summary>
             /// Gets or sets the debug logging prefix.
             /// </summary>
@@ -86,6 +117,7 @@
             /// The debug prefix.
             /// </value>
             public static string DebugPrefix { get; set; } = "DBG";
+
             /// <summary>
             /// Gets or sets the trace logging prefix.
             /// </summary>
@@ -93,6 +125,7 @@
             /// The trace prefix.
             /// </value>
             public static string TracePrefix { get; set; } = "TRC";
+
             /// <summary>
             /// Gets or sets the warning logging prefix.
             /// </summary>
@@ -100,6 +133,7 @@
             /// The warn prefix.
             /// </value>
             public static string WarnPrefix { get; set; } = "WRN";
+
             /// <summary>
             /// Gets or sets the error logging prefix.
             /// </summary>
