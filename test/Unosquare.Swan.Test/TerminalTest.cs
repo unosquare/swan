@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Unosquare.Swan.Test
 {
@@ -12,14 +8,14 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsConsolePresentTest()
         {
-            if (CurrentApp.OS == Os.Unix)
+            if (CurrentApp.OS == Os.Windows)
             {
-                Assert.IsTrue(Terminal.IsConsolePresent);
+                // Funny, the console is not here :P
+                Assert.IsFalse(Terminal.IsConsolePresent); 
             }
             else
             {
-                // Funny, the console is not here :P
-                Assert.IsFalse(Terminal.IsConsolePresent);
+                Assert.IsTrue(Terminal.IsConsolePresent);
             }
         }
     }
