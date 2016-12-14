@@ -110,7 +110,9 @@
         }
 
         /// <summary>
-        /// Runs the process asynchronously and returns all of the standard output text.
+        /// Runs the process asynchronously and if the exit code is 0,
+        /// returns all of the standard output text. If the exit code is something other than 0
+        /// it returns the contents of standard error.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
@@ -118,16 +120,28 @@
         /// <returns></returns>
         public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
-            var result = new StringBuilder();
-            var errorResult = string.Empty;
+            var result = await GetProcessResultAsync(filename, arguments, ct);
+            return result.ExitCode != 0 ? result.StandardError : result.StandardError;
+        }
+
+        /// <summary>
+        /// Gets the process result asynchronously.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns></returns>
+        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
+        {
+            var standardOutputBuilder = new StringBuilder();
+            var standardErrorBuilder = new StringBuilder();
 
             var processReturn = await RunProcessAsync(filename, arguments,
-                (data, proc) =>
-            {
-                result.Append(Encoding.GetEncoding(0).GetString(data));
-            }, null, true, ct);
+                (data, proc) => { standardOutputBuilder.Append(Constants.CurrentAnsiEncoding.GetString(data)); },
+                (data, proc) => { standardErrorBuilder.Append(Constants.CurrentAnsiEncoding.GetString(data)); },
+                true, ct);
 
-            return processReturn == -1 ? errorResult : result.ToString();
+            return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
         }
 
         /// <summary>

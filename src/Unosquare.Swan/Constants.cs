@@ -9,6 +9,9 @@
     {
         static Constants()
         {
+
+            CurrentAnsiEncoding = Encoding.GetEncoding(0);
+
             try
             {
                 Windows1252Encoding = Encoding.GetEncoding(1252);
@@ -16,7 +19,7 @@
             catch
             {
                 // ignore, the codepage is not available use default
-                Windows1252Encoding = Encoding.GetEncoding(0);
+                Windows1252Encoding = CurrentAnsiEncoding;
             }
         }
 
@@ -25,5 +28,11 @@
         /// such as default CSV text encoding from Excel
         /// </summary>
         public static readonly Encoding Windows1252Encoding;
+
+        /// <summary>
+        /// The encoding associated with the default ANSI code page in the operating 
+        /// system's regional and language settings
+        /// </summary>
+        public static readonly Encoding CurrentAnsiEncoding;
     }
 }
