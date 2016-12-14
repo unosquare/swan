@@ -113,6 +113,7 @@
         /// Runs the process asynchronously and if the exit code is 0,
         /// returns all of the standard output text. If the exit code is something other than 0
         /// it returns the contents of standard error.
+        /// This method is meant to be used for programs that output a relatively small amount of text.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
@@ -125,7 +126,9 @@
         }
 
         /// <summary>
-        /// Gets the process result asynchronously.
+        /// Executes a process asynchronously and returns the text of the standard output and standard error streams
+        /// along with the exit code. This method is meant to be used for programs that output a relatively small
+        /// amount of text.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
@@ -145,7 +148,11 @@
         }
 
         /// <summary>
-        /// Runs an external process asynchronously.
+        /// Runs an external process asynchronously, providing callabcks to
+        /// capture binary data from the standar error and standard output streams.
+        /// The callbacks contain a reference to the process so you can respond to output or
+        /// error streams by writing to the process' input stream.
+        /// The exit code (return value) will be -1 for forceful termination of the porcess
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
