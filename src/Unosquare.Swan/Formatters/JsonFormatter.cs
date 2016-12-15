@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using Unosquare.Swan.Reflection;
-
-namespace Unosquare.Swan.Formatters
+﻿namespace Unosquare.Swan.Formatters
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using Unosquare.Swan.Reflection;
+
     /// <summary>
-    /// Represents a light JSON serializer. You can serialize/deserialize
-    /// objects with primitives and arrays, and one dimensional arrays only.
+    /// Represents a light-weight JSON serializer/deserializer. You can serialize/deserialize
+    /// objects with primitives and arrays, and one-dimensional arrays only.
     /// 
-    /// This is an useful helper for small task but it doesn't represent a full
-    /// serializer as Json:NET
+    /// This is an useful helper for small tasks but it doesn't represent a full-featured
+    /// serializer such as the beloved Json.NET
     /// </summary>
-    public static class Json
+    public static class JsonFormatter
     {
         #region Constants 
 
@@ -61,6 +61,8 @@ namespace Unosquare.Swan.Formatters
         }
 
         #endregion
+
+        #region Methods
 
         /// <summary>
         /// Serializes the specified collection.
@@ -153,6 +155,8 @@ namespace Unosquare.Swan.Formatters
                     return default(T);
             }
         }
+
+        #endregion
 
         #region Support Methods
 

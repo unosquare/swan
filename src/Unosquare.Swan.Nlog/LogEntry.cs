@@ -3,7 +3,8 @@
     using System;
 
     /// <summary>
-    /// Model for application logging
+    /// Basic model for application logging
+    /// This model is useful for most scenarios.
     /// </summary>
     public class LogEntry
     {
@@ -24,7 +25,7 @@
         public DateTime EntryDateUtc { get; set; }
 
         /// <summary>
-        /// Gets or sets the logger.
+        /// Gets or sets thename of the logger.
         /// </summary>
         /// <value>
         /// The logger.
@@ -40,7 +41,8 @@
         public string Message { get; set; }
 
         /// <summary>
-        /// Gets or sets the level.
+        /// Gets or sets the level. This is typically
+        /// Debug, Trace, Info, Error, etc.
         /// </summary>
         /// <value>
         /// The level.
@@ -48,7 +50,9 @@
         public string Level { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the exception.
+        /// If the log entry is an exception, 
+        /// this property hold the type of the 
+        /// exception that was thrown.
         /// </summary>
         /// <value>
         /// The type of the exception.
@@ -56,7 +60,8 @@
         public string ExceptionType { get; set; }
 
         /// <summary>
-        /// Gets or sets the session identifier.
+        /// In a web application it typically represents
+        /// the identifies of a user's session
         /// </summary>
         public string SessionId { get; set; }
     }

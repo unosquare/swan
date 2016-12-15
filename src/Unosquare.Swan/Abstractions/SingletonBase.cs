@@ -9,26 +9,39 @@
     public abstract class SingletonBase<T> : IDisposable
         where T : class
     {
+        private bool IsDisposing; // To detect redundant calls
+
         /// <summary>
-        /// The synchronize root
+        /// A synchronization root that is commonly use for cross-thread operations.
         /// </summary>
         protected static readonly object SyncRoot = new object();
 
         /// <summary>
         /// The static, singleton instance reference.
         /// </summary>
-        protected static T Instance;
+        protected static Lazy<T> LazyInstance = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SingletonBase{T}"/> class.
+        /// Initializes a new instance of the <see cref="SingletonBase{T}" /> class.
         /// </summary>
-        protected SingletonBase()
+        /// <param name="valueFactory">The value factory.</param>
+        protected SingletonBase(Func<T> valueFactory)
         {
-            // placeholder
+            LazyInstance = new Lazy<T>(valueFactory, true);
         }
 
         /// <summary>
-        /// Disposes the job
+        /// Initializes a new instance of the <see cref="SingletonBase{T}"/> class.
+        /// A default constructor must be present.
+        /// </summary>
+        protected SingletonBase()
+            : this(() => { return Activator.CreateInstance(typeof(T)) as T; })
+        {
+            // Placeholder
+        }
+
+        /// <summary>
+        /// Disposes the internal singleton instance.
         /// </summary>
         public void Dispose()
         {
@@ -36,37 +49,48 @@
             GC.SuppressFinalize(this);
         }
 
-        private bool _disposedValue; // To detect redundant calls
-
         /// <summary>
         /// Disposes the job
         /// </summary>
         /// <param name="disposeManaged"></param>
         protected virtual void Dispose(bool disposeManaged)
         {
-            if (_disposedValue) return;
+            if (IsDisposing) return;
 
             // free managed resources
-            if (Instance != null)
+            if (LazyInstance != null)
             {
-                Instance = null;
+                try
+                {
+                    var disposableInstance = LazyInstance.Value as IDisposable;
+                    if (disposableInstance != null)
+                    {
+                        disposableInstance.Dispose();
+                    }
+                }
+                catch
+                {
+                    // swallow
+                }
+                finally
+                {
+                    LazyInstance = null;
+                }
+
             }
 
-            _disposedValue = true;
+            IsDisposing = true;
         }
 
         /// <summary>
         /// Gets the instance that this singleton represents.
-        /// If the instance is null, it is constructed ans assigned when this member is accessed.
+        /// If the instance is null, it is constructed and assigned when this member is accessed.
         /// </summary>
-        public static T Current
+        public static T Instance
         {
             get
             {
-                lock (SyncRoot)
-                {
-                    return Instance ?? (Instance = Activator.CreateInstance(typeof(T), true) as T);
-                }
+                return LazyInstance.Value;
             }
         }
     }

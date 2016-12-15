@@ -1,5 +1,7 @@
 {
   "version": "1.0.0-*",
+  "dependencies": {
+  },
   "frameworks": {
     "netcoreapp1.1": {
       "dependencies": {
@@ -19,6 +21,7 @@
     "net452": {
       "frameworkAssemblies": {
         "System.ServiceProcess": "",
+        "System.Drawing": "4.0.0.0",
         "System.ComponentModel.DataAnnotations": ""
       }
     }
