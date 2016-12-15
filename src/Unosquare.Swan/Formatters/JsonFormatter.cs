@@ -57,7 +57,8 @@
             PushingFieldName,
             WaitingForValue,
             PushingValue,
-            WaitingForArrayEnd
+            WaitingForArrayEnd,
+            WaitingForObject
         }
 
         #endregion
@@ -72,14 +73,11 @@
         public static string Serialize(IEnumerable coll)
         {
             if (coll == null)
-                return NullValue;
+                return $"{InitialArrayCharacter} {FinalArrayCharacter}";
 
-            var firstItem = coll.Cast<object>().FirstOrDefault(x => x != null);
-            var quotedValues = firstItem is string;
+            var data = string.Join(FieldSeparatorCharacter.ToStringInvariant(), coll.Cast<object>().Select(x => InternalSerialize(x, true)));
 
-            return "[" +
-                   string.Join(FieldSeparatorCharacter.ToStringInvariant(),
-                       coll.Cast<object>().Select(x => quotedValues ? $"\"{x}\"" : x.ToStringInvariant())) + "]";
+            return $"{InitialArrayCharacter} {data} {FinalArrayCharacter}";
         }
 
         /// <summary>
@@ -89,44 +87,75 @@
         /// <returns></returns>
         public static string Serialize(object obj)
         {
-            if (obj == null)
-                return NullValue;
+            return InternalSerialize(obj, false);
+        }
 
-            var props = GetTypeProperties(obj.GetType()).Where(x => x.CanRead);
+        internal static string InternalSerialize(object obj, bool fromArray)
+        {
+            if (obj == null)
+                return $"{InitialObjectCharacter} {FinalObjectCharacter}";
+
             var sb = new StringBuilder();
 
-            foreach (var prop in props)
+            if (Constants.AllBasicTypes.Contains(obj.GetType()))
             {
-                var value = prop.GetValue(obj);
+                if (fromArray == false)
+                    throw new InvalidOperationException("You need an object or array to serialize");
 
-                if (value == null)
+                if (obj is bool)
                 {
-                    sb.Append($"\"{prop.Name}\" : null, ");
+                    sb.Append(obj.ToStringInvariant().ToLowerInvariant());
                 }
-                else if (prop.PropertyType != typeof(string) &&
-                         typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(prop.PropertyType))
+                else if (Constants.AllNumericTypes.Contains(obj.GetType()))
                 {
-                    sb.Append($"\"{prop.Name}\" : {Serialize(value as IEnumerable)}, ");
-                }
-                else if (Constants.AllNumericTypes.Contains(prop.PropertyType))
-                {
-                    sb.Append($"\"{prop.Name}\" : {value}, ");
-                }
-                else if (prop.PropertyType == typeof(bool))
-                {
-                    sb.Append($"\"{prop.Name}\" : {value.ToStringInvariant().ToLowerInvariant()}, ");
+                    sb.Append(obj);
                 }
                 else
                 {
-                    // fall-back to string
-                    sb.Append($"\"{prop.Name}\" : \"{value}\", ");
+                    sb.Append($"\"{obj}\"");
                 }
             }
+            else
+            {
+                var props = GetTypeProperties(obj.GetType()).Where(x => x.CanRead);
 
-            if (sb.Length > 0)
-                sb.Remove(sb.Length - 2, 2);
+                sb.Append(InitialObjectCharacter);
 
-            return $"{{{sb}}}";
+                foreach (var prop in props)
+                {
+                    var value = prop.GetValue(obj);
+
+                    if (value == null)
+                    {
+                        sb.Append($"\"{prop.Name}\" : null, ");
+                    }
+                    else if (prop.PropertyType != typeof(string) &&
+                             typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(prop.PropertyType))
+                    {
+                        sb.Append($"\"{prop.Name}\" : {Serialize(value as IEnumerable)}, ");
+                    }
+                    else if (Constants.AllNumericTypes.Contains(prop.PropertyType) || value is int) // TODO: How to detect numbers in object properties?
+                    {
+                        sb.Append($"\"{prop.Name}\" : {value}, ");
+                    }
+                    else if (prop.PropertyType == typeof(bool))
+                    {
+                        sb.Append($"\"{prop.Name}\" : {value.ToStringInvariant().ToLowerInvariant()}, ");
+                    }
+                    else
+                    {
+                        // fall-back to string
+                        sb.Append($"\"{prop.Name}\" : \"{value}\", ");
+                    }
+                }
+
+                if (sb.Length > 0)
+                    sb.Remove(sb.Length - 2, 2);
+
+                sb.Append(FinalObjectCharacter);
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -148,7 +177,7 @@
                 case InitialArrayCharacter:
                     var genericArgs = typeof(T).GetTypeInfo().GetGenericArguments();
                     if (genericArgs.Any())
-                        return (T) ParseArray(genericArgs[0], source);
+                        return (T)ParseArray(genericArgs[0], source);
 
                     return default(T);
                 default:
@@ -229,7 +258,7 @@
 
         private static IList ParseArray(Type type, string source)
         {
-            var result = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
+            var result = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
             var currentState = ReadState.WaitingForValue;
             var currentValue = new StringBuilder(1024);
 
@@ -243,55 +272,75 @@
                 switch (currentState)
                 {
                     case ReadState.WaitingForValue:
-                    {
-                        if (currentChar == StringQuotedCharacter)
                         {
-                            currentState = ReadState.PushingValue;
-                        }
-                        else if (currentChar == MinusNumberCharacter ||
-                                 char.IsNumber(currentChar))
-                        {
-                            currentState = ReadState.PushingValue;
-                            currentValue.Append(currentChar);
-                        }
-                        else if (currentChar == TrueValue[0] && nextChar.HasValue && nextChar == TrueValue[1])
-                        {
-                            result.Add(TrueValue);
-                            charIndex += TrueValue.Length;
+                            if (currentChar == InitialObjectCharacter)
+                            {
+                                currentState = ReadState.WaitingForObject;
+                                currentValue.Append(currentChar);
+                            }
+                            else if (currentChar == StringQuotedCharacter)
+                            {
+                                currentState = ReadState.PushingValue;
+                            }
+                            else if (currentChar == MinusNumberCharacter ||
+                                     char.IsNumber(currentChar))
+                            {
+                                currentState = ReadState.PushingValue;
+                                currentValue.Append(currentChar);
+                            }
+                            else if (currentChar == TrueValue[0] && nextChar.HasValue && nextChar == TrueValue[1])
+                            {
+                                result.Add(TrueValue);
+                                charIndex += TrueValue.Length;
 
-                            currentState = ReadState.WaitingForValue;
-                        }
-                        else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
-                        {
-                            result.Add(FalseValue);
-                            charIndex += FalseValue.Length;
+                                currentState = ReadState.WaitingForValue;
+                            }
+                            else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
+                            {
+                                result.Add(FalseValue);
+                                charIndex += FalseValue.Length;
 
-                            currentState = ReadState.WaitingForValue;
-                        }
-                        else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
-                        {
-                            result.Add(NullValue);
-                            charIndex += NullValue.Length;
+                                currentState = ReadState.WaitingForValue;
+                            }
+                            else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
+                            {
+                                result.Add(NullValue);
+                                charIndex += NullValue.Length;
 
-                            currentState = ReadState.WaitingForValue;
+                                currentState = ReadState.WaitingForValue;
+                            }
+                            break;
                         }
-                        break;
-                    }
                     case ReadState.PushingValue:
-                    {
-                        if (currentChar == StringQuotedCharacter ||
-                            currentChar == FieldSeparatorCharacter)
                         {
-                            result.Add(currentValue.ToString());
-                            currentValue.Clear();
-                            currentState = ReadState.WaitingForValue;
+                            if (currentChar == StringQuotedCharacter ||
+                                currentChar == FieldSeparatorCharacter)
+                            {
+                                result.Add(currentValue.ToString());
+                                currentValue.Clear();
+                                currentState = ReadState.WaitingForValue;
+                            }
+                            else
+                            {
+                                currentValue.Append(currentChar);
+                            }
+                            break;
                         }
-                        else
+                    case ReadState.WaitingForObject:
                         {
-                            currentValue.Append(currentChar);
+                            if (currentChar == FinalObjectCharacter)
+                            {
+                                var obj = ParseObject(type, currentValue.ToString());
+                                result.Add(obj);
+                                currentValue.Clear();
+                                currentState = ReadState.WaitingForValue;
+                            }
+                            else
+                            {
+                                currentValue.Append(currentChar);
+                            }
+                            break;
                         }
-                        break;
-                    }
                 }
             }
 
@@ -300,7 +349,12 @@
 
         private static T ParseObject<T>(string source)
         {
-            var result = Activator.CreateInstance<T>();
+            return (T)ParseObject(typeof(T), source);
+        }
+
+        private static object ParseObject(Type type, string source)
+        {
+            var result = Activator.CreateInstance(type);
             var props = GetTypeProperties(result.GetType()).Where(x => x.CanWrite);
 
             var currentState = ReadState.WaitingForNewField;
@@ -317,103 +371,103 @@
                 switch (currentState)
                 {
                     case ReadState.WaitingForNewField:
-                    {
-                        // clean up
-                        SetPropertyValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
-                        currentPropertyName.Clear();
-                        currentValue.Clear();
-
-                        if (currentChar == StringQuotedCharacter)
                         {
-                            currentState = ReadState.PushingFieldName;
+                            // clean up
+                            SetPropertyValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
+                            currentPropertyName.Clear();
+                            currentValue.Clear();
+
+                            if (currentChar == StringQuotedCharacter)
+                            {
+                                currentState = ReadState.PushingFieldName;
+                            }
+                            break;
                         }
-                        break;
-                    }
                     case ReadState.PushingFieldName:
-                    {
-                        if (currentChar == StringQuotedCharacter)
                         {
-                            currentState = ReadState.WaitingForValue;
+                            if (currentChar == StringQuotedCharacter)
+                            {
+                                currentState = ReadState.WaitingForValue;
+                            }
+                            else
+                            {
+                                currentPropertyName.Append(currentChar);
+                            }
+                            break;
                         }
-                        else
-                        {
-                            currentPropertyName.Append(currentChar);
-                        }
-                        break;
-                    }
                     case ReadState.WaitingForValue:
-                    {
-                        if (currentChar == StringQuotedCharacter)
                         {
-                            currentState = ReadState.PushingValue;
-                        }
-                        else if (currentChar == MinusNumberCharacter ||
-                                 char.IsNumber(currentChar))
-                        {
-                            currentState = ReadState.PushingValue;
-                            currentValue.Append(currentChar);
-                        }
-                        else if (currentChar == TrueValue[0] && nextChar.HasValue && nextChar == TrueValue[1])
-                        {
-                            SetPropertyValue(props, currentPropertyName.ToString(), true.ToStringInvariant(),
-                                result);
-                            currentPropertyName.Clear();
-                            charIndex += TrueValue.Length;
-                            
-                            currentState = ReadState.WaitingForNewField;
-                        }
-                        else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
-                        {
-                            SetPropertyValue(props, currentPropertyName.ToString(), false.ToStringInvariant(),
-                                result);
-                            currentPropertyName.Clear();
-                            charIndex += FalseValue.Length;
+                            if (currentChar == StringQuotedCharacter)
+                            {
+                                currentState = ReadState.PushingValue;
+                            }
+                            else if (currentChar == MinusNumberCharacter ||
+                                     char.IsNumber(currentChar))
+                            {
+                                currentState = ReadState.PushingValue;
+                                currentValue.Append(currentChar);
+                            }
+                            else if (currentChar == TrueValue[0] && nextChar.HasValue && nextChar == TrueValue[1])
+                            {
+                                SetPropertyValue(props, currentPropertyName.ToString(), true.ToStringInvariant(),
+                                    result);
+                                currentPropertyName.Clear();
+                                charIndex += TrueValue.Length;
 
-                            currentState = ReadState.WaitingForNewField;
-                        }
-                        else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
-                        {
-                            SetPropertyValue(props, currentPropertyName.ToString(), null, result);
-                            currentPropertyName.Clear();
-                            charIndex += NullValue.Length;
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
+                            {
+                                SetPropertyValue(props, currentPropertyName.ToString(), false.ToStringInvariant(),
+                                    result);
+                                currentPropertyName.Clear();
+                                charIndex += FalseValue.Length;
 
-                            currentState = ReadState.WaitingForNewField;
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
+                            {
+                                SetPropertyValue(props, currentPropertyName.ToString(), null, result);
+                                currentPropertyName.Clear();
+                                charIndex += NullValue.Length;
+
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else if (currentChar == InitialArrayCharacter)
+                            {
+                                currentState = ReadState.WaitingForArrayEnd;
+                                currentValue.Append(currentChar);
+                            }
+                            break;
                         }
-                        else if (currentChar == InitialArrayCharacter)
-                        {
-                            currentState = ReadState.WaitingForArrayEnd;
-                            currentValue.Append(currentChar);
-                        }
-                        break;
-                    }
                     case ReadState.WaitingForArrayEnd:
-                    {
-                        if (currentChar == FinalArrayCharacter)
                         {
-                            currentValue.Append(currentChar);
-                            var array = ParseArray(typeof(string), currentValue.ToString());
-                            SetPropertyValue(props, currentPropertyName.ToString(), array, result);
-                            currentState = ReadState.WaitingForNewField;
+                            if (currentChar == FinalArrayCharacter)
+                            {
+                                currentValue.Append(currentChar);
+                                var array = ParseArray(typeof(string), currentValue.ToString());
+                                SetPropertyValue(props, currentPropertyName.ToString(), array, result);
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else
+                            {
+                                currentValue.Append(currentChar);
+                            }
+                            break;
                         }
-                        else
-                        {
-                            currentValue.Append(currentChar);
-                        }
-                        break;
-                    }
                     case ReadState.PushingValue:
-                    {
-                        if (currentChar == StringQuotedCharacter ||
-                            currentChar == FieldSeparatorCharacter)
                         {
-                            currentState = ReadState.WaitingForNewField;
+                            if (currentChar == StringQuotedCharacter ||
+                                currentChar == FieldSeparatorCharacter)
+                            {
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else
+                            {
+                                currentValue.Append(currentChar);
+                            }
+                            break;
                         }
-                        else
-                        {
-                            currentValue.Append(currentChar);
-                        }
-                        break;
-                    }
                 }
             }
 

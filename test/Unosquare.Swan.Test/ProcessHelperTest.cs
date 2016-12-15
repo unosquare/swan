@@ -12,6 +12,7 @@ namespace Unosquare.Swan.Test
         public async Task GetProcessOutputAsyncTest()
         {
             var data = await ProcessHelper.GetProcessOutputAsync("dotnet", "--help");
+            Assert.IsNotEmpty(data);
             Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
         }
 
@@ -30,8 +31,7 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(result == okCode);
             Assert.IsNotNull(output);
         }
-
-
+        
         [Test]
         public async Task GetInvalidRunProcessAsyncTest()
         {

@@ -122,7 +122,7 @@
         public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
             var result = await GetProcessResultAsync(filename, arguments, ct);
-            return result.ExitCode != 0 ? result.StandardError : result.StandardError;
+            return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
         }
 
         /// <summary>

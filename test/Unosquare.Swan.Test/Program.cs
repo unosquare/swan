@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Reflection;
 using Unosquare.Swan.Test.Mocks;
@@ -10,6 +11,13 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
+            Task.Factory.StartNew(async () =>
+            {
+                var procData = await ProcessHelper.GetProcessOutputAsync("dotnet", "--help");
+
+                if (procData == null) $"Testing".Info();
+            });
+
             #region basic obj
 
             var basicObj = new BasicJson { StringData = "string", IntData = 1, NegativeInt = -1, DecimalData = 10.33M, BoolData = true };
@@ -39,7 +47,7 @@ namespace Unosquare.Swan.Test
             #region basic array
 
             var basicArray = new[] { "One", "Two", "Three" };
-            var basicAStr = "[\"One\",\"Two\",\"Three\"]";
+            var basicAStr = "[ \"One\",\"Two\",\"Three\" ]";
             var dataArr = JsonFormatter.Serialize(basicArray);
             dataArr.Info();
 
@@ -63,10 +71,10 @@ namespace Unosquare.Swan.Test
             #endregion
 
             var arrayOfObj = new List<ExtendedPropertyInfo>
-        {
+            {
             new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerPort)),
             new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerHostname))
-        };
+            };
 
             var arrayOfObjData = JsonFormatter.Serialize(arrayOfObj);
             arrayOfObjData.Info();

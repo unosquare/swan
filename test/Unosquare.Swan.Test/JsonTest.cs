@@ -22,7 +22,7 @@ namespace Unosquare.Swan.Test
             "{\"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
 
         private readonly string[] _basicArray = {"One", "Two", "Three"};
-        private string _basicAStr = "[\"One\",\"Two\",\"Three\"]";
+        private string _basicAStr = "[ \"One\",\"Two\",\"Three\" ]";
 
         private readonly BasicArrayJson _basicAObj = new BasicArrayJson
         {
@@ -30,7 +30,7 @@ namespace Unosquare.Swan.Test
             Properties = new[] {"One", "Two", "Babu"}
         };
 
-        private string _basicAObjStr = "{\"Id\" : 1, \"Properties\" : [\"One\",\"Two\",\"Babu\"]}";
+        private string _basicAObjStr = "{\"Id\" : 1, \"Properties\" : [ \"One\",\"Two\",\"Babu\" ]}";
 
         private readonly List<ExtendedPropertyInfo> _arrayOfObj = new List<ExtendedPropertyInfo>
         {
@@ -39,7 +39,7 @@ namespace Unosquare.Swan.Test
         };
 
         private string _arrayOfObjStr =
-            "[{\"Property\":\"WebServerPort\",\"DataType\":\"Int32\",\"Value\":9898,\"DefaultValue\":9898,\"Name\":\"Web Server Port\",\"Description\":\"The port on which the web server listens for requests\",\"GroupName\":\"Administration\"},{\"Property\":\"WebServerHostname\",\"DataType\":\"String\",\"Value\":\"localhost\",\"DefaultValue\":\"localhost\",\"Name\":\"Web Server Host Name\",\"Description\":\"The hostname to which the web server binds, it can be localhost, a specific IP address or a '+' sign to bind to all IP addresses\",\"GroupName\":\"Administration\"}]";
+            "[ {\"Property\" : \"WebServerPort\", \"DataType\" : \"Int32\", \"Value\" : null, \"DefaultValue\" : 9898, \"Name\" : \"Web Server Port\", \"Description\" : \"The port on which the web server listens for requests\", \"GroupName\" : \"Administration\"},{\"Property\" : \"WebServerHostname\", \"DataType\" : \"String\", \"Value\" : null, \"DefaultValue\" : \"localhost\", \"Name\" : \"Web Server Host Name\", \"Description\" : \"The hostname to which the web server binds, it can be localhost, a specific IP address or a '+' sign to bind to all IP addresses\", \"GroupName\" : \"Administration\"} ]";
 
         [Test]
         public void SerializeBasicObjectTest()
