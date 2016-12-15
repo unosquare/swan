@@ -20,5 +20,8 @@ namespace Unosquare.Swan.Test.Mocks
             GroupName = "Administration")]
         [DefaultValue("localhost")]
         public string WebServerHostname { get; set; } = "localhost";
+
+        [Display(Name = "Background Image", Description = "Background image set for standby view", GroupName = "Administration")]
+        public string[] BackgroundImage { get; set; } = { "https://source.unsplash.com/category/nature" };
     }
 }

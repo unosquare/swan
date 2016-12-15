@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Unosquare.Swan.Abstractions;
 using Unosquare.Swan.Formatters;
+using Unosquare.Swan.Reflection;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -65,6 +61,15 @@ namespace Unosquare.Swan.Test
             var basicArrObj = Json.Deserialize<BasicArrayJson>(dataArrObj);
 
             #endregion
+
+            var arrayOfObj = new List<ExtendedPropertyInfo>
+        {
+            new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerPort)),
+            new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerHostname))
+        };
+
+            var arrayOfObjData = Json.Serialize(arrayOfObj);
+            arrayOfObjData.Info();
 
             Console.ReadLine();
         }
