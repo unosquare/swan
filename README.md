@@ -3,6 +3,8 @@
 [![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.svg)](https://badge.fury.io/nu/Unosquare.Swan)
 # SWAN
 
+*:star: Please star this project if you find it useful!*
+
 SWAN stands for Stuff We All Need
 
 Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. 
