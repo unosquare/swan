@@ -148,11 +148,11 @@
         }
 
         /// <summary>
-        /// Runs an external process asynchronously, providing callabcks to
-        /// capture binary data from the standar error and standard output streams.
+        /// Runs an external process asynchronously, providing callbacks to
+        /// capture binary data from the standard error and standard output streams.
         /// The callbacks contain a reference to the process so you can respond to output or
         /// error streams by writing to the process' input stream.
-        /// The exit code (return value) will be -1 for forceful termination of the porcess
+        /// The exit code (return value) will be -1 for forceful termination of the process
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>

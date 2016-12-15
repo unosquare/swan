@@ -151,6 +151,30 @@
         public static Assembly EntryAssembly => m_EntryAssembly ?? (m_EntryAssembly = Assembly.GetEntryAssembly());
 
         /// <summary>
+        /// Gets the company.
+        /// </summary>
+        /// <value>
+        /// The company.
+        /// </value>
+        public static string CompanyName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
+
+        /// <summary>
+        /// Gets the name of the product.
+        /// </summary>
+        /// <value>
+        /// The name of the product.
+        /// </value>
+        public static string ProductName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute)?.Product;
+
+        /// <summary>
+        /// Gets the trademark.
+        /// </summary>
+        /// <value>
+        /// The trademark.
+        /// </value>
+        public static string Trademark => (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute)?.Trademark;
+
+        /// <summary>
         /// Gets the full path of the assembly that started the application.
         /// </summary>
         public static string EntryAssemblyDirectory

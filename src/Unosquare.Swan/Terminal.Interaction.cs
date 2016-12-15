@@ -5,7 +5,6 @@
 
     partial class Terminal
     {
-
         /// <summary>
         /// Reads a key from the terminal preventing the key from being echoed.
         /// </summary>

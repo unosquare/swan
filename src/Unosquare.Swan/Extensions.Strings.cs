@@ -123,6 +123,15 @@
             return returnValue;
         }
 
+        /// <summary>
+        /// To the one character string.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns></returns>
+        public static string ToOneCharString(this char c)
+        {
+            return new string(c, 1);
+        }
 
         // TODO: Test Humanize, Add pluralize, singularize, dashize, capitalize titleize, etc.
     }

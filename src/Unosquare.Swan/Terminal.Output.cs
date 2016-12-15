@@ -1,10 +1,11 @@
 ﻿namespace Unosquare.Swan
 {
+    using Runtime;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
-
+    using System.Reflection;
+    
     partial class Terminal
     {
         #region Write Methods
@@ -110,5 +111,41 @@
         }
 
         #endregion
+
+        #region Info Methods
+        /// <summary>
+        /// Writes the banner.
+        /// </summary>
+        public static void WriteBanner()
+        {
+            $"{CurrentApp.CompanyName} - {CurrentApp.ProductName}".WriteLine(ConsoleColor.Cyan);
+            $"{CurrentApp.Trademark}".WriteLine(ConsoleColor.Cyan);
+        }
+
+        /// <summary>
+        /// Writes the application usage.
+        /// </summary>
+        /// <param name="properties">The properties.</param>
+        public static void WriteUsage(IEnumerable<PropertyInfo> properties)
+        {
+            var options = properties.Select(p => p.GetCustomAttribute<OptionAttribute>()).Where(x => x != null);
+
+            foreach (var option in options)
+            {
+                "".WriteLine();
+                // TODO: If Enum list values
+                var shorName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
+                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
+                var comma = string.IsNullOrWhiteSpace(shorName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
+                var defaultValue = option.Default == null ? string.Empty : $"(Default: {option.Default}) ";
+                $"  {shorName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
+            }
+
+            "".WriteLine();
+            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
+        }
+
+        #endregion
+
     }
 }

@@ -72,6 +72,5 @@ namespace Unosquare.Swan
                 ((byte)218).Write(BorderColor, 1, false);
             }
         }
-
     }
 }

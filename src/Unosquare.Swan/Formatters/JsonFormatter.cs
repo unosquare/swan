@@ -48,8 +48,7 @@
         #region Enumerations
 
         /// <summary>
-        /// Defines the 4 different read states
-        /// for the parsing state machine
+        /// Defines states for the parsing state machine
         /// </summary>
         private enum ReadState
         {

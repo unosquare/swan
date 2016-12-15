@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Unosquare.Swan.Test")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Unosquare")]
+[assembly: AssemblyProduct("SWAN Test")]
+[assembly: AssemblyTrademark("Unosquare (c) 2016")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
