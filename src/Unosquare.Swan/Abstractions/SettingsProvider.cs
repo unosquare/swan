@@ -2,6 +2,7 @@
 {
     using Reflection;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -51,7 +52,7 @@
                     _global = Activator.CreateInstance<T>();
                     PersistGlobalSettings();
                 }
-                
+
                 _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
             }
         }
@@ -84,34 +85,67 @@
         /// Updates settings from list.
         /// </summary>
         /// <param name="list">The list.</param>
-        public void UpdateFromList(List<ExtendedPropertyInfo> list)
+        public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> list)
         {
+            List<string> changedSettings = new List<string>();
+
             foreach (var property in list)
             {
-                var prop = Instance.Global.GetType().GetTypeInfo().GetProperty(property.Property);
-                // TODO: evaluate if the value changed and report back
-                //var originalValue = prop.GetValue(Current.Global);
+                var prop = Current.Global.GetType().GetTypeInfo().GetProperty(property.Property);
+                var originalValue = prop.GetValue(Current.Global);
+                bool isChanged = false;
 
-                if (prop.PropertyType == typeof(bool))
-                    prop.SetValue(Instance.Global, Convert.ToBoolean(property.Value));
-                else if (prop.PropertyType == typeof(int))
-                    prop.SetValue(Instance.Global, Convert.ToInt32(property.Value));
-                else if (prop.PropertyType == typeof(int?))
+                if (prop.PropertyType.IsArray)
                 {
-                    prop.SetValue(Instance.Global,
-                        property.Value == null ? property.Value : Convert.ToInt32(property.Value));
-                }
-                else if (prop.PropertyType == typeof(int[]))
-                    prop.SetValue(Instance.Global, property.Value.ToString().Split(',').Select(int.Parse).ToArray());
-                else if (prop.PropertyType == typeof(string[]))
-                    prop.SetValue(Instance.Global, property.Value.ToString().Split(',').ToArray());
-                else
-                    prop.SetValue(Instance.Global, property.Value);
+                    var itemType = prop.PropertyType.GetElementType();
 
-                Instance.PersistGlobalSettings();
+                    var coll = property.Value as IEnumerable;
+                    if (coll == null) continue;
+
+                    var arr = Array.CreateInstance(itemType, coll.Cast<object>().Count());
+
+                    var i = 0;
+                    foreach (var value in coll)
+                    {
+                        object itemvalue;
+                        if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
+                            arr.SetValue(itemvalue, i++);
+                    }
+
+                    prop.SetValue(Current.Global, arr);
+                }
+                else
+                {
+                    if (property.Value == null)
+                    {
+                        if (originalValue == null) continue;
+
+                        isChanged = true;
+                        prop.SetValue(Current.Global, null);
+                    }
+                    else
+                    {
+                        object propertyValue;
+                        if (Constants.BasicTypesInfo[prop.PropertyType].TryParse(property.Value.ToString(), out propertyValue))
+                        {
+                            if (propertyValue == originalValue) continue;
+
+                            isChanged = true;
+                            prop.SetValue(Current.Global, property.Value);
+                        }
+                    }
+                }
+
+                if (isChanged)
+                {
+                    changedSettings.Add(property.Property);
+                    Current.PersistGlobalSettings();
+                }
             }
+
+            return changedSettings;
         }
-        
+
         /// <summary>
         /// Gets the list.
         /// </summary>

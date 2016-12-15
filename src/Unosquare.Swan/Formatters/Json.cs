@@ -355,7 +355,7 @@ namespace Unosquare.Swan.Formatters
                                 result);
                             currentPropertyName.Clear();
                             charIndex += TrueValue.Length;
-
+                            
                             currentState = ReadState.WaitingForNewField;
                         }
                         else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
