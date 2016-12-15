@@ -53,7 +53,7 @@ namespace Unosquare.Swan.Test
 
             #region basic obj with array
 
-            var arrObj = new BasicArrayJson {Id = 1, Properties = new[] {"One", "Two", "Babu"}};
+            var arrObj = new BasicArrayJson { Id = 1, Properties = new[] { "One", "Two", "Babu" } };
 
             var dataArrObj = JsonFormatter.Serialize(arrObj);
             dataArrObj.Info();
@@ -68,7 +68,7 @@ namespace Unosquare.Swan.Test
             new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerHostname))
         };
 
-            var arrayOfObjData = Json.Serialize(arrayOfObj);
+            var arrayOfObjData = JsonFormatter.Serialize(arrayOfObj);
             arrayOfObjData.Info();
 
             Console.ReadLine();
