@@ -19,12 +19,12 @@ namespace Unosquare.Swan.Test
             var basicObj = new BasicJson { StringData = "string", IntData = 1, NegativeInt = -1, DecimalData = 10.33M, BoolData = true };
             var basicStr = "{\"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
 
-            var data = Json.Serialize(basicObj);
+            var data = JsonFormatter.Serialize(basicObj);
             data.Info();
 
             if (data == basicStr) "Ok serialize".Info(); else "Error serialize".Error();
 
-            var obj = Json.Deserialize<BasicJson>(basicStr);
+            var obj = JsonFormatter.Deserialize<BasicJson>(basicStr);
 
             if (obj.StringData == basicObj.StringData) "Ok string".Info(); else "Error string".Error();
 
@@ -44,12 +44,12 @@ namespace Unosquare.Swan.Test
 
             var basicArray = new[] { "One", "Two", "Three" };
             var basicAStr = "[\"One\",\"Two\",\"Three\"]";
-            var dataArr = Json.Serialize(basicArray);
+            var dataArr = JsonFormatter.Serialize(basicArray);
             dataArr.Info();
 
             if (dataArr == basicAStr) "Ok serialize".Info(); else "Error serialize".Error();
 
-            var arr = Json.Deserialize<List<string>>(basicAStr);
+            var arr = JsonFormatter.Deserialize<List<string>>(basicAStr);
 
             if (string.Join(",", basicArray) == string.Join(",", arr)) "Ok array".Info(); else "Error array".Error();
 
@@ -59,10 +59,10 @@ namespace Unosquare.Swan.Test
 
             var arrObj = new BasicArrayJson {Id = 1, Properties = new[] {"One", "Two", "Babu"}};
 
-            var dataArrObj = Json.Serialize(arrObj);
+            var dataArrObj = JsonFormatter.Serialize(arrObj);
             dataArrObj.Info();
 
-            var basicArrObj = Json.Deserialize<BasicArrayJson>(dataArrObj);
+            var basicArrObj = JsonFormatter.Deserialize<BasicArrayJson>(dataArrObj);
 
             #endregion
 

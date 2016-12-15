@@ -44,7 +44,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeBasicObjectTest()
         {
-            var data = Json.Serialize(_basicObj);
+            var data = JsonFormatter.Serialize(_basicObj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicStr, data);
@@ -53,7 +53,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeBasicObjectTest()
         {
-            var obj = Json.Deserialize<BasicJson>(_basicStr);
+            var obj = JsonFormatter.Deserialize<BasicJson>(_basicStr);
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(obj.StringData, _basicObj.StringData);
@@ -67,7 +67,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeBasicArrayTest()
         {
-            var data = Json.Serialize(_basicArray);
+            var data = JsonFormatter.Serialize(_basicArray);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAStr, data);
@@ -76,7 +76,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeBasicArrayTest()
         {
-            var arr = Json.Deserialize<List<string>>(_basicAStr);
+            var arr = JsonFormatter.Deserialize<List<string>>(_basicAStr);
             Assert.IsNotNull(arr);
             Assert.AreEqual(string.Join(",", _basicArray), string.Join(",", arr));
         }
@@ -84,7 +84,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeBasicObjectWithArrayTest()
         {
-            var data = Json.Serialize(_basicAObj);
+            var data = JsonFormatter.Serialize(_basicAObj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAObjStr, data);
@@ -93,7 +93,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeBasicObjectWithArrayTest()
         {
-            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
+            var data = JsonFormatter.Deserialize<BasicArrayJson>(_basicAObjStr);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAObj.Id, data.Id);
@@ -104,7 +104,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeArrayOfObjectsTest()
         {
-            var data = Json.Serialize(_arrayOfObj);
+            var data = JsonFormatter.Serialize(_arrayOfObj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_arrayOfObjStr, data);
@@ -113,7 +113,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeArrayOfObjectsTest()
         {
-            var data = Json.Deserialize<List<ExtendedPropertyInfo>>(_basicAObjStr);
+            var data = JsonFormatter.Deserialize<List<ExtendedPropertyInfo>>(_basicAObjStr);
 
             Assert.IsNotNull(data);
         }

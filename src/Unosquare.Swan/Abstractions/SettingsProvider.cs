@@ -53,7 +53,7 @@
                     PersistGlobalSettings();
                 }
 
-                _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                _global = JsonFormatter.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
             }
         }
 
@@ -76,7 +76,7 @@
         {
             lock (SyncRoot)
             {
-                var stringData = Json.Serialize(Global);
+                var stringData = JsonFormatter.Serialize(Global);
                 File.WriteAllText(ConfigurationFilePath, stringData);
             }
         }
@@ -91,8 +91,8 @@
 
             foreach (var property in list)
             {
-                var prop = Current.Global.GetType().GetTypeInfo().GetProperty(property.Property);
-                var originalValue = prop.GetValue(Current.Global);
+                var prop = Instance.Global.GetType().GetTypeInfo().GetProperty(property.Property);
+                var originalValue = prop.GetValue(Instance.Global);
                 bool isChanged = false;
 
                 if (prop.PropertyType.IsArray)
@@ -112,7 +112,7 @@
                             arr.SetValue(itemvalue, i++);
                     }
 
-                    prop.SetValue(Current.Global, arr);
+                    prop.SetValue(Instance.Global, arr);
                 }
                 else
                 {
@@ -121,7 +121,7 @@
                         if (originalValue == null) continue;
 
                         isChanged = true;
-                        prop.SetValue(Current.Global, null);
+                        prop.SetValue(Instance.Global, null);
                     }
                     else
                     {
@@ -131,7 +131,7 @@
                             if (propertyValue == originalValue) continue;
 
                             isChanged = true;
-                            prop.SetValue(Current.Global, property.Value);
+                            prop.SetValue(Instance.Global, property.Value);
                         }
                     }
                 }
@@ -139,7 +139,7 @@
                 if (isChanged)
                 {
                     changedSettings.Add(property.Property);
-                    Current.PersistGlobalSettings();
+                    Instance.PersistGlobalSettings();
                 }
             }
 
@@ -152,7 +152,7 @@
         /// <returns></returns>
         internal List<ExtendedPropertyInfo<T>> GetList()
         {
-            var dict = Json.Deserialize<Dictionary<string, object>>(GetJsonData());
+            var dict = JsonFormatter.Deserialize<Dictionary<string, object>>(GetJsonData());
 
             return dict.Keys
                     .Select(x => new ExtendedPropertyInfo<T>(x) { Value = dict[x] })
