@@ -88,27 +88,27 @@
         {
             foreach (var property in list)
             {
-                var prop = Current.Global.GetType().GetTypeInfo().GetProperty(property.Property);
+                var prop = Instance.Global.GetType().GetTypeInfo().GetProperty(property.Property);
                 // TODO: evaluate if the value changed and report back
                 //var originalValue = prop.GetValue(Current.Global);
 
                 if (prop.PropertyType == typeof(bool))
-                    prop.SetValue(Current.Global, Convert.ToBoolean(property.Value));
+                    prop.SetValue(Instance.Global, Convert.ToBoolean(property.Value));
                 else if (prop.PropertyType == typeof(int))
-                    prop.SetValue(Current.Global, Convert.ToInt32(property.Value));
+                    prop.SetValue(Instance.Global, Convert.ToInt32(property.Value));
                 else if (prop.PropertyType == typeof(int?))
                 {
-                    prop.SetValue(Current.Global,
+                    prop.SetValue(Instance.Global,
                         property.Value == null ? property.Value : Convert.ToInt32(property.Value));
                 }
                 else if (prop.PropertyType == typeof(int[]))
-                    prop.SetValue(Current.Global, property.Value.ToString().Split(',').Select(int.Parse).ToArray());
+                    prop.SetValue(Instance.Global, property.Value.ToString().Split(',').Select(int.Parse).ToArray());
                 else if (prop.PropertyType == typeof(string[]))
-                    prop.SetValue(Current.Global, property.Value.ToString().Split(',').ToArray());
+                    prop.SetValue(Instance.Global, property.Value.ToString().Split(',').ToArray());
                 else
-                    prop.SetValue(Current.Global, property.Value);
+                    prop.SetValue(Instance.Global, property.Value);
 
-                Current.PersistGlobalSettings();
+                Instance.PersistGlobalSettings();
             }
         }
         
