@@ -98,7 +98,7 @@ namespace Unosquare.Swan.Runtime
         /// <summary>
         /// Gets or sets mapped property default value.
         /// </summary>
-        public object Default { get; set; }
+        public object DefaultValue { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a command line option is required.

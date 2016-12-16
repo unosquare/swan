@@ -128,8 +128,7 @@
                     {
                         sb.Append($"\"{prop.Name}\" : null, ");
                     }
-                    else if (prop.PropertyType != typeof(string) &&
-                             typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(prop.PropertyType))
+                    else if (prop.IsCollection())
                     {
                         sb.Append($"\"{prop.Name}\" : {Serialize(value as IEnumerable)}, ");
                     }

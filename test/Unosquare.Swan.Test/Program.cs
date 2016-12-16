@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Unosquare.Swan.Formatters;
-using Unosquare.Swan.Reflection;
-using Unosquare.Swan.Runtime;
+﻿using Unosquare.Swan.Runtime;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -11,11 +7,13 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            var tst = new JsonTest();
-            tst.DeserializeAdvObjectArrayTest();
+            var options = new OptionMock();
+            var collection = new[] { 10, 30, 50 };
+
+            var dumpArgs = new[] { "--options", string.Join(",", collection) };
             
-            //var dumpArgs = new[] { "--ño", "-n", "babu", "--verbose", "--color", "white" };
-            //var result = CmdArgsParser.Default.ParseArguments<OptionMock>(dumpArgs);
+            if (CmdArgsParser.Default.ParseArguments(dumpArgs, options))
+                "OK".Info();
 
             Terminal.ReadKey(true);
         }

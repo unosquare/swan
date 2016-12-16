@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using Unosquare.Swan.Reflection;
@@ -58,14 +58,15 @@ namespace Unosquare.Swan.Runtime
         public ParserSettings Settings { get; }
 
         /// <summary>
-        /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T"/>.
+        /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="args">The arguments.</param>
+        /// <param name="instance">The instance.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">args</exception>
         /// <exception cref="System.InvalidOperationException"></exception>
-        public Tuple<bool, T> ParseArguments<T>(IEnumerable<string> args)
+        public bool ParseArguments<T>(IEnumerable<string> args, T instance)
         {
             if (args == null) throw new ArgumentNullException("args");
 
@@ -73,10 +74,9 @@ namespace Unosquare.Swan.Runtime
 
             if (properties.Any() == false)
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
-
-            var instance = Activator.CreateInstance<T>();
+            
             var unknownList = new List<string>();
-
+            var updatedList = new List<PropertyInfo>();
             var propertyName = string.Empty;
 
             foreach (var arg in args)
@@ -93,7 +93,7 @@ namespace Unosquare.Swan.Runtime
                         continue;
                     }
 
-                    SetPropertyValue(targetProperty, arg, instance);
+                    if (SetPropertyValue(targetProperty, arg, instance)) updatedList.Add(targetProperty);
                     propertyName = string.Empty;
                 }
                 else
@@ -110,37 +110,43 @@ namespace Unosquare.Swan.Runtime
                         // If the arg is a boolean property set it to true.
                         if (targetProperty != null && targetProperty.PropertyType == typeof(bool))
                         {
-                            SetPropertyValue(targetProperty, true.ToString(), instance);
+                            if (SetPropertyValue(targetProperty, true.ToString(), instance)) updatedList.Add(targetProperty);
                             propertyName = string.Empty;
                         }
                     }
                 }
             }
-
-            // TODO: Set default values
+            
             var result = true;
 
-            if (unknownList.Any())
+            if (Settings.IgnoreUnknownArguments && unknownList.Any())
             {
                 result = false;
-
-                if (Settings.WriteBanner)
-                { 
-                    Terminal.WriteBanner();
-                }
+                
+                if (Settings.WriteBanner) Terminal.WriteBanner();
 
                 Terminal.WriteUsage(properties);
+                $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine();
             }
 
-            return new Tuple<bool, T>(result, instance);
+            if (result)
+            {
+                // TODO: Set default values
+            }
+
+            return result;
         }
 
-        private void SetPropertyValue<T>(PropertyInfo property, string value, T instance)
+        private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
             // Parse and assign the basic type value to the property
             try
             {
-                if (property.PropertyType.GetTypeInfo().IsEnum)
+                var optionAttr = targetProperty.GetCustomAttribute<OptionAttribute>();
+
+                if (optionAttr == null) return false;
+
+                if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
                     // TODO: How to handle an enum?
 
@@ -148,19 +154,52 @@ namespace Unosquare.Swan.Runtime
 
                     //if (Enum.TryParse(value, true, out enumInstance))
                     //    property.SetValue(instance, Enum.ToObject(property.PropertyType, enumInstance));
+                    
+                    return true;
+                }
+                else if (targetProperty.IsCollection())
+                {
+                    var itemType = targetProperty.PropertyType.GetElementType();
+                    var primitiveValue = Constants.AllBasicTypes.Contains(itemType);
+                    var propertyValue = propertyValueString.ToString().Split(optionAttr.Separator);
+
+                    var arr = Array.CreateInstance(itemType, propertyValue.Cast<object>().Count());
+
+                    var i = 0;
+                    foreach (var value in propertyValue)
+                    {
+                        if (primitiveValue)
+                        {
+                            object itemvalue;
+                            if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
+                                arr.SetValue(itemvalue, i++);
+                        }
+                        else
+                        {
+                            arr.SetValue(value, i++);
+                        }
+                    }
+
+                    targetProperty.SetValue(result, arr);
                 }
                 else
                 {
                     object propertyValue;
-                    if (Constants.BasicTypesInfo[property.PropertyType].TryParse(value,
+                    if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyValueString,
                         out propertyValue))
-                        property.SetValue(instance, propertyValue);
+                    {
+                        targetProperty.SetValue(result, propertyValue);
+                        return true;
+                    }
                 }
             }
             catch
             {
                 // ignored
             }
+
+            
+            return false;
         }
 
         private PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)

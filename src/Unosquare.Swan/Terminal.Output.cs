@@ -278,7 +278,7 @@
                 var shorName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
                 var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
                 var comma = string.IsNullOrWhiteSpace(shorName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
-                var defaultValue = option.Default == null ? string.Empty : $"(Default: {option.Default}) ";
+                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
                 $"  {shorName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
             }
 
