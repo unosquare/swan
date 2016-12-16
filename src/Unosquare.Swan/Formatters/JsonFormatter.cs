@@ -141,6 +141,10 @@
                     {
                         sb.Append($"\"{prop.Name}\" : {value.ToStringInvariant().ToLowerInvariant()}, ");
                     }
+                    else if (Constants.AllBasicTypes.Contains(prop.PropertyType) == false)
+                    {
+                       sb.Append($"\"{prop.Name}\" : {InternalSerialize(value, true)}, ");
+                    }
                     else
                     {
                         // fall-back to string
