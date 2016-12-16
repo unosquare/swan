@@ -29,11 +29,11 @@ namespace Unosquare.Swan.Test
         public void EnumArgTest()
         {
             var options = new OptionMock();
-            Assert.AreEqual(ConsoleColor.Red, options.BgColor);
+            Assert.AreEqual(ConsoleColor.Black, options.BgColor);
 
             var newColor = ConsoleColor.White;
 
-            var dumpArgs = new[] { "-c", newColor.ToString().ToLowerInvariant() };
+            var dumpArgs = new[] { "--color", newColor.ToString().ToLowerInvariant() };
             var result = CmdArgsParser.Default.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);

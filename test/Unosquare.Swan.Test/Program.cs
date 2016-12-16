@@ -8,10 +8,10 @@ namespace Unosquare.Swan.Test
         public static void Main(string[] args)
         {
             var options = new OptionMock();
-            var collection = new[] { 10, 30, 50 };
 
-            var dumpArgs = new[] { "--options", string.Join(",", collection) };
-            
+            var dumpArgs = new[] { "--color", System.ConsoleColor.White.ToString().ToLowerInvariant() };
+
+
             if (CmdArgsParser.Default.ParseArguments(dumpArgs, options))
                 "OK".Info();
 

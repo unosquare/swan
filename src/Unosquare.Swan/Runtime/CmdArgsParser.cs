@@ -16,7 +16,7 @@ namespace Unosquare.Swan.Runtime
         const char Dash = '-';
 
         private bool disposed;
-        private static readonly Lazy<CmdArgsParser> DefaultParser = new Lazy<CmdArgsParser>(() => new CmdArgsParser(new ParserSettings { HelpWriter = Console.Error }));
+        private static readonly Lazy<CmdArgsParser> DefaultParser = new Lazy<CmdArgsParser>(() => new CmdArgsParser(new ParserSettings()));
 
         private static readonly object SyncLock = new object();
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
@@ -38,15 +38,7 @@ namespace Unosquare.Swan.Runtime
         {
             Settings = parseSettings;
         }
-
-        /// <summary>
-        /// Finalizes an instance of the <see cref="CmdArgsParser"/> class.
-        /// </summary>
-        ~CmdArgsParser()
-        {
-            Dispose(false);
-        }
-
+        
         /// <summary>
         /// Gets the singleton instance created with basic defaults.
         /// </summary>
@@ -148,13 +140,9 @@ namespace Unosquare.Swan.Runtime
 
                 if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
-                    // TODO: How to handle an enum?
+                    var parsedValue = Enum.Parse(targetProperty.PropertyType, propertyValueString, Settings.CaseInsensitiveEnumValues);
+                    targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
 
-                    //var enumInstance = Activator.CreateInstance(property.PropertyType);
-
-                    //if (Enum.TryParse(value, true, out enumInstance))
-                    //    property.SetValue(instance, Enum.ToObject(property.PropertyType, enumInstance));
-                    
                     return true;
                 }
                 else if (targetProperty.IsCollection())
@@ -219,28 +207,6 @@ namespace Unosquare.Swan.Runtime
                         .Where(p => p.CanRead || p.CanWrite)
                         .ToArray();
                 });
-            }
-        }
-
-        /// <summary>
-        /// Frees resources owned by the instance.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-
-            GC.SuppressFinalize(this);
-        }
-        
-        private void Dispose(bool disposing)
-        {
-            if (disposed) return;
-
-            if (disposing)
-            {
-                Settings?.Dispose();
-
-                disposed = true;
             }
         }
     }
