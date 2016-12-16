@@ -28,22 +28,30 @@ namespace Unosquare.Swan.Test
             InnerChild = _basicObj
         };
 
-        private string _basicStr =
+        const string _basicStr =
             "{\"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
 
-        private string _advStr =
-            "{\"InnerChild\" : {\"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}, \"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
+        const string _advStr =
+            "{\"InnerChild\" : " + _basicStr + ", \"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
 
-        private readonly string[] _basicArray = {"One", "Two", "Three"};
+        private readonly string[] _basicArray = { "One", "Two", "Three" };
         private string _basicAStr = "[ \"One\",\"Two\",\"Three\" ]";
 
         private readonly BasicArrayJson _basicAObj = new BasicArrayJson
         {
             Id = 1,
-            Properties = new[] {"One", "Two", "Babu"}
+            Properties = new[] { "One", "Two", "Babu" }
+        };
+
+        private readonly AdvArrayJson _advAObj = new AdvArrayJson
+        {
+            Id = 1,
+            Properties = new[] { _basicObj, _basicObj }
         };
 
         private string _basicAObjStr = "{\"Id\" : 1, \"Properties\" : [ \"One\",\"Two\",\"Babu\" ]}";
+
+        private string _advAStr = "{\"Id\" : 1, \"Properties\" : [ " + _basicStr + "," + _basicStr + " ]}";
 
         private readonly List<ExtendedPropertyInfo> _arrayOfObj = new List<ExtendedPropertyInfo>
         {
@@ -137,9 +145,55 @@ namespace Unosquare.Swan.Test
             var data = JsonFormatter.Serialize(_advObj);
 
             Assert.IsNotNull(data);
-
             Assert.AreEqual(_advStr, data);
         }
 
+        [Test]
+        public void DeserializeAdvObjectTest()
+        {
+            var data = JsonFormatter.Deserialize<AdvJson>(_advStr);
+
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.InnerChild);
+
+            foreach (var obj in new[] { data, data.InnerChild })
+            {
+                Assert.AreEqual(obj.StringData, _advObj.StringData);
+                Assert.AreEqual(obj.IntData, _advObj.IntData);
+                Assert.AreEqual(obj.NegativeInt, _advObj.NegativeInt);
+                Assert.AreEqual(obj.BoolData, _advObj.BoolData);
+                Assert.AreEqual(obj.DecimalData, _advObj.DecimalData);
+                Assert.AreEqual(obj.StringNull, _advObj.StringNull);
+            }
+        }
+
+        [Test]
+        public void SerializeAdvObjectArrayTest()
+        {
+            var data = JsonFormatter.Serialize(_advAObj);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_advAStr, data);
+        }
+
+        [Test]
+        public void DeserializeAdvObjectArrayTest()
+        {
+            var data = JsonFormatter.Deserialize<AdvArrayJson>(_advAStr);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_basicAObj.Id, data.Id);
+            Assert.IsNotNull(_basicAObj.Properties);
+
+            foreach (var obj in data.Properties)
+            {
+                Assert.AreEqual(obj.StringData, _advObj.StringData);
+                Assert.AreEqual(obj.IntData, _advObj.IntData);
+                Assert.AreEqual(obj.NegativeInt, _advObj.NegativeInt);
+                Assert.AreEqual(obj.BoolData, _advObj.BoolData);
+                Assert.AreEqual(obj.DecimalData, _advObj.DecimalData);
+                Assert.AreEqual(obj.StringNull, _advObj.StringNull);
+            }
+        }
     }
 }
