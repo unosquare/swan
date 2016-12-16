@@ -21,4 +21,9 @@
 
         public string[] Properties { get; set; }
     }
+
+    public class AdvJson : BasicJson
+    {
+        public BasicJson InnerChild { get; set; }
+    }
 }

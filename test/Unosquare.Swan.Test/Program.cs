@@ -11,8 +11,12 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            var dumpArgs = new[] { "--ño", "-n", "babu", "--verbose", "--color", "white" };
-            var result = CmdArgsParser.Default.ParseArguments<OptionMock>(dumpArgs);
+            //var tst = new JsonTest();
+            //tst.SerializeAdvObjectTest();
+
+            MockProvider.Instance.GetName().Info();
+            //var dumpArgs = new[] { "--ño", "-n", "babu", "--verbose", "--color", "white" };
+            //var result = CmdArgsParser.Default.ParseArguments<OptionMock>(dumpArgs);
 
             Terminal.ReadKey(true);
         }

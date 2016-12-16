@@ -51,6 +51,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetCancellationAtRunProcessAsyncTest()
         {
+            // I need a binary multiOS to run at loop
             Assert.Ignore("Pending");
         }
     }

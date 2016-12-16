@@ -9,7 +9,7 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class JsonTest
     {
-        private readonly BasicJson _basicObj = new BasicJson
+        private static readonly BasicJson _basicObj = new BasicJson
         {
             StringData = "string",
             IntData = 1,
@@ -18,8 +18,21 @@ namespace Unosquare.Swan.Test
             BoolData = true
         };
 
+        private static readonly AdvJson _advObj = new AdvJson
+        {
+            StringData = "string",
+            IntData = 1,
+            NegativeInt = -1,
+            DecimalData = 10.33M,
+            BoolData = true,
+            InnerChild = _basicObj
+        };
+
         private string _basicStr =
             "{\"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
+
+        private string _advStr =
+            "{\"InnerChild\" : {\"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}, \"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
 
         private readonly string[] _basicArray = {"One", "Two", "Three"};
         private string _basicAStr = "[ \"One\",\"Two\",\"Three\" ]";
@@ -117,5 +130,16 @@ namespace Unosquare.Swan.Test
 
             Assert.IsNotNull(data);
         }
+
+        [Test]
+        public void SerializeAdvObjectTest()
+        {
+            var data = JsonFormatter.Serialize(_advObj);
+
+            Assert.IsNotNull(data);
+
+            Assert.AreEqual(_advStr, data);
+        }
+
     }
 }

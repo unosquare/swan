@@ -5,27 +5,18 @@ notifications:
 matrix:
   include:
     - os: linux
-      mono: latest
-    - os: linux
       dotnet: 1.0.0-preview2-003131
       mono: latest
-      env: DOTNETCORE=1
       dist: trusty
       sudo: false
     - os: osx
       dotnet: 1.0.0-preview2-003131
       mono: latest
-      env: DOTNETCORE=1
-    - os: osx
-      mono: latest
 install:
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then mkdir -p /usr/local/lib; fi
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/; fi
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; fi
-  - if [[ $DOTNETCORE == "1" ]]; then dotnet restore; else nuget restore Unosquare.Swan.sln; fi
-  - if [[ $DOTNETCORE == "" ]]; then nuget install NUnit.ConsoleRunner -OutputDirectory testrunner; fi
-before_script:
-  - if [[ $DOTNETCORE == "" ]]; then export LD_LIBRARY_PATH=/usr/local/lib; fi
+  - dotnet restore
 script:
-  - if [[ $DOTNETCORE == "" ]]; then xbuild Unosquare.Swan.sln /p:Configuration=Release; else dotnet test ./test/Unosquare.Swan.Test -f netstandard1.6; fi
-  - if [[ $DOTNETCORE == "" ]]; then mono --debug ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe --process=Single ./test/Unosquare.Swan.Test/bin/Release/Unosquare.Swan.Tests.dll; fi
+  - dotnet build ./src/Unosquare.Swan -f netstandard1.6
+  - dotnet test ./test/Unosquare.Swan.Test -f netstandard1.6

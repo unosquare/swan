@@ -255,6 +255,30 @@
             }
         }
 
+        private static void SetPropertyObjectValue<T>(IEnumerable<PropertyInfo> properties, string propertyName,
+            string source, T result)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName)) return;
+
+            var targetProperty = properties.FirstOrDefault(p => p.Name.Equals(propertyName));
+
+            // Skip if the property is not found
+            if (targetProperty == null)
+                return;
+
+            var obj = ParseObject(targetProperty.PropertyType, source);
+
+            // Parse and assign the basic type value to the property
+            try
+            {
+                targetProperty.SetValue(result, obj);
+            }
+            catch
+            {
+                // swallow
+            }
+        }
+
         private static IList ParseArray(Type type, string source)
         {
             var result = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
@@ -435,6 +459,25 @@
                             else if (currentChar == InitialArrayCharacter)
                             {
                                 currentState = ReadState.WaitingForArrayEnd;
+                                currentValue.Append(currentChar);
+                            }
+                            else if (currentChar == InitialObjectCharacter)
+                            {
+                                currentState = ReadState.WaitingForObject;
+                                currentValue.Append(currentChar);
+                            }
+                            break;
+                        }
+                    case ReadState.WaitingForObject:
+                        {
+                            if (currentChar == FinalObjectCharacter)
+                            {
+                                currentValue.Append(currentChar);
+                                SetPropertyObjectValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else
+                            {
                                 currentValue.Append(currentChar);
                             }
                             break;

@@ -54,7 +54,6 @@
             };
 
             "Please provide an option".ReadPrompt(SampleOptions, "Exit this program");
-
         }
 
         static void TestCsvFormatters()
