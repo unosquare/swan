@@ -150,7 +150,7 @@
         /// Gets the list.
         /// </summary>
         /// <returns></returns>
-        internal List<ExtendedPropertyInfo<T>> GetList()
+        public List<ExtendedPropertyInfo<T>> GetList()
         {
             var dict = JsonFormatter.Deserialize<Dictionary<string, object>>(GetJsonData());
 
