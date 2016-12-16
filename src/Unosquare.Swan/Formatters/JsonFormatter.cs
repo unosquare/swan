@@ -192,8 +192,8 @@
 
         #region Support Methods
 
-        private static void SetPropertyValue<T>(IEnumerable<PropertyInfo> properties, string propertyName,
-            IEnumerable propertyValue, T result)
+        private static void SetPropertyArrayValue<T>(IEnumerable<PropertyInfo> properties, string propertyName,
+            string source, T result)
         {
             if (string.IsNullOrWhiteSpace(propertyName)) return;
 
@@ -204,18 +204,26 @@
                 return;
 
             var itemType = targetProperty.PropertyType.GetElementType();
+            var primitiveValue = Constants.AllBasicTypes.Contains(itemType);
 
             // Parse and assign the basic type value to the property
             try
             {
+                var propertyValue = ParseArray(itemType, source);
                 var arr = Array.CreateInstance(itemType, propertyValue.Cast<object>().Count());
 
                 var i = 0;
                 foreach (var value in propertyValue)
                 {
-                    object itemvalue;
-                    if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
-                        arr.SetValue(itemvalue, i++);
+                    if (primitiveValue)
+                    {
+                        object itemvalue;
+                        if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
+                            arr.SetValue(itemvalue, i++);
+                    } else
+                    {
+                        arr.SetValue(value, i++);
+                    }
                 }
 
                 targetProperty.SetValue(result, arr);
@@ -357,6 +365,7 @@
                         {
                             if (currentChar == FinalObjectCharacter)
                             {
+                                currentValue.Append(currentChar);
                                 var obj = ParseObject(type, currentValue.ToString());
                                 result.Add(obj);
                                 currentValue.Clear();
@@ -491,8 +500,7 @@
                             if (currentChar == FinalArrayCharacter)
                             {
                                 currentValue.Append(currentChar);
-                                var array = ParseArray(typeof(string), currentValue.ToString());
-                                SetPropertyValue(props, currentPropertyName.ToString(), array, result);
+                                SetPropertyArrayValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
                                 currentState = ReadState.WaitingForNewField;
                             }
                             else

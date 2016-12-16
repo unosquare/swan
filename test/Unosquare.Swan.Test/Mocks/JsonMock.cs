@@ -26,4 +26,11 @@
     {
         public BasicJson InnerChild { get; set; }
     }
+    
+    public class AdvArrayJson
+    {
+        public int Id { get; set; }
+
+        public BasicJson[] Properties { get; set; }
+    }
 }
