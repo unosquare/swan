@@ -3,9 +3,10 @@
     using Runtime;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
-    
+
     partial class Terminal
     {
         #region Write Methods
@@ -17,7 +18,8 @@
         /// <param name="color">The color.</param>
         /// <param name="count">The count.</param>
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
-        public static void Write(this byte charCode, ConsoleColor color, int count, bool newLine)
+        /// <param name="writer">The writer.</param>
+        internal static void Write(this byte charCode, ConsoleColor color, int count, bool newLine, TextWriter writer)
         {
             if (IsConsolePresent == false) return;
 
@@ -39,12 +41,79 @@
                 var context = new OutputContext()
                 {
                     OutputColor = color,
-                    OutputText = buffer
+                    OutputText = buffer,
+                    OutputWriter = writer
                 };
 
                 EnqueueOutput(context);
             }
+        }
 
+        /// <summary>
+        /// Writes a character a number of times, optionally adding a new line at the end
+        /// </summary>
+        /// <param name="charCode">The character code.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="newLine">if set to <c>true</c> [new line].</param>
+        public static void Write(this byte charCode, ConsoleColor color, int count, bool newLine)
+        {
+            Write(charCode, color, count, newLine, Console.Out);
+        }
+
+        /// <summary>
+        /// Writes a character a number of times, optionally adding a new line at the end
+        /// it outputs to the console's standard error
+        /// </summary>
+        /// <param name="charCode">The character code.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="newLine">if set to <c>true</c> [new line].</param>
+        public static void WriteError(this byte charCode, ConsoleColor color, int count, bool newLine)
+        {
+            Write(charCode, color, count, newLine, Console.Error);
+        }
+
+        /// <summary>
+        /// Writes the specified character in the default color.
+        /// </summary>
+        /// <param name="charCode">The character code.</param>
+        /// <param name="writer">The writer.</param>
+        internal static void Write(this char charCode, TextWriter writer)
+        {
+            if (IsConsolePresent == false) return;
+
+            lock (SyncLock)
+            {
+
+                var buffer = new char[] { charCode };
+                var context = new OutputContext()
+                {
+                    OutputColor = Settings.DefaultColor,
+                    OutputText = buffer,
+                    OutputWriter = writer
+                };
+                
+                EnqueueOutput(context);
+            }
+        }
+
+        /// <summary>
+        /// Writes the specified character in the default color to the standard output
+        /// </summary>
+        /// <param name="charCode">The character code.</param>
+        public static void Write(this char charCode)
+        {
+            Write(charCode, Console.Out);
+        }
+
+        /// <summary>
+        /// Writes the specified character in the default color to the standard error
+        /// </summary>
+        /// <param name="charCode">The character code.</param>
+        public static void WriteError(this char charCode)
+        {
+            Write(charCode, Console.Error);
         }
 
         /// <summary>
@@ -52,7 +121,8 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        public static void Write(this string text, ConsoleColor color)
+        /// <param name="writer">The writer.</param>
+        internal static void Write(this string text, ConsoleColor color, TextWriter writer)
         {
             if (IsConsolePresent == false) return;
             if (text == null) return;
@@ -63,10 +133,31 @@
                 var context = new OutputContext()
                 {
                     OutputColor = color,
-                    OutputText = OutputEncoding.GetChars(buffer)
+                    OutputText = OutputEncoding.GetChars(buffer),
+                    OutputWriter = writer
                 };
                 EnqueueOutput(context);
             }
+        }
+
+        /// <summary>
+        /// Writes the specified text in the given color to the standard output
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="color">The color.</param>
+        public static void Write(this string text, ConsoleColor color)
+        {
+            Write(text, color, Console.Out);
+        }
+
+        /// <summary>
+        /// Writes the specified text in the given color to the standard error
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="color">The color.</param>
+        public static void WriteError(this string text, ConsoleColor color)
+        {
+            Write(text, color, Console.Error);
         }
 
         /// <summary>
@@ -83,31 +174,81 @@
         #region WriteLine Methods
 
         /// <summary>
-        /// Writes a New Line Sequence
+        /// Writes text, terminating it with a New Line Sequence to the specified writer
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="writer">The writer.</param>
+        internal static void WriteLine(this string text, ConsoleColor color, TextWriter writer)
+        {
+            $"{text}{Environment.NewLine}".Write(color, writer);
+        }
+
+        /// <summary>
+        /// Writes a New Line Sequence to the given textwriter
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        internal static void WriteLine(TextWriter writer)
+        {
+            Environment.NewLine.Write(Settings.DefaultColor, writer);
+        }
+
+        /// <summary>
+        /// Writes a New Line Sequence to the standard output
         /// </summary>
         public static void WriteLine()
         {
-            Environment.NewLine.Write();
+            Environment.NewLine.Write(Settings.DefaultColor, Console.Out);
+        }
+
+        /// <summary>
+        /// Writes a New Line Sequence to the standard error
+        /// </summary>
+        public static void WriteLineError()
+        {
+            Environment.NewLine.Write(Settings.DefaultColor, Console.Error);
         }
 
         /// <summary>
         /// Writes a line of text in the current console foreground color
+        /// to the standard output
         /// </summary>
         /// <param name="text">The text.</param>
         public static void WriteLine(this string text)
         {
-            text?.WriteLine(Settings.DefaultColor);
+            text?.WriteLine(Settings.DefaultColor, Console.Out);
         }
 
         /// <summary>
-        /// Writes a line of text using the given color
+        /// Writes a line of text in the current console foreground color
+        /// to the standard error
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public static void WriteLineError(this string text)
+        {
+            text?.WriteLine(Settings.DefaultColor, Console.Error);
+        }
+
+        /// <summary>
+        /// Writes a line of text using the given color to the standard output
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         public static void WriteLine(this string text, ConsoleColor color)
         {
             if (text == null) return;
-            $"{text}{Environment.NewLine}".Write(color);
+            $"{text}{Environment.NewLine}".Write(color, Console.Out);
+        }
+
+        /// <summary>
+        /// Writes a line of text using the given color to the standard error
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="color">The color.</param>
+        public static void WriteLineError(this string text, ConsoleColor color)
+        {
+            if (text == null) return;
+            $"{text}{Environment.NewLine}".Write(color, Console.Error);
         }
 
         #endregion

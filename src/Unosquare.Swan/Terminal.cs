@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using System.IO;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -32,11 +33,23 @@
             public OutputContext()
             {
                 OriginalColor = Settings.DefaultColor;
+                OutputWriter = IsConsolePresent ? Console.Out : null;
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="OutputContext"/> class.
+            /// </summary>
+            /// <param name="writer">The writer.</param>
+            public OutputContext(TextWriter writer)
+            {
+                OriginalColor = Settings.DefaultColor;
+                OutputWriter = writer;
             }
 
             public ConsoleColor OriginalColor { get; }
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
+            public TextWriter OutputWriter { get; set; }
         }
 
         /// <summary>
@@ -104,7 +117,7 @@
                             continue;
 
                         Console.ForegroundColor = context.OutputColor;
-                        Console.Write(context.OutputText);
+                        context.OutputWriter?.Write(context.OutputText);
                         Console.ResetColor();
                         Console.ForegroundColor = context.OriginalColor;
                     }

@@ -12,32 +12,23 @@
         private bool IsDisposing; // To detect redundant calls
 
         /// <summary>
-        /// A synchronization root that is commonly use for cross-thread operations.
+        /// A synchronization root that is commonly used for cross-thread operations.
         /// </summary>
         protected static readonly object SyncRoot = new object();
 
         /// <summary>
         /// The static, singleton instance reference.
         /// </summary>
-        protected static Lazy<T> LazyInstance = null;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SingletonBase{T}" /> class.
-        /// </summary>
-        /// <param name="valueFactory">The value factory.</param>
-        protected SingletonBase(Func<T> valueFactory)
-        {
-            LazyInstance = new Lazy<T>(valueFactory, true);
-        }
+        protected static readonly Lazy<T> LazyInstance = new Lazy<T>(
+            valueFactory: () => { return Activator.CreateInstance(typeof(T), true) as T; }, 
+            isThreadSafe: true);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SingletonBase{T}"/> class.
-        /// A default constructor must be present.
         /// </summary>
         protected SingletonBase()
-            : this(() => { return Activator.CreateInstance(typeof(T)) as T; })
         {
-            // Placeholder
+            // placeholder
         }
 
         /// <summary>
@@ -72,11 +63,6 @@
                 {
                     // swallow
                 }
-                finally
-                {
-                    LazyInstance = null;
-                }
-
             }
 
             IsDisposing = true;

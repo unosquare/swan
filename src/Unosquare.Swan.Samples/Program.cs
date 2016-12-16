@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Samples
 {
+    using Abstractions;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -10,8 +11,10 @@
     {
         public static void Main(string[] args)
         {
+            TestSignleton.Instance.Name.Info("Singleton Test");
+
             TestApplicationInfo();
-            //TestTerminalOutputs();
+            TestTerminalOutputs();
             TestCsvFormatters();
             "Enter any key to exit".ReadKey();
         }
@@ -84,6 +87,12 @@
             var elapsed = action.Benchmark();
             $"Elapsed: {Math.Round(elapsed.TotalMilliseconds, 3)} milliseconds".Trace();
         }
+    }
+
+    internal class TestSignleton : SingletonBase<TestSignleton>
+    {
+        private TestSignleton() { }
+        public string Name => "Hello";
     }
 
     internal class StubCopyTargetTest

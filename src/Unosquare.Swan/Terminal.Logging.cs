@@ -15,7 +15,7 @@
             var color = Settings.DefaultColor;
             string prefix = string.Empty;
 
-            switch(messageType)
+            switch (messageType)
             {
                 case LoggingMessageType.Debug:
                     color = Settings.DebugColor;
@@ -45,17 +45,18 @@
 
             if (IsConsolePresent && Settings.ConsoleOptions.HasFlag(messageType))
             {
+                var writer = messageType == LoggingMessageType.Error ? Console.Error : Console.Out;
                 if (string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat))
-                    $" {prefix} >> {output}".WriteLine(color);
+                    $" {prefix} >> {output}".WriteLine(color, writer);
                 else
-                    $" {DateTime.Now.ToString(Settings.LoggingTimeFormat)} {prefix} >> {output}".WriteLine(color);
+                    $" {DateTime.Now.ToString(Settings.LoggingTimeFormat)} {prefix} >> {output}".WriteLine(color, writer);
             }
 
             // TODO: Implement a logging callback
         }
 
         /// <summary>
-        /// Debugs the specified text.
+        /// Logs a debug message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         public static void Debug(this string text)
@@ -64,7 +65,7 @@
         }
 
         /// <summary>
-        /// Debugs the specified source.
+        /// Logs a debug message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
@@ -74,7 +75,7 @@
         }
 
         /// <summary>
-        /// Traces the specified text.
+        /// Logs a trace message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         public static void Trace(this string text)
@@ -83,7 +84,7 @@
         }
 
         /// <summary>
-        /// Traces the specified source.
+        /// Logs a trace message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
@@ -93,7 +94,7 @@
         }
 
         /// <summary>
-        /// Warns the specified text.
+        /// Logs a warning message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         public static void Warn(this string text)
@@ -102,7 +103,7 @@
         }
 
         /// <summary>
-        /// Warns the specified source.
+        /// Logs a warning message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
@@ -112,7 +113,7 @@
         }
 
         /// <summary>
-        /// Informations the specified text.
+        /// Logs an info message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         public static void Info(this string text)
@@ -121,7 +122,7 @@
         }
 
         /// <summary>
-        /// Informations the specified source.
+        /// Logs an info message to the console
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
@@ -131,7 +132,7 @@
         }
 
         /// <summary>
-        /// Errors the specified text.
+        /// Logs an error message to the console's standard error
         /// </summary>
         /// <param name="text">The text.</param>
         public static void Error(this string text)
@@ -140,7 +141,7 @@
         }
 
         /// <summary>
-        /// Errors the specified source.
+        /// Logs an error message to the console's standard error
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
