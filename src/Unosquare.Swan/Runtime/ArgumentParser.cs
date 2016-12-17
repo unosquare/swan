@@ -110,6 +110,9 @@
                 }
             }
 
+            if (string.IsNullOrEmpty(propertyName) == false)
+                unknownList.Add(propertyName);
+
             var result = true;
 
             if (Settings.IgnoreUnknownArguments && unknownList.Any())
