@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Runtime
 {
+    using System;
+
     /// <summary>
-    /// Provides settings for <see cref="CmdArgsParser"/>.
+    /// Provides settings for <see cref="ArgumentParser"/>.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
-    public class ParserSettings
+    public class ArgumentParserSettings
     {
         /// <summary>
         /// Gets or sets a value indicating whether [write banner].
@@ -28,7 +28,7 @@ namespace Unosquare.Swan.Runtime
         /// Note that case insensitivity only applies to <i>values</i>, not the parameters.
         /// </summary>
         public bool CaseInsensitiveEnumValues { get; set; } = true;
-        
+
         /// <summary>
         /// Gets or sets a value indicating whether the parser shall move on to the next argument and ignore the given argument if it
         /// encounter an unknown arguments
@@ -47,7 +47,7 @@ namespace Unosquare.Swan.Runtime
         /// that forces parsing of all subsequent tokens as values.
         /// </summary>
         public bool EnableDashDash { get; set; }
-        
+
         internal StringComparer NameComparer => CaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
     }
 }

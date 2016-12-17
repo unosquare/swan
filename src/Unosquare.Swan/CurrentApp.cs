@@ -93,11 +93,11 @@
         }
 
 #if NET452
-/// <summary>
-/// Build a full path pointing to the current user's desktop with the given filename
-/// </summary>
-/// <param name="filename">The filename.</param>
-/// <returns></returns>
+        /// <summary>
+        /// Build a full path pointing to the current user's desktop with the given filename
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <returns></returns>
         public static string GetDesktopFilePath(string filename)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -115,7 +115,7 @@
             {
                 var localAppDataPath =
 #if NET452
-                        Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
+                    Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
 #else
                     Path.GetDirectoryName(EntryAssembly.Location);
 #endif

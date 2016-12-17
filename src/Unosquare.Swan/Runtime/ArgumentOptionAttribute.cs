@@ -1,18 +1,18 @@
-﻿using System;
-
-namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Runtime
 {
+    using System;
+
     /// <summary>
     /// Models an option specification.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public sealed class OptionAttribute : Attribute
+    public sealed class ArgumentOptionAttribute : Attribute
     {
         private string setName;
         private char separator;
 
-        private OptionAttribute(string shortName, string longName) : base()
+        private ArgumentOptionAttribute(string shortName, string longName) : base()
         {
             if (shortName == null) throw new ArgumentNullException(nameof(shortName));
             if (longName == null) throw new ArgumentNullException(nameof(longName));
@@ -25,38 +25,38 @@ namespace Unosquare.Swan.Runtime
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OptionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
         /// The default long name will be inferred from target property.
         /// </summary>
-        public OptionAttribute()
+        public ArgumentOptionAttribute()
             : this(string.Empty, string.Empty)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OptionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
         /// </summary>
         /// <param name="longName">The long name of the option.</param>
-        public OptionAttribute(string longName)
+        public ArgumentOptionAttribute(string longName)
             : this(string.Empty, longName)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OptionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
         /// </summary>
         /// <param name="shortName">The short name of the option.</param>
         /// <param name="longName">The long name of the option or null if not used.</param>
-        public OptionAttribute(char shortName, string longName)
+        public ArgumentOptionAttribute(char shortName, string longName)
             : this(shortName.ToOneCharString(), longName)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OptionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
         /// </summary>
         /// <param name="shortName">The short name of the option..</param>
-        public OptionAttribute(char shortName)
+        public ArgumentOptionAttribute(char shortName)
             : this(shortName.ToOneCharString(), string.Empty)
         {
         }

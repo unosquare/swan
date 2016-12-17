@@ -1,53 +1,54 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Unosquare.Swan.Reflection;
-
-namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Runtime
 {
+
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using Unosquare.Swan.Reflection;
+
     /// <summary>
     /// Provides methods to parse command line arguments.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
-    public class CmdArgsParser
+    public class ArgumentParser
     {
         const char Dash = '-';
 
-        private bool disposed;
-        private static readonly Lazy<CmdArgsParser> DefaultParser = new Lazy<CmdArgsParser>(() => new CmdArgsParser(new ParserSettings()));
+        //private bool disposed;
+        private static readonly Lazy<ArgumentParser> DefaultParser = new Lazy<ArgumentParser>(() => new ArgumentParser(new ArgumentParserSettings()));
 
         private static readonly object SyncLock = new object();
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CmdArgsParser"/> class.
+        /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
         /// </summary>
-        public CmdArgsParser()
+        public ArgumentParser()
         {
-            Settings = new ParserSettings();
+            Settings = new ArgumentParserSettings();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CmdArgsParser" /> class,
-        /// configurable with <see cref="ParserSettings" /> using a delegate.
+        /// Initializes a new instance of the <see cref="ArgumentParser" /> class,
+        /// configurable with <see cref="ArgumentParserSettings" /> using a delegate.
         /// </summary>
         /// <param name="parseSettings">The parse settings.</param>
-        public CmdArgsParser(ParserSettings parseSettings)
+        public ArgumentParser(ArgumentParserSettings parseSettings)
         {
             Settings = parseSettings;
         }
-        
+
         /// <summary>
         /// Gets the singleton instance created with basic defaults.
         /// </summary>
-        public static CmdArgsParser Default => DefaultParser.Value;
+        public static ArgumentParser Default => DefaultParser.Value;
 
         /// <summary>
-        /// Gets the instance that implements <see cref="ParserSettings"/> in use.
+        /// Gets the instance that implements <see cref="ArgumentParserSettings"/> in use.
         /// </summary>
-        public ParserSettings Settings { get; }
+        public ArgumentParserSettings Settings { get; }
 
         /// <summary>
         /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.
@@ -66,7 +67,7 @@ namespace Unosquare.Swan.Runtime
 
             if (properties.Any() == false)
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
-            
+
             var unknownList = new List<string>();
             var updatedList = new List<PropertyInfo>();
             var propertyName = string.Empty;
@@ -108,13 +109,13 @@ namespace Unosquare.Swan.Runtime
                     }
                 }
             }
-            
+
             var result = true;
 
             if (Settings.IgnoreUnknownArguments && unknownList.Any())
             {
                 result = false;
-                
+
                 if (Settings.WriteBanner) Terminal.WriteBanner();
 
                 Terminal.WriteUsage(properties);
@@ -134,7 +135,7 @@ namespace Unosquare.Swan.Runtime
             // Parse and assign the basic type value to the property
             try
             {
-                var optionAttr = targetProperty.GetCustomAttribute<OptionAttribute>();
+                var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
 
                 if (optionAttr == null) return false;
 
@@ -186,15 +187,15 @@ namespace Unosquare.Swan.Runtime
                 // ignored
             }
 
-            
+
             return false;
         }
 
         private PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)
         {
             return properties.FirstOrDefault(p =>
-                    p.GetCustomAttribute<OptionAttribute>()?.LongName == propertyName ||
-                    p.GetCustomAttribute<OptionAttribute>()?.ShortName == propertyName);
+                    p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName == propertyName ||
+                    p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName == propertyName);
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)

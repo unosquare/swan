@@ -12,7 +12,7 @@ namespace Unosquare.Swan.Test
             var dumpArgs = new[] { "--color", System.ConsoleColor.White.ToString().ToLowerInvariant() };
 
 
-            if (CmdArgsParser.Default.ParseArguments(dumpArgs, options))
+            if (ArgumentParser.Default.ParseArguments(dumpArgs, options))
                 "OK".Info();
 
             Terminal.ReadKey(true);

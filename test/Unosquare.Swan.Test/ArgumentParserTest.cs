@@ -9,7 +9,7 @@ using Unosquare.Swan.Test.Mocks;
 namespace Unosquare.Swan.Test
 {
     [TestFixture]
-    public class CmdArgsParserTest
+    public class ArgumentParserTest
     {
         [Test]
         public void BasicArgsTest()
@@ -18,7 +18,7 @@ namespace Unosquare.Swan.Test
             Assert.IsFalse(options.Verbose);
 
             var dumpArgs = new[] { "-n", "babu", "--verbose" };
-            var result = CmdArgsParser.Default.ParseArguments(dumpArgs, options);
+            var result = ArgumentParser.Default.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.IsTrue(options.Verbose);
@@ -34,7 +34,7 @@ namespace Unosquare.Swan.Test
             var newColor = ConsoleColor.White;
 
             var dumpArgs = new[] { "--color", newColor.ToString().ToLowerInvariant() };
-            var result = CmdArgsParser.Default.ParseArguments(dumpArgs, options);
+            var result = ArgumentParser.Default.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.AreEqual(newColor, options.BgColor);
@@ -48,7 +48,7 @@ namespace Unosquare.Swan.Test
             var collection = new[] { "ok","xor","zzz" };
 
             var dumpArgs = new[] { "--options", string.Join(",", collection) };
-            var result = CmdArgsParser.Default.ParseArguments(dumpArgs, options);
+            var result = ArgumentParser.Default.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.IsNotNull(options.Options);

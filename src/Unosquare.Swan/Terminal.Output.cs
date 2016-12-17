@@ -269,7 +269,7 @@
         /// <param name="properties">The properties.</param>
         public static void WriteUsage(IEnumerable<PropertyInfo> properties)
         {
-            var options = properties.Select(p => p.GetCustomAttribute<OptionAttribute>()).Where(x => x != null);
+            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
 
             foreach (var option in options)
             {
