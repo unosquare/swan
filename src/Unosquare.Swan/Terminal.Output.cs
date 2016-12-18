@@ -259,8 +259,8 @@
         /// </summary>
         public static void WriteBanner()
         {
-            $"{CurrentApp.CompanyName} - {CurrentApp.ProductName}".WriteLine(ConsoleColor.Cyan);
-            $"{CurrentApp.Trademark}".WriteLine(ConsoleColor.Cyan);
+            $"{CurrentApp.CompanyName} - {CurrentApp.ProductName} v.{CurrentApp.EntryAssemblyVersion}".WriteLine(ConsoleColor.Cyan);
+            $"{CurrentApp.ProductTrademark}".WriteLine(ConsoleColor.Cyan);
         }
 
         /// <summary>

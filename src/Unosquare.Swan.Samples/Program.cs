@@ -11,11 +11,12 @@
     {
         public static void Main(string[] args)
         {
-            TestSignleton.Instance.Name.Info("Singleton Test");
-
             TestApplicationInfo();
-            TestTerminalOutputs();
-            TestCsvFormatters();
+            TestContainerAndMessageHub();
+            
+            //TestTerminalOutputs();
+            //TestCsvFormatters();
+
             "Enter any key to exit".ReadKey();
         }
 
@@ -24,6 +25,24 @@
             $"Operating System Type: {CurrentApp.OS}    CLR Type: {(CurrentApp.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
             $"Local Storage Path: {CurrentApp.LocalStoragePath}".Info();
             $"Process Id: {CurrentApp.Process.Id}".Info();
+            Terminal.WriteBanner();
+        }
+
+        static void TestSingleton()
+        {
+            TestSignleton.Instance.Name.Info("Singleton Test");
+        }
+
+        static void TestContainerAndMessageHub()
+        {
+            CurrentApp.Container.Register<IAnimal, Fish>();
+            $"The concrete type ended up being: {CurrentApp.Container.Resolve<IAnimal>().Name}".Warn();
+            CurrentApp.Container.Unregister<IAnimal>();
+            CurrentApp.Container.Register<IAnimal, Monkey>();
+            $"The concrete type ended up being: {CurrentApp.Container.Resolve<IAnimal>().Name}".Warn();
+
+            CurrentApp.Messages.Subscribe<SimpleMessage>((m) => { $"Received the following message from '{m.Sender}': '{m.Content}'".Trace(); });
+            CurrentApp.Messages.Publish(new SimpleMessage("SENDER HERE", "This is some sample text"));
         }
 
         static void TestTerminalOutputs()
@@ -88,6 +107,18 @@
             $"Elapsed: {Math.Round(elapsed.TotalMilliseconds, 3)} milliseconds".Trace();
         }
     }
+
+    internal class SimpleMessage : Unosquare.Swan.Runtime.MessageHubGenericMessage<string>
+    {
+        public SimpleMessage(object sender, string content) : base(sender, content)
+        {
+            // placeholder
+        }
+    }
+
+    internal interface IAnimal { string Name { get; } }
+    internal class Monkey : IAnimal { public string Name => nameof(Monkey); }
+    internal class Fish : IAnimal { public string Name => nameof(Fish); }
 
     internal class TestSignleton : SingletonBase<TestSignleton>
     {

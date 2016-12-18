@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
+    using Runtime;
     using System;
     using System.Diagnostics;
     using System.IO;
@@ -23,14 +24,50 @@
 
         private static Assembly m_EntryAssembly = null;
         private static Process m_Process = null;
-        private static Os ApplicationOs = Os.Unknown;
+        private static OperatingSystem m_OS = OperatingSystem.Unknown;
+        private static readonly bool m_IsUsingMonoRuntime = Type.GetType("Mono.Runtime") != null;
 
         #endregion
 
+        #region Properties
+
         /// <summary>
-        /// Determines if the current application is using the Mono runtime
+        /// Gets the current Operating System.
         /// </summary>
-        public static readonly bool IsUsingMonoRuntime = Type.GetType("Mono.Runtime") != null;
+        public static OperatingSystem OS
+        {
+            get
+            {
+                if (m_OS == OperatingSystem.Unknown)
+                {
+                    var windir = Environment.GetEnvironmentVariable("windir");
+                    if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
+                    {
+                        m_OS = OperatingSystem.Windows;
+                    }
+                    else
+                    {
+                        m_OS = File.Exists(@"/proc/sys/kernel/ostype") ? OperatingSystem.Unix : OperatingSystem.Osx;
+                    }
+                }
+
+                return m_OS;
+            }
+        }
+
+        /// <summary>
+        /// Gets the process associated with the current application.
+        /// </summary>
+        public static Process Process
+        {
+            get
+            {
+                lock (SyncLock)
+                {
+                    return m_Process ?? (m_Process = Process.GetCurrentProcess());
+                }
+            }
+        }
 
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
@@ -69,28 +106,96 @@
         }
 
         /// <summary>
-        /// Gets the OS.
+        /// Gets a value indicating whether this application instance is using the Mono runtime.
         /// </summary>
-        public static Os OS
+        public static bool IsUsingMonoRuntime { get { return m_IsUsingMonoRuntime; } }
+
+        /// <summary>
+        /// Gets the application domain.
+        /// </summary>
+        /// <value>
+        /// The application domain.
+        /// </value>
+        public static Unosquare.Swan.Runtime.AppDomain AppDomain => Unosquare.Swan.Runtime.AppDomain.Instance;
+
+        /// <summary>
+        /// Gets the assembly that started the application.
+        /// </summary>
+        public static Assembly EntryAssembly => m_EntryAssembly ?? (m_EntryAssembly = Assembly.GetEntryAssembly());
+
+        /// <summary>
+        /// Gets the entry assembly version.
+        /// </summary>
+        public static Version EntryAssemblyVersion => EntryAssembly.GetName().Version;
+
+        /// <summary>
+        /// Gets the full path to the folder containing the assembly that started the application.
+        /// </summary>
+        public static string EntryAssemblyDirectory
         {
             get
             {
-                if (ApplicationOs == Os.Unknown)
-                {
-                    var windir = Environment.GetEnvironmentVariable("windir");
-                    if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
-                    {
-                        ApplicationOs = Os.Windows;
-                    }
-                    else
-                    {
-                        ApplicationOs = File.Exists(@"/proc/sys/kernel/ostype") ? Os.Unix : Os.Osx;
-                    }
-                }
-
-                return ApplicationOs;
+                var codeBase = EntryAssembly.CodeBase;
+                var uri = new UriBuilder(codeBase);
+                var path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
             }
         }
+
+        /// <summary>
+        /// Gets the name of the company.
+        /// </summary>
+        public static string CompanyName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
+
+        /// <summary>
+        /// Gets the name of the product.
+        /// </summary>
+        public static string ProductName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute)?.Product;
+
+        /// <summary>
+        /// Gets the trademark.
+        /// </summary>
+        public static string ProductTrademark => (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute)?.Trademark;
+
+        /// <summary>
+        /// Gets a path with a version
+        /// </summary>
+        public static string LocalStoragePath
+        {
+            get
+            {
+                var localAppDataPath =
+#if NET452
+                    Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
+#else
+                    Path.GetDirectoryName(EntryAssembly.Location);
+#endif
+
+                var returnPath = Path.Combine(localAppDataPath, EntryAssemblyVersion.ToString());
+
+                if (Directory.Exists(returnPath) == false)
+                {
+                    Directory.CreateDirectory(returnPath);
+                }
+
+                return returnPath;
+            }
+        }
+
+        /// <summary>
+        /// Provides a simple IoC Container based on TinyIoC
+        /// </summary>
+        public static DependencyContainer Container => Swan.Runtime.DependencyContainer.Current;
+
+        /// <summary>
+        /// Provides a Message Hub with the Publish/Subscribe pattern
+        /// The implementation is based on TinyIoC Messenger
+        /// </summary>
+        public static MessageHub Messages => Container.Resolve<IMessageHub>() as MessageHub;
+
+        #endregion
+
+        #region Methods
 
 #if NET452
         /// <summary>
@@ -106,86 +211,7 @@
         }
 #endif
 
-        /// <summary>
-        /// Gets the local storage path.
-        /// </summary>
-        public static string LocalStoragePath
-        {
-            get
-            {
-                var localAppDataPath =
-#if NET452
-                    Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
-#else
-                    Path.GetDirectoryName(EntryAssembly.Location);
-#endif
-
-                var returnPath = Path.Combine(localAppDataPath, EntryAssembly.GetName().Version.ToString());
-
-                if (Directory.Exists(returnPath) == false)
-                {
-                    Directory.CreateDirectory(returnPath);
-                }
-
-                return returnPath;
-            }
-        }
-
-        /// <summary>
-        /// Gets the process associated with the current application.
-        /// </summary>
-        public static Process Process
-        {
-            get
-            {
-                lock (SyncLock)
-                {
-                    return m_Process ?? (m_Process = Process.GetCurrentProcess());
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the assembly that started the application.
-        /// </summary>
-        public static Assembly EntryAssembly => m_EntryAssembly ?? (m_EntryAssembly = Assembly.GetEntryAssembly());
-
-        /// <summary>
-        /// Gets the company.
-        /// </summary>
-        /// <value>
-        /// The company.
-        /// </value>
-        public static string CompanyName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
-
-        /// <summary>
-        /// Gets the name of the product.
-        /// </summary>
-        /// <value>
-        /// The name of the product.
-        /// </value>
-        public static string ProductName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute)?.Product;
-
-        /// <summary>
-        /// Gets the trademark.
-        /// </summary>
-        /// <value>
-        /// The trademark.
-        /// </value>
-        public static string Trademark => (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute)?.Trademark;
-
-        /// <summary>
-        /// Gets the full path of the assembly that started the application.
-        /// </summary>
-        public static string EntryAssemblyDirectory
-        {
-            get
-            {
-                var codeBase = EntryAssembly.CodeBase;
-                var uri = new UriBuilder(codeBase);
-                var path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
-            }
-        }
+        #endregion
+        
     }
 }
