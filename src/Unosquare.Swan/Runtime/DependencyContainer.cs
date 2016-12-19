@@ -1023,7 +1023,7 @@ namespace Unosquare.Swan.Runtime
         public MultiRegisterOptions RegisterMultiple(Type registrationType, IEnumerable<Type> implementationTypes)
         {
             if (implementationTypes == null)
-                throw new ArgumentNullException("types", "types is null.");
+                throw new ArgumentNullException(nameof(implementationTypes), "types is null.");
 
             foreach (var type in implementationTypes)
                 if (!registrationType.GetTypeInfo().IsAssignableFrom(type))
