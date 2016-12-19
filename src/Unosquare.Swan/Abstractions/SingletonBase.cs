@@ -37,13 +37,15 @@
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
+
         /// <summary>
-        /// Disposes the job
+        /// Releases unmanaged and - optionally - managed resources.
+        /// Call the GC.SuppressFinalize if you override this method and use
+        /// a non-default class finalizer (destructor)
         /// </summary>
-        /// <param name="disposeManaged"></param>
+        /// <param name="disposeManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposeManaged)
         {
             if (IsDisposing) return;
