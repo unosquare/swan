@@ -1,8 +1,9 @@
-﻿namespace Unosquare.Swan.Runtime
+﻿using System.Collections.Generic;
+
+namespace Unosquare.Swan.Runtime
 {
     using Abstractions;
     using Microsoft.Extensions.DependencyModel;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -26,31 +27,43 @@
         /// <value>
         /// The current domain.
         /// </value>
-        static public AppDomain CurrentDomain { get { return Instance; } }
+        public static AppDomain CurrentDomain => Instance;
 
         /// <summary>
-        /// Gets all the assemblies in teh current app domain.
+        /// Gets all the assemblies in the current app domain.
         /// </summary>
         /// <returns></returns>
         public Assembly[] GetAssemblies()
         {
-            var assemblies = new List<Assembly>();
             var dependencies = DependencyContext.Default.RuntimeLibraries;
-            foreach (var library in dependencies)
+            var assemblies = new List<Assembly>();
+
+            foreach (var library in dependencies.Where(IsCandidateCompilationLibrary))
             {
-                if (IsCandidateCompilationLibrary(library))
-                {
-                    var assembly = Assembly.Load(new AssemblyName(library.Name));
-                    assemblies.Add(assembly);
-                }
+                assemblies.Add(SafeLoadAssemblyByName(library.Name));
+                assemblies.AddRange(library.Dependencies.Select(x => SafeLoadAssemblyByName(x.Name)));
             }
-            return assemblies.ToArray();
+
+            return assemblies.Where(x => x != null).ToArray();
+        }
+
+        private static Assembly SafeLoadAssemblyByName(string assemblyName)
+        {
+            try
+            {
+                return Assembly.Load(new AssemblyName(assemblyName));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private static bool IsCandidateCompilationLibrary(RuntimeLibrary compilationLibrary)
         {
-            return compilationLibrary.Name == ("Specify")
-                || compilationLibrary.Dependencies.Any(d => d.Name.StartsWith("Specify"));
+            return compilationLibrary.Name == CurrentApp.EntryAssembly.GetName().Name
+                   ||
+                   compilationLibrary.Dependencies.Any(d => d.Name.StartsWith(CurrentApp.EntryAssembly.GetName().Name));
         }
     }
 }

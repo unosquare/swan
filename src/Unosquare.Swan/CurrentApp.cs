@@ -25,7 +25,6 @@
         private static Assembly m_EntryAssembly = null;
         private static Process m_Process = null;
         private static OperatingSystem m_OS = OperatingSystem.Unknown;
-        private static readonly bool m_IsUsingMonoRuntime = Type.GetType("Mono.Runtime") != null;
 
         #endregion
 
@@ -108,7 +107,7 @@
         /// <summary>
         /// Gets a value indicating whether this application instance is using the Mono runtime.
         /// </summary>
-        public static bool IsUsingMonoRuntime { get { return m_IsUsingMonoRuntime; } }
+        public static bool IsUsingMonoRuntime { get; } = Type.GetType("Mono.Runtime") != null;
 
         /// <summary>
         /// Gets the application domain.

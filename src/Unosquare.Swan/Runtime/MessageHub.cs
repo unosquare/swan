@@ -32,7 +32,7 @@ namespace Unosquare.Swan.Runtime
     }
 
     /// <summary>
-    /// Base class for messages that provides weak refrence storage of the sender
+    /// Base class for messages that provides weak reference storage of the sender
     /// </summary>
     public abstract class MessageHubMessageBase : IMessageHubMessage
     {

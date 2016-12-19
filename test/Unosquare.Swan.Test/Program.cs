@@ -7,13 +7,15 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            var options = new OptionMock();
+            //var options = new OptionMock();
 
-            var dumpArgs = new[] { "--color", System.ConsoleColor.White.ToString().ToLowerInvariant() };
+            //var dumpArgs = new[] { "--color", System.ConsoleColor.White.ToString().ToLowerInvariant() };
 
 
-            if (ArgumentParser.Default.ParseArguments(dumpArgs, options))
-                "OK".Info();
+            //if (ArgumentParser.Default.ParseArguments(dumpArgs, options))
+            //    "OK".Info();
+
+            var assemblies = Swan.Runtime.AppDomain.CurrentDomain.GetAssemblies();
 
             Terminal.ReadKey(true);
         }
