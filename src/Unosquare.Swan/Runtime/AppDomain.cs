@@ -1,12 +1,14 @@
-﻿using System.IO;
-using Unosquare.Swan.Formatters;
-
-namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Runtime
 {
     using Abstractions;
+    using System.Reflection;
+#if !NET452
+    using System.IO;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
+    using Unosquare.Swan.Formatters;
+#endif
+
 
     /// <summary>
     /// Represents a polyfill class to replace interoperability with .net core
@@ -14,7 +16,22 @@ namespace Unosquare.Swan.Runtime
     /// </summary>
     public class AppDomain : SingletonBase<AppDomain>
     {
+#if !NET452
         private static readonly string DepsFilesProperty = "APP_CONTEXT_DEPS_FILES";
+
+        /// <summary>
+        /// The dependency context
+        /// </summary>
+        private System.Lazy<Dictionary<string, object>> _dependencyContext = new System.Lazy<Dictionary<string, object>>(() =>
+        {
+            var deps = System.AppContext.GetData(DepsFilesProperty);
+            var fileToLoad =
+                (deps as string)?.Split(new[] {';'}, System.StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            var jsonData = JsonFormatter.Deserialize(File.ReadAllText(fileToLoad));
+
+            return jsonData;
+        });
+#endif
 
         /// <summary>
         /// Prevents a default instance of the <see cref="AppDomain"/> class from being created.
@@ -38,16 +55,27 @@ namespace Unosquare.Swan.Runtime
         /// <returns></returns>
         public Assembly[] GetAssemblies()
         {
-            var dependencies = GetDependencyContext();
+#if NET452
+            return System.AppDomain.CurrentDomain.GetAssemblies();
+#else
             var assemblies = new List<Assembly>();
+            var runtimeAssemblies = GetRuntimeAssemblies().Where(x => x.Key.Name == CurrentApp.EntryAssembly.GetName().Name);
 
-            //foreach (var library in dependencies.Where(IsCandidateCompilationLibrary))
-            //{
-            //    assemblies.Add(SafeLoadAssemblyByName(library.Name));
-            //    assemblies.AddRange(library.Dependencies.Select(x => SafeLoadAssemblyByName(x.Name)));
-            //}
+            // TODO: Check at dependencies?
+            foreach (var library in runtimeAssemblies)
+            {
+                assemblies.Add(SafeLoadAssemblyByName(library.Key.Name));
+                var depInfo = library.Value as Dictionary<string, object>;
+
+                if (depInfo == null || !depInfo.ContainsKey("dependencies")) continue;
+                var deps = depInfo["dependencies"] as Dictionary<string, object>;
+
+                if (deps != null)
+                    assemblies.AddRange(deps.Select(x => SafeLoadAssemblyByName(x.Key)));
+            }
 
             return assemblies.Where(x => x != null).ToArray();
+#endif
         }
 
         private static Assembly SafeLoadAssemblyByName(string assemblyName)
@@ -62,28 +90,80 @@ namespace Unosquare.Swan.Runtime
             }
         }
 
-        //private static bool IsCandidateCompilationLibrary(RuntimeLibrary compilationLibrary)
-        //{
-        //    return compilationLibrary.Name == CurrentApp.EntryAssembly.GetName().Name
-        //           ||
-        //           compilationLibrary.Dependencies.Any(d => d.Name.StartsWith(CurrentApp.EntryAssembly.GetName().Name));
-        //}
-
+#if !NET452
         /// <summary>
         /// Gets the dependency context.
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, object> GetDependencyContext()
-        {
-#if NET452
-            var deps = System.AppDomain.CurrentDomain.GetData(DepsFilesProperty);
-#else
-            var deps = System.AppContext.GetData(DepsFilesProperty);
-#endif
-            var fileToLoad = (deps as string)?.Split(new[] { ';' }, System.StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-            var jsonData = JsonFormatter.Deserialize(File.ReadAllText(fileToLoad));
+        public Dictionary<string, object> GetDependencyContext() => _dependencyContext.Value;
 
-            return jsonData;
+        /// <summary>
+        /// Gets the get runtime target.
+        /// </summary>
+        /// <value>
+        /// The get runtime target.
+        /// </value>
+        public string GetRuntimeTarget
+        {
+            get
+            {
+                var runtimeDict = GetDependencyContext()["runtimeTarget"] as Dictionary<string, object>;
+
+                return runtimeDict != null && runtimeDict.ContainsKey("name")
+                    ? runtimeDict["name"].ToString()
+                    : string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets the runtime assemblies.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<AssemblyInfo, object> GetRuntimeAssemblies()
+        {
+            var targets = GetDependencyContext()["targets"] as Dictionary<string, object>;
+            var runtimeTarget = GetRuntimeTarget;
+
+            var assemblies = targets != null && targets.ContainsKey(runtimeTarget)
+                ? targets[runtimeTarget] as Dictionary<string, object>
+                : new Dictionary<string, object>();
+
+            return assemblies.ToDictionary(x => new AssemblyInfo(x.Key), x => x.Value);
+        }
+#endif
+
+        /// <summary>
+        /// Represents an Assembly information object
+        /// </summary>
+        public class AssemblyInfo
+        {
+            /// <summary>
+            /// Gets or sets the name.
+            /// </summary>
+            public string Name { get; set; }
+            /// <summary>
+            /// Gets or sets the version.
+            /// </summary>
+            public string Version { get; set; }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="AssemblyInfo"/> class.
+            /// </summary>
+            /// <param name="value">The value.</param>
+            /// <exception cref="System.ArgumentNullException">value</exception>
+            public AssemblyInfo(string value)
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new System.ArgumentNullException(nameof(value));
+
+                var parts = value.Split('/');
+                Name = parts[0];
+
+                if (parts.Length == 2)
+                {
+                    Version = parts[1];
+                }
+            }
         }
     }
 }

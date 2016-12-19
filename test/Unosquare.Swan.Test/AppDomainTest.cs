@@ -15,9 +15,9 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(assemblies.Any());
             Assert.AreEqual(
 #if NET452
-                4,
+                16,
 #else
-                7,
+                4,
 #endif
                 assemblies.Count(),
                 "Check assemblies are loaded fine");
