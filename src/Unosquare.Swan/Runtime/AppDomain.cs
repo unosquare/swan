@@ -61,9 +61,9 @@ namespace Unosquare.Swan.Runtime
 
         private static bool IsCandidateCompilationLibrary(RuntimeLibrary compilationLibrary)
         {
-            return compilationLibrary.Name == CurrentApp.EntryAssembly.GetName().Name
+            return compilationLibrary.Name == CurrentApp.EntryAssemblyName.Name
                    ||
-                   compilationLibrary.Dependencies.Any(d => d.Name.StartsWith(CurrentApp.EntryAssembly.GetName().Name));
+                   compilationLibrary.Dependencies.Any(d => d.Name.StartsWith(CurrentApp.EntryAssemblyName.Name));
         }
     }
 }

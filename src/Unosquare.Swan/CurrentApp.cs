@@ -22,9 +22,28 @@
 
         #region Property Backing
 
-        private static Assembly m_EntryAssembly = null;
-        private static Process m_Process = null;
-        private static OperatingSystem m_OS = OperatingSystem.Unknown;
+        private static Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => { return Assembly.GetEntryAssembly(); });
+        private static Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => { return m_EntryAssembly.Value.GetName(); });
+        private static Lazy<Process> m_Process = new Lazy<Process>(() => { return Process.GetCurrentProcess(); });
+        private static Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => { return Type.GetType("Mono.Runtime") != null; });
+        private static OperatingSystem? m_OS = null;
+        private static Lazy<string> m_CompanyName = new Lazy<string>(() =>
+        {
+            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute);
+            return attribute == null ? string.Empty : attribute.Company;
+        });
+
+        private static Lazy<string> m_ProductName = new Lazy<string>(() =>
+        {
+            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute);
+            return attribute == null ? string.Empty : attribute.Product;
+        });
+
+        private static Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
+        {
+            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute);
+            return attribute == null ? string.Empty : attribute.Trademark;
+        });
 
         #endregion
 
@@ -37,36 +56,31 @@
         {
             get
             {
-                if (m_OS == OperatingSystem.Unknown)
+                if (m_OS == null)
                 {
-                    var windir = Environment.GetEnvironmentVariable("windir");
-                    if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
+                    var windowsDirectory = Environment.GetEnvironmentVariable("windir");
+                    if (string.IsNullOrEmpty(windowsDirectory) == false
+                        && windowsDirectory.Contains(@"\")
+                        && Directory.Exists(windowsDirectory))
                     {
                         m_OS = OperatingSystem.Windows;
                     }
                     else
                     {
-                        m_OS = File.Exists(@"/proc/sys/kernel/ostype") ? OperatingSystem.Unix : OperatingSystem.Osx;
+                        m_OS = File.Exists(@"/proc/sys/kernel/ostype") ?
+                            OperatingSystem.Unix :
+                            OperatingSystem.Osx;
                     }
                 }
 
-                return m_OS;
+                return m_OS.HasValue ? m_OS.Value : OperatingSystem.Unknown;
             }
         }
 
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
-        public static Process Process
-        {
-            get
-            {
-                lock (SyncLock)
-                {
-                    return m_Process ?? (m_Process = Process.GetCurrentProcess());
-                }
-            }
-        }
+        public static Process Process => m_Process.Value;
 
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
@@ -107,7 +121,7 @@
         /// <summary>
         /// Gets a value indicating whether this application instance is using the Mono runtime.
         /// </summary>
-        public static bool IsUsingMonoRuntime { get; } = Type.GetType("Mono.Runtime") != null;
+        public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value.Value;
 
         /// <summary>
         /// Gets the application domain.
@@ -120,12 +134,17 @@
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
-        public static Assembly EntryAssembly => m_EntryAssembly ?? (m_EntryAssembly = Assembly.GetEntryAssembly());
+        public static Assembly EntryAssembly => m_EntryAssembly.Value;
+
+        /// <summary>
+        /// Gets the name of the entry assembly.
+        /// </summary>
+        public static AssemblyName EntryAssemblyName => m_EntryAssemblyName.Value;
 
         /// <summary>
         /// Gets the entry assembly version.
         /// </summary>
-        public static Version EntryAssemblyVersion => EntryAssembly.GetName().Version;
+        public static Version EntryAssemblyVersion => EntryAssemblyName.Version;
 
         /// <summary>
         /// Gets the full path to the folder containing the assembly that started the application.
@@ -144,20 +163,20 @@
         /// <summary>
         /// Gets the name of the company.
         /// </summary>
-        public static string CompanyName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
+        public static string CompanyName => m_CompanyName.Value;
 
         /// <summary>
         /// Gets the name of the product.
         /// </summary>
-        public static string ProductName => (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute)?.Product;
+        public static string ProductName => m_ProductName.Value;
 
         /// <summary>
         /// Gets the trademark.
         /// </summary>
-        public static string ProductTrademark => (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute)?.Trademark;
+        public static string ProductTrademark => m_ProductTrademark.Value;
 
         /// <summary>
-        /// Gets a path with a version
+        /// Gets a local storage path with a version
         /// </summary>
         public static string LocalStoragePath
         {
@@ -165,7 +184,7 @@
             {
                 var localAppDataPath =
 #if NET452
-                    Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssembly.GetName().Name);
+                    Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssemblyName.Name);
 #else
                     Path.GetDirectoryName(EntryAssembly.Location);
 #endif
@@ -211,6 +230,6 @@
 #endif
 
         #endregion
-        
+
     }
 }
