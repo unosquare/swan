@@ -172,7 +172,7 @@
         private static MethodInfo GetMethod(Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
         {
             var methods =
-                sourceType.GetMethods(bindingFlags).Where(
+                sourceType.GetTypeInfo().GetMethods(bindingFlags).Where(
                     mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
                         mi => mi.ContainsGenericParameters).Where(mi => mi.GetGenericArguments().Length == genericTypes.Length).
                     Where(mi => mi.GetParameters().Length == parameterTypes.Length).Select(

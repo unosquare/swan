@@ -1,8 +1,6 @@
 {
   "version": "0.9.3-*",
-  "dependencies": {
-    "Microsoft.Extensions.DependencyModel": "1.0.*"
-  },
+  
   "frameworks": {
     "netcoreapp1.1": {
       "dependencies": {
@@ -16,14 +14,17 @@
         "System.Threading.Thread": "4.3.0",
         "System.Diagnostics.Process": "4.3.0",
         "System.ComponentModel.Annotations": "4.3.0",
-        "System.ComponentModel.TypeConverter": "4.3.0"
+        "System.ComponentModel.TypeConverter": "4.3.0",
+        "System.Dynamic.Runtime": "4.0.11",
+        "Microsoft.CSharp": "4.0.1"
       }
     },
     "net452": {
       "frameworkAssemblies": {
         "System.ServiceProcess": "",
         "System.Drawing": "4.0.0.0",
-        "System.ComponentModel.DataAnnotations": ""
+        "System.ComponentModel.DataAnnotations": "",
+        "System.Dynamic.Runtime": ""
       }
     }
   },

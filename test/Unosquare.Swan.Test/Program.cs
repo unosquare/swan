@@ -1,4 +1,6 @@
-﻿using Unosquare.Swan.Runtime;
+﻿using System;
+using System.Collections.Generic;
+using Unosquare.Swan.Runtime;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -15,7 +17,8 @@ namespace Unosquare.Swan.Test
             //if (ArgumentParser.Default.ParseArguments(dumpArgs, options))
             //    "OK".Info();
 
-            var assemblies = Swan.Runtime.AppDomain.CurrentDomain.GetAssemblies();
+            dynamic assemblies = Swan.Runtime.AppDomain.CurrentDomain.GetDependencyContext();
+            var data = assemblies as IDictionary<String, object>;
 
             Terminal.ReadKey(true);
         }

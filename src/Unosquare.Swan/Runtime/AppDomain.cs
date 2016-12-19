@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Dynamic;
+using System.IO;
+using Unosquare.Swan.Formatters;
 
 namespace Unosquare.Swan.Runtime
 {
     using Abstractions;
-    using Microsoft.Extensions.DependencyModel;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -13,6 +15,8 @@ namespace Unosquare.Swan.Runtime
     /// </summary>
     public class AppDomain : SingletonBase<AppDomain>
     {
+        private static readonly string DepsFilesProperty = "APP_CONTEXT_DEPS_FILES";
+
         /// <summary>
         /// Prevents a default instance of the <see cref="AppDomain"/> class from being created.
         /// </summary>
@@ -35,14 +39,14 @@ namespace Unosquare.Swan.Runtime
         /// <returns></returns>
         public Assembly[] GetAssemblies()
         {
-            var dependencies = DependencyContext.Default.RuntimeLibraries;
+            var dependencies = GetDependencyContext();
             var assemblies = new List<Assembly>();
 
-            foreach (var library in dependencies.Where(IsCandidateCompilationLibrary))
-            {
-                assemblies.Add(SafeLoadAssemblyByName(library.Name));
-                assemblies.AddRange(library.Dependencies.Select(x => SafeLoadAssemblyByName(x.Name)));
-            }
+            //foreach (var library in dependencies.Where(IsCandidateCompilationLibrary))
+            //{
+            //    assemblies.Add(SafeLoadAssemblyByName(library.Name));
+            //    assemblies.AddRange(library.Dependencies.Select(x => SafeLoadAssemblyByName(x.Name)));
+            //}
 
             return assemblies.Where(x => x != null).ToArray();
         }
@@ -59,11 +63,28 @@ namespace Unosquare.Swan.Runtime
             }
         }
 
-        private static bool IsCandidateCompilationLibrary(RuntimeLibrary compilationLibrary)
+        //private static bool IsCandidateCompilationLibrary(RuntimeLibrary compilationLibrary)
+        //{
+        //    return compilationLibrary.Name == CurrentApp.EntryAssembly.GetName().Name
+        //           ||
+        //           compilationLibrary.Dependencies.Any(d => d.Name.StartsWith(CurrentApp.EntryAssembly.GetName().Name));
+        //}
+
+        /// <summary>
+        /// Gets the dependency context.
+        /// </summary>
+        /// <returns></returns>
+        public ExpandoObject GetDependencyContext()
         {
-            return compilationLibrary.Name == CurrentApp.EntryAssembly.GetName().Name
-                   ||
-                   compilationLibrary.Dependencies.Any(d => d.Name.StartsWith(CurrentApp.EntryAssembly.GetName().Name));
+#if NET452
+            var deps = System.AppDomain.CurrentDomain.GetData(DepsFilesProperty);
+#else
+            var deps = System.AppContext.GetData(DepsFilesProperty);
+#endif
+            var fileToLoad = (deps as string)?.Split(new[] { ';' }, System.StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            var jsonData = JsonFormatter.Deserialize(File.ReadAllText(fileToLoad));
+
+            return jsonData;
         }
     }
 }

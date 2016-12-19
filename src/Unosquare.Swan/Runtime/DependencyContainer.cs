@@ -1074,7 +1074,7 @@ namespace Unosquare.Swan.Runtime
                 throw new ArgumentNullException("types", "types is null.");
 
             foreach (var type in implementationTypes)
-                if (!registrationType.IsAssignableFrom(type))
+                if (!registrationType.GetTypeInfo().IsAssignableFrom(type))
                     throw new ArgumentException(String.Format("types: The type {0} is not assignable from {1}", registrationType.FullName, type.FullName));
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
@@ -2815,7 +2815,7 @@ namespace Unosquare.Swan.Runtime
                 {
                     var localType = type;
                     var implementations = from implementationType in concreteTypes
-                                          where localType.IsAssignableFrom(implementationType)
+                                          where localType.GetTypeInfo().IsAssignableFrom(implementationType)
                                           select implementationType;
 
                     if (implementations.Skip(1).Any())
@@ -2878,7 +2878,7 @@ namespace Unosquare.Swan.Runtime
                 t => t.FullName.StartsWith("Microsoft.", StringComparison.Ordinal),
                 t => t.IsPrimitive(),
                 t => t.IsGenericTypeDefinition(),
-                t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) && !(t.IsInterface() || t.IsAbstract()),
+                t => (t.GetTypeInfo().GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) && !(t.IsInterface() || t.IsAbstract()),
             };
 
             if (registrationPredicate != null)
@@ -3043,7 +3043,7 @@ namespace Unosquare.Swan.Runtime
             //#if NETFX_CORE
             //			if ((genericType == typeof(Func<,>) && type.GetTypeInfo().GenericTypeArguments[0] == typeof(string)))
             //#else
-            if ((genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string)))
+            if ((genericType == typeof(Func<,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string)))
                 //#endif
                 return true;
 
@@ -3051,7 +3051,7 @@ namespace Unosquare.Swan.Runtime
             //#if NETFX_CORE
             //			if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GenericTypeArguments[0] == typeof(string) && type.GetTypeInfo().GenericTypeArguments[1] == typeof(IDictionary<String, object>)))
             //#else
-            if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) && type.GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
+            if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string) && type.GetTypeInfo().GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
                 //#endif
                 return true;
 
@@ -3265,7 +3265,7 @@ namespace Unosquare.Swan.Runtime
             //#if NETFX_CORE
             //			var genericResolveAllMethod = this.GetType().GetGenericMethod("ResolveAll", type.GenericTypeArguments, new[] { typeof(bool) });
             //#else
-            var genericResolveAllMethod = this.GetType().GetGenericMethod(BindingFlags.Public | BindingFlags.Instance, "ResolveAll", type.GetGenericArguments(), new[] { typeof(bool) });
+            var genericResolveAllMethod = this.GetType().GetGenericMethod(BindingFlags.Public | BindingFlags.Instance, "ResolveAll", type.GetTypeInfo().GetGenericArguments(), new[] { typeof(bool) });
             //#endif
 
             return genericResolveAllMethod.Invoke(this, new object[] { false });
@@ -3327,7 +3327,7 @@ namespace Unosquare.Swan.Runtime
             //#if NETFX_CORE
             //			return type.GetTypeInfo().DeclaredConstructors.OrderByDescending(ctor => ctor.GetParameters().Count());
             //#else
-            return type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Count());
+            return type.GetTypeInfo().GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Count());
             //#endif
         }
 
@@ -3455,7 +3455,7 @@ namespace Unosquare.Swan.Runtime
             //							 where (property.GetMethod != null) && (property.SetMethod != null) && !property.PropertyType.GetTypeInfo().IsValueType
             //							 select property;
             //#else
-            var properties = from property in input.GetType().GetProperties()
+            var properties = from property in input.GetType().GetTypeInfo().GetProperties()
                              where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType()
                              select property;
             //#endif
@@ -3500,14 +3500,14 @@ namespace Unosquare.Swan.Runtime
         {
             if (!registerType.IsGenericTypeDefinition())
             {
-                if (!registerType.IsAssignableFrom(registerImplementation))
+                if (!registerType.GetTypeInfo().IsAssignableFrom(registerImplementation))
                     return false;
             }
             else
             {
                 if (registerType.IsInterface())
                 {
-                    if (!registerImplementation.GetInterfaces().Any(t => t.Name == registerType.Name))
+                    if (!registerImplementation.GetTypeInfo().GetInterfaces().Any(t => t.Name == registerType.Name))
                         return false;
                 }
                 else if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
