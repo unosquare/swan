@@ -128,8 +128,7 @@
                     {
                         sb.Append($"\"{prop.Name}\" : null, ");
                     }
-                    else if (prop.PropertyType != typeof(string) &&
-                             typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(prop.PropertyType))
+                    else if (prop.IsCollection())
                     {
                         sb.Append($"\"{prop.Name}\" : {Serialize(value as IEnumerable)}, ");
                     }
@@ -277,12 +276,11 @@
             // Skip if the property is not found
             if (targetProperty == null)
                 return;
-
-            var obj = ParseObject(targetProperty.PropertyType, source);
-
+            
             // Parse and assign the basic type value to the property
             try
             {
+                var obj = ParseObject(targetProperty.PropertyType, source);
                 targetProperty.SetValue(result, obj);
             }
             catch

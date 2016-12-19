@@ -1,6 +1,7 @@
 {
-  "version": "1.0.0-*",
+  "version": "0.9.3-*",
   "dependencies": {
+    "Microsoft.Extensions.DependencyModel": "1.0.*"
   },
   "frameworks": {
     "netcoreapp1.1": {

@@ -14,7 +14,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsOsDifferentUnknownTest()
         {
-            Assert.AreNotEqual(CurrentApp.OS, Os.Unknown, $"Retrieving a OS: {CurrentApp.OS}");
+            Assert.AreNotEqual(CurrentApp.OS, OperatingSystem.Unknown, $"Retrieving a OS: {CurrentApp.OS}");
         }
 
         [Test]

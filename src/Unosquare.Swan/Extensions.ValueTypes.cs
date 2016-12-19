@@ -1,6 +1,8 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections;
+    using System.Reflection;
 
     /// <summary>
     /// Provides various extension methods
@@ -42,5 +44,17 @@
             return true;
         }
 
+        /// <summary>
+        /// Determines whether this instance is collection.
+        /// </summary>
+        /// <param name="prop">The property.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified property is collection; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsCollection(this PropertyInfo prop)
+        {
+            return prop.PropertyType != typeof(string) &&
+                             typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(prop.PropertyType);
+        }
     }
 }

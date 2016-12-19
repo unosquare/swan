@@ -259,8 +259,8 @@
         /// </summary>
         public static void WriteBanner()
         {
-            $"{CurrentApp.CompanyName} - {CurrentApp.ProductName}".WriteLine(ConsoleColor.Cyan);
-            $"{CurrentApp.Trademark}".WriteLine(ConsoleColor.Cyan);
+            $"{CurrentApp.CompanyName} - {CurrentApp.ProductName} v.{CurrentApp.EntryAssemblyVersion}".WriteLine(ConsoleColor.Cyan);
+            $"{CurrentApp.ProductTrademark}".WriteLine(ConsoleColor.Cyan);
         }
 
         /// <summary>
@@ -269,7 +269,7 @@
         /// <param name="properties">The properties.</param>
         public static void WriteUsage(IEnumerable<PropertyInfo> properties)
         {
-            var options = properties.Select(p => p.GetCustomAttribute<OptionAttribute>()).Where(x => x != null);
+            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
 
             foreach (var option in options)
             {
@@ -278,7 +278,7 @@
                 var shorName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
                 var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
                 var comma = string.IsNullOrWhiteSpace(shorName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
-                var defaultValue = option.Default == null ? string.Empty : $"(Default: {option.Default}) ";
+                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
                 $"  {shorName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
             }
 

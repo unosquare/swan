@@ -1,24 +1,24 @@
 ﻿namespace Unosquare.Swan
 {
     /// <summary>
-    /// Enums supported OS's
+    /// Enumeration of Operating Systems
     /// </summary>
-    public enum Os
+    public enum OperatingSystem
     {
         /// <summary>
-        /// The unknown
+        /// Unknown OS
         /// </summary>
         Unknown,
         /// <summary>
-        /// The Windows value
+        /// Windows
         /// </summary>
         Windows,
         /// <summary>
-        /// The UNIX value
+        /// UNIX/Linux
         /// </summary>
         Unix,
         /// <summary>
-        /// The OSX value
+        /// Mac OSX
         /// </summary>
         Osx
     }

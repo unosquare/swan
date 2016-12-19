@@ -8,6 +8,6 @@
     }
   },
   "dependencies": {
-    "Unosquare.Swan": "1.0.0-*"
+    "Unosquare.Swan": "*"
   }
 }
