@@ -1,4 +1,7 @@
 {
+  "title": "Unosquare SWAN",
+  "copyright": "Copyright (c) 2016 - Unosquare",
+  "description": "Class library with Stuff We All Need",
   "version": "0.9.3-*",
   "dependencies": {
     "Microsoft.Extensions.DependencyModel": "1.0.*"

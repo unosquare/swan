@@ -12,38 +12,39 @@
     /// </summary>
     public static class CurrentApp
     {
-        #region State Variables
-
-        private static Mutex ApplicationMutex = null;
-        private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
-        private static readonly object SyncLock = new object();
-
-        #endregion
-
         #region Property Backing
 
-        private static Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => { return Assembly.GetEntryAssembly(); });
-        private static Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => { return m_EntryAssembly.Value.GetName(); });
-        private static Lazy<Process> m_Process = new Lazy<Process>(() => { return Process.GetCurrentProcess(); });
-        private static Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => { return Type.GetType("Mono.Runtime") != null; });
-        private static OperatingSystem? m_OS = null;
-        private static Lazy<string> m_CompanyName = new Lazy<string>(() =>
+        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => { return Assembly.GetEntryAssembly(); });
+        private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => { return m_EntryAssembly.Value.GetName(); });
+        private static readonly Lazy<Process> m_Process = new Lazy<Process>(() => { return Process.GetCurrentProcess(); });
+        private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => { return Type.GetType("Mono.Runtime") != null; });
+        
+        private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute);
             return attribute == null ? string.Empty : attribute.Company;
         });
 
-        private static Lazy<string> m_ProductName = new Lazy<string>(() =>
+        private static readonly Lazy<string> m_ProductName = new Lazy<string>(() =>
         {
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute);
             return attribute == null ? string.Empty : attribute.Product;
         });
 
-        private static Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
+        private static readonly Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
         {
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute);
             return attribute == null ? string.Empty : attribute.Trademark;
         });
+
+        #endregion
+
+        #region State Variables
+
+        private static OperatingSystem? m_OS = new OperatingSystem?();
+        private static Mutex ApplicationMutex = null;
+        private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
+        private static readonly object SyncLock = new object();
 
         #endregion
 
@@ -56,7 +57,7 @@
         {
             get
             {
-                if (m_OS == null)
+                if (m_OS.HasValue == false)
                 {
                     var windowsDirectory = Environment.GetEnvironmentVariable("windir");
                     if (string.IsNullOrEmpty(windowsDirectory) == false
