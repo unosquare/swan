@@ -20,6 +20,7 @@ namespace Unosquare.Swan.Runtime
     using System.Reflection;
 
     #region Message Types / Interfaces
+
     /// <summary>
     /// A TinyMessage to be published/delivered by TinyMessenger
     /// </summary>
@@ -45,13 +46,7 @@ namespace Unosquare.Swan.Runtime
         /// <summary>
         /// The sender of the message, or null if not supported by the message implementation.
         /// </summary>
-        public object Sender
-        {
-            get
-            {
-                return (_Sender == null) ? null : _Sender.Target;
-            }
-        }
+        public object Sender => _Sender?.Target;
 
         /// <summary>
         /// Initializes a new instance of the MessageBase class.
@@ -60,7 +55,7 @@ namespace Unosquare.Swan.Runtime
         public MessageHubMessageBase(object sender)
         {
             if (sender == null)
-                throw new ArgumentNullException("sender");
+                throw new ArgumentNullException(nameof(sender));
 
             _Sender = new WeakReference(sender);
         }
@@ -115,7 +110,7 @@ namespace Unosquare.Swan.Runtime
             : base(sender)
         {
             if (cancelAction == null)
-                throw new ArgumentNullException("cancelAction");
+                throw new ArgumentNullException(nameof(cancelAction));
 
             Content = content;
             Cancel = cancelAction;
@@ -136,10 +131,10 @@ namespace Unosquare.Swan.Runtime
         public MessageHubSubscriptionToken(IMessageHub hub, Type messageType)
         {
             if (hub == null)
-                throw new ArgumentNullException("hub");
+                throw new ArgumentNullException(nameof(hub));
 
             if (!typeof(IMessageHubMessage).GetTypeInfo().IsAssignableFrom(messageType))
-                throw new ArgumentOutOfRangeException("messageType");
+                throw new ArgumentOutOfRangeException(nameof(messageType));
 
             _Hub = new WeakReference(hub);
             _MessageType = messageType;
@@ -156,9 +151,10 @@ namespace Unosquare.Swan.Runtime
 
                 if (hub != null)
                 {
-                    var unsubscribeMethod = typeof(IMessageHub).GetTypeInfo().GetMethod("Unsubscribe", new Type[] { typeof(MessageHubSubscriptionToken) });
+                    var unsubscribeMethod = typeof(IMessageHub).GetTypeInfo()
+                        .GetMethod("Unsubscribe", new Type[] {typeof(MessageHubSubscriptionToken)});
                     unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_MessageType);
-                    unsubscribeMethod.Invoke(hub, new object[] { this });
+                    unsubscribeMethod.Invoke(hub, new object[] {this});
                 }
             }
 
@@ -213,8 +209,6 @@ namespace Unosquare.Swan.Runtime
     /// </summary>
     public sealed class MessageHubDefaultProxy : IMessageHubProxy
     {
-        private static readonly MessageHubDefaultProxy _Instance = new MessageHubDefaultProxy();
-
         /// <summary>
         /// Initializes the <see cref="MessageHubDefaultProxy"/> class.
         /// </summary>
@@ -225,13 +219,7 @@ namespace Unosquare.Swan.Runtime
         /// <summary>
         /// Singleton instance of the proxy.
         /// </summary>
-        public static MessageHubDefaultProxy Instance
-        {
-            get
-            {
-                return _Instance;
-            }
-        }
+        public static MessageHubDefaultProxy Instance { get; } = new MessageHubDefaultProxy();
 
         private MessageHubDefaultProxy()
         {
@@ -248,9 +236,11 @@ namespace Unosquare.Swan.Runtime
             subscription.Deliver(message);
         }
     }
+
     #endregion
 
     #region Exceptions
+
     /// <summary>
     /// Thrown when an exceptions occurs while subscribing to a message type
     /// </summary>
@@ -281,9 +271,11 @@ namespace Unosquare.Swan.Runtime
 
         }
     }
+
     #endregion
 
     #region Hub Interface
+
     /// <summary>
     /// Messenger hub responsible for taking subscriptions/publications and delivering of messages.
     /// </summary>
@@ -298,7 +290,8 @@ namespace Unosquare.Swan.Runtime
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction)
+            where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
@@ -311,7 +304,8 @@ namespace Unosquare.Swan.Runtime
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, IMessageHubProxy proxy)
+            where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
@@ -322,7 +316,8 @@ namespace Unosquare.Swan.Runtime
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences)
+            where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
@@ -335,7 +330,8 @@ namespace Unosquare.Swan.Runtime
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences,
+            IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -348,7 +344,8 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter) where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -363,7 +360,8 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -377,7 +375,8 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool useStrongReferences) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, bool useStrongReferences) where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -393,7 +392,9 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool useStrongReferences, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, bool useStrongReferences, IMessageHubProxy proxy)
+            where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Unsubscribe from a particular message type.
@@ -402,7 +403,8 @@ namespace Unosquare.Swan.Runtime
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="subscriptionToken">Subscription token received from Subscribe</param>
-        void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken) where TMessage : class, IMessageHubMessage;
+        void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken)
+            where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Publish a message to any subscribers
@@ -426,26 +428,25 @@ namespace Unosquare.Swan.Runtime
         /// <param name="callback">AsyncCallback called on completion</param>
         void PublishAsync<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, IMessageHubMessage;
     }
+
     #endregion
 
     #region Hub Implementation
+
     /// <summary>
     /// Messenger hub responsible for taking subscriptions/publications and delivering of messages.
     /// </summary>
     public sealed class MessageHub : IMessageHub
     {
         #region Private Types and Interfaces
+
         private class WeakTinyMessageSubscription<TMessage> : IMessageHubSubscription
             where TMessage : class, IMessageHubMessage
         {
-            protected MessageHubSubscriptionToken _SubscriptionToken;
-            protected WeakReference _DeliveryAction;
-            protected WeakReference _MessageFilter;
+            private WeakReference _DeliveryAction;
+            private WeakReference _MessageFilter;
 
-            public MessageHubSubscriptionToken SubscriptionToken
-            {
-                get { return _SubscriptionToken; }
-            }
+            public MessageHubSubscriptionToken SubscriptionToken { get; }
 
             public bool ShouldAttemptDelivery(IMessageHubMessage message)
             {
@@ -458,7 +459,7 @@ namespace Unosquare.Swan.Runtime
                 if (!_MessageFilter.IsAlive)
                     return false;
 
-                return ((Func<TMessage, bool>)_MessageFilter.Target).Invoke(message as TMessage);
+                return ((Func<TMessage, bool>) _MessageFilter.Target).Invoke(message as TMessage);
             }
 
             public void Deliver(IMessageHubMessage message)
@@ -469,7 +470,7 @@ namespace Unosquare.Swan.Runtime
                 if (!_DeliveryAction.IsAlive)
                     return;
 
-                ((Action<TMessage>)_DeliveryAction.Target).Invoke(message as TMessage);
+                ((Action<TMessage>) _DeliveryAction.Target).Invoke(message as TMessage);
             }
 
             /// <summary>
@@ -485,18 +486,19 @@ namespace Unosquare.Swan.Runtime
             /// or
             /// messageFilter
             /// </exception>
-            public WeakTinyMessageSubscription(MessageHubSubscriptionToken subscriptionToken, Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter)
+            public WeakTinyMessageSubscription(MessageHubSubscriptionToken subscriptionToken,
+                Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter)
             {
                 if (subscriptionToken == null)
-                    throw new ArgumentNullException("subscriptionToken");
+                    throw new ArgumentNullException(nameof(subscriptionToken));
 
                 if (deliveryAction == null)
-                    throw new ArgumentNullException("deliveryAction");
+                    throw new ArgumentNullException(nameof(deliveryAction));
 
                 if (messageFilter == null)
-                    throw new ArgumentNullException("messageFilter");
+                    throw new ArgumentNullException(nameof(messageFilter));
 
-                _SubscriptionToken = subscriptionToken;
+                SubscriptionToken = subscriptionToken;
                 _DeliveryAction = new WeakReference(deliveryAction);
                 _MessageFilter = new WeakReference(messageFilter);
             }
@@ -505,21 +507,18 @@ namespace Unosquare.Swan.Runtime
         private class StrongTinyMessageSubscription<TMessage> : IMessageHubSubscription
             where TMessage : class, IMessageHubMessage
         {
-            protected MessageHubSubscriptionToken _SubscriptionToken;
-            protected Action<TMessage> _DeliveryAction;
-            protected Func<TMessage, bool> _MessageFilter;
+            private MessageHubSubscriptionToken _SubscriptionToken;
+            private Action<TMessage> _DeliveryAction;
+            private Func<TMessage, bool> _MessageFilter;
 
-            public MessageHubSubscriptionToken SubscriptionToken
-            {
-                get { return _SubscriptionToken; }
-            }
+            public MessageHubSubscriptionToken SubscriptionToken => _SubscriptionToken;
 
             public bool ShouldAttemptDelivery(IMessageHubMessage message)
             {
                 if (!(message is TMessage))
                     return false;
 
-                return _MessageFilter.Invoke(message as TMessage);
+                return _MessageFilter.Invoke((TMessage) message);
             }
 
             public void Deliver(IMessageHubMessage message)
@@ -527,7 +526,7 @@ namespace Unosquare.Swan.Runtime
                 if (!(message is TMessage))
                     throw new ArgumentException("Message is not the correct type");
 
-                _DeliveryAction.Invoke(message as TMessage);
+                _DeliveryAction.Invoke((TMessage) message);
             }
 
             /// <summary>
@@ -543,25 +542,28 @@ namespace Unosquare.Swan.Runtime
             /// or
             /// messageFilter
             /// </exception>
-            public StrongTinyMessageSubscription(MessageHubSubscriptionToken subscriptionToken, Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter)
+            public StrongTinyMessageSubscription(MessageHubSubscriptionToken subscriptionToken,
+                Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter)
             {
                 if (subscriptionToken == null)
-                    throw new ArgumentNullException("subscriptionToken");
+                    throw new ArgumentNullException(nameof(subscriptionToken));
 
                 if (deliveryAction == null)
-                    throw new ArgumentNullException("deliveryAction");
+                    throw new ArgumentNullException(nameof(deliveryAction));
 
                 if (messageFilter == null)
-                    throw new ArgumentNullException("messageFilter");
+                    throw new ArgumentNullException(nameof(messageFilter));
 
                 _SubscriptionToken = subscriptionToken;
                 _DeliveryAction = deliveryAction;
                 _MessageFilter = messageFilter;
             }
         }
+
         #endregion
 
         #region Subscription dictionary
+
         private class SubscriptionItem
         {
             public IMessageHubProxy Proxy { get; private set; }
@@ -575,10 +577,14 @@ namespace Unosquare.Swan.Runtime
         }
 
         private readonly object _SubscriptionsPadlock = new object();
-        private readonly Dictionary<Type, List<SubscriptionItem>> _Subscriptions = new Dictionary<Type, List<SubscriptionItem>>();
+
+        private readonly Dictionary<Type, List<SubscriptionItem>> _Subscriptions =
+            new Dictionary<Type, List<SubscriptionItem>>();
+
         #endregion
 
         #region Public API
+
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
         /// All references are held with strong references
@@ -588,7 +594,8 @@ namespace Unosquare.Swan.Runtime
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction)
+            where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, true, MessageHubDefaultProxy.Instance);
         }
@@ -604,7 +611,8 @@ namespace Unosquare.Swan.Runtime
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, IMessageHubProxy proxy)
+            where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, true, proxy);
         }
@@ -618,9 +626,11 @@ namespace Unosquare.Swan.Runtime
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences)
+            where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, useStrongReferences, MessageHubDefaultProxy.Instance);
+            return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, useStrongReferences,
+                MessageHubDefaultProxy.Instance);
         }
 
         /// <summary>
@@ -634,7 +644,8 @@ namespace Unosquare.Swan.Runtime
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences,
+            IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, useStrongReferences, proxy);
         }
@@ -650,9 +661,11 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter) where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, true, MessageHubDefaultProxy.Instance);
+            return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, true,
+                MessageHubDefaultProxy.Instance);
         }
 
         /// <summary>
@@ -668,7 +681,8 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, true, proxy);
         }
@@ -685,9 +699,11 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool useStrongReferences) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, bool useStrongReferences) where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, useStrongReferences, MessageHubDefaultProxy.Instance);
+            return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, useStrongReferences,
+                MessageHubDefaultProxy.Instance);
         }
 
         /// <summary>
@@ -704,7 +720,9 @@ namespace Unosquare.Swan.Runtime
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool useStrongReferences, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, bool useStrongReferences, IMessageHubProxy proxy)
+            where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, useStrongReferences, proxy);
         }
@@ -716,7 +734,8 @@ namespace Unosquare.Swan.Runtime
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="subscriptionToken">Subscription token received from Subscribe</param>
-        public void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken) where TMessage : class, IMessageHubMessage
+        public void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken)
+            where TMessage : class, IMessageHubMessage
         {
             RemoveSubscriptionInternal<TMessage>(subscriptionToken);
         }
@@ -747,24 +766,28 @@ namespace Unosquare.Swan.Runtime
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
         /// <param name="callback">AsyncCallback called on completion</param>
-        public void PublishAsync<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, IMessageHubMessage
+        public void PublishAsync<TMessage>(TMessage message, AsyncCallback callback)
+            where TMessage : class, IMessageHubMessage
         {
             PublishAsyncInternal<TMessage>(message, callback);
         }
+
         #endregion
 
         #region Internal Methods
-        private MessageHubSubscriptionToken AddSubscriptionInternal<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool strongReference, IMessageHubProxy proxy)
-                where TMessage : class, IMessageHubMessage
+
+        private MessageHubSubscriptionToken AddSubscriptionInternal<TMessage>(Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, bool strongReference, IMessageHubProxy proxy)
+            where TMessage : class, IMessageHubMessage
         {
             if (deliveryAction == null)
-                throw new ArgumentNullException("deliveryAction");
+                throw new ArgumentNullException(nameof(deliveryAction));
 
             if (messageFilter == null)
-                throw new ArgumentNullException("messageFilter");
+                throw new ArgumentNullException(nameof(messageFilter));
 
             if (proxy == null)
-                throw new ArgumentNullException("proxy");
+                throw new ArgumentNullException(nameof(proxy));
 
             lock (_SubscriptionsPadlock)
             {
@@ -780,9 +803,11 @@ namespace Unosquare.Swan.Runtime
 
                 IMessageHubSubscription subscription;
                 if (strongReference)
-                    subscription = new StrongTinyMessageSubscription<TMessage>(subscriptionToken, deliveryAction, messageFilter);
+                    subscription = new StrongTinyMessageSubscription<TMessage>(subscriptionToken, deliveryAction,
+                        messageFilter);
                 else
-                    subscription = new WeakTinyMessageSubscription<TMessage>(subscriptionToken, deliveryAction, messageFilter);
+                    subscription = new WeakTinyMessageSubscription<TMessage>(subscriptionToken, deliveryAction,
+                        messageFilter);
 
                 currentSubscriptions.Add(new SubscriptionItem(proxy, subscription));
 
@@ -791,10 +816,10 @@ namespace Unosquare.Swan.Runtime
         }
 
         private void RemoveSubscriptionInternal<TMessage>(MessageHubSubscriptionToken subscriptionToken)
-                where TMessage : class, IMessageHubMessage
+            where TMessage : class, IMessageHubMessage
         {
             if (subscriptionToken == null)
-                throw new ArgumentNullException("subscriptionToken");
+                throw new ArgumentNullException(nameof(subscriptionToken));
 
             lock (_SubscriptionsPadlock)
             {
@@ -803,18 +828,18 @@ namespace Unosquare.Swan.Runtime
                     return;
 
                 var currentlySubscribed = (from sub in currentSubscriptions
-                                           where object.ReferenceEquals(sub.Subscription.SubscriptionToken, subscriptionToken)
-                                           select sub).ToList();
+                    where object.ReferenceEquals(sub.Subscription.SubscriptionToken, subscriptionToken)
+                    select sub).ToList();
 
                 currentlySubscribed.ForEach(sub => currentSubscriptions.Remove(sub));
             }
         }
 
         private void PublishInternal<TMessage>(TMessage message)
-                where TMessage : class, IMessageHubMessage
+            where TMessage : class, IMessageHubMessage
         {
             if (message == null)
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
 
             List<SubscriptionItem> currentlySubscribed;
             lock (_SubscriptionsPadlock)
@@ -824,8 +849,8 @@ namespace Unosquare.Swan.Runtime
                     return;
 
                 currentlySubscribed = (from sub in currentSubscriptions
-                                       where sub.Subscription.ShouldAttemptDelivery(message)
-                                       select sub).ToList();
+                    where sub.Subscription.ShouldAttemptDelivery(message)
+                    select sub).ToList();
             }
 
             currentlySubscribed.ForEach(sub =>
@@ -842,13 +867,16 @@ namespace Unosquare.Swan.Runtime
             });
         }
 
-        private void PublishAsyncInternal<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, IMessageHubMessage
+        private void PublishAsyncInternal<TMessage>(TMessage message, AsyncCallback callback)
+            where TMessage : class, IMessageHubMessage
         {
             Action publishAction = () => { PublishInternal<TMessage>(message); };
 
             publishAction.BeginInvoke(callback, null);
         }
+
         #endregion
     }
+
     #endregion
 }

@@ -22,7 +22,7 @@
         /// <summary>
         /// The dependency context
         /// </summary>
-        private System.Lazy<Dictionary<string, object>> _dependencyContext = new System.Lazy<Dictionary<string, object>>(() =>
+        private readonly System.Lazy<Dictionary<string, object>> _dependencyContext = new System.Lazy<Dictionary<string, object>>(() =>
         {
             var deps = System.AppContext.GetData(DepsFilesProperty);
             var fileToLoad =

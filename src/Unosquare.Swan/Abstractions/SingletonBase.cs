@@ -20,7 +20,7 @@
         /// The static, singleton instance reference.
         /// </summary>
         protected static readonly Lazy<T> LazyInstance = new Lazy<T>(
-            valueFactory: () => { return Activator.CreateInstance(typeof(T), true) as T; }, 
+            valueFactory: () => Activator.CreateInstance(typeof(T), true) as T, 
             isThreadSafe: true);
 
         /// <summary>
@@ -38,8 +38,7 @@
         {
             Dispose(true);
         }
-
-
+        
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// Call the GC.SuppressFinalize if you override this method and use
@@ -56,10 +55,7 @@
                 try
                 {
                     var disposableInstance = LazyInstance.Value as IDisposable;
-                    if (disposableInstance != null)
-                    {
-                        disposableInstance.Dispose();
-                    }
+                    disposableInstance?.Dispose();
                 }
                 catch
                 {
@@ -74,12 +70,6 @@
         /// Gets the instance that this singleton represents.
         /// If the instance is null, it is constructed and assigned when this member is accessed.
         /// </summary>
-        public static T Instance
-        {
-            get
-            {
-                return LazyInstance.Value;
-            }
-        }
+        public static T Instance => LazyInstance.Value;
     }
 }

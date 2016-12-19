@@ -51,13 +51,13 @@
                 if (_parameterTypes.Length != cacheKey._parameterTypes.Length)
                     return false;
 
-                for (int i = 0; i < _genericTypes.Length; ++i)
+                for (var i = 0; i < _genericTypes.Length; ++i)
                 {
                     if (_genericTypes[i] != cacheKey._genericTypes[i])
                         return false;
                 }
 
-                for (int i = 0; i < _parameterTypes.Length; ++i)
+                for (var i = 0; i < _parameterTypes.Length; ++i)
                 {
                     if (_parameterTypes[i] != cacheKey._parameterTypes[i])
                         return false;
@@ -79,12 +79,12 @@
 
                     result = (result * 397) ^ _methodName.GetHashCode();
 
-                    for (int i = 0; i < _genericTypes.Length; ++i)
+                    for (var i = 0; i < _genericTypes.Length; ++i)
                     {
                         result = (result * 397) ^ _genericTypes[i].GetHashCode();
                     }
 
-                    for (int i = 0; i < _parameterTypes.Length; ++i)
+                    for (var i = 0; i < _parameterTypes.Length; ++i)
                     {
                         result = (result * 397) ^ _parameterTypes[i].GetHashCode();
                     }
@@ -186,8 +186,7 @@
 
             return methods.FirstOrDefault();
         }
-
-
+        
         /// <summary>
         /// Determines whether this instance is class.
         /// </summary>

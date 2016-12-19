@@ -61,7 +61,7 @@
         /// <exception cref="System.InvalidOperationException"></exception>
         public bool ParseArguments<T>(IEnumerable<string> args, T instance)
         {
-            if (args == null) throw new ArgumentNullException("args");
+            if (args == null) throw new ArgumentNullException(nameof(args));
 
             var properties = GetTypeProperties(typeof(T));
 

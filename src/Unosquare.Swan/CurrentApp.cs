@@ -14,10 +14,10 @@
     {
         #region Property Backing
 
-        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => { return Assembly.GetEntryAssembly(); });
-        private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => { return m_EntryAssembly.Value.GetName(); });
-        private static readonly Lazy<Process> m_Process = new Lazy<Process>(() => { return Process.GetCurrentProcess(); });
-        private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => { return Type.GetType("Mono.Runtime") != null; });
+        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
+        private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
+        private static readonly Lazy<Process> m_Process = new Lazy<Process>(Process.GetCurrentProcess);
+        private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
         
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
@@ -204,7 +204,7 @@
         /// <summary>
         /// Provides a simple IoC Container based on TinyIoC
         /// </summary>
-        public static DependencyContainer Container => Swan.Runtime.DependencyContainer.Current;
+        public static DependencyContainer Container => DependencyContainer.Current;
 
         /// <summary>
         /// Provides a Message Hub with the Publish/Subscribe pattern
