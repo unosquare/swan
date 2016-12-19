@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Dynamic;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -162,7 +161,13 @@
             return sb.ToString();
         }
 
-        public static ExpandoObject Deserialize(string source)
+        /// <summary>
+        /// Deserializes the specified source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">source</exception>
+        public static Dictionary<string, object> Deserialize(string source)
         {
             if (string.IsNullOrEmpty(source))
                 throw new ArgumentNullException(nameof(source));
@@ -170,9 +175,9 @@
             switch (source[0])
             {
                 case InitialObjectCharacter:
-                    return ParseObject(source);
+                    return ParseDictionary(source);
                 default:
-                    return default(ExpandoObject);
+                    return default(Dictionary<string, object>);
             }
         }
 
@@ -409,16 +414,14 @@
             return result;
         }
 
-        private static ExpandoObject ParseObject(string source)
+        private static Dictionary<string, object> ParseDictionary(string source)
         {
-            dynamic result = new ExpandoObject();
-            var dictionary = (IDictionary<string, object>) result;
+            var result = new Dictionary<string, object>();
 
-            var setPropertyValueAction = new Action<string, string>((currentPropertyName, currentValue) => dictionary[currentPropertyName] = currentValue);
-            var setPropertyObjectAction = new Action<string, string>((currentPropertyName, currentValue) => dictionary[currentPropertyName] = ParseObject(currentValue));
-            var setPropertyArrayAction = new Action<string, string>((currentPropertyName, currentValue) => dictionary[currentPropertyName] = ParseArray(typeof(string), currentValue));
-
-            ParseObject(source, setPropertyValueAction, setPropertyObjectAction, setPropertyArrayAction);
+            ParseObject(source,
+                (propertyName, currentValue) => result[propertyName] = currentValue,
+                (propertyName, currentValue) => result[propertyName] = ParseDictionary(currentValue),
+                (propertyName, currentValue) => result[propertyName] = ParseArray(typeof(string), currentValue));
 
             return result;
         }
@@ -433,11 +436,10 @@
             var result = Activator.CreateInstance(type);
             var props = GetTypeProperties(result.GetType()).Where(x => x.CanWrite);
 
-            var setPropertyValueAction = new Action<string, string>((currentPropertyName, currentValue) => SetPropertyValue(props, currentPropertyName, currentValue, result));
-            var setPropertyObjectAction = new Action<string, string>((currentPropertyName, currentValue) => SetPropertyObjectValue(props, currentPropertyName, currentValue, result));
-            var setPropertyArrayAction = new Action<string, string>((currentPropertyName, currentValue) => SetPropertyArrayValue(props, currentPropertyName, currentValue, result));
-
-            ParseObject(source, setPropertyValueAction, setPropertyObjectAction, setPropertyArrayAction);
+            ParseObject(source,
+                (propertyName, currentValue) => SetPropertyValue(props, propertyName, currentValue, result),
+                (propertyName, currentValue) => SetPropertyObjectValue(props, propertyName, currentValue, result),
+                (propertyName, currentValue) => SetPropertyArrayValue(props, propertyName, currentValue, result));
 
             return result;
         }
@@ -447,6 +449,7 @@
             var currentState = ReadState.WaitingForNewField;
             var currentPropertyName = new StringBuilder(1024);
             var currentValue = new StringBuilder(1024);
+            var skipskipFinalObjectCharacter = 0;
 
             for (var charIndex = 0; charIndex < source.Length; charIndex++)
             {
@@ -540,8 +543,22 @@
                             if (currentChar == FinalObjectCharacter)
                             {
                                 currentValue.Append(currentChar);
-                                setPropertyObjectValue(currentPropertyName.ToString(), currentValue.ToString());
-                                currentState = ReadState.WaitingForNewField;
+
+                                if (skipskipFinalObjectCharacter == 0)
+                                {
+                                    setPropertyObjectValue(currentPropertyName.ToString(), currentValue.ToString());
+                                    currentPropertyName.Clear();
+                                    currentState = ReadState.WaitingForNewField;
+                                }
+                                else
+                                {
+                                    skipskipFinalObjectCharacter--;
+                                }
+                            }
+                            else if (currentChar == InitialObjectCharacter)
+                            {
+                                skipskipFinalObjectCharacter++;
+                                currentValue.Append(currentChar);
                             }
                             else
                             {
@@ -555,6 +572,7 @@
                             {
                                 currentValue.Append(currentChar);
                                 setPropertyArray(currentPropertyName.ToString(), currentValue.ToString());
+                                currentPropertyName.Clear();
                                 currentState = ReadState.WaitingForNewField;
                             }
                             else

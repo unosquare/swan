@@ -17,17 +17,14 @@
         "System.Threading.Thread": "4.3.0",
         "System.Diagnostics.Process": "4.3.0",
         "System.ComponentModel.Annotations": "4.3.0",
-        "System.ComponentModel.TypeConverter": "4.3.0",
-        "System.Dynamic.Runtime": "4.0.11",
-        "Microsoft.CSharp": "4.0.1"
+        "System.ComponentModel.TypeConverter": "4.3.0"
       }
     },
     "net452": {
       "frameworkAssemblies": {
         "System.ServiceProcess": "",
         "System.Drawing": "4.0.0.0",
-        "System.ComponentModel.DataAnnotations": "",
-        "System.Dynamic.Runtime": ""
+        "System.ComponentModel.DataAnnotations": ""
       }
     }
   },

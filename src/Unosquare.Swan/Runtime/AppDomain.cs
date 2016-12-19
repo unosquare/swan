@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using System.IO;
+﻿using System.IO;
 using Unosquare.Swan.Formatters;
 
 namespace Unosquare.Swan.Runtime
@@ -74,7 +73,7 @@ namespace Unosquare.Swan.Runtime
         /// Gets the dependency context.
         /// </summary>
         /// <returns></returns>
-        public ExpandoObject GetDependencyContext()
+        public Dictionary<string, object> GetDependencyContext()
         {
 #if NET452
             var deps = System.AppDomain.CurrentDomain.GetData(DepsFilesProperty);
