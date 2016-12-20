@@ -55,6 +55,7 @@
             WaitingForNewField,
             PushingFieldName,
             WaitingForValue,
+            PushingStringValue,
             PushingValue,
             WaitingForArrayEnd,
             WaitingForObject
@@ -142,7 +143,7 @@
                     }
                     else if (Constants.AllBasicTypes.Contains(prop.PropertyType) == false)
                     {
-                       sb.Append($"\"{prop.Name}\" : {InternalSerialize(value, true)}, ");
+                        sb.Append($"\"{prop.Name}\" : {InternalSerialize(value, true)}, ");
                     }
                     else
                     {
@@ -158,6 +159,26 @@
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Deserializes the specified source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">source</exception>
+        public static Dictionary<string, object> Deserialize(string source)
+        {
+            if (string.IsNullOrEmpty(source))
+                throw new ArgumentNullException(nameof(source));
+
+            switch (source[0])
+            {
+                case InitialObjectCharacter:
+                    return ParseDictionary(source);
+                default:
+                    return default(Dictionary<string, object>);
+            }
         }
 
         /// <summary>
@@ -219,7 +240,8 @@
                         object itemvalue;
                         if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
                             arr.SetValue(itemvalue, i++);
-                    } else
+                    }
+                    else
                     {
                         arr.SetValue(value, i++);
                     }
@@ -237,8 +259,6 @@
         private static void SetPropertyValue<T>(IEnumerable<PropertyInfo> properties, string propertyName,
             string propertyStringValue, T result)
         {
-            if (string.IsNullOrWhiteSpace(propertyName)) return;
-
             var targetProperty = properties.FirstOrDefault(p => p.Name.Equals(propertyName));
 
             // Skip if the property is not found
@@ -276,7 +296,7 @@
             // Skip if the property is not found
             if (targetProperty == null)
                 return;
-            
+
             // Parse and assign the basic type value to the property
             try
             {
@@ -313,7 +333,7 @@
                             }
                             else if (currentChar == StringQuotedCharacter)
                             {
-                                currentState = ReadState.PushingValue;
+                                currentState = ReadState.PushingStringValue;
                             }
                             else if (currentChar == MinusNumberCharacter ||
                                      char.IsNumber(currentChar))
@@ -346,8 +366,21 @@
                         }
                     case ReadState.PushingValue:
                         {
-                            if (currentChar == StringQuotedCharacter ||
-                                currentChar == FieldSeparatorCharacter)
+                            if (currentChar == FieldSeparatorCharacter)
+                            {
+                                result.Add(currentValue.ToString());
+                                currentValue.Clear();
+                                currentState = ReadState.WaitingForValue;
+                            }
+                            else
+                            {
+                                currentValue.Append(currentChar);
+                            }
+                            break;
+                        }
+                    case ReadState.PushingStringValue:
+                        {
+                            if (currentChar == StringQuotedCharacter)
                             {
                                 result.Add(currentValue.ToString());
                                 currentValue.Clear();
@@ -381,6 +414,18 @@
             return result;
         }
 
+        private static Dictionary<string, object> ParseDictionary(string source)
+        {
+            var result = new Dictionary<string, object>();
+
+            ParseObject(source,
+                (propertyName, currentValue) => result[propertyName] = currentValue,
+                (propertyName, currentValue) => result[propertyName] = ParseDictionary(currentValue),
+                (propertyName, currentValue) => result[propertyName] = ParseArray(typeof(string), currentValue));
+
+            return result;
+        }
+
         private static T ParseObject<T>(string source)
         {
             return (T)ParseObject(typeof(T), source);
@@ -391,9 +436,20 @@
             var result = Activator.CreateInstance(type);
             var props = GetTypeProperties(result.GetType()).Where(x => x.CanWrite);
 
+            ParseObject(source,
+                (propertyName, currentValue) => SetPropertyValue(props, propertyName, currentValue, result),
+                (propertyName, currentValue) => SetPropertyObjectValue(props, propertyName, currentValue, result),
+                (propertyName, currentValue) => SetPropertyArrayValue(props, propertyName, currentValue, result));
+
+            return result;
+        }
+
+        private static void ParseObject(string source, Action<string, string> setPropertyValue, Action<string, string> setPropertyObjectValue, Action<string, string> setPropertyArray)
+        {
             var currentState = ReadState.WaitingForNewField;
             var currentPropertyName = new StringBuilder(1024);
             var currentValue = new StringBuilder(1024);
+            var skipskipFinalObjectCharacter = 0;
 
             for (var charIndex = 0; charIndex < source.Length; charIndex++)
             {
@@ -407,7 +463,9 @@
                     case ReadState.WaitingForNewField:
                         {
                             // clean up
-                            SetPropertyValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
+                            if (string.IsNullOrWhiteSpace(currentPropertyName.ToString()) == false)
+                                setPropertyValue(currentPropertyName.ToString(), currentValue.ToString());
+
                             currentPropertyName.Clear();
                             currentValue.Clear();
 
@@ -433,7 +491,7 @@
                         {
                             if (currentChar == StringQuotedCharacter)
                             {
-                                currentState = ReadState.PushingValue;
+                                currentState = ReadState.PushingStringValue;
                             }
                             else if (currentChar == MinusNumberCharacter ||
                                      char.IsNumber(currentChar))
@@ -443,8 +501,8 @@
                             }
                             else if (currentChar == TrueValue[0] && nextChar.HasValue && nextChar == TrueValue[1])
                             {
-                                SetPropertyValue(props, currentPropertyName.ToString(), true.ToStringInvariant(),
-                                    result);
+                                if (string.IsNullOrWhiteSpace(currentPropertyName.ToString()) == false)
+                                    setPropertyValue(currentPropertyName.ToString(), true.ToStringInvariant());
                                 currentPropertyName.Clear();
                                 charIndex += TrueValue.Length;
 
@@ -452,8 +510,8 @@
                             }
                             else if (currentChar == FalseValue[0] && nextChar.HasValue && nextChar == FalseValue[1])
                             {
-                                SetPropertyValue(props, currentPropertyName.ToString(), false.ToStringInvariant(),
-                                    result);
+                                if (string.IsNullOrWhiteSpace(currentPropertyName.ToString()) == false)
+                                    setPropertyValue(currentPropertyName.ToString(), false.ToStringInvariant());
                                 currentPropertyName.Clear();
                                 charIndex += FalseValue.Length;
 
@@ -461,7 +519,8 @@
                             }
                             else if (currentChar == NullValue[0] && nextChar.HasValue && nextChar == NullValue[1])
                             {
-                                SetPropertyValue(props, currentPropertyName.ToString(), null, result);
+                                if (string.IsNullOrWhiteSpace(currentPropertyName.ToString()) == false)
+                                    setPropertyValue(currentPropertyName.ToString(), null);
                                 currentPropertyName.Clear();
                                 charIndex += NullValue.Length;
 
@@ -484,8 +543,22 @@
                             if (currentChar == FinalObjectCharacter)
                             {
                                 currentValue.Append(currentChar);
-                                SetPropertyObjectValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
-                                currentState = ReadState.WaitingForNewField;
+
+                                if (skipskipFinalObjectCharacter == 0)
+                                {
+                                    setPropertyObjectValue(currentPropertyName.ToString(), currentValue.ToString());
+                                    currentPropertyName.Clear();
+                                    currentState = ReadState.WaitingForNewField;
+                                }
+                                else
+                                {
+                                    skipskipFinalObjectCharacter--;
+                                }
+                            }
+                            else if (currentChar == InitialObjectCharacter)
+                            {
+                                skipskipFinalObjectCharacter++;
+                                currentValue.Append(currentChar);
                             }
                             else
                             {
@@ -498,7 +571,20 @@
                             if (currentChar == FinalArrayCharacter)
                             {
                                 currentValue.Append(currentChar);
-                                SetPropertyArrayValue(props, currentPropertyName.ToString(), currentValue.ToString(), result);
+                                setPropertyArray(currentPropertyName.ToString(), currentValue.ToString());
+                                currentPropertyName.Clear();
+                                currentState = ReadState.WaitingForNewField;
+                            }
+                            else
+                            {
+                                currentValue.Append(currentChar);
+                            }
+                            break;
+                        }
+                    case ReadState.PushingStringValue:
+                        {
+                            if (currentChar == StringQuotedCharacter)
+                            {
                                 currentState = ReadState.WaitingForNewField;
                             }
                             else
@@ -509,8 +595,7 @@
                         }
                     case ReadState.PushingValue:
                         {
-                            if (currentChar == StringQuotedCharacter ||
-                                currentChar == FieldSeparatorCharacter)
+                            if (currentChar == FieldSeparatorCharacter)
                             {
                                 currentState = ReadState.WaitingForNewField;
                             }
@@ -522,8 +607,6 @@
                         }
                 }
             }
-
-            return result;
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)

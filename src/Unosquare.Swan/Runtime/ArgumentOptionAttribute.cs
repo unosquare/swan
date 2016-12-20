@@ -10,7 +10,6 @@
     public sealed class ArgumentOptionAttribute : Attribute
     {
         private string setName;
-        private char separator;
 
         private ArgumentOptionAttribute(string shortName, string longName) : base()
         {
@@ -21,7 +20,7 @@
             LongName = longName;
 
             setName = string.Empty;
-            separator = '\0';
+            Separator = '\0';
         }
 
         /// <summary>
@@ -79,7 +78,7 @@
             get { return setName; }
             set
             {
-                if (value == null) throw new ArgumentNullException("value");
+                if (value == null) throw new ArgumentNullException(nameof(value));
 
                 setName = value;
             }
@@ -89,11 +88,7 @@
         /// When applying attribute to <see cref="System.Collections.Generic.IEnumerable{T}"/> target properties,
         /// it allows you to split an argument and consume its content as a sequence.
         /// </summary>
-        public char Separator
-        {
-            get { return separator; }
-            set { separator = value; }
-        }
+        public char Separator { get; set; }
 
         /// <summary>
         /// Gets or sets mapped property default value.

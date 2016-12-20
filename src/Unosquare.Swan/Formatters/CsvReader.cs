@@ -424,8 +424,6 @@
         {
             var values = new List<string>();
             var currentValue = new StringBuilder(1024);
-            char currentChar;
-            char? nextChar = null;
             var currentState = ReadState.WaitingForNewField;
             string line = null;
 
@@ -434,8 +432,8 @@
                 for (var charIndex = 0; charIndex < line.Length; charIndex++)
                 {
                     // Get the current and next character
-                    currentChar = line[charIndex];
-                    nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : new char?();
+                    var currentChar = line[charIndex];
+                    var nextChar = charIndex < line.Length - 1 ? line[charIndex + 1] : new char?();
 
                     // Perform logic based on state and decide on next state
                     switch (currentState)
@@ -505,9 +503,7 @@
                                 currentValue.Append(currentChar);
                                 break;
                             }
-
                     }
-
                 }
 
                 // determine if we need to continue reading a new line if it is part of the quoted

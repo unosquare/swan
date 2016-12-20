@@ -13,14 +13,12 @@
         static private readonly Lazy<SHA256> SHA256Hasher = new Lazy<SHA256>(SHA256.Create, true);
         static private readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
 
-        static private readonly Lazy<Regex> UnderscoreRegex = new Lazy<Regex>(() =>
-            { return new Regex(@"_", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant); });
+        static private readonly Lazy<Regex> UnderscoreRegex = new Lazy<Regex>(() => new Regex(@"_", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
 
-        static private readonly Lazy<Regex> CamelCaseRegEx = new Lazy<Regex>(() =>
-            { return new Regex(@"[a-z][A-Z]", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant); });
+        static private readonly Lazy<Regex> CamelCaseRegEx = new Lazy<Regex>(() => new Regex(@"[a-z][A-Z]", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
 
         static private readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => {
-            return new MatchEvaluator((m) =>
+            return ((m) =>
             {
                 var x = m.ToString();
                 return x[0] + " " + x.Substring(1, x.Length - 1);
@@ -126,7 +124,7 @@
         /// </summary>
         /// <param name="identifierString">The identifier-style string.</param>
         /// <returns></returns>
-        static public string Humanize(this string identifierString)
+        public static string Humanize(this string identifierString)
         {
             var returnValue = identifierString ?? string.Empty;
             returnValue = UnderscoreRegex.Value.Replace(returnValue, " ");
