@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Unosquare.Swan.Utilities
+{
+    partial class DnsClient
+    {
+        public interface IDnsMessage
+        {
+            IList<DnsQuestion> Questions { get; }
+
+            int Size { get; }
+            byte[] ToArray();
+        }
+
+        public interface IDnsMessageEntry
+        {
+            DnsDomain Name { get; }
+            DnsRecordType Type { get; }
+            DnsRecordClass Class { get; }
+
+            int Size { get; }
+            byte[] ToArray();
+        }
+
+        public interface IDnsResourceRecord : IDnsMessageEntry
+        {
+            TimeSpan TimeToLive { get; }
+            int DataLength { get; }
+            byte[] Data { get; }
+        }
+
+        public interface IDnsRequest : IDnsMessage
+        {
+            int Id { get; set; }
+            DnsOperationCode OperationCode { get; set; }
+            bool RecursionDesired { get; set; }
+        }
+
+
+        public interface IDnsResponse : IDnsMessage
+        {
+            int Id { get; set; }
+            IList<IDnsResourceRecord> AnswerRecords { get; }
+            IList<IDnsResourceRecord> AuthorityRecords { get; }
+            IList<IDnsResourceRecord> AdditionalRecords { get; }
+            bool RecursionAvailable { get; set; }
+            bool AuthorativeServer { get; set; }
+            bool Truncated { get; set; }
+            DnsOperationCode OperationCode { get; set; }
+            DnsResponseCode ResponseCode { get; set; }
+        }
+
+
+        public interface IDnsRequestResolver
+        {
+            DnsClientResponse Request(DnsClientRequest request);
+        }
+
+
+    }
+}
