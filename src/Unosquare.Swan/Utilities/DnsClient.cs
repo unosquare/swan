@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-
-namespace Unosquare.Swan.Utilities
+﻿namespace Unosquare.Swan.Utilities
 {
-    public partial class DnsClient
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+
+    internal partial class DnsClient
     {
         private static readonly Random RANDOM = new Random();
 

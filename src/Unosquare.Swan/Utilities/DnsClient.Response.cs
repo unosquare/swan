@@ -63,21 +63,21 @@
                 get { return new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords); }
             }
 
-            public bool RecursionAvailable
+            public bool IsRecursionAvailable
             {
-                get { return response.RecursionAvailable; }
+                get { return response.IsRecursionAvailable; }
                 set { }
             }
 
-            public bool AuthorativeServer
+            public bool IsAuthorativeServer
             {
-                get { return response.AuthorativeServer; }
+                get { return response.IsAuthorativeServer; }
                 set { }
             }
 
-            public bool Truncated
+            public bool IsTruncated
             {
-                get { return response.Truncated; }
+                get { return response.IsTruncated; }
                 set { }
             }
 
@@ -200,8 +200,8 @@
                 this.header.Response = true;
 
                 Id = response.Id;
-                RecursionAvailable = response.RecursionAvailable;
-                AuthorativeServer = response.AuthorativeServer;
+                IsRecursionAvailable = response.IsRecursionAvailable;
+                IsAuthorativeServer = response.IsAuthorativeServer;
                 OperationCode = response.OperationCode;
                 ResponseCode = response.ResponseCode;
             }
@@ -232,19 +232,19 @@
                 set { header.Id = value; }
             }
 
-            public bool RecursionAvailable
+            public bool IsRecursionAvailable
             {
                 get { return header.RecursionAvailable; }
                 set { header.RecursionAvailable = value; }
             }
 
-            public bool AuthorativeServer
+            public bool IsAuthorativeServer
             {
                 get { return header.AuthorativeServer; }
                 set { header.AuthorativeServer = value; }
             }
 
-            public bool Truncated
+            public bool IsTruncated
             {
                 get { return header.Truncated; }
                 set { header.Truncated = value; }

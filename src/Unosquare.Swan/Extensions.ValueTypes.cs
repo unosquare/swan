@@ -82,8 +82,10 @@
                     continue;
                 }
 
+#pragma warning disable CS0618 // Type or member is obsolete
                 int offset = Marshal.OffsetOf(type, field.Name).ToInt32();
                 int length = Marshal.SizeOf(field.FieldType);
+#pragma warning restore CS0618 // Type or member is obsolete
                 endian = endian ?? field.GetCustomAttributes(typeof(StructEndiannessAttribute), false).ToArray()[0] as StructEndiannessAttribute;
 
                 if (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
@@ -123,7 +125,9 @@
 
             try
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 return (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
+#pragma warning restore CS0618 // Type or member is obsolete
             }
             finally
             {

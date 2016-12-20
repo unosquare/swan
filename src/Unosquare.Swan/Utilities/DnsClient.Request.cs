@@ -312,7 +312,7 @@
                     byte[] buffer = udp.ReceiveAsync().Result.Buffer;
                     DnsResponse response = DnsResponse.FromArray(buffer); //null;
 
-                    if (response.Truncated)
+                    if (response.IsTruncated)
                     {
                         return fallback.Request(request);
                     }

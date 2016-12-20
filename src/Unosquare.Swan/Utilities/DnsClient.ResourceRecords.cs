@@ -10,11 +10,11 @@
 
     partial class DnsClient
     {
-        public abstract class DnsBaseResourceRecord : IDnsResourceRecord
+        public abstract class DnsResourceRecordBase : IDnsResourceRecord
         {
             private IDnsResourceRecord record;
 
-            public DnsBaseResourceRecord(IDnsResourceRecord record)
+            public DnsResourceRecordBase(IDnsResourceRecord record)
             {
                 this.record = record;
             }
@@ -224,7 +224,7 @@
             }
         }
 
-        public class DnsPointerResourceRecord : DnsBaseResourceRecord
+        public class DnsPointerResourceRecord : DnsResourceRecordBase
         {
             public DnsPointerResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
                 : base(record)
@@ -250,7 +250,7 @@
             }
         }
 
-        public class DnsIPAddressResourceRecord : DnsBaseResourceRecord
+        public class DnsIPAddressResourceRecord : DnsResourceRecordBase
         {
             private static IDnsResourceRecord Create(DnsDomain domain, IPAddress ip, TimeSpan ttl)
             {
@@ -284,7 +284,7 @@
             }
         }
 
-        public class DnsNameServerResourceRecord : DnsBaseResourceRecord
+        public class DnsNameServerResourceRecord : DnsResourceRecordBase
         {
             public DnsNameServerResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
                 : base(record)
@@ -310,7 +310,7 @@
             }
         }
 
-        public class DnsCanonicalNameResourceRecord : DnsBaseResourceRecord
+        public class DnsCanonicalNameResourceRecord : DnsResourceRecordBase
         {
             public DnsCanonicalNameResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
                 : base(record)
@@ -336,7 +336,7 @@
             }
         }
 
-        public class DnsMailExchangeResourceRecord : DnsBaseResourceRecord
+        public class DnsMailExchangeResourceRecord : DnsResourceRecordBase
         {
             private const int PREFERENCE_SIZE = 2;
 
@@ -398,7 +398,7 @@
             }
         }
 
-        public class DnsStartOfAuthorityResourceRecord : DnsBaseResourceRecord
+        public class DnsStartOfAuthorityResourceRecord : DnsResourceRecordBase
         {
             private static IDnsResourceRecord Create(DnsDomain domain, DnsDomain master, DnsDomain responsible, long serial,
                     TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl)
@@ -547,7 +547,7 @@
             }
         }
 
-        public static class DnsResourceRecordFactory
+        private static class DnsResourceRecordFactory
         {
             public static IList<IDnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
             {
@@ -556,7 +556,7 @@
 
             public static IList<IDnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count, out int endOffset)
             {
-                IList<IDnsResourceRecord> result = new List<IDnsResourceRecord>(count);
+                var result = new List<IDnsResourceRecord>(count);
 
                 for (int i = 0; i < count; i++)
                 {
@@ -574,8 +574,8 @@
 
             public static IDnsResourceRecord FromArray(byte[] message, int offset, out int endOffest)
             {
-                DnsResourceRecord record = DnsResourceRecord.FromArray(message, offset, out endOffest);
-                int dataOffset = endOffest - record.DataLength;
+                var record = DnsResourceRecord.FromArray(message, offset, out endOffest);
+                var dataOffset = endOffest - record.DataLength;
 
                 switch (record.Type)
                 {

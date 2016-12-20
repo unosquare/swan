@@ -43,7 +43,7 @@
 
         #endregion
 
-        #region IP Addresses and Adapters
+        #region IP Addresses and Adapters Information Methods
 
         /// <summary>
         /// Gets the active IPv4 interfaces.
@@ -177,7 +177,7 @@
 
         #endregion
 
-        #region DNS and NTP
+        #region DNS and NTP Clients
 
         /// <summary>
         /// Gets the DNS host entry (a list of IP addresses) for the domain name.
@@ -225,6 +225,32 @@
         {
             var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
             return client.Reverse(query);
+        }
+
+        /// <summary>
+        /// Queries the DNS server for the specified record type.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="recordType">Type of the record.</param>
+        /// <param name="dnsServer">The DNS server.</param>
+        /// <param name="port">The port.</param>
+        /// <returns></returns>
+        public static DnsQueryResponse QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, int port)
+        {
+            var client = new DnsClient(dnsServer, port);
+            var response = client.Resolve(query, recordType);
+            return new DnsQueryResponse(response);
+        }
+
+        /// <summary>
+        /// Queries the DNS server for the specified record type.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="recordType">Type of the record.</param>
+        /// <returns></returns>
+        public static DnsQueryResponse QueryDns(string query, DnsRecordType recordType)
+        {
+            return QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
         }
 
         /// <summary>

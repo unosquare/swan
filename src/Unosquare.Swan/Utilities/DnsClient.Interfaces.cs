@@ -44,9 +44,9 @@
             IList<IDnsResourceRecord> AnswerRecords { get; }
             IList<IDnsResourceRecord> AuthorityRecords { get; }
             IList<IDnsResourceRecord> AdditionalRecords { get; }
-            bool RecursionAvailable { get; set; }
-            bool AuthorativeServer { get; set; }
-            bool Truncated { get; set; }
+            bool IsRecursionAvailable { get; set; }
+            bool IsAuthorativeServer { get; set; }
+            bool IsTruncated { get; set; }
             DnsOperationCode OperationCode { get; set; }
             DnsResponseCode ResponseCode { get; set; }
         }
