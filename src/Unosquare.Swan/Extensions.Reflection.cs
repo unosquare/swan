@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -270,6 +271,55 @@
         public static bool IsGenericParameter(this Type type)
         {
             return type.IsGenericParameter;
+        }
+
+        /// <summary>
+        /// Determines whether the specified attribute type is defined.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <param name="inherit">if set to <c>true</c> [inherit].</param>
+        /// <returns>
+        ///   <c>true</c> if the specified attribute type is defined; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsDefined(this Type type, Type attributeType, bool inherit)
+        {
+            return type.GetTypeInfo().IsDefined(attributeType, inherit);
+        }
+
+        /// <summary>
+        /// Determines whether the specified attribute type is defined.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified attribute type is defined; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsDefined(this Type type, Type attributeType)
+        {
+            return type.GetTypeInfo().IsDefined(attributeType);
+        }
+
+        /// <summary>
+        /// Gets the custom attributes.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        public static Attribute[] GetCustomAttributes(this Type type)
+        {
+            return type.GetTypeInfo().GetCustomAttributes().ToArray();
+        }
+
+        /// <summary>
+        /// Gets the custom attributes.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <param name="inherit">if set to <c>true</c> [inherit].</param>
+        /// <returns></returns>
+        public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit)
+        {
+            return type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
         }
 
         /// <summary>

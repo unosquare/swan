@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
+    using Formatters;
     using System;
     using System.Security.Cryptography;
     using System.Text;
@@ -106,6 +107,16 @@
                 return item == null ? string.Empty : item as string;
 
             return ToStringInvariant(item as object);
+        }
+
+        /// <summary>
+        /// Uses the ObjectStringifier to return an output of all properties in the specified object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns></returns>
+        static public string Stringify(this object obj)
+        {
+            return ObjectStringifier.New(obj).AddAll().ToString();
         }
 
         /// <summary>

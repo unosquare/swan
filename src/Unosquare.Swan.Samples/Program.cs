@@ -6,14 +6,25 @@
     using System.IO;
     using System.Text;
     using Unosquare.Swan.Formatters;
+    using Utilities;
 
     public class Program
     {
         public static void Main(string[] args)
         {
+            var delay = (new Action(() =>
+            {
+                var time = Network.GetNetworkTimeUtc("time.windows.com");
+                time.ToSortableDateTime().Info();
+
+                Network.GetDnsHostEntry("dev.unosquare.com").Stringify().Warn();
+            }).Benchmark());
+
+            $"Resolving and querying NTP data took {delay.TotalMilliseconds} ms".Warn();
+
             TestApplicationInfo();
             TestContainerAndMessageHub();
-            
+
             //TestTerminalOutputs();
             //TestCsvFormatters();
 
@@ -22,10 +33,10 @@
 
         static void TestApplicationInfo()
         {
+            Terminal.WriteBanner();
             $"Operating System Type: {CurrentApp.OS}    CLR Type: {(CurrentApp.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
             $"Local Storage Path: {CurrentApp.LocalStoragePath}".Info();
             $"Process Id: {CurrentApp.Process.Id}".Info();
-            Terminal.WriteBanner();
         }
 
         static void TestSingleton()

@@ -1,6 +1,8 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
@@ -131,6 +133,18 @@
 
             return TimeSpan.FromTicks(sw.ElapsedTicks);
 
+        }
+
+        /// <summary>
+        /// Converts an IEnumerable to an ICollection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <returns></returns>
+        public static T[] ToArray<T>(this IEnumerable<T> items)
+        {
+            var output = new List<T>(items);
+            return output.ToArray();
         }
 
     }

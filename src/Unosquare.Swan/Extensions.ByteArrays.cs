@@ -1,7 +1,9 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Text;
 
     partial class Extensions
@@ -55,6 +57,93 @@
         public static string ToBase64(this byte[] bytes)
         {
             return Convert.ToBase64String(bytes);
+        }
+
+        /// <summary>
+        /// Gets the bit value at the given offset.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="length">The length.</param>
+        /// <returns></returns>
+        public static byte GetBitValueAt(this byte b, byte offset, byte length)
+        {
+            return (byte)((b >> offset) & ~(0xff << length));
+        }
+
+        /// <summary>
+        /// Gets the bit value at the given offset.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <param name="offset">The offset.</param>
+        /// <returns></returns>
+        public static byte GetBitValueAt(this byte b, byte offset)
+        {
+            return b.GetBitValueAt(offset, 1);
+        }
+
+        /// <summary>
+        /// Sets the bit value at the given offset.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
+        {
+            int mask = ~(0xff << length);
+            value = (byte)(value & mask);
+
+            return (byte)((value << offset) | (b & ~(mask << offset)));
+        }
+
+        /// <summary>
+        /// Sets the bit value at the given offset.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static byte SetBitValueAt(this byte b, byte offset, byte value)
+        {
+            return b.SetBitValueAt(offset, 1, value);
+        }
+
+        /// <summary>
+        /// Appends the Memory Stream with the specified buffer.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="buffer">The buffer.</param>
+        public static MemoryStream Append(this MemoryStream stream, byte[] buffer)
+        {
+            stream.Write(buffer, 0, buffer.Length);
+            return stream;
+        }
+
+        /// <summary>
+        /// Appends the Memory Stream with the specified buffer.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <returns></returns>
+        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer)
+        {
+            return Append(stream, buffer.ToArray());
+        }
+
+        /// <summary>
+        /// Appends the Memory Stream with the specified set of buffers.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="buffers">The buffers.</param>
+        /// <returns></returns>
+        public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte[]> buffers)
+        {
+            foreach (var buffer in buffers)
+                Append(stream, buffer);
+
+            return stream;
         }
     }
 }
