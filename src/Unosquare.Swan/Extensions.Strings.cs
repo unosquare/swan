@@ -122,7 +122,7 @@
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns></returns>
-        static public string Stringify(this object obj)
+        public static string Stringify(this object obj)
         {
             return ObjectStringifier.Stringify(obj);
         }

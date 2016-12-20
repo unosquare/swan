@@ -1,6 +1,6 @@
-﻿namespace Unosquare.Swan
+﻿#if NET452
+namespace Unosquare.Swan
 {
-#if NET452
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
@@ -62,5 +62,5 @@
             "Stopped all services.".Info();
         }
     }
-#endif
 }
+#endif

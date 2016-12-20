@@ -15,7 +15,7 @@
 
     partial class Terminal
     {
-        private static ulong LoggingSequence = 0;
+        private static ulong LoggingSequence;
 
         /// <summary>
         /// Logs a message
@@ -28,7 +28,7 @@
             lock (SyncLock)
             {
                 var color = Settings.DefaultColor;
-                string prefix = string.Empty;
+                var prefix = string.Empty;
 
                 switch (messageType)
                 {

@@ -1,6 +1,6 @@
-﻿namespace Unosquare.Swan.Formatters
+﻿#if NET452
+namespace Unosquare.Swan.Formatters
 {
-#if NET452
     using System;
     using System.Drawing;
     using System.Drawing.Imaging;
@@ -17,7 +17,7 @@
     public class PixelData
     {
 
-        #region Constant Definitions
+#region Constant Definitions
 
         /// <summary>
         /// A constant representing the number of
@@ -43,9 +43,9 @@
         /// </summary>
         public const int AOffset = 3;
 
-        #endregion
+#endregion
 
-        #region Constructor
+#region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PixelData"/> class.
@@ -106,9 +106,9 @@
 
         }
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Contains all the bytes of the pixel data
@@ -147,9 +147,9 @@
         /// </summary>
         public int LineLength { get; }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// Gets the index of the first byte in the BGRA pixel data for the given image coordinates.
@@ -192,8 +192,8 @@
             return bitmap;
         }
 
-        #endregion
+#endregion
 
     }
-#endif
 }
+#endif
