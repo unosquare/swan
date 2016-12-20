@@ -80,7 +80,7 @@
         /// <returns></returns>
         private static byte[] AdjustEndianness(Type type, byte[] data)
         {
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var fields = type.GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             EndianAttribute endian = null;
 
             if (type.IsDefined(typeof(EndianAttribute), false))

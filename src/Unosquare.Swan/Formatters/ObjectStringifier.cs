@@ -144,7 +144,7 @@
 
             foreach (string name in names)
             {
-                PropertyInfo property = type.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+                PropertyInfo property = type.GetTypeInfo().GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
                 object value = property.GetValue(innerObject, new object[] { });
 
                 innerPairs.Add(name, StringifyObject(value));
@@ -171,7 +171,7 @@
         /// <returns></returns>
         public ObjectStringifier AddAll()
         {
-            PropertyInfo[] properties = innerObject.GetType().GetProperties(
+            PropertyInfo[] properties = innerObject.GetType().GetTypeInfo().GetProperties(
                 BindingFlags.Public | BindingFlags.Instance);
 
             foreach (PropertyInfo property in properties)
