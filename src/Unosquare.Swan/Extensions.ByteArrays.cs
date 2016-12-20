@@ -145,5 +145,27 @@
 
             return stream;
         }
+
+        /// <summary>
+        /// Converts an array of bytes into text with the specified encoding
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns></returns>
+        public static string ToText(this byte[] buffer, Encoding encoding)
+        {
+            return encoding.GetString(buffer);
+        }
+
+        /// <summary>
+        /// Converts an array of bytes into text with UTF8 encoding
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <returns></returns>
+        public static string ToText(this byte[] buffer)
+        {
+            return buffer.ToText(Encoding.UTF8);
+        }
+
     }
 }

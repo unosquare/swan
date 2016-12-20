@@ -15,9 +15,7 @@
         static private readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
 
         static private readonly Lazy<Regex> UnderscoreRegex = new Lazy<Regex>(() => new Regex(@"_", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
-
         static private readonly Lazy<Regex> CamelCaseRegEx = new Lazy<Regex>(() => new Regex(@"[a-z][A-Z]", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
-
         static private readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => {
             return ((m) =>
             {
@@ -126,7 +124,7 @@
         /// <returns></returns>
         static public string Stringify(this object obj)
         {
-            return ObjectStringifier.FromObject(obj).AddAll().ToString();
+            return ObjectStringifier.Stringify(obj);
         }
 
         /// <summary>

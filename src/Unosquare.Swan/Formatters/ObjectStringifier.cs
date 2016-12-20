@@ -62,7 +62,9 @@
             }
             else
             {
-                return obj == null ? "null" : obj.ToString();
+                return obj == null ?
+                    "null" :
+                    FromObject(obj).AddAll().ToString();
             }
         }
 
@@ -88,13 +90,11 @@
             result.Append("{");
 
             foreach (DictionaryEntry pair in dict)
-                result.Append($"{pair.Key}={StringifyObject(pair.Value)}, ");
+                result.Append($"{pair.Key}: {StringifyObject(pair.Value)}, ");
 
             // remove the last comma, space
             if (result.Length > 1)
-            {
                 result.Remove(result.Length - 2, 2);
-            }
 
             return result.Append("}").ToString();
         }
@@ -172,12 +172,19 @@
         public ObjectStringifier AddAll()
         {
             PropertyInfo[] properties = innerObject.GetType().GetTypeInfo().GetProperties(
-                BindingFlags.Public | BindingFlags.Instance);
+                BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead).ToArray();
 
             foreach (PropertyInfo property in properties)
             {
-                object value = property.GetValue(innerObject, new object[] { });
-                innerPairs.Add(property.Name, StringifyObject(value));
+                try
+                {
+                    object value = property.GetValue(innerObject, new object[] { });
+                    innerPairs.Add(property.Name, StringifyObject(value));
+                }
+                catch
+                {
+                    // swallow
+                }
             }
 
             return this;
@@ -191,7 +198,10 @@
         /// </returns>
         public override string ToString()
         {
-            return StringifyDictionary(innerPairs);
+            if (innerPairs.Count > 0 && innerObject is string == false)
+                return StringifyDictionary(innerPairs);
+            else
+                return innerObject == null ? "null" : $"{innerObject.ToStringInvariant()}";
         }
 
         #endregion
