@@ -21,7 +21,8 @@
         /// Gets or sets the configuration file path. By default the entry assembly directory is used
         /// and the filename is appsettings.json.
         /// </summary>
-        public virtual string ConfigurationFilePath { get; set; } = Path.Combine(CurrentApp.EntryAssemblyDirectory, "appsettings.json");
+        public virtual string ConfigurationFilePath { get; set; } = Path.Combine(CurrentApp.EntryAssemblyDirectory,
+            "appsettings.json");
 
         /// <summary>
         /// Gets the global settings object
@@ -63,11 +64,8 @@
         /// <returns></returns>
         public string GetJsonData()
         {
-            lock (SyncRoot)
-            {
-                return File.ReadAllText(ConfigurationFilePath);
-            }
-        }
+                return JsonFormatter.Serialize(Global);
+}
 
         /// <summary>
         /// Persists the global settings.
@@ -87,13 +85,13 @@
         /// <param name="list">The list.</param>
         public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> list)
         {
-            List<string> changedSettings = new List<string>();
+            var changedSettings = new List<string>();
 
             foreach (var property in list)
             {
                 var prop = Instance.Global.GetType().GetTypeInfo().GetProperty(property.Property);
                 var originalValue = prop.GetValue(Instance.Global);
-                bool isChanged = false;
+                var isChanged = false;
 
                 if (prop.PropertyType.IsArray)
                 {
@@ -126,7 +124,8 @@
                     else
                     {
                         object propertyValue;
-                        if (Constants.BasicTypesInfo[prop.PropertyType].TryParse(property.Value.ToString(), out propertyValue))
+                        if (Constants.BasicTypesInfo[prop.PropertyType].TryParse(property.Value.ToString(),
+                            out propertyValue))
                         {
                             if (propertyValue == originalValue) continue;
 
@@ -152,11 +151,11 @@
         /// <returns></returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
-            var dict = JsonFormatter.Deserialize<Dictionary<string, object>>(GetJsonData());
+            var dict = JsonFormatter.Deserialize(GetJsonData());
 
             return dict.Keys
-                    .Select(x => new ExtendedPropertyInfo<T>(x) { Value = dict[x] })
-                    .ToList();
+                .Select(x => new ExtendedPropertyInfo<T>(x) {Value = dict[x]})
+                .ToList();
         }
     }
 }
