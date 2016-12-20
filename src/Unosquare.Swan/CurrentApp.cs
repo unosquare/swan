@@ -42,7 +42,7 @@
         #region State Variables
 
         private static OperatingSystem? m_OS = new OperatingSystem?();
-        private static Mutex ApplicationMutex = null;
+        private static Mutex ApplicationMutex;
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
         private static readonly object SyncLock = new object();
 
