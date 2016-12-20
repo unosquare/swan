@@ -5,7 +5,7 @@
     /// <summary>
     /// Represents a response from a DNS server
     /// </summary>
-    public class DnsQueryResponse
+    public class DnsQueryResult
     {
 
         private readonly List<DnsRecord> m_AnswerRecords = new List<DnsRecord>();
@@ -13,10 +13,10 @@
         private readonly List<DnsRecord> m_AuthorityRecords = new List<DnsRecord>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DnsQueryResponse"/> class.
+        /// Initializes a new instance of the <see cref="DnsQueryResult"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
-        internal DnsQueryResponse(DnsClient.DnsClientResponse response)
+        internal DnsQueryResult(DnsClient.DnsClientResponse response)
         {
             Id = response.Id;
             IsAuthoritativeServer = response.IsAuthorativeServer;

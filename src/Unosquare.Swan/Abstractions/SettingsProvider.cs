@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Abstractions
 {
+    using Formatters;
     using Reflection;
     using System;
     using System.Collections;
@@ -7,7 +8,6 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using Unosquare.Swan.Formatters;
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
@@ -15,7 +15,7 @@
     /// <typeparam name="T"></typeparam>
     public class SettingsProvider<T> : SingletonBase<SettingsProvider<T>>
     {
-        private T _global;
+        private T m_Global;
 
         /// <summary>
         /// Gets or sets the configuration file path. By default the entry assembly directory is used
@@ -32,10 +32,10 @@
             {
                 lock (SyncRoot)
                 {
-                    if (_global == null)
+                    if (m_Global == null)
                         ReloadGlobalSettings();
 
-                    return _global;
+                    return m_Global;
                 }
             }
         }
@@ -49,11 +49,11 @@
             {
                 if (File.Exists(ConfigurationFilePath) == false || File.ReadAllText(ConfigurationFilePath).Length == 0)
                 {
-                    _global = Activator.CreateInstance<T>();
+                    m_Global = Activator.CreateInstance<T>();
                     PersistGlobalSettings();
                 }
 
-                _global = JsonFormatter.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                m_Global = JsonFormatter.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
             }
         }
 

@@ -5,43 +5,6 @@
     partial class Terminal
     {
         /// <summary>
-        /// Defines the bitwise flags to determine
-        /// which types of messages get printed on the current console
-        /// </summary>
-        public enum LoggingMessageType
-        {
-            /// <summary>
-            /// The none message type
-            /// </summary>
-            None = 0,
-
-            /// <summary>
-            /// The information message type
-            /// </summary>
-            Info = 1,
-
-            /// <summary>
-            /// The debug message type
-            /// </summary>
-            Debug = 2,
-
-            /// <summary>
-            /// The trace message type
-            /// </summary>
-            Trace = 4,
-
-            /// <summary>
-            /// The error message type
-            /// </summary>
-            Error = 8,
-
-            /// <summary>
-            /// The warning message type
-            /// </summary>
-            Warning = 16,
-        }
-
-        /// <summary>
         /// Defines a callback to determine a function that is called upon logging messages are sent to the terminal
         /// </summary>
         /// <param name="messageType">Type of the message.</param>
@@ -54,6 +17,13 @@
         /// </summary>
         public static class Settings
         {
+            /// <summary>
+            /// Gets or sets the callback to be called asynchronously, whenever a logging message is received by the terminal.
+            /// Only called when Terminal writes data via Info, Error, Trace, Warn, Debug methods, regardless of whether or not
+            /// the console is present.
+            /// </summary>
+            public static OnMessageLoggedCallback OnMessageLogged { get; set; }
+
             /// <summary>
             /// Gets or sets the default output color.
             /// </summary>
@@ -158,6 +128,8 @@
             /// The console options.
             /// </value>
             public static LoggingMessageType ConsoleOptions { get; set; }
+
+            
         }
     }
 }

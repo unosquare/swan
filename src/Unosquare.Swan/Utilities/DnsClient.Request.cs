@@ -82,7 +82,7 @@
             /// Resolves this request into a response using the provided DNS information. The given
             /// request strategy is used to retrieve the response.
             /// </summary>
-            /// <exception cref="DnsResponseException">Throw if a malformed response is received from the server</exception>
+            /// <exception cref="DnsQueryException">Throw if a malformed response is received from the server</exception>
             /// <exception cref="IOException">Thrown if a IO error occurs</exception>
             /// <exception cref="SocketException">Thrown if a the reading or writing to the socket fails</exception>
             /// <returns>The response received from server</returns>
@@ -94,18 +94,18 @@
 
                     if (response.Id != this.Id)
                     {
-                        throw new DnsResponseException(response, "Mismatching request/response IDs");
+                        throw new DnsQueryException(response, "Mismatching request/response IDs");
                     }
                     if (response.ResponseCode != DnsResponseCode.NoError)
                     {
-                        throw new DnsResponseException(response);
+                        throw new DnsQueryException(response);
                     }
 
                     return response;
                 }
                 catch (ArgumentException e)
                 {
-                    throw new DnsResponseException("Invalid response", e);
+                    throw new DnsQueryException("Invalid response", e);
                 }
             }
         }
@@ -298,8 +298,8 @@
 
             public DnsClientResponse Request(DnsClientRequest request)
             {
-                UdpClient udp = new UdpClient();
-                IPEndPoint dns = request.Dns;
+                var udp = new UdpClient();
+                var dns = request.Dns;
 
                 try
                 {
@@ -309,7 +309,15 @@
 
                     var bytesWritten = udp.SendAsync(request.ToArray(), request.Size, dns).Result;
 
-                    byte[] buffer = udp.ReceiveAsync().Result.Buffer;
+                    var bufferList = new List<byte>();
+                    do
+                    {
+                        var tempBuffer = new byte[1024];
+                        var receiveCount = udp.Client.Receive(tempBuffer);
+                        bufferList.AddRange(tempBuffer.Skip(0).Take(receiveCount));
+                    } while (udp.Client.Available > 0);
+
+                    byte[] buffer = bufferList.ToArray();
                     DnsResponse response = DnsResponse.FromArray(buffer); //null;
 
                     if (response.IsTruncated)
@@ -334,7 +342,7 @@
         {
             public DnsClientResponse Request(DnsClientRequest request)
             {
-                throw new DnsResponseException("Request failed");
+                throw new DnsQueryException("Request failed");
             }
         }
 

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Enumerates the different Application Service States
+    /// Enumerates the different Application Worker States
     /// </summary>
     public enum AppWorkerState
     {
@@ -49,5 +49,5 @@
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="AppWorkerStateChangedEventArgs"/> instance containing the event data.</param>
-    public delegate void ServiceStateChangedEventHandler(object sender, AppWorkerStateChangedEventArgs e);
+    public delegate void AppWorkerStateChangedEventHandler(object sender, AppWorkerStateChangedEventArgs e);
 }

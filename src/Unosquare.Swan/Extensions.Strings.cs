@@ -2,6 +2,7 @@
 {
     using Formatters;
     using System;
+    using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -106,6 +107,17 @@
 
             return ToStringInvariant(item as object);
         }
+
+        /// <summary>
+        /// Removes the control characters from a string.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns></returns>
+        public static string RemoveControlChars(this string input)
+        {
+            return new string(input.Where(c => !char.IsControl(c)).ToArray());
+        }
+
 
         /// <summary>
         /// Uses the ObjectStringifier to return an output of all properties in the specified object.

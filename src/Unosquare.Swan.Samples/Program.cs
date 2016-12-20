@@ -8,31 +8,16 @@
     using Formatters;
     using Utilities;
     using System.Net;
+    using System.Linq;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            var delay = (new Action(() =>
-            {
-                var time = Network.GetNetworkTimeUtc("time.windows.com");
-                time.ToSortableDateTime().Info();
-                Network.GetDnsPointerEntry(Network.GetPublicIPAddress()).Warn();
-                Network.GetDnsHostEntry("dev.unosquare.com").Stringify().Warn();
 
-                var response = Network.QueryDns("unosquare.com", DnsRecordType.MX, IPAddress.Parse("8.8.8.8"), Constants.DnsDefaultPort);
-                foreach (var item in response.AnswerRecords)
-                    item.MailExchangerDomainName.Error();
-
-                response = Network.QueryDns("unosquare.com", DnsRecordType.TXT, IPAddress.Parse("8.8.8.8"), Constants.DnsDefaultPort);
-                foreach (var item in response.AnswerRecords)
-                    Encoding.ASCII.GetString(item.Data).Info(); // This shows a bug in Terminal
-
-            }).Benchmark());
-
-            $"Resolving and querying NTP data took {delay.TotalMilliseconds} ms".Warn();
 
             TestApplicationInfo();
+            TestNetworkUtilities();
             TestContainerAndMessageHub();
 
             //TestTerminalOutputs();
@@ -48,6 +33,37 @@
             $"Local Storage Path: {CurrentApp.LocalStoragePath}".Info();
             $"Process Id: {CurrentApp.Process.Id}".Info();
         }
+
+        static void TestNetworkUtilities()
+        {
+            var elapsed = (new Action(() =>
+            {
+                var ntpServer = "time.windows.com";
+                var ntpTime = Network.GetNetworkTimeUtc("time.windows.com");
+
+                var domainName = "unosquare.com";
+                var dnsServers = Network.GetIPv4DnsServers();
+                var privateIPs = Network.GetIPv4Addresses(false);
+                var publicIP = Network.GetPublicIPAddress();
+                var ptrRecord = Network.GetDnsPointerEntry(publicIP);
+                var dnsLookup = Network.GetDnsHostEntry("unosquare.com");
+                var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
+                var txtRecords = Network.QueryDns("unosquare.com", DnsRecordType.TXT);
+
+                $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
+                $"Private IPs: [{string.Join(", ", privateIPs.Select(p => p.ToString()))}]".Info(nameof(Network));
+                $"DNS Servers: [{string.Join(", ", dnsServers.Select(p => p.ToString()))}]".Info(nameof(Network));
+                $"Public IP  : [{publicIP.ToString()}]".Info(nameof(Network));
+                $"Reverse DNS: [{publicIP.ToString()}]: [{ptrRecord}]".Info(nameof(Network));
+                $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(nameof(Network));
+                $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]".Info(nameof(Network));
+                $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]".Info(nameof(Network));
+
+            }).Benchmark());
+
+            $"Testing Network Utilities took: {elapsed.TotalMilliseconds} ms".Warn(nameof(Network));
+        }
+
 
         static void TestSingleton()
         {

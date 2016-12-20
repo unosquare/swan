@@ -7,7 +7,7 @@
 
     internal partial class DnsClient
     {
-        private static readonly Random RANDOM = new Random();
+        private static readonly Random RandomGenerator = new Random();
 
         private IPEndPoint dns;
         private IDnsRequestResolver resolver;
@@ -44,8 +44,8 @@
                 throw new ArgumentException("Invalid record type " + type);
             }
 
-            DnsClientResponse response = Resolve(domain, type);
-            IList<IPAddress> ips = response.AnswerRecords
+            var response = Resolve(domain, type);
+            var ips = response.AnswerRecords
                 .Where(r => r.Type == type)
                 .Cast<DnsIPAddressResourceRecord>()
                 .Select(r => r.IPAddress)
@@ -53,7 +53,7 @@
 
             if (ips.Count == 0)
             {
-                throw new DnsResponseException(response, "No matching records");
+                throw new DnsQueryException(response, "No matching records");
             }
 
             return ips;
@@ -71,7 +71,7 @@
 
             if (ptr == null)
             {
-                throw new DnsResponseException(response, "No matching records");
+                throw new DnsQueryException(response, "No matching records");
             }
 
             return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
@@ -84,8 +84,8 @@
 
         public DnsClientResponse Resolve(DnsDomain domain, DnsRecordType type)
         {
-            DnsClientRequest request = Create();
-            DnsQuestion question = new DnsQuestion(domain, type);
+            var request = Create();
+            var question = new DnsQuestion(domain, type);
 
             request.Questions.Add(question);
             request.OperationCode = DnsOperationCode.Query;

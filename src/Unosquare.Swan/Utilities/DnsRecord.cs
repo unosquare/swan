@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net;
+    using System.Text;
 
     /// <summary>
     /// Represents a DNS record entry
@@ -82,6 +83,11 @@
         /// Gets the raw data of the record.
         /// </summary>
         public byte[] Data { get; private set; }
+
+        /// <summary>
+        /// Gets the data text bytes in ASCII encoding.
+        /// </summary>
+        public string DataText { get { return Data == null ? string.Empty : Encoding.ASCII.GetString(Data); } }
 
         /// <summary>
         /// Gets the name of the pointer domain.

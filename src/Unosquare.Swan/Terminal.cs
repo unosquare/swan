@@ -103,6 +103,10 @@
                         await Task.Delay(1);
                         continue;
                     }
+                    else
+                    {
+                        OutputDone.Reset();
+                    }
 
                     while (OutputQueue.Count > 0)
                     {
