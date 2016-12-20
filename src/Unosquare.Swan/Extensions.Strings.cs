@@ -14,11 +14,18 @@
         static private readonly Lazy<SHA256> SHA256Hasher = new Lazy<SHA256>(SHA256.Create, true);
         static private readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
 
-        static private readonly Lazy<Regex> UnderscoreRegex = new Lazy<Regex>(() => new Regex(@"_", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
+        static private readonly Lazy<Regex> UnderscoreRegex =
+            new Lazy<Regex>(
+                () => new Regex(@"_", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
 
-        static private readonly Lazy<Regex> CamelCaseRegEx = new Lazy<Regex>(() => new Regex(@"[a-z][A-Z]", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
+        static private readonly Lazy<Regex> CamelCaseRegEx =
+            new Lazy<Regex>(
+                () =>
+                    new Regex(@"[a-z][A-Z]",
+                        RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
 
-        static private readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => {
+        private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() =>
+        {
             return ((m) =>
             {
                 var x = m.ToString();
@@ -87,9 +94,9 @@
             if (itemType == typeof(string))
                 return item as string;
 
-            return Constants.BasicTypesInfo.ContainsKey(itemType) ?
-                Constants.BasicTypesInfo[itemType].ToStringInvariant(item) :
-                item.ToString();
+            return Constants.BasicTypesInfo.ContainsKey(itemType)
+                ? Constants.BasicTypesInfo[itemType].ToStringInvariant(item)
+                : item.ToString();
         }
 
         /// <summary>
@@ -114,20 +121,14 @@
         /// <param name="input">The input.</param>
         /// <returns></returns>
         public static string RemoveControlChars(this string input)
-        {
-            return new string(input.Where(c => !char.IsControl(c)).ToArray());
-        }
-
+            => new string(input.Where(c => !char.IsControl(c)).ToArray());
 
         /// <summary>
         /// Uses the ObjectStringifier to return an output of all properties in the specified object.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns></returns>
-        static public string Stringify(this object obj)
-        {
-            return ObjectStringifier.FromObject(obj).AddAll().ToString();
-        }
+        public static string Stringify(this object obj) => ObjectStringifier.FromObject(obj).AddAll().ToString();
 
         /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
@@ -149,10 +150,7 @@
         /// </summary>
         /// <param name="c">The c.</param>
         /// <returns></returns>
-        public static string ToOneCharString(this char c)
-        {
-            return new string(c, 1);
-        }
+        public static string ToOneCharString(this char c) => new string(c, 1);
 
         // TODO: Test Humanize, Add pluralize, singularize, dashize, capitalize titleize, etc.
     }

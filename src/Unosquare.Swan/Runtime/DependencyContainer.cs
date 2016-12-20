@@ -2162,7 +2162,7 @@ namespace Unosquare.Swan.Runtime
         {
             private readonly Type registerType;
 
-            private Func<DependencyContainer, DependencyContainerNamedParameterOverloads, object> _factory;
+            private readonly Func<DependencyContainer, DependencyContainerNamedParameterOverloads, object> _factory;
 
             public override bool AssumeConstruction => true;
 
@@ -2208,7 +2208,7 @@ namespace Unosquare.Swan.Runtime
         {
             private readonly Type registerType;
 
-            private WeakReference _factory;
+            private readonly WeakReference _factory;
 
             public override bool AssumeConstruction => true;
 
@@ -2269,7 +2269,7 @@ namespace Unosquare.Swan.Runtime
         {
             private readonly Type registerType;
             private readonly Type registerImplementation;
-            private object _instance;
+            private readonly object _instance;
 
             public override bool AssumeConstruction => true;
 
@@ -2543,7 +2543,7 @@ namespace Unosquare.Swan.Runtime
         /// </summary>
         public sealed class TypeRegistration
         {
-            private int _hashCode;
+            private readonly int _hashCode;
 
             /// <summary>
             /// Gets the type.
@@ -2551,14 +2551,14 @@ namespace Unosquare.Swan.Runtime
             /// <value>
             /// The type.
             /// </value>
-            public Type Type { get; private set; }
+            public Type Type { get; }
             /// <summary>
             /// Gets the name.
             /// </summary>
             /// <value>
             /// The name.
             /// </value>
-            public string Name { get; private set; }
+            public string Name { get; }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="TypeRegistration"/> class.
@@ -2634,7 +2634,7 @@ namespace Unosquare.Swan.Runtime
             RegisterDefaultTypes();
         }
 
-        DependencyContainer _Parent;
+        readonly DependencyContainer _Parent;
         private DependencyContainer(DependencyContainer parent)
             : this()
         {
@@ -2815,9 +2815,9 @@ namespace Unosquare.Swan.Runtime
                     return true;
 
                 if (factory.Constructor == null)
-                    return (GetBestConstructor(factory.CreatesType, parameters, options) != null) ? true : false;
-                else
-                    return CanConstruct(factory.Constructor, parameters, options);
+                    return (GetBestConstructor(factory.CreatesType, parameters, options) != null);
+
+                return CanConstruct(factory.Constructor, parameters, options);
             }
 
 #if RESOLVE_OPEN_GENERICS
@@ -2865,13 +2865,10 @@ namespace Unosquare.Swan.Runtime
             // Attempt unregistered construction if possible and requested
             // If we cant', bubble if we have a parent
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (checkType.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
-                return (GetBestConstructor(checkType, parameters, options) != null) ? true : (_Parent != null) ? _Parent.CanResolveInternal(registration, parameters, options) : false;
+                return (GetBestConstructor(checkType, parameters, options) != null) || (_Parent?.CanResolveInternal(registration, parameters, options) ?? false);
 
             // Bubble resolution up the container tree if we have a parent
-            if (_Parent != null)
-                return _Parent.CanResolveInternal(registration, parameters, options);
-
-            return false;
+            return _Parent != null && _Parent.CanResolveInternal(registration, parameters, options);
         }
 
         private bool IsIEnumerableRequest(Type type)
@@ -2879,12 +2876,9 @@ namespace Unosquare.Swan.Runtime
             if (!type.IsGenericType())
                 return false;
 
-            Type genericType = type.GetGenericTypeDefinition();
+            var genericType = type.GetGenericTypeDefinition();
 
-            if (genericType == typeof(IEnumerable<>))
-                return true;
-
-            return false;
+            return genericType == typeof(IEnumerable<>);
         }
 
         private bool IsAutomaticLazyFactoryRequest(Type type)
@@ -3181,7 +3175,7 @@ namespace Unosquare.Swan.Runtime
             return null;
         }
 
-        private IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
+        private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
         {
             //#if NETFX_CORE
             //			return type.GetTypeInfo().DeclaredConstructors.OrderByDescending(ctor => ctor.GetParameters().Count());
@@ -3231,7 +3225,7 @@ namespace Unosquare.Swan.Runtime
                 throw new DependencyContainerResolutionException(typeToConstruct);
 
             var ctorParams = constructor.GetParameters();
-            object[] args = new object[ctorParams.Count()];
+            var args = new object[ctorParams.Count()];
 
             for (int parameterIndex = 0; parameterIndex < ctorParams.Count(); parameterIndex++)
             {

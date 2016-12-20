@@ -7,28 +7,28 @@
 
     internal partial class DnsClient
     {
-        private static readonly Random RandomGenerator = new Random();
-
-        private IPEndPoint dns;
-        private IDnsRequestResolver resolver;
+        private readonly IPEndPoint dns;
+        private readonly IDnsRequestResolver resolver;
 
         public DnsClient(IPEndPoint dns, IDnsRequestResolver resolver = null)
         {
             this.dns = dns;
-            this.resolver = resolver == null ? new DnsUdpRequestResolver(new DnsTcpRequestResolver()) : resolver;
+            this.resolver = resolver ?? new DnsUdpRequestResolver(new DnsTcpRequestResolver());
         }
 
         public DnsClient(IPAddress ip, int port = Constants.DnsDefaultPort, IDnsRequestResolver resolver = null) :
             this(new IPEndPoint(ip, port), resolver)
-        { }
+        {
+        }
 
         public DnsClient(string ip, int port = Constants.DnsDefaultPort, IDnsRequestResolver resolver = null) :
             this(IPAddress.Parse(ip), port, resolver)
-        { }
+        {
+        }
 
         public DnsClientRequest FromArray(byte[] message)
         {
-            DnsRequest request = DnsRequest.FromArray(message);
+            var request = DnsRequest.FromArray(message);
             return new DnsClientRequest(dns, request, resolver);
         }
 
@@ -66,15 +66,15 @@
 
         public string Reverse(IPAddress ip)
         {
-            DnsClientResponse response = Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
-            IDnsResourceRecord ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
+            var response = Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
+            var ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
 
             if (ptr == null)
             {
                 throw new DnsQueryException(response, "No matching records");
             }
 
-            return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
+            return ((DnsPointerResourceRecord) ptr).PointerDomainName.ToString();
         }
 
         public DnsClientResponse Resolve(string domain, DnsRecordType type)
@@ -94,5 +94,4 @@
             return request.Resolve();
         }
     }
-
 }

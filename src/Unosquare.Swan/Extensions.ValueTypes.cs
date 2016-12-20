@@ -83,13 +83,13 @@
                 }
 
 #pragma warning disable CS0618 // Type or member is obsolete
-                int offset = Marshal.OffsetOf(type, field.Name).ToInt32();
-                int length = Marshal.SizeOf(field.FieldType);
+                var offset = Marshal.OffsetOf(type, field.Name).ToInt32();
+                var length = Marshal.SizeOf(field.FieldType);
 #pragma warning restore CS0618 // Type or member is obsolete
                 endian = endian ?? field.GetCustomAttributes(typeof(StructEndiannessAttribute), false).ToArray()[0] as StructEndiannessAttribute;
 
-                if (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
-                        endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian)
+                if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
+                                       endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian))
                 {
                     Array.Reverse(data, offset, length);
                 }
@@ -119,7 +119,7 @@
         /// <returns></returns>
         public static T ToStruct<T>(this byte[] data, int offset, int length) where T : struct
         {
-            byte[] buffer = new byte[length];
+            var buffer = new byte[length];
             Array.Copy(data, offset, buffer, 0, buffer.Length);
             var handle = GCHandle.Alloc(GetStructBytes(typeof(T), buffer), GCHandleType.Pinned);
 
@@ -143,7 +143,7 @@
         /// <returns></returns>
         public static byte[] ToBytes<T>(this T obj) where T : struct
         {
-            byte[] data = new byte[Marshal.SizeOf(obj)];
+            var data = new byte[Marshal.SizeOf(obj)];
             var handle = GCHandle.Alloc(data, GCHandleType.Pinned);
 
             try

@@ -130,7 +130,7 @@
         /// <value>
         /// The application domain.
         /// </value>
-        public static Unosquare.Swan.Runtime.AppDomain AppDomain => Unosquare.Swan.Runtime.AppDomain.Instance;
+        public static Runtime.AppDomain AppDomain => Runtime.AppDomain.Instance;
 
         /// <summary>
         /// Gets the assembly that started the application.
@@ -223,8 +223,8 @@
         /// <param name="color">The color.</param>
         public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
         {
-            $"{CurrentApp.CompanyName} {CurrentApp.ProductName} [Version {CurrentApp.EntryAssemblyVersion}]".WriteLine(color);
-            $"{CurrentApp.ProductTrademark}".WriteLine(color);
+            $"{CompanyName} {ProductName} [Version {EntryAssemblyVersion}]".WriteLine(color);
+            $"{ProductTrademark}".WriteLine(color);
         }
 
 #if NET452

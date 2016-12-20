@@ -328,7 +328,7 @@
         /// <returns></returns>
         public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit)
         {
-            return type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
+            return type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).ToArray();
         }
 
         /// <summary>

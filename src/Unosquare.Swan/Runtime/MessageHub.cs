@@ -41,7 +41,7 @@ namespace Unosquare.Swan.Runtime
         /// Store a WeakReference to the sender just in case anyone is daft enough to
         /// keep the message around and prevent the sender from being collected.
         /// </summary>
-        private WeakReference _Sender;
+        private readonly WeakReference _Sender;
 
         /// <summary>
         /// The sender of the message, or null if not supported by the message implementation.
@@ -52,7 +52,7 @@ namespace Unosquare.Swan.Runtime
         /// Initializes a new instance of the MessageBase class.
         /// </summary>
         /// <param name="sender">Message sender (usually "this")</param>
-        public MessageHubMessageBase(object sender)
+        protected MessageHubMessageBase(object sender)
         {
             if (sender == null)
                 throw new ArgumentNullException(nameof(sender));
@@ -122,8 +122,8 @@ namespace Unosquare.Swan.Runtime
     /// </summary>
     public sealed class MessageHubSubscriptionToken : IDisposable
     {
-        private WeakReference _Hub;
-        private Type _MessageType;
+        private readonly WeakReference _Hub;
+        private readonly Type _MessageType;
 
         /// <summary>
         /// Initializes a new instance of the TinyMessageSubscriptionToken class.
@@ -443,8 +443,8 @@ namespace Unosquare.Swan.Runtime
         private class WeakTinyMessageSubscription<TMessage> : IMessageHubSubscription
             where TMessage : class, IMessageHubMessage
         {
-            private WeakReference _DeliveryAction;
-            private WeakReference _MessageFilter;
+            private readonly WeakReference _DeliveryAction;
+            private readonly WeakReference _MessageFilter;
 
             public MessageHubSubscriptionToken SubscriptionToken { get; }
 
@@ -507,11 +507,10 @@ namespace Unosquare.Swan.Runtime
         private class StrongTinyMessageSubscription<TMessage> : IMessageHubSubscription
             where TMessage : class, IMessageHubMessage
         {
-            private MessageHubSubscriptionToken _SubscriptionToken;
-            private Action<TMessage> _DeliveryAction;
-            private Func<TMessage, bool> _MessageFilter;
+            private readonly Action<TMessage> _DeliveryAction;
+            private readonly Func<TMessage, bool> _MessageFilter;
 
-            public MessageHubSubscriptionToken SubscriptionToken => _SubscriptionToken;
+            public MessageHubSubscriptionToken SubscriptionToken { get; }
 
             public bool ShouldAttemptDelivery(IMessageHubMessage message)
             {
@@ -554,7 +553,7 @@ namespace Unosquare.Swan.Runtime
                 if (messageFilter == null)
                     throw new ArgumentNullException(nameof(messageFilter));
 
-                _SubscriptionToken = subscriptionToken;
+                SubscriptionToken = subscriptionToken;
                 _DeliveryAction = deliveryAction;
                 _MessageFilter = messageFilter;
             }

@@ -14,45 +14,24 @@
         {
             private IDnsResourceRecord record;
 
-            public DnsResourceRecordBase(IDnsResourceRecord record)
+            protected DnsResourceRecordBase(IDnsResourceRecord record)
             {
                 this.record = record;
             }
 
-            public DnsDomain Name
-            {
-                get { return record.Name; }
-            }
+            public DnsDomain Name => record.Name;
 
-            public DnsRecordType Type
-            {
-                get { return record.Type; }
-            }
+            public DnsRecordType Type => record.Type;
 
-            public DnsRecordClass Class
-            {
-                get { return record.Class; }
-            }
+            public DnsRecordClass Class => record.Class;
 
-            public TimeSpan TimeToLive
-            {
-                get { return record.TimeToLive; }
-            }
+            public TimeSpan TimeToLive => record.TimeToLive;
 
-            public int DataLength
-            {
-                get { return record.DataLength; }
-            }
+            public int DataLength => record.DataLength;
 
-            public byte[] Data
-            {
-                get { return record.Data; }
-            }
+            public byte[] Data => record.Data;
 
-            public int Size
-            {
-                get { return record.Size; }
-            }
+            public int Size => record.Size;
 
             public byte[] ToArray()
             {
@@ -68,12 +47,6 @@
 
         public class DnsResourceRecord : IDnsResourceRecord
         {
-            private DnsDomain domain;
-            private DnsRecordType type;
-            private DnsRecordClass klass;
-            private TimeSpan ttl;
-            private byte[] data;
-
             public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
             {
                 return GetAllFromArray(message, offset, count, out offset);
@@ -83,7 +56,7 @@
             {
                 IList<DnsResourceRecord> records = new List<DnsResourceRecord>(count);
 
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     records.Add(FromArray(message, offset, out offset));
                 }
@@ -102,7 +75,7 @@
                 var domain = DnsDomain.FromArray(message, offset, out offset);
                 var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
 
-                byte[] data = new byte[tail.DataLength];
+                var data = new byte[tail.DataLength];
 
                 offset += Tail.SIZE;
                 Array.Copy(message, offset, data, 0, data.Length);
@@ -120,62 +93,41 @@
             public DnsResourceRecord(DnsDomain domain, byte[] data, DnsRecordType type,
                     DnsRecordClass klass = DnsRecordClass.IN, TimeSpan ttl = default(TimeSpan))
             {
-                this.domain = domain;
-                this.type = type;
-                this.klass = klass;
-                this.ttl = ttl;
-                this.data = data;
+                this.Name = domain;
+                this.Type = type;
+                this.Class = klass;
+                this.TimeToLive = ttl;
+                this.Data = data;
             }
 
-            public DnsDomain Name
-            {
-                get { return domain; }
-            }
+            public DnsDomain Name { get; }
 
-            public DnsRecordType Type
-            {
-                get { return type; }
-            }
+            public DnsRecordType Type { get; }
 
-            public DnsRecordClass Class
-            {
-                get { return klass; }
-            }
+            public DnsRecordClass Class { get; }
 
-            public TimeSpan TimeToLive
-            {
-                get { return ttl; }
-            }
+            public TimeSpan TimeToLive { get; }
 
-            public int DataLength
-            {
-                get { return data.Length; }
-            }
+            public int DataLength => Data.Length;
 
-            public byte[] Data
-            {
-                get { return data; }
-            }
+            public byte[] Data { get; }
 
-            public int Size
-            {
-                get { return domain.Size + Tail.SIZE + data.Length; }
-            }
+            public int Size => Name.Size + Tail.SIZE + Data.Length;
 
             public byte[] ToArray()
             {
                 var result = new MemoryStream(Size);
 
                 result
-                    .Append(domain.ToArray())
+                    .Append(Name.ToArray())
                     .Append((new Tail()
                     {
                         Type = Type,
                         Class = Class,
-                        TimeToLive = ttl,
-                        DataLength = data.Length
+                        TimeToLive = TimeToLive,
+                        DataLength = Data.Length
                     }).ToBytes())
-                    .Append(data);
+                    .Append(Data);
 
                 return result.ToArray();
             }
@@ -254,8 +206,8 @@
         {
             private static IDnsResourceRecord Create(DnsDomain domain, IPAddress ip, TimeSpan ttl)
             {
-                byte[] data = ip.GetAddressBytes();
-                DnsRecordType type = data.Length == 4 ? DnsRecordType.A : DnsRecordType.AAAA;
+                var data = ip.GetAddressBytes();
+                var type = data.Length == 4 ? DnsRecordType.A : DnsRecordType.AAAA;
 
                 return new DnsResourceRecord(domain, data, type, DnsRecordClass.IN, ttl);
             }
@@ -272,11 +224,7 @@
                 IPAddress = ip;
             }
 
-            public IPAddress IPAddress
-            {
-                get;
-                private set;
-            }
+            public IPAddress IPAddress { get; }
 
             public override string ToString()
             {
@@ -342,8 +290,8 @@
 
             private static IDnsResourceRecord Create(DnsDomain domain, int preference, DnsDomain exchange, TimeSpan ttl)
             {
-                byte[] pref = BitConverter.GetBytes((ushort)preference);
-                byte[] data = new byte[pref.Length + exchange.Size];
+                var pref = BitConverter.GetBytes((ushort)preference);
+                var data = new byte[pref.Length + exchange.Size];
 
                 if (BitConverter.IsLittleEndian)
                 {
@@ -359,7 +307,7 @@
             public DnsMailExchangeResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
                 : base(record)
             {
-                byte[] preference = new byte[DnsMailExchangeResourceRecord.PREFERENCE_SIZE];
+                var preference = new byte[DnsMailExchangeResourceRecord.PREFERENCE_SIZE];
                 Array.Copy(message, dataOffset, preference, 0, preference.Length);
 
                 if (BitConverter.IsLittleEndian)
@@ -404,7 +352,7 @@
                     TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl)
             {
                 var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
-                Options tail = new Options()
+                var tail = new Options()
                 {
                     SerialNumber = serial,
                     RefreshInterval = refresh,
@@ -427,7 +375,7 @@
                 MasterDomainName = DnsDomain.FromArray(message, dataOffset, out dataOffset);
                 ResponsibleDomainName = DnsDomain.FromArray(message, dataOffset, out dataOffset);
 
-                Options tail = message.ToStruct<Options>(dataOffset, Options.SIZE);
+                var tail = message.ToStruct<Options>(dataOffset, Options.SIZE);
 
                 SerialNumber = tail.SerialNumber;
                 RefreshInterval = tail.RefreshInterval;
@@ -558,7 +506,7 @@
             {
                 var result = new List<IDnsResourceRecord>(count);
 
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     result.Add(FromArray(message, offset, out offset));
                 }

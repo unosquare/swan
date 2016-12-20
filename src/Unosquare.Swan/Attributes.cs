@@ -1,9 +1,9 @@
-﻿namespace Unosquare.Swan
-{
-    using System;
+﻿using System;
 
+namespace Unosquare.Swan
+{
     /// <summary>
-    /// An attibute used to help conversion structs back and forth into arrays of bytes via
+    /// An attribute used to help conversion structs back and forth into arrays of bytes via
     /// extension methods included in this library ToStruct and ToBytes.
     /// </summary>
     /// <seealso cref="System.Attribute" />
@@ -33,12 +33,12 @@
     /// Models an option specification.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property)]
     public sealed class ArgumentOptionAttribute : Attribute
     {
         private string setName;
 
-        private ArgumentOptionAttribute(string shortName, string longName) : base()
+        private ArgumentOptionAttribute(string shortName, string longName)
         {
             if (shortName == null) throw new ArgumentNullException(nameof(shortName));
             if (longName == null) throw new ArgumentNullException(nameof(longName));

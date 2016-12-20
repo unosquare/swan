@@ -13,7 +13,7 @@
     /// Provides miscellaneous network utilities such as a Public IP finder,
     /// a DNS client and an NTP client.
     /// </summary>
-    static public class Network
+    public static class Network
     {
         #region Properties
 

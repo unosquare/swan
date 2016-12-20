@@ -16,7 +16,7 @@
 
             public static DnsClientResponse FromArray(DnsClientRequest request, byte[] message)
             {
-                DnsResponse response = DnsResponse.FromArray(message);
+                var response = DnsResponse.FromArray(message);
                 return new DnsClientResponse(request, response, message);
             }
 
@@ -48,20 +48,11 @@
                 set { }
             }
 
-            public IList<IDnsResourceRecord> AnswerRecords
-            {
-                get { return response.AnswerRecords; }
-            }
+            public IList<IDnsResourceRecord> AnswerRecords => response.AnswerRecords;
 
-            public IList<IDnsResourceRecord> AuthorityRecords
-            {
-                get { return new ReadOnlyCollection<IDnsResourceRecord>(response.AuthorityRecords); }
-            }
+            public IList<IDnsResourceRecord> AuthorityRecords => new ReadOnlyCollection<IDnsResourceRecord>(response.AuthorityRecords);
 
-            public IList<IDnsResourceRecord> AdditionalRecords
-            {
-                get { return new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords); }
-            }
+            public IList<IDnsResourceRecord> AdditionalRecords => new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords);
 
             public bool IsRecursionAvailable
             {
@@ -93,15 +84,9 @@
                 set { }
             }
 
-            public IList<DnsQuestion> Questions
-            {
-                get { return new ReadOnlyCollection<DnsQuestion>(response.Questions); }
-            }
+            public IList<DnsQuestion> Questions => new ReadOnlyCollection<DnsQuestion>(response.Questions);
 
-            public int Size
-            {
-                get { return message.Length; }
-            }
+            public int Size => message.Length;
 
             public byte[] ToArray()
             {
@@ -113,27 +98,18 @@
                 return response.ToString();
             }
         }
-
-
-
-
+        
         public class DnsResponse : IDnsResponse
         {
             private static readonly Random RANDOM = new Random();
 
             private DnsHeader header;
-            private IList<DnsQuestion> questions;
-            private IList<IDnsResourceRecord> answers;
-            private IList<IDnsResourceRecord> authority;
-            private IList<IDnsResourceRecord> additional;
 
             public static DnsResponse FromRequest(IDnsRequest request)
             {
-                DnsResponse response = new DnsResponse();
-
-                response.Id = request.Id;
-
-                foreach (DnsQuestion question in request.Questions)
+                var response = new DnsResponse {Id = request.Id};
+                
+                foreach (var question in request.Questions)
                 {
                     response.Questions.Add(question);
                 }
@@ -143,8 +119,8 @@
 
             public static DnsResponse FromArray(byte[] message)
             {
-                DnsHeader header = DnsHeader.FromArray(message);
-                int offset = header.Size;
+                var header = DnsHeader.FromArray(message);
+                var offset = header.Size;
 
                 if (!header.Response || header.QuestionCount == 0)
                 {
@@ -171,19 +147,19 @@
                     IList<IDnsResourceRecord> authority, IList<IDnsResourceRecord> additional)
             {
                 this.header = header;
-                this.questions = questions;
-                this.answers = answers;
-                this.authority = authority;
-                this.additional = additional;
+                this.Questions = questions;
+                this.AnswerRecords = answers;
+                this.AuthorityRecords = authority;
+                this.AdditionalRecords = additional;
             }
 
             public DnsResponse()
             {
                 this.header = new DnsHeader();
-                this.questions = new List<DnsQuestion>();
-                this.answers = new List<IDnsResourceRecord>();
-                this.authority = new List<IDnsResourceRecord>();
-                this.additional = new List<IDnsResourceRecord>();
+                this.Questions = new List<DnsQuestion>();
+                this.AnswerRecords = new List<IDnsResourceRecord>();
+                this.AuthorityRecords = new List<IDnsResourceRecord>();
+                this.AdditionalRecords = new List<IDnsResourceRecord>();
 
                 this.header.Response = true;
                 this.header.Id = RANDOM.Next(UInt16.MaxValue);
@@ -192,10 +168,10 @@
             public DnsResponse(IDnsResponse response)
             {
                 this.header = new DnsHeader();
-                this.questions = new List<DnsQuestion>(response.Questions);
-                this.answers = new List<IDnsResourceRecord>(response.AnswerRecords);
-                this.authority = new List<IDnsResourceRecord>(response.AuthorityRecords);
-                this.additional = new List<IDnsResourceRecord>(response.AdditionalRecords);
+                this.Questions = new List<DnsQuestion>(response.Questions);
+                this.AnswerRecords = new List<IDnsResourceRecord>(response.AnswerRecords);
+                this.AuthorityRecords = new List<IDnsResourceRecord>(response.AuthorityRecords);
+                this.AdditionalRecords = new List<IDnsResourceRecord>(response.AdditionalRecords);
 
                 this.header.Response = true;
 
@@ -206,25 +182,13 @@
                 ResponseCode = response.ResponseCode;
             }
 
-            public IList<DnsQuestion> Questions
-            {
-                get { return questions; }
-            }
+            public IList<DnsQuestion> Questions { get; }
 
-            public IList<IDnsResourceRecord> AnswerRecords
-            {
-                get { return answers; }
-            }
+            public IList<IDnsResourceRecord> AnswerRecords { get; }
 
-            public IList<IDnsResourceRecord> AuthorityRecords
-            {
-                get { return authority; }
-            }
+            public IList<IDnsResourceRecord> AuthorityRecords { get; }
 
-            public IList<IDnsResourceRecord> AdditionalRecords
-            {
-                get { return additional; }
-            }
+            public IList<IDnsResourceRecord> AdditionalRecords { get; }
 
             public int Id
             {
@@ -267,10 +231,10 @@
                 get
                 {
                     return header.Size +
-                        questions.Sum(q => q.Size) +
-                        answers.Sum(a => a.Size) +
-                        authority.Sum(a => a.Size) +
-                        additional.Sum(a => a.Size);
+                        Questions.Sum(q => q.Size) +
+                        AnswerRecords.Sum(a => a.Size) +
+                        AuthorityRecords.Sum(a => a.Size) +
+                        AdditionalRecords.Sum(a => a.Size);
                 }
             }
 
@@ -281,10 +245,10 @@
 
                 result
                     .Append(header.ToArray())
-                    .Append(questions.Select(q => q.ToArray()))
-                    .Append(answers.Select(a => a.ToArray()))
-                    .Append(authority.Select(a => a.ToArray()))
-                    .Append(additional.Select(a => a.ToArray()));
+                    .Append(Questions.Select(q => q.ToArray()))
+                    .Append(AnswerRecords.Select(a => a.ToArray()))
+                    .Append(AuthorityRecords.Select(a => a.ToArray()))
+                    .Append(AdditionalRecords.Select(a => a.ToArray()));
 
                 return result.ToArray();
             }
@@ -301,12 +265,11 @@
 
             private void UpdateHeader()
             {
-                header.QuestionCount = questions.Count;
-                header.AnswerRecordCount = answers.Count;
-                header.AuthorityRecordCount = authority.Count;
-                header.AdditionalRecordCount = additional.Count;
+                header.QuestionCount = Questions.Count;
+                header.AnswerRecordCount = AnswerRecords.Count;
+                header.AuthorityRecordCount = AuthorityRecords.Count;
+                header.AdditionalRecordCount = AdditionalRecords.Count;
             }
         }
-
     }
 }

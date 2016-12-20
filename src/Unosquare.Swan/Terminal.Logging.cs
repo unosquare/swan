@@ -73,7 +73,10 @@
                     Task.Factory.StartNew(() =>
                     {
                         try { Settings.OnMessageLogged?.Invoke(sequence, messageType, date, source, output); }
-                        catch { }
+                        catch
+                        {
+                            // ignored
+                        }
                     });
 
                 // Enqueue the message to the console (out or error)
