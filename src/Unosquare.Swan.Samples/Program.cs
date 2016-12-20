@@ -39,7 +39,7 @@
             var elapsed = (new Action(() =>
             {
                 var ntpServer = "time.windows.com";
-                var ntpTime = Network.GetNetworkTimeUtc("time.windows.com");
+                var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
 
                 var domainName = "unosquare.com";
                 var dnsServers = Network.GetIPv4DnsServers();
