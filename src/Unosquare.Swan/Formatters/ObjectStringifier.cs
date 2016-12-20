@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns></returns>
-        public static ObjectStringifier New(object obj)
+        public static ObjectStringifier FromObject(object obj)
         {
             return new ObjectStringifier(obj);
         }

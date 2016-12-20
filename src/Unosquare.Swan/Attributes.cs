@@ -8,13 +8,13 @@
     /// </summary>
     /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct)]
-    public class EndianAttribute : Attribute
+    public class StructEndiannessAttribute : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EndianAttribute"/> class.
+        /// Initializes a new instance of the <see cref="StructEndiannessAttribute"/> class.
         /// </summary>
         /// <param name="endianness">The endianness.</param>
-        public EndianAttribute(Endianness endianness)
+        public StructEndiannessAttribute(Endianness endianness)
         {
             Endianness = endianness;
         }

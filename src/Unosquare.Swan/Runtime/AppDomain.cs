@@ -6,7 +6,7 @@
     using System.IO;
     using System.Collections.Generic;
     using System.Linq;
-    using Unosquare.Swan.Formatters;
+    using Formatters;
 #endif
 
 
@@ -17,7 +17,7 @@
     public class AppDomain : SingletonBase<AppDomain>
     {
 #if !NET452
-        private static readonly string DepsFilesProperty = "APP_CONTEXT_DEPS_FILES";
+        private const string DepsFilesProperty = "APP_CONTEXT_DEPS_FILES";
 
         /// <summary>
         /// The dependency context

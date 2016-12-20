@@ -114,7 +114,7 @@
         /// <returns></returns>
         static public string Stringify(this object obj)
         {
-            return ObjectStringifier.New(obj).AddAll().ToString();
+            return ObjectStringifier.FromObject(obj).AddAll().ToString();
         }
 
         /// <summary>

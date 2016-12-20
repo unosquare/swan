@@ -81,23 +81,23 @@
         private static byte[] AdjustEndianness(Type type, byte[] data)
         {
             var fields = type.GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            EndianAttribute endian = null;
+            StructEndiannessAttribute endian = null;
 
-            if (type.IsDefined(typeof(EndianAttribute), false))
+            if (type.IsDefined(typeof(StructEndiannessAttribute), false))
             {
-                endian = type.GetCustomAttributes(typeof(EndianAttribute), false)[0] as EndianAttribute;
+                endian = type.GetCustomAttributes(typeof(StructEndiannessAttribute), false)[0] as StructEndiannessAttribute;
             }
 
             foreach (var field in fields)
             {
-                if (endian == null && !field.IsDefined(typeof(EndianAttribute), false))
+                if (endian == null && !field.IsDefined(typeof(StructEndiannessAttribute), false))
                 {
                     continue;
                 }
 
                 int offset = Marshal.OffsetOf(type, field.Name).ToInt32();
                 int length = Marshal.SizeOf(field.FieldType);
-                endian = endian ?? field.GetCustomAttributes(typeof(EndianAttribute), false).ToArray()[0] as EndianAttribute;
+                endian = endian ?? field.GetCustomAttributes(typeof(StructEndiannessAttribute), false).ToArray()[0] as StructEndiannessAttribute;
 
                 if (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
                         endian.Endianness == Endianness.Little && !BitConverter.IsLittleEndian)

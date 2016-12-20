@@ -171,6 +171,30 @@
         }
 
         /// <summary>
+        /// Gets the reverse lookup FQDN of the given IP Address.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="dnsServer">The DNS server.</param>
+        /// <param name="port">The port.</param>
+        /// <returns></returns>
+        public static string GetDnsPointerEntry(IPAddress query, IPAddress dnsServer, int port)
+        {
+            var client = new DnsClient(dnsServer, port);
+            return client.Reverse(query);
+        }
+
+        /// <summary>
+        /// Gets the reverse lookup FQDN of the given IP Address.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns></returns>
+        public static string GetDnsPointerEntry(IPAddress query)
+        {
+            var client = new DnsClient(GetConfiguredIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
+            return client.Reverse(query);
+        }
+
+        /// <summary>
         /// Gets the UTC time by querying from an NTP server
         /// </summary>
         /// <param name="ntpServer">The NTP server, by default pool.ntp.org.</param>

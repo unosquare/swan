@@ -283,7 +283,7 @@ namespace Unosquare.Swan.Utilities
 
         internal ObjectStringifier Stringify()
         {
-            return ObjectStringifier.New(this)
+            return ObjectStringifier.FromObject(this)
                 .Add(nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength));
         }
     }
@@ -404,12 +404,12 @@ namespace Unosquare.Swan.Utilities
 
         public override string ToString()
         {
-            return ObjectStringifier.New(this)
-                .Add("Name", "Type", "Class", "TimeToLive", "DataLength")
+            return ObjectStringifier.FromObject(this)
+                .Add(nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength))
                 .ToString();
         }
 
-        [Endian(Endianness.Big)]
+        [StructEndianness(Endianness.Big)]
         [StructLayout(LayoutKind.Sequential, Pack = 2)]
         private struct Tail
         {
@@ -725,7 +725,7 @@ namespace Unosquare.Swan.Utilities
             return Stringify().Add("MasterDomainName", "ResponsibleDomainName", "SerialNumber").ToString();
         }
 
-        [Endian(Endianness.Big)]
+        [StructEndianness(Endianness.Big)]
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
         public struct Options
         {
@@ -899,12 +899,12 @@ namespace Unosquare.Swan.Utilities
 
         public override string ToString()
         {
-            return ObjectStringifier.New(this)
-                .Add("Name", "Type", "Class")
+            return ObjectStringifier.FromObject(this)
+                .Add(nameof(Name), nameof(Type), nameof(Class))
                 .ToString();
         }
 
-        [Endian(Endianness.Big)]
+        [StructEndianness(Endianness.Big)]
         [StructLayout(LayoutKind.Sequential, Pack = 2)]
         private struct Tail
         {
@@ -1323,9 +1323,9 @@ namespace Unosquare.Swan.Utilities
         {
             UpdateHeader();
 
-            return ObjectStringifier.New(this)
-                .Add("Header", header)
-                .Add("Questions")
+            return ObjectStringifier.FromObject(this)
+                .Add(nameof(Header), header)
+                .Add(nameof(Questions))
                 .ToString();
         }
 
@@ -1336,7 +1336,7 @@ namespace Unosquare.Swan.Utilities
     }
 
     // 12 bytes message header
-    [Endian(Endianness.Big)]
+    [StructEndianness(Endianness.Big)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct Header
     {
@@ -1453,9 +1453,9 @@ namespace Unosquare.Swan.Utilities
 
         public override string ToString()
         {
-            return ObjectStringifier.New(this)
+            return ObjectStringifier.FromObject(this)
                 .AddAll()
-                .Remove("Size")
+                .Remove(nameof(Size))
                 .ToString();
         }
 
@@ -1717,9 +1717,9 @@ namespace Unosquare.Swan.Utilities
         {
             UpdateHeader();
 
-            return ObjectStringifier.New(this)
-                .Add("Header", header)
-                .Add("Questions", "AnswerRecords", "AuthorityRecords", "AdditionalRecords")
+            return ObjectStringifier.FromObject(this)
+                .Add(nameof(Header), header)
+                .Add(nameof(Questions), nameof(AnswerRecords), nameof(AuthorityRecords), nameof(AdditionalRecords))
                 .ToString();
         }
 
