@@ -14,8 +14,8 @@
     {
         #region Private Declarations
 
-        private readonly object innerObject;
-        private readonly Dictionary<string, string> innerPairs;
+        private object innerObject;
+        private Dictionary<string, string> innerPairs;
 
         #endregion
 
@@ -52,16 +52,20 @@
             {
                 return obj as string;
             }
-            if (obj is IDictionary)
+            else if (obj is IDictionary)
             {
                 return StringifyDictionary(obj as IDictionary);
             }
-            if (obj is IEnumerable)
+            else if (obj is IEnumerable)
             {
                 return StringifyList(obj as IEnumerable);
             }
-
-            return obj == null ? "null" : obj.ToString();
+            else
+            {
+                return obj == null ?
+                    "null" :
+                    FromObject(obj).AddAll().ToString();
+            }
         }
 
         /// <summary>
@@ -71,7 +75,7 @@
         /// <returns></returns>
         private static string StringifyList(IEnumerable enumerable)
         {
-            return "[" + string.Join(", ", enumerable.Cast<object>().Select(StringifyObject).ToArray()) + "]";
+            return "[" + string.Join(", ", enumerable.Cast<object>().Select(o => StringifyObject(o)).ToArray()) + "]";
         }
 
         /// <summary>
@@ -86,13 +90,11 @@
             result.Append("{");
 
             foreach (DictionaryEntry pair in dict)
-                result.Append($"{pair.Key}={StringifyObject(pair.Value)}, ");
+                result.Append($"{pair.Key}: {StringifyObject(pair.Value)}, ");
 
             // remove the last comma, space
             if (result.Length > 1)
-            {
                 result.Remove(result.Length - 2, 2);
-            }
 
             return result.Append("}").ToString();
         }
@@ -123,7 +125,7 @@
         /// <returns></returns>
         public ObjectStringifier Remove(params string[] names)
         {
-            foreach (var name in names)
+            foreach (string name in names)
             {
                 innerPairs.Remove(name);
             }
@@ -138,12 +140,12 @@
         /// <returns></returns>
         public ObjectStringifier Add(params string[] names)
         {
-            var type = innerObject.GetType();
+            Type type = innerObject.GetType();
 
-            foreach (var name in names)
+            foreach (string name in names)
             {
-                var property = type.GetTypeInfo().GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
-                var value = property.GetValue(innerObject, new object[] { });
+                PropertyInfo property = type.GetTypeInfo().GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+                object value = property.GetValue(innerObject, new object[] { });
 
                 innerPairs.Add(name, StringifyObject(value));
             }
@@ -169,13 +171,20 @@
         /// <returns></returns>
         public ObjectStringifier AddAll()
         {
-            var properties = innerObject.GetType().GetTypeInfo().GetProperties(
-                BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] properties = innerObject.GetType().GetTypeInfo().GetProperties(
+                BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead).ToArray();
 
-            foreach (var property in properties)
+            foreach (PropertyInfo property in properties)
             {
-                var value = property.GetValue(innerObject, new object[] { });
-                innerPairs.Add(property.Name, StringifyObject(value));
+                try
+                {
+                    object value = property.GetValue(innerObject, new object[] { });
+                    innerPairs.Add(property.Name, StringifyObject(value));
+                }
+                catch
+                {
+                    // swallow
+                }
             }
 
             return this;
@@ -189,7 +198,10 @@
         /// </returns>
         public override string ToString()
         {
-            return StringifyDictionary(innerPairs);
+            if (innerPairs.Count > 0 && innerObject is string == false)
+                return StringifyDictionary(innerPairs);
+            else
+                return innerObject == null ? "null" : $"{innerObject.ToStringInvariant()}";
         }
 
         #endregion
