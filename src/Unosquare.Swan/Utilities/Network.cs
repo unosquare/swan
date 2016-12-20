@@ -4,14 +4,18 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using System.Net.Http;
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
+    using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides miscellaneous network utilities
+    /// Provides miscellaneous network utilities such as a Public IP finder,
+    /// a DNS client and an NTP client.
     /// </summary>
     static public class Network
     {
+        #region Properties
 
         /// <summary>
         /// Gets the name of the host.
@@ -37,12 +41,16 @@
             }
         }
 
+        #endregion
+
+        #region IP Addresses and Adapters
+
         /// <summary>
         /// Gets the active IPv4 interfaces.
         /// Only those interfaces with a valid unicast address and a valid gateway will be returned in the collection
         /// </summary>
         /// <returns></returns>
-        static public Dictionary<NetworkInterface, IPInterfaceProperties> GetActiveIPv4Interfaces()
+        static public Dictionary<NetworkInterface, IPInterfaceProperties> GetIPv4Interfaces()
         {
             // zero conf ip address
             var zeroConf = new IPAddress(0);
@@ -78,19 +86,19 @@
         /// </summary>
         /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
         /// <returns></returns>
-        static public IPAddress[] RetrieveLocalIPAddresses(bool includeLoopback = true)
+        static public IPAddress[] GetIPv4Addresses(bool includeLoopback = true)
         {
-            return RetrieveLocalIPAddresses(NetworkInterfaceType.Unknown, true, includeLoopback);
+            return GetIPv4Addresses(NetworkInterfaceType.Unknown, true, includeLoopback);
         }
 
         /// <summary>
-        /// Retrieves the local ip addresses.
+        /// Retrieves the local IP addresses.
         /// </summary>
         /// <param name="interfaceType">Type of the interface.</param>
         /// <returns></returns>
-        static public IPAddress[] RetrieveLocalIPAddresses(NetworkInterfaceType interfaceType)
+        static public IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType)
         {
-            return RetrieveLocalIPAddresses(interfaceType, false, false);
+            return GetIPv4Addresses(interfaceType, false, false);
         }
 
         /// <summary>
@@ -100,7 +108,7 @@
         /// <param name="skipTypeFilter">if set to <c>true</c> [skip type filter].</param>
         /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
         /// <returns></returns>
-        private static IPAddress[] RetrieveLocalIPAddresses(NetworkInterfaceType interfaceType, bool skipTypeFilter, bool includeLoopback)
+        private static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType, bool skipTypeFilter, bool includeLoopback)
         {
             var addressList = new List<IPAddress>();
             var interfaces = NetworkInterface.GetAllNetworkInterfaces()
@@ -135,16 +143,41 @@
         }
 
         /// <summary>
+        /// Gets the public IP address using ipify.org.
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<IPAddress> GetPublicIPAddressAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                return IPAddress.Parse(await client.GetStringAsync("https://api.ipify.org"));
+            }
+        }
+
+        /// <summary>
+        /// Gets the public IP address using ipify.org.
+        /// </summary>
+        /// <returns></returns>
+        public static IPAddress GetPublicIPAddress()
+        {
+            return GetPublicIPAddressAsync().Result;
+        }
+
+        /// <summary>
         /// Gets the configured IPv4 DNS servers for the active network interfaces.
         /// </summary>
         /// <returns></returns>
-        public static IPAddress[] GetConfiguredIPv4DnsServers()
+        public static IPAddress[] GetIPv4DnsServers()
         {
-            var adapters = GetActiveIPv4Interfaces();
+            var adapters = GetIPv4Interfaces();
             return adapters
                 .Select(a => a.Value.DnsAddresses.Where(d => d.AddressFamily == AddressFamily.InterNetwork))
                 .SelectMany(d => d).ToArray();
         }
+
+        #endregion
+
+        #region DNS and NTP
 
         /// <summary>
         /// Gets the DNS host entry (a list of IP addresses) for the domain name.
@@ -153,7 +186,7 @@
         /// <returns></returns>
         public static IPAddress[] GetDnsHostEntry(string fqdn)
         {
-            return GetDnsHostEntry(fqdn, GetConfiguredIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
+            return GetDnsHostEntry(fqdn, GetIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
         }
 
         /// <summary>
@@ -190,7 +223,7 @@
         /// <returns></returns>
         public static string GetDnsPointerEntry(IPAddress query)
         {
-            var client = new DnsClient(GetConfiguredIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
+            var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
             return client.Reverse(query);
         }
 
@@ -243,5 +276,7 @@
             var networkDateTime = (new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddMilliseconds((long)milliseconds);
             return networkDateTime;
         }
+
+        #endregion
     }
 }

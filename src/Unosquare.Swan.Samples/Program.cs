@@ -5,8 +5,9 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using Unosquare.Swan.Formatters;
+    using Formatters;
     using Utilities;
+    using System.Net;
 
     public class Program
     {
@@ -16,7 +17,7 @@
             {
                 var time = Network.GetNetworkTimeUtc("time.windows.com");
                 time.ToSortableDateTime().Info();
-
+                Network.GetDnsPointerEntry(Network.GetPublicIPAddress()).Warn();
                 Network.GetDnsHostEntry("dev.unosquare.com").Stringify().Warn();
             }).Benchmark());
 
