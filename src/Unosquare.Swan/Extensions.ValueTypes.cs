@@ -46,24 +46,11 @@
         }
 
         /// <summary>
-        /// Determines whether this instance is collection.
-        /// </summary>
-        /// <param name="prop">The property.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified property is collection; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsCollection(this PropertyInfo prop)
-        {
-            return prop.PropertyType != typeof(string) &&
-                             typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(prop.PropertyType);
-        }
-
-        /// <summary>
         /// Swaps the endianness of an unsigned long to an unsigned integer.
         /// </summary>
         /// <param name="longBytes">The bytes contained in a long.</param>
         /// <returns></returns>
-        public static uint SwapEndianness(this ulong longBytes)
+        internal static uint SwapEndianness(this ulong longBytes)
         {
             return (uint)(((longBytes & 0x000000ff) << 24) +
                            ((longBytes & 0x0000ff00) << 8) +
@@ -78,7 +65,7 @@
         /// <param name="type">The type.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        private static byte[] AdjustEndianness(Type type, byte[] data)
+        private static byte[] GetStructBytes(Type type, byte[] data)
         {
             var fields = type.GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             StructEndiannessAttribute endian = null;
@@ -132,7 +119,7 @@
         {
             byte[] buffer = new byte[length];
             Array.Copy(data, offset, buffer, 0, buffer.Length);
-            var handle = GCHandle.Alloc(AdjustEndianness(typeof(T), buffer), GCHandleType.Pinned);
+            var handle = GCHandle.Alloc(GetStructBytes(typeof(T), buffer), GCHandleType.Pinned);
 
             try
             {
@@ -158,7 +145,7 @@
             try
             {
                 Marshal.StructureToPtr(obj, handle.AddrOfPinnedObject(), false);
-                return AdjustEndianness(typeof(T), data);
+                return GetStructBytes(typeof(T), data);
             }
             finally
             {

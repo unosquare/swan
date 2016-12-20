@@ -1,8 +1,8 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -131,6 +131,16 @@
         #endregion
 
         #region Type Extensions
+
+        /// <summary>
+        /// Determines whether this type is compatible with ICollection.
+        /// </summary>
+        /// <param name="sourceType">The type.</param>
+        public static bool IsCollection(this Type sourceType)
+        {
+            return sourceType != typeof(string) &&
+                             typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(sourceType);
+        }
 
         /// <summary>
         /// Gets a generic method from a type given the method name, binding flags, generic types and parameter types

@@ -129,7 +129,7 @@
                     {
                         sb.Append($"\"{prop.Name}\" : null, ");
                     }
-                    else if (prop.IsCollection())
+                    else if (prop.PropertyType.IsCollection())
                     {
                         sb.Append($"\"{prop.Name}\" : {Serialize(value as IEnumerable)}, ");
                     }

@@ -1,12 +1,11 @@
 ﻿namespace Unosquare.Swan.Runtime
 {
 
+    using Reflection;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Unosquare.Swan.Reflection;
 
     /// <summary>
     /// Provides methods to parse command line arguments.
@@ -149,7 +148,7 @@
 
                     return true;
                 }
-                else if (targetProperty.IsCollection())
+                else if (targetProperty.PropertyType.IsCollection())
                 {
                     var itemType = targetProperty.PropertyType.GetElementType();
                     var primitiveValue = Constants.AllBasicTypes.Contains(itemType);
