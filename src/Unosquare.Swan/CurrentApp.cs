@@ -216,6 +216,17 @@
 
         #region Methods
 
+        /// <summary>
+        /// Writes a standard banner to the standard output
+        /// containing the company name, product name, assembly version and trademark.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        public static void WriteWelcomeBanner(ConsoleColor color = ConsoleColor.Gray)
+        {
+            $"{CurrentApp.CompanyName} {CurrentApp.ProductName} [Version {CurrentApp.EntryAssemblyVersion}]".WriteLine(color);
+            $"{CurrentApp.ProductTrademark}".WriteLine(color);
+        }
+
 #if NET452
         /// <summary>
         /// Build a full path pointing to the current user's desktop with the given filename

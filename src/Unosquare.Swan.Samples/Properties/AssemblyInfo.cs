@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Unosquare")]
-[assembly: AssemblyProduct("Unosquare SWAN Samples")]
-[assembly: AssemblyTrademark("Copyright (c) 2016 - Unosquare")]
+[assembly: AssemblyProduct("SWAN Samples")]
+[assembly: AssemblyTrademark("Copyright (c) 2016 Unosquare. All rights reserved.")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

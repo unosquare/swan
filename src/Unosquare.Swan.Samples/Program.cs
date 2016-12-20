@@ -19,16 +19,15 @@
             TestApplicationInfo();
             TestNetworkUtilities();
             TestContainerAndMessageHub();
+            TestTerminalOutputs();
+            TestCsvFormatters();
 
-            //TestTerminalOutputs();
-            //TestCsvFormatters();
-
-            "Enter any key to exit".ReadKey();
+            "Enter any key to exit . . .".ReadKey();
         }
 
         static void TestApplicationInfo()
         {
-            Terminal.WriteBanner();
+            CurrentApp.WriteWelcomeBanner();
             $"Operating System Type: {CurrentApp.OS}    CLR Type: {(CurrentApp.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
             $"Local Storage Path: {CurrentApp.LocalStoragePath}".Info();
             $"Process Id: {CurrentApp.Process.Id}".Info();
