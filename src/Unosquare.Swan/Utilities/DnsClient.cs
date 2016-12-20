@@ -13,7 +13,7 @@ using Unosquare.Swan.Formatters;
 namespace Unosquare.Swan.Utilities
 {
 
-    public enum RecordType
+    public enum DnsRecordType
     {
         A = 1,
         NS = 2,
@@ -28,13 +28,13 @@ namespace Unosquare.Swan.Utilities
         ANY = 255,
     }
 
-    public enum RecordClass
+    public enum DnsRecordClass
     {
         IN = 1,
         ANY = 255,
     }
 
-    public enum OperationCode
+    public enum DnsOperationCode
     {
         Query = 0,
         IQuery,
@@ -44,7 +44,7 @@ namespace Unosquare.Swan.Utilities
         Update,
     }
 
-    public enum ResponseCode
+    public enum DnsResponseCode
     {
         NoError = 0,
         FormatError,
@@ -59,21 +59,21 @@ namespace Unosquare.Swan.Utilities
         NotZone,
     }
 
-    public class Domain : IComparable<Domain>
+    public class DnsDomain : IComparable<DnsDomain>
     {
         private string[] labels;
 
-        public static Domain FromString(string domain)
+        public static DnsDomain FromString(string domain)
         {
-            return new Domain(domain);
+            return new DnsDomain(domain);
         }
 
-        public static Domain FromArray(byte[] message, int offset)
+        public static DnsDomain FromArray(byte[] message, int offset)
         {
             return FromArray(message, offset, out offset);
         }
 
-        public static Domain FromArray(byte[] message, int offset, out int endOffset)
+        public static DnsDomain FromArray(byte[] message, int offset, out int endOffset)
         {
             IList<byte[]> labels = new List<byte[]>();
             bool endOffsetAssigned = false;
@@ -115,12 +115,12 @@ namespace Unosquare.Swan.Utilities
                 endOffset = offset;
             }
 
-            return new Domain(labels.Select(l => Encoding.ASCII.GetString(l)).ToArray());
+            return new DnsDomain(labels.Select(l => Encoding.ASCII.GetString(l)).ToArray());
         }
 
-        public static Domain PointerName(IPAddress ip)
+        public static DnsDomain PointerName(IPAddress ip)
         {
-            return new Domain(FormatReverseIP(ip));
+            return new DnsDomain(FormatReverseIP(ip));
         }
 
         private static string FormatReverseIP(IPAddress ip)
@@ -145,9 +145,9 @@ namespace Unosquare.Swan.Utilities
             return string.Join(".", nibbles.Reverse().Select(b => b.ToString("x"))) + ".ip6.arpa";
         }
 
-        public Domain(string domain) : this(domain.Split('.')) { }
+        public DnsDomain(string domain) : this(domain.Split('.')) { }
 
-        public Domain(string[] labels)
+        public DnsDomain(string[] labels)
         {
             this.labels = labels;
         }
@@ -182,7 +182,7 @@ namespace Unosquare.Swan.Utilities
             return string.Join(".", labels);
         }
 
-        public int CompareTo(Domain other)
+        public int CompareTo(DnsDomain other)
         {
             return ToString().CompareTo(other.ToString());
         }
@@ -193,12 +193,12 @@ namespace Unosquare.Swan.Utilities
             {
                 return false;
             }
-            if (!(obj is Domain))
+            if (!(obj is DnsDomain))
             {
                 return false;
             }
 
-            return CompareTo(obj as Domain) == 0;
+            return CompareTo(obj as DnsDomain) == 0;
         }
 
         public override int GetHashCode()
@@ -207,51 +207,51 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public interface IMessage
+    public interface IDnsMessage
     {
-        IList<Question> Questions { get; }
+        IList<DnsQuestion> Questions { get; }
 
         int Size { get; }
         byte[] ToArray();
     }
 
-    public interface IMessageEntry
+    public interface IDnsMessageEntry
     {
-        Domain Name { get; }
-        RecordType Type { get; }
-        RecordClass Class { get; }
+        DnsDomain Name { get; }
+        DnsRecordType Type { get; }
+        DnsRecordClass Class { get; }
 
         int Size { get; }
         byte[] ToArray();
     }
 
-    public interface IResourceRecord : IMessageEntry
+    public interface IDnsResourceRecord : IDnsMessageEntry
     {
         TimeSpan TimeToLive { get; }
         int DataLength { get; }
         byte[] Data { get; }
     }
 
-    public abstract class BaseResourceRecord : IResourceRecord
+    public abstract class DnsBaseResourceRecord : IDnsResourceRecord
     {
-        private IResourceRecord record;
+        private IDnsResourceRecord record;
 
-        public BaseResourceRecord(IResourceRecord record)
+        public DnsBaseResourceRecord(IDnsResourceRecord record)
         {
             this.record = record;
         }
 
-        public Domain Name
+        public DnsDomain Name
         {
             get { return record.Name; }
         }
 
-        public RecordType Type
+        public DnsRecordType Type
         {
             get { return record.Type; }
         }
 
-        public RecordClass Class
+        public DnsRecordClass Class
         {
             get { return record.Class; }
         }
@@ -288,22 +288,22 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class ResourceRecord : IResourceRecord
+    public class DnsResourceRecord : IDnsResourceRecord
     {
-        private Domain domain;
-        private RecordType type;
-        private RecordClass klass;
+        private DnsDomain domain;
+        private DnsRecordType type;
+        private DnsRecordClass klass;
         private TimeSpan ttl;
         private byte[] data;
 
-        public static IList<ResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
+        public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
         {
             return GetAllFromArray(message, offset, count, out offset);
         }
 
-        public static IList<ResourceRecord> GetAllFromArray(byte[] message, int offset, int count, out int endOffset)
+        public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count, out int endOffset)
         {
-            IList<ResourceRecord> records = new List<ResourceRecord>(count);
+            IList<DnsResourceRecord> records = new List<DnsResourceRecord>(count);
 
             for (int i = 0; i < count; i++)
             {
@@ -314,14 +314,14 @@ namespace Unosquare.Swan.Utilities
             return records;
         }
 
-        public static ResourceRecord FromArray(byte[] message, int offset)
+        public static DnsResourceRecord FromArray(byte[] message, int offset)
         {
             return FromArray(message, offset, out offset);
         }
 
-        public static ResourceRecord FromArray(byte[] message, int offset, out int endOffset)
+        public static DnsResourceRecord FromArray(byte[] message, int offset, out int endOffset)
         {
-            var domain = Domain.FromArray(message, offset, out offset);
+            var domain = DnsDomain.FromArray(message, offset, out offset);
             var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
 
             byte[] data = new byte[tail.DataLength];
@@ -331,16 +331,16 @@ namespace Unosquare.Swan.Utilities
 
             endOffset = offset + data.Length;
 
-            return new ResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
+            return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
         }
 
-        public static ResourceRecord FromQuestion(Question question, byte[] data, TimeSpan ttl = default(TimeSpan))
+        public static DnsResourceRecord FromQuestion(DnsQuestion question, byte[] data, TimeSpan ttl = default(TimeSpan))
         {
-            return new ResourceRecord(question.Name, data, question.Type, question.Class, ttl);
+            return new DnsResourceRecord(question.Name, data, question.Type, question.Class, ttl);
         }
 
-        public ResourceRecord(Domain domain, byte[] data, RecordType type,
-                RecordClass klass = RecordClass.IN, TimeSpan ttl = default(TimeSpan))
+        public DnsResourceRecord(DnsDomain domain, byte[] data, DnsRecordType type,
+                DnsRecordClass klass = DnsRecordClass.IN, TimeSpan ttl = default(TimeSpan))
         {
             this.domain = domain;
             this.type = type;
@@ -349,17 +349,17 @@ namespace Unosquare.Swan.Utilities
             this.data = data;
         }
 
-        public Domain Name
+        public DnsDomain Name
         {
             get { return domain; }
         }
 
-        public RecordType Type
+        public DnsRecordType Type
         {
             get { return type; }
         }
 
-        public RecordClass Class
+        public DnsRecordClass Class
         {
             get { return klass; }
         }
@@ -420,15 +420,15 @@ namespace Unosquare.Swan.Utilities
             private uint ttl;
             private ushort dataLength;
 
-            public RecordType Type
+            public DnsRecordType Type
             {
-                get { return (RecordType)type; }
+                get { return (DnsRecordType)type; }
                 set { type = (ushort)value; }
             }
 
-            public RecordClass Class
+            public DnsRecordClass Class
             {
-                get { return (RecordClass)klass; }
+                get { return (DnsRecordClass)klass; }
                 set { klass = (ushort)value; }
             }
 
@@ -446,21 +446,21 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class PointerResourceRecord : BaseResourceRecord
+    public class DnsPointerResourceRecord : DnsBaseResourceRecord
     {
-        public PointerResourceRecord(IResourceRecord record, byte[] message, int dataOffset)
+        public DnsPointerResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
             : base(record)
         {
-            PointerDomainName = Domain.FromArray(message, dataOffset);
+            PointerDomainName = DnsDomain.FromArray(message, dataOffset);
         }
 
-        public PointerResourceRecord(Domain domain, Domain pointer, TimeSpan ttl = default(TimeSpan)) :
-            base(new ResourceRecord(domain, pointer.ToArray(), RecordType.PTR, RecordClass.IN, ttl))
+        public DnsPointerResourceRecord(DnsDomain domain, DnsDomain pointer, TimeSpan ttl = default(TimeSpan)) :
+            base(new DnsResourceRecord(domain, pointer.ToArray(), DnsRecordType.PTR, DnsRecordClass.IN, ttl))
         {
             PointerDomainName = pointer;
         }
 
-        public Domain PointerDomainName
+        public DnsDomain PointerDomainName
         {
             get;
             private set;
@@ -472,23 +472,23 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class IPAddressResourceRecord : BaseResourceRecord
+    public class DnsIPAddressResourceRecord : DnsBaseResourceRecord
     {
-        private static IResourceRecord Create(Domain domain, IPAddress ip, TimeSpan ttl)
+        private static IDnsResourceRecord Create(DnsDomain domain, IPAddress ip, TimeSpan ttl)
         {
             byte[] data = ip.GetAddressBytes();
-            RecordType type = data.Length == 4 ? RecordType.A : RecordType.AAAA;
+            DnsRecordType type = data.Length == 4 ? DnsRecordType.A : DnsRecordType.AAAA;
 
-            return new ResourceRecord(domain, data, type, RecordClass.IN, ttl);
+            return new DnsResourceRecord(domain, data, type, DnsRecordClass.IN, ttl);
         }
 
-        public IPAddressResourceRecord(IResourceRecord record)
+        public DnsIPAddressResourceRecord(IDnsResourceRecord record)
             : base(record)
         {
             IPAddress = new IPAddress(Data);
         }
 
-        public IPAddressResourceRecord(Domain domain, IPAddress ip, TimeSpan ttl = default(TimeSpan)) :
+        public DnsIPAddressResourceRecord(DnsDomain domain, IPAddress ip, TimeSpan ttl = default(TimeSpan)) :
             base(Create(domain, ip, ttl))
         {
             IPAddress = ip;
@@ -506,21 +506,21 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class NameServerResourceRecord : BaseResourceRecord
+    public class DnsNameServerResourceRecord : DnsBaseResourceRecord
     {
-        public NameServerResourceRecord(IResourceRecord record, byte[] message, int dataOffset)
+        public DnsNameServerResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
             : base(record)
         {
-            NSDomainName = Domain.FromArray(message, dataOffset);
+            NSDomainName = DnsDomain.FromArray(message, dataOffset);
         }
 
-        public NameServerResourceRecord(Domain domain, Domain nsDomain, TimeSpan ttl = default(TimeSpan)) :
-            base(new ResourceRecord(domain, nsDomain.ToArray(), RecordType.NS, RecordClass.IN, ttl))
+        public DnsNameServerResourceRecord(DnsDomain domain, DnsDomain nsDomain, TimeSpan ttl = default(TimeSpan)) :
+            base(new DnsResourceRecord(domain, nsDomain.ToArray(), DnsRecordType.NS, DnsRecordClass.IN, ttl))
         {
             NSDomainName = nsDomain;
         }
 
-        public Domain NSDomainName
+        public DnsDomain NSDomainName
         {
             get;
             private set;
@@ -532,21 +532,21 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class CanonicalNameResourceRecord : BaseResourceRecord
+    public class DnsCanonicalNameResourceRecord : DnsBaseResourceRecord
     {
-        public CanonicalNameResourceRecord(IResourceRecord record, byte[] message, int dataOffset)
+        public DnsCanonicalNameResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
             : base(record)
         {
-            CanonicalDomainName = Domain.FromArray(message, dataOffset);
+            CanonicalDomainName = DnsDomain.FromArray(message, dataOffset);
         }
 
-        public CanonicalNameResourceRecord(Domain domain, Domain cname, TimeSpan ttl = default(TimeSpan)) :
-            base(new ResourceRecord(domain, cname.ToArray(), RecordType.CNAME, RecordClass.IN, ttl))
+        public DnsCanonicalNameResourceRecord(DnsDomain domain, DnsDomain cname, TimeSpan ttl = default(TimeSpan)) :
+            base(new DnsResourceRecord(domain, cname.ToArray(), DnsRecordType.CNAME, DnsRecordClass.IN, ttl))
         {
             CanonicalDomainName = cname;
         }
 
-        public Domain CanonicalDomainName
+        public DnsDomain CanonicalDomainName
         {
             get;
             private set;
@@ -558,11 +558,11 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class MailExchangeResourceRecord : BaseResourceRecord
+    public class DnsMailExchangeResourceRecord : DnsBaseResourceRecord
     {
         private const int PREFERENCE_SIZE = 2;
 
-        private static IResourceRecord Create(Domain domain, int preference, Domain exchange, TimeSpan ttl)
+        private static IDnsResourceRecord Create(DnsDomain domain, int preference, DnsDomain exchange, TimeSpan ttl)
         {
             byte[] pref = BitConverter.GetBytes((ushort)preference);
             byte[] data = new byte[pref.Length + exchange.Size];
@@ -575,13 +575,13 @@ namespace Unosquare.Swan.Utilities
             pref.CopyTo(data, 0);
             exchange.ToArray().CopyTo(data, pref.Length);
 
-            return new ResourceRecord(domain, data, RecordType.MX, RecordClass.IN, ttl);
+            return new DnsResourceRecord(domain, data, DnsRecordType.MX, DnsRecordClass.IN, ttl);
         }
 
-        public MailExchangeResourceRecord(IResourceRecord record, byte[] message, int dataOffset)
+        public DnsMailExchangeResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
             : base(record)
         {
-            byte[] preference = new byte[MailExchangeResourceRecord.PREFERENCE_SIZE];
+            byte[] preference = new byte[DnsMailExchangeResourceRecord.PREFERENCE_SIZE];
             Array.Copy(message, dataOffset, preference, 0, preference.Length);
 
             if (BitConverter.IsLittleEndian)
@@ -589,13 +589,13 @@ namespace Unosquare.Swan.Utilities
                 Array.Reverse(preference);
             }
 
-            dataOffset += MailExchangeResourceRecord.PREFERENCE_SIZE;
+            dataOffset += DnsMailExchangeResourceRecord.PREFERENCE_SIZE;
 
             Preference = BitConverter.ToUInt16(preference, 0);
-            ExchangeDomainName = Domain.FromArray(message, dataOffset);
+            ExchangeDomainName = DnsDomain.FromArray(message, dataOffset);
         }
 
-        public MailExchangeResourceRecord(Domain domain, int preference, Domain exchange, TimeSpan ttl = default(TimeSpan)) :
+        public DnsMailExchangeResourceRecord(DnsDomain domain, int preference, DnsDomain exchange, TimeSpan ttl = default(TimeSpan)) :
             base(Create(domain, preference, exchange, ttl))
         {
             Preference = preference;
@@ -608,7 +608,7 @@ namespace Unosquare.Swan.Utilities
             private set;
         }
 
-        public Domain ExchangeDomainName
+        public DnsDomain ExchangeDomainName
         {
             get;
             private set;
@@ -620,9 +620,9 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class StartOfAuthorityResourceRecord : BaseResourceRecord
+    public class DnsStartOfAuthorityResourceRecord : DnsBaseResourceRecord
     {
-        private static IResourceRecord Create(Domain domain, Domain master, Domain responsible, long serial,
+        private static IDnsResourceRecord Create(DnsDomain domain, DnsDomain master, DnsDomain responsible, long serial,
                 TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl)
         {
             var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
@@ -640,14 +640,14 @@ namespace Unosquare.Swan.Utilities
                 .Append(responsible.ToArray())
                 .Append(tail.ToBytes());
 
-            return new ResourceRecord(domain, data.ToArray(), RecordType.SOA, RecordClass.IN, ttl);
+            return new DnsResourceRecord(domain, data.ToArray(), DnsRecordType.SOA, DnsRecordClass.IN, ttl);
         }
 
-        public StartOfAuthorityResourceRecord(IResourceRecord record, byte[] message, int dataOffset)
+        public DnsStartOfAuthorityResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
             : base(record)
         {
-            MasterDomainName = Domain.FromArray(message, dataOffset, out dataOffset);
-            ResponsibleDomainName = Domain.FromArray(message, dataOffset, out dataOffset);
+            MasterDomainName = DnsDomain.FromArray(message, dataOffset, out dataOffset);
+            ResponsibleDomainName = DnsDomain.FromArray(message, dataOffset, out dataOffset);
 
             Options tail = message.ToStruct<Options>(dataOffset, Options.SIZE);
 
@@ -658,7 +658,7 @@ namespace Unosquare.Swan.Utilities
             MinimumTimeToLive = tail.MinimumTimeToLive;
         }
 
-        public StartOfAuthorityResourceRecord(Domain domain, Domain master, Domain responsible, long serial,
+        public DnsStartOfAuthorityResourceRecord(DnsDomain domain, DnsDomain master, DnsDomain responsible, long serial,
                 TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl = default(TimeSpan)) :
             base(Create(domain, master, responsible, serial, refresh, retry, expire, minTtl, ttl))
         {
@@ -672,19 +672,19 @@ namespace Unosquare.Swan.Utilities
             MinimumTimeToLive = minTtl;
         }
 
-        public StartOfAuthorityResourceRecord(Domain domain, Domain master, Domain responsible,
+        public DnsStartOfAuthorityResourceRecord(DnsDomain domain, DnsDomain master, DnsDomain responsible,
                 Options options = default(Options), TimeSpan ttl = default(TimeSpan)) :
             this(domain, master, responsible, options.SerialNumber, options.RefreshInterval, options.RetryInterval,
                     options.ExpireInterval, options.MinimumTimeToLive, ttl)
         { }
 
-        public Domain MasterDomainName
+        public DnsDomain MasterDomainName
         {
             get;
             private set;
         }
 
-        public Domain ResponsibleDomainName
+        public DnsDomain ResponsibleDomainName
         {
             get;
             private set;
@@ -769,16 +769,16 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public static class ResourceRecordFactory
+    public static class DnsResourceRecordFactory
     {
-        public static IList<IResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
+        public static IList<IDnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
         {
             return GetAllFromArray(message, offset, count, out offset);
         }
 
-        public static IList<IResourceRecord> GetAllFromArray(byte[] message, int offset, int count, out int endOffset)
+        public static IList<IDnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count, out int endOffset)
         {
-            IList<IResourceRecord> result = new List<IResourceRecord>(count);
+            IList<IDnsResourceRecord> result = new List<IDnsResourceRecord>(count);
 
             for (int i = 0; i < count; i++)
             {
@@ -789,47 +789,47 @@ namespace Unosquare.Swan.Utilities
             return result;
         }
 
-        public static IResourceRecord FromArray(byte[] message, int offset)
+        public static IDnsResourceRecord FromArray(byte[] message, int offset)
         {
             return FromArray(message, offset, out offset);
         }
 
-        public static IResourceRecord FromArray(byte[] message, int offset, out int endOffest)
+        public static IDnsResourceRecord FromArray(byte[] message, int offset, out int endOffest)
         {
-            ResourceRecord record = ResourceRecord.FromArray(message, offset, out endOffest);
+            DnsResourceRecord record = DnsResourceRecord.FromArray(message, offset, out endOffest);
             int dataOffset = endOffest - record.DataLength;
 
             switch (record.Type)
             {
-                case RecordType.A:
-                case RecordType.AAAA:
-                    return new IPAddressResourceRecord(record);
-                case RecordType.NS:
-                    return new NameServerResourceRecord(record, message, dataOffset);
-                case RecordType.CNAME:
-                    return new CanonicalNameResourceRecord(record, message, dataOffset);
-                case RecordType.SOA:
-                    return new StartOfAuthorityResourceRecord(record, message, dataOffset);
-                case RecordType.PTR:
-                    return new PointerResourceRecord(record, message, dataOffset);
-                case RecordType.MX:
-                    return new MailExchangeResourceRecord(record, message, dataOffset);
+                case DnsRecordType.A:
+                case DnsRecordType.AAAA:
+                    return new DnsIPAddressResourceRecord(record);
+                case DnsRecordType.NS:
+                    return new DnsNameServerResourceRecord(record, message, dataOffset);
+                case DnsRecordType.CNAME:
+                    return new DnsCanonicalNameResourceRecord(record, message, dataOffset);
+                case DnsRecordType.SOA:
+                    return new DnsStartOfAuthorityResourceRecord(record, message, dataOffset);
+                case DnsRecordType.PTR:
+                    return new DnsPointerResourceRecord(record, message, dataOffset);
+                case DnsRecordType.MX:
+                    return new DnsMailExchangeResourceRecord(record, message, dataOffset);
                 default:
                     return record;
             }
         }
     }
 
-    public class Question : IMessageEntry
+    public class DnsQuestion : IDnsMessageEntry
     {
-        public static IList<Question> GetAllFromArray(byte[] message, int offset, int questionCount)
+        public static IList<DnsQuestion> GetAllFromArray(byte[] message, int offset, int questionCount)
         {
             return GetAllFromArray(message, offset, questionCount, out offset);
         }
 
-        public static IList<Question> GetAllFromArray(byte[] message, int offset, int questionCount, out int endOffset)
+        public static IList<DnsQuestion> GetAllFromArray(byte[] message, int offset, int questionCount, out int endOffset)
         {
-            IList<Question> questions = new List<Question>(questionCount);
+            IList<DnsQuestion> questions = new List<DnsQuestion>(questionCount);
 
             for (int i = 0; i < questionCount; i++)
             {
@@ -840,43 +840,43 @@ namespace Unosquare.Swan.Utilities
             return questions;
         }
 
-        public static Question FromArray(byte[] message, int offset)
+        public static DnsQuestion FromArray(byte[] message, int offset)
         {
             return FromArray(message, offset, out offset);
         }
 
-        public static Question FromArray(byte[] message, int offset, out int endOffset)
+        public static DnsQuestion FromArray(byte[] message, int offset, out int endOffset)
         {
-            var domain = Domain.FromArray(message, offset, out offset);
+            var domain = DnsDomain.FromArray(message, offset, out offset);
             var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
 
             endOffset = offset + Tail.SIZE;
 
-            return new Question(domain, tail.Type, tail.Class);
+            return new DnsQuestion(domain, tail.Type, tail.Class);
         }
 
-        private Domain domain;
-        private RecordType type;
-        private RecordClass klass;
+        private DnsDomain domain;
+        private DnsRecordType type;
+        private DnsRecordClass klass;
 
-        public Question(Domain domain, RecordType type = RecordType.A, RecordClass klass = RecordClass.IN)
+        public DnsQuestion(DnsDomain domain, DnsRecordType type = DnsRecordType.A, DnsRecordClass klass = DnsRecordClass.IN)
         {
             this.domain = domain;
             this.type = type;
             this.klass = klass;
         }
 
-        public Domain Name
+        public DnsDomain Name
         {
             get { return domain; }
         }
 
-        public RecordType Type
+        public DnsRecordType Type
         {
             get { return type; }
         }
 
-        public RecordClass Class
+        public DnsRecordClass Class
         {
             get { return klass; }
         }
@@ -913,15 +913,15 @@ namespace Unosquare.Swan.Utilities
             private ushort type;
             private ushort klass;
 
-            public RecordType Type
+            public DnsRecordType Type
             {
-                get { return (RecordType)type; }
+                get { return (DnsRecordType)type; }
                 set { type = (ushort)value; }
             }
 
-            public RecordClass Class
+            public DnsRecordClass Class
             {
-                get { return (RecordClass)klass; }
+                get { return (DnsRecordClass)klass; }
                 set { klass = (ushort)value; }
             }
         }
@@ -933,50 +933,50 @@ namespace Unosquare.Swan.Utilities
         private static readonly Random RANDOM = new Random();
 
         private IPEndPoint dns;
-        private IRequestResolver resolver;
+        private IDnsRequestResolver resolver;
 
-        public DnsClient(IPEndPoint dns, IRequestResolver resolver = null)
+        public DnsClient(IPEndPoint dns, IDnsRequestResolver resolver = null)
         {
             this.dns = dns;
-            this.resolver = resolver == null ? new UdpRequestResolver(new TcpRequestResolver()) : resolver;
+            this.resolver = resolver == null ? new DnsUdpRequestResolver(new DnsTcpRequestResolver()) : resolver;
         }
 
-        public DnsClient(IPAddress ip, int port = DEFAULT_PORT, IRequestResolver resolver = null) :
+        public DnsClient(IPAddress ip, int port = DEFAULT_PORT, IDnsRequestResolver resolver = null) :
             this(new IPEndPoint(ip, port), resolver)
         { }
 
-        public DnsClient(string ip, int port = DEFAULT_PORT, IRequestResolver resolver = null) :
+        public DnsClient(string ip, int port = DEFAULT_PORT, IDnsRequestResolver resolver = null) :
             this(IPAddress.Parse(ip), port, resolver)
         { }
 
-        public ClientRequest FromArray(byte[] message)
+        public DnsClientRequest FromArray(byte[] message)
         {
-            Request request = Request.FromArray(message);
-            return new ClientRequest(dns, request, resolver);
+            DnsRequest request = DnsRequest.FromArray(message);
+            return new DnsClientRequest(dns, request, resolver);
         }
 
-        public ClientRequest Create(IRequest request = null)
+        public DnsClientRequest Create(IDnsRequest request = null)
         {
-            return new ClientRequest(dns, request, resolver);
+            return new DnsClientRequest(dns, request, resolver);
         }
 
-        public IList<IPAddress> Lookup(string domain, RecordType type = RecordType.A)
+        public IList<IPAddress> Lookup(string domain, DnsRecordType type = DnsRecordType.A)
         {
-            if (type != RecordType.A && type != RecordType.AAAA)
+            if (type != DnsRecordType.A && type != DnsRecordType.AAAA)
             {
                 throw new ArgumentException("Invalid record type " + type);
             }
 
-            ClientResponse response = Resolve(domain, type);
+            DnsClientResponse response = Resolve(domain, type);
             IList<IPAddress> ips = response.AnswerRecords
                 .Where(r => r.Type == type)
-                .Cast<IPAddressResourceRecord>()
+                .Cast<DnsIPAddressResourceRecord>()
                 .Select(r => r.IPAddress)
                 .ToList();
 
             if (ips.Count == 0)
             {
-                throw new ResponseException(response, "No matching records");
+                throw new DnsResponseException(response, "No matching records");
             }
 
             return ips;
@@ -989,55 +989,55 @@ namespace Unosquare.Swan.Utilities
 
         public string Reverse(IPAddress ip)
         {
-            ClientResponse response = Resolve(Domain.PointerName(ip), RecordType.PTR);
-            IResourceRecord ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == RecordType.PTR);
+            DnsClientResponse response = Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
+            IDnsResourceRecord ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
 
             if (ptr == null)
             {
-                throw new ResponseException(response, "No matching records");
+                throw new DnsResponseException(response, "No matching records");
             }
 
-            return ((PointerResourceRecord)ptr).PointerDomainName.ToString();
+            return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
         }
 
-        public ClientResponse Resolve(string domain, RecordType type)
+        public DnsClientResponse Resolve(string domain, DnsRecordType type)
         {
-            return Resolve(new Domain(domain), type);
+            return Resolve(new DnsDomain(domain), type);
         }
 
-        public ClientResponse Resolve(Domain domain, RecordType type)
+        public DnsClientResponse Resolve(DnsDomain domain, DnsRecordType type)
         {
-            ClientRequest request = Create();
-            Question question = new Question(domain, type);
+            DnsClientRequest request = Create();
+            DnsQuestion question = new DnsQuestion(domain, type);
 
             request.Questions.Add(question);
-            request.OperationCode = OperationCode.Query;
+            request.OperationCode = DnsOperationCode.Query;
             request.RecursionDesired = true;
 
             return request.Resolve();
         }
     }
 
-    public class ClientRequest : IRequest
+    public class DnsClientRequest : IDnsRequest
     {
         private const int DEFAULT_PORT = 53;
 
         private IPEndPoint dns;
-        private IRequestResolver resolver;
-        private IRequest request;
+        private IDnsRequestResolver resolver;
+        private IDnsRequest request;
 
-        public ClientRequest(IPEndPoint dns, IRequest request = null, IRequestResolver resolver = null)
+        public DnsClientRequest(IPEndPoint dns, IDnsRequest request = null, IDnsRequestResolver resolver = null)
         {
             this.dns = dns;
-            this.request = request == null ? new Request() : new Request(request);
-            this.resolver = resolver == null ? new UdpRequestResolver() : resolver;
+            this.request = request == null ? new DnsRequest() : new DnsRequest(request);
+            this.resolver = resolver == null ? new DnsUdpRequestResolver() : resolver;
         }
 
-        public ClientRequest(IPAddress ip, int port = DEFAULT_PORT, IRequest request = null, IRequestResolver resolver = null) :
+        public DnsClientRequest(IPAddress ip, int port = DEFAULT_PORT, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
             this(new IPEndPoint(ip, port), request, resolver)
         { }
 
-        public ClientRequest(string ip, int port = DEFAULT_PORT, IRequest request = null, IRequestResolver resolver = null) :
+        public DnsClientRequest(string ip, int port = DEFAULT_PORT, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
             this(IPAddress.Parse(ip), port, request, resolver)
         { }
 
@@ -1047,7 +1047,7 @@ namespace Unosquare.Swan.Utilities
             set { request.Id = value; }
         }
 
-        public OperationCode OperationCode
+        public DnsOperationCode OperationCode
         {
             get { return request.OperationCode; }
             set { request.OperationCode = value; }
@@ -1059,7 +1059,7 @@ namespace Unosquare.Swan.Utilities
             set { request.RecursionDesired = value; }
         }
 
-        public IList<Question> Questions
+        public IList<DnsQuestion> Questions
         {
             get { return request.Questions; }
         }
@@ -1089,46 +1089,46 @@ namespace Unosquare.Swan.Utilities
         /// Resolves this request into a response using the provided DNS information. The given
         /// request strategy is used to retrieve the response.
         /// </summary>
-        /// <exception cref="ResponseException">Throw if a malformed response is received from the server</exception>
+        /// <exception cref="DnsResponseException">Throw if a malformed response is received from the server</exception>
         /// <exception cref="IOException">Thrown if a IO error occurs</exception>
         /// <exception cref="SocketException">Thrown if a the reading or writing to the socket fails</exception>
         /// <returns>The response received from server</returns>
-        public ClientResponse Resolve()
+        public DnsClientResponse Resolve()
         {
             try
             {
-                ClientResponse response = resolver.Request(this);
+                DnsClientResponse response = resolver.Request(this);
 
                 if (response.Id != this.Id)
                 {
-                    throw new ResponseException(response, "Mismatching request/response IDs");
+                    throw new DnsResponseException(response, "Mismatching request/response IDs");
                 }
-                if (response.ResponseCode != ResponseCode.NoError)
+                if (response.ResponseCode != DnsResponseCode.NoError)
                 {
-                    throw new ResponseException(response);
+                    throw new DnsResponseException(response);
                 }
 
                 return response;
             }
             catch (ArgumentException e)
             {
-                throw new ResponseException("Invalid response", e);
+                throw new DnsResponseException("Invalid response", e);
             }
         }
     }
 
-    public class ClientResponse : IResponse
+    public class DnsClientResponse : IDnsResponse
     {
-        private Response response;
+        private DnsResponse response;
         private byte[] message;
 
-        public static ClientResponse FromArray(ClientRequest request, byte[] message)
+        public static DnsClientResponse FromArray(DnsClientRequest request, byte[] message)
         {
-            Response response = Response.FromArray(message);
-            return new ClientResponse(request, response, message);
+            DnsResponse response = DnsResponse.FromArray(message);
+            return new DnsClientResponse(request, response, message);
         }
 
-        internal ClientResponse(ClientRequest request, Response response, byte[] message)
+        internal DnsClientResponse(DnsClientRequest request, DnsResponse response, byte[] message)
         {
             Request = request;
 
@@ -1136,7 +1136,7 @@ namespace Unosquare.Swan.Utilities
             this.response = response;
         }
 
-        internal ClientResponse(ClientRequest request, Response response)
+        internal DnsClientResponse(DnsClientRequest request, DnsResponse response)
         {
             Request = request;
 
@@ -1144,7 +1144,7 @@ namespace Unosquare.Swan.Utilities
             this.response = response;
         }
 
-        public ClientRequest Request
+        public DnsClientRequest Request
         {
             get;
             private set;
@@ -1156,19 +1156,19 @@ namespace Unosquare.Swan.Utilities
             set { }
         }
 
-        public IList<IResourceRecord> AnswerRecords
+        public IList<IDnsResourceRecord> AnswerRecords
         {
             get { return response.AnswerRecords; }
         }
 
-        public IList<IResourceRecord> AuthorityRecords
+        public IList<IDnsResourceRecord> AuthorityRecords
         {
-            get { return new ReadOnlyCollection<IResourceRecord>(response.AuthorityRecords); }
+            get { return new ReadOnlyCollection<IDnsResourceRecord>(response.AuthorityRecords); }
         }
 
-        public IList<IResourceRecord> AdditionalRecords
+        public IList<IDnsResourceRecord> AdditionalRecords
         {
-            get { return new ReadOnlyCollection<IResourceRecord>(response.AdditionalRecords); }
+            get { return new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords); }
         }
 
         public bool RecursionAvailable
@@ -1189,21 +1189,21 @@ namespace Unosquare.Swan.Utilities
             set { }
         }
 
-        public OperationCode OperationCode
+        public DnsOperationCode OperationCode
         {
             get { return response.OperationCode; }
             set { }
         }
 
-        public ResponseCode ResponseCode
+        public DnsResponseCode ResponseCode
         {
             get { return response.ResponseCode; }
             set { }
         }
 
-        public IList<Question> Questions
+        public IList<DnsQuestion> Questions
         {
-            get { return new ReadOnlyCollection<Question>(response.Questions); }
+            get { return new ReadOnlyCollection<DnsQuestion>(response.Questions); }
         }
 
         public int Size
@@ -1222,55 +1222,55 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public interface IRequest : IMessage
+    public interface IDnsRequest : IDnsMessage
     {
         int Id { get; set; }
-        OperationCode OperationCode { get; set; }
+        DnsOperationCode OperationCode { get; set; }
         bool RecursionDesired { get; set; }
     }
 
-    public class Request : IRequest
+    public class DnsRequest : IDnsRequest
     {
         private static readonly Random RANDOM = new Random();
 
-        private IList<Question> questions;
-        private Header header;
+        private IList<DnsQuestion> questions;
+        private DnsHeader header;
 
-        public static Request FromArray(byte[] message)
+        public static DnsRequest FromArray(byte[] message)
         {
-            Header header = Header.FromArray(message);
+            DnsHeader header = DnsHeader.FromArray(message);
 
             if (header.Response || header.QuestionCount == 0 ||
                     header.AdditionalRecordCount + header.AnswerRecordCount + header.AuthorityRecordCount > 0 ||
-                    header.ResponseCode != ResponseCode.NoError)
+                    header.ResponseCode != DnsResponseCode.NoError)
             {
 
                 throw new ArgumentException("Invalid request message");
             }
 
-            return new Request(header, Question.GetAllFromArray(message, header.Size, header.QuestionCount));
+            return new DnsRequest(header, DnsQuestion.GetAllFromArray(message, header.Size, header.QuestionCount));
         }
 
-        public Request(Header header, IList<Question> questions)
+        public DnsRequest(DnsHeader header, IList<DnsQuestion> questions)
         {
             this.header = header;
             this.questions = questions;
         }
 
-        public Request()
+        public DnsRequest()
         {
-            this.questions = new List<Question>();
-            this.header = new Header();
+            this.questions = new List<DnsQuestion>();
+            this.header = new DnsHeader();
 
-            this.header.OperationCode = OperationCode.Query;
+            this.header.OperationCode = DnsOperationCode.Query;
             this.header.Response = false;
             this.header.Id = RANDOM.Next(UInt16.MaxValue);
         }
 
-        public Request(IRequest request)
+        public DnsRequest(IDnsRequest request)
         {
-            this.header = new Header();
-            this.questions = new List<Question>(request.Questions);
+            this.header = new DnsHeader();
+            this.questions = new List<DnsQuestion>(request.Questions);
 
             this.header.Response = false;
 
@@ -1279,7 +1279,7 @@ namespace Unosquare.Swan.Utilities
             RecursionDesired = request.RecursionDesired;
         }
 
-        public IList<Question> Questions
+        public IList<DnsQuestion> Questions
         {
             get { return questions; }
         }
@@ -1295,7 +1295,7 @@ namespace Unosquare.Swan.Utilities
             set { header.Id = value; }
         }
 
-        public OperationCode OperationCode
+        public DnsOperationCode OperationCode
         {
             get { return header.OperationCode; }
             set { header.OperationCode = value; }
@@ -1324,7 +1324,7 @@ namespace Unosquare.Swan.Utilities
             UpdateHeader();
 
             return ObjectStringifier.FromObject(this)
-                .Add(nameof(Header), header)
+                .Add(nameof(DnsHeader), header)
                 .Add(nameof(Questions))
                 .ToString();
         }
@@ -1338,18 +1338,18 @@ namespace Unosquare.Swan.Utilities
     // 12 bytes message header
     [StructEndianness(Endianness.Big)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct Header
+    public struct DnsHeader
     {
         public const int SIZE = 12;
 
-        public static Header FromArray(byte[] header)
+        public static DnsHeader FromArray(byte[] header)
         {
             if (header.Length < SIZE)
             {
                 throw new ArgumentException("Header length too small");
             }
 
-            return header.ToStruct<Header>(0, SIZE);
+            return header.ToStruct<DnsHeader>(0, SIZE);
         }
 
         private ushort id;
@@ -1405,9 +1405,9 @@ namespace Unosquare.Swan.Utilities
             set { Qr = Convert.ToByte(value); }
         }
 
-        public OperationCode OperationCode
+        public DnsOperationCode OperationCode
         {
-            get { return (OperationCode)Opcode; }
+            get { return (DnsOperationCode)Opcode; }
             set { Opcode = (byte)value; }
         }
 
@@ -1435,15 +1435,15 @@ namespace Unosquare.Swan.Utilities
             set { Ra = Convert.ToByte(value); }
         }
 
-        public ResponseCode ResponseCode
+        public DnsResponseCode ResponseCode
         {
-            get { return (ResponseCode)RCode; }
+            get { return (DnsResponseCode)RCode; }
             set { RCode = (byte)value; }
         }
 
         public int Size
         {
-            get { return Header.SIZE; }
+            get { return DnsHeader.SIZE; }
         }
 
         public byte[] ToArray()
@@ -1528,36 +1528,36 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public interface IResponse : IMessage
+    public interface IDnsResponse : IDnsMessage
     {
         int Id { get; set; }
-        IList<IResourceRecord> AnswerRecords { get; }
-        IList<IResourceRecord> AuthorityRecords { get; }
-        IList<IResourceRecord> AdditionalRecords { get; }
+        IList<IDnsResourceRecord> AnswerRecords { get; }
+        IList<IDnsResourceRecord> AuthorityRecords { get; }
+        IList<IDnsResourceRecord> AdditionalRecords { get; }
         bool RecursionAvailable { get; set; }
         bool AuthorativeServer { get; set; }
         bool Truncated { get; set; }
-        OperationCode OperationCode { get; set; }
-        ResponseCode ResponseCode { get; set; }
+        DnsOperationCode OperationCode { get; set; }
+        DnsResponseCode ResponseCode { get; set; }
     }
 
-    public class Response : IResponse
+    public class DnsResponse : IDnsResponse
     {
         private static readonly Random RANDOM = new Random();
 
-        private Header header;
-        private IList<Question> questions;
-        private IList<IResourceRecord> answers;
-        private IList<IResourceRecord> authority;
-        private IList<IResourceRecord> additional;
+        private DnsHeader header;
+        private IList<DnsQuestion> questions;
+        private IList<IDnsResourceRecord> answers;
+        private IList<IDnsResourceRecord> authority;
+        private IList<IDnsResourceRecord> additional;
 
-        public static Response FromRequest(IRequest request)
+        public static DnsResponse FromRequest(IDnsRequest request)
         {
-            Response response = new Response();
+            DnsResponse response = new DnsResponse();
 
             response.Id = request.Id;
 
-            foreach (Question question in request.Questions)
+            foreach (DnsQuestion question in request.Questions)
             {
                 response.Questions.Add(question);
             }
@@ -1565,9 +1565,9 @@ namespace Unosquare.Swan.Utilities
             return response;
         }
 
-        public static Response FromArray(byte[] message)
+        public static DnsResponse FromArray(byte[] message)
         {
-            Header header = Header.FromArray(message);
+            DnsHeader header = DnsHeader.FromArray(message);
             int offset = header.Size;
 
             if (!header.Response || header.QuestionCount == 0)
@@ -1577,22 +1577,22 @@ namespace Unosquare.Swan.Utilities
 
             if (header.Truncated)
             {
-                return new Response(header,
-                    Question.GetAllFromArray(message, offset, header.QuestionCount),
-                    new List<IResourceRecord>(),
-                    new List<IResourceRecord>(),
-                    new List<IResourceRecord>());
+                return new DnsResponse(header,
+                    DnsQuestion.GetAllFromArray(message, offset, header.QuestionCount),
+                    new List<IDnsResourceRecord>(),
+                    new List<IDnsResourceRecord>(),
+                    new List<IDnsResourceRecord>());
             }
 
-            return new Response(header,
-                Question.GetAllFromArray(message, offset, header.QuestionCount, out offset),
-                ResourceRecordFactory.GetAllFromArray(message, offset, header.AnswerRecordCount, out offset),
-                ResourceRecordFactory.GetAllFromArray(message, offset, header.AuthorityRecordCount, out offset),
-                ResourceRecordFactory.GetAllFromArray(message, offset, header.AdditionalRecordCount, out offset));
+            return new DnsResponse(header,
+                DnsQuestion.GetAllFromArray(message, offset, header.QuestionCount, out offset),
+                DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AnswerRecordCount, out offset),
+                DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AuthorityRecordCount, out offset),
+                DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AdditionalRecordCount, out offset));
         }
 
-        public Response(Header header, IList<Question> questions, IList<IResourceRecord> answers,
-                IList<IResourceRecord> authority, IList<IResourceRecord> additional)
+        public DnsResponse(DnsHeader header, IList<DnsQuestion> questions, IList<IDnsResourceRecord> answers,
+                IList<IDnsResourceRecord> authority, IList<IDnsResourceRecord> additional)
         {
             this.header = header;
             this.questions = questions;
@@ -1601,25 +1601,25 @@ namespace Unosquare.Swan.Utilities
             this.additional = additional;
         }
 
-        public Response()
+        public DnsResponse()
         {
-            this.header = new Header();
-            this.questions = new List<Question>();
-            this.answers = new List<IResourceRecord>();
-            this.authority = new List<IResourceRecord>();
-            this.additional = new List<IResourceRecord>();
+            this.header = new DnsHeader();
+            this.questions = new List<DnsQuestion>();
+            this.answers = new List<IDnsResourceRecord>();
+            this.authority = new List<IDnsResourceRecord>();
+            this.additional = new List<IDnsResourceRecord>();
 
             this.header.Response = true;
             this.header.Id = RANDOM.Next(UInt16.MaxValue);
         }
 
-        public Response(IResponse response)
+        public DnsResponse(IDnsResponse response)
         {
-            this.header = new Header();
-            this.questions = new List<Question>(response.Questions);
-            this.answers = new List<IResourceRecord>(response.AnswerRecords);
-            this.authority = new List<IResourceRecord>(response.AuthorityRecords);
-            this.additional = new List<IResourceRecord>(response.AdditionalRecords);
+            this.header = new DnsHeader();
+            this.questions = new List<DnsQuestion>(response.Questions);
+            this.answers = new List<IDnsResourceRecord>(response.AnswerRecords);
+            this.authority = new List<IDnsResourceRecord>(response.AuthorityRecords);
+            this.additional = new List<IDnsResourceRecord>(response.AdditionalRecords);
 
             this.header.Response = true;
 
@@ -1630,22 +1630,22 @@ namespace Unosquare.Swan.Utilities
             ResponseCode = response.ResponseCode;
         }
 
-        public IList<Question> Questions
+        public IList<DnsQuestion> Questions
         {
             get { return questions; }
         }
 
-        public IList<IResourceRecord> AnswerRecords
+        public IList<IDnsResourceRecord> AnswerRecords
         {
             get { return answers; }
         }
 
-        public IList<IResourceRecord> AuthorityRecords
+        public IList<IDnsResourceRecord> AuthorityRecords
         {
             get { return authority; }
         }
 
-        public IList<IResourceRecord> AdditionalRecords
+        public IList<IDnsResourceRecord> AdditionalRecords
         {
             get { return additional; }
         }
@@ -1674,13 +1674,13 @@ namespace Unosquare.Swan.Utilities
             set { header.Truncated = value; }
         }
 
-        public OperationCode OperationCode
+        public DnsOperationCode OperationCode
         {
             get { return header.OperationCode; }
             set { header.OperationCode = value; }
         }
 
-        public ResponseCode ResponseCode
+        public DnsResponseCode ResponseCode
         {
             get { return header.ResponseCode; }
             set { header.ResponseCode = value; }
@@ -1718,7 +1718,7 @@ namespace Unosquare.Swan.Utilities
             UpdateHeader();
 
             return ObjectStringifier.FromObject(this)
-                .Add(nameof(Header), header)
+                .Add(nameof(DnsHeader), header)
                 .Add(nameof(Questions), nameof(AnswerRecords), nameof(AuthorityRecords), nameof(AdditionalRecords))
                 .ToString();
         }
@@ -1732,14 +1732,14 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public interface IRequestResolver
+    public interface IDnsRequestResolver
     {
-        ClientResponse Request(ClientRequest request);
+        DnsClientResponse Request(DnsClientRequest request);
     }
 
-    public class TcpRequestResolver : IRequestResolver
+    public class DnsTcpRequestResolver : IDnsRequestResolver
     {
-        public ClientResponse Request(ClientRequest request)
+        public DnsClientResponse Request(DnsClientRequest request)
         {
             var tcp = new TcpClient();
 
@@ -1770,9 +1770,9 @@ namespace Unosquare.Swan.Utilities
                 buffer = new byte[BitConverter.ToUInt16(buffer, 0)];
                 Read(stream, buffer);
 
-                Response response = Response.FromArray(buffer);
+                DnsResponse response = DnsResponse.FromArray(buffer);
 
-                return new ClientResponse(request, response, buffer);
+                return new DnsClientResponse(request, response, buffer);
             }
             finally
             {
@@ -1803,21 +1803,21 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class UdpRequestResolver : IRequestResolver
+    public class DnsUdpRequestResolver : IDnsRequestResolver
     {
-        private IRequestResolver fallback;
+        private IDnsRequestResolver fallback;
 
-        public UdpRequestResolver(IRequestResolver fallback)
+        public DnsUdpRequestResolver(IDnsRequestResolver fallback)
         {
             this.fallback = fallback;
         }
 
-        public UdpRequestResolver()
+        public DnsUdpRequestResolver()
         {
-            this.fallback = new NullRequestResolver();
+            this.fallback = new DnsNullRequestResolver();
         }
 
-        public ClientResponse Request(ClientRequest request)
+        public DnsClientResponse Request(DnsClientRequest request)
         {
             UdpClient udp = new UdpClient();
             IPEndPoint dns = request.Dns;
@@ -1831,14 +1831,14 @@ namespace Unosquare.Swan.Utilities
                 var bytesWritten = udp.SendAsync(request.ToArray(), request.Size, dns).Result;
 
                 byte[] buffer = udp.ReceiveAsync().Result.Buffer;
-                Response response = Response.FromArray(buffer); //null;
+                DnsResponse response = DnsResponse.FromArray(buffer); //null;
 
                 if (response.Truncated)
                 {
                     return fallback.Request(request);
                 }
 
-                return new ClientResponse(request, response, buffer);
+                return new DnsClientResponse(request, response, buffer);
             }
             finally
             {
@@ -1851,43 +1851,43 @@ namespace Unosquare.Swan.Utilities
         }
     }
 
-    public class ResponseException : Exception
+    public class DnsResponseException : Exception
     {
-        private static string Format(IResponse response)
+        private static string Format(IDnsResponse response)
         {
             return string.Format("Invalid response received with code {0}", response.ResponseCode);
         }
 
-        public ResponseException() { }
-        public ResponseException(string message) : base(message) { }
-        public ResponseException(string message, Exception e) : base(message, e) { }
+        public DnsResponseException() { }
+        public DnsResponseException(string message) : base(message) { }
+        public DnsResponseException(string message, Exception e) : base(message, e) { }
 
-        public ResponseException(IResponse response) : this(response, Format(response)) { }
+        public DnsResponseException(IDnsResponse response) : this(response, Format(response)) { }
 
-        public ResponseException(IResponse response, Exception e)
+        public DnsResponseException(IDnsResponse response, Exception e)
             : base(Format(response), e)
         {
             Response = response;
         }
 
-        public ResponseException(IResponse response, string message)
+        public DnsResponseException(IDnsResponse response, string message)
             : base(message)
         {
             Response = response;
         }
 
-        public IResponse Response
+        public IDnsResponse Response
         {
             get;
             private set;
         }
     }
 
-    public class NullRequestResolver : IRequestResolver
+    public class DnsNullRequestResolver : IDnsRequestResolver
     {
-        public ClientResponse Request(ClientRequest request)
+        public DnsClientResponse Request(DnsClientRequest request)
         {
-            throw new ResponseException("Request failed");
+            throw new DnsResponseException("Request failed");
         }
     }
 }
