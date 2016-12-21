@@ -389,6 +389,12 @@
             return stringifier.Output.ToString();
         }
 
+        /// <summary>
+        /// Stringifies the specified object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="indent">if set to <c>true</c> [indent].</param>
+        /// <returns></returns>
         static public string Stringify(object obj, bool indent = true)
         {
             var stringifier = new Stringifier(obj, indent ? 0 : -1);

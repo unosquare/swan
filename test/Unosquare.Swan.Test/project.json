@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Unosquare SWAN Samples",
   "copyright": "Copyright (c) 2016 - Unosquare",
   "description": "Some usage samples of the Swan library",
@@ -10,7 +10,8 @@
   "dependencies": {
     "NUnit": "3.5.0",
     "dotnet-test-nunit": "3.4.0-beta-3",
-    "Unosquare.Swan": { "target": "project" }
+    "Unosquare.Swan": { "target": "project" },
+    "EmbedIO": "1.2.7"
   },
 
   "testRunner": "nunit",

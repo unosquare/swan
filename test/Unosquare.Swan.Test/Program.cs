@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unosquare.Swan.Abstractions;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Runtime;
 using Unosquare.Swan.Test.Mocks;
+using Unosquare.Swan.Utilities;
 
 namespace Unosquare.Swan.Test
 {
@@ -11,9 +13,11 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            CurrentApp.Container.AutoRegister();
-            CurrentApp.Container.CanResolve<ICar>().ToStringInvariant().Info();
-            var car = CurrentApp.Container.Resolve<ICar>();
+            Task.Factory.StartNew(async () =>
+            {
+                var test = new JsonClientTest();
+                await test.PostWithAuthenticationTest();
+            }).Unwrap().Wait();
 
             Terminal.ReadKey(true);
         }
