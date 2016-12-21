@@ -62,17 +62,17 @@
         /// <summary>
         /// Adjusts the endianness of the type represented by the data byte array.
         /// </summary>
-        /// <param name="type">The type.</param>
+        /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        private static byte[] GetStructBytes(Type type, byte[] data)
+        private static byte[] GetStructBytes<T>(byte[] data)
         {
-            var fields = type.GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var fields = typeof(T).GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             StructEndiannessAttribute endian = null;
 
-            if (type.IsDefined(typeof(StructEndiannessAttribute), false))
+            if (typeof(T).IsDefined(typeof(StructEndiannessAttribute), false))
             {
-                endian = type.GetCustomAttributes(typeof(StructEndiannessAttribute), false)[0] as StructEndiannessAttribute;
+                endian = typeof(T).GetCustomAttributes(typeof(StructEndiannessAttribute), false)[0] as StructEndiannessAttribute;
             }
 
             foreach (var field in fields)
@@ -82,8 +82,9 @@
                     continue;
                 }
 
+
+                var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
 #pragma warning disable CS0618 // Type or member is obsolete
-                var offset = Marshal.OffsetOf(type, field.Name).ToInt32();
                 var length = Marshal.SizeOf(field.FieldType);
 #pragma warning restore CS0618 // Type or member is obsolete
                 endian = endian ?? field.GetCustomAttributes(typeof(StructEndiannessAttribute), false).ToArray()[0] as StructEndiannessAttribute;
@@ -121,13 +122,11 @@
         {
             var buffer = new byte[length];
             Array.Copy(data, offset, buffer, 0, buffer.Length);
-            var handle = GCHandle.Alloc(GetStructBytes(typeof(T), buffer), GCHandleType.Pinned);
+            var handle = GCHandle.Alloc(GetStructBytes<T>(buffer), GCHandleType.Pinned);
 
             try
             {
-#pragma warning disable CS0618 // Type or member is obsolete
-                return (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
-#pragma warning restore CS0618 // Type or member is obsolete
+                return Marshal.PtrToStructure<T>(handle.AddrOfPinnedObject());
             }
             finally
             {
@@ -149,7 +148,7 @@
             try
             {
                 Marshal.StructureToPtr(obj, handle.AddrOfPinnedObject(), false);
-                return GetStructBytes(typeof(T), data);
+                return GetStructBytes<T>(data);
             }
             finally
             {

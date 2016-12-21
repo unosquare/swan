@@ -209,7 +209,7 @@
 
                 try
                 {
-                    tcp.ConnectAsync(request.Dns.Address, request.Dns.Port).RunSynchronously();
+                    tcp.Client.Connect(request.Dns);
 
                     var stream = tcp.GetStream();
                     var buffer = request.ToArray();
@@ -292,7 +292,7 @@
                     udp.Client.ReceiveTimeout = 5000;
                     udp.Client.Connect(dns);
 
-                    var bytesWritten = udp.SendAsync(request.ToArray(), request.Size, dns).Result;
+                    var bytesWritten = udp.Client.Send(request.ToArray());
 
                     var bufferList = new List<byte>();
                     do
@@ -300,7 +300,7 @@
                         var tempBuffer = new byte[1024];
                         var receiveCount = udp.Client.Receive(tempBuffer);
                         bufferList.AddRange(tempBuffer.Skip(0).Take(receiveCount));
-                    } while (udp.Client.Available > 0);
+                    } while (udp.Client.Available > 0 || bufferList.Count == 0);
 
                     var buffer = bufferList.ToArray();
                     var response = DnsResponse.FromArray(buffer); //null;

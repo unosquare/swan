@@ -1,14 +1,13 @@
 ﻿namespace Unosquare.Swan.Samples
 {
     using Abstractions;
+    using Formatters;
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Text;
-    using Formatters;
-    using Utilities;
-    using System.Net;
     using System.Linq;
+    using System.Text;
+    using Utilities;
 
     public class Program
     {
@@ -35,32 +34,36 @@
 
         static void TestNetworkUtilities()
         {
-            var elapsed = (new Action(() =>
-            {
-                var ntpServer = "time.windows.com";
-                var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
+            //var elapsed = (new Action(() =>
+            //{
 
-                var domainName = "unosquare.com";
-                var dnsServers = Network.GetIPv4DnsServers();
-                var privateIPs = Network.GetIPv4Addresses(false);
-                var publicIP = Network.GetPublicIPAddress();
-                var ptrRecord = Network.GetDnsPointerEntry(publicIP);
-                var dnsLookup = Network.GetDnsHostEntry("unosquare.com");
-                var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
-                var txtRecords = Network.QueryDns("unosquare.com", DnsRecordType.TXT);
 
-                $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
-                $"Private IPs: [{string.Join(", ", privateIPs.Select(p => p.ToString()))}]".Info(nameof(Network));
-                $"DNS Servers: [{string.Join(", ", dnsServers.Select(p => p.ToString()))}]".Info(nameof(Network));
-                $"Public IP  : [{publicIP.ToString()}]".Info(nameof(Network));
-                $"Reverse DNS: [{publicIP.ToString()}]: [{ptrRecord}]".Info(nameof(Network));
-                $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(nameof(Network));
-                $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]".Info(nameof(Network));
-                $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]".Info(nameof(Network));
+            var domainName = "unosquare.com";
+            var dnsServers = Network.GetIPv4DnsServers();
+            var privateIPs = Network.GetIPv4Addresses(false);
+            var publicIP = Network.GetPublicIPAddress();
 
-            }).Benchmark());
+            var dnsLookup = Network.GetDnsHostEntry("google.com", System.Net.IPAddress.Parse("172.16.16.1"), Constants.DnsDefaultPort);
+            var ptrRecord = Network.GetDnsPointerEntry(publicIP);
 
-            $"Testing Network Utilities took: {elapsed.TotalMilliseconds} ms".Warn(nameof(Network));
+            var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
+            var txtRecords = Network.QueryDns("unosquare.com", DnsRecordType.TXT);
+
+            var ntpServer = "time.windows.com";
+            var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
+
+            $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
+            $"Private IPs: [{string.Join(", ", privateIPs.Select(p => p.ToString()))}]".Info(nameof(Network));
+            $"DNS Servers: [{string.Join(", ", dnsServers.Select(p => p.ToString()))}]".Info(nameof(Network));
+            $"Public IP  : [{publicIP.ToString()}]".Info(nameof(Network));
+            $"Reverse DNS: [{publicIP.ToString()}]: [{ptrRecord}]".Info(nameof(Network));
+            $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(nameof(Network));
+            $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]".Info(nameof(Network));
+            $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]".Info(nameof(Network));
+
+            //}).Benchmark());
+
+            //$"Testing Network Utilities took: {elapsed.TotalMilliseconds} ms".Warn(nameof(Network));
         }
 
 
