@@ -28,7 +28,8 @@
             if (IsConsolePresent == false) return new ConsoleKeyInfo();
 
             if (prompt != null)
-                $" {DateTime.Now:HH:mm:ss} USR << {prompt} ".Write(ConsoleColor.White);
+                ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" + 
+                    $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
 
             var input = ReadKey(true);
             var echo = preventEcho ? string.Empty : input.Key.ToString();
@@ -122,7 +123,7 @@
                     Table.Vertical();
                 }
 
-                inputLeft = 12;
+                inputLeft = Settings.UserOptionText.Length + 3;
                 inputTop = CursorTop - 1;
 
                 { // Input
@@ -132,7 +133,7 @@
 
                     Table.Vertical();
                     string.Format(textFormat,
-                        $" Option: ").Write(ConsoleColor.Green);
+                        Settings.UserOptionText).Write(ConsoleColor.Green);
                     inputTop = CursorTop;
                     Table.Vertical();
 

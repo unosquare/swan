@@ -31,7 +31,7 @@ namespace Unosquare.Swan.Test
             var resolvedIP = resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
             Assert.IsNotNull(resolvedIP);
 
-            Assert.IsTrue(resolvedIP.ToString().Equals(resolvedIP.ToString()));
+            Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
         }
 
     }

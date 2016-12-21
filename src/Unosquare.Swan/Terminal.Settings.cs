@@ -81,6 +81,22 @@
             public static string InfoPrefix { get; set; } = "INF";
 
             /// <summary>
+            /// Gets or sets the user input prefix.
+            /// </summary>
+            /// <value>
+            /// The user input prefix.
+            /// </value>
+            public static string UserInputPrefix { get; set; } = "USR";
+
+            /// <summary>
+            /// Gets or sets the user option text.
+            /// </summary>
+            /// <value>
+            /// The user option text.
+            /// </value>
+            public static string UserOptionText { get; set; } = " Option: ";
+
+            /// <summary>
             /// Gets or sets the debug logging prefix.
             /// </summary>
             /// <value>
