@@ -15,7 +15,7 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(assemblies.Any());
             Assert.AreEqual(
 #if NET452
-                16,
+                17,
 #else
                 4,
 #endif
