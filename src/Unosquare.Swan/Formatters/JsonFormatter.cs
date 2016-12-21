@@ -172,6 +172,8 @@
             if (string.IsNullOrEmpty(source))
                 throw new ArgumentNullException(nameof(source));
 
+            source = source.Trim();
+
             switch (source[0])
             {
                 case InitialObjectCharacter:
@@ -192,6 +194,8 @@
         {
             if (string.IsNullOrEmpty(source))
                 throw new ArgumentNullException(nameof(source));
+
+            source = source.Trim();
 
             switch (source[0])
             {

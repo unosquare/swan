@@ -9,33 +9,47 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class SettingsProviderTest
     {
-        private readonly SettingsProvider<AppSettingMock> _mock = new SettingsProvider<AppSettingMock>()
+        [SetUp]
+        public void Setup()
         {
-            ConfigurationFilePath = Path.GetTempFileName()
-        };
-
+            SettingsProvider<AppSettingMock>.Instance.ConfigurationFilePath = Path.GetTempFileName();
+            SettingsProvider<AppSettingMock>.Instance.ResetGlobalSettings();
+        }
+        
         [Test]
         public void TryGlobalTest()
         {
-            Assert.IsNotNull(_mock.Global);
-            Assert.IsNotNull(_mock.Global.WebServerHostname);
-            Assert.IsNotNull(_mock.Global.WebServerPort);
+            Assert.IsNotNull(SettingsProvider<AppSettingMock>.Instance.Global);
+            Assert.IsNotNull(SettingsProvider<AppSettingMock>.Instance.Global.WebServerHostname);
+            Assert.IsNotNull(SettingsProvider<AppSettingMock>.Instance.Global.WebServerPort);
 
             var appSettings = new AppSettingMock();
 
-            Assert.AreEqual(appSettings.WebServerHostname, _mock.Global.WebServerHostname);
-            Assert.AreEqual(appSettings.WebServerPort, _mock.Global.WebServerPort);
+            Assert.AreEqual(appSettings.WebServerHostname, SettingsProvider<AppSettingMock>.Instance.Global.WebServerHostname);
+            Assert.AreEqual(appSettings.BackgroundImage, SettingsProvider<AppSettingMock>.Instance.Global.BackgroundImage);
         }
 
         [Test]
         public void GetListTest()
         {
-            Assert.IsNotNull(_mock.GetList());
+            Assert.IsNotNull(SettingsProvider<AppSettingMock>.Instance.GetList());
 
-            Assert.AreEqual(3, _mock.GetList().Count);
-            Assert.AreEqual(typeof(int).Name, _mock.GetList().First().DataType);
-            Assert.AreEqual("WebServerPort", _mock.GetList().First().Property);
-            Assert.AreEqual(9898, _mock.GetList().First().DefaultValue);
+            Assert.AreEqual(3, SettingsProvider<AppSettingMock>.Instance.GetList().Count);
+            Assert.AreEqual(typeof(int).Name, SettingsProvider<AppSettingMock>.Instance.GetList().First().DataType);
+            Assert.AreEqual("WebServerPort", SettingsProvider<AppSettingMock>.Instance.GetList().First().Property);
+            Assert.AreEqual(9898, SettingsProvider<AppSettingMock>.Instance.GetList().First().DefaultValue);
+        }
+
+        [Test]
+        public void RefreshFromListTest()
+        {
+            var list = SettingsProvider<AppSettingMock>.Instance.GetList();
+            list[0].Value = 100;
+
+            var updateList = SettingsProvider<AppSettingMock>.Instance.RefreshFromList(list);
+            Assert.IsNotNull(updateList);
+            Assert.AreEqual(1, updateList.Count);
+            Assert.AreEqual(list[0].Value, SettingsProvider<AppSettingMock>.Instance.Global.WebServerPort);
         }
     }
 }
