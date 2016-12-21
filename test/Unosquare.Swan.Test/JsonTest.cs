@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections;
+using NUnit.Framework;
 using System.Collections.Generic;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Reflection;
@@ -27,6 +29,9 @@ namespace Unosquare.Swan.Test
 
         private readonly string[] _basicArray = { "One", "Two", "Three" };
         private string _basicAStr = "[ \"One\",\"Two\",\"Three\" ]";
+
+        private readonly int[] _numericArray = { 1, 2, 3 };
+        private string _numericAStr = "[ 1,2,3 ]";
 
         private readonly BasicArrayJson _basicAObj = new BasicArrayJson
         {
@@ -77,12 +82,21 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void SerializeBasicArrayTest()
+        public void SerializeStringArrayTest()
         {
             var data = JsonFormatter.Serialize(_basicArray);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAStr, data);
+        }
+
+        [Test]
+        public void SerializeNumericArrayTest()
+        {
+            var data = JsonFormatter.Serialize(_numericArray);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_numericAStr, data);
         }
 
         [Test]
@@ -185,6 +199,44 @@ namespace Unosquare.Swan.Test
                 Assert.AreEqual(obj.DecimalData, _advObj.DecimalData);
                 Assert.AreEqual(obj.StringNull, _advObj.StringNull);
             }
+        }
+
+        [Test]
+        public void SerializeEmptyCollectionTest()
+        {
+            Assert.AreEqual("[ ]", JsonFormatter.Serialize(null as IEnumerable));
+        }
+        
+        [Test]
+        public void SerializeEmptyObjectTest()
+        {
+            Assert.AreEqual("{ }", JsonFormatter.Serialize(default(object)));
+        }
+
+        [Test]
+        public void SerializePrimitiveErrorTest()
+        {
+            Assert.Throws<InvalidOperationException>(() => JsonFormatter.Serialize(1), "Throws exception serializing primitive");
+        }
+        
+        [Test]
+        public void DeserializeEmptyStringErrorTest()
+        {
+            Assert.Throws<ArgumentNullException>(() => JsonFormatter.Deserialize(string.Empty), "Throws exception serializing primitive");
+            Assert.Throws<ArgumentNullException>(() => JsonFormatter.Deserialize<BasicJson>(string.Empty), "Throws exception serializing primitive");
+        }
+
+        [Test]
+        public void DeserializeEmptyObjectTest()
+        {
+            Assert.AreEqual(default(BasicJson), JsonFormatter.Deserialize<BasicJson>("NOTHING"));
+            Assert.AreEqual(default(Dictionary<string, object>), JsonFormatter.Deserialize("NOTHING"));
+        }
+
+        [Test]
+        public void DeserializeEmptyPropertyTest()
+        {
+            Assert.IsNotNull(JsonFormatter.Deserialize<BasicJson>("{ \"\": \"value\" }"));
         }
     }
 }
