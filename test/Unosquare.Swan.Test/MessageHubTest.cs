@@ -30,6 +30,11 @@ namespace Unosquare.Swan.Test
 
             Assert.IsTrue(messages.Any());
             Assert.AreEqual(message, messages.First());
+
+            CurrentApp.Messages.Unsubscribe<SimpleMessageMock>(token);
+
+            CurrentApp.Messages.Publish(message);
+            Assert.IsFalse(messages.Skip(1).Any());
         }
         
         [Test]
