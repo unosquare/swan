@@ -12,7 +12,7 @@ environment:
   # Don't report back to the mothership
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   COVERALLS_REPO_TOKEN:  
-       secure: FXRdP4yEISDEf2pIbbOZgm6mtXxm5hixHGSZCFEEANQIB2ltddAcINmNJX/LerbA
+       secure: nc3dHpY/e540t89127H4VJmUyIguGDiHKoASVRtcDU+LBiBtY9UvicRdZUgcGuYf
 
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
