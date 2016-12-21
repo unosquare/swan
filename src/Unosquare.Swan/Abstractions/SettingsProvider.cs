@@ -89,8 +89,8 @@
 
             foreach (var property in list)
             {
-                var prop = Instance.Global.GetType().GetTypeInfo().GetProperty(property.Property);
-                var originalValue = prop.GetValue(Instance.Global);
+                var prop = Global.GetType().GetTypeInfo().GetProperty(property.Property);
+                var originalValue = prop.GetValue(Global);
                 var isChanged = false;
 
                 if (prop.PropertyType.IsArray)
@@ -110,7 +110,7 @@
                             arr.SetValue(itemvalue, i++);
                     }
 
-                    prop.SetValue(Instance.Global, arr);
+                    prop.SetValue(Global, arr);
                 }
                 else
                 {
@@ -119,7 +119,7 @@
                         if (originalValue == null) continue;
 
                         isChanged = true;
-                        prop.SetValue(Instance.Global, null);
+                        prop.SetValue(Global, null);
                     }
                     else
                     {
@@ -127,7 +127,7 @@
                         if (Constants.BasicTypesInfo[prop.PropertyType].TryParse(property.Value.ToString(),
                             out propertyValue))
                         {
-                            if (propertyValue == originalValue) continue;
+                            if (propertyValue.Equals(originalValue)) continue;
 
                             isChanged = true;
                             prop.SetValue(Instance.Global, property.Value);
@@ -135,11 +135,10 @@
                     }
                 }
 
-                if (isChanged)
-                {
-                    changedSettings.Add(property.Property);
-                    Instance.PersistGlobalSettings();
-                }
+                if (!isChanged) continue;
+
+                changedSettings.Add(property.Property);
+                PersistGlobalSettings();
             }
 
             return changedSettings;
@@ -156,6 +155,18 @@
             return dict.Keys
                 .Select(x => new ExtendedPropertyInfo<T>(x) {Value = dict[x]})
                 .ToList();
+        }
+
+        /// <summary>
+        /// Resets the global settings.
+        /// </summary>
+        public void ResetGlobalSettings()
+        {
+            lock (SyncRoot)
+            {
+                var stringData = JsonFormatter.Serialize(Activator.CreateInstance<T>());
+                File.WriteAllText(ConfigurationFilePath, stringData);
+            }
         }
     }
 }
