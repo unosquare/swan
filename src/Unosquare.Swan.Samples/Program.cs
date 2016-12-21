@@ -37,20 +37,17 @@
             //var elapsed = (new Action(() =>
             //{
 
+            var ntpServer = "time.windows.com";
+            var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
 
             var domainName = "unosquare.com";
             var dnsServers = Network.GetIPv4DnsServers();
             var privateIPs = Network.GetIPv4Addresses(false);
             var publicIP = Network.GetPublicIPAddress();
-
-            var dnsLookup = Network.GetDnsHostEntry("google.com", System.Net.IPAddress.Parse("172.16.16.1"), Constants.DnsDefaultPort);
             var ptrRecord = Network.GetDnsPointerEntry(publicIP);
-
+            var dnsLookup = Network.GetDnsHostEntry("unosquare.com");
             var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
             var txtRecords = Network.QueryDns("unosquare.com", DnsRecordType.TXT);
-
-            var ntpServer = "time.windows.com";
-            var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
 
             $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
             $"Private IPs: [{string.Join(", ", privateIPs.Select(p => p.ToString()))}]".Info(nameof(Network));
