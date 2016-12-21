@@ -1,9 +1,9 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using NUnit.Framework;
-using Unosquare.Swan.Test.Mocks;
 using System.Linq;
 using System.Threading.Tasks;
+using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
 {
