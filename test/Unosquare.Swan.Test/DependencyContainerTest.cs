@@ -16,14 +16,15 @@ namespace Unosquare.Swan.Test
         [Test]
         public void RegisterInterfaceTest()
         {
-            if (CurrentApp.Container.CanResolve<IAnimal>() == false)
-                CurrentApp.Container.Register<IAnimal, Fish>();
+            var container = new DependencyContainer();
 
-            Assert.IsNotNull(CurrentApp.Container.Resolve<IAnimal>());
-            Assert.AreEqual((new Fish()).Name, CurrentApp.Container.Resolve<IAnimal>().Name);
+            container.Register<IAnimal, Fish>();
 
-            CurrentApp.Container.Unregister<IAnimal>();
-            Assert.Throws<DependencyContainerResolutionException>(() => CurrentApp.Container.Resolve<IAnimal>());
+            Assert.IsNotNull(container.Resolve<IAnimal>());
+            Assert.AreEqual((new Fish()).Name, container.Resolve<IAnimal>().Name);
+
+            container.Unregister<IAnimal>();
+            Assert.Throws<DependencyContainerResolutionException>(() => container.Resolve<IAnimal>());
         }
 
         // Autoregister is not working when you run NUNit at NETCORE, because the deps are not loaded. Probably an issue.
@@ -40,12 +41,14 @@ namespace Unosquare.Swan.Test
         [Test]
         public void BuildUpTest()
         {
-            CurrentApp.Container.Register<IAnimal, Fish>();
-            CurrentApp.Container.Register<ICar, TheOnlyCar>();
+            var container = new DependencyContainer();
+
+            container.Register<IAnimal, Fish>();
+            container.Register<ICar, TheOnlyCar>();
 
             var instance = new Controller();
 
-            CurrentApp.Container.BuildUp(instance);
+            container.BuildUp(instance);
 
             Assert.AreEqual((new Fish()).Name, instance.Animal.Name);
             Assert.AreEqual((new TheOnlyCar()).Name, instance.Car.Name);
@@ -58,6 +61,19 @@ namespace Unosquare.Swan.Test
                 CurrentApp.Container.Unregister<IAnimal>();
 
             Assert.Throws<DependencyContainerResolutionException>(() => CurrentApp.Container.Resolve<IAnimal>());
+        }
+
+
+        [Test]
+        public void TryResolveTest()
+        {
+            var container = new DependencyContainer();
+
+            container.Register<IAnimal, Fish>();
+            IAnimal instance;
+
+            Assert.IsTrue(container.TryResolve(out instance));
+            Assert.AreEqual((new Fish()).Name, instance.Name);
         }
     }
 }
