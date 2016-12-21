@@ -405,7 +405,8 @@
                             {
                                 if (skipskipFinalObjectCharacter == 0)
                                 {
-                                    var obj = ParseObject(type, currentValue.ToString());
+                                    var obj = typeof(Dictionary<string, object>)  == type ? ParseDictionary(currentValue.ToString()) : ParseObject(type, currentValue.ToString());
+
                                     result.Add(obj);
                                     currentValue.Clear();
                                     currentState = ReadState.WaitingForValue;
@@ -481,7 +482,8 @@
             var currentState = ReadState.WaitingForNewField;
             var currentPropertyName = new StringBuilder(1024);
             var currentValue = new StringBuilder(1024);
-            var skipskipFinalObjectCharacter = 0;
+            var skipFinalObjectCharacter = 0;
+            var skipFinalArrayCharacter = 0;
 
             for (var charIndex = 0; charIndex < source.Length; charIndex++)
             {
@@ -576,7 +578,7 @@
 
                             if (currentChar == FinalObjectCharacter)
                             {
-                                if (skipskipFinalObjectCharacter == 0)
+                                if (skipFinalObjectCharacter == 0)
                                 {
                                     setPropertyObjectValue(currentPropertyName.ToString(), currentValue.ToString());
                                     currentPropertyName.Clear();
@@ -584,29 +586,38 @@
                                 }
                                 else
                                 {
-                                    skipskipFinalObjectCharacter--;
+                                    skipFinalObjectCharacter--;
                                 }
                             }
                             else if (currentChar == InitialObjectCharacter)
                             {
-                                skipskipFinalObjectCharacter++;
+                                skipFinalObjectCharacter++;
                             }
 
                             break;
                         }
                     case ReadState.WaitingForArrayEnd:
                         {
+                            currentValue.Append(currentChar);
+
                             if (currentChar == FinalArrayCharacter)
                             {
-                                currentValue.Append(currentChar);
-                                setPropertyArray(currentPropertyName.ToString(), currentValue.ToString());
-                                currentPropertyName.Clear();
-                                currentState = ReadState.WaitingForNewField;
+                                if (skipFinalArrayCharacter == 0)
+                                {
+                                    setPropertyArray(currentPropertyName.ToString(), currentValue.ToString());
+                                    currentPropertyName.Clear();
+                                    currentState = ReadState.WaitingForNewField;
+                                }
+                                else
+                                {
+                                    skipFinalArrayCharacter--;
+                                }
                             }
-                            else
+                            else if(currentChar == InitialArrayCharacter)
                             {
-                                currentValue.Append(currentChar);
+                                skipFinalArrayCharacter++;
                             }
+
                             break;
                         }
                     case ReadState.PushingStringValue:
