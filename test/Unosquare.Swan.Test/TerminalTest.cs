@@ -47,6 +47,7 @@ namespace Unosquare.Swan.Test
             nameof(LoggingMessageType.Trace).Trace();
             nameof(LoggingMessageType.Warning).Warn();
 
+            Task.Delay(100).Wait();
             Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
 
             new Exception().Error(nameof(TerminalTest), nameof(LoggingTest));

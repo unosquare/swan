@@ -318,6 +318,7 @@
             var result = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
             var currentState = ReadState.WaitingForValue;
             var currentValue = new StringBuilder(1024);
+            var skipskipFinalObjectCharacter = 0;
 
             for (var charIndex = 0; charIndex < source.Length; charIndex++)
             {
@@ -398,18 +399,27 @@
                         }
                     case ReadState.WaitingForObject:
                         {
+                            currentValue.Append(currentChar);
+
                             if (currentChar == FinalObjectCharacter)
                             {
-                                currentValue.Append(currentChar);
-                                var obj = ParseObject(type, currentValue.ToString());
-                                result.Add(obj);
-                                currentValue.Clear();
-                                currentState = ReadState.WaitingForValue;
+                                if (skipskipFinalObjectCharacter == 0)
+                                {
+                                    var obj = ParseObject(type, currentValue.ToString());
+                                    result.Add(obj);
+                                    currentValue.Clear();
+                                    currentState = ReadState.WaitingForValue;
+                                }
+                                else
+                                {
+                                    skipskipFinalObjectCharacter--;
+                                }  
                             }
-                            else
+                            else if (currentChar == InitialObjectCharacter)
                             {
-                                currentValue.Append(currentChar);
+                                skipskipFinalObjectCharacter++;
                             }
+
                             break;
                         }
                 }
@@ -425,7 +435,25 @@
             ParseObject(source,
                 (propertyName, currentValue) => result[propertyName] = currentValue,
                 (propertyName, currentValue) => result[propertyName] = ParseDictionary(currentValue),
-                (propertyName, currentValue) => result[propertyName] = ParseArray(typeof(string), currentValue));
+                (propertyName, currentValue) =>
+                {
+                    // Discover if array is primitive values or objets
+                    var type = typeof(string);
+
+                    foreach (var c in currentValue)
+                    {
+                        if (c == InitialObjectCharacter)
+                        {
+                            type = typeof(Dictionary<string, object>);
+                            break;
+                        }
+
+                        if (c == StringQuotedCharacter)
+                            break;
+                    }
+
+                    result[propertyName] = ParseArray(type, currentValue);
+                });
 
             return result;
         }
@@ -544,10 +572,10 @@
                         }
                     case ReadState.WaitingForObject:
                         {
+                            currentValue.Append(currentChar);
+
                             if (currentChar == FinalObjectCharacter)
                             {
-                                currentValue.Append(currentChar);
-
                                 if (skipskipFinalObjectCharacter == 0)
                                 {
                                     setPropertyObjectValue(currentPropertyName.ToString(), currentValue.ToString());
@@ -562,12 +590,8 @@
                             else if (currentChar == InitialObjectCharacter)
                             {
                                 skipskipFinalObjectCharacter++;
-                                currentValue.Append(currentChar);
                             }
-                            else
-                            {
-                                currentValue.Append(currentChar);
-                            }
+
                             break;
                         }
                     case ReadState.WaitingForArrayEnd:
