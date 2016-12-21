@@ -13,6 +13,18 @@
         public bool BoolData { get; set; }
 
         public string StringNull { get; set; }
+
+        public static BasicJson GetDefault()
+        {
+            return new BasicJson
+            {
+                StringData = "string",
+                IntData = 1,
+                NegativeInt = -1,
+                DecimalData = 10.33M,
+                BoolData = true
+            };
+        }
     }
 
     public class BasicArrayJson

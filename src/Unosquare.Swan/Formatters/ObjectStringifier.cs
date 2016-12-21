@@ -52,20 +52,18 @@
             {
                 return obj as string;
             }
-            else if (obj is IDictionary)
+            if (obj is IDictionary)
             {
                 return StringifyDictionary(obj as IDictionary);
             }
-            else if (obj is IEnumerable)
+            if (obj is IEnumerable)
             {
                 return StringifyList(obj as IEnumerable);
             }
-            else
-            {
-                return obj == null ?
-                    "null" :
-                    FromObject(obj).AddAll().ToString();
-            }
+
+            return obj == null ?
+                "null" :
+                FromObject(obj).AddAll().ToString();
         }
 
         /// <summary>
@@ -75,7 +73,7 @@
         /// <returns></returns>
         private static string StringifyList(IEnumerable enumerable)
         {
-            return "[" + string.Join(", ", enumerable.Cast<object>().Select(o => StringifyObject(o)).ToArray()) + "]";
+            return "[" + string.Join(", ", enumerable.Cast<object>().Select(StringifyObject).ToArray()) + "]";
         }
 
         /// <summary>
@@ -125,7 +123,7 @@
         /// <returns></returns>
         public ObjectStringifier Remove(params string[] names)
         {
-            foreach (string name in names)
+            foreach (var name in names)
             {
                 innerPairs.Remove(name);
             }
@@ -140,12 +138,12 @@
         /// <returns></returns>
         public ObjectStringifier Add(params string[] names)
         {
-            Type type = innerObject.GetType();
+            var type = innerObject.GetType();
 
-            foreach (string name in names)
+            foreach (var name in names)
             {
-                PropertyInfo property = type.GetTypeInfo().GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
-                object value = property.GetValue(innerObject, new object[] { });
+                var property = type.GetTypeInfo().GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+                var value = property.GetValue(innerObject, new object[] { });
 
                 innerPairs.Add(name, StringifyObject(value));
             }
@@ -171,14 +169,14 @@
         /// <returns></returns>
         public ObjectStringifier AddAll()
         {
-            PropertyInfo[] properties = innerObject.GetType().GetTypeInfo().GetProperties(
+            var properties = innerObject.GetType().GetTypeInfo().GetProperties(
                 BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead).ToArray();
 
-            foreach (PropertyInfo property in properties)
+            foreach (var property in properties)
             {
                 try
                 {
-                    object value = property.GetValue(innerObject, new object[] { });
+                    var value = property.GetValue(innerObject, new object[] { });
                     innerPairs.Add(property.Name, StringifyObject(value));
                 }
                 catch
@@ -200,8 +198,8 @@
         {
             if (innerPairs.Count > 0 && innerObject is string == false)
                 return StringifyDictionary(innerPairs);
-            else
-                return innerObject == null ? "null" : $"{innerObject.ToStringInvariant()}";
+
+            return innerObject == null ? "null" : $"{innerObject.ToStringInvariant()}";
         }
 
         #endregion

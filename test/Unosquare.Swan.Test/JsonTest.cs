@@ -9,15 +9,6 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class JsonTest
     {
-        private static readonly BasicJson _basicObj = new BasicJson
-        {
-            StringData = "string",
-            IntData = 1,
-            NegativeInt = -1,
-            DecimalData = 10.33M,
-            BoolData = true
-        };
-
         private static readonly AdvJson _advObj = new AdvJson
         {
             StringData = "string",
@@ -25,7 +16,7 @@ namespace Unosquare.Swan.Test
             NegativeInt = -1,
             DecimalData = 10.33M,
             BoolData = true,
-            InnerChild = _basicObj
+            InnerChild = BasicJson.GetDefault()
         };
 
         const string _basicStr =
@@ -46,7 +37,7 @@ namespace Unosquare.Swan.Test
         private readonly AdvArrayJson _advAObj = new AdvArrayJson
         {
             Id = 1,
-            Properties = new[] { _basicObj, _basicObj }
+            Properties = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() }
         };
 
         private string _basicAObjStr = "{\"Id\" : 1, \"Properties\" : [ \"One\",\"Two\",\"Babu\" ]}";
@@ -65,7 +56,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeBasicObjectTest()
         {
-            var data = JsonFormatter.Serialize(_basicObj);
+            var data = JsonFormatter.Serialize(BasicJson.GetDefault());
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicStr, data);
@@ -77,12 +68,12 @@ namespace Unosquare.Swan.Test
             var obj = JsonFormatter.Deserialize<BasicJson>(_basicStr);
 
             Assert.IsNotNull(obj);
-            Assert.AreEqual(obj.StringData, _basicObj.StringData);
-            Assert.AreEqual(obj.IntData, _basicObj.IntData);
-            Assert.AreEqual(obj.NegativeInt, _basicObj.NegativeInt);
-            Assert.AreEqual(obj.BoolData, _basicObj.BoolData);
-            Assert.AreEqual(obj.DecimalData, _basicObj.DecimalData);
-            Assert.AreEqual(obj.StringNull, _basicObj.StringNull);
+            Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
+            Assert.AreEqual(obj.IntData, BasicJson.GetDefault().IntData);
+            Assert.AreEqual(obj.NegativeInt, BasicJson.GetDefault().NegativeInt);
+            Assert.AreEqual(obj.BoolData, BasicJson.GetDefault().BoolData);
+            Assert.AreEqual(obj.DecimalData, BasicJson.GetDefault().DecimalData);
+            Assert.AreEqual(obj.StringNull, BasicJson.GetDefault().StringNull);
         }
 
         [Test]
