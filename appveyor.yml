@@ -25,6 +25,6 @@ build_script:
 - dotnet build "src\Unosquare.Swan" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 test_script:
 - tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test -c %CONFIGURATION%" -output:coverage.xml -register:userdotnet
-- tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover coverage.xml --repoTokenVariable COVERALLS_REPO_TOKEN --commitId %APPVEYOR_REPO_COMMIT% --commitBranch %APPVEYOR_REPO_BRANCH%
+- tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --repoTokenVariable COVERALLS_REPO_TOKEN --commitId %APPVEYOR_REPO_COMMIT% --commitBranch %APPVEYOR_REPO_BRANCH%
 cache:
 - '%USERPROFILE%\.nuget\packages'
