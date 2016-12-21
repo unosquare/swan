@@ -12,6 +12,8 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
+using System.Threading.Tasks;
+
 namespace Unosquare.Swan.Runtime
 {
     using System;
@@ -418,7 +420,7 @@ namespace Unosquare.Swan.Runtime
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
-        void PublishAsync<TMessage>(TMessage message) where TMessage : class, IMessageHubMessage;
+        Task PublishAsync<TMessage>(TMessage message) where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Publish a message to any subscribers asynchronously
@@ -426,7 +428,7 @@ namespace Unosquare.Swan.Runtime
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
         /// <param name="callback">AsyncCallback called on completion</param>
-        void PublishAsync<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, IMessageHubMessage;
+        Task PublishAsync<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, IMessageHubMessage;
     }
 
     #endregion
@@ -754,9 +756,9 @@ namespace Unosquare.Swan.Runtime
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
-        public void PublishAsync<TMessage>(TMessage message) where TMessage : class, IMessageHubMessage
+        public async Task PublishAsync<TMessage>(TMessage message) where TMessage : class, IMessageHubMessage
         {
-            PublishAsyncInternal<TMessage>(message, null);
+            await PublishAsyncInternal<TMessage>(message, null);
         }
 
         /// <summary>
@@ -765,10 +767,10 @@ namespace Unosquare.Swan.Runtime
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
         /// <param name="callback">AsyncCallback called on completion</param>
-        public void PublishAsync<TMessage>(TMessage message, AsyncCallback callback)
+        public Task PublishAsync<TMessage>(TMessage message, AsyncCallback callback)
             where TMessage : class, IMessageHubMessage
         {
-            PublishAsyncInternal<TMessage>(message, callback);
+            return PublishAsyncInternal<TMessage>(message, callback);
         }
 
         #endregion
@@ -866,12 +868,14 @@ namespace Unosquare.Swan.Runtime
             });
         }
 
-        private void PublishAsyncInternal<TMessage>(TMessage message, AsyncCallback callback)
+        private Task PublishAsyncInternal<TMessage>(TMessage message, AsyncCallback callback)
             where TMessage : class, IMessageHubMessage
         {
-            Action publishAction = () => { PublishInternal<TMessage>(message); };
-
-            publishAction.BeginInvoke(callback, null);
+            return Task.Factory.StartNew(() =>
+            {
+                PublishInternal(message);
+                // TODO: Callback=
+            });
         }
 
         #endregion
