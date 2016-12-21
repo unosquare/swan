@@ -11,9 +11,10 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            var test = new SettingsProviderTest();
-            test.Setup();
-            test.RefreshFromListTest();
+            CurrentApp.Container.AutoRegister();
+            CurrentApp.Container.CanResolve<ICar>().ToStringInvariant().Info();
+            var car = CurrentApp.Container.Resolve<ICar>();
+
             Terminal.ReadKey(true);
         }
     }

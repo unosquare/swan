@@ -22,5 +22,11 @@ namespace Unosquare.Swan.Test
                 assemblies.Count(),
                 "Check assemblies are loaded fine");
         }
+
+        [Test]
+        public void GetAppDomain()
+        {
+            Assert.IsNotNull(CurrentApp.AppDomain);
+        }
     }
 }

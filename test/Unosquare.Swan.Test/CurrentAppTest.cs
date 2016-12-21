@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Unosquare.Swan.Test
 {
@@ -17,6 +18,20 @@ namespace Unosquare.Swan.Test
             Assert.AreNotEqual(CurrentApp.OS, OperatingSystem.Unknown, $"Retrieving a OS: {CurrentApp.OS}");
         }
 
+        [Test]
+        public void IsUsingMonoRuntimeTest()
+        {
+            Assert.AreEqual(Type.GetType("Mono.Runtime") != null, CurrentApp.IsUsingMonoRuntime);
+        }
+        
+        [Test]
+        public void GetAssemblyAttributesTest()
+        {
+            Assert.AreEqual("NUnit Software", CurrentApp.CompanyName);
+            Assert.AreEqual("dotnet_test_nunit", CurrentApp.ProductName);
+            Assert.AreEqual("NUnit is a trademark of NUnit Software", CurrentApp.ProductTrademark);
+        }
+        
         [Test]
         public void GetLocalStorageTest()
         {

@@ -2644,6 +2644,7 @@ namespace Unosquare.Swan.Runtime
 
         #region Internal Methods
         private readonly object _AutoRegisterLock = new object();
+
         private void AutoRegisterInternal(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction, Func<Type, bool> registrationPredicate)
         {
             lock (_AutoRegisterLock)
@@ -2666,16 +2667,15 @@ namespace Unosquare.Swan.Runtime
                     }
                 }
 
-                var abstractInterfaceTypes = from type in types
-                                             where ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) && (!type.IsGenericTypeDefinition()))
-                                             select type;
+                var abstractInterfaceTypes = types.Where(
+                        type =>
+                            ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
+                             (!type.IsGenericTypeDefinition())));
 
                 foreach (var type in abstractInterfaceTypes)
                 {
                     var localType = type;
-                    var implementations = from implementationType in concreteTypes
-                                          where localType.GetTypeInfo().IsAssignableFrom(implementationType)
-                                          select implementationType;
+                    var implementations = concreteTypes.Where(implementationType => localType.GetTypeInfo().IsAssignableFrom(implementationType)).ToList();
 
                     if (implementations.Skip(1).Any())
                     {
@@ -2689,6 +2689,7 @@ namespace Unosquare.Swan.Runtime
                     }
 
                     var firstImplementation = implementations.FirstOrDefault();
+
                     if (firstImplementation != null)
                     {
                         try
@@ -2756,7 +2757,7 @@ namespace Unosquare.Swan.Runtime
 
         private void RegisterDefaultTypes()
         {
-            Register<DependencyContainer>(this);
+            Register(this);
 
             // Only register the TinyMessenger singleton if we are the root container
             if (_Parent == null)
@@ -2805,8 +2806,8 @@ namespace Unosquare.Swan.Runtime
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
 
-            Type checkType = registration.Type;
-            string name = registration.Name;
+            var checkType = registration.Type;
+            var name = registration.Name;
 
             ObjectFactoryBase factory;
             if (_RegisteredTypes.TryGetValue(new TypeRegistration(checkType, name), out factory))
@@ -2842,7 +2843,7 @@ namespace Unosquare.Swan.Runtime
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.Fail)
                 return _Parent?.CanResolveInternal(registration, parameters, options) ?? false;
 
-            // Attemped unnamed fallback container resolution if relevant and requested
+            // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution)
             {
                 if (_RegisteredTypes.TryGetValue(new TypeRegistration(checkType), out factory))
