@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -146,6 +145,5 @@
             var output = new List<T>(items);
             return output.ToArray();
         }
-
     }
 }

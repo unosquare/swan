@@ -160,7 +160,9 @@ namespace Unosquare.Swan.Utilities
                 if (response.IsSuccessStatusCode == false)
                     throw new Exception($"Error Authenticating. Status code: {response.StatusCode}");
 
-                return JsonFormatter.Deserialize(await response.Content.ReadAsStringAsync());
+                var jsonPayload = await response.Content.ReadAsStringAsync();
+
+                return JsonFormatter.Deserialize(jsonPayload);
             }
         }
 
