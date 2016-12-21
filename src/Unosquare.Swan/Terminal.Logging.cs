@@ -11,7 +11,8 @@
     /// <param name="utcDate">The UTC date.</param>
     /// <param name="source">The source.</param>
     /// <param name="message">The text.</param>
-    public delegate void OnMessageLoggedCallback(ulong sequence, LoggingMessageType messageType, DateTime utcDate, string source, string message);
+    /// <param name="ex">The optional exception.</param>
+    public delegate void OnMessageLoggedCallback(ulong sequence, LoggingMessageType messageType, DateTime utcDate, string source, string message, Exception ex);
 
     partial class Terminal
     {
@@ -23,7 +24,8 @@
         /// <param name="messageType">Type of the message.</param>
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
-        private static void LogMessage(LoggingMessageType messageType, string text, string source)
+        /// <param name="ex">The optional exception.</param>
+        private static void LogMessage(LoggingMessageType messageType, string text, string source, Exception ex)
         {
             lock (SyncLock)
             {
@@ -72,11 +74,8 @@
                 if (Settings.OnMessageLogged != null)
                     Task.Factory.StartNew(() =>
                     {
-                        try { Settings.OnMessageLogged?.Invoke(sequence, messageType, date, source, output); }
-                        catch
-                        {
-                            // ignored
-                        }
+                        try { Settings.OnMessageLogged?.Invoke(sequence, messageType, date, source, output, ex); }
+                        catch { }
                     });
 
                 // Enqueue the message to the console (out or error)
@@ -91,39 +90,61 @@
         /// <summary>
         /// Logs a debug message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
-        public static void Debug(this string text)
+        /// <param name="message">The text.</param>
+        public static void Debug(this string message)
         {
-            LogMessage(LoggingMessageType.Debug, text, null);
+            LogMessage(LoggingMessageType.Debug, message, null, null);
         }
 
         /// <summary>
         /// Logs a debug message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
+        /// <param name="message">The message.</param>
         /// <param name="source">The source.</param>
-        public static void Debug(this string text, string source)
+        public static void Debug(this string message, string source)
         {
-            LogMessage(LoggingMessageType.Debug, text, source);
+            LogMessage(LoggingMessageType.Debug, message, source, null);
+        }
+
+        /// <summary>
+        /// Logs a debug message to the console
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        public static void Debug(this Exception ex, string source, string message)
+        {
+            LogMessage(LoggingMessageType.Debug, message, source, ex);
         }
 
         /// <summary>
         /// Logs a trace message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
-        public static void Trace(this string text)
+        /// <param name="message">The text.</param>
+        public static void Trace(this string message)
         {
-            LogMessage(LoggingMessageType.Trace, text, null);
+            LogMessage(LoggingMessageType.Trace, message, null, null);
         }
 
         /// <summary>
         /// Logs a trace message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
+        /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
-        public static void Trace(this string text, string source)
+        public static void Trace(this string message, string source)
         {
-            LogMessage(LoggingMessageType.Trace, text, source);
+            LogMessage(LoggingMessageType.Trace, message, source, null);
+        }
+
+        /// <summary>
+        /// Logs a trace message to the console
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        public static void Trace(this Exception ex, string source, string message)
+        {
+            LogMessage(LoggingMessageType.Trace, message, source, ex);
         }
 
         /// <summary>
@@ -132,7 +153,7 @@
         /// <param name="text">The text.</param>
         public static void Warn(this string text)
         {
-            LogMessage(LoggingMessageType.Warning, text, null);
+            LogMessage(LoggingMessageType.Warning, text, null, null);
         }
 
         /// <summary>
@@ -142,7 +163,18 @@
         /// <param name="source">The source.</param>
         public static void Warn(this string text, string source)
         {
-            LogMessage(LoggingMessageType.Warning, text, source);
+            LogMessage(LoggingMessageType.Warning, text, source, null);
+        }
+
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        public static void Warn(this Exception ex, string source, string message)
+        {
+            LogMessage(LoggingMessageType.Warning, message, source, ex);
         }
 
         /// <summary>
@@ -151,7 +183,7 @@
         /// <param name="text">The text.</param>
         public static void Info(this string text)
         {
-            LogMessage(LoggingMessageType.Info, text, null);
+            LogMessage(LoggingMessageType.Info, text, null, null);
         }
 
         /// <summary>
@@ -161,7 +193,18 @@
         /// <param name="source">The source.</param>
         public static void Info(this string text, string source)
         {
-            LogMessage(LoggingMessageType.Info, text, source);
+            LogMessage(LoggingMessageType.Info, text, source, null);
+        }
+
+        /// <summary>
+        /// Logs an info message to the console
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        public static void Info(this Exception ex, string source, string message)
+        {
+            LogMessage(LoggingMessageType.Info, message, source, ex);
         }
 
         /// <summary>
@@ -170,7 +213,7 @@
         /// <param name="text">The text.</param>
         public static void Error(this string text)
         {
-            LogMessage(LoggingMessageType.Error, text, null);
+            LogMessage(LoggingMessageType.Error, text, null, null);
         }
 
         /// <summary>
@@ -180,7 +223,18 @@
         /// <param name="source">The source.</param>
         public static void Error(this string text, string source)
         {
-            LogMessage(LoggingMessageType.Error, text, source);
+            LogMessage(LoggingMessageType.Error, text, source, null);
+        }
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        public static void Error(this Exception ex, string source, string message)
+        {
+            LogMessage(LoggingMessageType.Error, message, source, ex);
         }
     }
 }

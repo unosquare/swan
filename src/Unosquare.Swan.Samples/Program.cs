@@ -49,6 +49,9 @@
             var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
             var txtRecords = Network.QueryDns("unosquare.com", DnsRecordType.TXT);
 
+            var mxResult = Stringifier.Stringify(mxRecords, true);
+            var jsonMxResult = JsonFormatter.Serialize(mxRecords);
+
             var ntpServer = "time.windows.com";
             var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
 

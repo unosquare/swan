@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Formatters
 {
+    using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -205,5 +206,196 @@
         }
 
         #endregion
+    }
+
+
+    public class Stringifier
+    {
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+
+        private int Indentation = 0;
+        private bool OutputIndented = true;
+
+        private readonly StringBuilder Output = new StringBuilder();
+        private object Target = null;
+        private Type TargetType = null;
+
+        private Stringifier(object target, int indentation)
+        {
+            Indentation = indentation;
+            OutputIndented = indentation >= 0;
+
+            Target = target;
+            if (Target != null)
+                TargetType = target.GetType();
+            BuildOutput();
+        }
+
+        private string IndentationString
+        {
+            get
+            {
+                if (Indentation <= 0 || OutputIndented == false) return string.Empty;
+                return new string(' ', Indentation * 4);
+            }
+        }
+
+        private void Append(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return;
+
+            var line = $"{IndentationString}{text}";
+            //line = line.TrimEnd('\r', 'n', ' ').TrimStart('\r','\n');
+            Output.Append(line);
+        }
+
+        private void AppendLine()
+        {
+            if (Indentation < 0 || OutputIndented == false)
+                return;
+
+            Output.AppendLine();
+        }
+
+        private void BuildOutput()
+        {
+            // handle nulls
+            if (Target == null)
+            {
+                Indentation = 0;
+                OutputIndented = false;
+                Append("null");
+                return;
+            }
+
+            // handle simple types
+            if (Constants.BasicTypesInfo.ContainsKey(TargetType))
+            {
+                Indentation = 0;
+                OutputIndented = false;
+                Append($"\"{Constants.BasicTypesInfo[TargetType].ToStringInvariant(Target).RemoveControlChars()}\"");
+                return;
+            }
+
+            // handle dictionaries
+            if (Target is IDictionary)
+            {
+                var dictionary = Target as IDictionary;
+                if (dictionary.Count == 0)
+                {
+                    OutputIndented = false;
+                    Append("{}");
+                    return;
+                }
+
+                AppendLine();
+                Append("{");
+                AppendLine();
+
+                Indentation++;
+                var index = 0;
+                foreach (DictionaryEntry entry in dictionary)
+                {
+
+                    Append($"\"{entry.Key.ToString().RemoveControlChars()}\": {Stringify(entry.Value, Indentation)}");
+
+                    if (index < dictionary.Count - 1)
+                    {
+                        Output.Append(",");
+                        AppendLine();
+                    }
+
+
+                    index++;
+                }
+
+                Indentation--;
+
+                AppendLine();
+                Append("}");
+                return;
+            }
+
+            // for IEnumerables
+            if (Target is IEnumerable)
+            {
+                var enumerable = Target as IEnumerable;
+                var items = enumerable.Cast<object>().ToArray();
+
+                if (items.Length == 0)
+                {
+                    OutputIndented = false;
+                    Append("[]");
+                    return;
+                }
+
+
+                AppendLine();
+                Append("[");
+                AppendLine();
+
+                Indentation++;
+                var index = 0;
+                foreach (var item in items)
+                {
+                    Append($"{Stringify(item, Indentation)}");
+
+                    if (index < items.Length - 1)
+                    {
+                        Output.Append(",");
+                        AppendLine();
+                    }
+
+                    index++;
+
+                }
+                Indentation--;
+
+                AppendLine();
+                Append("]");
+                return;
+            }
+
+            // Handle all other object types
+            var objectDictionary = new Dictionary<string, object>();
+            var properties = TypeCache.Retrieve(TargetType, () =>
+            {
+                return
+                TargetType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.CanRead).ToArray();
+            });
+
+            foreach (var property in properties)
+            {
+                objectDictionary[property.Name] = property.GetValue(Target);
+            }
+
+            if (objectDictionary.Count > 0)
+            {
+                Append($"{Stringify(objectDictionary, Indentation)}");
+            }
+            else
+            {
+                Indentation = -1;
+                OutputIndented = false;
+                Append($"{Stringify(Target.ToString(), Indentation)}");
+            }
+
+
+        }
+
+        static private string Stringify(object obj, int indentation)
+        {
+            var stringifier = new Stringifier(obj, indentation);
+            return stringifier.Output.ToString();
+        }
+
+        static public string Stringify(object obj, bool indent = true)
+        {
+            var stringifier = new Stringifier(obj, indent ? 0 : -1);
+            return stringifier.Output.ToString();
+        }
+
     }
 }

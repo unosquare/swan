@@ -152,7 +152,7 @@
                     }
                 }
 
-                if (sb.Length > 0)
+                if (sb.Length > 2)
                     sb.Remove(sb.Length - 2, 2);
 
                 sb.Append(FinalObjectCharacter);
