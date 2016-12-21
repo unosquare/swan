@@ -92,7 +92,7 @@
         /// <value>
         /// The answer records.
         /// </value>
-        public IList<DnsRecord> AnswerRecords => m_AnswerRecords;
+        public IList<DnsRecord> AnswerRecords { get { return m_AnswerRecords; } }
 
         /// <summary>
         /// Gets the additional records.
@@ -100,7 +100,7 @@
         /// <value>
         /// The additional records.
         /// </value>
-        public IList<DnsRecord> AdditionalRecords => m_AdditionalRecords;
+        public IList<DnsRecord> AdditionalRecords { get { return m_AdditionalRecords; } }
 
         /// <summary>
         /// Gets the authority records.
@@ -108,6 +108,6 @@
         /// <value>
         /// The authority records.
         /// </value>
-        public IList<DnsRecord> AuthorityRecords => m_AuthorityRecords;
+        public IList<DnsRecord> AuthorityRecords { get { return m_AuthorityRecords; } }
     }
 }

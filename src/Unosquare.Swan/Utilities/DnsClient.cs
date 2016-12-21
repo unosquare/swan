@@ -18,13 +18,11 @@
 
         public DnsClient(IPAddress ip, int port = Constants.DnsDefaultPort, IDnsRequestResolver resolver = null) :
             this(new IPEndPoint(ip, port), resolver)
-        {
-        }
+        { }
 
         public DnsClient(string ip, int port = Constants.DnsDefaultPort, IDnsRequestResolver resolver = null) :
             this(IPAddress.Parse(ip), port, resolver)
-        {
-        }
+        { }
 
         public DnsClientRequest FromArray(byte[] message)
         {
@@ -74,7 +72,7 @@
                 throw new DnsQueryException(response, "No matching records");
             }
 
-            return ((DnsPointerResourceRecord) ptr).PointerDomainName.ToString();
+            return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
         }
 
         public DnsClientResponse Resolve(string domain, DnsRecordType type)
@@ -94,4 +92,5 @@
             return request.Resolve();
         }
     }
+
 }

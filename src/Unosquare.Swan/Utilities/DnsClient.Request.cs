@@ -14,14 +14,16 @@
     {
         public class DnsClientRequest : IDnsRequest
         {
-            private readonly IDnsRequestResolver resolver;
-            private readonly IDnsRequest request;
+
+            private IPEndPoint dns;
+            private IDnsRequestResolver resolver;
+            private IDnsRequest request;
 
             public DnsClientRequest(IPEndPoint dns, IDnsRequest request = null, IDnsRequestResolver resolver = null)
             {
-                this.Dns = dns;
+                this.dns = dns;
                 this.request = request == null ? new DnsRequest() : new DnsRequest(request);
-                this.resolver = resolver ?? new DnsUdpRequestResolver();
+                this.resolver = resolver == null ? new DnsUdpRequestResolver() : resolver;
             }
 
             public DnsClientRequest(IPAddress ip, int port = Constants.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
@@ -50,9 +52,15 @@
                 set { request.RecursionDesired = value; }
             }
 
-            public IList<DnsQuestion> Questions => request.Questions;
+            public IList<DnsQuestion> Questions
+            {
+                get { return request.Questions; }
+            }
 
-            public int Size => request.Size;
+            public int Size
+            {
+                get { return request.Size; }
+            }
 
             public byte[] ToArray()
             {
@@ -64,7 +72,11 @@
                 return request.ToString();
             }
 
-            public IPEndPoint Dns { get; set; }
+            public IPEndPoint Dns
+            {
+                get { return dns; }
+                set { dns = value; }
+            }
 
             /// <summary>
             /// Resolves this request into a response using the provided DNS information. The given
@@ -78,7 +90,7 @@
             {
                 try
                 {
-                    var response = resolver.Request(this);
+                    DnsClientResponse response = resolver.Request(this);
 
                     if (response.Id != this.Id)
                     {
@@ -102,11 +114,12 @@
         {
             private static readonly Random RANDOM = new Random();
 
+            private IList<DnsQuestion> questions;
             private DnsHeader header;
 
             public static DnsRequest FromArray(byte[] message)
             {
-                var header = DnsHeader.FromArray(message);
+                DnsHeader header = DnsHeader.FromArray(message);
 
                 if (header.Response || header.QuestionCount == 0 ||
                         header.AdditionalRecordCount + header.AnswerRecordCount + header.AuthorityRecordCount > 0 ||
@@ -122,24 +135,23 @@
             public DnsRequest(DnsHeader header, IList<DnsQuestion> questions)
             {
                 this.header = header;
-                this.Questions = questions;
+                this.questions = questions;
             }
 
             public DnsRequest()
             {
-                this.Questions = new List<DnsQuestion>();
-                this.header = new DnsHeader
-                {
-                    OperationCode = DnsOperationCode.Query,
-                    Response = false,
-                    Id = RANDOM.Next(UInt16.MaxValue)
-                };
+                this.questions = new List<DnsQuestion>();
+                this.header = new DnsHeader();
+
+                this.header.OperationCode = DnsOperationCode.Query;
+                this.header.Response = false;
+                this.header.Id = RANDOM.Next(UInt16.MaxValue);
             }
 
             public DnsRequest(IDnsRequest request)
             {
                 this.header = new DnsHeader();
-                this.Questions = new List<DnsQuestion>(request.Questions);
+                this.questions = new List<DnsQuestion>(request.Questions);
 
                 this.header.Response = false;
 
@@ -148,11 +160,14 @@
                 RecursionDesired = request.RecursionDesired;
             }
 
-            public IList<DnsQuestion> Questions { get; }
+            public IList<DnsQuestion> Questions
+            {
+                get { return questions; }
+            }
 
             public int Size
             {
-                get { return header.Size + Questions.Sum(q => q.Size); }
+                get { return header.Size + questions.Sum(q => q.Size); }
             }
 
             public int Id
@@ -180,7 +195,7 @@
 
                 result
                     .Append(header.ToArray())
-                    .Append(Questions.Select(q => q.ToArray()));
+                    .Append(questions.Select(q => q.ToArray()));
 
                 return result.ToArray();
             }
@@ -197,7 +212,7 @@
 
             private void UpdateHeader()
             {
-                header.QuestionCount = Questions.Count;
+                header.QuestionCount = questions.Count;
             }
         }
 
@@ -216,9 +231,7 @@
                     var length = BitConverter.GetBytes((ushort)buffer.Length);
 
                     if (BitConverter.IsLittleEndian)
-                    {
                         Array.Reverse(length);
-                    }
 
                     stream.Write(length, 0, length.Length);
                     stream.Write(buffer, 0, buffer.Length);
@@ -227,14 +240,12 @@
                     Read(stream, buffer);
 
                     if (BitConverter.IsLittleEndian)
-                    {
                         Array.Reverse(buffer);
-                    }
 
                     buffer = new byte[BitConverter.ToUInt16(buffer, 0)];
                     Read(stream, buffer);
 
-                    var response = DnsResponse.FromArray(buffer);
+                    DnsResponse response = DnsResponse.FromArray(buffer);
 
                     return new DnsClientResponse(request, response, buffer);
                 }
@@ -250,9 +261,9 @@
 
             private static void Read(Stream stream, byte[] buffer)
             {
-                var length = buffer.Length;
-                var offset = 0;
-                var size = 0;
+                int length = buffer.Length;
+                int offset = 0;
+                int size = 0;
 
                 while (length > 0 && (size = stream.Read(buffer, offset, length)) > 0)
                 {
@@ -269,7 +280,7 @@
 
         public class DnsUdpRequestResolver : IDnsRequestResolver
         {
-            private readonly IDnsRequestResolver fallback;
+            private IDnsRequestResolver fallback;
 
             public DnsUdpRequestResolver(IDnsRequestResolver fallback)
             {
@@ -303,7 +314,7 @@
                     } while (udp.Client.Available > 0 || bufferList.Count == 0);
 
                     var buffer = bufferList.ToArray();
-                    var response = DnsResponse.FromArray(buffer); //null;
+                    var response = DnsResponse.FromArray(buffer);
 
                     if (response.IsTruncated)
                     {
@@ -315,7 +326,7 @@
                 finally
                 {
 #if NET452
-                    udp.Close();
+                udp.Close();
 #else
                     udp.Dispose();
 #endif
@@ -349,6 +360,9 @@
             }
 
             private ushort id;
+
+            private byte flag0;
+            private byte flag1;
 
             // Question count: number of questions in the Question section
             private ushort qdCount;
@@ -434,7 +448,10 @@
                 set { RCode = (byte)value; }
             }
 
-            public int Size => DnsHeader.SIZE;
+            public int Size
+            {
+                get { return DnsHeader.SIZE; }
+            }
 
             public byte[] ToArray()
             {
@@ -505,14 +522,22 @@
                 set { Flag1 = Flag1.SetBitValueAt(0, 4, value); }
             }
 
-            private byte Flag0 { get; set; }
+            private byte Flag0
+            {
+                get { return flag0; }
+                set { flag0 = value; }
+            }
 
-            private byte Flag1 { get; set; }
+            private byte Flag1
+            {
+                get { return flag1; }
+                set { flag1 = value; }
+            }
         }
 
         public class DnsDomain : IComparable<DnsDomain>
         {
-            private readonly string[] labels;
+            private string[] labels;
 
             public static DnsDomain FromString(string domain)
             {
@@ -527,7 +552,7 @@
             public static DnsDomain FromArray(byte[] message, int offset, out int endOffset)
             {
                 IList<byte[]> labels = new List<byte[]>();
-                var endOffsetAssigned = false;
+                bool endOffsetAssigned = false;
                 endOffset = 0;
                 byte lengthOrPointer;
 
@@ -640,12 +665,16 @@
 
             public override bool Equals(object obj)
             {
+                if (obj == null)
+                {
+                    return false;
+                }
                 if (!(obj is DnsDomain))
                 {
                     return false;
                 }
 
-                return CompareTo((DnsDomain) obj) == 0;
+                return CompareTo(obj as DnsDomain) == 0;
             }
 
             public override int GetHashCode()
@@ -689,27 +718,43 @@
                 return new DnsQuestion(domain, tail.Type, tail.Class);
             }
 
+            private DnsDomain domain;
+            private DnsRecordType type;
+            private DnsRecordClass klass;
+
             public DnsQuestion(DnsDomain domain, DnsRecordType type = DnsRecordType.A, DnsRecordClass klass = DnsRecordClass.IN)
             {
-                this.Name = domain;
-                this.Type = type;
-                this.Class = klass;
+                this.domain = domain;
+                this.type = type;
+                this.klass = klass;
             }
 
-            public DnsDomain Name { get; }
+            public DnsDomain Name
+            {
+                get { return domain; }
+            }
 
-            public DnsRecordType Type { get; }
+            public DnsRecordType Type
+            {
+                get { return type; }
+            }
 
-            public DnsRecordClass Class { get; }
+            public DnsRecordClass Class
+            {
+                get { return klass; }
+            }
 
-            public int Size => Name.Size + Tail.SIZE;
+            public int Size
+            {
+                get { return domain.Size + Tail.SIZE; }
+            }
 
             public byte[] ToArray()
             {
                 var result = new MemoryStream(Size);
 
                 result
-                    .Append(Name.ToArray())
+                    .Append(domain.ToArray())
                     .Append((new Tail { Type = Type, Class = Class }).ToBytes());
 
                 return result.ToArray();

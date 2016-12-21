@@ -43,7 +43,7 @@
             var privateIPs = Network.GetIPv4Addresses(false);
             var publicIP = Network.GetPublicIPAddress();
 
-            var dnsLookup = Network.GetDnsHostEntry("google.com", System.Net.IPAddress.Parse("172.16.16.1"), Constants.DnsDefaultPort);
+            var dnsLookup = Network.GetDnsHostEntry(domainName);
             var ptrRecord = Network.GetDnsPointerEntry(publicIP);
 
             var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
