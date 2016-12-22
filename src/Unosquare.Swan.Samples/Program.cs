@@ -52,7 +52,13 @@
             //var mxResult = Stringifier.Stringify(mxRecords, true);
             //var jsonMxResult = JsonFormatter.Serialize(mxRecords);
             var exResult = JsonEx.SerializeOnly(mxRecords, true, nameof(DnsQueryResult.AnswerRecords), nameof(DnsQueryResult.Id));
-            exResult = JsonEx.Serialize(mxRecords, false);
+
+            var serializeDelay = new Action(() => {
+                exResult = JsonEx.Serialize(mxRecords, true);
+            }).Benchmark();
+
+            $"Serialization took: {serializeDelay.TotalMilliseconds} ms for {exResult.Length} characters.".Warn(nameof(JsonEx));
+
             var ntpServer = "time.windows.com";
             var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
 
