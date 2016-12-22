@@ -558,8 +558,8 @@ namespace Unosquare.Swan.Runtime
 
         private class SubscriptionItem
         {
-            public IMessageHubProxy Proxy { get; private set; }
-            public IMessageHubSubscription Subscription { get; private set; }
+            public IMessageHubProxy Proxy { get; }
+            public IMessageHubSubscription Subscription { get; }
 
             public SubscriptionItem(IMessageHubProxy proxy, IMessageHubSubscription subscription)
             {

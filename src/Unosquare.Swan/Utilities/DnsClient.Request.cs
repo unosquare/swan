@@ -14,7 +14,6 @@
     {
         public class DnsClientRequest : IDnsRequest
         {
-
             private IPEndPoint dns;
             private IDnsRequestResolver resolver;
             private IDnsRequest request;
@@ -52,15 +51,9 @@
                 set { request.RecursionDesired = value; }
             }
 
-            public IList<DnsQuestion> Questions
-            {
-                get { return request.Questions; }
-            }
+            public IList<DnsQuestion> Questions => request.Questions;
 
-            public int Size
-            {
-                get { return request.Size; }
-            }
+            public int Size => request.Size;
 
             public byte[] ToArray()
             {
@@ -90,7 +83,7 @@
             {
                 try
                 {
-                    DnsClientResponse response = resolver.Request(this);
+                    var response = resolver.Request(this);
 
                     if (response.Id != this.Id)
                     {
@@ -119,7 +112,7 @@
 
             public static DnsRequest FromArray(byte[] message)
             {
-                DnsHeader header = DnsHeader.FromArray(message);
+                var header = DnsHeader.FromArray(message);
 
                 if (header.Response || header.QuestionCount == 0 ||
                         header.AdditionalRecordCount + header.AnswerRecordCount + header.AuthorityRecordCount > 0 ||
@@ -160,10 +153,7 @@
                 RecursionDesired = request.RecursionDesired;
             }
 
-            public IList<DnsQuestion> Questions
-            {
-                get { return questions; }
-            }
+            public IList<DnsQuestion> Questions => questions;
 
             public int Size
             {
@@ -242,7 +232,7 @@
                     buffer = new byte[BitConverter.ToUInt16(buffer, 0)];
                     Read(stream, buffer);
 
-                    DnsResponse response = DnsResponse.FromArray(buffer);
+                    var response = DnsResponse.FromArray(buffer);
 
                     return new DnsClientResponse(request, response, buffer);
                 }
@@ -258,9 +248,9 @@
 
             private static void Read(Stream stream, byte[] buffer)
             {
-                int length = buffer.Length;
-                int offset = 0;
-                int size = 0;
+                var length = buffer.Length;
+                var offset = 0;
+                var size = 0;
 
                 while (length > 0 && (size = stream.Read(buffer, offset, length)) > 0)
                 {
@@ -445,10 +435,7 @@
                 set { RCode = (byte)value; }
             }
 
-            public int Size
-            {
-                get { return DnsHeader.SIZE; }
-            }
+            public int Size => DnsHeader.SIZE;
 
             public byte[] ToArray()
             {
@@ -546,7 +533,7 @@
             public static DnsDomain FromArray(byte[] message, int offset, out int endOffset)
             {
                 IList<byte[]> labels = new List<byte[]>();
-                bool endOffsetAssigned = false;
+                var endOffsetAssigned = false;
                 endOffset = 0;
                 byte lengthOrPointer;
 
@@ -723,25 +710,13 @@
                 this.klass = klass;
             }
 
-            public DnsDomain Name
-            {
-                get { return domain; }
-            }
+            public DnsDomain Name => domain;
 
-            public DnsRecordType Type
-            {
-                get { return type; }
-            }
+            public DnsRecordType Type => type;
 
-            public DnsRecordClass Class
-            {
-                get { return klass; }
-            }
+            public DnsRecordClass Class => klass;
 
-            public int Size
-            {
-                get { return domain.Size + Tail.SIZE; }
-            }
+            public int Size => domain.Size + Tail.SIZE;
 
             public byte[] ToArray()
             {
@@ -782,7 +757,5 @@
                 }
             }
         }
-
-
     }
 }

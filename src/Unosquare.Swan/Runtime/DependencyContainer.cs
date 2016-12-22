@@ -2052,7 +2052,7 @@ namespace Unosquare.Swan.Runtime
             /// <summary>
             /// Constructor to use, if specified
             /// </summary>
-            public ConstructorInfo Constructor { get; protected set; }
+            public ConstructorInfo Constructor { get; private set; }
 
             /// <summary>
             /// Create the type
