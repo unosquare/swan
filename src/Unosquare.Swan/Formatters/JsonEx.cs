@@ -14,6 +14,29 @@
     /// </summary>
     public class JsonEx
     {
+        #region Constants 
+
+        private const char OpenObjectChar = '{';
+        private const char CloseObjectChar = '}';
+
+        private const char OpenArrayChar = '[';
+        private const char CloseArrayChar = ']';
+
+        private const char FieldSeparatorChar = ',';
+        private const char ValueSeparatorChar = ':';
+
+        private const char StringEscapeChar = '\\';
+        private const char StringQuotedChar = '"';
+        private const char MinusNumberChar = '-';
+
+        private const string EmptyObjectValue = "{ }";
+        private const string EmtpyArrayValue = "[ ]";
+        private const string TrueValue = "true";
+        private const string FalseValue = "false";
+        private const string NullValue = "null";
+
+        #endregion
+
         #region Private Declarations
 
         private static readonly Dictionary<int, string> IndentStrings = new Dictionary<int, string>();
@@ -32,6 +55,8 @@
 
         private JsonEx(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties)
         {
+            #region Property Settings
+
             if (includeProperties != null && includeProperties.Length > 0)
                 IncludeProperties.AddRange(includeProperties);
 
@@ -40,152 +65,194 @@
 
             Format = format;
 
-            #region Basic Type Handling
+            #endregion
+
+            #region Basic Type Handling (nulls, strings and bools)
 
             if (obj == null)
             {
-                Result = depth == 0 ? "{ }" : "null";
-
+                Result = depth == 0 ? EmptyObjectValue : NullValue;
                 return;
             }
+
+            if (obj is string)
+            {
+                Result = $"\"{Escape(obj as string)}\"";
+                return;
+            }
+
+            if (obj is bool)
+            {
+                Result = ((bool)obj) ? TrueValue : FalseValue;
+                return;
+            }
+
+            #endregion
+
+            #region Extended Type Handling (numbers and other fundamental types)
 
             var target = obj;
             TargetType = obj.GetType();
 
-            if (obj is string || Constants.BasicTypesInfo.ContainsKey(TargetType))
+            if (Constants.BasicTypesInfo.ContainsKey(TargetType))
             {
-                var value = Escape(Constants.BasicTypesInfo[TargetType].ToStringInvariant(target));
+                var literalValue = Escape(Constants.BasicTypesInfo[TargetType].ToStringInvariant(target));
                 decimal val;
-                bool boolVal;
 
-                if (decimal.TryParse(value, out val))
-                    Result = $"{value}";
-                else if (bool.TryParse(value, out boolVal))
-                    Result = boolVal.ToString().ToLowerInvariant();
+                if (decimal.TryParse(literalValue, out val))
+                    Result = $"{literalValue}";
                 else
-                    Result = $"\"{Escape(value)}\"";
+                    Result = $"{StringQuotedChar}{Escape(literalValue)}{StringQuotedChar}";
 
                 return;
             }
 
-            #endregion
-
+            // At this point, we will need to construct the object with a stringbuilder.
             Builder = new StringBuilder();
 
-            #region Dictionaries
-
-            if (target is IDictionary)
-            {
-                var items = target as IDictionary;
-
-                Append("{", depth);
-
-                if (items.Count > 0)
-                    AppendLine();
-
-                foreach (DictionaryEntry entry in items)
-                {
-                    Append($"\"{Escape(entry.Key.ToString())}\": ", depth + 1);
-
-                    var serializedValue = Serialize(entry.Value, depth + 1, Format, includeProperties, excludeProperties);
-                    if (IsSetOpening(serializedValue))
-                        AppendLine();
-
-                    Append(Serialize(entry.Value, depth + 1, Format, includeProperties, excludeProperties), 0);
-
-                    Append(",", 0);
-                    AppendLine();
-                }
-
-                RemoveLastComma(format);
-
-                Append("}", items.Count > 0 ? depth : 0);
-                Result = Builder.ToString();
-                return;
-            }
-
             #endregion
 
-            #region Enumerables
-
-            if (target is IEnumerable)
+            #region Dictionary Type Handling (IDictionary)
             {
-                if (target is byte[])
+                if (target is IDictionary)
                 {
-                    Result = Serialize((target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties);
-                    return;
-                }
+                    // Cast the items as an IDictionary
+                    var items = target as IDictionary;
 
-                Append("[", depth);
-                var items = (target as IEnumerable).Cast<object>().ToArray();
-
-                if (items.Length > 0)
-                    AppendLine();
-
-                foreach (var entry in items)
-                {
-                    var serializedValue = Serialize(entry, depth + 1, Format, includeProperties, excludeProperties);
-
-                    if (IsSetOpening(serializedValue))
+                    // Append the start of an object or empty object
+                    if (items.Count > 0)
                     {
-                        Append(serializedValue, 0);
+                        Append(OpenObjectChar, depth);
+                        AppendLine();
                     }
                     else
                     {
-                        Append(serializedValue, depth + 1);
+                        Result = EmptyObjectValue;
+                        return;
                     }
 
-                    Append(",", 0);
-                    AppendLine();
+                    // Iterate through the elements and output recursively
+                    var writeCount = 0;
+                    foreach (DictionaryEntry entry in items)
+                    {
+                        // Serialize and append the key
+                        Append($"{StringQuotedChar}{Escape(entry.Key.ToString())}{StringQuotedChar}{ValueSeparatorChar} ", depth + 1);
+
+                        // Serialize and append the value
+                        var serializedValue = Serialize(entry.Value, depth + 1, Format, includeProperties, excludeProperties);
+                        if (IsSetOpening(serializedValue)) AppendLine();
+                        Append(serializedValue, 0);
+
+                        // Add a comma and start a new line -- We will remove the last one when we are done writing the elements
+                        Append(FieldSeparatorChar, 0);
+                        AppendLine();
+                        writeCount++;
+                    }
+
+                    // Output the end of the object and set the result
+                    RemoveLastComma();
+                    Append(CloseObjectChar, writeCount > 0 ? depth : 0);
+                    Result = Builder.ToString();
+                    return;
                 }
-
-                RemoveLastComma(format);
-
-                Append("]", items.Length > 0 ? depth : 0);
-                Result = Builder.ToString();
-                return;
             }
 
             #endregion
 
-            #region Other Object Types
-
-            // Handle all other object types
-            var objectDictionary = new Dictionary<string, object>();
-            var properties = TypeCache.Retrieve(TargetType, () =>
+            #region Enumerable Type Handling (IEnumerable)
             {
-                return
-                TargetType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanRead).ToArray();
-            });
-
-            // Only include selected properties
-            if (IncludeProperties.Count > 0)
-                properties = properties.Where(p => IncludeProperties.Contains(p.Name)).ToArray();
-
-            foreach (var property in properties)
-            {
-                // Remove excluded properties
-                if (ExcludeProperties.Contains(property.Name))
-                    continue;
-
-                try { objectDictionary[property.Name] = property.GetValue(target); }
-                catch
+                if (target is IEnumerable)
                 {
-                    // ignored
+                    // Special byte array handling
+                    if (target is byte[])
+                    {
+                        Result = Serialize((target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties);
+                        return;
+                    }
+
+                    // Cast the items as a generic object array
+                    var items = (target as IEnumerable).Cast<object>().ToArray();
+
+                    // Append the start of an array or empty array
+                    if (items.Length > 0)
+                    {
+                        Append(OpenArrayChar, depth);
+                        AppendLine();
+                    }
+                    else
+                    {
+                        Result = EmtpyArrayValue;
+                        return;
+                    }
+
+                    // Iterate through the elements and output recursively
+                    var writeCount = 0;
+                    foreach (var entry in items)
+                    {
+                        var serializedValue = Serialize(entry, depth + 1, Format, includeProperties, excludeProperties);
+
+                        if (IsSetOpening(serializedValue))
+                        {
+                            Append(serializedValue, 0);
+                        }
+                        else
+                        {
+                            Append(serializedValue, depth + 1);
+                        }
+
+                        Append(FieldSeparatorChar, 0);
+                        AppendLine();
+                        writeCount++;
+                    }
+
+                    // Output the end of the array and set the result
+                    RemoveLastComma();
+                    Append(CloseArrayChar, writeCount > 0 ? depth : 0);
+                    Result = Builder.ToString();
+                    return;
                 }
             }
 
-            // Multi-property 
-            if (objectDictionary.Count > 0)
-            {
-                Result = Serialize(objectDictionary, depth, Format, includeProperties, excludeProperties);
-            }
-            else
-            {
-                Result = Serialize(target.ToString(), 0, Format, includeProperties, excludeProperties);
-            }
+            #endregion
 
+            #region All Other Types Handling
+            {
+                // If we arrive here, then we convert the object into a 
+                // dictionary of property names and values and call the serialization
+                // function again
+
+                // Create the dictionary and extract the properties
+                var objectDictionary = new Dictionary<string, object>();
+                var properties = TypeCache.Retrieve(TargetType, () =>
+                {
+                    return
+                    TargetType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(p => p.CanRead).ToArray();
+                });
+
+                // If we set the included properties, then we remove everything that is not listed
+                if (IncludeProperties.Count > 0)
+                    properties = properties.Where(p => IncludeProperties.Contains(p.Name)).ToArray();
+
+                foreach (var property in properties)
+                {
+                    // Skip over the excluded properties
+                    if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(property.Name))
+                        continue;
+
+                    // Build the dictionary using property names and values
+                    try { objectDictionary[property.Name] = property.GetValue(target); }
+                    catch { /* ignored */ }
+                }
+
+                // At this point we either have a dictionary with or without properties
+                // If we have at least one property then we send it through the serialization method
+                // If we don't have any properties we simply call its tostring method and serialize as string
+                if (objectDictionary.Count > 0)
+                    Result = Serialize(objectDictionary, depth, Format, includeProperties, excludeProperties);
+                else
+                    Result = Serialize(target.ToString(), 0, Format, includeProperties, excludeProperties);
+            }
             #endregion
         }
 
@@ -212,31 +279,37 @@
 
         private static bool IsSetOpening(string serialized)
         {
+            // find the first position the character is not a space
             var startTextIndex = serialized.TakeWhile(c => c == ' ').Count();
 
-            var indent = startTextIndex > 0 ? new string(' ', startTextIndex) : string.Empty;
-
-            var openingObject = indent + "{";
-            var openingArray = indent + "[";
-
-            return serialized.StartsWith(openingObject) || serialized.StartsWith(openingArray);
+            // If the position is opening braces or brackets, then we have an
+            // opening set.
+            return serialized[startTextIndex] == OpenObjectChar
+                || serialized[startTextIndex] == OpenArrayChar;
         }
 
-        private void  RemoveLastComma(bool format)
+        private bool  RemoveLastComma()
         {
-            var search = "," + (format ? Environment.NewLine : "");
+            var search = FieldSeparatorChar + (Format ? Environment.NewLine : string.Empty);
 
             if (Builder.Length < search.Length)
-                return;
+                return false;
 
             for (var i = 0; i < search.Length; i++)
                 if (Builder[Builder.Length - search.Length + i] != search[i])
-                    return;
+                    return false;
 
+            // If we got this far, we simply remove the comma character
             Builder.Remove(Builder.Length - search.Length, 1);
+            return true;
         }
 
         private void Append(string text, int depth)
+        {
+            Builder.Append($"{GetIndent(depth)}{text}");
+        }
+
+        private void Append(char text, int depth)
         {
             Builder.Append($"{GetIndent(depth)}{text}");
         }
@@ -250,9 +323,7 @@
         private static string Escape(string s)
         {
             if (string.IsNullOrEmpty(s))
-            {
-                return "";
-            }
+                return string.Empty;
 
             var builder = new StringBuilder(s.Length * 2);
 

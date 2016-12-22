@@ -9,7 +9,7 @@
       "dependencies": {
         "Microsoft.NETCore.App": "1.1.0",
         "System.ComponentModel.TypeConverter": "4.3.0",
-        "System.Net.NetworkInformation": "4.3.0"
+        "System.Net.NetworkInformation": "4.1.0"
       }
     },
     "netstandard1.6": {
@@ -19,7 +19,7 @@
         "System.Diagnostics.Process": "4.3.0",
         "System.ComponentModel.Annotations": "4.3.0",
         "System.ComponentModel.TypeConverter": "4.3.0",
-        "System.Net.NetworkInformation": "4.3.0"
+        "System.Net.NetworkInformation": "4.1.0"
       }
     },
     "net452": {

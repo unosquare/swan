@@ -45,7 +45,7 @@ namespace Unosquare.Swan.Test
                     return true;
                 }));
 
-                webserver.RunAsync();
+                var task = webserver.RunAsync();
 
                 var data = await JsonClient.Authenticate(DefaultHttp, "admin", "password");
 
@@ -72,7 +72,7 @@ namespace Unosquare.Swan.Test
                     return true;
                 }));
 
-                webserver.RunAsync();
+                var task = webserver.RunAsync();
 
                 var data = await JsonClient.Post<BasicJson>(DefaultHttp, BasicJson.GetDefault());
 
@@ -93,7 +93,7 @@ namespace Unosquare.Swan.Test
                     return true;
                 }));
 
-                webserver.RunAsync();
+                var task = webserver.RunAsync();
 
                 var data = await JsonClient.Post(DefaultHttp, BasicJson.GetDefault(), AuthorizationToken);
 
@@ -118,7 +118,7 @@ namespace Unosquare.Swan.Test
                     return true;
                 }));
 
-                webserver.RunAsync();
+                var task = webserver.RunAsync();
 
                 await JsonClient.GetAsString(DefaultHttp, AuthorizationToken);
                 
@@ -130,6 +130,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task ThrowGetErrorTest()
         {
+            await Task.Delay(0);
             Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
                 await JsonClient.GetAsString(DefaultHttp);
