@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Unosquare.Swan.Abstractions;
 using Unosquare.Swan.Formatters;
@@ -13,7 +14,9 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            JsonEx.Serialize(new[] {1, 2, 3});
+            SettingsProvider<AppSettingMock>.Instance.ConfigurationFilePath = Path.GetTempFileName();
+            SettingsProvider<AppSettingMock>.Instance.ResetGlobalSettings();
+            var data = SettingsProvider<AppSettingMock>.Instance.Global.BackgroundImage;
 
             Terminal.ReadKey(true);
         }

@@ -53,8 +53,8 @@
                     m_Global = Activator.CreateInstance<T>();
                     PersistGlobalSettings();
                 }
-
-                m_Global = JsonFormatter.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                else
+                    m_Global = JsonFormatter.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
             }
         }
 

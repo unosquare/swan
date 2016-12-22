@@ -295,7 +295,7 @@
                                 currentValue.Clear();
                                 currentState = ReadState.WaitingForValue;
                             }
-                            else
+                            else if (currentChar != StringEscapeCharacter) // TODO: This need more work
                             {
                                 currentValue.Append(currentChar);
                             }
@@ -530,7 +530,7 @@
                             {
                                 currentState = ReadState.WaitingForNewField;
                             }
-                            else
+                            else if (currentChar != StringEscapeCharacter) // TODO: This need more work
                             {
                                 currentValue.Append(currentChar);
                             }

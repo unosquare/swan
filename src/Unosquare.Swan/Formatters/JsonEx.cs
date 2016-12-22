@@ -45,13 +45,7 @@
 
             if (obj == null)
             {
-                if (depth == 0)
-                {
-                    // TODO: This is tricky
-                    Result = obj is IEnumerable ? "[ ]" : "{ }";
-                }
-                else 
-                    Result = "null";
+                Result = depth == 0 ? "{ }" : "null";
 
                 return;
             }
@@ -261,13 +255,12 @@
                 return "";
             }
 
-            var currentChar = '\0';
             var builder = new StringBuilder(s.Length * 2);
             string escapeSequence;
 
             for (var i = 0; i < s.Length; i++)
             {
-                currentChar = s[i];
+                var currentChar = s[i];
                 switch (currentChar)
                 {
                     case '\\':
