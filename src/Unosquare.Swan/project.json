@@ -2,14 +2,14 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.9.6-*",
+  "version": "0.9.7-*",
   
   "frameworks": {
     "netcoreapp1.1": {
       "dependencies": {
         "Microsoft.NETCore.App": "1.1.0",
         "System.ComponentModel.TypeConverter": "4.3.0",
-        "System.Net.NetworkInformation": "4.1.0"
+        "System.Net.NetworkInformation": "4.3.0"
       }
     },
     "netstandard1.6": {
@@ -19,7 +19,7 @@
         "System.Diagnostics.Process": "4.3.0",
         "System.ComponentModel.Annotations": "4.3.0",
         "System.ComponentModel.TypeConverter": "4.3.0",
-        "System.Net.NetworkInformation": "4.1.0"
+        "System.Net.NetworkInformation": "4.3.0"
       }
     },
     "net452": {

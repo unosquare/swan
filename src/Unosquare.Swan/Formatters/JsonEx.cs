@@ -55,9 +55,13 @@
             if (obj is string || Constants.BasicTypesInfo.ContainsKey(TargetType))
             {
                 var value = Escape(Constants.BasicTypesInfo[TargetType].ToStringInvariant(Target));
-                decimal val = 0M;
+                decimal val;
+                bool boolVal;
+
                 if (decimal.TryParse(value, out val))
                     Result = $"{value}";
+                else if (bool.TryParse(value, out boolVal))
+                    Result = boolVal.ToString().ToLowerInvariant();
                 else
                     Result = $"\"{Escape(value)}\"";
 
@@ -106,8 +110,6 @@
 
             if (Target is IEnumerable)
             {
-                var items = (Target as IEnumerable).Cast<object>().ToArray();
-
                 if (Target is byte[])
                 {
                     Result = Serialize((Target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties);
@@ -115,6 +117,7 @@
                 }
 
                 Append("[", depth);
+                var items = (Target as IEnumerable).Cast<object>().ToArray();
 
                 if (items.Length > 0)
                     AppendLine();
@@ -122,6 +125,7 @@
                 foreach (var entry in items)
                 {
                     var serializedValue = Serialize(entry, depth + 1, Format, includeProperties, excludeProperties);
+
                     if (IsSetOpening(serializedValue))
                     {
                         Append(serializedValue, 0);
@@ -166,19 +170,20 @@
                     continue;
 
                 try { objectDictionary[property.Name] = property.GetValue(Target); }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
             }
 
             // Multi-property 
             if (objectDictionary.Count > 0)
             {
                 Result = Serialize(objectDictionary, depth, Format, includeProperties, excludeProperties);
-                return;
             }
             else
             {
                 Result = Serialize(Target.ToString(), 0, Format, includeProperties, excludeProperties);
-                return;
             }
 
             #endregion
@@ -222,10 +227,9 @@
             var openingArray = indent + "[";
 
             return serialized.StartsWith(openingObject) || serialized.StartsWith(openingArray);
-
         }
 
-        private void RemoveLastComma()
+        private void  RemoveLastComma()
         {
             var search = "," + Environment.NewLine;
 
@@ -252,7 +256,7 @@
 
         private static string Escape(string s)
         {
-            if (s == null || s.Length == 0)
+            if (string.IsNullOrEmpty(s))
             {
                 return "";
             }
@@ -303,8 +307,8 @@
                         break;
                 }
             }
-            return builder.ToString();
 
+            return builder.ToString();
         }
 
         #endregion

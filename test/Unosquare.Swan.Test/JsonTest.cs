@@ -21,17 +21,18 @@ namespace Unosquare.Swan.Test
             InnerChild = BasicJson.GetDefault()
         };
 
-        const string _basicStr =
-            "{\"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
+        private const string _basicStrWithoutWrap =
+            "\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null";
+        const string _basicStr = "{"+ _basicStrWithoutWrap + "}";
 
         const string _advStr =
-            "{\"InnerChild\" : " + _basicStr + ", \"StringData\" : \"string\", \"IntData\" : 1, \"NegativeInt\" : -1, \"DecimalData\" : 10.33, \"BoolData\" : true, \"StringNull\" : null}";
+            "{\"InnerChild\" : " + _basicStr + ", " + _basicStrWithoutWrap + "}";
 
         private readonly string[] _basicArray = { "One", "Two", "Three" };
-        private string _basicAStr = "[ \"One\",\"Two\",\"Three\" ]";
+        private string _basicAStr = "[\"One\",\"Two\",\"Three\"]";
 
         private readonly int[] _numericArray = { 1, 2, 3 };
-        private string _numericAStr = "[ 1,2,3 ]";
+        private string _numericAStr = "[1,2,3]";
 
         private readonly BasicArrayJson _basicAObj = new BasicArrayJson
         {
@@ -47,7 +48,7 @@ namespace Unosquare.Swan.Test
 
         private string _basicAObjStr = "{\"Id\" : 1, \"Properties\" : [ \"One\",\"Two\",\"Babu\" ]}";
 
-        private string _advAStr = "{\"Id\" : 1, \"Properties\" : [ " + _basicStr + "," + _basicStr + " ]}";
+        private string _advAStr = "{\"Id\": 1,\"Properties\": [" + _basicStr + "," + _basicStr + " ]}";
 
         private readonly List<ExtendedPropertyInfo> _arrayOfObj = new List<ExtendedPropertyInfo>
         {
@@ -61,7 +62,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeBasicObjectTest()
         {
-            var data = JsonFormatter.Serialize(BasicJson.GetDefault());
+            var data = JsonEx.Serialize(BasicJson.GetDefault());
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicStr, data);
@@ -84,7 +85,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeStringArrayTest()
         {
-            var data = JsonFormatter.Serialize(_basicArray);
+            var data = JsonEx.Serialize(_basicArray);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAStr, data);
@@ -93,7 +94,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeNumericArrayTest()
         {
-            var data = JsonFormatter.Serialize(_numericArray);
+            var data = JsonEx.Serialize(_numericArray);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_numericAStr, data);
@@ -110,7 +111,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeBasicObjectWithArrayTest()
         {
-            var data = JsonFormatter.Serialize(_basicAObj);
+            var data = JsonEx.Serialize(_basicAObj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAObjStr, data);
@@ -130,7 +131,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeArrayOfObjectsTest()
         {
-            var data = JsonFormatter.Serialize(_arrayOfObj);
+            var data = JsonEx.Serialize(_arrayOfObj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_arrayOfObjStr, data);
@@ -147,7 +148,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeAdvObjectTest()
         {
-            var data = JsonFormatter.Serialize(_advObj);
+            var data = JsonEx.Serialize(_advObj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_advStr, data);
@@ -175,7 +176,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeAdvObjectArrayTest()
         {
-            var data = JsonFormatter.Serialize(_advAObj);
+            var data = JsonEx.Serialize(_advAObj);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_advAStr, data);
@@ -204,19 +205,19 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeEmptyCollectionTest()
         {
-            Assert.AreEqual("[ ]", JsonFormatter.Serialize(null as IEnumerable));
+            Assert.AreEqual("[ ]", JsonEx.Serialize(null as IEnumerable));
         }
         
         [Test]
         public void SerializeEmptyObjectTest()
         {
-            Assert.AreEqual("{ }", JsonFormatter.Serialize(default(object)));
+            Assert.AreEqual("{ }", JsonEx.Serialize(default(object)));
         }
 
         [Test]
         public void SerializePrimitiveErrorTest()
         {
-            Assert.Throws<InvalidOperationException>(() => JsonFormatter.Serialize(1), "Throws exception serializing primitive");
+            Assert.Throws<InvalidOperationException>(() => JsonEx.Serialize(1), "Throws exception serializing primitive");
         }
         
         [Test]

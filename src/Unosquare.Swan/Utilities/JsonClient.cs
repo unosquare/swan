@@ -14,6 +14,8 @@ namespace Unosquare.Swan.Utilities
     /// </summary>
     public class JsonClient
     {
+        #region Methods
+
         /// <summary>
         /// Post a object as JSON with optional authorization token.
         /// </summary>
@@ -62,13 +64,9 @@ namespace Unosquare.Swan.Utilities
         public static async Task<string> PostAsString(string url, object payload, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
-            using (var httpClient = new HttpClient())
+            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                if (string.IsNullOrWhiteSpace(authorization) == false)
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
-
-                var payloadJson = new StringContent(JsonFormatter.Serialize(payload), Encoding.UTF8, "application/json");
+                var payloadJson = new StringContent(JsonEx.Serialize(payload), Encoding.UTF8, "application/json");
 
                 var response = await httpClient.PostAsync(url, payloadJson, ct);
 
@@ -126,13 +124,9 @@ namespace Unosquare.Swan.Utilities
         public static async Task<string> PutAsString(string url, object payload, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
-            using (var httpClient = new HttpClient())
+            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                if (string.IsNullOrWhiteSpace(authorization) == false)
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
-
-                var payloadJson = new StringContent(JsonFormatter.Serialize(payload), Encoding.UTF8, "application/json");
+                var payloadJson = new StringContent(JsonEx.Serialize(payload), Encoding.UTF8, "application/json");
 
                 var response = await httpClient.PutAsync(url, payloadJson, ct);
 
@@ -154,12 +148,8 @@ namespace Unosquare.Swan.Utilities
         public static async Task<string> GetAsString(string url, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
-            using (var httpClient = new HttpClient())
+            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                if (string.IsNullOrWhiteSpace(authorization) == false)
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
-
                 var response = await httpClient.GetAsync(url, ct);
 
                 if (response.IsSuccessStatusCode == false)
@@ -197,12 +187,8 @@ namespace Unosquare.Swan.Utilities
         public static async Task<byte[]> GetBinary(string url, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
-            using (var httpClient = new HttpClient())
+            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                if (string.IsNullOrWhiteSpace(authorization) == false)
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
-
                 var response = await httpClient.GetAsync(url, ct);
 
                 if (response.IsSuccessStatusCode == false)
@@ -251,5 +237,21 @@ namespace Unosquare.Swan.Utilities
         {
             return await Post<string>(url, new {Filename = fileName, Data = image}, authorization);
         }
+        #endregion
+
+        #region Private Methods
+
+        private static HttpClient GetHttpClientWithAuthorizationHeader(string authorization)
+        {
+            var httpClient = new HttpClient();
+
+            if (string.IsNullOrWhiteSpace(authorization) == false)
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
+
+            return httpClient;
+        }
+
+        #endregion
     }
 }
