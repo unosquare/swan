@@ -13,14 +13,25 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class JsonClientTest
     {
+        private static int Port = 8080;
+        private int DefaultPort;
+        private string DefaultHttp;
+
         const string Authorization = "Authorization";
         const string AuthorizationToken = "Token";
-        const string DefaultHttp = "http://localhost:8080";
+
+        [SetUp]
+        public void SetupWebServer()
+        {
+            Port++;
+            DefaultPort = Port;
+            DefaultHttp = "http://localhost:" + DefaultPort;
+        }
 
         [Test]
         public async Task AuthenticationTest()
         {
-            using (var webserver = new WebServer(8080))
+            using (var webserver = new WebServer(DefaultPort))
             {
                 var responseObj = new Dictionary<string, object> {{ AuthorizationToken, "123"}};
 
@@ -47,7 +58,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostTest()
         {
-            using (var webserver = new WebServer(8080))
+            using (var webserver = new WebServer(DefaultPort))
             {
                 const string status = "OK";
 
@@ -73,7 +84,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(8080))
+            using (var webserver = new WebServer(DefaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((srv, ctx) =>
                 {
@@ -95,7 +106,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task GetWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(8080))
+            using (var webserver = new WebServer(DefaultPort))
             {
                 var ctxHeaders = new List<string>();
 
@@ -109,7 +120,7 @@ namespace Unosquare.Swan.Test
 
                 webserver.RunAsync();
 
-                var data = await JsonClient.GetAsString(DefaultHttp, AuthorizationToken);
+                await JsonClient.GetAsString(DefaultHttp, AuthorizationToken);
                 
                 Assert.IsTrue(ctxHeaders.Any());
                 Assert.IsTrue(ctxHeaders.Any(x => x.StartsWith(Authorization)));

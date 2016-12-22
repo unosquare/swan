@@ -256,11 +256,9 @@
             }
 
             var builder = new StringBuilder(s.Length * 2);
-            string escapeSequence;
 
-            for (var i = 0; i < s.Length; i++)
+            foreach (var currentChar in s)
             {
-                var currentChar = s[i];
                 switch (currentChar)
                 {
                     case '\\':
@@ -290,7 +288,7 @@
                     default:
                         if (currentChar < ' ')
                         {
-                            escapeSequence = ((int)currentChar).ToString("X");
+                            var escapeSequence = ((int)currentChar).ToString("X");
                             builder.Append("\\u" + escapeSequence.PadLeft(4, '0'));
                         }
                         else
