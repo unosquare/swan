@@ -24,10 +24,11 @@ namespace Unosquare.Swan.Utilities
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<T> Post<T>(string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<T> Post<T>(string url, object payload, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostAsString(url, payload, authorization, ct);
-                
+
             return string.IsNullOrEmpty(jsonString) ? default(T) : JsonFormatter.Deserialize<T>(jsonString);
         }
 
@@ -39,11 +40,14 @@ namespace Unosquare.Swan.Utilities
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<IDictionary<string, object>> Post(string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<IDictionary<string, object>> Post(string url, object payload,
+            string authorization = null, CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostAsString(url, payload, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString) ? default(IDictionary<string, object>) : JsonFormatter.Deserialize(jsonString);
+            return string.IsNullOrEmpty(jsonString)
+                ? default(IDictionary<string, object>)
+                : JsonFormatter.Deserialize(jsonString);
         }
 
         /// <summary>
@@ -55,7 +59,8 @@ namespace Unosquare.Swan.Utilities
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> PostAsString(string url, object payload, string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<string> PostAsString(string url, object payload, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = new HttpClient())
             {
@@ -75,6 +80,70 @@ namespace Unosquare.Swan.Utilities
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="payload">The payload.</param>
+        /// <param name="authorization">The authorization.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<T> Put<T>(string url, object payload, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
+        {
+            var jsonString = await PutAsString(url, payload, authorization, ct);
+
+            return string.IsNullOrEmpty(jsonString) ? default(T) : JsonFormatter.Deserialize<T>(jsonString);
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="payload">The payload.</param>
+        /// <param name="authorization">The authorization.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<IDictionary<string, object>> Put(string url, object payload,
+            string authorization = null, CancellationToken ct = default(CancellationToken))
+        {
+            var jsonString = await PutAsString(url, payload, authorization, ct);
+
+            return string.IsNullOrEmpty(jsonString)
+                ? default(IDictionary<string, object>)
+                : JsonFormatter.Deserialize(jsonString);
+        }
+
+        /// <summary>
+        /// Puts as string.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="payload">The payload.</param>
+        /// <param name="authorization">The authorization.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception"></exception>
+        public static async Task<string> PutAsString(string url, object payload, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
+        {
+            using (var httpClient = new HttpClient())
+            {
+                if (string.IsNullOrWhiteSpace(authorization) == false)
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
+
+                var payloadJson = new StringContent(JsonFormatter.Serialize(payload), Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PutAsync(url, payloadJson, ct);
+
+                if (response.IsSuccessStatusCode == false)
+                    throw new Exception($"Error POST Json. Status code: {response.StatusCode}");
+
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        /// <summary>
         /// Gets as string.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -82,7 +151,8 @@ namespace Unosquare.Swan.Utilities
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> GetAsString(string url, string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<string> GetAsString(string url, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = new HttpClient())
             {
@@ -109,7 +179,8 @@ namespace Unosquare.Swan.Utilities
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<T> Get<T>(string url, string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<T> Get<T>(string url, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await GetAsString(url, authorization, ct);
             return string.IsNullOrEmpty(jsonString) ? default(T) : JsonFormatter.Deserialize<T>(jsonString);
@@ -123,7 +194,8 @@ namespace Unosquare.Swan.Utilities
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<byte[]> GetBinary(string url, string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<byte[]> GetBinary(string url, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = new HttpClient())
             {
@@ -149,7 +221,8 @@ namespace Unosquare.Swan.Utilities
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static async Task<IDictionary<string, object>> Authenticate(string url, string username, string password, CancellationToken ct = default(CancellationToken))
+        public static async Task<IDictionary<string, object>> Authenticate(string url, string username, string password,
+            CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = new HttpClient())
             {
@@ -176,7 +249,7 @@ namespace Unosquare.Swan.Utilities
         /// <returns></returns>
         public static async Task<string> PostFile(string url, byte[] image, string fileName, string authorization = null)
         {
-            return await Post<string>(url, new { Filename = fileName, Data = image }, authorization);
+            return await Post<string>(url, new {Filename = fileName, Data = image}, authorization);
         }
     }
 }
