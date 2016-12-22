@@ -20,7 +20,7 @@
             foreach (var item in bytes)
                 sb.Append(item.ToString("x2", CultureInfo.InvariantCulture));
 
-            return $"{(addPrefix ? "0x" : string.Empty)}{sb.ToString()}";
+            return $"{(addPrefix ? "0x" : string.Empty)}{sb}";
         }
 
         /// <summary>
@@ -35,7 +35,7 @@
             foreach (var item in bytes)
                 sb.Append(item.ToString("X2", CultureInfo.InvariantCulture));
 
-            return $"{(addPrefix ? "0x" : string.Empty)}{sb.ToString()}";
+            return $"{(addPrefix ? "0x" : string.Empty)}{sb}";
         }
 
         /// <summary>

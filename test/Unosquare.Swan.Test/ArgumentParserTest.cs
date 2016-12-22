@@ -56,5 +56,16 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(collection.First(), options.Options.First());
             Assert.AreEqual(collection.Last(), options.Options.Last());
         }
+
+        [Test]
+        public void ThrowErrorTest()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var parser = new ArgumentParser();
+                var options = new OptionMock();
+                parser.ParseArguments(null, options);
+            });
+        }
     }
 }

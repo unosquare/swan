@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan.Runtime
 {
-
     using Reflection;
     using System;
     using System.Collections.Generic;
@@ -15,8 +14,7 @@
     {
         const char Dash = '-';
 
-        //private bool disposed;
-        private static readonly Lazy<ArgumentParser> DefaultParser = new Lazy<ArgumentParser>(() => new ArgumentParser(new ArgumentParserSettings()));
+        private static readonly Lazy<ArgumentParser> DefaultParser = new Lazy<ArgumentParser>(() => new ArgumentParser());
 
         private static readonly object SyncLock = new object();
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
@@ -24,9 +22,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
         /// </summary>
-        public ArgumentParser()
+        public ArgumentParser() : this(new ArgumentParserSettings())
         {
-            Settings = new ArgumentParserSettings();
         }
 
         /// <summary>
