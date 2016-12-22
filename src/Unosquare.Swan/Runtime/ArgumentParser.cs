@@ -12,7 +12,7 @@
     /// </summary>
     public class ArgumentParser
     {
-        const char Dash = '-';
+        private const char Dash = '-';
 
         private static readonly Lazy<ArgumentParser> DefaultParser = new Lazy<ArgumentParser>(() => new ArgumentParser());
 
@@ -149,7 +149,7 @@
                 {
                     var itemType = targetProperty.PropertyType.GetElementType();
                     var primitiveValue = Constants.AllBasicTypes.Contains(itemType);
-                    var propertyValue = propertyValueString.ToString().Split(optionAttr.Separator);
+                    var propertyValue = propertyValueString.Split(optionAttr.Separator);
 
                     var arr = Array.CreateInstance(itemType, propertyValue.Cast<object>().Count());
 
@@ -159,7 +159,7 @@
                         if (primitiveValue)
                         {
                             object itemvalue;
-                            if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
+                            if (Constants.BasicTypesInfo[itemType].TryParse(value, out itemvalue))
                                 arr.SetValue(itemvalue, i++);
                         }
                         else

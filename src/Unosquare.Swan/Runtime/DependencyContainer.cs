@@ -2618,11 +2618,13 @@ namespace Unosquare.Swan.Runtime
         }
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _RegisteredTypes;
         private delegate object ObjectConstructor(params object[] parameters);
+#if USE_OBJECT_CONSTRUCTOR
         private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> _ObjectConstructorCache 
             = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
-        #endregion
+#endif
+#endregion
 
-        #region Constructors
+#region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
@@ -2640,9 +2642,9 @@ namespace Unosquare.Swan.Runtime
         {
             _Parent = parent;
         }
-        #endregion
+#endregion
 
-        #region Internal Methods
+#region Internal Methods
         private readonly object _AutoRegisterLock = new object();
 
         private void AutoRegisterInternal(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction, Func<Type, bool> registrationPredicate)
@@ -2720,13 +2722,7 @@ namespace Unosquare.Swan.Runtime
                 asm => asm.FullName.StartsWith("xunit.", StringComparison.Ordinal),
             };
 
-            foreach (var check in ignoreChecks)
-            {
-                if (check(assembly))
-                    return true;
-            }
-
-            return false;
+            return ignoreChecks.Any(check => check(assembly));
         }
 
         private bool IsIgnoredType(Type type, Func<Type, bool> registrationPredicate)
@@ -2746,13 +2742,7 @@ namespace Unosquare.Swan.Runtime
                 ignoreChecks.Add(t => !registrationPredicate(t));
             }
 
-            foreach (var check in ignoreChecks)
-            {
-                if (check(type))
-                    return true;
-            }
-
-            return false;
+            return ignoreChecks.Any(check => check(type));
         }
 
         private void RegisterDefaultTypes()
@@ -2860,7 +2850,7 @@ namespace Unosquare.Swan.Runtime
                 return true;
 
             // Check if type is an IEnumerable<ResolveType>
-            if (IsIEnumerableRequest(registration.Type))
+            if (registration.Type.IsIEnumerableType())
                 return true;
 
             // Attempt unregistered construction if possible and requested
@@ -2872,41 +2862,25 @@ namespace Unosquare.Swan.Runtime
             return _Parent != null && _Parent.CanResolveInternal(registration, parameters, options);
         }
 
-        private bool IsIEnumerableRequest(Type type)
+        private static bool IsAutomaticLazyFactoryRequest(Type type)
         {
             if (!type.IsGenericType())
                 return false;
 
             var genericType = type.GetGenericTypeDefinition();
 
-            return genericType == typeof(IEnumerable<>);
-        }
-
-        private bool IsAutomaticLazyFactoryRequest(Type type)
-        {
-            if (!type.IsGenericType())
-                return false;
-
-            Type genericType = type.GetGenericTypeDefinition();
-
             // Just a func
             if (genericType == typeof(Func<>))
                 return true;
 
             // 2 parameter func with string as first parameter (name)
-            //#if NETFX_CORE
-            //			if ((genericType == typeof(Func<,>) && type.GetTypeInfo().GenericTypeArguments[0] == typeof(string)))
-            //#else
             if ((genericType == typeof(Func<,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string)))
-                //#endif
                 return true;
 
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-            //#if NETFX_CORE
-            //			if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GenericTypeArguments[0] == typeof(string) && type.GetTypeInfo().GenericTypeArguments[1] == typeof(IDictionary<String, object>)))
-            //#else
-            if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string) && type.GetTypeInfo().GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
-                //#endif
+
+            if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string) &&
+                 type.GetTypeInfo().GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
                 return true;
 
             return false;
@@ -3019,7 +2993,7 @@ namespace Unosquare.Swan.Runtime
             if (IsAutomaticLazyFactoryRequest(registration.Type))
                 return GetLazyAutomaticFactoryRequest(registration.Type);
 #endif
-            if (IsIEnumerableRequest(registration.Type))
+            if (registration.Type.IsIEnumerableType())
                 return GetIEnumerableRequest(registration.Type);
 
             // Attempt unregistered construction if possible and requested
@@ -3116,12 +3090,8 @@ namespace Unosquare.Swan.Runtime
 #endif
         private object GetIEnumerableRequest(Type type)
         {
-            //#if NETFX_CORE
-            //			var genericResolveAllMethod = this.GetType().GetGenericMethod("ResolveAll", type.GenericTypeArguments, new[] { typeof(bool) });
-            //#else
             var genericResolveAllMethod = GetType().GetGenericMethod(BindingFlags.Public | BindingFlags.Instance, "ResolveAll", type.GetTypeInfo().GetGenericArguments(), new[] { typeof(bool) });
-            //#endif
-
+            
             return genericResolveAllMethod.Invoke(this, new object[] { false });
         }
 
@@ -3136,12 +3106,8 @@ namespace Unosquare.Swan.Runtime
                     return false;
 
                 var isParameterOverload = parameters.ContainsKey(parameter.Name);
-
-                //#if NETFX_CORE                
-                //				if (parameter.ParameterType.GetTypeInfo().IsPrimitive && !isParameterOverload)
-                //#else
+                
                 if (parameter.ParameterType.IsPrimitive() && !isParameterOverload)
-                    //#endif
                     return false;
 
                 if (!isParameterOverload && !CanResolveInternal(new TypeRegistration(parameter.ParameterType), DependencyContainerNamedParameterOverloads.Default, options))
@@ -3155,34 +3121,20 @@ namespace Unosquare.Swan.Runtime
         {
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
-
-            //#if NETFX_CORE
-            //			if (type.GetTypeInfo().IsValueType)
-            //#else
+            
             if (type.IsValueType())
-                //#endif
                 return null;
 
             // Get constructors in reverse order based on the number of parameters
-            // i.e. be as "greedy" as possible so we satify the most amount of dependencies possible
+            // i.e. be as "greedy" as possible so we satisfy the most amount of dependencies possible
             var ctors = GetTypeConstructors(type);
 
-            foreach (var ctor in ctors)
-            {
-                if (CanConstruct(ctor, parameters, options))
-                    return ctor;
-            }
-
-            return null;
+            return ctors.FirstOrDefault(ctor => CanConstruct(ctor, parameters, options));
         }
 
         private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
         {
-            //#if NETFX_CORE
-            //			return type.GetTypeInfo().DeclaredConstructors.OrderByDescending(ctor => ctor.GetParameters().Count());
-            //#else
-            return type.GetTypeInfo().GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Count());
-            //#endif
+            return type.GetTypeInfo().GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
         }
 
         private object ConstructType(Type requestedType, Type implementationType, DependencyContainerResolveOptions options)
@@ -3226,9 +3178,9 @@ namespace Unosquare.Swan.Runtime
                 throw new DependencyContainerResolutionException(typeToConstruct);
 
             var ctorParams = constructor.GetParameters();
-            var args = new object[ctorParams.Count()];
+            var args = new object[ctorParams.Length];
 
-            for (int parameterIndex = 0; parameterIndex < ctorParams.Count(); parameterIndex++)
+            for (var parameterIndex = 0; parameterIndex < ctorParams.Length; parameterIndex++)
             {
                 var currentParam = ctorParams[parameterIndex];
 
@@ -3373,11 +3325,11 @@ namespace Unosquare.Swan.Runtime
             return true;
         }
 
-        #endregion
+#endregion
 
-        #region IDisposable Members
+#region IDisposable Members
 
-        bool disposed = false;
+        bool disposed;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -3397,7 +3349,7 @@ namespace Unosquare.Swan.Runtime
             }
         }
 
-        #endregion
+#endregion
     }
 
 }

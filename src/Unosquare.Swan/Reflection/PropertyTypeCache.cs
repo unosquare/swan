@@ -1,4 +1,6 @@
-﻿namespace Unosquare.Swan.Reflection
+﻿using System.Linq;
+
+namespace Unosquare.Swan.Reflection
 {
     using System;
     using System.Collections.Generic;
@@ -14,14 +16,6 @@
     {
         private readonly object SyncLock = new object();
         private readonly Dictionary<Type, PropertyInfo[]> Cache = new Dictionary<Type, PropertyInfo[]>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyTypeCache"/> class.
-        /// </summary>
-        public PropertyTypeCache()
-        {
-            // placeholder
-        }
 
         /// <summary>
         /// Determines whether the cache contains the specified type.
@@ -99,15 +93,7 @@
                     if (value == null)
                         return;
 
-                    var propertyList = new List<PropertyInfo>();
-
-                    foreach (var item in value)
-                    {
-                        if (item != null)
-                            propertyList.Add(item);
-                    }
-
-                    Cache[type] = propertyList.ToArray();
+                    Cache[type] = Enumerable.ToArray(value.Where(item => item != null));
                 }
             }
         }

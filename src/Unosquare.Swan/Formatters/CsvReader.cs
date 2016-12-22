@@ -25,7 +25,7 @@
 
         #region Property Backing
 
-        private ulong m_Count = 0;
+        private ulong m_Count;
         private char m_EscapeCharacter = '"';
         private char m_SeparatorCharacter = ',';
 
@@ -34,10 +34,10 @@
         #region State Variables
 
         private readonly object SyncLock = new object();
-        private bool HasDisposed = false; // To detect redundant calls
-        private string[] Headings = null;
-        private Dictionary<string, string> DefaultMap = null;
-        private StreamReader Reader = null;
+        private bool HasDisposed; // To detect redundant calls
+        private string[] Headings;
+        private Dictionary<string, string> DefaultMap;
+        private StreamReader Reader;
 
         #endregion
 

@@ -20,7 +20,7 @@
         /// <summary>
         /// Gets the name of the host.
         /// </summary>
-        static public string HostName
+        public static string HostName
         {
             get
             {
@@ -32,7 +32,7 @@
         /// <summary>
         /// Gets the name of the domain.
         /// </summary>
-        static public string DomainName
+        public static string DomainName
         {
             get
             {
@@ -50,7 +50,7 @@
         /// Only those interfaces with a valid unicast address and a valid gateway will be returned in the collection
         /// </summary>
         /// <returns></returns>
-        static public Dictionary<NetworkInterface, IPInterfaceProperties> GetIPv4Interfaces()
+        public static Dictionary<NetworkInterface, IPInterfaceProperties> GetIPv4Interfaces()
         {
             // zero conf ip address
             var zeroConf = new IPAddress(0);
@@ -86,7 +86,7 @@
         /// </summary>
         /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
         /// <returns></returns>
-        static public IPAddress[] GetIPv4Addresses(bool includeLoopback = true)
+        public static IPAddress[] GetIPv4Addresses(bool includeLoopback = true)
         {
             return GetIPv4Addresses(NetworkInterfaceType.Unknown, true, includeLoopback);
         }
@@ -96,7 +96,7 @@
         /// </summary>
         /// <param name="interfaceType">Type of the interface.</param>
         /// <returns></returns>
-        static public IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType)
+        public static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType)
         {
             return GetIPv4Addresses(interfaceType, false, false);
         }
@@ -223,7 +223,7 @@
         /// <returns></returns>
         public static string GetDnsPointerEntry(IPAddress query)
         {
-            var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
+            var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault());
             return client.Reverse(query);
         }
 

@@ -32,7 +32,7 @@
             {
                 Request = request;
 
-                this.message = response.ToArray();
+                message = response.ToArray();
                 this.response = response;
             }
 
@@ -48,20 +48,11 @@
                 set { }
             }
 
-            public IList<IDnsResourceRecord> AnswerRecords
-            {
-                get { return response.AnswerRecords; }
-            }
+            public IList<IDnsResourceRecord> AnswerRecords => response.AnswerRecords;
 
-            public IList<IDnsResourceRecord> AuthorityRecords
-            {
-                get { return new ReadOnlyCollection<IDnsResourceRecord>(response.AuthorityRecords); }
-            }
+            public IList<IDnsResourceRecord> AuthorityRecords => new ReadOnlyCollection<IDnsResourceRecord>(response.AuthorityRecords);
 
-            public IList<IDnsResourceRecord> AdditionalRecords
-            {
-                get { return new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords); }
-            }
+            public IList<IDnsResourceRecord> AdditionalRecords => new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords);
 
             public bool IsRecursionAvailable
             {
@@ -93,15 +84,9 @@
                 set { }
             }
 
-            public IList<DnsQuestion> Questions
-            {
-                get { return new ReadOnlyCollection<DnsQuestion>(response.Questions); }
-            }
+            public IList<DnsQuestion> Questions => new ReadOnlyCollection<DnsQuestion>(response.Questions);
 
-            public int Size
-            {
-                get { return message.Length; }
-            }
+            public int Size => message.Length;
 
             public byte[] ToArray()
             {
@@ -113,10 +98,7 @@
                 return response.ToString();
             }
         }
-
-
-
-
+        
         public class DnsResponse : IDnsResponse
         {
             private static readonly Random RANDOM = new Random();
@@ -179,25 +161,25 @@
 
             public DnsResponse()
             {
-                this.header = new DnsHeader();
-                this.questions = new List<DnsQuestion>();
-                this.answers = new List<IDnsResourceRecord>();
-                this.authority = new List<IDnsResourceRecord>();
-                this.additional = new List<IDnsResourceRecord>();
+                header = new DnsHeader();
+                questions = new List<DnsQuestion>();
+                answers = new List<IDnsResourceRecord>();
+                authority = new List<IDnsResourceRecord>();
+                additional = new List<IDnsResourceRecord>();
 
-                this.header.Response = true;
-                this.header.Id = RANDOM.Next(UInt16.MaxValue);
+                header.Response = true;
+                header.Id = RANDOM.Next(UInt16.MaxValue);
             }
 
             public DnsResponse(IDnsResponse response)
             {
-                this.header = new DnsHeader();
-                this.questions = new List<DnsQuestion>(response.Questions);
-                this.answers = new List<IDnsResourceRecord>(response.AnswerRecords);
-                this.authority = new List<IDnsResourceRecord>(response.AuthorityRecords);
-                this.additional = new List<IDnsResourceRecord>(response.AdditionalRecords);
+                header = new DnsHeader();
+                questions = new List<DnsQuestion>(response.Questions);
+                answers = new List<IDnsResourceRecord>(response.AnswerRecords);
+                authority = new List<IDnsResourceRecord>(response.AuthorityRecords);
+                additional = new List<IDnsResourceRecord>(response.AdditionalRecords);
 
-                this.header.Response = true;
+                header.Response = true;
 
                 Id = response.Id;
                 IsRecursionAvailable = response.IsRecursionAvailable;
@@ -206,25 +188,13 @@
                 ResponseCode = response.ResponseCode;
             }
 
-            public IList<DnsQuestion> Questions
-            {
-                get { return questions; }
-            }
+            public IList<DnsQuestion> Questions => questions;
 
-            public IList<IDnsResourceRecord> AnswerRecords
-            {
-                get { return answers; }
-            }
+            public IList<IDnsResourceRecord> AnswerRecords => answers;
 
-            public IList<IDnsResourceRecord> AuthorityRecords
-            {
-                get { return authority; }
-            }
+            public IList<IDnsResourceRecord> AuthorityRecords => authority;
 
-            public IList<IDnsResourceRecord> AdditionalRecords
-            {
-                get { return additional; }
-            }
+            public IList<IDnsResourceRecord> AdditionalRecords => additional;
 
             public int Id
             {

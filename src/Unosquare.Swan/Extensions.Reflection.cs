@@ -5,6 +5,7 @@
     using System.Collections.Concurrent;
     using System.Linq;
     using System.Reflection;
+    using System.Collections.Generic;
 
     partial class Extensions
     {
@@ -361,6 +362,24 @@
         public static Assembly Assembly(this Type type)
         {
             return type.GetTypeInfo().Assembly;
+        }
+
+
+        /// <summary>
+        /// Determines whether [is i enumerable request].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if [is i enumerable request] [the specified type]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsIEnumerableType(this Type type)
+        {
+            if (!type.IsGenericType())
+                return false;
+
+            var genericType = type.GetGenericTypeDefinition();
+
+            return genericType == typeof(IEnumerable<>);
         }
 
         #endregion

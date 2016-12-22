@@ -20,7 +20,6 @@
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         private readonly string Result = null;
-        private readonly object Target;
         private readonly Type TargetType;
         private readonly StringBuilder Builder;
         private readonly bool Format = true;
@@ -50,12 +49,12 @@
                 return;
             }
 
-            Target = obj;
+            var target = obj;
             TargetType = obj.GetType();
 
             if (obj is string || Constants.BasicTypesInfo.ContainsKey(TargetType))
             {
-                var value = Escape(Constants.BasicTypesInfo[TargetType].ToStringInvariant(Target));
+                var value = Escape(Constants.BasicTypesInfo[TargetType].ToStringInvariant(target));
                 decimal val;
                 bool boolVal;
 
@@ -75,9 +74,9 @@
 
             #region Dictionaries
 
-            if (Target is IDictionary)
+            if (target is IDictionary)
             {
-                var items = Target as IDictionary;
+                var items = target as IDictionary;
 
                 Append("{", depth);
 
@@ -109,16 +108,16 @@
 
             #region Enumerables
 
-            if (Target is IEnumerable)
+            if (target is IEnumerable)
             {
-                if (Target is byte[])
+                if (target is byte[])
                 {
-                    Result = Serialize((Target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties);
+                    Result = Serialize((target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties);
                     return;
                 }
 
                 Append("[", depth);
-                var items = (Target as IEnumerable).Cast<object>().ToArray();
+                var items = (target as IEnumerable).Cast<object>().ToArray();
 
                 if (items.Length > 0)
                     AppendLine();
@@ -170,7 +169,7 @@
                 if (ExcludeProperties.Contains(property.Name))
                     continue;
 
-                try { objectDictionary[property.Name] = property.GetValue(Target); }
+                try { objectDictionary[property.Name] = property.GetValue(target); }
                 catch
                 {
                     // ignored
@@ -184,7 +183,7 @@
             }
             else
             {
-                Result = Serialize(Target.ToString(), 0, Format, includeProperties, excludeProperties);
+                Result = Serialize(target.ToString(), 0, Format, includeProperties, excludeProperties);
             }
 
             #endregion

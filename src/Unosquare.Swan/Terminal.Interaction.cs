@@ -75,7 +75,7 @@
             var textColor = ConsoleColor.White;
             var lineLength = Console.BufferWidth;
             var lineAlign = -(lineLength - 2);
-            var textFormat = "{0," + lineAlign.ToString() + "}";
+            var textFormat = "{0," + lineAlign + "}";
 
             lock (SyncLock) // lock the output as an atomic operation
             {
@@ -106,7 +106,7 @@
                 {
                     Table.Vertical();
                     string.Format(textFormat,
-                        $"    {"[ " + kvp.Key.ToString() + " ]",-10}  {kvp.Value}").Write(textColor);
+                        $"    {"[ " + kvp.Key + " ]",-10}  {kvp.Value}").Write(textColor);
                     Table.Vertical();
                 }
 

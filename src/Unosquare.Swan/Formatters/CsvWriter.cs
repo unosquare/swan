@@ -1,10 +1,8 @@
-﻿
-namespace Unosquare.Swan.Formatters
+﻿namespace Unosquare.Swan.Formatters
 {
     using Reflection;
     using System;
     using System.Collections;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -25,11 +23,11 @@ namespace Unosquare.Swan.Formatters
         #region State Variables
 
         private readonly object SyncLock = new object();
-        private readonly Stream OutputStream = null;
-        private readonly Encoding Encoding = null;
-        private readonly bool LeaveStreamOpen = false;
-        private bool IsDisposing = false;
-        private ulong m_Count = 0;
+        private readonly Stream OutputStream;
+        private readonly Encoding Encoding;
+        private readonly bool LeaveStreamOpen;
+        private bool IsDisposing;
+        private ulong m_Count;
 
         #endregion
 
@@ -143,7 +141,7 @@ namespace Unosquare.Swan.Formatters
                 var length = items.Length;
                 var separatorBytes = Encoding.GetBytes(new char[] { SeparatorCharacter });
                 var endOfLineBytes = Encoding.GetBytes(NewLineSequence);
-                var needsEnclosing = false;
+                bool needsEnclosing;
                 object value = null;
                 string textValue = null;
                 byte[] output = null;
