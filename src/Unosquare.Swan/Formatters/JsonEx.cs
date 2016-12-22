@@ -45,7 +45,14 @@
 
             if (obj == null)
             {
-                Result = "null";
+                if (depth == 0)
+                {
+                    // TODO: This is tricky
+                    Result = obj is IEnumerable ? "[ ]" : "{ }";
+                }
+                else 
+                    Result = "null";
+
                 return;
             }
 
@@ -97,7 +104,7 @@
                     AppendLine();
                 }
 
-                RemoveLastComma();
+                RemoveLastComma(format);
 
                 Append("}", items.Count > 0 ? depth : 0);
                 Result = Builder.ToString();
@@ -139,7 +146,7 @@
                     AppendLine();
                 }
 
-                RemoveLastComma();
+                RemoveLastComma(format);
 
                 Append("]", items.Length > 0 ? depth : 0);
                 Result = Builder.ToString();
@@ -210,16 +217,9 @@
             return indent;
         }
 
-        static private bool IsSetOpening(string serialized)
+        private static bool IsSetOpening(string serialized)
         {
-            var startTextIndex = 0;
-            foreach (var c in serialized)
-            {
-                if (c != ' ')
-                    break;
-
-                startTextIndex++;
-            }
+            var startTextIndex = serialized.TakeWhile(c => c == ' ').Count();
 
             var indent = startTextIndex > 0 ? new string(' ', startTextIndex) : string.Empty;
 
@@ -229,9 +229,9 @@
             return serialized.StartsWith(openingObject) || serialized.StartsWith(openingArray);
         }
 
-        private void  RemoveLastComma()
+        private void  RemoveLastComma(bool format)
         {
-            var search = "," + Environment.NewLine;
+            var search = "," + (format ? Environment.NewLine : "");
 
             if (Builder.Length < search.Length)
                 return;

@@ -13,11 +13,7 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            Task.Factory.StartNew(async () =>
-            {
-                var test = new JsonClientTest();
-                await test.PostWithAuthenticationTest();
-            }).Unwrap().Wait();
+            JsonEx.Serialize(new[] {1, 2, 3});
 
             Terminal.ReadKey(true);
         }
