@@ -204,10 +204,7 @@
             {
                 UpdateHeader();
 
-                return ObjectStringifier.FromObject(this)
-                    .Add(nameof(DnsHeader), header)
-                    .Add(nameof(Questions))
-                    .ToString();
+                return JsonEx.Serialize(this, true);
             }
 
             private void UpdateHeader()
@@ -460,10 +457,7 @@
 
             public override string ToString()
             {
-                return ObjectStringifier.FromObject(this)
-                    .AddAll()
-                    .Remove(nameof(Size))
-                    .ToString();
+                return JsonEx.SerializeExcluding(this, true, nameof(Size));
             }
 
             // Query/Response Flag
@@ -762,9 +756,8 @@
 
             public override string ToString()
             {
-                return ObjectStringifier.FromObject(this)
-                    .Add(nameof(Name), nameof(Type), nameof(Class))
-                    .ToString();
+                return JsonEx.SerializeOnly(this, true,
+                    nameof(Name), nameof(Type), nameof(Class));
             }
 
             [StructEndianness(Endianness.Big)]

@@ -59,10 +59,14 @@
                 return record.ToArray();
             }
 
-            internal ObjectStringifier Stringify()
+            protected virtual string[] IncludedProperties
             {
-                return ObjectStringifier.FromObject(this)
-                    .Add(nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength));
+                get { return new string[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) }; }
+            }
+
+            public override string ToString()
+            {
+                return JsonEx.SerializeOnly(this, true, IncludedProperties);
             }
         }
 
@@ -182,9 +186,8 @@
 
             public override string ToString()
             {
-                return ObjectStringifier.FromObject(this)
-                    .Add(nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength))
-                    .ToString();
+                return JsonEx.SerializeOnly(this, true,
+                    nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength));
             }
 
             [StructEndianness(Endianness.Big)]
@@ -244,9 +247,14 @@
                 private set;
             }
 
-            public override string ToString()
+            protected override string[] IncludedProperties
             {
-                return Stringify().Add("PointerDomainName").ToString();
+                get
+                {
+                    var temp = new List<string>(base.IncludedProperties);
+                    temp.Add(nameof(PointerDomainName));
+                    return temp.ToArray();
+                }
             }
         }
 
@@ -278,9 +286,14 @@
                 private set;
             }
 
-            public override string ToString()
+            protected override string[] IncludedProperties
             {
-                return Stringify().Add("IPAddress").ToString();
+                get
+                {
+                    var temp = new List<string>(base.IncludedProperties);
+                    temp.Add(nameof(IPAddress));
+                    return temp.ToArray();
+                }
             }
         }
 
@@ -304,9 +317,14 @@
                 private set;
             }
 
-            public override string ToString()
+            protected override string[] IncludedProperties
             {
-                return Stringify().Add("NSDomainName").ToString();
+                get
+                {
+                    var temp = new List<string>(base.IncludedProperties);
+                    temp.Add(nameof(NSDomainName));
+                    return temp.ToArray();
+                }
             }
         }
 
@@ -330,9 +348,14 @@
                 private set;
             }
 
-            public override string ToString()
+            protected override string[] IncludedProperties
             {
-                return Stringify().Add("CanonicalDomainName").ToString();
+                get
+                {
+                    var temp = new List<string>(base.IncludedProperties);
+                    temp.Add(nameof(CanonicalDomainName));
+                    return temp.ToArray();
+                }
             }
         }
 
@@ -392,9 +415,15 @@
                 private set;
             }
 
-            public override string ToString()
+            protected override string[] IncludedProperties
             {
-                return Stringify().Add("Preference", "ExchangeDomainName").ToString();
+                get
+                {
+                    var temp = new List<string>(base.IncludedProperties);
+                    temp.Add(nameof(Preference));
+                    temp.Add(nameof(ExchangeDomainName));
+                    return temp.ToArray();
+                }
             }
         }
 
@@ -498,9 +527,16 @@
                 private set;
             }
 
-            public override string ToString()
+            protected override string[] IncludedProperties
             {
-                return Stringify().Add("MasterDomainName", "ResponsibleDomainName", "SerialNumber").ToString();
+                get
+                {
+                    var temp = new List<string>(base.IncludedProperties);
+                    temp.Add(nameof(MasterDomainName));
+                    temp.Add(nameof(ResponsibleDomainName));
+                    temp.Add(nameof(SerialNumber));
+                    return temp.ToArray();
+                }
             }
 
             [StructEndianness(Endianness.Big)]

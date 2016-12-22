@@ -124,7 +124,7 @@
         /// <returns></returns>
         public static string Stringify(this object obj)
         {
-            return ObjectStringifier.Stringify(obj);
+            return JsonEx.Serialize(obj, true);
         }
 
         /// <summary>

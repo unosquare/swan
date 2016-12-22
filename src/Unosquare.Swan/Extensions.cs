@@ -38,6 +38,8 @@
         /// <returns>Returns the number of properties that were successfully copied</returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
         {
+            // TODO: Add recursive so child objects can be copied also
+
             var copiedProperties = 0;
 
             // Sources

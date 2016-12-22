@@ -293,10 +293,8 @@
             {
                 UpdateHeader();
 
-                return ObjectStringifier.FromObject(this)
-                    .Add(nameof(DnsHeader), header)
-                    .Add(nameof(Questions), nameof(AnswerRecords), nameof(AuthorityRecords), nameof(AdditionalRecords))
-                    .ToString();
+                return JsonEx.SerializeOnly(this, true,
+                    nameof(Questions), nameof(AnswerRecords), nameof(AuthorityRecords), nameof(AdditionalRecords));
             }
 
             private void UpdateHeader()

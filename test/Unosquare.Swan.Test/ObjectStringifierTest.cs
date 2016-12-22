@@ -10,7 +10,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void FromObjectTest()
         {
-            var stringData = ObjectStringifier.FromObject(BasicJson.GetDefault());
+            var stringData = JsonEx.Serialize(BasicJson.GetDefault());
 
             Assert.IsNotNull(stringData);
             Assert.AreEqual("Unosquare.Swan.Test.Mocks.BasicJson", stringData.ToString());

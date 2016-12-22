@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Net;
 
     partial class Constants
     {
@@ -46,6 +47,10 @@
                 { typeof(bool?), new ExtendedTypeInfo<bool?>() },
                 { typeof(decimal?), new ExtendedTypeInfo<decimal?>() },
                 { typeof(Guid?), new ExtendedTypeInfo<Guid?>() },
+                // Additional Types
+                { typeof(TimeSpan), new ExtendedTypeInfo<TimeSpan>() },
+                { typeof(TimeSpan?), new ExtendedTypeInfo<TimeSpan?>() },
+                { typeof(IPAddress), new ExtendedTypeInfo<IPAddress>() },
             };
 
         #endregion
