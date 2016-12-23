@@ -66,7 +66,7 @@ namespace Unosquare.Swan.Utilities
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                var payloadJson = new StringContent(JsonEx.Serialize(payload), Encoding.UTF8, "application/json");
+                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, "application/json");
 
                 var response = await httpClient.PostAsync(url, payloadJson, ct);
 
@@ -126,7 +126,7 @@ namespace Unosquare.Swan.Utilities
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                var payloadJson = new StringContent(JsonEx.Serialize(payload), Encoding.UTF8, "application/json");
+                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, "application/json");
 
                 var response = await httpClient.PutAsync(url, payloadJson, ct);
 

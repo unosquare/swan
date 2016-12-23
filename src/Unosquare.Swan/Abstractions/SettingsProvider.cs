@@ -64,7 +64,7 @@
         /// <returns></returns>
         public string GetJsonData()
         {
-            return JsonEx.Serialize(Global);
+            return Json.Serialize(Global);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@
         {
             lock (SyncRoot)
             {
-                var stringData = JsonEx.Serialize(Global);
+                var stringData = Json.Serialize(Global);
                 File.WriteAllText(ConfigurationFilePath, stringData);
             }
         }
@@ -164,7 +164,7 @@
         {
             lock (SyncRoot)
             {
-                var stringData = JsonEx.Serialize(Activator.CreateInstance<T>());
+                var stringData = Json.Serialize(Activator.CreateInstance<T>());
                 File.WriteAllText(ConfigurationFilePath, stringData);
             }
         }

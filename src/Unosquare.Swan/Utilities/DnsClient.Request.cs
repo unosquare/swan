@@ -194,7 +194,7 @@
             {
                 UpdateHeader();
 
-                return JsonEx.Serialize(this, true);
+                return Json.Serialize(this, true);
             }
 
             private void UpdateHeader()
@@ -444,7 +444,7 @@
 
             public override string ToString()
             {
-                return JsonEx.SerializeExcluding(this, true, nameof(Size));
+                return Json.SerializeExcluding(this, true, nameof(Size));
             }
 
             // Query/Response Flag
@@ -731,7 +731,7 @@
 
             public override string ToString()
             {
-                return JsonEx.SerializeOnly(this, true,
+                return Json.SerializeOnly(this, true,
                     nameof(Name), nameof(Type), nameof(Class));
             }
 

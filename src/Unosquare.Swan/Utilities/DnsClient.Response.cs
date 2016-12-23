@@ -263,7 +263,7 @@
             {
                 UpdateHeader();
 
-                return JsonEx.SerializeOnly(this, true,
+                return Json.SerializeOnly(this, true,
                     nameof(Questions), nameof(AnswerRecords), nameof(AuthorityRecords), nameof(AdditionalRecords));
             }
 

@@ -12,8 +12,10 @@
     /// A very simple JSON library written by Mario
     /// to teach Geo how things are done
     /// </summary>
-    static public partial class JsonEx
+    static public partial class Json
     {
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+
         #region Constants 
 
         private const char OpenObjectChar = '{';
@@ -37,18 +39,60 @@
 
         #endregion
 
+        #region Public API
+
+        /// <summary>
+        /// Serializes the specified object. All properties are serialized
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
+        /// <returns></returns>
+        public static string Serialize(object obj, bool format = false)
+        {
+            return Serializer.Serialize(obj, 0, format, null, null);
+        }
+
+        /// <summary>
+        /// Serializes the specified object only including the specified property names.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
+        /// <param name="includeNames">The include names.</param>
+        /// <returns></returns>
+        public static string SerializeOnly(object obj, bool format, params string[] includeNames)
+        {
+            return Serializer.Serialize(obj, 0, format, includeNames, null);
+        }
+
+        /// <summary>
+        /// Serializes the specified object excluding the specified property names.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
+        /// <param name="excludeNames">The exclude names.</param>
+        /// <returns></returns>
+        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
+        {
+            return Serializer.Serialize(obj, 0, format, null, excludeNames);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// A simple JSON serializer
+        /// </summary>
         private class Serializer
         {
 
             #region Private Declarations
 
             private static readonly Dictionary<int, string> IndentStrings = new Dictionary<int, string>();
-            private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
             private readonly string Result = null;
             private readonly Type TargetType;
             private readonly StringBuilder Builder;
             private readonly bool Format = true;
+            private readonly string LastCommaSearch;
             private readonly List<string> ExcludeProperties = new List<string>();
             private readonly List<string> IncludeProperties = new List<string>();
 
@@ -56,6 +100,14 @@
 
             #region Constructors
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Serializer"/> class.
+            /// </summary>
+            /// <param name="obj">The object.</param>
+            /// <param name="depth">The depth.</param>
+            /// <param name="format">if set to <c>true</c> [format].</param>
+            /// <param name="includeProperties">The include properties.</param>
+            /// <param name="excludeProperties">The exclude properties.</param>
             private Serializer(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties)
             {
                 #region Property Settings
@@ -67,6 +119,7 @@
                     ExcludeProperties.AddRange(excludeProperties);
 
                 Format = format;
+                LastCommaSearch = FieldSeparatorChar + (Format ? Environment.NewLine : string.Empty);
 
                 #endregion
 
@@ -80,7 +133,7 @@
 
                 if (obj is string)
                 {
-                    Result = $"\"{Escape(obj as string)}\"";
+                    Result = $"{StringQuotedChar}{Escape(obj as string)}{StringQuotedChar}";
                     return;
                 }
 
@@ -143,7 +196,7 @@
 
                             // Serialize and append the value
                             var serializedValue = Serialize(entry.Value, depth + 1, Format, includeProperties, excludeProperties);
-                            if (IsSetOpening(serializedValue)) AppendLine();
+                            if (IsJsonArrayOrObject(serializedValue)) AppendLine();
                             Append(serializedValue, 0);
 
                             // Add a comma and start a new line -- We will remove the last one when we are done writing the elements
@@ -194,7 +247,7 @@
                         {
                             var serializedValue = Serialize(entry, depth + 1, Format, includeProperties, excludeProperties);
 
-                            if (IsSetOpening(serializedValue))
+                            if (IsJsonArrayOrObject(serializedValue))
                             {
                                 Append(serializedValue, 0);
                             }
@@ -259,6 +312,15 @@
                 #endregion
             }
 
+            /// <summary>
+            /// Serializes the specified object.
+            /// </summary>
+            /// <param name="obj">The object.</param>
+            /// <param name="depth">The depth.</param>
+            /// <param name="format">if set to <c>true</c> [format].</param>
+            /// <param name="includeProperties">The include properties.</param>
+            /// <param name="excludeProperties">The exclude properties.</param>
+            /// <returns></returns>
             static public string Serialize(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties)
             {
                 var serializer = new Serializer(obj, depth, format, includeProperties, excludeProperties);
@@ -269,7 +331,12 @@
 
             #region Helper Methods
 
-            private string GetIndent(int depth)
+            /// <summary>
+            /// Gets the indent string given the depth.
+            /// </summary>
+            /// <param name="depth">The depth.</param>
+            /// <returns></returns>
+            private string GetIndentString(int depth)
             {
                 if (Format == false) return string.Empty;
 
@@ -280,7 +347,14 @@
                 return indent;
             }
 
-            private static bool IsSetOpening(string serialized)
+            /// <summary>
+            /// Determines whether the specified serialized JSON is an array or an object
+            /// </summary>
+            /// <param name="serialized">The serialized.</param>
+            /// <returns>
+            ///   <c>true</c> if [is set opening] [the specified serialized]; otherwise, <c>false</c>.
+            /// </returns>
+            private static bool IsJsonArrayOrObject(string serialized)
             {
                 // find the first position the character is not a space
                 var startTextIndex = serialized.TakeWhile(c => c == ' ').Count();
@@ -291,46 +365,66 @@
                     || serialized[startTextIndex] == OpenArrayChar;
             }
 
+            /// <summary>
+            /// Removes the last comma in the current string builder.
+            /// </summary>
+            /// <returns></returns>
             private bool RemoveLastComma()
             {
-                var search = FieldSeparatorChar + (Format ? Environment.NewLine : string.Empty);
-
-                if (Builder.Length < search.Length)
+                if (Builder.Length < LastCommaSearch.Length)
                     return false;
 
-                for (var i = 0; i < search.Length; i++)
-                    if (Builder[Builder.Length - search.Length + i] != search[i])
+                for (var i = 0; i < LastCommaSearch.Length; i++)
+                    if (Builder[Builder.Length - LastCommaSearch.Length + i] != LastCommaSearch[i])
                         return false;
 
                 // If we got this far, we simply remove the comma character
-                Builder.Remove(Builder.Length - search.Length, 1);
+                Builder.Remove(Builder.Length - LastCommaSearch.Length, 1);
                 return true;
             }
 
+            /// <summary>
+            /// Appends the specified text to the output stringbuilder.
+            /// </summary>
+            /// <param name="text">The text.</param>
+            /// <param name="depth">The depth.</param>
             private void Append(string text, int depth)
             {
-                Builder.Append($"{GetIndent(depth)}{text}");
+                Builder.Append($"{GetIndentString(depth)}{text}");
             }
 
+            /// <summary>
+            /// Appends the specified text to the output stringbuilder.
+            /// </summary>
+            /// <param name="text">The text.</param>
+            /// <param name="depth">The depth.</param>
             private void Append(char text, int depth)
             {
-                Builder.Append($"{GetIndent(depth)}{text}");
+                Builder.Append($"{GetIndentString(depth)}{text}");
             }
 
+            /// <summary>
+            /// Appends a line to the output stringbuilder.
+            /// </summary>
             private void AppendLine()
             {
                 if (Format == false) return;
                 Builder.Append(Environment.NewLine);
             }
 
-            private static string Escape(string s)
+            /// <summary>
+            /// Escapes the specified string as a JSON string.
+            /// </summary>
+            /// <param name="str">The string to escape.</param>
+            /// <returns></returns>
+            private static string Escape(string str)
             {
-                if (string.IsNullOrEmpty(s))
+                if (string.IsNullOrEmpty(str))
                     return string.Empty;
 
-                var builder = new StringBuilder(s.Length * 2);
+                var builder = new StringBuilder(str.Length * 2);
 
-                foreach (var currentChar in s)
+                foreach (var currentChar in str)
                 {
                     switch (currentChar)
                     {
@@ -379,45 +473,10 @@
 
         }
 
-
-        #region Public API
-
-        /// <summary>
-        /// Serializes the specified object. All properties are serialized
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
-        /// <returns></returns>
-        public static string Serialize(object obj, bool format = false)
+        private class Deserializer
         {
-            return Serializer.Serialize(obj, 0, format, null, null);
-        }
 
-        /// <summary>
-        /// Serializes the specified object only including the specified property names.
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
-        /// <param name="includeNames">The include names.</param>
-        /// <returns></returns>
-        public static string SerializeOnly(object obj, bool format, params string[] includeNames)
-        {
-            return Serializer.Serialize(obj, 0, format, includeNames, null);
         }
-
-        /// <summary>
-        /// Serializes the specified object excluding the specified property names.
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
-        /// <param name="excludeNames">The exclude names.</param>
-        /// <returns></returns>
-        public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
-        {
-            return Serializer.Serialize(obj, 0, format, null, excludeNames);
-        }
-
-        #endregion
 
     }
 }

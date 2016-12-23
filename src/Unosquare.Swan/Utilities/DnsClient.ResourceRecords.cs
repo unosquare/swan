@@ -66,7 +66,7 @@
 
             public override string ToString()
             {
-                return JsonEx.SerializeOnly(this, true, IncludedProperties);
+                return Json.SerializeOnly(this, true, IncludedProperties);
             }
         }
 
@@ -186,7 +186,7 @@
 
             public override string ToString()
             {
-                return JsonEx.SerializeOnly(this, true,
+                return Json.SerializeOnly(this, true,
                     nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength));
             }
 
