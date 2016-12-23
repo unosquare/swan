@@ -1,11 +1,8 @@
 ﻿namespace Unosquare.Swan
 {
-    using Runtime;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
 
     partial class Terminal
     {
@@ -79,9 +76,9 @@
         /// </summary>
         /// <param name="charCode">The character code.</param>
         /// <param name="writer">The writer.</param>
-        internal static void Write(this char charCode, TextWriter writer)
+        internal static void Write(this char charCode, TextWriter writer = null)
         {
-            if (IsConsolePresent == false) return;
+            if (writer == null && IsConsolePresent == false) return;
 
             lock (SyncLock)
             {
@@ -91,20 +88,11 @@
                 {
                     OutputColor = Settings.DefaultColor,
                     OutputText = buffer,
-                    OutputWriter = writer
+                    OutputWriter = writer ?? Console.Out
                 };
-                
+
                 EnqueueOutput(context);
             }
-        }
-
-        /// <summary>
-        /// Writes the specified character in the default color to the standard output
-        /// </summary>
-        /// <param name="charCode">The character code.</param>
-        public static void Write(this char charCode)
-        {
-            Write(charCode, Console.Out);
         }
 
         /// <summary>
@@ -161,7 +149,7 @@
         }
 
         /// <summary>
-        /// Writes the specified text in the current consoloe's foreground color.
+        /// Writes the specified text in the current console's foreground color.
         /// </summary>
         /// <param name="text">The text.</param>
         public static void Write(this string text)
@@ -174,39 +162,21 @@
         #region WriteLine Methods
 
         /// <summary>
-        /// Writes text, terminating it with a New Line Sequence to the specified writer
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="writer">The writer.</param>
-        internal static void WriteLine(this string text, ConsoleColor color, TextWriter writer)
-        {
-            $"{text}{Environment.NewLine}".Write(color, writer);
-        }
-
-        /// <summary>
-        /// Writes a New Line Sequence to the given textwriter
-        /// </summary>
-        /// <param name="writer">The writer.</param>
-        internal static void WriteLine(TextWriter writer)
-        {
-            Environment.NewLine.Write(Settings.DefaultColor, writer);
-        }
-
-        /// <summary>
         /// Writes a New Line Sequence to the standard output
         /// </summary>
-        public static void WriteLine()
+        /// <param name="writer">The writer.</param>
+        public static void WriteLine(TextWriter writer = null)
         {
-            Environment.NewLine.Write(Settings.DefaultColor, Console.Out);
+            Environment.NewLine.Write(Settings.DefaultColor, writer ?? Console.Out);
         }
 
         /// <summary>
         /// Writes a New Line Sequence to the standard error
         /// </summary>
-        public static void WriteLineError()
+        /// <param name="writer">The writer.</param>
+        public static void WriteLineError(TextWriter writer = null)
         {
-            Environment.NewLine.Write(Settings.DefaultColor, Console.Error);
+            Environment.NewLine.Write(Settings.DefaultColor, writer ?? Console.Error);
         }
 
         /// <summary>
@@ -214,9 +184,10 @@
         /// to the standard output
         /// </summary>
         /// <param name="text">The text.</param>
-        public static void WriteLine(this string text)
+        /// <param name="writer">The writer.</param>
+        public static void WriteLine(this string text, TextWriter writer = null)
         {
-            text?.WriteLine(Settings.DefaultColor, Console.Out);
+            text?.WriteLine(Settings.DefaultColor, writer ?? Console.Out);
         }
 
         /// <summary>
@@ -224,9 +195,10 @@
         /// to the standard error
         /// </summary>
         /// <param name="text">The text.</param>
-        public static void WriteLineError(this string text)
+        /// <param name="writer">The writer.</param>
+        public static void WriteLineError(this string text, TextWriter writer = null)
         {
-            text?.WriteLine(Settings.DefaultColor, Console.Error);
+            text?.WriteLineError(Settings.DefaultColor, writer ?? Console.Error);
         }
 
         /// <summary>
@@ -234,10 +206,11 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        public static void WriteLine(this string text, ConsoleColor color)
+        /// <param name="writer">The writer.</param>
+        public static void WriteLine(this string text, ConsoleColor color, TextWriter writer = null)
         {
             if (text == null) return;
-            $"{text}{Environment.NewLine}".Write(color, Console.Out);
+            $"{text}{Environment.NewLine}".Write(color, writer ?? Console.Out);
         }
 
         /// <summary>
@@ -245,10 +218,11 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        public static void WriteLineError(this string text, ConsoleColor color)
+        /// <param name="writer">The writer.</param>
+        public static void WriteLineError(this string text, ConsoleColor color, TextWriter writer = null)
         {
             if (text == null) return;
-            $"{text}{Environment.NewLine}".Write(color, Console.Error);
+            $"{text}{Environment.NewLine}".Write(color, writer ?? Console.Error);
         }
 
         #endregion

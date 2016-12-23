@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using Unosquare.Swan.Abstractions;
 using Unosquare.Swan.Formatters;
@@ -14,9 +15,7 @@ namespace Unosquare.Swan.Test
     {
         public static void Main(string[] args)
         {
-            SettingsProvider<AppSettingMock>.Instance.ConfigurationFilePath = Path.GetTempFileName();
-            SettingsProvider<AppSettingMock>.Instance.ResetGlobalSettings();
-            var data = SettingsProvider<AppSettingMock>.Instance.Global.BackgroundImage;
+            Network.QueryDns("invalid.local", DnsRecordType.MX).ToStringInvariant().Info();
 
             Terminal.ReadKey(true);
         }
