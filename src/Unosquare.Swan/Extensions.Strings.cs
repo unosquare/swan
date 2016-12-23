@@ -128,6 +128,36 @@
         }
 
         /// <summary>
+        /// Retrieves a section of the string includive of the start and end indexes.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="endIndex">The end index.</param>
+        /// <returns></returns>
+        public static string Section(this string str, int startIndex, int endIndex)
+        {
+            endIndex = endIndex.Clamp(startIndex, str.Length - 1);
+            if (startIndex >= endIndex) return string.Empty;
+            return str.Substring(startIndex, (endIndex - startIndex) + 1);
+        }
+
+        /// <summary>
+        /// Gets a part of the string clamping the length and startIndex parameters to safe values.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="length">The length.</param>
+        /// <returns></returns>
+        public static string SafeSubstring(this string str, int startIndex, int length)
+        {
+            startIndex = startIndex.Clamp(0, str.Length - 1);
+            length = length.Clamp(0, str.Length - startIndex);
+
+            if (length == 0) return string.Empty;
+            return str.Substring(startIndex, length);
+        }
+
+        /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
         /// in either camel case or snake case. For example, CamelCase will be converted to 
         /// Camel Case and Snake_Case will be converted to Snake Case.

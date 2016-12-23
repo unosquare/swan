@@ -76,6 +76,11 @@
             return Serializer.Serialize(obj, 0, format, null, excludeNames);
         }
 
+        public static object Deserialize(string json)
+        {
+            return Deserializer.Deserialize(json);
+        }
+
         #endregion
 
         /// <summary>
@@ -475,6 +480,296 @@
 
         private class Deserializer
         {
+            private enum ReadState
+            {
+                WaitingForRootOpen,
+                WaitingForField,
+                WaitingForColon,
+                WaitingForValue,
+                WaitingForNextOrRootClose,
+
+            }
+
+            private object Result = null;
+            private int EndIndex = 0;
+
+            private Deserializer(string json, int startIndex)
+            {
+
+                var state = ReadState.WaitingForRootOpen;
+                Dictionary<string, object> resultObject = null;
+                List<object> resultArray = null;
+                string currentFieldName = null;
+
+                for (var i = startIndex; i < json.Length; i++)
+                {
+
+                    #region Wait for { or [
+                    if (state == ReadState.WaitingForRootOpen)
+                    {
+                        if (char.IsWhiteSpace(json, i)) continue;
+
+                        if (json[i] == OpenObjectChar)
+                        {
+                            resultObject = new Dictionary<string, object>();
+                            state = ReadState.WaitingForField;
+                            continue;
+                        }
+
+                        if (json[i] == OpenArrayChar)
+                        {
+                            resultArray = new List<object>();
+                            state = ReadState.WaitingForValue;
+                            continue;
+                        }
+
+                        throw new FormatException($"Parser error (char {i}, state {state}): Expected '{OpenObjectChar}' or '{OpenArrayChar}' but got '{json[i]}'.");
+                    }
+
+                    #endregion
+
+                    #region Wait for opening field " (only applies for object results)
+
+                    if (state == ReadState.WaitingForField)
+                    {
+                        if (char.IsWhiteSpace(json, i)) continue;
+
+                        if (json[i] == StringQuotedChar)
+                        {
+
+                            var charCount = 0;
+                            for (var j = i + 1; j < json.Length; j++)
+                            {
+                                if (json[j] == StringQuotedChar && json[j - 1] != StringEscapeChar)
+                                    break;
+
+                                charCount++;
+                            }
+
+                            currentFieldName = Unescape(json.SafeSubstring(i + 1, charCount));
+                            i += charCount + 1;
+                            state = ReadState.WaitingForColon;
+                            continue;
+                        }
+
+                        throw new FormatException($"Parser error (char {i}, state {state}): Expected '{StringQuotedChar}' but got '{json[i]}'.");
+                    }
+
+                    #endregion
+
+                    #region Wait for field-value separator : (only applies for object results
+
+                    if (state == ReadState.WaitingForColon)
+                    {
+                        if (char.IsWhiteSpace(json, i)) continue;
+
+                        if (json[i] == ValueSeparatorChar)
+                        {
+                            state = ReadState.WaitingForValue;
+                            continue;
+                        }
+
+                        throw new FormatException($"Parser error (char {i}, state {state}): Expected '{ValueSeparatorChar}' but got '{json[i]}'.");
+                    }
+
+                    #endregion
+
+                    #region Wait for and Parse the value
+
+                    if (state == ReadState.WaitingForValue)
+                    {
+                        if (char.IsWhiteSpace(json, i)) continue;
+
+                        // determine the value based on what it starts with
+                        switch (json[i])
+                        {
+                            case StringQuotedChar: // expect a string
+                                {
+                                    var charCount = 0;
+                                    for (var j = i + 1; j < json.Length; j++)
+                                    {
+                                        if (json[j] == StringQuotedChar && json[j - 1] != StringEscapeChar)
+                                            break;
+
+                                        charCount++;
+                                    }
+
+                                    // Extract and set the value
+                                    var value = Unescape(json.SafeSubstring(i + 1, charCount));
+                                    if (currentFieldName != null)
+                                        resultObject[currentFieldName] = value;
+                                    else
+                                        resultArray.Add(value);
+
+                                    // Update state variables
+                                    i += charCount + 1;
+                                    currentFieldName = null;
+                                    state = ReadState.WaitingForNextOrRootClose;
+                                    continue;
+                                }
+                            case OpenObjectChar: // expect object
+                            case OpenArrayChar: // expect array
+                                {
+                                    // Extract and set the value
+                                    var deserializer = new Deserializer(json, i);
+                                    if (currentFieldName != null)
+                                        resultObject[currentFieldName] = deserializer.Result;
+                                    else
+                                        resultArray.Add(deserializer.Result);
+
+                                    // Update state variables
+                                    i = deserializer.EndIndex;
+                                    currentFieldName = null;
+                                    state = ReadState.WaitingForNextOrRootClose;
+                                    continue;
+                                }
+                            case 't': // expect true
+                                {
+                                    if (json.SafeSubstring(i, TrueValue.Length).Equals(TrueValue))
+                                    {
+                                        // Extract and set the value
+                                        if (currentFieldName != null)
+                                            resultObject[currentFieldName] = true;
+                                        else
+                                            resultArray.Add(true);
+
+                                        // Update state variables
+                                        i = TrueValue.Length - 1;
+                                        currentFieldName = null;
+                                        state = ReadState.WaitingForNextOrRootClose;
+                                        continue;
+                                    }
+
+                                    throw new FormatException($"Parser error (char {i}, state {state}): Expected '{ValueSeparatorChar}' but got '{json.SafeSubstring(i, TrueValue.Length)}'.");
+                                }
+                            case 'f': // expect false
+                                {
+                                    if (json.SafeSubstring(i, FalseValue.Length).Equals(FalseValue))
+                                    {
+                                        // Extract and set the value
+                                        if (currentFieldName != null)
+                                            resultObject[currentFieldName] = false;
+                                        else
+                                            resultArray.Add(false);
+
+                                        // Update state variables
+                                        i = FalseValue.Length - 1;
+                                        currentFieldName = null;
+                                        state = ReadState.WaitingForNextOrRootClose;
+                                        continue;
+                                    }
+
+                                    throw new FormatException($"Parser error (char {i}, state {state}): Expected '{ValueSeparatorChar}' but got '{json.SafeSubstring(i, FalseValue.Length)}'.");
+                                }
+                            case 'n': // expect null
+                                {
+                                    if (json.SafeSubstring(i, NullValue.Length).Equals(NullValue))
+                                    {
+                                        // Extract and set the value
+                                        if (currentFieldName != null)
+                                            resultObject[currentFieldName] = null;
+                                        else
+                                            resultArray.Add(null);
+
+                                        // Update state variables
+                                        i = NullValue.Length - 1;
+                                        currentFieldName = null;
+                                        state = ReadState.WaitingForNextOrRootClose;
+                                        continue;
+                                    }
+
+                                    throw new FormatException($"Parser error (char {i}, state {state}): Expected '{ValueSeparatorChar}' but got '{json.SafeSubstring(i, NullValue.Length)}'.");
+                                }
+                            default: // expect number
+                                {
+                                    var charCount = 0;
+                                    for (var j = i; j < json.Length; j++)
+                                    {
+                                        if (char.IsWhiteSpace(json[j]) || json[j] == FieldSeparatorChar)
+                                            break;
+
+                                        charCount++;
+                                    }
+
+                                    // Extract and set the value
+                                    var stringValue = json.SafeSubstring(i, charCount);
+                                    decimal value = 0M;
+
+                                    if (decimal.TryParse(stringValue, out value) == false)
+                                        throw new FormatException($"Parser error (char {i}, state {state}): Expected [number] but got '{stringValue}'.");
+
+                                    if (currentFieldName != null)
+                                        resultObject[currentFieldName] = value;
+                                    else
+                                        resultArray.Add(value);
+
+                                    // Update state variables
+                                    i += charCount;
+                                    currentFieldName = null;
+                                    state = ReadState.WaitingForNextOrRootClose;
+                                    continue;
+                                }
+                        }
+
+                    }
+
+                    #endregion
+
+                    #region Wait for closing ], } or an additional field or value ,
+
+                    if (state == ReadState.WaitingForNextOrRootClose)
+                    {
+                        if (char.IsWhiteSpace(json, i)) continue;
+
+                        if (json[i] == FieldSeparatorChar)
+                        {
+                            if (resultObject != null)
+                            {
+                                state = ReadState.WaitingForField;
+                                currentFieldName = null;
+                                continue;
+                            }
+                            else
+                            {
+                                state = ReadState.WaitingForValue;
+                                continue;
+                            }
+                        }
+
+                        if ((resultObject != null && json[i] == CloseObjectChar) || (resultArray != null && json[i] == CloseArrayChar))
+                        {
+                            EndIndex = i;
+                            Result = (resultObject == null) ? resultArray as object : resultObject;
+                            return;
+                        }
+
+                        throw new FormatException($"Parser error (char {i}, state {state}): Expected '{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}' but got '{json[i]}'.");
+
+                    }
+
+                    #endregion
+
+                }
+
+
+
+            }
+
+            static private string Unescape(string str)
+            {
+                // check if we need to unescape at all
+                if (str.IndexOf(StringEscapeChar) < 0)
+                    return str;
+
+                // TODO: Unescape string here
+                return str;
+            }
+
+            static public object Deserialize(string json)
+            {
+                var deserializer = new Deserializer(json, 0);
+                return deserializer.Result;
+            }
 
         }
 

@@ -53,11 +53,12 @@
             //var jsonMxResult = JsonFormatter.Serialize(mxRecords);
             var exResult = Json.SerializeOnly(mxRecords, true, nameof(DnsQueryResult.AnswerRecords), nameof(DnsQueryResult.Id));
 
-            var serializeDelay = new Action(() => {
+            //var serializeDelay = new Action(() => {
                 exResult = Json.Serialize(mxRecords, true);
-            }).Benchmark();
+                var result = Json.Deserialize(exResult);
+            //}).Benchmark();
 
-            $"Serialization took: {serializeDelay.TotalMilliseconds} ms for {exResult.Length} characters.".Warn(nameof(Json));
+            //$"Serialization took: {serializeDelay.TotalMilliseconds} ms for {exResult.Length} characters.".Warn(nameof(Json));
 
             var ntpServer = "time.windows.com";
             var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
