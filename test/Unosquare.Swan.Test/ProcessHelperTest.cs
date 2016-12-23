@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,21 +32,31 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(result == okCode);
             Assert.IsNotNull(output);
         }
-        
+
         [Test]
         public async Task GetInvalidRunProcessAsyncTest()
         {
-            const int errorCode = 1;
-            string output = null;
-
-            var result = await ProcessHelper.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
             {
-                if (output == null) output = Encoding.GetEncoding(0).GetString(data);
+                Assert.ThrowsAsync<InvalidProgramException>(async () =>
+                {
+                    await ProcessHelper.RunProcessAsync("dotnet", "lol", null, null, true, default(CancellationToken));
+                });
+            }
+            else
+            {
+                const int errorCode = 1;
+                string output = null;
 
-            }, true, default(CancellationToken));
+                var result = await ProcessHelper.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
+                {
+                    if (output == null) output = Encoding.GetEncoding(0).GetString(data);
 
-            Assert.IsTrue(result == errorCode);
-            Assert.IsNotNull(output);
+                }, true, default(CancellationToken));
+
+                Assert.IsTrue(result == errorCode);
+                Assert.IsNotNull(output);
+            }
         }
 
         [Test]
