@@ -110,6 +110,7 @@
                             arr.SetValue(itemvalue, i++);
                     }
 
+                    isChanged = true;
                     prop.SetValue(Global, arr);
                 }
                 else

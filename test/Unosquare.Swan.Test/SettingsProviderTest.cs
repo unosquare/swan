@@ -26,7 +26,6 @@ namespace Unosquare.Swan.Test
             var appSettings = new AppSettingMock();
 
             Assert.AreEqual(appSettings.WebServerHostname, SettingsProvider<AppSettingMock>.Instance.Global.WebServerHostname);
-            Assert.AreEqual(appSettings.BackgroundImage, SettingsProvider<AppSettingMock>.Instance.Global.BackgroundImage);
         }
 
         [Test]
@@ -43,13 +42,17 @@ namespace Unosquare.Swan.Test
         [Test]
         public void RefreshFromListTest()
         {
+            var arraySample = new[] {"One", "Two"};
+
             var list = SettingsProvider<AppSettingMock>.Instance.GetList();
             list[0].Value = 100;
+            list[2].Value = arraySample;
 
             var updateList = SettingsProvider<AppSettingMock>.Instance.RefreshFromList(list);
             Assert.IsNotNull(updateList);
-            Assert.AreEqual(1, updateList.Count);
+            Assert.AreEqual(2, updateList.Count);
             Assert.AreEqual(list[0].Value, SettingsProvider<AppSettingMock>.Instance.Global.WebServerPort);
+            Assert.AreEqual(arraySample, SettingsProvider<AppSettingMock>.Instance.Global.BackgroundImage);
         }
     }
 }
