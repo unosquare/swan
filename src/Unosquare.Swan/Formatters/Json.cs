@@ -487,7 +487,6 @@
                 WaitingForColon,
                 WaitingForValue,
                 WaitingForNextOrRootClose,
-
             }
 
             private object Result = null;
@@ -495,7 +494,6 @@
 
             private Deserializer(string json, int startIndex)
             {
-
                 var state = ReadState.WaitingForRootOpen;
                 Dictionary<string, object> resultObject = null;
                 List<object> resultArray = null;
@@ -503,7 +501,7 @@
 
                 for (var i = startIndex; i < json.Length; i++)
                 {
-
+                    // Terminal.Trace($"Index {i} CurrentChar: '{json[i]}' CurrentState: {state}");
                     #region Wait for { or [
                     if (state == ReadState.WaitingForRootOpen)
                     {
@@ -634,7 +632,7 @@
                                             resultArray.Add(true);
 
                                         // Update state variables
-                                        i = TrueValue.Length - 1;
+                                        i += TrueValue.Length - 1;
                                         currentFieldName = null;
                                         state = ReadState.WaitingForNextOrRootClose;
                                         continue;
@@ -653,7 +651,7 @@
                                             resultArray.Add(false);
 
                                         // Update state variables
-                                        i = FalseValue.Length - 1;
+                                        i += FalseValue.Length - 1;
                                         currentFieldName = null;
                                         state = ReadState.WaitingForNextOrRootClose;
                                         continue;
@@ -672,7 +670,7 @@
                                             resultArray.Add(null);
 
                                         // Update state variables
-                                        i = NullValue.Length - 1;
+                                        i += NullValue.Length - 1;
                                         currentFieldName = null;
                                         state = ReadState.WaitingForNextOrRootClose;
                                         continue;
@@ -704,7 +702,7 @@
                                         resultArray.Add(value);
 
                                     // Update state variables
-                                    i += charCount;
+                                    i += charCount - 1;
                                     currentFieldName = null;
                                     state = ReadState.WaitingForNextOrRootClose;
                                     continue;
