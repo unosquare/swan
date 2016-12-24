@@ -179,9 +179,10 @@
                     if (b == 7) " ".Write();
 
                     if ((b + 1) % 8 == 0)
-                        Terminal.WriteLine();
+                        WriteLine();
                 }
-                Terminal.WriteLine();
+
+                WriteLine();
             }
         }
 
@@ -287,6 +288,5 @@
             InputDone.Reset();
             try { return Console.ReadLine(); } finally { InputDone.Set(); }
         }
-
     }
 }

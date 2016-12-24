@@ -50,13 +50,10 @@
             DnsOperationCode OperationCode { get; set; }
             DnsResponseCode ResponseCode { get; set; }
         }
-
-
+        
         public interface IDnsRequestResolver
         {
             DnsClientResponse Request(DnsClientRequest request);
         }
-
-
     }
 }

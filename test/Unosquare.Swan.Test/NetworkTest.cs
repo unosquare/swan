@@ -63,5 +63,11 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(txtRecords);
             Assert.IsTrue(txtRecords.AnswerRecords.Any());
         }
+
+        [Test]
+        public void QueryDnsErrorTest()
+        {
+            Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+        }
     }
 }
