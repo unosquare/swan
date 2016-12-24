@@ -2850,7 +2850,7 @@ namespace Unosquare.Swan.Runtime
                 return true;
 
             // Check if type is an IEnumerable<ResolveType>
-            if (registration.Type.IsIEnumerableType())
+            if (registration.Type.IsIEnumerable())
                 return true;
 
             // Attempt unregistered construction if possible and requested
@@ -2993,7 +2993,7 @@ namespace Unosquare.Swan.Runtime
             if (IsAutomaticLazyFactoryRequest(registration.Type))
                 return GetLazyAutomaticFactoryRequest(registration.Type);
 #endif
-            if (registration.Type.IsIEnumerableType())
+            if (registration.Type.IsIEnumerable())
                 return GetIEnumerableRequest(registration.Type);
 
             // Attempt unregistered construction if possible and requested

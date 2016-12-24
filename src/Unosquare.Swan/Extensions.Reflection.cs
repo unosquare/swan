@@ -134,6 +134,19 @@
         #region Type Extensions
 
         /// <summary>
+        /// The closest programmatic equivalent of default(T)
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        public static object GetDefault(this Type type)
+        {
+            if (type.IsValueType())
+                return Activator.CreateInstance(type);
+
+            return null;
+        }
+
+        /// <summary>
         /// Determines whether this type is compatible with ICollection.
         /// </summary>
         /// <param name="sourceType">The type.</param>
@@ -372,7 +385,7 @@
         /// <returns>
         ///   <c>true</c> if [is i enumerable request] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsIEnumerableType(this Type type)
+        public static bool IsIEnumerable(this Type type)
         {
             if (!type.IsGenericType())
                 return false;
