@@ -12,11 +12,14 @@
         private readonly List<DnsRecord> m_AdditionalRecords = new List<DnsRecord>();
         private readonly List<DnsRecord> m_AuthorityRecords = new List<DnsRecord>();
 
+        private DnsQueryResult() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsQueryResult"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
         internal DnsQueryResult(DnsClient.DnsClientResponse response)
+            : this()
         {
             Id = response.Id;
             IsAuthoritativeServer = response.IsAuthorativeServer;

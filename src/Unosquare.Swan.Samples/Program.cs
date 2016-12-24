@@ -51,11 +51,12 @@
 
             //var mxResult = Stringifier.Stringify(mxRecords, true);
             //var jsonMxResult = JsonFormatter.Serialize(mxRecords);
-            var exResult = Json.SerializeOnly(mxRecords, true, nameof(DnsQueryResult.AnswerRecords), nameof(DnsQueryResult.Id));
+            //var exResult = Json.SerializeOnly(mxRecords, true, nameof(DnsQueryResult.AnswerRecords), nameof(DnsQueryResult.Id));
 
             //var serializeDelay = new Action(() => {
-                exResult = Json.Serialize(mxRecords, true);
-                var result = Json.Deserialize(exResult);
+            var exResult = Json.Serialize(mxRecords, true);
+            var result = Json.Deserialize(exResult);
+            var result2 = Json.Deserialize<DnsQueryResult>(exResult, true);
             //}).Benchmark();
 
             //$"Serialization took: {serializeDelay.TotalMilliseconds} ms for {exResult.Length} characters.".Warn(nameof(Json));

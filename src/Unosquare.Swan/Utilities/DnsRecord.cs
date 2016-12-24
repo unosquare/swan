@@ -9,11 +9,18 @@
     /// </summary>
     public class DnsRecord
     {
+
+        private DnsRecord()
+        {
+            // placeholder
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsRecord"/> class.
         /// </summary>
         /// <param name="record">The record.</param>
         internal DnsRecord(DnsClient.IDnsResourceRecord record)
+            : this()
         {
             Name = record.Name.ToString();
             Type = record.Type;

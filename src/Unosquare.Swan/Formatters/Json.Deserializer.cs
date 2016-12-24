@@ -116,6 +116,15 @@
                     {
                         if (char.IsWhiteSpace(json, i)) continue;
 
+                        // Handle empty arrays and empty objects
+                        if ((ResultObject != null && json[i] == CloseObjectChar) 
+                            || (ResultArray != null && json[i] == CloseArrayChar))
+                        {
+                            EndIndex = i;
+                            Result = (ResultObject == null) ? ResultArray as object : ResultObject;
+                            return;
+                        }
+
                         // determine the value based on what it starts with
                         switch (json[i])
                         {

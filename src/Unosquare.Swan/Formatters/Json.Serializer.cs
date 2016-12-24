@@ -31,14 +31,15 @@
             #region Constructors
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="Serializer"/> class.
+            /// Initializes a new instance of the <see cref="Serializer" /> class.
             /// </summary>
             /// <param name="obj">The object.</param>
             /// <param name="depth">The depth.</param>
             /// <param name="format">if set to <c>true</c> [format].</param>
             /// <param name="includeProperties">The include properties.</param>
             /// <param name="excludeProperties">The exclude properties.</param>
-            private Serializer(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties)
+            /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
+            private Serializer(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties, bool includeNonPublic)
             {
                 #region Property Settings
 
@@ -125,8 +126,8 @@
                             Append($"{StringQuotedChar}{Escape(entry.Key.ToString())}{StringQuotedChar}{ValueSeparatorChar} ", depth + 1);
 
                             // Serialize and append the value
-                            var serializedValue = Serialize(entry.Value, depth + 1, Format, includeProperties, excludeProperties);
-                            if (IsJsonArrayOrObject(serializedValue)) AppendLine();
+                            var serializedValue = Serialize(entry.Value, depth + 1, Format, includeProperties, excludeProperties, includeNonPublic);
+                            if (IsNonEmptyJsonArrayOrObject(serializedValue)) AppendLine();
                             Append(serializedValue, 0);
 
                             // Add a comma and start a new line -- We will remove the last one when we are done writing the elements
@@ -152,7 +153,7 @@
                         // Special byte array handling
                         if (target is byte[])
                         {
-                            Result = Serialize((target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties);
+                            Result = Serialize((target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties, includeNonPublic);
                             return;
                         }
 
@@ -167,7 +168,7 @@
                         }
                         else
                         {
-                            Result = EmtpyArrayLiteral;
+                            Result = EmptyArrayLiteral;
                             return;
                         }
 
@@ -175,16 +176,12 @@
                         var writeCount = 0;
                         foreach (var entry in items)
                         {
-                            var serializedValue = Serialize(entry, depth + 1, Format, includeProperties, excludeProperties);
+                            var serializedValue = Serialize(entry, depth + 1, Format, includeProperties, excludeProperties, includeNonPublic);
 
-                            if (IsJsonArrayOrObject(serializedValue))
-                            {
+                            if (IsNonEmptyJsonArrayOrObject(serializedValue))
                                 Append(serializedValue, 0);
-                            }
                             else
-                            {
                                 Append(serializedValue, depth + 1);
-                            }
 
                             Append(FieldSeparatorChar, 0);
                             AppendLine();
@@ -209,7 +206,7 @@
 
                     // Create the dictionary and extract the properties
                     var objectDictionary = new Dictionary<string, object>();
-                    var properties = RetrieveProperties(TargetType);
+                    var properties = RetrieveProperties(TargetType).Where(p => p.CanRead).ToArray();
 
                     // If we set the included properties, then we remove everything that is not listed
                     if (IncludeProperties.Count > 0)
@@ -223,7 +220,7 @@
 
                         // Build the dictionary using property names and values
                         // Note: used to be: property.GetValue(target); but we would be reading private properties
-                        try { objectDictionary[property.Name] = property.GetGetMethod(false)?.Invoke(target, null); }
+                        try { objectDictionary[property.Name] = property.GetGetMethod(includeNonPublic)?.Invoke(target, null); }
                         catch { /* ignored */ }
                     }
 
@@ -231,9 +228,9 @@
                     // If we have at least one property then we send it through the serialization method
                     // If we don't have any properties we simply call its tostring method and serialize as string
                     if (objectDictionary.Count > 0)
-                        Result = Serialize(objectDictionary, depth, Format, includeProperties, excludeProperties);
+                        Result = Serialize(objectDictionary, depth, Format, includeProperties, excludeProperties, includeNonPublic);
                     else
-                        Result = Serialize(target.ToString(), 0, Format, includeProperties, excludeProperties);
+                        Result = Serialize(target.ToString(), 0, Format, includeProperties, excludeProperties, includeNonPublic);
                 }
                 #endregion
             }
@@ -246,10 +243,11 @@
             /// <param name="format">if set to <c>true</c> [format].</param>
             /// <param name="includeProperties">The include properties.</param>
             /// <param name="excludeProperties">The exclude properties.</param>
+            /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
             /// <returns></returns>
-            static public string Serialize(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties)
+            static public string Serialize(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties, bool includeNonPublic)
             {
-                var serializer = new Serializer(obj, depth, format, includeProperties, excludeProperties);
+                var serializer = new Serializer(obj, depth, format, includeProperties, excludeProperties, includeNonPublic);
                 return serializer.Result;
             }
 
@@ -274,14 +272,17 @@
             }
 
             /// <summary>
-            /// Determines whether the specified serialized JSON is an array or an object
+            /// Determines whether the specified serialized JSON is a non-empty an array or an object
             /// </summary>
             /// <param name="serialized">The serialized.</param>
             /// <returns>
             ///   <c>true</c> if [is set opening] [the specified serialized]; otherwise, <c>false</c>.
             /// </returns>
-            private static bool IsJsonArrayOrObject(string serialized)
+            private static bool IsNonEmptyJsonArrayOrObject(string serialized)
             {
+                if (serialized.Length == EmptyObjectLiteral.Length && serialized.Equals(EmptyObjectLiteral)) return false;
+                if (serialized.Length == EmptyArrayLiteral.Length && serialized.Equals(EmptyArrayLiteral)) return false;
+
                 // find the first position the character is not a space
                 var startTextIndex = serialized.TakeWhile(c => c == ' ').Count();
 
