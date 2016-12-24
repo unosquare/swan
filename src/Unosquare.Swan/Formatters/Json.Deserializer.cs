@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
 
     partial class Json
     {
@@ -306,8 +307,69 @@
                 if (str.IndexOf(StringEscapeChar) < 0)
                     return str;
 
+                var builder = new StringBuilder(str.Length * 2);
+
                 // TODO: Unescape string here
-                return str;
+                for (var i = 0; i < str.Length; i++)
+                {
+                    if (str[i] != StringEscapeChar)
+                    {
+                        builder.Append(str[i]);
+                        continue;
+                    }
+                        
+
+                    if (i == str.Length - 2)
+                        break;
+
+                    // escape sequence begins here
+                    switch (str[i + 1])
+                    {
+                        case 'u':
+                            {
+                                var startIndex = i + 2;
+                                var endIndex = i + 5;
+                                if (endIndex > str.Length - 1)
+                                {
+                                    builder.Append(str[i + 1]);
+                                    i += 1;
+                                    break;
+                                }
+
+                                var hexCode = str.Section(startIndex, endIndex).HexToBytes();
+                                builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
+                                i += 5;
+                                break;
+                            }
+                        case 'b':
+                            builder.Append('\b');
+                            i += 1;
+                            break;
+                        case 't':
+                            builder.Append('\t');
+                            i += 1;
+                            break;
+                        case 'n':
+                            builder.Append('\n');
+                            i += 1;
+                            break;
+                        case 'f':
+                            builder.Append('\f');
+                            i += 1;
+                            break;
+                        case 'r':
+                            builder.Append('\r');
+                            i += 1;
+                            break;
+                        default:
+                            builder.Append(str[i + 1]);
+                            i += 1;
+                            break;
+                    }
+
+                }
+
+                return builder.ToString();
             }
 
             static public object Deserialize(string json)

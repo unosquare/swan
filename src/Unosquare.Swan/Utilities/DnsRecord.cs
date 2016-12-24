@@ -89,7 +89,7 @@
         /// <summary>
         /// Gets the raw data of the record.
         /// </summary>
-        public byte[] Data { get; }
+        public byte[] Data { get; private set; }
 
         /// <summary>
         /// Gets the data text bytes in ASCII encoding.

@@ -64,9 +64,9 @@
         /// <returns></returns>
         private static object ConvertFromJsonResult(object source, Type targetType, ref object targetInstance, bool includeNonPublic)
         {
-            const string AddMethodName = "Add";
-
             #region Validation
+
+            const string AddMethodName = "Add";
 
             if (source == null) return targetType.GetDefault();
             var sourceType = source.GetType();
@@ -77,8 +77,9 @@
 
             #endregion
 
+            #region Target Instantiation or Assignment
+
             object target = null;
-            #region Target Instantiation
 
             if (targetInstance == null)
             {
@@ -87,12 +88,20 @@
                 {
                     // When using arrays, there is no default constructor, attempt to build a compatible array
                     if (source is List<object> && targetType.IsArray)
-                        target = Activator.CreateInstance(targetType, new object[] {
-                        (source as List<object>) == null ?
-                        0 :
-                        (source as List<object>).Count });
+                    {
+                        target = Activator.CreateInstance(targetType, new object[]
+                        {
+                            (source as List<object>) == null ? 0 : (source as List<object>).Count
+                        });
+                    }
+                    else if (source is string && targetType == typeof(byte[]))
+                    {
+                        // do nothing. Simply skip creation
+                    }
                     else
+                    {
                         target = Activator.CreateInstance(targetType, includeNonPublic);
+                    }
                 }
                 catch
                 {
@@ -102,6 +111,16 @@
             else
             {
                 target = targetInstance;
+            }
+
+            #endregion
+
+            #region Case 0: Special Cases
+
+            if (source is string && targetType == typeof(byte[]))
+            {
+                target = Convert.FromBase64String((source as string));
+                return target;
             }
 
             #endregion
@@ -150,7 +169,6 @@
 
                         if (sourcePropertyValue == null) continue;
 
-
                         // Check if we already have an instance of the current value created for us
                         object currentPropertyValue = null;
                         try { currentPropertyValue = targetProperty.GetGetMethod(includeNonPublic)?.Invoke(target, null); }
@@ -161,9 +179,9 @@
                             // Try to write properties to the current property value as a reference to the current property value
                             var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue, targetProperty.PropertyType, ref currentPropertyValue, includeNonPublic);
 
-                            // if there was no prior instance, try to write it otherwise the reference was hopefully written
-                            if (currentPropertyValue == null || targetProperty.PropertyType == typeof(string) || targetProperty.PropertyType.IsValueType())
-                                targetProperty.GetSetMethod(includeNonPublic)?.Invoke(target, new object[] { targetPropertyValue });
+                            // HACK: Always try to write the value of possible; otherwise it was most likely set by reference
+                            // if (currentPropertyValue == null || targetProperty.PropertyType == typeof(string) || targetProperty.PropertyType.IsValueType())
+                            targetProperty.GetSetMethod(includeNonPublic)?.Invoke(target, new object[] { targetPropertyValue });
                         }
                         catch { }
                     }
@@ -221,31 +239,11 @@
             #endregion
 
 
-
-            #region Case 3: Special Cases
-
-            var sourceStringValue = source.ToStringInvariant();
+            #region Case 3: Source is a simple type; Attempt conversion
 
             {
-                // Convert from Base64 string to a byte[]
-                if (sourceType == typeof(string) && target is byte[])
-                {
-                    try
-                    {
-                        target = Convert.FromBase64String(sourceStringValue);
-                        return target;
-                    }
-                    catch { }
-                }
+                var sourceStringValue = source.ToStringInvariant();
 
-
-            }
-
-            #endregion
-
-            #region Case 4: Source is a simple type; Attempt conversion
-
-            {
                 if (Constants.BasicTypesInfo.ContainsKey(targetType))
                 {
                     // Handle basic types

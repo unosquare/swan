@@ -57,6 +57,9 @@
             var exResult = Json.Serialize(mxRecords, true);
             var result = Json.Deserialize(exResult);
             var result2 = Json.Deserialize<DnsQueryResult>(exResult, true);
+
+            var result3 = Json.Deserialize("{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" Special Chars: \\u0323 \\u0003 \\u1245 \"\", \"EmptyObject\": {}, \"EmptyArray\": [] }");
+
             //}).Benchmark();
 
             //$"Serialization took: {serializeDelay.TotalMilliseconds} ms for {exResult.Length} characters.".Warn(nameof(Json));

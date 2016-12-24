@@ -16,7 +16,8 @@
 
         static private readonly Lazy<Regex> UnderscoreRegex = new Lazy<Regex>(() => new Regex(@"_", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
         static private readonly Lazy<Regex> CamelCaseRegEx = new Lazy<Regex>(() => new Regex(@"[a-z][A-Z]", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
-        static private readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() => {
+        static private readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() =>
+        {
             return ((m) =>
             {
                 var x = m.ToString();
@@ -155,6 +156,21 @@
 
             if (length == 0) return string.Empty;
             return str.Substring(startIndex, length);
+        }
+
+        /// <summary>
+        /// Converts a set of hexadecimal characters (upercase or lowervase)
+        /// to a byte array. String length must be a multiple of 2 and 
+        /// any prefix (such as 0x) has to be avoided for this to work properly
+        /// </summary>
+        /// <param name="hex">The hexadecimal.</param>
+        /// <returns></returns>
+        public static byte[] HexToBytes(this string hex)
+        {
+            return Enumerable
+                .Range(0, hex.Length / 2)
+                .Select(x => Convert.ToByte(hex.Substring(x * 2, 2), 16))
+                .ToArray();
         }
 
         /// <summary>

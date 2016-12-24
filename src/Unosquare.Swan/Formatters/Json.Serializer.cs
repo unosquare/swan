@@ -382,8 +382,13 @@
                         default:
                             if (currentChar < ' ')
                             {
-                                var escapeSequence = ((int)currentChar).ToString("X");
-                                builder.Append("\\u" + escapeSequence.PadLeft(4, '0'));
+                                var escapeBytes = BitConverter.GetBytes((ushort)currentChar);
+                                if (BitConverter.IsLittleEndian == false)
+                                    Array.Reverse(escapeBytes);
+                                    
+                                builder.Append("\\u" 
+                                    + escapeBytes[1].ToString("X").PadLeft(2, '0')
+                                    + escapeBytes[0].ToString("X").PadLeft(2, '0'));
                             }
                             else
                             {
