@@ -2,6 +2,8 @@
 {
     using Reflection;
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -101,7 +103,101 @@
         {
             return Deserializer.Deserialize(json);
         }
-        
+
+        private static object ConvertBasicValue(object sourceValue, Type targetType)
+        {
+            if (sourceValue == null) return targetType.GetDefault();
+            if (Constants.BasicTypesInfo.ContainsKey(targetType) == false) return targetType.GetDefault();
+
+            var sourceStringValue = sourceValue.ToStringInvariant();
+            object target = null;
+
+            if (Constants.BasicTypesInfo[targetType].TryParse(sourceStringValue, out target))
+                return target;
+            else
+                return targetType.GetDefault();
+        }
+
+        private static void CopyTo(object target, object source, bool includeNonPublic)
+        {
+            const string AddMethodName = "Add";
+
+            if (target == null) return;
+            if (source == null) return;
+
+            if (source is Dictionary<string, object>)
+            {
+                var sourceProperties = source as Dictionary<string, object>;
+                var targetProperties = RetrieveProperties(target.GetType());
+
+                foreach (var targetProperty in targetProperties)
+                {
+                    // weed out the nulls and non-matching names
+                    if (sourceProperties.ContainsKey(targetProperty.Name) == false) continue;
+                    var sourcePropertyValue = sourceProperties[targetProperty.Name];
+                    if (sourcePropertyValue == null) continue;
+
+                    // Get the current property value
+                    var targetPropertyValue = targetProperty.GetGetMethod().Invoke(target, null);
+
+                    // Case 1: Objects or dictionaries: Add(K, V)
+                    if (sourcePropertyValue is Dictionary<string, object>)
+                    {
+                        // The target is null, go ahead an try to create an instance
+                        if (targetPropertyValue == null)
+                            targetPropertyValue = Activator.CreateInstance(targetProperty.PropertyType);
+
+                        // The target is also a dictionary
+                        if (targetPropertyValue is IDictionary)
+                        {
+                            var sourceDictionary = sourcePropertyValue as Dictionary<string, object>;
+                            var targetDictionary = targetPropertyValue as IDictionary;
+
+                            foreach (var kvp in sourceDictionary)
+                            {
+                                if (kvp.Value == null) targetDictionary.Add(kvp.Key, kvp.Value);
+                                var kvpValueType = kvp.Value.GetType();
+                                var kvpValue = Activator.CreateInstance(kvpValueType);
+
+                                CopyTo(kvpValue, kvp.Value, includeNonPublic);
+                                targetDictionary.Add(kvp.Key, kvpValue);
+                            }
+
+                            targetProperty.GetSetMethod(includeNonPublic).Invoke(target, new object[] { targetPropertyValue });
+                            continue;
+                        }
+
+                        // Try to just copy properties
+                        {
+                            var sourceDictionary = sourcePropertyValue as Dictionary<string, object>;
+                            var targetDictionary = RetrieveProperties(targetProperty.PropertyType);
+
+                            foreach (var targetItem in targetDictionary)
+                            {
+
+                            }
+
+                            continue;
+                        }
+                        
+                    }
+
+                    // Case 2: Arrays or Collections: Add(T)
+                    if (sourcePropertyValue is List<object>)
+                    {
+
+                        continue;
+                    }
+
+                    // Case 3: Simple property copying
+                    targetPropertyValue = ConvertBasicValue(sourcePropertyValue, targetProperty.PropertyType);
+                    targetProperty.GetSetMethod(includeNonPublic).Invoke(target, new object[] { targetPropertyValue });
+                }
+
+            }
+
+        }
+
         #endregion
 
     }
