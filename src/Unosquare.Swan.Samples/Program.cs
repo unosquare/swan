@@ -58,7 +58,11 @@
             var result = Json.Deserialize(exResult);
             var result2 = Json.Deserialize<DnsQueryResult>(exResult, true);
 
-            var result3 = Json.Deserialize("{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" Special Chars: \\u0323 \\u0003 \\u1245 \"\", \"EmptyObject\": {}, \"EmptyArray\": [] }");
+            var jsonTest = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [] }";
+
+            var result3 = Json.Deserialize(jsonTest);
+            var serialized = Json.Serialize(result3);
+            var result4 = Json.Deserialize(serialized);
 
             //}).Benchmark();
 
