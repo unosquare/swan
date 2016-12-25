@@ -53,8 +53,9 @@
             return TypeCache.Retrieve(type, () =>
             {
                 return
-                type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(p => p.CanRead || p.CanWrite).ToArray();
+                    type.GetTypeInfo()
+                        .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                        .Where(p => p.CanRead || p.CanWrite).ToArray();
             });
         }
 
@@ -66,7 +67,8 @@
         /// <param name="targetInstance">An optional target instance. If null, we will attempt creation.</param>
         /// <param name="includeNonPublic">if set to <c>true</c> [include private].</param>
         /// <returns></returns>
-        private static object ConvertFromJsonResult(object source, Type targetType, ref object targetInstance, bool includeNonPublic)
+        private static object ConvertFromJsonResult(object source, Type targetType, ref object targetInstance,
+            bool includeNonPublic)
         {
             #region Setup: State and Validation
 
@@ -96,7 +98,7 @@
                         var sourceObjectList = source as List<object>;
                         if (sourceObjectList != null && targetType.IsArray)
                         {
-                            target = Activator.CreateInstance(targetType, new[] { sourceObjectList.Count });
+                            target = Activator.CreateInstance(targetType, new[] {sourceObjectList.Count});
                         }
                         else if (source is string && targetType == typeof(byte[]))
                         {
@@ -128,8 +130,14 @@
                 var sourceString = source as string;
                 if (sourceString != null && targetType == typeof(byte[]))
                 {
-                    try { target = Convert.FromBase64String(sourceString); } // Try conversion from Base 64
-                    catch { target = Encoding.UTF8.GetBytes(sourceString); } // Get the string bytes in UTF8
+                    try
+                    {
+                        target = Convert.FromBase64String(sourceString);
+                    } // Try conversion from Base 64
+                    catch
+                    {
+                        target = Encoding.UTF8.GetBytes(sourceString);
+                    } // Get the string bytes in UTF8
 
                     return target;
                 }
@@ -145,7 +153,6 @@
                 var sourceProperties = source as Dictionary<string, object>;
                 if (sourceProperties != null)
                 {
-
                     #region Case 1.1: Source is Dictionary, Target is IDictionary
 
                     var targetDictionary = target as IDictionary;
@@ -153,7 +160,9 @@
                     {
                         // find the add method of the target dictionary
                         var addMethod = targetType.GetTypeInfo()
-                            .GetMethods().FirstOrDefault(m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 2);
+                            .GetMethods()
+                            .FirstOrDefault(
+                                m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 2);
 
                         // skip if we don't have a compatible add method
                         if (addMethod == null) return target;
@@ -169,7 +178,8 @@
                             try
                             {
                                 object instance = null;
-                                var targetEntryValue = ConvertFromJsonResult(sourceProperty.Value, targetEntryType, ref instance, includeNonPublic);
+                                var targetEntryValue = ConvertFromJsonResult(sourceProperty.Value, targetEntryType,
+                                    ref instance, includeNonPublic);
                                 targetDictionary.Add(sourceProperty.Key, targetEntryValue);
                             }
                             catch
@@ -188,14 +198,19 @@
                         var targetProperties = RetrieveProperties(targetType); //.Where(p => p.CanWrite);
                         foreach (var targetProperty in targetProperties)
                         {
-                            var sourcePropertyValue = sourceProperties.ContainsKey(targetProperty.Name) ?
-                                sourceProperties[targetProperty.Name] : null;
+                            var sourcePropertyValue = sourceProperties.ContainsKey(targetProperty.Name)
+                                ? sourceProperties[targetProperty.Name]
+                                : null;
 
                             if (sourcePropertyValue == null) continue;
 
                             // Check if we already have an instance of the current value created for us
                             object currentPropertyValue = null;
-                            try { currentPropertyValue = targetProperty.GetGetMethod(includeNonPublic)?.Invoke(target, null); }
+                            try
+                            {
+                                currentPropertyValue = targetProperty.GetGetMethod(includeNonPublic)?
+                                    .Invoke(target, null);
+                            }
                             catch
                             {
                                 // ignored
@@ -204,11 +219,13 @@
                             try
                             {
                                 // Try to write properties to the current property value as a reference to the current property value
-                                var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue, targetProperty.PropertyType, ref currentPropertyValue, includeNonPublic);
+                                var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
+                                    targetProperty.PropertyType, ref currentPropertyValue, includeNonPublic);
 
                                 // HACK: Always try to write the value of possible; otherwise it was most likely (hopefully) set by reference
                                 // if (currentPropertyValue == null || targetProperty.PropertyType == typeof(string) || targetProperty.PropertyType.IsValueType())
-                                targetProperty.GetSetMethod(includeNonPublic)?.Invoke(target, new[] { targetPropertyValue });
+                                targetProperty.GetSetMethod(includeNonPublic)?
+                                    .Invoke(target, new[] {targetPropertyValue});
                             }
                             catch
                             {
@@ -243,7 +260,8 @@
                             try
                             {
                                 object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(sourceList[i], targetType.GetElementType(), ref nullRef, includeNonPublic);
+                                var targetItem = ConvertFromJsonResult(sourceList[i], targetType.GetElementType(),
+                                    ref nullRef, includeNonPublic);
                                 targetArray.SetValue(targetItem, i);
                             }
                             catch
@@ -261,7 +279,9 @@
                     {
                         // find the add method of the target list
                         var addMethod = targetType.GetTypeInfo()
-                            .GetMethods().FirstOrDefault(m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 1);
+                            .GetMethods()
+                            .FirstOrDefault(
+                                m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 1);
 
                         if (addMethod == null) return target;
 
@@ -270,7 +290,8 @@
                             try
                             {
                                 object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(item, addMethod.GetParameters()[0].ParameterType, ref nullRef, includeNonPublic);
+                                var targetItem = ConvertFromJsonResult(item, addMethod.GetParameters()[0].ParameterType,
+                                    ref nullRef, includeNonPublic);
                                 targetList.Add(targetItem);
                             }
                             catch
@@ -320,7 +341,6 @@
             }
 
             #endregion
-
         }
 
         #endregion
@@ -336,7 +356,8 @@
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
         /// <returns></returns>
-        public static string Serialize(object obj, bool format = false, bool includeNonPublic = false, string[] includedNames = null, string[] excludedNames = null)
+        public static string Serialize(object obj, bool format = false, bool includeNonPublic = false,
+            string[] includedNames = null, string[] excludedNames = null)
         {
             return Serializer.Serialize(obj, 0, format, includedNames, excludedNames, includeNonPublic);
         }
@@ -386,7 +407,7 @@
         /// <returns></returns>
         public static T Deserialize<T>(string json)
         {
-            return (T)Deserialize(json, typeof(T), false);
+            return (T) Deserialize(json, typeof(T), false);
         }
 
         /// <summary>
@@ -398,7 +419,7 @@
         /// <returns></returns>
         public static T Deserialize<T>(string json, bool includeNonPublic)
         {
-            return (T)Deserialize(json, typeof(T), includeNonPublic);
+            return (T) Deserialize(json, typeof(T), includeNonPublic);
         }
 
         /// <summary>
@@ -416,6 +437,5 @@
         }
 
         #endregion
-
     }
 }
