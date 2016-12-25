@@ -21,6 +21,16 @@
             //TestTerminalOutputs();
             //TestCsvFormatters();
 
+            try
+            {
+                throw new FormatException("Invalid format", new Exception("Inner Exception here"));
+            }
+            catch (Exception ex)
+            {
+                ex.Log();
+            }
+            
+
             "Enter any key to exit . . .".ReadKey();
         }
 

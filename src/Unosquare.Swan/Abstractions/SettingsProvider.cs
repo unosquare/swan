@@ -11,6 +11,7 @@
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
+    /// TODO: Update to use new Json library
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class SettingsProvider<T> : SingletonBase<SettingsProvider<T>>

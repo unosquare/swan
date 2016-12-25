@@ -26,13 +26,13 @@
 
             #region State Variables
 
-            private object Result = null;
-            private Dictionary<string, object> ResultObject = null;
-            private List<object> ResultArray = null;
+            private object Result;
+            private readonly Dictionary<string, object> ResultObject;
+            private readonly List<object> ResultArray;
 
-            private ReadState State = ReadState.WaitingForRootOpen;
-            private string CurrentFieldName = null;
-            private int EndIndex = 0;
+            private readonly ReadState State = ReadState.WaitingForRootOpen;
+            private readonly string CurrentFieldName;
+            private readonly int EndIndex;
 
             #endregion
 
@@ -248,7 +248,7 @@
 
                                     // Extract and set the value
                                     var stringValue = json.SafeSubstring(i, charCount);
-                                    decimal value = 0M;
+                                    decimal value;
 
                                     if (decimal.TryParse(stringValue, out value) == false)
                                         throw new FormatException($"Parser error (char {i}, state {State}): Expected [number] but got '{stringValue}'.");
@@ -310,15 +310,13 @@
 
             }
 
-            static private string Unescape(string str)
+            private static string Unescape(string str)
             {
                 // check if we need to unescape at all
                 if (str.IndexOf(StringEscapeChar) < 0)
                     return str;
 
                 var builder = new StringBuilder(str.Length * 2);
-
-                // TODO: Unescape string here
                 for (var i = 0; i < str.Length; i++)
                 {
                     if (str[i] != StringEscapeChar)
@@ -381,7 +379,7 @@
                 return builder.ToString();
             }
 
-            static public object Deserialize(string json)
+            public static object Deserialize(string json)
             {
                 var deserializer = new Deserializer(json, 0);
                 return deserializer.Result;

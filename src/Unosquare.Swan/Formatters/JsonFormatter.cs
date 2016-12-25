@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan.Formatters
 {
+    using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using Unosquare.Swan.Reflection;
 
     /// <summary>
     /// Represents a light-weight JSON serializer/deserializer. You can serialize/deserialize

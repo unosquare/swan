@@ -17,7 +17,7 @@ namespace Unosquare.Swan.Formatters
     public class PixelData
     {
 
-#region Constant Definitions
+        #region Constant Definitions
 
         /// <summary>
         /// A constant representing the number of
@@ -30,22 +30,25 @@ namespace Unosquare.Swan.Formatters
         /// The blue byte offset within a pixel offset. This is 0.
         /// </summary>
         public const int BOffset = 0;
+        
         /// <summary>
         /// The green byte offset within a pixel offset.  This is 1
         /// </summary>
         public const int GOffset = 1;
+        
         /// <summary>
         /// The red byte offset within a pixel offset.  This is 2
         /// </summary>
         public const int ROffset = 2;
+        
         /// <summary>
         /// The alpha byte offset within a pixel offset.  This is 3
         /// </summary>
         public const int AOffset = 3;
 
-#endregion
+        #endregion
 
-#region Constructor
+        #region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PixelData"/> class.
@@ -84,10 +87,9 @@ namespace Unosquare.Swan.Formatters
             // State variables
             LineLength = sourceBitmap.Width * BytesPerPixel; // may or may not be equal to the Stride
             Data = new byte[LineLength * sourceBitmap.Height];
-            var scanLineAddress = sourceDataLocker.Scan0; // get a pointer to the first pixel of the image
 
             // copy line by line in order to ignore the useless left-over stride
-            Parallel.For(0, sourceBitmap.Height, (y) => 
+            Parallel.For(0, sourceBitmap.Height, (y) =>
             {
                 var sourceAddress = sourceDataLocker.Scan0 + (sourceDataLocker.Stride * y);
                 var targetAddress = y * LineLength;
@@ -101,14 +103,13 @@ namespace Unosquare.Swan.Formatters
             if (disposeSourceBitmap)
             {
                 sourceBitmap.Dispose();
-                sourceBitmap = null;
             }
 
         }
 
-#endregion
+        #endregion
 
-#region Properties
+        #region Properties
 
         /// <summary>
         /// Contains all the bytes of the pixel data
@@ -147,9 +148,9 @@ namespace Unosquare.Swan.Formatters
         /// </summary>
         public int LineLength { get; }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         /// <summary>
         /// Gets the index of the first byte in the BGRA pixel data for the given image coordinates.
@@ -192,7 +193,7 @@ namespace Unosquare.Swan.Formatters
             return bitmap;
         }
 
-#endregion
+        #endregion
 
     }
 }

@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan
 {
-    using System;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -38,7 +37,7 @@
             {
                 // define some state variables
                 var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
-                var readCount = -1; // the bytes read in any given event
+                int readCount; // the bytes read in any given event
                 ulong totalCount = 0; // the total amount of bytes read
                 var hasExited = false;
 
@@ -106,7 +105,7 @@
                 }
 
                 return totalCount;
-            }).Unwrap();
+            }, ct).Unwrap();
         }
 
         /// <summary>
@@ -202,10 +201,6 @@
                 {
                     // ignore
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
                 finally
                 {
                     // Wait for the process to exit
@@ -243,7 +238,7 @@
                 {
                     return -1;
                 }
-            });
+            }, ct);
 
             return await task;
         }

@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan.Formatters
 {
-    using System.Text;
     using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
 
     /// <summary>
     /// A very simple, light-weight JSON library written by Mario
@@ -98,7 +98,7 @@
                         var sourceObjectList = source as List<object>;
                         if (sourceObjectList != null && targetType.IsArray)
                         {
-                            target = Activator.CreateInstance(targetType, new[] {sourceObjectList.Count});
+                            target = Array.CreateInstance(targetType, sourceObjectList.Count);
                         }
                         else if (source is string && targetType == typeof(byte[]))
                         {

@@ -1,4 +1,7 @@
-﻿namespace Unosquare.Swan
+﻿using System.IO;
+using System.Reflection;
+
+namespace Unosquare.Swan
 {
     using Formatters;
     using System;
@@ -9,14 +12,29 @@
 
     partial class Extensions
     {
-        static private readonly Lazy<MD5> MD5Hasher = new Lazy<MD5>(MD5.Create, true);
-        static private readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
-        static private readonly Lazy<SHA256> SHA256Hasher = new Lazy<SHA256>(SHA256.Create, true);
-        static private readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
+        private const RegexOptions StandardRegexOptions =
+            RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        static private readonly Lazy<Regex> UnderscoreRegex = new Lazy<Regex>(() => new Regex(@"_", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
-        static private readonly Lazy<Regex> CamelCaseRegEx = new Lazy<Regex>(() => new Regex(@"[a-z][A-Z]", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant));
-        static private readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() =>
+        private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
+        private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
+        private static readonly Lazy<SHA256> SHA256Hasher = new Lazy<SHA256>(SHA256.Create, true);
+        private static readonly Lazy<SHA512> SHA512Hasher = new Lazy<SHA512>(SHA512.Create, true);
+
+        private static readonly Lazy<Regex> SplitLinesRegex =
+            new Lazy<Regex>(
+                () => new Regex("\r\n|\r|\n", StandardRegexOptions));
+
+        private static readonly Lazy<Regex> UnderscoreRegex =
+            new Lazy<Regex>(
+                () => new Regex(@"_", StandardRegexOptions));
+
+        private static readonly Lazy<Regex> CamelCaseRegEx =
+            new Lazy<Regex>(
+                () =>
+                    new Regex(@"[a-z][A-Z]",
+                        StandardRegexOptions));
+
+        private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() =>
         {
             return ((m) =>
             {
@@ -33,7 +51,7 @@
         public static byte[] ComputeMD5(this string inputString)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString);
-            return MD5Hasher.Value.ComputeHash(inputBytes);
+            return Md5Hasher.Value.ComputeHash(inputBytes);
         }
 
         /// <summary>
@@ -86,9 +104,9 @@
             if (itemType == typeof(string))
                 return item as string;
 
-            return Constants.BasicTypesInfo.ContainsKey(itemType) ?
-                Constants.BasicTypesInfo[itemType].ToStringInvariant(item) :
-                item.ToString();
+            return Constants.BasicTypesInfo.ContainsKey(itemType)
+                ? Constants.BasicTypesInfo[itemType].ToStringInvariant(item)
+                : item.ToString();
         }
 
         /// <summary>
@@ -174,6 +192,17 @@
         }
 
         /// <summary>
+        /// Splits the specified text into r, n or rn separated lines
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public static string[] ToLines(this string text)
+        {
+            if (text == null) return new string[] { };
+            return SplitLinesRegex.Value.Split(text);
+        }
+
+        /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
         /// in either camel case or snake case. For example, CamelCase will be converted to 
         /// Camel Case and Snake_Case will be converted to Snake Case.
@@ -186,6 +215,44 @@
             returnValue = UnderscoreRegex.Value.Replace(returnValue, " ");
             returnValue = CamelCaseRegEx.Value.Replace(returnValue, SplitCamelCaseString.Value);
             return returnValue;
+        }
+
+        /// <summary>
+        /// Indents the specified multi-line text with the given amount of spaces.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="spaces">The spaces.</param>
+        /// <returns></returns>
+        public static string Indent(this string text, int spaces = 4)
+        {
+            if (text == null) text = string.Empty;
+            if (spaces <= 0) return text;
+
+            var lines = text.ToLines();
+            var builder = new StringBuilder();
+            var indentStr = new string(' ', spaces);
+            foreach (var line in lines)
+            {
+                builder.AppendLine($"{indentStr}{line}");
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Humanizes the specified exception object so it is readable
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <returns></returns>
+        public static string Humanize(this Exception ex)
+        {
+            // TODO: JSON is NOT too useful here. We need cutom humanization logic for exceptions
+            if (ex == null) return string.Empty;
+            var builder = new StringBuilder();
+            builder.AppendLine($"{ex.GetType()}: {ex.Message}");
+            var jsonData = Json.SerializeExcluding(ex, true, nameof(Exception.Data), nameof(Exception.Source), "TargetSite");
+            builder.AppendLine(jsonData);
+            return builder.ToString();
         }
 
         /// <summary>

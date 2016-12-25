@@ -15,7 +15,6 @@
     {
         private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
-        private static readonly Task OutputTask;
 
         private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
         private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
@@ -34,16 +33,6 @@
             {
                 OriginalColor = Settings.DefaultColor;
                 OutputWriter = IsConsolePresent ? Console.Out : null;
-            }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="OutputContext"/> class.
-            /// </summary>
-            /// <param name="writer">The writer.</param>
-            public OutputContext(TextWriter writer)
-            {
-                OriginalColor = Settings.DefaultColor;
-                OutputWriter = writer;
             }
 
             public ConsoleColor OriginalColor { get; }
@@ -91,7 +80,8 @@
             if (IsConsolePresent == false)
                 return;
 
-            OutputTask = Task.Factory.StartNew(async () =>
+            // Here we start the output task, fire-and-forget
+            Task.Factory.StartNew(async () =>
             {
                 while (true)
                 {
@@ -114,8 +104,6 @@
                         if (OutputQueue.TryDequeue(out context) == false)
                             continue;
 
-                        // TODO: connect logging here
-
                         // Skip over stuff we can't display so we don't stress the output too much.
                         if (OutputQueue.Count > Console.BufferHeight)
                             continue;
@@ -126,6 +114,7 @@
                         Console.ForegroundColor = context.OriginalColor;
                     }
                 }
+                // ReSharper disable once FunctionNeverReturns
             });
         }
 
@@ -142,7 +131,11 @@
                 if (m_IsConsolePresent == null)
                 {
                     m_IsConsolePresent = true;
-                    try { var windowHeight = Console.WindowHeight; }
+                    try
+                    {
+                        var windowHeight = Console.WindowHeight;
+                        m_IsConsolePresent = windowHeight >= 0;
+                    }
                     catch { m_IsConsolePresent = false; }
                 }
 
@@ -160,25 +153,25 @@
             lock (SyncLock)
             {
                 $"Output Encoding: {OutputEncoding}".WriteLine();
-                for (byte b = 0; b < byte.MaxValue; b++)
+                for (byte byteValue = 0; byteValue < byte.MaxValue; byteValue++)
                 {
-                    char c = OutputEncoding.GetChars(new[] { b })[0];
-                    switch (b)
+                    var charValue = OutputEncoding.GetChars(new[] { byteValue })[0];
+                    switch (byteValue)
                     {
                         case 8: // Backspace
                         case 9: // Tab
                         case 10: // Line feed
                         case 13: // Carriage return
-                            c = '.';
+                            charValue = '.';
                             break;
                     }
 
-                    string.Format("{0:000} {1}   ", b, c).Write();
+                    $"{byteValue:000} {charValue}   ".Write();
 
                     // 7 is a beep -- Console.Beep() also works
-                    if (b == 7) " ".Write();
+                    if (byteValue == 7) " ".Write();
 
-                    if ((b + 1) % 8 == 0)
+                    if ((byteValue + 1) % 8 == 0)
                         WriteLine();
                 }
 

@@ -1,4 +1,6 @@
-﻿namespace Unosquare.Swan
+﻿using System.IO;
+
+namespace Unosquare.Swan
 {
     using System;
     using System.Threading.Tasks;
@@ -29,8 +31,8 @@
         {
             lock (SyncLock)
             {
-                var color = Settings.DefaultColor;
-                var prefix = string.Empty;
+                ConsoleColor color;
+                string prefix;
 
                 switch (messageType)
                 {
@@ -75,13 +77,31 @@
                     Task.Factory.StartNew(() =>
                     {
                         try { Settings.OnMessageLogged?.Invoke(sequence, messageType, date, source, output, ex); }
-                        catch { }
+                        catch
+                        {
+                            // ignored
+                        }
                     });
 
                 // Enqueue the message to the console (out or error)
                 if (IsConsolePresent && Settings.ConsoleOptions.HasFlag(messageType))
                 {
-                    var writer = messageType == LoggingMessageType.Error ? Console.Error : Console.Out;
+                    var writer = Console.Out;
+                    if (messageType.HasFlag(LoggingMessageType.Error))
+                    {
+                        writer = Console.Error;
+                        try
+                        {
+                            if (ex != null)
+                                outputText = $"{outputText}{Environment.NewLine}{ex.Humanize().Indent(4)}";
+                        }
+                        catch
+                        {
+                            // Ignore
+                        }
+
+                    }
+
                     outputText.WriteLine(color, writer);
                 }
             }
@@ -234,7 +254,18 @@
         /// <param name="message">The message.</param>
         public static void Error(this Exception ex, string source, string message)
         {
-            LogMessage(LoggingMessageType.Error, message, source, ex);
+            LogMessage(LoggingMessageType.Error, $"{ex.GetType()}: message", source, ex);
+        }
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        public static void Log(this Exception ex, string source = null, string message = null)
+        {
+            LogMessage(LoggingMessageType.Error, $"{ex.GetType()}: {message ?? ex.Message}", source ?? ex.Source, ex);
         }
     }
 }

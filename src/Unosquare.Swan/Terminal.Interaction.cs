@@ -49,7 +49,7 @@
 
             $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
             var input = ReadLine();
-            var parsedInt = defaultNumber;
+            int parsedInt;
             if (int.TryParse(input, out parsedInt) == false)
             {
                 parsedInt = defaultNumber;
@@ -69,8 +69,8 @@
         {
             if (IsConsolePresent == false) return new ConsoleKeyInfo();
 
-            var inputLeft = 0;
-            var inputTop = 0;
+            int inputLeft;
+            int inputTop;
 
             var textColor = ConsoleColor.White;
             var lineLength = Console.BufferWidth;
@@ -89,7 +89,7 @@
                     Table.Vertical();
                     var titleText = string.Format(textFormat,
                         string.IsNullOrWhiteSpace(title) ?
-                            $" Select an option from the list below." :
+                            " Select an option from the list below." :
                             $" {title}");
                     titleText.Write(textColor); //, titleText);
                     Table.Vertical();
@@ -124,7 +124,6 @@
                 }
 
                 inputLeft = Settings.UserOptionText.Length + 3;
-                inputTop = CursorTop - 1;
 
                 { // Input
                     Table.LeftTee();

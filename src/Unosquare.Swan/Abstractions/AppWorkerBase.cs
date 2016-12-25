@@ -74,9 +74,9 @@
                     CancellationPending = false;
                     IsBusy = false;
                 }
-            });
+            })
+            { IsBackground = true };
 
-            WorkerThread.IsBackground = true;
         }
 
         /// <summary>

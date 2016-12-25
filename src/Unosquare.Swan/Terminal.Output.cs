@@ -83,7 +83,7 @@
             lock (SyncLock)
             {
 
-                var buffer = new char[] { charCode };
+                var buffer = new[] { charCode };
                 var context = new OutputContext()
                 {
                     OutputColor = Settings.DefaultColor,
