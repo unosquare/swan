@@ -139,12 +139,15 @@
             lock (SyncLock)
             {
                 var length = items.Length;
-                var separatorBytes = Encoding.GetBytes(new char[] { SeparatorCharacter });
+                var separatorBytes = Encoding.GetBytes(new[] { SeparatorCharacter });
                 var endOfLineBytes = Encoding.GetBytes(NewLineSequence);
+
+                // Declare state variables here to avoid recreation, allocation and
+                // reassignment in every loop
                 bool needsEnclosing;
-                object value = null;
-                string textValue = null;
-                byte[] output = null;
+                object value;
+                string textValue;
+                byte[] output;
 
                 for (var i = 0; i < length; i++)
                 {

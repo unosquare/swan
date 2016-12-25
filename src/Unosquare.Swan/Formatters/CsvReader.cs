@@ -221,7 +221,7 @@
                 if (Reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
-                var line = ParseRecord(Reader, m_EscapeCharacter, m_SeparatorCharacter);
+                ParseRecord(Reader, m_EscapeCharacter, m_SeparatorCharacter);
             }
         }
 
@@ -365,7 +365,7 @@
                     // Parse and assign the basic type value to the property
                     try
                     {
-                        object propertyValue = null;
+                        object propertyValue;
                         if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyStringValue, out propertyValue))
                             targetProperty.SetValue(result, propertyValue);
                     }
@@ -425,7 +425,7 @@
             var values = new List<string>();
             var currentValue = new StringBuilder(1024);
             var currentState = ReadState.WaitingForNewField;
-            string line = null;
+            string line;
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -549,7 +549,7 @@
             where T : new()
         {
             var result = new List<T>();
-            using (var reader = new Formatters.CsvReader(filePath))
+            using (var reader = new CsvReader(filePath))
             {
                 reader.ReadHeadings();
                 while (reader.EndOfStream == false)
