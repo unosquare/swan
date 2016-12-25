@@ -119,11 +119,11 @@
 
 
         /// <summary>
-        /// Uses the ObjectStringifier to return an output of all properties in the specified object.
+        /// Outputs formatted JSON representing this object
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns></returns>
-        public static string Stringify(this object obj)
+        public static string Jsonify(this object obj)
         {
             return Json.Serialize(obj, true);
         }

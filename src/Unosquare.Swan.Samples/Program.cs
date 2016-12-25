@@ -9,17 +9,17 @@
     using System.Text;
     using Utilities;
 
-    public class Program
+    public partial class Program
     {
         public static void Main(string[] args)
         {
 
 
             TestApplicationInfo();
-            TestNetworkUtilities();
+            //TestNetworkUtilities();
             TestContainerAndMessageHub();
-            TestTerminalOutputs();
-            TestCsvFormatters();
+            //TestTerminalOutputs();
+            //TestCsvFormatters();
 
             "Enter any key to exit . . .".ReadKey();
         }
@@ -32,43 +32,25 @@
             $"Process Id: {CurrentApp.Process.Id}".Info();
         }
 
+        static void TestJson()
+        {
+            var jsonTest = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [] }";
+
+
+        }
+
         static void TestNetworkUtilities()
         {
-            //var elapsed = (new Action(() =>
-            //{
-
-
             var domainName = "unosquare.com";
+            var ntpServer = "time.windows.com";
+
             var dnsServers = Network.GetIPv4DnsServers();
             var privateIPs = Network.GetIPv4Addresses(false);
             var publicIP = Network.GetPublicIPAddress();
-
             var dnsLookup = Network.GetDnsHostEntry(domainName);
             var ptrRecord = Network.GetDnsPointerEntry(publicIP);
-
             var mxRecords = Network.QueryDns("unosquare.com", DnsRecordType.MX);
             var txtRecords = Network.QueryDns("unosquare.com", DnsRecordType.TXT);
-
-            //var mxResult = Stringifier.Stringify(mxRecords, true);
-            //var jsonMxResult = JsonFormatter.Serialize(mxRecords);
-            //var exResult = Json.SerializeOnly(mxRecords, true, nameof(DnsQueryResult.AnswerRecords), nameof(DnsQueryResult.Id));
-
-            //var serializeDelay = new Action(() => {
-            var exResult = Json.Serialize(mxRecords, true);
-            var result = Json.Deserialize(exResult);
-            var result2 = Json.Deserialize<DnsQueryResult>(exResult, true);
-
-            var jsonTest = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [] }";
-
-            var result3 = Json.Deserialize(jsonTest);
-            var serialized = Json.Serialize(result3);
-            var result4 = Json.Deserialize(serialized);
-
-            //}).Benchmark();
-
-            //$"Serialization took: {serializeDelay.TotalMilliseconds} ms for {exResult.Length} characters.".Warn(nameof(Json));
-
-            var ntpServer = "time.windows.com";
             var ntpTime = Network.GetNetworkTimeUtc(ntpServer);
 
             $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
@@ -79,28 +61,23 @@
             $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(nameof(Network));
             $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]".Info(nameof(Network));
             $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]".Info(nameof(Network));
-
-            //}).Benchmark());
-
-            //$"Testing Network Utilities took: {elapsed.TotalMilliseconds} ms".Warn(nameof(Network));
         }
-
 
         static void TestSingleton()
         {
-            TestSignleton.Instance.Name.Info("Singleton Test");
+            SampleSingleton.Instance.Name.Info(nameof(SampleSingleton));
         }
 
         static void TestContainerAndMessageHub()
         {
-            CurrentApp.Container.Register<IAnimal, Fish>();
-            $"The concrete type ended up being: {CurrentApp.Container.Resolve<IAnimal>().Name}".Warn();
-            CurrentApp.Container.Unregister<IAnimal>();
-            CurrentApp.Container.Register<IAnimal, Monkey>();
-            $"The concrete type ended up being: {CurrentApp.Container.Resolve<IAnimal>().Name}".Warn();
+            CurrentApp.Container.Register<ISampleAnimal, SampleFish>();
+            $"The concrete type ended up being: {CurrentApp.Container.Resolve<ISampleAnimal>().Name}".Warn();
+            CurrentApp.Container.Unregister<ISampleAnimal>();
+            CurrentApp.Container.Register<ISampleAnimal, SampleMonkey>();
+            $"The concrete type ended up being: {CurrentApp.Container.Resolve<ISampleAnimal>().Name}".Warn();
 
-            CurrentApp.Messages.Subscribe<SimpleMessage>((m) => { $"Received the following message from '{m.Sender}': '{m.Content}'".Trace(); });
-            CurrentApp.Messages.Publish(new SimpleMessage("SENDER HERE", "This is some sample text"));
+            CurrentApp.Messages.Subscribe<SampleMessage>((m) => { $"Received the following message from '{m.Sender}': '{m.Content}'".Trace(); });
+            CurrentApp.Messages.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
         static void TestTerminalOutputs()
@@ -156,7 +133,7 @@
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}.".Info(nameof(TestCsvFormatters));
 
                 var sourceObject = loadedRecords[generatedRecords.Count / 2];
-                var targetObject = new StubCopyTargetTest();
+                var targetObject = new SampleCopyTarget();
                 var copiedProperties = sourceObject.CopyPropertiesTo(targetObject);
                 $"{nameof(Extensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another".Info(nameof(TestCsvFormatters));
             });
@@ -166,92 +143,5 @@
         }
     }
 
-    internal class SimpleMessage : Unosquare.Swan.Runtime.MessageHubGenericMessage<string>
-    {
-        public SimpleMessage(object sender, string content) : base(sender, content)
-        {
-            // placeholder
-        }
-    }
-
-    internal interface IAnimal { string Name { get; } }
-    internal class Monkey : IAnimal { public string Name => nameof(Monkey); }
-    internal class Fish : IAnimal { public string Name => nameof(Fish); }
-
-    internal class TestSignleton : SingletonBase<TestSignleton>
-    {
-        private TestSignleton() { }
-        public string Name => "Hello";
-    }
-
-    internal class StubCopyTargetTest
-    {
-        public float ID { get; set; }
-        public decimal AlternateId { get; set; }
-        public string Score { get; set; }
-        public DateTime CreationDate { get; set; }
-    }
-
-    internal class SampleCsvRecord
-    {
-        public int Id { get; set; }
-        public int? AlternateId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-
-        public bool IsValidated { get; set; }
-        public bool? ValidationResult { get; set; }
-
-        public float Score { get; set; }
-
-        public DateTime CreationDate { get; set; }
-        public DateTime? AccessDate { get; set; }
-
-        private static readonly string[] RandomWords = (
-            "Hello, this is a test of the beautiful SWAN library. \r \r \r \r "
-            + "It is helpful because it contains some easy to use code and stuff that is handy at all times. \r\n \r\n \r\n \r\n \r\n  "
-            + "Swan is free to use and it is MIT licensed. It is a collection of patterns and helpful classes that make it super easy to code complex stuff \n "
-            + "For example the AppWorker class allows you to write threaded background services and catch start and stop events. "
-            + "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. "
-            + "Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime. "
-            + "The CSV formatters allow you to quickly and easily read to and from CSV files.  \r \r \r \r \r  "
-            + "\n \n \n \n \n \n \n \n \n \n \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"quoted\""
-            + "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like."
-            + "SWAN also provides helpful extension methods for string manipulation").Split(new string[] { " " }, StringSplitOptions.None);
-
-        public static List<SampleCsvRecord> CreateSampleSet(int size)
-        {
-            var result = new List<SampleCsvRecord>();
-            var random = new Random();
-
-            for (var i = 0; i < size; i++)
-            {
-                var descriptionLength = random.Next(5, RandomWords.Length);
-                var descriptionSb = new StringBuilder();
-                for (var wi = 0; wi < descriptionLength; wi++)
-                {
-                    descriptionSb.Append(
-                        $"{RandomWords[random.Next(0, RandomWords.Length - 1)]} ");
-                }
-
-                var record = new SampleCsvRecord
-                {
-                    AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : new DateTime?(),
-                    AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : new int?(),
-                    CreationDate = random.NextDouble() > 0.5d ? DateTime.Now : DateTime.MinValue,
-                    Description = descriptionSb.ToString(),
-                    Id = i,
-                    IsValidated = random.NextDouble() > 0.5d ? true : false,
-                    Name = RandomWords[random.Next(0, RandomWords.Length - 1)],
-                    Score = Convert.ToSingle(random.NextDouble() * random.Next(10, 1000)),
-                    ValidationResult = random.NextDouble() > 0.5d ? true : false
-                };
-
-                result.Add(record);
-            }
-
-            return result;
-        }
-
-    }
+    
 }
