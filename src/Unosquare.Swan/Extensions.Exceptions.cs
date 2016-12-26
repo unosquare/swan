@@ -47,14 +47,26 @@
                 foreach (var kvp in dictionary)
                 {
                     if (kvp.Value == null) continue;
-                    builder.Append($"{indentStr}{kvp.Key,-16}: ");
 
                     var valueDictionary = kvp.Value as Dictionary<string, object>;
                     var valueList = kvp.Value as List<object>;
 
-                    if ((valueDictionary != null && valueDictionary.Count > 0) 
-                        || (valueList != null && valueList.Count > 0))
-                        builder.AppendLine();
+                    if ((valueDictionary != null && valueDictionary.Count > 0))
+                    {
+                        builder.Append($"{indentStr}{kvp.Key,-16}: object");
+                        if (valueDictionary.Count > 0)
+                            builder.AppendLine();
+                    }
+                    else if (valueList != null)
+                    {
+                        builder.Append($"{indentStr}{kvp.Key,-16}: array[{valueList.Count}]");
+                        if (valueList.Count > 0)
+                            builder.AppendLine();
+                    }
+                    else
+                    {
+                        builder.Append($"{indentStr}{kvp.Key,-16}: ");
+                    }
 
                     builder.AppendLine(HumanizeJson(kvp.Value, indent + 1).TrimEnd());
                 }
@@ -67,16 +79,27 @@
                 var index = 0;
                 foreach (var value in list)
                 {
-                    builder.Append($"{indentStr}[{index}] ");
-                    index++;
-
                     var valueDictionary = value as Dictionary<string, object>;
                     var valueList = value as List<object>;
 
-                    if ((valueDictionary != null && valueDictionary.Count > 0)
-                        || (valueList != null && valueList.Count > 0))
-                        builder.AppendLine();
+                    if ((valueDictionary != null && valueDictionary.Count > 0))
+                    {
+                        builder.Append($"{indentStr}[{index}]: object");
+                        if (valueDictionary.Count > 0)
+                            builder.AppendLine();
+                    }
+                    else if (valueList != null)
+                    {
+                        builder.Append($"{indentStr}[{index}]: array[{valueList.Count}]");
+                        if (valueList.Count > 0)
+                            builder.AppendLine();
+                    }
+                    else
+                    {
+                        builder.Append($"{indentStr}[{index}]: ");
+                    }
 
+                    index++;
                     builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
                 }
 

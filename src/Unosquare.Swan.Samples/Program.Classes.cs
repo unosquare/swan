@@ -101,7 +101,7 @@ namespace Unosquare.Swan.Samples
         internal class SampleException : Exception
         {
             public SampleException()
-                : base("This is a sample exception. The sample excaption contains an extremely long sentence that is unable to display in one line byt let's test.\r\nNewLine starts here: hello\r\n   Line2: Has leading spaces",
+                : base("This is a sample exception.",
                       new Exception("An inner exception is shown here"))
             {
                 InnerReference = this;

@@ -22,9 +22,18 @@
             //TestNetworkUtilities();
             TestContainerAndMessageHub();
             TestJson();
+            TestExceptionLogging();
             //TestTerminalOutputs();
             //TestCsvFormatters();
 
+
+            
+
+            "Enter any key to exit . . .".ReadKey();
+        }
+
+        static void TestExceptionLogging()
+        {
             try
             {
                 throw new SampleException();
@@ -33,9 +42,6 @@
             {
                 ex.Log(null, "Exception dump starts");
             }
-            
-
-            "Enter any key to exit . . .".ReadKey();
         }
 
         static void TestApplicationInfo()
@@ -48,9 +54,17 @@
 
         static void TestJson()
         {
-            var jsonTextData = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" / Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [], \"SomeDate\": \"/" + DateTime.Now.ToStringInvariant() + "/\" }";
-            var jsonParsedData = Json.Deserialize(jsonTextData);
-            $"{Environment.NewLine}{jsonParsedData.Stringify().Indent(4)}".Warn();
+            var jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
+            var jsonObject = Json.Deserialize(jsonText);
+            $"JSON Object Dump: {Environment.NewLine}{jsonObject.Stringify().Indent(4)}".Warn();
+
+            jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [    ], \"EmptyObject\": {  }, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
+            jsonObject = Json.Deserialize(jsonText);
+            $"JSON Object Dump: {Environment.NewLine}{jsonObject.Stringify().Indent(4)}".Warn();
+
+            //var jsonTextData = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" / Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [], \"SomeDate\": \"/" + DateTime.Now.ToStringInvariant() + "/\" }";
+            //var jsonParsedData = Json.Deserialize(jsonTextData);
+
         }
 
         static void TestNetworkUtilities()
