@@ -56,11 +56,11 @@
         {
             var jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
             var jsonObject = Json.Deserialize(jsonText);
-            $"JSON Object Dump: {Environment.NewLine}{jsonObject.Stringify().Indent(4)}".Warn();
+            jsonObject.Dump();
 
             jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [    ], \"EmptyObject\": {  }, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
             jsonObject = Json.Deserialize(jsonText);
-            $"JSON Object Dump: {Environment.NewLine}{jsonObject.Stringify().Indent(4)}".Warn();
+            jsonObject.Dump();
 
             //var jsonTextData = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" / Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [], \"SomeDate\": \"/" + DateTime.Now.ToStringInvariant() + "/\" }";
             //var jsonParsedData = Json.Deserialize(jsonTextData);

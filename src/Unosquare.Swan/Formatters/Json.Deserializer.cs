@@ -314,7 +314,7 @@
                 if (str.IndexOf(StringEscapeChar) < 0)
                     return str;
 
-                var builder = new StringBuilder(str.Length * 2);
+                var builder = new StringBuilder(str.Length);
                 for (var i = 0; i < str.Length; i++)
                 {
                     if (str[i] != StringEscapeChar)

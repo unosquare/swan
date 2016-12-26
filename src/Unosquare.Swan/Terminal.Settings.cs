@@ -25,6 +25,16 @@
             public static OnMessageLoggedCallback OnMessageLogged { get; set; }
 
             /// <summary>
+            /// When set, it defines a method that filters the logging messages on the the Terminal
+            /// If the method returns true, the message is written to the output, otherwise the message is
+            /// not sent to the output.
+            /// </summary>
+            /// <value>
+            /// The on message filter.
+            /// </value>
+            public static OnMessageFilterOutput OnMessageFilter { get; set; }
+
+            /// <summary>
             /// Gets or sets the default output color.
             /// </summary>
             /// <value>

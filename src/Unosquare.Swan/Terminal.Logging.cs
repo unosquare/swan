@@ -16,6 +16,16 @@ namespace Unosquare.Swan
     /// <param name="ex">The optional exception.</param>
     public delegate void OnMessageLoggedCallback(ulong sequence, LoggingMessageType messageType, DateTime utcDate, string source, string message, Exception ex);
 
+    /// <summary>
+    /// A delegate to perform message filtering to be desiplayed on the output.
+    /// TODO: Allow chaining via a list of filters
+    /// </summary>
+    /// <param name="messageType">Type of the message.</param>
+    /// <param name="source">The source.</param>
+    /// <param name="message">The message.</param>
+    /// <returns></returns>
+    public delegate bool OnMessageFilterOutput(LoggingMessageType messageType, string source, string message);
+
     partial class Terminal
     {
         private static ulong LoggingSequence;
@@ -86,6 +96,8 @@ namespace Unosquare.Swan
                 // Enqueue the message to the console (out or error)
                 if (IsConsolePresent && Settings.ConsoleOptions.HasFlag(messageType))
                 {
+
+
                     var writer = Console.Out;
                     if (messageType.HasFlag(LoggingMessageType.Error))
                     {
@@ -102,7 +114,12 @@ namespace Unosquare.Swan
 
                     }
 
-                    outputText.WriteLine(color, writer);
+                    bool displayResult = Settings.OnMessageFilter == null ?
+                        true :
+                        Settings.OnMessageFilter.Invoke(messageType, source, outputText);
+
+                    if (displayResult)
+                        outputText.WriteLine(color, writer);
                 }
             }
         }
@@ -266,6 +283,18 @@ namespace Unosquare.Swan
         public static void Log(this Exception ex, string source = null, string message = null)
         {
             LogMessage(LoggingMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex);
+        }
+
+        /// <summary>
+        /// Logs a trace message showing all possible properties of the given object
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="text">The title.</param>
+        /// <param name="source">The source.</param>
+        public static void Dump(this object obj, string text = "Object Data", string source = nameof(Dump))
+        {
+            if (obj == null) return;
+            $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(4)}".Trace(source);
         }
     }
 }
