@@ -91,14 +91,14 @@
             {
                 if (targetInstance == null)
                 {
-                    // Try to create a defult instance
+                    // Try to create a default instance
                     try
                     {
                         // When using arrays, there is no default constructor, attempt to build a compatible array
                         var sourceObjectList = source as List<object>;
                         if (sourceObjectList != null && targetType.IsArray)
                         {
-                            target = Array.CreateInstance(targetType, sourceObjectList.Count);
+                            target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
                         }
                         else if (source is string && targetType == typeof(byte[]))
                         {
@@ -353,13 +353,16 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="typeSpecifier">The type specifier. Leave null or empty to avoid setting.</param>
-        /// <param name="includeNonPublic">if set to <c>true</c> non-publuc getters will be also read.</param>
+        /// <param name="includeNonPublic">if set to <c>true</c> non-public getters will be also read.</param>
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
         /// <returns></returns>
         public static string Serialize(object obj, bool format = false, string typeSpecifier = null, bool includeNonPublic = false,
             string[] includedNames = null, string[] excludedNames = null)
         {
+            if (obj != null && Constants.AllBasicValueTypes.Contains(obj.GetType()))
+                throw new ArgumentException("You need to provide an object or array", nameof(obj));
+
             return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, null);
         }
 

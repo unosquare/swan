@@ -218,7 +218,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializePrimitiveErrorTest()
         {
-            Assert.Throws<InvalidOperationException>(() => Json.Serialize(1), "Throws exception serializing primitive");
+            Assert.Throws<ArgumentException>(() => Json.Serialize(1), "Throws exception serializing primitive");
         }
         
         [Test]

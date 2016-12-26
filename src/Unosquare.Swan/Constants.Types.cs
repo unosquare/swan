@@ -112,7 +112,5 @@
                 .Where(kvp => kvp.Value.IsNullableValueType)
                 .Select(kvp => kvp.Key).ToArray()
             );
-
-
     }
 }

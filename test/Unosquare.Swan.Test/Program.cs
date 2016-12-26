@@ -13,10 +13,11 @@ namespace Unosquare.Swan.Test
 {
     public class Program
     {
+        private static string _basicAObjStr = "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
+
         public static void Main(string[] args)
         {
-            Network.QueryDns("invalid.local", DnsRecordType.MX).ToStringInvariant().Info();
-
+            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
             Terminal.ReadKey(true);
         }
     }
