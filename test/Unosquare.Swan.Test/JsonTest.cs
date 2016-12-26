@@ -232,6 +232,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeEmptyObjectTest()
         {
+            // TODO: This test does not contain valid JSON
             Assert.AreEqual(default(BasicJson), Json.Deserialize<BasicJson>("NOTHING"));
             Assert.AreEqual(default(Dictionary<string, object>), Json.Deserialize("NOTHING"));
         }
