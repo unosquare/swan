@@ -26,8 +26,8 @@
         {
             var deps = System.AppContext.GetData(DepsFilesProperty);
             var fileToLoad =
-                (deps as string)?.Split(new[] {';'}, System.StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-            var jsonData = JsonFormatter.Deserialize(File.ReadAllText(fileToLoad));
+                (deps as string)?.Split(new[] { ';' }, System.StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            var jsonData = Json.Deserialize(File.ReadAllText(fileToLoad)) as Dictionary<string, object>;
 
             return jsonData;
         });

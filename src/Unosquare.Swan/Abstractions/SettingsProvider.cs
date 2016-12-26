@@ -55,7 +55,7 @@
                     PersistGlobalSettings();
                 }
                 else
-                    m_Global = JsonFormatter.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                    m_Global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
             }
         }
 
@@ -152,10 +152,10 @@
         /// <returns></returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
-            var dict = JsonFormatter.Deserialize(GetJsonData());
+            var dict = Json.Deserialize(GetJsonData()) as Dictionary<string, object>;
 
             return dict.Keys
-                .Select(x => new ExtendedPropertyInfo<T>(x) {Value = dict[x]})
+                .Select(x => new ExtendedPropertyInfo<T>(x) { Value = dict[x] })
                 .ToList();
         }
 

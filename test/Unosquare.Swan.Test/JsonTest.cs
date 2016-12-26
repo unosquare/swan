@@ -71,7 +71,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeBasicObjectTest()
         {
-            var obj = JsonFormatter.Deserialize<BasicJson>(_basicStr);
+            var obj = Json.Deserialize<BasicJson>(_basicStr);
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
@@ -103,7 +103,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeBasicArrayTest()
         {
-            var arr = JsonFormatter.Deserialize<List<string>>(_basicAStr);
+            var arr = Json.Deserialize<List<string>>(_basicAStr);
             Assert.IsNotNull(arr);
             Assert.AreEqual(string.Join(",", _basicArray), string.Join(",", arr));
         }
@@ -120,7 +120,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeBasicObjectWithArrayTest()
         {
-            var data = JsonFormatter.Deserialize<BasicArrayJson>(_basicAObjStr);
+            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAObj.Id, data.Id);
@@ -140,7 +140,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeArrayOfObjectsTest()
         {
-            var data = JsonFormatter.Deserialize<List<ExtendedPropertyInfo>>(_basicAObjStr);
+            var data = Json.Deserialize<List<ExtendedPropertyInfo>>(_basicAObjStr);
 
             Assert.IsNotNull(data);
         }
@@ -157,7 +157,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeAdvObjectTest()
         {
-            var data = JsonFormatter.Deserialize<AdvJson>(_advStr);
+            var data = Json.Deserialize<AdvJson>(_advStr);
 
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.InnerChild);
@@ -185,7 +185,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeAdvObjectArrayTest()
         {
-            var data = JsonFormatter.Deserialize<AdvArrayJson>(_advAStr);
+            var data = Json.Deserialize<AdvArrayJson>(_advAStr);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAObj.Id, data.Id);
@@ -225,21 +225,21 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeserializeEmptyStringErrorTest()
         {
-            Assert.Throws<ArgumentNullException>(() => JsonFormatter.Deserialize(string.Empty), "Throws exception serializing primitive");
-            Assert.Throws<ArgumentNullException>(() => JsonFormatter.Deserialize<BasicJson>(string.Empty), "Throws exception serializing primitive");
+            Assert.Throws<ArgumentNullException>(() => Json.Deserialize(string.Empty), "Throws exception serializing primitive");
+            Assert.Throws<ArgumentNullException>(() => Json.Deserialize<BasicJson>(string.Empty), "Throws exception serializing primitive");
         }
 
         [Test]
         public void DeserializeEmptyObjectTest()
         {
-            Assert.AreEqual(default(BasicJson), JsonFormatter.Deserialize<BasicJson>("NOTHING"));
-            Assert.AreEqual(default(Dictionary<string, object>), JsonFormatter.Deserialize("NOTHING"));
+            Assert.AreEqual(default(BasicJson), Json.Deserialize<BasicJson>("NOTHING"));
+            Assert.AreEqual(default(Dictionary<string, object>), Json.Deserialize("NOTHING"));
         }
 
         [Test]
         public void DeserializeEmptyPropertyTest()
         {
-            Assert.IsNotNull(JsonFormatter.Deserialize<BasicJson>("{ \"\": \"value\" }"));
+            Assert.IsNotNull(Json.Deserialize<BasicJson>("{ \"\": \"value\" }"));
         }
     }
 }

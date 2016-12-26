@@ -31,7 +31,7 @@ namespace Unosquare.Swan.Utilities
         {
             var jsonString = await PostAsString(url, payload, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString) ? default(T) : JsonFormatter.Deserialize<T>(jsonString);
+            return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
 
         /// <summary>
@@ -47,9 +47,9 @@ namespace Unosquare.Swan.Utilities
         {
             var jsonString = await PostAsString(url, payload, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString)
+            return string.IsNullOrWhiteSpace(jsonString)
                 ? default(IDictionary<string, object>)
-                : JsonFormatter.Deserialize(jsonString);
+                : Json.Deserialize(jsonString) as IDictionary<string, object>;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Unosquare.Swan.Utilities
         {
             var jsonString = await PutAsString(url, payload, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString) ? default(T) : JsonFormatter.Deserialize<T>(jsonString);
+            return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Unosquare.Swan.Utilities
 
             return string.IsNullOrEmpty(jsonString)
                 ? default(IDictionary<string, object>)
-                : JsonFormatter.Deserialize(jsonString);
+                : Json.Deserialize(jsonString) as IDictionary<string, object>;
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace Unosquare.Swan.Utilities
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await GetAsString(url, authorization, ct);
-            return string.IsNullOrEmpty(jsonString) ? default(T) : JsonFormatter.Deserialize<T>(jsonString);
+            return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace Unosquare.Swan.Utilities
 
                 var jsonPayload = await response.Content.ReadAsStringAsync();
 
-                return JsonFormatter.Deserialize(jsonPayload);
+                return Json.Deserialize(jsonPayload) as IDictionary<string, object>;
             }
         }
 
@@ -235,7 +235,7 @@ namespace Unosquare.Swan.Utilities
         /// <returns></returns>
         public static async Task<string> PostFile(string url, byte[] image, string fileName, string authorization = null)
         {
-            return await Post<string>(url, new {Filename = fileName, Data = image}, authorization);
+            return await Post<string>(url, new { Filename = fileName, Data = image }, authorization);
         }
         #endregion
 
