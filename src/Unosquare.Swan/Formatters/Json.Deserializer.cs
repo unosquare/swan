@@ -131,7 +131,7 @@
                             || (ResultArray != null && json[i] == CloseArrayChar))
                         {
                             EndIndex = i;
-                            Result = (ResultObject == null) ? ResultArray as object : ResultObject;
+                            Result = ResultObject ?? ResultArray as object;
                             return;
                         }
 
@@ -240,7 +240,8 @@
                                     var charCount = 0;
                                     for (var j = i; j < json.Length; j++)
                                     {
-                                        if (char.IsWhiteSpace(json[j]) || json[j] == FieldSeparatorChar)
+                                        if (char.IsWhiteSpace(json[j]) || json[j] == FieldSeparatorChar 
+                                            || (ResultArray != null && json[j] == CloseArrayChar))
                                             break;
 
                                         charCount++;

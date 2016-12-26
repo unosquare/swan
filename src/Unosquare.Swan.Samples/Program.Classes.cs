@@ -101,15 +101,26 @@ namespace Unosquare.Swan.Samples
         internal class SampleException : Exception
         {
             public SampleException()
-                : base("This is a sample exception. The sample excaption contains an extremely long sentence that is unable to display in one line byt let's test.\r\nNewLine starts here: hello\r\n   Line2: Has leading spaces", 
+                : base("This is a sample exception. The sample excaption contains an extremely long sentence that is unable to display in one line byt let's test.\r\nNewLine starts here: hello\r\n   Line2: Has leading spaces",
                       new Exception("An inner exception is shown here"))
             {
                 InnerReference = this;
+                Aggregates = new AggregateException(new[]
+                {
+                    new Exception("EXCEPTION 1"),
+                    new Exception("EXCEPTION 2"),
+                    new Exception("EXCEPTION 3"),
+                    new Exception("EXCEPTION 4"),
+                });
             }
+
+            public List<int> IntList { get; } = new List<int>(new[] { 1, 2, 3, 4, 5, 6 });
 
             public DateTime ThrownDateUtc { get; } = DateTime.UtcNow;
 
             public object InnerReference { get; }
+
+            public AggregateException Aggregates { get; }
 
             public string LongStackTrace { get; } = @"   at System.ThrowHelper.ThrowKeyNotFoundException() 
    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)

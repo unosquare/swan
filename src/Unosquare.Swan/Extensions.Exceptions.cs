@@ -47,7 +47,7 @@
                 foreach (var kvp in dictionary)
                 {
                     if (kvp.Value == null) continue;
-                    builder.Append($"{indentStr}{kvp.Key,-20}: ");
+                    builder.Append($"{indentStr}{kvp.Key,-16}: ");
 
                     var valueDictionary = kvp.Value as Dictionary<string, object>;
                     var valueList = kvp.Value as List<object>;
@@ -64,11 +64,20 @@
 
             if (list != null)
             {
-                builder.AppendLine();
-                foreach (var item in list)
+                var index = 0;
+                foreach (var value in list)
                 {
-                    if (item == null) continue;
-                    builder.AppendLine($"{HumanizeJson(item, indent + 1).TrimEnd()}");
+                    builder.Append($"{indentStr}[{index}] ");
+                    index++;
+
+                    var valueDictionary = value as Dictionary<string, object>;
+                    var valueList = value as List<object>;
+
+                    if ((valueDictionary != null && valueDictionary.Count > 0)
+                        || (valueList != null && valueList.Count > 0))
+                        builder.AppendLine();
+
+                    builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
                 }
 
                 return builder.ToString().TrimEnd();

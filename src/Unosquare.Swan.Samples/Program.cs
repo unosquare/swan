@@ -31,7 +31,7 @@
             }
             catch (Exception ex)
             {
-                ex.Log();
+                ex.Log(null, "Exception dump starts");
             }
             
 
