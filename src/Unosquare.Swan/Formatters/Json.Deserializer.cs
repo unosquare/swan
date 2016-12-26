@@ -323,7 +323,7 @@
                         continue;
                     }
                         
-                    if (i == str.Length - 2)
+                    if (i + 1 > str.Length - 1)
                         break;
 
                     // escape sequence begins here
@@ -376,7 +376,12 @@
                 return builder.ToString();
             }
 
-            public static object Deserialize(string json)
+            /// <summary>
+            /// Deserializes specified JSON string
+            /// </summary>
+            /// <param name="json">The json.</param>
+            /// <returns></returns>
+            public static object DeserializeInternal(string json)
             {
                 var deserializer = new Deserializer(json, 0);
                 return deserializer.Result;

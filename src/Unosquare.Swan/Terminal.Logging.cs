@@ -93,7 +93,7 @@ namespace Unosquare.Swan
                         try
                         {
                             if (ex != null)
-                                outputText = $"{outputText}{Environment.NewLine}{ex.Humanize().Indent(4)}";
+                                outputText = $"{outputText}{Environment.NewLine}{ex.Stringify().Indent(4)}";
                         }
                         catch
                         {

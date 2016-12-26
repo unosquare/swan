@@ -15,6 +15,7 @@
     /// This is an useful helper for small tasks but it doesn't represent a full-featured
     /// serializer such as the beloved Json.NET
     /// </summary>
+    [Obsolete("Please use the new Json class instead of JsonFormatter")]
     public static class JsonFormatter
     {
         #region Constants 

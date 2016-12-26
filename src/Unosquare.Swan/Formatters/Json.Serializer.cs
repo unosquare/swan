@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
 
     partial class Json
@@ -19,9 +20,8 @@
             private static readonly Dictionary<int, string> IndentStrings = new Dictionary<int, string>();
 
             private readonly string Result = null;
-            private readonly Type TargetType;
             private readonly StringBuilder Builder;
-            private readonly bool Format = true;
+            private readonly bool Format;
             private readonly string LastCommaSearch;
             private readonly List<string> ExcludeProperties = new List<string>();
             private readonly List<string> IncludeProperties = new List<string>();
@@ -66,7 +66,13 @@
 
                 if (obj is string)
                 {
-                    Result = $"{StringQuotedChar}{Escape(obj as string)}{StringQuotedChar}";
+                    Result = $"{StringQuotedChar}{Escape((string)obj)}{StringQuotedChar}";
+                    return;
+                }
+
+                if (obj is Type || obj is Assembly || obj is MethodInfo || obj is PropertyInfo || obj is EventInfo)
+                {
+                    Result = $"{StringQuotedChar}{Escape(obj.ToString())}{StringQuotedChar}";
                     return;
                 }
 
@@ -81,16 +87,16 @@
                 #region Extended Type Handling (numbers and other fundamental types)
 
                 var target = obj;
-                TargetType = obj.GetType();
+                var targetType = obj.GetType();
 
-                if (Constants.BasicTypesInfo.ContainsKey(TargetType))
+                if (Constants.BasicTypesInfo.ContainsKey(targetType))
                 {
-                    var literalValue = Escape(Constants.BasicTypesInfo[TargetType].ToStringInvariant(target));
+                    var escapedValue = Escape(Constants.BasicTypesInfo[targetType].ToStringInvariant(target));
                     decimal val;
 
-                    Result = decimal.TryParse(literalValue, out val) ?
-                        $"{literalValue}" :
-                        $"{StringQuotedChar}{Escape(literalValue)}{StringQuotedChar}";
+                    Result = decimal.TryParse(escapedValue, out val) ?
+                        $"{escapedValue}" :
+                        $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
 
                     return;
                 }
@@ -219,14 +225,14 @@
 
                     // Create the dictionary and extract the properties
                     var objectDictionary = new Dictionary<string, object>();
-                    var properties = RetrieveProperties(TargetType).Where(p => p.CanRead).ToArray();
+                    var properties = RetrieveProperties(targetType).Where(p => p.CanRead).ToArray();
 
                     // If we set the included properties, then we remove everything that is not listed
                     if (IncludeProperties.Count > 0)
                         properties = properties.Where(p => IncludeProperties.Contains(p.Name)).ToArray();
 
                     if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
-                        objectDictionary[typeSpecifier] = TargetType.ToString();
+                        objectDictionary[typeSpecifier] = targetType.ToString();
 
                     foreach (var property in properties)
                     {
@@ -236,8 +242,15 @@
 
                         // Build the dictionary using property names and values
                         // Note: used to be: property.GetValue(target); but we would be reading private properties
-                        try { objectDictionary[property.Name] = property.GetGetMethod(includeNonPublic)?.Invoke(target, null); }
-                        catch { /* ignored */ }
+                        try
+                        {
+                            objectDictionary[property.Name] = property.GetGetMethod(includeNonPublic)?
+                                .Invoke(target, null);
+                        }
+                        catch// (Exception ex)
+                        {
+                            /* ignored */
+                        }
                     }
 
                     // At this point we either have a dictionary with or without properties
@@ -375,9 +388,6 @@
                     {
                         case '\\':
                         case '"':
-                            builder.Append('\\');
-                            builder.Append(currentChar);
-                            break;
                         case '/':
                             builder.Append('\\');
                             builder.Append(currentChar);

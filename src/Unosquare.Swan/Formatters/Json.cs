@@ -395,7 +395,7 @@
         /// <returns></returns>
         public static object Deserialize(string json)
         {
-            return Deserializer.Deserialize(json);
+            return Deserializer.DeserializeInternal(json);
         }
 
 
@@ -432,7 +432,7 @@
         /// <returns></returns>
         public static object Deserialize(string json, Type resultType, bool includeNonPublic)
         {
-            var source = Deserializer.Deserialize(json);
+            var source = Deserializer.DeserializeInternal(json);
             object nullRef = null;
             return ConvertFromJsonResult(source, resultType, ref nullRef, includeNonPublic);
         }

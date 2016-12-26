@@ -1,11 +1,11 @@
 ﻿namespace Unosquare.Swan
 {
+    using Reflection;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
-    using Unosquare.Swan.Reflection;
 
     public static partial class Extensions
     {

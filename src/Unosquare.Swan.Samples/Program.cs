@@ -54,7 +54,7 @@
 
         static void TestJson()
         {
-            var jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
+            var jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
             var jsonObject = Json.Deserialize(jsonText);
             $"JSON Object Dump: {Environment.NewLine}{jsonObject.Stringify().Indent(4)}".Warn();
 
