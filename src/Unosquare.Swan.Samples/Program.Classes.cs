@@ -1,4 +1,7 @@
-﻿namespace Unosquare.Swan.Samples
+﻿using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+namespace Unosquare.Swan.Samples
 {
     using System;
     using System.Collections.Generic;
@@ -92,6 +95,28 @@
 
                 return result;
             }
+
+        }
+
+        internal class SampleException : Exception
+        {
+            public SampleException()
+                : base("This is a sample exception. The sample excaption contains an extremely long sentence that is unable to display in one line byt let's test.\r\nNewLine starts here: hello\r\n   Line2: Has leading spaces", 
+                      new Exception("An inner exception is shown here"))
+            {
+                InnerReference = this;
+            }
+
+            public DateTime ThrownDateUtc { get; } = DateTime.UtcNow;
+
+            public object InnerReference { get; }
+
+            public string LongStackTrace { get; } = @"   at System.ThrowHelper.ThrowKeyNotFoundException() 
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at Telerik.Cms.Engine.Data.ContentVersion.SetMetaData(String key, Object value)
+   at Telerik.Cms.Engine.Data.CmsContentBase.SetMetaData(String key, Object value)
+   at Devise.Content.Pages.DevisePage.SetMetaData(String strKey, Object Value, Boolean bSave)"
+                ;
 
         }
     }

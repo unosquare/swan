@@ -36,10 +36,12 @@
             /// <param name="obj">The object.</param>
             /// <param name="depth">The depth.</param>
             /// <param name="format">if set to <c>true</c> [format].</param>
+            /// <param name="typeSpecifier">The type specifier. Leave null or empty to skip.</param>
             /// <param name="includeProperties">The include properties.</param>
             /// <param name="excludeProperties">The exclude properties.</param>
             /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
-            private Serializer(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties, bool includeNonPublic)
+            /// <param name="parentReferences">The parent references.</param>
+            private Serializer(object obj, int depth, bool format, string typeSpecifier, string[] includeProperties, string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
             {
                 #region Property Settings
 
@@ -86,16 +88,27 @@
                     var literalValue = Escape(Constants.BasicTypesInfo[TargetType].ToStringInvariant(target));
                     decimal val;
 
-                    if (decimal.TryParse(literalValue, out val))
-                        Result = $"{literalValue}";
-                    else
-                        Result = $"{StringQuotedChar}{Escape(literalValue)}{StringQuotedChar}";
+                    Result = decimal.TryParse(literalValue, out val) ?
+                        $"{literalValue}" :
+                        $"{StringQuotedChar}{Escape(literalValue)}{StringQuotedChar}";
 
                     return;
                 }
 
                 // At this point, we will need to construct the object with a stringbuilder.
                 Builder = new StringBuilder();
+
+                // Handle circular references correctly and avoid them
+                if (parentReferences == null)
+                    parentReferences = new List<WeakReference>();
+
+                if (parentReferences.Any(p => ReferenceEquals(p.Target, obj)))
+                {
+                    Result = $"{{ \"$circref\": \"{Escape(obj.GetHashCode().ToStringInvariant())}\" }}";
+                    return;
+                }
+
+                parentReferences.Add(new WeakReference(obj));
 
                 #endregion
 
@@ -126,7 +139,7 @@
                             Append($"{StringQuotedChar}{Escape(entry.Key.ToString())}{StringQuotedChar}{ValueSeparatorChar} ", depth + 1);
 
                             // Serialize and append the value
-                            var serializedValue = Serialize(entry.Value, depth + 1, Format, includeProperties, excludeProperties, includeNonPublic);
+                            var serializedValue = Serialize(entry.Value, depth + 1, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
                             if (IsNonEmptyJsonArrayOrObject(serializedValue)) AppendLine();
                             Append(serializedValue, 0);
 
@@ -153,7 +166,7 @@
                         // Special byte array handling
                         if (target is byte[])
                         {
-                            Result = Serialize((target as byte[]).ToBase64(), depth, Format, includeProperties, excludeProperties, includeNonPublic);
+                            Result = Serialize((target as byte[]).ToBase64(), depth, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
                             return;
                         }
 
@@ -176,7 +189,7 @@
                         var writeCount = 0;
                         foreach (var entry in items)
                         {
-                            var serializedValue = Serialize(entry, depth + 1, Format, includeProperties, excludeProperties, includeNonPublic);
+                            var serializedValue = Serialize(entry, depth + 1, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
 
                             if (IsNonEmptyJsonArrayOrObject(serializedValue))
                                 Append(serializedValue, 0);
@@ -212,6 +225,9 @@
                     if (IncludeProperties.Count > 0)
                         properties = properties.Where(p => IncludeProperties.Contains(p.Name)).ToArray();
 
+                    if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
+                        objectDictionary[typeSpecifier] = TargetType.ToString();
+
                     foreach (var property in properties)
                     {
                         // Skip over the excluded properties
@@ -228,9 +244,9 @@
                     // If we have at least one property then we send it through the serialization method
                     // If we don't have any properties we simply call its tostring method and serialize as string
                     if (objectDictionary.Count > 0)
-                        Result = Serialize(objectDictionary, depth, Format, includeProperties, excludeProperties, includeNonPublic);
+                        Result = Serialize(objectDictionary, depth, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
                     else
-                        Result = Serialize(target.ToString(), 0, Format, includeProperties, excludeProperties, includeNonPublic);
+                        Result = Serialize(target.ToString(), 0, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
                 }
                 #endregion
             }
@@ -241,13 +257,15 @@
             /// <param name="obj">The object.</param>
             /// <param name="depth">The depth.</param>
             /// <param name="format">if set to <c>true</c> [format].</param>
+            /// <param name="typeSepcifier">The type sepcifier. Leave empty to avoid setting.</param>
             /// <param name="includeProperties">The include properties.</param>
             /// <param name="excludeProperties">The exclude properties.</param>
             /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
+            /// <param name="parentReferences">The parent references.</param>
             /// <returns></returns>
-            static public string Serialize(object obj, int depth, bool format, string[] includeProperties, string[] excludeProperties, bool includeNonPublic)
+            public static string Serialize(object obj, int depth, bool format, string typeSepcifier, string[] includeProperties, string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
             {
-                var serializer = new Serializer(obj, depth, format, includeProperties, excludeProperties, includeNonPublic);
+                var serializer = new Serializer(obj, depth, format, typeSepcifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
                 return serializer.Result;
             }
 
@@ -385,8 +403,8 @@
                                 var escapeBytes = BitConverter.GetBytes((ushort)currentChar);
                                 if (BitConverter.IsLittleEndian == false)
                                     Array.Reverse(escapeBytes);
-                                    
-                                builder.Append("\\u" 
+
+                                builder.Append("\\u"
                                     + escapeBytes[1].ToString("X").PadLeft(2, '0')
                                     + escapeBytes[0].ToString("X").PadLeft(2, '0'));
                             }

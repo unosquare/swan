@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
-
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
     using Formatters;
     using System;
@@ -12,6 +9,8 @@ namespace Unosquare.Swan
 
     partial class Extensions
     {
+        #region Private Declarations
+
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
@@ -42,6 +41,8 @@ namespace Unosquare.Swan
                 return x[0] + " " + x.Substring(1, x.Length - 1);
             });
         });
+
+        #endregion
 
         /// <summary>
         /// Computes the MD5 hash of the given string using UTF8 byte encoding.
@@ -126,35 +127,73 @@ namespace Unosquare.Swan
         }
 
         /// <summary>
-        /// Removes the control characters from a string.
+        /// Removes the control characters from a string except for those sepcified.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="excludeChars">When specified, these characters will not be removed.</param>
+        /// <returns></returns>
+        public static string RemoveControlCharsExcept(this string input, params char[] excludeChars)
+        {
+            if (excludeChars == null)
+                excludeChars = new char[] {};
+
+            return new string(input
+                .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
+                .ToArray());
+        }
+
+        /// <summary>
+        /// Removes all control characters from a string, including new line sequences.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns></returns>
         public static string RemoveControlChars(this string input)
         {
-            return new string(input.Where(c => !char.IsControl(c)).ToArray());
+            return input.RemoveControlCharsExcept(null);
         }
 
+        /// <summary>
+        /// Outputs JSON representing this object
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="format">if set to <c>true</c> format the output.</param>
+        /// <returns></returns>
+        public static string ToJson(this object obj, bool format = true)
+        {
+            if (obj == null) return string.Empty;
+            return Json.Serialize(obj, format);
+        }
 
         /// <summary>
-        /// Outputs formatted JSON representing this object
+        /// Returns text representing the properties of the specified object in a human-readable format.
+        /// While this method is fairly expensive computationally speaking, it provides an easy way to
+        /// examine objects.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns></returns>
-        public static string Jsonify(this object obj)
+        public static string Stringify(this object obj)
         {
-            return Json.Serialize(obj, true);
+            if (obj == null) return string.Empty;
+            var jsonText = Json.Serialize(obj, false, "$type");
+            var jsonData = Json.Deserialize(jsonText);
+
+            if (jsonData == null) return string.Empty;
+            var readableData = HumanizeJson(jsonData, 0);
+            return readableData;
         }
 
         /// <summary>
-        /// Retrieves a section of the string includive of the start and end indexes.
+        /// Retrieves a section of the string, inclusive of both, the start and end indexes.
+        /// This behavior is unlike JavaScript's Slice behavior where the end index is non-inclusive
+        /// If the string is null it returns an empty string
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
         /// <returns></returns>
-        public static string Section(this string str, int startIndex, int endIndex)
+        public static string Slice(this string str, int startIndex, int endIndex)
         {
+            if (str == null) return string.Empty;
             endIndex = endIndex.Clamp(startIndex, str.Length - 1);
             if (startIndex >= endIndex) return string.Empty;
             return str.Substring(startIndex, (endIndex - startIndex) + 1);
@@ -162,33 +201,20 @@ namespace Unosquare.Swan
 
         /// <summary>
         /// Gets a part of the string clamping the length and startIndex parameters to safe values.
+        /// If the string is null it returns an empty string
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <returns></returns>
-        public static string SafeSubstring(this string str, int startIndex, int length)
+        public static string SliceLength(this string str, int startIndex, int length)
         {
+            if (str == null) return string.Empty;
             startIndex = startIndex.Clamp(0, str.Length - 1);
             length = length.Clamp(0, str.Length - startIndex);
 
             if (length == 0) return string.Empty;
             return str.Substring(startIndex, length);
-        }
-
-        /// <summary>
-        /// Converts a set of hexadecimal characters (upercase or lowervase)
-        /// to a byte array. String length must be a multiple of 2 and 
-        /// any prefix (such as 0x) has to be avoided for this to work properly
-        /// </summary>
-        /// <param name="hex">The hexadecimal.</param>
-        /// <returns></returns>
-        public static byte[] HexToBytes(this string hex)
-        {
-            return Enumerable
-                .Range(0, hex.Length / 2)
-                .Select(x => Convert.ToByte(hex.Substring(x * 2, 2), 16))
-                .ToArray();
         }
 
         /// <summary>
@@ -236,23 +262,7 @@ namespace Unosquare.Swan
                 builder.AppendLine($"{indentStr}{line}");
             }
 
-            return builder.ToString();
-        }
-
-        /// <summary>
-        /// Humanizes the specified exception object so it is readable
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        /// <returns></returns>
-        public static string Humanize(this Exception ex)
-        {
-            // TODO: JSON is NOT too useful here. We need cutom humanization logic for exceptions
-            if (ex == null) return string.Empty;
-            var builder = new StringBuilder();
-            builder.AppendLine($"{ex.GetType()}: {ex.Message}");
-            var jsonData = Json.SerializeExcluding(ex, true, nameof(Exception.Data), nameof(Exception.Source), "TargetSite");
-            builder.AppendLine(jsonData);
-            return builder.ToString();
+            return builder.ToString().TrimEnd();
         }
 
         /// <summary>

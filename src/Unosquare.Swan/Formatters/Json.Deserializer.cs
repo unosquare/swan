@@ -92,7 +92,7 @@
                                 charCount++;
                             }
 
-                            CurrentFieldName = Unescape(json.SafeSubstring(i + 1, charCount));
+                            CurrentFieldName = Unescape(json.SliceLength(i + 1, charCount));
                             i += charCount + 1;
                             State = ReadState.WaitingForColon;
                             continue;
@@ -150,7 +150,7 @@
                                     }
 
                                     // Extract and set the value
-                                    var value = Unescape(json.SafeSubstring(i + 1, charCount));
+                                    var value = Unescape(json.SliceLength(i + 1, charCount));
                                     if (CurrentFieldName != null)
                                         ResultObject[CurrentFieldName] = value;
                                     else
@@ -180,7 +180,7 @@
                                 }
                             case 't': // expect true
                                 {
-                                    if (json.SafeSubstring(i, TrueLiteral.Length).Equals(TrueLiteral))
+                                    if (json.SliceLength(i, TrueLiteral.Length).Equals(TrueLiteral))
                                     {
                                         // Extract and set the value
                                         if (CurrentFieldName != null)
@@ -195,11 +195,11 @@
                                         continue;
                                     }
 
-                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SafeSubstring(i, TrueLiteral.Length)}'.");
+                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SliceLength(i, TrueLiteral.Length)}'.");
                                 }
                             case 'f': // expect false
                                 {
-                                    if (json.SafeSubstring(i, FalseLiteral.Length).Equals(FalseLiteral))
+                                    if (json.SliceLength(i, FalseLiteral.Length).Equals(FalseLiteral))
                                     {
                                         // Extract and set the value
                                         if (CurrentFieldName != null)
@@ -214,11 +214,11 @@
                                         continue;
                                     }
 
-                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SafeSubstring(i, FalseLiteral.Length)}'.");
+                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SliceLength(i, FalseLiteral.Length)}'.");
                                 }
                             case 'n': // expect null
                                 {
-                                    if (json.SafeSubstring(i, NullLiteral.Length).Equals(NullLiteral))
+                                    if (json.SliceLength(i, NullLiteral.Length).Equals(NullLiteral))
                                     {
                                         // Extract and set the value
                                         if (CurrentFieldName != null)
@@ -233,7 +233,7 @@
                                         continue;
                                     }
 
-                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SafeSubstring(i, NullLiteral.Length)}'.");
+                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SliceLength(i, NullLiteral.Length)}'.");
                                 }
                             default: // expect number
                                 {
@@ -247,7 +247,7 @@
                                     }
 
                                     // Extract and set the value
-                                    var stringValue = json.SafeSubstring(i, charCount);
+                                    var stringValue = json.SliceLength(i, charCount);
                                     decimal value;
 
                                     if (decimal.TryParse(stringValue, out value) == false)
@@ -305,9 +305,6 @@
                     #endregion
 
                 }
-
-
-
             }
 
             private static string Unescape(string str)
@@ -325,7 +322,6 @@
                         continue;
                     }
                         
-
                     if (i == str.Length - 2)
                         break;
 
@@ -343,7 +339,7 @@
                                     break;
                                 }
 
-                                var hexCode = str.Section(startIndex, endIndex).HexToBytes();
+                                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
                                 builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
                                 i += 5;
                                 break;

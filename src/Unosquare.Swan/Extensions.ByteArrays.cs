@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Text;
 
     partial class Extensions
@@ -57,6 +58,21 @@
         public static string ToBase64(this byte[] bytes)
         {
             return Convert.ToBase64String(bytes);
+        }
+
+        /// <summary>
+        /// Converts a set of hexadecimal characters (upercase or lowervase)
+        /// to a byte array. String length must be a multiple of 2 and 
+        /// any prefix (such as 0x) has to be avoided for this to work properly
+        /// </summary>
+        /// <param name="hex">The hexadecimal.</param>
+        /// <returns></returns>
+        public static byte[] ConvertHexadecimalToBytes(this string hex)
+        {
+            return Enumerable
+                .Range(0, hex.Length / 2)
+                .Select(x => Convert.ToByte(hex.Substring(x * 2, 2), 16))
+                .ToArray();
         }
 
         /// <summary>

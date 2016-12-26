@@ -66,7 +66,7 @@ namespace Unosquare.Swan
                 var date = DateTime.UtcNow;
                 LoggingSequence++;
 
-                var output = string.IsNullOrWhiteSpace(text) ? string.Empty : text.RemoveControlChars().Trim();
+                var output = string.IsNullOrWhiteSpace(text) ? string.Empty : text.RemoveControlCharsExcept('\n');
                 var outputWithSource = string.IsNullOrWhiteSpace(source) ? output : $"[{source}] {output}";
                 var outputText = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
                     $" {prefix} >> {outputWithSource}" :
@@ -254,7 +254,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Error(this Exception ex, string source, string message)
         {
-            LogMessage(LoggingMessageType.Error, $"{ex.GetType()}: message", source, ex);
+            LogMessage(LoggingMessageType.Error, message, source, ex);
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Log(this Exception ex, string source = null, string message = null)
         {
-            LogMessage(LoggingMessageType.Error, $"{ex.GetType()}: {message ?? ex.Message}", source ?? ex.Source, ex);
+            LogMessage(LoggingMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex);
         }
     }
 }

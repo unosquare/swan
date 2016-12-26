@@ -11,19 +11,23 @@
 
     public partial class Program
     {
+        /// <summary>
+        /// Mains the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <exception cref="SampleException"></exception>
         public static void Main(string[] args)
         {
-
-
             TestApplicationInfo();
             //TestNetworkUtilities();
             TestContainerAndMessageHub();
+            TestJson();
             //TestTerminalOutputs();
             //TestCsvFormatters();
 
             try
             {
-                throw new FormatException("Invalid format", new Exception("Inner Exception here"));
+                throw new SampleException();
             }
             catch (Exception ex)
             {
@@ -44,9 +48,9 @@
 
         static void TestJson()
         {
-            var jsonTest = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [] }";
-
-
+            var jsonTextData = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" / Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [], \"SomeDate\": \"/" + DateTime.Now.ToStringInvariant() + "/\" }";
+            var jsonParsedData = Json.Deserialize(jsonTextData);
+            $"{Environment.NewLine}{jsonParsedData.Stringify().Indent(4)}".Warn();
         }
 
         static void TestNetworkUtilities()

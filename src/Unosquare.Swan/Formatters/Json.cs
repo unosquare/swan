@@ -352,14 +352,15 @@
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
+        /// <param name="typeSpecifier">The type specifier. Leave null or empty to avoid setting.</param>
         /// <param name="includeNonPublic">if set to <c>true</c> non-publuc getters will be also read.</param>
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
         /// <returns></returns>
-        public static string Serialize(object obj, bool format = false, bool includeNonPublic = false,
+        public static string Serialize(object obj, bool format = false, string typeSpecifier = null, bool includeNonPublic = false,
             string[] includedNames = null, string[] excludedNames = null)
         {
-            return Serializer.Serialize(obj, 0, format, includedNames, excludedNames, includeNonPublic);
+            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, null);
         }
 
         /// <summary>
@@ -371,7 +372,7 @@
         /// <returns></returns>
         public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
-            return Serializer.Serialize(obj, 0, format, includeNames, null, true);
+            return Serializer.Serialize(obj, 0, format, null, includeNames, null, true, null);
         }
 
         /// <summary>
@@ -383,7 +384,7 @@
         /// <returns></returns>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
-            return Serializer.Serialize(obj, 0, format, null, excludeNames, false);
+            return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false, null);
         }
 
         /// <summary>
