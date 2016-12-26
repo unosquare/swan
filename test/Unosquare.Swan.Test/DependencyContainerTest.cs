@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 using Unosquare.Swan.Runtime;
 using Unosquare.Swan.Test.Mocks;
 
@@ -53,7 +54,7 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual((new Fish()).Name, instance.Animal.Name);
             Assert.AreEqual((new TheOnlyCar()).Name, instance.Car.Name);
         }
-        
+
         [Test]
         public void ThrowResolutionExceptionTest()
         {
@@ -74,6 +75,18 @@ namespace Unosquare.Swan.Test
 
             Assert.IsTrue(container.TryResolve(out instance));
             Assert.AreEqual((new Fish()).Name, instance.Name);
+        }
+
+        [Test]
+        public void RegisterIEnumerableTest()
+        {
+            var container = new DependencyContainer();
+
+            Assert.IsTrue(container.CanResolve<IEnumerable<string>>());
+            container.Register<IEnumerable<string>, StringEnumerable>();
+
+            Assert.IsTrue(container.CanResolve<IEnumerable<string>>());
+            Assert.AreEqual(typeof(StringEnumerable), container.Resolve<IEnumerable<string>>().GetType());
         }
     }
 }

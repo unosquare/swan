@@ -61,7 +61,7 @@
         }
 
         /// <summary>
-        /// Converts a set of hexadecimal characters (upercase or lowervase)
+        /// Converts a set of hexadecimal characters (uppercase or lowercase)
         /// to a byte array. String length must be a multiple of 2 and 
         /// any prefix (such as 0x) has to be avoided for this to work properly
         /// </summary>

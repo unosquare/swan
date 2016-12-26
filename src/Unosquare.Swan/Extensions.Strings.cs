@@ -392,7 +392,5 @@
         {
             return new string(c, 1);
         }
-
-        // TODO: Test Humanize, Add pluralize, singularize, dashize, capitalize titleize, etc.
     }
 }

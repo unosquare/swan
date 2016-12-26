@@ -1,4 +1,8 @@
-﻿namespace Unosquare.Swan.Test.Mocks
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Unosquare.Swan.Test.Mocks
 {
     public interface IAnimal
     {
@@ -30,5 +34,18 @@
         public IAnimal Animal { get; set; }
 
         public ICar Car { get; set; }
+    }
+
+    public class StringEnumerable : IEnumerable<string>
+    {
+        public IEnumerator<string> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
