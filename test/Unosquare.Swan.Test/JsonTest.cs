@@ -124,7 +124,7 @@ namespace Unosquare.Swan.Test
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAObj.Id, data.Id);
-            Assert.IsNotNull(_basicAObj.Properties);
+            Assert.IsNotNull(data.Properties);
             Assert.AreEqual(string.Join(",", _basicAObj.Properties), string.Join(",", data.Properties));
         }
 
@@ -189,7 +189,7 @@ namespace Unosquare.Swan.Test
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicAObj.Id, data.Id);
-            Assert.IsNotNull(_basicAObj.Properties);
+            Assert.IsNotNull(data.Properties);
 
             foreach (var obj in data.Properties)
             {
@@ -218,25 +218,16 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializePrimitiveErrorTest()
         {
-            Assert.Inconclusive("I need to discuss this behavior with Mario");
             Assert.Throws<InvalidOperationException>(() => Json.Serialize(1), "Throws exception serializing primitive");
         }
         
         [Test]
         public void DeserializeEmptyStringErrorTest()
         {
-            Assert.Throws<ArgumentNullException>(() => Json.Deserialize(string.Empty), "Throws exception serializing primitive");
-            Assert.Throws<ArgumentNullException>(() => Json.Deserialize<BasicJson>(string.Empty), "Throws exception serializing primitive");
+            Assert.IsNull(Json.Deserialize(string.Empty));
+            Assert.IsNull(Json.Deserialize<BasicJson>(string.Empty));
         }
-
-        [Test]
-        public void DeserializeEmptyObjectTest()
-        {
-            // TODO: This test does not contain valid JSON
-            Assert.AreEqual(default(BasicJson), Json.Deserialize<BasicJson>("NOTHING"));
-            Assert.AreEqual(default(Dictionary<string, object>), Json.Deserialize("NOTHING"));
-        }
-
+        
         [Test]
         public void DeserializeEmptyPropertyTest()
         {
