@@ -75,8 +75,7 @@
                         LoggingMessageType.Warning;
                 }
             }
-
-
+            
             if (IsConsolePresent == false)
                 return;
 

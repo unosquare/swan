@@ -62,7 +62,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeBasicObjectTest()
         {
-            var data = Json.Serialize(BasicJson.GetDefault());
+            var data = BasicJson.GetDefault().ToJson(false);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(_basicStr, data);
@@ -232,6 +232,13 @@ namespace Unosquare.Swan.Test
         public void DeserializeEmptyPropertyTest()
         {
             Assert.IsNotNull(Json.Deserialize<BasicJson>("{ \"\": \"value\" }"));
+        }
+
+        [Test]
+        public void CheckJsonFormat()
+        {
+            Assert.AreEqual(_basicStr, BasicJson.GetDefault().ToJson(false));
+            Assert.AreNotEqual(_basicStr, BasicJson.GetDefault().ToJson());
         }
     }
 }

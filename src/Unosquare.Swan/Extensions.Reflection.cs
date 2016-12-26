@@ -376,8 +376,7 @@
         {
             return type.GetTypeInfo().Assembly;
         }
-
-
+        
         /// <summary>
         /// Determines whether [is i enumerable request].
         /// </summary>
@@ -389,10 +388,8 @@
         {
             if (!type.IsGenericType())
                 return false;
-
-            var genericType = type.GetGenericTypeDefinition();
-
-            return genericType == typeof(IEnumerable<>);
+            
+            return type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
 
         #endregion
