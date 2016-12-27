@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using System.Collections;
     using System.Reflection;
     using System.Linq;
     using System.Runtime.InteropServices;
@@ -58,8 +57,7 @@
                            ((longBytes & 0x00ff0000) >> 8) +
                            ((longBytes & 0xff000000) >> 24));
         }
-
-
+        
         /// <summary>
         /// Adjusts the endianness of the type represented by the data byte array.
         /// </summary>
@@ -82,8 +80,7 @@
                 {
                     continue;
                 }
-
-
+                
                 var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
 #pragma warning disable CS0618 // Type or member is obsolete
                 var length = Marshal.SizeOf(field.FieldType);

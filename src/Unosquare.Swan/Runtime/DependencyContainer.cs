@@ -13,6 +13,9 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
+#define USE_OBJECT_CONSTRUCTOR
+#define EXPRESSIONS
+
 namespace Unosquare.Swan.Runtime
 {
     using System;
@@ -2384,11 +2387,7 @@ namespace Unosquare.Swan.Runtime
 
             public SingletonFactory(Type registerType, Type registerImplementation)
             {
-                //#if NETFX_CORE
-                //				if (registerImplementation.GetTypeInfo().IsAbstract() || registerImplementation.GetTypeInfo().IsInterface())
-                //#else
                 if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    //#endif
                     throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
 
                 if (!IsValidAssignment(registerType, registerImplementation))
@@ -2811,22 +2810,6 @@ namespace Unosquare.Swan.Runtime
                 return CanConstruct(factory.Constructor, parameters, options);
             }
 
-#if RESOLVE_OPEN_GENERICS
-            if (checkType.IsInterface() && checkType.IsGenericType())
-            {
-                // if the type is registered as an open generic, then see if the open generic is registered
-                if (_RegisteredTypes.TryGetValue(new TypeRegistration(checkType.GetGenericTypeDefinition(), name), out factory))
-                {
-                    if (factory.AssumeConstruction)
-                        return true;
-
-                    if (factory.Constructor == null)
-                        return (GetBestConstructor(factory.CreatesType, parameters, options) != null) ? true : false;
-                    else
-                        return CanConstruct(factory.Constructor, parameters, options);
-                }
-            }
-#endif
 
             // Fail if requesting named resolution and settings set to fail if unresolved
             // Or bubble up if we have a parent
@@ -2921,31 +2904,6 @@ namespace Unosquare.Swan.Runtime
                 }
             }
 
-#if RESOLVE_OPEN_GENERICS
-            // Attempt container resolution of open generic
-            if (registration.Type.IsGenericType())
-            {
-                var openTypeRegistration = new TypeRegistration(registration.Type.GetGenericTypeDefinition(),
-                                                                registration.Name);
-
-                if (_RegisteredTypes.TryGetValue(openTypeRegistration, out factory))
-                {
-                    try
-                    {
-                        return factory.GetObject(registration.Type, this, parameters, options);
-                    }
-                    catch (TinyIoCResolutionException)
-                    {
-                        throw;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new TinyIoCResolutionException(registration.Type, ex);
-                    }
-                }
-            }
-#endif
-
             // Attempt to get a factory from parent if we can
             var bubbledObjectFactory = GetParentObjectFactory(registration);
             if (bubbledObjectFactory != null)
@@ -3014,22 +2972,15 @@ namespace Unosquare.Swan.Runtime
                 return null;
 
             Type genericType = type.GetGenericTypeDefinition();
-            //#if NETFX_CORE
-            //			Type[] genericArguments = type.GetTypeInfo().GenericTypeArguments.ToArray();
-            //#else
-            Type[] genericArguments = type.GetGenericArguments();
-            //#endif
+            Type[] genericArguments = type.GetTypeInfo().GetGenericArguments();
 
             // Just a func
             if (genericType == typeof(Func<>))
             {
                 Type returnType = genericArguments[0];
+                
+                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new Type[] { });
 
-                //#if NETFX_CORE
-                //				MethodInfo resolveMethod = typeof(TinyIoCContainer).GetTypeInfo().GetDeclaredMethods("Resolve").First(mi => !mi.GetParameters().Any());
-                //#else
-                MethodInfo resolveMethod = typeof(TinyIoCContainer).GetMethod("Resolve", new Type[] { });
-                //#endif
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod);
@@ -3043,12 +2994,9 @@ namespace Unosquare.Swan.Runtime
             if ((genericType == typeof(Func<,>)) && (genericArguments[0] == typeof(string)))
             {
                 Type returnType = genericArguments[1];
-
-                //#if NETFX_CORE
-                //				MethodInfo resolveMethod = typeof(TinyIoCContainer).GetTypeInfo().GetDeclaredMethods("Resolve").First(mi => mi.GetParameters().Length == 1 && mi.GetParameters()[0].GetType() == typeof(String));
-                //#else
-                MethodInfo resolveMethod = typeof(TinyIoCContainer).GetMethod("Resolve", new Type[] { typeof(String) });
-                //#endif
+                
+                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new Type[] { typeof(String) });
+                
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 ParameterExpression[] resolveParameters = new ParameterExpression[] { Expression.Parameter(typeof(String), "name") };
@@ -3058,34 +3006,25 @@ namespace Unosquare.Swan.Runtime
 
                 return resolveLambda;
             }
-
-            // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-            //#if NETFX_CORE
-            //			if ((genericType == typeof(Func<,,>) && type.GenericTypeArguments[0] == typeof(string) && type.GenericTypeArguments[1] == typeof(IDictionary<string, object>)))
-            //#else
-            if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) && type.GetGenericArguments()[1] == typeof(IDictionary<string, object>)))
-            //#endif
+            
+            if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string) && type.GetTypeInfo().GetGenericArguments()[1] == typeof(IDictionary<string, object>)))
             {
                 Type returnType = genericArguments[2];
 
                 var name = Expression.Parameter(typeof(string), "name");
                 var parameters = Expression.Parameter(typeof(IDictionary<string, object>), "parameters");
-
-                //#if NETFX_CORE
-                //				MethodInfo resolveMethod = typeof(TinyIoCContainer).GetTypeInfo().GetDeclaredMethods("Resolve").First(mi => mi.GetParameters().Length == 2 && mi.GetParameters()[0].GetType() == typeof(String) && mi.GetParameters()[1].GetType() == typeof(NamedParameterOverloads));
-                //#else
-                MethodInfo resolveMethod = typeof(TinyIoCContainer).GetMethod("Resolve", new Type[] { typeof(String), typeof(NamedParameterOverloads) });
-                //#endif
+                
+                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new Type[] { typeof(String), typeof(DependencyContainerNamedParameterOverloads) });
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
-                var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, name, Expression.Call(typeof(NamedParameterOverloads), "FromIDictionary", null, parameters));
+                var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, name, Expression.Call(typeof(DependencyContainerNamedParameterOverloads), "FromIDictionary", null, parameters));
 
                 var resolveLambda = Expression.Lambda(resolveCall, name, parameters).Compile();
 
                 return resolveLambda;
             }
 
-            throw new TinyIoCResolutionException(type);
+            throw new DependencyContainerResolutionException(type);
         }
 #endif
         private object GetIEnumerableRequest(Type type)
@@ -3155,16 +3094,7 @@ namespace Unosquare.Swan.Runtime
         private object ConstructType(Type requestedType, Type implementationType, ConstructorInfo constructor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
             var typeToConstruct = implementationType;
-
-#if RESOLVE_OPEN_GENERICS
-            if (implementationType.IsGenericTypeDefinition())
-            {
-                if (requestedType == null || !requestedType.IsGenericType() || !requestedType.GetGenericArguments().Any())
-                    throw new TinyIoCResolutionException(typeToConstruct);
-
-                typeToConstruct = typeToConstruct.MakeGenericType(requestedType.GetGenericArguments());
-            }
-#endif
+            
             if (constructor == null)
             {
                 // Try and get the best constructor that we can construct
@@ -3256,16 +3186,10 @@ namespace Unosquare.Swan.Runtime
 
         private void BuildUpInternal(object input, DependencyContainerResolveOptions resolveOptions)
         {
-            //#if NETFX_CORE
-            //			var properties = from property in input.GetType().GetTypeInfo().DeclaredProperties
-            //							 where (property.GetMethod != null) && (property.SetMethod != null) && !property.PropertyType.GetTypeInfo().IsValueType
-            //							 select property;
-            //#else
             var properties = from property in input.GetType().GetTypeInfo().GetProperties()
                              where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType()
                              select property;
-            //#endif
-
+         
             foreach (var property in properties)
             {
                 if (property.GetValue(input, null) == null)
@@ -3351,5 +3275,4 @@ namespace Unosquare.Swan.Runtime
 
         #endregion
     }
-
 }

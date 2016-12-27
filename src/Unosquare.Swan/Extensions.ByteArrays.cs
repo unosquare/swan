@@ -182,6 +182,5 @@
         {
             return buffer.ToText(Encoding.UTF8);
         }
-
     }
 }

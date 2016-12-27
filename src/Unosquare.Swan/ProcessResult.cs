@@ -18,8 +18,7 @@
             StandardOutput = standardOutput;
             StandardError = standardError;
         }
-
-
+        
         /// <summary>
         /// Gets the exit code.
         /// </summary>
