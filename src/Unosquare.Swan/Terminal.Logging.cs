@@ -27,10 +27,10 @@
         /// Logs a message
         /// </summary>
         /// <param name="messageType">Type of the message.</param>
-        /// <param name="text">The text.</param>
+        /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
         /// <param name="ex">The optional exception.</param>
-        private static void LogMessage(LogMessageType messageType, string text, string source, Exception ex)
+        private static void LogMessage(LogMessageType messageType, string message, string source, Exception ex)
         {
             lock (SyncLock)
             {
@@ -69,7 +69,7 @@
                 var date = DateTime.UtcNow;
                 LoggingSequence++;
 
-                var output = string.IsNullOrWhiteSpace(text) ? string.Empty : text.RemoveControlCharsExcept('\n');
+                var output = string.IsNullOrWhiteSpace(message) ? string.Empty : message.RemoveControlCharsExcept('\n');
                 var outputWithSource = string.IsNullOrWhiteSpace(source) ? output : $"[{source}] {output}";
                 var outputText = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
                     $" {prefix} >> {outputWithSource}" :
@@ -116,6 +116,8 @@
                     outputText.WriteLine(color, writer);
             }
         }
+
+        #region Public API
 
         /// <summary>
         /// Logs a debug message to the console
@@ -180,20 +182,20 @@
         /// <summary>
         /// Logs a warning message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
-        public static void Warn(this string text)
+        /// <param name="message">The text.</param>
+        public static void Warn(this string message)
         {
-            LogMessage(LogMessageType.Warning, text, null, null);
+            LogMessage(LogMessageType.Warning, message, null, null);
         }
 
         /// <summary>
         /// Logs a warning message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
+        /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
-        public static void Warn(this string text, string source)
+        public static void Warn(this string message, string source)
         {
-            LogMessage(LogMessageType.Warning, text, source, null);
+            LogMessage(LogMessageType.Warning, message, source, null);
         }
 
         /// <summary>
@@ -210,20 +212,20 @@
         /// <summary>
         /// Logs an info message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
-        public static void Info(this string text)
+        /// <param name="message">The text.</param>
+        public static void Info(this string message)
         {
-            LogMessage(LogMessageType.Info, text, null, null);
+            LogMessage(LogMessageType.Info, message, null, null);
         }
 
         /// <summary>
         /// Logs an info message to the console
         /// </summary>
-        /// <param name="text">The text.</param>
+        /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
-        public static void Info(this string text, string source)
+        public static void Info(this string message, string source)
         {
-            LogMessage(LogMessageType.Info, text, source, null);
+            LogMessage(LogMessageType.Info, message, source, null);
         }
 
         /// <summary>
@@ -240,20 +242,20 @@
         /// <summary>
         /// Logs an error message to the console's standard error
         /// </summary>
-        /// <param name="text">The text.</param>
-        public static void Error(this string text)
+        /// <param name="message">The text.</param>
+        public static void Error(this string message)
         {
-            LogMessage(LogMessageType.Error, text, null, null);
+            LogMessage(LogMessageType.Error, message, null, null);
         }
 
         /// <summary>
         /// Logs an error message to the console's standard error
         /// </summary>
-        /// <param name="text">The text.</param>
+        /// <param name="message">The text.</param>
         /// <param name="source">The source.</param>
-        public static void Error(this string text, string source)
+        public static void Error(this string message, string source)
         {
-            LogMessage(LogMessageType.Error, text, source, null);
+            LogMessage(LogMessageType.Error, message, source, null);
         }
 
         /// <summary>
@@ -265,6 +267,21 @@
         public static void Error(this Exception ex, string source, string message)
         {
             LogMessage(LogMessageType.Error, message, source, ex);
+        }
+
+        #endregion
+
+        #region Generic API
+
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="messageType">Type of the message.</param>
+        public static void Log(this string message, string source, LogMessageType messageType)
+        {
+            LogMessage(messageType, message, source, null);
         }
 
         /// <summary>
@@ -287,7 +304,9 @@
         public static void Dump(this object obj, string text = "Object Data", string source = nameof(Dump))
         {
             if (obj == null) return;
-            $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(4)}".Trace(source);
+            $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}".Trace(source);
         }
+
+        #endregion
     }
 }
