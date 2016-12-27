@@ -192,7 +192,7 @@
 
         /// <summary>
         /// Writes a line of text in the current console foreground color
-        /// to the standard error
+        /// to the standard error as opposed to the standard output.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="writer">The writer.</param>

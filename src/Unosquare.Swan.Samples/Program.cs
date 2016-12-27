@@ -41,6 +41,7 @@ namespace Unosquare.Swan.Samples
 
         private static void Terminal_OnLoggingMessageReceived(object sender, LogMessageReceivedEventArgs e)
         {
+            Terminal.WriteLineError($"Caller: {e.CallerFilePath}({e.CallerLineNumber}):{e.CallerMemberName}");
             //System.Threading.Thread.Sleep(5000);
             //Console.WriteLine(e.Message);
         }

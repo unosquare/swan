@@ -11,7 +11,7 @@
     public class LogMessageReceivedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogMessageReceivedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="LogMessageReceivedEventArgs" /> class.
         /// </summary>
         /// <param name="sequence">The sequence.</param>
         /// <param name="messageType">Type of the message.</param>
@@ -19,7 +19,11 @@
         /// <param name="source">The source.</param>
         /// <param name="message">The message.</param>
         /// <param name="ex">The ex.</param>
-        public LogMessageReceivedEventArgs(ulong sequence, LogMessageType messageType, DateTime utcDate, string source, string message, Exception ex)
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public LogMessageReceivedEventArgs(ulong sequence, LogMessageType messageType, DateTime utcDate, string source, 
+            string message, Exception ex, string callerMemberName, string callerFilePath, int callerLineNumber)
         {
             Sequence = sequence;
             MessageType = messageType;
@@ -27,6 +31,9 @@
             Source = source;
             Message = message;
             Exception = ex;
+            CallerMemberName = callerMemberName;
+            CallerFilePath = callerFilePath;
+            CallerLineNumber = callerLineNumber;
         }
 
         /// <summary>
@@ -62,6 +69,21 @@
         /// as errors.
         /// </summary>
         public Exception Exception { get; }
+
+        /// <summary>
+        /// Gets the name of the caller member.
+        /// </summary>
+        public string CallerMemberName { get; }
+        
+        /// <summary>
+        /// Gets the caller file path.
+        /// </summary>
+        public string CallerFilePath { get; }
+        
+        /// <summary>
+        /// Gets the caller line number.
+        /// </summary>
+        public int CallerLineNumber { get; }
     }
 
     /// <summary>
@@ -84,7 +106,8 @@
         /// </summary>
         /// <param name="data">The <see cref="LogMessageReceivedEventArgs"/> instance containing the event data.</param>
         public LogMessageDisplayingEventArgs(LogMessageReceivedEventArgs data)
-            : base(data.Sequence, data.MessageType, data.UtcDate, data.Source, data.Message, data.Exception)
+            : base(data.Sequence, data.MessageType, data.UtcDate, data.Source, data.Message, data.Exception, 
+                  data.CallerMemberName, data.CallerFilePath, data.CallerLineNumber)
         {
             CancelOutput = false;
         }
