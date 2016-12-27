@@ -121,7 +121,7 @@
             /// <value>
             /// The logging time format.
             /// </value>
-            public static string LoggingTimeFormat { get; set; } = "HH:mm:ss";
+            public static string LoggingTimeFormat { get; set; } = "HH:mm:ss.fff";
 
             /// <summary>
             /// Gets or sets the loggigng message types (in a bitwise mask)
