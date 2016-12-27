@@ -271,7 +271,7 @@
         }
 
         /// <summary>
-        /// Outputs JSON representing this object
+        /// Outputs JSON string representing this object
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
@@ -291,13 +291,21 @@
         /// <returns></returns>
         public static string Stringify(this object obj)
         {
-            if (obj == null) return string.Empty;
-            var jsonText = Json.Serialize(obj, false, "$type");
-            var jsonData = Json.Deserialize(jsonText);
+            if (obj == null) return "(null)";
 
-            if (jsonData == null) return string.Empty;
-            var readableData = HumanizeJson(jsonData, 0);
-            return readableData;
+            try
+            {
+                var jsonText = Json.Serialize(obj, false, "$type");
+                var jsonData = Json.Deserialize(jsonText);
+
+                if (jsonData == null) return string.Empty;
+                var readableData = HumanizeJson(jsonData, 0);
+                return readableData;
+            }
+            catch
+            {
+                return obj.ToStringInvariant();
+            }
         }
 
         /// <summary>
@@ -319,7 +327,8 @@
 
         /// <summary>
         /// Gets a part of the string clamping the length and startIndex parameters to safe values.
-        /// If the string is null it returns an empty string
+        /// If the string is null it returns an empty string. This is basically just a safe version
+        /// of string.Substring
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
@@ -362,7 +371,8 @@
         }
 
         /// <summary>
-        /// Indents the specified multi-line text with the given amount of spaces.
+        /// Indents the specified multi-line text with the given amount of leading spaces
+        /// per line.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="spaces">The spaces.</param>

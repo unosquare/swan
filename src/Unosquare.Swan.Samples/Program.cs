@@ -25,10 +25,6 @@
             TestExceptionLogging();
             //TestTerminalOutputs();
             //TestCsvFormatters();
-
-
-            
-
             "Enter any key to exit . . .".ReadKey();
         }
 
@@ -61,6 +57,8 @@
             jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [    ], \"EmptyObject\": {  }, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
             jsonObject = Json.Deserialize(jsonText);
             jsonObject.Dump();
+
+            "test".Dump();
 
             //var jsonTextData = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" / Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [], \"SomeDate\": \"/" + DateTime.Now.ToStringInvariant() + "/\" }";
             //var jsonParsedData = Json.Deserialize(jsonTextData);
