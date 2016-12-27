@@ -30,23 +30,23 @@ namespace Unosquare.Swan.Test
         {
             var messages = new List<LoggingEntryMock>();
 
-            Terminal.Settings.OnMessageLogged = (s, t, d, src, m, ex) =>
+            Terminal.OnLogMessageReceived += (s, e) =>
             {
                 messages.Add(new LoggingEntryMock
                 {
-                    DateTime = d,
-                    Exception = ex,
-                    Message = m,
-                    Source = src,
-                    Type = t
+                    DateTime = e.UtcDate,
+                    Exception = e.Exception,
+                    Message = e.Message,
+                    Source = e.Source,
+                    Type = e.MessageType
                 });
             };
 
-            nameof(LoggingMessageType.Info).Info();
-            nameof(LoggingMessageType.Debug).Debug();
-            nameof(LoggingMessageType.Error).Error();
-            nameof(LoggingMessageType.Trace).Trace();
-            nameof(LoggingMessageType.Warning).Warn();
+            nameof(LogMessageType.Info).Info();
+            nameof(LogMessageType.Debug).Debug();
+            nameof(LogMessageType.Error).Error();
+            nameof(LogMessageType.Trace).Trace();
+            nameof(LogMessageType.Warning).Warn();
 
             Task.Delay(100).Wait();
             Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));

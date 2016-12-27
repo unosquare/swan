@@ -4,36 +4,12 @@
 
     partial class Terminal
     {
-        /// <summary>
-        /// Defines a callback to determine a function that is called upon logging messages are sent to the terminal
-        /// </summary>
-        /// <param name="messageType">Type of the message.</param>
-        /// <param name="text">The text.</param>
-        /// <param name="source">The source.</param>
-        public delegate void LoggingMessageCallback(LoggingMessageType messageType, string text, string source);
 
         /// <summary>
         /// Terminal global settings
         /// </summary>
         public static class Settings
         {
-            /// <summary>
-            /// Gets or sets the callback to be called asynchronously, whenever a logging message is received by the terminal.
-            /// Only called when Terminal writes data via Info, Error, Trace, Warn, Debug methods, regardless of whether or not
-            /// the console is present.
-            /// </summary>
-            public static OnMessageLoggedCallback OnMessageLogged { get; set; }
-
-            /// <summary>
-            /// When set, it defines a method that filters the logging messages on the the Terminal
-            /// If the method returns true, the message is written to the output, otherwise the message is
-            /// not sent to the output.
-            /// </summary>
-            /// <value>
-            /// The on message filter.
-            /// </value>
-            public static OnMessageFilterOutput OnMessageFilter { get; set; }
-
             /// <summary>
             /// Gets or sets the default output color.
             /// </summary>
@@ -148,14 +124,14 @@
             public static string LoggingTimeFormat { get; set; } = "HH:mm:ss";
 
             /// <summary>
-            /// Gets or sets the console logging options in a bitwise mask.
+            /// Gets or sets the loggigng message types (in a bitwise mask)
+            /// to display in the console.
             /// </summary>
             /// <value>
             /// The console options.
             /// </value>
-            public static LoggingMessageType ConsoleOptions { get; set; }
+            public static LogMessageType DisplayLoggingMessageType { get; set; }
 
-            
         }
     }
 }

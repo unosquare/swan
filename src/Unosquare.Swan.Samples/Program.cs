@@ -1,4 +1,6 @@
-﻿namespace Unosquare.Swan.Samples
+﻿using System.Threading.Tasks;
+
+namespace Unosquare.Swan.Samples
 {
     using Abstractions;
     using Formatters;
@@ -18,14 +20,29 @@
         /// <exception cref="SampleException"></exception>
         public static void Main(string[] args)
         {
+            Terminal.OnLogMessageReceived += Terminal_OnLoggingMessageReceived;
+            Terminal.OnLogMessageDisplaying += Terminal_OnLoggingMessageDisplaying;
+            //Terminal.Settings.DisplayLoggingMessageType = LoggingMessageType.None;
             TestApplicationInfo();
             //TestNetworkUtilities();
             TestContainerAndMessageHub();
             TestJson();
-            TestExceptionLogging();
+            //TestExceptionLogging();
             //TestTerminalOutputs();
             //TestCsvFormatters();
             "Enter any key to exit . . .".ReadKey();
+        }
+
+        private static void Terminal_OnLoggingMessageDisplaying(object sender, LogMessageDisplayingEventArgs e)
+        {
+            if (e.MessageType.HasFlag(LogMessageType.Info))
+                e.CancelOutput = true;
+        }
+
+        private static void Terminal_OnLoggingMessageReceived(object sender, LogMessageReceivedEventArgs e)
+        {
+            //System.Threading.Thread.Sleep(5000);
+            //Console.WriteLine(e.Message);
         }
 
         static void TestExceptionLogging()

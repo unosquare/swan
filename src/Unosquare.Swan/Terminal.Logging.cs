@@ -1,34 +1,27 @@
-﻿using System.IO;
-
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
     using System;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Defines a callback to be invoked asynchronously when a logging message arrives to the terminal.
-    /// </summary>
-    /// <param name="sequence">The logging message sequence.</param>
-    /// <param name="messageType">Type of the message.</param>
-    /// <param name="utcDate">The UTC date.</param>
-    /// <param name="source">The source.</param>
-    /// <param name="message">The text.</param>
-    /// <param name="ex">The optional exception.</param>
-    public delegate void OnMessageLoggedCallback(ulong sequence, LoggingMessageType messageType, DateTime utcDate, string source, string message, Exception ex);
-
-    /// <summary>
-    /// A delegate to perform message filtering to be desiplayed on the output.
-    /// TODO: Allow chaining via a list of filters
-    /// </summary>
-    /// <param name="messageType">Type of the message.</param>
-    /// <param name="source">The source.</param>
-    /// <param name="message">The message.</param>
-    /// <returns></returns>
-    public delegate bool OnMessageFilterOutput(LoggingMessageType messageType, string source, string message);
-
     partial class Terminal
     {
         private static ulong LoggingSequence;
+
+        /// <summary>
+        /// Occurs asynchronously, whenever a logging message is received by the terminal.
+        /// Only called when Terminal writes data via Info, Error, Trace, Warn, Debug methods, regardless of whether or not
+        /// the console is present. Subscribe to this event to pass data on to your own logger.
+        /// </summary>
+        public static event LogMessageReceivedEventHandler OnLogMessageReceived;
+
+        /// <summary>
+        /// Occurs synchronously (so handle quickly), whenever a logging message is about to be enqueued to the
+        /// console output. Setting the CancelOutput to true in the event arguments prevents the
+        /// logging message to be written out to the console.
+        /// Message filtering only works with loggign methods such as Trace, Debug, Info, Warn, Error and Dump
+        /// Standard Write methods do not get filtering capabilities.
+        /// </summary>
+        public static event LogMessageDisplayingEventHandler OnLogMessageDisplaying;
 
         /// <summary>
         /// Logs a message
@@ -37,7 +30,7 @@ namespace Unosquare.Swan
         /// <param name="text">The text.</param>
         /// <param name="source">The source.</param>
         /// <param name="ex">The optional exception.</param>
-        private static void LogMessage(LoggingMessageType messageType, string text, string source, Exception ex)
+        private static void LogMessage(LogMessageType messageType, string text, string source, Exception ex)
         {
             lock (SyncLock)
             {
@@ -46,23 +39,23 @@ namespace Unosquare.Swan
 
                 switch (messageType)
                 {
-                    case LoggingMessageType.Debug:
+                    case LogMessageType.Debug:
                         color = Settings.DebugColor;
                         prefix = Settings.DebugPrefix;
                         break;
-                    case LoggingMessageType.Error:
+                    case LogMessageType.Error:
                         color = Settings.ErrorColor;
                         prefix = Settings.ErrorPrefix;
                         break;
-                    case LoggingMessageType.Info:
+                    case LogMessageType.Info:
                         color = Settings.InfoColor;
                         prefix = Settings.InfoPrefix;
                         break;
-                    case LoggingMessageType.Trace:
+                    case LogMessageType.Trace:
                         color = Settings.TraceColor;
                         prefix = Settings.TracePrefix;
                         break;
-                    case LoggingMessageType.Warning:
+                    case LogMessageType.Warning:
                         color = Settings.WarnColor;
                         prefix = Settings.WarnPrefix;
                         break;
@@ -83,44 +76,44 @@ namespace Unosquare.Swan
                     $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputWithSource}";
 
                 // Log the message asynchronously
-                if (Settings.OnMessageLogged != null)
+                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, output, ex);
+                if (OnLogMessageReceived != null)
+                {
                     Task.Factory.StartNew(() =>
                     {
-                        try { Settings.OnMessageLogged?.Invoke(sequence, messageType, date, source, output, ex); }
+                        try { OnLogMessageReceived(source, eventArgs); }
                         catch
                         {
                             // ignored
                         }
                     });
+                }
+
 
                 // Enqueue the message to the console (out or error)
-                if (IsConsolePresent && Settings.ConsoleOptions.HasFlag(messageType))
+                // If we don't have the display flag on the message type, don't wnqueue it.
+                if (!IsConsolePresent || !Settings.DisplayLoggingMessageType.HasFlag(messageType))
+                    return;
+
+                // Select and format error output
+                var writer = Console.Out;
+                if (messageType.HasFlag(LogMessageType.Error))
                 {
-
-
-                    var writer = Console.Out;
-                    if (messageType.HasFlag(LoggingMessageType.Error))
+                    writer = Console.Error;
+                    try
                     {
-                        writer = Console.Error;
-                        try
-                        {
-                            if (ex != null)
-                                outputText = $"{outputText}{Environment.NewLine}{ex.Stringify().Indent(4)}";
-                        }
-                        catch
-                        {
-                            // Ignore
-                        }
-
+                        if (ex != null)
+                            outputText = $"{outputText}{Environment.NewLine}{ex.Stringify().Indent(4)}";
                     }
+                    catch { /* Ignore */ }
 
-                    bool displayResult = Settings.OnMessageFilter == null ?
-                        true :
-                        Settings.OnMessageFilter.Invoke(messageType, source, outputText);
-
-                    if (displayResult)
-                        outputText.WriteLine(color, writer);
                 }
+
+                // Filter output messages via events
+                var displayingEventArgs = new LogMessageDisplayingEventArgs(eventArgs);
+                OnLogMessageDisplaying?.Invoke(source, displayingEventArgs);
+                if (displayingEventArgs.CancelOutput == false)
+                    outputText.WriteLine(color, writer);
             }
         }
 
@@ -130,7 +123,7 @@ namespace Unosquare.Swan
         /// <param name="message">The text.</param>
         public static void Debug(this string message)
         {
-            LogMessage(LoggingMessageType.Debug, message, null, null);
+            LogMessage(LogMessageType.Debug, message, null, null);
         }
 
         /// <summary>
@@ -140,7 +133,7 @@ namespace Unosquare.Swan
         /// <param name="source">The source.</param>
         public static void Debug(this string message, string source)
         {
-            LogMessage(LoggingMessageType.Debug, message, source, null);
+            LogMessage(LogMessageType.Debug, message, source, null);
         }
 
         /// <summary>
@@ -151,7 +144,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Debug(this Exception ex, string source, string message)
         {
-            LogMessage(LoggingMessageType.Debug, message, source, ex);
+            LogMessage(LogMessageType.Debug, message, source, ex);
         }
 
         /// <summary>
@@ -160,7 +153,7 @@ namespace Unosquare.Swan
         /// <param name="message">The text.</param>
         public static void Trace(this string message)
         {
-            LogMessage(LoggingMessageType.Trace, message, null, null);
+            LogMessage(LogMessageType.Trace, message, null, null);
         }
 
         /// <summary>
@@ -170,7 +163,7 @@ namespace Unosquare.Swan
         /// <param name="source">The source.</param>
         public static void Trace(this string message, string source)
         {
-            LogMessage(LoggingMessageType.Trace, message, source, null);
+            LogMessage(LogMessageType.Trace, message, source, null);
         }
 
         /// <summary>
@@ -181,7 +174,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Trace(this Exception ex, string source, string message)
         {
-            LogMessage(LoggingMessageType.Trace, message, source, ex);
+            LogMessage(LogMessageType.Trace, message, source, ex);
         }
 
         /// <summary>
@@ -190,7 +183,7 @@ namespace Unosquare.Swan
         /// <param name="text">The text.</param>
         public static void Warn(this string text)
         {
-            LogMessage(LoggingMessageType.Warning, text, null, null);
+            LogMessage(LogMessageType.Warning, text, null, null);
         }
 
         /// <summary>
@@ -200,7 +193,7 @@ namespace Unosquare.Swan
         /// <param name="source">The source.</param>
         public static void Warn(this string text, string source)
         {
-            LogMessage(LoggingMessageType.Warning, text, source, null);
+            LogMessage(LogMessageType.Warning, text, source, null);
         }
 
         /// <summary>
@@ -211,7 +204,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Warn(this Exception ex, string source, string message)
         {
-            LogMessage(LoggingMessageType.Warning, message, source, ex);
+            LogMessage(LogMessageType.Warning, message, source, ex);
         }
 
         /// <summary>
@@ -220,7 +213,7 @@ namespace Unosquare.Swan
         /// <param name="text">The text.</param>
         public static void Info(this string text)
         {
-            LogMessage(LoggingMessageType.Info, text, null, null);
+            LogMessage(LogMessageType.Info, text, null, null);
         }
 
         /// <summary>
@@ -230,7 +223,7 @@ namespace Unosquare.Swan
         /// <param name="source">The source.</param>
         public static void Info(this string text, string source)
         {
-            LogMessage(LoggingMessageType.Info, text, source, null);
+            LogMessage(LogMessageType.Info, text, source, null);
         }
 
         /// <summary>
@@ -241,7 +234,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Info(this Exception ex, string source, string message)
         {
-            LogMessage(LoggingMessageType.Info, message, source, ex);
+            LogMessage(LogMessageType.Info, message, source, ex);
         }
 
         /// <summary>
@@ -250,7 +243,7 @@ namespace Unosquare.Swan
         /// <param name="text">The text.</param>
         public static void Error(this string text)
         {
-            LogMessage(LoggingMessageType.Error, text, null, null);
+            LogMessage(LogMessageType.Error, text, null, null);
         }
 
         /// <summary>
@@ -260,7 +253,7 @@ namespace Unosquare.Swan
         /// <param name="source">The source.</param>
         public static void Error(this string text, string source)
         {
-            LogMessage(LoggingMessageType.Error, text, source, null);
+            LogMessage(LogMessageType.Error, text, source, null);
         }
 
         /// <summary>
@@ -271,7 +264,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Error(this Exception ex, string source, string message)
         {
-            LogMessage(LoggingMessageType.Error, message, source, ex);
+            LogMessage(LogMessageType.Error, message, source, ex);
         }
 
         /// <summary>
@@ -282,7 +275,7 @@ namespace Unosquare.Swan
         /// <param name="message">The message.</param>
         public static void Log(this Exception ex, string source = null, string message = null)
         {
-            LogMessage(LoggingMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex);
+            LogMessage(LogMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex);
         }
 
         /// <summary>

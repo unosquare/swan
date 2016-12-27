@@ -7,7 +7,7 @@ namespace Unosquare.Swan.Test.Mocks
 {
     public class LoggingEntryMock
     {
-        public LoggingMessageType Type { get; set; }
+        public LogMessageType Type { get; set; }
 
         public DateTime DateTime { get; set; }
 

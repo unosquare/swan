@@ -45,7 +45,7 @@
     /// which types of messages get printed on the current console
     /// </summary>
     [Flags]
-    public enum LoggingMessageType
+    public enum LogMessageType
     {
         /// <summary>
         /// The none message type

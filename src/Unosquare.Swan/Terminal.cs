@@ -60,19 +60,19 @@
             {
                 if (System.Diagnostics.Debugger.IsAttached)
                 {
-                    Settings.ConsoleOptions =
-                        LoggingMessageType.Debug |
-                        LoggingMessageType.Error |
-                        LoggingMessageType.Info |
-                        LoggingMessageType.Trace |
-                        LoggingMessageType.Warning;
+                    Settings.DisplayLoggingMessageType =
+                        LogMessageType.Debug |
+                        LogMessageType.Error |
+                        LogMessageType.Info |
+                        LogMessageType.Trace |
+                        LogMessageType.Warning;
                 }
                 else
                 {
-                    Settings.ConsoleOptions =
-                        LoggingMessageType.Error |
-                        LoggingMessageType.Info |
-                        LoggingMessageType.Warning;
+                    Settings.DisplayLoggingMessageType =
+                        LogMessageType.Error |
+                        LogMessageType.Info |
+                        LogMessageType.Warning;
                 }
             }
             
