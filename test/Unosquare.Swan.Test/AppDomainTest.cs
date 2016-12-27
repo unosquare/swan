@@ -13,7 +13,8 @@ namespace Unosquare.Swan.Test
 
             Assert.IsNotNull(assemblies);
             Assert.IsTrue(assemblies.Any());
-            Assert.AreEqual(
+            // NET452 sometimes is loading 17 or 20
+            Assert.GreaterOrEqual(
 #if NET452
                 17,
 #else
