@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Unosquare.Swan.Formatters;
-
-namespace Unosquare.Swan.Utilities
+﻿namespace Unosquare.Swan.Utilities
 {
+    using Formatters;
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents a HttpClient with extended methods to use with JSON payloads 
     /// and bearer tokens authentication

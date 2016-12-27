@@ -406,11 +406,11 @@ namespace Unosquare.Swan.Runtime
 
     /// <summary>
     /// The concrete implementation of a simple IoC container
+    /// based largely on TinyIoC
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     public sealed class DependencyContainer : IDisposable
     {
-
         #region "Fluent" API
         /// <summary>
         /// Registration options for "fluent" API
@@ -2622,9 +2622,9 @@ namespace Unosquare.Swan.Runtime
         private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> _ObjectConstructorCache 
             = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
 #endif
-#endregion
+        #endregion
 
-#region Constructors
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
@@ -2642,9 +2642,9 @@ namespace Unosquare.Swan.Runtime
         {
             _Parent = parent;
         }
-#endregion
+        #endregion
 
-#region Internal Methods
+        #region Internal Methods
         private readonly object _AutoRegisterLock = new object();
 
         private void AutoRegisterInternal(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction, Func<Type, bool> registrationPredicate)
@@ -3091,7 +3091,7 @@ namespace Unosquare.Swan.Runtime
         private object GetIEnumerableRequest(Type type)
         {
             var genericResolveAllMethod = GetType().GetGenericMethod(BindingFlags.Public | BindingFlags.Instance, "ResolveAll", type.GetTypeInfo().GetGenericArguments(), new[] { typeof(bool) });
-            
+
             return genericResolveAllMethod.Invoke(this, new object[] { false });
         }
 
@@ -3106,7 +3106,7 @@ namespace Unosquare.Swan.Runtime
                     return false;
 
                 var isParameterOverload = parameters.ContainsKey(parameter.Name);
-                
+
                 if (parameter.ParameterType.IsPrimitive() && !isParameterOverload)
                     return false;
 
@@ -3121,7 +3121,7 @@ namespace Unosquare.Swan.Runtime
         {
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
-            
+
             if (type.IsValueType())
                 return null;
 
@@ -3325,9 +3325,9 @@ namespace Unosquare.Swan.Runtime
             return true;
         }
 
-#endregion
+        #endregion
 
-#region IDisposable Members
+        #region IDisposable Members
 
         bool disposed;
 
@@ -3349,7 +3349,7 @@ namespace Unosquare.Swan.Runtime
             }
         }
 
-#endregion
+        #endregion
     }
 
 }

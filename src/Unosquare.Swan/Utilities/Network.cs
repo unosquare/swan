@@ -11,7 +11,7 @@
 
     /// <summary>
     /// Provides miscellaneous network utilities such as a Public IP finder,
-    /// a DNS client and an NTP client.
+    /// a DNS client to query DNS records of any kind, and an NTP client.
     /// </summary>
     public static class Network
     {
@@ -256,20 +256,19 @@
         /// <summary>
         /// Gets the UTC time by querying from an NTP server
         /// </summary>
-        /// <param name="ntpServer">The NTP server, by default pool.ntp.org.</param>
-        /// <param name="port">The port, by default NTP 123.</param>
+        /// <param name="ntpServerAddress">The NTP server address.</param>
+        /// <param name="port">The port.</param>
         /// <returns></returns>
-        public static DateTime GetNetworkTimeUtc(string ntpServer = "pool.ntp.org", int port = Constants.NtpDefaultPort)
+        public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = Constants.NtpDefaultPort)
         {
             // NTP message size - 16 bytes of the digest (RFC 2030)
             var ntpData = new byte[48];
 
             //Setting the Leap Indicator, Version Number and Mode values
             ntpData[0] = 0x1B; //LI = 0 (no warning), VN = 3 (IPv4 only), Mode = 3 (Client Mode)
-            var addresses = GetDnsHostEntry(ntpServer);
 
             //The UDP port number assigned to NTP is 123
-            var ipEndPoint = new IPEndPoint(addresses[0], port);
+            var ipEndPoint = new IPEndPoint(ntpServerAddress, port);
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
             socket.Connect(ipEndPoint);
@@ -301,6 +300,18 @@
             // The time is given in UTC
             var networkDateTime = (new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddMilliseconds((long)milliseconds);
             return networkDateTime;
+        }
+
+        /// <summary>
+        /// Gets the UTC time by querying from an NTP server
+        /// </summary>
+        /// <param name="ntpServerName">The NTP server, by default pool.ntp.org.</param>
+        /// <param name="port">The port, by default NTP 123.</param>
+        /// <returns></returns>
+        public static DateTime GetNetworkTimeUtc(string ntpServerName = "pool.ntp.org", int port = Constants.NtpDefaultPort)
+        {
+            var addresses = GetDnsHostEntry(ntpServerName);
+            return GetNetworkTimeUtc(addresses.First(), port);
         }
 
         #endregion

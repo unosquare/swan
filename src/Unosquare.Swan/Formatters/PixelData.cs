@@ -9,7 +9,7 @@ namespace Unosquare.Swan.Formatters
 
     /// <summary>
     /// Represents a buffer of bytes containing pixels in BGRA byte order
-    /// loaded from an image that is passed on to the constructor
+    /// loaded from an image that is passed on to the constructor.
     /// Data contains all the raw bytes (without scanline left-over bytes)
     /// where they can be quickly changed and then a new bitmap
     /// can be created from the byte data
