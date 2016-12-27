@@ -118,6 +118,15 @@
         }
 
         /// <summary>
+        /// Waits for the queued messages to be written out to the console.
+        /// </summary>
+        public static void Flush()
+        {
+            while (OutputQueue.Count > 0)
+                OutputDone.Wait(1);
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the Console is present
         /// </summary>
         /// <value>

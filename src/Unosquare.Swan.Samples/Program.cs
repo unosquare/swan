@@ -26,6 +26,7 @@
             //TestExceptionLogging();
             //TestTerminalOutputs();
             //TestCsvFormatters();
+            Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
         }
 
