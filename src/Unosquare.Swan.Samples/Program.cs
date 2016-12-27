@@ -1,14 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace Unosquare.Swan.Samples
+﻿namespace Unosquare.Swan.Samples
 {
-    using Abstractions;
     using Formatters;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using Utilities;
 
     public partial class Program

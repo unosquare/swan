@@ -50,6 +50,8 @@
                 ConsoleColor color;
                 string prefix;
 
+                // Select color and prefix based on message type
+                // and settings
                 switch (messageType)
                 {
                     case LogMessageType.Debug:
