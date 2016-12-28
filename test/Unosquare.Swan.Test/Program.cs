@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Test
 {
     public class Program
     {
-        private static string _basicAObjStr = "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
+        private static string _basicAObjStr = "{\"Properties\": [\"One\",\"Two\",\"Babu\"], \"Id\": 1}";
 
         public static void Main(string[] args)
         {
