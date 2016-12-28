@@ -103,29 +103,28 @@
                 {
                     Task.Factory.StartNew(() =>
                     {
-                        try { OnLogMessageReceived(source, eventArgs); }
-                        catch
-                        {
-                            // ignored
-                        }
+                        try { OnLogMessageReceived?.Invoke(source, eventArgs); }
+                        catch { /* Ignore */ }
                     });
                 }
 
-
+                // Check if we are skipping these messages to be diaplayed
                 if (Settings.DisplayLoggingMessageType.HasFlag(messageType) == false)
                     return;
 
-                // Select and format error output
-                var writer = IsConsolePresent ? 
-                    messageType.HasFlag(LogMessageType.Error) ? 
+                // Select the default writer
+                var writer = IsConsolePresent ?
+                    messageType.HasFlag(LogMessageType.Error) ?
                         TerminalWriter.StandardError : TerminalWriter.StandardOutput
                     : TerminalWriter.None;
 
-                if (System.Diagnostics.Debugger.IsAttached && IsConsolePresent == false)
+                // Set the writer to Diagnostics if appropriate
+                if (System.Diagnostics.Debugger.IsAttached
+                    && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug)))
                     writer = writer | TerminalWriter.Diagnostics;
 
-                if (writer == TerminalWriter.None)
-                    return;
+                // Check if we really need to write this out
+                if (writer == TerminalWriter.None) return;
 
                 if (writer.HasFlag(TerminalWriter.StandardError) && ex != null)
                 {
