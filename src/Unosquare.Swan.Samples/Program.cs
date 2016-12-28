@@ -16,31 +16,29 @@
         /// <exception cref="SampleException"></exception>
         public static void Main(string[] args)
         {
-            Terminal.OnLogMessageReceived += Terminal_OnLoggingMessageReceived;
-            Terminal.OnLogMessageDisplaying += Terminal_OnLoggingMessageDisplaying;
-            //Terminal.Settings.DisplayLoggingMessageType = LoggingMessageType.None;
+            Terminal.OnLogMessageReceived += Terminal_OnLogMessageReceived;
+            Terminal.OnLogMessageDisplaying += Terminal_OnLogMessageDisplaying;
+            //Terminal.Settings.DisplayLoggingMessageType = LogMessageType.Info;
             TestApplicationInfo();
-            //TestNetworkUtilities();
+            // TestNetworkUtilities();
             TestContainerAndMessageHub();
             TestJson();
-            //TestExceptionLogging();
-            //TestTerminalOutputs();
-            //TestCsvFormatters();
+            TestExceptionLogging();
+            TestTerminalOutputs();
+            // TestCsvFormatters();
             Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
         }
 
-        private static void Terminal_OnLoggingMessageDisplaying(object sender, LogMessageDisplayingEventArgs e)
+        private static void Terminal_OnLogMessageDisplaying(object sender, LogMessageDisplayingEventArgs e)
         {
-            if (e.MessageType.HasFlag(LogMessageType.Info))
+            if (e.MessageType.HasFlag(LogMessageType.Trace))
                 e.CancelOutput = true;
         }
 
-        private static void Terminal_OnLoggingMessageReceived(object sender, LogMessageReceivedEventArgs e)
+        private static void Terminal_OnLogMessageReceived(object sender, LogMessageReceivedEventArgs e)
         {
-            Terminal.WriteLineError($"Caller: {e.CallerFilePath}({e.CallerLineNumber}):{e.CallerMemberName}");
-            //System.Threading.Thread.Sleep(5000);
-            //Console.WriteLine(e.Message);
+            //Terminal.WriteLine($" - Caller: {e.CallerFilePath}({e.CallerLineNumber}):{e.CallerMemberName}");
         }
 
         static void TestExceptionLogging()
