@@ -6,7 +6,6 @@
 
     partial class Json
     {
-
         /// <summary>
         /// A simple JSON Deserializer
         /// </summary>
@@ -127,7 +126,7 @@
                         if (char.IsWhiteSpace(json, i)) continue;
 
                         // Handle empty arrays and empty objects
-                        if ((ResultObject != null && json[i] == CloseObjectChar) 
+                        if ((ResultObject != null && json[i] == CloseObjectChar)
                             || (ResultArray != null && json[i] == CloseArrayChar))
                         {
                             EndIndex = i;
@@ -240,7 +239,8 @@
                                     var charCount = 0;
                                     for (var j = i; j < json.Length; j++)
                                     {
-                                        if (char.IsWhiteSpace(json[j]) || json[j] == FieldSeparatorChar 
+                                        if (char.IsWhiteSpace(json[j]) || json[j] == FieldSeparatorChar
+                                            || (ResultObject != null && json[i] == CloseObjectChar)
                                             || (ResultArray != null && json[j] == CloseArrayChar))
                                             break;
 
@@ -266,7 +266,6 @@
                                     continue;
                                 }
                         }
-
                     }
 
                     #endregion
@@ -304,7 +303,6 @@
                     }
 
                     #endregion
-
                 }
             }
 
@@ -386,8 +384,6 @@
                 var deserializer = new Deserializer(json, 0);
                 return deserializer.Result;
             }
-
         }
-
     }
 }
