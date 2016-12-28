@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
+    using System;
+
     partial class Terminal
     {
         /// <summary>
@@ -19,57 +19,57 @@ namespace Unosquare.Swan
 
             public static void Vertical()
             {
-                ((byte)179).Write(BorderColor, 1, false);
+                ((byte)179).Write(BorderColor);
             }
 
             public static void RightTee()
             {
-                ((byte)180).Write(BorderColor, 1, false);
+                ((byte)180).Write(BorderColor);
             }
 
             public static void TopRight()
             {
-                ((byte)191).Write(BorderColor, 1, false);
+                ((byte)191).Write(BorderColor);
             }
 
             public static void BottomLeft()
             {
-                ((byte)192).Write(BorderColor, 1, false);
+                ((byte)192).Write(BorderColor);
             }
 
             public static void BottomTee()
             {
-                ((byte)193).Write(BorderColor, 1, false);
+                ((byte)193).Write(BorderColor);
             }
 
             public static void TopTee()
             {
-                ((byte)194).Write(BorderColor, 1, false);
+                ((byte)194).Write(BorderColor);
             }
 
             public static void LeftTee()
             {
-                ((byte)195).Write(BorderColor, 1, false);
+                ((byte)195).Write(BorderColor);
             }
 
             public static void Horizontal(int length)
             {
-                ((byte)196).Write(BorderColor, length, false);
+                ((byte)196).Write(BorderColor, length);
             }
 
             public static void Tee()
             {
-                ((byte)197).Write(BorderColor, 1, false);
+                ((byte)197).Write(BorderColor);
             }
 
             public static void BottomRight()
             {
-                ((byte)217).Write(BorderColor, 1, false);
+                ((byte)217).Write(BorderColor);
             }
 
             public static void TopLeft()
             {
-                ((byte)218).Write(BorderColor, 1, false);
+                ((byte)218).Write(BorderColor);
             }
         }
     }

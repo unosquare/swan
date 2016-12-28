@@ -12,6 +12,9 @@
     /// </summary>
     public static partial class Terminal
     {
+
+        #region Private Declarations
+
         private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
 
@@ -19,6 +22,12 @@
         private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
         private static bool? m_IsConsolePresent;
+
+        private static readonly Task DequeueOutputTask;
+
+        #endregion
+
+        #region Output Context
 
         /// <summary>
         /// Represents an asynchronous output context
@@ -31,33 +40,32 @@
             public OutputContext()
             {
                 OriginalColor = Settings.DefaultColor;
-                OutputWriter = IsConsolePresent ? TerminalWriter.StandardOutput : TerminalWriter.Diagnostics;
+                OutputWriters = IsConsolePresent ? TerminalWriters.StandardOutput :
+                    IsDebuggerAttached ? TerminalWriters.Diagnostics
+                        : TerminalWriters.None;
             }
 
             public ConsoleColor OriginalColor { get; }
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
-            public TerminalWriter OutputWriter { get; set; }
+            public TerminalWriters OutputWriters { get; set; }
         }
 
-        /// <summary>
-        /// Enqueues the output to be written to the console
-        /// </summary>
-        /// <param name="context">The context.</param>
-        private static void EnqueueOutput(OutputContext context)
-        {
-            OutputDone.Reset();
-            OutputQueue.Enqueue(context);
-        }
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes the <see cref="Terminal"/> class.
         /// </summary>
         static Terminal()
         {
-            if (IsConsolePresent)
+            lock (SyncLock)
             {
-                if (System.Diagnostics.Debugger.IsAttached)
+                if (DequeueOutputTask != null)
+                    return;
+
+                if (IsDebuggerAttached)
                 {
                     Settings.DisplayLoggingMessageType =
                         LogMessageType.Debug |
@@ -73,68 +81,106 @@
                         LogMessageType.Info |
                         LogMessageType.Warning;
                 }
+
+                // Here we start the output task, fire-and-forget
+                DequeueOutputTask = DequeueOutputAsync();
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Enqueues the output to be written to the console
+        /// This is the only method that should enqueue to the output
+        /// Please note that if AvailableWriters is None, then no output will be enqueued
+        /// </summary>
+        /// <param name="context">The context.</param>
+        private static void EnqueueOutput(OutputContext context)
+        {
+            lock (SyncLock)
+            {
+                var availableWriters = AvailableWriters;
+
+                if (availableWriters == TerminalWriters.None || context.OutputWriters == TerminalWriters.None)
+                {
+                    OutputDone.Set();
+                    return;
+                }
+
+                if ((context.OutputWriters & availableWriters) == TerminalWriters.None)
+                    return;
+
+                OutputDone.Reset();
+                OutputQueue.Enqueue(context);
+            }
+        }
+
+        /// <summary>
+        /// Dequeues the output asynchronously.
+        /// </summary>
+        /// <returns></returns>
+        private static async Task DequeueOutputAsync()
+        {
+            if (AvailableWriters == TerminalWriters.None)
+            {
+                OutputDone.Set();
+                return;
             }
 
-            if (IsConsolePresent == false)
-                return;
-
-            // Here we start the output task, fire-and-forget
-            Task.Factory.StartNew(async () =>
+            while (true)
             {
-                while (true)
+                InputDone.Wait();
+
+                if (OutputQueue.Count <= 0)
                 {
-                    InputDone.Wait();
+                    OutputDone.Set();
+                    await Task.Delay(1);
+                    continue;
+                }
+                else
+                {
+                    OutputDone.Reset();
+                }
 
-                    if (OutputQueue.Count <= 0)
-                    {
-                        OutputDone.Set();
-                        await Task.Delay(1);
+                while (OutputQueue.Count > 0)
+                {
+                    OutputContext context;
+                    if (OutputQueue.TryDequeue(out context) == false)
                         continue;
-                    }
-                    else
+
+                    // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
+                    if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
                     {
-                        OutputDone.Reset();
-                    }
-
-                    while (OutputQueue.Count > 0)
-                    {
-                        OutputContext context;
-                        if (OutputQueue.TryDequeue(out context) == false)
-                            continue;
-
-
-                        // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                        if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
+                        // Output to the sandard output
+                        if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
                         {
-                            
-                            if (context.OutputWriter.HasFlag(TerminalWriter.StandardOutput))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Out.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
-
-                            if (context.OutputWriter.HasFlag(TerminalWriter.StandardError))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Error.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
+                            Console.ForegroundColor = context.OutputColor;
+                            Console.Out.Write(context.OutputText);
+                            Console.ResetColor();
+                            Console.ForegroundColor = context.OriginalColor;
                         }
 
-                        // Process Debugger output
-                        if (System.Diagnostics.Debugger.IsAttached && context.OutputWriter.HasFlag(TerminalWriter.Diagnostics))
+                        // output to the standard error
+                        if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
                         {
-                            System.Diagnostics.Debug.Write(context.OutputText);
+                            Console.ForegroundColor = context.OutputColor;
+                            Console.Error.Write(context.OutputText);
+                            Console.ResetColor();
+                            Console.ForegroundColor = context.OriginalColor;
                         }
+                    }
 
-
+                    // Process Debugger output
+                    if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
+                    {
+                        System.Diagnostics.Debug.Write(context.OutputText);
                     }
                 }
-                // ReSharper disable once FunctionNeverReturns
-            });
+            }
+            // ReSharper disable once FunctionNeverReturns
+
         }
 
         /// <summary>
@@ -162,6 +208,10 @@
 
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets a value indicating whether the Console is present
         /// </summary>
@@ -188,38 +238,31 @@
         }
 
         /// <summary>
-        /// Prints all characters in the current code page.
+        /// Gets a value indicating whether a debugger is attached.
         /// </summary>
-        public static void PrintCurrentCodePage()
+        public static bool IsDebuggerAttached
         {
-            if (IsConsolePresent == false) return;
-
-            lock (SyncLock)
+            get
             {
-                $"Output Encoding: {OutputEncoding}".WriteLine();
-                for (byte byteValue = 0; byteValue < byte.MaxValue; byteValue++)
-                {
-                    var charValue = OutputEncoding.GetChars(new[] { byteValue })[0];
-                    switch (byteValue)
-                    {
-                        case 8: // Backspace
-                        case 9: // Tab
-                        case 10: // Line feed
-                        case 13: // Carriage return
-                            charValue = '.';
-                            break;
-                    }
+                return System.Diagnostics.Debugger.IsAttached;
+            }
+        }
 
-                    $"{byteValue:000} {charValue}   ".Write();
+        /// <summary>
+        /// Gets the available output writers in a bitwise mask.
+        /// </summary>
+        public static TerminalWriters AvailableWriters
+        {
+            get
+            {
+                var writers = TerminalWriters.None;
+                if (IsConsolePresent)
+                    writers = TerminalWriters.StandardError | TerminalWriters.StandardOutput;
 
-                    // 7 is a beep -- Console.Beep() also works
-                    if (byteValue == 7) " ".Write();
+                if (IsDebuggerAttached)
+                    writers = writers | TerminalWriters.Diagnostics;
 
-                    if ((byteValue + 1) % 8 == 0)
-                        WriteLine();
-                }
-
-                WriteLine();
+                return writers;
             }
         }
 
@@ -234,6 +277,10 @@
             get { return Console.OutputEncoding; }
             set { Console.OutputEncoding = value; }
         }
+
+        #endregion
+
+        #region Synchronized Cursor Movement
 
         /// <summary>
         /// Gets or sets the cursor left position.
@@ -299,31 +346,7 @@
             try { Console.SetCursorPosition(left, top); } finally { InputDone.Set(); }
         }
 
-        /// <summary>
-        /// Reads a key from the console.
-        /// </summary>
-        /// <param name="intercept">if set to <c>true</c> [intercept].</param>
-        /// <returns></returns>
-        public static ConsoleKeyInfo ReadKey(bool intercept)
-        {
-            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+        #endregion
 
-            OutputDone.Wait();
-            InputDone.Reset();
-            try { return Console.ReadKey(intercept); } finally { InputDone.Set(); }
-        }
-
-        /// <summary>
-        /// Reads a line of text from the console
-        /// </summary>
-        /// <returns></returns>
-        public static string ReadLine()
-        {
-            if (IsConsolePresent == false) return null;
-
-            OutputDone.Wait();
-            InputDone.Reset();
-            try { return Console.ReadLine(); } finally { InputDone.Set(); }
-        }
     }
 }

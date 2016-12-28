@@ -52,6 +52,8 @@
         {
             lock (SyncLock)
             {
+                #region Color and Prefix
+
                 ConsoleColor color;
                 string prefix;
 
@@ -85,19 +87,30 @@
                         break;
                 }
 
+                #endregion
+
+                #region Create and Format the Output
+
                 var sequence = LoggingSequence;
                 var date = DateTime.UtcNow;
                 LoggingSequence++;
 
-                var output = string.IsNullOrWhiteSpace(message) ? string.Empty : message.RemoveControlCharsExcept('\n');
-                var outputWithSource = string.IsNullOrWhiteSpace(source) ? output : $"[{source}] {output}";
-                var outputText = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
-                    $" {prefix} >> {outputWithSource}" :
-                    $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputWithSource}";
+                var outputMessage = string.IsNullOrWhiteSpace(message) ? 
+                    string.Empty : message.RemoveControlCharsExcept('\n');
 
-                // Log the message asynchronously
-                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, output, ex, callerMemberName,
+                outputMessage = string.IsNullOrWhiteSpace(source) ? outputMessage : $"[{source}] {outputMessage}";
+
+                var formattedOutputMessage = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
+                    $" {prefix} >> {outputMessage}" :
+                    $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
+
+                // Log the message asynchronously with the appropriate event args
+                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, outputMessage, ex, callerMemberName,
                     callerFilePath, callerLineNumber);
+
+                #endregion
+
+                #region Fire External Logging Logic
 
                 if (OnLogMessageReceived != null)
                 {
@@ -108,27 +121,32 @@
                     });
                 }
 
-                // Check if we are skipping these messages to be diaplayed
+                #endregion
+
+                #region Display the Message by Writing to the Output Queue
+
+                // Check if we are skipping these messages to be diaplayed based on settings
                 if (Settings.DisplayLoggingMessageType.HasFlag(messageType) == false)
                     return;
 
-                // Select the default writer
+                // Select the writer based on the message type
                 var writer = IsConsolePresent ?
                     messageType.HasFlag(LogMessageType.Error) ?
-                        TerminalWriter.StandardError : TerminalWriter.StandardOutput
-                    : TerminalWriter.None;
+                        TerminalWriters.StandardError : TerminalWriters.StandardOutput
+                    : TerminalWriters.None;
 
                 // Set the writer to Diagnostics if appropriate
-                if (System.Diagnostics.Debugger.IsAttached
+                if (IsDebuggerAttached
                     && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug)))
-                    writer = writer | TerminalWriter.Diagnostics;
+                    writer = writer | TerminalWriters.Diagnostics;
 
                 // Check if we really need to write this out
-                if (writer == TerminalWriter.None) return;
+                if (writer == TerminalWriters.None) return;
 
-                if (writer.HasFlag(TerminalWriter.StandardError) && ex != null)
+                // Firther format the output in the case there is an exception being logged
+                if (writer.HasFlag(TerminalWriters.StandardError) && ex != null)
                 {
-                    try { outputText = $"{outputText}{Environment.NewLine}{ex.Stringify().Indent(4)}"; }
+                    try { formattedOutputMessage = $"{formattedOutputMessage}{Environment.NewLine}{ex.Stringify().Indent(4)}"; }
                     catch { /* Ignore */ }
                 }
 
@@ -136,7 +154,9 @@
                 var displayingEventArgs = new LogMessageDisplayingEventArgs(eventArgs);
                 OnLogMessageDisplaying?.Invoke(source, displayingEventArgs);
                 if (displayingEventArgs.CancelOutput == false)
-                    outputText.WriteLine(color, writer);
+                    formattedOutputMessage.WriteLine(color, writer);
+
+                #endregion
             }
         }
 

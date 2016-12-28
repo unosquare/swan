@@ -6,22 +6,22 @@
     /// Defines a set of bitwise standard terminal writers
     /// </summary>
     [Flags]
-    public enum TerminalWriter
+    public enum TerminalWriters
     {
         /// <summary>
-        /// The none
+        /// Prevents output
         /// </summary>
         None = 0,
         /// <summary>
-        /// The Console.Out
+        /// Writes to the Console.Out
         /// </summary>
         StandardOutput = 1,
         /// <summary>
-        /// The Console.Error
+        /// Writes to the Console.Error
         /// </summary>
         StandardError = 2,
         /// <summary>
-        /// The System.Diagnostics.Debug
+        /// Writes to the System.Diagnostics.Debug
         /// </summary>
         Diagnostics = 4
     }

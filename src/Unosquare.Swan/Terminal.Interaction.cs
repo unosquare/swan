@@ -5,6 +5,34 @@
 
     partial class Terminal
     {
+
+        /// <summary>
+        /// Reads a key from the console.
+        /// </summary>
+        /// <param name="intercept">if set to <c>true</c> [intercept].</param>
+        /// <returns></returns>
+        public static ConsoleKeyInfo ReadKey(bool intercept)
+        {
+            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+
+            OutputDone.Wait();
+            InputDone.Reset();
+            try { return Console.ReadKey(intercept); } finally { InputDone.Set(); }
+        }
+
+        /// <summary>
+        /// Reads a line of text from the console
+        /// </summary>
+        /// <returns></returns>
+        public static string ReadLine()
+        {
+            if (IsConsolePresent == false) return null;
+
+            OutputDone.Wait();
+            InputDone.Reset();
+            try { return Console.ReadLine(); } finally { InputDone.Set(); }
+        }
+
         /// <summary>
         /// Reads a key from the terminal preventing the key from being echoed.
         /// </summary>
@@ -59,7 +87,7 @@
         }
 
         /// <summary>
-        /// Reads the prompt.
+        /// Creates a table prompt where the user can enter an option based on the options dictionary provided
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="options">The options.</param>

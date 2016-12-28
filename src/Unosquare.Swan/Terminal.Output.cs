@@ -1,11 +1,51 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using System.IO;
     using System.Linq;
 
     partial class Terminal
     {
+        #region Helper Methods
+
+        /// <summary>
+        /// Prints all characters in the current code page.
+        /// This is provided for debugging purposes only.
+        /// </summary>
+        public static void PrintCurrentCodePage()
+        {
+            if (IsConsolePresent == false) return;
+
+            lock (SyncLock)
+            {
+                $"Output Encoding: {OutputEncoding}".WriteLine();
+                for (byte byteValue = 0; byteValue < byte.MaxValue; byteValue++)
+                {
+                    var charValue = OutputEncoding.GetChars(new[] { byteValue })[0];
+                    switch (byteValue)
+                    {
+                        case 8: // Backspace
+                        case 9: // Tab
+                        case 10: // Line feed
+                        case 13: // Carriage return
+                            charValue = '.';
+                            break;
+                    }
+
+                    $"{byteValue:000} {charValue}   ".Write();
+
+                    // 7 is a beep -- Console.Beep() also works
+                    if (byteValue == 7) " ".Write();
+
+                    if ((byteValue + 1) % 8 == 0)
+                        WriteLine();
+                }
+
+                WriteLine();
+            }
+        }
+
+        #endregion
+
         #region Write Methods
 
         /// <summary>
@@ -16,12 +56,11 @@
         /// <param name="count">The count.</param>
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
         /// <param name="writerFlags">The writer flags.</param>
-        internal static void Write(this byte charCode, ConsoleColor color, int count, bool newLine, TerminalWriter writerFlags)
+        public static void Write(this byte charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
-            if (IsConsolePresent == false) return;
-
             lock (SyncLock)
             {
+                if (color == null) color = Settings.DefaultColor;
                 var bytes = new byte[count];
                 for (var i = 0; i < bytes.Length; i++)
                 {
@@ -37,69 +76,36 @@
                 var buffer = OutputEncoding.GetChars(bytes);
                 var context = new OutputContext()
                 {
-                    OutputColor = color,
+                    OutputColor = color.Value,
                     OutputText = buffer,
-                    OutputWriter = writerFlags
+                    OutputWriters = writerFlags
                 };
 
                 EnqueueOutput(context);
             }
-        }
-
-        /// <summary>
-        /// Writes a character a number of times, optionally adding a new line at the end
-        /// </summary>
-        /// <param name="charCode">The character code.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="count">The count.</param>
-        /// <param name="newLine">if set to <c>true</c> [new line].</param>
-        public static void Write(this byte charCode, ConsoleColor color, int count, bool newLine)
-        {
-            Write(charCode, color, count, newLine, TerminalWriter.StandardOutput);
-        }
-
-        /// <summary>
-        /// Writes a character a number of times, optionally adding a new line at the end
-        /// it outputs to the console's standard error
-        /// </summary>
-        /// <param name="charCode">The character code.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="count">The count.</param>
-        /// <param name="newLine">if set to <c>true</c> [new line].</param>
-        public static void WriteError(this byte charCode, ConsoleColor color, int count, bool newLine)
-        {
-            Write(charCode, color, count, newLine, TerminalWriter.StandardError);
         }
 
         /// <summary>
         /// Writes the specified character in the default color.
         /// </summary>
         /// <param name="charCode">The character code.</param>
+        /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        internal static void Write(this char charCode, TerminalWriter writerFlags = TerminalWriter.StandardOutput)
+        public static void Write(this char charCode, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             lock (SyncLock)
             {
-
+                if (color == null) color = Settings.DefaultColor;
                 var buffer = new[] { charCode };
                 var context = new OutputContext()
                 {
-                    OutputColor = Settings.DefaultColor,
+                    OutputColor = color.Value,
                     OutputText = buffer,
-                    OutputWriter = writerFlags
+                    OutputWriters = writerFlags
                 };
 
                 EnqueueOutput(context);
             }
-        }
-
-        /// <summary>
-        /// Writes the specified character in the default color to the standard error
-        /// </summary>
-        /// <param name="charCode">The character code.</param>
-        public static void WriteError(this char charCode)
-        {
-            Write(charCode, TerminalWriter.StandardError);
         }
 
         /// <summary>
@@ -108,50 +114,23 @@
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        internal static void Write(this string text, ConsoleColor color, TerminalWriter writerFlags)
+        public static void Write(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             if (text == null) return;
+            if (color == null) color = Settings.DefaultColor;
 
             lock (SyncLock)
             {
                 var buffer = OutputEncoding.GetBytes(text);
                 var context = new OutputContext()
                 {
-                    OutputColor = color,
+                    OutputColor = color.Value,
                     OutputText = OutputEncoding.GetChars(buffer),
-                    OutputWriter = writerFlags
+                    OutputWriters = writerFlags
                 };
+
                 EnqueueOutput(context);
             }
-        }
-
-        /// <summary>
-        /// Writes the specified text in the given color to the standard output
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="color">The color.</param>
-        public static void Write(this string text, ConsoleColor color)
-        {
-            Write(text, color, TerminalWriter.StandardOutput);
-        }
-
-        /// <summary>
-        /// Writes the specified text in the given color to the standard error
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="color">The color.</param>
-        public static void WriteError(this string text, ConsoleColor color)
-        {
-            Write(text, color, TerminalWriter.StandardError);
-        }
-
-        /// <summary>
-        /// Writes the specified text in the current console's foreground color.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        public static void Write(this string text)
-        {
-            text?.Write(Settings.DefaultColor);
         }
 
         #endregion
@@ -162,16 +141,7 @@
         /// Writes a New Line Sequence to the standard output
         /// </summary>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(TerminalWriter writerFlags = TerminalWriter.StandardOutput)
-        {
-            Environment.NewLine.Write(Settings.DefaultColor, writerFlags);
-        }
-
-        /// <summary>
-        /// Writes a New Line Sequence to the standard error
-        /// </summary>
-        /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLineError(TerminalWriter writerFlags = TerminalWriter.StandardError)
+        public static void WriteLine(TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
             Environment.NewLine.Write(Settings.DefaultColor, writerFlags);
         }
@@ -181,44 +151,11 @@
         /// to the standard output
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(this string text, TerminalWriter writerFlags = TerminalWriter.StandardOutput)
-        {
-            text?.WriteLine(Settings.DefaultColor, writerFlags);
-        }
-
-        /// <summary>
-        /// Writes a line of text in the current console foreground color
-        /// to the standard error as opposed to the standard output.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="writerFlags">The writer.</param>
-        public static void WriteLineError(this string text, TerminalWriter writerFlags = TerminalWriter.StandardError)
-        {
-            text?.WriteLineError(Settings.DefaultColor, writerFlags);
-        }
-
-        /// <summary>
-        /// Writes a line of text using the given color to the standard output
-        /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
         /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLine(this string text, ConsoleColor color, TerminalWriter writerFlags = TerminalWriter.StandardOutput)
+        public static void WriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
         {
-            if (text == null) return;
-            $"{text}{Environment.NewLine}".Write(color, writerFlags);
-        }
-
-        /// <summary>
-        /// Writes a line of text using the given color to the standard error
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="writerFlags">The writer flags.</param>
-        public static void WriteLineError(this string text, ConsoleColor color, TerminalWriter writerFlags = TerminalWriter.StandardError)
-        {
-            if (text == null) return;
+            if (text == null) text = string.Empty;
             $"{text}{Environment.NewLine}".Write(color, writerFlags);
         }
 
