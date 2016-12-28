@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Concurrent;
-    using System.IO;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -32,13 +31,13 @@
             public OutputContext()
             {
                 OriginalColor = Settings.DefaultColor;
-                OutputWriter = IsConsolePresent ? Console.Out : null;
+                OutputWriter = IsConsolePresent ? TerminalWriter.StandardOutput : TerminalWriter.Diagnostics;
             }
 
             public ConsoleColor OriginalColor { get; }
             public ConsoleColor OutputColor { get; set; }
             public char[] OutputText { get; set; }
-            public TextWriter OutputWriter { get; set; }
+            public TerminalWriter OutputWriter { get; set; }
         }
 
         /// <summary>
@@ -75,7 +74,7 @@
                         LogMessageType.Warning;
                 }
             }
-            
+
             if (IsConsolePresent == false)
                 return;
 
@@ -103,14 +102,35 @@
                         if (OutputQueue.TryDequeue(out context) == false)
                             continue;
 
-                        // Skip over stuff we can't display so we don't stress the output too much.
-                        if (OutputQueue.Count > Console.BufferHeight)
-                            continue;
 
-                        Console.ForegroundColor = context.OutputColor;
-                        context.OutputWriter?.Write(context.OutputText);
-                        Console.ResetColor();
-                        Console.ForegroundColor = context.OriginalColor;
+                        // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
+                        if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
+                        {
+                            
+                            if (context.OutputWriter.HasFlag(TerminalWriter.StandardOutput))
+                            {
+                                Console.ForegroundColor = context.OutputColor;
+                                Console.Out.Write(context.OutputText);
+                                Console.ResetColor();
+                                Console.ForegroundColor = context.OriginalColor;
+                            }
+
+                            if (context.OutputWriter.HasFlag(TerminalWriter.StandardError))
+                            {
+                                Console.ForegroundColor = context.OutputColor;
+                                Console.Error.Write(context.OutputText);
+                                Console.ResetColor();
+                                Console.ForegroundColor = context.OriginalColor;
+                            }
+                        }
+
+                        // Process Debugger output
+                        if (System.Diagnostics.Debugger.IsAttached && context.OutputWriter.HasFlag(TerminalWriter.Diagnostics))
+                        {
+                            System.Diagnostics.Debug.Write(context.OutputText);
+                        }
+
+
                     }
                 }
                 // ReSharper disable once FunctionNeverReturns
@@ -139,7 +159,7 @@
                 if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
                     break;
             }
-                
+
         }
 
         /// <summary>

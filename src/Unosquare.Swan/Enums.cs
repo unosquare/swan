@@ -3,6 +3,30 @@
     using System;
 
     /// <summary>
+    /// Defines a set of bitwise standard terminal writers
+    /// </summary>
+    [Flags]
+    public enum TerminalWriter
+    {
+        /// <summary>
+        /// The none
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// The Console.Out
+        /// </summary>
+        StandardOutput = 1,
+        /// <summary>
+        /// The Console.Error
+        /// </summary>
+        StandardError = 2,
+        /// <summary>
+        /// The System.Diagnostics.Debug
+        /// </summary>
+        Diagnostics = 4
+    }
+
+    /// <summary>
     /// Enumeration of Operating Systems
     /// </summary>
     public enum OperatingSystem

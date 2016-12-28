@@ -6,7 +6,12 @@
 
     partial class Terminal
     {
+
+        #region Private Declarations
+
         private static ulong LoggingSequence;
+
+        #endregion
 
         #region Events
 
@@ -41,8 +46,8 @@
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
         private static void LogMessage(LogMessageType messageType, string message, string source, Exception ex,
-            string callerMemberName, 
-            string callerFilePath, 
+            string callerMemberName,
+            string callerFilePath,
             int callerLineNumber)
         {
             lock (SyncLock)
@@ -91,7 +96,7 @@
                     $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputWithSource}";
 
                 // Log the message asynchronously
-                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, output, ex, callerMemberName, 
+                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, output, ex, callerMemberName,
                     callerFilePath, callerLineNumber);
 
                 if (OnLogMessageReceived != null)
@@ -107,23 +112,25 @@
                 }
 
 
-                // Enqueue the message to the console (out or error)
-                // If we don't have the display flag on the message type, don't wnqueue it.
-                if (!IsConsolePresent || !Settings.DisplayLoggingMessageType.HasFlag(messageType))
+                if (Settings.DisplayLoggingMessageType.HasFlag(messageType) == false)
                     return;
 
                 // Select and format error output
-                var writer = Console.Out;
-                if (messageType.HasFlag(LogMessageType.Error))
-                {
-                    writer = Console.Error;
-                    try
-                    {
-                        if (ex != null)
-                            outputText = $"{outputText}{Environment.NewLine}{ex.Stringify().Indent(4)}";
-                    }
-                    catch { /* Ignore */ }
+                var writer = IsConsolePresent ? 
+                    messageType.HasFlag(LogMessageType.Error) ? 
+                        TerminalWriter.StandardError : TerminalWriter.StandardOutput
+                    : TerminalWriter.None;
 
+                if (System.Diagnostics.Debugger.IsAttached && IsConsolePresent == false)
+                    writer = writer | TerminalWriter.Diagnostics;
+
+                if (writer == TerminalWriter.None)
+                    return;
+
+                if (writer.HasFlag(TerminalWriter.StandardError) && ex != null)
+                {
+                    try { outputText = $"{outputText}{Environment.NewLine}{ex.Stringify().Indent(4)}"; }
+                    catch { /* Ignore */ }
                 }
 
                 // Filter output messages via events

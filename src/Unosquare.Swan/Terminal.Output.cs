@@ -15,8 +15,8 @@
         /// <param name="color">The color.</param>
         /// <param name="count">The count.</param>
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
-        /// <param name="writer">The writer.</param>
-        internal static void Write(this byte charCode, ConsoleColor color, int count, bool newLine, TextWriter writer)
+        /// <param name="writerFlags">The writer flags.</param>
+        internal static void Write(this byte charCode, ConsoleColor color, int count, bool newLine, TerminalWriter writerFlags)
         {
             if (IsConsolePresent == false) return;
 
@@ -39,7 +39,7 @@
                 {
                     OutputColor = color,
                     OutputText = buffer,
-                    OutputWriter = writer
+                    OutputWriter = writerFlags
                 };
 
                 EnqueueOutput(context);
@@ -55,7 +55,7 @@
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
         public static void Write(this byte charCode, ConsoleColor color, int count, bool newLine)
         {
-            Write(charCode, color, count, newLine, Console.Out);
+            Write(charCode, color, count, newLine, TerminalWriter.StandardOutput);
         }
 
         /// <summary>
@@ -68,18 +68,16 @@
         /// <param name="newLine">if set to <c>true</c> [new line].</param>
         public static void WriteError(this byte charCode, ConsoleColor color, int count, bool newLine)
         {
-            Write(charCode, color, count, newLine, Console.Error);
+            Write(charCode, color, count, newLine, TerminalWriter.StandardError);
         }
 
         /// <summary>
         /// Writes the specified character in the default color.
         /// </summary>
         /// <param name="charCode">The character code.</param>
-        /// <param name="writer">The writer.</param>
-        internal static void Write(this char charCode, TextWriter writer = null)
+        /// <param name="writerFlags">The writer flags.</param>
+        internal static void Write(this char charCode, TerminalWriter writerFlags = TerminalWriter.StandardOutput)
         {
-            if (writer == null && IsConsolePresent == false) return;
-
             lock (SyncLock)
             {
 
@@ -88,7 +86,7 @@
                 {
                     OutputColor = Settings.DefaultColor,
                     OutputText = buffer,
-                    OutputWriter = writer ?? Console.Out
+                    OutputWriter = writerFlags
                 };
 
                 EnqueueOutput(context);
@@ -101,7 +99,7 @@
         /// <param name="charCode">The character code.</param>
         public static void WriteError(this char charCode)
         {
-            Write(charCode, Console.Error);
+            Write(charCode, TerminalWriter.StandardError);
         }
 
         /// <summary>
@@ -109,10 +107,9 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        /// <param name="writer">The writer.</param>
-        internal static void Write(this string text, ConsoleColor color, TextWriter writer)
+        /// <param name="writerFlags">The writer flags.</param>
+        internal static void Write(this string text, ConsoleColor color, TerminalWriter writerFlags)
         {
-            if (IsConsolePresent == false) return;
             if (text == null) return;
 
             lock (SyncLock)
@@ -122,7 +119,7 @@
                 {
                     OutputColor = color,
                     OutputText = OutputEncoding.GetChars(buffer),
-                    OutputWriter = writer
+                    OutputWriter = writerFlags
                 };
                 EnqueueOutput(context);
             }
@@ -135,7 +132,7 @@
         /// <param name="color">The color.</param>
         public static void Write(this string text, ConsoleColor color)
         {
-            Write(text, color, Console.Out);
+            Write(text, color, TerminalWriter.StandardOutput);
         }
 
         /// <summary>
@@ -145,7 +142,7 @@
         /// <param name="color">The color.</param>
         public static void WriteError(this string text, ConsoleColor color)
         {
-            Write(text, color, Console.Error);
+            Write(text, color, TerminalWriter.StandardError);
         }
 
         /// <summary>
@@ -164,19 +161,19 @@
         /// <summary>
         /// Writes a New Line Sequence to the standard output
         /// </summary>
-        /// <param name="writer">The writer.</param>
-        public static void WriteLine(TextWriter writer = null)
+        /// <param name="writerFlags">The writer flags.</param>
+        public static void WriteLine(TerminalWriter writerFlags = TerminalWriter.StandardOutput)
         {
-            Environment.NewLine.Write(Settings.DefaultColor, writer ?? Console.Out);
+            Environment.NewLine.Write(Settings.DefaultColor, writerFlags);
         }
 
         /// <summary>
         /// Writes a New Line Sequence to the standard error
         /// </summary>
-        /// <param name="writer">The writer.</param>
-        public static void WriteLineError(TextWriter writer = null)
+        /// <param name="writerFlags">The writer flags.</param>
+        public static void WriteLineError(TerminalWriter writerFlags = TerminalWriter.StandardError)
         {
-            Environment.NewLine.Write(Settings.DefaultColor, writer ?? Console.Error);
+            Environment.NewLine.Write(Settings.DefaultColor, writerFlags);
         }
 
         /// <summary>
@@ -184,10 +181,10 @@
         /// to the standard output
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="writer">The writer.</param>
-        public static void WriteLine(this string text, TextWriter writer = null)
+        /// <param name="writerFlags">The writer flags.</param>
+        public static void WriteLine(this string text, TerminalWriter writerFlags = TerminalWriter.StandardOutput)
         {
-            text?.WriteLine(Settings.DefaultColor, writer ?? Console.Out);
+            text?.WriteLine(Settings.DefaultColor, writerFlags);
         }
 
         /// <summary>
@@ -195,10 +192,10 @@
         /// to the standard error as opposed to the standard output.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="writer">The writer.</param>
-        public static void WriteLineError(this string text, TextWriter writer = null)
+        /// <param name="writerFlags">The writer.</param>
+        public static void WriteLineError(this string text, TerminalWriter writerFlags = TerminalWriter.StandardError)
         {
-            text?.WriteLineError(Settings.DefaultColor, writer ?? Console.Error);
+            text?.WriteLineError(Settings.DefaultColor, writerFlags);
         }
 
         /// <summary>
@@ -206,11 +203,11 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        /// <param name="writer">The writer.</param>
-        public static void WriteLine(this string text, ConsoleColor color, TextWriter writer = null)
+        /// <param name="writerFlags">The writer flags.</param>
+        public static void WriteLine(this string text, ConsoleColor color, TerminalWriter writerFlags = TerminalWriter.StandardOutput)
         {
             if (text == null) return;
-            $"{text}{Environment.NewLine}".Write(color, writer ?? Console.Out);
+            $"{text}{Environment.NewLine}".Write(color, writerFlags);
         }
 
         /// <summary>
@@ -218,11 +215,11 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="color">The color.</param>
-        /// <param name="writer">The writer.</param>
-        public static void WriteLineError(this string text, ConsoleColor color, TextWriter writer = null)
+        /// <param name="writerFlags">The writer flags.</param>
+        public static void WriteLineError(this string text, ConsoleColor color, TerminalWriter writerFlags = TerminalWriter.StandardError)
         {
             if (text == null) return;
-            $"{text}{Environment.NewLine}".Write(color, writer ?? Console.Error);
+            $"{text}{Environment.NewLine}".Write(color, writerFlags);
         }
 
         #endregion

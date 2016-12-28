@@ -59,18 +59,5 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(messages.Any(x => x.Message == nameof(LoggingTest)));
         }
 
-        [Test]
-        public void TerminalOutputTest()
-        {
-            // TODO: I need to work on this case
-            using (var ms = new MemoryStream())
-            {
-                using (var textWriter = new StreamWriter(ms))
-                {
-                    Terminal.WriteLine("TEST", textWriter);
-                    Terminal.WriteLineError("TEST", textWriter);
-                }
-            }
-        }
     }
 }
