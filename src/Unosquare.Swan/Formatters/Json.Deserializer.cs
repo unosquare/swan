@@ -240,7 +240,7 @@
                                     for (var j = i; j < json.Length; j++)
                                     {
                                         if (char.IsWhiteSpace(json[j]) || json[j] == FieldSeparatorChar
-                                            || (ResultObject != null && json[i] == CloseObjectChar)
+                                            || (ResultObject != null && json[j] == CloseObjectChar)
                                             || (ResultArray != null && json[j] == CloseArrayChar))
                                             break;
 

@@ -400,8 +400,7 @@
         {
             return Deserializer.DeserializeInternal(json);
         }
-
-
+        
         /// <summary>
         /// Deserializes the specified json string and converts it to the specified object type.
         /// Non-public constructors and property setters are ignored.
