@@ -118,12 +118,28 @@
         }
 
         /// <summary>
-        /// Waits for the queued messages to be written out to the console.
+        /// Waits for all of the queued output messages to be written out to the console.
+        /// Call this method if it is important to display console text before
+        /// quitting the application such as showing usage or help.
+        /// Set the timeout to null or TimeSpan.Zero to wait indefinitely.
         /// </summary>
-        public static void Flush()
+        /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
+        public static void Flush(TimeSpan? timeout = null)
         {
+            if (timeout == null) timeout = TimeSpan.Zero;
+            var startTime = DateTime.UtcNow;
+
             while (OutputQueue.Count > 0)
+            {
                 OutputDone.Wait(1);
+
+                if (timeout.Value == TimeSpan.Zero)
+                    continue;
+
+                if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
+                    break;
+            }
+                
         }
 
         /// <summary>
