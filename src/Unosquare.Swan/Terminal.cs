@@ -82,6 +82,9 @@
                         LogMessageType.Warning;
                 }
 
+                if (IsConsolePresent)
+                    Console.CursorVisible = false;
+
                 // Here we start the output task, fire-and-forget
                 DequeueOutputTask = DequeueOutputAsync();
             }
@@ -175,7 +178,7 @@
                     // Process Debugger output
                     if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
                     {
-                        System.Diagnostics.Debug.Write(context.OutputText);
+                        System.Diagnostics.Debug.Write(new string(context.OutputText));
                     }
                 }
             }
@@ -344,6 +347,14 @@
             OutputDone.Wait();
             InputDone.Reset();
             try { Console.SetCursorPosition(left, top); } finally { InputDone.Set(); }
+        }
+
+        /// <summary>
+        /// Moves the output cursor one line up starting at left position 0
+        /// </summary>
+        public static void BacklineCursor()
+        {
+            SetCursorPosition(0, CursorTop - 1);
         }
 
         #endregion

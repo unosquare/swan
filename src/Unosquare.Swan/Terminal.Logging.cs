@@ -135,9 +135,10 @@
                         TerminalWriters.StandardError : TerminalWriters.StandardOutput
                     : TerminalWriters.None;
 
-                // Set the writer to Diagnostics if appropriate
+                // Set the writer to Diagnostics if appropriate (Error and Debugging data go to the Diagnostics debugger
+                // if it is attached at all
                 if (IsDebuggerAttached
-                    && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug)))
+                    && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug) || messageType.HasFlag(LogMessageType.Error)))
                     writer = writer | TerminalWriters.Diagnostics;
 
                 // Check if we really need to write this out

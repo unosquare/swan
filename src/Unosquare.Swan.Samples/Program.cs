@@ -18,6 +18,13 @@
         {
             Terminal.OnLogMessageReceived += Terminal_OnLogMessageReceived;
             Terminal.OnLogMessageDisplaying += Terminal_OnLogMessageDisplaying;
+
+            for (int i = 0; i <= 100; i++)
+            {
+                System.Threading.Thread.Sleep(100);
+                Terminal.OverwriteLine($"Current Progress: {(i + "%"), -10}");
+            }
+
             //Terminal.Settings.DisplayLoggingMessageType = LogMessageType.Info;
             TestApplicationInfo();
             // TestNetworkUtilities();

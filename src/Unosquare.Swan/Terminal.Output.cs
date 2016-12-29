@@ -159,6 +159,21 @@
             $"{text}{Environment.NewLine}".Write(color, writerFlags);
         }
 
+        /// <summary>
+        /// As opposed to WriteLine methods, it prepends a Carriage Return character to the text
+        /// so that the console moves the cursor one position up after the text has been written out.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="writerFlags">The writer flags.</param>
+        public static void OverwriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)
+        {
+            if (text == null) text = string.Empty;
+            $"\r{text}".Write(color, writerFlags);
+            Flush();
+            CursorLeft = 0;
+        }
+
         #endregion
     }
 }

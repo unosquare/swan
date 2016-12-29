@@ -17,7 +17,16 @@
 
             OutputDone.Wait();
             InputDone.Reset();
-            try { return Console.ReadKey(intercept); } finally { InputDone.Set(); }
+            try
+            {
+                Console.CursorVisible = true;
+                return Console.ReadKey(intercept);
+            }
+            finally
+            {
+                Console.CursorVisible = false;
+                InputDone.Set();
+            }
         }
 
         /// <summary>
@@ -30,7 +39,16 @@
 
             OutputDone.Wait();
             InputDone.Reset();
-            try { return Console.ReadLine(); } finally { InputDone.Set(); }
+            try
+            {
+                Console.CursorVisible = true;
+                return Console.ReadLine();
+            }
+            finally
+            {
+                Console.CursorVisible = false;
+                InputDone.Set();
+            }
         }
 
         /// <summary>
@@ -56,7 +74,7 @@
             if (IsConsolePresent == false) return new ConsoleKeyInfo();
 
             if (prompt != null)
-                ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" + 
+                ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
                     $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
 
             var input = ReadKey(true);
