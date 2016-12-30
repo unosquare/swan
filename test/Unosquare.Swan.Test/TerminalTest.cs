@@ -48,16 +48,15 @@ namespace Unosquare.Swan.Test
             nameof(LogMessageType.Trace).Trace();
             nameof(LogMessageType.Warning).Warn();
 
-            Task.Delay(100).Wait();
+            Task.Delay(150).Wait();
             Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
 
             new Exception().Error(nameof(TerminalTest), nameof(LoggingTest));
-            Task.Delay(100).Wait();
+            Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.Exception != null));
             Assert.IsTrue(messages.Any(x => x.Source == nameof(TerminalTest)));
-            Assert.IsTrue(messages.Any(x => x.Message == nameof(LoggingTest)));
+            Assert.AreEqual($"[{nameof(TerminalTest)}] {nameof(LoggingTest)}", messages.First(x => x.Source == nameof(TerminalTest)).Message);
         }
-
     }
 }

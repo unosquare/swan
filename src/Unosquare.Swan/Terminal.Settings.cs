@@ -124,14 +124,13 @@
             public static string LoggingTimeFormat { get; set; } = "HH:mm:ss.fff";
 
             /// <summary>
-            /// Gets or sets the loggigng message types (in a bitwise mask)
+            /// Gets or sets the logging message types (in a bitwise mask)
             /// to display in the console.
             /// </summary>
             /// <value>
             /// The console options.
             /// </value>
             public static LogMessageType DisplayLoggingMessageType { get; set; }
-
         }
     }
 }

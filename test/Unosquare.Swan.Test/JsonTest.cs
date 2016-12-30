@@ -239,6 +239,9 @@ namespace Unosquare.Swan.Test
         {
             Assert.AreEqual(_basicStr, BasicJson.GetDefault().ToJson(false));
             Assert.AreNotEqual(_basicStr, BasicJson.GetDefault().ToJson());
+
+            object nullObj = null;
+            Assert.AreEqual(string.Empty, nullObj.ToJson());
         }
     }
 }
