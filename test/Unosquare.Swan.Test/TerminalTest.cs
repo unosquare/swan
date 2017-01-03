@@ -38,7 +38,8 @@ namespace Unosquare.Swan.Test
                     Exception = e.Exception,
                     Message = e.Message,
                     Source = e.Source,
-                    Type = e.MessageType
+                    Type = e.MessageType,
+                    Properties = e.Properties
                 });
             };
 
@@ -57,6 +58,12 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(messages.Any(x => x.Exception != null));
             Assert.IsTrue(messages.Any(x => x.Source == nameof(TerminalTest)));
             Assert.AreEqual($"[{nameof(TerminalTest)}] {nameof(LoggingTest)}", messages.First(x => x.Source == nameof(TerminalTest)).Message);
+
+            nameof(LogMessageType.Info).Info(properties: new Dictionary<string, object> { { "Test", new { } } });
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any(x => x.Properties != null));
+            Assert.IsTrue(messages.First(x => x.Properties != null).Properties.Keys.Any());
         }
     }
 }

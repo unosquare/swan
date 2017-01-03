@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Event arguments representing the message that is logged
@@ -22,8 +23,9 @@
         /// <param name="callerMemberName">Name of the caller member.</param>
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
+        /// <param name="properties">The properties.</param>
         public LogMessageReceivedEventArgs(ulong sequence, LogMessageType messageType, DateTime utcDate, string source, 
-            string message, Exception ex, string callerMemberName, string callerFilePath, int callerLineNumber)
+            string message, Exception ex, string callerMemberName, string callerFilePath, int callerLineNumber, IDictionary<string, object> properties)
         {
             Sequence = sequence;
             MessageType = messageType;
@@ -34,6 +36,7 @@
             CallerMemberName = callerMemberName;
             CallerFilePath = callerFilePath;
             CallerLineNumber = callerLineNumber;
+            Properties = properties;
         }
 
         /// <summary>
@@ -65,7 +68,7 @@
 
         /// <summary>
         /// Gets the exception if one was logged.
-        /// This is typically empty for meesages not categorized
+        /// This is typically empty for messages not categorized
         /// as errors.
         /// </summary>
         public Exception Exception { get; }
@@ -84,10 +87,18 @@
         /// Gets the caller line number.
         /// </summary>
         public int CallerLineNumber { get; }
+
+        /// <summary>
+        /// Gets the properties.
+        /// </summary>
+        /// <value>
+        /// The properties.
+        /// </value>
+        public IDictionary<string, object> Properties { get; }
     }
 
     /// <summary>
-    /// An event hanlder representing the logging messages sent to the terminal
+    /// An event handler representing the logging messages sent to the terminal
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="LogMessageReceivedEventArgs"/> instance containing the event data.</param>
@@ -107,20 +118,20 @@
         /// <param name="data">The <see cref="LogMessageReceivedEventArgs"/> instance containing the event data.</param>
         public LogMessageDisplayingEventArgs(LogMessageReceivedEventArgs data)
             : base(data.Sequence, data.MessageType, data.UtcDate, data.Source, data.Message, data.Exception, 
-                  data.CallerMemberName, data.CallerFilePath, data.CallerLineNumber)
+                  data.CallerMemberName, data.CallerFilePath, data.CallerLineNumber, data.Properties)
         {
             CancelOutput = false;
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether the displaying of the
-        /// logging message should be cancelled.
+        /// logging message should be canceled.
         /// </summary>
         public bool CancelOutput { get; set; }
     }
 
     /// <summary>
-    /// An event hanlder representing the logging messages about to be displayed on the terminal
+    /// An event handler representing the logging messages about to be displayed on the terminal
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="LogMessageDisplayingEventArgs"/> instance containing the event data.</param>

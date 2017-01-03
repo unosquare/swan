@@ -12,7 +12,6 @@
     /// </summary>
     public static partial class Terminal
     {
-
         #region Private Declarations
 
         private static readonly object SyncLock = new object();

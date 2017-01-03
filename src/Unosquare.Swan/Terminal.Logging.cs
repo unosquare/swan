@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     partial class Terminal
     {
-
         #region Private Declarations
 
         private static ulong LoggingSequence;
@@ -26,7 +26,7 @@
         /// Occurs synchronously (so handle quickly), whenever a logging message is about to be enqueued to the
         /// console output. Setting the CancelOutput to true in the event arguments prevents the
         /// logging message to be written out to the console.
-        /// Message filtering only works with loggign methods such as Trace, Debug, Info, Warn, Error and Dump
+        /// Message filtering only works with logging methods such as Trace, Debug, Info, Warn, Error and Dump
         /// Standard Write methods do not get filtering capabilities.
         /// </summary>
         public static event LogMessageDisplayingEventHandler OnLogMessageDisplaying;
@@ -45,10 +45,12 @@
         /// <param name="callerMemberName">Name of the caller member.</param>
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
+        /// <param name="properties">The properties.</param>
         private static void LogMessage(LogMessageType messageType, string message, string source, Exception ex,
             string callerMemberName,
             string callerFilePath,
-            int callerLineNumber)
+            int callerLineNumber,
+            IDictionary<string, object> properties)
         {
             lock (SyncLock)
             {
@@ -106,7 +108,7 @@
 
                 // Log the message asynchronously with the appropriate event args
                 var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, outputMessage, ex, callerMemberName,
-                    callerFilePath, callerLineNumber);
+                    callerFilePath, callerLineNumber, properties);
 
                 #endregion
 
@@ -125,7 +127,7 @@
 
                 #region Display the Message by Writing to the Output Queue
 
-                // Check if we are skipping these messages to be diaplayed based on settings
+                // Check if we are skipping these messages to be displayed based on settings
                 if (Settings.DisplayLoggingMessageType.HasFlag(messageType) == false)
                     return;
 
@@ -144,7 +146,7 @@
                 // Check if we really need to write this out
                 if (writer == TerminalWriters.None) return;
 
-                // Firther format the output in the case there is an exception being logged
+                // Further format the output in the case there is an exception being logged
                 if (writer.HasFlag(TerminalWriters.StandardError) && ex != null)
                 {
                     try { formattedOutputMessage = $"{formattedOutputMessage}{Environment.NewLine}{ex.Stringify().Indent(4)}"; }
@@ -173,12 +175,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Debug(this string message, string source = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Debug, message, source, null, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Debug, message, source, null, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -190,12 +194,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Debug(this Exception ex, string source, string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Debug, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Debug, message, source, ex, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -206,12 +212,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Trace(this string message, string source = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Trace, message, source, null, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Trace, message, source, null, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -223,12 +231,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Trace(this Exception ex, string source, string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Trace, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Trace, message, source, ex, callerMemberName, callerFilePath, callerLineNumber,properties);
         }
 
         /// <summary>
@@ -242,9 +252,10 @@
         public static void Warn(this string message, string source = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Warning, message, source, null, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Warning, message, source, null, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -259,9 +270,10 @@
         public static void Warn(this Exception ex, string source, string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Warning, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Warning, message, source, ex, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -272,12 +284,15 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="">The .</param>
+        /// <param name="properties">The properties.</param>
         public static void Info(this string message, string source = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Info, message, source, null, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Info, message, source, null, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -289,12 +304,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Info(this Exception ex, string source, string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Info, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Info, message, source, ex, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -305,12 +322,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Error(this string message, string source = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Error, message, source, null, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Error, message, source, null, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -322,12 +341,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Error(this Exception ex, string source, string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Error, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Error, message, source, ex, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         #endregion
@@ -343,12 +364,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Log(this string message, string source, LogMessageType messageType,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(messageType, message, source, null, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(messageType, message, source, null, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -360,12 +383,14 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Log(this Exception ex, string source = null, string message = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
-            LogMessage(LogMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         /// <summary>
@@ -378,14 +403,16 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Dump(this object obj, string text = "Object Data", string source = nameof(Dump),
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerLineNumber] int callerLineNumber = 0,
+            IDictionary<string, object> properties = null)
         {
             if (obj == null) return;
             var message = $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}";
-            LogMessage(LogMessageType.Trace, message, source, null, callerMemberName, callerFilePath, callerLineNumber);
+            LogMessage(LogMessageType.Trace, message, source, null, callerMemberName, callerFilePath, callerLineNumber, properties);
         }
 
         #endregion
