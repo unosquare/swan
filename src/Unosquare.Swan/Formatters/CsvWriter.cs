@@ -65,7 +65,7 @@
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         public CsvWriter(Stream outputStream)
-            : this(outputStream, false, Constants.Windows1252Encoding)
+            : this(outputStream, false, Definitions.Windows1252Encoding)
         {
             // placeholder
         }
@@ -77,7 +77,7 @@
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvWriter(string filename)
-            : this(File.OpenRead(filename), false, Constants.Windows1252Encoding)
+            : this(File.OpenRead(filename), false, Definitions.Windows1252Encoding)
         {
             // placeholder
         }

@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Net;
 
-    partial class Constants
+    partial class Definitions
     {
         #region Main Dictionary Definition
 

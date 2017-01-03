@@ -148,8 +148,8 @@
             if (itemType == typeof(string))
                 return item as string;
 
-            return Constants.BasicTypesInfo.ContainsKey(itemType)
-                ? Constants.BasicTypesInfo[itemType].ToStringInvariant(item)
+            return Definitions.BasicTypesInfo.ContainsKey(itemType)
+                ? Definitions.BasicTypesInfo[itemType].ToStringInvariant(item)
                 : item.ToString();
         }
 

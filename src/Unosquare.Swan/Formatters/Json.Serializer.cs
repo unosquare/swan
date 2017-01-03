@@ -89,9 +89,9 @@
                 var target = obj;
                 var targetType = obj.GetType();
 
-                if (Constants.BasicTypesInfo.ContainsKey(targetType))
+                if (Definitions.BasicTypesInfo.ContainsKey(targetType))
                 {
-                    var escapedValue = Escape(Constants.BasicTypesInfo[targetType].ToStringInvariant(target));
+                    var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(target));
                     decimal val;
 
                     Result = decimal.TryParse(escapedValue, out val) ?

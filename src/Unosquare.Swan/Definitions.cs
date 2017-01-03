@@ -5,9 +5,9 @@
     /// <summary>
     /// Contains useful constants
     /// </summary>
-    public static partial class Constants
+    public static partial class Definitions
     {
-        static Constants()
+        static Definitions()
         {
 
             CurrentAnsiEncoding = Encoding.GetEncoding(0);

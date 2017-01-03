@@ -25,11 +25,11 @@
                 this.resolver = resolver == null ? new DnsUdpRequestResolver() : resolver;
             }
 
-            public DnsClientRequest(IPAddress ip, int port = Constants.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
+            public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
                 this(new IPEndPoint(ip, port), request, resolver)
             { }
 
-            public DnsClientRequest(string ip, int port = Constants.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
+            public DnsClientRequest(string ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
                 this(IPAddress.Parse(ip), port, request, resolver)
             { }
 
