@@ -249,6 +249,7 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Warn(this string message, string source = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
@@ -267,6 +268,7 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        /// <param name="properties">The properties.</param>
         public static void Warn(this Exception ex, string source, string message,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
@@ -284,7 +286,6 @@
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
-        /// <param name="">The .</param>
         /// <param name="properties">The properties.</param>
         public static void Info(this string message, string source = null,
             [CallerMemberName] string callerMemberName = "",

@@ -154,8 +154,7 @@
         {
             get
             {
-                var codeBase = EntryAssembly.CodeBase;
-                var uri = new UriBuilder(codeBase);
+                var uri = new UriBuilder(EntryAssembly.CodeBase);
                 var path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
             }

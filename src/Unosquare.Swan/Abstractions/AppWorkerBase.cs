@@ -63,7 +63,7 @@
                 }
                 catch (Exception ex)
                 {
-                    ex.Message.Debug();
+                    ex.Log();
                     OnWorkerThreadLoopException(ex);
                 }
                 finally
@@ -85,7 +85,7 @@
         /// <param name="ex">The ex.</param>
         protected virtual void OnWorkerThreadLoopException(Exception ex)
         {
-            ex.Message.Debug();
+            ex.Log();
             "Service exception detected.".Debug();
         }
 

@@ -13,12 +13,20 @@ namespace Unosquare.Swan.Test
 {
     public class Program
     {
-        private static string _basicAObjStr = "{\"Properties\": [\"One\",\"Two\",\"Babu\"], \"Id\": 1}";
-
         public static void Main(string[] args)
         {
-            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
+            Task.Factory.StartNew(async () =>
+            {
+                while (true)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    "OK".Info();
+                }
+            });
+
+            "Press any key".Info();
             Terminal.ReadKey(true);
+            Terminal.Flush();
         }
     }
 }
