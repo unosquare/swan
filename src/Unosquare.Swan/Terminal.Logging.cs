@@ -97,22 +97,21 @@
                 var date = DateTime.UtcNow;
                 LoggingSequence++;
 
-                var outputMessage = string.IsNullOrWhiteSpace(message) ? 
+                var loggerMessage = string.IsNullOrWhiteSpace(message) ? 
                     string.Empty : message.RemoveControlCharsExcept('\n');
 
-                outputMessage = string.IsNullOrWhiteSpace(source) ? outputMessage : $"[{source}] {outputMessage}";
-
-                var formattedOutputMessage = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
+                var outputMessage = string.IsNullOrWhiteSpace(source) ? loggerMessage : $"[{source}] {loggerMessage}";
+                outputMessage = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
                     $" {prefix} >> {outputMessage}" :
                     $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
 
                 // Log the message asynchronously with the appropriate event args
-                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, outputMessage, ex, callerMemberName,
+                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, source, loggerMessage, ex, callerMemberName,
                     callerFilePath, callerLineNumber, properties);
 
                 #endregion
 
-                #region Fire External Logging Logic
+                #region Fire Up External Logging Logic (Asynchronously)
 
                 if (OnLogMessageReceived != null)
                 {
@@ -149,7 +148,7 @@
                 // Further format the output in the case there is an exception being logged
                 if (writer.HasFlag(TerminalWriters.StandardError) && ex != null)
                 {
-                    try { formattedOutputMessage = $"{formattedOutputMessage}{Environment.NewLine}{ex.Stringify().Indent(4)}"; }
+                    try { outputMessage = $"{outputMessage}{Environment.NewLine}{ex.Stringify().Indent(4)}"; }
                     catch { /* Ignore */ }
                 }
 
@@ -157,7 +156,7 @@
                 var displayingEventArgs = new LogMessageDisplayingEventArgs(eventArgs);
                 OnLogMessageDisplaying?.Invoke(source, displayingEventArgs);
                 if (displayingEventArgs.CancelOutput == false)
-                    formattedOutputMessage.WriteLine(color, writer);
+                    outputMessage.WriteLine(color, writer);
 
                 #endregion
             }
