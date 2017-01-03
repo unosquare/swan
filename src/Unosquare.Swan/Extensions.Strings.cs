@@ -99,6 +99,16 @@
         }
 
         /// <summary>
+        /// Computes the MD5 hash of the given byte array.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns></returns>
+        public static byte[] ComputeMD5(this byte[] data)
+        {
+            return Md5Hasher.Value.ComputeHash(data);
+        }
+
+        /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
         /// </summary>
         /// <param name="inputString">The input string.</param>
