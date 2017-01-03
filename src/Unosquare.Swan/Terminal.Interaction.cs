@@ -5,15 +5,19 @@
 
     partial class Terminal
     {
+        #region ReadKey
 
         /// <summary>
-        /// Reads a key from the console.
+        /// Reads a key from the Terminal. This is the closest equivalent to Console.ReadKey
         /// </summary>
-        /// <param name="intercept">if set to <c>true</c> [intercept].</param>
-        /// <returns></returns>
-        public static ConsoleKeyInfo ReadKey(bool intercept)
+        /// <param name="intercept">if set to <c>true</c> the pressed key will not be rendered to the output.</param>
+        /// <param name="disableLocking">if set to <c>true</c> the output will continue to be shown. 
+        /// This is useful for services and daemons that are running as console applications and wait for a key to exit the program.
+        /// </param>
+        public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)
         {
-            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+            if (IsConsolePresent == false) return default(ConsoleKeyInfo);
+            if (disableLocking) return Console.ReadKey(intercept);
 
             OutputDone.Wait();
             InputDone.Reset();
@@ -30,12 +34,44 @@
         }
 
         /// <summary>
+        /// Reads a key from the Terminal
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
+        public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
+        {
+            if (IsConsolePresent == false) return default(ConsoleKeyInfo);
+
+            if (prompt != null)
+                ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
+                    $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
+
+            var input = ReadKey(true, false);
+            var echo = preventEcho ? string.Empty : input.Key.ToString();
+            echo.WriteLine();
+            return input;
+        }
+
+        /// <summary>
+        /// Reads a key from the terminal preventing the key from being echoed.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <returns></returns>
+        public static ConsoleKeyInfo ReadKey(this string prompt)
+        {
+            return prompt.ReadKey(true);
+        }
+
+        #endregion
+
+        #region Other Terminal Read Methods
+
+        /// <summary>
         /// Reads a line of text from the console
         /// </summary>
-        /// <returns></returns>
         public static string ReadLine()
         {
-            if (IsConsolePresent == false) return null;
+            if (IsConsolePresent == false) return default(string);
 
             OutputDone.Wait();
             InputDone.Reset();
@@ -49,38 +85,6 @@
                 Console.CursorVisible = false;
                 InputDone.Set();
             }
-        }
-
-        /// <summary>
-        /// Reads a key from the terminal preventing the key from being echoed.
-        /// </summary>
-        /// <param name="prompt">The prompt.</param>
-        /// <returns></returns>
-        public static ConsoleKeyInfo ReadKey(this string prompt)
-        {
-            if (IsConsolePresent == false) return new ConsoleKeyInfo();
-
-            return prompt.ReadKey(true);
-        }
-
-        /// <summary>
-        /// Reads a key from the Terminal
-        /// </summary>
-        /// <param name="prompt">The prompt.</param>
-        /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
-        /// <returns></returns>
-        public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
-        {
-            if (IsConsolePresent == false) return new ConsoleKeyInfo();
-
-            if (prompt != null)
-                ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
-                    $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
-
-            var input = ReadKey(true);
-            var echo = preventEcho ? string.Empty : input.Key.ToString();
-            echo.WriteLine();
-            return input;
         }
 
         /// <summary>
@@ -113,7 +117,7 @@
         /// <returns></returns>
         public static ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
-            if (IsConsolePresent == false) return new ConsoleKeyInfo();
+            if (IsConsolePresent == false) return default(ConsoleKeyInfo);
 
             int inputLeft;
             int inputTop;
@@ -199,5 +203,7 @@
             SetCursorPosition(currentLeft, currentTop);
             return userInput;
         }
+
+        #endregion
     }
 }
