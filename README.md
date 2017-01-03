@@ -21,7 +21,3 @@ NuGet Installation:
 ```
 PM> Install-Package Unosquare.Swan
 ```
-
-## TODO:
- - DI/IoC TinyIoC
- - String Manipulation extensions beyond humanize.
