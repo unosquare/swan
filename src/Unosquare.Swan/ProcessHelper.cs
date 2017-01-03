@@ -139,8 +139,8 @@
             var standardErrorBuilder = new StringBuilder();
 
             var processReturn = await RunProcessAsync(filename, arguments,
-                (data, proc) => { standardOutputBuilder.Append(Constants.CurrentAnsiEncoding.GetString(data)); },
-                (data, proc) => { standardErrorBuilder.Append(Constants.CurrentAnsiEncoding.GetString(data)); },
+                (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
+                (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
                 true, ct);
 
             return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());

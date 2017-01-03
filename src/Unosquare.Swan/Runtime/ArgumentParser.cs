@@ -148,7 +148,7 @@
                 else if (targetProperty.PropertyType.IsCollection())
                 {
                     var itemType = targetProperty.PropertyType.GetElementType();
-                    var primitiveValue = Constants.AllBasicTypes.Contains(itemType);
+                    var primitiveValue = Definitions.AllBasicTypes.Contains(itemType);
                     var propertyValue = propertyValueString.Split(optionAttr.Separator);
 
                     var arr = Array.CreateInstance(itemType, propertyValue.Cast<object>().Count());
@@ -159,7 +159,7 @@
                         if (primitiveValue)
                         {
                             object itemvalue;
-                            if (Constants.BasicTypesInfo[itemType].TryParse(value, out itemvalue))
+                            if (Definitions.BasicTypesInfo[itemType].TryParse(value, out itemvalue))
                                 arr.SetValue(itemvalue, i++);
                         }
                         else
@@ -173,7 +173,7 @@
                 else
                 {
                     object propertyValue;
-                    if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyValueString,
+                    if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyValueString,
                         out propertyValue))
                     {
                         targetProperty.SetValue(result, propertyValue);

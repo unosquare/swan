@@ -94,7 +94,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         public CsvReader(Stream stream)
-            : this(stream, false, Constants.Windows1252Encoding)
+            : this(stream, false, Definitions.Windows1252Encoding)
         {
         }
 
@@ -105,7 +105,7 @@
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvReader(string filename)
-            : this(File.OpenRead(filename), false, Constants.Windows1252Encoding)
+            : this(File.OpenRead(filename), false, Definitions.Windows1252Encoding)
         {
             // placeholder
         }
@@ -338,7 +338,7 @@
                 // Extract properties from cache
                 var properties = TypeCache.Retrieve<T>(() => {
                     return typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(x => x.CanWrite && Constants.BasicTypesInfo.ContainsKey(x.PropertyType));
+                        .Where(x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType));
                 });
 
                 // Assign property values for each heading
@@ -366,7 +366,7 @@
                     try
                     {
                         object propertyValue;
-                        if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyStringValue, out propertyValue))
+                        if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyStringValue, out propertyValue))
                             targetProperty.SetValue(result, propertyValue);
                     }
                     catch

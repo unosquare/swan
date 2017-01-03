@@ -45,7 +45,7 @@
             var sourceProperties = CopyPropertiesSources.Value.Retrieve(sourceType, () =>
             {
                 return sourceType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(x => x.CanRead && Constants.AllBasicTypes.Contains(x.PropertyType));
+                    .Where(x => x.CanRead && Definitions.AllBasicTypes.Contains(x.PropertyType));
             });
 
             // Targets
@@ -53,7 +53,7 @@
             var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
             {
                 return targetType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(x => x.CanWrite && Constants.AllBasicTypes.Contains(x.PropertyType));
+                .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
             });
 
             // Filter properties
@@ -92,7 +92,7 @@
                     // String to target type conversion
                     var sourceStringValue = sourceProperty.GetValue(source).ToStringInvariant();
                     object targetValue;
-                    if (Constants.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue, out targetValue))
+                    if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue, out targetValue))
                     {
                         targetProperty.SetValue(target, targetValue);
                         copiedProperties++;

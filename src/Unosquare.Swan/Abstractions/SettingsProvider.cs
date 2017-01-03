@@ -106,7 +106,7 @@
                     foreach (var value in coll)
                     {
                         object itemvalue;
-                        if (Constants.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
+                        if (Definitions.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
                             arr.SetValue(itemvalue, i++);
                     }
 
@@ -125,7 +125,7 @@
                     else
                     {
                         object propertyValue;
-                        if (Constants.BasicTypesInfo[prop.PropertyType].TryParse(property.Value.ToString(),
+                        if (Definitions.BasicTypesInfo[prop.PropertyType].TryParse(property.Value.ToString(),
                             out propertyValue))
                         {
                             if (propertyValue.Equals(originalValue)) continue;

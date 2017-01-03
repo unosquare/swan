@@ -314,10 +314,10 @@
             {
                 var sourceStringValue = source.ToStringInvariant();
 
-                if (Constants.BasicTypesInfo.ContainsKey(targetType))
+                if (Definitions.BasicTypesInfo.ContainsKey(targetType))
                 {
                     // Handle basic types
-                    if (Constants.BasicTypesInfo[targetType].TryParse(sourceStringValue, out target) == false)
+                    if (Definitions.BasicTypesInfo[targetType].TryParse(sourceStringValue, out target) == false)
                         return targetType.GetDefault();
                 }
                 else
@@ -360,7 +360,7 @@
         public static string Serialize(object obj, bool format = false, string typeSpecifier = null, bool includeNonPublic = false,
             string[] includedNames = null, string[] excludedNames = null)
         {
-            if (obj != null && Constants.AllBasicValueTypes.Contains(obj.GetType()))
+            if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
                 throw new ArgumentException("You need to provide an object or array", nameof(obj));
 
             return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, null);

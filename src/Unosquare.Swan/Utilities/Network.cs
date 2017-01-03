@@ -186,7 +186,7 @@
         /// <returns></returns>
         public static IPAddress[] GetDnsHostEntry(string fqdn)
         {
-            return GetDnsHostEntry(fqdn, GetIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
+            return GetDnsHostEntry(fqdn, GetIPv4DnsServers().FirstOrDefault(), Definitions.DnsDefaultPort);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@
         /// <returns></returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType)
         {
-            return QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), Constants.DnsDefaultPort);
+            return QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), Definitions.DnsDefaultPort);
         }
 
         /// <summary>
@@ -259,7 +259,7 @@
         /// <param name="ntpServerAddress">The NTP server address.</param>
         /// <param name="port">The port.</param>
         /// <returns></returns>
-        public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = Constants.NtpDefaultPort)
+        public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = Definitions.NtpDefaultPort)
         {
             // NTP message size - 16 bytes of the digest (RFC 2030)
             var ntpData = new byte[48];
@@ -308,7 +308,7 @@
         /// <param name="ntpServerName">The NTP server, by default pool.ntp.org.</param>
         /// <param name="port">The port, by default NTP 123.</param>
         /// <returns></returns>
-        public static DateTime GetNetworkTimeUtc(string ntpServerName = "pool.ntp.org", int port = Constants.NtpDefaultPort)
+        public static DateTime GetNetworkTimeUtc(string ntpServerName = "pool.ntp.org", int port = Definitions.NtpDefaultPort)
         {
             var addresses = GetDnsHostEntry(ntpServerName);
             return GetNetworkTimeUtc(addresses.First(), port);
