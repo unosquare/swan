@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Unosquare.Swan.Test.Mocks;
@@ -57,7 +56,7 @@ namespace Unosquare.Swan.Test
 
             Assert.IsTrue(messages.Any(x => x.Exception != null));
             Assert.IsTrue(messages.Any(x => x.Source == nameof(TerminalTest)));
-            Assert.AreEqual($"[{nameof(TerminalTest)}] {nameof(LoggingTest)}", messages.First(x => x.Source == nameof(TerminalTest)).Message);
+            Assert.AreEqual(nameof(LoggingTest), messages.First(x => x.Source == nameof(TerminalTest)).Message);
 
             nameof(LogMessageType.Info).Info(properties: new Dictionary<string, object> { { "Test", new { } } });
             Task.Delay(150).Wait();
