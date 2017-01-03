@@ -3,6 +3,7 @@
     using Formatters;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
@@ -44,6 +45,47 @@
         });
 
         #endregion
+
+        /// <summary>
+        /// Computes the MD5 hash of the given stream.
+        /// Do not use for large streams as this reads ALL bytes at once
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns></returns>
+        public static byte[] ComputeMD5(this Stream stream)
+        {
+#if !NETCOREAPP1_1 && !NETSTANDARD1_6
+            var md5 = MD5.Create();
+            const int bufferSize = 4096;
+
+            var readAheadBuffer = new byte[bufferSize];
+            var readAheadBytesRead = stream.Read(readAheadBuffer, 0, readAheadBuffer.Length);
+
+            do
+            {
+                var bytesRead = readAheadBytesRead;
+                var buffer = readAheadBuffer;
+
+                readAheadBuffer = new byte[bufferSize];
+                readAheadBytesRead = stream.Read(readAheadBuffer, 0, readAheadBuffer.Length);
+
+                if (readAheadBytesRead == 0)
+                    md5.TransformFinalBlock(buffer, 0, bytesRead);
+                else
+                    md5.TransformBlock(buffer, 0, bytesRead, buffer, 0);
+            } while (readAheadBytesRead != 0);
+
+            return md5.Hash;
+#else
+            using (var ms = new MemoryStream())
+            {
+                stream.Position = 0;
+                stream.CopyTo(ms);
+                
+                return Md5Hasher.Value.ComputeHash(ms.ToArray());
+            }
+#endif
+        }
 
         /// <summary>
         /// Computes the MD5 hash of the given string using UTF8 byte encoding.

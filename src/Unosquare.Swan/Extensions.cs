@@ -133,5 +133,20 @@
 
             return TimeSpan.FromTicks(sw.ElapsedTicks);
         }
+
+        /// <summary>
+        /// Retrieves the exception message, plus all the inner exception messages separated by new lines
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="priorMessage">The prior message.</param>
+        /// <returns></returns>
+        public static string ExceptionMessage(this Exception ex, string priorMessage)
+        {
+            var fullMessage = string.IsNullOrWhiteSpace(priorMessage) ? ex.Message : priorMessage + "\r\n" + ex.Message;
+            if (ex.InnerException != null && string.IsNullOrWhiteSpace(ex.InnerException.Message) == false)
+                return ExceptionMessage(ex.InnerException, fullMessage);
+
+            return fullMessage;
+        }
     }
 }
