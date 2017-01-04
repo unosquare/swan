@@ -47,7 +47,8 @@ namespace Unosquare.Swan
                 thread.Start();
             }
 
-            "Press any key to stop all services.".ReadKey();
+            "Press any key to stop all services.".Info();
+            Terminal.ReadKey(true, true);
             "Stopping services . . .".Info();
 
             foreach (var service in servicesToRun)
