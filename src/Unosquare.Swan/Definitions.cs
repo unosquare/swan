@@ -3,14 +3,17 @@
     using System.Text;
 
     /// <summary>
-    /// Contains useful constants
+    /// Contains useful constants and definitions
     /// </summary>
     public static partial class Definitions
     {
+        /// <summary>
+        /// Initializes the <see cref="Definitions"/> class.
+        /// </summary>
         static Definitions()
         {
 
-            CurrentAnsiEncoding = Encoding.GetEncoding(0);
+            CurrentAnsiEncoding = Encoding.GetEncoding(default(int));
 
             try
             {

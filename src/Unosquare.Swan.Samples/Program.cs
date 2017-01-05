@@ -147,6 +147,21 @@
             $"This is for debugging stuff".Debug();
             $"This is for debugging stuff".Debug(nameof(TestTerminalOutputs));
 
+            // The simplest way of writing a line of text:
+            Terminal.WriteLine($"Hello, today is {DateTime.Today}");
+
+            // A slightly better way:
+            $"Hello, today is {DateTime.Today}".WriteLine();
+
+            // Now, add some color:
+            $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
+
+            // Write it out to the debugger as well!
+            $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+
+            // You could have also skipped the color argument and just use the default
+            $"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+
             if ((key = Terminal.ReadKey("Press a key to test menu options. (X) will exit.")).Key == ConsoleKey.X) return;
             Terminal.WriteLine("TESTING MENU OPTIONS", ConsoleColor.Blue);
 

@@ -5,6 +5,10 @@
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
+    // TODO: IDictionary<string, object> logging is HOPRRENDOUS.  PLEASE REMOVE IMMEDIATELY.
+    // YOU CAN ADD AN EXTENSION METHOD TO IDictionary<string, object> instead
+    // Please kee this class as clean as possible
+
     partial class Terminal
     {
         #region Private Declarations
