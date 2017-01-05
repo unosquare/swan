@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.9.14-*",
+  "version": "0.9.15-*",
   
   "frameworks": {
     "netcoreapp1.1": {
