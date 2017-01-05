@@ -74,7 +74,7 @@ namespace Unosquare.Swan
         /// <param name="shortName">The short name of the option.</param>
         /// <param name="longName">The long name of the option or null if not used.</param>
         public ArgumentOptionAttribute(char shortName, string longName)
-            : this(shortName.ToOneCharString(), longName)
+            : this(new string(shortName, 1), longName)
         {
         }
 
@@ -83,7 +83,7 @@ namespace Unosquare.Swan
         /// </summary>
         /// <param name="shortName">The short name of the option..</param>
         public ArgumentOptionAttribute(char shortName)
-            : this(shortName.ToOneCharString(), string.Empty)
+            : this(new string(shortName, 1), string.Empty)
         {
         }
 

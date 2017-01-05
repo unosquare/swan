@@ -50,7 +50,7 @@
     }
 
     /// <summary>
-    /// Defines Endiness, big or little
+    /// Defines Endianness, big or little
     /// </summary>
     public enum Endianness
     {

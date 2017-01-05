@@ -204,8 +204,7 @@
         {
             return input.RemoveControlCharsExcept(null);
         }
-
-
+        
         /// <summary>
         /// Humanizes a JSON serialization result.
         /// jsonResult has to be a Dictionary[string,object] or List[object]
@@ -443,16 +442,6 @@
             }
 
             return builder.ToString().TrimEnd();
-        }
-
-        /// <summary>
-        /// To the one character string.
-        /// </summary>
-        /// <param name="c">The c.</param>
-        /// <returns></returns>
-        public static string ToOneCharString(this char c)
-        {
-            return new string(c, 1);
         }
     }
 }
