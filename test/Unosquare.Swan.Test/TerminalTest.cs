@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace Unosquare.Swan.Test
                     Message = e.Message,
                     Source = e.Source,
                     Type = e.MessageType,
-                    Properties = e.Properties
+                    ExtendedData = e.ExtendedData
                 });
             };
 
@@ -63,12 +64,12 @@ namespace Unosquare.Swan.Test
 
             messages.Clear();
             //nameof(LogMessageType.Info).Info(properties: new Dictionary<string, object> { { "Test", new { } } });
-            nameof(LogMessageType.Info).WithParam("Test", new { }).Info();
+            nameof(LogMessageType.Info).Info("Test", new { });
             Task.Delay(150).Wait();
 
-            Assert.IsTrue(messages.Any(x => x.Properties != null));
-            Assert.AreEqual(1, messages.First(x => x.Properties != null).Properties.Keys.Count);
-            Assert.AreEqual(nameof(LogMessageType.Info), messages.First(x => x.Properties != null).Message);
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual(1, (messages.First(x => x.ExtendedData != null) as IDictionary).Keys.Count);
+            Assert.AreEqual(nameof(LogMessageType.Info), messages.First(x => x.ExtendedData != null).Message);
         }
     }
 }

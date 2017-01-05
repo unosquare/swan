@@ -17,6 +17,6 @@ namespace Unosquare.Swan.Test.Mocks
 
         public Exception Exception { get; set; }
 
-        public IDictionary<string, object> Properties { get; set; }
+        public object ExtendedData { get; set; }
     }
 }
