@@ -11,6 +11,6 @@
     }
   },
   "dependencies": {
-    "Unosquare.Swan": "*"
+    "Unosquare.Swan": { "target": "project"}
   }
 }

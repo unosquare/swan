@@ -64,11 +64,11 @@ namespace Unosquare.Swan.Test
 
             messages.Clear();
             //nameof(LogMessageType.Info).Info(properties: new Dictionary<string, object> { { "Test", new { } } });
-            nameof(LogMessageType.Info).Info("Test", new { });
+            nameof(LogMessageType.Info).Info("Test", 1);
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual(1, (messages.First(x => x.ExtendedData != null) as IDictionary).Keys.Count);
+            Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(nameof(LogMessageType.Info), messages.First(x => x.ExtendedData != null).Message);
         }
     }
