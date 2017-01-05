@@ -27,6 +27,8 @@ namespace Unosquare.Swan.Test
         [Test]
         public void LoggingTest()
         {
+            Terminal.Flush();
+
             var messages = new List<LoggingEntryMock>();
 
             Terminal.OnLogMessageReceived += (s, e) =>
@@ -49,6 +51,7 @@ namespace Unosquare.Swan.Test
             nameof(LogMessageType.Warning).Warn();
 
             Task.Delay(150).Wait();
+            
             Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
 
             new Exception().Error(nameof(TerminalTest), nameof(LoggingTest));
@@ -58,11 +61,14 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(messages.Any(x => x.Source == nameof(TerminalTest)));
             Assert.AreEqual(nameof(LoggingTest), messages.First(x => x.Source == nameof(TerminalTest)).Message);
 
-            nameof(LogMessageType.Info).Info(properties: new Dictionary<string, object> { { "Test", new { } } });
+            messages.Clear();
+            //nameof(LogMessageType.Info).Info(properties: new Dictionary<string, object> { { "Test", new { } } });
+            nameof(LogMessageType.Info).WithParam("Test", new { }).Info();
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.Properties != null));
-            Assert.IsTrue(messages.First(x => x.Properties != null).Properties.Keys.Any());
+            Assert.AreEqual(1, messages.First(x => x.Properties != null).Properties.Keys.Count);
+            Assert.AreEqual(nameof(LogMessageType.Info), messages.First(x => x.Properties != null).Message);
         }
     }
 }

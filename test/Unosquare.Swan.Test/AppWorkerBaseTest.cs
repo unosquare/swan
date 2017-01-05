@@ -46,15 +46,15 @@ namespace Unosquare.Swan.Test
         }
         
         [Test]
-        public async Task ExceptionTest()
+        public async Task AppWorkerExceptionTest()
         {
             mock.Start();
             // Mock increase count by one every 100 ms, wait a little bit
-            await Task.Delay(TimeSpan.FromMilliseconds(800));
+            await Task.Delay(TimeSpan.FromMilliseconds(900));
 
-            Assert.IsFalse(mock.IsBusy);
-            Assert.IsFalse(mock.ExitBecauseCancellation);
-            Assert.IsNotNull(mock.Exception);
+            Assert.IsFalse(mock.IsBusy, "The AppWorker is not busy");
+            Assert.IsFalse(mock.ExitBecauseCancellation, "The AppWorker doesn't exit because cancellation");
+            Assert.IsNotNull(mock.Exception, "The AppWorker had an exception");
         }
 
         [Test]

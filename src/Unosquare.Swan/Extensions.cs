@@ -62,8 +62,8 @@
                 .Where(s => targetPropertyNames.Contains(s.Name.ToLowerInvariant()))
                 .ToArray();
 
-            var ignoredProperties = ignoreProperties == null ? 
-                new string[] { } : 
+            var ignoredProperties = ignoreProperties == null ?
+                new string[] { } :
                 ignoreProperties
                     .Where(p => string.IsNullOrWhiteSpace(p) == false)
                     .Select(p => p.ToLowerInvariant())
@@ -116,7 +116,7 @@
         public static TimeSpan Benchmark(this Action target)
         {
             var sw = new Stopwatch();
-            
+
             try
             {
                 sw.Start();
@@ -140,7 +140,7 @@
         /// <param name="ex">The ex.</param>
         /// <param name="priorMessage">The prior message.</param>
         /// <returns></returns>
-        public static string ExceptionMessage(this Exception ex, string priorMessage)
+        public static string ExceptionMessage(this Exception ex, string priorMessage = "")
         {
             var fullMessage = string.IsNullOrWhiteSpace(priorMessage) ? ex.Message : priorMessage + "\r\n" + ex.Message;
             if (ex.InnerException != null && string.IsNullOrWhiteSpace(ex.InnerException.Message) == false)
