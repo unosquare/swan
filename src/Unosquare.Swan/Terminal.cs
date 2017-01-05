@@ -82,7 +82,13 @@
                 }
 
                 if (IsConsolePresent)
+                {
+#if !NET452
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+#endif
                     Console.CursorVisible = false;
+                }
+                    
 
                 // Here we start the output task, fire-and-forget
                 DequeueOutputTask = DequeueOutputAsync();

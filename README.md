@@ -50,20 +50,20 @@ This only writes messages out to the `TerminalWriters` if they are avialble. In 
 the `Write` and `WriteLine` methods
 
 ```csharp
-	// The simplest way of writing a line of text:
-	Terminal.WriteLine($"Hello, today is {DateTime.Today}");
+// The simplest way of writing a line of text:
+Terminal.WriteLine($"Hello, today is {DateTime.Today}");
 
-	// A slightly better way:
-	$"Hello, today is {DateTime.Today}".WriteLine();
+// A slightly better way:
+$"Hello, today is {DateTime.Today}".WriteLine();
 
-	// Now, add some color:
-	$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
+// Now, add some color:
+$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
 
-	// Write it out to the debugger as well!
-	$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+// Write it out to the debugger as well!
+$"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
-	// You could have also set the color argument to null and just use the default
-	$"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+// You could have also set the color argument to null and just use the default
+$"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 ```
 
 #### Example 2: Basic Logging
