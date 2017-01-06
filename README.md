@@ -47,7 +47,9 @@ messages and diplaying `Console` messages by providing `string` extension method
 #### Example 1: Writing to the Terminal
 
 This only writes messages out to the `TerminalWriters` if they are avialble. In practice, we typically **DO NOT** use
-the `Write` and `WriteLine` methods
+the `Write` and `WriteLine` methods but they are provided for convenience, extensibility and customization. Please note
+that these methods do not forward messages as logging events and therefore whatever is written via these methods
+will not show up in you logging subsystem.
 
 ```csharp
 // The simplest way of writing a line of text:
@@ -68,4 +70,32 @@ $"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutp
 
 #### Example 2: Basic Logging
 
-This is where `Terminal` really shines. It provides a confugrable 
+This is where `Terminal` really shines. Instead of using the `Write` and `WriteLine` methods, you can use the 
+methods that are intended for logging. These methods have different purposes and distinct functionality. Please
+refer to the example below and its comments.
+
+```csharp
+$"Hello, today is {DateTime.Today}".Info();
+```
+
+#### Example 3: Forwarding Logging Messages
+
+Suppose you have various calls to `Terminal`'s logging methods such as `Info()`, `Warn()`, `Error()`, `Trace()`
+and `Debug()`. You wish to forward those messages to a logging subsystem in addition to using the `Console`'s
+standard output and standard error, and the built-in diagnostics output. All you have to do is subscribe to the
+Terminal's `OnLogMessageReceived` event. The event arguments of this event provide useful properties that you
+can piece together to send your logging messages directly to the Logging subsystem in your application.
+
+#### Example 4: Configuring Output
+
+Swan's `Terminal` provides both, flexibility and consistency for all of its output. While it will pick the most
+common defaults for a given build or runtime scenario, you are able to modify such defaults and adjust them to your
+liking. You can change the output colors,  
+
+#### Example 5: Other Useful methods
+
+Swan's `Terminal` also provides additional methods to accomplish very specific tasks. Given the fact that `Terminal`
+is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queue tobe written
+out to the `Console` before the program exits. For example, when we write a console application that requires its usage
+to be fully printed out before the process is terminated. In these scenarios we use `Terminal.Flush` which blocks
+the current thread until the entire output queue becomes empty.
