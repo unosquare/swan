@@ -1,32 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Threading.Tasks;
-using Unosquare.Swan.Abstractions;
-using Unosquare.Swan.Formatters;
-using Unosquare.Swan.Runtime;
-using Unosquare.Swan.Test.Mocks;
-using Unosquare.Swan.Utilities;
 
 namespace Unosquare.Swan.Test
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
-        {
-            Task.Factory.StartNew(async () =>
-            {
-                while (true)
-                {
-                    await Task.Delay(TimeSpan.FromSeconds(1));
-                    "OK".Info();
-                }
-            });
+#if NET452
+        static AppDomain otherDomain;
+#endif
 
-            "Press any key".Info();
-            Terminal.ReadKey(true);
-            Terminal.Flush();
+        static void Main(string[] args)
+        {
+#if NET452
+            otherDomain = AppDomain.CreateDomain("other domain");
+
+            var otherType = typeof(OtherProgram);
+            var obj = otherDomain.CreateInstanceAndUnwrap(
+                                     otherType.Assembly.FullName,
+                                     otherType.FullName) as OtherProgram;
+            
+            AppDomain.CurrentDomain.FriendlyName.Debug();
+            CurrentApp.OS.ToString().Debug();
+            obj.Main(args);
+#endif
+            Terminal.ReadKey(true, true);
         }
     }
+
+#if NET452
+    public class OtherProgram : MarshalByRefObject
+    {
+        public void Main(string[] args)
+        {
+            AppDomain.CurrentDomain.FriendlyName.Debug();
+            CurrentApp.OS.ToString().Debug();
+        }
+    }
+#endif
 }
