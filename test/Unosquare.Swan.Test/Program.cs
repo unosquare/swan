@@ -19,7 +19,7 @@ namespace Unosquare.Swan.Test
                                      otherType.FullName) as OtherProgram;
             
             AppDomain.CurrentDomain.FriendlyName.Debug();
-            CurrentApp.OS.ToString().Debug();
+            CurrentApp.EntryAssembly.ToString().Debug();
             obj.Main(args);
 #endif
             Terminal.ReadKey(true, true);
@@ -32,7 +32,7 @@ namespace Unosquare.Swan.Test
         public void Main(string[] args)
         {
             AppDomain.CurrentDomain.FriendlyName.Debug();
-            CurrentApp.OS.ToString().Debug();
+            CurrentApp.EntryAssembly.ToString().Debug();
         }
     }
 #endif

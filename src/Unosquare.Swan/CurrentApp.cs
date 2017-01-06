@@ -10,15 +10,24 @@
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
     /// </summary>
+#if NET452
+    public class CurrentApp : MarshalByRefObject
+#else
     public static class CurrentApp
+#endif
     {
         #region Property Backing
 
+#if NET452
+        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly());
+#else
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
+#endif
+
         private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
         private static readonly Lazy<Process> m_Process = new Lazy<Process>(Process.GetCurrentProcess);
         private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
-        
+
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute);
@@ -241,6 +250,5 @@
 #endif
 
         #endregion
-
     }
 }
