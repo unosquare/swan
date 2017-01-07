@@ -1,7 +1,9 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using System.Collections.Generic;
+    using System.Text;
+
+    #region Terminal
 
     /// <summary>
     /// Event arguments representing the message that is logged
@@ -131,4 +133,125 @@
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="LogMessageDisplayingEventArgs"/> instance containing the event data.</param>
     public delegate void LogMessageDisplayingEventHandler(object sender, LogMessageDisplayingEventArgs e);
+
+    #endregion
+
+    #region Connection
+
+    /// <summary>
+    /// The event arguments for connection failure events
+    /// </summary>
+    /// <seealso cref="System.EventArgs" />
+    public class ConnectionFailureEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets the error.
+        /// </summary>
+        public Exception Error { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectionFailureEventArgs"/> class.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        public ConnectionFailureEventArgs(Exception ex)
+        {
+            Error = ex;
+        }
+    }
+
+    /// <summary>
+    /// Event arguments for when data is received.
+    /// </summary>
+    /// <seealso cref="System.EventArgs" />
+    public class ConnectionDataReceivedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets the buffer.
+        /// </summary>
+        public byte[] Buffer { get; }
+
+        /// <summary>
+        /// Gets the cause as to why this event was thrown
+        /// </summary>
+        public ConnectionDataReceivedTrigger Trigger { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the receive buffer has more bytes available
+        /// </summary>
+        public bool HasMoreAvailable { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectionDataReceivedEventArgs"/> class.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="trigger">The trigger.</param>
+        /// <param name="moreAvailable">if set to <c>true</c> [more available].</param>
+        public ConnectionDataReceivedEventArgs(byte[] buffer, ConnectionDataReceivedTrigger trigger, bool moreAvailable)
+        {
+            Buffer = buffer;
+            Trigger = trigger;
+            HasMoreAvailable = moreAvailable;
+        }
+
+        /// <summary>
+        /// Gets the string from the given buffer.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns></returns>
+        public static string GetStringFromBuffer(byte[] buffer, Encoding encoding)
+        {
+            return encoding.GetString(buffer).TrimEnd('\r', '\n');
+        }
+
+        /// <summary>
+        /// Gets the string from buffer.
+        /// </summary>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns></returns>
+        public string GetStringFromBuffer(Encoding encoding)
+        {
+            return GetStringFromBuffer(Buffer, encoding);
+        }
+    }
+
+    #endregion
+
+    #region AppWorker
+
+    /// <summary>
+    /// Represents event arguments whenever the state of an application service changes
+    /// </summary>
+    public class AppWorkerStateChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets the state to which the application service changed.
+        /// </summary>
+        public AppWorkerState NewState { get; private set; }
+
+        /// <summary>
+        /// Gets the old state.
+        /// </summary>
+        public AppWorkerState OldState { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppWorkerStateChangedEventArgs" /> class.
+        /// </summary>
+        /// <param name="oldState">The old state.</param>
+        /// <param name="newState">The new state.</param>
+        public AppWorkerStateChangedEventArgs(AppWorkerState oldState, AppWorkerState newState)
+        {
+            OldState = oldState;
+            NewState = newState;
+        }
+    }
+
+    /// <summary>
+    /// An event handler that is called whenever the state of an application service is changed
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="AppWorkerStateChangedEventArgs"/> instance containing the event data.</param>
+    public delegate void AppWorkerStateChangedEventHandler(object sender, AppWorkerStateChangedEventArgs e);
+
+    #endregion
 }

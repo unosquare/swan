@@ -1,8 +1,9 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Unosquare.Swan.Runtime;
 
 namespace Unosquare.Swan.Test
 {

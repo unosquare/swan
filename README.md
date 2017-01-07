@@ -24,7 +24,11 @@ PM> Install-Package Unosquare.Swan
 In this section we present the different components that are available in the Swan library. Please keep in mind that everything in the library is opt-in.
 Swan won't force you to use any of its components, classes or methods.
 
-### The Terminal
+### The `CurrentApp`
+
+`CurrentApp` provides properties and methods that provide information about 
+
+### The `Terminal`
 
 Many times we find ourselves implementing `Console` output code as some NLog or Log4Net logger or adapter, especially 
 when writing console applications, daemons and windows services. We also tend to write `Console` code for reading user 
@@ -52,19 +56,19 @@ that these methods do not forward messages as logging events and therefore whate
 will not show up in you logging subsystem.
 
 ```csharp
-// The simplest way of writing a line of text:
+// The simplest way of writing a line of text -- equivalent to `Console.WriteLine`:
 Terminal.WriteLine($"Hello, today is {DateTime.Today}");
 
-// A slightly better way:
+// A slightly better way using extension methods:
 $"Hello, today is {DateTime.Today}".WriteLine();
 
-// Now, add some color:
+// Now, let's add some color:
 $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
 
 // Write it out to the debugger as well!
 $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
-// You could have also set the color argument to null and just use the default
+// You could have also set the color argument to null and just use the configured default
 $"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 ```
 
@@ -92,10 +96,27 @@ Swan's `Terminal` provides both, flexibility and consistency for all of its outp
 common defaults for a given build or runtime scenario, you are able to modify such defaults and adjust them to your
 liking. You can change the output colors,  
 
-#### Example 5: Other Useful methods
+#### Example 5: User Interaction
+
+The Swan `Terminal` would not be complete without a way to read user input. The good news is
+that `Terminal` can create decent-looking user prompts if a very convenient way.
+
+```csharp
+// TODO: These examples need work.
+
+var lineResult = Terminal.ReadLine();
+
+var numberResult = Terminal.ReadNumber();
+
+var promptResult = Terminal.ReadPrompt();
+
+var keyResult = Terminal.ReadKey();
+``` 
+
+#### Example 6: Other Useful Functions
 
 Swan's `Terminal` also provides additional methods to accomplish very specific tasks. Given the fact that `Terminal`
-is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queue tobe written
+is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queue to be written
 out to the `Console` before the program exits. For example, when we write a console application that requires its usage
 to be fully printed out before the process is terminated. In these scenarios we use `Terminal.Flush` which blocks
 the current thread until the entire output queue becomes empty.

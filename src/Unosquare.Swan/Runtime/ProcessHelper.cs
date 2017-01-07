@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Runtime
 {
     using System.Diagnostics;
     using System.IO;
@@ -8,8 +8,8 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides methods to help create external processes, capture the
-    /// standard error and standard input streams.
+    /// Provides methods to help create external processes, and efficiently capture the
+    /// standard error and standard output streams.
     /// </summary>
     public static class ProcessHelper
     {

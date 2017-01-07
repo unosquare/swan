@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Runtime
 {
     /// <summary>
     /// Represents the text of the standard output and standard error

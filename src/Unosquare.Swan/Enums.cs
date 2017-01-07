@@ -1,30 +1,5 @@
 ﻿namespace Unosquare.Swan
 {
-    using System;
-
-    /// <summary>
-    /// Defines a set of bitwise standard terminal writers
-    /// </summary>
-    [Flags]
-    public enum TerminalWriters
-    {
-        /// <summary>
-        /// Prevents output
-        /// </summary>
-        None = 0,
-        /// <summary>
-        /// Writes to the Console.Out
-        /// </summary>
-        StandardOutput = 1,
-        /// <summary>
-        /// Writes to the Console.Error
-        /// </summary>
-        StandardError = 2,
-        /// <summary>
-        /// Writes to the System.Diagnostics.Debug
-        /// </summary>
-        Diagnostics = 4
-    }
 
     /// <summary>
     /// Enumeration of Operating Systems
@@ -50,200 +25,41 @@
     }
 
     /// <summary>
-    /// Defines Endianness, big or little
+    /// Enumerates the different Application Worker States
     /// </summary>
-    public enum Endianness
+    public enum AppWorkerState
     {
         /// <summary>
-        /// In big endian, you store the most significant byte in the smallest address. 
+        /// The stopped
         /// </summary>
-        Big,
+        Stopped,
         /// <summary>
-        /// In little endian, you store the least significant byte in the smallest address.
+        /// The running
         /// </summary>
-        Little,
+        Running,
     }
 
     /// <summary>
-    /// Defines the bitwise flags to determine
-    /// which types of messages get printed on the current console
+    /// Enumerates the possible causes of the DataReceived event occurring.
     /// </summary>
-    [Flags]
-    public enum LogMessageType
+    public enum ConnectionDataReceivedTrigger
     {
         /// <summary>
-        /// The none message type
+        /// The trigger was a forceful flush of the buffer
         /// </summary>
-        None = 0,
-
+        Flush,
         /// <summary>
-        /// The information message type
+        /// The new line sequence bytes were received
         /// </summary>
-        Info = 1,
-
+        NewLineSequenceEncountered,
         /// <summary>
-        /// The debug message type
+        /// The buffer was full
         /// </summary>
-        Debug = 2,
-
+        BufferFull,
         /// <summary>
-        /// The trace message type
+        /// The block size reached
         /// </summary>
-        Trace = 4,
-
-        /// <summary>
-        /// The error message type
-        /// </summary>
-        Error = 8,
-
-        /// <summary>
-        /// The warning message type
-        /// </summary>
-        Warning = 16,
+        BlockSizeReached
     }
 
-    /// <summary>
-    /// Enumerates the different DNS record types
-    /// </summary>
-    public enum DnsRecordType
-    {
-        /// <summary>
-        /// A records
-        /// </summary> 
-        A = 1,
-        /// <summary>
-        /// Nameserver records
-        /// </summary> 
-        NS = 2,
-        /// <summary>
-        /// CNAME records
-        /// </summary> 
-        CNAME = 5,
-        /// <summary>
-        /// SOA records
-        /// </summary> 
-        SOA = 6,
-        /// <summary>
-        /// WKS records
-        /// </summary> 
-        WKS = 11,
-        /// <summary>
-        /// PTR records
-        /// </summary> 
-        PTR = 12,
-        /// <summary>
-        /// MX records
-        /// </summary> 
-        MX = 15,
-        /// <summary>
-        /// TXT records
-        /// </summary> 
-        TXT = 16,
-        /// <summary>
-        /// A records fot IPv6
-        /// </summary> 
-        AAAA = 28,
-        /// <summary>
-        /// SRV records
-        /// </summary> 
-        SRV = 33,
-        /// <summary>
-        /// ANY records
-        /// </summary> 
-        ANY = 255,
-    }
-
-    /// <summary>
-    /// Enumerates the different DNS record classes
-    /// </summary>
-    public enum DnsRecordClass
-    {
-        /// <summary>
-        /// IN records
-        /// </summary> 
-        IN = 1,
-        /// <summary>
-        /// ANY records
-        /// </summary> 
-        ANY = 255,
-    }
-
-    /// <summary>
-    /// Enumerates the different DNS operation codes
-    /// </summary>
-    public enum DnsOperationCode
-    {
-        /// <summary>
-        /// Query operation
-        /// </summary> 
-        Query = 0,
-        /// <summary>
-        /// IQuery operation
-        /// </summary> 
-        IQuery,
-        /// <summary>
-        /// Status operation
-        /// </summary> 
-        Status,
-        // Reserved = 3
-        /// <summary>
-        /// Notify operation
-        /// </summary> 
-        Notify = 4,
-        /// <summary>
-        /// Update operation
-        /// </summary> 
-        Update,
-    }
-
-    /// <summary>
-    /// Enumerates the different DNS query response codes
-    /// </summary>
-    public enum DnsResponseCode
-    {
-        /// <summary>
-        /// No error
-        /// </summary> 
-        NoError = 0,
-        /// <summary>
-        /// No error
-        /// </summary> 
-        FormatError,
-        /// <summary>
-        /// Format error
-        /// </summary> 
-        ServerFailure,
-        /// <summary>
-        /// Server failure error
-        /// </summary> 
-        NameError,
-        /// <summary>
-        /// Name error
-        /// </summary> 
-        NotImplemented,
-        /// <summary>
-        /// Not implemented error
-        /// </summary> 
-        Refused,
-        /// <summary>
-        /// Refused error
-        /// </summary> 
-        YXDomain,
-        /// <summary>
-        /// YXRR error
-        /// </summary> 
-        YXRRSet,
-        /// <summary>
-        /// NXRR Set error
-        /// </summary> 
-        NXRRSet,
-        /// <summary>
-        /// Not authorized error
-        /// </summary> 
-        NotAuth,
-        /// <summary>
-        /// Not zone error
-        /// </summary> 
-        NotZone,
-    }
 }
