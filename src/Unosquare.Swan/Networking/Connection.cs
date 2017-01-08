@@ -36,13 +36,13 @@
         private int DisconnectCalls;
 
         // Continuous Reading
-        private Thread ContinuousReadingThread = null;
+        private Thread ContinuousReadingThread;
         private readonly TimeSpan ContinuousReadingInterval = TimeSpan.FromMilliseconds(5);
         private readonly byte[] ReceiveBuffer;
         private int ReceiveBufferPointer;
 
         // Reading and writing
-        private Task<int> ReadTask = null;
+        private Task<int> ReadTask;
         private readonly Queue<string> ReadLineBuffer = new Queue<string>();
         private readonly ManualResetEventSlim WriteDone = new ManualResetEventSlim(true);
 
@@ -655,10 +655,6 @@
                     await ActiveStream.FlushAsync();
 
                 DataSentLastTimeUtc = DateTime.UtcNow;
-            }
-            catch
-            {
-                throw;
             }
             finally
             {

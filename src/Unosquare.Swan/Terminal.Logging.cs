@@ -19,7 +19,7 @@
         /// Only called when Terminal writes data via Info, Error, Trace, Warn, Debug methods, regardless of whether or not
         /// the console is present. Subscribe to this event to pass data on to your own logger.
         /// </summary>
-        public static event LogMessageReceivedEventHandler OnLogMessageReceived;
+        public static event EventHandler<LogMessageReceivedEventArgs> OnLogMessageReceived;
 
         /// <summary>
         /// Occurs synchronously (so handle quickly), whenever a logging message is about to be enqueued to the
@@ -28,7 +28,7 @@
         /// Message filtering only works with logging methods such as Trace, Debug, Info, Warn, Error and Dump
         /// Standard Write methods do not get filtering capabilities.
         /// </summary>
-        public static event LogMessageDisplayingEventHandler OnLogMessageDisplaying;
+        public static event EventHandler<LogMessageDisplayingEventArgs> OnLogMessageDisplaying;
 
         #endregion
 

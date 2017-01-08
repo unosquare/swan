@@ -19,7 +19,7 @@
         /// <summary>
         /// Occurs when [state changed].
         /// </summary>
-        public event AppWorkerStateChangedEventHandler StateChanged;
+        public event EventHandler<AppWorkerStateChangedEventArgs> StateChanged;
 
         #endregion
 

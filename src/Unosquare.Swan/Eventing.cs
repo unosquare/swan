@@ -95,13 +95,6 @@
     }
 
     /// <summary>
-    /// An event handler representing the logging messages sent to the terminal
-    /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="LogMessageReceivedEventArgs"/> instance containing the event data.</param>
-    public delegate void LogMessageReceivedEventHandler(object sender, LogMessageReceivedEventArgs e);
-
-    /// <summary>
     /// Event arguments representing a message logged and about to be
     /// displayed on the terminal (console). Set the CancelOutput property in the
     /// event handler to prevent the terminal from displaying the message.
@@ -126,13 +119,6 @@
         /// </summary>
         public bool CancelOutput { get; set; }
     }
-
-    /// <summary>
-    /// An event handler representing the logging messages about to be displayed on the terminal
-    /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="LogMessageDisplayingEventArgs"/> instance containing the event data.</param>
-    public delegate void LogMessageDisplayingEventHandler(object sender, LogMessageDisplayingEventArgs e);
 
     #endregion
 
@@ -245,13 +231,6 @@
             NewState = newState;
         }
     }
-
-    /// <summary>
-    /// An event handler that is called whenever the state of an application service is changed
-    /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="AppWorkerStateChangedEventArgs"/> instance containing the event data.</param>
-    public delegate void AppWorkerStateChangedEventHandler(object sender, AppWorkerStateChangedEventArgs e);
 
     #endregion
 }
