@@ -17,7 +17,7 @@
     /// you will need to enable continuous reading and events. On the client side you may want to disable continuous reading
     /// and use the Read methods available. In continuous reading mode Read methods are not available and will throw
     /// an invalid operation exceptions if they are used.
-    /// Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don't use Red methods
+    /// Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don't use Read methods
     /// Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data
     /// </summary>
     /// <seealso cref="System.IDisposable" />

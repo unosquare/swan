@@ -36,7 +36,7 @@ namespace Unosquare.Swan
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ArgumentOptionAttribute : Attribute
     {
-        private string setName;
+        private string _setName;
 
         private ArgumentOptionAttribute(string shortName, string longName)
         {
@@ -46,7 +46,7 @@ namespace Unosquare.Swan
             ShortName = shortName;
             LongName = longName;
 
-            setName = string.Empty;
+            _setName = string.Empty;
             Separator = '\0';
         }
 
@@ -102,12 +102,12 @@ namespace Unosquare.Swan
         /// </summary>
         public string SetName
         {
-            get { return setName; }
+            get { return _setName; }
             set
             {
                 if (value == null) throw new ArgumentNullException(nameof(value));
 
-                setName = value;
+                _setName = value;
             }
         }
 

@@ -120,7 +120,7 @@ namespace Unosquare.Swan.Test
 
                 var task = webserver.RunAsync();
 
-                await JsonClient.GetAsString(DefaultHttp, AuthorizationToken);
+                await JsonClient.GetString(DefaultHttp, AuthorizationToken);
                 
                 Assert.IsTrue(ctxHeaders.Any());
                 Assert.IsTrue(ctxHeaders.Any(x => x.StartsWith(Authorization)));
@@ -133,7 +133,7 @@ namespace Unosquare.Swan.Test
             await Task.Delay(0);
             Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
-                await JsonClient.GetAsString(DefaultHttp);
+                await JsonClient.GetString(DefaultHttp);
             });
         }
     }

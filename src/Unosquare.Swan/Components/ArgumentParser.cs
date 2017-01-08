@@ -59,7 +59,7 @@
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
 
-            var properties = GetTypeProperties(typeof(T));
+            var properties = GetTypeProperties(typeof(T)).ToArray();
 
             if (properties.Any() == false)
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");

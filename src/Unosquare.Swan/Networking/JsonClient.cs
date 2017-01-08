@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Security;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -14,6 +15,9 @@
     /// </summary>
     public class JsonClient
     {
+
+        private const string JsonMimeType = "application/json";
+
         #region Methods
 
         /// <summary>
@@ -29,7 +33,7 @@
         public static async Task<T> Post<T>(string url, object payload, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
-            var jsonString = await PostAsString(url, payload, authorization, ct);
+            var jsonString = await PostString(url, payload, authorization, ct);
 
             return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
@@ -45,7 +49,7 @@
         public static async Task<IDictionary<string, object>> Post(string url, object payload,
             string authorization = null, CancellationToken ct = default(CancellationToken))
         {
-            var jsonString = await PostAsString(url, payload, authorization, ct);
+            var jsonString = await PostString(url, payload, authorization, ct);
 
             return string.IsNullOrWhiteSpace(jsonString)
                 ? default(IDictionary<string, object>)
@@ -61,12 +65,12 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> PostAsString(string url, object payload, string authorization = null,
+        public static async Task<string> PostString(string url, object payload, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, "application/json");
+                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
 
                 var response = await httpClient.PostAsync(url, payloadJson, ct);
 
@@ -89,7 +93,7 @@
         public static async Task<T> Put<T>(string url, object payload, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
-            var jsonString = await PutAsString(url, payload, authorization, ct);
+            var jsonString = await PutString(url, payload, authorization, ct);
 
             return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
@@ -105,7 +109,7 @@
         public static async Task<IDictionary<string, object>> Put(string url, object payload,
             string authorization = null, CancellationToken ct = default(CancellationToken))
         {
-            var jsonString = await PutAsString(url, payload, authorization, ct);
+            var jsonString = await PutString(url, payload, authorization, ct);
 
             return string.IsNullOrEmpty(jsonString)
                 ? default(IDictionary<string, object>)
@@ -121,12 +125,12 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> PutAsString(string url, object payload, string authorization = null,
+        public static async Task<string> PutString(string url, object payload, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
-                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, "application/json");
+                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
 
                 var response = await httpClient.PutAsync(url, payloadJson, ct);
 
@@ -145,7 +149,7 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> GetAsString(string url, string authorization = null,
+        public static async Task<string> GetString(string url, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -172,7 +176,7 @@
         public static async Task<T> Get<T>(string url, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
-            var jsonString = await GetAsString(url, authorization, ct);
+            var jsonString = await GetString(url, authorization, ct);
             return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
 
@@ -217,7 +221,7 @@
                 var response = await httpClient.PostAsync(url, requestContent, ct);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new Exception($"Error Authenticating. Status code: {response.StatusCode}");
+                    throw new SecurityException($"Error Authenticating. Status code: {response.StatusCode}");
 
                 var jsonPayload = await response.Content.ReadAsStringAsync();
 

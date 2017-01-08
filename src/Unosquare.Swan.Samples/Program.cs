@@ -14,7 +14,7 @@
         /// <param name="args">The arguments.</param>
         /// <exception cref="SampleException"></exception>
         public static void Main(string[] args)
-        {
+        {            
             TestApplicationInfo();
             // TestNetworkUtilities();
             TestContainerAndMessageHub();
