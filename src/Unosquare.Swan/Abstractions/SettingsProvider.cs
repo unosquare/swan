@@ -82,36 +82,50 @@
         /// <summary>
         /// Updates settings from list.
         /// </summary>
-        /// <param name="list">The list.</param>
-        public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> list)
+        /// <param name="propertyList">The list.</param>
+        public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
         {
             var changedSettings = new List<string>();
 
-            foreach (var property in list)
+            foreach (var property in propertyList)
             {
-                var prop = Global.GetType().GetTypeInfo().GetProperty(property.Property);
-                var originalValue = prop.GetValue(Global);
+                var propertyInfo = Global.GetType().GetTypeInfo().GetProperty(property.Property);
+                var originalValue = propertyInfo.GetValue(Global);
                 var isChanged = false;
 
-                if (prop.PropertyType.IsArray)
+                if (propertyInfo.PropertyType.IsArray)
                 {
-                    var itemType = prop.PropertyType.GetElementType();
+                    var elementType = propertyInfo.PropertyType.GetElementType();
 
-                    var coll = property.Value as IEnumerable;
-                    if (coll == null) continue;
+                    if (property.Value is IEnumerable == false)
+                        continue;
 
-                    var arr = Array.CreateInstance(itemType, coll.Cast<object>().Count());
+                    var sourceArray = ((IEnumerable) property.Value).Cast<object>().ToArray();
+                    var targetArray = Array.CreateInstance(elementType, sourceArray.Length);
 
                     var i = 0;
-                    foreach (var value in coll)
+                    foreach (var sourceElement in sourceArray)
                     {
-                        object itemvalue;
-                        if (Definitions.BasicTypesInfo[itemType].TryParse(value.ToString(), out itemvalue))
-                            arr.SetValue(itemvalue, i++);
+                        try
+                        {
+                            if (sourceElement == null)
+                            {
+                                targetArray.SetValue(null, i++);
+                                continue;
+                            }
+
+                            object itemvalue;
+                            if (Definitions.BasicTypesInfo[elementType].TryParse(sourceElement.ToString(), out itemvalue))
+                                targetArray.SetValue(itemvalue, i++);
+                        }
+                        catch
+                        {
+                            // swallow
+                        }
                     }
 
                     isChanged = true;
-                    prop.SetValue(Global, arr);
+                    propertyInfo.SetValue(Global, targetArray);
                 }
                 else
                 {
@@ -120,18 +134,18 @@
                         if (originalValue == null) continue;
 
                         isChanged = true;
-                        prop.SetValue(Global, null);
+                        propertyInfo.SetValue(Global, null);
                     }
                     else
                     {
                         object propertyValue;
-                        if (Definitions.BasicTypesInfo[prop.PropertyType].TryParse(property.Value.ToString(),
+                        if (Definitions.BasicTypesInfo[propertyInfo.PropertyType].TryParse(property.Value.ToString(),
                             out propertyValue))
                         {
                             if (propertyValue.Equals(originalValue)) continue;
 
                             isChanged = true;
-                            prop.SetValue(Instance.Global, property.Value);
+                            propertyInfo.SetValue(Instance.Global, property.Value);
                         }
                     }
                 }
@@ -151,10 +165,10 @@
         /// <returns></returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
-            var dict = Json.Deserialize(GetJsonData()) as Dictionary<string, object>;
+            var jsonData = Json.Deserialize(GetJsonData()) as Dictionary<string, object>;
 
-            return dict.Keys
-                .Select(x => new ExtendedPropertyInfo<T>(x) { Value = dict[x] })
+            return jsonData?.Keys
+                .Select(p => new ExtendedPropertyInfo<T>(p) { Value = jsonData[p] })
                 .ToList();
         }
 
