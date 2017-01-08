@@ -188,7 +188,7 @@
         public static string RemoveControlCharsExcept(this string input, params char[] excludeChars)
         {
             if (excludeChars == null)
-                excludeChars = new char[] {};
+                excludeChars = new char[] { };
 
             return new string(input
                 .Where(c => char.IsControl(c) == false || excludeChars.Contains(c))
@@ -204,7 +204,7 @@
         {
             return input.RemoveControlCharsExcept(null);
         }
-        
+
         /// <summary>
         /// Humanizes a JSON serialization result.
         /// jsonResult has to be a Dictionary[string,object] or List[object]
@@ -442,6 +442,40 @@
             }
 
             return builder.ToString().TrimEnd();
+        }
+
+        /// <summary>
+        /// Gets the line and column number (i.e. not index) of the
+        /// specified charater index. Useful to locate text in a multiline
+        /// string the same way atext editor does.
+        /// Please not that the tuple contains first the line number and then the
+        /// column number
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <param name="charIndex">Index of the character.</param>
+        /// <returns></returns>
+        public static Tuple<int, int> TextPositionAt(this string str, int charIndex)
+        {
+            if (str == null) return Tuple.Create(0, 0);
+            charIndex = charIndex.Clamp(0, str.Length - 1);
+
+            var lineIndex = 0;
+            var colNumber = 0;
+
+            for (var i = 0; i <= charIndex; i++)
+            {
+                if (str[i] == '\n')
+                {
+                    lineIndex++;
+                    colNumber = 0;
+                    continue;
+                }
+
+                if (str[i] != '\r')
+                    colNumber++;
+            }
+
+            return Tuple.Create(lineIndex + 1, colNumber);
         }
     }
 }

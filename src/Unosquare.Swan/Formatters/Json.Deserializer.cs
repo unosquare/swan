@@ -25,7 +25,7 @@
 
             #region State Variables
 
-            private object Result;
+            private readonly object Result;
             private readonly Dictionary<string, object> ResultObject;
             private readonly List<object> ResultArray;
 
@@ -59,7 +59,7 @@
                             continue;
                         }
 
-                        throw new FormatException($"Parser error (char {i}, state {State}): Expected '{OpenObjectChar}' or '{OpenArrayChar}' but got '{json[i]}'.");
+                        throw CreateParserException(json, i, State, $"'{OpenObjectChar}' or '{OpenArrayChar}'");
                     }
 
                     #endregion
@@ -75,7 +75,7 @@
                             || (ResultArray != null && json[i] == CloseArrayChar))
                         {
                             EndIndex = i;
-                            Result = (ResultObject == null) ? ResultArray as object : ResultObject;
+                            Result = ResultObject ?? ResultArray as object;
                             return;
                         }
 
@@ -97,7 +97,7 @@
                             continue;
                         }
 
-                        throw new FormatException($"Parser error (char {i}, state {State}): Expected '{StringQuotedChar}' but got '{json[i]}'.");
+                        throw CreateParserException(json, i, State, $"'{StringQuotedChar}'");
                     }
 
                     #endregion
@@ -114,7 +114,7 @@
                             continue;
                         }
 
-                        throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json[i]}'.");
+                        throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                     }
 
                     #endregion
@@ -194,7 +194,7 @@
                                         continue;
                                     }
 
-                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SliceLength(i, TrueLiteral.Length)}'.");
+                                    throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
                             case 'f': // expect false
                                 {
@@ -213,7 +213,7 @@
                                         continue;
                                     }
 
-                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SliceLength(i, FalseLiteral.Length)}'.");
+                                    throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
                             case 'n': // expect null
                                 {
@@ -232,7 +232,7 @@
                                         continue;
                                     }
 
-                                    throw new FormatException($"Parser error (char {i}, state {State}): Expected '{ValueSeparatorChar}' but got '{json.SliceLength(i, NullLiteral.Length)}'.");
+                                    throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
                             default: // expect number
                                 {
@@ -252,7 +252,7 @@
                                     decimal value;
 
                                     if (decimal.TryParse(stringValue, out value) == false)
-                                        throw new FormatException($"Parser error (char {i}, state {State}): Expected [number] but got '{stringValue}'.");
+                                        throw CreateParserException(json, i, State, "[number]");
 
                                     if (CurrentFieldName != null)
                                         ResultObject[CurrentFieldName] = value;
@@ -294,16 +294,22 @@
                         if ((ResultObject != null && json[i] == CloseObjectChar) || (ResultArray != null && json[i] == CloseArrayChar))
                         {
                             EndIndex = i;
-                            Result = (ResultObject == null) ? ResultArray as object : ResultObject;
+                            Result = ResultObject ?? ResultArray as object;
                             return;
                         }
 
-                        throw new FormatException($"Parser error (char {i}, state {State}): Expected '{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}' but got '{json[i]}'.");
+                        throw CreateParserException(json, i, State, $"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
 
                     }
 
                     #endregion
                 }
+            }
+
+            private static FormatException CreateParserException(string json, int charIndex, ReadState state, string expected)
+            {
+                var textPosition = json.TextPositionAt(charIndex);
+                return new FormatException($"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {state}): Expected {expected} but got '{json[charIndex]}'.");
             }
 
             private static string Unescape(string str)

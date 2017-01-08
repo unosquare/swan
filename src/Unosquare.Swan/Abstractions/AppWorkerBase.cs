@@ -63,7 +63,7 @@
                 }
                 catch (Exception ex)
                 {
-                    ex.Log();
+                    ex.Log(GetType());
                     OnWorkerThreadLoopException(ex);
                 }
                 finally

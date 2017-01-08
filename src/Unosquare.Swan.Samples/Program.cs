@@ -15,18 +15,6 @@
         /// <exception cref="SampleException"></exception>
         public static void Main(string[] args)
         {
-            Terminal.OnLogMessageReceived += Terminal_OnLogMessageReceived;
-            Terminal.OnLogMessageDisplaying += Terminal_OnLogMessageDisplaying;
-
-            for (int i = 0; i <= 100; i++)
-            {
-                System.Threading.Thread.Sleep(100);
-                Terminal.OverwriteLine($"Current Progress: {(i + "%"), -10}");
-            }
-
-            
-
-            //Terminal.Settings.DisplayLoggingMessageType = LogMessageType.Info;
             TestApplicationInfo();
             // TestNetworkUtilities();
             TestContainerAndMessageHub();
@@ -38,17 +26,6 @@
             "Enter any key to exit . . .".ReadKey();
         }
 
-        private static void Terminal_OnLogMessageDisplaying(object sender, LogMessageDisplayingEventArgs e)
-        {
-            if (e.MessageType.HasFlag(LogMessageType.Trace))
-                e.CancelOutput = true;
-        }
-
-        private static void Terminal_OnLogMessageReceived(object sender, LogMessageReceivedEventArgs e)
-        {
-            //Terminal.WriteLine($" - Caller: {e.CallerFilePath}({e.CallerLineNumber}):{e.CallerMemberName}");
-        }
-
         static void TestExceptionLogging()
         {
             try
@@ -57,7 +34,7 @@
             }
             catch (Exception ex)
             {
-                ex.Log(null, "Exception dump starts");
+                ex.Log(typeof(Program), "Exception dump starts");
             }
         }
 
@@ -75,7 +52,7 @@
             var jsonObject = Json.Deserialize(jsonText);
             jsonObject.Dump(typeof(Program));
 
-            jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [    ], \"EmptyObject\": {  }, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
+            jsonText = "{\"SimpleProperty\": \r\n     \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [  \r\n \r\n  ], \"EmptyObject\": { } \r\n, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
             jsonObject = Json.Deserialize(jsonText);
             jsonObject.Dump(typeof(Program));
 
@@ -90,7 +67,7 @@
         {
             var domainName = "unosquare.com";
             var ntpServer = "time.windows.com";
-
+            
             var dnsServers = Network.GetIPv4DnsServers();
             var privateIPs = Network.GetIPv4Addresses(false);
             var publicIP = Network.GetPublicIPAddress();
@@ -129,6 +106,12 @@
 
         static void TestTerminalOutputs()
         {
+            for (var i = 0; i <= 100; i++)
+            {
+                System.Threading.Thread.Sleep(20);
+                $"Current Progress: {(i + "%"),-10}".OverwriteLine();
+            }
+
             if ("Press a key to output the current codepage. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
             "CODEPAGE TEST".WriteLine(ConsoleColor.Blue);
             Terminal.PrintCurrentCodePage();

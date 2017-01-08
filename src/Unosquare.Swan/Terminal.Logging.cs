@@ -97,7 +97,11 @@
                 var loggerMessage = string.IsNullOrWhiteSpace(message) ?
                     string.Empty : message.RemoveControlCharsExcept('\n');
 
-                var outputMessage = string.IsNullOrWhiteSpace(sourceName) ? loggerMessage : $"[{sourceName}] {loggerMessage}";
+                var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
+                    ? string.Empty
+                    : sourceName.SliceLength(sourceName.LastIndexOf('.') + 1, sourceName.Length);
+
+                var outputMessage = string.IsNullOrWhiteSpace(sourceName) ? loggerMessage : $"[{friendlySourceName}] {loggerMessage}";
                 outputMessage = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
                     $" {prefix} >> {outputMessage}" :
                     $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
