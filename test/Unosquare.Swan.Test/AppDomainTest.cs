@@ -9,7 +9,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetAssembliesTest()
         {
-            var assemblies = Swan.Runtime.AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = Swan.Runtime.GetAssemblies();
 
             Assert.IsNotNull(assemblies);
             Assert.IsTrue(assemblies.Any());
@@ -27,7 +27,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetAppDomain()
         {
-            Assert.IsNotNull(CurrentApp.AppDomain);
+            Assert.IsNotNull(Runtime.GetAssemblies());
         }
     }
 }

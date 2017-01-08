@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿namespace Unosquare.Swan.Networking
+{
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Security;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
 #if NET452
     using System.Net.Mail;
 #endif
 
-namespace Unosquare.Swan.Utilities
-{
     /// <summary>
     /// Represents a basic SMTP client that is capable of submitting messages to an SMTP server.
     /// </summary>
@@ -72,7 +72,7 @@ namespace Unosquare.Swan.Utilities
             try
             {
                 var response = SmtpServerReply.Parse(replyText);
-                $"  RX {replyText} - {response.IsPositive}".Debug(nameof(SmtpClient), sessionId);
+                $"  RX {replyText} - {response.IsPositive}".Debug(typeof(SmtpClient), sessionId);
 
                 if (response.IsPositive) return;
 
@@ -132,7 +132,7 @@ namespace Unosquare.Swan.Utilities
         /// <returns></returns>
         public async Task SendMailAsync(SmtpSessionState sessionState, string sessionId = null)
         {
-            $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info();
+            $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info(typeof(SmtpClient));
             await SendMailAsync(new[] { sessionState }, sessionId);
         }
 
@@ -164,7 +164,7 @@ namespace Unosquare.Swan.Utilities
                         {
                             // EHLO 1
                             requestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
-                            $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                             await connection.WriteLineAsync(requestText);
                             do
@@ -179,7 +179,7 @@ namespace Unosquare.Swan.Utilities
                         if (EnableSsl)
                         {
                             requestText = $"{SmtpCommandNames.STARTTLS}";
-                            $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                             await connection.WriteLineAsync(requestText);
                             replyText = await connection.ReadLineAsync();
@@ -191,7 +191,7 @@ namespace Unosquare.Swan.Utilities
                         {
                             // EHLO 2
                             requestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
-                            $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                             await connection.WriteLineAsync(requestText);
                             do
@@ -206,13 +206,13 @@ namespace Unosquare.Swan.Utilities
                         if (Credentials != null)
                         {
                             requestText = $"{SmtpCommandNames.AUTH} {Definitions.SmtpAuthMethods.Login} {Convert.ToBase64String(Encoding.UTF8.GetBytes(Credentials.UserName))}";
-                            $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                             await connection.WriteLineAsync(requestText);
                             replyText = await connection.ReadLineAsync();
                             ValidateReply(replyText, sessionId);
                             requestText = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credentials.Password));
-                            $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                             await connection.WriteLineAsync(requestText);
                             replyText = await connection.ReadLineAsync();
@@ -224,7 +224,7 @@ namespace Unosquare.Swan.Utilities
                             {
                                 // MAIL FROM
                                 requestText = $"{SmtpCommandNames.MAIL} FROM:<{sessionState.SenderAddress}>";
-                                $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                                 await connection.WriteLineAsync(requestText);
                                 replyText = await connection.ReadLineAsync();
@@ -235,7 +235,7 @@ namespace Unosquare.Swan.Utilities
                             foreach (var recipient in sessionState.Recipients)
                             {
                                 requestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";
-                                $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                                 await connection.WriteLineAsync(requestText);
                                 replyText = await connection.ReadLineAsync();
@@ -245,7 +245,7 @@ namespace Unosquare.Swan.Utilities
                             {
                                 // DATA
                                 requestText = $"{SmtpCommandNames.DATA}";
-                                $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                                 await connection.WriteLineAsync(requestText);
                                 replyText = await connection.ReadLineAsync();
@@ -259,7 +259,7 @@ namespace Unosquare.Swan.Utilities
                                         sessionState.DataBuffer.Skip(sessionState.DataBuffer.Count - 5).ToArray());
 
                                 requestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
-                                $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                                $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
 
                                 await connection.WriteDataAsync(sessionState.DataBuffer.ToArray(), true);
                                 if (dataTerminator.EndsWith(Definitions.SmtpDataCommandTerminator) == false)
@@ -273,7 +273,7 @@ namespace Unosquare.Swan.Utilities
                         {
                             // QUIT
                             requestText = $"{SmtpCommandNames.QUIT}";
-                            $"  TX {requestText}".Debug(nameof(SmtpClient), sessionId);
+                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
                             await connection.WriteLineAsync(requestText);
                             replyText = await connection.ReadLineAsync();
                             ValidateReply(replyText, sessionId);
@@ -282,7 +282,7 @@ namespace Unosquare.Swan.Utilities
                     catch (Exception ex)
                     {
                         var errorMessage = $"Could not send email. {ex.Message}\r\n    Last Request: {requestText}\r\n    Last Reply: {replyText}";
-                        errorMessage.Error(nameof(SmtpClient), sessionId);
+                        errorMessage.Error(typeof(SmtpClient).FullName, sessionId);
 
                         throw new SmtpException(errorMessage);
                     }

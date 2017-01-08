@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Utilities
+﻿namespace Unosquare.Swan.Networking
 {
     using System;
     using System.Collections.Generic;
@@ -89,7 +89,7 @@
         /// Gets the active stream. Returns an SSL stream if the connection is secure, otherwise returns 
         /// the underlying NetworkStream
         /// </summary>
-        public Stream ActiveStream => SecureStream as Stream ?? NetworkStream as Stream;
+        public Stream ActiveStream => SecureStream ?? NetworkStream as Stream;
 
         /// <summary>
         /// Gets a value indicating whether the current connection stream is an SSL stream.
@@ -224,7 +224,7 @@
             NewLineSequence = newLineSequence;
             NewLineSequenceBytes = TextEncoding.GetBytes(NewLineSequence);
             NewLineSequenceChars = NewLineSequence.ToCharArray();
-            NewLineSequenceLineSplitter = new string[] { NewLineSequence };
+            NewLineSequenceLineSplitter = new[] { NewLineSequence };
 
             // Setup Connection timers
             ConnectionStartTimeUtc = DateTime.UtcNow;
@@ -248,11 +248,11 @@
 #if !NET452
             ThreadPool.QueueUserWorkItem(new WaitCallback(PerformContinuousReading), this);
 #else
-            var availableWorkerThreads = 0;
-            var availableCompletionPortThreads = 0;
+            int availableWorkerThreads;
+            int availableCompletionPortThreads;
 
-            var maxWorkerThreads = 0;
-            var maxCompletionPortThreads = 0;
+            int maxWorkerThreads;
+            int maxCompletionPortThreads;
 
             ThreadPool.GetAvailableThreads(out availableWorkerThreads, out availableCompletionPortThreads);
             ThreadPool.GetMaxThreads(out maxWorkerThreads, out maxCompletionPortThreads);
@@ -544,7 +544,8 @@
             }
             catch (Exception ex)
             {
-                throw ex;
+                ex.Error(typeof(Connection).FullName, "Error while reading network stream data asynchronously.");
+                throw;
             }
 
             return receiveBuilder.ToArray();

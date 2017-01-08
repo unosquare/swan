@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Components
 {
     using System.Diagnostics;
     using System.IO;
@@ -11,7 +11,7 @@
     /// Provides methods to help create external processes, and efficiently capture the
     /// standard error and standard output streams.
     /// </summary>
-    public static class ProcessHelper
+    public static class ProcessRunner
     {
         /// <summary>
         /// Defines a delegate to handle binary data reception from the standard 

@@ -12,7 +12,7 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
-namespace Unosquare.Swan.Runtime
+namespace Unosquare.Swan.Components
 {
     using System.Threading.Tasks;
     using System;

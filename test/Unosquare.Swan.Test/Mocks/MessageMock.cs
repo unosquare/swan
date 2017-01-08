@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
-    internal class SimpleMessageMock : Unosquare.Swan.Runtime.MessageHubGenericMessage<string>
+    internal class SimpleMessageMock : Unosquare.Swan.Components.MessageHubGenericMessage<string>
     {
         public SimpleMessageMock(object sender, string content) : base(sender, content)
         {

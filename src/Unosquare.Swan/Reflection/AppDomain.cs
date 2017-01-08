@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Reflection
 {
     using Abstractions;
     using System.Reflection;
@@ -14,7 +14,7 @@
     /// Represents a polyfill class to replace interoperability with .net core
     /// Idea taken from: http://www.michael-whelan.net/replacing-appdomain-in-dotnet-core/
     /// </summary>
-    public class AppDomain : SingletonBase<AppDomain>
+    internal class AppDomain : SingletonBase<AppDomain>
     {
 #if !NET452
         private const string DepsFilesProperty = "APP_CONTEXT_DEPS_FILES";
@@ -59,7 +59,7 @@
             return System.AppDomain.CurrentDomain.GetAssemblies();
 #else
             var assemblies = new List<Assembly>();
-            var runtimeAssemblies = GetRuntimeAssemblies().Where(x => x.Key.Name == CurrentApp.EntryAssembly.GetName().Name);
+            var runtimeAssemblies = GetRuntimeAssemblies().Where(x => x.Key.Name == Runtime.EntryAssembly.GetName().Name);
 
             // TODO: Check at dependencies?
             foreach (var library in runtimeAssemblies)
@@ -132,38 +132,5 @@
         }
 #endif
 
-        /// <summary>
-        /// Represents an Assembly information object
-        /// </summary>
-        public class AssemblyInfo
-        {
-            /// <summary>
-            /// Gets or sets the name.
-            /// </summary>
-            public string Name { get; set; }
-            /// <summary>
-            /// Gets or sets the version.
-            /// </summary>
-            public string Version { get; set; }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="AssemblyInfo"/> class.
-            /// </summary>
-            /// <param name="value">The value.</param>
-            /// <exception cref="System.ArgumentNullException">value</exception>
-            public AssemblyInfo(string value)
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new System.ArgumentNullException(nameof(value));
-
-                var parts = value.Split('/');
-                Name = parts[0];
-
-                if (parts.Length == 2)
-                {
-                    Version = parts[1];
-                }
-            }
-        }
     }
 }

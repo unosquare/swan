@@ -1,10 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
-using Unosquare.Swan.Utilities;
 
 namespace Unosquare.Swan.Test
 {

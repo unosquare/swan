@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
-using Unosquare.Swan.Runtime;
+using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -11,7 +11,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetDependencyContainerTest()
         {
-            Assert.IsNotNull(CurrentApp.Container);
+            Assert.IsNotNull(Runtime.Container);
         }
 
         [Test]
@@ -33,9 +33,9 @@ namespace Unosquare.Swan.Test
         [Test]
         public void AutoregisterTest()
         {
-            CurrentApp.Container.AutoRegister();
-            Assert.IsTrue(CurrentApp.Container.CanResolve<ICar>());
-            Assert.AreEqual((new TheOnlyCar()).Name, CurrentApp.Container.Resolve<ICar>().Name);
+            Runtime.Container.AutoRegister();
+            Assert.IsTrue(Runtime.Container.CanResolve<ICar>());
+            Assert.AreEqual((new TheOnlyCar()).Name, Runtime.Container.Resolve<ICar>().Name);
         }
 #endif
 
@@ -58,10 +58,10 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ThrowResolutionExceptionTest()
         {
-            if (CurrentApp.Container.CanResolve<IAnimal>())
-                CurrentApp.Container.Unregister<IAnimal>();
+            if (Runtime.Container.CanResolve<IAnimal>())
+                Runtime.Container.Unregister<IAnimal>();
 
-            Assert.Throws<DependencyContainerResolutionException>(() => CurrentApp.Container.Resolve<IAnimal>());
+            Assert.Throws<DependencyContainerResolutionException>(() => Runtime.Container.Resolve<IAnimal>());
         }
 
 

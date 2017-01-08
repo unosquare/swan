@@ -85,8 +85,7 @@
         /// <param name="ex">The ex.</param>
         protected virtual void OnWorkerThreadLoopException(Exception ex)
         {
-            ex.Log();
-            "Service exception detected.".Debug();
+            "Service exception detected.".Debug(GetType(), ex);
         }
 
         /// <summary>
@@ -94,7 +93,7 @@
         /// </summary>
         protected virtual void OnWorkerThreadExit()
         {
-            "Service thread is stopping.".Debug();
+            "Service thread is stopping.".Debug(GetType());
         }
 
         /// <summary>
@@ -136,7 +135,7 @@
                 {
                     if (value == WorkerState) return;
 
-                    $"Service state changing from {State} to {value}".Debug();
+                    $"Service state changing from {State} to {value}".Debug(GetType());
                     var newState = value;
                     var oldState = WorkerState;
                     WorkerState = value;
@@ -194,7 +193,7 @@
         {
             if (State != AppWorkerState.Running) return;
 
-            "Service stop requested.".Debug();
+            "Service stop requested.".Debug(GetType());
             CancellationPending = true;
             WorkerThread.Join();
             IsBusy = false;
@@ -214,7 +213,7 @@
 
             if (isDisposing)
             {
-                "Service disposing.".Debug();
+                "Service disposing.".Debug(GetType());
 
                 if (WorkerThread != null)
                 {

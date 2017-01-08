@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetMessageHubTest()
         {
-            Assert.IsNotNull(CurrentApp.Messages);
+            Assert.IsNotNull(Runtime.Messages);
         }
 
         [Test]
@@ -21,19 +21,19 @@ namespace Unosquare.Swan.Test
         {
             var messages = new List<SimpleMessageMock>();
 
-            var token = CurrentApp.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
             Assert.IsNotNull(token);
 
             var message = new SimpleMessageMock(this, "HOLA");
 
-            CurrentApp.Messages.Publish(message);
+            Runtime.Messages.Publish(message);
 
             Assert.IsTrue(messages.Any());
             Assert.AreEqual(message, messages.First());
 
-            CurrentApp.Messages.Unsubscribe<SimpleMessageMock>(token);
+            Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
 
-            CurrentApp.Messages.Publish(message);
+            Runtime.Messages.Publish(message);
             Assert.IsFalse(messages.Skip(1).Any());
         }
         
@@ -42,12 +42,12 @@ namespace Unosquare.Swan.Test
         {
             var messages = new List<SimpleMessageMock>();
 
-            var token = CurrentApp.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
             Assert.IsNotNull(token);
 
             var message = new SimpleMessageMock(this, "HOLA");
 
-            await CurrentApp.Messages.PublishAsync(message);
+            await Runtime.Messages.PublishAsync(message);
 
             Assert.IsTrue(messages.Any());
             Assert.AreEqual(message, messages.First());

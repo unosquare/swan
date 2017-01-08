@@ -9,40 +9,40 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsSingleInstanceTest()
         {
-            Assert.IsTrue(CurrentApp.IsTheOnlyInstance);
+            Assert.IsTrue(Runtime.IsTheOnlyInstance);
         }
 
         [Test]
         public void IsOsDifferentUnknownTest()
         {
-            Assert.AreNotEqual(CurrentApp.OS, OperatingSystem.Unknown, $"Retrieving a OS: {CurrentApp.OS}");
+            Assert.AreNotEqual(Runtime.OS, OperatingSystem.Unknown, $"Retrieving a OS: {Runtime.OS}");
         }
 
         [Test]
         public void IsUsingMonoRuntimeTest()
         {
-            Assert.AreEqual(Type.GetType("Mono.Runtime") != null, CurrentApp.IsUsingMonoRuntime);
+            Assert.AreEqual(Type.GetType("Mono.Runtime") != null, Runtime.IsUsingMonoRuntime);
         }
         
         [Test]
         public void GetAssemblyAttributesTest()
         {
-            Assert.AreEqual("NUnit Software", CurrentApp.CompanyName);
-            Assert.AreEqual("dotnet_test_nunit", CurrentApp.ProductName);
-            Assert.AreEqual("NUnit is a trademark of NUnit Software", CurrentApp.ProductTrademark);
+            Assert.AreEqual("NUnit Software", Runtime.CompanyName);
+            Assert.AreEqual("dotnet_test_nunit", Runtime.ProductName);
+            Assert.AreEqual("NUnit is a trademark of NUnit Software", Runtime.ProductTrademark);
         }
         
         [Test]
         public void GetLocalStorageTest()
         {
-            Assert.IsNotEmpty(CurrentApp.LocalStoragePath, $"Retrieving a local storage path: {CurrentApp.LocalStoragePath}");
+            Assert.IsNotEmpty(Runtime.LocalStoragePath, $"Retrieving a local storage path: {Runtime.LocalStoragePath}");
         }
 
         [Test]
         public void GetProcessTest()
         {
-            Assert.IsNotNull(CurrentApp.Process);
-            Assert.AreEqual(CurrentApp.Process.ProcessName,
+            Assert.IsNotNull(Runtime.Process);
+            Assert.AreEqual(Runtime.Process.ProcessName,
 #if NET452
                 "dotnet-test-nunit"
 #else
@@ -54,14 +54,14 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetEntryAssemblyTest()
         {
-            Assert.IsNotNull(CurrentApp.EntryAssembly);
-            Assert.IsTrue(CurrentApp.EntryAssembly.FullName.StartsWith("dotnet-test-nunit"));
+            Assert.IsNotNull(Runtime.EntryAssembly);
+            Assert.IsTrue(Runtime.EntryAssembly.FullName.StartsWith("dotnet-test-nunit"));
         }
 
         [Test]
         public void GetEntryAssemblyDirectoryTest()
         {
-            Assert.IsNotNull(CurrentApp.EntryAssemblyDirectory);
+            Assert.IsNotNull(Runtime.EntryAssemblyDirectory);
             // TODO: What else?
         }
     }

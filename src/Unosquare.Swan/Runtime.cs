@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
-    using Runtime;
+    using Components;
     using System;
     using System.Diagnostics;
     using System.IO;
@@ -11,9 +11,9 @@
     /// Provides utility methods to retrieve information about the current application
     /// </summary>
 #if NET452
-    public class CurrentApp : MarshalByRefObject
+    public class Runtime : MarshalByRefObject
 #else
-    public static class CurrentApp
+    public static class Runtime
 #endif
     {
         #region Property Backing
@@ -51,7 +51,6 @@
         #region State Variables
 
         private static OperatingSystem? m_OS = new OperatingSystem?();
-        private static Mutex ApplicationMutex;
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
         private static readonly object SyncLock = new object();
 
@@ -83,7 +82,7 @@
                     }
                 }
 
-                return m_OS.HasValue ? m_OS.Value : OperatingSystem.Unknown;
+                return m_OS ?? OperatingSystem.Unknown;
             }
         }
 
@@ -111,8 +110,8 @@
                         try
                         {
                             // If exception occurred, there is no such mutex.
-                            ApplicationMutex = new Mutex(true, ApplicationMutexName);
-
+                            var appMutex = new Mutex(true, ApplicationMutexName);
+                            $"Application mutext created {appMutex} named '{ApplicationMutexName}'".Debug(typeof(Runtime));
                             // Only one instance.
                             return true;
                         }
@@ -131,15 +130,7 @@
         /// <summary>
         /// Gets a value indicating whether this application instance is using the Mono runtime.
         /// </summary>
-        public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value.Value;
-
-        /// <summary>
-        /// Gets the application domain.
-        /// </summary>
-        /// <value>
-        /// The application domain.
-        /// </value>
-        public static Runtime.AppDomain AppDomain => Runtime.AppDomain.Instance;
+        public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value ?? false;
 
         /// <summary>
         /// Gets the assembly that started the application.
@@ -193,7 +184,7 @@
             {
                 var localAppDataPath =
 #if NET452
-                    Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), EntryAssemblyName.Name);
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), EntryAssemblyName.Name);
 #else
                     Path.GetDirectoryName(EntryAssembly.Location);
 #endif
@@ -234,6 +225,14 @@
             $"{CompanyName} {ProductName} [Version {EntryAssemblyVersion}]".WriteLine(color);
             $"{ProductTrademark}".WriteLine(color);
         }
+
+        /// <summary>
+        /// Gets all the loaded assemblies in the current application domain.
+        /// </summary>
+        public static Assembly[] GetAssemblies()
+        {
+            return Reflection.AppDomain.CurrentDomain.GetAssemblies();
+        } 
 
 #if NET452
         /// <summary>

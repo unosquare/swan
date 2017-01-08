@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Unosquare.Swan.Runtime;
+using Unosquare.Swan.Components;
 
 namespace Unosquare.Swan.Test
 {
@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task GetProcessOutputAsyncTest()
         {
-            var data = await ProcessHelper.GetProcessOutputAsync("dotnet", "--help");
+            var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help");
             Assert.IsNotEmpty(data);
             Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
         }
@@ -24,7 +24,7 @@ namespace Unosquare.Swan.Test
             const int okCode = 0;
             string output = null;
 
-            var result = await ProcessHelper.RunProcessAsync("dotnet", "--help", (data, proc) =>
+            var result = await ProcessRunner.RunProcessAsync("dotnet", "--help", (data, proc) =>
             {
                 if (output == null) output = Encoding.GetEncoding(0).GetString(data);
 
@@ -41,7 +41,7 @@ namespace Unosquare.Swan.Test
             {
                 Assert.ThrowsAsync<InvalidProgramException>(async () =>
                 {
-                    await ProcessHelper.RunProcessAsync("dotnet", "lol", null, null, true, default(CancellationToken));
+                    await ProcessRunner.RunProcessAsync("dotnet", "lol", null, null, true, default(CancellationToken));
                 });
             }
             else
@@ -49,7 +49,7 @@ namespace Unosquare.Swan.Test
                 const int errorCode = 1;
                 string output = null;
 
-                var result = await ProcessHelper.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
+                var result = await ProcessRunner.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
                 {
                     if (output == null) output = Encoding.GetEncoding(0).GetString(data);
 

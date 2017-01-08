@@ -1,5 +1,6 @@
-﻿namespace Unosquare.Swan.Utilities
+﻿namespace Unosquare.Swan
 {
+    using Networking;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,6 +8,7 @@
     using System.Net.Http;
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -68,9 +70,9 @@
                 var properties = adapter.GetIPProperties();
                 if (properties == null
                     || properties.GatewayAddresses.Count == 0
-                    || properties.GatewayAddresses.All(gateway => gateway.Address == zeroConf)
+                    || properties.GatewayAddresses.All(gateway => Equals(gateway.Address, zeroConf))
                     || properties.UnicastAddresses.Count == 0
-                    || properties.GatewayAddresses.All(address => address.Address == zeroConf)
+                    || properties.GatewayAddresses.All(address => Equals(address.Address, zeroConf))
                     || properties.UnicastAddresses.Any(a => a.Address.AddressFamily == AddressFamily.InterNetwork) == false)
                     continue;
 
@@ -186,7 +188,19 @@
         /// <returns></returns>
         public static IPAddress[] GetDnsHostEntry(string fqdn)
         {
-            return GetDnsHostEntry(fqdn, GetIPv4DnsServers().FirstOrDefault(), Definitions.DnsDefaultPort);
+            var dnsServer = GetIPv4DnsServers().FirstOrDefault() ?? IPAddress.Parse("8.8.8.8");
+            return GetDnsHostEntry(fqdn, dnsServer, Definitions.DnsDefaultPort);
+        }
+
+        /// <summary>
+        /// Gets the DNS host entry (a list of IP addresses) for the domain name.
+        /// </summary>
+        /// <param name="fqdn">The FQDN.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns></returns>
+        public static async Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn, CancellationToken ct)
+        {
+            return await Task.Factory.StartNew(() => GetDnsHostEntry(fqdn), ct);
         }
 
         /// <summary>
@@ -201,6 +215,19 @@
             var client = new DnsClient(dnsServer, port);
             var result = client.Lookup(fqdn);
             return result.ToArray();
+        }
+
+        /// <summary>
+        /// Gets the DNS host entry (a list of IP addresses) for the domain name.
+        /// </summary>
+        /// <param name="fqdn">The FQDN.</param>
+        /// <param name="dnsServer">The DNS server.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port, CancellationToken ct)
+        {
+            return await Task.Factory.StartNew(() => GetDnsHostEntry(fqdn, dnsServer, port), ct);
         }
 
         /// <summary>
@@ -220,11 +247,35 @@
         /// Gets the reverse lookup FQDN of the given IP Address.
         /// </summary>
         /// <param name="query">The query.</param>
+        /// <param name="dnsServer">The DNS server.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns></returns>
+        public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port, CancellationToken ct)
+        {
+            return await Task.Factory.StartNew(() => GetDnsPointerEntry(query, dnsServer, port), ct);
+        }
+
+        /// <summary>
+        /// Gets the reverse lookup FQDN of the given IP Address.
+        /// </summary>
+        /// <param name="query">The query.</param>
         /// <returns></returns>
         public static string GetDnsPointerEntry(IPAddress query)
         {
             var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault());
             return client.Reverse(query);
+        }
+
+        /// <summary>
+        /// Gets the reverse lookup FQDN of the given IP Address.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns></returns>
+        public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, CancellationToken ct)
+        {
+            return await Task.Factory.StartNew(() => GetDnsPointerEntry(query), ct);
         }
 
         /// <summary>
@@ -247,10 +298,36 @@
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="recordType">Type of the record.</param>
+        /// <param name="dnsServer">The DNS server.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns></returns>
+        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, IPAddress dnsServer, int port, CancellationToken ct)
+        {
+            return await Task.Factory.StartNew(()=> QueryDns(query, recordType, dnsServer, port), ct);
+        }
+
+        /// <summary>
+        /// Queries the DNS server for the specified record type.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="recordType">Type of the record.</param>
         /// <returns></returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType)
         {
             return QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), Definitions.DnsDefaultPort);
+        }
+
+        /// <summary>
+        /// Queries the DNS server for the specified record type.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="recordType">Type of the record.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, CancellationToken ct)
+        {
+            return await Task.Factory.StartNew(() => QueryDns(query, recordType), ct);
         }
 
         /// <summary>
@@ -276,7 +353,6 @@
             socket.Send(ntpData);
             socket.Receive(ntpData);
             socket.Dispose();
-            socket = null;
 
             //Offset to get to the "Transmit Timestamp" field (time at which the reply 
             //departed the server for the client, in 64-bit timestamp format."
@@ -312,6 +388,32 @@
         {
             var addresses = GetDnsHostEntry(ntpServerName);
             return GetNetworkTimeUtc(addresses.First(), port);
+        }
+
+        /// <summary>
+        /// Gets the UTC time by querying from an NTP server
+        /// </summary>
+        /// <param name="ntpServerAddress">The NTP server address.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<DateTime> GetNetworkTimeUtcAsync(IPAddress ntpServerAddress,
+            int port = Definitions.NtpDefaultPort, CancellationToken ct = default(CancellationToken))
+        {
+            return await Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerAddress, port), ct);
+        }
+
+        /// <summary>
+        /// Gets the UTC time by querying from an NTP server
+        /// </summary>
+        /// <param name="ntpServerName">Name of the NTP server.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<DateTime> GetNetworkTimeUtcAsync(string ntpServerName,
+            int port = Definitions.NtpDefaultPort, CancellationToken ct = default(CancellationToken))
+        {
+            return await Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerName, port), ct);
         }
 
         #endregion

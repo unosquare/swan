@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Components
 {
     using Reflection;
     using System;
@@ -115,7 +115,7 @@
             {
                 result = false;
 
-                if (Settings.WriteBanner) CurrentApp.WriteWelcomeBanner();
+                if (Settings.WriteBanner) Runtime.WriteWelcomeBanner();
 
                 WriteUsage(properties);
                 $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine();

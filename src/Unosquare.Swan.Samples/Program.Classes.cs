@@ -1,13 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-
-namespace Unosquare.Swan.Samples
+﻿namespace Unosquare.Swan.Samples
 {
+    using Abstractions;
+    using Components;
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Abstractions;
-    using Runtime;
 
     partial class Program
     {

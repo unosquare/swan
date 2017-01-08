@@ -33,34 +33,34 @@ namespace Unosquare.Swan
                 BindingFlags.Instance | BindingFlags.NonPublic);
             var serviceThreads = new List<Thread>();
 
-            "Starting services . . .".Info();
+            "Starting services . . .".Info(Runtime.EntryAssemblyName.Name);
 
             foreach (var service in servicesToRun)
             {
                 var thread = new Thread(() =>
                 {
                     onStartMethod.Invoke(service, new object[] { new string[] { } });
-                    $"Started service '{service.GetType().Name}'".Info();
+                    $"Started service '{service.GetType().Name}'".Info(service.GetType());
                 });
 
                 serviceThreads.Add(thread);
                 thread.Start();
             }
 
-            "Press any key to stop all services.".Info();
+            "Press any key to stop all services.".Info(Runtime.EntryAssemblyName.Name);
             Terminal.ReadKey(true, true);
-            "Stopping services . . .".Info();
+            "Stopping services . . .".Info(Runtime.EntryAssemblyName.Name);
 
             foreach (var service in servicesToRun)
             {
                 onStopMethod.Invoke(service, null);
-                $"Stopped service '{service.GetType().Name}'".Info();
+                $"Stopped service '{service.GetType().Name}'".Info(service.GetType());
             }
 
             foreach (var thread in serviceThreads)
                 thread.Join();
 
-            "Stopped all services.".Info();
+            "Stopped all services.".Info(Runtime.EntryAssemblyName.Name);
         }
     }
 }

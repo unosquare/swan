@@ -5,8 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Modules;
+using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
-using Unosquare.Swan.Utilities;
 
 namespace Unosquare.Swan.Test
 {

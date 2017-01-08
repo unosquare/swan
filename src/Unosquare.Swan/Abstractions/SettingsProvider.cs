@@ -21,7 +21,7 @@
         /// Gets or sets the configuration file path. By default the entry assembly directory is used
         /// and the filename is appsettings.json.
         /// </summary>
-        public virtual string ConfigurationFilePath { get; set; } = Path.Combine(CurrentApp.EntryAssemblyDirectory,
+        public virtual string ConfigurationFilePath { get; set; } = Path.Combine(Runtime.EntryAssemblyDirectory,
             "appsettings.json");
 
         /// <summary>

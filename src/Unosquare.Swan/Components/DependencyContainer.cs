@@ -16,7 +16,7 @@
 #define USE_OBJECT_CONSTRUCTOR
 #define EXPRESSIONS
 
-namespace Unosquare.Swan.Runtime
+namespace Unosquare.Swan.Components
 {
     using System;
     using System.Collections.Concurrent;
@@ -427,7 +427,7 @@ namespace Unosquare.Swan.Runtime
         /// </summary>
         public void AutoRegister()
         {
-            AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), DependencyContainerDuplicateImplementationActions.RegisterSingle, null);
+            AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), DependencyContainerDuplicateImplementationActions.RegisterSingle, null);
         }
 
         /// <summary>
@@ -440,7 +440,7 @@ namespace Unosquare.Swan.Runtime
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
         public void AutoRegister(Func<Type, bool> registrationPredicate)
         {
-            AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), DependencyContainerDuplicateImplementationActions.RegisterSingle, registrationPredicate);
+            AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), DependencyContainerDuplicateImplementationActions.RegisterSingle, registrationPredicate);
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace Unosquare.Swan.Runtime
         /// <exception cref="DependencyContainerAutoRegistrationException"/>
         public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction)
         {
-            AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, null);
+            AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, null);
         }
 
         /// <summary>
@@ -462,7 +462,7 @@ namespace Unosquare.Swan.Runtime
         /// <exception cref="DependencyContainerAutoRegistrationException"/>
         public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction, Func<Type, bool> registrationPredicate)
         {
-            AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
+            AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
         }
 
         /// <summary>

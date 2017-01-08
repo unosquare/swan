@@ -1,5 +1,5 @@
 ﻿using System;
-using Unosquare.Swan.Runtime;
+using Unosquare.Swan.Components;
 
 namespace Unosquare.Swan.Test.Mocks
 {

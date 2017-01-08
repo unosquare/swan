@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Utilities
+﻿namespace Unosquare.Swan.Networking
 {
     using System.Collections.Generic;
 

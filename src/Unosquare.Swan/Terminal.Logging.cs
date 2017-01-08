@@ -1,13 +1,8 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using System.Collections.Generic;
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
-
-    // TODO: IDictionary<string, object> logging is HOPRRENDOUS.  PLEASE REMOVE IMMEDIATELY.
-    // YOU CAN ADD AN EXTENSION METHOD TO IDictionary<string, object> instead
-    // Please kee this class as clean as possible
 
     partial class Terminal
     {
@@ -99,7 +94,7 @@
                 var date = DateTime.UtcNow;
                 LoggingSequence++;
 
-                var loggerMessage = string.IsNullOrWhiteSpace(message) ? 
+                var loggerMessage = string.IsNullOrWhiteSpace(message) ?
                     string.Empty : message.RemoveControlCharsExcept('\n');
 
                 var outputMessage = string.IsNullOrWhiteSpace(sourceName) ? loggerMessage : $"[{sourceName}] {loggerMessage}";
@@ -168,6 +163,8 @@
 
         #region Standard Public API
 
+        #region Debug
+
         /// <summary>
         /// Logs a debug message to the console
         /// </summary>
@@ -188,6 +185,23 @@
         /// <summary>
         /// Logs a debug message to the console
         /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Debug(this string message, Type source, object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Debug, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a debug message to the console
+        /// </summary>
         /// <param name="extendedData">The exception.</param>
         /// <param name="source">The source.</param>
         /// <param name="message">The message.</param>
@@ -201,6 +215,10 @@
         {
             LogMessage(LogMessageType.Debug, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
+
+        #endregion
+
+        #region Trace
 
         /// <summary>
         /// Logs a trace message to the console
@@ -222,6 +240,23 @@
         /// <summary>
         /// Logs a trace message to the console
         /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Trace(this string message, Type source, object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Trace, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a trace message to the console
+        /// </summary>
         /// <param name="extendedData">The extended data.</param>
         /// <param name="source">The source.</param>
         /// <param name="message">The message.</param>
@@ -235,6 +270,10 @@
         {
             LogMessage(LogMessageType.Trace, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
+
+        #endregion
+
+        #region Warn
 
         /// <summary>
         /// Logs a warning message to the console
@@ -256,6 +295,23 @@
         /// <summary>
         /// Logs a warning message to the console
         /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Warn(this string message, Type source, object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Warning, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
         /// <param name="extendedData">The extended data.</param>
         /// <param name="source">The source.</param>
         /// <param name="message">The message.</param>
@@ -269,6 +325,10 @@
         {
             LogMessage(LogMessageType.Warning, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
+
+        #endregion
+
+        #region Info
 
         /// <summary>
         /// Logs an info message to the console
@@ -290,6 +350,23 @@
         /// <summary>
         /// Logs an info message to the console
         /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Info(this string message, Type source, object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Info, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an info message to the console
+        /// </summary>
         /// <param name="extendedData">The extended data.</param>
         /// <param name="source">The source.</param>
         /// <param name="message">The message.</param>
@@ -303,6 +380,10 @@
         {
             LogMessage(LogMessageType.Info, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
+
+        #endregion
+
+        #region Error
 
         /// <summary>
         /// Logs an error message to the console's standard error
@@ -324,6 +405,23 @@
         /// <summary>
         /// Logs an error message to the console's standard error
         /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Error(this string message, Type source, object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Error, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
         /// <param name="ex">The exception.</param>
         /// <param name="source">The source.</param>
         /// <param name="message">The message.</param>
@@ -337,6 +435,8 @@
         {
             LogMessage(LogMessageType.Error, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
         }
+
+        #endregion
 
         #endregion
 
@@ -362,6 +462,25 @@
         }
 
         /// <summary>
+        /// Logs the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Log(this string message, Type source, LogMessageType messageType,
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(messageType, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
         /// Logs an error message to the console's standard error
         /// </summary>
         /// <param name="ex">The ex.</param>
@@ -379,16 +498,33 @@
         }
 
         /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Log(this Exception ex, Type source = null, string message = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Error, message ?? ex.Message, source?.FullName ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
         /// Logs a trace message showing all possible non-null properties of the given object
         /// This method is expensive as it uses Stringify internally
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="text">The title.</param>
         /// <param name="source">The source.</param>
+        /// <param name="text">The title.</param>
         /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
         /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
         /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
-        public static void Dump(this object obj, string text = "Object Data", string source = nameof(Dump),
+        public static void Dump(this object obj, string source, string text = "Object Dump",
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0)
@@ -396,6 +532,26 @@
             if (obj == null) return;
             var message = $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}";
             LogMessage(LogMessageType.Trace, message, source, obj, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a trace message showing all possible non-null properties of the given object
+        /// This method is expensive as it uses Stringify internally
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Dump(this object obj, Type source, string text = "Object Dump",
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            if (obj == null) return;
+            var message = $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}";
+            LogMessage(LogMessageType.Trace, message, source?.FullName, obj, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion

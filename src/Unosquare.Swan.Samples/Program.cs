@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Utilities;
 
     public partial class Program
     {
@@ -24,6 +23,8 @@
                 System.Threading.Thread.Sleep(100);
                 Terminal.OverwriteLine($"Current Progress: {(i + "%"), -10}");
             }
+
+            
 
             //Terminal.Settings.DisplayLoggingMessageType = LogMessageType.Info;
             TestApplicationInfo();
@@ -62,23 +63,23 @@
 
         static void TestApplicationInfo()
         {
-            CurrentApp.WriteWelcomeBanner();
-            $"Operating System Type: {CurrentApp.OS}    CLR Type: {(CurrentApp.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
-            $"Local Storage Path: {CurrentApp.LocalStoragePath}".Info();
-            $"Process Id: {CurrentApp.Process.Id}".Info();
+            Runtime.WriteWelcomeBanner();
+            $"Operating System Type: {Runtime.OS}    CLR Type: {(Runtime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
+            $"Local Storage Path: {Runtime.LocalStoragePath}".Info();
+            $"Process Id: {Runtime.Process.Id}".Info();
         }
 
         static void TestJson()
         {
             var jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
             var jsonObject = Json.Deserialize(jsonText);
-            jsonObject.Dump();
+            jsonObject.Dump(typeof(Program));
 
             jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [    ], \"EmptyObject\": {  }, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
             jsonObject = Json.Deserialize(jsonText);
-            jsonObject.Dump();
+            jsonObject.Dump(typeof(Program));
 
-            "test".Dump();
+            "test".Dump(typeof(Program));
 
             //var jsonTextData = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" / Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [], \"SomeDate\": \"/" + DateTime.Now.ToStringInvariant() + "/\" }";
             //var jsonParsedData = Json.Deserialize(jsonTextData);
@@ -102,8 +103,8 @@
             $"NTP Time   : [{ntpServer}]: [{ntpTime.ToSortableDateTime()}]".Info(nameof(Network));
             $"Private IPs: [{string.Join(", ", privateIPs.Select(p => p.ToString()))}]".Info(nameof(Network));
             $"DNS Servers: [{string.Join(", ", dnsServers.Select(p => p.ToString()))}]".Info(nameof(Network));
-            $"Public IP  : [{publicIP.ToString()}]".Info(nameof(Network));
-            $"Reverse DNS: [{publicIP.ToString()}]: [{ptrRecord}]".Info(nameof(Network));
+            $"Public IP  : [{publicIP}]".Info(nameof(Network));
+            $"Reverse DNS: [{publicIP}]: [{ptrRecord}]".Info(nameof(Network));
             $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(nameof(Network));
             $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]".Info(nameof(Network));
             $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]".Info(nameof(Network));
@@ -116,39 +117,37 @@
 
         static void TestContainerAndMessageHub()
         {
-            CurrentApp.Container.Register<ISampleAnimal, SampleFish>();
-            $"The concrete type ended up being: {CurrentApp.Container.Resolve<ISampleAnimal>().Name}".Warn();
-            CurrentApp.Container.Unregister<ISampleAnimal>();
-            CurrentApp.Container.Register<ISampleAnimal, SampleMonkey>();
-            $"The concrete type ended up being: {CurrentApp.Container.Resolve<ISampleAnimal>().Name}".Warn();
+            Runtime.Container.Register<ISampleAnimal, SampleFish>();
+            $"The concrete type ended up being: {Runtime.Container.Resolve<ISampleAnimal>().Name}".Warn();
+            Runtime.Container.Unregister<ISampleAnimal>();
+            Runtime.Container.Register<ISampleAnimal, SampleMonkey>();
+            $"The concrete type ended up being: {Runtime.Container.Resolve<ISampleAnimal>().Name}".Warn();
 
-            CurrentApp.Messages.Subscribe<SampleMessage>((m) => { $"Received the following message from '{m.Sender}': '{m.Content}'".Trace(); });
-            CurrentApp.Messages.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
+            Runtime.Messages.Subscribe<SampleMessage>((m) => { $"Received the following message from '{m.Sender}': '{m.Content}'".Trace(); });
+            Runtime.Messages.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
         static void TestTerminalOutputs()
         {
-            ConsoleKeyInfo key = default(ConsoleKeyInfo);
-
-            if ((key = Terminal.ReadKey("Press a key to output the current codepage. (X) will exit.")).Key == ConsoleKey.X) return;
-            Terminal.WriteLine("CODEPAGE TEST", ConsoleColor.Blue);
+            if ("Press a key to output the current codepage. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
+            "CODEPAGE TEST".WriteLine(ConsoleColor.Blue);
             Terminal.PrintCurrentCodePage();
 
-            if ((key = Terminal.ReadKey("Press a key to test logging output. (X) will exit.")).Key == ConsoleKey.X) return;
-            Terminal.WriteLine("OUTPUT LOGGING TEST", ConsoleColor.Blue);
-            $"This is some error".Error();
+            if ("Press a key to test logging output. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
+            "OUTPUT LOGGING TEST".WriteLine(ConsoleColor.Blue);
+            $"This is some error".Error(typeof(Program));
             $"This is some error".Error(nameof(TestTerminalOutputs));
-            $"This is some info".Info();
+            $"This is some info".Info(typeof(Program));
             $"This is some info".Info(nameof(TestTerminalOutputs));
-            $"This is some warning".Warn();
+            $"This is some warning".Warn(typeof(Program));
             $"This is some warning".Warn(nameof(TestTerminalOutputs));
-            $"This is some tracing info".Trace();
+            $"This is some tracing info".Trace(typeof(Program));
             $"This is some tracing info".Trace(nameof(TestTerminalOutputs));
-            $"This is for debugging stuff".Debug();
+            $"This is for debugging stuff".Debug(typeof(Program));
             $"This is for debugging stuff".Debug(nameof(TestTerminalOutputs));
 
             // The simplest way of writing a line of text:
-            Terminal.WriteLine($"Hello, today is {DateTime.Today}");
+            $"Hello, today is {DateTime.Today}".WriteLine();
 
             // A slightly better way:
             $"Hello, today is {DateTime.Today}".WriteLine();
@@ -162,8 +161,8 @@
             // You could have also skipped the color argument and just use the default
             $"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
-            if ((key = Terminal.ReadKey("Press a key to test menu options. (X) will exit.")).Key == ConsoleKey.X) return;
-            Terminal.WriteLine("TESTING MENU OPTIONS", ConsoleColor.Blue);
+            if ("Press a key to test menu options. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
+            "TESTING MENU OPTIONS".WriteLine(ConsoleColor.Blue);
 
             Dictionary<ConsoleKey, string> SampleOptions = new Dictionary<ConsoleKey, string>
             {
@@ -178,8 +177,8 @@
         {
             var action = new Action(() =>
             {
-                var test01FilePath = CurrentApp.GetDesktopFilePath("csv-writer-test-01.csv");
-                var test02FilePath = CurrentApp.GetDesktopFilePath("csv-witer-test-02.csv");
+                var test01FilePath = Runtime.GetDesktopFilePath("csv-writer-test-01.csv");
+                var test02FilePath = Runtime.GetDesktopFilePath("csv-witer-test-02.csv");
 
                 var generatedRecords = SampleCsvRecord.CreateSampleSet(100);
                 $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
@@ -188,7 +187,7 @@
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}.".Info(nameof(TestCsvFormatters));
 
                 var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(test01FilePath);
-                $"Loaded {(loadedRecords.Count)} records from file: {Path.GetFileName(test01FilePath)}.".Info(nameof(TestCsvFormatters));
+                $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(nameof(TestCsvFormatters));
 
                 savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test02FilePath);
                 $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}.".Info(nameof(TestCsvFormatters));

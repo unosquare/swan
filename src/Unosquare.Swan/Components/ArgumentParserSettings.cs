@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Runtime
+﻿namespace Unosquare.Swan.Components
 {
     using System;
 

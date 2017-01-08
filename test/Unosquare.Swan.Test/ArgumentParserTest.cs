@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Linq;
-using Unosquare.Swan.Runtime;
+using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test

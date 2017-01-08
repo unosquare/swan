@@ -14,7 +14,7 @@ namespace Unosquare.Swan.Formatters
     /// where they can be quickly changed and then a new bitmap
     /// can be created from the byte data
     /// </summary>
-    public class PixelData
+    public class BitmapBuffer
     {
 
         #region Constant Definitions
@@ -51,11 +51,11 @@ namespace Unosquare.Swan.Formatters
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PixelData"/> class.
+        /// Initializes a new instance of the <see cref="BitmapBuffer"/> class.
         /// Data will not contain left-over stride bytes
         /// </summary>
         /// <param name="sourceImage">The source image.</param>
-        public PixelData(Image sourceImage)
+        public BitmapBuffer(Image sourceImage)
         {
 
             // Acquire or create the source bitmap in a manageable format
