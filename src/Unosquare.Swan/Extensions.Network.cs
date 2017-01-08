@@ -30,7 +30,7 @@
         public static uint ToUInt32(this IPAddress address)
         {
             if (address.AddressFamily != AddressFamily.InterNetwork)
-                throw new ArgumentException("Address has to be of family 'InterNetwork'", nameof(address));
+                throw new ArgumentException($"Address has to be of family '{nameof(AddressFamily.InterNetwork)}'", nameof(address));
 
             var addressBytes = address.GetAddressBytes();
             if (BitConverter.IsLittleEndian)
