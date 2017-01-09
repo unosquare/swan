@@ -1,6 +1,8 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     partial class Extensions
     {
@@ -72,6 +74,17 @@
             {
                 throw new ArgumentException("Unable to parse sortable date and time.", nameof(sortableDate));
             }
+        }
+
+        /// <summary>
+        /// Creates a date's range.
+        /// </summary>
+        /// <param name="startDate">The start date.</param>
+        /// <param name="endDate">The end date.</param>
+        /// <returns></returns>
+        public static IEnumerable<DateTime> DateRange(this DateTime startDate, DateTime endDate)
+        {
+            return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
         }
     }
 }

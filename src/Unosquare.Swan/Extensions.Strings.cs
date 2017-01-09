@@ -44,6 +44,8 @@
             });
         });
 
+        private static readonly Lazy<string[]> InvalidFilenameChars = new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());
+
         #endregion
 
         /// <summary>
@@ -81,7 +83,7 @@
             {
                 stream.Position = 0;
                 stream.CopyTo(ms);
-                
+
                 return Md5Hasher.Value.ComputeHash(ms.ToArray());
             }
 #endif
@@ -476,6 +478,22 @@
             }
 
             return Tuple.Create(lineIndex + 1, colNumber);
+        }
+
+        /// <summary>
+        /// Makes the file name system safe.
+        /// </summary>
+        /// <param name="s">The s.</param>
+        /// <returns></returns>
+        public static string ToSafeFilename(this string s)
+        {
+            foreach (var c in InvalidFilenameChars.Value)
+                s = s.Replace(c, string.Empty);
+
+            if (s.Length > 220)
+                s = s.Substring(0, 220);
+
+            return s;
         }
     }
 }

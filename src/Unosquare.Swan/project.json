@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.9.18-*",
+  "version": "0.10.0-*",
   "frameworks": {
     "netcoreapp1.1": {
       "dependencies": {
@@ -21,7 +21,7 @@
         "System.ComponentModel.TypeConverter": "4.3.0",
         "System.Text.Encoding.CodePages": "4.*",
         "System.Net.NetworkInformation": "4.*",
-        "System.Net.Security": "4.0.0",
+        "System.Net.Security": "4.*",
         "System.Threading.ThreadPool": "4.*"
       }
     },
