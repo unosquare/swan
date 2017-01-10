@@ -86,5 +86,17 @@
         {
             return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
         }
+
+
+        /// <summary>
+        /// Rounds up a date to match a timespan.
+        /// </summary>
+        /// <param name="dt">The datetime.</param>
+        /// <param name="d">The timespan to match.</param>
+        /// <returns></returns>
+        public static DateTime RoundUp(this DateTime dt, TimeSpan d)
+        {
+            return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
+        }
     }
 }

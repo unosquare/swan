@@ -248,13 +248,7 @@
         /// <summary>
         /// Gets a value indicating whether a debugger is attached.
         /// </summary>
-        public static bool IsDebuggerAttached
-        {
-            get
-            {
-                return System.Diagnostics.Debugger.IsAttached;
-            }
-        }
+        public static bool IsDebuggerAttached => System.Diagnostics.Debugger.IsAttached;
 
         /// <summary>
         /// Gets the available output writers in a bitwise mask.

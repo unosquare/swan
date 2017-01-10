@@ -201,13 +201,6 @@ namespace Unosquare.Swan.Test
                 Assert.AreEqual(obj.StringNull, _advObj.StringNull);
             }
         }
-
-        [Test]
-        public void SerializeEmptyCollectionTest()
-        {
-            Assert.Inconclusive("There is not way to specify the possible value");
-            Assert.AreEqual("[ ]", Json.Serialize(null as IEnumerable));
-        }
         
         [Test]
         public void SerializeEmptyObjectTest()
@@ -242,6 +235,15 @@ namespace Unosquare.Swan.Test
 
             object nullObj = null;
             Assert.AreEqual(string.Empty, nullObj.ToJson());
+        }
+
+        [Test]
+        public void DeserializeObjectWithArrayWithDataTest()
+        {
+            var data = Json.Deserialize<ArrayJsonWithInitialData>("{\"Id\": 2,\"Properties\": [\"THREE\"]}");
+            Assert.IsNotNull(data);
+            Assert.AreEqual(2, data.Id);
+            Assert.AreEqual(1, data.Properties.Length);
         }
     }
 }

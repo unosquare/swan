@@ -153,7 +153,7 @@ namespace Unosquare.Swan.Components
                 if (hub != null)
                 {
                     var unsubscribeMethod = typeof(IMessageHub).GetTypeInfo()
-                        .GetMethod("Unsubscribe", new Type[] {typeof(MessageHubSubscriptionToken)});
+                        .GetMethod("Unsubscribe", new[] {typeof(MessageHubSubscriptionToken)});
                     unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_messageType);
                     unsubscribeMethod.Invoke(hub, new object[] {this});
                 }

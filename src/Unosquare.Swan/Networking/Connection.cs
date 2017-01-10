@@ -246,7 +246,7 @@
             if (disableContinuousReading) return;
 
 #if !NET452
-            ThreadPool.QueueUserWorkItem(new WaitCallback(PerformContinuousReading), this);
+            ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
 #else
             int availableWorkerThreads;
             int availableCompletionPortThreads;

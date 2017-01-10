@@ -61,7 +61,7 @@
         /// <param name="statusCode">The status code.</param>
         /// <param name="content">The content.</param>
         public SmtpServerReply(int responseCode, string statusCode, string content)
-            : this(responseCode, statusCode, new string[] { content })
+            : this(responseCode, statusCode, new[] { content })
         {
         }
 

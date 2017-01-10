@@ -22,7 +22,7 @@
             {
                 this.dns = dns;
                 this.request = request == null ? new DnsRequest() : new DnsRequest(request);
-                this.resolver = resolver == null ? new DnsUdpRequestResolver() : resolver;
+                this.resolver = resolver ?? new DnsUdpRequestResolver();
             }
 
             public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
@@ -134,11 +134,12 @@
             public DnsRequest()
             {
                 this.questions = new List<DnsQuestion>();
-                this.header = new DnsHeader();
-
-                this.header.OperationCode = DnsOperationCode.Query;
-                this.header.Response = false;
-                this.header.Id = RANDOM.Next(UInt16.MaxValue);
+                this.header = new DnsHeader
+                {
+                    OperationCode = DnsOperationCode.Query,
+                    Response = false,
+                    Id = RANDOM.Next(UInt16.MaxValue)
+                };
             }
 
             public DnsRequest(IDnsRequest request)
@@ -646,16 +647,12 @@
 
             public override bool Equals(object obj)
             {
-                if (obj == null)
-                {
-                    return false;
-                }
                 if (!(obj is DnsDomain))
                 {
                     return false;
                 }
 
-                return CompareTo(obj as DnsDomain) == 0;
+                return CompareTo((DnsDomain) obj) == 0;
             }
 
             public override int GetHashCode()

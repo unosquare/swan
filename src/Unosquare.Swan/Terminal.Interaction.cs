@@ -46,7 +46,7 @@
                 ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
                     $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
 
-            var input = ReadKey(true, false);
+            var input = ReadKey(true);
             var echo = preventEcho ? string.Empty : input.Key.ToString();
             echo.WriteLine();
             return input;

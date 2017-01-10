@@ -20,7 +20,7 @@ namespace Unosquare.Swan.Test
 #else
                 4,
 #endif
-                assemblies.Count(),
+                assemblies.Length,
                 "Check assemblies are loaded fine");
         }
 

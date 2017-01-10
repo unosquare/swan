@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Test
     public class CsvTest
     {
         private const int TotalRows = 100;
-        private List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+        private readonly List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
 
         [Test]
         public void ReadWriteTest()

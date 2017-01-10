@@ -798,7 +798,7 @@ namespace Unosquare.Swan.Components
 
             foreach (var type in implementationTypes)
                 if (!registrationType.GetTypeInfo().IsAssignableFrom(type))
-                    throw new ArgumentException(String.Format("types: The type {0} is not assignable from {1}", registrationType.FullName, type.FullName));
+                    throw new ArgumentException($"types: The type {registrationType.FullName} is not assignable from {type.FullName}");
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
             {
@@ -2592,7 +2592,7 @@ namespace Unosquare.Swan.Components
                     if (factory.AssumeConstruction)
                         return true;
 
-                    return (GetBestConstructor(factory.CreatesType, parameters, options) != null) ? true : false;
+                    return GetBestConstructor(factory.CreatesType, parameters, options) != null;
                 }
             }
 
@@ -2763,7 +2763,7 @@ namespace Unosquare.Swan.Components
             {
                 Type returnType = genericArguments[1];
                 
-                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new Type[] { typeof(String) });
+                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new[] { typeof(String) });
                 
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 

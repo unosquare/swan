@@ -448,8 +448,8 @@
 
         /// <summary>
         /// Gets the line and column number (i.e. not index) of the
-        /// specified charater index. Useful to locate text in a multiline
-        /// string the same way atext editor does.
+        /// specified character index. Useful to locate text in a multi-line
+        /// string the same way a text editor does.
         /// Please not that the tuple contains first the line number and then the
         /// column number
         /// </summary>

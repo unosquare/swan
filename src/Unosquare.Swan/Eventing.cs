@@ -91,7 +91,7 @@
         /// Gets the Extended Data properties cast as an Exception (if possible)
         /// Otherwise, it return null
         /// </summary>
-        public Exception Exception { get { return ExtendedData as Exception; } }
+        public Exception Exception => ExtendedData as Exception;
     }
 
     /// <summary>

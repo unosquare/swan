@@ -1,39 +1,17 @@
 ﻿using System;
+using Unosquare.Swan.Formatters;
+using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
 {
     class Program
     {
-#if NET452
-        static AppDomain otherDomain;
-#endif
-
         static void Main(string[] args)
         {
-#if NET452
-            otherDomain = AppDomain.CreateDomain("other domain");
+            var data = Json.Deserialize<ArrayJsonWithInitialData>("{\"Id\": 2,\"Properties\": [\"THREE\"]}");
+            data.Stringify().Info();
 
-            var otherType = typeof(OtherProgram);
-            var obj = otherDomain.CreateInstanceAndUnwrap(
-                                     otherType.Assembly.FullName,
-                                     otherType.FullName) as OtherProgram;
-            
-            AppDomain.CurrentDomain.FriendlyName.Debug();
-            Runtime.EntryAssembly.ToString().Debug();
-            obj.Main(args);
-#endif
             Terminal.ReadKey(true, true);
         }
     }
-
-#if NET452
-    public class OtherProgram : MarshalByRefObject
-    {
-        public void Main(string[] args)
-        {
-            AppDomain.CurrentDomain.FriendlyName.Debug();
-            Runtime.EntryAssembly.ToString().Debug();
-        }
-    }
-#endif
 }

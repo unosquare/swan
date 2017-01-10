@@ -37,7 +37,6 @@
             {
                 // define some state variables
                 var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
-                int readCount; // the bytes read in any given event
                 ulong totalCount = 0; // the total amount of bytes read
                 var hasExited = false;
 
@@ -47,6 +46,7 @@
                     {
                         // Check if process is no longer valid
                         // if this condition holds, simply read the last bits of data available.
+                        int readCount; // the bytes read in any given event
                         if (process.HasExited || process.WaitForExit(1))
                         {
                             while (true)

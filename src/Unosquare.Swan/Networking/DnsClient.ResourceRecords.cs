@@ -4,7 +4,6 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Net;
     using System.Runtime.InteropServices;
 
@@ -19,50 +18,26 @@
                 this.record = record;
             }
 
-            public DnsDomain Name
-            {
-                get { return record.Name; }
-            }
+            public DnsDomain Name => record.Name;
 
-            public DnsRecordType Type
-            {
-                get { return record.Type; }
-            }
+            public DnsRecordType Type => record.Type;
 
-            public DnsRecordClass Class
-            {
-                get { return record.Class; }
-            }
+            public DnsRecordClass Class => record.Class;
 
-            public TimeSpan TimeToLive
-            {
-                get { return record.TimeToLive; }
-            }
+            public TimeSpan TimeToLive => record.TimeToLive;
 
-            public int DataLength
-            {
-                get { return record.DataLength; }
-            }
+            public int DataLength => record.DataLength;
 
-            public byte[] Data
-            {
-                get { return record.Data; }
-            }
+            public byte[] Data => record.Data;
 
-            public int Size
-            {
-                get { return record.Size; }
-            }
+            public int Size => record.Size;
 
             public byte[] ToArray()
             {
                 return record.ToArray();
             }
 
-            protected virtual string[] IncludedProperties
-            {
-                get { return new string[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) }; }
-            }
+            protected virtual string[] IncludedProperties => new string[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) };
 
             public override string ToString()
             {
@@ -131,40 +106,19 @@
                 this.data = data;
             }
 
-            public DnsDomain Name
-            {
-                get { return domain; }
-            }
+            public DnsDomain Name => domain;
 
-            public DnsRecordType Type
-            {
-                get { return type; }
-            }
+            public DnsRecordType Type => type;
 
-            public DnsRecordClass Class
-            {
-                get { return klass; }
-            }
+            public DnsRecordClass Class => klass;
 
-            public TimeSpan TimeToLive
-            {
-                get { return ttl; }
-            }
+            public TimeSpan TimeToLive => ttl;
 
-            public int DataLength
-            {
-                get { return data.Length; }
-            }
+            public int DataLength => data.Length;
 
-            public byte[] Data
-            {
-                get { return data; }
-            }
+            public byte[] Data => data;
 
-            public int Size
-            {
-                get { return domain.Size + Tail.SIZE + data.Length; }
-            }
+            public int Size => domain.Size + Tail.SIZE + data.Length;
 
             public byte[] ToArray()
             {
@@ -352,8 +306,7 @@
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties);
-                    temp.Add(nameof(CanonicalDomainName));
+                    var temp = new List<string>(base.IncludedProperties) {nameof(CanonicalDomainName)};
                     return temp.ToArray();
                 }
             }
@@ -419,9 +372,11 @@
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties);
-                    temp.Add(nameof(Preference));
-                    temp.Add(nameof(ExchangeDomainName));
+                    var temp = new List<string>(base.IncludedProperties)
+                    {
+                        nameof(Preference),
+                        nameof(ExchangeDomainName)
+                    };
                     return temp.ToArray();
                 }
             }
@@ -531,10 +486,12 @@
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties);
-                    temp.Add(nameof(MasterDomainName));
-                    temp.Add(nameof(ResponsibleDomainName));
-                    temp.Add(nameof(SerialNumber));
+                    var temp = new List<string>(base.IncludedProperties)
+                    {
+                        nameof(MasterDomainName),
+                        nameof(ResponsibleDomainName),
+                        nameof(SerialNumber)
+                    };
                     return temp.ToArray();
                 }
             }

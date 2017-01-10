@@ -38,11 +38,18 @@
     {
         public BasicJson InnerChild { get; set; }
     }
-    
+
     public class AdvArrayJson
     {
         public int Id { get; set; }
 
         public BasicJson[] Properties { get; set; }
+    }
+
+    public class ArrayJsonWithInitialData
+    {
+        public int Id { get; set; } = 1;
+
+        public string[] Properties { get; set; } = new[] { "ONE", "TWO" };
     }
 }

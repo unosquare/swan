@@ -123,7 +123,7 @@
                     if (target is IDictionary)
                     {
                         // Cast the items as an IDictionary
-                        var items = target as IDictionary;
+                        var items = (IDictionary) target;
 
                         // Append the start of an object or empty object
                         if (items.Count > 0)
@@ -327,22 +327,21 @@
             /// Removes the last comma in the current string builder.
             /// </summary>
             /// <returns></returns>
-            private bool RemoveLastComma()
+            private void RemoveLastComma()
             {
                 if (Builder.Length < LastCommaSearch.Length)
-                    return false;
+                    return;
 
                 for (var i = 0; i < LastCommaSearch.Length; i++)
                     if (Builder[Builder.Length - LastCommaSearch.Length + i] != LastCommaSearch[i])
-                        return false;
+                        return;
 
                 // If we got this far, we simply remove the comma character
                 Builder.Remove(Builder.Length - LastCommaSearch.Length, 1);
-                return true;
             }
 
             /// <summary>
-            /// Appends the specified text to the output stringbuilder.
+            /// Appends the specified text to the output StringBuilder.
             /// </summary>
             /// <param name="text">The text.</param>
             /// <param name="depth">The depth.</param>
@@ -352,7 +351,7 @@
             }
 
             /// <summary>
-            /// Appends the specified text to the output stringbuilder.
+            /// Appends the specified text to the output StringBuilder.
             /// </summary>
             /// <param name="text">The text.</param>
             /// <param name="depth">The depth.</param>
@@ -430,7 +429,6 @@
             }
 
             #endregion
-
         }
 
     }
