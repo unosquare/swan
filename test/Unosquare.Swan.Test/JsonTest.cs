@@ -23,7 +23,7 @@ namespace Unosquare.Swan.Test
 
         private const string _basicStrWithoutWrap =
             "\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null";
-        const string _basicStr = "{"+ _basicStrWithoutWrap + "}";
+        const string _basicStr = "{" + _basicStrWithoutWrap + "}";
 
         const string _advStr =
             "{\"InnerChild\": " + _basicStr + "," + _basicStrWithoutWrap + "}";
@@ -201,7 +201,7 @@ namespace Unosquare.Swan.Test
                 Assert.AreEqual(obj.StringNull, _advObj.StringNull);
             }
         }
-        
+
         [Test]
         public void SerializeEmptyObjectTest()
         {
@@ -213,14 +213,14 @@ namespace Unosquare.Swan.Test
         {
             Assert.Throws<ArgumentException>(() => Json.Serialize(1), "Throws exception serializing primitive");
         }
-        
+
         [Test]
         public void DeserializeEmptyStringErrorTest()
         {
             Assert.IsNull(Json.Deserialize(string.Empty));
             Assert.IsNull(Json.Deserialize<BasicJson>(string.Empty));
         }
-        
+
         [Test]
         public void DeserializeEmptyPropertyTest()
         {
@@ -244,6 +244,24 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(data);
             Assert.AreEqual(2, data.Id);
             Assert.AreEqual(1, data.Properties.Length);
+        }
+
+        [Test]
+        public void SerializeDateTest()
+        {
+            var obj = new DateTimeJson { Date = new DateTime(2010, 1, 1) };
+            var data = Json.Serialize(obj);
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{\"Date\": \"" + obj.Date.ToString("s") + "\"}", data, "Date must be formatted as ISO");
+
+            var dict = Json.Deserialize<Dictionary<string, DateTime>>(data);
+            Assert.IsNotNull(dict);
+            Assert.IsTrue(dict.ContainsKey("Date"));
+            Assert.AreEqual(obj.Date, dict["Date"]);
+
+            var objDeserialized = Json.Deserialize<DateTimeJson>(data);
+            Assert.IsNotNull(objDeserialized);
+            Assert.AreEqual(obj.Date, objDeserialized.Date);
         }
     }
 }

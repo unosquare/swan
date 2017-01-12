@@ -1,4 +1,6 @@
-﻿namespace Unosquare.Swan.Test.Mocks
+﻿using System;
+
+namespace Unosquare.Swan.Test.Mocks
 {
     public class BasicJson
     {
@@ -51,5 +53,10 @@
         public int Id { get; set; } = 1;
 
         public string[] Properties { get; set; } = new[] { "ONE", "TWO" };
+    }
+
+    public class DateTimeJson
+    {
+        public DateTime Date { get; set; }
     }
 }
