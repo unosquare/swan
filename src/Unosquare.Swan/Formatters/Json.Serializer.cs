@@ -91,13 +91,22 @@
 
                 if (Definitions.BasicTypesInfo.ContainsKey(targetType))
                 {
-                    var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(target));
-                    decimal val;
+                    if (targetType == typeof(DateTime) || targetType == typeof(DateTime?))
+                    {
+                        var date = targetType == typeof(DateTime) ? (DateTime)target : ((DateTime?)target).Value;
+                        
+                        Result = $"{StringQuotedChar}{date:s}{StringQuotedChar}";
+                    }
+                    else
+                    {
+                        var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(target));
+                        decimal val;
 
-                    Result = decimal.TryParse(escapedValue, out val) ?
-                        $"{escapedValue}" :
-                        $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
+                        Result = decimal.TryParse(escapedValue, out val) ?
+                            $"{escapedValue}" :
+                            $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
 
+                    }
                     return;
                 }
 

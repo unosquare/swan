@@ -57,6 +57,6 @@ namespace Unosquare.Swan.Test.Mocks
 
     public class DateTimeJson
     {
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
     }
 }

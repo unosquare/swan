@@ -252,7 +252,7 @@ namespace Unosquare.Swan.Test
             var obj = new DateTimeJson { Date = new DateTime(2010, 1, 1) };
             var data = Json.Serialize(obj);
             Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Date\": \"" + obj.Date.ToString("s") + "\"}", data, "Date must be formatted as ISO");
+            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data, "Date must be formatted as ISO");
 
             var dict = Json.Deserialize<Dictionary<string, DateTime>>(data);
             Assert.IsNotNull(dict);

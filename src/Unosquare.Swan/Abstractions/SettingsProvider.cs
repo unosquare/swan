@@ -100,7 +100,7 @@
                     if (property.Value is IEnumerable == false)
                         continue;
 
-                    var sourceArray = ((IEnumerable) property.Value).Cast<object>().ToArray();
+                    var sourceArray = ((IEnumerable)property.Value).Cast<object>().ToArray();
                     var targetArray = Array.CreateInstance(elementType, sourceArray.Length);
 
                     var i = 0;
@@ -145,7 +145,7 @@
                             if (propertyValue.Equals(originalValue)) continue;
 
                             isChanged = true;
-                            propertyInfo.SetValue(Instance.Global, property.Value);
+                            propertyInfo.SetValue(Instance.Global, propertyValue);
                         }
                     }
                 }
