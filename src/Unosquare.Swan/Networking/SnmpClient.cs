@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="snmpTimeOut">The SNMP time out.</param>
         /// <returns></returns>
-        public static async Task<IPEndPoint[]> Discover(int snmpTimeOut)
+        public static async Task<IPEndPoint[]> Discover(int snmpTimeOut = 6000)
         {
             var endpoints = new List<IPEndPoint>();
 
@@ -55,6 +55,65 @@
             }
 
             return endpoints.ToArray();
+        }
+
+        /// <summary>
+        /// Gets the name of the public.
+        /// </summary>
+        /// <param name="host">The host.</param>
+        /// <returns></returns>
+        public static string GetPublicName(IPEndPoint host) => GetString(host, "1.3.6.1.2.1.1.5.0");
+
+        /// <summary>
+        /// Gets the uptime.
+        /// </summary>
+        /// <param name="host">The host.</param>
+        /// <param name="mibstring">The mibstring.</param>
+        /// <returns></returns>
+        public static TimeSpan GetUptime(IPEndPoint host, string mibstring = "1.3.6.1.2.1.1.3.0")
+        {
+            var response = Get(host, mibstring);
+            if (response[0] == 0xff) return TimeSpan.Zero;
+
+            // If response, get the community name and MIB lengths
+            var commlength = Convert.ToInt16(response[6]);
+            var miblength = Convert.ToInt16(response[23 + commlength]);
+
+            // Extract the MIB data from the SNMP response
+            var datalength = Convert.ToInt16(response[25 + commlength + miblength]);
+            var datastart = 26 + commlength + miblength;
+
+            var uptime = 0;
+
+            while (datalength > 0)
+            {
+                uptime = (uptime << 8) + response[datastart++];
+                datalength--;
+            }
+
+            return TimeSpan.FromSeconds(uptime);
+        }
+
+        /// <summary>
+        /// Gets the string.
+        /// </summary>
+        /// <param name="host">The host.</param>
+        /// <param name="mibstring">The mibstring.</param>
+        /// <returns></returns>
+        public static string GetString(IPEndPoint host, string mibstring)
+        {
+            var response = Get(host, mibstring);
+            if (response[0] == 0xff) return string.Empty;
+
+            // If response, get the community name and MIB lengths
+            var commlength = Convert.ToInt16(response[6]);
+            var miblength = Convert.ToInt16(response[23 + commlength]);
+
+            // Extract the MIB data from the SNMP response
+            var datalength = Convert.ToInt16(response[25 + commlength + miblength]);
+            var datastart = 26 + commlength + miblength;
+
+            return Encoding.ASCII.GetString(response, datastart, datalength);
         }
 
         /// <summary>
