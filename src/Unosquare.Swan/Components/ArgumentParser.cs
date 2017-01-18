@@ -15,8 +15,7 @@
         private const char Dash = '-';
 
         private static readonly Lazy<ArgumentParser> DefaultParser = new Lazy<ArgumentParser>(() => new ArgumentParser());
-
-        private static readonly object SyncLock = new object();
+        
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         /// <summary>
@@ -199,15 +198,12 @@
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
         {
-            lock (SyncLock)
+            return TypeCache.Retrieve(type, () =>
             {
-                return TypeCache.Retrieve(type, () =>
-                {
-                    return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(p => p.CanRead || p.CanWrite)
-                        .ToArray();
-                });
-            }
+                return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(p => p.CanRead || p.CanWrite)
+                    .ToArray();
+            });
         }
 
         /// <summary>
