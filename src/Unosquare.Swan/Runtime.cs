@@ -19,7 +19,7 @@
         #region Property Backing
 
 #if NET452
-        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly());
+        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 #else
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
