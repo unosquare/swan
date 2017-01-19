@@ -14,12 +14,11 @@
         /// </summary>
         private class Serializer
         {
-
             #region Private Declarations
 
             private static readonly Dictionary<int, string> IndentStrings = new Dictionary<int, string>();
 
-            private readonly string Result = null;
+            private readonly string Result;
             private readonly StringBuilder Builder;
             private readonly bool Format;
             private readonly string LastCommaSearch;
@@ -186,7 +185,7 @@
                         }
 
                         // Cast the items as a generic object array
-                        var items = (target as IEnumerable).Cast<object>().ToArray();
+                        var items = ((IEnumerable) target).Cast<object>().ToArray();
 
                         // Append the start of an array or empty array
                         if (items.Length > 0)

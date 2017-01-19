@@ -54,28 +54,28 @@
             }
 
             WorkerThread = new Thread(() =>
-            {
-                IsBusy = true;
+                {
+                    IsBusy = true;
 
-                try
-                {
-                    WorkerThreadLoop();
-                }
-                catch (Exception ex)
-                {
-                    ex.Log(GetType());
-                    OnWorkerThreadLoopException(ex);
-                }
-                finally
-                {
-                    OnWorkerThreadExit();
+                    try
+                    {
+                        WorkerThreadLoop();
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.Log(GetType());
+                        OnWorkerThreadLoopException(ex);
+                    }
+                    finally
+                    {
+                        OnWorkerThreadExit();
 
-                    State = AppWorkerState.Stopped;
-                    CancellationPending = false;
-                    IsBusy = false;
-                }
-            })
-            { IsBackground = true };
+                        State = AppWorkerState.Stopped;
+                        CancellationPending = false;
+                        IsBusy = false;
+                    }
+                })
+                {IsBackground = true};
 
         }
 
@@ -215,15 +215,12 @@
             {
                 "Service disposing.".Debug(GetType());
 
-                if (WorkerThread != null)
-                {
 #if NET452
-                    if (WorkerThread.IsAlive)
-                        WorkerThread.Abort();
+                if (WorkerThread?.IsAlive == true)
+                    WorkerThread.Abort();
 #endif
 
-                    WorkerThread = null;
-                }
+                WorkerThread = null;
             }
 
             HasDisposed = true;
@@ -232,10 +229,7 @@
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+        public void Dispose() => Dispose(true);
 
         #endregion
     }

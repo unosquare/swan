@@ -15,6 +15,11 @@
     /// <typeparam name="T"></typeparam>
     public class SettingsProvider<T> : SingletonBase<SettingsProvider<T>>
     {
+        /// <summary>
+        /// A synchronization root that is commonly used for cross-thread operations.
+        /// </summary>
+        protected static readonly object SyncRoot = new object();
+
         private T m_Global;
 
         /// <summary>

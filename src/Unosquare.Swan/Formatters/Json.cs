@@ -204,16 +204,20 @@
 
                             if (sourcePropertyValue == null) continue;
 
-                            // Check if we already have an instance of the current value created for us
                             object currentPropertyValue = null;
-                            try
-                            {
-                                currentPropertyValue = targetProperty.GetGetMethod(includeNonPublic)?
-                                    .Invoke(target, null);
-                            }
-                            catch
-                            {
-                                // ignored
+                            
+                            if (targetProperty.PropertyType.IsArray == false)
+                            { 
+                                // Check if we already have an instance of the current value created for us
+                                try
+                                {
+                                    currentPropertyValue = targetProperty.GetGetMethod(includeNonPublic)?
+                                        .Invoke(target, null);
+                                }
+                                catch
+                                {
+                                    // ignored
+                                }
                             }
 
                             try

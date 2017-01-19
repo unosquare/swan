@@ -4,14 +4,6 @@
   "description": "Class library with Stuff We All Need",
   "version": "0.10.2-*",
   "frameworks": {
-    "netcoreapp1.1": {
-      "dependencies": {
-        "Microsoft.NETCore.App": "1.1.0",
-        "System.ComponentModel.TypeConverter": "4.3.0",
-        "System.Text.Encoding.CodePages": "4.*",
-        "System.Net.NetworkInformation": "4.*"
-      }
-    },
     "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.1",

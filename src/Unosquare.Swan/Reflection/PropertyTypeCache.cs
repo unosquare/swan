@@ -1,7 +1,6 @@
-﻿using System.Linq;
-
-namespace Unosquare.Swan.Reflection
+﻿namespace Unosquare.Swan.Reflection
 {
+    using System.Linq;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
@@ -32,10 +31,7 @@ namespace Unosquare.Swan.Reflection
         /// <summary>
         /// Determines whether the cache contains the specified type.
         /// </summary>
-        public bool Contains<T>()
-        {
-            return Contains(typeof(T));
-        }
+        public bool Contains<T>() => Contains(typeof(T));
 
         /// <summary>
         /// Retrieves the properties stored for the specified type.
@@ -93,7 +89,7 @@ namespace Unosquare.Swan.Reflection
                     if (value == null)
                         return;
 
-                    Cache[type] = Enumerable.ToArray(value.Where(item => item != null));
+                    Cache[type] = value.Where(item => item != null).ToArray();
                 }
             }
         }

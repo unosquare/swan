@@ -86,8 +86,7 @@
         {
             return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
         }
-
-
+        
         /// <summary>
         /// Rounds up a date to match a timespan.
         /// </summary>

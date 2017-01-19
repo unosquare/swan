@@ -266,7 +266,7 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Sets the constructor to use
             /// </summary>
-            /// <typeparam name="RegisterType">The type of the egister type.</typeparam>
+            /// <typeparam name="RegisterType">The type of the register type.</typeparam>
             /// <param name="constructor">The constructor.</param>
             /// <returns></returns>
             /// <exception cref="Unosquare.Swan.DependencyContainerConstructorResolutionException">
@@ -1908,7 +1908,7 @@ namespace Unosquare.Swan.Components
             {
                 try
                 {
-                    return container.ConstructType(requestedType, registerImplementation, Constructor, parameters, options);
+                    return container.ConstructType(registerImplementation, Constructor, parameters, options);
                 }
                 catch (DependencyContainerResolutionException ex)
                 {
@@ -2174,7 +2174,7 @@ namespace Unosquare.Swan.Components
 
                 lock (SingletonLock)
                     if (_Current == null)
-                        _Current = container.ConstructType(requestedType, registerImplementation, Constructor, options);
+                        _Current = container.ConstructType(registerImplementation, Constructor, options);
 
                 return _Current;
             }
@@ -2242,7 +2242,7 @@ namespace Unosquare.Swan.Components
                     current = _LifetimeProvider.GetObject();
                     if (current == null)
                     {
-                        current = container.ConstructType(requestedType, registerImplementation, Constructor, options);
+                        current = container.ConstructType(registerImplementation, Constructor, options);
                         _LifetimeProvider.SetObject(current);
                     }
                 }
@@ -2459,16 +2459,15 @@ namespace Unosquare.Swan.Components
 
                     var firstImplementation = implementations.FirstOrDefault();
 
-                    if (firstImplementation != null)
+                    if (firstImplementation == null) continue;
+
+                    try
                     {
-                        try
-                        {
-                            RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, firstImplementation));
-                        }
-                        catch (MethodAccessException)
-                        {
-                            // Ignore methods we can't access - added for Silverlight
-                        }
+                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, firstImplementation));
+                    }
+                    catch (MethodAccessException)
+                    {
+                        // Ignore methods we can't access - added for Silverlight
                     }
                 }
             }
@@ -2726,7 +2725,7 @@ namespace Unosquare.Swan.Components
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
                 if (!registration.Type.IsAbstract() && !registration.Type.IsInterface())
-                    return ConstructType(null, registration.Type, parameters, options);
+                    return ConstructType(registration.Type, parameters, options);
             }
 
             // Unable to resolve - throw
@@ -2739,13 +2738,13 @@ namespace Unosquare.Swan.Components
             if (!type.IsGenericType())
                 return null;
 
-            Type genericType = type.GetGenericTypeDefinition();
-            Type[] genericArguments = type.GetTypeInfo().GetGenericArguments();
+            var genericType = type.GetGenericTypeDefinition();
+            var genericArguments = type.GetTypeInfo().GetGenericArguments();
 
             // Just a func
             if (genericType == typeof(Func<>))
             {
-                Type returnType = genericArguments[0];
+                var returnType = genericArguments[0];
                 
                 var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new Type[] { });
 
@@ -2761,13 +2760,13 @@ namespace Unosquare.Swan.Components
             // 2 parameter func with string as first parameter (name)
             if ((genericType == typeof(Func<,>)) && (genericArguments[0] == typeof(string)))
             {
-                Type returnType = genericArguments[1];
+                var returnType = genericArguments[1];
                 
                 var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new[] { typeof(String) });
                 
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
-                ParameterExpression[] resolveParameters = new ParameterExpression[] { Expression.Parameter(typeof(String), "name") };
+                var resolveParameters = new ParameterExpression[] { Expression.Parameter(typeof(String), "name") };
                 var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, resolveParameters);
 
                 var resolveLambda = Expression.Lambda(resolveCall, resolveParameters).Compile();
@@ -2777,12 +2776,12 @@ namespace Unosquare.Swan.Components
             
             if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string) && type.GetTypeInfo().GetGenericArguments()[1] == typeof(IDictionary<string, object>)))
             {
-                Type returnType = genericArguments[2];
+                var returnType = genericArguments[2];
 
                 var name = Expression.Parameter(typeof(string), "name");
                 var parameters = Expression.Parameter(typeof(IDictionary<string, object>), "parameters");
                 
-                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new Type[] { typeof(String), typeof(DependencyContainerNamedParameterOverloads) });
+                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new[] { typeof(String), typeof(DependencyContainerNamedParameterOverloads) });
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, name, Expression.Call(typeof(DependencyContainerNamedParameterOverloads), "FromIDictionary", null, parameters));
@@ -2843,23 +2842,18 @@ namespace Unosquare.Swan.Components
         {
             return type.GetTypeInfo().GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
         }
-
-        private object ConstructType(Type requestedType, Type implementationType, DependencyContainerResolveOptions options)
+        
+        private object ConstructType(Type implementationType, ConstructorInfo constructor, DependencyContainerResolveOptions options)
         {
-            return ConstructType(requestedType, implementationType, null, DependencyContainerNamedParameterOverloads.Default, options);
+            return ConstructType(implementationType, constructor, DependencyContainerNamedParameterOverloads.Default, options);
         }
 
-        private object ConstructType(Type requestedType, Type implementationType, ConstructorInfo constructor, DependencyContainerResolveOptions options)
+        private object ConstructType(Type implementationType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
-            return ConstructType(requestedType, implementationType, constructor, DependencyContainerNamedParameterOverloads.Default, options);
+            return ConstructType(implementationType, null, parameters, options);
         }
 
-        private object ConstructType(Type requestedType, Type implementationType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
-        {
-            return ConstructType(requestedType, implementationType, null, parameters, options);
-        }
-
-        private object ConstructType(Type requestedType, Type implementationType, ConstructorInfo constructor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
+        private object ConstructType(Type implementationType, ConstructorInfo constructor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
             var typeToConstruct = implementationType;
             
@@ -2934,7 +2928,7 @@ namespace Unosquare.Swan.Components
             var lambdaParams = Expression.Parameter(typeof(object[]), "parameters");
             var newParams = new Expression[constructorParams.Length];
 
-            for (int i = 0; i < constructorParams.Length; i++)
+            for (var i = 0; i < constructorParams.Length; i++)
             {
                 var paramsParameter = Expression.ArrayIndex(lambdaParams, Expression.Constant(i));
 
@@ -3021,16 +3015,16 @@ namespace Unosquare.Swan.Components
 
         #region IDisposable Members
 
-        bool disposed;
+        private bool _disposed;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
-            if (!disposed)
+            if (!_disposed)
             {
-                disposed = true;
+                _disposed = true;
                 foreach (var item in _RegisteredTypes.Values)
                 {
                     var disposable = item as IDisposable;

@@ -79,25 +79,22 @@
                             return;
                         }
 
-                        if (json[i] == StringQuotedChar)
+                        if (json[i] != StringQuotedChar)
+                            throw CreateParserException(json, i, State, $"'{StringQuotedChar}'");
+
+                        var charCount = 0;
+                        for (var j = i + 1; j < json.Length; j++)
                         {
+                            if (json[j] == StringQuotedChar && json[j - 1] != StringEscapeChar)
+                                break;
 
-                            var charCount = 0;
-                            for (var j = i + 1; j < json.Length; j++)
-                            {
-                                if (json[j] == StringQuotedChar && json[j - 1] != StringEscapeChar)
-                                    break;
-
-                                charCount++;
-                            }
-
-                            CurrentFieldName = Unescape(json.SliceLength(i + 1, charCount));
-                            i += charCount + 1;
-                            State = ReadState.WaitingForColon;
-                            continue;
+                            charCount++;
                         }
 
-                        throw CreateParserException(json, i, State, $"'{StringQuotedChar}'");
+                        CurrentFieldName = Unescape(json.SliceLength(i + 1, charCount));
+                        i += charCount + 1;
+                        State = ReadState.WaitingForColon;
+                        continue;
                     }
 
                     #endregion
@@ -108,13 +105,11 @@
                     {
                         if (char.IsWhiteSpace(json, i)) continue;
 
-                        if (json[i] == ValueSeparatorChar)
-                        {
-                            State = ReadState.WaitingForValue;
-                            continue;
-                        }
+                        if (json[i] != ValueSeparatorChar)
+                            throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
 
-                        throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
+                        State = ReadState.WaitingForValue;
+                        continue;
                     }
 
                     #endregion

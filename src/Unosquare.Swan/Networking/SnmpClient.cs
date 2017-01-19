@@ -183,9 +183,9 @@
             //Convert community name to byte array
             var data = Encoding.ASCII.GetBytes(community);
 
-            for (var i = 0; i < data.Length; i++)
+            foreach (var t in data)
             {
-                packet[pos++] = data[i];
+                packet[pos++] = t;
             }
 
             //Add GetRequest or GetNextRequest value

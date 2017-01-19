@@ -13,6 +13,8 @@
     {
         #region Private Declarations
 
+        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
+
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
@@ -56,7 +58,7 @@
         /// <returns></returns>
         public static byte[] ComputeMD5(this Stream stream)
         {
-#if !NETCOREAPP1_1 && !NETSTANDARD1_6
+#if !NETSTANDARD1_6
             var md5 = MD5.Create();
             const int bufferSize = 4096;
 
@@ -182,7 +184,7 @@
         }
 
         /// <summary>
-        /// Removes the control characters from a string except for those sepcified.
+        /// Removes the control characters from a string except for those specified.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="excludeChars">When specified, these characters will not be removed.</param>
@@ -494,6 +496,31 @@
                 s = s.Substring(0, 220);
 
             return s;
+        }
+
+        /// <summary>
+        /// Formats a long into the closest bytes string.
+        /// </summary>
+        /// <param name="bytes">The bytes length</param>
+        /// <returns></returns>
+        public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
+
+        /// <summary>
+        /// Formats a long into the closest bytes string.
+        /// </summary>
+        /// <param name="bytes">The bytes length</param>
+        /// <returns></returns>
+        public static string FormatBytes(this ulong bytes)
+        {
+            int i;
+            double dblSByte = bytes;
+
+            for (i = 0; i < ByteSuffixes.Length && bytes >= 1024; i++, bytes /= 1024)
+            {
+                dblSByte = bytes / 1024.0;
+            }
+
+            return $"{dblSByte:0.##} {ByteSuffixes[i]}";
         }
     }
 }

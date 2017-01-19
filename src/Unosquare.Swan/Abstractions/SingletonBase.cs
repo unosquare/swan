@@ -9,12 +9,7 @@
     public abstract class SingletonBase<T> : IDisposable
         where T : class
     {
-        private bool IsDisposing; // To detect redundant calls
-
-        /// <summary>
-        /// A synchronization root that is commonly used for cross-thread operations.
-        /// </summary>
-        protected static readonly object SyncRoot = new object();
+        private bool _isDisposing; // To detect redundant calls
 
         /// <summary>
         /// The static, singleton instance reference.
@@ -22,14 +17,6 @@
         protected static readonly Lazy<T> LazyInstance = new Lazy<T>(
             valueFactory: () => Activator.CreateInstance(typeof(T), true) as T, 
             isThreadSafe: true);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SingletonBase{T}"/> class.
-        /// </summary>
-        protected SingletonBase()
-        {
-            // placeholder
-        }
 
         /// <summary>
         /// Disposes the internal singleton instance.
@@ -47,7 +34,7 @@
         /// <param name="disposeManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposeManaged)
         {
-            if (IsDisposing) return;
+            if (_isDisposing) return;
 
             // free managed resources
             if (LazyInstance != null)
@@ -63,7 +50,7 @@
                 }
             }
 
-            IsDisposing = true;
+            _isDisposing = true;
         }
 
         /// <summary>
