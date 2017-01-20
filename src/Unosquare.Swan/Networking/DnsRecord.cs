@@ -9,7 +9,6 @@
     /// </summary>
     public class DnsRecord
     {
-
         private DnsRecord()
         {
             // placeholder
@@ -89,7 +88,7 @@
         /// <summary>
         /// Gets the raw data of the record.
         /// </summary>
-        public byte[] Data { get; private set; }
+        public byte[] Data { get; }
 
         /// <summary>
         /// Gets the data text bytes in ASCII encoding.
@@ -143,8 +142,7 @@
         /// The name of the mail exchanger domain.
         /// </value>
         public string MailExchangerDomainName { get; private set; }
-
-
+        
         /// <summary>
         /// Gets the name of the soa master domain.
         /// </summary>

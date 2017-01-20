@@ -11,7 +11,7 @@
     {
         public abstract class DnsResourceRecordBase : IDnsResourceRecord
         {
-            private IDnsResourceRecord record;
+            private readonly IDnsResourceRecord record;
 
             public DnsResourceRecordBase(IDnsResourceRecord record)
             {
@@ -37,7 +37,8 @@
                 return record.ToArray();
             }
 
-            protected virtual string[] IncludedProperties => new string[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) };
+            protected virtual string[] IncludedProperties
+                => new string[] {nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength)};
 
             public override string ToString()
             {
@@ -47,22 +48,17 @@
 
         public class DnsResourceRecord : IDnsResourceRecord
         {
-            private DnsDomain domain;
-            private DnsRecordType type;
-            private DnsRecordClass klass;
-            private TimeSpan ttl;
-            private byte[] data;
-
             public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
             {
                 return GetAllFromArray(message, offset, count, out offset);
             }
 
-            public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count, out int endOffset)
+            public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count,
+                out int endOffset)
             {
                 IList<DnsResourceRecord> records = new List<DnsResourceRecord>(count);
 
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     records.Add(FromArray(message, offset, out offset));
                 }
@@ -81,7 +77,7 @@
                 var domain = DnsDomain.FromArray(message, offset, out offset);
                 var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
 
-                byte[] data = new byte[tail.DataLength];
+                var data = new byte[tail.DataLength];
 
                 offset += Tail.SIZE;
                 Array.Copy(message, offset, data, 0, data.Length);
@@ -91,49 +87,50 @@
                 return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
             }
 
-            public static DnsResourceRecord FromQuestion(DnsQuestion question, byte[] data, TimeSpan ttl = default(TimeSpan))
+            public static DnsResourceRecord FromQuestion(DnsQuestion question, byte[] data,
+                TimeSpan ttl = default(TimeSpan))
             {
                 return new DnsResourceRecord(question.Name, data, question.Type, question.Class, ttl);
             }
 
             public DnsResourceRecord(DnsDomain domain, byte[] data, DnsRecordType type,
-                    DnsRecordClass klass = DnsRecordClass.IN, TimeSpan ttl = default(TimeSpan))
+                DnsRecordClass klass = DnsRecordClass.IN, TimeSpan ttl = default(TimeSpan))
             {
-                this.domain = domain;
-                this.type = type;
-                this.klass = klass;
-                this.ttl = ttl;
-                this.data = data;
+                Name = domain;
+                Type = type;
+                Class = klass;
+                TimeToLive = ttl;
+                Data = data;
             }
 
-            public DnsDomain Name => domain;
+            public DnsDomain Name { get; }
 
-            public DnsRecordType Type => type;
+            public DnsRecordType Type { get; }
 
-            public DnsRecordClass Class => klass;
+            public DnsRecordClass Class { get; }
 
-            public TimeSpan TimeToLive => ttl;
+            public TimeSpan TimeToLive { get; }
 
-            public int DataLength => data.Length;
+            public int DataLength => Data.Length;
 
-            public byte[] Data => data;
+            public byte[] Data { get; }
 
-            public int Size => domain.Size + Tail.SIZE + data.Length;
+            public int Size => Name.Size + Tail.SIZE + Data.Length;
 
             public byte[] ToArray()
             {
                 var result = new MemoryStream(Size);
 
                 result
-                    .Append(domain.ToArray())
+                    .Append(Name.ToArray())
                     .Append((new Tail()
                     {
                         Type = Type,
                         Class = Class,
-                        TimeToLive = ttl,
-                        DataLength = data.Length
+                        TimeToLive = TimeToLive,
+                        DataLength = Data.Length
                     }).ToBytes())
-                    .Append(data);
+                    .Append(Data);
 
                 return result.ToArray();
             }
@@ -157,26 +154,26 @@
 
                 public DnsRecordType Type
                 {
-                    get { return (DnsRecordType)type; }
-                    set { type = (ushort)value; }
+                    get { return (DnsRecordType) type; }
+                    set { type = (ushort) value; }
                 }
 
                 public DnsRecordClass Class
                 {
-                    get { return (DnsRecordClass)klass; }
-                    set { klass = (ushort)value; }
+                    get { return (DnsRecordClass) klass; }
+                    set { klass = (ushort) value; }
                 }
 
                 public TimeSpan TimeToLive
                 {
                     get { return TimeSpan.FromSeconds(ttl); }
-                    set { ttl = (uint)value.TotalSeconds; }
+                    set { ttl = (uint) value.TotalSeconds; }
                 }
 
                 public int DataLength
                 {
                     get { return dataLength; }
-                    set { dataLength = (ushort)value; }
+                    set { dataLength = (ushort) value; }
                 }
             }
         }
@@ -195,18 +192,13 @@
                 PointerDomainName = pointer;
             }
 
-            public DnsDomain PointerDomainName
-            {
-                get;
-                private set;
-            }
+            public DnsDomain PointerDomainName { get; private set; }
 
             protected override string[] IncludedProperties
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties);
-                    temp.Add(nameof(PointerDomainName));
+                    var temp = new List<string>(base.IncludedProperties) {nameof(PointerDomainName)};
                     return temp.ToArray();
                 }
             }
@@ -216,8 +208,8 @@
         {
             private static IDnsResourceRecord Create(DnsDomain domain, IPAddress ip, TimeSpan ttl)
             {
-                byte[] data = ip.GetAddressBytes();
-                DnsRecordType type = data.Length == 4 ? DnsRecordType.A : DnsRecordType.AAAA;
+                var data = ip.GetAddressBytes();
+                var type = data.Length == 4 ? DnsRecordType.A : DnsRecordType.AAAA;
 
                 return new DnsResourceRecord(domain, data, type, DnsRecordClass.IN, ttl);
             }
@@ -234,18 +226,13 @@
                 IPAddress = ip;
             }
 
-            public IPAddress IPAddress
-            {
-                get;
-                private set;
-            }
+            public IPAddress IPAddress { get; private set; }
 
             protected override string[] IncludedProperties
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties);
-                    temp.Add(nameof(IPAddress));
+                    var temp = new List<string>(base.IncludedProperties) {nameof(IPAddress)};
                     return temp.ToArray();
                 }
             }
@@ -265,18 +252,13 @@
                 NSDomainName = nsDomain;
             }
 
-            public DnsDomain NSDomainName
-            {
-                get;
-                private set;
-            }
+            public DnsDomain NSDomainName { get; private set; }
 
             protected override string[] IncludedProperties
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties);
-                    temp.Add(nameof(NSDomainName));
+                    var temp = new List<string>(base.IncludedProperties) {nameof(NSDomainName)};
                     return temp.ToArray();
                 }
             }
@@ -296,11 +278,7 @@
                 CanonicalDomainName = cname;
             }
 
-            public DnsDomain CanonicalDomainName
-            {
-                get;
-                private set;
-            }
+            public DnsDomain CanonicalDomainName { get; private set; }
 
             protected override string[] IncludedProperties
             {
@@ -318,8 +296,8 @@
 
             private static IDnsResourceRecord Create(DnsDomain domain, int preference, DnsDomain exchange, TimeSpan ttl)
             {
-                byte[] pref = BitConverter.GetBytes((ushort)preference);
-                byte[] data = new byte[pref.Length + exchange.Size];
+                var pref = BitConverter.GetBytes((ushort) preference);
+                var data = new byte[pref.Length + exchange.Size];
 
                 if (BitConverter.IsLittleEndian)
                 {
@@ -335,7 +313,7 @@
             public DnsMailExchangeResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
                 : base(record)
             {
-                byte[] preference = new byte[DnsMailExchangeResourceRecord.PREFERENCE_SIZE];
+                var preference = new byte[PREFERENCE_SIZE];
                 Array.Copy(message, dataOffset, preference, 0, preference.Length);
 
                 if (BitConverter.IsLittleEndian)
@@ -343,30 +321,23 @@
                     Array.Reverse(preference);
                 }
 
-                dataOffset += DnsMailExchangeResourceRecord.PREFERENCE_SIZE;
+                dataOffset += PREFERENCE_SIZE;
 
                 Preference = BitConverter.ToUInt16(preference, 0);
                 ExchangeDomainName = DnsDomain.FromArray(message, dataOffset);
             }
 
-            public DnsMailExchangeResourceRecord(DnsDomain domain, int preference, DnsDomain exchange, TimeSpan ttl = default(TimeSpan)) :
+            public DnsMailExchangeResourceRecord(DnsDomain domain, int preference, DnsDomain exchange,
+                TimeSpan ttl = default(TimeSpan)) :
                 base(Create(domain, preference, exchange, ttl))
             {
                 Preference = preference;
                 ExchangeDomainName = exchange;
             }
 
-            public int Preference
-            {
-                get;
-                private set;
-            }
+            public int Preference { get; private set; }
 
-            public DnsDomain ExchangeDomainName
-            {
-                get;
-                private set;
-            }
+            public DnsDomain ExchangeDomainName { get; private set; }
 
             protected override string[] IncludedProperties
             {
@@ -384,11 +355,12 @@
 
         public class DnsStartOfAuthorityResourceRecord : DnsResourceRecordBase
         {
-            private static IDnsResourceRecord Create(DnsDomain domain, DnsDomain master, DnsDomain responsible, long serial,
-                    TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl)
+            private static IDnsResourceRecord Create(DnsDomain domain, DnsDomain master, DnsDomain responsible,
+                long serial,
+                TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl)
             {
                 var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
-                Options tail = new Options()
+                var tail = new Options()
                 {
                     SerialNumber = serial,
                     RefreshInterval = refresh,
@@ -411,7 +383,7 @@
                 MasterDomainName = DnsDomain.FromArray(message, dataOffset, out dataOffset);
                 ResponsibleDomainName = DnsDomain.FromArray(message, dataOffset, out dataOffset);
 
-                Options tail = message.ToStruct<Options>(dataOffset, Options.SIZE);
+                var tail = message.ToStruct<Options>(dataOffset, Options.SIZE);
 
                 SerialNumber = tail.SerialNumber;
                 RefreshInterval = tail.RefreshInterval;
@@ -420,8 +392,9 @@
                 MinimumTimeToLive = tail.MinimumTimeToLive;
             }
 
-            public DnsStartOfAuthorityResourceRecord(DnsDomain domain, DnsDomain master, DnsDomain responsible, long serial,
-                    TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl = default(TimeSpan)) :
+            public DnsStartOfAuthorityResourceRecord(DnsDomain domain, DnsDomain master, DnsDomain responsible,
+                long serial,
+                TimeSpan refresh, TimeSpan retry, TimeSpan expire, TimeSpan minTtl, TimeSpan ttl = default(TimeSpan)) :
                 base(Create(domain, master, responsible, serial, refresh, retry, expire, minTtl, ttl))
             {
                 MasterDomainName = master;
@@ -435,52 +408,25 @@
             }
 
             public DnsStartOfAuthorityResourceRecord(DnsDomain domain, DnsDomain master, DnsDomain responsible,
-                    Options options = default(Options), TimeSpan ttl = default(TimeSpan)) :
+                Options options = default(Options), TimeSpan ttl = default(TimeSpan)) :
                 this(domain, master, responsible, options.SerialNumber, options.RefreshInterval, options.RetryInterval,
-                        options.ExpireInterval, options.MinimumTimeToLive, ttl)
-            { }
-
-            public DnsDomain MasterDomainName
+                    options.ExpireInterval, options.MinimumTimeToLive, ttl)
             {
-                get;
-                private set;
             }
 
-            public DnsDomain ResponsibleDomainName
-            {
-                get;
-                private set;
-            }
+            public DnsDomain MasterDomainName { get; private set; }
 
-            public long SerialNumber
-            {
-                get;
-                private set;
-            }
+            public DnsDomain ResponsibleDomainName { get; private set; }
 
-            public TimeSpan RefreshInterval
-            {
-                get;
-                private set;
-            }
+            public long SerialNumber { get; private set; }
 
-            public TimeSpan RetryInterval
-            {
-                get;
-                private set;
-            }
+            public TimeSpan RefreshInterval { get; private set; }
 
-            public TimeSpan ExpireInterval
-            {
-                get;
-                private set;
-            }
+            public TimeSpan RetryInterval { get; private set; }
 
-            public TimeSpan MinimumTimeToLive
-            {
-                get;
-                private set;
-            }
+            public TimeSpan ExpireInterval { get; private set; }
+
+            public TimeSpan MinimumTimeToLive { get; private set; }
 
             protected override string[] IncludedProperties
             {
@@ -511,31 +457,31 @@
                 public long SerialNumber
                 {
                     get { return serialNumber; }
-                    set { serialNumber = (uint)value; }
+                    set { serialNumber = (uint) value; }
                 }
 
                 public TimeSpan RefreshInterval
                 {
                     get { return TimeSpan.FromSeconds(refreshInterval); }
-                    set { refreshInterval = (uint)value.TotalSeconds; }
+                    set { refreshInterval = (uint) value.TotalSeconds; }
                 }
 
                 public TimeSpan RetryInterval
                 {
                     get { return TimeSpan.FromSeconds(retryInterval); }
-                    set { retryInterval = (uint)value.TotalSeconds; }
+                    set { retryInterval = (uint) value.TotalSeconds; }
                 }
 
                 public TimeSpan ExpireInterval
                 {
                     get { return TimeSpan.FromSeconds(expireInterval); }
-                    set { expireInterval = (uint)value.TotalSeconds; }
+                    set { expireInterval = (uint) value.TotalSeconds; }
                 }
 
                 public TimeSpan MinimumTimeToLive
                 {
                     get { return TimeSpan.FromSeconds(ttl); }
-                    set { ttl = (uint)value.TotalSeconds; }
+                    set { ttl = (uint) value.TotalSeconds; }
                 }
             }
         }
@@ -547,11 +493,12 @@
                 return GetAllFromArray(message, offset, count, out offset);
             }
 
-            public static IList<IDnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count, out int endOffset)
+            public static IList<IDnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count,
+                out int endOffset)
             {
                 var result = new List<IDnsResourceRecord>(count);
 
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     result.Add(FromArray(message, offset, out offset));
                 }

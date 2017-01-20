@@ -14,13 +14,12 @@
     {
         public class DnsClientRequest : IDnsRequest
         {
-            private IPEndPoint dns;
-            private IDnsRequestResolver resolver;
-            private IDnsRequest request;
+            private readonly IDnsRequestResolver resolver;
+            private readonly IDnsRequest request;
 
             public DnsClientRequest(IPEndPoint dns, IDnsRequest request = null, IDnsRequestResolver resolver = null)
             {
-                this.dns = dns;
+                this.Dns = dns;
                 this.request = request == null ? new DnsRequest() : new DnsRequest(request);
                 this.resolver = resolver ?? new DnsUdpRequestResolver();
             }
@@ -65,11 +64,7 @@
                 return request.ToString();
             }
 
-            public IPEndPoint Dns
-            {
-                get { return dns; }
-                set { dns = value; }
-            }
+            public IPEndPoint Dns { get; set; }
 
             /// <summary>
             /// Resolves this request into a response using the provided DNS information. The given
@@ -107,7 +102,7 @@
         {
             private static readonly Random RANDOM = new Random();
 
-            private IList<DnsQuestion> questions;
+            private readonly IList<DnsQuestion> questions;
             private DnsHeader header;
 
             public static DnsRequest FromArray(byte[] message)
@@ -268,7 +263,7 @@
 
         public class DnsUdpRequestResolver : IDnsRequestResolver
         {
-            private IDnsRequestResolver fallback;
+            private readonly IDnsRequestResolver fallback;
 
             public DnsUdpRequestResolver(IDnsRequestResolver fallback)
             {
@@ -519,7 +514,7 @@
 
         public class DnsDomain : IComparable<DnsDomain>
         {
-            private string[] labels;
+            private readonly string[] labels;
 
             public static DnsDomain FromString(string domain)
             {
@@ -696,9 +691,9 @@
                 return new DnsQuestion(domain, tail.Type, tail.Class);
             }
 
-            private DnsDomain domain;
-            private DnsRecordType type;
-            private DnsRecordClass klass;
+            private readonly DnsDomain domain;
+            private readonly DnsRecordType type;
+            private readonly DnsRecordClass klass;
 
             public DnsQuestion(DnsDomain domain, DnsRecordType type = DnsRecordType.A, DnsRecordClass klass = DnsRecordClass.IN)
             {
