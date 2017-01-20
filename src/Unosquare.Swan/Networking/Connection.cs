@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Net.Security;
     using System.Net.Sockets;
@@ -300,56 +301,6 @@
         #region Continuous Read Methods
 
         /// <summary>
-        /// Splits a given byte array.
-        /// </summary>
-        /// <param name="sourceArray">The source array.</param>
-        /// <param name="length">The length.</param>
-        /// <param name="splitSequence">The split sequence.</param>
-        /// <returns></returns>
-        private static List<Tuple<byte[], bool>> SplitByteArray(byte[] sourceArray, int length, byte[] splitSequence)
-        {
-            var result = new List<Tuple<byte[], bool>>();
-            var lastSectionIndex = -1;
-
-            for (var i = splitSequence.Length - 1; i < length; i++)
-            {
-                var matchesSequence = true;
-                var sequenceIndex = -1;
-
-                for (var offset = -splitSequence.Length + 1; offset <= 0; offset++)
-                {
-                    sequenceIndex++;
-                    if (sourceArray[i + offset] != splitSequence[sequenceIndex])
-                    {
-                        matchesSequence = false;
-                        break;
-                    }
-                }
-
-                if (matchesSequence == false)
-                    continue;
-
-                var arraySection = new byte[i - lastSectionIndex];
-                Array.Copy(sourceArray, lastSectionIndex + 1, arraySection, 0, arraySection.Length);
-                result.Add(new Tuple<byte[], bool>(arraySection, true));
-                lastSectionIndex = i;
-            }
-
-            {
-                var lastSequenceLength = length - (lastSectionIndex + 1);
-                if (lastSequenceLength > 0)
-                {
-                    var arraySection = new byte[lastSequenceLength];
-                    Array.Copy(sourceArray, lastSectionIndex + 1, arraySection, 0, arraySection.Length);
-                    result.Add(new Tuple<byte[], bool>(arraySection, false));
-                }
-            }
-
-
-            return result;
-        }
-
-        /// <summary>
         /// Raises the receive buffer events.
         /// </summary>
         /// <param name="receivedData">The received data.</param>
@@ -388,9 +339,13 @@
                 }
             }
 
+            // Check if we are left with some more stuff to handle
+            if (ReceiveBufferPointer <= 0)
+                return;
 
             // Extract the segments split by newline terminated bytes
-            var sequences = SplitByteArray(ReceiveBuffer, ReceiveBufferPointer, NewLineSequenceBytes);
+            var sequences = ReceiveBuffer.Skip(0).Take(ReceiveBufferPointer).ToArray()
+                    .Split(0, NewLineSequenceBytes);
 
             // Something really wrong happened
             if (sequences.Count == 0)
@@ -398,7 +353,7 @@
 
             // We only have one sequence and it is not newline-terminated
             // we don't have to do anything.
-            if (sequences.Count == 1 && sequences[0].Item2 == false)
+            if (sequences.Count == 1 && sequences[0].EndsWith(NewLineSequenceBytes) == false)
                 return;
 
             //Log.Trace(" > > > Showing sequences: ");
@@ -406,8 +361,8 @@
             // Process the events for each sequence
             for (var i = 0; i < sequences.Count; i++)
             {
-                var sequenceBytes = sequences[i].Item1;
-                var isNewLineTerminated = sequences[i].Item2;
+                var sequenceBytes = sequences[i];
+                var isNewLineTerminated = sequences[i].EndsWith(NewLineSequenceBytes);
                 var isLast = i == sequences.Count - 1;
 
                 //Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");

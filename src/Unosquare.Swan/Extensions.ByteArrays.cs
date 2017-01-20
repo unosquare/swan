@@ -127,6 +127,180 @@
         }
 
         /// <summary>
+        /// Splits a byte array delimited by the specified sequence of bytes.
+        /// Each individual element in the result will contain the split sequence terminator if it is found to be delimited by it.
+        /// For example if you split [1,2,3,4] by a sequence of [2,3] this method will return a list with 2 byte arrays, one containing [1,2,3] and the
+        /// second one containing 4. Use the Trim extension methods to remove terminator sequences.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset at which to start splitting bytes. Any bytes befor this will be discarded.</param>
+        /// <param name="sequence">The sequence.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// buffer
+        /// or
+        /// sequence
+        /// </exception>
+        public static List<byte[]> Split(this byte[] buffer, int offset, params byte[] sequence)
+        {
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
+            offset = offset.Clamp(0, buffer.Length - 1);
+
+            var result = new List<byte[]>();
+
+            while (offset < buffer.Length)
+            {
+                var separatorStartIndex = buffer.GetIndexOf(sequence, offset);
+
+                if (separatorStartIndex >= 0)
+                {
+                    var item = new byte[separatorStartIndex - offset + sequence.Length];
+                    Array.Copy(buffer, offset, item, 0, item.Length);
+                    result.Add(item);
+                    offset += item.Length;
+                }
+                else
+                {
+                    var item = new byte[buffer.Length - offset];
+                    Array.Copy(buffer, offset, item, 0, item.Length);
+                    result.Add(item);
+                    break;
+                }
+
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Colones the specified buffer, byte by byte
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <returns></returns>
+        public static byte[] DeepClone(this byte[] buffer)
+        {
+            if (buffer == null) return null;
+            var result = new byte[buffer.Length];
+            Array.Copy(buffer, result, buffer.Length);
+            return result;
+        }
+
+        /// <summary>
+        /// Removes the specified sequence from the start of the buffer if the buffer begins with such sequence
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
+        {
+            if (buffer.StartsWith(sequence) == false) return buffer.DeepClone();
+            var result = new byte[buffer.Length - sequence.Length];
+            Array.Copy(buffer, sequence.Length, result, 0, result.Length);
+            return result;
+        }
+
+        /// <summary>
+        /// Removes the specified sequence from the end of the buffer if the buffer ends with such sequence
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        /// <returns></returns>
+        public static byte[] TrimEnd(this byte[] buffer, params byte[] sequence)
+        {
+            if (buffer.EndsWith(sequence) == false) return buffer.DeepClone();
+            var result = new byte[buffer.Length - sequence.Length];
+            Array.Copy(buffer, 0, result, 0, result.Length);
+            return result;
+        }
+
+        /// <summary>
+        /// Removes the specified sequence from the end and the start of the buffer 
+        /// if the buffer ends and/or starts with such sequence
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        /// <returns></returns>
+        public static byte[] Trim(this byte[] buffer, params byte[] sequence)
+        {
+            var trimStart = buffer.TrimStart(sequence);
+            return trimStart.TrimEnd(sequence);
+        }
+
+        /// <summary>
+        /// Determines if the specified buffer ends with the given sequence of bytes
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        /// <returns></returns>
+        public static bool EndsWith(this byte[] buffer, params byte[] sequence)
+        {
+            var startIndex = buffer.Length - sequence.Length;
+            return buffer.GetIndexOf(sequence, startIndex) == startIndex;
+        }
+
+        /// <summary>
+        /// Determines if the specified buffer starts with the given sequence of bytes
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        /// <returns></returns>
+        public static bool StartsWith(this byte[] buffer, params byte[] sequence)
+        {
+            return buffer.GetIndexOf(sequence, 0) == 0;
+        }
+
+        /// <summary>
+        /// Determines whether the buffer contains the specified sequence
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        public static bool Contains(this byte[] buffer, params byte[] sequence)
+        {
+            return buffer.GetIndexOf(sequence, 0) >= 0;
+        }
+
+        /// <summary>
+        /// Determines whether the buffer exactly matches, byte by byte the specified sequence.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        public static bool IsEqualTo(this byte[] buffer, params byte[] sequence)
+        {
+            if (ReferenceEquals(buffer, sequence)) return true;
+            return buffer.Length == sequence.Length && buffer.GetIndexOf(sequence, 0) == 0;
+        }
+
+        /// <summary>
+        /// Returns the first instance of the matched sequence based on the given offset.
+        /// If nomatches are found then this method returns -1
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="sequence">The sequence.</param>
+        /// <param name="offset">The offset.</param>
+        public static int GetIndexOf(this byte[] buffer, byte[] sequence, int offset = 0)
+        {
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
+            if (sequence.Length == 0) return -1;
+            if (sequence.Length > buffer.Length) return -1;
+            if (offset < 0) offset = 0;
+
+            var matchedCount = 0;
+            for (var i = offset; i < buffer.Length; i++)
+            {
+                if (buffer[i] == sequence[matchedCount])
+                    matchedCount++;
+                else
+                    matchedCount = 0;
+
+                if (matchedCount == sequence.Length)
+                    return i - (matchedCount - 1);
+            }
+
+            return -1;
+        }
+
+        /// <summary>
         /// Appends the Memory Stream with the specified buffer.
         /// </summary>
         /// <param name="stream">The stream.</param>

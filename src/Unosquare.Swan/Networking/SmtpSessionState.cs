@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.Swan.Networking
 {
-    using Formatters;
+    using Swan;
     using System.Collections.Generic;
 
     /// <summary>
@@ -154,19 +154,16 @@
         /// <summary>
         /// Creates a new object that is a copy of the current instance.
         /// </summary>
-        public virtual object Clone()
+        public virtual SmtpSessionState Clone()
         {
-            var jsonData = Json.Serialize(this);
+            // TODO: Use a binary formatter or something similar when it comes out in .net core/standard
+            var result = new SmtpSessionState();
+            this.CopyPropertiesTo(result);
 
-            return Json.Deserialize<SmtpSessionState>(jsonData);
-        }
+            result.Recipients.AddRange(Recipients);
+            result.DataBuffer.AddRange(DataBuffer);
 
-        /// <summary>
-        /// Simply calls the Clone method but returns a typed instance of the new object.
-        /// </summary>
-        public virtual SmtpSessionState CreateClone()
-        {
-            return Clone() as SmtpSessionState;
+            return result;
         }
 
         #endregion
