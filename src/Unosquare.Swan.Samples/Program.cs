@@ -17,10 +17,11 @@
         {            
             TestApplicationInfo();
             // TestNetworkUtilities();
-            TestContainerAndMessageHub();
-            TestJson();
-            TestExceptionLogging();
-            TestTerminalOutputs();
+            //TestContainerAndMessageHub();
+            //TestJson();
+            //TestExceptionLogging();
+            //TestTerminalOutputs();
+            TestFastOutputAndReadPrompt();
             // TestCsvFormatters();
             Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
@@ -102,6 +103,23 @@
 
             Runtime.Messages.Subscribe<SampleMessage>((m) => { $"Received the following message from '{m.Sender}': '{m.Content}'".Trace(); });
             Runtime.Messages.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
+        }
+
+        static void TestFastOutputAndReadPrompt()
+        {
+            int limit = Console.BufferHeight;
+            for (var i = 0; i < limit; i++)
+            {
+                $"Output info {i} ({((decimal)i / limit):P})".Info(typeof(Program));
+            }
+
+            Dictionary<ConsoleKey, string> SampleOptions = new Dictionary<ConsoleKey, string>
+            {
+                { ConsoleKey.A, "Sample A" },
+                { ConsoleKey.B, "Sample B" }
+            };
+
+            "Please provide an option".ReadPrompt(SampleOptions, "Exit this program");
         }
 
         static void TestTerminalOutputs()

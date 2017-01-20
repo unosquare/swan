@@ -295,17 +295,21 @@
             get
             {
                 if (IsConsolePresent == false) return -1;
-                OutputDone.Wait();
-                InputDone.Reset();
-                try { return Console.CursorLeft; } finally { InputDone.Set(); }
+                lock (SyncLock)
+                {
+                    Flush();
+                    return Console.CursorLeft;
+                }
+
             }
             set
             {
                 if (IsConsolePresent == false) return;
-
-                OutputDone.Wait();
-                InputDone.Reset();
-                try { Console.CursorLeft = value; } finally { InputDone.Set(); }
+                lock (SyncLock)
+                {
+                    Flush();
+                    Console.CursorLeft = value;
+                }
             }
         }
 
@@ -320,17 +324,21 @@
             get
             {
                 if (IsConsolePresent == false) return -1;
-                OutputDone.Wait();
-                InputDone.Reset();
-                try { return Console.CursorTop; } finally { InputDone.Set(); }
+                lock (SyncLock)
+                {
+                    Flush();
+                    return Console.CursorTop;
+                }
             }
             set
             {
                 if (IsConsolePresent == false) return;
 
-                OutputDone.Wait();
-                InputDone.Reset();
-                try { Console.CursorTop = value; } finally { InputDone.Set(); }
+                lock (SyncLock)
+                {
+                    Flush();
+                    Console.CursorTop = value;
+                }
             }
         }
 
@@ -343,9 +351,11 @@
         {
             if (IsConsolePresent == false) return;
 
-            OutputDone.Wait();
-            InputDone.Reset();
-            try { Console.SetCursorPosition(left, top); } finally { InputDone.Set(); }
+            lock (SyncLock)
+            {
+                Flush();
+                Console.SetCursorPosition(left, top);
+            }
         }
 
         /// <summary>

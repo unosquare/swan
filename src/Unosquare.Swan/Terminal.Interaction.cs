@@ -19,18 +19,22 @@
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);
             if (disableLocking) return Console.ReadKey(intercept);
 
-            OutputDone.Wait();
-            InputDone.Reset();
-            try
+            lock (SyncLock)
             {
-                Console.CursorVisible = true;
-                return Console.ReadKey(intercept);
+                Flush();
+                InputDone.Reset();
+                try
+                {
+                    Console.CursorVisible = true;
+                    return Console.ReadKey(intercept);
+                }
+                finally
+                {
+                    Console.CursorVisible = false;
+                    InputDone.Set();
+                }
             }
-            finally
-            {
-                Console.CursorVisible = false;
-                InputDone.Set();
-            }
+
         }
 
         /// <summary>
@@ -42,14 +46,18 @@
         {
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);
 
-            if (prompt != null)
-                ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
-                    $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
+            lock (SyncLock)
+            {
+                if (prompt != null)
+                    ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
+                        $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
 
-            var input = ReadKey(true);
-            var echo = preventEcho ? string.Empty : input.Key.ToString();
-            echo.WriteLine();
-            return input;
+                var input = ReadKey(true);
+                var echo = preventEcho ? string.Empty : input.Key.ToString();
+                echo.WriteLine();
+                return input;
+            }
+
         }
 
         /// <summary>
@@ -73,18 +81,22 @@
         {
             if (IsConsolePresent == false) return default(string);
 
-            OutputDone.Wait();
-            InputDone.Reset();
-            try
+            lock (SyncLock)
             {
-                Console.CursorVisible = true;
-                return Console.ReadLine();
+                Flush();
+                InputDone.Reset();
+                try
+                {
+                    Console.CursorVisible = true;
+                    return Console.ReadLine();
+                }
+                finally
+                {
+                    Console.CursorVisible = false;
+                    InputDone.Set();
+                }
             }
-            finally
-            {
-                Console.CursorVisible = false;
-                InputDone.Set();
-            }
+
         }
 
         /// <summary>
@@ -97,15 +109,19 @@
         {
             if (IsConsolePresent == false) return defaultNumber;
 
-            $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
-            var input = ReadLine();
-            int parsedInt;
-            if (int.TryParse(input, out parsedInt) == false)
+            lock (SyncLock)
             {
-                parsedInt = defaultNumber;
+                $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
+                var input = ReadLine();
+                int parsedInt;
+                if (int.TryParse(input, out parsedInt) == false)
+                {
+                    parsedInt = defaultNumber;
+                }
+
+                return parsedInt;
             }
 
-            return parsedInt;
         }
 
         /// <summary>
@@ -119,10 +135,7 @@
         {
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);
 
-            int inputLeft;
-            int inputTop;
-
-            var textColor = ConsoleColor.White;
+            const ConsoleColor textColor = ConsoleColor.White;
             var lineLength = Console.BufferWidth;
             var lineAlign = -(lineLength - 2);
             var textFormat = "{0," + lineAlign + "}";
@@ -173,9 +186,7 @@
                     Table.Vertical();
                 }
 
-                inputLeft = Settings.UserOptionText.Length + 3;
-
-                { // Input
+                { // Input section
                     Table.LeftTee();
                     Table.Horizontal(lineLength - 2);
                     Table.RightTee();
@@ -183,7 +194,6 @@
                     Table.Vertical();
                     string.Format(textFormat,
                         Settings.UserOptionText).Write(ConsoleColor.Green);
-                    inputTop = CursorTop;
                     Table.Vertical();
 
                     Table.BottomLeft();
@@ -193,14 +203,13 @@
 
             }
 
-            var currentTop = CursorTop;
-            var currentLeft = CursorLeft;
+            var inputLeft = Settings.UserOptionText.Length + 3;
 
-            SetCursorPosition(inputLeft, inputTop);
+            SetCursorPosition(inputLeft, CursorTop - 2);
             var userInput = ReadKey(true);
             userInput.Key.ToString().Write(ConsoleColor.Gray);
 
-            SetCursorPosition(currentLeft, currentTop);
+            SetCursorPosition(0, CursorTop + 2);
             return userInput;
         }
 
