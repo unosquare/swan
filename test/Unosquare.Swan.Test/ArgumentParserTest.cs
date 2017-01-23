@@ -25,6 +25,28 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
+        public void CaseSensitiveArgsTest()
+        {
+            var options = new OptionMock();
+            var dumpArgs = new[] { "-N", "babu", "-V" };
+            var parser = new ArgumentParser(new ArgumentParserSettings { CaseSensitive = true });
+            var result = parser.ParseArguments(dumpArgs, options);
+
+            Assert.IsFalse(result, "Parsing is not valid");
+        }
+
+        [Test]
+        public void UnknwownArgsTest()
+        {
+            var options = new OptionMock();
+            var dumpArgs = new[] { "-XOR" };
+            var parser = new ArgumentParser(new ArgumentParserSettings { IgnoreUnknownArguments = false });
+            var result = parser.ParseArguments(dumpArgs, options);
+
+            Assert.IsFalse(result, "Argument is unknown");
+        }
+
+        [Test]
         public void EnumArgTest()
         {
             var options = new OptionMock();
@@ -32,7 +54,7 @@ namespace Unosquare.Swan.Test
 
             var newColor = ConsoleColor.White;
 
-            var dumpArgs = new[] { "--color", newColor.ToString().ToLowerInvariant() };
+            var dumpArgs = new[] { "-n", "babu", "--color", newColor.ToString().ToLowerInvariant() };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -46,7 +68,7 @@ namespace Unosquare.Swan.Test
             Assert.IsNull(options.Options);
             var collection = new[] { "ok","xor","zzz" };
 
-            var dumpArgs = new[] { "--options", string.Join(",", collection) };
+            var dumpArgs = new[] { "-n", "babu", "--options", string.Join(",", collection) };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);

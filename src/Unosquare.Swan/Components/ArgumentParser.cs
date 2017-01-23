@@ -58,6 +58,7 @@
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
 
             var unknownList = new List<string>();
+            var requiredList = new List<string>();
             var updatedList = new List<PropertyInfo>();
             var propertyName = string.Empty;
 
@@ -101,28 +102,49 @@
             }
 
             if (string.IsNullOrEmpty(propertyName) == false)
+            {
                 unknownList.Add(propertyName);
+            }
+            
+            foreach (var targetProperty in properties.Except(updatedList))
+            {
+                var defaultValue = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>()?.DefaultValue;
 
-            if (Settings.IgnoreUnknownArguments && unknownList.Any())
+                if (defaultValue == null)
+                    continue;
+
+                SetPropertyValue(targetProperty, defaultValue.ToString(), instance);
+            }
+
+            foreach (var targetProperty in properties)
+            {
+                var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
+
+                if (optionAttr == null || optionAttr.Required == false)
+                    continue;
+
+                if (targetProperty.GetValue(instance) == null)
+                {
+                    requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                }
+            }
+
+            if ((Settings.IgnoreUnknownArguments == false && unknownList.Any()) || requiredList.Any())
             {
                 if (Settings.WriteBanner)
                     Runtime.WriteWelcomeBanner();
 
                 WriteUsage(properties);
-                $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine();
+
+                if (unknownList.Any())
+                    $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine();
+
+                if (requiredList.Any())
+                    $"Required arguments: {string.Join(", ", requiredList)}".WriteLine();
 
                 return false;
             }
-
-            foreach (var targetProperty in properties.Except(updatedList))
-            {
-                var defaultValue = targetProperty.GetCustomAttribute< ArgumentOptionAttribute>()?.DefaultValue;
-
-                if (defaultValue == null) continue;
-
-                SetPropertyValue(targetProperty, defaultValue.ToString(), instance);
-            }
-
+            
             return true;
         }
 
@@ -196,11 +218,11 @@
             return false;
         }
 
-        private static PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)
+        private PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)
         {
             return properties.FirstOrDefault(p =>
-                    p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName == propertyName ||
-                    p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName == propertyName);
+                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName, propertyName, Settings.NameComparer) ||
+                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName, propertyName, Settings.NameComparer));
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)

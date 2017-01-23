@@ -8,7 +8,7 @@
     /// </summary>
     public class ArgumentParserSettings
     {
-        internal StringComparer NameComparer => CaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
+        internal StringComparison NameComparer => CaseSensitive ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
         /// <summary>
         /// Gets or sets a value indicating whether [write banner].
@@ -42,6 +42,6 @@
         /// This allows fragmented version class parsing, useful for project with add-on where add-ons also requires command line arguments but
         /// when these are unknown by the main program at build time.
         /// </remarks>
-        public bool IgnoreUnknownArguments { get; set; }
+        public bool IgnoreUnknownArguments { get; set; } = true;
     }
 }
