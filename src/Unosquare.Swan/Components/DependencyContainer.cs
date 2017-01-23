@@ -809,16 +809,11 @@ namespace Unosquare.Swan.Components
                                               select j.Key.FullName;
 
                 var fullNamesOfDuplicatedTypes = string.Join(",\n", queryForDuplicatedTypes.ToArray());
-                var multipleRegMessage = string.Format("types: The same implementation type cannot be specified multiple times for {0}\n\n{1}", registrationType.FullName, fullNamesOfDuplicatedTypes);
-                throw new ArgumentException(multipleRegMessage);
+                
+                throw new ArgumentException($"types: The same implementation type cannot be specified multiple times for {registrationType.FullName}\n\n{fullNamesOfDuplicatedTypes}");
             }
 
-            var registerOptions = new List<RegisterOptions>();
-
-            foreach (var type in implementationTypes)
-            {
-                registerOptions.Add(Register(registrationType, type, type.FullName));
-            }
+            var registerOptions = implementationTypes.Select(type => Register(registrationType, type, type.FullName)).ToList();
 
             return new MultiRegisterOptions(registerOptions);
         }

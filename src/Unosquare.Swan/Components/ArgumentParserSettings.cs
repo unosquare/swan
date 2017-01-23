@@ -8,6 +8,8 @@
     /// </summary>
     public class ArgumentParserSettings
     {
+        internal StringComparer NameComparer => CaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
+
         /// <summary>
         /// Gets or sets a value indicating whether [write banner].
         /// </summary>
@@ -41,13 +43,5 @@
         /// when these are unknown by the main program at build time.
         /// </remarks>
         public bool IgnoreUnknownArguments { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether enable double dash '--' syntax,
-        /// that forces parsing of all subsequent tokens as values.
-        /// </summary>
-        public bool EnableDashDash { get; set; }
-
-        internal StringComparer NameComparer => CaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
     }
 }

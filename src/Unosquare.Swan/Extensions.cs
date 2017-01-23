@@ -62,12 +62,9 @@
                 .Where(s => targetPropertyNames.Contains(s.Name.ToLowerInvariant()))
                 .ToArray();
 
-            var ignoredProperties = ignoreProperties == null ?
-                new string[] { } :
-                ignoreProperties
-                    .Where(p => string.IsNullOrWhiteSpace(p) == false)
-                    .Select(p => p.ToLowerInvariant())
-                    .ToArray();
+            var ignoredProperties = ignoreProperties?.Where(p => string.IsNullOrWhiteSpace(p) == false)
+                                        .Select(p => p.ToLowerInvariant())
+                                        .ToArray() ?? new string[] { };
 
             // Copy source properties
             foreach (var sourceProperty in filteredSourceProperties)

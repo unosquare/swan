@@ -23,7 +23,7 @@
 #else
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
-
+        
         private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
         private static readonly Lazy<Process> m_Process = new Lazy<Process>(Process.GetCurrentProcess);
         private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
@@ -45,6 +45,8 @@
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute);
             return attribute == null ? string.Empty : attribute.Trademark;
         });
+
+        private static readonly Lazy<ArgumentParser> _argumentParser = new Lazy<ArgumentParser>(() => new ArgumentParser());
 
         #endregion
 
@@ -210,6 +212,11 @@
         /// The implementation is based on TinyIoC Messenger
         /// </summary>
         public static MessageHub Messages => Container.Resolve<IMessageHub>() as MessageHub;
+
+        /// <summary>
+        /// Gets the singleton instance created with basic defaults.
+        /// </summary>
+        public static ArgumentParser ArgumentParser => _argumentParser.Value;
 
         #endregion
 

@@ -306,7 +306,7 @@
 
         private static string Format(IDnsResponse response)
         {
-            return string.Format("Invalid response received with code {0}", response.ResponseCode);
+            return $"Invalid response received with code {response.ResponseCode}";
         }
 
         internal IDnsResponse Response

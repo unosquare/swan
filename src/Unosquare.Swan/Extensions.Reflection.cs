@@ -53,19 +53,12 @@
                 if (_parameterTypes.Length != cacheKey._parameterTypes.Length)
                     return false;
 
-                for (var i = 0; i < _genericTypes.Length; ++i)
+                if (_genericTypes.Where((t, i) => t != cacheKey._genericTypes[i]).Any())
                 {
-                    if (_genericTypes[i] != cacheKey._genericTypes[i])
-                        return false;
+                    return false;
                 }
 
-                for (var i = 0; i < _parameterTypes.Length; ++i)
-                {
-                    if (_parameterTypes[i] != cacheKey._parameterTypes[i])
-                        return false;
-                }
-
-                return true;
+                return !_parameterTypes.Where((t, i) => t != cacheKey._parameterTypes[i]).Any();
             }
 
             public override int GetHashCode()
@@ -81,14 +74,11 @@
 
                     result = (result * 397) ^ _methodName.GetHashCode();
 
-                    for (var i = 0; i < _genericTypes.Length; ++i)
-                    {
-                        result = (result * 397) ^ _genericTypes[i].GetHashCode();
-                    }
+                    result = _genericTypes.Aggregate(result, (current, t) => (current*397) ^ t.GetHashCode());
 
                     for (var i = 0; i < _parameterTypes.Length; ++i)
                     {
-                        result = (result * 397) ^ _parameterTypes[i].GetHashCode();
+                        result = (result * 397) ^ i.GetHashCode();
                     }
 
                     return result;
@@ -140,10 +130,7 @@
         /// <returns></returns>
         public static object GetDefault(this Type type)
         {
-            if (type.IsValueType())
-                return Activator.CreateInstance(type);
-
-            return null;
+            return type.IsValueType() ? Activator.CreateInstance(type) : null;
         }
 
         /// <summary>
@@ -309,30 +296,7 @@
         {
             return type.GetTypeInfo().IsDefined(attributeType, inherit);
         }
-
-        /// <summary>
-        /// Determines whether the specified attribute type is defined.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="attributeType">Type of the attribute.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified attribute type is defined; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsDefined(this Type type, Type attributeType)
-        {
-            return type.GetTypeInfo().IsDefined(attributeType);
-        }
-
-        /// <summary>
-        /// Gets the custom attributes.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
-        public static Attribute[] GetCustomAttributes(this Type type)
-        {
-            return type.GetTypeInfo().GetCustomAttributes().ToArray();
-        }
-
+        
         /// <summary>
         /// Gets the custom attributes.
         /// </summary>

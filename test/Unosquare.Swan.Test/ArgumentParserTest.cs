@@ -16,11 +16,12 @@ namespace Unosquare.Swan.Test
             Assert.IsFalse(options.Verbose);
 
             var dumpArgs = new[] { "-n", "babu", "--verbose" };
-            var result = ArgumentParser.Default.ParseArguments(dumpArgs, options);
+            var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.IsTrue(options.Verbose);
             Assert.AreEqual(dumpArgs[1], options.Username);
+            Assert.AreEqual(ConsoleColor.Red, options.BgColor, "Default color");
         }
 
         [Test]
@@ -32,7 +33,7 @@ namespace Unosquare.Swan.Test
             var newColor = ConsoleColor.White;
 
             var dumpArgs = new[] { "--color", newColor.ToString().ToLowerInvariant() };
-            var result = ArgumentParser.Default.ParseArguments(dumpArgs, options);
+            var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.AreEqual(newColor, options.BgColor);
@@ -46,7 +47,7 @@ namespace Unosquare.Swan.Test
             var collection = new[] { "ok","xor","zzz" };
 
             var dumpArgs = new[] { "--options", string.Join(",", collection) };
-            var result = ArgumentParser.Default.ParseArguments(dumpArgs, options);
+            var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.IsNotNull(options.Options);

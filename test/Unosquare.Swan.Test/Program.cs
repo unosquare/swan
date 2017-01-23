@@ -16,26 +16,23 @@ namespace Unosquare.Swan.Test
                 // create an image attachment for the file located at path
                 var attachment = new MimePart("image", "png")
                 {
-                    ContentObject = new ContentObject(File.OpenRead("c:\\ESD\\da.png"), ContentEncoding.Default),
+                    ContentObject = new ContentObject(File.OpenRead("c:\\ESD\\aada.png")),
                     ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                     ContentTransferEncoding = ContentEncoding.Base64,
                     FileName = "da.png"
                 };
 
-                // now create the multipart/mixed container to hold the message text and the
-                // image attachment
-                var multipart = new Multipart("mixed");
-                multipart.Add(new TextPart("plain")
-                {
-                    Text = "This is super cool!\r\nAnd this is more message content. Content <EOF>"
-                });
-                multipart.Add(attachment);
-
                 var sampleMailMessage = new MimeMessage
                 {
                     Subject = "MailerIO relay testing",
-                    // MimeKit doesn't escape correctly \r\n.\r\n
-                    Body = multipart
+                    Body = new Multipart("mixed")
+                    {
+                        new TextPart("plain")
+                        {
+                            Text = "This is super cool!\r\nAnd this is more message content. Content <EOF>"
+                        },
+                        attachment
+                    }
                 };
 
                 sampleMailMessage.From.Add(new MailboxAddress("Sender Name", "timecore@unosquare.net"));
@@ -69,9 +66,9 @@ namespace Unosquare.Swan.Test
                 //                {
                 //                    Credentials = new NetworkCredential("timecore", "givemethemoney"),
                 //                    EnableSsl = false
-                //                }.Send(message);
+                //                }.Send(message); "unocorp-svc-01.ad.unosquare.com"
                 //#else
-                var relay = new SmtpClient("localhost", 587)
+                var relay = new SmtpClient("unocorp-svc-01.ad.unosquare.com", 587)
                 {
                     Credentials = new NetworkCredential("timecore", "givemethemoney"),
                     EnableSsl = false
