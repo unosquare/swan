@@ -19,4 +19,4 @@ install:
   - dotnet restore
 script:
   - dotnet build ./src/Unosquare.Swan -f netstandard1.6
-  - dotnet test ./test/Unosquare.Swan.Test -f netstandard1.6
+  - dotnet test ./test/Unosquare.Swan.Test -f netcoreapp1.1
