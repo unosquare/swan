@@ -198,8 +198,9 @@
                         var targetProperties = RetrieveProperties(targetType); //.Where(p => p.CanWrite);
                         foreach (var targetProperty in targetProperties)
                         {
-                            var sourcePropertyValue = sourceProperties.ContainsKey(targetProperty.Name)
-                                ? sourceProperties[targetProperty.Name]
+                            var targetPropertyName = targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? targetProperty.Name;
+                            var sourcePropertyValue = sourceProperties.ContainsKey(targetPropertyName)
+                                ? sourceProperties[targetPropertyName]
                                 : null;
 
                             if (sourcePropertyValue == null) continue;
@@ -366,6 +367,13 @@
         {
             if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
                 throw new ArgumentException("You need to provide an object or array", nameof(obj));
+
+            var excludedByAttr = obj?.GetType().GetTypeInfo().GetProperties().Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name);
+
+            if (excludedByAttr?.Any() == true)
+            {
+                excludedNames = excludedNames == null ? excludedByAttr.ToArray() : excludedByAttr.Intersect(excludedNames).ToArray();
+            }
 
             return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, null);
         }
