@@ -263,5 +263,14 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(objDeserialized);
             Assert.AreEqual(obj.Date, objDeserialized.Date);
         }
+
+        [Test]
+        public void SerializeWithJsonPropertyTest()
+        {
+            var obj = new JsonPropertySample() { Data = "OK" };
+            var data = Json.Serialize(obj);
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{\"data\": \"OK\"}", data);
+        }
     }
 }

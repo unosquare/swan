@@ -6,7 +6,7 @@ namespace Unosquare.Swan
     /// An attribute used to help conversion structs back and forth into arrays of bytes via
     /// extension methods included in this library ToStruct and ToBytes.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
+    /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct)]
     public class StructEndiannessAttribute : Attribute
     {
@@ -131,5 +131,27 @@ namespace Unosquare.Swan
         /// Gets or sets a short description of this command line option. Usually a sentence summary.
         /// </summary>
         public string HelpText { get; set; }
+    }
+
+    /// <summary>
+    /// An attribute used to help setup a property behavior when serialize/deserialize JSON.
+    /// </summary>
+    /// <seealso cref="Attribute" />
+    [AttributeUsage(AttributeTargets.Property)]
+    public sealed class JsonPropertyAttribute : Attribute
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPropertyAttribute"/> class.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        public JsonPropertyAttribute(string propertyName)
+        {
+            PropertyName = propertyName;
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the property.
+        /// </summary>
+        public string PropertyName { get; set; }
     }
 }

@@ -59,4 +59,10 @@ namespace Unosquare.Swan.Test.Mocks
     {
         public DateTime? Date { get; set; }
     }
+
+    public class JsonPropertySample
+    {
+        [JsonProperty("data")]
+        public string Data { get; set; }
+    }
 }

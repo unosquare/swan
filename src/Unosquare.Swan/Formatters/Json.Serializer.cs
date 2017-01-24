@@ -252,7 +252,7 @@
                         // Note: used to be: property.GetValue(target); but we would be reading private properties
                         try
                         {
-                            objectDictionary[property.Name] = property.GetGetMethod(includeNonPublic)?
+                            objectDictionary[property.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? property.Name] = property.GetGetMethod(includeNonPublic)?
                                 .Invoke(target, null);
                         }
                         catch// (Exception ex)
