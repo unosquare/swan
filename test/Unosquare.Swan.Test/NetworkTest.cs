@@ -17,6 +17,9 @@ namespace Unosquare.Swan.Test
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
             Assert.IsNotNull(googleDnsIPAddresses);
 
+            var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
+            Assert.IsNotNull(googleDnsIPAddressesWithFinalDot);
+
             var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
             Assert.IsNotNull(targetIP);
 

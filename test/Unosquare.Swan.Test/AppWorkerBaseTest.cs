@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
-using Unosquare.Swan.Abstractions;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -9,45 +8,39 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class AppWorkerBaseTest
     {
-        private AppWorkerMock mock;
-
-        [SetUp]
-        public void Setup()
-        {
-            mock = new AppWorkerMock();
-        }
-
         [Test]
         public void CanStartAndStopTest()
         {
+            var mock = new AppWorkerMock();
+            var exit = false;
+            mock.OnExit = () => exit = true;
             Assert.AreEqual(AppWorkerState.Stopped, mock.State);
             mock.Start();
+            Task.Delay(TimeSpan.FromMilliseconds(100)).Wait();
+
+            Assert.IsTrue(mock.IsBusy, "Worker is busy");
             Assert.AreEqual(AppWorkerState.Running, mock.State);
             mock.Stop();
             Assert.AreEqual(AppWorkerState.Stopped, mock.State);
-            Assert.IsTrue(mock.ExitBecauseCancellation);
-        }
-        
-        [Test]
-        public async Task IsBusyTest()
-        {
-            mock.Start();
-            await Task.Delay(TimeSpan.FromMilliseconds(100));
-            Assert.IsTrue(mock.IsBusy);
+
+            Assert.IsTrue(mock.ExitBecauseCancellation, "Exit because cancellation");
+            Assert.IsTrue(exit, "Exit event was fired");
         }
 
         [Test]
         public async Task WorkingTest()
         {
+            var mock = new AppWorkerMock();
             mock.Start();
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromMilliseconds(600));
             Assert.GreaterOrEqual(mock.Count, 5);
         }
-        
+
         [Test]
         public async Task AppWorkerExceptionTest()
         {
+            var mock = new AppWorkerMock();
             mock.Start();
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromSeconds(1));
@@ -58,18 +51,9 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void OnExitTest()
-        {
-            var exit = false;
-            mock.OnExit = () => exit = true;
-            mock.Start();
-            mock.Stop();
-            Assert.IsTrue(exit);
-        }
-
-        [Test]
         public void OnStateChangedTest()
         {
+            var mock = new AppWorkerMock();
             var start = false;
             var stop = false;
 
@@ -83,13 +67,6 @@ namespace Unosquare.Swan.Test
             mock.Stop();
             Assert.IsTrue(start);
             Assert.IsTrue(stop);
-        }
-        
-        [TearDown]
-        public void Kill()
-        {
-            if (mock?.State == AppWorkerState.Running)
-                mock.Stop();
         }
     }
 }

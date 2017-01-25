@@ -5,16 +5,15 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// A base implementation of an Application service containing a worker thread that performs background processing.
+    /// A base implementation of an Application service containing a worker task that performs background processing.
     /// </summary>
     public abstract class AppWorkerBase
     {
         #region Property Backing
-
-        private Thread WorkerThread;
+        
         private AppWorkerState WorkerState = AppWorkerState.Stopped;
         private readonly object SyncLock = new object();
-        private volatile bool HasDisposed;
+        private CancellationTokenSource TokenSource;
 
         /// <summary>
         /// Occurs when [state changed].
@@ -31,7 +30,6 @@
         protected AppWorkerBase()
         {
             State = AppWorkerState.Stopped;
-            CancellationPending = false;
             IsBusy = false;
         }
 
@@ -40,20 +38,19 @@
         #region Abstract and Virtual Methods
 
         /// <summary>
-        /// Creates the worker thread.
+        /// Creates the worker task.
         /// </summary>
         /// <exception cref="InvalidOperationException">Worker Thread seems to be still running.</exception>
-        private void CreateWorkerThread()
+        private void CreateWorker()
         {
-            if (WorkerThread != null)
+            TokenSource = new CancellationTokenSource();
+            TokenSource.Token.Register(() =>
             {
-                if (WorkerThread.IsAlive)
-                    throw new InvalidOperationException("Worker Thread seems to be still running.");
+                IsBusy = false;
+                OnWorkerThreadExit();
+            });
 
-                WorkerThread = null;
-            }
-
-            WorkerThread = new Thread(() =>
+            Task.Factory.StartNew(() =>
                 {
                     IsBusy = true;
 
@@ -61,57 +58,32 @@
                     {
                         WorkerThreadLoop();
                     }
+                    catch (AggregateException)
+                    {
+                        // Ignored
+                    }
                     catch (Exception ex)
                     {
-                        ex.Log(GetType());
+                        ex.Log(GetType().Name);
                         OnWorkerThreadLoopException(ex);
-                    }
-                    finally
-                    {
-                        OnWorkerThreadExit();
 
-                        State = AppWorkerState.Stopped;
-                        CancellationPending = false;
-                        IsBusy = false;
+                        if (TokenSource.IsCancellationRequested == false)
+                            TokenSource.Cancel();
                     }
-                })
-                {IsBackground = true};
-
+                }, TokenSource.Token);
         }
 
         /// <summary>
         /// Called when an unhandled exception is thrown.
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual void OnWorkerThreadLoopException(Exception ex)
-        {
-            "Service exception detected.".Debug(GetType(), ex);
-        }
+        protected virtual void OnWorkerThreadLoopException(Exception ex) => "Service exception detected.".Debug(GetType().Name, ex);
 
         /// <summary>
         /// This method is called when the user loop has exited
         /// </summary>
-        protected virtual void OnWorkerThreadExit()
-        {
-            "Service thread is stopping.".Debug(GetType());
-        }
-
-        /// <summary>
-        /// Make the calling thread sleep in short intervals for the requested timespan.
-        /// If Cancellation is requested, then it immediately returns.
-        /// </summary>
-        /// <param name="t">The t.</param>
-        protected async void WaitForTimeout(TimeSpan t)
-        {
-            var timeoutDate = DateTime.UtcNow.Add(t);
-            while (DateTime.UtcNow < timeoutDate)
-            {
-                if (CancellationPending) return;
-
-                await Task.Delay(TimeSpan.FromMilliseconds(300));
-            }
-        }
-
+        protected virtual void OnWorkerThreadExit() => "Service thread is stopping.".Debug(GetType().Name);
+        
         /// <summary>
         /// Implement this method as a loop that checks whether CancellationPending has been set to true
         /// If so, immediately exit the loop.
@@ -135,7 +107,7 @@
                 {
                     if (value == WorkerState) return;
 
-                    $"Service state changing from {State} to {value}".Debug(GetType());
+                    $"Service state changing from {State} to {value}".Debug(GetType().Name);
                     var newState = value;
                     var oldState = WorkerState;
                     WorkerState = value;
@@ -148,7 +120,13 @@
         /// <summary>
         /// Gets a value indicating whether the user loop is pending cancellation.
         /// </summary>
-        public bool CancellationPending { get; private set; }
+        [Obsolete("Use the CancellationToken property")]
+        public bool CancellationPending => TokenSource?.IsCancellationRequested ?? false;
+
+        /// <summary>
+        /// Gets the cancellation token.
+        /// </summary>
+        public CancellationToken CancellationToken => TokenSource?.Token ?? default(CancellationToken);
 
         /// <summary>
         /// Gets a value indicating whether the thread is busy
@@ -180,8 +158,7 @@
             if (State != AppWorkerState.Stopped)
                 throw new InvalidOperationException("Service cannot be started because it seems to be currently running");
 
-            CreateWorkerThread();
-            WorkerThread.Start();
+            CreateWorker();
             State = AppWorkerState.Running;
         }
 
@@ -193,43 +170,10 @@
         {
             if (State != AppWorkerState.Running) return;
 
-            "Service stop requested.".Debug(GetType());
-            CancellationPending = true;
-            WorkerThread.Join();
-            IsBusy = false;
+            TokenSource?.Cancel();
+            "Service stop requested.".Debug(GetType().Name);
+            State = AppWorkerState.Stopped;
         }
-
-        #endregion
-
-        #region IDisposable Support
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool isDisposing)
-        {
-            if (HasDisposed) return;
-
-            if (isDisposing)
-            {
-                "Service disposing.".Debug(GetType());
-
-#if NET452
-                if (WorkerThread?.IsAlive == true)
-                    WorkerThread.Abort();
-#endif
-
-                WorkerThread = null;
-            }
-
-            HasDisposed = true;
-        }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose() => Dispose(true);
 
         #endregion
     }

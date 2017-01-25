@@ -148,11 +148,12 @@
         /// Gets the public IP address using ipify.org.
         /// </summary>
         /// <returns></returns>
-        public static async Task<IPAddress> GetPublicIPAddressAsync()
+        public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken ct = default(CancellationToken))
         {
             using (var client = new HttpClient())
             {
-                return IPAddress.Parse(await client.GetStringAsync("https://api.ipify.org"));
+                var response = await client.GetAsync("https://api.ipify.org", ct);
+                return IPAddress.Parse(await response.Content.ReadAsStringAsync());
             }
         }
 
@@ -217,6 +218,13 @@
                 fqdn += "." + IPGlobalProperties.GetIPGlobalProperties().DomainName;
             }
 
+            while (true)
+            {
+                if (fqdn.EndsWith(".") == false) break;
+
+                fqdn = fqdn.Substring(0, fqdn.Length - 1);
+            }
+
             var client = new DnsClient(dnsServer, port);
             var result = client.Lookup(fqdn);
             return result.ToArray();
@@ -256,7 +264,7 @@
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port, CancellationToken ct)
+        public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetDnsPointerEntry(query, dnsServer, port), ct);
         }
@@ -278,7 +286,7 @@
         /// <param name="query">The query.</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, CancellationToken ct)
+        public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetDnsPointerEntry(query), ct);
         }
@@ -307,7 +315,7 @@
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, IPAddress dnsServer, int port, CancellationToken ct)
+        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(()=> QueryDns(query, recordType, dnsServer, port), ct);
         }
@@ -330,7 +338,7 @@
         /// <param name="recordType">Type of the record.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, CancellationToken ct)
+        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => QueryDns(query, recordType), ct);
         }
