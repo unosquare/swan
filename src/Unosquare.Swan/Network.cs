@@ -212,6 +212,11 @@
         /// <returns></returns>
         public static IPAddress[] GetDnsHostEntry(string fqdn, IPAddress dnsServer, int port)
         {
+            if (fqdn.IndexOf(".") == -1)
+            {
+                fqdn += "." + IPGlobalProperties.GetIPGlobalProperties().DomainName;
+            }
+
             var client = new DnsClient(dnsServer, port);
             var result = client.Lookup(fqdn);
             return result.ToArray();
