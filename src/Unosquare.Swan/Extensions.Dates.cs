@@ -97,5 +97,14 @@
         {
             return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
         }
+
+#if NETSTANDARD1_6
+        /// <summary>
+        /// Get this datetime as a Unix epoch timestamp (seconds since Jan 1, 1970, midnight UTC).
+        /// </summary>
+        /// <param name="date">The date to convert.</param>
+        /// <returns>Seconds since Unix epoch.</returns>
+        public static long ToUnixEpochDate(this DateTime date) => new DateTimeOffset(date).ToUniversalTime().ToUnixTimeSeconds();
+#endif
     }
 }

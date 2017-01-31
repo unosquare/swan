@@ -522,5 +522,16 @@
 
             return $"{dblSByte:0.##} {ByteSuffixes[i]}";
         }
+
+        /// <summary>
+        /// Truncates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="maximumLength">The maximum length.</param>
+        /// <returns></returns>
+        public static string Truncate(this string value, int maximumLength)
+        {
+            return value.Length > maximumLength ? value.Substring(0, maximumLength) : value;
+        }
     }
 }

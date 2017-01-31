@@ -1,0 +1,28 @@
+﻿{
+  "title": "Unosquare SWAN AspNet Core",
+  "copyright": "Copyright (c) 2016-2017 - Unosquare",
+  "description": "Bearer Token and logging to fast start any ASP.NET Core project",
+  "version": "0.8.1-*",
+
+  "dependencies": {
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.1.0",
+    "Microsoft.AspNetCore.Diagnostics": "1.1.0",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
+    "Microsoft.AspNetCore.Identity": "1.1.0",
+    "Microsoft.EntityFrameworkCore": "1.1.0",
+    "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
+    "Microsoft.Extensions.Options": "1.1.0",
+    "Microsoft.IdentityModel.Tokens": "5.1.2",
+    "NETStandard.Library": "1.6.1",
+    "System.IdentityModel.Tokens.Jwt": "5.1.2",
+    "System.Security.Claims": "4.3.0",
+    "Unosquare.Swan": { "target": "project" }
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

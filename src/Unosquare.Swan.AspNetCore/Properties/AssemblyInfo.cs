@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Unosquare")]
-[assembly: AssemblyProduct("Unosquare.Swan")]
+[assembly: AssemblyProduct("Unosquare.Swan.AspNetCore")]
 [assembly: AssemblyTrademark("Copyright (c) 2016-2017 - Unosquare")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -15,4 +15,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f6849b76-e09a-4f84-b299-804a63f12adc")]
+[assembly: Guid("9a13e05e-61d9-41ba-b0f7-b5a5c0db5182")]
