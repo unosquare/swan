@@ -13,7 +13,7 @@
         /// <summary>
         /// The relative request path to listen on.
         /// </summary>
-        /// <remarks>The default path is <c>/token</c>.</remarks>
+        /// <remarks>The default path is <c>/api/token</c>.</remarks>
         public string Path { get; set; } = "/api/token";
 
         /// <summary>
@@ -61,6 +61,6 @@
         /// <summary>
         /// Resolves a bearer token response
         /// </summary>
-        public Func<object, Task<object>> BearerTokenResolver { get; set; } = (input) => Task.FromResult(input);
+        public Func<ClaimsIdentity, object, Task<object>> BearerTokenResolver { get; set; } = (identity, input) => Task.FromResult(input);
     }
 }

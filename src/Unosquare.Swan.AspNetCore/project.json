@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN AspNet Core",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Bearer Token and logging to fast start any ASP.NET Core project",
-  "version": "0.8.1-*",
+  "version": "0.8.2-*",
 
   "dependencies": {
     "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",

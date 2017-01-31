@@ -1,5 +1,5 @@
 ﻿namespace Unosquare.Swan.AspNetCore
-{ 
+{
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -85,6 +85,7 @@
         private async Task GenerateToken(HttpContext context)
         {
             JwtSecurityToken jwt;
+            ClaimsIdentity identity = null;
             var now = DateTime.UtcNow;
             var grantType = context.Request.Form["grant_type"];
 
@@ -120,7 +121,7 @@
                 var password = context.Request.Form["password"];
                 var clientId = context.Request.Form["client_id"];
 
-                var identity = await _options.IdentityResolver(username, password, grantType, clientId);
+                identity = await _options.IdentityResolver(username, password, grantType, clientId);
 
                 if (identity == null)
                 {
@@ -166,7 +167,7 @@
 
             _refreshTokens.Add(responseInfo.refresh_token, jwt);
 
-            await context.Response.WriteAsync(Json.Serialize(await _options.BearerTokenResolver(responseInfo)));
+            await context.Response.WriteAsync(Json.Serialize(await _options.BearerTokenResolver(identity, responseInfo)));
         }
 
         private static void ThrowIfInvalidOptions(TokenProviderOptions options)
@@ -206,7 +207,7 @@
                 throw new ArgumentNullException(nameof(TokenProviderOptions.NonceGenerator));
             }
         }
-        
+
         /// <summary>
         /// Serializes the error.
         /// </summary>

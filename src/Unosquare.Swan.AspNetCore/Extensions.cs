@@ -68,13 +68,15 @@
         /// <param name="serviceProvider">The service provider.</param>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">factory</exception>
+        /// <exception cref="ArgumentNullException">factory</exception>
         public static ILoggerFactory AddEntityFramework<TDbContext, TLog>(this ILoggerFactory factory, IServiceProvider serviceProvider, Func<string, LogLevel, bool> filter = null)
             where TDbContext : DbContext
             where TLog : LogEntry, new()
         {
-            if (factory == null) throw new ArgumentNullException(nameof(factory));
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
             factory.AddProvider(new EntityFrameworkLoggerProvider<TDbContext, TLog>(serviceProvider, filter));
+
             return factory;
         }
 
@@ -84,15 +86,23 @@
         /// <param name="app">The application.</param>
         /// <param name="validationParameter">The validation parameter.</param>
         /// <param name="identityResolver">The identity resolver.</param>
+        /// <param name="bearerTokenResolver">The bearer token resolver.</param>
         /// <returns></returns>
-        public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app, TokenValidationParameters validationParameter, Func<string, string, string, string, Task<ClaimsIdentity>> identityResolver)
+        public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app, 
+            TokenValidationParameters validationParameter, 
+            Func<string, string, string, string, Task<ClaimsIdentity>> identityResolver, 
+            Func<ClaimsIdentity, object, Task<object>> bearerTokenResolver = null)
         {
+            if (bearerTokenResolver == null)
+                bearerTokenResolver = (identity, input) => Task.FromResult(input);
+
             app.UseMiddleware<TokenProviderMiddleware>(Options.Create(new TokenProviderOptions
             {
                 Audience = validationParameter.ValidAudience,
                 Issuer = validationParameter.ValidIssuer,
                 SigningCredentials = new SigningCredentials(validationParameter.IssuerSigningKey, SecurityAlgorithms.HmacSha256),
-                IdentityResolver = identityResolver
+                IdentityResolver = identityResolver,
+                BearerTokenResolver = bearerTokenResolver
             }));
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions
