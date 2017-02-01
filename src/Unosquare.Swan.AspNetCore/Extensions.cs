@@ -12,6 +12,7 @@
     using Microsoft.IdentityModel.Tokens;
     using Models;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Security.Claims;
@@ -22,6 +23,9 @@
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// The JSON MIME type
+        /// </summary>
         public const string JsonMimeType = "application/json";
 
         /// <summary>
@@ -32,11 +36,8 @@
         {
             identityOptions.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents
             {
-                OnRedirectToLogin = context =>
-                {
-                    // Skip the login
-                    return Task.FromResult(0);
-                }
+                // Skip the login
+                OnRedirectToLogin = context => Task.FromResult(0)
             };
         }
 
@@ -91,7 +92,7 @@
         public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app, 
             TokenValidationParameters validationParameter, 
             Func<string, string, string, string, Task<ClaimsIdentity>> identityResolver, 
-            Func<ClaimsIdentity, object, Task<object>> bearerTokenResolver = null)
+            Func<ClaimsIdentity, Dictionary<string, object>, Task<Dictionary<string, object>>> bearerTokenResolver = null)
         {
             if (bearerTokenResolver == null)
                 bearerTokenResolver = (identity, input) => Task.FromResult(input);

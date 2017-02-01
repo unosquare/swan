@@ -39,6 +39,11 @@
             ThrowIfInvalidOptions(_options);
         }
 
+        /// <summary>
+        /// Invokes the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
         public Task Invoke(HttpContext context)
         {
             // Check if we are getting a new token
@@ -163,15 +168,16 @@
             }
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var refreshTokenGuid = Guid.NewGuid();
 
-            var responseInfo = new
+            var responseInfo = new Dictionary<string, object>
             {
-                access_token = encodedJwt,
-                expires_in = (int)_options.Expiration.TotalSeconds,
-                refresh_token = Guid.NewGuid()
+                { "access_token", encodedJwt },
+                { "expires_in", (int)_options.Expiration.TotalSeconds },
+                { "refresh_token", refreshTokenGuid }
             };
 
-            _refreshTokens.Add(responseInfo.refresh_token, jwt);
+            _refreshTokens.Add(refreshTokenGuid, jwt);
 
             await context.Response.WriteAsync(Json.Serialize(await _options.BearerTokenResolver(identity, responseInfo)));
         }

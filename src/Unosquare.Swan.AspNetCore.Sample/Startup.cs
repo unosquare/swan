@@ -75,6 +75,11 @@
                     return Task.FromResult(new ClaimsIdentity("Bearer"));
 
                 return Task.FromResult<ClaimsIdentity>(null);
+            }, (identity, obj) =>
+            {
+                // This action is optional
+                obj["test"] = "OK";
+                return Task.FromResult(obj);
             });
 
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

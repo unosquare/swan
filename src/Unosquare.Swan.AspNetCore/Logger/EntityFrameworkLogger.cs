@@ -142,11 +142,23 @@
             _entryQueue.Enqueue(log);
         }
 
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return _filter(_name, logLevel);
-        }
+        /// <summary>
+        /// Checks if the given <paramref name="logLevel" /> is enabled.
+        /// </summary>
+        /// <param name="logLevel">level to be checked.</param>
+        /// <returns>
+        ///   <c>true</c> if enabled.
+        /// </returns>
+        public bool IsEnabled(LogLevel logLevel) => _filter(_name, logLevel);
 
+        /// <summary>
+        /// Begins a logical operation scope.
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <param name="state">The identifier for the scope.</param>
+        /// <returns>
+        /// An IDisposable that ends the logical operation scope on dispose.
+        /// </returns>
         public IDisposable BeginScope<TState>(TState state) => new NoopDisposable();
 
         private class NoopDisposable : IDisposable

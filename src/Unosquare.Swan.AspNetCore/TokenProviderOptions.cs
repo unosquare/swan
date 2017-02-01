@@ -2,6 +2,7 @@
 {
     using Microsoft.IdentityModel.Tokens;
     using System;
+    using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -61,6 +62,6 @@
         /// <summary>
         /// Resolves a bearer token response
         /// </summary>
-        public Func<ClaimsIdentity, object, Task<object>> BearerTokenResolver { get; set; } = (identity, input) => Task.FromResult(input);
+        public Func<ClaimsIdentity, Dictionary<string, object>, Task<Dictionary<string, object>>> BearerTokenResolver { get; set; } = (identity, input) => Task.FromResult(input);
     }
 }
