@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.AspNetCore
 {
+    using Formatters;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -9,7 +10,6 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using Formatters;
 
     /// <summary>
     /// Token generator middleware component which is added to an HTTP pipeline.
@@ -97,7 +97,9 @@
                 if (Guid.TryParse(refreshToken, out guidToken) == false || _refreshTokens.ContainsKey(guidToken) == false)
                 {
                     context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync(SerializeError("Invalid username or password."));
+                    await context.Response.WriteAsync(SerializeError("Invalid refresh token."));
+
+                    _logger.LogDebug($"Invalid refresh token ({refreshToken})");
                     return;
                 }
 
@@ -127,8 +129,12 @@
                 {
                     context.Response.StatusCode = 401;
                     await context.Response.WriteAsync(SerializeError("Invalid username or password."));
+
+                    _logger.LogDebug($"Invalid username ({username}) or password");
                     return;
                 }
+
+                _logger.LogDebug($"Valid username ({username})");
 
                 // Specifically add the jti (nonce), iat (issued timestamp), and sub (subject/user) claims.
                 // You can add other claims here, if you want:
@@ -205,6 +211,16 @@
             if (options.NonceGenerator == null)
             {
                 throw new ArgumentNullException(nameof(TokenProviderOptions.NonceGenerator));
+            }
+
+            if (options.IdentityResolver == null)
+            {
+                throw new ArgumentNullException(nameof(TokenProviderOptions.IdentityResolver));
+            }
+
+            if (options.BearerTokenResolver == null)
+            {
+                throw new ArgumentNullException(nameof(TokenProviderOptions.BearerTokenResolver));
             }
         }
 

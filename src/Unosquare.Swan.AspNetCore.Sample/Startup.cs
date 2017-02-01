@@ -34,6 +34,7 @@
         {
             // Add framework services.
             services.AddDbContext<SampleDbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
+            // Setup a basic stores for Identity and remove Cookies redirects to /Login
             services.AddIdentity<BasicUserStore, BasicRoleStore>(options => options.SetupCookies()).AddDefaultTokenProviders();
 
             services.AddOptions();
@@ -46,11 +47,14 @@
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddEntityFramework<SampleDbContext, Models.LogEntry>(app.ApplicationServices);
 
+            // Redirect anything without extension to index.html
             app.UseFallback();
+            // Response an exception as JSON at error
             app.UseJsonExceptionHandler();
 
             app.UseIdentity();
 
+            // Use the bearer token provider and check Admin and Passw.ord as valid credentials
             app.UseBearerTokenProvider(new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -67,11 +71,15 @@
                 ClockSkew = TimeSpan.Zero
             }, (username, password, grantType, clientId) =>
             {
-                // TODO: Complete
-                return Task.FromResult(new ClaimsIdentity());
+                if (username == "Admin" && password == "Pass.word")
+                    return Task.FromResult(new ClaimsIdentity("Bearer"));
+
+                return Task.FromResult<ClaimsIdentity>(null);
             });
 
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
+            app.UseStaticFiles();
         }
     }
 }
