@@ -14,7 +14,8 @@
         /// <param name="args">The arguments.</param>
         /// <exception cref="SampleException"></exception>
         public static void Main(string[] args)
-        {            
+        {
+            Runtime.WriteWelcomeBanner(ConsoleColor.Green);
             TestApplicationInfo();
             // TestNetworkUtilities();
             //TestContainerAndMessageHub();
@@ -68,7 +69,7 @@
         {
             var domainName = "unosquare.com";
             var ntpServer = "time.windows.com";
-            
+
             var dnsServers = Network.GetIPv4DnsServers();
             var privateIPs = Network.GetIPv4Addresses(false);
             var publicIP = Network.GetPublicIPAddress();
@@ -108,9 +109,10 @@
         static void TestFastOutputAndReadPrompt()
         {
             int limit = Console.BufferHeight;
-            for (var i = 0; i < limit; i++)
+            for (var i = 0; i < limit; i += 25)
             {
                 $"Output info {i} ({((decimal)i / limit):P})".Info(typeof(Program));
+                Terminal.BacklineCursor();
             }
 
             Dictionary<ConsoleKey, string> SampleOptions = new Dictionary<ConsoleKey, string>
@@ -204,5 +206,5 @@
         }
     }
 
-    
+
 }

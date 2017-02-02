@@ -200,12 +200,14 @@
         /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
         public static void Flush(TimeSpan? timeout = null)
         {
+            if (OutputDone.IsSet) return;
             if (timeout == null) timeout = TimeSpan.Zero;
             var startTime = DateTime.UtcNow;
 
-            while (OutputQueue.Count > 0)
+            while (true)
             {
-                OutputDone.Wait(1);
+                if (OutputDone.Wait(1))
+                    break;
 
                 if (timeout.Value == TimeSpan.Zero)
                     continue;
@@ -351,6 +353,9 @@
         {
             if (IsConsolePresent == false) return;
 
+            if (left < 0) left = 0;
+            if (top < 0) top = 0;
+
             lock (SyncLock)
             {
                 Flush();
@@ -360,6 +365,9 @@
 
         /// <summary>
         /// Moves the output cursor one line up starting at left position 0
+        /// Please note that backlining the cursor does not clear the contents of the 
+        /// previous line so you might need to clear it by writing an empty string the 
+        /// length of the console width
         /// </summary>
         public static void BacklineCursor()
         {
