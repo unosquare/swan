@@ -71,5 +71,21 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(nameof(LogMessageType.Info), messages.First(x => x.ExtendedData != null).Message);
         }
+
+        [Test]
+        public void AvailableWriters()
+        {
+            var writers = Terminal.AvailableWriters;
+            Assert.AreNotEqual(writers, TerminalWriters.None, "Check for at least one available writer");
+        }
+
+        [Test]
+        public void Encoding()
+        {
+            var defaultEncoding = Terminal.OutputEncoding;
+            Assert.IsNotNull(defaultEncoding);
+            Terminal.OutputEncoding = System.Text.Encoding.UTF8;
+            Assert.AreEqual(Terminal.OutputEncoding, System.Text.Encoding.UTF8, "Change to UTF8 encoding");
+        }
     }
 }
