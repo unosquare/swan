@@ -8,29 +8,29 @@ namespace Unosquare.Swan.Test
     public class NetworkTest
     {
         private const string GoogleDnsFqdn = "google-public-dns-a.google.com";
-        private readonly IPAddress PrivateIP = IPAddress.Parse("192.168.1.1");
-        private readonly IPAddress PublicIP = IPAddress.Parse("200.1.1.1");
+        private readonly IPAddress _privateIP = IPAddress.Parse("192.168.1.1");
+        private readonly IPAddress _publicIP = IPAddress.Parse("200.1.1.1");
 
         [Test]
         public void SimpleResolveIPAddressTest()
         {
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
-            Assert.IsNotNull(googleDnsIPAddresses);
+            Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
 
             var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
-            Assert.IsNotNull(googleDnsIPAddressesWithFinalDot);
+            Assert.IsNotNull(googleDnsIPAddressesWithFinalDot, "GoogleDnsFqdn with trailing period resolution is not null");
 
             var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-            Assert.IsNotNull(targetIP);
+            Assert.IsNotNull(targetIP, "Google address is IPv4");
 
             var googleDnsPtrRecord = Network.GetDnsPointerEntry(targetIP);
-            Assert.IsNotNull(googleDnsPtrRecord);
+            Assert.IsNotNull(googleDnsPtrRecord, "Google address DNS Pointer");
 
             var resolvedPtrRecord = Network.GetDnsHostEntry(googleDnsPtrRecord);
             Assert.IsNotNull(resolvedPtrRecord);
 
             var resolvedIP = resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-            Assert.IsNotNull(resolvedIP);
+            Assert.IsNotNull(resolvedIP, "Google resolution is IPv4");
 
             Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
         }
@@ -38,15 +38,15 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsPrivateAddressTest()
         {
-            Assert.IsTrue(PrivateIP.IsPrivateAddress());
-            Assert.IsFalse(PublicIP.IsPrivateAddress());
+            Assert.IsTrue(_privateIP.IsPrivateAddress());
+            Assert.IsFalse(_publicIP.IsPrivateAddress());
         }
 
         [Test]
         public void IPAddressToUint32Test()
         {
-            Assert.AreEqual(3232235777, PrivateIP.ToUInt32());
-            Assert.AreEqual(3355508993, PublicIP.ToUInt32());
+            Assert.AreEqual(3232235777, _privateIP.ToUInt32());
+            Assert.AreEqual(3355508993, _publicIP.ToUInt32());
         }
 
         [Test]

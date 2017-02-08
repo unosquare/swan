@@ -12,7 +12,8 @@
     /// </summary>
     public class SnmpClient
     {
-        static readonly byte[] DiscoverMessage = {
+        private static readonly byte[] DiscoverMessage =
+        {
             48, 41, 2, 1, 1, 4, 6, 112, 117, 98, 108, 105, 99, 160, 28, 2, 4, 111, 81, 45, 144, 2, 1, 0, 2, 1, 0, 48,
             14, 48, 12, 6, 8, 43, 6, 1, 2, 1, 1, 1, 0, 5, 0
         };
@@ -22,18 +23,18 @@
         /// </summary>
         /// <param name="snmpTimeOut">The SNMP time out.</param>
         /// <returns></returns>
-        public static async Task<IPEndPoint[]> Discover(int snmpTimeOut = 6000)
+        public static IPEndPoint[] Discover(int snmpTimeOut = 6000)
         {
             var endpoints = new List<IPEndPoint>();
 
-            using (var udp = new UdpClient(IPAddress.Broadcast.AddressFamily))
+            Task.WaitAny(new Task(async () =>
             {
-                udp.EnableBroadcast = true;
-                await udp.SendAsync(DiscoverMessage, DiscoverMessage.Length,
-                    new IPEndPoint(IPAddress.Broadcast, 161));
-
-                Task.WaitAny(new Task(() =>
+                using (var udp = new UdpClient(IPAddress.Broadcast.AddressFamily))
                 {
+                    udp.EnableBroadcast = true;
+                    await udp.SendAsync(DiscoverMessage, DiscoverMessage.Length,
+                        new IPEndPoint(IPAddress.Broadcast, 161));
+
                     while (true)
                     {
                         try
@@ -48,11 +49,11 @@
                             break;
                         }
                     }
-                }), Task.Delay(snmpTimeOut));
 #if NET452
                 udp.Close();
 #endif
-            }
+                }
+            }), Task.Delay(snmpTimeOut));
 
             return endpoints.ToArray();
         }
@@ -154,8 +155,8 @@
                 int temp = Convert.ToInt16(mibvals[i]);
                 if (temp > 127)
                 {
-                    mib[cnt] = Convert.ToByte(128 + (temp / 128));
-                    mib[cnt + 1] = Convert.ToByte(temp - ((temp / 128) * 128));
+                    mib[cnt] = Convert.ToByte(128 + (temp/128));
+                    mib[cnt + 1] = Convert.ToByte(temp - ((temp/128)*128));
                     cnt += 2;
                     miblen++;
                 }
@@ -239,7 +240,7 @@
                 ProtocolType.Udp);
             sock.SetSocketOption(SocketOptionLevel.Socket,
                 SocketOptionName.ReceiveTimeout, 5000);
-            var ep = (EndPoint)host;
+            var ep = (EndPoint) host;
             sock.SendTo(packet, snmplen, SocketFlags.None, host);
 
             //Receive response from packet
