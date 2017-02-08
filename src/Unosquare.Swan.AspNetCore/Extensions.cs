@@ -125,7 +125,7 @@
         public static IApplicationBuilder UseFallback(this IApplicationBuilder app, string fallbackPath = "/index.html", Func<PathString, bool> ignoreCheck = null)
         {
             if (ignoreCheck == null)
-                ignoreCheck = (path) => { return path.StartsWithSegments("/api") == false; };
+                ignoreCheck = (path) => path.StartsWithSegments("/api") == false;
 
             return app.Use(async (context, next) =>
             {
@@ -141,6 +141,20 @@
                     await next();
                 }
             });
+        }
+
+        /// <summary>
+        /// Extension method to add AuditTrail to a DbContext
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="currentUserId"></param>
+        /// <returns></returns>
+        public static IBusinessDbContext UseAuditTrail<T, TEntity>(this IBusinessDbContext context, string currentUserId)
+            where T : DbContext
+        {
+            context.AddController(new AuditTrailController<T, TEntity>((T)context, currentUserId));
+
+            return context;
         }
     }
 }

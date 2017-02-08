@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Unosquare.Swan.AspNetCore
 {
@@ -76,6 +74,7 @@ namespace Unosquare.Swan.AspNetCore
                                                                                     && !m.IsConstructor &&
                                                                                     m.GetCustomAttributes(typeof(BusinessRuleAttribute),
                                                                                     true).Any()).ToArray();
+
             ExecuteBusinessRulesMethods(EntityState.Added, ActionFlags.Create, methodInfoSet);
             ExecuteBusinessRulesMethods(EntityState.Modified, ActionFlags.Update, methodInfoSet);
             ExecuteBusinessRulesMethods(EntityState.Deleted, ActionFlags.Delete, methodInfoSet);
@@ -103,7 +102,6 @@ namespace Unosquare.Swan.AspNetCore
             foreach(var entry in selfTrackingEntries)
             {
                 var entity = entry.Entity;
-                if (entry == null) continue;
                 var entityType = entity.GetType();
 
                 if (entityType.BaseType() != null)

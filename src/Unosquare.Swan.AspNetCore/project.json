@@ -13,7 +13,6 @@
     "Microsoft.Extensions.Options": "1.1.0",
     "Microsoft.IdentityModel.Tokens": "5.1.2",
     "NETStandard.Library": "1.6.1",
-    "System.Data.Common": "4.3.0",
     "System.IdentityModel.Tokens.Jwt": "5.1.2",
     "System.Security.Claims": "4.3.0",
     "System.Threading.Tasks": "4.3.0",

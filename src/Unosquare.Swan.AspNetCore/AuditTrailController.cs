@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
+using Unosquare.Swan.AspNetCore.Models;
+using Unosquare.Swan.Formatters;
 
 namespace Unosquare.Swan.AspNetCore
 {
     /// <summary>
-    /// 
+    /// Represents an AuditTrail controller to use with BusinessDbContext
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
@@ -17,7 +17,7 @@ namespace Unosquare.Swan.AspNetCore
         private readonly List<Type> _validCreateTypes = new List<Type>();
         private readonly List<Type> _validUpdateTypes = new List<Type>();
         private readonly List<Type> _validDeleteTypes = new List<Type>();
-        private readonly string _currentuserId;
+        private readonly string _currentUserId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuditTrailController{T, TEntity}"/> class.
@@ -26,7 +26,7 @@ namespace Unosquare.Swan.AspNetCore
         /// <param name="currentUserId">The current user identifier.</param>
         public AuditTrailController(T context, string currentUserId) : base(context)
         {
-            _currentuserId = currentUserId;
+            _currentUserId = currentUserId;
         }
 
         /// <summary>
@@ -93,48 +93,21 @@ namespace Unosquare.Swan.AspNetCore
 
         private void AuditEntry(ActionFlags flag, object entity, string name)
         {
-            if (string.IsNullOrWhiteSpace(_currentuserId)) return;
+            if (string.IsNullOrWhiteSpace(_currentUserId)) return;
 
-            //var entityState = GetObjectState
-            //    ((IObjectContextAdapter));
-        }
+            var instance = (IAuditTrailEntry) Activator.CreateInstance<TEntity>();
+            instance.TableName = name;
+            instance.DateCreated = DateTime.UtcNow;
+            instance.Action = (int) flag;
+            instance.UserId = _currentUserId;
 
-        private static Dictionary<string, object> ToDictionary(IDataRecord record)
-        {
-            var result = new Dictionary<string, object>();
-
-            for (var keyIndex = 0; keyIndex < record.FieldCount; keyIndex++)
+            if (flag != ActionFlags.Delete)
             {
-                var fieldType = record.GetFieldType(keyIndex);
-
-                if (fieldType == typeof(byte[]))
-                    result[record.GetName(keyIndex)] = "(Blob)";
-                else if (Definitions.AllBasicValueAndStringTypes.Contains(fieldType))
-                    result[record.GetName(keyIndex)] = record.GetValue(keyIndex);
+                // Skip byte[]
+                instance.JsonBody = Json.Serialize(entity);
             }
 
-            return result;
+            Context.Entry(instance).State = EntityState.Added;
         }
-    }
-
-    /// <summary>
-    /// Extension methods
-    /// </summary>
-    public static class FluentAuditTrailExtension
-    {
-        /// <summary>
-        /// Extension method to add AuditTrail to a DbContext
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="currentUserId"></param>
-        /// <returns></returns>
-        public static IBusinessDbContext UseAuditTrail<T, TEntity>(this IBusinessDbContext context, string currentUserId)
-            where T : DbContext
-        {
-            context.AddController(new AuditTrailController<T, TEntity>((T)context, currentUserId));
-
-            return context;
-        }
-
     }
 }

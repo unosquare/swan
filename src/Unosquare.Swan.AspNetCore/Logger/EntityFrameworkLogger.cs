@@ -49,7 +49,7 @@
                     {
                         try
                         {
-                            var db = _services.GetRequiredService<TDbContext>();
+                            var db = _services.GetService<TDbContext>();
                             db.ChangeTracker.AutoDetectChangesEnabled = false;
                             while (_entryQueue.Count > 0)
                             {
@@ -97,7 +97,7 @@
         /// <param name="formatter">Function to create a <c>string</c> message of the <paramref name="state" /> and <paramref name="exception" />.</param>
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (_name.StartsWith("Microsoft.EntityFrameworkCore") || !IsEnabled(logLevel)) return;
+            if (_name.StartsWith("Microsoft.EntityFrameworkCore") || IsEnabled(logLevel) == false) return;
 
             var message = string.Empty;
             var values = state as IReadOnlyList<KeyValuePair<string, object>>;

@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace Unosquare.Swan.AspNetCore.Models
+namespace Unosquare.Swan.AspNetCore
 {
+    /// <summary>
+    /// Represents a abstract class to create DbContext using Business Rules
+    /// </summary>
+    /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
+    /// <seealso cref="Unosquare.Swan.AspNetCore.IBusinessDbContext" />
     public abstract class BusinessDbContext : DbContext, IBusinessDbContext
     {
         private readonly List<IBusinessRulesController> _businessControllers = new List<IBusinessRulesController>();
@@ -23,7 +26,7 @@ namespace Unosquare.Swan.AspNetCore.Models
         /// Initializes a new instance of the <see cref="BusinessDbContext"/> class.
         /// </summary>
         /// <param name="dbConnection">The database connection.</param>
-        protected BusinessDbContext(DbContextOptions dbConnection) 
+        protected BusinessDbContext(DbContextOptions dbConnection)
             : base(dbConnection)
         {
         }
@@ -63,7 +66,7 @@ namespace Unosquare.Swan.AspNetCore.Models
         /// </summary>
         public void RunBusinessRules()
         {
-            foreach(var controller in _businessControllers)
+            foreach (var controller in _businessControllers)
             {
                 controller.RunBusinessRules();
             }
@@ -105,7 +108,7 @@ namespace Unosquare.Swan.AspNetCore.Models
         /// that any asynchronous operations have completed before calling another method on this context.
         /// </para>
         /// </remarks>
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             RunBusinessRules();
             return base.SaveChangesAsync(cancellationToken);
