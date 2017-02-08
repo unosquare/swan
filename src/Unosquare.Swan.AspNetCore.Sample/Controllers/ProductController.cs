@@ -46,7 +46,7 @@ namespace Unosquare.Swan.AspNetCore.Sample.Controllers
             product.Name = "Coca";
 
             _context.SaveChanges();
-            return  Ok();
+            return  Ok(product);
         }
     }
 }
