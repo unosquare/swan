@@ -47,10 +47,9 @@ namespace Unosquare.Swan.AspNetCore
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="Unosquare.Swan.AspNetCore.IBusinessRulesController" />
-    public abstract class BusinessRulesControllers<T> : IBusinessRulesController 
+    public abstract class BusinessRulesController<T> : IBusinessRulesController 
         where T : DbContext
     {
-        const string DynamicProxiesNamespace = "Microsoft.EntityFrameworkCore";
         /// <summary>
         /// Gets or sets the context.
         /// </summary>
@@ -60,10 +59,10 @@ namespace Unosquare.Swan.AspNetCore
         public T Context { get; protected set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BusinessRulesControllers{T}"/> class.
+        /// Initializes a new instance of the <see cref="BusinessRulesController{T}"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
-        protected BusinessRulesControllers(T context)
+        protected BusinessRulesController(T context)
         {
             Context = context;
         }
@@ -91,7 +90,7 @@ namespace Unosquare.Swan.AspNetCore
         {
             var entityType = entity.GetType();
 
-            if (entityType.BaseType() != null && entityType.Namespace == DynamicProxiesNamespace)
+            if (entityType.BaseType() != null)
                 entityType = entityType.BaseType();
 
             return entityType;
@@ -107,7 +106,7 @@ namespace Unosquare.Swan.AspNetCore
                 if (entry == null) continue;
                 var entityType = entity.GetType();
 
-                if (entityType.BaseType() != null && entityType.Namespace == DynamicProxiesNamespace)
+                if (entityType.BaseType() != null)
                     entityType = entityType.BaseType();
 
                 var methods = methodInfoSet.Where(m => m.GetCustomAttributes(typeof (BusinessRuleAttribute), true)

@@ -51,6 +51,15 @@ namespace Unosquare.Swan.AspNetCore
         /// The action.
         /// </value>
         public ActionFlags Action { get; protected set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BusinessRuleAttribute"/> class.
+        /// </summary>
+        /// <param name="actionFlags">The action flags.</param>
+        public BusinessRuleAttribute(ActionFlags actionFlags)
+        {
+            this.Action = actionFlags;
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="BusinessRuleAttribute"/> class.
         /// </summary>
