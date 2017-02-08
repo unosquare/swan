@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 
 namespace Unosquare.Swan.Test
 {
@@ -17,8 +18,12 @@ namespace Unosquare.Swan.Test
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
             Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
 
-            var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
-            Assert.IsNotNull(googleDnsIPAddressesWithFinalDot, "GoogleDnsFqdn with trailing period resolution is not null");
+            if (Runtime.OS != OperatingSystem.Osx)
+            {
+                var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
+                Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
+                    "GoogleDnsFqdn with trailing period resolution is not null");
+            }
 
             var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
             Assert.IsNotNull(targetIP, "Google address is IPv4");
@@ -66,7 +71,10 @@ namespace Unosquare.Swan.Test
         [Test]
         public void QueryDnsErrorTest()
         {
-            Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+            if (Runtime.OS == OperatingSystem.Osx)
+                Assert.Throws<SocketException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+            else
+                Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
     }
 }

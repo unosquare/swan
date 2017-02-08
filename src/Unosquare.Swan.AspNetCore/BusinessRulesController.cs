@@ -26,11 +26,13 @@ namespace Unosquare.Swan.AspNetCore
         /// </summary>
         /// <param name="controller">The controller.</param>
         void AddController(IBusinessRulesController controller);
+
         /// <summary>
         /// Removes the controller.
         /// </summary>
         /// <param name="controller">The controller.</param>
         void RemoveController(IBusinessRulesController controller);
+
         /// <summary>
         /// Determines whether the specified controller contains controller.
         /// </summary>
@@ -40,12 +42,13 @@ namespace Unosquare.Swan.AspNetCore
         /// </returns>
         bool ContainsController(IBusinessRulesController controller);
     }
+
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="Unosquare.Swan.AspNetCore.IBusinessRulesController" />
-    public abstract class BusinessRulesController<T> : IBusinessRulesController 
+    public abstract class BusinessRulesController<T> : IBusinessRulesController
         where T : DbContext
     {
         /// <summary>
@@ -71,9 +74,9 @@ namespace Unosquare.Swan.AspNetCore
         public void RunBusinessRules()
         {
             var methodInfoSet = GetType().GetMethods().Where(m => m.ReturnType == typeof(void) && m.IsPublic
-                                                                                    && !m.IsConstructor &&
-                                                                                    m.GetCustomAttributes(typeof(BusinessRuleAttribute),
-                                                                                    true).Any()).ToArray();
+                                                                  && !m.IsConstructor &&
+                                                                  m.GetCustomAttributes(typeof(BusinessRuleAttribute),
+                                                                      true).Any()).ToArray();
 
             ExecuteBusinessRulesMethods(EntityState.Added, ActionFlags.Create, methodInfoSet);
             ExecuteBusinessRulesMethods(EntityState.Modified, ActionFlags.Update, methodInfoSet);
@@ -87,36 +90,28 @@ namespace Unosquare.Swan.AspNetCore
         /// <returns></returns>
         public Type GetEntityType(object entity)
         {
-            var entityType = entity.GetType();
-
-            if (entityType.BaseType() != null)
-                entityType = entityType.BaseType();
-
-            return entityType;
-        }    
+            return entity.GetType();
+        }
 
         private void ExecuteBusinessRulesMethods(EntityState state, ActionFlags action, MethodInfo[] methodInfoSet)
         {
-            var selfTrackingEntries = Context.ChangeTracker.Entries().Where(x => x.State == state);
+            var selfTrackingEntries = Context.ChangeTracker.Entries().Where(x => x.State == state).ToList();
 
-            foreach(var entry in selfTrackingEntries)
+            foreach (var entry in selfTrackingEntries)
             {
                 var entity = entry.Entity;
                 var entityType = entity.GetType();
 
-                if (entityType.BaseType() != null)
-                    entityType = entityType.BaseType();
-
-                var methods = methodInfoSet.Where(m => m.GetCustomAttributes(typeof (BusinessRuleAttribute), true)
-                .Select(a => a as BusinessRuleAttribute)
-                .Any(
-                    b => (b.EntityTypes == null ||
-                          b.EntityTypes.Any(t => t == entityType)) &&
-                          (b.Action & action) == action));
+                var methods = methodInfoSet.Where(m => m.GetCustomAttributes(typeof(BusinessRuleAttribute), true)
+                    .Select(a => a as BusinessRuleAttribute)
+                    .Any(
+                        b => (b.EntityTypes == null ||
+                              b.EntityTypes.Any(t => t == entityType)) &&
+                             (b.Action & action) == action));
 
                 foreach (var methodInfo in methods)
                 {
-                    methodInfo.Invoke(this, new[] { entity });
+                    methodInfo.Invoke(this, new[] {entity});
                 }
             }
         }
