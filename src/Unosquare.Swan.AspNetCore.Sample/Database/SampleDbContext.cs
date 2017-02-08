@@ -10,5 +10,7 @@
         { }
 
         public DbSet<LogEntry> LogEntries { get; set; }
+        public DbSet<AuditTrailEntry> AuditTrailEntries { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }
