@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 
 namespace Unosquare.Swan.Test
 {
@@ -71,10 +70,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void QueryDnsErrorTest()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
-                Assert.Throws<SocketException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
-            else
-                Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+            Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
     }
 }
