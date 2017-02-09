@@ -100,14 +100,10 @@ namespace Unosquare.Swan.AspNetCore
             foreach (var entry in selfTrackingEntries)
             {
                 var entity = entry.Entity;
-                var entityType = entity.GetType();
 
                 var methods = methodInfoSet.Where(m => m.GetCustomAttributes(typeof(BusinessRuleAttribute), true)
                     .Select(a => a as BusinessRuleAttribute)
-                    .Any(
-                        b => (b.EntityTypes == null ||
-                              b.EntityTypes.Any(t => t == entityType)) &&
-                             (b.Action & action) == action));
+                    .Any(b => b.Action == action));
 
                 foreach (var methodInfo in methods)
                 {
