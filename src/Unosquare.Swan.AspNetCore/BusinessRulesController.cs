@@ -101,9 +101,13 @@ namespace Unosquare.Swan.AspNetCore
             {
                 var entity = entry.Entity;
 
+                var entityType = entity.GetType();
+
                 var methods = methodInfoSet.Where(m => m.GetCustomAttributes(typeof(BusinessRuleAttribute), true)
                     .Select(a => a as BusinessRuleAttribute)
-                    .Any(b => b.Action == action));
+                    .Any(b => b.EntityTypes == null ||
+                              b.EntityTypes.Any(t => t == entityType) &&
+                              (b.Action & action) == action));
 
                 foreach (var methodInfo in methods)
                 {
