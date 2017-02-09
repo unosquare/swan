@@ -43,5 +43,14 @@ namespace Unosquare.Swan.AspNetCore.Sample.Controllers
             _context.SaveChanges();
             return  Ok(product);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.ProductID == id);
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+            return Ok(product);
+        }
     }
 }
