@@ -282,11 +282,10 @@
 
                 try
                 {
-                    udp.Client.SendTimeout = 5000;
-                    udp.Client.ReceiveTimeout = 5000;
+                    udp.Client.SendTimeout = 7000;
+                    udp.Client.ReceiveTimeout = 7000;
                     udp.Client.Connect(dns);
-
-                    var bytesWritten = udp.Client.Send(request.ToArray());
+                    udp.Client.Send(request.ToArray());
 
                     var bufferList = new List<byte>();
                     do
@@ -299,12 +298,7 @@
                     var buffer = bufferList.ToArray();
                     var response = DnsResponse.FromArray(buffer);
 
-                    if (response.IsTruncated)
-                    {
-                        return fallback.Request(request);
-                    }
-
-                    return new DnsClientResponse(request, response, buffer);
+                    return response.IsTruncated ? fallback.Request(request) : new DnsClientResponse(request, response, buffer);
                 }
                 finally
                 {
