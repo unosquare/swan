@@ -77,7 +77,7 @@
         /// </summary>
         /// <param name="filename">The filename.</param>
         public CsvWriter(string filename)
-            : this(File.OpenRead(filename), false, Definitions.Windows1252Encoding)
+            : this(File.OpenWrite(filename), false, Definitions.Windows1252Encoding)
         {
             // placeholder
         }
@@ -90,7 +90,7 @@
         /// <param name="filename">The filename.</param>
         /// <param name="encoding">The encoding.</param>
         public CsvWriter(string filename, Encoding encoding)
-            : this(File.OpenRead(filename), false, encoding)
+            : this(File.OpenWrite(filename), false, encoding)
         {
             // placeholder
         }
