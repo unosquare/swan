@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Unosquare.Swan.Reflection;
-
-namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Components
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using Reflection;
+
     /// <summary>
     /// Interface object map
     /// </summary>
@@ -102,6 +102,30 @@ namespace Unosquare.Swan.Components
             // reverse order
             sourceMembers.Reverse();
             Map[propertyDestinationInfo] = sourceMembers;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Removes the map.
+        /// </summary>
+        /// <typeparam name="TDestinationProperty">The type of the destination property.</typeparam>
+        /// <param name="destinationProperty">The destination property.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">Invalid destination expression</exception>
+        public ObjectMap<TSource, TDestination> RemoveMap<TDestinationProperty>(
+            Expression<Func<TDestination, TDestinationProperty>> destinationProperty)
+        {
+            var memberDestinationExpression = destinationProperty?.Body as MemberExpression;
+            var propertyDestinationInfo = memberDestinationExpression?.Member as PropertyInfo;
+
+            if (propertyDestinationInfo == null)
+                throw new Exception("Invalid destination expression");
+
+            if (Map.ContainsKey(propertyDestinationInfo))
+            {
+                Map.Remove(propertyDestinationInfo);
+            }
 
             return this;
         }

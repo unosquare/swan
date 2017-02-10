@@ -95,8 +95,8 @@ namespace Unosquare.Swan.Test
                 }));
 
                 var task = webserver.RunAsync();
-                await Task.Delay(100);
-
+                await Task.Delay(200);
+                
                 var data = await JsonClient.Post(DefaultHttp, BasicJson.GetDefault(), AuthorizationToken);
 
                 Assert.IsNotNull(data);

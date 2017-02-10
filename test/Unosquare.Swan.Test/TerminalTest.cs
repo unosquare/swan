@@ -74,6 +74,9 @@ namespace Unosquare.Swan.Test
         [Test]
         public void AvailableWriters()
         {
+            if (Runtime.OS == OperatingSystem.Windows)
+                Assert.Ignore("Windows doesn't provide writers");
+
             var writers = Terminal.AvailableWriters;
             Assert.AreNotEqual(writers, TerminalWriters.None, "Check for at least one available writer");
         }

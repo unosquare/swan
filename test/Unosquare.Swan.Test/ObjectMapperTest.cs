@@ -30,14 +30,29 @@ namespace Unosquare.Swan.Test
         [Test]
         public void PropertyMapTest()
         {
-            Runtime.ObjectMapper.CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s.Role.Name);
+            var mapper = new ObjectMapper();
+            mapper.CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s.Role.Name);
 
-            var destination = Runtime.ObjectMapper.Map<UserDto>(_sourceUser);
+            var destination = mapper.Map<UserDto>(_sourceUser);
 
             Assert.IsNotNull(destination);
             Assert.AreEqual(_sourceUser.Name, destination.Name);
             Assert.AreEqual(_sourceUser.Email, destination.Email);
-            Assert.AreEqual(_sourceUser.Role.Name, destination.Name);
+            Assert.AreEqual(_sourceUser.Role.Name, destination.Role);
+        }
+
+        [Test]
+        public void RemoveyMapTest()
+        {
+            var mapper = new ObjectMapper();
+            mapper.CreateMap<User, UserDto>().RemoveMap(t => t.Email);
+
+            var destination = mapper.Map<UserDto>(_sourceUser);
+
+            Assert.IsNotNull(destination);
+            Assert.AreEqual(_sourceUser.Name, destination.Name);
+            Assert.IsNull(destination.Email);
+            Assert.IsNull(destination.Role);
         }
 
         [Test]
