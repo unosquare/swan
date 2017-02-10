@@ -7,12 +7,14 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
     using System;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
 
     public class Startup
     {
@@ -32,6 +34,8 @@
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             // Add framework services.
             services.AddDbContext<SampleDbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
             // Setup a basic stores for Identity and remove Cookies redirects to /Login
@@ -71,10 +75,13 @@
                 ClockSkew = TimeSpan.Zero
             }, (username, password, grantType, clientId) =>
             {
-                if (username == "Admin" && password == "Pass.word")
-                    return Task.FromResult(new ClaimsIdentity("Bearer"));
+                if (username != "Admin" || password != "Pass.word")
+                    return Task.FromResult<ClaimsIdentity>(null);
 
-                return Task.FromResult<ClaimsIdentity>(null);
+                var claim = new ClaimsIdentity("Bearer");
+                claim.AddClaim(new Claim(ClaimTypes.Name, username));
+
+                return Task.FromResult(claim);
             }, (identity, obj) =>
             {
                 // This action is optional

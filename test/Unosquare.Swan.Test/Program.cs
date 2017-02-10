@@ -14,21 +14,8 @@ namespace Unosquare.Swan.Test
     {
         static void Main(string[] args)
         {
-            var mock = new AppWorkerMock();
-            {
-                var exit = false;
-                mock.OnExit = () => exit = true;
-                Assert.AreEqual(AppWorkerState.Stopped, mock.State);
-                mock.Start();
-                Assert.IsTrue(mock.IsBusy);
-                Assert.AreEqual(AppWorkerState.Running, mock.State);
-                mock.Stop();
-                Assert.AreEqual(AppWorkerState.Stopped, mock.State);
-
-                Assert.IsTrue(mock.ExitBecauseCancellation, "Exit because cancellation");
-                Assert.IsTrue(exit, "Exit event was fired");
-            }
-
+            var testWork = new ObjectMapperTest();
+            testWork.SimpleMapTest();
             Terminal.ReadKey(true, true);
         }
     }

@@ -48,6 +48,8 @@
 
         private static readonly Lazy<ArgumentParser> _argumentParser = new Lazy<ArgumentParser>(() => new ArgumentParser());
 
+        private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
+
         #endregion
 
         #region State Variables
@@ -217,6 +219,11 @@
         /// Gets the singleton instance created with basic defaults.
         /// </summary>
         public static ArgumentParser ArgumentParser => _argumentParser.Value;
+
+        /// <summary>
+        /// Gets the object mapper instance created with basic defaults.
+        /// </summary>
+        public static ObjectMapper ObjectMapper => _objectMapper.Value;
 
         #endregion
 

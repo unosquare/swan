@@ -1,18 +1,17 @@
 ﻿namespace Unosquare.Swan.AspNetCore.Sample.Database
 {
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-    using Unosquare.Swan.AspNetCore.Models;
+    using Models;
 
     public class SampleDbContext : BusinessDbContext
     {
-        public SampleDbContext(DbContextOptions<SampleDbContext> options)
+        public SampleDbContext(DbContextOptions<SampleDbContext> options, IHttpContextAccessor httpContextAccessor)
             : base(options)
         {
-            // TODO: Connect user with Identity
-            var auditController = new AuditTrailController<SampleDbContext, AuditTrailEntry>(this, "System");
+            var auditController = new AuditTrailController<SampleDbContext, AuditTrailEntry>(this, httpContextAccessor?.HttpContext.User?.Identity?.Name);
             auditController.AddTypes(ActionFlags.Create, new[] {typeof(Product)});
-            auditController.AddTypes(ActionFlags.Update, new[] {typeof(Product)});
-
+            
             AddController(auditController);
         }
 
