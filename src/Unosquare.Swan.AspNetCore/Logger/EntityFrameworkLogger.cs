@@ -6,10 +6,8 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Models;
-    using Swan;
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -26,7 +24,7 @@
     {
         readonly string _name;
         readonly Func<string, LogLevel, bool> _filter;
-        IServiceProvider _services;
+        readonly IServiceProvider _services;
         private readonly ConcurrentQueue<TLog> _entryQueue = new ConcurrentQueue<TLog>();
 
         /// <summary>
@@ -77,11 +75,11 @@
             return ((category, level) => true);
         }
 
-        private bool GetFilter(EntityFrameworkLoggerOptions options, string category, LogLevel level)
+        private static bool GetFilter(EntityFrameworkLoggerOptions options, string category, LogLevel level)
         {
-            var filter = options.Filters?.Keys.FirstOrDefault(p => category.StartsWith(p));
+            var filter = options.Filters?.Keys.FirstOrDefault(category.StartsWith);
             if (filter != null)
-                return (int)options.Filters[filter] <= (int)level;
+                return (int) options.Filters[filter] <= (int) level;
 
             return true;
         }
@@ -95,12 +93,12 @@
         /// <param name="state">The entry to be written. Can be also an object.</param>
         /// <param name="exception">The exception related to this entry.</param>
         /// <param name="formatter">Function to create a <c>string</c> message of the <paramref name="state" /> and <paramref name="exception" />.</param>
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception,
+            Func<TState, Exception, string> formatter)
         {
             if (_name.StartsWith("Microsoft.EntityFrameworkCore") || IsEnabled(logLevel) == false) return;
 
-            var message = string.Empty;
-            var values = state as IReadOnlyList<KeyValuePair<string, object>>;
+            string message;
 
             if (formatter != null)
             {
@@ -134,8 +132,14 @@
             {
                 log.Browser = httpContext.Request.Headers["User-Agent"];
                 log.Username = httpContext.User.Identity.Name;
-                try { log.HostAddress = httpContext.Connection.LocalIpAddress?.ToString(); }
-                catch (ObjectDisposedException) { log.HostAddress = "Disposed"; }
+                try
+                {
+                    log.HostAddress = httpContext.Connection.LocalIpAddress?.ToString();
+                }
+                catch (ObjectDisposedException)
+                {
+                    log.HostAddress = "Disposed";
+                }
                 log.Url = httpContext.Request.Path;
             }
 

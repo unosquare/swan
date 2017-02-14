@@ -188,7 +188,6 @@
                 }
             }
             // ReSharper disable once FunctionNeverReturns
-
         }
 
         /// <summary>
@@ -215,7 +214,6 @@
                 if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
                     break;
             }
-
         }
 
         #endregion

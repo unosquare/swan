@@ -14,16 +14,16 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SimpleResolveIPAddressTest()
         {
+            if (Runtime.OS == OperatingSystem.Osx)
+                Assert.Inconclusive("OSX is returning time out");
+
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
             Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
-
-            if (Runtime.OS != OperatingSystem.Osx)
-            {
-                var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
-                Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
-                    "GoogleDnsFqdn with trailing period resolution is not null");
-            }
-
+            
+            var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
+            Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
+                "GoogleDnsFqdn with trailing period resolution is not null");
+            
             var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
             Assert.IsNotNull(targetIP, "Google address is IPv4");
 
@@ -70,6 +70,9 @@ namespace Unosquare.Swan.Test
         [Test]
         public void QueryDnsErrorTest()
         {
+            if (Runtime.OS == OperatingSystem.Osx)
+                Assert.Inconclusive("OSX is returning time out");
+
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
     }

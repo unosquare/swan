@@ -213,7 +213,7 @@
         /// <returns></returns>
         public static IPAddress[] GetDnsHostEntry(string fqdn, IPAddress dnsServer, int port)
         {
-            if (fqdn.IndexOf(".") == -1)
+            if (fqdn.IndexOf(".", StringComparison.Ordinal) == -1)
             {
                 fqdn += "." + IPGlobalProperties.GetIPGlobalProperties().DomainName;
             }

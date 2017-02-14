@@ -631,7 +631,7 @@
 
             public int CompareTo(DnsDomain other)
             {
-                return ToString().CompareTo(other.ToString());
+                return string.Compare(ToString(), other.ToString(), StringComparison.Ordinal);
             }
 
             public override bool Equals(object obj)

@@ -17,14 +17,6 @@ namespace Unosquare.Swan.AspNetCore
         /// <summary>
         /// Initializes a new instance of the <see cref="BusinessDbContext"/> class.
         /// </summary>
-        protected BusinessDbContext() : base()
-        {
-
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BusinessDbContext"/> class.
-        /// </summary>
         /// <param name="dbConnection">The database connection.</param>
         protected BusinessDbContext(DbContextOptions dbConnection)
             : base(dbConnection)
@@ -113,6 +105,5 @@ namespace Unosquare.Swan.AspNetCore
             RunBusinessRules();
             return base.SaveChangesAsync(cancellationToken);
         }
-
     }
 }

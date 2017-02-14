@@ -322,7 +322,6 @@
             }
 
             return builder.ToString().TrimEnd();
-
         }
 
         /// <summary>
@@ -333,8 +332,7 @@
         /// <returns></returns>
         public static string ToJson(this object obj, bool format = true)
         {
-            if (obj == null) return string.Empty;
-            return Json.Serialize(obj, format);
+            return obj == null ? string.Empty : Json.Serialize(obj, format);
         }
 
         /// <summary>
@@ -395,8 +393,7 @@
             startIndex = startIndex.Clamp(0, str.Length - 1);
             length = length.Clamp(0, str.Length - startIndex);
 
-            if (length == 0) return string.Empty;
-            return str.Substring(startIndex, length);
+            return length == 0 ? string.Empty : str.Substring(startIndex, length);
         }
 
         /// <summary>
@@ -406,8 +403,7 @@
         /// <returns></returns>
         public static string[] ToLines(this string text)
         {
-            if (text == null) return new string[] { };
-            return SplitLinesRegex.Value.Split(text);
+            return text == null ? new string[] { } : SplitLinesRegex.Value.Split(text);
         }
 
         /// <summary>
@@ -440,6 +436,7 @@
             var lines = text.ToLines();
             var builder = new StringBuilder();
             var indentStr = new string(' ', spaces);
+
             foreach (var line in lines)
             {
                 builder.AppendLine($"{indentStr}{line}");

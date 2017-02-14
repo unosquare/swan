@@ -8,8 +8,7 @@
     using System.Linq;
     using Formatters;
 #endif
-
-
+    
     /// <summary>
     /// Represents a polyfill class to replace interoperability with .net core
     /// Idea taken from: http://www.michael-whelan.net/replacing-appdomain-in-dotnet-core/
@@ -131,6 +130,5 @@
             return assemblies.ToDictionary(x => new AssemblyInfo(x.Key), x => x.Value);
         }
 #endif
-
     }
 }

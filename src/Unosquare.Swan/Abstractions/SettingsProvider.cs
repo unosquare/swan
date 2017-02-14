@@ -20,7 +20,7 @@
         /// </summary>
         protected static readonly object SyncRoot = new object();
 
-        private T m_Global;
+        private T _global;
 
         /// <summary>
         /// Gets or sets the configuration file path. By default the entry assembly directory is used
@@ -38,10 +38,10 @@
             {
                 lock (SyncRoot)
                 {
-                    if (m_Global == null)
+                    if (_global == null)
                         ReloadGlobalSettings();
 
-                    return m_Global;
+                    return _global;
                 }
             }
         }
@@ -55,11 +55,11 @@
             {
                 if (File.Exists(ConfigurationFilePath) == false || File.ReadAllText(ConfigurationFilePath).Length == 0)
                 {
-                    m_Global = Activator.CreateInstance<T>();
+                    _global = Activator.CreateInstance<T>();
                     PersistGlobalSettings();
                 }
                 else
-                    m_Global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                    _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
             }
         }
 

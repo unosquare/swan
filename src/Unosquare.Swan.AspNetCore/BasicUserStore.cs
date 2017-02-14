@@ -16,8 +16,7 @@
     /// <seealso cref="Microsoft.AspNetCore.Identity.IUserLoginStore{ApplicationUser}" />
     /// <seealso cref="Microsoft.AspNetCore.Identity.IUserPhoneNumberStore{ApplicationUser}" />
     /// <seealso cref="Microsoft.AspNetCore.Identity.IUserTwoFactorStore{ApplicationUser}" />
-    public class BasicUserStore : IUserStore<ApplicationUser>,
-                                   IUserPasswordStore<ApplicationUser>,
+    public class BasicUserStore : IUserPasswordStore<ApplicationUser>,
                                    IUserLoginStore<ApplicationUser>,
                                    IUserPhoneNumberStore<ApplicationUser>,
                                    IUserTwoFactorStore<ApplicationUser>

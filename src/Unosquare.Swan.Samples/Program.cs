@@ -108,20 +108,20 @@
 
         static void TestFastOutputAndReadPrompt()
         {
-            int limit = Console.BufferHeight;
+            var limit = Console.BufferHeight;
             for (var i = 0; i < limit; i += 25)
             {
                 $"Output info {i} ({((decimal)i / limit):P})".Info(typeof(Program));
                 Terminal.BacklineCursor();
             }
 
-            Dictionary<ConsoleKey, string> SampleOptions = new Dictionary<ConsoleKey, string>
+            var sampleOptions = new Dictionary<ConsoleKey, string>
             {
                 { ConsoleKey.A, "Sample A" },
                 { ConsoleKey.B, "Sample B" }
             };
 
-            "Please provide an option".ReadPrompt(SampleOptions, "Exit this program");
+            "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
         }
 
         static void TestTerminalOutputs()
@@ -138,16 +138,16 @@
 
             if ("Press a key to test logging output. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
             "OUTPUT LOGGING TEST".WriteLine(ConsoleColor.Blue);
-            $"This is some error".Error(typeof(Program));
-            $"This is some error".Error(nameof(TestTerminalOutputs));
-            $"This is some info".Info(typeof(Program));
-            $"This is some info".Info(nameof(TestTerminalOutputs));
-            $"This is some warning".Warn(typeof(Program));
-            $"This is some warning".Warn(nameof(TestTerminalOutputs));
-            $"This is some tracing info".Trace(typeof(Program));
-            $"This is some tracing info".Trace(nameof(TestTerminalOutputs));
-            $"This is for debugging stuff".Debug(typeof(Program));
-            $"This is for debugging stuff".Debug(nameof(TestTerminalOutputs));
+            "This is some error".Error(typeof(Program));
+            "This is some error".Error(nameof(TestTerminalOutputs));
+            "This is some info".Info(typeof(Program));
+            "This is some info".Info(nameof(TestTerminalOutputs));
+            "This is some warning".Warn(typeof(Program));
+            "This is some warning".Warn(nameof(TestTerminalOutputs));
+            "This is some tracing info".Trace(typeof(Program));
+            "This is some tracing info".Trace(nameof(TestTerminalOutputs));
+            "This is for debugging stuff".Debug(typeof(Program));
+            "This is for debugging stuff".Debug(nameof(TestTerminalOutputs));
 
             // The simplest way of writing a line of text:
             $"Hello, today is {DateTime.Today}".WriteLine();
@@ -167,13 +167,13 @@
             if ("Press a key to test menu options. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
             "TESTING MENU OPTIONS".WriteLine(ConsoleColor.Blue);
 
-            Dictionary<ConsoleKey, string> SampleOptions = new Dictionary<ConsoleKey, string>
+            var sampleOptions = new Dictionary<ConsoleKey, string>
             {
                 { ConsoleKey.A, "Sample A" },
                 { ConsoleKey.B, "Sample B" }
             };
 
-            "Please provide an option".ReadPrompt(SampleOptions, "Exit this program");
+            "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
         }
 
         static void TestCsvFormatters()

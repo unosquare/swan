@@ -51,6 +51,9 @@
     /// </summary>
     public class EntityFrameworkLoggerOptions
     {
+        /// <summary>
+        /// Gets or sets the filters.
+        /// </summary>
         public Dictionary<string, LogLevel> Filters { get; set; }
     }
 }

@@ -121,6 +121,7 @@
         /// </summary>
         /// <param name="app">The application.</param>
         /// <param name="fallbackPath">The fallback path.</param>
+        /// <param name="ignoreCheck">The ignore check.</param>
         /// <returns></returns>
         public static IApplicationBuilder UseFallback(this IApplicationBuilder app, string fallbackPath = "/index.html", Func<PathString, bool> ignoreCheck = null)
         {
