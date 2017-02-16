@@ -1,1 +1,0 @@
-SWAN Documentation
