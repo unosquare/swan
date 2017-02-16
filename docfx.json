@@ -3,9 +3,8 @@
     {
       "src": [
         {
-          "files": [ "**/*.sln" ],
-          "exclude": [ "**/bin/**", "**/obj/**" ],
-          "cwd": "src"
+          "files": [ "Unosquare.Swan.sln" ],
+          "exclude": [ "**/bin/**", "**/obj/**" ]
         }
       ],
       "dest": "obj/api"
