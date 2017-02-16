@@ -1,0 +1,36 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [ "**/*.sln" ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "cwd": "src"
+        }
+      ],
+      "dest": "obj/api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [ "**/*.yml" ],
+        "cwd": "obj/api",
+        "dest": "api"
+      },
+      {
+        "files": [ "*.md", "toc.yml" ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [ ]
+      }
+    ],
+    "globalMetadata": {
+      "_appTitle": "Unosquare SWAN Documentation",
+      "_enableSearch": true
+    },
+    "dest": "_site"
+  }
+}
