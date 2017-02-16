@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title> SWAN: Stuff We All Need | Unosquare SWAN Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content=" SWAN: Stuff We All Need | Unosquare SWAN Documentation ">
+    <meta name="generator" content="docfx 2.12.1.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="">
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+              
+              <p><a href="https://travis-ci.org/unosquare/swan"><img src="https://travis-ci.org/unosquare/swan.svg?branch=master" alt="Build Status"></a>
+<a href="https://ci.appveyor.com/project/geoperez/swan/branch/master"><img src="https://ci.appveyor.com/api/projects/status/063tybvog8mb1sic/branch/master?svg=true" alt="Build status"></a>
+<a href="https://coveralls.io/github/unosquare/swan?branch=master"><img src="https://coveralls.io/repos/github/unosquare/swan/badge.svg?branch=master" alt="Coverage Status"></a></p>
+<h1 id="img-srchttpsgithubcomunosquareswanrawmasterswan-logo-32pngimg-swan-stuff-we-all-need"><img src="https://github.com/unosquare/swan/raw/master/swan-logo-32.png"> SWAN: Stuff We All Need</h1>
+<p><em><span class="emoji" shortcode="star">⭐</span> Please star this project if you find it useful!</em></p>
+<p>SWAN stands for Stuff We All Need</p>
+<p>Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. 
+Swan is a collection of classes and extension methods that we and other good developers have developed and evolved over the years. We found ourselves copying and pasting 
+the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea.
+Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.</p>
+<h2 id="nuget-installation">NuGet Installation:</h2>
+<p><a href="https://badge.fury.io/nu/Unosquare.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.svg" alt="NuGet version"></a></p>
+<pre><code>PM&gt; Install-Package Unosquare.Swan
+</code></pre><p>We have a nuget including helpful providers for <code>AspNetCore</code> at:</p>
+<p><a href="https://badge.fury.io/nu/Unosquare.AspNetCore.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.AspNetCore.svg" alt="NuGet version"></a></p>
+<pre><code>PM&gt; Install-Package Unosquare.Swan.AspNetCore
+</code></pre><h2 id="whats-in-the-library">What&#39;s in the library</h2>
+<p>In this section we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
+SWAN won&#39;t force you to use any of its components, classes or methods.</p>
+<h3 id="the-currentapp">The <code>CurrentApp</code></h3>
+<p><code>CurrentApp</code> provides properties and methods that provide information about </p>
+<h3 id="the-terminal">The <code>Terminal</code></h3>
+<p>Many times we find ourselves implementing <code>Console</code> output code as some NLog or Log4Net logger or adapter, especially 
+when writing console applications, daemons and windows services. We also tend to write <code>Console</code> code for reading user 
+input because it can&#39;t be some logger or adapter. And then you have the <code>System.Diagnostics.Debug</code> class to write 
+to the debugger output. And finally, all your <code>Console</code> user interaction looks primitive and unprofessional. In other 
+words, you end up with 3 things you are unsure of how to put together in the different configurations and runtime environments:
+<code>Console</code>, <code>Debug</code> and some logging mechanism. In return you have placed unintended logging code, <code>Console</code> code, and <code>Debug</code> 
+code everywhere in your application and it makes it look silly, bloated and written by an amateur.  </p>
+<p>The Swan <code>Terminal</code> is <strong>all</strong> of the following:</p>
+<ul>
+<li>Console Standard Output Writer</li>
+<li>Console Standard Error Writer </li>
+<li>Debug Writer</li>
+<li>Console Standard Input Reader</li>
+<li>Log message forwarder</li>
+</ul>
+<p>It is also very easy to use, it&#39;s thread-safe, and it does not rquire you to learn anything new. In fact it simplifies logging
+messages and diplaying <code>Console</code> messages by providing <code>string</code> extension methods.</p>
+<h4 id="example-1-writing-to-the-terminal">Example 1: Writing to the Terminal</h4>
+<p>This only writes messages out to the <code>TerminalWriters</code> if they are avialble. In practice, we typically <strong>DO NOT</strong> use
+the <code>Write</code> and <code>WriteLine</code> methods but they are provided for convenience, extensibility and customization. Please note
+that these methods do not forward messages as logging events and therefore whatever is written via these methods
+will not show up in you logging subsystem.</p>
+<pre><code class="lang-csharp">// The simplest way of writing a line of text -- equivalent to `Console.WriteLine`:
+Terminal.WriteLine($&quot;Hello, today is {DateTime.Today}&quot;);
+
+// A slightly better way using extension methods:
+$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine();
+
+// Now, let&#39;s add some color:
+$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine(ConsoleColor.Green);
+
+// Write it out to the debugger as well!
+$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+
+// You could have also set the color argument to null and just use the configured default
+$&quot;Hello, today is {DateTime.Today}&quot;.WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+</code></pre><h4 id="example-2-basic-logging">Example 2: Basic Logging</h4>
+<p>This is where <code>Terminal</code> really shines. Instead of using the <code>Write</code> and <code>WriteLine</code> methods, you can use the 
+methods that are intended for logging. These methods have different purposes and distinct functionality. Please
+refer to the example below and its comments.</p>
+<pre><code class="lang-csharp">$&quot;Hello, today is {DateTime.Today}&quot;.Info();
+</code></pre><h4 id="example-3-forwarding-logging-messages">Example 3: Forwarding Logging Messages</h4>
+<p>Suppose you have various calls to <code>Terminal</code>&#39;s logging methods such as <code>Info()</code>, <code>Warn()</code>, <code>Error()</code>, <code>Trace()</code>
+and <code>Debug()</code>. You wish to forward those messages to a logging subsystem in addition to using the <code>Console</code>&#39;s
+standard output and standard error, and the built-in diagnostics output. All you have to do is subscribe to the
+Terminal&#39;s <code>OnLogMessageReceived</code> event. The event arguments of this event provide useful properties that you
+can piece together to send your logging messages directly to the Logging subsystem in your application.</p>
+<h4 id="example-4-configuring-output">Example 4: Configuring Output</h4>
+<p>Swan&#39;s <code>Terminal</code> provides both, flexibility and consistency for all of its output. While it will pick the most
+common defaults for a given build or runtime scenario, you are able to modify such defaults and adjust them to your
+liking. You can change the output colors,  </p>
+<h4 id="example-5-user-interaction">Example 5: User Interaction</h4>
+<p>The Swan <code>Terminal</code> would not be complete without a way to read user input. The good news is
+that <code>Terminal</code> can create decent-looking user prompts if a very convenient way.</p>
+<pre><code class="lang-csharp">// TODO: These examples need work.
+
+var lineResult = Terminal.ReadLine();
+
+var numberResult = Terminal.ReadNumber();
+
+var promptResult = Terminal.ReadPrompt();
+
+var keyResult = Terminal.ReadKey();
+</code></pre><h4 id="example-6-other-useful-functions">Example 6: Other Useful Functions</h4>
+<p>Swan&#39;s <code>Terminal</code> also provides additional methods to accomplish very specific tasks. Given the fact that <code>Terminal</code>
+is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queue to be written
+out to the <code>Console</code> before the program exits. For example, when we write a console application that requires its usage
+to be fully printed out before the process is terminated. In these scenarios we use <code>Terminal.Flush</code> which blocks
+the current thread until the entire output queue becomes empty.</p>
+
+            </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/unosquare/swan/blob/master/README.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>
