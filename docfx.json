@@ -3,7 +3,7 @@
     {
       "src": [
         {
-          "files": [ "Unosquare.Swan.sln" ],
+          "files": [ "src/**.xproj" ],
           "exclude": [ "**/bin/**", "**/obj/**" ]
         }
       ],
@@ -27,7 +27,7 @@
       }
     ],
     "globalMetadata": {
-      "_appTitle": "Unosquare SWAN Documentation",
+      "_appTitle": "Unosquare SWAN",
       "_enableSearch": true
     },
     "dest": "_site"
