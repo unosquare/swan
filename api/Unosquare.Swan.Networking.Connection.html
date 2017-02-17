@@ -1,0 +1,1454 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Connection
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Connection
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.12.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content">
+              
+              
+              <h1 id="Unosquare_Swan_Networking_Connection" data-uid="Unosquare.Swan.Networking.Connection">Class Connection
+              </h1>
+              <div class="markdown level0 summary"><p>Represents a network connection either on the server or on the client. It wraps a TcpClient
+and its corresponding network streams. It is capable of working in 2 modes. Typically on the server side
+you will need to enable continuous reading and events. On the client side you may want to disable continuous reading
+and use the Read methods available. In continuous reading mode Read methods are not available and will throw
+an invalid operation exceptions if they are used.
+Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don&#39;t use Read methods
+Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data</p>
+</div>
+              <div class="markdown level0 conceptual"></div>
+              <div class="inheritance">
+                <h5>Inheritance</h5>
+                  <div class="level0"><span class="xref">System.Object</span></div>
+                  <div class="level1"><span class="xref">Connection</span></div>
+              </div>
+              <div class="inheritedMembers">
+                <h5>Inherited Members</h5>
+                <div>
+                  <span class="xref">System.Object.ToString()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetHashCode()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetType()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.MemberwiseClone()</span>
+                </div>
+              </div>
+              <h6><strong>Namespace</strong>:Unosquare.Swan.Networking</h6>
+              <h6><strong>Assembly</strong>:cs.temp.dll.dll</h6>
+              <h5 id="Unosquare_Swan_Networking_Connection_syntax">Syntax</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public sealed class Connection : IDisposable</code></pre>
+              </div>
+              <h3 id="constructors">Constructors
+              </h3>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection__ctor_" data-uid="Unosquare.Swan.Networking.Connection.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection__ctor_TcpClient_" data-uid="Unosquare.Swan.Networking.Connection.#ctor(TcpClient)">Connection(TcpClient)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Connection.html">Connection</a> class in continuous reading mode.
+It uses UTF8 encoding, CRLF as a new line sequence and disables a protocol block size</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Connection(TcpClient client)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">TcpClient</span></td>
+                    <td><span class="parametername">client</span></td>
+                    <td><p>The client.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection__ctor_" data-uid="Unosquare.Swan.Networking.Connection.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection__ctor_TcpClient_System_Int32_" data-uid="Unosquare.Swan.Networking.Connection.#ctor(TcpClient,System.Int32)">Connection(TcpClient, Int32)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Connection.html">Connection</a> class in continuous reading mode.
+It uses UTF8 encoding, disables line sequences, and uses a protocol block size instead</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Connection(TcpClient client, int blockSize)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">TcpClient</span></td>
+                    <td><span class="parametername">client</span></td>
+                    <td><p>The client.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">blockSize</span></td>
+                    <td><p>Size of the block.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection__ctor_" data-uid="Unosquare.Swan.Networking.Connection.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection__ctor_TcpClient_System_Text_Encoding_System_String_System_Boolean_System_Int32_" data-uid="Unosquare.Swan.Networking.Connection.#ctor(TcpClient,System.Text.Encoding,System.String,System.Boolean,System.Int32)">Connection(TcpClient, Encoding, String, Boolean, Int32)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Connection.html">Connection</a> class.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Connection(TcpClient client, Encoding textEncoding, string newLineSequence, bool disableContinuousReading, int blockSize)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">TcpClient</span></td>
+                    <td><span class="parametername">client</span></td>
+                    <td><p>The client.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Text.Encoding</span></td>
+                    <td><span class="parametername">textEncoding</span></td>
+                    <td><p>The text encoding.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">newLineSequence</span></td>
+                    <td><p>The new line sequence used for read and write operations.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">disableContinuousReading</span></td>
+                    <td><p>if set to <code>true</code> [disable continuous reading].</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">blockSize</span></td>
+                    <td><p>Size of the block. -- set to 0 or less to disable</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="properties">Properties
+              </h3>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ActiveStream_" data-uid="Unosquare.Swan.Networking.Connection.ActiveStream*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ActiveStream" data-uid="Unosquare.Swan.Networking.Connection.ActiveStream">ActiveStream</h4>
+              <div class="markdown level1 summary"><p>Gets the active stream. Returns an SSL stream if the connection is secure, otherwise returns 
+the underlying NetworkStream</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Stream ActiveStream { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.IO.Stream</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ConnectionDuration_" data-uid="Unosquare.Swan.Networking.Connection.ConnectionDuration*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ConnectionDuration" data-uid="Unosquare.Swan.Networking.Connection.ConnectionDuration">ConnectionDuration</h4>
+              <div class="markdown level1 summary"><p>Gets the duration of the connection.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public TimeSpan ConnectionDuration { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ConnectionStartTime_" data-uid="Unosquare.Swan.Networking.Connection.ConnectionStartTime*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ConnectionStartTime" data-uid="Unosquare.Swan.Networking.Connection.ConnectionStartTime">ConnectionStartTime</h4>
+              <div class="markdown level1 summary"><p>Gets the start time at which the connection was started in local time.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public DateTime ConnectionStartTime { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.DateTime</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ConnectionStartTimeUtc_" data-uid="Unosquare.Swan.Networking.Connection.ConnectionStartTimeUtc*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ConnectionStartTimeUtc" data-uid="Unosquare.Swan.Networking.Connection.ConnectionStartTimeUtc">ConnectionStartTimeUtc</h4>
+              <div class="markdown level1 summary"><p>Gets the start time at which the connection was started in UTC.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public DateTime ConnectionStartTimeUtc { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.DateTime</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_DataReceivedIdleDuration_" data-uid="Unosquare.Swan.Networking.Connection.DataReceivedIdleDuration*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_DataReceivedIdleDuration" data-uid="Unosquare.Swan.Networking.Connection.DataReceivedIdleDuration">DataReceivedIdleDuration</h4>
+              <div class="markdown level1 summary"><p>Gets how long has elapsed since data was last received.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public TimeSpan DataReceivedIdleDuration { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_DataReceivedLastTimeUtc_" data-uid="Unosquare.Swan.Networking.Connection.DataReceivedLastTimeUtc*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_DataReceivedLastTimeUtc" data-uid="Unosquare.Swan.Networking.Connection.DataReceivedLastTimeUtc">DataReceivedLastTimeUtc</h4>
+              <div class="markdown level1 summary"><p>Gets the last time data was received at in UTC.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public DateTime DataReceivedLastTimeUtc { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.DateTime</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_DataSentIdleDuration_" data-uid="Unosquare.Swan.Networking.Connection.DataSentIdleDuration*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_DataSentIdleDuration" data-uid="Unosquare.Swan.Networking.Connection.DataSentIdleDuration">DataSentIdleDuration</h4>
+              <div class="markdown level1 summary"><p>Gets how long has elapsed since data was last sent</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public TimeSpan DataSentIdleDuration { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_DataSentLastTimeUtc_" data-uid="Unosquare.Swan.Networking.Connection.DataSentLastTimeUtc*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_DataSentLastTimeUtc" data-uid="Unosquare.Swan.Networking.Connection.DataSentLastTimeUtc">DataSentLastTimeUtc</h4>
+              <div class="markdown level1 summary"><p>Gets the last time at which data was sent in UTC.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public DateTime DataSentLastTimeUtc { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.DateTime</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_Id_" data-uid="Unosquare.Swan.Networking.Connection.Id*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_Id" data-uid="Unosquare.Swan.Networking.Connection.Id">Id</h4>
+              <div class="markdown level1 summary"><p>Gets the unique identifier of this connection.
+This field is filled out upon instantiation of this class</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Guid Id { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Guid</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_IsActiveStreamSecure_" data-uid="Unosquare.Swan.Networking.Connection.IsActiveStreamSecure*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_IsActiveStreamSecure" data-uid="Unosquare.Swan.Networking.Connection.IsActiveStreamSecure">IsActiveStreamSecure</h4>
+              <div class="markdown level1 summary"><p>Gets a value indicating whether the current connection stream is an SSL stream.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public bool IsActiveStreamSecure { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_IsConnected_" data-uid="Unosquare.Swan.Networking.Connection.IsConnected*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_IsConnected" data-uid="Unosquare.Swan.Networking.Connection.IsConnected">IsConnected</h4>
+              <div class="markdown level1 summary"><p>Gets a value indicating whether this connection is connected.
+Remarks: This property polls the socket internally and checks if it is available to read data from it.
+If disconnect has been called, then this property will return false.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_IsContinuousReadingEnabled_" data-uid="Unosquare.Swan.Networking.Connection.IsContinuousReadingEnabled*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_IsContinuousReadingEnabled" data-uid="Unosquare.Swan.Networking.Connection.IsContinuousReadingEnabled">IsContinuousReadingEnabled</h4>
+              <div class="markdown level1 summary"><p>Gets a value indicating whether this connection is in continuous reading mode.
+Remark: Whenever a disconnect event occurs, the background thread is terminated
+and this property will return false whenever the reading thread is not active.
+Therefore, even if continuous reading was not disabled in the constructor, this property
+might return false.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public bool IsContinuousReadingEnabled { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_LocalEndPoint_" data-uid="Unosquare.Swan.Networking.Connection.LocalEndPoint*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_LocalEndPoint" data-uid="Unosquare.Swan.Networking.Connection.LocalEndPoint">LocalEndPoint</h4>
+              <div class="markdown level1 summary"><p>Gets the local end point of this TCP connection.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public IPEndPoint LocalEndPoint { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">IPEndPoint</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ProtocolBlockSize_" data-uid="Unosquare.Swan.Networking.Connection.ProtocolBlockSize*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ProtocolBlockSize" data-uid="Unosquare.Swan.Networking.Connection.ProtocolBlockSize">ProtocolBlockSize</h4>
+              <div class="markdown level1 summary"><p>When in continuous reading mode, and if set to greater than 0,
+a Data reception event will be fired whenever the amount of bytes
+determined by this property has been received. Useful for fixed-length message protocols.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public int ProtocolBlockSize { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_RemoteClient_" data-uid="Unosquare.Swan.Networking.Connection.RemoteClient*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_RemoteClient" data-uid="Unosquare.Swan.Networking.Connection.RemoteClient">RemoteClient</h4>
+              <div class="markdown level1 summary"><p>Gets the remote client of this TCP connection.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public TcpClient RemoteClient { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">TcpClient</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_RemoteEndPoint_" data-uid="Unosquare.Swan.Networking.Connection.RemoteEndPoint*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_RemoteEndPoint" data-uid="Unosquare.Swan.Networking.Connection.RemoteEndPoint">RemoteEndPoint</h4>
+              <div class="markdown level1 summary"><p>Gets the remote end point of this TCP connection.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public IPEndPoint RemoteEndPoint { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">IPEndPoint</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_TextEncoding_" data-uid="Unosquare.Swan.Networking.Connection.TextEncoding*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_TextEncoding" data-uid="Unosquare.Swan.Networking.Connection.TextEncoding">TextEncoding</h4>
+              <div class="markdown level1 summary"><p>Gets the text encoding for send and receive operations.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Encoding TextEncoding { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Text.Encoding</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="methods">Methods
+              </h3>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_Disconnect_" data-uid="Unosquare.Swan.Networking.Connection.Disconnect*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_Disconnect" data-uid="Unosquare.Swan.Networking.Connection.Disconnect">Disconnect()</h4>
+              <div class="markdown level1 summary"><p>Disconnects this connection.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void Disconnect()</code></pre>
+              </div>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_Dispose_" data-uid="Unosquare.Swan.Networking.Connection.Dispose*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_Dispose" data-uid="Unosquare.Swan.Networking.Connection.Dispose">Dispose()</h4>
+              <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+              </div>
+              <h5 class="implements">Implements</h5>
+                  <div><span class="xref">System.IDisposable.Dispose()</span></div>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ReadDataAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ReadDataAsync" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync">ReadDataAsync()</h4>
+              <div class="markdown level1 summary"><p>Reads data asynchronously from the remote stream with a 5000 millisecond timeout.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Byte</span>[]&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ReadDataAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ReadDataAsync_System_TimeSpan_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan)">ReadDataAsync(TimeSpan)</h4>
+              <div class="markdown level1 summary"><p>Reads data from the remote client asynchronously and with the given timeout.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td><span class="parametername">timeout</span></td>
+                    <td><p>The timeout.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Byte</span>[]&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.InvalidOperationException</span></td>
+                    <td><p>Read methods have been disabled because continuous reading is enabled.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.TimeoutException</span></td>
+                    <td><p>Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ReadLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ReadLineAsync" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync">ReadLineAsync()</h4>
+              <div class="markdown level1 summary"><p>Performs the same task as this method&#39;s overload but it defaults to a read timeout of 30 seconds.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ReadLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ReadLineAsync_System_TimeSpan_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan)">ReadLineAsync(TimeSpan)</h4>
+              <div class="markdown level1 summary"><p>Reads the next available line of text in queue. Return null when no text is read.
+This method differs from the rest of the read methods because it keeps an internal
+queue of lines that are read from the stream and only returns the one line next in the queue.
+It is only recommended to use this method when you are working with text-based protocols
+and the rest of the read methods are not called.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td><span class="parametername">timeout</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.InvalidOperationException</span></td>
+                    <td><p>Read methods have been disabled because continuous reading is enabled.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ReadTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ReadTextAsync" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync">ReadTextAsync()</h4>
+              <div class="markdown level1 summary"><p>Asynchronously reads data as text with a 5000 millisecond timeout.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_ReadTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_ReadTextAsync_System_TimeSpan_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan)">ReadTextAsync(TimeSpan)</h4>
+              <div class="markdown level1 summary"><p>Asynchronously reads data as text with the given timeout.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td><span class="parametername">timeout</span></td>
+                    <td><p>The timeout.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync">UpgradeToSecureAsClientAsync()</h4>
+              <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the client.
+Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them!</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsClientAsync_System_String_RemoteCertificateValidationCallback_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsClientAsync(System.String,RemoteCertificateValidationCallback)">UpgradeToSecureAsClientAsync(String, RemoteCertificateValidationCallback)</h4>
+              <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the client.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsClientAsync(string hostname, RemoteCertificateValidationCallback callback)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">hostname</span></td>
+                    <td><p>The hostname.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">RemoteCertificateValidationCallback</span></td>
+                    <td><span class="parametername">callback</span></td>
+                    <td><p>The callback.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsServerAsync_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsServerAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_UpgradeToSecureAsServerAsync_X509Certificate2_" data-uid="Unosquare.Swan.Networking.Connection.UpgradeToSecureAsServerAsync(X509Certificate2)">UpgradeToSecureAsServerAsync(X509Certificate2)</h4>
+              <div class="markdown level1 summary"><p>Upgrades the active stream to an SSL stream if this connection object is hosted in the server.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UpgradeToSecureAsServerAsync(X509Certificate2 serverCertificate)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">X509Certificate2</span></td>
+                    <td><span class="parametername">serverCertificate</span></td>
+                    <td><p>The server certificate.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_WriteDataAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteDataAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_WriteDataAsync_System_Byte___System_Boolean_" data-uid="Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[],System.Boolean)">WriteDataAsync(Byte[], Boolean)</h4>
+              <div class="markdown level1 summary"><p>Writes data asynchronously.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Byte</span>[]</td>
+                    <td><span class="parametername">buffer</span></td>
+                    <td><p>The buffer.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">forceFlush</span></td>
+                    <td><p>if set to <code>true</code> [force flush].</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_WriteLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String)">WriteLineAsync(String)</h4>
+              <div class="markdown level1 summary"><p>Writes a line of text asynchronously. 
+The new line sequence is added automatically at the end of the line.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">line</span></td>
+                    <td><p>The line.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_WriteLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_System_Text_Encoding_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Text.Encoding)">WriteLineAsync(String, Encoding)</h4>
+              <div class="markdown level1 summary"><p>Writes a line of text asynchronously. 
+The new line sequence is added automatically at the end of the line.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">line</span></td>
+                    <td><p>The line.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Text.Encoding</span></td>
+                    <td><span class="parametername">encoding</span></td>
+                    <td><p>The encoding.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_WriteTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String)">WriteTextAsync(String)</h4>
+              <div class="markdown level1 summary"><p>Writes text asynchronously.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">text</span></td>
+                    <td><p>The text.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Networking_Connection_WriteTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync*"></a>
+              <h4 id="Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_System_Text_Encoding_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Text.Encoding)">WriteTextAsync(String, Encoding)</h4>
+              <div class="markdown level1 summary"><p>Writes text asynchronously.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">text</span></td>
+                    <td><p>The text.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Text.Encoding</span></td>
+                    <td><span class="parametername">encoding</span></td>
+                    <td><p>The encoding.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="events">Events
+              </h3>
+              
+              
+              <h4 id="Unosquare_Swan_Networking_Connection_ClientDisconnected" data-uid="Unosquare.Swan.Networking.Connection.ClientDisconnected">ClientDisconnected</h4>
+              <div class="markdown level1 summary"><p>Occurs when a client is disconnected</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public event EventHandler ClientDisconnected</code></pre>
+              </div>
+              <h5 class="eventType">Event Type</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.EventHandler</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <h4 id="Unosquare_Swan_Networking_Connection_ConnectionFailure" data-uid="Unosquare.Swan.Networking.Connection.ConnectionFailure">ConnectionFailure</h4>
+              <div class="markdown level1 summary"><p>Occurs when an error occurs while upgrading, sending, or receiving data in this client</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public event EventHandler&lt;ConnectionFailureEventArgs&gt; ConnectionFailure</code></pre>
+              </div>
+              <h5 class="eventType">Event Type</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Unosquare.Swan.ConnectionFailureEventArgs.html">ConnectionFailureEventArgs</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <h4 id="Unosquare_Swan_Networking_Connection_DataReceived" data-uid="Unosquare.Swan.Networking.Connection.DataReceived">DataReceived</h4>
+              <div class="markdown level1 summary"><p>Occurs when the receive buffer has encounters a new line sequence, the buffer is flushed or the buffer is full.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public event EventHandler&lt;ConnectionDataReceivedEventArgs&gt; DataReceived</code></pre>
+              </div>
+              <h5 class="eventType">Event Type</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Unosquare.Swan.ConnectionDataReceivedEventArgs.html">ConnectionDataReceivedEventArgs</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="seealso">See Also</h3>
+              <div class="seealso">
+                  <div><span class="xref">System.IDisposable</span></div>
+              </div>
+                        </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

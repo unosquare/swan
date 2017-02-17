@@ -1,0 +1,909 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CsvWriter
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CsvWriter
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.12.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content">
+              
+              
+              <h1 id="Unosquare_Swan_Formatters_CsvWriter" data-uid="Unosquare.Swan.Formatters.CsvWriter">Class CsvWriter
+              </h1>
+              <div class="markdown level0 summary"><p>A CSV writer useful for exporting a set of objects</p>
+</div>
+              <div class="markdown level0 conceptual"></div>
+              <div class="inheritance">
+                <h5>Inheritance</h5>
+                  <div class="level0"><span class="xref">System.Object</span></div>
+                  <div class="level1"><span class="xref">CsvWriter</span></div>
+              </div>
+              <div class="inheritedMembers">
+                <h5>Inherited Members</h5>
+                <div>
+                  <span class="xref">System.Object.ToString()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetHashCode()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetType()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.MemberwiseClone()</span>
+                </div>
+              </div>
+              <h6><strong>Namespace</strong>:Unosquare.Swan.Formatters</h6>
+              <h6><strong>Assembly</strong>:cs.temp.dll.dll</h6>
+              <h5 id="Unosquare_Swan_Formatters_CsvWriter_syntax">Syntax</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public class CsvWriter : IDisposable</code></pre>
+              </div>
+              <h3 id="constructors">Constructors
+              </h3>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter__ctor_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter__ctor_System_IO_Stream_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor(System.IO.Stream)">CsvWriter(Stream)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter</a> class.
+It uses the Windows 1252 encoding and automatically closes
+the stream upon disposing this writer</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public CsvWriter(Stream outputStream)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.IO.Stream</span></td>
+                    <td><span class="parametername">outputStream</span></td>
+                    <td><p>The output stream.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter__ctor_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter__ctor_System_IO_Stream_System_Boolean_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor(System.IO.Stream,System.Boolean,System.Text.Encoding)">CsvWriter(Stream, Boolean, Encoding)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter</a> class.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public CsvWriter(Stream outputStream, bool leaveOpen, Encoding encoding)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.IO.Stream</span></td>
+                    <td><span class="parametername">outputStream</span></td>
+                    <td><p>The output stream.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">leaveOpen</span></td>
+                    <td><p>if set to <code>true</code> [leave open].</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Text.Encoding</span></td>
+                    <td><span class="parametername">encoding</span></td>
+                    <td><p>The encoding.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter__ctor_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter__ctor_System_IO_Stream_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor(System.IO.Stream,System.Text.Encoding)">CsvWriter(Stream, Encoding)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter</a> class.
+It automatically closes the stream when disposing this writer</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public CsvWriter(Stream outputStream, Encoding encoding)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.IO.Stream</span></td>
+                    <td><span class="parametername">outputStream</span></td>
+                    <td><p>The output stream.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Text.Encoding</span></td>
+                    <td><span class="parametername">encoding</span></td>
+                    <td><p>The encoding.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter__ctor_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter__ctor_System_String_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor(System.String)">CsvWriter(String)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter</a> class.
+It opens the file given file, automatically closes the stream upon 
+disposing of this writer, and uses the Windows 1252 encoding</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public CsvWriter(string filename)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">filename</span></td>
+                    <td><p>The filename.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter__ctor_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter__ctor_System_String_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvWriter.#ctor(System.String,System.Text.Encoding)">CsvWriter(String, Encoding)</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter</a> class.
+It opens the file given file, automatically closes the stream upon 
+disposing of this writer, and uses the given text encoding for output</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public CsvWriter(string filename, Encoding encoding)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">filename</span></td>
+                    <td><p>The filename.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Text.Encoding</span></td>
+                    <td><span class="parametername">encoding</span></td>
+                    <td><p>The encoding.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="properties">Properties
+              </h3>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_Count_" data-uid="Unosquare.Swan.Formatters.CsvWriter.Count*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_Count" data-uid="Unosquare.Swan.Formatters.CsvWriter.Count">Count</h4>
+              <div class="markdown level1 summary"><p>Gets number of lines that have been written, including the headings line</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public ulong Count { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.UInt64</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_EscapeCharacter_" data-uid="Unosquare.Swan.Formatters.CsvWriter.EscapeCharacter*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_EscapeCharacter" data-uid="Unosquare.Swan.Formatters.CsvWriter.EscapeCharacter">EscapeCharacter</h4>
+              <div class="markdown level1 summary"><p>Gets or sets the escape character to use to escape field values</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public char EscapeCharacter { get; set; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Char</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_IgnorePropertyNames_" data-uid="Unosquare.Swan.Formatters.CsvWriter.IgnorePropertyNames*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_IgnorePropertyNames" data-uid="Unosquare.Swan.Formatters.CsvWriter.IgnorePropertyNames">IgnorePropertyNames</h4>
+              <div class="markdown level1 summary"><p>Defines a list of properties to ignore when outputting CSV lines</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public List&lt;string&gt; IgnorePropertyNames { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_NewLineSequence_" data-uid="Unosquare.Swan.Formatters.CsvWriter.NewLineSequence*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_NewLineSequence" data-uid="Unosquare.Swan.Formatters.CsvWriter.NewLineSequence">NewLineSequence</h4>
+              <div class="markdown level1 summary"><p>Gets or sets the new line character sequence to use when writing a line.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public string NewLineSequence { get; set; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_SeparatorCharacter_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SeparatorCharacter*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_SeparatorCharacter" data-uid="Unosquare.Swan.Formatters.CsvWriter.SeparatorCharacter">SeparatorCharacter</h4>
+              <div class="markdown level1 summary"><p>Gets or sets the field separator character.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public char SeparatorCharacter { get; set; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Char</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="methods">Methods
+              </h3>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_Dispose_" data-uid="Unosquare.Swan.Formatters.CsvWriter.Dispose*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_Dispose" data-uid="Unosquare.Swan.Formatters.CsvWriter.Dispose">Dispose()</h4>
+              <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+              </div>
+              <h5 class="implements">Implements</h5>
+                  <div><span class="xref">System.IDisposable.Dispose()</span></div>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_Dispose_" data-uid="Unosquare.Swan.Formatters.CsvWriter.Dispose*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_Dispose_System_Boolean_" data-uid="Unosquare.Swan.Formatters.CsvWriter.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+              <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposeAlsoManaged)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">disposeAlsoManaged</span></td>
+                    <td><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords__1_System_Collections_Generic_IEnumerable___0__System_String_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords``1(System.Collections.Generic.IEnumerable{``0},System.String)">SaveRecords&lt;T&gt;(IEnumerable&lt;T&gt;, String)</h4>
+              <div class="markdown level1 summary"><p>Saves the items to a CSV file.
+If the file exits, it overwrites it. If it does not, it creates it.
+It uses the Windows 1252 text encoding for output</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public static int SaveRecords&lt;T&gt;(IEnumerable&lt;T&gt; items, string filePath)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+                    <td><span class="parametername">items</span></td>
+                    <td><p>The items.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">filePath</span></td>
+                    <td><p>The file path.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="typeParameters">Type Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="parametername">T</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_System_Collections_Generic_IDictionary_System_String_System_Object__" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.Generic.IDictionary{System.String,System.Object})">WriteHeadings(IDictionary&lt;String, Object&gt;)</h4>
+              <div class="markdown level1 summary"><p>Writes the headings.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteHeadings(IDictionary&lt;string, object&gt; dictionary)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
+                    <td><span class="parametername">dictionary</span></td>
+                    <td><p>The dictionary.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.ArgumentNullException</span></td>
+                    <td><p>dictionary</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_System_Collections_IDictionary_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.IDictionary)">WriteHeadings(IDictionary)</h4>
+              <div class="markdown level1 summary"><p>Writes the headings.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteHeadings(IDictionary dictionary)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Collections.IDictionary</span></td>
+                    <td><span class="parametername">dictionary</span></td>
+                    <td><p>The dictionary.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.ArgumentNullException</span></td>
+                    <td><p>dictionary</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_System_Type_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Type)">WriteHeadings(Type)</h4>
+              <div class="markdown level1 summary"><p>Writes the headings.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteHeadings(Type type)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Type</span></td>
+                    <td><span class="parametername">type</span></td>
+                    <td><p>The type.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.ArgumentNullException</span></td>
+                    <td><p>type</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteHeadings__1" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteHeadings``1">WriteHeadings&lt;T&gt;()</h4>
+              <div class="markdown level1 summary"><p>Writes the headings.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteHeadings&lt;T&gt;()</code></pre>
+              </div>
+              <h5 class="typeParameters">Type Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="parametername">T</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Object___" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Object[])">WriteLine(Object[])</h4>
+              <div class="markdown level1 summary"><p>Writes a line of CSV text. Items are converted to strings.
+If items are found to be null, empty strings are written out.
+If items are not string, the ToStringInvariant() method is called on them</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteLine(params object[] items)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Object</span>[]</td>
+                    <td><span class="parametername">items</span></td>
+                    <td><p>The items.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteObject_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObject*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteObject_System_Object_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObject(System.Object)">WriteObject(Object)</h4>
+              <div class="markdown level1 summary"><p>Writes a row of CSV text. It handles the special cases where the object is
+a dynamic object or and array. It also handles non-collection objects fine.
+If you do not like the way the output is handled, you can simply write an extension
+method of this class and use the WriteLine method instead.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteObject(object item)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Object</span></td>
+                    <td><span class="parametername">item</span></td>
+                    <td><p>The item.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.ArgumentNullException</span></td>
+                    <td><p>item</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteObject_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObject*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteObject__1___0_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObject``1(``0)">WriteObject&lt;T&gt;(T)</h4>
+              <div class="markdown level1 summary"><p>Writes a row of CSV text. It handles the special cases where the object is
+a dynamic object or and array. It also handles non-collection objects fine.
+If you do not like the way the output is handled, you can simply write an extension
+method of this class and use the WriteLine method instead.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteObject&lt;T&gt;(T item)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">T</span></td>
+                    <td><span class="parametername">item</span></td>
+                    <td><p>The item.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="typeParameters">Type Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="parametername">T</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Formatters_CsvWriter_WriteObjects_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObjects*"></a>
+              <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteObjects__1_System_Collections_Generic_IEnumerable___0__" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteObjects``1(System.Collections.Generic.IEnumerable{``0})">WriteObjects&lt;T&gt;(IEnumerable&lt;T&gt;)</h4>
+              <div class="markdown level1 summary"><p>Writes a set of items, one per line and atomically by repeatedly calling the
+WriteObject method. For more info check out the description of the WriteObject
+method.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void WriteObjects&lt;T&gt;(IEnumerable&lt;T&gt; items)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+                    <td><span class="parametername">items</span></td>
+                    <td><p>The items.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="typeParameters">Type Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="parametername">T</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+                        </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
