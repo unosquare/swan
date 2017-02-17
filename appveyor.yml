@@ -51,4 +51,5 @@ after_build:
             git add -A 2>&1
             git commit -m "Documentation update" -q
             git push origin gh-pages -q
+            CD ..
         }
