@@ -3,7 +3,7 @@
     {
       "src": [
         {
-          "files": [ "src/**/*.cs" ],
+          "files": [ "src/Unosquare.Swan/**/*.cs", "src/Unosquare.Swan.AspNetCore/**/*.cs" ],
           "exclude": [ "**/bin/**", "**/obj/**" ]
         }
       ],
