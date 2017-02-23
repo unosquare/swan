@@ -65,5 +65,29 @@ namespace Unosquare.Swan.Test
             var input = "\0Test\t";
             Assert.AreEqual("Test", input.RemoveControlChars(), $"Testing with {input}");
         }
+
+        [TestCase("", null, 0, 0)]
+        [TestCase("Swan", "ThisIsASwanTest", 7, 10)]
+        [TestCase("", "ThisIsASwanTest", 10, 7)]
+        public void SliceTest(string expected, string input, int startIndex, int endIndex)
+        {
+            Assert.AreEqual(expected, input.Slice(startIndex, endIndex), $"Testing with {input}");
+        }
+
+        [TestCase("", null, 0, 0)]
+        [TestCase("Swan", "ThisIsASwanTest", 7, 4)]
+        [TestCase("", "ThisIsASwanTest", 10, 0)]
+        public void SliceLengthTest(string expected, string input, int startIndex, int length)
+        {
+            Assert.AreEqual(expected, input.SliceLength(startIndex, length), $"Testing with {input}");
+        }
+
+        [TestCase("", null, 0)]
+        [TestCase("     Test", "Test", 5)]
+        [TestCase("Test", "Test", 0)]
+        public void IndentTest(string expected, string input, int spaces)
+        {
+            Assert.AreEqual(expected, input.Indent(spaces), $"Testing with {input}");
+        }
     }
 }
