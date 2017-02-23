@@ -41,5 +41,29 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual("StringData      : string", objectInfoLines[1]);
             Assert.AreEqual("IntData         : 1", objectInfoLines[2]);
         }
+
+        [TestCase("", null)]
+        [TestCase("Test", "Test")]
+        [TestCase("Unosquare.Swan.Test.Mocks.Monkey", typeof(Monkey))]
+        public void ToStringInvariantTest(string expected, object input)
+        {
+            Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
+        }
+
+        [TestCase("Test", "Test", null)]
+        [TestCase("Test", "\0Test\0", null)]
+        [TestCase("\0Test", "\0Test", new char[] { '\0' })]
+        [TestCase("\0Test", "\0Test\t", new char[] { '\0' })]
+        public void RemoveControlCharsExceptTest(string expected, string input, char[] excludeChars)
+        {
+            Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");
+        }
+        
+        [Test]
+        public void RemoveControlCharsTest()
+        {
+            var input = "\0Test\t";
+            Assert.AreEqual("Test", input.RemoveControlChars(), $"Testing with {input}");
+        }
     }
 }
