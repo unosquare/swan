@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Runtime.InteropServices;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -105,7 +106,18 @@ namespace Unosquare.Swan.Test
         [TestCase("LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLong", "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
         public void ToSafeFilenameTest(string expected, string input)
         {
+            var isWindows = false;
+
+#if NET452
+            isWindows = System.Environment.OSVersion.ToString().Contains("Windows");
+#endif
+#if NETCOREAPP1_1
+            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#endif
+
+            Assert.Ignore("Ignored",!isWindows);
             Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
+
         }
 
         [Test]
