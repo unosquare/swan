@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -88,6 +89,37 @@ namespace Unosquare.Swan.Test
         public void IndentTest(string expected, string input, int spaces)
         {
             Assert.AreEqual(expected, input.Indent(spaces), $"Testing with {input}");
+        }
+
+        [TestCase(0, 0, null, 0)]
+        [TestCase(1, 7, "ThisIsASwanTest", 6)]
+        [TestCase(2, 0, "ThisIs\nASwanTest", 6)]
+        public void TextPositionAtTest(int firstExpected, int secExpected, string input, int charIndex)
+        {
+            var expected = Tuple.Create(firstExpected, secExpected);
+
+            Assert.AreEqual(expected, input.TextPositionAt(charIndex), $"Testing with {input}");
+        }
+
+        [TestCase("FileName", ":File|Name*")]
+        [TestCase("LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLong", "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
+        public void ToSafeFilenameTest(string expected, string input)
+        {
+            Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
+        }
+
+        [Test]
+        public void FormatBytesTest()
+        {
+            ulong input = 2048;
+            Assert.AreEqual("2 KB", input.FormatBytes(), $"Testing with {input}");
+        }
+
+        [TestCase("ThisIs", "ThisIsASwanTest", 6)]
+        [TestCase("ThisIsASwanTest", "ThisIsASwanTest", 60)]
+        public void TruncateTest(string expected, string input, int maximumLength)
+        {
+            Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
         }
     }
 }
