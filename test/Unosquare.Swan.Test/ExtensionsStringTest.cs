@@ -106,15 +106,7 @@ namespace Unosquare.Swan.Test
         [TestCase("LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLong", "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
         public void ToSafeFilenameTest(string expected, string input)
         {
-            var isWindows = false;
-
-#if NET452
-            isWindows = System.Environment.OSVersion.ToString().Contains("Windows");
-#endif
-#if NETCOREAPP1_1
-            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#endif
-
+            var isWindows = (Runtime.OS == OperatingSystem.Windows);
             Assert.Ignore("Ignored",!isWindows);
             Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
 
