@@ -17,6 +17,12 @@ namespace Unosquare.Swan.Test.Mocks
     public class Fish : IAnimal
     {
         public string Name => nameof(Fish);
+
+        [AttributeMock("This is an Attribute")]
+        public virtual string GetFeeding()
+        {
+            return "Worms";
+        }
     }
 
     public interface ICar
@@ -46,6 +52,45 @@ namespace Unosquare.Swan.Test.Mocks
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.All)]
+    public class AttributeMock : Attribute
+    {
+        private string myName;
+        public AttributeMock(string name)
+        {
+            myName = name;
+        }
+        public string Name
+        {
+            get
+            {
+                return myName;
+            }
+        }
+    }
+
+    public class Clown : Fish
+    {
+        [AttributeMock("This is an Attribute")]
+        public string GetName()
+        {
+            return "Nemo";
+        }
+    }
+
+    public class Shark : Fish
+    {
+        public string GetName()
+        {
+            return "Lenny";
+        }
+
+        public override string GetFeeding()
+        {
+            return "Seals";
         }
     }
 }
