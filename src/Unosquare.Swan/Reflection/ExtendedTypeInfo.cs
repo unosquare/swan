@@ -17,7 +17,7 @@
         #region Static Declarations
 
         private const string TryParseMethodName = nameof(byte.TryParse);
-        private const string ToStringMethodName = nameof(object.ToString);
+        private const string ToStringMethodName = nameof(ToString);
 
         private static readonly Type[] NumericTypes = {
             typeof (byte),
@@ -37,8 +37,8 @@
 
         #region State Management
 
-        private readonly ParameterInfo[] TryParseParameters;
-        private readonly int ToStringArgumentLength;
+        private readonly ParameterInfo[] _tryParseParameters;
+        private readonly int _toStringArgumentLength;
 
         #endregion
 
@@ -66,13 +66,11 @@
             try
             {
                 TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
-                    new[] { typeof(string), typeof(NumberStyles), typeof(IFormatProvider), UnderlyingType.MakeByRefType() });
+                                         new[] { typeof(string), typeof(NumberStyles), typeof(IFormatProvider), UnderlyingType.MakeByRefType() }) ??
+                                     UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
+                                         new[] { typeof(string), UnderlyingType.MakeByRefType() });
 
-                if (TryParseMethodInfo == null)
-                    TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
-                        new[] { typeof(string), UnderlyingType.MakeByRefType() });
-
-                TryParseParameters = TryParseMethodInfo?.GetParameters();
+                _tryParseParameters = TryParseMethodInfo?.GetParameters();
             }
             catch
             {
@@ -84,16 +82,11 @@
             try
             {
                 ToStringMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
-                    new[] { typeof(IFormatProvider) });
+                                         new[] { typeof(IFormatProvider) }) ??
+                                     UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
+                                         new Type[] { });
 
-                if (ToStringMethodInfo == null)
-                {
-                    ToStringMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
-                        new Type[] { });
-
-                }
-
-                ToStringArgumentLength = ToStringMethodInfo?.GetParameters().Length ?? 0;
+                _toStringArgumentLength = ToStringMethodInfo?.GetParameters().Length ?? 0;
             }
             catch
             {
@@ -200,11 +193,11 @@
                 }
 
                 // Build the arguments of the TryParse method
-                var dynamicArguments = new List<object> {s};
+                var dynamicArguments = new List<object> { s };
 
-                for (var pi = 1; pi < TryParseParameters.Length - 1; pi++)
+                for (var pi = 1; pi < _tryParseParameters.Length - 1; pi++)
                 {
-                    var argInfo = TryParseParameters[pi];
+                    var argInfo = _tryParseParameters[pi];
                     if (argInfo.ParameterType == typeof(IFormatProvider))
                         dynamicArguments.Add(CultureInfo.InvariantCulture);
                     else if (argInfo.ParameterType == typeof(NumberStyles))
@@ -245,13 +238,11 @@
             if (instance == null)
                 return string.Empty;
 
-            if (ToStringArgumentLength == 1)
-            {
-                var arguments = new object[] { CultureInfo.InvariantCulture };
-                return ToStringMethodInfo.Invoke(instance, arguments) as string;
-            }
+            if (_toStringArgumentLength != 1)
+                return instance.ToString();
 
-            return instance.ToString();
+            var arguments = new object[] { CultureInfo.InvariantCulture };
+            return ToStringMethodInfo.Invoke(instance, arguments) as string;
         }
 
         #endregion
@@ -301,9 +292,6 @@
         /// trying to use the CultureInfo.InvariantCulture
         /// IFormat provider if the overload is available
         /// </summary>
-        public string ToStringInvariant(T instance)
-        {
-            return base.ToStringInvariant(instance);
-        }
+        public string ToStringInvariant(T instance) => base.ToStringInvariant(instance);
     }
 }

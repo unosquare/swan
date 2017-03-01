@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
     using Reflection;
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
@@ -119,12 +118,10 @@ namespace Unosquare.Swan
         public static int CopyPropertiesTo(this IDictionary<string, object> source, object target,
             string[] ignoreProperties)
         {
-            var copyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
-
             var copiedProperties = 0;
 
             var targetType = target.GetType();
-            var targetProperties = copyPropertiesTargets.Value.Retrieve(targetType, () =>
+            var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
             {
                 return targetType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
@@ -137,7 +134,7 @@ namespace Unosquare.Swan
 
             var ignoredProperties = ignoreProperties?.Where(p => string.IsNullOrWhiteSpace(p) == false)
                                         .Select(p => p.ToLowerInvariant())
-                                        .ToArray() ?? new string[] { };
+                                        .ToArray() ?? new string[] {};
 
             foreach (var sourceKey in filteredSourceKeys)
             {
@@ -214,11 +211,16 @@ namespace Unosquare.Swan
         /// <returns></returns>
         public static string ExceptionMessage(this Exception ex, string priorMessage = "")
         {
-            var fullMessage = string.IsNullOrWhiteSpace(priorMessage) ? ex.Message : priorMessage + "\r\n" + ex.Message;
-            if (ex.InnerException != null && string.IsNullOrWhiteSpace(ex.InnerException.Message) == false)
-                return ExceptionMessage(ex.InnerException, fullMessage);
+            while (true)
+            {
+                var fullMessage = string.IsNullOrWhiteSpace(priorMessage) ? ex.Message : priorMessage + "\r\n" + ex.Message;
 
-            return fullMessage;
+                if (string.IsNullOrWhiteSpace(ex.InnerException?.Message))
+                    return fullMessage;
+
+                ex = ex.InnerException;
+                priorMessage = fullMessage;
+            }
         }
     }
 }

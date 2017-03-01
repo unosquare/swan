@@ -13,8 +13,8 @@
     /// </summary>
     public class PropertyTypeCache
     {
-        private readonly object SyncLock = new object();
-        private readonly Dictionary<Type, PropertyInfo[]> Cache = new Dictionary<Type, PropertyInfo[]>();
+        private readonly object _syncLock = new object();
+        private readonly Dictionary<Type, PropertyInfo[]> _cache = new Dictionary<Type, PropertyInfo[]>();
 
         /// <summary>
         /// Determines whether the cache contains the specified type.
@@ -22,7 +22,7 @@
         /// <param name="type">The type.</param>
         public bool Contains(Type type)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 return this[type] != null;
             }
@@ -43,11 +43,11 @@
         /// <returns></returns>
         public PropertyInfo[] Retrieve(Type type, Func<IEnumerable<PropertyInfo>> factory)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
-                if (Contains(type)) return Cache[type];
+                if (Contains(type)) return _cache[type];
                 this[type] = factory.Invoke();
-                return Cache[type];
+                return _cache[type];
             }
         }
 
@@ -59,10 +59,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="factory">The factory.</param>
         /// <returns></returns>
-        public PropertyInfo[] Retrieve<T>(Func<IEnumerable<PropertyInfo>> factory)
-        {
-            return Retrieve(typeof(T), factory);
-        }
+        public PropertyInfo[] Retrieve<T>(Func<IEnumerable<PropertyInfo>> factory) => Retrieve(typeof(T), factory);
 
         /// <summary>
         /// Gets or sets the <see cref="IEnumerable{PropertyInfo}"/> with the specified type.
@@ -77,19 +74,19 @@
         {
             get
             {
-                lock (SyncLock)
+                lock (_syncLock)
                 {
-                    return Cache.ContainsKey(type) ? Cache[type] : null;
+                    return _cache.ContainsKey(type) ? _cache[type] : null;
                 }
             }
             set
             {
-                lock (SyncLock)
+                lock (_syncLock)
                 {
                     if (value == null)
                         return;
 
-                    Cache[type] = value.Where(item => item != null).ToArray();
+                    _cache[type] = value.Where(item => item != null).ToArray();
                 }
             }
         }

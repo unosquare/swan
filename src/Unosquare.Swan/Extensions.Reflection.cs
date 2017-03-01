@@ -44,7 +44,7 @@
                 if (_sourceType != cacheKey._sourceType)
                     return false;
 
-                if (!String.Equals(_methodName, cacheKey._methodName, StringComparison.Ordinal))
+                if (!string.Equals(_methodName, cacheKey._methodName, StringComparison.Ordinal))
                     return false;
 
                 if (_genericTypes.Length != cacheKey._genericTypes.Length)
@@ -74,7 +74,7 @@
 
                     result = (result * 397) ^ _methodName.GetHashCode();
 
-                    result = _genericTypes.Aggregate(result, (current, t) => (current*397) ^ t.GetHashCode());
+                    result = _genericTypes.Aggregate(result, (current, t) => (current * 397) ^ t.GetHashCode());
 
                     for (var i = 0; i < _parameterTypes.Length; ++i)
                     {
@@ -198,7 +198,7 @@
 
             return methods.FirstOrDefault();
         }
-        
+
         /// <summary>
         /// Determines whether this instance is class.
         /// </summary>
@@ -254,10 +254,7 @@
         /// <returns>
         ///   <c>true</c> if [is value type] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsValueType(this Type type)
-        {
-            return type.GetTypeInfo().IsValueType;
-        }
+        public static bool IsValueType(this Type type) => type.GetTypeInfo().IsValueType;
 
         /// <summary>
         /// Determines whether [is generic type].
@@ -266,10 +263,7 @@
         /// <returns>
         ///   <c>true</c> if [is generic type] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsGenericType(this Type type)
-        {
-            return type.GetTypeInfo().IsGenericType;
-        }
+        public static bool IsGenericType(this Type type) => type.GetTypeInfo().IsGenericType;
 
         /// <summary>
         /// Determines whether [is generic parameter].
@@ -278,10 +272,7 @@
         /// <returns>
         ///   <c>true</c> if [is generic parameter] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsGenericParameter(this Type type)
-        {
-            return type.IsGenericParameter;
-        }
+        public static bool IsGenericParameter(this Type type) => type.IsGenericParameter;
 
         /// <summary>
         /// Determines whether the specified attribute type is defined.
@@ -296,7 +287,7 @@
         {
             return type.GetTypeInfo().IsDefined(attributeType, inherit);
         }
-        
+
         /// <summary>
         /// Gets the custom attributes.
         /// </summary>
@@ -316,31 +307,22 @@
         /// <returns>
         ///   <c>true</c> if [is generic type definition] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsGenericTypeDefinition(this Type type)
-        {
-            return type.GetTypeInfo().IsGenericTypeDefinition;
-        }
+        public static bool IsGenericTypeDefinition(this Type type) => type.GetTypeInfo().IsGenericTypeDefinition;
 
         /// <summary>
         /// Bases the type.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        public static Type BaseType(this Type type)
-        {
-            return type.GetTypeInfo().BaseType;
-        }
+        public static Type BaseType(this Type type) => type.GetTypeInfo().BaseType;
 
         /// <summary>
         /// Assemblies the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        public static Assembly Assembly(this Type type)
-        {
-            return type.GetTypeInfo().Assembly;
-        }
-        
+        public static Assembly Assembly(this Type type) => type.GetTypeInfo().Assembly;
+
         /// <summary>
         /// Determines whether [is i enumerable request].
         /// </summary>
@@ -352,7 +334,7 @@
         {
             if (!type.IsGenericType())
                 return false;
-            
+
             return type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
 
