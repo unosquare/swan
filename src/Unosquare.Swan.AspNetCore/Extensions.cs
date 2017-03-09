@@ -88,11 +88,14 @@
         /// <param name="validationParameter">The validation parameter.</param>
         /// <param name="identityResolver">The identity resolver.</param>
         /// <param name="bearerTokenResolver">The bearer token resolver.</param>
+        /// <param name="expiration">The expiration.</param>
         /// <returns></returns>
-        public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app, 
-            TokenValidationParameters validationParameter, 
-            Func<string, string, string, string, Task<ClaimsIdentity>> identityResolver, 
-            Func<ClaimsIdentity, Dictionary<string, object>, Task<Dictionary<string, object>>> bearerTokenResolver = null)
+        public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app,
+            TokenValidationParameters validationParameter,
+            Func<string, string, string, string, Task<ClaimsIdentity>> identityResolver,
+            Func<ClaimsIdentity, Dictionary<string, object>, Task<Dictionary<string, object>>> bearerTokenResolver =
+                null,
+            TimeSpan expiration = default(TimeSpan))
         {
             if (bearerTokenResolver == null)
                 bearerTokenResolver = (identity, input) => Task.FromResult(input);
@@ -101,9 +104,11 @@
             {
                 Audience = validationParameter.ValidAudience,
                 Issuer = validationParameter.ValidIssuer,
-                SigningCredentials = new SigningCredentials(validationParameter.IssuerSigningKey, SecurityAlgorithms.HmacSha256),
+                SigningCredentials =
+                    new SigningCredentials(validationParameter.IssuerSigningKey, SecurityAlgorithms.HmacSha256),
                 IdentityResolver = identityResolver,
-                BearerTokenResolver = bearerTokenResolver
+                BearerTokenResolver = bearerTokenResolver,
+                Expiration = expiration == default(TimeSpan) ? TimeSpan.FromMinutes(20) : expiration
             }));
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions

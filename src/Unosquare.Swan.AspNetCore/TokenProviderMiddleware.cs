@@ -65,22 +65,21 @@
 
                 return GenerateToken(context);
             }
-            else if (context.Request.Headers.ContainsKey("Authorization"))
+
+            if (context.Request.Headers.ContainsKey("Authorization"))
             {
                 var bearerToken = context.Request.Headers["Authorization"].FirstOrDefault(x => x.StartsWith("Bearer"));
 
-                if (bearerToken != null)
-                {
-                    bearerToken = bearerToken.Split(' ')[1];
-                    var handler = new JwtSecurityTokenHandler();
-                    var token = handler.ReadToken(bearerToken) as JwtSecurityToken;
+                if (bearerToken == null) return _next(context);
+                bearerToken = bearerToken.Split(' ')[1];
+                var handler = new JwtSecurityTokenHandler();
+                var token = handler.ReadToken(bearerToken) as JwtSecurityToken;
 
-                    if (DateTime.UtcNow > token?.ValidTo)
-                    {
-                        context.Response.ContentType = Extensions.JsonMimeType;
-                        context.Response.StatusCode = 401;
-                        return context.Response.WriteAsync(SerializeError("The access token provided has expired.", "invalid_token"));
-                    }
+                if (DateTime.UtcNow > token?.ValidTo)
+                {
+                    context.Response.ContentType = Extensions.JsonMimeType;
+                    context.Response.StatusCode = 401;
+                    return context.Response.WriteAsync(SerializeError("The access token provided has expired.", "invalid_token"));
                 }
             }
 

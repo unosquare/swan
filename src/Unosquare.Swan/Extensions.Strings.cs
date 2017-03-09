@@ -55,8 +55,9 @@
         /// Do not use for large streams as this reads ALL bytes at once
         /// </summary>
         /// <param name="stream">The stream.</param>
+        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns></returns>
-        public static byte[] ComputeMD5(this Stream stream)
+        public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
         {
 #if !NETSTANDARD1_6
             var md5 = MD5.Create();
@@ -86,7 +87,7 @@
                 stream.Position = 0;
                 stream.CopyTo(ms);
 
-                return Md5Hasher.Value.ComputeHash(ms.ToArray());
+                return (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(ms.ToArray());
             }
 #endif
         }
@@ -95,54 +96,58 @@
         /// Computes the MD5 hash of the given string using UTF8 byte encoding.
         /// </summary>
         /// <param name="inputString">The input string.</param>
+        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns></returns>
-        public static byte[] ComputeMD5(this string inputString)
+        public static byte[] ComputeMD5(this string inputString, bool createHasher = false)
         {
-            var inputBytes = Encoding.UTF8.GetBytes(inputString);
-            return Md5Hasher.Value.ComputeHash(inputBytes);
+            return Encoding.UTF8.GetBytes(inputString).ComputeMD5();
         }
 
         /// <summary>
         /// Computes the MD5 hash of the given byte array.
         /// </summary>
         /// <param name="data">The data.</param>
+        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns></returns>
-        public static byte[] ComputeMD5(this byte[] data)
+        public static byte[] ComputeMD5(this byte[] data, bool createHasher = false)
         {
-            return Md5Hasher.Value.ComputeHash(data);
+            return (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
         }
 
         /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
         /// </summary>
         /// <param name="inputString">The input string.</param>
+        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns></returns>
-        public static byte[] ComputeSha1(this string inputString)
+        public static byte[] ComputeSha1(this string inputString, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString);
-            return SHA1Hasher.Value.ComputeHash(inputBytes);
+            return (createHasher ? SHA1.Create() : SHA1Hasher.Value).ComputeHash(inputBytes);
         }
 
         /// <summary>
         /// Computes the SHA-256 hash of the given string using UTF8 byte encoding.
         /// </summary>
         /// <param name="inputString">The input string.</param>
+        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns></returns>
-        public static byte[] ComputeSha256(this string inputString)
+        public static byte[] ComputeSha256(this string inputString, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString);
-            return SHA256Hasher.Value.ComputeHash(inputBytes);
+            return (createHasher ? SHA256.Create() : SHA256Hasher.Value).ComputeHash(inputBytes);
         }
 
         /// <summary>
         /// Computes the SHA-512 hash of the given string using UTF8 byte encoding.
         /// </summary>
         /// <param name="inputString">The input string.</param>
+        /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns></returns>
-        public static byte[] ComputeSha512(this string inputString)
+        public static byte[] ComputeSha512(this string inputString, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString);
-            return SHA512Hasher.Value.ComputeHash(inputBytes);
+            return (createHasher ? SHA512.Create() : SHA512Hasher.Value).ComputeHash(inputBytes);
         }
 
         /// <summary>
