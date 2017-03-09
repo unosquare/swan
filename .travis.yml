@@ -11,7 +11,6 @@ matrix:
       sudo: false
     - os: osx
       dotnet: 1.0.0-preview2-003131
-      mono: latest
 install:
   - dotnet restore
 script:

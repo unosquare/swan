@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.12.0-*",
+  "version": "0.12.1-*",
   "frameworks": {
     "netstandard1.6": {
       "dependencies": {
@@ -26,7 +26,7 @@
         "System.Text.RegularExpressions": "4.3.0",
         "System.Net.Sockets": "4.3.0",
         "System.ObjectModel": "4.3.0",
-        "System.Net.Http": "4.3.0",
+        "System.Net.Http": "4.3.1",
         "System.Runtime.InteropServices": "4.3.0",
         "System.AppContext": "4.3.0",
         "System.Diagnostics.Debug": "4.3.0"
