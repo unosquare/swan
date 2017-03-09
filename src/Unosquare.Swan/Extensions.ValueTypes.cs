@@ -39,10 +39,7 @@
         public static bool IsBetween<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
-            if (value.CompareTo(min) < 0 || value.CompareTo(max) > 0)
-                return false;
-
-            return true;
+            return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
         }
 
         /// <summary>

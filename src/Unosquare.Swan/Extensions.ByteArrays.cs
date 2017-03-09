@@ -45,20 +45,14 @@
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <returns></returns>
-        public static string ToDashedHex(this byte[] bytes)
-        {
-            return BitConverter.ToString(bytes);
-        }
+        public static string ToDashedHex(this byte[] bytes) => BitConverter.ToString(bytes);
 
         /// <summary>
         /// Converts an array of bytes to a base-64 encoded string
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <returns></returns>
-        public static string ToBase64(this byte[] bytes)
-        {
-            return Convert.ToBase64String(bytes);
-        }
+        public static string ToBase64(this byte[] bytes) => Convert.ToBase64String(bytes);
 
         /// <summary>
         /// Converts a set of hexadecimal characters (uppercase or lowercase)
@@ -108,7 +102,7 @@
         /// <returns></returns>
         public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
         {
-            int mask = ~(0xff << length);
+            var mask = ~(0xff << length);
             value = (byte)(value & mask);
 
             return (byte)((value << offset) | (b & ~(mask << offset)));
@@ -167,7 +161,6 @@
                     result.Add(item);
                     break;
                 }
-
             }
 
             return result;
@@ -180,7 +173,8 @@
         /// <returns></returns>
         public static byte[] DeepClone(this byte[] buffer)
         {
-            if (buffer == null) return null;
+            if (buffer == null)
+                return null;
             var result = new byte[buffer.Length];
             Array.Copy(buffer, result, buffer.Length);
             return result;
@@ -193,7 +187,8 @@
         /// <param name="sequence">The sequence.</param>
         public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
         {
-            if (buffer.StartsWith(sequence) == false) return buffer.DeepClone();
+            if (buffer.StartsWith(sequence) == false)
+                return buffer.DeepClone();
             var result = new byte[buffer.Length - sequence.Length];
             Array.Copy(buffer, sequence.Length, result, 0, result.Length);
             return result;
@@ -342,19 +337,13 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
         /// <returns></returns>
-        public static string ToText(this byte[] buffer, Encoding encoding)
-        {
-            return encoding.GetString(buffer);
-        }
+        public static string ToText(this byte[] buffer, Encoding encoding) => encoding.GetString(buffer);
 
         /// <summary>
         /// Converts an array of bytes into text with UTF8 encoding
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <returns></returns>
-        public static string ToText(this byte[] buffer)
-        {
-            return buffer.ToText(Encoding.UTF8);
-        }
+        public static string ToText(this byte[] buffer) => buffer.ToText(Encoding.UTF8);
     }
 }

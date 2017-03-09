@@ -223,10 +223,12 @@
         /// <returns></returns>
         private static string HumanizeJson(object jsonResult, int indent)
         {
+            if (jsonResult == null)
+                return string.Empty;
+
             var builder = new StringBuilder();
             var indentStr = new string(' ', indent * 4);
-            if (jsonResult == null) return string.Empty;
-
+            
             var dictionary = jsonResult as Dictionary<string, object>;
             var list = jsonResult as List<object>;
 
@@ -349,7 +351,8 @@
         /// <returns></returns>
         public static string Stringify(this object obj)
         {
-            if (obj == null) return "(null)";
+            if (obj == null)
+                return "(null)";
 
             try
             {
@@ -379,8 +382,8 @@
         {
             if (str == null) return string.Empty;
             endIndex = endIndex.Clamp(startIndex, str.Length - 1);
-            if (startIndex >= endIndex) return string.Empty;
-            return str.Substring(startIndex, (endIndex - startIndex) + 1);
+
+            return startIndex >= endIndex ? string.Empty : str.Substring(startIndex, (endIndex - startIndex) + 1);
         }
 
         /// <summary>
