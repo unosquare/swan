@@ -477,13 +477,13 @@ This method uses a high precision Stopwatch.</p>
               
               
               <a id="Unosquare_Swan_Extensions_ComputeMD5_" data-uid="Unosquare.Swan.Extensions.ComputeMD5*"></a>
-              <h4 id="Unosquare_Swan_Extensions_ComputeMD5_System_Byte___" data-uid="Unosquare.Swan.Extensions.ComputeMD5(System.Byte[])">ComputeMD5(Byte[])</h4>
+              <h4 id="Unosquare_Swan_Extensions_ComputeMD5_System_Byte___System_Boolean_" data-uid="Unosquare.Swan.Extensions.ComputeMD5(System.Byte[],System.Boolean)">ComputeMD5(Byte[], Boolean)</h4>
               <div class="markdown level1 summary"><p>Computes the MD5 hash of the given byte array.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this byte[] data)</code></pre>
+                <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this byte[] data, bool createHasher = false)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -501,49 +501,10 @@ This method uses a high precision Stopwatch.</p>
                     <td><p>The data.</p>
 </td>
                   </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
                   <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Byte</span>[]</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Extensions_ComputeMD5_" data-uid="Unosquare.Swan.Extensions.ComputeMD5*"></a>
-              <h4 id="Unosquare_Swan_Extensions_ComputeMD5_System_IO_Stream_" data-uid="Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream)">ComputeMD5(Stream)</h4>
-              <div class="markdown level1 summary"><p>Computes the MD5 hash of the given stream.
-Do not use for large streams as this reads ALL bytes at once</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this Stream stream)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.IO.Stream</span></td>
-                    <td><span class="parametername">stream</span></td>
-                    <td><p>The stream.</p>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">createHasher</span></td>
+                    <td><p>if set to <code>true</code> [create hasher].</p>
 </td>
                   </tr>
                 </tbody>
@@ -566,13 +527,64 @@ Do not use for large streams as this reads ALL bytes at once</p>
               
               
               <a id="Unosquare_Swan_Extensions_ComputeMD5_" data-uid="Unosquare.Swan.Extensions.ComputeMD5*"></a>
-              <h4 id="Unosquare_Swan_Extensions_ComputeMD5_System_String_" data-uid="Unosquare.Swan.Extensions.ComputeMD5(System.String)">ComputeMD5(String)</h4>
+              <h4 id="Unosquare_Swan_Extensions_ComputeMD5_System_IO_Stream_System_Boolean_" data-uid="Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream,System.Boolean)">ComputeMD5(Stream, Boolean)</h4>
+              <div class="markdown level1 summary"><p>Computes the MD5 hash of the given stream.
+Do not use for large streams as this reads ALL bytes at once</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.IO.Stream</span></td>
+                    <td><span class="parametername">stream</span></td>
+                    <td><p>The stream.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">createHasher</span></td>
+                    <td><p>if set to <code>true</code> [create hasher].</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Byte</span>[]</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Extensions_ComputeMD5_" data-uid="Unosquare.Swan.Extensions.ComputeMD5*"></a>
+              <h4 id="Unosquare_Swan_Extensions_ComputeMD5_System_String_System_Boolean_" data-uid="Unosquare.Swan.Extensions.ComputeMD5(System.String,System.Boolean)">ComputeMD5(String, Boolean)</h4>
               <div class="markdown level1 summary"><p>Computes the MD5 hash of the given string using UTF8 byte encoding.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this string inputString)</code></pre>
+                <pre><code class="lang-csharp hljs">public static byte[] ComputeMD5(this string inputString, bool createHasher = false)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -588,6 +600,12 @@ Do not use for large streams as this reads ALL bytes at once</p>
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">inputString</span></td>
                     <td><p>The input string.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">createHasher</span></td>
+                    <td><p>if set to <code>true</code> [create hasher].</p>
 </td>
                   </tr>
                 </tbody>
@@ -610,13 +628,13 @@ Do not use for large streams as this reads ALL bytes at once</p>
               
               
               <a id="Unosquare_Swan_Extensions_ComputeSha1_" data-uid="Unosquare.Swan.Extensions.ComputeSha1*"></a>
-              <h4 id="Unosquare_Swan_Extensions_ComputeSha1_System_String_" data-uid="Unosquare.Swan.Extensions.ComputeSha1(System.String)">ComputeSha1(String)</h4>
+              <h4 id="Unosquare_Swan_Extensions_ComputeSha1_System_String_System_Boolean_" data-uid="Unosquare.Swan.Extensions.ComputeSha1(System.String,System.Boolean)">ComputeSha1(String, Boolean)</h4>
               <div class="markdown level1 summary"><p>Computes the SHA-1 hash of the given string using UTF8 byte encoding.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static byte[] ComputeSha1(this string inputString)</code></pre>
+                <pre><code class="lang-csharp hljs">public static byte[] ComputeSha1(this string inputString, bool createHasher = false)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -632,6 +650,12 @@ Do not use for large streams as this reads ALL bytes at once</p>
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">inputString</span></td>
                     <td><p>The input string.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">createHasher</span></td>
+                    <td><p>if set to <code>true</code> [create hasher].</p>
 </td>
                   </tr>
                 </tbody>
@@ -654,13 +678,13 @@ Do not use for large streams as this reads ALL bytes at once</p>
               
               
               <a id="Unosquare_Swan_Extensions_ComputeSha256_" data-uid="Unosquare.Swan.Extensions.ComputeSha256*"></a>
-              <h4 id="Unosquare_Swan_Extensions_ComputeSha256_System_String_" data-uid="Unosquare.Swan.Extensions.ComputeSha256(System.String)">ComputeSha256(String)</h4>
+              <h4 id="Unosquare_Swan_Extensions_ComputeSha256_System_String_System_Boolean_" data-uid="Unosquare.Swan.Extensions.ComputeSha256(System.String,System.Boolean)">ComputeSha256(String, Boolean)</h4>
               <div class="markdown level1 summary"><p>Computes the SHA-256 hash of the given string using UTF8 byte encoding.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static byte[] ComputeSha256(this string inputString)</code></pre>
+                <pre><code class="lang-csharp hljs">public static byte[] ComputeSha256(this string inputString, bool createHasher = false)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -676,6 +700,12 @@ Do not use for large streams as this reads ALL bytes at once</p>
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">inputString</span></td>
                     <td><p>The input string.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">createHasher</span></td>
+                    <td><p>if set to <code>true</code> [create hasher].</p>
 </td>
                   </tr>
                 </tbody>
@@ -698,13 +728,13 @@ Do not use for large streams as this reads ALL bytes at once</p>
               
               
               <a id="Unosquare_Swan_Extensions_ComputeSha512_" data-uid="Unosquare.Swan.Extensions.ComputeSha512*"></a>
-              <h4 id="Unosquare_Swan_Extensions_ComputeSha512_System_String_" data-uid="Unosquare.Swan.Extensions.ComputeSha512(System.String)">ComputeSha512(String)</h4>
+              <h4 id="Unosquare_Swan_Extensions_ComputeSha512_System_String_System_Boolean_" data-uid="Unosquare.Swan.Extensions.ComputeSha512(System.String,System.Boolean)">ComputeSha512(String, Boolean)</h4>
               <div class="markdown level1 summary"><p>Computes the SHA-512 hash of the given string using UTF8 byte encoding.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static byte[] ComputeSha512(this string inputString)</code></pre>
+                <pre><code class="lang-csharp hljs">public static byte[] ComputeSha512(this string inputString, bool createHasher = false)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -720,6 +750,12 @@ Do not use for large streams as this reads ALL bytes at once</p>
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">inputString</span></td>
                     <td><p>The input string.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">createHasher</span></td>
+                    <td><p>if set to <code>true</code> [create hasher].</p>
 </td>
                   </tr>
                 </tbody>

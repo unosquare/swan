@@ -339,13 +339,13 @@
               
               
               <a id="Unosquare_Swan_AspNetCore_Extensions_UseBearerTokenProvider_" data-uid="Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider*"></a>
-              <h4 id="Unosquare_Swan_AspNetCore_Extensions_UseBearerTokenProvider_IApplicationBuilder_TokenValidationParameters_System_Func_System_String_System_String_System_String_System_String_System_Threading_Tasks_Task_System_Security_Claims_ClaimsIdentity___System_Func_System_Security_Claims_ClaimsIdentity_System_Collections_Generic_Dictionary_System_String_System_Object__System_Threading_Tasks_Task_System_Collections_Generic_Dictionary_System_String_System_Object____" data-uid="Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder,TokenValidationParameters,System.Func{System.String,System.String,System.String,System.String,System.Threading.Tasks.Task{System.Security.Claims.ClaimsIdentity}},System.Func{System.Security.Claims.ClaimsIdentity,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.Tasks.Task{System.Collections.Generic.Dictionary{System.String,System.Object}}})">UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func&lt;String, String, String, String, Task&lt;ClaimsIdentity&gt;&gt;, Func&lt;ClaimsIdentity, Dictionary&lt;String, Object&gt;, Task&lt;Dictionary&lt;String, Object&gt;&gt;&gt;)</h4>
+              <h4 id="Unosquare_Swan_AspNetCore_Extensions_UseBearerTokenProvider_IApplicationBuilder_TokenValidationParameters_System_Func_System_String_System_String_System_String_System_String_System_Threading_Tasks_Task_System_Security_Claims_ClaimsIdentity___System_Func_System_Security_Claims_ClaimsIdentity_System_Collections_Generic_Dictionary_System_String_System_Object__System_Threading_Tasks_Task_System_Collections_Generic_Dictionary_System_String_System_Object____System_TimeSpan_" data-uid="Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder,TokenValidationParameters,System.Func{System.String,System.String,System.String,System.String,System.Threading.Tasks.Task{System.Security.Claims.ClaimsIdentity}},System.Func{System.Security.Claims.ClaimsIdentity,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.Tasks.Task{System.Collections.Generic.Dictionary{System.String,System.Object}}},System.TimeSpan)">UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func&lt;String, String, String, String, Task&lt;ClaimsIdentity&gt;&gt;, Func&lt;ClaimsIdentity, Dictionary&lt;String, Object&gt;, Task&lt;Dictionary&lt;String, Object&gt;&gt;&gt;, TimeSpan)</h4>
               <div class="markdown level1 summary"><p>Uses the bearer token provider.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app, TokenValidationParameters validationParameter, Func&lt;string, string, string, string, Task&lt;ClaimsIdentity&gt;&gt; identityResolver, Func&lt;ClaimsIdentity, Dictionary&lt;string, object&gt;, Task&lt;Dictionary&lt;string, object&gt;&gt;&gt; bearerTokenResolver = null)</code></pre>
+                <pre><code class="lang-csharp hljs">public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app, TokenValidationParameters validationParameter, Func&lt;string, string, string, string, Task&lt;ClaimsIdentity&gt;&gt; identityResolver, Func&lt;ClaimsIdentity, Dictionary&lt;string, object&gt;, Task&lt;Dictionary&lt;string, object&gt;&gt;&gt; bearerTokenResolver = null, TimeSpan expiration = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -379,6 +379,12 @@
                     <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Security.Claims.ClaimsIdentity</span>, <span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;, <span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;&gt;&gt;</td>
                     <td><span class="parametername">bearerTokenResolver</span></td>
                     <td><p>The bearer token resolver.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td><span class="parametername">expiration</span></td>
+                    <td><p>The expiration.</p>
 </td>
                   </tr>
                 </tbody>

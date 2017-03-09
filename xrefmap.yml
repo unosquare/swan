@@ -1396,15 +1396,15 @@ references:
   fullName.vb: Unosquare.Swan.AspNetCore.Extensions.UseAuditTrail(Of T, TEntity)(Unosquare.Swan.AspNetCore.IBusinessDbContext, System.String)
   nameWithType: Extensions.UseAuditTrail<T, TEntity>(IBusinessDbContext, String)
   nameWithType.vb: Extensions.UseAuditTrail(Of T, TEntity)(IBusinessDbContext, String)
-- uid: Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder,TokenValidationParameters,System.Func{System.String,System.String,System.String,System.String,System.Threading.Tasks.Task{System.Security.Claims.ClaimsIdentity}},System.Func{System.Security.Claims.ClaimsIdentity,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.Tasks.Task{System.Collections.Generic.Dictionary{System.String,System.Object}}})
-  name: UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func<String, String, String, String, Task<ClaimsIdentity>>, Func<ClaimsIdentity, Dictionary<String, Object>, Task<Dictionary<String, Object>>>)
-  href: api/Unosquare.Swan.AspNetCore.Extensions.html#Unosquare_Swan_AspNetCore_Extensions_UseBearerTokenProvider_IApplicationBuilder_TokenValidationParameters_System_Func_System_String_System_String_System_String_System_String_System_Threading_Tasks_Task_System_Security_Claims_ClaimsIdentity___System_Func_System_Security_Claims_ClaimsIdentity_System_Collections_Generic_Dictionary_System_String_System_Object__System_Threading_Tasks_Task_System_Collections_Generic_Dictionary_System_String_System_Object____
-  commentId: M:Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder,TokenValidationParameters,System.Func{System.String,System.String,System.String,System.String,System.Threading.Tasks.Task{System.Security.Claims.ClaimsIdentity}},System.Func{System.Security.Claims.ClaimsIdentity,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.Tasks.Task{System.Collections.Generic.Dictionary{System.String,System.Object}}})
-  name.vb: UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func(Of String, String, String, String, Task(Of ClaimsIdentity)), Func(Of ClaimsIdentity, Dictionary(Of String, Object), Task(Of Dictionary(Of String, Object))))
-  fullName: Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, System.Func<System.String, System.String, System.String, System.String, System.Threading.Tasks.Task<System.Security.Claims.ClaimsIdentity>>, System.Func<System.Security.Claims.ClaimsIdentity, System.Collections.Generic.Dictionary<System.String, System.Object>, System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<System.String, System.Object>>>)
-  fullName.vb: Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, System.Func(Of System.String, System.String, System.String, System.String, System.Threading.Tasks.Task(Of System.Security.Claims.ClaimsIdentity)), System.Func(Of System.Security.Claims.ClaimsIdentity, System.Collections.Generic.Dictionary(Of System.String, System.Object), System.Threading.Tasks.Task(Of System.Collections.Generic.Dictionary(Of System.String, System.Object))))
-  nameWithType: Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func<String, String, String, String, Task<ClaimsIdentity>>, Func<ClaimsIdentity, Dictionary<String, Object>, Task<Dictionary<String, Object>>>)
-  nameWithType.vb: Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func(Of String, String, String, String, Task(Of ClaimsIdentity)), Func(Of ClaimsIdentity, Dictionary(Of String, Object), Task(Of Dictionary(Of String, Object))))
+- uid: Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder,TokenValidationParameters,System.Func{System.String,System.String,System.String,System.String,System.Threading.Tasks.Task{System.Security.Claims.ClaimsIdentity}},System.Func{System.Security.Claims.ClaimsIdentity,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.Tasks.Task{System.Collections.Generic.Dictionary{System.String,System.Object}}},System.TimeSpan)
+  name: UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func<String, String, String, String, Task<ClaimsIdentity>>, Func<ClaimsIdentity, Dictionary<String, Object>, Task<Dictionary<String, Object>>>, TimeSpan)
+  href: api/Unosquare.Swan.AspNetCore.Extensions.html#Unosquare_Swan_AspNetCore_Extensions_UseBearerTokenProvider_IApplicationBuilder_TokenValidationParameters_System_Func_System_String_System_String_System_String_System_String_System_Threading_Tasks_Task_System_Security_Claims_ClaimsIdentity___System_Func_System_Security_Claims_ClaimsIdentity_System_Collections_Generic_Dictionary_System_String_System_Object__System_Threading_Tasks_Task_System_Collections_Generic_Dictionary_System_String_System_Object____System_TimeSpan_
+  commentId: M:Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder,TokenValidationParameters,System.Func{System.String,System.String,System.String,System.String,System.Threading.Tasks.Task{System.Security.Claims.ClaimsIdentity}},System.Func{System.Security.Claims.ClaimsIdentity,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.Tasks.Task{System.Collections.Generic.Dictionary{System.String,System.Object}}},System.TimeSpan)
+  name.vb: UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func(Of String, String, String, String, Task(Of ClaimsIdentity)), Func(Of ClaimsIdentity, Dictionary(Of String, Object), Task(Of Dictionary(Of String, Object))), TimeSpan)
+  fullName: Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, System.Func<System.String, System.String, System.String, System.String, System.Threading.Tasks.Task<System.Security.Claims.ClaimsIdentity>>, System.Func<System.Security.Claims.ClaimsIdentity, System.Collections.Generic.Dictionary<System.String, System.Object>, System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<System.String, System.Object>>>, System.TimeSpan)
+  fullName.vb: Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, System.Func(Of System.String, System.String, System.String, System.String, System.Threading.Tasks.Task(Of System.Security.Claims.ClaimsIdentity)), System.Func(Of System.Security.Claims.ClaimsIdentity, System.Collections.Generic.Dictionary(Of System.String, System.Object), System.Threading.Tasks.Task(Of System.Collections.Generic.Dictionary(Of System.String, System.Object))), System.TimeSpan)
+  nameWithType: Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func<String, String, String, String, Task<ClaimsIdentity>>, Func<ClaimsIdentity, Dictionary<String, Object>, Task<Dictionary<String, Object>>>, TimeSpan)
+  nameWithType.vb: Extensions.UseBearerTokenProvider(IApplicationBuilder, TokenValidationParameters, Func(Of String, String, String, String, Task(Of ClaimsIdentity)), Func(Of ClaimsIdentity, Dictionary(Of String, Object), Task(Of Dictionary(Of String, Object))), TimeSpan)
 - uid: Unosquare.Swan.AspNetCore.Extensions.UseBearerTokenProvider*
   name: UseBearerTokenProvider
   href: api/Unosquare.Swan.AspNetCore.Extensions.html#Unosquare_Swan_AspNetCore_Extensions_UseBearerTokenProvider_
@@ -5294,63 +5294,63 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.Clamp(Of T)(T, T, T)
   nameWithType: Extensions.Clamp<T>(T, T, T)
   nameWithType.vb: Extensions.Clamp(Of T)(T, T, T)
-- uid: Unosquare.Swan.Extensions.ComputeMD5(System.Byte[])
-  name: ComputeMD5(Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.Byte[])
-  name.vb: ComputeMD5(Byte())
-  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.ComputeMD5(System.Byte())
-  nameWithType: Extensions.ComputeMD5(Byte[])
-  nameWithType.vb: Extensions.ComputeMD5(Byte())
-- uid: Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream)
-  name: ComputeMD5(Stream)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_IO_Stream_
-  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream)
-  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream)
-  nameWithType: Extensions.ComputeMD5(Stream)
-- uid: Unosquare.Swan.Extensions.ComputeMD5(System.String)
-  name: ComputeMD5(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.String)
-  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.String)
-  nameWithType: Extensions.ComputeMD5(String)
+- uid: Unosquare.Swan.Extensions.ComputeMD5(System.Byte[],System.Boolean)
+  name: ComputeMD5(Byte[], Boolean)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_Byte___System_Boolean_
+  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.Byte[],System.Boolean)
+  name.vb: ComputeMD5(Byte(), Boolean)
+  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.Byte[], System.Boolean)
+  fullName.vb: Unosquare.Swan.Extensions.ComputeMD5(System.Byte(), System.Boolean)
+  nameWithType: Extensions.ComputeMD5(Byte[], Boolean)
+  nameWithType.vb: Extensions.ComputeMD5(Byte(), Boolean)
+- uid: Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream,System.Boolean)
+  name: ComputeMD5(Stream, Boolean)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_IO_Stream_System_Boolean_
+  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream,System.Boolean)
+  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream, System.Boolean)
+  nameWithType: Extensions.ComputeMD5(Stream, Boolean)
+- uid: Unosquare.Swan.Extensions.ComputeMD5(System.String,System.Boolean)
+  name: ComputeMD5(String, Boolean)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.String,System.Boolean)
+  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.String, System.Boolean)
+  nameWithType: Extensions.ComputeMD5(String, Boolean)
 - uid: Unosquare.Swan.Extensions.ComputeMD5*
   name: ComputeMD5
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_
   commentId: Overload:Unosquare.Swan.Extensions.ComputeMD5
   fullName: Unosquare.Swan.Extensions.ComputeMD5
   nameWithType: Extensions.ComputeMD5
-- uid: Unosquare.Swan.Extensions.ComputeSha1(System.String)
-  name: ComputeSha1(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha1_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ComputeSha1(System.String)
-  fullName: Unosquare.Swan.Extensions.ComputeSha1(System.String)
-  nameWithType: Extensions.ComputeSha1(String)
+- uid: Unosquare.Swan.Extensions.ComputeSha1(System.String,System.Boolean)
+  name: ComputeSha1(String, Boolean)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha1_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.Extensions.ComputeSha1(System.String,System.Boolean)
+  fullName: Unosquare.Swan.Extensions.ComputeSha1(System.String, System.Boolean)
+  nameWithType: Extensions.ComputeSha1(String, Boolean)
 - uid: Unosquare.Swan.Extensions.ComputeSha1*
   name: ComputeSha1
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha1_
   commentId: Overload:Unosquare.Swan.Extensions.ComputeSha1
   fullName: Unosquare.Swan.Extensions.ComputeSha1
   nameWithType: Extensions.ComputeSha1
-- uid: Unosquare.Swan.Extensions.ComputeSha256(System.String)
-  name: ComputeSha256(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha256_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ComputeSha256(System.String)
-  fullName: Unosquare.Swan.Extensions.ComputeSha256(System.String)
-  nameWithType: Extensions.ComputeSha256(String)
+- uid: Unosquare.Swan.Extensions.ComputeSha256(System.String,System.Boolean)
+  name: ComputeSha256(String, Boolean)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha256_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.Extensions.ComputeSha256(System.String,System.Boolean)
+  fullName: Unosquare.Swan.Extensions.ComputeSha256(System.String, System.Boolean)
+  nameWithType: Extensions.ComputeSha256(String, Boolean)
 - uid: Unosquare.Swan.Extensions.ComputeSha256*
   name: ComputeSha256
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha256_
   commentId: Overload:Unosquare.Swan.Extensions.ComputeSha256
   fullName: Unosquare.Swan.Extensions.ComputeSha256
   nameWithType: Extensions.ComputeSha256
-- uid: Unosquare.Swan.Extensions.ComputeSha512(System.String)
-  name: ComputeSha512(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha512_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ComputeSha512(System.String)
-  fullName: Unosquare.Swan.Extensions.ComputeSha512(System.String)
-  nameWithType: Extensions.ComputeSha512(String)
+- uid: Unosquare.Swan.Extensions.ComputeSha512(System.String,System.Boolean)
+  name: ComputeSha512(String, Boolean)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha512_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.Extensions.ComputeSha512(System.String,System.Boolean)
+  fullName: Unosquare.Swan.Extensions.ComputeSha512(System.String, System.Boolean)
+  nameWithType: Extensions.ComputeSha512(String, Boolean)
 - uid: Unosquare.Swan.Extensions.ComputeSha512*
   name: ComputeSha512
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha512_
