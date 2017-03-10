@@ -1,5 +1,4 @@
 language: csharp
-solution: Unosquare.Labs.EmbedIO.Lib.sln
 notifications:
   slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve
 matrix:
@@ -10,6 +9,7 @@ matrix:
       dist: trusty
       sudo: false
     - os: osx
+      mono: none
       dotnet: 1.0.0-preview2-003131
 install:
   - dotnet restore
