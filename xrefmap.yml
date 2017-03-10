@@ -4346,6 +4346,33 @@ references:
   commentId: Overload:Unosquare.Swan.Components.ProcessRunner.RunProcessAsync
   fullName: Unosquare.Swan.Components.ProcessRunner.RunProcessAsync
   nameWithType: ProcessRunner.RunProcessAsync
+- uid: Unosquare.Swan.Components.Retry
+  name: Retry
+  href: api/Unosquare.Swan.Components.Retry.html
+  commentId: T:Unosquare.Swan.Components.Retry
+  fullName: Unosquare.Swan.Components.Retry
+  nameWithType: Retry
+- uid: Unosquare.Swan.Components.Retry.Do(System.Action,System.TimeSpan,System.Int32)
+  name: Do(Action, TimeSpan, Int32)
+  href: api/Unosquare.Swan.Components.Retry.html#Unosquare_Swan_Components_Retry_Do_System_Action_System_TimeSpan_System_Int32_
+  commentId: M:Unosquare.Swan.Components.Retry.Do(System.Action,System.TimeSpan,System.Int32)
+  fullName: Unosquare.Swan.Components.Retry.Do(System.Action, System.TimeSpan, System.Int32)
+  nameWithType: Retry.Do(Action, TimeSpan, Int32)
+- uid: Unosquare.Swan.Components.Retry.Do*
+  name: Do
+  href: api/Unosquare.Swan.Components.Retry.html#Unosquare_Swan_Components_Retry_Do_
+  commentId: Overload:Unosquare.Swan.Components.Retry.Do
+  fullName: Unosquare.Swan.Components.Retry.Do
+  nameWithType: Retry.Do
+- uid: Unosquare.Swan.Components.Retry.Do``1(System.Func{``0},System.TimeSpan,System.Int32)
+  name: Do<T>(Func<T>, TimeSpan, Int32)
+  href: api/Unosquare.Swan.Components.Retry.html#Unosquare_Swan_Components_Retry_Do__1_System_Func___0__System_TimeSpan_System_Int32_
+  commentId: M:Unosquare.Swan.Components.Retry.Do``1(System.Func{``0},System.TimeSpan,System.Int32)
+  name.vb: Do(Of T)(Func(Of T), TimeSpan, Int32)
+  fullName: Unosquare.Swan.Components.Retry.Do<T>(System.Func<T>, System.TimeSpan, System.Int32)
+  fullName.vb: Unosquare.Swan.Components.Retry.Do(Of T)(System.Func(Of T), System.TimeSpan, System.Int32)
+  nameWithType: Retry.Do<T>(Func<T>, TimeSpan, Int32)
+  nameWithType.vb: Retry.Do(Of T)(Func(Of T), TimeSpan, Int32)
 - uid: Unosquare.Swan.ConnectionAcceptedEventArgs
   name: ConnectionAcceptedEventArgs
   href: api/Unosquare.Swan.ConnectionAcceptedEventArgs.html
