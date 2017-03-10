@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Unosquare.Swan;
@@ -50,7 +51,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetBitValueAtTest()
         {
-            Assert.AreEqual(0, bytes[0].GetBitValueAt(1), $"Get ConvertHexadecimalToBytes value");
+            Assert.AreEqual(0, bytes[0].GetBitValueAt(1), $"Get GetBitValueAt value");
         }
 
         [Test]
@@ -65,6 +66,67 @@ namespace Unosquare.Swan.Test
         public void DeepCloneTest()
         {
             Assert.AreEqual(bytes, bytes.DeepClone(), $"Get DeepClone value");
+        }
+
+        [Test]
+        public void TrimStartTest()
+        {
+            Assert.AreEqual(new byte[] { 205, 91, 7 }, bytes.TrimStart(21), $"Get TrimStart value");
+        }
+
+        [Test]
+        public void TrimEndTest()
+        {
+            Assert.AreEqual(new byte[] { 21, 205, 91 }, bytes.TrimEnd(7), $"Get TrimEnd value");
+        }
+
+        [Test]
+        public void TrimTest()
+        {
+            Assert.AreEqual(new byte[] { 21, 205, 91, 7 }, bytes.Trim(205), $"Get Trim value");
+        }
+
+        [TestCase(true, 7)]
+        [TestCase(false, 21)]
+        public void EndsWithTest(bool expected, byte input)
+        {
+            Assert.AreEqual(expected, bytes.EndsWith(input), $"Get EndsWith value");
+        }
+
+        [TestCase(false, 7)]
+        [TestCase(true, 21)]
+        public void StartsWithTest(bool expected, byte input)
+        {
+            Assert.AreEqual(expected, bytes.StartsWith(input), $"Get StartsWith value");
+        }
+
+        [TestCase(true, 91)]
+        [TestCase(false, 92)]
+        public void ContainsTest(bool expected, byte input)
+        {
+            Assert.AreEqual(expected, bytes.Contains(input), $"Get Contains value");
+        }
+
+        [Test]
+        public void IsEqualToTest()
+        {
+            Assert.AreEqual(true, bytes.IsEqualTo(bytes), $"Get Trim value");
+        }
+
+        [Test]
+        public void ToTextTest()
+        {
+            Assert.AreEqual("�[", bytes.ToText(), $"Get ToText value");
+        }
+
+        [Test]
+        public void AppendTest()
+        {
+            using (MemoryStream stream = new MemoryStream(10))
+            {
+                stream.Append(bytes);
+                Assert.AreEqual(bytes.Length, stream.Length, $"Get Append value");
+            }
         }
     }
 
