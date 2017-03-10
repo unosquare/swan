@@ -8,6 +8,7 @@
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Components;
 
     partial class Extensions
     {
@@ -100,7 +101,7 @@
         /// <returns></returns>
         public static byte[] ComputeMD5(this string inputString, bool createHasher = false)
         {
-            return Encoding.UTF8.GetBytes(inputString).ComputeMD5();
+            return Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
         }
 
         /// <summary>
