@@ -9,9 +9,10 @@
         public SampleDbContext(DbContextOptions<SampleDbContext> options, IHttpContextAccessor httpContextAccessor)
             : base(options)
         {
-            var auditController = new AuditTrailController<SampleDbContext, AuditTrailEntry>(this, httpContextAccessor?.HttpContext.User?.Identity?.Name);
+            var auditController = new AuditTrailController<SampleDbContext, AuditTrailEntry>(this,
+                httpContextAccessor?.HttpContext?.User?.Identity?.Name);
             auditController.AddTypes(ActionFlags.Create, new[] {typeof(Product)});
-            
+
             AddController(auditController);
         }
 

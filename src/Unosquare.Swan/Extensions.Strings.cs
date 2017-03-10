@@ -8,7 +8,6 @@
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
-    using Components;
 
     partial class Extensions
     {
@@ -381,7 +380,8 @@
         /// <returns></returns>
         public static string Slice(this string str, int startIndex, int endIndex)
         {
-            if (str == null) return string.Empty;
+            if (str == null)
+                return string.Empty;
             endIndex = endIndex.Clamp(startIndex, str.Length - 1);
 
             return startIndex >= endIndex ? string.Empty : str.Substring(startIndex, (endIndex - startIndex) + 1);
@@ -497,11 +497,8 @@
         {
             foreach (var c in InvalidFilenameChars.Value)
                 s = s.Replace(c, string.Empty);
-
-            if (s.Length > 220)
-                s = s.Substring(0, 220);
-
-            return s;
+            
+            return s.Slice(0, 220);
         }
 
         /// <summary>
