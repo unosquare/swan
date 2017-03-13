@@ -10,9 +10,9 @@
   "dependencies": {
     "dotnet-test-nunit": "3.4.0-beta-3",
     "Unosquare.Swan": { "target": "project" },
-    "MimeKit": "1.10.1",
-    "EmbedIO": "1.5.0",
-    "NUnit": "3.6.1"
+    "NUnit": "3.6.1",
+    "EmbedIO": "1.6.0",
+    "MimeKit": "1.12.0"
   },
 
   "testRunner": "nunit",
