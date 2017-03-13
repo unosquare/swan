@@ -103,13 +103,17 @@ namespace Unosquare.Swan.Test
         }
 
         [TestCase("FileName", ":File|Name*")]
-        [TestCase("LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLong", "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
+        [TestCase("LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongF", "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
         public void ToSafeFilenameTest(string expected, string input)
         {
-            var isWindows = (Runtime.OS == OperatingSystem.Windows);
-            Assert.Ignore("Ignored",!isWindows);
-            Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
-
+            if (Runtime.OS != OperatingSystem.Windows)
+            {
+                Assert.Ignore("Ignored");
+            }
+            else
+            {
+                Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
+            }
         }
 
         [Test]

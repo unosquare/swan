@@ -56,15 +56,22 @@ namespace Unosquare.Swan.Test
         [Test]
         public void QueryDnsTest()
         {
-            var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
+            if (Runtime.OS != OperatingSystem.Windows)
+            {
+                Assert.Ignore("Ignored");
+            }
+            else
+            {
+                var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
 
-            Assert.IsNotNull(mxRecord);
-            Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
+                Assert.IsNotNull(mxRecord);
+                Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
 
-            var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
+                var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
 
-            Assert.IsNotNull(txtRecords);
-            Assert.IsTrue(txtRecords.AnswerRecords.Any());
+                Assert.IsNotNull(txtRecords);
+                Assert.IsTrue(txtRecords.AnswerRecords.Any());
+            }
         }
 
         [Test]
