@@ -165,138 +165,6 @@ based largely on TinyIoC</p>
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister">AutoRegister()</h4>
-              <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the current app domain.</p>
-<p>If more than one class implements an interface then only one implementation will be registered
-although no error will be thrown.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister()</code></pre>
-              </div>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_System_Collections_Generic_IEnumerable_System_Reflection_Assembly__" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">AutoRegister(IEnumerable&lt;Assembly&gt;)</h4>
-              <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the specified assemblies</p>
-<p>If more than one class implements an interface then only one implementation will be registered
-although no error will be thrown.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister(IEnumerable&lt;Assembly&gt; assemblies)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.Assembly</span>&gt;</td>
-                    <td><span class="parametername">assemblies</span></td>
-                    <td><p>Assemblies to process</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_System_Collections_Generic_IEnumerable_System_Reflection_Assembly__System_Func_System_Type_System_Boolean__" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},System.Func{System.Type,System.Boolean})">AutoRegister(IEnumerable&lt;Assembly&gt;, Func&lt;Type, Boolean&gt;)</h4>
-              <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the specified assemblies
-Types will only be registered if they pass the supplied registration predicate.</p>
-<p>If more than one class implements an interface then only one implementation will be registered
-although no error will be thrown.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister(IEnumerable&lt;Assembly&gt; assemblies, Func&lt;Type, bool&gt; registrationPredicate)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.Assembly</span>&gt;</td>
-                    <td><span class="parametername">assemblies</span></td>
-                    <td><p>Assemblies to process</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Type</span>, <span class="xref">System.Boolean</span>&gt;</td>
-                    <td><span class="parametername">registrationPredicate</span></td>
-                    <td><p>Predicate to determine if a particular type should be registered</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_System_Collections_Generic_IEnumerable_System_Reflection_Assembly__Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions)">AutoRegister(IEnumerable&lt;Assembly&gt;, DependencyContainerDuplicateImplementationActions)</h4>
-              <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the specified assemblies</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister(IEnumerable&lt;Assembly&gt; assemblies, DependencyContainerDuplicateImplementationActions duplicateAction)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.Assembly</span>&gt;</td>
-                    <td><span class="parametername">assemblies</span></td>
-                    <td><p>Assemblies to process</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions.html">DependencyContainerDuplicateImplementationActions</a></td>
-                    <td><span class="parametername">duplicateAction</span></td>
-                    <td><p>What action to take when encountering duplicate implementations of an interface/base class.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerAutoRegistrationException.html">DependencyContainerAutoRegistrationException</a></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_System_Collections_Generic_IEnumerable_System_Reflection_Assembly__Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_System_Func_System_Type_System_Boolean__" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions,System.Func{System.Type,System.Boolean})">AutoRegister(IEnumerable&lt;Assembly&gt;, DependencyContainerDuplicateImplementationActions, Func&lt;Type, Boolean&gt;)</h4>
               <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the specified assemblies
 Types will only be registered if they pass the supplied registration predicate.</p>
@@ -304,7 +172,7 @@ Types will only be registered if they pass the supplied registration predicate.<
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister(IEnumerable&lt;Assembly&gt; assemblies, DependencyContainerDuplicateImplementationActions duplicateAction, Func&lt;Type, bool&gt; registrationPredicate)</code></pre>
+                <pre><code class="lang-csharp hljs">public void AutoRegister(IEnumerable&lt;Assembly&gt; assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func&lt;Type, bool&gt; registrationPredicate = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -332,82 +200,6 @@ Types will only be registered if they pass the supplied registration predicate.<
                     <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Type</span>, <span class="xref">System.Boolean</span>&gt;</td>
                     <td><span class="parametername">registrationPredicate</span></td>
                     <td><p>Predicate to determine if a particular type should be registered</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerAutoRegistrationException.html">DependencyContainerAutoRegistrationException</a></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_System_Func_System_Type_System_Boolean__" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(System.Func{System.Type,System.Boolean})">AutoRegister(Func&lt;Type, Boolean&gt;)</h4>
-              <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the current app domain.
-Types will only be registered if they pass the supplied registration predicate.</p>
-<p>If more than one class implements an interface then only one implementation will be registered
-although no error will be thrown.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister(Func&lt;Type, bool&gt; registrationPredicate)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Type</span>, <span class="xref">System.Boolean</span>&gt;</td>
-                    <td><span class="parametername">registrationPredicate</span></td>
-                    <td><p>Predicate to determine if a particular type should be registered</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_AutoRegister_Unosquare_Swan_Components_DependencyContainerDuplicateImplementationActions_" data-uid="Unosquare.Swan.Components.DependencyContainer.AutoRegister(Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions)">AutoRegister(DependencyContainerDuplicateImplementationActions)</h4>
-              <div class="markdown level1 summary"><p>Attempt to automatically register all non-generic classes and interfaces in the current app domain.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerDuplicateImplementationActions.html">DependencyContainerDuplicateImplementationActions</a></td>
-                    <td><span class="parametername">duplicateAction</span></td>
-                    <td><p>What action to take when encountering duplicate implementations of an interface/base class.</p>
 </td>
                   </tr>
                 </tbody>
@@ -437,7 +229,7 @@ Types will only be registered if they pass the supplied registration predicate.<
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction, Func&lt;Type, bool&gt; registrationPredicate)</code></pre>
+                <pre><code class="lang-csharp hljs">public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func&lt;Type, bool&gt; registrationPredicate = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -545,112 +337,6 @@ Types will only be registered if they pass the supplied registration predicate.<
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type)">CanResolve(Type)</h4>
-              <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with default options.</p>
-<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">resolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p>Bool indicating whether the type can be resolved</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)">CanResolve(Type, String, DependencyContainerNamedParameterOverloads)</h4>
-              <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with the supplied constructor parameters and default options.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">resolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">name</span></td>
-                    <td><p>Name of registration</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a></td>
-                    <td><span class="parametername">parameters</span></td>
-                    <td><p>User supplied named parameter overloads</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p>Bool indicating whether the type can be resolved</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve(Type, String, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)</h4>
               <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with the supplied constructor parameters options.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -660,7 +346,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)</code></pre>
+                <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -775,60 +461,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)">CanResolve(Type, DependencyContainerNamedParameterOverloads)</h4>
-              <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the supplied constructor parameters and default options.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">resolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a></td>
-                    <td><span class="parametername">parameters</span></td>
-                    <td><p>User supplied named parameter overloads</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p>Bool indicating whether the type can be resolved</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve(Type, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)</h4>
               <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -838,7 +470,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)</code></pre>
+                <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -941,50 +573,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1">CanResolve&lt;ResolveType&gt;()</h4>
-              <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with default options.</p>
-<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;()where ResolveType : class</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p>Bool indicating whether the type can be resolved</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">ResolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String)">CanResolve&lt;ResolveType&gt;(String)</h4>
               <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with default options.</p>
 <p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
@@ -992,7 +580,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(string name)where ResolveType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(string name = null)where ResolveType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -1008,76 +596,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">name</span></td>
                     <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p>Bool indicating whether the type can be resolved</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">ResolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)">CanResolve&lt;ResolveType&gt;(String, DependencyContainerNamedParameterOverloads)</h4>
-              <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with the supplied constructor parameters and default options.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(string name, DependencyContainerNamedParameterOverloads parameters)where ResolveType : class</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">name</span></td>
-                    <td><p>Name of registration</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a></td>
-                    <td><span class="parametername">parameters</span></td>
-                    <td><p>User supplied named parameter overloads</p>
-</td>
                   </tr>
                 </tbody>
               </table>
@@ -1333,7 +851,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)where ResolveType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -1495,109 +1013,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type)">Register(Type)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with default options.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Func_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_System_Object__" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Func{Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,System.Object})">Register(Type, Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, Object&gt;)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a user specified factory</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, object&gt; factory)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Func</span>&lt;<a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a>, <a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a>, <span class="xref">System.Object</span>&gt;</td>
-                    <td><span class="parametername">factory</span></td>
-                    <td><p>Factory/lambda that returns an instance of RegisterType</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Func_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_System_Object__System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Func{Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,System.Object},System.String)">Register(Type, Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, Object&gt;, String)</h4>
               <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a user specified factory</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, object&gt; factory, string name)</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, object&gt; factory, string name = &quot;&quot;)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -1648,64 +1070,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Object_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Object)">Register(Type, Object)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a specific, strong referenced, instance.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, object instance)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Object</span></td>
-                    <td><span class="parametername">instance</span></td>
-                    <td><p>Instance of RegisterType to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Object_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Object,System.String)">Register(Type, Object, String)</h4>
               <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, object instance, string name)</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, object instance, string name = &quot;&quot;)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -1762,7 +1133,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, string name)</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, string name = &quot;&quot;)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -1807,121 +1178,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Type_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Type)">Register(Type, Type)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a given implementation and default options.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerImplementation</span></td>
-                    <td><p>Type to instantiate that implements RegisterType</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Type_System_Object_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Type,System.Object)">Register(Type, Type, Object)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a specific, strong referenced, instance.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation, object instance)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerImplementation</span></td>
-                    <td><p>Type of instance to register that implements RegisterType</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Object</span></td>
-                    <td><span class="parametername">instance</span></td>
-                    <td><p>Instance of RegisterImplementation to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Type_System_Object_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Type,System.Object,System.String)">Register(Type, Type, Object, String)</h4>
               <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation, object instance, string name)</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation, object instance, string name = &quot;&quot;)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -1984,7 +1247,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation, string name)</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register(Type registerType, Type registerImplementation, string name = &quot;&quot;)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -2035,117 +1298,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1">Register&lt;RegisterType&gt;()</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with default options.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;()where RegisterType : class</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">RegisterType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1___0_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1(``0)">Register&lt;RegisterType&gt;(RegisterType)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a specific, strong referenced, instance.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(RegisterType instance)where RegisterType : class</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">RegisterType</span></td>
-                    <td><span class="parametername">instance</span></td>
-                    <td><p>Instance of RegisterType to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">RegisterType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1___0_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1(``0,System.String)">Register&lt;RegisterType&gt;(RegisterType, String)</h4>
               <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(RegisterType instance, string name)where RegisterType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(RegisterType instance, string name = &quot;&quot;)where RegisterType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -2206,74 +1365,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1_System_Func_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads___0__" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1(System.Func{Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,``0})">Register&lt;RegisterType&gt;(Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, RegisterType&gt;)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a user specified factory</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, RegisterType&gt; factory)where RegisterType : class</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Func</span>&lt;<a class="xref" href="Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a>, <a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a>, RegisterType&gt;</td>
-                    <td><span class="parametername">factory</span></td>
-                    <td><p>Factory/lambda that returns an instance of RegisterType</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">RegisterType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__1_System_Func_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads___0__System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``1(System.Func{Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,``0},System.String)">Register&lt;RegisterType&gt;(Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, RegisterType&gt;, String)</h4>
               <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a user specified factory</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, RegisterType&gt; factory, string name)where RegisterType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(Func&lt;DependencyContainer, DependencyContainerNamedParameterOverloads, RegisterType&gt; factory, string name = &quot;&quot;)where RegisterType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -2340,7 +1438,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(string name)where RegisterType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType&gt;(string name = &quot;&quot;)where RegisterType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -2395,127 +1493,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__2" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``2">Register&lt;RegisterType, RegisterImplementation&gt;()</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a given implementation and default options.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType, RegisterImplementation&gt;()where RegisterType : class where RegisterImplementation : class, RegisterType</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">RegisterType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="parametername">RegisterImplementation</span></td>
-                    <td><p>Type to instantiate that implements RegisterType</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__2___1_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``2(``1)">Register&lt;RegisterType, RegisterImplementation&gt;(RegisterImplementation)</h4>
-              <div class="markdown level1 summary"><p>Creates/replaces a container class registration with a specific, strong referenced, instance.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType, RegisterImplementation&gt;(RegisterImplementation instance)where RegisterType : class where RegisterImplementation : class, RegisterType</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">RegisterImplementation</span></td>
-                    <td><span class="parametername">instance</span></td>
-                    <td><p>Instance of RegisterImplementation to register</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
-                    <td><p>RegisterOptions for fluent API</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">RegisterType</span></td>
-                    <td><p>Type to register</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="parametername">RegisterImplementation</span></td>
-                    <td><p>Type of instance to register that implements RegisterType</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Register_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Register__2___1_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Register``2(``1,System.String)">Register&lt;RegisterType, RegisterImplementation&gt;(RegisterImplementation, String)</h4>
               <div class="markdown level1 summary"><p>Creates/replaces a named container class registration with a specific, strong referenced, instance.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType, RegisterImplementation&gt;(RegisterImplementation instance, string name)where RegisterType : class where RegisterImplementation : class, RegisterType</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType, RegisterImplementation&gt;(RegisterImplementation instance, string name = &quot;&quot;)where RegisterType : class where RegisterImplementation : class, RegisterType</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -2587,7 +1571,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType, RegisterImplementation&gt;(string name)where RegisterType : class where RegisterImplementation : class, RegisterType</code></pre>
+                <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;RegisterType, RegisterImplementation&gt;(string name = &quot;&quot;)where RegisterType : class where RegisterImplementation : class, RegisterType</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -2761,211 +1745,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type)">Resolve(Type)</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">resolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Object</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String)">Resolve(Type, String)</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options and the supplied name.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">resolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">name</span></td>
-                    <td><p>Name of registration</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Object</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)">Resolve(Type, String, DependencyContainerNamedParameterOverloads)</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options and the supplied constructor parameters and name.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">resolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">name</span></td>
-                    <td><p>Name of registration</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a></td>
-                    <td><span class="parametername">parameters</span></td>
-                    <td><p>User specified constructor parameters</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Object</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve(Type, String, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)</h4>
               <div class="markdown level1 summary"><p>Attempts to resolve a named type using specified options and the supplied constructor parameters.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -2974,7 +1753,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)</code></pre>
+                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -3055,7 +1834,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name, DependencyContainerResolveOptions options)</code></pre>
+                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, string name, DependencyContainerResolveOptions options = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -3122,75 +1901,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)">Resolve(Type, DependencyContainerNamedParameterOverloads)</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options and the supplied constructor parameters.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">resolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a></td>
-                    <td><span class="parametername">parameters</span></td>
-                    <td><p>User specified constructor parameters</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Object</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve(Type, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)</h4>
               <div class="markdown level1 summary"><p>Attempts to resolve a type using specified options and the supplied constructor parameters.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -3199,7 +1909,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)</code></pre>
+                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -3272,7 +1982,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, DependencyContainerResolveOptions options)</code></pre>
+                <pre><code class="lang-csharp hljs">public object Resolve(Type resolveType, DependencyContainerResolveOptions options = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -3333,229 +2043,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1">Resolve&lt;ResolveType&gt;()</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;()where ResolveType : class</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">ResolveType</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">ResolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.String)">Resolve&lt;ResolveType&gt;(String)</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options and the supplied name.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(string name)where ResolveType : class</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">name</span></td>
-                    <td><p>Name of registration</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">ResolveType</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">ResolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)">Resolve&lt;ResolveType&gt;(String, DependencyContainerNamedParameterOverloads)</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options and the supplied constructor parameters and name.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(string name, DependencyContainerNamedParameterOverloads parameters)where ResolveType : class</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">name</span></td>
-                    <td><p>Name of registration</p>
-</td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a></td>
-                    <td><span class="parametername">parameters</span></td>
-                    <td><p>User specified constructor parameters</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">ResolveType</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">ResolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;ResolveType&gt;(String, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)</h4>
               <div class="markdown level1 summary"><p>Attempts to resolve a named type using specified options and the supplied constructor parameters.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -3564,7 +2051,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)where ResolveType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -3655,7 +2142,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(string name, DependencyContainerResolveOptions options)where ResolveType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(string name, DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -3732,85 +2219,6 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)">Resolve&lt;ResolveType&gt;(DependencyContainerNamedParameterOverloads)</h4>
-              <div class="markdown level1 summary"><p>Attempts to resolve a type using default options and the supplied constructor parameters.</p>
-<p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(DependencyContainerNamedParameterOverloads parameters)where ResolveType : class</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads.html">DependencyContainerNamedParameterOverloads</a></td>
-                    <td><span class="parametername">parameters</span></td>
-                    <td><p>User specified constructor parameters</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">ResolveType</span></td>
-                    <td><p>Instance of type</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">ResolveType</span></td>
-                    <td><p>Type to resolve</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.DependencyContainerResolutionException.html">DependencyContainerResolutionException</a></td>
-                    <td><p>Unable to resolve the type.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Resolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Resolve__1_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.Resolve``1(Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)">Resolve&lt;ResolveType&gt;(DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)</h4>
               <div class="markdown level1 summary"><p>Attempts to resolve a type using specified options and the supplied constructor parameters.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -3819,7 +2227,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)where ResolveType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -3902,7 +2310,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(DependencyContainerResolveOptions options)where ResolveType : class</code></pre>
+                <pre><code class="lang-csharp hljs">public ResolveType Resolve&lt;ResolveType&gt;(DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -5213,58 +3621,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Unregister_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Unregister_System_Type_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister(System.Type)">Unregister(Type)</h4>
-              <div class="markdown level1 summary"><p>Remove a container class registration.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool Unregister(Type registerType)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">registerType</span></td>
-                    <td><p>Type to unregister</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p>true if the registration is successfully found and removed; otherwise, false.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Unregister_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Unregister_System_Type_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister(System.Type,System.String)">Unregister(Type, String)</h4>
               <div class="markdown level1 summary"><p>Remove a named container class registration.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool Unregister(Type registerType, string name)</code></pre>
+                <pre><code class="lang-csharp hljs">public bool Unregister(Type registerType, string name = &quot;&quot;)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -5309,56 +3672,13 @@ All user supplied parameters must exist in at least one resolvable constructor o
               
               
               <a id="Unosquare_Swan_Components_DependencyContainer_Unregister_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister*"></a>
-              <h4 id="Unosquare_Swan_Components_DependencyContainer_Unregister__1" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister``1">Unregister&lt;RegisterType&gt;()</h4>
-              <div class="markdown level1 summary"><p>Remove a container class registration.</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool Unregister&lt;RegisterType&gt;()</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p>true if the registration is successfully found and removed; otherwise, false.</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">RegisterType</span></td>
-                    <td><p>Type to unregister</p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_DependencyContainer_Unregister_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister*"></a>
               <h4 id="Unosquare_Swan_Components_DependencyContainer_Unregister__1_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.Unregister``1(System.String)">Unregister&lt;RegisterType&gt;(String)</h4>
               <div class="markdown level1 summary"><p>Remove a named container class registration.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool Unregister&lt;RegisterType&gt;(string name)</code></pre>
+                <pre><code class="lang-csharp hljs">public bool Unregister&lt;RegisterType&gt;(string name = &quot;&quot;)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
