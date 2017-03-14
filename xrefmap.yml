@@ -3006,12 +3006,6 @@ references:
   commentId: T:Unosquare.Swan.Components.DependencyContainer.TypeRegistration
   fullName: Unosquare.Swan.Components.DependencyContainer.TypeRegistration
   nameWithType: DependencyContainer.TypeRegistration
-- uid: Unosquare.Swan.Components.DependencyContainer.TypeRegistration.#ctor(System.Type)
-  name: TypeRegistration(Type)
-  href: api/Unosquare.Swan.Components.DependencyContainer.TypeRegistration.html#Unosquare_Swan_Components_DependencyContainer_TypeRegistration__ctor_System_Type_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.TypeRegistration.#ctor(System.Type)
-  fullName: Unosquare.Swan.Components.DependencyContainer.TypeRegistration.TypeRegistration(System.Type)
-  nameWithType: DependencyContainer.TypeRegistration.TypeRegistration(Type)
 - uid: Unosquare.Swan.Components.DependencyContainer.TypeRegistration.#ctor(System.Type,System.String)
   name: TypeRegistration(Type, String)
   href: api/Unosquare.Swan.Components.DependencyContainer.TypeRegistration.html#Unosquare_Swan_Components_DependencyContainer_TypeRegistration__ctor_System_Type_System_String_
