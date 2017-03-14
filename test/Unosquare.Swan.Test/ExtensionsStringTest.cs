@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Runtime.InteropServices;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -64,7 +63,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void RemoveControlCharsTest()
         {
-            var input = "\0Test\t";
+            const string input = "\0Test\t";
             Assert.AreEqual("Test", input.RemoveControlChars(), $"Testing with {input}");
         }
 
@@ -119,7 +118,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void FormatBytesTest()
         {
-            ulong input = 2048;
+            const ulong input = 2048;
             Assert.AreEqual("2 KB", input.FormatBytes(), $"Testing with {input}");
         }
 

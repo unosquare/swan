@@ -191,7 +191,7 @@ namespace Unosquare.Swan.Components
     /// Message proxy definition.
     /// 
     /// A message proxy can be used to intercept/alter messages and/or
-    /// marshall delivery actions onto a particular thread.
+    /// marshal delivery actions onto a particular thread.
     /// </summary>
     public interface IMessageHubProxy
     {
@@ -401,23 +401,17 @@ namespace Unosquare.Swan.Components
         private class WeakTinyMessageSubscription<TMessage> : IMessageHubSubscription
             where TMessage : class, IMessageHubMessage
         {
-            private readonly WeakReference _DeliveryAction;
-            private readonly WeakReference _MessageFilter;
+            private readonly WeakReference _deliveryAction;
+            private readonly WeakReference _messageFilter;
 
             public MessageHubSubscriptionToken SubscriptionToken { get; }
 
             public bool ShouldAttemptDelivery(IMessageHubMessage message)
             {
-                if (!(message is TMessage))
+                if (!(message is TMessage) || !_deliveryAction.IsAlive || !_messageFilter.IsAlive)
                     return false;
 
-                if (!_DeliveryAction.IsAlive)
-                    return false;
-
-                if (!_MessageFilter.IsAlive)
-                    return false;
-
-                return ((Func<TMessage, bool>) _MessageFilter.Target).Invoke((TMessage) message);
+                return ((Func<TMessage, bool>) _messageFilter.Target).Invoke((TMessage) message);
             }
 
             public void Deliver(IMessageHubMessage message)
@@ -425,10 +419,10 @@ namespace Unosquare.Swan.Components
                 if (!(message is TMessage))
                     throw new ArgumentException("Message is not the correct type");
 
-                if (!_DeliveryAction.IsAlive)
+                if (!_deliveryAction.IsAlive)
                     return;
 
-                ((Action<TMessage>) _DeliveryAction.Target).Invoke((TMessage) message);
+                ((Action<TMessage>) _deliveryAction.Target).Invoke((TMessage) message);
             }
 
             /// <summary>
@@ -457,16 +451,16 @@ namespace Unosquare.Swan.Components
                     throw new ArgumentNullException(nameof(messageFilter));
 
                 SubscriptionToken = subscriptionToken;
-                _DeliveryAction = new WeakReference(deliveryAction);
-                _MessageFilter = new WeakReference(messageFilter);
+                _deliveryAction = new WeakReference(deliveryAction);
+                _messageFilter = new WeakReference(messageFilter);
             }
         }
 
         private class StrongTinyMessageSubscription<TMessage> : IMessageHubSubscription
             where TMessage : class, IMessageHubMessage
         {
-            private readonly Action<TMessage> _DeliveryAction;
-            private readonly Func<TMessage, bool> _MessageFilter;
+            private readonly Action<TMessage> _deliveryAction;
+            private readonly Func<TMessage, bool> _messageFilter;
 
             public MessageHubSubscriptionToken SubscriptionToken { get; }
 
@@ -475,7 +469,7 @@ namespace Unosquare.Swan.Components
                 if (!(message is TMessage))
                     return false;
 
-                return _MessageFilter.Invoke((TMessage) message);
+                return _messageFilter.Invoke((TMessage) message);
             }
 
             public void Deliver(IMessageHubMessage message)
@@ -483,7 +477,7 @@ namespace Unosquare.Swan.Components
                 if (!(message is TMessage))
                     throw new ArgumentException("Message is not the correct type");
 
-                _DeliveryAction.Invoke((TMessage) message);
+                _deliveryAction.Invoke((TMessage) message);
             }
 
             /// <summary>
@@ -512,8 +506,8 @@ namespace Unosquare.Swan.Components
                     throw new ArgumentNullException(nameof(messageFilter));
 
                 SubscriptionToken = subscriptionToken;
-                _DeliveryAction = deliveryAction;
-                _MessageFilter = messageFilter;
+                _deliveryAction = deliveryAction;
+                _messageFilter = messageFilter;
             }
         }
 
@@ -533,9 +527,9 @@ namespace Unosquare.Swan.Components
             }
         }
 
-        private readonly object _SubscriptionsPadlock = new object();
+        private readonly object _subscriptionsPadlock = new object();
 
-        private readonly Dictionary<Type, List<SubscriptionItem>> _Subscriptions =
+        private readonly Dictionary<Type, List<SubscriptionItem>> _subscriptions =
             new Dictionary<Type, List<SubscriptionItem>>();
 
         #endregion
@@ -737,14 +731,14 @@ namespace Unosquare.Swan.Components
             if (proxy == null)
                 throw new ArgumentNullException(nameof(proxy));
 
-            lock (_SubscriptionsPadlock)
+            lock (_subscriptionsPadlock)
             {
                 List<SubscriptionItem> currentSubscriptions;
 
-                if (!_Subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
+                if (!_subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
                 {
                     currentSubscriptions = new List<SubscriptionItem>();
-                    _Subscriptions[typeof(TMessage)] = currentSubscriptions;
+                    _subscriptions[typeof(TMessage)] = currentSubscriptions;
                 }
 
                 var subscriptionToken = new MessageHubSubscriptionToken(this, typeof(TMessage));
@@ -769,10 +763,10 @@ namespace Unosquare.Swan.Components
             if (subscriptionToken == null)
                 throw new ArgumentNullException(nameof(subscriptionToken));
 
-            lock (_SubscriptionsPadlock)
+            lock (_subscriptionsPadlock)
             {
                 List<SubscriptionItem> currentSubscriptions;
-                if (!_Subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
+                if (!_subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
                     return;
 
                 var currentlySubscribed = (from sub in currentSubscriptions
@@ -790,10 +784,10 @@ namespace Unosquare.Swan.Components
                 throw new ArgumentNullException(nameof(message));
 
             List<SubscriptionItem> currentlySubscribed;
-            lock (_SubscriptionsPadlock)
+            lock (_subscriptionsPadlock)
             {
                 List<SubscriptionItem> currentSubscriptions;
-                if (!_Subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
+                if (!_subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
                     return;
 
                 currentlySubscribed = (from sub in currentSubscriptions

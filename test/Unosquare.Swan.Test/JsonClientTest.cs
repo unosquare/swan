@@ -17,8 +17,8 @@ namespace Unosquare.Swan.Test
         private int DefaultPort;
         private string DefaultHttp;
 
-        const string Authorization = "Authorization";
-        const string AuthorizationToken = "Token";
+        private const string Authorization = "Authorization";
+        private const string AuthorizationToken = "Token";
 
         [SetUp]
         public void SetupWebServer()
@@ -95,8 +95,8 @@ namespace Unosquare.Swan.Test
                 }));
 
                 var task = webserver.RunAsync();
-                await Task.Delay(200);
-                
+                await Task.Delay(500);
+
                 var data = await JsonClient.Post(DefaultHttp, BasicJson.GetDefault(), AuthorizationToken);
 
                 Assert.IsNotNull(data);
@@ -114,8 +114,7 @@ namespace Unosquare.Swan.Test
 
                 webserver.RegisterModule(new FallbackModule((srv, ctx) =>
                 {
-                    foreach (var header in ctx.Request.Headers)
-                        ctxHeaders.Add(header.ToString());
+                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
 
                     return true;
                 }));

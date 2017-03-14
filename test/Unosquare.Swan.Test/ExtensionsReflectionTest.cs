@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using Unosquare.Swan;
 using Unosquare.Swan.Test.Mocks;
 
@@ -78,7 +77,7 @@ namespace Unosquare.Swan.Test
         [TestCase(false, typeof(Shark))]
         public void IsDefinedTest(bool expected, Type input)
         {
-            MemberInfo[] members = input.GetMembers();
+            var members = input.GetMembers();
             Assert.AreEqual(expected, members[0].IsDefined(typeof(AttributeMock), false), $"Get IsDefined value of {input}");
         }
 
@@ -99,8 +98,8 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(expected, input.IsGenericTypeDefinition(), $"Get IsGenericTypeDefinition value of {input}");
         }
 
-        [TestCase(typeof(System.Object), typeof(List<Fish>))]
-        [TestCase(typeof(System.Object), typeof(string))]
+        [TestCase(typeof(Object), typeof(List<Fish>))]
+        [TestCase(typeof(Object), typeof(string))]
         public void BaseTypeTest(Type expected, Type input)
         {
             Assert.AreEqual(expected, input.BaseType(), $"Get BaseType value of {input}");

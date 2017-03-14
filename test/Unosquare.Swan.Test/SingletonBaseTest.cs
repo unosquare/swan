@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -10,43 +6,43 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class SingletonBaseTest
     {
-        static MockProvider mocks = new MockProvider();
-        static MockProvider mocksInstance = MockProvider.Instance;
+        static readonly MockProvider Mocks = new MockProvider();
+        static readonly MockProvider MocksInstance = MockProvider.Instance;
 
         [Test]
         public void GetInstanceNameTest()
         {
-            Assert.AreEqual(nameof(MockProvider), mocksInstance.GetName());
+            Assert.AreEqual(nameof(MockProvider), MocksInstance.GetName());
         }
 
         [Test]
         public void GetTypeTest()
         {
-            Assert.AreEqual(typeof(MockProvider), mocksInstance.GetType());
+            Assert.AreEqual(typeof(MockProvider), MocksInstance.GetType());
         }
 
         [Test]
         public void StringifyTest()
         {
-            Assert.AreEqual(mocks.Stringify(), mocksInstance.Stringify());
+            Assert.AreEqual(Mocks.Stringify(), MocksInstance.Stringify());
         }
 
         [Test]
         public void ToJsonTest()
         {
-            Assert.AreEqual(mocks.ToJson(), mocksInstance.ToJson());
+            Assert.AreEqual(Mocks.ToJson(), MocksInstance.ToJson());
         }
 
         [Test]
         public void ToStringTest()
         {
-            Assert.AreEqual(mocks.ToString(), mocksInstance.ToString());
+            Assert.AreEqual(Mocks.ToString(), MocksInstance.ToString());
         }
 
         [Test]
         public void ToStringInvariantTest()
         {
-            Assert.AreEqual(mocks.ToStringInvariant(), mocksInstance.ToStringInvariant());
+            Assert.AreEqual(Mocks.ToStringInvariant(), MocksInstance.ToStringInvariant());
         }
     }
 }

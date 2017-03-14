@@ -1909,27 +1909,18 @@ namespace Unosquare.Swan.Components
             /// The name.
             /// </value>
             public string Name { get; }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="TypeRegistration"/> class.
-            /// </summary>
-            /// <param name="type">The type.</param>
-            public TypeRegistration(Type type)
-                : this(type, string.Empty)
-            {
-            }
-
+            
             /// <summary>
             /// Initializes a new instance of the <see cref="TypeRegistration"/> class.
             /// </summary>
             /// <param name="type">The type.</param>
             /// <param name="name">The name.</param>
-            public TypeRegistration(Type type, string name)
+            public TypeRegistration(Type type, string name = null) 
             {
                 Type = type;
-                Name = name;
+                Name = name ?? string.Empty;
 
-                _hashCode = String.Concat(Type.FullName, "|", Name).GetHashCode();
+                _hashCode = string.Concat(Type.FullName, "|", Name).GetHashCode();
             }
 
             /// <summary>
@@ -1943,16 +1934,10 @@ namespace Unosquare.Swan.Components
             {
                 var typeRegistration = obj as TypeRegistration;
 
-                if (typeRegistration == null)
+                if (typeRegistration == null || typeRegistration.Type != Type)
                     return false;
 
-                if (Type != typeRegistration.Type)
-                    return false;
-
-                if (String.Compare(Name, typeRegistration.Name, StringComparison.Ordinal) != 0)
-                    return false;
-
-                return true;
+                return string.Compare(Name, typeRegistration.Name, StringComparison.Ordinal) == 0;
             }
 
             /// <summary>
@@ -1966,6 +1951,7 @@ namespace Unosquare.Swan.Components
                 return _hashCode;
             }
         }
+
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _RegisteredTypes;
         private delegate object ObjectConstructor(params object[] parameters);
 #if USE_OBJECT_CONSTRUCTOR
@@ -1986,20 +1972,20 @@ namespace Unosquare.Swan.Components
             RegisterDefaultTypes();
         }
 
-        readonly DependencyContainer _Parent;
+        readonly DependencyContainer _parent;
         private DependencyContainer(DependencyContainer parent)
             : this()
         {
-            _Parent = parent;
+            _parent = parent;
         }
         #endregion
 
         #region Internal Methods
-        private readonly object _AutoRegisterLock = new object();
+        private readonly object _autoRegisterLock = new object();
 
         private void AutoRegisterInternal(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction, Func<Type, bool> registrationPredicate)
         {
-            lock (_AutoRegisterLock)
+            lock (_autoRegisterLock)
             {
                 var types = assemblies.SelectMany(a => a.GetAllTypes()).Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
 
@@ -2056,7 +2042,7 @@ namespace Unosquare.Swan.Components
             }
         }
 
-        private bool IsIgnoredAssembly(Assembly assembly)
+        private static bool IsIgnoredAssembly(Assembly assembly)
         {
             // TODO - find a better way to remove "system" assemblies from the auto registration
             var ignoreChecks = new List<Func<Assembly, bool>>()
@@ -2074,7 +2060,7 @@ namespace Unosquare.Swan.Components
             return ignoreChecks.Any(check => check(assembly));
         }
 
-        private bool IsIgnoredType(Type type, Func<Type, bool> registrationPredicate)
+        private static bool IsIgnoredType(Type type, Func<Type, bool> registrationPredicate)
         {
             // TODO - find a better way to remove "system" types from the auto registration
             var ignoreChecks = new List<Func<Type, bool>>()
@@ -2099,7 +2085,7 @@ namespace Unosquare.Swan.Components
             Register(this);
 
             // Only register the TinyMessenger singleton if we are the root container
-            if (_Parent == null)
+            if (_parent == null)
                 Register<IMessageHub, MessageHub>();
         }
 
@@ -2132,7 +2118,7 @@ namespace Unosquare.Swan.Components
             return _RegisteredTypes.TryRemove(typeRegistration, out item);
         }
 
-        private ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
+        private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
         {
             if (registerType.IsInterface() || registerType.IsAbstract())
                 return new SingletonFactory(registerType, registerImplementation);
@@ -2164,7 +2150,7 @@ namespace Unosquare.Swan.Components
             // Fail if requesting named resolution and settings set to fail if unresolved
             // Or bubble up if we have a parent
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.Fail)
-                return _Parent?.CanResolveInternal(registration, parameters, options) ?? false;
+                return _parent?.CanResolveInternal(registration, parameters, options) ?? false;
 
             // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution)
@@ -2189,10 +2175,10 @@ namespace Unosquare.Swan.Components
             // Attempt unregistered construction if possible and requested
             // If we cant', bubble if we have a parent
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (checkType.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
-                return (GetBestConstructor(checkType, parameters, options) != null) || (_Parent?.CanResolveInternal(registration, parameters, options) ?? false);
+                return (GetBestConstructor(checkType, parameters, options) != null) || (_parent?.CanResolveInternal(registration, parameters, options) ?? false);
 
             // Bubble resolution up the container tree if we have a parent
-            return _Parent != null && _Parent.CanResolveInternal(registration, parameters, options);
+            return _parent != null && _parent.CanResolveInternal(registration, parameters, options);
         }
 
         private static bool IsAutomaticLazyFactoryRequest(Type type)
@@ -2221,16 +2207,16 @@ namespace Unosquare.Swan.Components
 
         private ObjectFactoryBase GetParentObjectFactory(TypeRegistration registration)
         {
-            if (_Parent == null)
+            if (_parent == null)
                 return null;
 
             ObjectFactoryBase factory;
-            if (_Parent._RegisteredTypes.TryGetValue(registration, out factory))
+            if (_parent._RegisteredTypes.TryGetValue(registration, out factory))
             {
-                return factory.GetFactoryForChildContainer(registration.Type, _Parent, this);
+                return factory.GetFactoryForChildContainer(registration.Type, _parent, this);
             }
 
-            return _Parent.GetParentObjectFactory(registration);
+            return _parent.GetParentObjectFactory(registration);
         }
 
         private object ResolveInternal(TypeRegistration registration, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
@@ -2276,7 +2262,7 @@ namespace Unosquare.Swan.Components
             if (!string.IsNullOrEmpty(registration.Name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.Fail)
                 throw new DependencyContainerResolutionException(registration.Type);
 
-            // Attemped unnamed fallback container resolution if relevant and requested
+            // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(registration.Name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution)
             {
                 if (_RegisteredTypes.TryGetValue(new TypeRegistration(registration.Type, string.Empty), out factory))
@@ -2553,12 +2539,12 @@ namespace Unosquare.Swan.Components
 
         private IEnumerable<TypeRegistration> GetParentRegistrationsForType(Type resolveType)
         {
-            if (_Parent == null)
+            if (_parent == null)
                 return new TypeRegistration[] { };
 
-            var registrations = _Parent._RegisteredTypes.Keys.Where(tr => tr.Type == resolveType);
+            var registrations = _parent._RegisteredTypes.Keys.Where(tr => tr.Type == resolveType);
 
-            return registrations.Concat(_Parent.GetParentRegistrationsForType(resolveType));
+            return registrations.Concat(_parent.GetParentRegistrationsForType(resolveType));
         }
 
         private IEnumerable<object> ResolveAllInternal(Type resolveType, bool includeUnnamed)
@@ -2605,17 +2591,16 @@ namespace Unosquare.Swan.Components
         /// </summary>
         public void Dispose()
         {
-            if (!_disposed)
-            {
-                _disposed = true;
-                foreach (var item in _RegisteredTypes.Values)
-                {
-                    var disposable = item as IDisposable;
-                    disposable?.Dispose();
-                }
+            if (_disposed) return;
 
-                GC.SuppressFinalize(this);
+            _disposed = true;
+            foreach (var item in _RegisteredTypes.Values)
+            {
+                var disposable = item as IDisposable;
+                disposable?.Dispose();
             }
+
+            GC.SuppressFinalize(this);
         }
 
         #endregion

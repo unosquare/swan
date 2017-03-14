@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Reflection;
@@ -11,7 +10,7 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class JsonTest
     {
-        private static readonly AdvJson _advObj = new AdvJson
+        private static readonly AdvJson AdvObj = new AdvJson
         {
             StringData = "string",
             IntData = 1,
@@ -21,12 +20,13 @@ namespace Unosquare.Swan.Test
             InnerChild = BasicJson.GetDefault()
         };
 
-        private const string _basicStrWithoutWrap =
+        private const string BasicStrWithoutWrap =
             "\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null";
-        const string _basicStr = "{" + _basicStrWithoutWrap + "}";
 
-        const string _advStr =
-            "{\"InnerChild\": " + _basicStr + "," + _basicStrWithoutWrap + "}";
+        private const string BasicStr = "{" + BasicStrWithoutWrap + "}";
+
+        private const string AdvStr =
+            "{\"InnerChild\": " + BasicStr + "," + BasicStrWithoutWrap + "}";
 
         private readonly string[] _basicArray = { "One", "Two", "Three" };
         private string _basicAStr = "[\"One\",\"Two\",\"Three\"]";
@@ -48,7 +48,7 @@ namespace Unosquare.Swan.Test
 
         private string _basicAObjStr = "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
 
-        private string _advAStr = "{\"Id\": 1,\"Properties\": [" + _basicStr + "," + _basicStr + "]}";
+        private string _advAStr = "{\"Id\": 1,\"Properties\": [" + BasicStr + "," + BasicStr + "]}";
 
         private readonly List<ExtendedPropertyInfo> _arrayOfObj = new List<ExtendedPropertyInfo>
         {
@@ -65,13 +65,13 @@ namespace Unosquare.Swan.Test
             var data = BasicJson.GetDefault().ToJson(false);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_basicStr, data);
+            Assert.AreEqual(BasicStr, data);
         }
 
         [Test]
         public void DeserializeBasicObjectTest()
         {
-            var obj = Json.Deserialize<BasicJson>(_basicStr);
+            var obj = Json.Deserialize<BasicJson>(BasicStr);
 
             Assert.IsNotNull(obj);
             Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
@@ -148,28 +148,28 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeAdvObjectTest()
         {
-            var data = Json.Serialize(_advObj);
+            var data = Json.Serialize(AdvObj);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_advStr, data);
+            Assert.AreEqual(AdvStr, data);
         }
 
         [Test]
         public void DeserializeAdvObjectTest()
         {
-            var data = Json.Deserialize<AdvJson>(_advStr);
+            var data = Json.Deserialize<AdvJson>(AdvStr);
 
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.InnerChild);
 
             foreach (var obj in new[] { data, data.InnerChild })
             {
-                Assert.AreEqual(obj.StringData, _advObj.StringData);
-                Assert.AreEqual(obj.IntData, _advObj.IntData);
-                Assert.AreEqual(obj.NegativeInt, _advObj.NegativeInt);
-                Assert.AreEqual(obj.BoolData, _advObj.BoolData);
-                Assert.AreEqual(obj.DecimalData, _advObj.DecimalData);
-                Assert.AreEqual(obj.StringNull, _advObj.StringNull);
+                Assert.AreEqual(obj.StringData, AdvObj.StringData);
+                Assert.AreEqual(obj.IntData, AdvObj.IntData);
+                Assert.AreEqual(obj.NegativeInt, AdvObj.NegativeInt);
+                Assert.AreEqual(obj.BoolData, AdvObj.BoolData);
+                Assert.AreEqual(obj.DecimalData, AdvObj.DecimalData);
+                Assert.AreEqual(obj.StringNull, AdvObj.StringNull);
             }
         }
 
@@ -193,12 +193,12 @@ namespace Unosquare.Swan.Test
 
             foreach (var obj in data.Properties)
             {
-                Assert.AreEqual(obj.StringData, _advObj.StringData);
-                Assert.AreEqual(obj.IntData, _advObj.IntData);
-                Assert.AreEqual(obj.NegativeInt, _advObj.NegativeInt);
-                Assert.AreEqual(obj.BoolData, _advObj.BoolData);
-                Assert.AreEqual(obj.DecimalData, _advObj.DecimalData);
-                Assert.AreEqual(obj.StringNull, _advObj.StringNull);
+                Assert.AreEqual(obj.StringData, AdvObj.StringData);
+                Assert.AreEqual(obj.IntData, AdvObj.IntData);
+                Assert.AreEqual(obj.NegativeInt, AdvObj.NegativeInt);
+                Assert.AreEqual(obj.BoolData, AdvObj.BoolData);
+                Assert.AreEqual(obj.DecimalData, AdvObj.DecimalData);
+                Assert.AreEqual(obj.StringNull, AdvObj.StringNull);
             }
         }
 
@@ -230,8 +230,8 @@ namespace Unosquare.Swan.Test
         [Test]
         public void CheckJsonFormat()
         {
-            Assert.AreEqual(_basicStr, BasicJson.GetDefault().ToJson(false));
-            Assert.AreNotEqual(_basicStr, BasicJson.GetDefault().ToJson());
+            Assert.AreEqual(BasicStr, BasicJson.GetDefault().ToJson(false));
+            Assert.AreNotEqual(BasicStr, BasicJson.GetDefault().ToJson());
 
             object nullObj = null;
             Assert.AreEqual(string.Empty, nullObj.ToJson());
