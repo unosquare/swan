@@ -5150,6 +5150,15 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.Contains(System.Byte(), System.Byte())
   nameWithType: Extensions.Contains(Byte[], Byte[])
   nameWithType.vb: Extensions.Contains(Byte(), Byte())
+- uid: Unosquare.Swan.Extensions.Contains(System.String,System.Char[])
+  name: Contains(String, Char[])
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Contains_System_String_System_Char___
+  commentId: M:Unosquare.Swan.Extensions.Contains(System.String,System.Char[])
+  name.vb: Contains(String, Char())
+  fullName: Unosquare.Swan.Extensions.Contains(System.String, System.Char[])
+  fullName.vb: Unosquare.Swan.Extensions.Contains(System.String, System.Char())
+  nameWithType: Extensions.Contains(String, Char[])
+  nameWithType.vb: Extensions.Contains(String, Char())
 - uid: Unosquare.Swan.Extensions.Contains*
   name: Contains
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Contains_
@@ -5678,6 +5687,30 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.Stringify
   fullName: Unosquare.Swan.Extensions.Stringify
   nameWithType: Extensions.Stringify
+- uid: Unosquare.Swan.Extensions.SubArray*
+  name: SubArray
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SubArray_
+  commentId: Overload:Unosquare.Swan.Extensions.SubArray
+  fullName: Unosquare.Swan.Extensions.SubArray
+  nameWithType: Extensions.SubArray
+- uid: Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int32,System.Int32)
+  name: SubArray<T>(T[], Int32, Int32)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SubArray__1___0___System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int32,System.Int32)
+  name.vb: SubArray(Of T)(T(), Int32, Int32)
+  fullName: Unosquare.Swan.Extensions.SubArray<T>(T[], System.Int32, System.Int32)
+  fullName.vb: Unosquare.Swan.Extensions.SubArray(Of T)(T(), System.Int32, System.Int32)
+  nameWithType: Extensions.SubArray<T>(T[], Int32, Int32)
+  nameWithType.vb: Extensions.SubArray(Of T)(T(), Int32, Int32)
+- uid: Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int64,System.Int64)
+  name: SubArray<T>(T[], Int64, Int64)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SubArray__1___0___System_Int64_System_Int64_
+  commentId: M:Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int64,System.Int64)
+  name.vb: SubArray(Of T)(T(), Int64, Int64)
+  fullName: Unosquare.Swan.Extensions.SubArray<T>(T[], System.Int64, System.Int64)
+  fullName.vb: Unosquare.Swan.Extensions.SubArray(Of T)(T(), System.Int64, System.Int64)
+  nameWithType: Extensions.SubArray<T>(T[], Int64, Int64)
+  nameWithType.vb: Extensions.SubArray(Of T)(T(), Int64, Int64)
 - uid: Unosquare.Swan.Extensions.TextPositionAt(System.String,System.Int32)
   name: TextPositionAt(String, Int32)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TextPositionAt_System_String_System_Int32_

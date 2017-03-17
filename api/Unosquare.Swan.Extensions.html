@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Extensions
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.13.1.0">
+    <meta name="generator" content="docfx 2.13.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -822,6 +822,59 @@ Do not use for large streams as this reads ALL bytes at once</p>
                   <tr>
                     <td><span class="xref">System.Boolean</span></td>
                     <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Extensions_Contains_" data-uid="Unosquare.Swan.Extensions.Contains*"></a>
+              <h4 id="Unosquare_Swan_Extensions_Contains_System_String_System_Char___" data-uid="Unosquare.Swan.Extensions.Contains(System.String,System.Char[])">Contains(String, Char[])</h4>
+              <div class="markdown level1 summary"><p>Determines whether the specified <span class="xref">System.String</span> contains any of characters in
+the specified array of <span class="xref">System.Char</span>.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public static bool Contains(this string value, params char[] chars)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">value</span></td>
+                    <td><p>A <span class="xref">System.String</span> to test.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Char</span>[]</td>
+                    <td><span class="parametername">chars</span></td>
+                    <td><p>An array of <span class="xref">System.Char</span> that contains characters to find.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><p><code>true</code> if <span class="paramref">value</span> contains any of <span class="paramref">chars</span>;
+otherwise, <code>false</code>.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -3050,6 +3103,158 @@ examine objects.</p>
                   <tr>
                     <td><span class="xref">System.String</span></td>
                     <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Extensions_SubArray_" data-uid="Unosquare.Swan.Extensions.SubArray*"></a>
+              <h4 id="Unosquare_Swan_Extensions_SubArray__1___0___System_Int32_System_Int32_" data-uid="Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int32,System.Int32)">SubArray&lt;T&gt;(T[], Int32, Int32)</h4>
+              <div class="markdown level1 summary"><p>Retrieves a sub-array from the specified <span class="paramref">array</span>. A sub-array starts at
+the specified element position in <span class="paramref">array</span>.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public static T[] SubArray&lt;T&gt;(this T[] array, int startIndex, int length)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>T[]</td>
+                    <td><span class="parametername">array</span></td>
+                    <td><p>An array of T from which to retrieve a sub-array.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">startIndex</span></td>
+                    <td><p>An <span class="xref">System.Int32</span> that represents the zero-based starting position of
+a sub-array in <span class="paramref">array</span>.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">length</span></td>
+                    <td><p>An <span class="xref">System.Int32</span> that represents the number of elements to retrieve.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>T[]</td>
+                    <td><p>An array of T that receives a sub-array, or an empty array of T if any problems with
+the parameters.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="typeParameters">Type Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="parametername">T</span></td>
+                    <td><p>The type of elements in <span class="paramref">array</span>.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Extensions_SubArray_" data-uid="Unosquare.Swan.Extensions.SubArray*"></a>
+              <h4 id="Unosquare_Swan_Extensions_SubArray__1___0___System_Int64_System_Int64_" data-uid="Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int64,System.Int64)">SubArray&lt;T&gt;(T[], Int64, Int64)</h4>
+              <div class="markdown level1 summary"><p>Retrieves a sub-array from the specified <span class="paramref">array</span>. A sub-array starts at
+the specified element position in <span class="paramref">array</span>.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public static T[] SubArray&lt;T&gt;(this T[] array, long startIndex, long length)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>T[]</td>
+                    <td><span class="parametername">array</span></td>
+                    <td><p>An array of T from which to retrieve a sub-array.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int64</span></td>
+                    <td><span class="parametername">startIndex</span></td>
+                    <td><p>A <span class="xref">System.Int64</span> that represents the zero-based starting position of
+a sub-array in <span class="paramref">array</span>.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int64</span></td>
+                    <td><span class="parametername">length</span></td>
+                    <td><p>A <span class="xref">System.Int64</span> that represents the number of elements to retrieve.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>T[]</td>
+                    <td><p>An array of T that receives a sub-array, or an empty array of T if any problems with
+the parameters.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="typeParameters">Type Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="parametername">T</span></td>
+                    <td><p>The type of elements in <span class="paramref">array</span>.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
