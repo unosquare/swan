@@ -106,6 +106,21 @@
         }
 
         /// <summary>
+        /// Copies the properties to new.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="ignoreProperties">The ignore properties.</param>
+        /// <returns></returns>
+        public static object CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
+        {
+            var target = Activator.CreateInstance<T>();
+            CopyPropertiesTo(source, target, ignoreProperties);
+            return target;
+        }
+
+        /// <summary>
         /// Iterates over the keys of the source and tries to write a compatible value to a public, 
         /// instance, writable property in the destination.
         /// 

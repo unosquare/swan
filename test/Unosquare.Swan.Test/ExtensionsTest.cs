@@ -32,5 +32,15 @@ namespace Unosquare.Swan.Test
             Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
             Assert.AreEqual(source.StringData, destination.StringData);
         }
+
+        [Test]
+        public void CopyPropertiesToNewTest()
+        {
+            var source = BasicJson.GetDefault();
+            var result = source.CopyPropertiesToNew<BasicJson>();
+            
+            Assert.IsNotNull(result);
+            Assert.AreSame(source.GetType(), result.GetType());
+        }
     }
 }
