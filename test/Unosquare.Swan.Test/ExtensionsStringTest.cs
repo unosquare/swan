@@ -128,5 +128,12 @@ namespace Unosquare.Swan.Test
         {
             Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");
         }
+
+        [Test]
+        public void ContainsTest()
+        {
+            var input = "Hello World";
+            Assert.IsTrue(input.Contains('l'));
+        }
     }
 }

@@ -19,5 +19,18 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(source.StringData, destination.StringData);
             Assert.AreEqual(source.StringNull, destination.StringNull);
         }
+
+        [Test]
+        public void IgnoredPropertiesTest()
+        {
+            var source = BasicJson.GetDefault();
+            var destination = new BasicJson();
+            string[] ignored = { "NegativeInt", "BoolData" };
+            source.CopyPropertiesTo(destination, ignored);
+
+            Assert.AreNotEqual(source.BoolData, destination.BoolData);
+            Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
+            Assert.AreEqual(source.StringData, destination.StringData);
+        }
     }
 }
