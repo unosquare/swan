@@ -30,14 +30,14 @@ namespace Unosquare.Swan.Test
         public void InnerExceptionTest()
         {
             string[] splits = { "\r\n" };
-            List<Exception> exceptions = new List<Exception>();
+            var exceptions = new List<Exception>();
             exceptions.Add(new TimeoutException("It timed out", new ArgumentException("ID missing")));
             exceptions.Add(new NotImplementedException("Somethings not implemented", new ArgumentNullException()));
-            AggregateException ex = new AggregateException(exceptions);
+            var ex = new AggregateException(exceptions);
 
             var exMsg = ex.ExceptionMessage();
 
-            string[] lines = exMsg.Split(splits, StringSplitOptions.None);
+            var lines = exMsg.Split(splits, StringSplitOptions.None);
 
             Assert.IsNotNull(exMsg);
             Assert.AreEqual(lines.Count() - 1, ex.InnerExceptions.Count());
