@@ -5210,6 +5210,21 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.CopyPropertiesTo(Of T)(T, System.Object)
   nameWithType: Extensions.CopyPropertiesTo<T>(T, Object)
   nameWithType.vb: Extensions.CopyPropertiesTo(Of T)(T, Object)
+- uid: Unosquare.Swan.Extensions.CopyPropertiesToNew*
+  name: CopyPropertiesToNew
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyPropertiesToNew_
+  commentId: Overload:Unosquare.Swan.Extensions.CopyPropertiesToNew
+  fullName: Unosquare.Swan.Extensions.CopyPropertiesToNew
+  nameWithType: Extensions.CopyPropertiesToNew
+- uid: Unosquare.Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[])
+  name: CopyPropertiesToNew<T>(Object, String[])
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyPropertiesToNew__1_System_Object_System_String___
+  commentId: M:Unosquare.Swan.Extensions.CopyPropertiesToNew``1(System.Object,System.String[])
+  name.vb: CopyPropertiesToNew(Of T)(Object, String())
+  fullName: Unosquare.Swan.Extensions.CopyPropertiesToNew<T>(System.Object, System.String[])
+  fullName.vb: Unosquare.Swan.Extensions.CopyPropertiesToNew(Of T)(System.Object, System.String())
+  nameWithType: Extensions.CopyPropertiesToNew<T>(Object, String[])
+  nameWithType.vb: Extensions.CopyPropertiesToNew(Of T)(Object, String())
 - uid: Unosquare.Swan.Extensions.DateRange(System.DateTime,System.DateTime)
   name: DateRange(DateTime, DateTime)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DateRange_System_DateTime_System_DateTime_
