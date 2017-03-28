@@ -663,22 +663,6 @@ namespace Unosquare.Swan.Components
         }
         
         /// <summary>
-        /// Attempts to resolve a type using supplied options and  name.
-        ///
-        /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-        /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve</param>
-        /// <param name="name">Name of registration</param>
-        /// <param name="options">Resolution options</param>
-        /// <returns>Instance of type</returns>
-        /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
-        public object Resolve(Type resolveType, string name, DependencyContainerResolveOptions options = null)
-        {
-            return ResolveInternal(new TypeRegistration(resolveType, name), DependencyContainerNamedParameterOverloads.Default, options ?? DependencyContainerResolveOptions.Default);
-        }
-        
-        /// <summary>
         /// Attempts to resolve a type using specified options and the supplied constructor parameters.
         ///
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -706,9 +690,9 @@ namespace Unosquare.Swan.Components
         /// <param name="options">Resolution options</param>
         /// <returns>Instance of type</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
-        public object Resolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)
+        public object Resolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters = null, DependencyContainerResolveOptions options = null)
         {
-            return ResolveInternal(new TypeRegistration(resolveType, name), parameters, options ?? DependencyContainerResolveOptions.Default);
+            return ResolveInternal(new TypeRegistration(resolveType, name), parameters ?? DependencyContainerNamedParameterOverloads.Default, options ?? DependencyContainerResolveOptions.Default);
         }
         
         /// <summary>
@@ -738,7 +722,7 @@ namespace Unosquare.Swan.Components
         public ResolveType Resolve<ResolveType>(string name, DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
-            return (ResolveType)Resolve(typeof(ResolveType), name, options);
+            return (ResolveType)Resolve(typeof(ResolveType), name, null, options);
         }
         
         /// <summary>
@@ -777,19 +761,6 @@ namespace Unosquare.Swan.Components
         }
         
         /// <summary>
-        /// Attempts to predict whether a given named type can be resolved with default options.
-        ///
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve</param>
-        /// <param name="name">Name of registration</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        private bool CanResolve(Type resolveType, string name = null)
-        {
-            return CanResolveInternal(new TypeRegistration(resolveType, name), DependencyContainerNamedParameterOverloads.Default, DependencyContainerResolveOptions.Default);
-        }
-
-        /// <summary>
         /// Attempts to predict whether a given type can be resolved with the specified options.
         ///
         /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
@@ -801,69 +772,25 @@ namespace Unosquare.Swan.Components
         {
             return CanResolveInternal(new TypeRegistration(resolveType), DependencyContainerNamedParameterOverloads.Default, options);
         }
-
-        /// <summary>
-        /// Attempts to predict whether a given named type can be resolved with the specified options.
-        ///
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve</param>
-        /// <param name="name">Name of registration</param>
-        /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve(Type resolveType, string name, DependencyContainerResolveOptions options)
-        {
-            return CanResolveInternal(new TypeRegistration(resolveType, name), DependencyContainerNamedParameterOverloads.Default, options);
-        }
         
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
-        ///
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
-        /// 
         /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
+        /// <param name="name">The name.</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)
+        /// <returns>
+        /// Bool indicating whether the type can be resolved
+        /// </returns>
+        public bool CanResolve(Type resolveType, DependencyContainerNamedParameterOverloads parameters = null, string name = null, DependencyContainerResolveOptions options = null)
         {
-            return CanResolveInternal(new TypeRegistration(resolveType), parameters, options ?? DependencyContainerResolveOptions.Default);
-        }
-
-        /// <summary>
-        /// Attempts to predict whether a given named type can be resolved with the supplied constructor parameters options.
-        ///
-        /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-        /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
-        /// 
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve</param>
-        /// <param name="name">Name of registration</param>
-        /// <param name="parameters">User supplied named parameter overloads</param>
-        /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve(Type resolveType, string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)
-        {
-            return CanResolveInternal(new TypeRegistration(resolveType, name), parameters, options ?? DependencyContainerResolveOptions.Default);
+            return CanResolveInternal(new TypeRegistration(resolveType, name), parameters ?? DependencyContainerNamedParameterOverloads.Default, options ?? DependencyContainerResolveOptions.Default);
         }
         
-        /// <summary>
-        /// Attempts to predict whether a given named type can be resolved with default options.
-        ///
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(string name = null)
-            where ResolveType : class
-        {
-            return CanResolve(typeof(ResolveType), name);
-        }
-
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the specified options.
         ///
@@ -887,27 +814,10 @@ namespace Unosquare.Swan.Components
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(string name, DependencyContainerResolveOptions options)
+        public bool CanResolve<ResolveType>(string name = null, DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
-            return CanResolve(typeof(ResolveType), name, options);
-        }
-
-        /// <summary>
-        /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters and default options.
-        ///
-        /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
-        /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
-        /// 
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <param name="parameters">User supplied named parameter overloads</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(DependencyContainerNamedParameterOverloads parameters)
-            where ResolveType : class
-        {
-            return CanResolve(typeof(ResolveType), parameters);
+            return CanResolve(typeof(ResolveType), null, name, options);
         }
         
         /// <summary>
@@ -925,7 +835,7 @@ namespace Unosquare.Swan.Components
         public bool CanResolve<ResolveType>(DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
-            return CanResolve(typeof(ResolveType), parameters, options);
+            return CanResolve(typeof(ResolveType), parameters, "", options);
         }
 
         /// <summary>
@@ -941,10 +851,10 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
+        public bool CanResolve<ResolveType>(string name, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
-            return CanResolve(typeof(ResolveType), name, parameters, options);
+            return CanResolve(typeof(ResolveType), parameters, name, options);
         }
 
         /// <summary>
@@ -1021,7 +931,7 @@ namespace Unosquare.Swan.Components
         {
             try
             {
-                resolvedType = Resolve(resolveType, name, options);
+                resolvedType = Resolve(resolveType, name, null, options);
                 return true;
             }
             catch (DependencyContainerResolutionException)
@@ -1305,61 +1215,31 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveType">Type to resolveAll</param>
         /// <param name="includeUnnamed">Whether to include un-named (default) registrations</param>
         /// <returns>IEnumerable</returns>
-        public IEnumerable<object> ResolveAll(Type resolveType, bool includeUnnamed)
+        public IEnumerable<object> ResolveAll(Type resolveType, bool includeUnnamed = false)
         {
             return ResolveAllInternal(resolveType, includeUnnamed);
         }
-
-        /// <summary>
-        /// Returns all registrations of a type, both named and unnamed
-        /// </summary>
-        /// <param name="resolveType">Type to resolveAll</param>
-        /// <returns>IEnumerable</returns>
-        public IEnumerable<object> ResolveAll(Type resolveType)
-        {
-            return ResolveAll(resolveType, false);
-        }
-
+        
         /// <summary>
         /// Returns all registrations of a type
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolveAll</typeparam>
         /// <param name="includeUnnamed">Whether to include un-named (default) registrations</param>
         /// <returns>IEnumerable</returns>
-        public IEnumerable<ResolveType> ResolveAll<ResolveType>(bool includeUnnamed)
+        public IEnumerable<ResolveType> ResolveAll<ResolveType>(bool includeUnnamed = true)
             where ResolveType : class
         {
             return ResolveAll(typeof(ResolveType), includeUnnamed).Cast<ResolveType>();
         }
-
-        /// <summary>
-        /// Returns all registrations of a type, both named and unnamed
-        /// </summary>
-        /// <typeparam name="ResolveType">Type to resolveAll</typeparam>
-        /// <returns>IEnumerable</returns>
-        public IEnumerable<ResolveType> ResolveAll<ResolveType>()
-            where ResolveType : class
-        {
-            return ResolveAll<ResolveType>(true);
-        }
-
-        /// <summary>
-        /// Attempts to resolve all public property dependencies on the given object.
-        /// </summary>
-        /// <param name="input">Object to "build up"</param>
-        public void BuildUp(object input)
-        {
-            BuildUpInternal(input, DependencyContainerResolveOptions.Default);
-        }
-
+        
         /// <summary>
         /// Attempts to resolve all public property dependencies on the given object using the given resolve options.
         /// </summary>
         /// <param name="input">Object to "build up"</param>
         /// <param name="resolveOptions">Resolve options to use</param>
-        public void BuildUp(object input, DependencyContainerResolveOptions resolveOptions)
+        public void BuildUp(object input, DependencyContainerResolveOptions resolveOptions = null)
         {
-            BuildUpInternal(input, resolveOptions);
+            BuildUpInternal(input, resolveOptions ?? DependencyContainerResolveOptions.Default);
         }
         #endregion
         #endregion
@@ -1952,10 +1832,10 @@ namespace Unosquare.Swan.Components
             }
         }
 
-        private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _RegisteredTypes;
+        private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
         private delegate object ObjectConstructor(params object[] parameters);
 #if USE_OBJECT_CONSTRUCTOR
-        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> _ObjectConstructorCache 
+        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache 
             = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
 #endif
         #endregion
@@ -1967,7 +1847,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         public DependencyContainer()
         {
-            _RegisteredTypes = new ConcurrentDictionary<TypeRegistration, ObjectFactoryBase>();
+            _registeredTypes = new ConcurrentDictionary<TypeRegistration, ObjectFactoryBase>();
 
             RegisterDefaultTypes();
         }
@@ -2093,7 +1973,7 @@ namespace Unosquare.Swan.Components
         {
             ObjectFactoryBase current = null;
 
-            _RegisteredTypes.TryGetValue(registration, out current);
+            _registeredTypes.TryGetValue(registration, out current);
 
             return current;
         }
@@ -2107,7 +1987,7 @@ namespace Unosquare.Swan.Components
 
         private RegisterOptions AddUpdateRegistration(TypeRegistration typeRegistration, ObjectFactoryBase factory)
         {
-            _RegisteredTypes[typeRegistration] = factory;
+            _registeredTypes[typeRegistration] = factory;
 
             return new RegisterOptions(this, typeRegistration);
         }
@@ -2115,7 +1995,7 @@ namespace Unosquare.Swan.Components
         private bool RemoveRegistration(TypeRegistration typeRegistration)
         {
             ObjectFactoryBase item;
-            return _RegisteredTypes.TryRemove(typeRegistration, out item);
+            return _registeredTypes.TryRemove(typeRegistration, out item);
         }
 
         private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
@@ -2135,7 +2015,7 @@ namespace Unosquare.Swan.Components
             var name = registration.Name;
 
             ObjectFactoryBase factory;
-            if (_RegisteredTypes.TryGetValue(new TypeRegistration(checkType, name), out factory))
+            if (_registeredTypes.TryGetValue(new TypeRegistration(checkType, name), out factory))
             {
                 if (factory.AssumeConstruction)
                     return true;
@@ -2155,7 +2035,7 @@ namespace Unosquare.Swan.Components
             // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution)
             {
-                if (_RegisteredTypes.TryGetValue(new TypeRegistration(checkType), out factory))
+                if (_registeredTypes.TryGetValue(new TypeRegistration(checkType), out factory))
                 {
                     if (factory.AssumeConstruction)
                         return true;
@@ -2211,7 +2091,7 @@ namespace Unosquare.Swan.Components
                 return null;
 
             ObjectFactoryBase factory;
-            if (_parent._RegisteredTypes.TryGetValue(registration, out factory))
+            if (_parent._registeredTypes.TryGetValue(registration, out factory))
             {
                 return factory.GetFactoryForChildContainer(registration.Type, _parent, this);
             }
@@ -2224,7 +2104,7 @@ namespace Unosquare.Swan.Components
             ObjectFactoryBase factory;
 
             // Attempt container resolution
-            if (_RegisteredTypes.TryGetValue(registration, out factory))
+            if (_registeredTypes.TryGetValue(registration, out factory))
             {
                 try
                 {
@@ -2265,7 +2145,7 @@ namespace Unosquare.Swan.Components
             // Attempted unnamed fallback container resolution if relevant and requested
             if (!string.IsNullOrEmpty(registration.Name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution)
             {
-                if (_RegisteredTypes.TryGetValue(new TypeRegistration(registration.Type, string.Empty), out factory))
+                if (_registeredTypes.TryGetValue(new TypeRegistration(registration.Type, string.Empty), out factory))
                 {
                     try
                     {
@@ -2287,9 +2167,7 @@ namespace Unosquare.Swan.Components
             if (IsAutomaticLazyFactoryRequest(registration.Type))
                 return GetLazyAutomaticFactoryRequest(registration.Type);
 #endif
-            if (registration.Type.IsIEnumerable())
-                return GetIEnumerableRequest(registration.Type);
-
+            
             // Attempt unregistered construction if possible and requested
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
@@ -2363,12 +2241,6 @@ namespace Unosquare.Swan.Components
             throw new DependencyContainerResolutionException(type);
         }
 #endif
-        private object GetIEnumerableRequest(Type type)
-        {
-            var genericResolveAllMethod = GetType().GetGenericMethod(BindingFlags.Public | BindingFlags.Instance, "ResolveAll", type.GetTypeInfo().GetGenericArguments(), new[] { typeof(bool) });
-
-            return genericResolveAllMethod.Invoke(this, new object[] { false });
-        }
 
         private bool CanConstruct(ConstructorInfo ctor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
@@ -2486,7 +2358,7 @@ namespace Unosquare.Swan.Components
         private static ObjectConstructor CreateObjectConstructionDelegateWithCache(ConstructorInfo constructor)
         {
             ObjectConstructor objectConstructor;
-            if (_ObjectConstructorCache.TryGetValue(constructor, out objectConstructor))
+            if (ObjectConstructorCache.TryGetValue(constructor, out objectConstructor))
                 return objectConstructor;
 
             // We could lock the cache here, but there's no real side
@@ -2510,7 +2382,7 @@ namespace Unosquare.Swan.Components
 
             objectConstructor = (ObjectConstructor)constructionLambda.Compile();
 
-            _ObjectConstructorCache[constructor] = objectConstructor;
+            ObjectConstructorCache[constructor] = objectConstructor;
             return objectConstructor;
         }
 #endif
@@ -2542,14 +2414,14 @@ namespace Unosquare.Swan.Components
             if (_parent == null)
                 return new TypeRegistration[] { };
 
-            var registrations = _parent._RegisteredTypes.Keys.Where(tr => tr.Type == resolveType);
+            var registrations = _parent._registeredTypes.Keys.Where(tr => tr.Type == resolveType);
 
             return registrations.Concat(_parent.GetParentRegistrationsForType(resolveType));
         }
 
         private IEnumerable<object> ResolveAllInternal(Type resolveType, bool includeUnnamed)
         {
-            var registrations = _RegisteredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(GetParentRegistrationsForType(resolveType)).Distinct();
+            var registrations = _registeredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(GetParentRegistrationsForType(resolveType)).Distinct();
 
             if (!includeUnnamed)
                 registrations = registrations.Where(tr => tr.Name != string.Empty);
@@ -2594,7 +2466,7 @@ namespace Unosquare.Swan.Components
             if (_disposed) return;
 
             _disposed = true;
-            foreach (var item in _RegisteredTypes.Values)
+            foreach (var item in _registeredTypes.Values)
             {
                 var disposable = item as IDisposable;
                 disposable?.Dispose();

@@ -58,39 +58,23 @@ namespace Unosquare.Swan.Test.Mocks
     [AttributeUsage(AttributeTargets.All)]
     public class AttributeMock : Attribute
     {
-        private string myName;
         public AttributeMock(string name)
         {
-            myName = name;
+            Name = name;
         }
-        public string Name
-        {
-            get
-            {
-                return myName;
-            }
-        }
+        public string Name { get; }
     }
 
     public class Clown : Fish
     {
         [AttributeMock("This is an Attribute")]
-        public string GetName()
-        {
-            return "Nemo";
-        }
+        public string GetName() => "Nemo";
     }
 
     public class Shark : Fish
     {
-        public string GetName()
-        {
-            return "Lenny";
-        }
+        public string GetName() => "Lenny";
 
-        public override string GetFeeding()
-        {
-            return "Seals";
-        }
+        public override string GetFeeding() => "Seals";
     }
 }

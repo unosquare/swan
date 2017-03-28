@@ -2,92 +2,12 @@
 {
     using System;
     using System.Collections;
-    using System.Collections.Concurrent;
     using System.Linq;
     using System.Reflection;
     using System.Collections.Generic;
 
     partial class Extensions
     {
-        #region Support Classes and Declarations
-
-        private static readonly ConcurrentDictionary<GenericMethodCacheKey, MethodInfo> GenericMethodCache =
-            new ConcurrentDictionary<GenericMethodCacheKey, MethodInfo>();
-
-        private sealed class GenericMethodCacheKey
-        {
-            private readonly Type _sourceType;
-
-            private readonly string _methodName;
-
-            private readonly Type[] _genericTypes;
-
-            private readonly Type[] _parameterTypes;
-
-            private readonly int _hashCode;
-
-            public GenericMethodCacheKey(Type sourceType, string methodName, Type[] genericTypes, Type[] parameterTypes)
-            {
-                _sourceType = sourceType;
-                _methodName = methodName;
-                _genericTypes = genericTypes;
-                _parameterTypes = parameterTypes;
-                _hashCode = GenerateHashCode();
-            }
-
-            public override bool Equals(object obj)
-            {
-                var cacheKey = obj as GenericMethodCacheKey;
-                if (cacheKey == null)
-                    return false;
-
-                if (_sourceType != cacheKey._sourceType)
-                    return false;
-
-                if (!string.Equals(_methodName, cacheKey._methodName, StringComparison.Ordinal))
-                    return false;
-
-                if (_genericTypes.Length != cacheKey._genericTypes.Length)
-                    return false;
-
-                if (_parameterTypes.Length != cacheKey._parameterTypes.Length)
-                    return false;
-
-                if (_genericTypes.Where((t, i) => t != cacheKey._genericTypes[i]).Any())
-                {
-                    return false;
-                }
-
-                return !_parameterTypes.Where((t, i) => t != cacheKey._parameterTypes[i]).Any();
-            }
-
-            public override int GetHashCode()
-            {
-                return _hashCode;
-            }
-
-            private int GenerateHashCode()
-            {
-                unchecked
-                {
-                    var result = _sourceType.GetHashCode();
-
-                    result = (result * 397) ^ _methodName.GetHashCode();
-
-                    result = _genericTypes.Aggregate(result, (current, t) => (current * 397) ^ t.GetHashCode());
-
-                    for (var i = 0; i < _parameterTypes.Length; ++i)
-                    {
-                        result = (result * 397) ^ i.GetHashCode();
-                    }
-
-                    return result;
-                }
-            }
-        }
-
-        #endregion
-
         #region Assembly Extensions
 
         /// <summary>
@@ -142,35 +62,7 @@
             return sourceType != typeof(string) &&
                              typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(sourceType);
         }
-
-        /// <summary>
-        /// Gets a generic method from a type given the method name, binding flags, generic types and parameter types
-        /// </summary>
-        /// <param name="sourceType">Source type</param>
-        /// <param name="bindingFlags">Binding flags</param>
-        /// <param name="methodName">Name of the method</param>
-        /// <param name="genericTypes">Generic types to use to make the method generic</param>
-        /// <param name="parameterTypes">Method parameters</param>
-        /// <returns>MethodInfo or null if no matches found</returns>
-        /// <exception cref="System.Reflection.AmbiguousMatchException"/>
-        /// <exception cref="System.ArgumentException"/>
-        public static MethodInfo GetGenericMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
-        {
-            MethodInfo method;
-            var cacheKey = new GenericMethodCacheKey(sourceType, methodName, genericTypes, parameterTypes);
-
-            // Shouldn't need any additional locking
-            // we don't care if we do the method info generation
-            // more than once before it gets cached.
-            if (!GenericMethodCache.TryGetValue(cacheKey, out method))
-            {
-                method = GetMethod(sourceType, bindingFlags, methodName, genericTypes, parameterTypes);
-                GenericMethodCache[cacheKey] = method;
-            }
-
-            return method;
-        }
-
+        
         /// <summary>
         /// Gets a method from a type given the method name, binding flags, generic types and parameter types
         /// </summary>
@@ -181,7 +73,7 @@
         /// <param name="parameterTypes">The parameter types.</param>
         /// <returns></returns>
         /// <exception cref="System.Reflection.AmbiguousMatchException"></exception>
-        private static MethodInfo GetMethod(Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
+        public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
         {
             var methods =
                 sourceType.GetTypeInfo().GetMethods(bindingFlags).Where(
