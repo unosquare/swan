@@ -1118,7 +1118,7 @@ This method only supports basic types and it is not multi level</p>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static object CopyPropertiesToNew&lt;T&gt;(this object source, string[] ignoreProperties = null)</code></pre>
+                <pre><code class="lang-csharp hljs">public static T CopyPropertiesToNew&lt;T&gt;(this object source, string[] ignoreProperties = null)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -1154,7 +1154,7 @@ This method only supports basic types and it is not multi level</p>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><span class="xref">System.Object</span></td>
+                    <td><span class="xref">T</span></td>
                     <td></td>
                   </tr>
                 </tbody>
@@ -2710,6 +2710,133 @@ per line.</p>
                 <tbody>
                   <tr>
                     <td><span class="xref">System.String</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Extensions_Retry_" data-uid="Unosquare.Swan.Extensions.Retry*"></a>
+              <h4 id="Unosquare_Swan_Extensions_Retry_System_Action_System_TimeSpan_System_Int32_" data-uid="Unosquare.Swan.Extensions.Retry(System.Action,System.TimeSpan,System.Int32)">Retry(Action, TimeSpan, Int32)</h4>
+              <div class="markdown level1 summary"><p>Does the specified action.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public static void Retry(this Action action, TimeSpan retryInterval = null, int retryCount = 3)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Action</span></td>
+                    <td><span class="parametername">action</span></td>
+                    <td><p>The action.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td><span class="parametername">retryInterval</span></td>
+                    <td><p>The retry interval.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">retryCount</span></td>
+                    <td><p>The retry count.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_Swan_Extensions_Retry_" data-uid="Unosquare.Swan.Extensions.Retry*"></a>
+              <h4 id="Unosquare_Swan_Extensions_Retry__1_System_Func___0__System_TimeSpan_System_Int32_" data-uid="Unosquare.Swan.Extensions.Retry``1(System.Func{``0},System.TimeSpan,System.Int32)">Retry&lt;T&gt;(Func&lt;T&gt;, TimeSpan, Int32)</h4>
+              <div class="markdown level1 summary"><p>Does the specified action.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public static T Retry&lt;T&gt;(this Func&lt;T&gt; action, TimeSpan retryInterval = null, int retryCount = 3)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Func</span>&lt;T&gt;</td>
+                    <td><span class="parametername">action</span></td>
+                    <td><p>The action.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td><span class="parametername">retryInterval</span></td>
+                    <td><p>The retry interval.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">retryCount</span></td>
+                    <td><p>The retry count.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">T</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="typeParameters">Type Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="parametername">T</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.AggregateException</span></td>
                     <td></td>
                   </tr>
                 </tbody>
