@@ -64,7 +64,7 @@
         /// <returns></returns>
         /// <exception cref="SmtpException">
         /// </exception>
-        private void ValidateReply(string replyText, string sessionId)
+        private static void ValidateReply(string replyText, string sessionId)
         {
             if (replyText == null)
                 throw new SmtpException("There was no response from the server");

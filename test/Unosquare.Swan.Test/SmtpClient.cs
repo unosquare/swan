@@ -1,5 +1,4 @@
-﻿#if !NET452
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,13 +8,17 @@ using Unosquare.Swan.Networking;
 namespace Unosquare.Swan.Test
 {
     [TestFixture]
-    public class SnmpClieSmtpClientntTest
+    public class SmtpClientntTest
     {
         [Test]
         public void TestConnectGmailSmtpException()
         {
-            // TODO: Make compatible with NET452
-            Assert.ThrowsAsync<SmtpException>(async () =>
+#if NET452
+            Assert.ThrowsAsync<System.Net.Mail.SmtpException>
+#else
+            Assert.ThrowsAsync<SmtpException>
+#endif
+            (async () =>
             {
                 var client = new SmtpClient("smtp.gmail.com", 587);
 
@@ -24,4 +27,3 @@ namespace Unosquare.Swan.Test
         }
     }
 }
-#endif
