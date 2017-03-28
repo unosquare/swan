@@ -1,4 +1,6 @@
-﻿namespace Unosquare.Swan
+﻿using System.Threading.Tasks;
+
+namespace Unosquare.Swan
 {
     using Reflection;
     using System;
@@ -110,13 +112,12 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
-        /// <param name="target">The target.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns></returns>
-        public static object CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
+        public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
         {
             var target = Activator.CreateInstance<T>();
-            CopyPropertiesTo(source, target, ignoreProperties);
+            source.CopyPropertiesTo(target, ignoreProperties);
             return target;
         }
 
@@ -216,6 +217,61 @@
             }
 
             return TimeSpan.FromTicks(sw.ElapsedTicks);
+        }
+
+        /// <summary>
+        /// Does the specified action.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <param name="retryInterval">The retry interval.</param>
+        /// <param name="retryCount">The retry count.</param>
+        public static void Retry(
+            this Action action,
+            TimeSpan retryInterval = default(TimeSpan),
+            int retryCount = 3)
+        {
+            Retry<object>(() =>
+            {
+                action();
+                return null;
+            }, retryInterval, retryCount);
+        }
+        
+        /// <summary>
+        /// Does the specified action.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action">The action.</param>
+        /// <param name="retryInterval">The retry interval.</param>
+        /// <param name="retryCount">The retry count.</param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
+        public static T Retry<T>(
+            this Func<T> action,
+            TimeSpan retryInterval = default(TimeSpan),
+            int retryCount = 3)
+        {
+            if (retryInterval == default(TimeSpan))
+                retryInterval = TimeSpan.FromSeconds(1);
+
+            var exceptions = new List<Exception>();
+
+            for (var retry = 0; retry < retryCount; retry++)
+            {
+                try
+                {
+                    if (retry > 0)
+                        Task.Delay(retryInterval).Wait();
+
+                    return action();
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
+            }
+
+            throw new AggregateException(exceptions);
         }
 
         /// <summary>

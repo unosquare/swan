@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System;
+using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -37,10 +39,44 @@ namespace Unosquare.Swan.Test
         public void CopyPropertiesToNewTest()
         {
             var source = BasicJson.GetDefault();
-            var result = source.CopyPropertiesToNew<BasicJson>();
+            var destination = source.CopyPropertiesToNew<BasicJson>();
             
-            Assert.IsNotNull(result);
-            Assert.AreSame(source.GetType(), result.GetType());
+            Assert.IsNotNull(destination);
+            Assert.AreSame(source.GetType(), destination.GetType());
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.DecimalData, destination.DecimalData);
+            Assert.AreEqual(source.StringData, destination.StringData);
+            Assert.AreEqual(source.StringNull, destination.StringNull);
+        }
+        
+        [Test]
+        public void ActionRetryTest()
+        {
+            Assert.Throws<AggregateException>(() =>
+            {
+                var action =
+                    new Action(() => JsonClient.GetString("http://accesscore.azurewebsites.net/api/token").Wait());
+
+                action.Retry();
+            });
+        }
+        
+        [Test]
+        public void FuncRetryTest()
+        {
+            var total = 0;
+
+            var action = new Func<int>(() =>
+            {
+                if (total++ < 2)
+                    throw new Exception();
+
+                return total;
+            });
+
+            var result = action.Retry();
+            Assert.AreEqual(3, result);
         }
     }
 }
