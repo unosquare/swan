@@ -2310,12 +2310,6 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainer.AutoRegister
   fullName: Unosquare.Swan.Components.DependencyContainer.AutoRegister
   nameWithType: DependencyContainer.AutoRegister
-- uid: Unosquare.Swan.Components.DependencyContainer.BuildUp(System.Object)
-  name: BuildUp(Object)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_BuildUp_System_Object_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.BuildUp(System.Object)
-  fullName: Unosquare.Swan.Components.DependencyContainer.BuildUp(System.Object)
-  nameWithType: DependencyContainer.BuildUp(Object)
 - uid: Unosquare.Swan.Components.DependencyContainer.BuildUp(System.Object,Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: BuildUp(Object, DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_BuildUp_System_Object_Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -2328,24 +2322,12 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainer.BuildUp
   fullName: Unosquare.Swan.Components.DependencyContainer.BuildUp
   nameWithType: DependencyContainer.BuildUp
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: CanResolve(Type, String, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, System.String, Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.CanResolve(Type, String, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: CanResolve(Type, String, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.CanResolve(Type, String, DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: CanResolve(Type, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.CanResolve(Type, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
+- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  name: CanResolve(Type, DependencyContainerNamedParameterOverloads, String, DependencyContainerResolveOptions)
+  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads, System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  nameWithType: DependencyContainer.CanResolve(Type, DependencyContainerNamedParameterOverloads, String, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: CanResolve(Type, DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -2358,15 +2340,6 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainer.CanResolve
   fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve
   nameWithType: DependencyContainer.CanResolve
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String)
-  name: CanResolve<ResolveType>(String)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String)
-  name.vb: CanResolve(Of ResolveType)(String)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve<ResolveType>(System.String)
-  fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String)
-  nameWithType: DependencyContainer.CanResolve<ResolveType>(String)
-  nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: CanResolve<ResolveType>(String, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -2385,15 +2358,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.CanResolve<ResolveType>(String, DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String, DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)
-  name: CanResolve<ResolveType>(DependencyContainerNamedParameterOverloads)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)
-  name.vb: CanResolve(Of ResolveType)(DependencyContainerNamedParameterOverloads)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve<ResolveType>(Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)
-  fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads)
-  nameWithType: DependencyContainer.CanResolve<ResolveType>(DependencyContainerNamedParameterOverloads)
-  nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(DependencyContainerNamedParameterOverloads)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: CanResolve<ResolveType>(DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -2754,12 +2718,6 @@ references:
   commentId: M:Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
   fullName: Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type, System.String, Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads, Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.Resolve(Type, String, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: Resolve(Type, String, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type, System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.Resolve(Type, String, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.Resolve(System.Type,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: Resolve(Type, DependencyContainerNamedParameterOverloads, DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_Resolve_System_Type_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -2814,12 +2772,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.Resolve(Of ResolveType)(Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.Resolve<ResolveType>(DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.Resolve(Of ResolveType)(DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.ResolveAll(System.Type)
-  name: ResolveAll(Type)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_ResolveAll_System_Type_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.ResolveAll(System.Type)
-  fullName: Unosquare.Swan.Components.DependencyContainer.ResolveAll(System.Type)
-  nameWithType: DependencyContainer.ResolveAll(Type)
 - uid: Unosquare.Swan.Components.DependencyContainer.ResolveAll(System.Type,System.Boolean)
   name: ResolveAll(Type, Boolean)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_ResolveAll_System_Type_System_Boolean_
@@ -2832,15 +2784,6 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainer.ResolveAll
   fullName: Unosquare.Swan.Components.DependencyContainer.ResolveAll
   nameWithType: DependencyContainer.ResolveAll
-- uid: Unosquare.Swan.Components.DependencyContainer.ResolveAll``1
-  name: ResolveAll<ResolveType>()
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_ResolveAll__1
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.ResolveAll``1
-  name.vb: ResolveAll(Of ResolveType)()
-  fullName: Unosquare.Swan.Components.DependencyContainer.ResolveAll<ResolveType>()
-  fullName.vb: Unosquare.Swan.Components.DependencyContainer.ResolveAll(Of ResolveType)()
-  nameWithType: DependencyContainer.ResolveAll<ResolveType>()
-  nameWithType.vb: DependencyContainer.ResolveAll(Of ResolveType)()
 - uid: Unosquare.Swan.Components.DependencyContainer.ResolveAll``1(System.Boolean)
   name: ResolveAll<ResolveType>(Boolean)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_ResolveAll__1_System_Boolean_
@@ -5324,21 +5267,6 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.GetDefault
   fullName: Unosquare.Swan.Extensions.GetDefault
   nameWithType: Extensions.GetDefault
-- uid: Unosquare.Swan.Extensions.GetGenericMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
-  name: GetGenericMethod(Type, BindingFlags, String, Type[], Type[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetGenericMethod_System_Type_System_Reflection_BindingFlags_System_String_System_Type___System_Type___
-  commentId: M:Unosquare.Swan.Extensions.GetGenericMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
-  name.vb: GetGenericMethod(Type, BindingFlags, String, Type(), Type())
-  fullName: Unosquare.Swan.Extensions.GetGenericMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type[], System.Type[])
-  fullName.vb: Unosquare.Swan.Extensions.GetGenericMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type(), System.Type())
-  nameWithType: Extensions.GetGenericMethod(Type, BindingFlags, String, Type[], Type[])
-  nameWithType.vb: Extensions.GetGenericMethod(Type, BindingFlags, String, Type(), Type())
-- uid: Unosquare.Swan.Extensions.GetGenericMethod*
-  name: GetGenericMethod
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetGenericMethod_
-  commentId: Overload:Unosquare.Swan.Extensions.GetGenericMethod
-  fullName: Unosquare.Swan.Extensions.GetGenericMethod
-  nameWithType: Extensions.GetGenericMethod
 - uid: Unosquare.Swan.Extensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)
   name: GetIndexOf(Byte[], Byte[], Int32)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetIndexOf_System_Byte___System_Byte___System_Int32_
@@ -5354,6 +5282,21 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.GetIndexOf
   fullName: Unosquare.Swan.Extensions.GetIndexOf
   nameWithType: Extensions.GetIndexOf
+- uid: Unosquare.Swan.Extensions.GetMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
+  name: GetMethod(Type, BindingFlags, String, Type[], Type[])
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetMethod_System_Type_System_Reflection_BindingFlags_System_String_System_Type___System_Type___
+  commentId: M:Unosquare.Swan.Extensions.GetMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
+  name.vb: GetMethod(Type, BindingFlags, String, Type(), Type())
+  fullName: Unosquare.Swan.Extensions.GetMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type[], System.Type[])
+  fullName.vb: Unosquare.Swan.Extensions.GetMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type(), System.Type())
+  nameWithType: Extensions.GetMethod(Type, BindingFlags, String, Type[], Type[])
+  nameWithType.vb: Extensions.GetMethod(Type, BindingFlags, String, Type(), Type())
+- uid: Unosquare.Swan.Extensions.GetMethod*
+  name: GetMethod
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetMethod_
+  commentId: Overload:Unosquare.Swan.Extensions.GetMethod
+  fullName: Unosquare.Swan.Extensions.GetMethod
+  nameWithType: Extensions.GetMethod
 - uid: Unosquare.Swan.Extensions.Humanize(System.String)
   name: Humanize(String)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Humanize_System_String_
