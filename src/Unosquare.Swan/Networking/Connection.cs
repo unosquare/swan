@@ -43,9 +43,9 @@
         private int ReceiveBufferPointer;
 
         // Reading and writing
-        private Task<int> ReadTask;
-        private readonly Queue<string> ReadLineBuffer = new Queue<string>();
-        private readonly ManualResetEventSlim WriteDone = new ManualResetEventSlim(true);
+        private Task<int> _readTask;
+        private readonly Queue<string> _readLineBuffer = new Queue<string>();
+        private readonly ManualResetEventSlim _writeDone = new ManualResetEventSlim(true);
 
         #endregion
 
@@ -410,12 +410,12 @@
 
                 try
                 {
-                    if (ReadTask == null)
-                        ReadTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
+                    if (_readTask == null)
+                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
 
-                    if (ReadTask.Wait(ContinuousReadingInterval))
+                    if (_readTask.Wait(ContinuousReadingInterval))
                     {
-                        var bytesReceivedCount = ReadTask.Result;
+                        var bytesReceivedCount = _readTask.Result;
                         if (bytesReceivedCount > 0)
                         {
                             DataReceivedLastTimeUtc = DateTime.UtcNow;
@@ -424,7 +424,7 @@
                             RaiseReceiveBufferEvents(buffer);
                         }
 
-                        ReadTask = null;
+                        _readTask = null;
                     }
                     else
                     {
@@ -474,12 +474,12 @@
                         throw new TimeoutException(
                             $"Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} ms");
 
-                    if (ReadTask == null)
-                        ReadTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
+                    if (_readTask == null)
+                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
 
-                    if (ReadTask.Wait(ContinuousReadingInterval))
+                    if (_readTask.Wait(ContinuousReadingInterval))
                     {
-                        var bytesReceivedCount = ReadTask.Result;
+                        var bytesReceivedCount = _readTask.Result;
                         if (bytesReceivedCount > 0)
                         {
                             DataReceivedLastTimeUtc = DateTime.UtcNow;
@@ -488,7 +488,7 @@
                             receiveBuilder.AddRange(buffer);
                         }
 
-                        ReadTask = null;
+                        _readTask = null;
                     }
                     else
                     {
@@ -534,8 +534,7 @@
         {
             return await ReadTextAsync(TimeSpan.FromSeconds(5));
         }
-
-
+        
         /// <summary>
         /// Performs the same task as this method's overload but it defaults to a read timeout of 30 seconds.
         /// </summary>
@@ -560,8 +559,8 @@
                 throw new InvalidOperationException(
                     "Read methods have been disabled because continuous reading is enabled.");
 
-            if (ReadLineBuffer.Count > 0)
-                return ReadLineBuffer.Dequeue();
+            if (_readLineBuffer.Count > 0)
+                return _readLineBuffer.Dequeue();
 
             var builder = new StringBuilder();
             while (true)
@@ -577,14 +576,14 @@
                     var lines = builder.ToString().TrimEnd(NewLineSequenceChars)
                         .Split(NewLineSequenceLineSplitter, StringSplitOptions.None);
                     foreach (var item in lines)
-                        ReadLineBuffer.Enqueue(item);
+                        _readLineBuffer.Enqueue(item);
 
                     break;
                 }
             }
 
-            if (ReadLineBuffer.Count > 0)
-                return ReadLineBuffer.Dequeue();
+            if (_readLineBuffer.Count > 0)
+                return _readLineBuffer.Dequeue();
 
             return null;
         }
@@ -603,8 +602,8 @@
         {
             try
             {
-                WriteDone.Wait();
-                WriteDone.Reset();
+                _writeDone.Wait();
+                _writeDone.Reset();
                 await ActiveStream.WriteAsync(buffer, 0, buffer.Length);
                 if (forceFlush)
                     await ActiveStream.FlushAsync();
@@ -613,7 +612,7 @@
             }
             finally
             {
-                WriteDone.Set();
+                _writeDone.Set();
             }
         }
 
@@ -677,7 +676,7 @@
             if (IsActiveStreamSecure)
                 return true;
 
-            WriteDone.Wait();
+            _writeDone.Wait();
 
             SslStream secureStream = null;
 
@@ -746,7 +745,7 @@
                 return;
 
             DisconnectCalls++;
-            WriteDone.Wait();
+            _writeDone.Wait();
 
             try
             {
@@ -797,7 +796,7 @@
             // Release managed resources
             Disconnect();
             ContinuousReadingThread = null;
-            WriteDone.Dispose();
+            _writeDone.Dispose();
 
             HasDisposed = true;
         }

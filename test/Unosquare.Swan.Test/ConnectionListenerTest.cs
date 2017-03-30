@@ -8,12 +8,10 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class ConnectionListenerTest
     {
-        private const int Port = 12345;
-
-        [Test]
-        public async Task OnConnectionAcceptingTest()
+        [TestCase(12345)]
+        public async Task OnConnectionAcceptingTest(int port)
         {
-            using (var connectionListener = new ConnectionListener(Port))
+            using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
                 {
@@ -24,7 +22,7 @@ namespace Unosquare.Swan.Test
                         isAccepting = true;
                     };
 
-                    await client.ConnectAsync("localhost", Port);
+                    await client.ConnectAsync("localhost", port);
                     await Task.Delay(100);
                     Assert.IsTrue(connectionListener.IsListening);
                     Assert.IsTrue(client.Connected);
@@ -33,10 +31,10 @@ namespace Unosquare.Swan.Test
             }
         }
 
-        [Test]
-        public async Task OnConnectionAcceptedTest()
+        [TestCase(12346)]
+        public async Task OnConnectionAcceptedTest(int port)
         {
-            using (var connectionListener = new ConnectionListener(Port))
+            using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
                 {
@@ -46,7 +44,7 @@ namespace Unosquare.Swan.Test
                         isAccepted = true;
                     };
                     connectionListener.Start();
-                    await client.ConnectAsync("localhost", Port);
+                    await client.ConnectAsync("localhost", port);
                     await Task.Delay(100);
                     Assert.IsTrue(connectionListener.IsListening, "Connection Listerner is listening");
                     Assert.IsTrue(client.Connected, "Client is connected");
@@ -55,12 +53,12 @@ namespace Unosquare.Swan.Test
             }
         }
 
-        [Test]
-        public async Task OnConnectionFailureTest()
+        [TestCase(12347)]
+        public async Task OnConnectionFailureTest(int port)
         {
             Assert.Inconclusive("How to throw a failure?");
 
-            using (var connectionListener = new ConnectionListener(Port))
+            using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
                 {
@@ -71,16 +69,16 @@ namespace Unosquare.Swan.Test
                     };
 
                     connectionListener.Start();
-                    await client.ConnectAsync("localhost", Port);
+                    await client.ConnectAsync("localhost", port);
                     Assert.IsTrue(isFailure);
                 }
             }
         }
 
-        [Test]
-        public void OnListenerStoppedTest()
+        [TestCase(12348)]
+        public void OnListenerStoppedTest(int port)
         {
-            using (var connectionListener = new ConnectionListener(Port))
+            using (var connectionListener = new ConnectionListener(port))
             {
                 var isStopped = false;
                 connectionListener.Start();
