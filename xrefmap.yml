@@ -3938,12 +3938,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectMapper.Map(Of TDestination)(System.Object, System.Boolean)
   nameWithType: ObjectMapper.Map<TDestination>(Object, Boolean)
   nameWithType.vb: ObjectMapper.Map(Of TDestination)(Object, Boolean)
-- uid: Unosquare.Swan.Components.ObjectMapperExtensions
-  name: ObjectMapperExtensions
-  href: api/Unosquare.Swan.Components.ObjectMapperExtensions.html
-  commentId: T:Unosquare.Swan.Components.ObjectMapperExtensions
-  fullName: Unosquare.Swan.Components.ObjectMapperExtensions
-  nameWithType: ObjectMapperExtensions
 - uid: Unosquare.Swan.Components.ProcessResult
   name: ProcessResult
   href: api/Unosquare.Swan.Components.ProcessResult.html
@@ -4436,18 +4430,6 @@ references:
   commentId: Overload:Unosquare.Swan.Definitions.AllNumericValueTypes
   fullName: Unosquare.Swan.Definitions.AllNumericValueTypes
   nameWithType: Definitions.AllNumericValueTypes
-- uid: Unosquare.Swan.Definitions.BasicTypesInfo
-  name: BasicTypesInfo
-  href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_BasicTypesInfo
-  commentId: P:Unosquare.Swan.Definitions.BasicTypesInfo
-  fullName: Unosquare.Swan.Definitions.BasicTypesInfo
-  nameWithType: Definitions.BasicTypesInfo
-- uid: Unosquare.Swan.Definitions.BasicTypesInfo*
-  name: BasicTypesInfo
-  href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_BasicTypesInfo_
-  commentId: Overload:Unosquare.Swan.Definitions.BasicTypesInfo
-  fullName: Unosquare.Swan.Definitions.BasicTypesInfo
-  nameWithType: Definitions.BasicTypesInfo
 - uid: Unosquare.Swan.Definitions.CurrentAnsiEncoding
   name: CurrentAnsiEncoding
   href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_CurrentAnsiEncoding
