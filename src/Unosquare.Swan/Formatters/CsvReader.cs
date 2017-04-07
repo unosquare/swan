@@ -337,7 +337,7 @@
 
                 // Extract properties from cache
                 var properties = TypeCache.Retrieve<T>(() => {
-                    return typeof(T).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Where(x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType));
                 });
 

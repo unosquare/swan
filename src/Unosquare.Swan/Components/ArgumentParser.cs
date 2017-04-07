@@ -131,8 +131,10 @@
 
             if ((Settings.IgnoreUnknownArguments == false && unknownList.Any()) || requiredList.Any())
             {
+#if !NETSTANDARD1_3
                 if (Settings.WriteBanner)
                     Runtime.WriteWelcomeBanner();
+#endif
 
                 WriteUsage(properties);
 
@@ -229,7 +231,7 @@
         {
             return TypeCache.Retrieve(type, () =>
             {
-                return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Where(p => p.CanRead || p.CanWrite)
                     .ToArray();
             });

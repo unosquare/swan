@@ -65,9 +65,9 @@
             // Extract the TryParse method info
             try
             {
-                TryParseMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
+                TryParseMethodInfo = UnderlyingType.GetMethod(TryParseMethodName,
                                          new[] { typeof(string), typeof(NumberStyles), typeof(IFormatProvider), UnderlyingType.MakeByRefType() }) ??
-                                     UnderlyingType.GetTypeInfo().GetMethod(TryParseMethodName,
+                                     UnderlyingType.GetMethod(TryParseMethodName,
                                          new[] { typeof(string), UnderlyingType.MakeByRefType() });
 
                 _tryParseParameters = TryParseMethodInfo?.GetParameters();
@@ -81,9 +81,9 @@
             // Extract the ToString method Info
             try
             {
-                ToStringMethodInfo = UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
+                ToStringMethodInfo = UnderlyingType.GetMethod(ToStringMethodName,
                                          new[] { typeof(IFormatProvider) }) ??
-                                     UnderlyingType.GetTypeInfo().GetMethod(ToStringMethodName,
+                                     UnderlyingType.GetMethod(ToStringMethodName,
                                          new Type[] { });
 
                 _toStringArgumentLength = ToStringMethodInfo?.GetParameters().Length ?? 0;

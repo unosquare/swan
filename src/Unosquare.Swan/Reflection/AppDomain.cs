@@ -1,4 +1,5 @@
-﻿namespace Unosquare.Swan.Reflection
+﻿#if !NETSTANDARD1_3
+namespace Unosquare.Swan.Reflection
 {
     using Abstractions;
     using System.Reflection;
@@ -132,3 +133,4 @@
 #endif
     }
 }
+#endif

@@ -3,7 +3,6 @@
     using Reflection;
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Net;
 
@@ -11,7 +10,7 @@
     {
         #region Main Dictionary Definition
 
-        private static readonly Dictionary<Type, ExtendedTypeInfo> InternalBasicTypeInfo =
+        internal static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
             new Dictionary<Type, ExtendedTypeInfo> {
                 // Non-Nullables
                 { typeof(DateTime), new ExtendedTypeInfo<DateTime>() },
@@ -56,21 +55,15 @@
         #endregion
 
         /// <summary>
-        /// Provides a queryable dictionary of all the basic types including all primitives, string, DateTime, and all of their nullable counterparts.
-        /// </summary>
-        public static ReadOnlyDictionary<Type, ExtendedTypeInfo> BasicTypesInfo { get; } =
-            new ReadOnlyDictionary<Type, ExtendedTypeInfo>(InternalBasicTypeInfo);
-
-        /// <summary>
         /// Contains all basic types, including string, date time, and all of their nullable counterparts
         /// </summary>
-        public static ReadOnlyCollection<Type> AllBasicTypes { get; } = new ReadOnlyCollection<Type>(BasicTypesInfo.Keys.ToArray());
+        public static List<Type> AllBasicTypes { get; } = new List<Type>(BasicTypesInfo.Keys.ToArray());
 
         /// <summary>
         /// Gets all numeric types including their nullable counterparts. 
         /// Note that Booleans and Guids are not considered numeric types
         /// </summary>
-        public static ReadOnlyCollection<Type> AllNumericTypes { get; } = new ReadOnlyCollection<Type>(
+        public static List<Type> AllNumericTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsNumeric)
                 .Select(kvp => kvp.Key).ToArray()
@@ -80,7 +73,7 @@
         /// Gets all numeric types without their nullable counterparts. 
         /// Note that Booleans and Guids are not considered numeric types
         /// </summary>
-        public static ReadOnlyCollection<Type> AllNumericValueTypes { get; } = new ReadOnlyCollection<Type>(
+        public static List<Type> AllNumericValueTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsNumeric && kvp.Value.IsNullableValueType == false)
                 .Select(kvp => kvp.Key).ToArray()
@@ -89,7 +82,7 @@
         /// <summary>
         /// Contains all basic value types. i.e. excludes string and nullables
         /// </summary>
-        public static ReadOnlyCollection<Type> AllBasicValueTypes { get; } = new ReadOnlyCollection<Type>(
+        public static List<Type> AllBasicValueTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsValueType)
                 .Select(kvp => kvp.Key).ToArray()
@@ -98,7 +91,7 @@
         /// <summary>
         /// Contains all basic value types including the string type. i.e. excludes nullables
         /// </summary>
-        public static ReadOnlyCollection<Type> AllBasicValueAndStringTypes { get; } = new ReadOnlyCollection<Type>(
+        public static List<Type> AllBasicValueAndStringTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsValueType || kvp.Key == typeof(string))
                 .Select(kvp => kvp.Key).ToArray()
@@ -107,7 +100,7 @@
         /// <summary>
         /// Gets all nullable value types. i.e. excludes string and all basic value types
         /// </summary>
-        public static ReadOnlyCollection<Type> AllBasicNullableValueTypes { get; } = new ReadOnlyCollection<Type>(
+        public static List<Type> AllBasicNullableValueTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsNullableValueType)
                 .Select(kvp => kvp.Key).ToArray()

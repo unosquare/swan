@@ -99,7 +99,7 @@
         /// Initializes a new instance of the <see cref="ExtendedPropertyInfo{T}"/> class.
         /// </summary>
         /// <param name="property">The property.</param>
-        public ExtendedPropertyInfo(string property) : base(typeof(T).GetTypeInfo().GetProperty(property))
+        public ExtendedPropertyInfo(string property) : base(typeof(T).GetProperty(property))
         {
         }
     }

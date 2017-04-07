@@ -134,7 +134,7 @@ namespace Unosquare.Swan.Components
             if (hub == null)
                 throw new ArgumentNullException(nameof(hub));
 
-            if (!typeof(IMessageHubMessage).GetTypeInfo().IsAssignableFrom(messageType))
+            if (!typeof(IMessageHubMessage).IsAssignableFrom(messageType))
                 throw new ArgumentOutOfRangeException(nameof(messageType));
 
             _hub = new WeakReference(hub);
@@ -152,8 +152,7 @@ namespace Unosquare.Swan.Components
 
                 if (hub != null)
                 {
-                    var unsubscribeMethod = typeof(IMessageHub).GetTypeInfo()
-                        .GetMethod("Unsubscribe", new[] {typeof(MessageHubSubscriptionToken)});
+                    var unsubscribeMethod = typeof(IMessageHub).GetMethod("Unsubscribe", new[] {typeof(MessageHubSubscriptionToken)});
                     unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_messageType);
                     unsubscribeMethod.Invoke(hub, new object[] {this});
                 }

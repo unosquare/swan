@@ -4,8 +4,10 @@
     using System;
     using System.Diagnostics;
     using System.IO;
-    using System.Reflection;
     using System.Threading;
+#if !NETSTANDARD1_3
+    using System.Reflection;
+#endif
 
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
@@ -16,18 +18,25 @@
     public static class Runtime
 #endif
     {
-        #region Property Backing
+#region Property Backing
 
 #if NET452
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
-#else
+#endif
+
+#if NETSTANDARD1_6
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
-        
+
+#if !NETSTANDARD1_3
         private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
+#endif
+
         private static readonly Lazy<Process> m_Process = new Lazy<Process>(Process.GetCurrentProcess);
         private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
 
+
+#if !NETSTANDARD1_3
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute);
@@ -45,22 +54,29 @@
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute);
             return attribute == null ? string.Empty : attribute.Trademark;
         });
+#endif
 
         private static readonly Lazy<ArgumentParser> _argumentParser = new Lazy<ArgumentParser>(() => new ArgumentParser());
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
 
-        #endregion
+#endregion
 
-        #region State Variables
+#region State Variables
 
         private static OperatingSystem? m_OS = new OperatingSystem?();
+
+#if !NETSTANDARD1_3
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
+#else
+        private static readonly string ApplicationMutexName = "Global\\{{SWANINSTANCE}}";
+#endif
+
         private static readonly object SyncLock = new object();
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Gets the current Operating System.
@@ -136,6 +152,7 @@
         /// </summary>
         public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value ?? false;
 
+#if !NETSTANDARD1_3
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
@@ -178,6 +195,7 @@
         /// Gets the trademark.
         /// </summary>
         public static string ProductTrademark => m_ProductTrademark.Value;
+#endif
 
         /// <summary>
         /// Gets a local storage path with a version
@@ -186,6 +204,7 @@
         {
             get
             {
+#if !NETSTANDARD1_3
                 var localAppDataPath =
 #if NET452
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), EntryAssemblyName.Name);
@@ -194,6 +213,9 @@
 #endif
 
                 var returnPath = Path.Combine(localAppDataPath, EntryAssemblyVersion.ToString());
+#else
+                var returnPath = Directory.GetCurrentDirectory(); // Use current path...
+#endif
 
                 if (Directory.Exists(returnPath) == false)
                 {
@@ -225,10 +247,11 @@
         /// </summary>
         public static ObjectMapper ObjectMapper => _objectMapper.Value;
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
+#if !NETSTANDARD1_3
         /// <summary>
         /// Writes a standard banner to the standard output
         /// containing the company name, product name, assembly version and trademark.
@@ -247,6 +270,7 @@
         {
             return Reflection.AppDomain.CurrentDomain.GetAssemblies();
         } 
+#endif
 
 #if NET452
         /// <summary>
@@ -262,6 +286,6 @@
         }
 #endif
 
-        #endregion
+#endregion
     }
 }

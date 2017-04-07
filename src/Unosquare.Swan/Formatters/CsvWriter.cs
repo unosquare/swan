@@ -485,8 +485,7 @@
 
             return values.ToArray();
         }
-
-
+        
         /// <summary>
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
@@ -498,7 +497,7 @@
             {
                 return TypeCache.Retrieve(type, () => 
                     {
-                        return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                             .Where(p => p.CanRead)
                             .ToArray();
                     })

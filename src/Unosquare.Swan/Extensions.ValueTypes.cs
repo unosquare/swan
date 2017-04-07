@@ -54,7 +54,7 @@
                            ((longBytes & 0x00ff0000) >> 8) +
                            ((longBytes & 0xff000000) >> 24));
         }
-        
+
         /// <summary>
         /// Adjusts the endianness of the type represented by the data byte array.
         /// </summary>
@@ -63,7 +63,11 @@
         /// <returns></returns>
         private static byte[] GetStructBytes<T>(byte[] data)
         {
+#if !NETSTANDARD1_3
             var fields = typeof(T).GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+#else
+            var fields = typeof(T).GetTypeInfo().DeclaredFields;
+#endif
             StructEndiannessAttribute endian = null;
 
             if (typeof(T).IsDefined(typeof(StructEndiannessAttribute), false))

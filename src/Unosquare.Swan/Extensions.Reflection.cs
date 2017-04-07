@@ -60,7 +60,7 @@
         public static bool IsCollection(this Type sourceType)
         {
             return sourceType != typeof(string) &&
-                             typeof(IEnumerable).GetTypeInfo().IsAssignableFrom(sourceType);
+                             typeof(IEnumerable).IsAssignableFrom(sourceType);
         }
         
         /// <summary>
@@ -76,7 +76,7 @@
         public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
         {
             var methods =
-                sourceType.GetTypeInfo().GetMethods(bindingFlags).Where(
+                sourceType.GetMethods(bindingFlags).Where(
                     mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
                         mi => mi.ContainsGenericParameters).Where(mi => mi.GetGenericArguments().Length == genericTypes.Length).
                     Where(mi => mi.GetParameters().Length == parameterTypes.Length).Select(
@@ -98,10 +98,7 @@
         /// <returns>
         ///   <c>true</c> if the specified type is class; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsClass(this Type type)
-        {
-            return type.GetTypeInfo().IsClass;
-        }
+        public static bool IsClass(this Type type) => type.GetTypeInfo().IsClass;
 
         /// <summary>
         /// Determines whether this instance is abstract.
@@ -110,10 +107,7 @@
         /// <returns>
         ///   <c>true</c> if the specified type is abstract; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsAbstract(this Type type)
-        {
-            return type.GetTypeInfo().IsAbstract;
-        }
+        public static bool IsAbstract(this Type type) => type.GetTypeInfo().IsAbstract;
 
         /// <summary>
         /// Determines whether this instance is interface.
@@ -122,10 +116,7 @@
         /// <returns>
         ///   <c>true</c> if the specified type is interface; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsInterface(this Type type)
-        {
-            return type.GetTypeInfo().IsInterface;
-        }
+        public static bool IsInterface(this Type type) => type.GetTypeInfo().IsInterface;
 
         /// <summary>
         /// Determines whether this instance is primitive.
@@ -134,10 +125,7 @@
         /// <returns>
         ///   <c>true</c> if the specified type is primitive; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsPrimitive(this Type type)
-        {
-            return type.GetTypeInfo().IsPrimitive;
-        }
+        public static bool IsPrimitive(this Type type) => type.GetTypeInfo().IsPrimitive;
 
         /// <summary>
         /// Determines whether [is value type].
@@ -229,7 +217,7 @@
 
             return type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
-
-        #endregion
+        
+#endregion
     }
 }

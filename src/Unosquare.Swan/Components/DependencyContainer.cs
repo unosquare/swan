@@ -412,7 +412,8 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Registration
-        
+
+#if !NETSTANDARD1_3
         /// <summary>
         /// Attempt to automatically register all non-generic classes and interfaces in the current app domain.
         /// Types will only be registered if they pass the supplied registration predicate.
@@ -424,7 +425,8 @@ namespace Unosquare.Swan.Components
         {
             AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
         }
-        
+#endif
+
         /// <summary>
         /// Attempt to automatically register all non-generic classes and interfaces in the specified assemblies
         /// Types will only be registered if they pass the supplied registration predicate.
@@ -437,7 +439,7 @@ namespace Unosquare.Swan.Components
         {
             AutoRegisterInternal(assemblies, duplicateAction, registrationPredicate);
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with default options.
         /// </summary>
@@ -449,7 +451,7 @@ namespace Unosquare.Swan.Components
             return RegisterInternal(registerType, name, GetDefaultObjectFactory(registerType, registerType));
 
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with a given implementation and default options.
         /// </summary>
@@ -461,7 +463,7 @@ namespace Unosquare.Swan.Components
         {
             return RegisterInternal(registerType, name, GetDefaultObjectFactory(registerType, registerImplementation));
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
         /// </summary>
@@ -473,7 +475,7 @@ namespace Unosquare.Swan.Components
         {
             return RegisterInternal(registerType, name, new InstanceFactory(registerType, registerType, instance));
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
         /// </summary>
@@ -486,7 +488,7 @@ namespace Unosquare.Swan.Components
         {
             return RegisterInternal(registerType, name, new InstanceFactory(registerType, registerImplementation, instance));
         }
-        
+
         /// <summary>
         /// Creates/replaces a container class registration with a user specified factory
         /// </summary>
@@ -498,7 +500,7 @@ namespace Unosquare.Swan.Components
         {
             return RegisterInternal(registerType, name, new DelegateFactory(registerType, factory));
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with default options.
         /// </summary>
@@ -510,7 +512,7 @@ namespace Unosquare.Swan.Components
         {
             return Register(typeof(RegisterType), name);
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with a given implementation and default options.
         /// </summary>
@@ -524,7 +526,7 @@ namespace Unosquare.Swan.Components
         {
             return Register(typeof(RegisterType), typeof(RegisterImplementation), name);
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
         /// </summary>
@@ -537,7 +539,7 @@ namespace Unosquare.Swan.Components
         {
             return Register(typeof(RegisterType), instance, name);
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
         /// </summary>
@@ -552,7 +554,7 @@ namespace Unosquare.Swan.Components
         {
             return Register(typeof(RegisterType), typeof(RegisterImplementation), instance, name);
         }
-        
+
         /// <summary>
         /// Creates/replaces a named container class registration with a user specified factory
         /// </summary>
@@ -598,7 +600,7 @@ namespace Unosquare.Swan.Components
                 throw new ArgumentNullException(nameof(implementationTypes), "types is null.");
 
             foreach (var type in implementationTypes)
-                if (!registrationType.GetTypeInfo().IsAssignableFrom(type))
+                if (!registrationType.IsAssignableFrom(type))
                     throw new ArgumentException($"types: The type {registrationType.FullName} is not assignable from {type.FullName}");
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
@@ -610,7 +612,7 @@ namespace Unosquare.Swan.Components
                                               select j.Key.FullName;
 
                 var fullNamesOfDuplicatedTypes = string.Join(",\n", queryForDuplicatedTypes.ToArray());
-                
+
                 throw new ArgumentException($"types: The same implementation type cannot be specified multiple times for {registrationType.FullName}\n\n{fullNamesOfDuplicatedTypes}");
             }
 
@@ -621,7 +623,7 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Unregistration
-        
+
         /// <summary>
         /// Remove a named container class registration.
         /// </summary>
@@ -632,7 +634,7 @@ namespace Unosquare.Swan.Components
         {
             return Unregister(typeof(RegisterType), name);
         }
-        
+
         /// <summary>
         /// Remove a named container class registration.
         /// </summary>
@@ -649,7 +651,7 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Resolution
-        
+
         /// <summary>
         /// Attempts to resolve a type using specified options.
         /// </summary>
@@ -661,7 +663,7 @@ namespace Unosquare.Swan.Components
         {
             return ResolveInternal(new TypeRegistration(resolveType), DependencyContainerNamedParameterOverloads.Default, options ?? DependencyContainerResolveOptions.Default);
         }
-        
+
         /// <summary>
         /// Attempts to resolve a type using specified options and the supplied constructor parameters.
         ///
@@ -677,7 +679,7 @@ namespace Unosquare.Swan.Components
         {
             return ResolveInternal(new TypeRegistration(resolveType), parameters, options ?? DependencyContainerResolveOptions.Default);
         }
-        
+
         /// <summary>
         /// Attempts to resolve a named type using specified options and the supplied constructor parameters.
         ///
@@ -694,7 +696,7 @@ namespace Unosquare.Swan.Components
         {
             return ResolveInternal(new TypeRegistration(resolveType, name), parameters ?? DependencyContainerNamedParameterOverloads.Default, options ?? DependencyContainerResolveOptions.Default);
         }
-        
+
         /// <summary>
         /// Attempts to resolve a type using specified options.
         /// </summary>
@@ -707,7 +709,7 @@ namespace Unosquare.Swan.Components
         {
             return (ResolveType)Resolve(typeof(ResolveType), options);
         }
-        
+
         /// <summary>
         /// Attempts to resolve a type using supplied options and  name.
         ///
@@ -724,7 +726,7 @@ namespace Unosquare.Swan.Components
         {
             return (ResolveType)Resolve(typeof(ResolveType), name, null, options);
         }
-        
+
         /// <summary>
         /// Attempts to resolve a type using specified options and the supplied constructor parameters.
         ///
@@ -741,7 +743,7 @@ namespace Unosquare.Swan.Components
         {
             return (ResolveType)Resolve(typeof(ResolveType), parameters, options);
         }
-        
+
         /// <summary>
         /// Attempts to resolve a named type using specified options and the supplied constructor parameters.
         ///
@@ -759,7 +761,7 @@ namespace Unosquare.Swan.Components
         {
             return (ResolveType)Resolve(typeof(ResolveType), name, parameters, options);
         }
-        
+
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the specified options.
         ///
@@ -772,7 +774,7 @@ namespace Unosquare.Swan.Components
         {
             return CanResolveInternal(new TypeRegistration(resolveType), DependencyContainerNamedParameterOverloads.Default, options);
         }
-        
+
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -790,7 +792,7 @@ namespace Unosquare.Swan.Components
         {
             return CanResolveInternal(new TypeRegistration(resolveType, name), parameters ?? DependencyContainerNamedParameterOverloads.Default, options ?? DependencyContainerResolveOptions.Default);
         }
-        
+
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the specified options.
         ///
@@ -819,7 +821,7 @@ namespace Unosquare.Swan.Components
         {
             return CanResolve(typeof(ResolveType), null, name, options);
         }
-        
+
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
         ///
@@ -1219,7 +1221,7 @@ namespace Unosquare.Swan.Components
         {
             return ResolveAllInternal(resolveType, includeUnnamed);
         }
-        
+
         /// <summary>
         /// Returns all registrations of a type
         /// </summary>
@@ -1231,7 +1233,7 @@ namespace Unosquare.Swan.Components
         {
             return ResolveAll(typeof(ResolveType), includeUnnamed).Cast<ResolveType>();
         }
-        
+
         /// <summary>
         /// Attempts to resolve all public property dependencies on the given object using the given resolve options.
         /// </summary>
@@ -1789,13 +1791,13 @@ namespace Unosquare.Swan.Components
             /// The name.
             /// </value>
             public string Name { get; }
-            
+
             /// <summary>
             /// Initializes a new instance of the <see cref="TypeRegistration"/> class.
             /// </summary>
             /// <param name="type">The type.</param>
             /// <param name="name">The name.</param>
-            public TypeRegistration(Type type, string name = null) 
+            public TypeRegistration(Type type, string name = null)
             {
                 Type = type;
                 Name = name ?? string.Empty;
@@ -1835,7 +1837,7 @@ namespace Unosquare.Swan.Components
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
         private delegate object ObjectConstructor(params object[] parameters);
 #if USE_OBJECT_CONSTRUCTOR
-        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache 
+        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache
             = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
 #endif
         #endregion
@@ -1893,7 +1895,7 @@ namespace Unosquare.Swan.Components
                 foreach (var type in abstractInterfaceTypes)
                 {
                     var localType = type;
-                    var implementations = concreteTypes.Where(implementationType => localType.GetTypeInfo().IsAssignableFrom(implementationType)).ToList();
+                    var implementations = concreteTypes.Where(implementationType => localType.IsAssignableFrom(implementationType)).ToList();
 
                     if (implementations.Skip(1).Any())
                     {
@@ -1949,7 +1951,7 @@ namespace Unosquare.Swan.Components
                 t => t.FullName.StartsWith("Microsoft.", StringComparison.Ordinal),
                 t => t.IsPrimitive(),
                 t => t.IsGenericTypeDefinition(),
-                t => (t.GetTypeInfo().GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) && !(t.IsInterface() || t.IsAbstract()),
+                t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) && !(t.IsInterface() || t.IsAbstract())
             };
 
             if (registrationPredicate != null)
@@ -2073,13 +2075,13 @@ namespace Unosquare.Swan.Components
                 return true;
 
             // 2 parameter func with string as first parameter (name)
-            if ((genericType == typeof(Func<,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string)))
+            if ((genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string)))
                 return true;
 
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
 
-            if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string) &&
-                 type.GetTypeInfo().GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
+            if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
+                 type.GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
                 return true;
 
             return false;
@@ -2167,7 +2169,7 @@ namespace Unosquare.Swan.Components
             if (IsAutomaticLazyFactoryRequest(registration.Type))
                 return GetLazyAutomaticFactoryRequest(registration.Type);
 #endif
-            
+
             // Attempt unregistered construction if possible and requested
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
@@ -2186,14 +2188,14 @@ namespace Unosquare.Swan.Components
                 return null;
 
             var genericType = type.GetGenericTypeDefinition();
-            var genericArguments = type.GetTypeInfo().GetGenericArguments();
+            var genericArguments = type.GetGenericArguments();
 
             // Just a func
             if (genericType == typeof(Func<>))
             {
                 var returnType = genericArguments[0];
-                
-                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new Type[] { });
+
+                var resolveMethod = typeof(DependencyContainer).GetMethod("Resolve", new Type[] { });
 
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
@@ -2208,9 +2210,9 @@ namespace Unosquare.Swan.Components
             if ((genericType == typeof(Func<,>)) && (genericArguments[0] == typeof(string)))
             {
                 var returnType = genericArguments[1];
-                
-                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new[] { typeof(String) });
-                
+
+                var resolveMethod = typeof(DependencyContainer).GetMethod("Resolve", new[] { typeof(String) });
+
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 var resolveParameters = new ParameterExpression[] { Expression.Parameter(typeof(String), "name") };
@@ -2220,15 +2222,15 @@ namespace Unosquare.Swan.Components
 
                 return resolveLambda;
             }
-            
-            if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GetGenericArguments()[0] == typeof(string) && type.GetTypeInfo().GetGenericArguments()[1] == typeof(IDictionary<string, object>)))
+
+            if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) && type.GetGenericArguments()[1] == typeof(IDictionary<string, object>)))
             {
                 var returnType = genericArguments[2];
 
                 var name = Expression.Parameter(typeof(string), "name");
                 var parameters = Expression.Parameter(typeof(IDictionary<string, object>), "parameters");
-                
-                var resolveMethod = typeof(DependencyContainer).GetTypeInfo().GetMethod("Resolve", new[] { typeof(String), typeof(DependencyContainerNamedParameterOverloads) });
+
+                var resolveMethod = typeof(DependencyContainer).GetMethod("Resolve", new[] { typeof(String), typeof(DependencyContainerNamedParameterOverloads) });
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, name, Expression.Call(typeof(DependencyContainerNamedParameterOverloads), "FromIDictionary", null, parameters));
@@ -2281,9 +2283,9 @@ namespace Unosquare.Swan.Components
 
         private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
         {
-            return type.GetTypeInfo().GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
+            return type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
         }
-        
+
         private object ConstructType(Type implementationType, ConstructorInfo constructor, DependencyContainerResolveOptions options)
         {
             return ConstructType(implementationType, constructor, DependencyContainerNamedParameterOverloads.Default, options);
@@ -2297,7 +2299,7 @@ namespace Unosquare.Swan.Components
         private object ConstructType(Type implementationType, ConstructorInfo constructor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
             var typeToConstruct = implementationType;
-            
+
             if (constructor == null)
             {
                 // Try and get the best constructor that we can construct
@@ -2389,10 +2391,10 @@ namespace Unosquare.Swan.Components
 
         private void BuildUpInternal(object input, DependencyContainerResolveOptions resolveOptions)
         {
-            var properties = from property in input.GetType().GetTypeInfo().GetProperties()
+            var properties = from property in input.GetType().GetProperties()
                              where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType()
                              select property;
-         
+
             foreach (var property in properties)
             {
                 if (property.GetValue(input, null) == null)
@@ -2433,14 +2435,14 @@ namespace Unosquare.Swan.Components
         {
             if (!registerType.IsGenericTypeDefinition())
             {
-                if (!registerType.GetTypeInfo().IsAssignableFrom(registerImplementation))
+                if (!registerType.IsAssignableFrom(registerImplementation))
                     return false;
             }
             else
             {
                 if (registerType.IsInterface())
                 {
-                    if (registerImplementation.GetTypeInfo().GetInterfaces().All(t => t.Name != registerType.Name))
+                    if (registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
                         return false;
                 }
                 else if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)

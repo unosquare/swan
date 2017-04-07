@@ -59,7 +59,7 @@
         /// <returns></returns>
         public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
         {
-#if !NETSTANDARD1_6
+#if NET452
             var md5 = MD5.Create();
             const int bufferSize = 4096;
 

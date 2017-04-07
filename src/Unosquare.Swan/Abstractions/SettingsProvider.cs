@@ -18,7 +18,7 @@
         /// <summary>
         /// A synchronization root that is commonly used for cross-thread operations.
         /// </summary>
-        protected static readonly object SyncRoot = new object();
+        protected readonly object SyncRoot = new object();
 
         private T _global;
 
@@ -26,8 +26,12 @@
         /// Gets or sets the configuration file path. By default the entry assembly directory is used
         /// and the filename is appsettings.json.
         /// </summary>
-        public virtual string ConfigurationFilePath { get; set; } = Path.Combine(Runtime.EntryAssemblyDirectory,
-            "appsettings.json");
+        public virtual string ConfigurationFilePath { get; set; } =
+#if NETSTANDARD1_3
+            Path.Combine(Runtime.LocalStoragePath, "appsettings.json");
+#else
+            Path.Combine(Runtime.EntryAssemblyDirectory, "appsettings.json");
+#endif
 
         /// <summary>
         /// Gets the global settings object
@@ -94,7 +98,7 @@
 
             foreach (var property in propertyList)
             {
-                var propertyInfo = Global.GetType().GetTypeInfo().GetProperty(property.Property);
+                var propertyInfo = Global.GetType().GetProperty(property.Property);
                 var originalValue = propertyInfo.GetValue(Global);
                 var isChanged = false;
 
@@ -105,7 +109,7 @@
                     if (property.Value is IEnumerable == false)
                         continue;
 
-                    var sourceArray = ((IEnumerable)property.Value).Cast<object>().ToArray();
+                    var sourceArray = ((IEnumerable) property.Value).Cast<object>().ToArray();
                     var targetArray = Array.CreateInstance(elementType, sourceArray.Length);
 
                     var i = 0;
@@ -173,7 +177,7 @@
             var jsonData = Json.Deserialize(GetJsonData()) as Dictionary<string, object>;
 
             return jsonData?.Keys
-                .Select(p => new ExtendedPropertyInfo<T>(p) { Value = jsonData[p] })
+                .Select(p => new ExtendedPropertyInfo<T>(p) {Value = jsonData[p]})
                 .ToList();
         }
 

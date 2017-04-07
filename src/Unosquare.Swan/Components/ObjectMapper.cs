@@ -46,7 +46,7 @@
 
             foreach (var property in intersect)
             { 
-                Map.Add(DestinationType.GetTypeInfo().GetProperty(property.Name), new List<PropertyInfo> { SourceType.GetTypeInfo().GetProperty(property.Name) });
+                Map.Add(DestinationType.GetProperty(property.Name), new List<PropertyInfo> { SourceType.GetProperty(property.Name) });
             }
         }
 
@@ -232,18 +232,10 @@
         {
             return TypeCache.Retrieve(type, () =>
             {
-                return type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Where(p => p.CanRead || p.CanWrite)
                     .ToArray();
             });
         }
-    }
-
-    /// <summary>
-    /// Object Mapper extension methods
-    /// </summary>
-    public static class ObjectMapperExtensions
-    {
-
     }
 }

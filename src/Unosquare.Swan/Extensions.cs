@@ -47,7 +47,7 @@ namespace Unosquare.Swan
             var sourceType = source.GetType();
             var sourceProperties = CopyPropertiesSources.Value.Retrieve(sourceType, () =>
             {
-                return sourceType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                return sourceType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Where(x => x.CanRead && Definitions.AllBasicTypes.Contains(x.PropertyType));
             });
 
@@ -55,7 +55,7 @@ namespace Unosquare.Swan
             var targetType = target.GetType();
             var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
             {
-                return targetType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                return targetType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
             });
 
@@ -139,7 +139,7 @@ namespace Unosquare.Swan
             var targetType = target.GetType();
             var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
             {
-                return targetType.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                return targetType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
             });
 

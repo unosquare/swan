@@ -53,8 +53,7 @@
             return TypeCache.Retrieve(type, () =>
             {
                 return
-                    type.GetTypeInfo()
-                        .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                    type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                         .Where(p => p.CanRead || p.CanWrite).ToArray();
             });
         }
@@ -159,8 +158,7 @@
                     if (targetDictionary != null)
                     {
                         // find the add method of the target dictionary
-                        var addMethod = targetType.GetTypeInfo()
-                            .GetMethods()
+                        var addMethod = targetType.GetMethods()
                             .FirstOrDefault(
                                 m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 2);
 
@@ -283,8 +281,7 @@
                     else if (targetList != null)
                     {
                         // find the add method of the target list
-                        var addMethod = targetType.GetTypeInfo()
-                            .GetMethods()
+                        var addMethod = targetType.GetMethods()
                             .FirstOrDefault(
                                 m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 1);
 
@@ -368,7 +365,8 @@
             if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
                 throw new ArgumentException("You need to provide an object or array", nameof(obj));
 
-            var excludedByAttr = obj?.GetType().GetTypeInfo().GetProperties().Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name);
+            var excludedByAttr = obj?.GetType().GetProperties()
+                .Where(x => x?.GetCustomAttribute<JsonPropertyAttribute>()?.Ignored == true).Select(x => x.Name).ToArray();
 
             if (excludedByAttr?.Any() == true)
             {

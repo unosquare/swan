@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.12.2-*",
+  "version": "0.13.0-*",
   "frameworks": {
     "netstandard1.6": {
       "dependencies": {
@@ -11,9 +11,9 @@
         "System.ComponentModel.Annotations": "4.3.0",
         "System.ComponentModel.TypeConverter": "4.3.0",
         "System.Text.Encoding.CodePages": "4.*",
-        "System.Net.NetworkInformation": "4.*",
-        "System.Net.Security": "4.*",
-        "System.Threading.ThreadPool": "4.*",
+        "System.Net.NetworkInformation": "4.3.0",
+        "System.Net.Security": "4.3.0",
+        "System.Threading.ThreadPool": "4.3.0",
         "System.Threading": "4.3.0",
         "System.Collections": "4.3.0",
         "System.Collections.Concurrent": "4.3.0",
@@ -23,12 +23,40 @@
         "System.IO.FileSystem": "4.3.0",
         "System.Runtime.Extensions": "4.3.0",
         "System.Reflection.Extensions": "4.3.0",
+        "System.Reflection.TypeExtensions": "4.3.0",
         "System.Text.RegularExpressions": "4.3.0",
         "System.Net.Sockets": "4.3.0",
-        "System.ObjectModel": "4.3.0",
         "System.Net.Http": "4.3.1",
         "System.Runtime.InteropServices": "4.3.0",
         "System.AppContext": "4.3.0",
+        "System.Diagnostics.Debug": "4.3.0"
+      }
+    },
+    "netstandard1.3": {
+      "dependencies": {
+        "System.Threading.ThreadPool": "4.3.0",
+        "System.Threading.Thread": "4.3.0",
+        "System.Net.Sockets": "4.3.0",
+        "System.Collections.Concurrent": "4.3.0",
+        "System.Globalization": "4.3.0",
+        "System.Diagnostics.Process": "4.3.0",
+        "System.ComponentModel.Annotations": "4.3.0",
+        "System.ComponentModel.TypeConverter": "4.3.0",
+        "System.Linq.Expressions": "4.3.0",
+        "System.Console": "4.3.0",
+        "System.Threading": "4.3.0",
+        "System.Linq": "4.3.0",
+        "System.Text.Encoding.CodePages": "4.*",
+        "System.Net.NetworkInformation": "4.3.0",
+        "System.Net.Security": "4.3.0",
+        "System.Reflection": "4.3.0",
+        "System.Net.Http": "4.3.1",
+        "System.Reflection.Extensions": "4.3.0",
+        "System.Reflection.TypeExtensions": "4.3.0",
+        "System.Text.RegularExpressions": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0",
+        "System.Runtime.Extensions": "4.3.0",
+        "System.IO.FileSystem": "4.3.0",
         "System.Diagnostics.Debug": "4.3.0"
       }
     },
