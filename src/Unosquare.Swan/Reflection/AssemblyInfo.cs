@@ -1,4 +1,5 @@
-﻿namespace Unosquare.Swan.Reflection
+﻿#if !NET452
+namespace Unosquare.Swan.Reflection
 {
     /// <summary>
     /// Represents an Assembly information object
@@ -34,3 +35,4 @@
         }
     }
 }
+#endif

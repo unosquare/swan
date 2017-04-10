@@ -6,43 +6,33 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class SingletonBaseTest
     {
-        static readonly MockProvider Mocks = new MockProvider();
-        static readonly MockProvider MocksInstance = MockProvider.Instance;
+        private static readonly MockProvider Mocks = new MockProvider();
 
         [Test]
         public void GetInstanceNameTest()
         {
-            Assert.AreEqual(nameof(MockProvider), MocksInstance.GetName());
+            Assert.AreEqual(nameof(MockProvider), MockProvider.Instance.GetName());
         }
 
         [Test]
         public void GetTypeTest()
         {
-            Assert.AreEqual(typeof(MockProvider), MocksInstance.GetType());
+            Assert.AreEqual(typeof(MockProvider), MockProvider.Instance.GetType());
         }
 
         [Test]
         public void StringifyTest()
         {
-            Assert.AreEqual(Mocks.Stringify(), MocksInstance.Stringify());
+            // We need better testing here
+            Assert.AreEqual(Mocks.Stringify(), MockProvider.Instance.Stringify());
         }
-
+        
         [Test]
-        public void ToJsonTest()
+        public void DisposeTest()
         {
-            Assert.AreEqual(Mocks.ToJson(), MocksInstance.ToJson());
-        }
-
-        [Test]
-        public void ToStringTest()
-        {
-            Assert.AreEqual(Mocks.ToString(), MocksInstance.ToString());
-        }
-
-        [Test]
-        public void ToStringInvariantTest()
-        {
-            Assert.AreEqual(Mocks.ToStringInvariant(), MocksInstance.ToStringInvariant());
+            MockProvider.Instance.Dispose();
+            // here we only check if we don't get any exception
+            Assert.IsTrue(true);
         }
     }
 }

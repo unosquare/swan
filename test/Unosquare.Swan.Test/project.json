@@ -11,8 +11,8 @@
     "dotnet-test-nunit": "3.4.0-beta-3",
     "Unosquare.Swan": { "target": "project" },
     "NUnit": "3.6.1",
-    "EmbedIO": "1.6.0",
-    "MimeKit": "1.12.0"
+    "EmbedIO": "1.6.5",
+    "MimeKit": "1.14.1"
   },
 
   "testRunner": "nunit",

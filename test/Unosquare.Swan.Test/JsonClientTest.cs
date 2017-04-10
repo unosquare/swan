@@ -35,7 +35,7 @@ namespace Unosquare.Swan.Test
             {
                 var responseObj = new Dictionary<string, object> {{ AuthorizationToken, "123"}};
 
-                webserver.RegisterModule(new FallbackModule((srv, ctx) =>
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
                     if (ctx.RequestFormDataDictionary().ContainsKey("grant_type"))
                     {
@@ -45,7 +45,7 @@ namespace Unosquare.Swan.Test
                     return true;
                 }));
 
-                var task = webserver.RunAsync();
+                webserver.RunAsync();
 
                 var data = await JsonClient.Authenticate(DefaultHttp, "admin", "password");
 
@@ -62,7 +62,7 @@ namespace Unosquare.Swan.Test
             {
                 const string status = "OK";
 
-                webserver.RegisterModule(new FallbackModule((srv, ctx) =>
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
                     var obj = ctx.ParseJson<BasicJson>();
                     Assert.IsNotNull(obj);
@@ -72,7 +72,7 @@ namespace Unosquare.Swan.Test
                     return true;
                 }));
 
-                var task = webserver.RunAsync();
+                webserver.RunAsync();
                 await Task.Delay(100);
 
                 var data = await JsonClient.Post<BasicJson>(DefaultHttp, BasicJson.GetDefault());
@@ -87,14 +87,14 @@ namespace Unosquare.Swan.Test
         {
             using (var webserver = new WebServer(DefaultPort))
             {
-                webserver.RegisterModule(new FallbackModule((srv, ctx) =>
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
                     ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization) } });
 
                     return true;
                 }));
 
-                var task = webserver.RunAsync();
+                webserver.RunAsync();
                 await Task.Delay(500);
 
                 var data = await JsonClient.Post(DefaultHttp, BasicJson.GetDefault(), AuthorizationToken);
@@ -112,14 +112,14 @@ namespace Unosquare.Swan.Test
             {
                 var ctxHeaders = new List<string>();
 
-                webserver.RegisterModule(new FallbackModule((srv, ctx) =>
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
                     ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
 
                     return true;
                 }));
 
-                var task = webserver.RunAsync();
+                webserver.RunAsync();
                 await Task.Delay(100);
 
                 await JsonClient.GetString(DefaultHttp, AuthorizationToken);

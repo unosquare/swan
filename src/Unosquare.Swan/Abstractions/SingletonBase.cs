@@ -35,6 +35,8 @@
         protected virtual void Dispose(bool disposeManaged)
         {
             if (_isDisposing) return;
+            
+            _isDisposing = true;
 
             // free managed resources
             if (LazyInstance != null)
@@ -49,8 +51,6 @@
                     // swallow
                 }
             }
-
-            _isDisposing = true;
         }
 
         /// <summary>
