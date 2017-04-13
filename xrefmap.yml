@@ -5477,6 +5477,24 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.IsValueType
   fullName: Unosquare.Swan.Extensions.IsValueType
   nameWithType: Extensions.IsValueType
+- uid: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken)
+  name: ReadBytesAsync(Stream, Int32, CancellationToken)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadBytesAsync_System_IO_Stream_System_Int32_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream, System.Int32, System.Threading.CancellationToken)
+  nameWithType: Extensions.ReadBytesAsync(Stream, Int32, CancellationToken)
+- uid: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int64,System.Int32,System.Threading.CancellationToken)
+  name: ReadBytesAsync(Stream, Int64, Int32, CancellationToken)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadBytesAsync_System_IO_Stream_System_Int64_System_Int32_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int64,System.Int32,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream, System.Int64, System.Int32, System.Threading.CancellationToken)
+  nameWithType: Extensions.ReadBytesAsync(Stream, Int64, Int32, CancellationToken)
+- uid: Unosquare.Swan.Extensions.ReadBytesAsync*
+  name: ReadBytesAsync
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadBytesAsync_
+  commentId: Overload:Unosquare.Swan.Extensions.ReadBytesAsync
+  fullName: Unosquare.Swan.Extensions.ReadBytesAsync
+  nameWithType: Extensions.ReadBytesAsync
 - uid: Unosquare.Swan.Extensions.RemoveControlChars(System.String)
   name: RemoveControlChars(String)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_RemoveControlChars_System_String_
@@ -8753,6 +8771,60 @@ references:
   commentId: F:Unosquare.Swan.OperatingSystem.Windows
   fullName: Unosquare.Swan.OperatingSystem.Windows
   nameWithType: OperatingSystem.Windows
+- uid: Unosquare.Swan.PropertyDisplayAttribute
+  name: PropertyDisplayAttribute
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html
+  commentId: T:Unosquare.Swan.PropertyDisplayAttribute
+  fullName: Unosquare.Swan.PropertyDisplayAttribute
+  nameWithType: PropertyDisplayAttribute
+- uid: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
+  name: DefaultValue
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_DefaultValue
+  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
+  nameWithType: PropertyDisplayAttribute.DefaultValue
+- uid: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue*
+  name: DefaultValue
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_DefaultValue_
+  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
+  nameWithType: PropertyDisplayAttribute.DefaultValue
+- uid: Unosquare.Swan.PropertyDisplayAttribute.Description
+  name: Description
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Description
+  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.Description
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.Description
+  nameWithType: PropertyDisplayAttribute.Description
+- uid: Unosquare.Swan.PropertyDisplayAttribute.Description*
+  name: Description
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Description_
+  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.Description
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.Description
+  nameWithType: PropertyDisplayAttribute.Description
+- uid: Unosquare.Swan.PropertyDisplayAttribute.GroupName
+  name: GroupName
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_GroupName
+  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.GroupName
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.GroupName
+  nameWithType: PropertyDisplayAttribute.GroupName
+- uid: Unosquare.Swan.PropertyDisplayAttribute.GroupName*
+  name: GroupName
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_GroupName_
+  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.GroupName
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.GroupName
+  nameWithType: PropertyDisplayAttribute.GroupName
+- uid: Unosquare.Swan.PropertyDisplayAttribute.Name
+  name: Name
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Name
+  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.Name
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.Name
+  nameWithType: PropertyDisplayAttribute.Name
+- uid: Unosquare.Swan.PropertyDisplayAttribute.Name*
+  name: Name
+  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Name_
+  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.Name
+  fullName: Unosquare.Swan.PropertyDisplayAttribute.Name
+  nameWithType: PropertyDisplayAttribute.Name
 - uid: Unosquare.Swan.Reflection
   name: Unosquare.Swan.Reflection
   href: api/Unosquare.Swan.Reflection.html
