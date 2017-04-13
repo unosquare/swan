@@ -1,7 +1,5 @@
 ﻿namespace Unosquare.Swan.Reflection
 {
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Reflection;
 
@@ -20,16 +18,12 @@
 
             DataType = propertyInfo.PropertyType.Name;
 
-            foreach (var display in propertyInfo.GetCustomAttributes(true).OfType<DisplayAttribute>())
+            foreach (var display in propertyInfo.GetCustomAttributes(true).OfType<PropertyDisplayAttribute>())
             {
                 Name = display.Name;
                 Description = display.Description;
                 GroupName = display.GroupName;
-            }
-
-            foreach (var defaultValue in propertyInfo.GetCustomAttributes(true).OfType<DefaultValueAttribute>())
-            {
-                DefaultValue = defaultValue.Value;
+                DefaultValue = display.DefaultValue;
             }
         }
 

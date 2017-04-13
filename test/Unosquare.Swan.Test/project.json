@@ -1,6 +1,6 @@
 {
   "title": "Unosquare SWAN Test",
-  "copyright": "Copyright (c) 2016 - Unosquare",
+  "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Unit Testing project",
   "version": "1.0.0-*",
   "buildOptions": {

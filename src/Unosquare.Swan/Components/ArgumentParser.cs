@@ -131,7 +131,7 @@
 
             if ((Settings.IgnoreUnknownArguments == false && unknownList.Any()) || requiredList.Any())
             {
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
                 if (Settings.WriteBanner)
                     Runtime.WriteWelcomeBanner();
 #endif

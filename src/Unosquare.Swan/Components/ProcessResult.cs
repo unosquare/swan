@@ -1,4 +1,5 @@
-﻿namespace Unosquare.Swan.Components
+﻿#if !UWP
+namespace Unosquare.Swan.Components
 {
     /// <summary>
     /// Represents the text of the standard output and standard error
@@ -35,3 +36,4 @@
         public string StandardError { get; protected set; }
     }
 }
+#endif

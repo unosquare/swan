@@ -14,7 +14,6 @@
 //===============================================================================
 
 #define USE_OBJECT_CONSTRUCTOR
-#define EXPRESSIONS
 
 namespace Unosquare.Swan.Components
 {
@@ -413,7 +412,7 @@ namespace Unosquare.Swan.Components
 
         #region Registration
 
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
         /// <summary>
         /// Attempt to automatically register all non-generic classes and interfaces in the current app domain.
         /// Types will only be registered if they pass the supplied registration predicate.
@@ -1973,7 +1972,7 @@ namespace Unosquare.Swan.Components
 
         private ObjectFactoryBase GetCurrentFactory(TypeRegistration registration)
         {
-            ObjectFactoryBase current = null;
+            ObjectFactoryBase current;
 
             _registeredTypes.TryGetValue(registration, out current);
 
@@ -2163,13 +2162,7 @@ namespace Unosquare.Swan.Components
                     }
                 }
             }
-
-#if EXPRESSIONS
-            // Attempt to construct an automatic lazy factory if possible
-            if (IsAutomaticLazyFactoryRequest(registration.Type))
-                return GetLazyAutomaticFactoryRequest(registration.Type);
-#endif
-
+            
             // Attempt unregistered construction if possible and requested
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
@@ -2180,70 +2173,7 @@ namespace Unosquare.Swan.Components
             // Unable to resolve - throw
             throw new DependencyContainerResolutionException(registration.Type);
         }
-
-#if EXPRESSIONS
-        private object GetLazyAutomaticFactoryRequest(Type type)
-        {
-            if (!type.IsGenericType())
-                return null;
-
-            var genericType = type.GetGenericTypeDefinition();
-            var genericArguments = type.GetGenericArguments();
-
-            // Just a func
-            if (genericType == typeof(Func<>))
-            {
-                var returnType = genericArguments[0];
-
-                var resolveMethod = typeof(DependencyContainer).GetMethod("Resolve", new Type[] { });
-
-                resolveMethod = resolveMethod.MakeGenericMethod(returnType);
-
-                var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod);
-
-                var resolveLambda = Expression.Lambda(resolveCall).Compile();
-
-                return resolveLambda;
-            }
-
-            // 2 parameter func with string as first parameter (name)
-            if ((genericType == typeof(Func<,>)) && (genericArguments[0] == typeof(string)))
-            {
-                var returnType = genericArguments[1];
-
-                var resolveMethod = typeof(DependencyContainer).GetMethod("Resolve", new[] { typeof(String) });
-
-                resolveMethod = resolveMethod.MakeGenericMethod(returnType);
-
-                var resolveParameters = new ParameterExpression[] { Expression.Parameter(typeof(String), "name") };
-                var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, resolveParameters);
-
-                var resolveLambda = Expression.Lambda(resolveCall, resolveParameters).Compile();
-
-                return resolveLambda;
-            }
-
-            if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) && type.GetGenericArguments()[1] == typeof(IDictionary<string, object>)))
-            {
-                var returnType = genericArguments[2];
-
-                var name = Expression.Parameter(typeof(string), "name");
-                var parameters = Expression.Parameter(typeof(IDictionary<string, object>), "parameters");
-
-                var resolveMethod = typeof(DependencyContainer).GetMethod("Resolve", new[] { typeof(String), typeof(DependencyContainerNamedParameterOverloads) });
-                resolveMethod = resolveMethod.MakeGenericMethod(returnType);
-
-                var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, name, Expression.Call(typeof(DependencyContainerNamedParameterOverloads), "FromIDictionary", null, parameters));
-
-                var resolveLambda = Expression.Lambda(resolveCall, name, parameters).Compile();
-
-                return resolveLambda;
-            }
-
-            throw new DependencyContainerResolutionException(type);
-        }
-#endif
-
+        
         private bool CanConstruct(ConstructorInfo ctor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
             if (parameters == null)
@@ -2397,16 +2327,15 @@ namespace Unosquare.Swan.Components
 
             foreach (var property in properties)
             {
-                if (property.GetValue(input, null) == null)
+                if (property.GetValue(input, null) != null) continue;
+
+                try
                 {
-                    try
-                    {
-                        property.SetValue(input, ResolveInternal(new TypeRegistration(property.PropertyType), DependencyContainerNamedParameterOverloads.Default, resolveOptions), null);
-                    }
-                    catch (DependencyContainerResolutionException)
-                    {
-                        // Catch any resolution errors and ignore them
-                    }
+                    property.SetValue(input, ResolveInternal(new TypeRegistration(property.PropertyType), DependencyContainerNamedParameterOverloads.Default, resolveOptions), null);
+                }
+                catch (DependencyContainerResolutionException)
+                {
+                    // Catch any resolution errors and ignore them
                 }
             }
         }
@@ -2450,7 +2379,7 @@ namespace Unosquare.Swan.Components
                     return false;
                 }
             }
-            //#endif
+
             return true;
         }
 

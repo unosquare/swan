@@ -27,7 +27,7 @@
         /// and the filename is appsettings.json.
         /// </summary>
         public virtual string ConfigurationFilePath { get; set; } =
-#if NETSTANDARD1_3
+#if NETSTANDARD1_3 || UWP
             Path.Combine(Runtime.LocalStoragePath, "appsettings.json");
 #else
             Path.Combine(Runtime.EntryAssemblyDirectory, "appsettings.json");

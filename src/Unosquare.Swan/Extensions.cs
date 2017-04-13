@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
+    using System.Threading.Tasks;
     using Reflection;
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD1_3
+﻿#if !NETSTANDARD1_3 && !UWP
 namespace Unosquare.Swan.Reflection
 {
     using Abstractions;

@@ -2,11 +2,13 @@
 {
     using Components;
     using System;
-    using System.Diagnostics;
     using System.IO;
     using System.Threading;
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
+#endif
+#if !UWP
+    using System.Diagnostics;
 #endif
 
     /// <summary>
@@ -18,7 +20,7 @@
     public static class Runtime
 #endif
     {
-#region Property Backing
+        #region Property Backing
 
 #if NET452
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
@@ -28,15 +30,17 @@
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
 
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
         private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
 #endif
 
+#if !UWP
         private static readonly Lazy<Process> m_Process = new Lazy<Process>(Process.GetCurrentProcess);
+#endif
         private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
 
 
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
             var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute);
@@ -60,13 +64,13 @@
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
 
-#endregion
+        #endregion
 
-#region State Variables
+        #region State Variables
 
         private static OperatingSystem? m_OS = new OperatingSystem?();
 
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 #else
         private static readonly string ApplicationMutexName = "Global\\{{SWANINSTANCE}}";
@@ -74,9 +78,9 @@
 
         private static readonly object SyncLock = new object();
 
-#endregion
+        #endregion
 
-#region Properties
+        #region Properties
 
         /// <summary>
         /// Gets the current Operating System.
@@ -106,10 +110,12 @@
             }
         }
 
+#if !UWP
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
         public static Process Process => m_Process.Value;
+#endif
 
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
@@ -152,7 +158,7 @@
         /// </summary>
         public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value ?? false;
 
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
@@ -204,7 +210,7 @@
         {
             get
             {
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
                 var localAppDataPath =
 #if NET452
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), EntryAssemblyName.Name);
@@ -247,11 +253,11 @@
         /// </summary>
         public static ObjectMapper ObjectMapper => _objectMapper.Value;
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
-#if !NETSTANDARD1_3
+#if !NETSTANDARD1_3 && !UWP
         /// <summary>
         /// Writes a standard banner to the standard output
         /// containing the company name, product name, assembly version and trademark.
@@ -286,6 +292,6 @@
         }
 #endif
 
-#endregion
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace Unosquare.Swan.Networking
+﻿#if !UWP
+namespace Unosquare.Swan.Networking
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +25,7 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class Connection : IDisposable
     {
-        #region Private Members
+#region Private Members
 
         // New Line definitions for reading. This applies to both, events and read methods
         private readonly string NewLineSequence;
@@ -47,9 +48,9 @@
         private readonly Queue<string> _readLineBuffer = new Queue<string>();
         private readonly ManualResetEventSlim _writeDone = new ManualResetEventSlim(true);
 
-        #endregion
+#endregion
 
-        #region Events
+#region Events
 
         /// <summary>
         /// Occurs when the receive buffer has encounters a new line sequence, the buffer is flushed or the buffer is full.
@@ -66,9 +67,9 @@
         /// </summary>
         public event EventHandler ClientDisconnected = (s, e) => { };
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Gets the unique identifier of this connection.
@@ -199,9 +200,9 @@
             }
         }
 
-        #endregion
+#endregion
 
-        #region Constructors
+#region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Connection"/> class.
@@ -296,9 +297,9 @@
             // placeholder
         }
 
-        #endregion
+#endregion
 
-        #region Continuous Read Methods
+#region Continuous Read Methods
 
         /// <summary>
         /// Raises the receive buffer events.
@@ -444,9 +445,9 @@
             }
         }
 
-        #endregion
+#endregion
 
-        #region Read Methods
+#region Read Methods
 
         /// <summary>
         /// Reads data from the remote client asynchronously and with the given timeout.
@@ -588,9 +589,9 @@
             return null;
         }
 
-        #endregion
+#endregion
 
-        #region Write Methods
+#region Write Methods
 
         /// <summary>
         /// Writes data asynchronously.
@@ -662,9 +663,9 @@
             await WriteLineAsync(line, TextEncoding);
         }
 
-        #endregion
+#endregion
 
-        #region Socket Methods
+#region Socket Methods
 
         /// <summary>
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the server.
@@ -781,9 +782,9 @@
             }
         }
 
-        #endregion
+#endregion
 
-        #region Dispose
+#region Dispose
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -801,6 +802,7 @@
             HasDisposed = true;
         }
 
-        #endregion
+#endregion
     }
 }
+#endif

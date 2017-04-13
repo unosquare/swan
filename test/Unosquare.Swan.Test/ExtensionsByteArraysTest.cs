@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
 {
@@ -9,8 +11,8 @@ namespace Unosquare.Swan.Test
     public class ExtensionsByteArraysTest
     {
         private const int Value = 123456789;
-        readonly byte[] _bytes = BitConverter.GetBytes(Value);
-
+        private readonly byte[] _bytes = BitConverter.GetBytes(Value);
+        
         [TestCase("0x15cd5b07", true)]
         [TestCase("15cd5b07", false)]
         public void ToLowerHexTest(string expected, bool prefix)
@@ -80,46 +82,46 @@ namespace Unosquare.Swan.Test
         [Test]
         public void DeepCloneTest()
         {
-            Assert.AreEqual(_bytes, _bytes.DeepClone(), $"Get DeepClone value");
+            Assert.AreEqual(_bytes, _bytes.DeepClone(), "Get DeepClone value");
         }
 
         [Test]
         public void TrimStartTest()
         {
-            Assert.AreEqual(new byte[] { 205, 91, 7 }, _bytes.TrimStart(21), $"Get TrimStart value");
+            Assert.AreEqual(new byte[] { 205, 91, 7 }, _bytes.TrimStart(21), "Get TrimStart value");
         }
 
         [Test]
         public void TrimEndTest()
         {
-            Assert.AreEqual(new byte[] { 21, 205, 91 }, _bytes.TrimEnd(7), $"Get TrimEnd value");
+            Assert.AreEqual(new byte[] { 21, 205, 91 }, _bytes.TrimEnd(7), "Get TrimEnd value");
         }
 
         [Test]
         public void TrimTest()
         {
-            Assert.AreEqual(new byte[] { 21, 205, 91, 7 }, _bytes.Trim(205), $"Get Trim value");
+            Assert.AreEqual(new byte[] { 21, 205, 91, 7 }, _bytes.Trim(205), "Get Trim value");
         }
 
         [TestCase(true, 7)]
         [TestCase(false, 21)]
         public void EndsWithTest(bool expected, byte input)
         {
-            Assert.AreEqual(expected, _bytes.EndsWith(input), $"Get EndsWith value");
+            Assert.AreEqual(expected, _bytes.EndsWith(input), "Get EndsWith value");
         }
 
         [TestCase(false, 7)]
         [TestCase(true, 21)]
         public void StartsWithTest(bool expected, byte input)
         {
-            Assert.AreEqual(expected, _bytes.StartsWith(input), $"Get StartsWith value");
+            Assert.AreEqual(expected, _bytes.StartsWith(input), "Get StartsWith value");
         }
 
         [TestCase(true, 91)]
         [TestCase(false, 92)]
         public void ContainsTest(bool expected, byte input)
         {
-            Assert.AreEqual(expected, _bytes.Contains(input), $"Get Contains value");
+            Assert.AreEqual(expected, _bytes.Contains(input), "Get Contains value");
         }
 
         [Test]
@@ -144,7 +146,67 @@ namespace Unosquare.Swan.Test
                 Assert.AreEqual(_bytes.Length, stream.Length, "Get Append value");
             }
         }
+
+        [Test]
+        public async Task ReadBytesAsyncWithBuffersizePartialTest()
+        {
+            var sampleFile = Path.GetTempFileName();
+            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Assert.IsTrue(File.Exists(sampleFile));
+
+            var currentAssembly = new FileStream(sampleFile, FileMode.Open);
+            var buffer = new byte[100];
+            await currentAssembly.ReadAsync(buffer, 0, 100);
+            currentAssembly.Position = 0;
+            var bufferAsync = await currentAssembly.ReadBytesAsync(100, 100);
+
+            Assert.AreEqual(buffer, bufferAsync);
+        }
+
+        [Test]
+        public async Task ReadBytesAsyncPartialTest()
+        {
+            var sampleFile = Path.GetTempFileName();
+            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Assert.IsTrue(File.Exists(sampleFile));
+
+            var currentAssembly = new FileStream(sampleFile, FileMode.Open);
+            var buffer = new byte[100];
+            await currentAssembly.ReadAsync(buffer, 0, 100);
+            currentAssembly.Position = 0;
+            var bufferAsync = await currentAssembly.ReadBytesAsync(100);
+
+            Assert.AreEqual(buffer, bufferAsync);
+        }
+        
+        [Test]
+        public async Task ReadBytesAsyncFullTest()
+        {
+            var sampleFile = Path.GetTempFileName();
+            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Assert.IsTrue(File.Exists(sampleFile));
+
+            var buffer = File.ReadAllBytes(sampleFile);
+            var currentAssembly = new FileStream(sampleFile, FileMode.Open);
+            
+            var bufferAsync = await currentAssembly.ReadBytesAsync((int) currentAssembly.Length);
+
+            Assert.AreEqual(buffer, bufferAsync);
+        }
+
+        [Test]
+        public async Task ReadBytesAsyncWithBuffersizeFullTest()
+        {
+            var sampleFile = Path.GetTempFileName();
+            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Assert.IsTrue(File.Exists(sampleFile));
+
+            var buffer = File.ReadAllBytes(sampleFile);
+            var currentAssembly = new FileStream(sampleFile, FileMode.Open);
+
+            var bufferAsync = await currentAssembly.ReadBytesAsync(currentAssembly.Length, 256);
+
+            Assert.AreEqual(buffer, bufferAsync);
+        }
     }
-
-
 }

@@ -6,6 +6,8 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     partial class Extensions
     {
@@ -239,20 +241,14 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
         /// <returns></returns>
-        public static bool StartsWith(this byte[] buffer, params byte[] sequence)
-        {
-            return buffer.GetIndexOf(sequence, 0) == 0;
-        }
+        public static bool StartsWith(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) == 0;
 
         /// <summary>
         /// Determines whether the buffer contains the specified sequence
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        public static bool Contains(this byte[] buffer, params byte[] sequence)
-        {
-            return buffer.GetIndexOf(sequence, 0) >= 0;
-        }
+        public static bool Contains(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) >= 0;
 
         /// <summary>
         /// Determines whether the buffer exactly matches, byte by byte the specified sequence.
@@ -409,6 +405,74 @@
         public static T[] SubArray<T>(this T[] array, long startIndex, long length)
         {
             return array.SubArray((int)startIndex, (int)length);
+        }
+
+        /// <summary>
+        /// Reads the bytes asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="bufferLength">Length of the buffer.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken ct = default(CancellationToken))
+        {
+            using (var dest = new MemoryStream())
+            {
+                try
+                {
+                    var buff = new byte[bufferLength];
+                    while (length > 0)
+                    {
+                        if (length < bufferLength)
+                            bufferLength = (int)length;
+
+                        var nread = await stream.ReadAsync(buff, 0, bufferLength, ct);
+                        if (nread == 0)
+                            break;
+
+                        dest.Write(buff, 0, nread);
+                        length -= nread;
+                    }
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                return dest.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Reads the bytes asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken ct = default(CancellationToken))
+        {
+            var buff = new byte[length];
+            var offset = 0;
+            try
+            {
+                while (length > 0)
+                {
+                    var nread = await stream.ReadAsync(buff, offset, length, ct);
+                    if (nread == 0)
+                        break;
+
+                    offset += nread;
+                    length -= nread;
+                }
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return buff.SubArray(0, offset);
         }
     }
 }
