@@ -10,6 +10,26 @@
         /// </summary>
         public static class Settings
         {
+            static Settings()
+            {
+                if (IsDebuggerAttached)
+                {
+                    DisplayLoggingMessageType =
+                        LogMessageType.Debug |
+                        LogMessageType.Error |
+                        LogMessageType.Info |
+                        LogMessageType.Trace |
+                        LogMessageType.Warning;
+                }
+                else
+                {
+                    DisplayLoggingMessageType =
+                        LogMessageType.Error |
+                        LogMessageType.Info |
+                        LogMessageType.Warning;
+                }
+            }
+
             /// <summary>
             /// Gets or sets the default output color.
             /// </summary>

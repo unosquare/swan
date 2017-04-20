@@ -52,6 +52,7 @@
 
         #endregion
 
+
         #region Constructors
 
         /// <summary>
@@ -63,23 +64,6 @@
             {
                 if (DequeueOutputTask != null)
                     return;
-
-                if (IsDebuggerAttached)
-                {
-                    Settings.DisplayLoggingMessageType =
-                        LogMessageType.Debug |
-                        LogMessageType.Error |
-                        LogMessageType.Info |
-                        LogMessageType.Trace |
-                        LogMessageType.Warning;
-                }
-                else
-                {
-                    Settings.DisplayLoggingMessageType =
-                        LogMessageType.Error |
-                        LogMessageType.Info |
-                        LogMessageType.Warning;
-                }
 
                 if (IsConsolePresent)
                 {
