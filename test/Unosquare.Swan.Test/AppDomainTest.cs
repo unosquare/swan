@@ -9,7 +9,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void GetAssembliesTest()
         {
-            var assemblies = Swan.Runtime.GetAssemblies();
+            var assemblies = Runtime.GetAssemblies();
 
             Assert.IsNotNull(assemblies);
             Assert.IsTrue(assemblies.Any());

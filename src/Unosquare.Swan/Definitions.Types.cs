@@ -10,6 +10,9 @@
     {
         #region Main Dictionary Definition
 
+        /// <summary>
+        /// The basic types information
+        /// </summary>
         public static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
             new Dictionary<Type, ExtendedTypeInfo> {
                 // Non-Nullables
