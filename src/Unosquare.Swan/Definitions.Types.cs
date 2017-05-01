@@ -10,7 +10,7 @@
     {
         #region Main Dictionary Definition
 
-        internal static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
+        public static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
             new Dictionary<Type, ExtendedTypeInfo> {
                 // Non-Nullables
                 { typeof(DateTime), new ExtendedTypeInfo<DateTime>() },
