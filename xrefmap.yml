@@ -5894,6 +5894,18 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.ToUInt32
   fullName: Unosquare.Swan.Extensions.ToUInt32
   nameWithType: Extensions.ToUInt32
+- uid: Unosquare.Swan.Extensions.ToUnixEpochDate(System.DateTime)
+  name: ToUnixEpochDate(DateTime)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUnixEpochDate_System_DateTime_
+  commentId: M:Unosquare.Swan.Extensions.ToUnixEpochDate(System.DateTime)
+  fullName: Unosquare.Swan.Extensions.ToUnixEpochDate(System.DateTime)
+  nameWithType: Extensions.ToUnixEpochDate(DateTime)
+- uid: Unosquare.Swan.Extensions.ToUnixEpochDate*
+  name: ToUnixEpochDate
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUnixEpochDate_
+  commentId: Overload:Unosquare.Swan.Extensions.ToUnixEpochDate
+  fullName: Unosquare.Swan.Extensions.ToUnixEpochDate
+  nameWithType: Extensions.ToUnixEpochDate
 - uid: Unosquare.Swan.Extensions.ToUpperHex(System.Byte[],System.Boolean)
   name: ToUpperHex(Byte[], Boolean)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUpperHex_System_Byte___System_Boolean_

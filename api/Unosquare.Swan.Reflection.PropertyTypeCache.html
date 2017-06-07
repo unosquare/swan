@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class PropertyTypeCache
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.16.7.0">
+    <meta name="generator" content="docfx 2.18.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,301 +75,301 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              
-              <h1 id="Unosquare_Swan_Reflection_PropertyTypeCache" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache">Class PropertyTypeCache
-              </h1>
-              <div class="markdown level0 summary"><p>A thread-safe cache of properties belonging to a given type
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache">
+  
+  
+  <h1 id="Unosquare_Swan_Reflection_PropertyTypeCache" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache">Class PropertyTypeCache
+  </h1>
+  <div class="markdown level0 summary"><p>A thread-safe cache of properties belonging to a given type
 The Retrieve method is the most useful one in this class as it
 calls the retrieval process if the type is not contained
 in the cache.</p>
 </div>
-              <div class="markdown level0 conceptual"></div>
-              <div class="inheritance">
-                <h5>Inheritance</h5>
-                  <div class="level0"><span class="xref">System.Object</span></div>
-                  <div class="level1"><span class="xref">PropertyTypeCache</span></div>
-              </div>
-              <div class="inheritedMembers">
-                <h5>Inherited Members</h5>
-                <div>
-                  <span class="xref">System.Object.ToString()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.Equals(System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.GetHashCode()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.GetType()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.MemberwiseClone()</span>
-                </div>
-              </div>
-              <h6><strong>Namespace</strong>:Unosquare.Swan.Reflection</h6>
-              <h6><strong>Assembly</strong>:cs.temp.dll.dll</h6>
-              <h5 id="Unosquare_Swan_Reflection_PropertyTypeCache_syntax">Syntax</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public class PropertyTypeCache</code></pre>
-              </div>
-              <h3 id="properties">Properties
-              </h3>
-              
-              
-              <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Item_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Item*"></a>
-              <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Item_System_Type_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Item(System.Type)">Item[Type]</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> with the specified type.
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">PropertyTypeCache</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Reflection.html">Unosquare.Swan.Reflection</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Reflection_PropertyTypeCache_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PropertyTypeCache</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Item_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Item*"></a>
+  <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Item_System_Type_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Item(System.Type)">Item[Type]</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> with the specified type.
 If the properties are not available, it returns null.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public IEnumerable&lt;PropertyInfo&gt; this[Type type] { get; set; }</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">type</span></td>
-                    <td><p>The type.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;PropertyInfo&gt; this[Type type] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;</td>
-                    <td><p>The <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>.</p>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;</td>
+        <td><p>The <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h3 id="methods">Methods
-              </h3>
-              
-              
-              <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains*"></a>
-              <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains_System_Type_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains(System.Type)">Contains(Type)</h4>
-              <div class="markdown level1 summary"><p>Determines whether the cache contains the specified type.</p>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains*"></a>
+  <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains_System_Type_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains(System.Type)">Contains(Type)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the cache contains the specified type.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool Contains(Type type)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">type</span></td>
-                    <td><p>The type.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(Type type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains*"></a>
-              <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains__1" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains``1">Contains&lt;T&gt;()</h4>
-              <div class="markdown level1 summary"><p>Determines whether the cache contains the specified type.</p>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains*"></a>
+  <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Contains__1" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Contains``1">Contains&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Determines whether the cache contains the specified type.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool Contains&lt;T&gt;()</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve*"></a>
-              <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve_System_Type_System_Func_System_Collections_Generic_IEnumerable_System_Reflection_PropertyInfo___" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve(System.Type,System.Func{System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo}})">Retrieve(Type, Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt;)</h4>
-              <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains&lt;T&gt;()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve_System_Type_System_Func_System_Collections_Generic_IEnumerable_System_Reflection_PropertyInfo___" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve(System.Type,System.Func{System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo}})">Retrieve(Type, Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
 If the properties are not available, it calls the factory method to retrieve them
 and returns them as an array of PropertyInfo</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public PropertyInfo[] Retrieve(Type type, Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt; factory)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Type</span></td>
-                    <td><span class="parametername">type</span></td>
-                    <td><p>The type.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PropertyInfo[] Retrieve(Type type, Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt; factory)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;&gt;</td>
-                    <td><span class="parametername">factory</span></td>
-                    <td><p>The factory.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;&gt;</td>
+        <td><span class="parametername">factory</span></td>
+        <td><p>The factory.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Reflection.PropertyInfo</span>[]</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve*"></a>
-              <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve__1_System_Func_System_Collections_Generic_IEnumerable_System_Reflection_PropertyInfo___" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve``1(System.Func{System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo}})">Retrieve&lt;T&gt;(Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt;)</h4>
-              <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.PropertyInfo</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Reflection_PropertyTypeCache_Retrieve__1_System_Func_System_Collections_Generic_IEnumerable_System_Reflection_PropertyInfo___" data-uid="Unosquare.Swan.Reflection.PropertyTypeCache.Retrieve``1(System.Func{System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo}})">Retrieve&lt;T&gt;(Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
 If the properties are not available, it calls the factory method to retrieve them
 and returns them as an array of PropertyInfo</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public PropertyInfo[] Retrieve&lt;T&gt;(Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt; factory)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;&gt;</td>
-                    <td><span class="parametername">factory</span></td>
-                    <td><p>The factory.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PropertyInfo[] Retrieve&lt;T&gt;(Func&lt;IEnumerable&lt;PropertyInfo&gt;&gt; factory)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;&gt;</td>
+        <td><span class="parametername">factory</span></td>
+        <td><p>The factory.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Reflection.PropertyInfo</span>[]</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-                        </article>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.PropertyInfo</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

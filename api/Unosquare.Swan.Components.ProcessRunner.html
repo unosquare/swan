@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ProcessRunner
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.16.7.0">
+    <meta name="generator" content="docfx 2.18.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,248 +75,248 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              
-              <h1 id="Unosquare_Swan_Components_ProcessRunner" data-uid="Unosquare.Swan.Components.ProcessRunner">Class ProcessRunner
-              </h1>
-              <div class="markdown level0 summary"><p>Provides methods to help create external processes, and efficiently capture the
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.ProcessRunner">
+  
+  
+  <h1 id="Unosquare_Swan_Components_ProcessRunner" data-uid="Unosquare.Swan.Components.ProcessRunner">Class ProcessRunner
+  </h1>
+  <div class="markdown level0 summary"><p>Provides methods to help create external processes, and efficiently capture the
 standard error and standard output streams.</p>
 </div>
-              <div class="markdown level0 conceptual"></div>
-              <div class="inheritance">
-                <h5>Inheritance</h5>
-                  <div class="level0"><span class="xref">System.Object</span></div>
-                  <div class="level1"><span class="xref">ProcessRunner</span></div>
-              </div>
-              <div class="inheritedMembers">
-                <h5>Inherited Members</h5>
-                <div>
-                  <span class="xref">System.Object.ToString()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.Equals(System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.GetHashCode()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.GetType()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.MemberwiseClone()</span>
-                </div>
-              </div>
-              <h6><strong>Namespace</strong>:Unosquare.Swan.Components</h6>
-              <h6><strong>Assembly</strong>:cs.temp.dll.dll</h6>
-              <h5 id="Unosquare_Swan_Components_ProcessRunner_syntax">Syntax</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static class ProcessRunner</code></pre>
-              </div>
-              <h3 id="methods">Methods
-              </h3>
-              
-              
-              <a id="Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync*"></a>
-              <h4 id="Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.Threading.CancellationToken)">GetProcessOutputAsync(String, String, CancellationToken)</h4>
-              <div class="markdown level1 summary"><p>Runs the process asynchronously and if the exit code is 0,
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">ProcessRunner</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Components_ProcessRunner_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class ProcessRunner</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync*"></a>
+  <h4 id="Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.Threading.CancellationToken)">GetProcessOutputAsync(String, String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Runs the process asynchronously and if the exit code is 0,
 returns all of the standard output text. If the exit code is something other than 0
 it returns the contents of standard error.
 This method is meant to be used for programs that output a relatively small amount of text.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetProcessOutputAsync(string filename, string arguments = &quot;&quot;, CancellationToken ct = null)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">filename</span></td>
-                    <td><p>The filename.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetProcessOutputAsync(string filename, string arguments = &quot;&quot;, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filename</span></td>
+        <td><p>The filename.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">arguments</span></td>
-                    <td><p>The arguments.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">arguments</span></td>
+        <td><p>The arguments.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Threading.CancellationToken</span></td>
-                    <td><span class="parametername">ct</span></td>
-                    <td><p>The cancellation token.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync*"></a>
-              <h4 id="Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Threading.CancellationToken)">GetProcessResultAsync(String, String, CancellationToken)</h4>
-              <div class="markdown level1 summary"><p>Executes a process asynchronously and returns the text of the standard output and standard error streams
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync*"></a>
+  <h4 id="Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Threading.CancellationToken)">GetProcessResultAsync(String, String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Executes a process asynchronously and returns the text of the standard output and standard error streams
 along with the exit code. This method is meant to be used for programs that output a relatively small
 amount of text.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static Task&lt;ProcessResult&gt; GetProcessResultAsync(string filename, string arguments = &quot;&quot;, CancellationToken ct = null)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">filename</span></td>
-                    <td><p>The filename.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;ProcessResult&gt; GetProcessResultAsync(string filename, string arguments = &quot;&quot;, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filename</span></td>
+        <td><p>The filename.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">arguments</span></td>
-                    <td><p>The arguments.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">arguments</span></td>
+        <td><p>The arguments.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Threading.CancellationToken</span></td>
-                    <td><span class="parametername">ct</span></td>
-                    <td><p>The ct.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The ct.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.Swan.Components.ProcessResult.html">ProcessResult</a>&gt;</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_" data-uid="Unosquare.Swan.Components.ProcessRunner.RunProcessAsync*"></a>
-              <h4 id="Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_System_String_System_String_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_System_Boolean_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Boolean,System.Threading.CancellationToken)">RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Boolean, CancellationToken)</h4>
-              <div class="markdown level1 summary"><p>Runs an external process asynchronously, providing callbacks to
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.Swan.Components.ProcessResult.html">ProcessResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_" data-uid="Unosquare.Swan.Components.ProcessRunner.RunProcessAsync*"></a>
+  <h4 id="Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_System_String_System_String_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_System_Boolean_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Components.ProcessRunner.RunProcessAsync(System.String,System.String,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback,System.Boolean,System.Threading.CancellationToken)">RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Runs an external process asynchronously, providing callbacks to
 capture binary data from the standard error and standard output streams.
 The callbacks contain a reference to the process so you can respond to output or
 error streams by writing to the process&#39; input stream.
 The exit code (return value) will be -1 for forceful termination of the process</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static Task&lt;int&gt; RunProcessAsync(string filename, string arguments, ProcessRunner.ProcessDataReceivedCallback onOutputData, ProcessRunner.ProcessDataReceivedCallback onErrorData, bool syncEvents, CancellationToken ct)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">filename</span></td>
-                    <td><p>The filename.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;int&gt; RunProcessAsync(string filename, string arguments, ProcessRunner.ProcessDataReceivedCallback onOutputData, ProcessRunner.ProcessDataReceivedCallback onErrorData, bool syncEvents, CancellationToken ct)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filename</span></td>
+        <td><p>The filename.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">arguments</span></td>
-                    <td><p>The arguments.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">arguments</span></td>
+        <td><p>The arguments.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback.html">ProcessRunner.ProcessDataReceivedCallback</a></td>
-                    <td><span class="parametername">onOutputData</span></td>
-                    <td><p>The on output data.</p>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback.html">ProcessRunner.ProcessDataReceivedCallback</a></td>
+        <td><span class="parametername">onOutputData</span></td>
+        <td><p>The on output data.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback.html">ProcessRunner.ProcessDataReceivedCallback</a></td>
-                    <td><span class="parametername">onErrorData</span></td>
-                    <td><p>The on error data.</p>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.ProcessRunner.ProcessDataReceivedCallback.html">ProcessRunner.ProcessDataReceivedCallback</a></td>
+        <td><span class="parametername">onErrorData</span></td>
+        <td><p>The on error data.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><span class="parametername">syncEvents</span></td>
-                    <td><p>if set to <code>true</code> the next data callback will wait until the current one completes.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">syncEvents</span></td>
+        <td><p>if set to <code>true</code> the next data callback will wait until the current one completes.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Threading.CancellationToken</span></td>
-                    <td><span class="parametername">ct</span></td>
-                    <td><p>The ct.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The ct.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-                        </article>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

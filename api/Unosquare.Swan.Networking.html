@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace Unosquare.Swan.Networking
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.16.7.0">
+    <meta name="generator" content="docfx 2.18.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,17 +75,17 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              <h1 id="Unosquare_Swan_Networking" data-uid="Unosquare.Swan.Networking">Namespace Unosquare.Swan.Networking
-              </h1>
-              <div class="markdown level0 summary"></div>
-              <div class="markdown level0 conceptual"></div>
-              <div class="markdown level0 remarks"></div>
-                <h3 id="classes">Classes
-              </h3>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.Connection.html">Connection</a></h4>
-                  <section><p>Represents a network connection either on the server or on the client. It wraps a TcpClient
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking">
+  
+  <h1 id="Unosquare_Swan_Networking" data-uid="Unosquare.Swan.Networking">Namespace Unosquare.Swan.Networking
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Connection.html">Connection</a></h4>
+      <section><p>Represents a network connection either on the server or on the client. It wraps a TcpClient
 and its corresponding network streams. It is capable of working in 2 modes. Typically on the server side
 you will need to enable continuous reading and events. On the client side you may want to disable continuous reading
 and use the Read methods available. In continuous reading mode Read methods are not available and will throw
@@ -93,33 +93,33 @@ an invalid operation exceptions if they are used.
 Continuous Reading Mode: Subscribe to data reception events, it runs a background thread, don&#39;t use Read methods
 Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.ConnectionListener.html">ConnectionListener</a></h4>
-                  <section><p>TCP Listener manager with built-in events and asynchronous functionality.
+      <h4><a class="xref" href="Unosquare.Swan.Networking.ConnectionListener.html">ConnectionListener</a></h4>
+      <section><p>TCP Listener manager with built-in events and asynchronous functionality.
 This networking component is typically used when writing server software</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.DnsQueryResult.html">DnsQueryResult</a></h4>
-                  <section><p>Represents a response from a DNS server</p>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.DnsQueryResult.html">DnsQueryResult</a></h4>
+      <section><p>Represents a response from a DNS server</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.DnsRecord.html">DnsRecord</a></h4>
-                  <section><p>Represents a DNS record entry</p>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.DnsRecord.html">DnsRecord</a></h4>
+      <section><p>Represents a DNS record entry</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.JsonClient.html">JsonClient</a></h4>
-                  <section><p>Represents a HttpClient with extended methods to use with JSON payloads 
+      <h4><a class="xref" href="Unosquare.Swan.Networking.JsonClient.html">JsonClient</a></h4>
+      <section><p>Represents a HttpClient with extended methods to use with JSON payloads 
 and bearer tokens authentication</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.SmtpClient.html">SmtpClient</a></h4>
-                  <section><p>Represents a basic SMTP client that is capable of submitting messages to an SMTP server.</p>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.SmtpClient.html">SmtpClient</a></h4>
+      <section><p>Represents a basic SMTP client that is capable of submitting messages to an SMTP server.</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.SmtpServerReply.html">SmtpServerReply</a></h4>
-                  <section><p>Represents an SMTP server response object</p>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.SmtpServerReply.html">SmtpServerReply</a></h4>
+      <section><p>Represents an SMTP server response object</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.SmtpSessionState.html">SmtpSessionState</a></h4>
-                  <section><p>Represents the state of an SMTP session associated with a client</p>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.SmtpSessionState.html">SmtpSessionState</a></h4>
+      <section><p>Represents the state of an SMTP session associated with a client</p>
 </section>
-                  <h4><a class="xref" href="Unosquare.Swan.Networking.SnmpClient.html">SnmpClient</a></h4>
-                  <section><p>Represents a little SNMP client based on <a href="http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm">http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm</a></p>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.SnmpClient.html">SnmpClient</a></h4>
+      <section><p>Represents a little SNMP client based on <a href="http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm">http://www.java2s.com/Code/CSharp/Network/SimpleSNMP.htm</a></p>
 </section>
-                        </article>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

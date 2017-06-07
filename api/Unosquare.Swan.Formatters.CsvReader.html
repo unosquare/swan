@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class CsvReader
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.16.7.0">
+    <meta name="generator" content="docfx 2.18.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,875 +75,875 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              
-              <h1 id="Unosquare_Swan_Formatters_CsvReader" data-uid="Unosquare.Swan.Formatters.CsvReader">Class CsvReader
-              </h1>
-              <div class="markdown level0 summary"><p>Represents a reader designed for CSV text.
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Formatters.CsvReader">
+  
+  
+  <h1 id="Unosquare_Swan_Formatters_CsvReader" data-uid="Unosquare.Swan.Formatters.CsvReader">Class CsvReader
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a reader designed for CSV text.
 It is capable of deserializing objects from individual lines of CSV text,
 transforming CSV lines of text into objects,
 or simply reading the lines of CSV as an array of strings</p>
 </div>
-              <div class="markdown level0 conceptual"></div>
-              <div class="inheritance">
-                <h5>Inheritance</h5>
-                  <div class="level0"><span class="xref">System.Object</span></div>
-                  <div class="level1"><span class="xref">CsvReader</span></div>
-              </div>
-              <div class="inheritedMembers">
-                <h5>Inherited Members</h5>
-                <div>
-                  <span class="xref">System.Object.ToString()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.Equals(System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.GetHashCode()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.GetType()</span>
-                </div>
-                <div>
-                  <span class="xref">System.Object.MemberwiseClone()</span>
-                </div>
-              </div>
-              <h6><strong>Namespace</strong>:Unosquare.Swan.Formatters</h6>
-              <h6><strong>Assembly</strong>:cs.temp.dll.dll</h6>
-              <h5 id="Unosquare_Swan_Formatters_CsvReader_syntax">Syntax</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public class CsvReader : IDisposable</code></pre>
-              </div>
-              <h3 id="constructors">Constructors
-              </h3>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_IO_Stream_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.IO.Stream)">CsvReader(Stream)</h4>
-              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">CsvReader</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Formatters.html">Unosquare.Swan.Formatters</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Formatters_CsvReader_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CsvReader : IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_IO_Stream_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.IO.Stream)">CsvReader(Stream)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
 It automatically closes the stream when disposing this reader
 and uses the Windows 1253 encoding</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public CsvReader(Stream stream)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.IO.Stream</span></td>
-                    <td><span class="parametername">stream</span></td>
-                    <td><p>The stream.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CsvReader(Stream stream)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_IO_Stream_System_Boolean_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.IO.Stream,System.Boolean,System.Text.Encoding)">CsvReader(Stream, Boolean, Encoding)</h4>
-              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.</p>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_IO_Stream_System_Boolean_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.IO.Stream,System.Boolean,System.Text.Encoding)">CsvReader(Stream, Boolean, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public CsvReader(Stream inputStream, bool leaveOpen, Encoding textEncoding)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.IO.Stream</span></td>
-                    <td><span class="parametername">inputStream</span></td>
-                    <td><p>The stream.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CsvReader(Stream inputStream, bool leaveOpen, Encoding textEncoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">inputStream</span></td>
+        <td><p>The stream.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><span class="parametername">leaveOpen</span></td>
-                    <td><p>if set to <code>true</code> leaves the input stream open</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">leaveOpen</span></td>
+        <td><p>if set to <code>true</code> leaves the input stream open</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Text.Encoding</span></td>
-                    <td><span class="parametername">textEncoding</span></td>
-                    <td><p>The text encoding.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Text.Encoding</span></td>
+        <td><span class="parametername">textEncoding</span></td>
+        <td><p>The text encoding.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_IO_Stream_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.IO.Stream,System.Text.Encoding)">CsvReader(Stream, Encoding)</h4>
-              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_IO_Stream_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.IO.Stream,System.Text.Encoding)">CsvReader(Stream, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
 It will automatically close the stream upon disposing</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public CsvReader(Stream stream, Encoding textEncoding)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.IO.Stream</span></td>
-                    <td><span class="parametername">stream</span></td>
-                    <td><p>The stream.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CsvReader(Stream stream, Encoding textEncoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Text.Encoding</span></td>
-                    <td><span class="parametername">textEncoding</span></td>
-                    <td><p>The text encoding.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Text.Encoding</span></td>
+        <td><span class="parametername">textEncoding</span></td>
+        <td><p>The text encoding.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_String_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.String)">CsvReader(String)</h4>
-              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_String_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.String)">CsvReader(String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
 It uses the Windows 1252 Encoding by default and it automatically closes the file
 when this reader is disposed of.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public CsvReader(string filename)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">filename</span></td>
-                    <td><p>The filename.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CsvReader(string filename)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filename</span></td>
+        <td><p>The filename.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_String_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.String,System.Text.Encoding)">CsvReader(String, Encoding)</h4>
-              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader__ctor_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader__ctor_System_String_System_Text_Encoding_" data-uid="Unosquare.Swan.Formatters.CsvReader.#ctor(System.String,System.Text.Encoding)">CsvReader(String, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Formatters.CsvReader.html">CsvReader</a> class.
 It automatically closes the file when disposing this reader</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public CsvReader(string filename, Encoding encoding)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">filename</span></td>
-                    <td><p>The filename.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CsvReader(string filename, Encoding encoding)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filename</span></td>
+        <td><p>The filename.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Text.Encoding</span></td>
-                    <td><span class="parametername">encoding</span></td>
-                    <td><p>The encoding.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Text.Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>The encoding.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h3 id="properties">Properties
-              </h3>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_Count_" data-uid="Unosquare.Swan.Formatters.CsvReader.Count*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_Count" data-uid="Unosquare.Swan.Formatters.CsvReader.Count">Count</h4>
-              <div class="markdown level1 summary"><p>Gets number of lines that have been read, including the headings</p>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_Count_" data-uid="Unosquare.Swan.Formatters.CsvReader.Count*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_Count" data-uid="Unosquare.Swan.Formatters.CsvReader.Count">Count</h4>
+  <div class="markdown level1 summary"><p>Gets number of lines that have been read, including the headings</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public ulong Count { get; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.UInt64</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_EndOfStream_" data-uid="Unosquare.Swan.Formatters.CsvReader.EndOfStream*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_EndOfStream" data-uid="Unosquare.Swan.Formatters.CsvReader.EndOfStream">EndOfStream</h4>
-              <div class="markdown level1 summary"><p>Gets a value indicating whether the stream reader is at the end of the stream
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.UInt64</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_EndOfStream_" data-uid="Unosquare.Swan.Formatters.CsvReader.EndOfStream*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_EndOfStream" data-uid="Unosquare.Swan.Formatters.CsvReader.EndOfStream">EndOfStream</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the stream reader is at the end of the stream
 In other words, if no more data can be read, this will be set to true.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool EndOfStream { get; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><p><code>true</code> if [end of stream]; otherwise, <code>false</code>.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EndOfStream { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if [end of stream]; otherwise, <code>false</code>.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_EscapeCharacter_" data-uid="Unosquare.Swan.Formatters.CsvReader.EscapeCharacter*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_EscapeCharacter" data-uid="Unosquare.Swan.Formatters.CsvReader.EscapeCharacter">EscapeCharacter</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the escape character.
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_EscapeCharacter_" data-uid="Unosquare.Swan.Formatters.CsvReader.EscapeCharacter*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_EscapeCharacter" data-uid="Unosquare.Swan.Formatters.CsvReader.EscapeCharacter">EscapeCharacter</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the escape character.
 By default it is the double quote &#39;&quot;&#39;</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public char EscapeCharacter { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Char</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_SeparatorCharacter_" data-uid="Unosquare.Swan.Formatters.CsvReader.SeparatorCharacter*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_SeparatorCharacter" data-uid="Unosquare.Swan.Formatters.CsvReader.SeparatorCharacter">SeparatorCharacter</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the separator character.
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char EscapeCharacter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_SeparatorCharacter_" data-uid="Unosquare.Swan.Formatters.CsvReader.SeparatorCharacter*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_SeparatorCharacter" data-uid="Unosquare.Swan.Formatters.CsvReader.SeparatorCharacter">SeparatorCharacter</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the separator character.
 By default it is the comma character &#39;,&#39;</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public char SeparatorCharacter { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Char</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h3 id="methods">Methods
-              </h3>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_Dispose_" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_Dispose" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose">Dispose()</h4>
-              <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char SeparatorCharacter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_Dispose_" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_Dispose" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
-              </div>
-              <h5 class="implements">Implements</h5>
-                  <div><span class="xref">System.IDisposable.Dispose()</span></div>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_Dispose_" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_Dispose_System_Boolean_" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose(System.Boolean)">Dispose(Boolean)</h4>
-              <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">System.IDisposable.Dispose()</span></div>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_Dispose_" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_Dispose_System_Boolean_" data-uid="Unosquare.Swan.Formatters.CsvReader.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td><span class="parametername">disposing</span></td>
-                    <td><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">disposing</span></td>
+        <td><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_LoadRecords_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_LoadRecords__1_System_String_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords``1(System.String)">LoadRecords&lt;T&gt;(String)</h4>
-              <div class="markdown level1 summary"><p>Loads the records from the give file path.
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_LoadRecords_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_LoadRecords__1_System_String_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords``1(System.String)">LoadRecords&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Loads the records from the give file path.
 This method uses Windows 1252 encoding</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public static IList&lt;T&gt; LoadRecords&lt;T&gt;(string filePath)where T : new ()</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">filePath</span></td>
-                    <td><p>The file path.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IList&lt;T&gt; LoadRecords&lt;T&gt;(string filePath)where T : new ()</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filePath</span></td>
+        <td><p>The file path.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_ReadHeadings_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadHeadings*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadHeadings" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadHeadings">ReadHeadings()</h4>
-              <div class="markdown level1 summary"><p>Reads a line of CSV text and stores the values read as a representation of the column names
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_ReadHeadings_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadHeadings*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadHeadings" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadHeadings">ReadHeadings()</h4>
+  <div class="markdown level1 summary"><p>Reads a line of CSV text and stores the values read as a representation of the column names
 to be used for parsing objects. You have to call this method before calling ReadObject methods.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public string[] ReadHeadings()</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span>[]</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.InvalidOperationException</span></td>
-                    <td><p>Reading headings is only supported as the first read operation.
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string[] ReadHeadings()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>Reading headings is only supported as the first read operation.
 or
 ReadHeadings</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.IO.EndOfStreamException</span></td>
-                    <td><p>Cannot read past the end of the stream</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IO.EndOfStreamException</span></td>
+        <td><p>Cannot read past the end of the stream</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_ReadLine_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadLine*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadLine" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadLine">ReadLine()</h4>
-              <div class="markdown level1 summary"><p>Reads a line of CSV text into an array of strings</p>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_ReadLine_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadLine*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadLine" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadLine">ReadLine()</h4>
+  <div class="markdown level1 summary"><p>Reads a line of CSV text into an array of strings</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public string[] ReadLine()</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span>[]</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.IO.EndOfStreamException</span></td>
-                    <td><p>Cannot read past the end of the stream</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string[] ReadLine()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.EndOfStreamException</span></td>
+        <td><p>Cannot read past the end of the stream</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject">ReadObject()</h4>
-              <div class="markdown level1 summary"><p>Reads a line of CSV text, converting it into a dynamic object
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject">ReadObject()</h4>
+  <div class="markdown level1 summary"><p>Reads a line of CSV text, converting it into a dynamic object
 The property names correspond to the names of the CSV headings</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public IDictionary&lt;string, object&gt; ReadObject()</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject_System_Collections_Generic_IDictionary_System_String_System_String__" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject(System.Collections.Generic.IDictionary{System.String,System.String})">ReadObject(IDictionary&lt;String, String&gt;)</h4>
-              <div class="markdown level1 summary"><p>Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDictionary&lt;string, object&gt; ReadObject()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject_System_Collections_Generic_IDictionary_System_String_System_String__" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject(System.Collections.Generic.IDictionary{System.String,System.String})">ReadObject(IDictionary&lt;String, String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public IDictionary&lt;string, object&gt; ReadObject(IDictionary&lt;string, string&gt; map)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.String</span>&gt;</td>
-                    <td><span class="parametername">map</span></td>
-                    <td><p>The mappings between CSV headings (keys) and object properties (values)</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDictionary&lt;string, object&gt; ReadObject(IDictionary&lt;string, string&gt; map)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">map</span></td>
+        <td><p>The mappings between CSV headings (keys) and object properties (values)</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.InvalidOperationException</span></td>
-                    <td><p>ReadHeadings</p>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>ReadHeadings</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.IO.EndOfStreamException</span></td>
-                    <td><p>Cannot read past the end of the stream</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IO.EndOfStreamException</span></td>
+        <td><p>Cannot read past the end of the stream</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.ArgumentNullException</span></td>
-                    <td><p>map</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>map</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject__1" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject``1">ReadObject&lt;T&gt;()</h4>
-              <div class="markdown level1 summary"><p>Reads a line of CSV text converting it into an object of the given type, and assuming
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject__1" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject``1">ReadObject&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Reads a line of CSV text converting it into an object of the given type, and assuming
 the property names of the target type match the heading names of the file.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;()where T : new ()</code></pre>
-              </div>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject__1_System_Collections_Generic_IDictionary_System_String_System_String__" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject``1(System.Collections.Generic.IDictionary{System.String,System.String})">ReadObject&lt;T&gt;(IDictionary&lt;String, String&gt;)</h4>
-              <div class="markdown level1 summary"><p>Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;()where T : new ()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject__1_System_Collections_Generic_IDictionary_System_String_System_String__" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject``1(System.Collections.Generic.IDictionary{System.String,System.String})">ReadObject&lt;T&gt;(IDictionary&lt;String, String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
 where the keys are the names of the headings and the values are the names of the instance properties
 in the given Type.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;(IDictionary&lt;string, string&gt; map)where T : new ()</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.String</span>&gt;</td>
-                    <td><span class="parametername">map</span></td>
-                    <td><p>The map of CSV headings (keys) and Type property names (values).</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;(IDictionary&lt;string, string&gt; map)where T : new ()</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">map</span></td>
+        <td><p>The map of CSV headings (keys) and Type property names (values).</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.ArgumentNullException</span></td>
-                    <td><p>map</p>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>map</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.InvalidOperationException</span></td>
-                    <td><p>ReadHeadings</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>ReadHeadings</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.IO.EndOfStreamException</span></td>
-                    <td><p>Cannot read past the end of the stream</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IO.EndOfStreamException</span></td>
+        <td><p>Cannot read past the end of the stream</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject__1_System_Collections_Generic_IDictionary_System_String_System_String____0__" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject``1(System.Collections.Generic.IDictionary{System.String,System.String},``0@)">ReadObject&lt;T&gt;(IDictionary&lt;String, String&gt;, ref T)</h4>
-              <div class="markdown level1 summary"><p>Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_ReadObject_" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_ReadObject__1_System_Collections_Generic_IDictionary_System_String_System_String____0__" data-uid="Unosquare.Swan.Formatters.CsvReader.ReadObject``1(System.Collections.Generic.IDictionary{System.String,System.String},``0@)">ReadObject&lt;T&gt;(IDictionary&lt;String, String&gt;, ref T)</h4>
+  <div class="markdown level1 summary"><p>Reads a line of CSV text converting it into an object of the given type, using a map (or Dictionary)
 where the keys are the names of the headings and the values are the names of the instance properties
 in the given Type. The result object must be already instantiated.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void ReadObject&lt;T&gt;(IDictionary&lt;string, string&gt; map, ref T result)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.String</span>&gt;</td>
-                    <td><span class="parametername">map</span></td>
-                    <td><p>The map.</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadObject&lt;T&gt;(IDictionary&lt;string, string&gt; map, ref T result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">map</span></td>
+        <td><p>The map.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">T</span></td>
-                    <td><span class="parametername">result</span></td>
-                    <td><p>The result.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="typeParameters">Type Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="parametername">T</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.ArgumentNullException</span></td>
-                    <td><p>map
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>map
 or
 result</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.InvalidOperationException</span></td>
-                    <td><p>ReadHeadings</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>ReadHeadings</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.IO.EndOfStreamException</span></td>
-                    <td><p>Cannot read past the end of the stream</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IO.EndOfStreamException</span></td>
+        <td><p>Cannot read past the end of the stream</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              
-              
-              <a id="Unosquare_Swan_Formatters_CsvReader_SkipRecord_" data-uid="Unosquare.Swan.Formatters.CsvReader.SkipRecord*"></a>
-              <h4 id="Unosquare_Swan_Formatters_CsvReader_SkipRecord" data-uid="Unosquare.Swan.Formatters.CsvReader.SkipRecord">SkipRecord()</h4>
-              <div class="markdown level1 summary"><p>Skips a line of CSV text.
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_SkipRecord_" data-uid="Unosquare.Swan.Formatters.CsvReader.SkipRecord*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_SkipRecord" data-uid="Unosquare.Swan.Formatters.CsvReader.SkipRecord">SkipRecord()</h4>
+  <div class="markdown level1 summary"><p>Skips a line of CSV text.
 This operation does not increment the Count property and it is useful when you need to read the headings
 skipping over a few lines as Reading headings is only supported as the first read operation (i.e. while count is still 0)</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public void SkipRecord()</code></pre>
-              </div>
-              <h5 class="exceptions">Exceptions</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.IO.EndOfStreamException</span></td>
-                    <td><p>Cannot read past the end of the stream</p>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SkipRecord()</code></pre>
+  </div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.EndOfStreamException</span></td>
+        <td><p>Cannot read past the end of the stream</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h3 id="seealso">See Also</h3>
-              <div class="seealso">
-                  <div><span class="xref">System.IDisposable</span></div>
-              </div>
-                        </article>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">System.IDisposable</span></div>
+  </div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
