@@ -86,7 +86,7 @@
         {
             return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
         }
-        
+
         /// <summary>
         /// Rounds up a date to match a timespan.
         /// </summary>
@@ -98,13 +98,20 @@
             return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
         }
 
-#if NETSTANDARD1_6
         /// <summary>
         /// Get this datetime as a Unix epoch timestamp (seconds since Jan 1, 1970, midnight UTC).
         /// </summary>
         /// <param name="date">The date to convert.</param>
         /// <returns>Seconds since Unix epoch.</returns>
-        public static long ToUnixEpochDate(this DateTime date) => new DateTimeOffset(date).ToUniversalTime().ToUnixTimeSeconds();
+        public static long ToUnixEpochDate(this DateTime date)
+        {
+#if NETSTANDARD1_6
+            return new DateTimeOffset(date).ToUniversalTime().ToUnixTimeSeconds();
+#else
+            var epochTicks = new DateTime(1970, 1, 1).Ticks;
+
+            return (date.Ticks - epochTicks) / TimeSpan.TicksPerSecond;
 #endif
+        }
     }
 }
