@@ -68,4 +68,10 @@ namespace Unosquare.Swan.Test.Mocks
         [JsonProperty("ignoredData", true)]
         public string IgnoredData { get; set; }
     }
+
+    public class JsonFile
+    {
+        public string FileName { get; set; }
+        public string Buffer { get; set; }
+    }
 }

@@ -233,13 +233,13 @@
         /// Posts the file.
         /// </summary>
         /// <param name="url">The URL.</param>
-        /// <param name="image">The image.</param>
+        /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
         /// <returns></returns>
-        public static async Task<string> PostFile(string url, byte[] image, string fileName, string authorization = null)
+        public static async Task<string> PostFile(string url, byte[] buffer, string fileName, string authorization = null)
         {
-            return await Post<string>(url, new { Filename = fileName, Data = image }, authorization);
+            return await Post<string>(url, new { Filename = fileName, Data = buffer }, authorization);
         }
         #endregion
 
