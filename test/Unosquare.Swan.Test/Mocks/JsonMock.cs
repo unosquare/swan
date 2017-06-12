@@ -71,7 +71,7 @@ namespace Unosquare.Swan.Test.Mocks
 
     public class JsonFile
     {
-        public string FileName { get; set; }
-        public string Buffer { get; set; }
+        public string Filename { get; set; }
+        public byte[] Data { get; set; }       
     }
 }

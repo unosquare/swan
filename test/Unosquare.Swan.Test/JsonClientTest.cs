@@ -206,8 +206,6 @@ namespace Unosquare.Swan.Test
         {
             using (var webserver = new WebServer(DefaultPort))
             {
-                const string status = "OK";
-
                 byte[] buffer = new byte[20];
                 new Random().NextBytes(buffer);
 
@@ -215,17 +213,15 @@ namespace Unosquare.Swan.Test
                 {
                     var obj = ctx.ParseJson<JsonFile>();
                     Assert.IsNotNull(obj);
-                    obj.FileName = status;
                     ctx.JsonResponse(obj);
-
                     return true;
                 }));
 
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostFile(DefaultHttp, buffer, "Request");
-
+                var data = await JsonClient.PostFile(DefaultHttp, buffer, "filename");
+  
                 Assert.IsNotNull(data);
             }
         }
