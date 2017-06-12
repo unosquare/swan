@@ -34,7 +34,7 @@
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostString(url, payload, authorization, ct);
-
+            
             return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
 
@@ -237,9 +237,23 @@
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
         /// <returns></returns>
-        public static async Task<string> PostFile(string url, byte[] buffer, string fileName, string authorization = null)
+        public static async Task<string> PostFileString(string url, byte[] buffer, string fileName, string authorization = null)
         {
-            return await Post<string>(url, new { Filename = fileName, Data = buffer }, authorization);
+            return await PostString(url, new { Filename = fileName, Data = buffer }, authorization);
+        }
+
+        /// <summary>
+        /// Posts the file.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="authorization">The authorization.</param>
+        /// <returns></returns>
+        public static async Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
+        {
+            return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
         }
         #endregion
 

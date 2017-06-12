@@ -34,7 +34,7 @@ namespace Unosquare.Swan.Test
         {
             using (var webserver = new WebServer(DefaultPort))
             {
-                var responseObj = new Dictionary<string, object> {{ AuthorizationToken, "123"}};
+                var responseObj = new Dictionary<string, object> {{AuthorizationToken, "123"}};
 
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
@@ -90,7 +90,7 @@ namespace Unosquare.Swan.Test
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization) } });
+                    ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization)}});
 
                     return true;
                 }));
@@ -124,7 +124,7 @@ namespace Unosquare.Swan.Test
                 await Task.Delay(100);
 
                 await JsonClient.GetString(DefaultHttp, AuthorizationToken);
-                
+
                 Assert.IsTrue(ctxHeaders.Any());
                 Assert.IsTrue(ctxHeaders.Any(x => x.StartsWith(Authorization)));
             }
@@ -140,8 +140,8 @@ namespace Unosquare.Swan.Test
                 await JsonClient.GetString(DefaultHttp);
             });
 
-            Assert.ThrowsAsync<HttpRequestException>(async () => 
-            { 
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            {
                 await JsonClient.Get<BasicJson>(DefaultHttp);
             });
 
@@ -185,7 +185,7 @@ namespace Unosquare.Swan.Test
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> { { Authorization, ctx.RequestHeader(Authorization) } });
+                    ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization)}});
 
                     return true;
                 }));
@@ -202,11 +202,11 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task PostFileTest()
+        public async Task PostFileStringTest()
         {
             using (var webserver = new WebServer(DefaultPort))
             {
-                byte[] buffer = new byte[20];
+                var buffer = new byte[20];
                 new Random().NextBytes(buffer);
 
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
@@ -220,9 +220,35 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostFile(DefaultHttp, buffer, "filename");
-  
+                var data = await JsonClient.PostFileString(DefaultHttp, buffer, nameof(PostFileStringTest));
+
                 Assert.IsNotNull(data);
+            }
+        }
+
+        [Test]
+        public async Task PostFileTest()
+        {
+            using (var webserver = new WebServer(DefaultPort))
+            {
+                var buffer = new byte[20];
+                new Random().NextBytes(buffer);
+
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+                {
+                    var obj = ctx.ParseJson<JsonFile>();
+                    Assert.IsNotNull(obj);
+                    ctx.JsonResponse(obj);
+                    return true;
+                }));
+
+                webserver.RunAsync();
+                await Task.Delay(100);
+
+                var data = await JsonClient.PostFile<JsonFile>(DefaultHttp, buffer, nameof(PostFileStringTest));
+
+                Assert.IsNotNull(data);
+                Assert.AreEqual(data.Filename, nameof(PostFileStringTest));
             }
         }
     }
