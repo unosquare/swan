@@ -2268,6 +2268,171 @@ references:
   commentId: Overload:Unosquare.Swan.Components.ArgumentParserSettings.WriteBanner
   fullName: Unosquare.Swan.Components.ArgumentParserSettings.WriteBanner
   nameWithType: ArgumentParserSettings.WriteBanner
+- uid: Unosquare.Swan.Components.CircularBuffer
+  name: CircularBuffer
+  href: api/Unosquare.Swan.Components.CircularBuffer.html
+  commentId: T:Unosquare.Swan.Components.CircularBuffer
+  fullName: Unosquare.Swan.Components.CircularBuffer
+  nameWithType: CircularBuffer
+- uid: Unosquare.Swan.Components.CircularBuffer.#ctor(System.Int32)
+  name: CircularBuffer(Int32)
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer__ctor_System_Int32_
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.#ctor(System.Int32)
+  fullName: Unosquare.Swan.Components.CircularBuffer.CircularBuffer(System.Int32)
+  nameWithType: CircularBuffer.CircularBuffer(Int32)
+- uid: Unosquare.Swan.Components.CircularBuffer.#ctor*
+  name: CircularBuffer
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer__ctor_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.#ctor
+  fullName: Unosquare.Swan.Components.CircularBuffer.CircularBuffer
+  nameWithType: CircularBuffer.CircularBuffer
+- uid: Unosquare.Swan.Components.CircularBuffer.CapacityPercent
+  name: CapacityPercent
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_CapacityPercent
+  commentId: P:Unosquare.Swan.Components.CircularBuffer.CapacityPercent
+  fullName: Unosquare.Swan.Components.CircularBuffer.CapacityPercent
+  nameWithType: CircularBuffer.CapacityPercent
+- uid: Unosquare.Swan.Components.CircularBuffer.CapacityPercent*
+  name: CapacityPercent
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_CapacityPercent_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.CapacityPercent
+  fullName: Unosquare.Swan.Components.CircularBuffer.CapacityPercent
+  nameWithType: CircularBuffer.CapacityPercent
+- uid: Unosquare.Swan.Components.CircularBuffer.Clear
+  name: Clear()
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Clear
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.Clear
+  fullName: Unosquare.Swan.Components.CircularBuffer.Clear()
+  nameWithType: CircularBuffer.Clear()
+- uid: Unosquare.Swan.Components.CircularBuffer.Clear*
+  name: Clear
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Clear_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.Clear
+  fullName: Unosquare.Swan.Components.CircularBuffer.Clear
+  nameWithType: CircularBuffer.Clear
+- uid: Unosquare.Swan.Components.CircularBuffer.CopyMemory(System.IntPtr,System.IntPtr,System.UInt32)
+  name: CopyMemory(IntPtr, IntPtr, UInt32)
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_CopyMemory_System_IntPtr_System_IntPtr_System_UInt32_
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.CopyMemory(System.IntPtr,System.IntPtr,System.UInt32)
+  fullName: Unosquare.Swan.Components.CircularBuffer.CopyMemory(System.IntPtr, System.IntPtr, System.UInt32)
+  nameWithType: CircularBuffer.CopyMemory(IntPtr, IntPtr, UInt32)
+- uid: Unosquare.Swan.Components.CircularBuffer.CopyMemory*
+  name: CopyMemory
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_CopyMemory_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.CopyMemory
+  fullName: Unosquare.Swan.Components.CircularBuffer.CopyMemory
+  nameWithType: CircularBuffer.CopyMemory
+- uid: Unosquare.Swan.Components.CircularBuffer.Dispose
+  name: Dispose()
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Dispose
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.Dispose
+  fullName: Unosquare.Swan.Components.CircularBuffer.Dispose()
+  nameWithType: CircularBuffer.Dispose()
+- uid: Unosquare.Swan.Components.CircularBuffer.Dispose*
+  name: Dispose
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Dispose_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.Dispose
+  fullName: Unosquare.Swan.Components.CircularBuffer.Dispose
+  nameWithType: CircularBuffer.Dispose
+- uid: Unosquare.Swan.Components.CircularBuffer.Length
+  name: Length
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Length
+  commentId: P:Unosquare.Swan.Components.CircularBuffer.Length
+  fullName: Unosquare.Swan.Components.CircularBuffer.Length
+  nameWithType: CircularBuffer.Length
+- uid: Unosquare.Swan.Components.CircularBuffer.Length*
+  name: Length
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Length_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.Length
+  fullName: Unosquare.Swan.Components.CircularBuffer.Length
+  nameWithType: CircularBuffer.Length
+- uid: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32)
+  name: Read(Int32, Byte[], Int32)
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Read_System_Int32_System_Byte___System_Int32_
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.Read(System.Int32,System.Byte[],System.Int32)
+  name.vb: Read(Int32, Byte(), Int32)
+  fullName: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32, System.Byte[], System.Int32)
+  fullName.vb: Unosquare.Swan.Components.CircularBuffer.Read(System.Int32, System.Byte(), System.Int32)
+  nameWithType: CircularBuffer.Read(Int32, Byte[], Int32)
+  nameWithType.vb: CircularBuffer.Read(Int32, Byte(), Int32)
+- uid: Unosquare.Swan.Components.CircularBuffer.Read*
+  name: Read
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Read_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.Read
+  fullName: Unosquare.Swan.Components.CircularBuffer.Read
+  nameWithType: CircularBuffer.Read
+- uid: Unosquare.Swan.Components.CircularBuffer.ReadableCount
+  name: ReadableCount
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_ReadableCount
+  commentId: P:Unosquare.Swan.Components.CircularBuffer.ReadableCount
+  fullName: Unosquare.Swan.Components.CircularBuffer.ReadableCount
+  nameWithType: CircularBuffer.ReadableCount
+- uid: Unosquare.Swan.Components.CircularBuffer.ReadableCount*
+  name: ReadableCount
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_ReadableCount_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.ReadableCount
+  fullName: Unosquare.Swan.Components.CircularBuffer.ReadableCount
+  nameWithType: CircularBuffer.ReadableCount
+- uid: Unosquare.Swan.Components.CircularBuffer.ReadIndex
+  name: ReadIndex
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_ReadIndex
+  commentId: P:Unosquare.Swan.Components.CircularBuffer.ReadIndex
+  fullName: Unosquare.Swan.Components.CircularBuffer.ReadIndex
+  nameWithType: CircularBuffer.ReadIndex
+- uid: Unosquare.Swan.Components.CircularBuffer.ReadIndex*
+  name: ReadIndex
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_ReadIndex_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.ReadIndex
+  fullName: Unosquare.Swan.Components.CircularBuffer.ReadIndex
+  nameWithType: CircularBuffer.ReadIndex
+- uid: Unosquare.Swan.Components.CircularBuffer.WritableCount
+  name: WritableCount
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_WritableCount
+  commentId: P:Unosquare.Swan.Components.CircularBuffer.WritableCount
+  fullName: Unosquare.Swan.Components.CircularBuffer.WritableCount
+  nameWithType: CircularBuffer.WritableCount
+- uid: Unosquare.Swan.Components.CircularBuffer.WritableCount*
+  name: WritableCount
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_WritableCount_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.WritableCount
+  fullName: Unosquare.Swan.Components.CircularBuffer.WritableCount
+  nameWithType: CircularBuffer.WritableCount
+- uid: Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32,System.TimeSpan)
+  name: Write(IntPtr, Int32, TimeSpan)
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Write_System_IntPtr_System_Int32_System_TimeSpan_
+  commentId: M:Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr,System.Int32,System.TimeSpan)
+  fullName: Unosquare.Swan.Components.CircularBuffer.Write(System.IntPtr, System.Int32, System.TimeSpan)
+  nameWithType: CircularBuffer.Write(IntPtr, Int32, TimeSpan)
+- uid: Unosquare.Swan.Components.CircularBuffer.Write*
+  name: Write
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_Write_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.Write
+  fullName: Unosquare.Swan.Components.CircularBuffer.Write
+  nameWithType: CircularBuffer.Write
+- uid: Unosquare.Swan.Components.CircularBuffer.WriteIndex
+  name: WriteIndex
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_WriteIndex
+  commentId: P:Unosquare.Swan.Components.CircularBuffer.WriteIndex
+  fullName: Unosquare.Swan.Components.CircularBuffer.WriteIndex
+  nameWithType: CircularBuffer.WriteIndex
+- uid: Unosquare.Swan.Components.CircularBuffer.WriteIndex*
+  name: WriteIndex
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_WriteIndex_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.WriteIndex
+  fullName: Unosquare.Swan.Components.CircularBuffer.WriteIndex
+  nameWithType: CircularBuffer.WriteIndex
+- uid: Unosquare.Swan.Components.CircularBuffer.WriteTag
+  name: WriteTag
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_WriteTag
+  commentId: P:Unosquare.Swan.Components.CircularBuffer.WriteTag
+  fullName: Unosquare.Swan.Components.CircularBuffer.WriteTag
+  nameWithType: CircularBuffer.WriteTag
+- uid: Unosquare.Swan.Components.CircularBuffer.WriteTag*
+  name: WriteTag
+  href: api/Unosquare.Swan.Components.CircularBuffer.html#Unosquare_Swan_Components_CircularBuffer_WriteTag_
+  commentId: Overload:Unosquare.Swan.Components.CircularBuffer.WriteTag
+  fullName: Unosquare.Swan.Components.CircularBuffer.WriteTag
+  nameWithType: CircularBuffer.WriteTag
 - uid: Unosquare.Swan.Components.DependencyContainer
   name: DependencyContainer
   href: api/Unosquare.Swan.Components.DependencyContainer.html
@@ -8009,21 +8174,36 @@ references:
   fullName.vb: Unosquare.Swan.Networking.JsonClient.Post(Of T)(System.String, System.Object, System.String, System.Threading.CancellationToken)
   nameWithType: JsonClient.Post<T>(String, Object, String, CancellationToken)
   nameWithType.vb: JsonClient.Post(Of T)(String, Object, String, CancellationToken)
-- uid: Unosquare.Swan.Networking.JsonClient.PostFile(System.String,System.Byte[],System.String,System.String)
-  name: PostFile(String, Byte[], String, String)
-  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFile_System_String_System_Byte___System_String_System_String_
-  commentId: M:Unosquare.Swan.Networking.JsonClient.PostFile(System.String,System.Byte[],System.String,System.String)
-  name.vb: PostFile(String, Byte(), String, String)
-  fullName: Unosquare.Swan.Networking.JsonClient.PostFile(System.String, System.Byte[], System.String, System.String)
-  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostFile(System.String, System.Byte(), System.String, System.String)
-  nameWithType: JsonClient.PostFile(String, Byte[], String, String)
-  nameWithType.vb: JsonClient.PostFile(String, Byte(), String, String)
 - uid: Unosquare.Swan.Networking.JsonClient.PostFile*
   name: PostFile
   href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFile_
   commentId: Overload:Unosquare.Swan.Networking.JsonClient.PostFile
   fullName: Unosquare.Swan.Networking.JsonClient.PostFile
   nameWithType: JsonClient.PostFile
+- uid: Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String)
+  name: PostFile<T>(String, Byte[], String, String)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFile__1_System_String_System_Byte___System_String_System_String_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String)
+  name.vb: PostFile(Of T)(String, Byte(), String, String)
+  fullName: Unosquare.Swan.Networking.JsonClient.PostFile<T>(System.String, System.Byte[], System.String, System.String)
+  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostFile(Of T)(System.String, System.Byte(), System.String, System.String)
+  nameWithType: JsonClient.PostFile<T>(String, Byte[], String, String)
+  nameWithType.vb: JsonClient.PostFile(Of T)(String, Byte(), String, String)
+- uid: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String)
+  name: PostFileString(String, Byte[], String, String)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFileString_System_String_System_Byte___System_String_System_String_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String)
+  name.vb: PostFileString(String, Byte(), String, String)
+  fullName: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String, System.Byte[], System.String, System.String)
+  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostFileString(System.String, System.Byte(), System.String, System.String)
+  nameWithType: JsonClient.PostFileString(String, Byte[], String, String)
+  nameWithType.vb: JsonClient.PostFileString(String, Byte(), String, String)
+- uid: Unosquare.Swan.Networking.JsonClient.PostFileString*
+  name: PostFileString
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostFileString_
+  commentId: Overload:Unosquare.Swan.Networking.JsonClient.PostFileString
+  fullName: Unosquare.Swan.Networking.JsonClient.PostFileString
+  nameWithType: JsonClient.PostFileString
 - uid: Unosquare.Swan.Networking.JsonClient.PostString(System.String,System.Object,System.String,System.Threading.CancellationToken)
   name: PostString(String, Object, String, CancellationToken)
   href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostString_System_String_System_Object_System_String_System_Threading_CancellationToken_

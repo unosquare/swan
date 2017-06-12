@@ -584,13 +584,90 @@ with optional authorization token.</p>
   
   
   <a id="Unosquare_Swan_Networking_JsonClient_PostFile_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFile*"></a>
-  <h4 id="Unosquare_Swan_Networking_JsonClient_PostFile_System_String_System_Byte___System_String_System_String_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFile(System.String,System.Byte[],System.String,System.String)">PostFile(String, Byte[], String, String)</h4>
+  <h4 id="Unosquare_Swan_Networking_JsonClient_PostFile__1_System_String_System_Byte___System_String_System_String_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFile``1(System.String,System.Byte[],System.String,System.String)">PostFile&lt;T&gt;(String, Byte[], String, String)</h4>
   <div class="markdown level1 summary"><p>Posts the file.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFile(string url, byte[] buffer, string fileName, string authorization = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; PostFile&lt;T&gt;(string url, byte[] buffer, string fileName, string authorization = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">url</span></td>
+        <td><p>The URL.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>The buffer.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileName</span></td>
+        <td><p>Name of the file.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">authorization</span></td>
+        <td><p>The authorization.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_JsonClient_PostFileString_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFileString*"></a>
+  <h4 id="Unosquare_Swan_Networking_JsonClient_PostFileString_System_String_System_Byte___System_String_System_String_" data-uid="Unosquare.Swan.Networking.JsonClient.PostFileString(System.String,System.Byte[],System.String,System.String)">PostFileString(String, Byte[], String, String)</h4>
+  <div class="markdown level1 summary"><p>Posts the file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostFileString(string url, byte[] buffer, string fileName, string authorization = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
