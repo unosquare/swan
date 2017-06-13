@@ -34,9 +34,9 @@ PM> Install-Package Unosquare.Swan.AspNetCore
 In this section we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
 SWAN won't force you to use any of its components, classes or methods.
 
-### The `CurrentApp`
+### The `Runtime`
 
-`CurrentApp` provides properties and methods that provide information about 
+`Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan as `ObjectMapper`.
 
 ### The `Terminal`
 
