@@ -15,7 +15,8 @@ namespace Unosquare.Swan.Test
     {
         private const int TotalRows = 100;
         private readonly List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-
+        private readonly string[] headers = new string[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
+        
         [Test]
         public void ConstructorTest()
         {
@@ -54,8 +55,7 @@ namespace Unosquare.Swan.Test
         public void ReadLineTest()
         {
             var tempFile = Path.GetTempFileName();
-            var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
-
+            
             using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
             {
                 var reader = new CsvReader(stream);
@@ -107,7 +107,6 @@ namespace Unosquare.Swan.Test
         public void ReadHedingsTest()
         {
             var tempFile = Path.GetTempFileName();
-            var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
 
             using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
             {
@@ -122,7 +121,6 @@ namespace Unosquare.Swan.Test
         public void ReadHedingsInvalidOperation()
         {
             var tempFile = Path.GetTempFileName();
-            var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
 
             using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
             {
@@ -142,7 +140,6 @@ namespace Unosquare.Swan.Test
         public void ReadObjectTest()
         {
             var tempFile = Path.GetTempFileName();
-            var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
             var savedRecordCount = CsvWriter.SaveRecords(_generatedRecords, tempFile);
             var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
 
