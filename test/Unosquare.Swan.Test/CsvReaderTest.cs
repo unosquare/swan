@@ -54,6 +54,20 @@ namespace Unosquare.Swan.Test
         public void ReadLineTest()
         {
             var tempFile = Path.GetTempFileName();
+            var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
+
+            using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
+            {
+                var reader = new CsvReader(stream);
+                var line = reader.ReadLine();
+                Assert.IsNotEmpty(line);
+            }
+        }
+
+        [Test]
+        public void ReadLineTestEndOfStreamException()
+        {
+            var tempFile = Path.GetTempFileName();
 
             var reader = new CsvReader(tempFile);
             Assert.Throws<EndOfStreamException>(() => {
@@ -90,18 +104,55 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void ReadHedings()
+        public void ReadHedingsTest()
         {
             var tempFile = Path.GetTempFileName();
             var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
 
-            using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join("",headers)))
+            using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
             {
-                var reader = new CsvReader(tempFile);
+                var reader = new CsvReader(stream);
+                var headings = reader.ReadHeadings();
+                Assert.IsNotNull(headings);
+                Assert.AreEqual(headers, headings);
+            }
+        }
+
+        [Test]
+        public void ReadHedingsInvalidOperation()
+        {
+            var tempFile = Path.GetTempFileName();
+            var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
+
+            using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
+            {
+                var reader = new CsvReader(stream);
                 var headings = reader.ReadHeadings();
 
                 Assert.IsNotNull(headings);
                 Assert.AreEqual(headers, headings);
+
+                Assert.Throws<InvalidOperationException>(() => {
+                    reader.ReadHeadings();
+                });
+            }
+        }
+
+        [Test]
+        public void ReadObjectTest()
+        {
+            var tempFile = Path.GetTempFileName();
+            var headers = new String[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
+            var savedRecordCount = CsvWriter.SaveRecords(_generatedRecords, tempFile);
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            using (var stream = SampleCsvRecord.GenerateStreamFromList(loadedRecords))
+            {
+                var reader = new CsvReader(stream);
+                var headings = reader.ReadHeadings();
+                Assert.Throws<EndOfStreamException>(() => {
+                    var readObj = reader.ReadObject();
+                });                
             }
         }
     }

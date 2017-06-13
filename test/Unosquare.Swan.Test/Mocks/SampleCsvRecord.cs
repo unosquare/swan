@@ -73,6 +73,18 @@ namespace Unosquare.Swan.Test.Mocks
             writer.Flush();
             stream.Position = 0;
             return stream;
-        }   
+        }
+        public static Stream GenerateStreamFromList(IList<SampleCsvRecord> s, int maxSize = 10)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            for (int i = 0; i < maxSize; i++)
+            {
+                writer.Write(s[i]);
+            }            
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
     }
 }
