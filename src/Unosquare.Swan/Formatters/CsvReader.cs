@@ -485,7 +485,7 @@
                         case ReadState.PushingQuoted:
                             {
                                 // Handle field content delimiter by ending double quotes
-                                if (currentChar == escapeCharacter && nextChar.HasValue && nextChar != escapeCharacter)
+                                if (currentChar == escapeCharacter && (nextChar.HasValue == false || nextChar != escapeCharacter))
                                 {
                                     currentState = ReadState.PushingNormal;
                                     continue;

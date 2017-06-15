@@ -20,8 +20,6 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ConstructorTest()
         {
-            var tempFile = Path.GetTempFileName();
-                   
             using (var stream = SampleCsvRecord.GenerateStreamFromString("a,b \n c,d"))
             {
                 var reader = new CsvReader(stream, true, Encoding.ASCII);
@@ -32,12 +30,10 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ConstructorStreamNull()
         {
-            using (var stream = SampleCsvRecord.GenerateStreamFromString("a,b \n c,d"))
+            Assert.Throws<NullReferenceException>(() =>
             {
-                Assert.Throws<NullReferenceException>(() => {
-                    var streamNull = new CsvReader(null, true, Encoding.ASCII);
-                });
-            }           
+                var csvReader = new CsvReader(null, true, Encoding.ASCII);
+            });
         }
 
         [Test]
@@ -54,8 +50,6 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ReadLineTest()
         {
-            var tempFile = Path.GetTempFileName();
-            
             using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
             {
                 var reader = new CsvReader(stream);
@@ -106,8 +100,6 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ReadHedingsTest()
         {
-            var tempFile = Path.GetTempFileName();
-
             using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
             {
                 var reader = new CsvReader(stream);
@@ -120,8 +112,6 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ReadHedingsInvalidOperation()
         {
-            var tempFile = Path.GetTempFileName();
-
             using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
             {
                 var reader = new CsvReader(stream);
@@ -150,6 +140,22 @@ namespace Unosquare.Swan.Test
                 Assert.Throws<EndOfStreamException>(() => {
                     var readObj = reader.ReadObject();
                 });                
+            }
+        }
+
+        [Test]
+        public void QuotedTextTest()
+        {
+            var data =
+                @"Company,OpenPositions,MainTechnology,Revenue
+Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
+Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+            {
+                var reader =  new CsvReader(stream);
+                var headers = reader.ReadHeadings();
+                var firstLine = reader.ReadObject<SampleDto>();
             }
         }
     }

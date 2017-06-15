@@ -14,9 +14,9 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class JsonClientTest
     {
-        private static int Port = 8080;
-        private int DefaultPort;
-        private string DefaultHttp;
+        private static int _port = 8080;
+        private int _defaultPort;
+        private string _defaultHttp;
 
         private const string Authorization = "Authorization";
         private const string AuthorizationToken = "Token";
@@ -24,15 +24,15 @@ namespace Unosquare.Swan.Test
         [SetUp]
         public void SetupWebServer()
         {
-            Port++;
-            DefaultPort = Port;
-            DefaultHttp = "http://localhost:" + DefaultPort;
+            _port++;
+            _defaultPort = _port;
+            _defaultHttp = "http://localhost:" + _defaultPort;
         }
 
         [Test]
         public async Task AuthenticationTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var responseObj = new Dictionary<string, object> {{AuthorizationToken, "123"}};
 
@@ -48,7 +48,7 @@ namespace Unosquare.Swan.Test
 
                 webserver.RunAsync();
 
-                var data = await JsonClient.Authenticate(DefaultHttp, "admin", "password");
+                var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
 
                 Assert.IsNotNull(data);
                 Assert.IsTrue(data.ContainsKey(AuthorizationToken));
@@ -59,7 +59,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 const string status = "OK";
 
@@ -76,7 +76,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.Post<BasicJson>(DefaultHttp, BasicJson.GetDefault());
+                var data = await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
 
                 Assert.IsNotNull(data);
                 Assert.AreEqual(status, data.StringData);
@@ -86,7 +86,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
@@ -98,7 +98,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(500);
 
-                var data = await JsonClient.Post(DefaultHttp, BasicJson.GetDefault(), AuthorizationToken);
+                var data = await JsonClient.Post(_defaultHttp, BasicJson.GetDefault(), AuthorizationToken);
 
                 Assert.IsNotNull(data);
                 Assert.IsTrue(data.ContainsKey(Authorization));
@@ -109,7 +109,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task GetWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var ctxHeaders = new List<string>();
 
@@ -123,7 +123,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                await JsonClient.GetString(DefaultHttp, AuthorizationToken);
+                await JsonClient.GetString(_defaultHttp, AuthorizationToken);
 
                 Assert.IsTrue(ctxHeaders.Any());
                 Assert.IsTrue(ctxHeaders.Any(x => x.StartsWith(Authorization)));
@@ -137,24 +137,24 @@ namespace Unosquare.Swan.Test
 
             Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
-                await JsonClient.GetString(DefaultHttp);
+                await JsonClient.GetString(_defaultHttp);
             });
 
             Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
-                await JsonClient.Get<BasicJson>(DefaultHttp);
+                await JsonClient.Get<BasicJson>(_defaultHttp);
             });
 
             Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
-                await JsonClient.GetBinary(DefaultHttp);
+                await JsonClient.GetBinary(_defaultHttp);
             });
         }
 
         [Test]
         public async Task PutTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 const string status = "OK";
 
@@ -171,7 +171,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.Put<BasicJson>(DefaultHttp, BasicJson.GetDefault());
+                var data = await JsonClient.Put<BasicJson>(_defaultHttp, BasicJson.GetDefault());
 
                 Assert.IsNotNull(data);
                 Assert.AreEqual(status, data.StringData);
@@ -181,7 +181,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PutWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
@@ -193,7 +193,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(500);
 
-                var data = await JsonClient.Put(DefaultHttp, BasicJson.GetDefault(), AuthorizationToken);
+                var data = await JsonClient.Put(_defaultHttp, BasicJson.GetDefault(), AuthorizationToken);
 
                 Assert.IsNotNull(data);
                 Assert.IsTrue(data.ContainsKey(Authorization));
@@ -204,7 +204,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostFileStringTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var buffer = new byte[20];
                 new Random().NextBytes(buffer);
@@ -220,7 +220,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostFileString(DefaultHttp, buffer, nameof(PostFileStringTest));
+                var data = await JsonClient.PostFileString(_defaultHttp, buffer, nameof(PostFileStringTest));
 
                 Assert.IsNotNull(data);
             }
@@ -229,7 +229,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostFileTest()
         {
-            using (var webserver = new WebServer(DefaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var buffer = new byte[20];
                 new Random().NextBytes(buffer);
@@ -245,7 +245,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostFile<JsonFile>(DefaultHttp, buffer, nameof(PostFileStringTest));
+                var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, nameof(PostFileStringTest));
 
                 Assert.IsNotNull(data);
                 Assert.AreEqual(data.Filename, nameof(PostFileStringTest));

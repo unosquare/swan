@@ -89,13 +89,15 @@
         /// <param name="identityResolver">The identity resolver.</param>
         /// <param name="bearerTokenResolver">The bearer token resolver.</param>
         /// <param name="expiration">The expiration.</param>
+        /// <param name="forceHttps">if set to <c>true</c> [force HTTPS].</param>
         /// <returns></returns>
         public static IApplicationBuilder UseBearerTokenProvider(this IApplicationBuilder app,
             TokenValidationParameters validationParameter,
             Func<string, string, string, string, Task<ClaimsIdentity>> identityResolver,
             Func<ClaimsIdentity, Dictionary<string, object>, Task<Dictionary<string, object>>> bearerTokenResolver =
                 null,
-            TimeSpan expiration = default(TimeSpan))
+            TimeSpan expiration = default(TimeSpan),
+            bool forceHttps = true)
         {
             if (bearerTokenResolver == null)
                 bearerTokenResolver = (identity, input) => Task.FromResult(input);
@@ -108,7 +110,8 @@
                     new SigningCredentials(validationParameter.IssuerSigningKey, SecurityAlgorithms.HmacSha256),
                 IdentityResolver = identityResolver,
                 BearerTokenResolver = bearerTokenResolver,
-                Expiration = expiration == default(TimeSpan) ? TimeSpan.FromMinutes(20) : expiration
+                Expiration = expiration == default(TimeSpan) ? TimeSpan.FromMinutes(20) : expiration,
+                ForceHttps = forceHttps
             }));
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions
