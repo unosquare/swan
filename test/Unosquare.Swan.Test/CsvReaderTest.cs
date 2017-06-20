@@ -15,12 +15,15 @@ namespace Unosquare.Swan.Test
     {
         private const int TotalRows = 100;
         private readonly List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-        private readonly string[] headers = new string[] { "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate", "AccessDate" };
-        
+        private readonly string[] headers = new string[] { "Company", "OpenPositions", "MainTechnology", "Revenue"};
+        private string _data = @"Company,OpenPositions,MainTechnology,Revenue
+Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
+Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+
         [Test]
         public void ConstructorTest()
         {
-            using (var stream = SampleCsvRecord.GenerateStreamFromString("a,b \n c,d"))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvReader(stream, true, Encoding.ASCII);
                 Assert.IsNotNull(reader);
@@ -39,7 +42,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ConstructorEncodingNull()
         {
-            using (var stream = SampleCsvRecord.GenerateStreamFromString("a,b \n c,d"))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 Assert.Throws<NullReferenceException>(() => {
                     var encodingNull = new CsvReader(stream, true, null);
@@ -50,7 +53,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ReadLineTest()
         {
-            using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvReader(stream);
                 var line = reader.ReadLine();
@@ -72,13 +75,9 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SkipRecordTest()
         {
-            var tempFile = Path.GetTempFileName();
             var position = 0;
 
-            var savedRecordCount = CsvWriter.SaveRecords(_generatedRecords, tempFile);
-            var savedData = File.ReadAllLines(tempFile);
-
-            using (var stream = SampleCsvRecord.GenerateStreamFromString(savedData[1]))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvReader(stream, Encoding.ASCII);
                 reader.SkipRecord();
@@ -100,7 +99,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ReadHedingsTest()
         {
-            using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvReader(stream);
                 var headings = reader.ReadHeadings();
@@ -112,7 +111,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ReadHedingsInvalidOperation()
         {
-            using (var stream = SampleCsvRecord.GenerateStreamFromString(string.Join(",", headers)))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvReader(stream);
                 var headings = reader.ReadHeadings();
@@ -128,35 +127,95 @@ namespace Unosquare.Swan.Test
 
         [Test]
         public void ReadObjectTest()
-        {
-            var tempFile = Path.GetTempFileName();
-            var savedRecordCount = CsvWriter.SaveRecords(_generatedRecords, tempFile);
-            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
-
-            using (var stream = SampleCsvRecord.GenerateStreamFromList(loadedRecords))
+        {            
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvReader(stream);
                 var headings = reader.ReadHeadings();
-                Assert.Throws<EndOfStreamException>(() => {
+                var readObj = reader.ReadObject();
+
+                Assert.IsNotNull(readObj);            
+            }
+        }
+
+        [Test]
+        public void ReadObjectInvalidOperation()
+        {
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            {
+                var reader = new CsvReader(stream);
+
+                Assert.Throws<InvalidOperationException>(() => {
                     var readObj = reader.ReadObject();
-                });                
+                });
+            }
+        }
+
+        [Test]
+        public void ReadObjectArgumentNull()
+        {
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            {
+                var reader = new CsvReader(stream);
+                var headings = reader.ReadHeadings();
+
+                Assert.Throws<ArgumentNullException>(() => {
+                    var readObj = reader.ReadObject(null);
+                });
             }
         }
 
         [Test]
         public void QuotedTextTest()
         {
-            var data =
-                @"Company,OpenPositions,MainTechnology,Revenue
-Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
-Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
-
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader =  new CsvReader(stream);
                 var headers = reader.ReadHeadings();
                 var firstLine = reader.ReadObject<SampleDto>();
             }
+        }
+
+        [Test]
+        public void ReadObjectTArgumentNull()
+        {
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            {
+                var reader = new CsvReader(stream);
+                Assert.Throws<ArgumentNullException>(() => {
+                    reader.ReadObject<SampleDto>();
+                });                
+            }
+        }
+
+        [Test]
+        public void ReadObjectTInvalidOperation()
+        {
+            Dictionary<string,string> map = new Dictionary<string, string>();
+            map.Add("First","Company");
+            map.Add("Second", "Open Position");
+            map.Add("Thrid", "Main Technology");
+
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            {
+                var reader = new CsvReader(stream);
+                Assert.Throws<InvalidOperationException>(() => {
+                    reader.ReadObject<SampleDto>(map);
+                });
+            }
+        }
+
+        [Test]
+        public void ReadObjectTEndOfStream()
+        {
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            {
+                var reader = new CsvReader(stream);
+                var headers = reader.ReadHeadings();
+                Assert.Throws<EndOfStreamException>(() => {
+                    reader.ReadObject<SampleDto>();
+                });
+            }            
         }
     }
 }
