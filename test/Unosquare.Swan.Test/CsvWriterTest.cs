@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unosquare.Swan.Formatters;
+using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
 {
     [TestFixture]
     public class CsvWriterTest
     {
+        private const int TotalRows = 100;
         private readonly string[] headers = new string[] { "Company", "OpenPositions", "MainTechnology", "Revenue" };
+        private List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
         private string _data = @"Company,OpenPositions,MainTechnology,Revenue
 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
@@ -58,23 +61,41 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         [Test]
         public void WriteObjectTest()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            var tempFile = Path.GetTempFileName();
+            CsvWriter.SaveRecords(_generatedRecords, tempFile);
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var reader = new CsvWriter(stream);
-                
-                Assert.Throws<ArgumentNullException>(() => {
-                    reader.WriteObject(null);
-                });
-            }
+                _generatedRecords.Add(null);
+                CsvWriter.SaveRecords(_generatedRecords, tempFile);
+            });
         }
 
         [Test]
         public void WriteObjectDynamicObjectTest()
         {
-            dynamic item = new ExpandoObject();
-            item.A = "A";
-            item.B = "B";
-            item.C = "C";            
+            var tempFile = Path.GetTempFileName();
+            CsvWriter.SaveRecords(_generatedRecords, tempFile);
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            dynamic item = SampleCsvRecord.GetItem();     
+
+            _generatedRecords.Add(item);
+
+            CsvWriter.SaveRecords(_generatedRecords, tempFile);
+            var newloadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            Assert.AreNotEqual(loadedRecords, newloadedRecords);
+        }
+
+        [Test]
+        public void WriteObjectDictionaryTest()
+        {
+            Dictionary<string, string> item = new Dictionary<string, string>();
+            item.Add("A", "A");
+            item.Add("B", "B");
+            item.Add("C", "C");
             var count = 0;
 
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
@@ -87,12 +108,9 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         }
 
         [Test]
-        public void WriteObjectDictionaryTest()
+        public void WriteObjectArrayTest()
         {
-            Dictionary<string, object> item = new Dictionary<string, object>();
-            item.Add("A", new { A = "A" });
-            item.Add("B", new { B = "B" });
-            item.Add("C", new { C = "C" });
+            string[] item = new string[] { "A", "B", "C"};
             var count = 0;
 
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
@@ -102,6 +120,22 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
                 Assert.AreNotEqual(count, reader.Count);
             }
+        }
+
+        [Test]
+        public void WriteObjectTTest()
+        {
+            var tempFile = Path.GetTempFileName();
+            CsvWriter.SaveRecords(_generatedRecords, tempFile);
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            var item = SampleCsvRecord.GetItem();
+            _generatedRecords.Add(item);
+
+            CsvWriter.SaveRecords(_generatedRecords, tempFile);
+            var newloadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            Assert.AreNotEqual(loadedRecords, newloadedRecords);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Unosquare.Swan.Test.Mocks
             "\n \n \n \n \n \n \n \n \n \n \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \" \"quoted\""
             +
             "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like."
-            + "SWAN also provides helpful extension methods for string manipulation").Split(new[] {" "},
+            + "SWAN also provides helpful extension methods for string manipulation").Split(new[] { " " },
             StringSplitOptions.None);
 
         public static List<SampleCsvRecord> CreateSampleSet(int size)
@@ -96,6 +96,22 @@ namespace Unosquare.Swan.Test.Mocks
             stream.Position = 0;
             return stream;
         }
+        public static SampleCsvRecord GetItem()
+        {
+            var random = new Random();
+            return new SampleCsvRecord
+            {
+                AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : new DateTime?(),
+                AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : new int?(),
+                CreationDate = random.NextDouble() > 0.5d ? DateTime.Now : DateTime.MinValue,
+                Description = $"{RandomWords[random.Next(0, RandomWords.Length - 1)]} ",
+                Id = 1000,
+                IsValidated = random.NextDouble() > 0.5d,
+                Name = "WriteobjectTTest",
+                Score = Convert.ToSingle(random.NextDouble() * random.Next(10, 1000)),
+                ValidationResult = random.NextDouble() > 0.5d
+            };
+        }
     }
 
     public class SampleDto
@@ -105,4 +121,5 @@ namespace Unosquare.Swan.Test.Mocks
         public string MainTechnology { get; set; }
         public string Revenue { get; set; }
     }
+
 }
