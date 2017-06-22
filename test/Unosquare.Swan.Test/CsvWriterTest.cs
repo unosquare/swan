@@ -14,8 +14,7 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class CsvWriterTest
     {
-        private const int TotalRows = 100;
-        private readonly string[] headers = new string[] { "Company", "OpenPositions", "MainTechnology", "Revenue" };        
+        private const int TotalRows = 100;       
         private string _data = @"Company,OpenPositions,MainTechnology,Revenue
 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
@@ -68,8 +67,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
             _generatedRecords.Add(null);
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {                
+            Assert.Throws<ArgumentNullException>(() => {                
                 CsvWriter.SaveRecords(_generatedRecords, tempFile);
             });
         }
@@ -144,5 +142,27 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
             Assert.AreNotEqual(loadedRecords, newloadedRecords);
         }
+
+        [Test]
+        public void WriteHeadingsTest()
+        {
+            var tempFile = Path.GetTempFileName();            
+            string[] headers = new string[] { "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score", "ValidationResult" };           
+                        
+            using (var stream = File.OpenWrite(tempFile))
+            {
+                if (stream.Length > 0)
+                    stream.SetLength(0);
+
+                using (var writer = new CsvWriter(stream))
+                {
+                    writer.WriteHeadings<SampleCsvRecord>();
+                    writer.WriteObjects(headers);
+                }                               
+            }
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            Assert.AreEqual(headers.Length, loadedRecords.Count());     
+       }
     }
 }
