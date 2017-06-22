@@ -164,7 +164,7 @@
         /// <returns></returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
-            var jsonData = Global as Dictionary<string, object>;
+            var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;
 
             return jsonData?.Keys
                 .Select(p => new ExtendedPropertyInfo<T>(p) {Value = jsonData[p]})

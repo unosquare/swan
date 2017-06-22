@@ -73,7 +73,7 @@
 #if !NETSTANDARD1_3 && !UWP
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 #else
-        private static readonly string ApplicationMutexName = "Global\\{{SWANINSTANCE}}";
+        private const string ApplicationMutexName = "Global\\{{SWANINSTANCE}}";
 #endif
 
         private static readonly object SyncLock = new object();
@@ -137,7 +137,7 @@
                         {
                             // If exception occurred, there is no such mutex.
                             var appMutex = new Mutex(true, ApplicationMutexName);
-                            $"Application mutext created {appMutex} named '{ApplicationMutexName}'".Debug(typeof(Runtime));
+                            $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(typeof(Runtime));
                             // Only one instance.
                             return true;
                         }
