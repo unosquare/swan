@@ -57,7 +57,6 @@ namespace Unosquare.Swan.Formatters
         /// <param name="sourceImage">The source image.</param>
         public BitmapBuffer(Image sourceImage)
         {
-
             // Acquire or create the source bitmap in a manageable format
             var sourceBitmap = sourceImage as Bitmap;
             var disposeSourceBitmap = false;

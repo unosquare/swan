@@ -2,7 +2,6 @@
   "copyright": "Unosquare",
   "dependencies": {
     "Unosquare.Swan.AspNetCore": { "target": "project" },
-    "Microsoft.ApplicationInsights.AspNetCore": "2.0.0",
     "Microsoft.AspNetCore.Mvc": "1.1.2",
     "Microsoft.AspNetCore.Routing": "1.1.2",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.1.2",

@@ -68,23 +68,13 @@
         }
 
         /// <summary>
-        /// Gets the json data.
-        /// </summary>
-        /// <returns></returns>
-        public string GetJsonData()
-        {
-            return Json.Serialize(Global);
-        }
-
-        /// <summary>
         /// Persists the global settings.
         /// </summary>
         public void PersistGlobalSettings()
         {
             lock (SyncRoot)
             {
-                var stringData = Json.Serialize(Global);
-                File.WriteAllText(ConfigurationFilePath, stringData);
+                File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global));
             }
         }
 
@@ -174,7 +164,7 @@
         /// <returns></returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
-            var jsonData = Json.Deserialize(GetJsonData()) as Dictionary<string, object>;
+            var jsonData = Global as Dictionary<string, object>;
 
             return jsonData?.Keys
                 .Select(p => new ExtendedPropertyInfo<T>(p) {Value = jsonData[p]})

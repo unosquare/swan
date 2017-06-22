@@ -11,9 +11,9 @@
     {
         #region Property Backing
         
-        private AppWorkerState WorkerState = AppWorkerState.Stopped;
-        private readonly object SyncLock = new object();
-        private CancellationTokenSource TokenSource;
+        private AppWorkerState _workerState = AppWorkerState.Stopped;
+        private readonly object _syncLock = new object();
+        private CancellationTokenSource _tokenSource;
 
         /// <summary>
         /// Occurs when [state changed].
@@ -43,8 +43,8 @@
         /// <exception cref="InvalidOperationException">Worker Thread seems to be still running.</exception>
         private void CreateWorker()
         {
-            TokenSource = new CancellationTokenSource();
-            TokenSource.Token.Register(() =>
+            _tokenSource = new CancellationTokenSource();
+            _tokenSource.Token.Register(() =>
             {
                 IsBusy = false;
                 OnWorkerThreadExit();
@@ -67,10 +67,10 @@
                         ex.Log(GetType().Name);
                         OnWorkerThreadLoopException(ex);
 
-                        if (TokenSource.IsCancellationRequested == false)
-                            TokenSource.Cancel();
+                        if (_tokenSource.IsCancellationRequested == false)
+                            _tokenSource.Cancel();
                     }
-                }, TokenSource.Token);
+                }, _tokenSource.Token);
         }
 
         /// <summary>
@@ -100,33 +100,27 @@
         /// </summary>
         public AppWorkerState State
         {
-            get { return WorkerState; }
+            get { return _workerState; }
             private set
             {
-                lock (SyncLock)
+                lock (_syncLock)
                 {
-                    if (value == WorkerState) return;
+                    if (value == _workerState) return;
 
                     $"Service state changing from {State} to {value}".Debug(GetType().Name);
                     var newState = value;
-                    var oldState = WorkerState;
-                    WorkerState = value;
+                    var oldState = _workerState;
+                    _workerState = value;
 
                     StateChanged?.Invoke(this, new AppWorkerStateChangedEventArgs(oldState, newState));
                 }
             }
         }
-
-        /// <summary>
-        /// Gets a value indicating whether the user loop is pending cancellation.
-        /// </summary>
-        [Obsolete("Use the CancellationToken property")]
-        public bool CancellationPending => TokenSource?.IsCancellationRequested ?? false;
-
+        
         /// <summary>
         /// Gets the cancellation token.
         /// </summary>
-        public CancellationToken CancellationToken => TokenSource?.Token ?? default(CancellationToken);
+        public CancellationToken CancellationToken => _tokenSource?.Token ?? default(CancellationToken);
 
         /// <summary>
         /// Gets a value indicating whether the thread is busy
@@ -170,7 +164,7 @@
         {
             if (State != AppWorkerState.Running) return;
 
-            TokenSource?.Cancel();
+            _tokenSource?.Cancel();
             "Service stop requested.".Debug(GetType().Name);
             State = AppWorkerState.Stopped;
         }

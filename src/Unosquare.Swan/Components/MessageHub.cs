@@ -768,9 +768,9 @@ namespace Unosquare.Swan.Components
                 if (!_subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
                     return;
 
-                var currentlySubscribed = (from sub in currentSubscriptions
-                    where object.ReferenceEquals(sub.Subscription.SubscriptionToken, subscriptionToken)
-                    select sub).ToList();
+                var currentlySubscribed =
+                    currentSubscriptions.Where(
+                        sub => ReferenceEquals(sub.Subscription.SubscriptionToken, subscriptionToken)).ToList();
 
                 currentlySubscribed.ForEach(sub => currentSubscriptions.Remove(sub));
             }
@@ -803,7 +803,6 @@ namespace Unosquare.Swan.Components
                 catch (Exception)
                 {
                     // Ignore any errors and carry on
-                    // TODO - add to a list of erroring subs and remove them?
                 }
             });
         }
