@@ -31,18 +31,6 @@ references:
   commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerBase.#ctor
   fullName: Unosquare.Swan.Abstractions.AppWorkerBase.AppWorkerBase
   nameWithType: AppWorkerBase.AppWorkerBase
-- uid: Unosquare.Swan.Abstractions.AppWorkerBase.CancellationPending
-  name: CancellationPending
-  href: api/Unosquare.Swan.Abstractions.AppWorkerBase.html#Unosquare_Swan_Abstractions_AppWorkerBase_CancellationPending
-  commentId: P:Unosquare.Swan.Abstractions.AppWorkerBase.CancellationPending
-  fullName: Unosquare.Swan.Abstractions.AppWorkerBase.CancellationPending
-  nameWithType: AppWorkerBase.CancellationPending
-- uid: Unosquare.Swan.Abstractions.AppWorkerBase.CancellationPending*
-  name: CancellationPending
-  href: api/Unosquare.Swan.Abstractions.AppWorkerBase.html#Unosquare_Swan_Abstractions_AppWorkerBase_CancellationPending_
-  commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerBase.CancellationPending
-  fullName: Unosquare.Swan.Abstractions.AppWorkerBase.CancellationPending
-  nameWithType: AppWorkerBase.CancellationPending
 - uid: Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken
   name: CancellationToken
   href: api/Unosquare.Swan.Abstractions.AppWorkerBase.html#Unosquare_Swan_Abstractions_AppWorkerBase_CancellationToken
@@ -182,22 +170,6 @@ references:
   fullName.vb: Unosquare.Swan.Abstractions.SettingsProvider(Of T).ConfigurationFilePath
   nameWithType: SettingsProvider<T>.ConfigurationFilePath
   nameWithType.vb: SettingsProvider(Of T).ConfigurationFilePath
-- uid: Unosquare.Swan.Abstractions.SettingsProvider`1.GetJsonData
-  name: GetJsonData()
-  href: api/Unosquare.Swan.Abstractions.SettingsProvider-1.html#Unosquare_Swan_Abstractions_SettingsProvider_1_GetJsonData
-  commentId: M:Unosquare.Swan.Abstractions.SettingsProvider`1.GetJsonData
-  fullName: Unosquare.Swan.Abstractions.SettingsProvider<T>.GetJsonData()
-  fullName.vb: Unosquare.Swan.Abstractions.SettingsProvider(Of T).GetJsonData()
-  nameWithType: SettingsProvider<T>.GetJsonData()
-  nameWithType.vb: SettingsProvider(Of T).GetJsonData()
-- uid: Unosquare.Swan.Abstractions.SettingsProvider`1.GetJsonData*
-  name: GetJsonData
-  href: api/Unosquare.Swan.Abstractions.SettingsProvider-1.html#Unosquare_Swan_Abstractions_SettingsProvider_1_GetJsonData_
-  commentId: Overload:Unosquare.Swan.Abstractions.SettingsProvider`1.GetJsonData
-  fullName: Unosquare.Swan.Abstractions.SettingsProvider<T>.GetJsonData
-  fullName.vb: Unosquare.Swan.Abstractions.SettingsProvider(Of T).GetJsonData
-  nameWithType: SettingsProvider<T>.GetJsonData
-  nameWithType.vb: SettingsProvider(Of T).GetJsonData
 - uid: Unosquare.Swan.Abstractions.SettingsProvider`1.GetList
   name: GetList()
   href: api/Unosquare.Swan.Abstractions.SettingsProvider-1.html#Unosquare_Swan_Abstractions_SettingsProvider_1_GetList
