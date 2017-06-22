@@ -15,8 +15,7 @@ namespace Unosquare.Swan.Test
     public class CsvWriterTest
     {
         private const int TotalRows = 100;
-        private readonly string[] headers = new string[] { "Company", "OpenPositions", "MainTechnology", "Revenue" };
-        private List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+        private readonly string[] headers = new string[] { "Company", "OpenPositions", "MainTechnology", "Revenue" };        
         private string _data = @"Company,OpenPositions,MainTechnology,Revenue
 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
@@ -62,12 +61,15 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WriteObjectTest()
         {
             var tempFile = Path.GetTempFileName();
+            List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+
             CsvWriter.SaveRecords(_generatedRecords, tempFile);
-            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile); 
+
+            _generatedRecords.Add(null);
 
             Assert.Throws<ArgumentNullException>(() =>
-            {
-                _generatedRecords.Add(null);
+            {                
                 CsvWriter.SaveRecords(_generatedRecords, tempFile);
             });
         }
@@ -76,6 +78,8 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WriteObjectDynamicObjectTest()
         {
             var tempFile = Path.GetTempFileName();
+            List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+
             CsvWriter.SaveRecords(_generatedRecords, tempFile);
             var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
 
@@ -126,7 +130,10 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WriteObjectTTest()
         {
             var tempFile = Path.GetTempFileName();
+            List<SampleCsvRecord> _generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+
             CsvWriter.SaveRecords(_generatedRecords, tempFile);
+         
             var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
 
             var item = SampleCsvRecord.GetItem();
