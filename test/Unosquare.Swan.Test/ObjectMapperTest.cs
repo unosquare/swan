@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
@@ -65,6 +66,74 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(_sourceUser.Name, destination.Name);
             Assert.AreEqual(_sourceUser.Email, destination.Email);
             Assert.IsNull(destination.Role);
+        }
+
+        [Test]
+        public void PropertyMapDestinationExceptionTest()
+        {
+            Assert.Throws<Exception>(() => {
+                var mapper = new ObjectMapper();
+                mapper.CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name);
+            });
+        }
+
+        [Test]
+        public void PropertyMapSourceExceptionTest()
+        {
+            Assert.Throws<Exception>(() => {
+                var mapper = new ObjectMapper();
+                mapper.CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s);
+            });
+        }
+
+        [Test]
+        public void RemoveyMapDestinationExceptionTest()
+        {
+            Assert.Throws<Exception>(() => {
+                var mapper = new ObjectMapper();
+                mapper.CreateMap<User, UserDto>().RemoveMap(t => t);
+            });
+        }
+
+        [Test]
+        public void PropertyMapInvalidOperationExistingMapTest()
+        {
+            var mapper = new ObjectMapper();
+            mapper.CreateMap<User, UserDto>();
+
+            Assert.Throws<InvalidOperationException>(() => {
+                mapper.CreateMap<User, UserDto>();
+            });
+        }
+
+        [Test]
+        public void PropertyMapInvalidOperationTypesNotMatchTest()
+        {
+            var mapper = new ObjectMapper();
+
+            Assert.Throws<InvalidOperationException>(() => {                
+                mapper.CreateMap<User, AdminDto>();
+            });
+        }
+
+        [Test]
+        public void MapArgumentExceptionTest()
+        {
+            var mapper = new ObjectMapper();
+
+            Assert.Throws<ArgumentNullException>(() => {
+                mapper.Map<UserDto>(null);
+            });
+        }
+
+        [Test]
+        public void MapInvalidOperationExceptionTest()
+        {
+            var mapper = new ObjectMapper();
+
+            Assert.Throws<InvalidOperationException>(() => {
+                mapper.Map<UserDto>(_sourceUser, false);
+            });            
         }
     }
 }
