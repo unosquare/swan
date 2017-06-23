@@ -29,20 +29,17 @@
             ReplyCodeSeverity = SmtpReplyCodeSeverities.Unknown;
             ReplyCodeCategory = SmtpReplyCodeCategories.Unknown;
 
-            if (IsValid)
-            {
-                if (responseCode >= 200) ReplyCodeSeverity = SmtpReplyCodeSeverities.PositiveCompletion;
-                if (responseCode >= 300) ReplyCodeSeverity = SmtpReplyCodeSeverities.PositiveIntermediate;
-                if (responseCode >= 400) ReplyCodeSeverity = SmtpReplyCodeSeverities.TransientNegative;
-                if (responseCode >= 500) ReplyCodeSeverity = SmtpReplyCodeSeverities.PermanentNegative;
-                if (responseCode >= 600) ReplyCodeSeverity = SmtpReplyCodeSeverities.Unknown;
+            if (!IsValid) return;
+            if (responseCode >= 200) ReplyCodeSeverity = SmtpReplyCodeSeverities.PositiveCompletion;
+            if (responseCode >= 300) ReplyCodeSeverity = SmtpReplyCodeSeverities.PositiveIntermediate;
+            if (responseCode >= 400) ReplyCodeSeverity = SmtpReplyCodeSeverities.TransientNegative;
+            if (responseCode >= 500) ReplyCodeSeverity = SmtpReplyCodeSeverities.PermanentNegative;
+            if (responseCode >= 600) ReplyCodeSeverity = SmtpReplyCodeSeverities.Unknown;
 
-                var middleDigit = 0;
-                if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out middleDigit))
-                    if (middleDigit >= 0 && middleDigit <= 5)
-                        ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;
-
-            }
+            var middleDigit = 0;
+            if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out middleDigit))
+                if (middleDigit >= 0 && middleDigit <= 5)
+                    ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;
         }
 
         /// <summary>
@@ -170,17 +167,15 @@
             {
                 var splitChar = i == lines.Length - 1 ? " " : "-";
 
-                var lineParts = lines[i].Split(new string[] { splitChar }, 2, StringSplitOptions.None);
+                var lineParts = lines[i].Split(new[] { splitChar }, 2, StringSplitOptions.None);
                 var lineContent = lineParts.Last();
                 if (string.IsNullOrWhiteSpace(enhancedStatusCode) == false)
                     lineContent = lineContent.Replace(enhancedStatusCode, string.Empty).Trim();
 
                 content.Add(lineContent);
             }
-
-
+            
             return new SmtpServerReply(responseCode, enhancedStatusCode, content.ToArray());
-
         }
 
         #endregion

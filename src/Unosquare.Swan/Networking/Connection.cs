@@ -34,8 +34,8 @@ namespace Unosquare.Swan.Networking
         private readonly string[] NewLineSequenceLineSplitter;
 
         // Disconnect and Dispose
-        private bool HasDisposed;
-        private int DisconnectCalls;
+        private bool _hasDisposed;
+        private int _disconnectCalls;
 
         // Continuous Reading
         private Thread ContinuousReadingThread;
@@ -178,7 +178,7 @@ namespace Unosquare.Swan.Networking
         {
             get
             {
-                if (DisconnectCalls > 0)
+                if (_disconnectCalls > 0)
                     return false;
 
                 try
@@ -405,7 +405,7 @@ namespace Unosquare.Swan.Networking
 
             var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
 
-            while (IsConnected && DisconnectCalls <= 0)
+            while (IsConnected && _disconnectCalls <= 0)
             {
                 var doThreadSleep = false;
 
@@ -429,7 +429,7 @@ namespace Unosquare.Swan.Networking
                     }
                     else
                     {
-                        doThreadSleep = DisconnectCalls <= 0;
+                        doThreadSleep = _disconnectCalls <= 0;
                     }
 
                 }
@@ -742,10 +742,10 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         public void Disconnect()
         {
-            if (DisconnectCalls > 0)
+            if (_disconnectCalls > 0)
                 return;
 
-            DisconnectCalls++;
+            _disconnectCalls++;
             _writeDone.Wait();
 
             try
@@ -791,7 +791,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         public void Dispose()
         {
-            if (HasDisposed)
+            if (_hasDisposed)
                 return;
 
             // Release managed resources
@@ -799,7 +799,7 @@ namespace Unosquare.Swan.Networking
             ContinuousReadingThread = null;
             _writeDone.Dispose();
 
-            HasDisposed = true;
+            _hasDisposed = true;
         }
 
 #endregion

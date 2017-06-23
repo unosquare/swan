@@ -39,17 +39,16 @@
             _isDisposing = true;
 
             // free managed resources
-            if (LazyInstance != null)
+            if (LazyInstance == null) return;
+
+            try
             {
-                try
-                {
-                    var disposableInstance = LazyInstance.Value as IDisposable;
-                    disposableInstance?.Dispose();
-                }
-                catch
-                {
-                    // swallow
-                }
+                var disposableInstance = LazyInstance.Value as IDisposable;
+                disposableInstance?.Dispose();
+            }
+            catch
+            {
+                // swallow
             }
         }
 

@@ -87,17 +87,16 @@ namespace Unosquare.Swan.Components
                         }
                             
                         totalCount += (ulong)readCount;
-                        if (onDataCallback != null)
-                        {
-                            // Create the buffer to pass to the callback
-                            var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
+                        if (onDataCallback == null) continue;
 
-                            // Create the data processing callback invocation
-                            var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); }, ct);
+                        // Create the buffer to pass to the callback
+                        var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
+
+                        // Create the data processing callback invocation
+                        var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); }, ct);
                             
-                            // wait for the event to process before the next read occurs
-                            if (syncEvents) eventTask.Wait(ct);
-                        }
+                        // wait for the event to process before the next read occurs
+                        if (syncEvents) eventTask.Wait(ct);
                     }
                     catch
                     {
@@ -161,7 +160,7 @@ namespace Unosquare.Swan.Components
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        public static async Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents, CancellationToken ct)
+        public static async Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default(CancellationToken))
         {
             var task = Task.Factory.StartNew(() =>
             {
@@ -207,10 +206,7 @@ namespace Unosquare.Swan.Components
                     // Wait for the process to exit
                     while (ct.IsCancellationRequested == false)
                     {
-                        if (process.HasExited)
-                            break;
-
-                        if (process.WaitForExit(5))
+                        if (process.HasExited || process.WaitForExit(5))
                             break;
                     }
 
@@ -230,10 +226,7 @@ namespace Unosquare.Swan.Components
                 {
                     // Retrieve and return the exit code.
                     // -1 signals error
-                    if (process.HasExited)
-                        return process.ExitCode;
-                    else
-                        return -1;
+                    return process.HasExited ? process.ExitCode : -1;
                 }
                 catch
                 {

@@ -91,13 +91,12 @@
                     var targetProperty = TryGetProperty(properties, propertyName);
 
                     // If the arg is a boolean property set it to true.
-                    if (targetProperty != null && targetProperty.PropertyType == typeof(bool))
-                    {
-                        if (SetPropertyValue(targetProperty, true.ToString(), instance))
-                            updatedList.Add(targetProperty);
+                    if (targetProperty == null || targetProperty.PropertyType != typeof(bool)) continue;
 
-                        propertyName = string.Empty;
-                    }
+                    if (SetPropertyValue(targetProperty, true.ToString(), instance))
+                        updatedList.Add(targetProperty);
+
+                    propertyName = string.Empty;
                 }
             }
 
@@ -129,25 +128,22 @@
                 }
             }
 
-            if ((Settings.IgnoreUnknownArguments == false && unknownList.Any()) || requiredList.Any())
-            {
+            if ((Settings.IgnoreUnknownArguments || !unknownList.Any()) && !requiredList.Any()) return true;
+
 #if !NETSTANDARD1_3 && !UWP
                 if (Settings.WriteBanner)
                     Runtime.WriteWelcomeBanner();
 #endif
 
-                WriteUsage(properties);
+            WriteUsage(properties);
 
-                if (unknownList.Any())
-                    $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine();
+            if (unknownList.Any())
+                $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine();
 
-                if (requiredList.Any())
-                    $"Required arguments: {string.Join(", ", requiredList)}".WriteLine();
+            if (requiredList.Any())
+                $"Required arguments: {string.Join(", ", requiredList)}".WriteLine();
 
-                return false;
-            }
-            
-            return true;
+            return false;
         }
 
         /// <summary>

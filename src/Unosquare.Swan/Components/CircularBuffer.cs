@@ -26,12 +26,12 @@
         /// <summary>
         /// The unmanaged buffer
         /// </summary>
-        private IntPtr Buffer = IntPtr.Zero;
+        private IntPtr _buffer = IntPtr.Zero;
 
         /// <summary>
         /// The locking object to perform synchronization.
         /// </summary>
-        private readonly object SyncLock = new object();
+        private readonly object _syncLock = new object();
 
         #endregion
 
@@ -49,7 +49,7 @@
 #endif
 
             Length = bufferLength;
-            Buffer = Marshal.AllocHGlobal(Length);
+            _buffer = Marshal.AllocHGlobal(Length);
         }
 
         #endregion
@@ -110,7 +110,7 @@
         /// <exception cref="System.InvalidOperationException"></exception>
         public void Read(int requestedBytes, byte[] target, int targetOffset)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 if (requestedBytes > ReadableCount)
                     throw new InvalidOperationException(
@@ -120,7 +120,7 @@
                 while (readCount < requestedBytes)
                 {
                     var copyLength = Math.Min(Length - ReadIndex, requestedBytes - readCount);
-                    var sourcePtr = Buffer + ReadIndex;
+                    var sourcePtr = _buffer + ReadIndex;
                     Marshal.Copy(sourcePtr, target, targetOffset + readCount, copyLength);
 
                     readCount += copyLength;
@@ -143,7 +143,7 @@
         /// <exception cref="System.InvalidOperationException">Read</exception>
         public void Write(IntPtr source, int length, TimeSpan writeTag)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 if (ReadableCount + length > Length)
                     throw new InvalidOperationException(
@@ -154,7 +154,7 @@
                 {
                     var copyLength = Math.Min(Length - WriteIndex, length - writeCount);
                     var sourcePtr = source + writeCount;
-                    var targetPtr = Buffer + WriteIndex;
+                    var targetPtr = _buffer + WriteIndex;
                     CopyMemory(targetPtr, sourcePtr, (uint) copyLength);
 
                     writeCount += copyLength;
@@ -174,7 +174,7 @@
         /// </summary>
         public void Clear()
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 WriteIndex = 0;
                 ReadIndex = 0;
@@ -188,12 +188,11 @@
         /// </summary>
         public void Dispose()
         {
-            if (Buffer != IntPtr.Zero)
-            {
-                Marshal.FreeHGlobal(Buffer);
-                Buffer = IntPtr.Zero;
-                Length = 0;
-            }
+            if (_buffer == IntPtr.Zero) return;
+
+            Marshal.FreeHGlobal(_buffer);
+            _buffer = IntPtr.Zero;
+            Length = 0;
         }
 
         #endregion

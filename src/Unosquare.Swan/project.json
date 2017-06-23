@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.14.4-*",
+  "version": "0.14.5-*",
   "frameworks": {
     "uap10.0": {
       "dependencies": {
@@ -34,7 +34,7 @@
         "System.ComponentModel.TypeConverter": "4.3.0",
         "System.Text.Encoding.CodePages": "4.3.0",
         "System.Net.NetworkInformation": "4.3.0",
-        "System.Net.Security": "4.3.0",
+        "System.Net.Security": "4.3.1",
         "System.Threading.ThreadPool": "4.3.0",
         "System.Threading": "4.3.0",
         "System.Collections": "4.3.0",
@@ -69,7 +69,7 @@
         "System.Linq": "4.3.0",
         "System.Text.Encoding.CodePages": "4.3.0",
         "System.Net.NetworkInformation": "4.3.0",
-        "System.Net.Security": "4.3.0",
+        "System.Net.Security": "4.3.1",
         "System.Net.Http": "4.3.2",
         "System.Reflection.Extensions": "4.3.0",
         "System.Reflection.TypeExtensions": "4.3.0",

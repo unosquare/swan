@@ -25,19 +25,19 @@
 
         #region Property Backing
 
-        private ulong m_Count;
-        private char m_EscapeCharacter = '"';
-        private char m_SeparatorCharacter = ',';
+        private ulong _count;
+        private char _escapeCharacter = '"';
+        private char _separatorCharacter = ',';
 
         #endregion
 
         #region State Variables
 
-        private readonly object SyncLock = new object();
-        private bool HasDisposed; // To detect redundant calls
-        private string[] Headings;
-        private Dictionary<string, string> DefaultMap;
-        private StreamReader Reader;
+        private readonly object _syncLock = new object();
+        private bool _hasDisposed; // To detect redundant calls
+        private string[] _headings;
+        private Dictionary<string, string> _defaultMap;
+        private StreamReader _reader;
 
         #endregion
 
@@ -72,7 +72,7 @@
             if (textEncoding == null)
                 throw new NullReferenceException(nameof(textEncoding));
             
-            Reader = new StreamReader(inputStream, textEncoding, true, 2048, leaveOpen);
+            _reader = new StreamReader(inputStream, textEncoding, true, 2048, leaveOpen);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@
         /// <summary>
         /// Gets number of lines that have been read, including the headings
         /// </summary>
-        public ulong Count { get { lock (SyncLock) { return m_Count; } } }
+        public ulong Count { get { lock (_syncLock) { return _count; } } }
 
         /// <summary>
         /// Gets or sets the escape character.
@@ -137,12 +137,12 @@
         /// </summary>
         public char EscapeCharacter
         {
-            get { return m_EscapeCharacter; }
+            get { return _escapeCharacter; }
             set
             {
-                lock (SyncLock)
+                lock (_syncLock)
                 {
-                    m_EscapeCharacter = value;
+                    _escapeCharacter = value;
                 }
             }
         }
@@ -153,17 +153,16 @@
         /// </summary>
         public char SeparatorCharacter
         {
-            get { return m_SeparatorCharacter; }
+            get { return _separatorCharacter; }
             set
             {
-                lock (SyncLock)
+                lock (_syncLock)
                 {
-                    m_SeparatorCharacter = value;
+                    _separatorCharacter = value;
                 }
             }
         }
-
-
+        
         /// <summary>
         /// Gets a value indicating whether the stream reader is at the end of the stream
         /// In other words, if no more data can be read, this will be set to true.
@@ -175,9 +174,9 @@
         {
             get
             {
-                lock (SyncLock)
+                lock (_syncLock)
                 {
-                    return Reader.EndOfStream;
+                    return _reader.EndOfStream;
                 }
             }
         }
@@ -193,13 +192,13 @@
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public string[] ReadLine()
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
-                if (Reader.EndOfStream)
+                if (_reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
-                var values = ParseRecord(Reader, m_EscapeCharacter, m_SeparatorCharacter);
-                m_Count++;
+                var values = ParseRecord(_reader, _escapeCharacter, _separatorCharacter);
+                _count++;
                 return values;
             }
         }
@@ -216,12 +215,12 @@
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public void SkipRecord()
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
-                if (Reader.EndOfStream)
+                if (_reader.EndOfStream)
                     throw new EndOfStreamException("Cannot read past the end of the stream");
 
-                ParseRecord(Reader, m_EscapeCharacter, m_SeparatorCharacter);
+                ParseRecord(_reader, _escapeCharacter, _separatorCharacter);
             }
         }
 
@@ -238,22 +237,22 @@
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public string[] ReadHeadings()
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
-                if (m_Count != 0)
+                if (_count != 0)
                     throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
 
-                if (Headings != null)
+                if (_headings != null)
                     throw new InvalidOperationException($"The {nameof(ReadHeadings)} method had already been called.");
 
-                Headings = ReadLine();
-                DefaultMap = new Dictionary<string, string>();
-                foreach (var heading in Headings)
+                _headings = ReadLine();
+                _defaultMap = new Dictionary<string, string>();
+                foreach (var heading in _headings)
                 {
-                    DefaultMap[heading] = heading;
+                    _defaultMap[heading] = heading;
                 }
 
-                return Headings.ToArray();
+                return _headings.ToArray();
             }
         }
 
@@ -267,9 +266,9 @@
         /// <exception cref="System.ArgumentNullException">map</exception>
         public IDictionary<string, object> ReadObject(IDictionary<string, string> map)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
-                if (Headings == null)
+                if (_headings == null)
                     throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
 
                 if (map == null)
@@ -278,12 +277,12 @@
                 var result = new Dictionary<string, object>();
                 var values = ReadLine();
 
-                for (var i = 0; i < Headings.Length; i++)
+                for (var i = 0; i < _headings.Length; i++)
                 {
                     if (i > values.Length - 1)
                         break;
 
-                    result[Headings[i]] = values[i];
+                    result[_headings[i]] = values[i];
                 }
 
                 return result;
@@ -297,7 +296,7 @@
         /// <returns></returns>
         public IDictionary<string, object> ReadObject()
         {
-            return ReadObject(DefaultMap);
+            return ReadObject(_defaultMap);
         }
 
         /// <summary>
@@ -315,17 +314,17 @@
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public void ReadObject<T>(IDictionary<string, string> map, ref T result)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 // Check arguments
                 {
                     if (map == null)
                         throw new ArgumentNullException(nameof(map));
 
-                    if (Headings == null)
+                    if (_headings == null)
                         throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
 
-                    if (Reader.EndOfStream)
+                    if (_reader.EndOfStream)
                         throw new EndOfStreamException("Cannot read past the end of the stream");
 
                     if (result == null)
@@ -342,19 +341,19 @@
                 });
 
                 // Assign property values for each heading
-                for (var i = 0; i < Headings.Length; i++)
+                for (var i = 0; i < _headings.Length; i++)
                 {
                     // break if no more headings are matched
                     if (i > values.Length - 1)
                         break;
 
                     // skip if no heading is available or the heading is empty
-                    if (map.ContainsKey(Headings[i]) == false &&
-                        string.IsNullOrWhiteSpace(map[Headings[i]]) == false)
+                    if (map.ContainsKey(_headings[i]) == false &&
+                        string.IsNullOrWhiteSpace(map[_headings[i]]) == false)
                         continue;
 
                     // Prepare the target property
-                    var propertyName = map[Headings[i]];
+                    var propertyName = map[_headings[i]];
                     var propertyStringValue = values[i];
                     var targetProperty = properties.FirstOrDefault(p => p.Name.Equals(propertyName));
 
@@ -405,7 +404,7 @@
         public T ReadObject<T>()
             where T : new()
         {
-            return ReadObject<T>(DefaultMap);
+            return ReadObject<T>(_defaultMap);
         }
 
         #endregion
@@ -572,22 +571,21 @@
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!HasDisposed)
-            {
-                if (disposing)
-                {
-                    try
-                    {
-                        Reader.Dispose();
-                    }
-                    finally
-                    {
-                        Reader = null;
-                    }
-                }
+            if (_hasDisposed) return;
 
-                HasDisposed = true;
+            if (disposing)
+            {
+                try
+                {
+                    _reader.Dispose();
+                }
+                finally
+                {
+                    _reader = null;
+                }
             }
+
+            _hasDisposed = true;
         }
 
         /// <summary>

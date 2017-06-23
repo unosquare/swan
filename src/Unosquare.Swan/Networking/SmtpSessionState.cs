@@ -156,6 +156,7 @@
         public virtual SmtpSessionState Clone()
         {
             // TODO: Use a binary formatter or something similar when it comes out in .net core/standard
+            // Binary Formatter is not good (https://github.com/force-net/DeepCloner)
             var result = new SmtpSessionState();
             this.CopyPropertiesTo(result);
 
