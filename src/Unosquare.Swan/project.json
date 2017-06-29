@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.14.5-*",
+  "version": "0.14.6-*",
   "frameworks": {
     "uap10.0": {
       "dependencies": {
