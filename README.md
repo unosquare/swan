@@ -143,14 +143,15 @@ var basicObject = new { One = "One", Two = "Two", Three = "Three" };
 var data = Json.Serialize(basicObject);
 ```
 It also have optional parameters to use
-| Parameter | Type | Description |
-| --- | --- | --- |
-| obj | object | The object |
-| format | bool | if set to `true` it formats and indents the output. |
-| typeSpecifier | string | The type specifier. Leave null or empty to avoid setting. |
-| includeNonPublic | bool | if set to `true` non-public getters will be also read. |
-| includedNames | string[] | The included property names. |
-| excludedNames | string[] | The excluded property names. |
+
+ Parameter          | Type        | Description 
+ ------------------ | ----------- | ----------------------------------------
+ obj                | object      | The object 
+ format             | bool        | if set to `true` it formats and indents the output. 
+ typeSpecifier      | string      | The type specifier. Leave null or empty to avoid setting. 
+ includeNonPublic   | bool        | if set to `true` non-public getters will be also read. 
+ includedNames      | string[]    | The included property names. 
+ excludedNames      | string[]    | The excluded property names. 
 
 #### Example 2: Serialize only
 Serializes the specified object only including the specified property names.
@@ -182,11 +183,12 @@ var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
 var data = Json.Deserialize(basicJson);
 ``` 
 It also have parameters to use
-| Parameter | Type | Description |
-| --- | --- | --- |
-| json | string | The json. |
-| resultType | Type | Type of the result. |
-| includeNonPublic | bool | if set to true, it also uses the non-public constructors and property  setters. |
+
+ Parameter          | Type        | Description 
+ ------------------ | ----------- | ----------------------------------------
+ json               | string      | The json. 
+ resultType         | Type        | Type of the result. 
+ includeNonPublic   | bool        | if set to true, it also uses the non-public constructors and property  setters. 
 
 #### Example 5: Deserialize<T>
 Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string
@@ -204,10 +206,11 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 }
 ``` 
 It also have parameters to use
-| Parameter | Type | Description |
-| --- | --- | --- |
-| json | string | The json. |
-| includeNonPublic | bool | if set to `true`, it also uses the non-public constructors and property setters. |
+
+ Parameter          | Type        | Description 
+ ------------------ | ----------- | ----------------------------------------
+ json               | string      | The json. 
+ includeNonPublic   | bool        | if set to `true`, it also uses the non-public constructors and property setters. 
 
 ### The `JSON Client`
 Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
