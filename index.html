@@ -163,20 +163,10 @@ the current thread until the entire output queue becomes empty.</p>
 <p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter.</p>
 <h4 id="example-1-serialize">Example 1: Serialize</h4>
 <p>Serializes the specified object into a JSON string.</p>
-<pre><code class="lang-csharp">using Unosquare.Swan.Formatters;
-namespace Program
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            //The array of strings to be serialize
-            Object _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
-            //Serializes the specified object into a JSON string.
-            var data = Json.Serialize(_basicObject);
-        }
-    }
-}
+<pre><code class="lang-csharp">//The object to be serialize
+var _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+//Serializes the specified object into a JSON string.
+var data = Json.Serialize(_basicObject);
 </code></pre><p>It also have optional parameters to use</p>
 <table>
 <thead>
@@ -221,59 +211,23 @@ namespace Program
 </table>
 <h4 id="example-2-serialize-only">Example 2: Serialize only</h4>
 <p>Serializes the specified object only including the specified property names.</p>
-<pre><code class="lang-csharp">using Unosquare.Swan.Formatters;
-namespace Program
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            //The object to be serialize
-            Object _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
-            //The included names
-            string[] _includedNames = { &quot;Two&quot;, &quot;Three&quot; };
-            //Serializes the specified object only including the specified property names.
-            var data = Json.SerializeOnly(_basicObject, true, _includedNames);
-        }
-    }
-}
+<pre><code class="lang-csharp">//The object to be serialize
+var _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+//The included names
+var _includedNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
+//Serializes the specified object only including the specified property names.
+var data = Json.SerializeOnly(_basicObject, true, _includedNames);
 </code></pre><h4 id="example-3-serialize-excluding">Example 3: Serialize excluding</h4>
 <p>Serializes the specified object excluding the specified property names.</p>
-<pre><code class="lang-csharp">using Unosquare.Swan.Formatters;
-namespace Program
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-
-            //The object to be serialize
-            Object _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
-            //The excluded names
-            string[] _excludeNames = { &quot;Two&quot;, &quot;Three&quot; };
-            //Serializes the specified object excluding the specified property names.
-            var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
-        }
-    }
-}
+<pre><code class="lang-csharp">//The object to be serialize
+var _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+//The excluded names
+var _excludeNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
+//Serializes the specified object excluding the specified property names.
+var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
 </code></pre><h3 id="the-json-client">The <code>JSON Client</code></h3>
 <p>Represents a <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
-<h4 id="methods">Methods</h4>
-<pre><code class="lang-csharp">//Authenticate
-var data = await JsonClient.Authenticate(&quot;url&quot;, &quot;admin&quot;, &quot;password&quot;);
-
-//Gets the specified URL and return the JSON data as object with optional authorization token.
-var data = await JsonClient.Get&lt;T&gt;(&quot;url&quot;);
-
-//Gets the binary.
-var data = await JsonClient.GetBinary(&quot;url&quot;);
-
-//Gets as string.
-var data = await JsonClient.GetString(&quot;url&quot;);
-
-//Posts the specified URL.
-var data = await JsonClient.Post&lt;T&gt;(&quot;url&quot;, object);
-</code></pre></article>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
