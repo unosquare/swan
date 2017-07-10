@@ -8,7 +8,7 @@
     <title> SWAN: Stuff We All Need | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content=" SWAN: Stuff We All Need | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.19.2.0">
+    <meta name="generator" content="docfx 2.20.0.0">
     
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/docfx.vendor.css">
@@ -159,7 +159,24 @@ is an asynchronous, thread-safe output queue, we might under certain situations 
 out to the <code>Console</code> before the program exits. For example, when we write a console application that requires its usage
 to be fully printed out before the process is terminated. In these scenarios we use <code>Terminal.Flush</code> which blocks
 the current thread until the entire output queue becomes empty.</p>
-</article>
+<h3 id="the-json-client">The <code>JSON Client</code></h3>
+<p>Represents a <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
+<h4 id="methods">Methods</h4>
+<pre><code class="lang-csharp">//Authenticate
+var data = await JsonClient.Authenticate(&quot;url&quot;, &quot;admin&quot;, &quot;password&quot;);
+
+//Gets the specified URL and return the JSON data as object with optional authorization token.
+var data = await JsonClient.Get&lt;T&gt;(&quot;url&quot;);
+
+//Gets the binary.
+var data = await JsonClient.GetBinary(&quot;url&quot;);
+
+//Gets as string.
+var data = await JsonClient.GetString(&quot;url&quot;);
+
+//Posts the specified URL.
+var data = await JsonClient.Post&lt;T&gt;(&quot;url&quot;, object);
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
