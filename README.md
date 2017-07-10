@@ -138,13 +138,13 @@ You can serialize and deserialize strings and objects using Swan's `Json` Format
 Serializes the specified object into a JSON string.
 ```csharp
 //The object to be serialize
-var _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+var basicObject = new { One = "One", Two = "Two", Three = "Three" };
 //Serializes the specified object into a JSON string.
-var data = Json.Serialize(_basicObject);
+var data = Json.Serialize(basicObject);
 ```
 It also have optional parameters to use
 | Parameter | Type | Description |
-| -- | -- | -- |
+| --- | --- | --- |
 | obj | object | The object |
 | format | bool | if set to `true` it formats and indents the output. |
 | typeSpecifier | string | The type specifier. Leave null or empty to avoid setting. |
@@ -156,23 +156,58 @@ It also have optional parameters to use
 Serializes the specified object only including the specified property names.
 ```csharp
 //The object to be serialize
-var _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+var basicObject = new { One = "One", Two = "Two", Three = "Three" };
 //The included names
-var _includedNames  = new[] { "Two", "Three" };
+var includedNames  = new[] { "Two", "Three" };
 //Serializes the specified object only including the specified property names.
-var data = Json.SerializeOnly(_basicObject, true, _includedNames);
+var data = Json.SerializeOnly(basicObject, true, includedNames);
 ```
 
 #### Example 3: Serialize excluding
 Serializes the specified object excluding the specified property names.
 ```csharp         
 //The object to be serialize
-var _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+var basicObject = new { One = "One", Two = "Two", Three = "Three" };
 //The excluded names
-var _excludeNames  = new[] { "Two", "Three" };
+var excludeNames  = new[] { "Two", "Three" };
 //Serializes the specified object excluding the specified property names.
-var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
+var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 ``` 
+#### Example 4: Deserialize
+Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string
+```csharp 
+//The json to be deserialize
+var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+//Deserializes the specified json into Dictionary[string, object].
+var data = Json.Deserialize(basicJson);
+``` 
+It also have parameters to use
+| Parameter | Type | Description |
+| --- | --- | --- |
+| json | string | The json. |
+| resultType | Type | Type of the result. |
+| includeNonPublic | bool | if set to true, it also uses the non-public constructors and property  setters. |
+
+#### Example 5: Deserialize<T>
+Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string
+```csharp 
+public class BasicJson{
+    public string One { get; set; }
+    public string Two { get; set; }
+    public string Three { get; set; }
+}
+static void Main(string[] args){
+//The json Type BasicJson to be deserialize
+var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+//Deserializes the specified object into Dictionary[string, object].
+var data = Json.Deserialize<BasicJson>(basicJson);
+}
+``` 
+It also have parameters to use
+| Parameter | Type | Description |
+| --- | --- | --- |
+| json | string | The json. |
+| includeNonPublic | bool | if set to `true`, it also uses the non-public constructors and property setters. |
 
 ### The `JSON Client`
 Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
