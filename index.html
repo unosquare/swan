@@ -159,7 +159,104 @@ is an asynchronous, thread-safe output queue, we might under certain situations 
 out to the <code>Console</code> before the program exits. For example, when we write a console application that requires its usage
 to be fully printed out before the process is terminated. In these scenarios we use <code>Terminal.Flush</code> which blocks
 the current thread until the entire output queue becomes empty.</p>
-<h3 id="the-json-client">The <code>JSON Client</code></h3>
+<h3 id="the-json-formatter">The <code>JSON Formatter</code></h3>
+<p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter.</p>
+<h4 id="example-1-serialize">Example 1: Serialize</h4>
+<p>Serializes the specified object into a JSON string.</p>
+<pre><code class="lang-csharp">using Unosquare.Swan.Formatters;
+namespace Program
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //The array of strings to be serialize
+            Object _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+            //Serializes the specified object into a JSON string.
+            var data = Json.Serialize(_basicObject);
+        }
+    }
+}
+</code></pre><p>It also have optional parameters to use</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>The object</td>
+</tr>
+<tr>
+<td>format</td>
+<td>bool</td>
+<td>if set to <code>true</code> it formats and indents the output.</td>
+</tr>
+<tr>
+<td>typeSpecifier</td>
+<td>string</td>
+<td>The type specifier. Leave null or empty to avoid setting.</td>
+</tr>
+<tr>
+<td>includeNonPublic</td>
+<td>bool</td>
+<td>if set to <code>true</code> non-public getters will be also read.</td>
+</tr>
+<tr>
+<td>includedNames</td>
+<td>string[]</td>
+<td>The included property names.</td>
+</tr>
+<tr>
+<td>excludedNames</td>
+<td>string[]</td>
+<td>The excluded property names.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-2-serialize-only">Example 2: Serialize only</h4>
+<p>Serializes the specified object only including the specified property names.</p>
+<pre><code class="lang-csharp">using Unosquare.Swan.Formatters;
+namespace Program
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //The object to be serialize
+            Object _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+            //The included names
+            string[] _includedNames = { &quot;Two&quot;, &quot;Three&quot; };
+            //Serializes the specified object only including the specified property names.
+            var data = Json.SerializeOnly(_basicObject, true, _includedNames);
+        }
+    }
+}
+</code></pre><h4 id="example-3-serialize-excluding">Example 3: Serialize excluding</h4>
+<p>Serializes the specified object excluding the specified property names.</p>
+<pre><code class="lang-csharp">using Unosquare.Swan.Formatters;
+namespace Program
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            //The object to be serialize
+            Object _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+            //The excluded names
+            string[] _excludeNames = { &quot;Two&quot;, &quot;Three&quot; };
+            //Serializes the specified object excluding the specified property names.
+            var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
+        }
+    }
+}
+</code></pre><h3 id="the-json-client">The <code>JSON Client</code></h3>
 <p>Represents a <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
 <h4 id="methods">Methods</h4>
 <pre><code class="lang-csharp">//Authenticate
