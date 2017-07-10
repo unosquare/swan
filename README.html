@@ -164,9 +164,9 @@ the current thread until the entire output queue becomes empty.</p>
 <h4 id="example-1-serialize">Example 1: Serialize</h4>
 <p>Serializes the specified object into a JSON string.</p>
 <pre><code class="lang-csharp">//The object to be serialize
-var _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+var basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
 //Serializes the specified object into a JSON string.
-var data = Json.Serialize(_basicObject);
+var data = Json.Serialize(basicObject);
 </code></pre><p>It also have optional parameters to use</p>
 <table>
 <thead>
@@ -212,20 +212,88 @@ var data = Json.Serialize(_basicObject);
 <h4 id="example-2-serialize-only">Example 2: Serialize only</h4>
 <p>Serializes the specified object only including the specified property names.</p>
 <pre><code class="lang-csharp">//The object to be serialize
-var _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+var basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
 //The included names
-var _includedNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
+var includedNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
 //Serializes the specified object only including the specified property names.
-var data = Json.SerializeOnly(_basicObject, true, _includedNames);
+var data = Json.SerializeOnly(basicObject, true, includedNames);
 </code></pre><h4 id="example-3-serialize-excluding">Example 3: Serialize excluding</h4>
 <p>Serializes the specified object excluding the specified property names.</p>
 <pre><code class="lang-csharp">//The object to be serialize
-var _basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+var basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
 //The excluded names
-var _excludeNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
+var excludeNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
 //Serializes the specified object excluding the specified property names.
-var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
-</code></pre><h3 id="the-json-client">The <code>JSON Client</code></h3>
+var data = Json.SerializeExcluding(basicObject, true, excludeNames);
+</code></pre><h4 id="example-4-deserialize">Example 4: Deserialize</h4>
+<p>Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string</p>
+<pre><code class="lang-csharp">//The json to be deserialize
+var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
+//Deserializes the specified json into Dictionary[string, object].
+var data = Json.Deserialize(basicJson);
+</code></pre><p>It also have parameters to use</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>json</td>
+<td>string</td>
+<td>The json.</td>
+</tr>
+<tr>
+<td>resultType</td>
+<td>Type</td>
+<td>Type of the result.</td>
+</tr>
+<tr>
+<td>includeNonPublic</td>
+<td>bool</td>
+<td>if set to true, it also uses the non-public constructors and property  setters.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-5-deserializet">Example 5: Deserialize<t></t></h4>
+<p>Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string</p>
+<pre><code class="lang-csharp">public class BasicJson{
+    public string One { get; set; }
+    public string Two { get; set; }
+    public string Three { get; set; }
+}
+static void Main(string[] args){
+//The json Type BasicJson to be deserialize
+var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
+//Deserializes the specified object into Dictionary[string, object].
+var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
+}
+</code></pre><p>It also have parameters to use</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>json</td>
+<td>string</td>
+<td>The json.</td>
+</tr>
+<tr>
+<td>includeNonPublic</td>
+<td>bool</td>
+<td>if set to <code>true</code>, it also uses the non-public constructors and property setters.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-json-client">The <code>JSON Client</code></h3>
 <p>Represents a <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
 </article>
           </div>
