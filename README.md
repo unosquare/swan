@@ -131,6 +131,80 @@ out to the `Console` before the program exits. For example, when we write a cons
 to be fully printed out before the process is terminated. In these scenarios we use `Terminal.Flush` which blocks
 the current thread until the entire output queue becomes empty.
 
+### The `JSON Formatter`
+You can serialize and deserialize strings and objects using Swan's `Json` Formatter.
+
+#### Example 1: Serialize
+Serializes the specified object into a JSON string.
+```csharp
+using Unosquare.Swan.Formatters;
+namespace Program
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //The array of strings to be serialize
+            Object _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+            //Serializes the specified object into a JSON string.
+            var data = Json.Serialize(_basicObject);
+        }
+    }
+}
+```
+It also have optional parameters to use
+| Parameter | Type | Description |
+| -- | -- | -- |
+| obj | object | The object |
+| format | bool | if set to `true` it formats and indents the output. |
+| typeSpecifier | string | The type specifier. Leave null or empty to avoid setting. |
+| includeNonPublic | bool | if set to `true` non-public getters will be also read. |
+| includedNames | string[] | The included property names. |
+| excludedNames | string[] | The excluded property names. |
+
+#### Example 2: Serialize only
+Serializes the specified object only including the specified property names.
+```csharp
+using Unosquare.Swan.Formatters;
+namespace Program
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //The object to be serialize
+            Object _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+            //The included names
+            string[] _includedNames = { "Two", "Three" };
+            //Serializes the specified object only including the specified property names.
+            var data = Json.SerializeOnly(_basicObject, true, _includedNames);
+        }
+    }
+}
+```
+
+#### Example 3: Serialize excluding
+Serializes the specified object excluding the specified property names.
+```csharp
+using Unosquare.Swan.Formatters;
+namespace Program
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            //The object to be serialize
+            Object _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+            //The excluded names
+            string[] _excludeNames = { "Two", "Three" };
+            //Serializes the specified object excluding the specified property names.
+            var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
+        }
+    }
+}
+``` 
+
 ### The `JSON Client`
 Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
 
@@ -150,5 +224,4 @@ var data = await JsonClient.GetString("url");
 
 //Posts the specified URL.
 var data = await JsonClient.Post<T>("url", object);
-
 ``` 
