@@ -130,3 +130,25 @@ is an asynchronous, thread-safe output queue, we might under certain situations 
 out to the `Console` before the program exits. For example, when we write a console application that requires its usage
 to be fully printed out before the process is terminated. In these scenarios we use `Terminal.Flush` which blocks
 the current thread until the entire output queue becomes empty.
+
+### The `JSON Client`
+Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
+
+#### Methods
+```csharp
+//Authenticate
+var data = await JsonClient.Authenticate("url", "admin", "password");
+
+//Gets the specified URL and return the JSON data as object with optional authorization token.
+var data = await JsonClient.Get<T>("url");
+
+//Gets the binary.
+var data = await JsonClient.GetBinary("url");
+
+//Gets as string.
+var data = await JsonClient.GetString("url");
+
+//Posts the specified URL.
+var data = await JsonClient.Post<T>("url", object);
+
+``` 
