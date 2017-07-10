@@ -137,20 +137,10 @@ You can serialize and deserialize strings and objects using Swan's `Json` Format
 #### Example 1: Serialize
 Serializes the specified object into a JSON string.
 ```csharp
-using Unosquare.Swan.Formatters;
-namespace Program
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            //The array of strings to be serialize
-            Object _basicObject = new { One = "One", Two = "Two", Three = "Three" };
-            //Serializes the specified object into a JSON string.
-            var data = Json.Serialize(_basicObject);
-        }
-    }
-}
+//The object to be serialize
+var _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+//Serializes the specified object into a JSON string.
+var data = Json.Serialize(_basicObject);
 ```
 It also have optional parameters to use
 | Parameter | Type | Description |
@@ -165,63 +155,24 @@ It also have optional parameters to use
 #### Example 2: Serialize only
 Serializes the specified object only including the specified property names.
 ```csharp
-using Unosquare.Swan.Formatters;
-namespace Program
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            //The object to be serialize
-            Object _basicObject = new { One = "One", Two = "Two", Three = "Three" };
-            //The included names
-            string[] _includedNames = { "Two", "Three" };
-            //Serializes the specified object only including the specified property names.
-            var data = Json.SerializeOnly(_basicObject, true, _includedNames);
-        }
-    }
-}
+//The object to be serialize
+var _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+//The included names
+var _includedNames  = new[] { "Two", "Three" };
+//Serializes the specified object only including the specified property names.
+var data = Json.SerializeOnly(_basicObject, true, _includedNames);
 ```
 
 #### Example 3: Serialize excluding
 Serializes the specified object excluding the specified property names.
-```csharp
-using Unosquare.Swan.Formatters;
-namespace Program
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            
-            //The object to be serialize
-            Object _basicObject = new { One = "One", Two = "Two", Three = "Three" };
-            //The excluded names
-            string[] _excludeNames = { "Two", "Three" };
-            //Serializes the specified object excluding the specified property names.
-            var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
-        }
-    }
-}
+```csharp         
+//The object to be serialize
+var _basicObject = new { One = "One", Two = "Two", Three = "Three" };
+//The excluded names
+var _excludeNames  = new[] { "Two", "Three" };
+//Serializes the specified object excluding the specified property names.
+var data = Json.SerializeExcluding(_basicObject, true, _excludeNames);
 ``` 
 
 ### The `JSON Client`
 Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
-
-#### Methods
-```csharp
-//Authenticate
-var data = await JsonClient.Authenticate("url", "admin", "password");
-
-//Gets the specified URL and return the JSON data as object with optional authorization token.
-var data = await JsonClient.Get<T>("url");
-
-//Gets the binary.
-var data = await JsonClient.GetBinary("url");
-
-//Gets as string.
-var data = await JsonClient.GetString("url");
-
-//Posts the specified URL.
-var data = await JsonClient.Post<T>("url", object);
-``` 
