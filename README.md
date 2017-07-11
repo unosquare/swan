@@ -137,7 +137,7 @@ the current thread until the entire output queue becomes empty.
 
 ### The `Json`
 
-You can serialize and deserialize strings and objects using Swan's `Json` Formatter. Is a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives is necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.
+You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives it's necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.
 
 [Json Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
 
@@ -311,40 +311,18 @@ var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { fil
 
 ### The `SmtpClient`
 
-Is a Swan's basic SMTP client that is capable of submitting messages to an SMTP server. Is very easy to manage an provide a very handly way to make use of smtp in your application to send mails to any registered user.
+It's a Swan's basic SMTP client that is capable of submitting messages to an SMTP server. It's very easy to manage an provide a very handly way to make use of SMTP in your application to send mails to any registered user.
 
-#### Example 1: Setting up the client
+[SmtpClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
-To configure the client you need to initialize it and setup the properties to use and send mails.
+#### Example 1: Sending mails
 
-```csharp
-//Initialize and setup the doamin and the port that is going to use
-var client = new SmtpClient("host.domain.com", 25);
-```
-
-#### Example 2: Setting up specific properties
-
-There is some specific properties that you can use to configure the `SmtpClient` in your application.
+The mails are sent asynchronously.
 
 ```csharp
-//You can get or set the host of the client
-var host = client.Host;
+//Sending mails async
+await client.SendMailAsync(new MailMessage());
 
-//You can get or set the port of the client
-var port = client.Port;
-
-//This is the client hostname that gets announced to the server
-client.ClientHostname = "MyClientHostName";
-
-//Property to enable or disable ssl
-client.EnableSsl = true;
-
-//The credentials
-client.Credentials = new NetworkCredential()
-{
-    Domain = "MyDomain",
-    Password = "Password",
-    SecurePassword = EncryptedPassword,
-    UserName = "UserName"
-};
+//Or sent the mail based on the Smtp session state
+await client.SendMailAsync(new SmtpSessionState());
 ```
