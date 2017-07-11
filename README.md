@@ -38,6 +38,8 @@ SWAN won't force you to use any of its components, classes or methods.
 
 `Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan as `ObjectMapper`.
 
+[Runtime Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html)
+
 ### The `Terminal`
 
 Many times we find ourselves implementing `Console` output code as some NLog or Log4Net logger or adapter, especially 
