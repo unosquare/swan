@@ -259,6 +259,34 @@ var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data
 <p>Easy way to make a PUT using <code>JsonClient</code>.</p>
 <pre><code class="lang-csharp">//The PUT
 var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
+</code></pre><h3 id="the-smtpclient">The <code>SmtpClient</code></h3>
+<p>Is a Swan&#39;s basic SMTP client that is capable of submitting messages to an SMTP server. Is very easy to manage an provide a very handly way to make use of smtp in your application to send mails to any registered user.</p>
+<h4 id="example-1-setting-up-the-client">Example 1: Setting up the client</h4>
+<p>To configure the client you need to initialize it and setup the properties to use and send mails.</p>
+<pre><code class="lang-csharp">//Initialize and setup the doamin and the port that is going to use
+var client = new SmtpClient(&quot;host.domain.com&quot;, 25);
+</code></pre><h4 id="example-2-setting-up-specific-properties">Example 2: Setting up specific properties</h4>
+<p>There is some specific properties that you can use to configure the <code>SmtpClient</code> in your application.</p>
+<pre><code class="lang-csharp">//You can get or set the host of the client
+var host = client.Host;
+
+//You can get or set the port of the client
+var port = client.Port;
+
+//This is the client hostname that gets announced to the server
+client.ClientHostname = &quot;MyClientHostName&quot;;
+
+//Property to enable or disable ssl
+client.EnableSsl = true;
+
+//The credentials
+client.Credentials = new NetworkCredential()
+{
+    Domain = &quot;MyDomain&quot;,
+    Password = &quot;Password&quot;,
+    SecurePassword = EncryptedPassword,
+    UserName = &quot;UserName&quot;
+};
 </code></pre></article>
           </div>
           
