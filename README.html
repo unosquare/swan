@@ -108,6 +108,7 @@ code everywhere in your application and it makes it look silly, bloated and writ
 </ul>
 <p>It is also very easy to use, it&#39;s thread-safe, and it does not rquire you to learn anything new. In fact it simplifies logging
 messages and diplaying <code>Console</code> messages by providing <code>string</code> extension methods.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html">Terminal Documentation</a></p>
 <h4 id="example-1-writing-to-the-terminal">Example 1: Writing to the Terminal</h4>
 <p>This only writes messages out to the <code>TerminalWriters</code> if they are avialble. In practice, we typically <strong>DO NOT</strong> use
 the <code>Write</code> and <code>WriteLine</code> methods but they are provided for convenience, extensibility and customization. Please note
@@ -162,6 +163,7 @@ to be fully printed out before the process is terminated. In these scenarios we 
 the current thread until the entire output queue becomes empty.</p>
 <h3 id="the-json">The <code>Json</code></h3>
 <p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter. Is a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives is necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html">Json Documentation</a></p>
 <h4 id="example-1-serialize">Example 1: Serialize</h4>
 <p>Serializes the specified object into a JSON string.</p>
 <pre><code class="lang-csharp">//The object to be serialize
@@ -198,6 +200,7 @@ var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&q
 var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
 </code></pre><h3 id="the-csvwriter">The <code>CsvWriter</code></h3>
 <p>Many projects require the use o CSV files to export the information, with <code>CsvWriter</code> you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter Documentation</a></p>
 <h4 id="example-1-writing-a-list-of-objects">Example 1: Writing a List of objects</h4>
 <p>This is the way to write a list of objects into a CSV format.</p>
 <pre><code class="lang-csharp"> //The list of object to be written as CSV
@@ -212,12 +215,11 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString()
 <p>You also can write the object into a file or a temporal file.</p>
 <pre><code class="lang-csharp">//The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
-//The temp file
-var tempFile = Path.GetTempFileName();
 //This is where the object is save into a file
-CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, tempFile);
+CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
 </code></pre><h3 id="the-csvreader">The <code>CsvReader</code></h3>
-<p>When you use and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load CSV files</p>
+<p>When you use and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load CSV files.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html">CsvReader Documentation</a></p>
 <h4 id="example-1-reading-a-csv-data-format">Example 1: Reading a CSV data format</h4>
 <p>This is a way to read CSV format data.</p>
 <pre><code class="lang-csharp"> //The data to be readed
@@ -234,28 +236,29 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 <p>From a csv file you can read and load the information to a generic list.</p>
 <pre><code class="lang-csharp">//The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
-//The temp file
-var tempFile = Path.GetTempFileName();
 //This is where the object is save into a file
-CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, tempFile);
+CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
 //This is how you can load the records of the CSV file
-var loadedRecords = CsvReader.LoadRecords&lt;BasicJson&gt;(tempFile);
+var loadedRecords = CsvReader.LoadRecords&lt;BasicJson&gt;(&quot;C:/Users/user/Documents/CsvFile&quot;);
 </code></pre><h3 id="the-jsonclient">The <code>JsonClient</code></h3>
-<p>Represents a <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
+<p>Represents a wrapper <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html">JsonClient</a></p>
 <h4 id="example-1-authentication">Example 1: Authentication</h4>
-<p>You can Authentication into your application</p>
-<pre><code class="lang-csharp">//The url
-var defaultHttp = &quot;http://localhost:8080&quot;;
-//The Authenticate
-var data = JsonClient.Authenticate(defaultHttp, &quot;admin&quot;, &quot;password&quot;);
-</code></pre><h4 id="example-2-post">Example 2: Post</h4>
-<p>Easy way to make a POST using <code>JsonClient</code></p>
-<pre><code class="lang-csharp">//Where the Authentication is going to point
-var defaultUrl = &quot;http://localhost:8080&quot;;
-//The payload/object to be send
-var basicJson = new BasicJson();
-//The Authenticate
-var data = JsonClient.Post&lt;BasicJson&gt;(defaultUrl, basicJson);
+<p>You can Authentication into your application.</p>
+<pre><code class="lang-csharp">//The Authenticate
+var data = JsonClient.Authenticate(&quot;https://mywebsite.com/api/token&quot;, &quot;admin&quot;, &quot;password&quot;);
+</code></pre><h4 id="example-2-making-a-get">Example 2: Making a GET</h4>
+<p>Easy way to make a GET using <code>JsonClient</code>.</p>
+<pre><code class="lang-csharp">//The GET
+var data = JsonClient.Get&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;);
+</code></pre><h4 id="example-3-making-a-post">Example 3: Making a POST</h4>
+<p>Easy way to make a POST using <code>JsonClient</code>.</p>
+<pre><code class="lang-csharp">//The POST
+var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
+</code></pre><h4 id="example-4-making-a-put">Example 4: Making a PUT</h4>
+<p>Easy way to make a PUT using <code>JsonClient</code>.</p>
+<pre><code class="lang-csharp">//The PUT
+var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
 </code></pre></article>
           </div>
           
