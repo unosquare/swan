@@ -166,6 +166,7 @@ var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 ``` 
 #### Example 4: Deserialize
 Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string
+
 ```csharp 
 //The json to be deserialize
 var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
@@ -176,23 +177,19 @@ var data = Json.Deserialize(basicJson);
 #### Example 5: Deserialize `<T>`
 Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string
 ```csharp 
-public class BasicJson{
-    public string One { get; set; }
-    public string Two { get; set; }
-    public string Three { get; set; }
-}
-static void Main(string[] args){
 //The json Type BasicJson to be deserialize
 var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
 //Deserializes the specified object into Dictionary[string, object].
 var data = Json.Deserialize<BasicJson>(basicJson);
-}
 ``` 
 
-### The `Csv`
-Swan's Csv is a helpfull writer and reader of csv files or data.
+### The `CsvWriter`
 
-#### Example 1: The Writer
+- Intro -
+
+#### Example 1: Writing a List of objects
+
+If you want to write a list 
 
 ```csharp
  //The data to be written as Csv
@@ -207,7 +204,9 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 };
 ```
 
-#### Example 2: The Reader
+### The `CsvReader`
+
+#### Example 1: The Reader
 ```csharp
  //The data to be readed
 var data = @"Company,OpenPositions,MainTechnology,Revenue
