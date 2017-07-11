@@ -269,6 +269,15 @@ await client.SendMailAsync(new MailMessage());
 
 //Or sent the mail based on the Smtp session state
 await client.SendMailAsync(new SmtpSessionState());
+</code></pre><h3 id="the-objectmapper">The <code>ObjectMapper</code></h3>
+<p>It&#39;s a very handly component of Swan that maps objects. This component makes use of the <code>Runtime</code></p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html">ObjectMapper</a></p>
+<h4 id="example-1-creating-a-map">Example 1: Creating a map</h4>
+<pre><code class="lang-csharp">//Creating a map
+Runtime.ObjectMapper.CreateMap&lt;User, UserDto&gt;();
+</code></pre><h4 id="example-2-mapping-a-specific-source">Example 2: Mapping a specific source</h4>
+<pre><code class="lang-csharp">//Here is mapping the specific user to a destination
+var destination = Runtime.ObjectMapper.Map&lt;UserDto&gt;(user);
 </code></pre></article>
           </div>
           
