@@ -191,20 +191,16 @@ var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&q
 var data = Json.Deserialize(basicJson);
 </code></pre><h4 id="example-5-deserialize-t">Example 5: Deserialize <code>&lt;T&gt;</code></h4>
 <p>Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string</p>
-<pre><code class="lang-csharp">public class BasicJson{
-    public string One { get; set; }
-    public string Two { get; set; }
-    public string Three { get; set; }
-}
-static void Main(string[] args){
-//The json Type BasicJson to be deserialize
+<pre><code class="lang-csharp">//The json Type BasicJson to be deserialize
 var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
 //Deserializes the specified object into Dictionary[string, object].
 var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
-}
-</code></pre><h3 id="the-csv">The <code>Csv</code></h3>
-<p>Swan&#39;s Csv is a helpfull writer and reader of csv files or data.</p>
-<h4 id="example-1-the-writer">Example 1: The Writer</h4>
+</code></pre><h3 id="the-csvwriter">The <code>CsvWriter</code></h3>
+<ul>
+<li>Intro -</li>
+</ul>
+<h4 id="example-1-writing-a-list-of-objects">Example 1: Writing a List of objects</h4>
+<p>If you want to write a list </p>
 <pre><code class="lang-csharp"> //The data to be written as Csv
 var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
     Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot; 
@@ -215,7 +211,8 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
     //The reader of the Csv
     var reader = new CsvWriter(stream, Encoding.ASCII);
 };
-</code></pre><h4 id="example-2-the-reader">Example 2: The Reader</h4>
+</code></pre><h3 id="the-csvreader">The <code>CsvReader</code></h3>
+<h4 id="example-1-the-reader">Example 1: The Reader</h4>
 <pre><code class="lang-csharp"> //The data to be readed
 var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
     Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot; 
