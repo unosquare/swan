@@ -131,11 +131,14 @@ out to the `Console` before the program exits. For example, when we write a cons
 to be fully printed out before the process is terminated. In these scenarios we use `Terminal.Flush` which blocks
 the current thread until the entire output queue becomes empty.
 
-### The `JSON Formatter`
-You can serialize and deserialize strings and objects using Swan's `Json` Formatter.
+### The `Json`
+
+You can serialize and deserialize strings and objects using Swan's `Json` Formatter. Is a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives is necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.
 
 #### Example 1: Serialize
+
 Serializes the specified object into a JSON string.
+
 ```csharp
 //The object to be serialize
 var basicObject = new { One = "One", Two = "Two", Three = "Three" };
@@ -144,7 +147,9 @@ var data = Json.Serialize(basicObject);
 ```
 
 #### Example 2: Serialize only
+
 Serializes the specified object only including the specified property names.
+
 ```csharp
 //The object to be serialize
 var basicObject = new { One = "One", Two = "Two", Three = "Three" };
@@ -155,7 +160,9 @@ var data = Json.SerializeOnly(basicObject, true, includedNames);
 ```
 
 #### Example 3: Serialize excluding
+
 Serializes the specified object excluding the specified property names.
+
 ```csharp         
 //The object to be serialize
 var basicObject = new { One = "One", Two = "Two", Three = "Three" };
@@ -165,6 +172,7 @@ var excludeNames  = new[] { "Two", "Three" };
 var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 ``` 
 #### Example 4: Deserialize
+
 Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string
 
 ```csharp 
@@ -175,7 +183,9 @@ var data = Json.Deserialize(basicJson);
 ``` 
 
 #### Example 5: Deserialize `<T>`
+
 Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string
+
 ```csharp 
 //The json Type BasicJson to be deserialize
 var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
@@ -185,28 +195,44 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 
 ### The `CsvWriter`
 
-- Intro -
+Many projects require the use o csv files to export the information, with `CsvWriter` you can easily write objects and data to csv format, also gives a useful way to save the information into a file.
 
 #### Example 1: Writing a List of objects
 
-If you want to write a list 
+This is the way to write a list of objects into a csv format.
 
 ```csharp
- //The data to be written as Csv
-var data = @"Company,OpenPositions,MainTechnology,Revenue
-    Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
-    Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+ //The list of object to be written as Csv
+var basicObj = new List<BasicJson>();
 
-using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString())))
 {               
-    //The reader of the Csv
-    var reader = new CsvWriter(stream, Encoding.ASCII);
+    //The writer of the Csv
+    var reader = new CsvWriter(stream);
 };
+```
+
+#### Example 2: Writing a List of objects into a file
+
+You also can write the object into a file or a temporal file.
+
+```csharp
+//The list of object to be written as Csv
+var basicObj = new List<BasicJson>();
+//The temp file
+var tempFile = Path.GetTempFileName();
+//This is where the object is save into a file
+CsvWriter.SaveRecords<BasicJson>(basicObj, tempFile);
 ```
 
 ### The `CsvReader`
 
-#### Example 1: The Reader
+When you use and manage the information through csv files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of `CsvReader` to read and load csv files
+
+#### Example 1: Reading a csv data format
+
+This is a way to read csv format data.
+
 ```csharp
  //The data to be readed
 var data = @"Company,OpenPositions,MainTechnology,Revenue
@@ -220,6 +246,37 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 };
 ```
 
-### The `JSON Client`
+#### Example 2: Reading a csv file
+
+From a csv file you can read and load the information to a generic list.
+
+```csharp
+//The list of object to be written as Csv
+var basicObj = new List<BasicJson>();
+//The temp file
+var tempFile = Path.GetTempFileName();
+//This is where the object is save into a file
+CsvWriter.SaveRecords<BasicJson>(basicObj, tempFile);
+//This is how you can load the records of the csv file
+var loadedRecords = CsvReader.LoadRecords<BasicJson>(tempFile);
+``` 
+
+### The `JsonClient`
+
 Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
+
+#### Example 1: You can Authentication into your application
+```csharp
+//Where the Authentication is going to point
+var defaultHttp = "http://localhost:8080";
+//The Authenticate
+var data = JsonClient.Authenticate(defaultHttp, "admin", "password");
+```
+#### Example 2: Make Posts 
+```csharp
+//Where the Authentication is going to point
+var defaultUrl = "http://localhost:8080";
+//The Authenticate
+var data = JsonClient.Authenticate(defaultUrl, "admin", "password");
+```
 
