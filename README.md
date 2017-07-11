@@ -189,5 +189,38 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 }
 ``` 
 
+### The `Csv`
+Swan's Csv is a helpfull writer and reader of csv files or data.
+
+#### Example 1: The Writer
+
+```csharp
+ //The data to be written as Csv
+var data = @"Company,OpenPositions,MainTechnology,Revenue
+    Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
+    Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+
+using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+{               
+    //The reader of the Csv
+    var reader = new CsvWriter(stream, Encoding.ASCII);
+};
+```
+
+#### Example 2: The Reader
+```csharp
+ //The data to be readed
+var data = @"Company,OpenPositions,MainTechnology,Revenue
+    Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
+    Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+
+using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+{               
+    //The reader of the Csv
+    var reader = new CsvReader(stream, true, Encoding.ASCII);
+};
+```
+
 ### The `JSON Client`
 Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
+
