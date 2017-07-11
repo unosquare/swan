@@ -159,8 +159,8 @@ is an asynchronous, thread-safe output queue, we might under certain situations 
 out to the <code>Console</code> before the program exits. For example, when we write a console application that requires its usage
 to be fully printed out before the process is terminated. In these scenarios we use <code>Terminal.Flush</code> which blocks
 the current thread until the entire output queue becomes empty.</p>
-<h3 id="the-json-formatter">The <code>JSON Formatter</code></h3>
-<p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter.</p>
+<h3 id="the-json">The <code>Json</code></h3>
+<p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter. Is a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives is necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.</p>
 <h4 id="example-1-serialize">Example 1: Serialize</h4>
 <p>Serializes the specified object into a JSON string.</p>
 <pre><code class="lang-csharp">//The object to be serialize
@@ -196,23 +196,29 @@ var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&q
 //Deserializes the specified object into Dictionary[string, object].
 var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
 </code></pre><h3 id="the-csvwriter">The <code>CsvWriter</code></h3>
-<ul>
-<li>Intro -</li>
-</ul>
+<p>Many projects require the use o csv files to export the information, with <code>CsvWriter</code> you can easily write objects and data to csv format, also gives a useful way to save the information into a file.</p>
 <h4 id="example-1-writing-a-list-of-objects">Example 1: Writing a List of objects</h4>
-<p>If you want to write a list </p>
-<pre><code class="lang-csharp"> //The data to be written as Csv
-var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
-    Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot; 
-    Ca,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot;&quot;;
+<p>This is the way to write a list of objects into a csv format.</p>
+<pre><code class="lang-csharp"> //The list of object to be written as Csv
+var basicObj = new List&lt;BasicJson&gt;();
 
-using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString())))
 {               
-    //The reader of the Csv
-    var reader = new CsvWriter(stream, Encoding.ASCII);
+    //The writer of the Csv
+    var reader = new CsvWriter(stream);
 };
+</code></pre><h4 id="example-2-writing-a-list-of-objects-into-a-file">Example 2: Writing a List of objects into a file</h4>
+<p>You also can write the object into a file or a temporal file.</p>
+<pre><code class="lang-csharp">//The list of object to be written as Csv
+var basicObj = new List&lt;BasicJson&gt;();
+//The temp file
+var tempFile = Path.GetTempFileName();
+//This is where the object is save into a file
+CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, tempFile);
 </code></pre><h3 id="the-csvreader">The <code>CsvReader</code></h3>
-<h4 id="example-1-the-reader">Example 1: The Reader</h4>
+<p>When you use and manage the information through csv files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load csv files</p>
+<h4 id="example-1-reading-a-csv-data-format">Example 1: Reading a csv data format</h4>
+<p>This is a way to read csv format data.</p>
 <pre><code class="lang-csharp"> //The data to be readed
 var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
     Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot; 
@@ -223,9 +229,29 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
     //The reader of the Csv
     var reader = new CsvReader(stream, true, Encoding.ASCII);
 };
-</code></pre><h3 id="the-json-client">The <code>JSON Client</code></h3>
+</code></pre><h4 id="example-2-reading-a-csv-file">Example 2: Reading a csv file</h4>
+<p>From a csv file you can read and load the information to a generic list.</p>
+<pre><code class="lang-csharp">//The list of object to be written as Csv
+var basicObj = new List&lt;BasicJson&gt;();
+//The temp file
+var tempFile = Path.GetTempFileName();
+//This is where the object is save into a file
+CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, tempFile);
+//This is how you can load the records of the csv file
+var loadedRecords = CsvReader.LoadRecords&lt;BasicJson&gt;(tempFile);
+</code></pre><h3 id="the-jsonclient">The <code>JsonClient</code></h3>
 <p>Represents a <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
-</article>
+<h4 id="example-1-you-can-authentication-into-your-application">Example 1: You can Authentication into your application</h4>
+<pre><code class="lang-csharp">//Where the Authentication is going to point
+var defaultHttp = &quot;http://localhost:8080&quot;;
+//The Authenticate
+var data = JsonClient.Authenticate(defaultHttp, &quot;admin&quot;, &quot;password&quot;);
+</code></pre><h4 id="example-2-make-posts">Example 2: Make Posts</h4>
+<pre><code class="lang-csharp">//Where the Authentication is going to point
+var defaultUrl = &quot;http://localhost:8080&quot;;
+//The Authenticate
+var data = JsonClient.Authenticate(defaultUrl, &quot;admin&quot;, &quot;password&quot;);
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
