@@ -162,7 +162,7 @@ out to the <code>Console</code> before the program exits. For example, when we w
 to be fully printed out before the process is terminated. In these scenarios we use <code>Terminal.Flush</code> which blocks
 the current thread until the entire output queue becomes empty.</p>
 <h3 id="the-json">The <code>Json</code></h3>
-<p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter. Is a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives is necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.</p>
+<p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter. It&#39;s a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives it&#39;s necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html">Json Documentation</a></p>
 <h4 id="example-1-serialize">Example 1: Serialize</h4>
 <p>Serializes the specified object into a JSON string.</p>
@@ -260,33 +260,15 @@ var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data
 <pre><code class="lang-csharp">//The PUT
 var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
 </code></pre><h3 id="the-smtpclient">The <code>SmtpClient</code></h3>
-<p>Is a Swan&#39;s basic SMTP client that is capable of submitting messages to an SMTP server. Is very easy to manage an provide a very handly way to make use of smtp in your application to send mails to any registered user.</p>
-<h4 id="example-1-setting-up-the-client">Example 1: Setting up the client</h4>
-<p>To configure the client you need to initialize it and setup the properties to use and send mails.</p>
-<pre><code class="lang-csharp">//Initialize and setup the doamin and the port that is going to use
-var client = new SmtpClient(&quot;host.domain.com&quot;, 25);
-</code></pre><h4 id="example-2-setting-up-specific-properties">Example 2: Setting up specific properties</h4>
-<p>There is some specific properties that you can use to configure the <code>SmtpClient</code> in your application.</p>
-<pre><code class="lang-csharp">//You can get or set the host of the client
-var host = client.Host;
+<p>It&#39;s a Swan&#39;s basic SMTP client that is capable of submitting messages to an SMTP server. It&#39;s very easy to manage an provide a very handly way to make use of SMTP in your application to send mails to any registered user.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html">SmtpClient</a></p>
+<h4 id="example-1-sending-mails">Example 1: Sending mails</h4>
+<p>The mails are sent asynchronously.</p>
+<pre><code class="lang-csharp">//Sending mails async
+await client.SendMailAsync(new MailMessage());
 
-//You can get or set the port of the client
-var port = client.Port;
-
-//This is the client hostname that gets announced to the server
-client.ClientHostname = &quot;MyClientHostName&quot;;
-
-//Property to enable or disable ssl
-client.EnableSsl = true;
-
-//The credentials
-client.Credentials = new NetworkCredential()
-{
-    Domain = &quot;MyDomain&quot;,
-    Password = &quot;Password&quot;,
-    SecurePassword = EncryptedPassword,
-    UserName = &quot;UserName&quot;
-};
+//Or sent the mail based on the Smtp session state
+await client.SendMailAsync(new SmtpSessionState());
 </code></pre></article>
           </div>
           
