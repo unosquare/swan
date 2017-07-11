@@ -184,41 +184,41 @@ var excludeNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
 //Serializes the specified object excluding the specified property names.
 var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 </code></pre><h4 id="example-4-deserialize">Example 4: Deserialize</h4>
-<p>Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string</p>
+<p>Deserializes the specified json string as either a <code>Dictionary&lt;string, object&gt;</code> or as a <code>List&lt;object&gt;</code> depending on the syntax of the JSON string.</p>
 <pre><code class="lang-csharp">//The json to be deserialize
 var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
-//Deserializes the specified json into Dictionary[string, object].
+//Deserializes the specified json into Dictionary&lt;string, object&gt;.
 var data = Json.Deserialize(basicJson);
-</code></pre><h4 id="example-5-deserialize-t">Example 5: Deserialize <code>&lt;T&gt;</code></h4>
-<p>Deserializes the specified json string as either a Dictionary[string, object] or as a List[object] depending on the syntax of the JSON string</p>
+</code></pre><h4 id="example-5-deserialize-a-generic-type-t">Example 5: Deserialize a generic type <code>&lt;T&gt;</code></h4>
+<p>Deserializes the specified json string as either a <code>Dictionary&lt;string, object&gt;</code> or as a <code>List&lt;object&gt;</code> depending on the syntax of the JSON string</p>
 <pre><code class="lang-csharp">//The json Type BasicJson to be deserialize
 var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
-//Deserializes the specified object into Dictionary[string, object].
+//Deserializes the specified object into Dictionary&lt;string, object&gt;.
 var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
 </code></pre><h3 id="the-csvwriter">The <code>CsvWriter</code></h3>
-<p>Many projects require the use o csv files to export the information, with <code>CsvWriter</code> you can easily write objects and data to csv format, also gives a useful way to save the information into a file.</p>
+<p>Many projects require the use o CSV files to export the information, with <code>CsvWriter</code> you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.</p>
 <h4 id="example-1-writing-a-list-of-objects">Example 1: Writing a List of objects</h4>
-<p>This is the way to write a list of objects into a csv format.</p>
-<pre><code class="lang-csharp"> //The list of object to be written as Csv
+<p>This is the way to write a list of objects into a CSV format.</p>
+<pre><code class="lang-csharp"> //The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
 
 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString())))
 {               
-    //The writer of the Csv
+    //The writer of the CSV
     var reader = new CsvWriter(stream);
 };
 </code></pre><h4 id="example-2-writing-a-list-of-objects-into-a-file">Example 2: Writing a List of objects into a file</h4>
 <p>You also can write the object into a file or a temporal file.</p>
-<pre><code class="lang-csharp">//The list of object to be written as Csv
+<pre><code class="lang-csharp">//The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
 //The temp file
 var tempFile = Path.GetTempFileName();
 //This is where the object is save into a file
 CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, tempFile);
 </code></pre><h3 id="the-csvreader">The <code>CsvReader</code></h3>
-<p>When you use and manage the information through csv files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load csv files</p>
-<h4 id="example-1-reading-a-csv-data-format">Example 1: Reading a csv data format</h4>
-<p>This is a way to read csv format data.</p>
+<p>When you use and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load CSV files</p>
+<h4 id="example-1-reading-a-csv-data-format">Example 1: Reading a CSV data format</h4>
+<p>This is a way to read CSV format data.</p>
 <pre><code class="lang-csharp"> //The data to be readed
 var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
     Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot; 
@@ -226,31 +226,35 @@ var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
 
 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 {               
-    //The reader of the Csv
+    //The reader of the CSV
     var reader = new CsvReader(stream, true, Encoding.ASCII);
 };
-</code></pre><h4 id="example-2-reading-a-csv-file">Example 2: Reading a csv file</h4>
+</code></pre><h4 id="example-2-reading-a-csv-file">Example 2: Reading a CSV file</h4>
 <p>From a csv file you can read and load the information to a generic list.</p>
-<pre><code class="lang-csharp">//The list of object to be written as Csv
+<pre><code class="lang-csharp">//The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
 //The temp file
 var tempFile = Path.GetTempFileName();
 //This is where the object is save into a file
 CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, tempFile);
-//This is how you can load the records of the csv file
+//This is how you can load the records of the CSV file
 var loadedRecords = CsvReader.LoadRecords&lt;BasicJson&gt;(tempFile);
 </code></pre><h3 id="the-jsonclient">The <code>JsonClient</code></h3>
 <p>Represents a <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
-<h4 id="example-1-you-can-authentication-into-your-application">Example 1: You can Authentication into your application</h4>
-<pre><code class="lang-csharp">//Where the Authentication is going to point
+<h4 id="example-1-authentication">Example 1: Authentication</h4>
+<p>You can Authentication into your application</p>
+<pre><code class="lang-csharp">//The url
 var defaultHttp = &quot;http://localhost:8080&quot;;
 //The Authenticate
 var data = JsonClient.Authenticate(defaultHttp, &quot;admin&quot;, &quot;password&quot;);
-</code></pre><h4 id="example-2-make-posts">Example 2: Make Posts</h4>
+</code></pre><h4 id="example-2-post">Example 2: Post</h4>
+<p>Easy way to make a POST using <code>JsonClient</code></p>
 <pre><code class="lang-csharp">//Where the Authentication is going to point
 var defaultUrl = &quot;http://localhost:8080&quot;;
+//The payload/object to be send
+var basicJson = new BasicJson();
 //The Authenticate
-var data = JsonClient.Authenticate(defaultUrl, &quot;admin&quot;, &quot;password&quot;);
+var data = JsonClient.Post&lt;BasicJson&gt;(defaultUrl, basicJson);
 </code></pre></article>
           </div>
           
