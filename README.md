@@ -308,3 +308,43 @@ Easy way to make a PUT using `JsonClient`.
 //The PUT
 var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { filter = true });
 ```
+
+### The `SmtpClient`
+
+Is a Swan's basic SMTP client that is capable of submitting messages to an SMTP server. Is very easy to manage an provide a very handly way to make use of smtp in your application to send mails to any registered user.
+
+#### Example 1: Setting up the client
+
+To configure the client you need to initialize it and setup the properties to use and send mails.
+
+```csharp
+//Initialize and setup the doamin and the port that is going to use
+var client = new SmtpClient("host.domain.com", 25);
+```
+
+#### Example 2: Setting up specific properties
+
+There is some specific properties that you can use to configure the `SmtpClient` in your application.
+
+```csharp
+//You can get or set the host of the client
+var host = client.Host;
+
+//You can get or set the port of the client
+var port = client.Port;
+
+//This is the client hostname that gets announced to the server
+client.ClientHostname = "MyClientHostName";
+
+//Property to enable or disable ssl
+client.EnableSsl = true;
+
+//The credentials
+client.Credentials = new NetworkCredential()
+{
+    Domain = "MyDomain",
+    Password = "Password",
+    SecurePassword = EncryptedPassword,
+    UserName = "UserName"
+};
+```
