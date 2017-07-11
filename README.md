@@ -60,6 +60,8 @@ The Swan `Terminal` is __all__ of the following:
 It is also very easy to use, it's thread-safe, and it does not rquire you to learn anything new. In fact it simplifies logging
 messages and diplaying `Console` messages by providing `string` extension methods.
 
+[Terminal Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html)
+
 #### Example 1: Writing to the Terminal
 
 This only writes messages out to the `TerminalWriters` if they are avialble. In practice, we typically **DO NOT** use
@@ -137,6 +139,8 @@ the current thread until the entire output queue becomes empty.
 
 You can serialize and deserialize strings and objects using Swan's `Json` Formatter. Is a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives is necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.
 
+[Json Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
+
 #### Example 1: Serialize
 
 Serializes the specified object into a JSON string.
@@ -199,6 +203,8 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 
 Many projects require the use o CSV files to export the information, with `CsvWriter` you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.
 
+[CsvWriter Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
+
 #### Example 1: Writing a List of objects
 
 This is the way to write a list of objects into a CSV format.
@@ -221,15 +227,15 @@ You also can write the object into a file or a temporal file.
 ```csharp
 //The list of object to be written as CSV
 var basicObj = new List<BasicJson>();
-//The temp file
-var tempFile = Path.GetTempFileName();
 //This is where the object is save into a file
-CsvWriter.SaveRecords<BasicJson>(basicObj, tempFile);
+CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
 ```
 
 ### The `CsvReader`
 
-When you use and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of `CsvReader` to read and load CSV files
+When you use and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of `CsvReader` to read and load CSV files.
+
+[CsvReader Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html)
 
 #### Example 1: Reading a CSV data format
 
@@ -255,38 +261,50 @@ From a csv file you can read and load the information to a generic list.
 ```csharp
 //The list of object to be written as CSV
 var basicObj = new List<BasicJson>();
-//The temp file
-var tempFile = Path.GetTempFileName();
 //This is where the object is save into a file
-CsvWriter.SaveRecords<BasicJson>(basicObj, tempFile);
+CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
 //This is how you can load the records of the CSV file
-var loadedRecords = CsvReader.LoadRecords<BasicJson>(tempFile);
+var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/CsvFile");
 ``` 
 
 ### The `JsonClient`
 
-Represents a `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
+Represents a wrapper `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
+
+[JsonClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html)
 
 #### Example 1: Authentication
 
-You can Authentication into your application
+You can Authentication into your application.
 
 ```csharp
-//The url
-var defaultHttp = "http://localhost:8080";
 //The Authenticate
-var data = JsonClient.Authenticate(defaultHttp, "admin", "password");
+var data = JsonClient.Authenticate("https://mywebsite.com/api/token", "admin", "password");
 ```
-#### Example 2: Post 
 
-Easy way to make a POST using `JsonClient`
+#### Example 2: Making a GET
+
+Easy way to make a GET using `JsonClient`.
 
 ```csharp
-//Where the Authentication is going to point
-var defaultUrl = "http://localhost:8080";
-//The payload/object to be send
-var basicJson = new BasicJson();
-//The Authenticate
-var data = JsonClient.Post<BasicJson>(defaultUrl, basicJson);
+//The GET
+var data = JsonClient.Get<BasicJson>("https://mywebsite.com/api/data");
 ```
 
+#### Example 3: Making a POST 
+
+Easy way to make a POST using `JsonClient`.
+
+```csharp
+//The POST
+var data = JsonClient.Post<BasicJson>("https://mywebsite.com/api/data", new { filter = true });
+```
+
+#### Example 4: Making a PUT
+
+Easy way to make a PUT using `JsonClient`.
+
+```csharp
+//The PUT
+var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { filter = true });
+```
