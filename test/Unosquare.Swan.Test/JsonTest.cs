@@ -59,6 +59,12 @@ namespace Unosquare.Swan.Test
         private string _arrayOfObjStr =
             "[{\"Property\": \"WebServerPort\",\"DataType\": \"Int32\",\"Value\": null,\"DefaultValue\": 9898,\"Name\": \"Web Server Port\",\"Description\": \"The port on which the web server listens for requests\",\"GroupName\": \"Administration\"},{\"Property\": \"WebServerHostname\",\"DataType\": \"String\",\"Value\": null,\"DefaultValue\": \"localhost\",\"Name\": \"Web Server Host Name\",\"Description\": \"The hostname to which the web server binds, it can be localhost, a specific IP address or a '+' sign to bind to all IP addresses\",\"GroupName\": \"Administration\"}]";
 
+        private struct SampleStruct
+        {
+            public int Value;
+            public string Name;
+        }
+
         [Test]
         public void SerializeBasicObjectTest()
         {
@@ -275,7 +281,21 @@ namespace Unosquare.Swan.Test
             var objDeserialized = Json.Deserialize<JsonPropertySample>(data);
             Assert.IsNotNull(objDeserialized);
             Assert.AreEqual(obj.Data, objDeserialized.Data);
-
         }
+
+        [Test]
+        public void SerializeWithArrayTest()
+        {
+            var obj = new JsonPropertySample() { Data = "OK", IgnoredData = "OK" };
+            var data1 = Json.Serialize(obj);
+            Assert.IsNotNull(data1);
+            Assert.AreEqual("{\"data\": \"OK\"}", data1);
+
+            var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
+
+            var data = Json.Serialize(result);
+            Assert.IsNotNull(data);
+            Assert.AreEqual("[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]", data);
+        }        
     }
 }

@@ -233,7 +233,22 @@
 
                     // Create the dictionary and extract the properties
                     var objectDictionary = new Dictionary<string, object>();
+                    var members = targetType.GetFields(BindingFlags.Public | BindingFlags.Instance);
                     var properties = RetrieveProperties(targetType).Where(p => p.CanRead).ToArray();
+
+                    foreach (var mb in members)
+                    {
+                        if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(mb.Name))
+                            continue;
+                        try
+                        {
+                            objectDictionary[mb.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? mb.Name] = mb.GetValue(target);
+                        }
+                        catch// (Exception ex)
+                        {
+                            /* ignored */
+                        }
+                    }
 
                     // If we set the included properties, then we remove everything that is not listed
                     if (IncludeProperties.Count > 0)
@@ -241,6 +256,8 @@
 
                     if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
                         objectDictionary[typeSpecifier] = targetType.ToString();
+
+                    
 
                     foreach (var property in properties)
                     {
