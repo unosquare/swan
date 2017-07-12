@@ -93,7 +93,7 @@
                     if (targetType == typeof(DateTime) || targetType == typeof(DateTime?))
                     {
                         var date = targetType == typeof(DateTime) ? (DateTime)target : ((DateTime?)target).Value;
-                        
+
                         Result = $"{StringQuotedChar}{date:s}{StringQuotedChar}";
                     }
                     else
@@ -131,7 +131,7 @@
                     if (target is IDictionary)
                     {
                         // Cast the items as an IDictionary
-                        var items = (IDictionary) target;
+                        var items = (IDictionary)target;
 
                         // Append the start of an object or empty object
                         if (items.Count > 0)
@@ -185,7 +185,7 @@
                         }
 
                         // Cast the items as a generic object array
-                        var items = ((IEnumerable) target).Cast<object>().ToArray();
+                        var items = ((IEnumerable)target).Cast<object>().ToArray();
 
                         // Append the start of an array or empty array
                         if (items.Length > 0)
@@ -233,22 +233,29 @@
 
                     // Create the dictionary and extract the properties
                     var objectDictionary = new Dictionary<string, object>();
-                    var members = targetType.GetFields(BindingFlags.Public | BindingFlags.Instance);
-                    var properties = RetrieveProperties(targetType).Where(p => p.CanRead).ToArray();
 
-                    foreach (var mb in members)
+
+                    bool isStruct = targetType.IsValueType() && !targetType.IsPrimitive();
+
+                    if (isStruct)
                     {
-                        if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(mb.Name))
-                            continue;
-                        try
+                        var members = targetType.GetFields(BindingFlags.Public | BindingFlags.Instance);
+                        foreach (var mb in members)
                         {
-                            objectDictionary[mb.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? mb.Name] = mb.GetValue(target);
-                        }
-                        catch// (Exception ex)
-                        {
-                            /* ignored */
+                            if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(mb.Name))
+                                continue;
+                            try
+                            {
+                                objectDictionary[mb.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? mb.Name] = mb.GetValue(target);
+                            }
+                            catch// (Exception ex)
+                            {
+                                /* ignored */
+                            }
                         }
                     }
+                                    
+                    var properties = RetrieveProperties(targetType).Where(p => p.CanRead).ToArray();                    
 
                     // If we set the included properties, then we remove everything that is not listed
                     if (IncludeProperties.Count > 0)

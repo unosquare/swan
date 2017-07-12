@@ -286,11 +286,6 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeWithArrayTest()
         {
-            var obj = new JsonPropertySample() { Data = "OK", IgnoredData = "OK" };
-            var data1 = Json.Serialize(obj);
-            Assert.IsNotNull(data1);
-            Assert.AreEqual("{\"data\": \"OK\"}", data1);
-
             var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
 
             var data = Json.Serialize(result);
