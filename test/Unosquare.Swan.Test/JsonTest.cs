@@ -301,5 +301,14 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(data);
             Assert.AreEqual("[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]", data);
         }
+
+        [Test]
+        public void DeserializeWithStructureTest()
+        {
+            var data = Json.Deserialize<SampleStruct>("{\"Value\": 1,\"Name\": \"A\"}");
+            Assert.IsNotNull(data);
+            Assert.AreEqual(data.Value, 1);
+            Assert.AreEqual(data.Name, "A");
+        }
     }
 }
