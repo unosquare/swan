@@ -17,7 +17,8 @@
     /// </summary>
     public static partial class Json
     {
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+        private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
+        private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
 
         #region Constants 
 
@@ -44,13 +45,13 @@
         #region Private API
 
         /// <summary>
-        /// Retrieves PropertyInfo[] (both public and non-public). for the given type
+        /// Retrieves PropertyInfo[] (both public and non-public) for the given type
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
         private static PropertyInfo[] RetrieveProperties(Type type)
         {
-            return TypeCache.Retrieve(type, () =>
+            return PropertyTypeCache.Retrieve(type, () =>
             {
                 return
                     type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
@@ -59,7 +60,17 @@
         }
 
         /// <summary>
-        /// Converts a json deserialized object (simple type, dictionary or list) to a new instance of the sepcified target type.
+        /// Retrieves FieldInfo[] (public) for the given type
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        private static FieldInfo[] RetrieveFields(Type type)
+        {
+            return FieldTypeCache.Retrieve(type, () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
+        }
+
+        /// <summary>
+        /// Converts a json deserialized object (simple type, dictionary or list) to a new instance of the specified target type.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="targetType">Type of the target.</param>

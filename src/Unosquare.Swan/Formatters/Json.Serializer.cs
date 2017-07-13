@@ -234,52 +234,41 @@
                     // Create the dictionary and extract the properties
                     var objectDictionary = new Dictionary<string, object>();
 
+                    var fields = new List<MemberInfo>();
 
-                    bool isStruct = targetType.IsValueType() && !targetType.IsPrimitive();
-
-                    if (isStruct)
+                    // If the target is a struct (value type) navigate the fields.
+                    if (targetType.IsValueType())
                     {
-                        var members = targetType.GetFields(BindingFlags.Public | BindingFlags.Instance);
-                        foreach (var mb in members)
-                        {
-                            if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(mb.Name))
-                                continue;
-                            try
-                            {
-                                objectDictionary[mb.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? mb.Name] = mb.GetValue(target);
-                            }
-                            catch// (Exception ex)
-                            {
-                                /* ignored */
-                            }
-                        }
+                        fields.AddRange(RetrieveFields(targetType));
                     }
-                                    
-                    var properties = RetrieveProperties(targetType).Where(p => p.CanRead).ToArray();                    
+
+                    // then incorporate the properties
+                    fields.AddRange(RetrieveProperties(targetType).Where(p => p.CanRead).ToArray());
 
                     // If we set the included properties, then we remove everything that is not listed
                     if (IncludeProperties.Count > 0)
-                        properties = properties.Where(p => IncludeProperties.Contains(p.Name)).ToArray();
+                        fields = fields.Where(p => IncludeProperties.Contains(p.Name)).ToList();
 
                     if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
                         objectDictionary[typeSpecifier] = targetType.ToString();
 
-                    
-
-                    foreach (var property in properties)
+                    foreach (var field in fields)
                     {
                         // Skip over the excluded properties
-                        if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(property.Name))
+                        if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(field.Name))
                             continue;
 
                         // Build the dictionary using property names and values
                         // Note: used to be: property.GetValue(target); but we would be reading private properties
                         try
                         {
-                            objectDictionary[property.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? property.Name] = property.GetGetMethod(includeNonPublic)?
-                                .Invoke(target, null);
+                            objectDictionary[
+                                    field.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? field.Name] =
+                                field is PropertyInfo
+                                    ? (field as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
+                                    : (field as FieldInfo).GetValue(target);
                         }
-                        catch// (Exception ex)
+                        catch // (Exception ex)
                         {
                             /* ignored */
                         }
@@ -287,7 +276,7 @@
 
                     // At this point we either have a dictionary with or without properties
                     // If we have at least one property then we send it through the serialization method
-                    // If we don't have any properties we simply call its tostring method and serialize as string
+                    // If we don't have any properties we simply call its ToString() method and serialize as string
                     if (objectDictionary.Count > 0)
                         Result = Serialize(objectDictionary, depth, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
                     else

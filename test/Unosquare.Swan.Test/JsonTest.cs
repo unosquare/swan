@@ -282,15 +282,24 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(objDeserialized);
             Assert.AreEqual(obj.Data, objDeserialized.Data);
         }
+        [Test]
+        public void SerializeWithStructureTest()
+        {
+            var result = new SampleStruct { Value = 1, Name = "A" };
+
+            var data = Json.Serialize(result);
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"A\"}", data);
+        }
 
         [Test]
-        public void SerializeWithArrayTest()
+        public void SerializeWithStructureArrayTest()
         {
             var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
 
             var data = Json.Serialize(result);
             Assert.IsNotNull(data);
             Assert.AreEqual("[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]", data);
-        }        
+        }
     }
 }

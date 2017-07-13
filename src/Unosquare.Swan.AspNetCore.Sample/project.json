@@ -2,7 +2,6 @@
   "copyright": "Unosquare",
   "dependencies": {
     "Unosquare.Swan.AspNetCore": { "target": "project" },
-    "Microsoft.AspNetCore.Mvc": "1.1.2",
     "Microsoft.AspNetCore.Routing": "1.1.2",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.1.2",
     "Microsoft.AspNetCore.Server.Kestrel": "1.1.2",
@@ -18,7 +17,8 @@
     "Microsoft.Extensions.Logging.Console": "1.1.2",
     "Microsoft.Extensions.Logging.Debug": "1.1.2",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.2",
-    "Microsoft.NETCore.App": "1.1.2"
+    "Microsoft.NETCore.App": "1.1.2",
+    "Microsoft.AspNetCore.Mvc": "1.1.3"
   },
 
   "tools": {

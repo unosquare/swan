@@ -6,15 +6,16 @@
     using System.Reflection;
 
     /// <summary>
-    /// A thread-safe cache of properties belonging to a given type
+    /// A thread-safe cache of members belonging to a given type
     /// The Retrieve method is the most useful one in this class as it
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
-    public class PropertyTypeCache
+    public abstract class TypeCache<T>
+        where T : MemberInfo
     {
         private readonly object _syncLock = new object();
-        private readonly Dictionary<Type, PropertyInfo[]> _cache = new Dictionary<Type, PropertyInfo[]>();
+        private readonly Dictionary<Type, T[]> _cache = new Dictionary<Type, T[]>();
 
         /// <summary>
         /// Determines whether the cache contains the specified type.
@@ -31,7 +32,11 @@
         /// <summary>
         /// Determines whether the cache contains the specified type.
         /// </summary>
-        public bool Contains<T>() => Contains(typeof(T));
+        /// <typeparam name="TOut">The type of the out.</typeparam>
+        /// <returns>
+        ///   <c>true</c> if [contains]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool Contains<TOut>() => Contains(typeof(TOut));
 
         /// <summary>
         /// Retrieves the properties stored for the specified type.
@@ -41,7 +46,7 @@
         /// <param name="type">The type.</param>
         /// <param name="factory">The factory.</param>
         /// <returns></returns>
-        public PropertyInfo[] Retrieve(Type type, Func<IEnumerable<PropertyInfo>> factory)
+        public T[] Retrieve(Type type, Func<IEnumerable<T>> factory)
         {
             lock (_syncLock)
             {
@@ -56,10 +61,10 @@
         /// If the properties are not available, it calls the factory method to retrieve them
         /// and returns them as an array of PropertyInfo
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TOut"></typeparam>
         /// <param name="factory">The factory.</param>
         /// <returns></returns>
-        public PropertyInfo[] Retrieve<T>(Func<IEnumerable<PropertyInfo>> factory) => Retrieve(typeof(T), factory);
+        public T[] Retrieve<TOut>(Func<IEnumerable<T>> factory) => Retrieve(typeof(TOut), factory);
 
         /// <summary>
         /// Gets or sets the <see cref="IEnumerable{PropertyInfo}"/> with the specified type.
@@ -70,7 +75,7 @@
         /// </value>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        public IEnumerable<PropertyInfo> this[Type type]
+        public IEnumerable<T> this[Type type]
         {
             get
             {
@@ -90,5 +95,27 @@
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// A thread-safe cache of properties belonging to a given type
+    /// The Retrieve method is the most useful one in this class as it
+    /// calls the retrieval process if the type is not contained
+    /// in the cache.
+    /// </summary>
+    public class PropertyTypeCache : TypeCache<PropertyInfo>
+    {
+        
+    }
+
+    /// <summary>
+    /// A thread-safe cache of fields belonging to a given type
+    /// The Retrieve method is the most useful one in this class as it
+    /// calls the retrieval process if the type is not contained
+    /// in the cache.
+    /// </summary>
+    public class FieldTypeCache : TypeCache<FieldInfo>
+    {
+
     }
 }
