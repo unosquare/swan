@@ -265,7 +265,7 @@
                                       .Invoke(target, new[] { targetPropertyValue });
                                 }
                             }
-                            catch(Exception ex)
+                            catch
                             {
 
                                 // ignored
