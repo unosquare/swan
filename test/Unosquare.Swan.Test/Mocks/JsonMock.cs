@@ -29,6 +29,24 @@ namespace Unosquare.Swan.Test.Mocks
         }
     }
 
+    public class DateBasicJson : BasicJson
+    {
+        public DateTime Date { get; set; }
+
+        public static DateBasicJson GetDateDefault()
+        {
+            return new DateBasicJson
+            {
+                StringData = "string",
+                IntData = 1,
+                NegativeInt = -1,
+                DecimalData = 10.33M,
+                BoolData = true,
+                Date = new DateTime(2017, 10, 10)
+            };
+        }
+    }
+
     public class BasicArrayJson
     {
         public int Id { get; set; }

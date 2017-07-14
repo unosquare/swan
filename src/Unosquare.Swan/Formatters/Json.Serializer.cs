@@ -226,53 +226,12 @@
                 #endregion
 
                 #region All Other Types Handling
+
                 {
                     // If we arrive here, then we convert the object into a 
                     // dictionary of property names and values and call the serialization
                     // function again
-
-                    // Create the dictionary and extract the properties
-                    var objectDictionary = new Dictionary<string, object>();
-
-                    var fields = new List<MemberInfo>();
-
-                    // If the target is a struct (value type) navigate the fields.
-                    if (targetType.IsValueType())
-                    {
-                        fields.AddRange(RetrieveFields(targetType));
-                    }
-
-                    // then incorporate the properties
-                    fields.AddRange(RetrieveProperties(targetType).Where(p => p.CanRead).ToArray());
-
-                    // If we set the included properties, then we remove everything that is not listed
-                    if (IncludeProperties.Count > 0)
-                        fields = fields.Where(p => IncludeProperties.Contains(p.Name)).ToList();
-
-                    if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
-                        objectDictionary[typeSpecifier] = targetType.ToString();
-
-                    foreach (var field in fields)
-                    {
-                        // Skip over the excluded properties
-                        if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(field.Name))
-                            continue;
-
-                        // Build the dictionary using property names and values
-                        // Note: used to be: property.GetValue(target); but we would be reading private properties
-                        try
-                        {
-                            objectDictionary[
-                                    field.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? field.Name] =
-                                field is PropertyInfo
-                                    ? (field as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
-                                    : (field as FieldInfo).GetValue(target);
-                        }
-                        catch // (Exception ex)
-                        {
-                            /* ignored */
-                        }
-                    }
+                    var objectDictionary = CreateDictionary(typeSpecifier, includeNonPublic, targetType, target);
 
                     // At this point we either have a dictionary with or without properties
                     // If we have at least one property then we send it through the serialization method
@@ -306,6 +265,62 @@
             #endregion
 
             #region Helper Methods
+
+            /// <summary>
+            /// Creates the dictionary of values from a target.
+            /// </summary>
+            /// <param name="typeSpecifier">The type specifier.</param>
+            /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
+            /// <param name="targetType">Type of the target.</param>
+            /// <param name="target">The target.</param>
+            /// <returns></returns>
+            private Dictionary<string, object> CreateDictionary(string typeSpecifier, bool includeNonPublic, Type targetType, object target)
+            {
+                // Create the dictionary and extract the properties
+                var objectDictionary = new Dictionary<string, object>();
+
+                var fields = new List<MemberInfo>();
+
+                // If the target is a struct (value type) navigate the fields.
+                if (targetType.IsValueType())
+                {
+                    fields.AddRange(RetrieveFields(targetType));
+                }
+
+                // then incorporate the properties
+                fields.AddRange(RetrieveProperties(targetType).Where(p => p.CanRead).ToArray());
+
+                // If we set the included properties, then we remove everything that is not listed
+                if (IncludeProperties.Count > 0)
+                    fields = fields.Where(p => IncludeProperties.Contains(p.Name)).ToList();
+
+                if (string.IsNullOrWhiteSpace(typeSpecifier) == false)
+                    objectDictionary[typeSpecifier] = targetType.ToString();
+
+                foreach (var field in fields)
+                {
+                    // Skip over the excluded properties
+                    if (ExcludeProperties.Count > 0 && ExcludeProperties.Contains(field.Name))
+                        continue;
+
+                    // Build the dictionary using property names and values
+                    // Note: used to be: property.GetValue(target); but we would be reading private properties
+                    try
+                    {
+                        objectDictionary[
+                                field.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? field.Name] =
+                            field is PropertyInfo
+                                ? (field as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
+                                : (field as FieldInfo).GetValue(target);
+                    }
+                    catch // (Exception ex)
+                    {
+                        /* ignored */
+                    }
+                }
+
+                return objectDictionary;
+            }
 
             /// <summary>
             /// Gets the indent string given the depth.
@@ -353,9 +368,10 @@
                 if (Builder.Length < LastCommaSearch.Length)
                     return;
 
-                for (var i = 0; i < LastCommaSearch.Length; i++)
-                    if (Builder[Builder.Length - LastCommaSearch.Length + i] != LastCommaSearch[i])
-                        return;
+                if (LastCommaSearch.Where((t, i) => Builder[Builder.Length - LastCommaSearch.Length + i] != t).Any())
+                {
+                    return;
+                }
 
                 // If we got this far, we simply remove the comma character
                 Builder.Remove(Builder.Length - LastCommaSearch.Length, 1);

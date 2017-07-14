@@ -50,7 +50,7 @@ namespace Unosquare.Swan.Test
             nameof(LogMessageType.Trace).Trace();
             nameof(LogMessageType.Warning).Warn();
 
-            Task.Delay(150).Wait();
+            Task.Delay(200).Wait();
             
             Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
 

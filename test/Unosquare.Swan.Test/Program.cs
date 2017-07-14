@@ -8,6 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Modules;
+using Unosquare.Swan.Components;
 using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
@@ -17,10 +18,10 @@ namespace Unosquare.Swan.Test
     {
         static void Main(string[] args)
         {
-            using (var instance = MockProvider.Instance)
-            {
-                instance.GetName().Info();
-            }
+            var left = BasicJson.GetDefault();
+            var right = BasicJson.GetDefault();
+
+            Assert.IsTrue(ObjectComparer.AreEqual(left, right));
 
             Console.ReadLine();
         }

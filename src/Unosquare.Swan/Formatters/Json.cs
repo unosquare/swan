@@ -204,73 +204,7 @@
 
                     else
                     {
-                        var fields = new List<MemberInfo>();
-
-                        if (targetType.IsValueType())
-                        {
-                            fields.AddRange(RetrieveFields(targetType));
-                        }
-                        fields.AddRange(RetrieveProperties(targetType).Where(p => p.CanRead).ToArray());
-
-
-
-                        //var targetProperties = RetrieveProperties(targetType); //.Where(p => p.CanWrite);
-                        foreach (var targetProperty in fields)
-                        {
-                            var targetPropertyName = targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? targetProperty.Name;
-                            var sourcePropertyValue = sourceProperties.ContainsKey(targetPropertyName)
-                                ? sourceProperties[targetPropertyName]
-                                : null;
-
-                            if (sourcePropertyValue == null) continue;
-
-                            object currentPropertyValue = null;
-
-                            if (!targetType.IsValueType())
-                            {
-                                if ((targetProperty as PropertyInfo).PropertyType.IsArray == false)
-                                {
-                                    try
-                                    {
-                                        currentPropertyValue = (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?
-                                            .Invoke(target, null);
-                                    }
-                                    catch
-                                    {
-                                        // ignored
-                                    }
-                                }
-                            }
-
-                            try
-                            {
-
-                                if (targetType.IsValueType())
-                                {
-                                    var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
-                                        (targetProperty as FieldInfo).FieldType, ref currentPropertyValue, includeNonPublic);
-
-                                    (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
-                                }
-                                else
-                                {
-                                    // Try to write properties to the current property value as a reference to the current property value
-                                    var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
-                                        (targetProperty as PropertyInfo).PropertyType, ref currentPropertyValue, includeNonPublic);
-
-                                    // HACK: Always try to write the value of possible; otherwise it was most likely (hopefully) set by reference
-                                    // if (currentPropertyValue == null || targetProperty.PropertyType == typeof(string) || targetProperty.PropertyType.IsValueType())
-
-                                    (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic)?
-                                      .Invoke(target, new[] { targetPropertyValue });
-                                }
-                            }
-                            catch
-                            {
-
-                                // ignored
-                            }
-                        }
+                        PopulateObject(targetType, includeNonPublic, sourceProperties, target);
                     }
 
                     #endregion
@@ -379,6 +313,71 @@
             }
 
             #endregion
+        }
+
+        private static void PopulateObject(Type targetType, bool includeNonPublic, Dictionary<string, object> sourceProperties, object target)
+        {
+            var fields = new List<MemberInfo>();
+
+            if (targetType.IsValueType())
+            {
+                fields.AddRange(RetrieveFields(targetType));
+            }
+
+            fields.AddRange(RetrieveProperties(targetType).Where(p => p.CanWrite).ToArray());
+
+            foreach (var targetProperty in fields)
+            {
+                var targetPropertyName = targetProperty.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ??
+                                         targetProperty.Name;
+                var sourcePropertyValue = sourceProperties.ContainsKey(targetPropertyName)
+                    ? sourceProperties[targetPropertyName]
+                    : null;
+
+                if (sourcePropertyValue == null) continue;
+
+                object currentPropertyValue = null;
+
+                if (!targetType.IsValueType() && (targetProperty as PropertyInfo).PropertyType.IsArray == false)
+                {
+                    try
+                    {
+                        currentPropertyValue = (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?
+                            .Invoke(target, null);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+                try
+                {
+                    if (targetType.IsValueType())
+                    {
+                        var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
+                            (targetProperty as FieldInfo).FieldType, ref currentPropertyValue, includeNonPublic);
+
+                        (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
+                    }
+                    else
+                    {
+                        // Try to write properties to the current property value as a reference to the current property value
+                        var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
+                            (targetProperty as PropertyInfo).PropertyType, ref currentPropertyValue, includeNonPublic);
+
+                        // HACK: Always try to write the value of possible; otherwise it was most likely (hopefully) set by reference
+                        // if (currentPropertyValue == null || targetProperty.PropertyType == typeof(string) || targetProperty.PropertyType.IsValueType())
+
+                        (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic)?
+                            .Invoke(target, new[] {targetPropertyValue});
+                    }
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
 
         #endregion

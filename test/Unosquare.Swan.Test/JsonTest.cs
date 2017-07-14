@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Reflection;
 using Unosquare.Swan.Test.Mocks;
@@ -20,6 +21,8 @@ namespace Unosquare.Swan.Test
             InnerChild = BasicJson.GetDefault()
         };
 
+        private const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
+
         private const string BasicStrWithoutWrap =
             "\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null";
 
@@ -28,22 +31,22 @@ namespace Unosquare.Swan.Test
         private const string AdvStr =
             "{\"InnerChild\": " + BasicStr + "," + BasicStrWithoutWrap + "}";
 
-        private readonly string[] _basicArray = { "One", "Two", "Three" };
+        private readonly string[] _basicArray = {"One", "Two", "Three"};
         private string _basicAStr = "[\"One\",\"Two\",\"Three\"]";
 
-        private readonly int[] _numericArray = { 1, 2, 3 };
+        private readonly int[] _numericArray = {1, 2, 3};
         private string _numericAStr = "[1,2,3]";
 
         private readonly BasicArrayJson _basicAObj = new BasicArrayJson
         {
             Id = 1,
-            Properties = new[] { "One", "Two", "Babu" }
+            Properties = new[] {"One", "Two", "Babu"}
         };
 
         private readonly AdvArrayJson _advAObj = new AdvArrayJson
         {
             Id = 1,
-            Properties = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() }
+            Properties = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()}
         };
 
         private string _basicAObjStr = "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
@@ -168,7 +171,7 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.InnerChild);
 
-            foreach (var obj in new[] { data, data.InnerChild })
+            foreach (var obj in new[] {data, data.InnerChild})
             {
                 Assert.AreEqual(obj.StringData, AdvObj.StringData);
                 Assert.AreEqual(obj.IntData, AdvObj.IntData);
@@ -255,10 +258,11 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeDateTest()
         {
-            var obj = new DateTimeJson { Date = new DateTime(2010, 1, 1) };
+            var obj = new DateTimeJson {Date = new DateTime(2010, 1, 1)};
             var data = Json.Serialize(obj);
             Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data, "Date must be formatted as ISO");
+            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data,
+                "Date must be formatted as ISO");
 
             var dict = Json.Deserialize<Dictionary<string, DateTime>>(data);
             Assert.IsNotNull(dict);
@@ -273,7 +277,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeWithJsonPropertyTest()
         {
-            var obj = new JsonPropertySample() { Data = "OK", IgnoredData = "OK" };
+            var obj = new JsonPropertySample() {Data = "OK", IgnoredData = "OK"};
             var data = Json.Serialize(obj);
             Assert.IsNotNull(data);
             Assert.AreEqual("{\"data\": \"OK\"}", data);
@@ -282,10 +286,11 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(objDeserialized);
             Assert.AreEqual(obj.Data, objDeserialized.Data);
         }
+
         [Test]
         public void SerializeWithStructureTest()
         {
-            var result = new SampleStruct { Value = 1, Name = "A" };
+            var result = new SampleStruct {Value = 1, Name = "A"};
 
             var data = Json.Serialize(result);
             Assert.IsNotNull(data);
@@ -295,20 +300,30 @@ namespace Unosquare.Swan.Test
         [Test]
         public void SerializeWithStructureArrayTest()
         {
-            var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
+            var result = new[] {new SampleStruct {Value = 1, Name = "A"}, new SampleStruct {Value = 2, Name = "B"}};
 
             var data = Json.Serialize(result);
             Assert.IsNotNull(data);
-            Assert.AreEqual("[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]", data);
+            Assert.AreEqual(ArrayStruct, data);
         }
 
         [Test]
-        public void DeserializeWithStructureTest()
+        public void DeserializeWithStructureArrayTest()
         {
             var data = Json.Deserialize<SampleStruct>("{\"Value\": 1,\"Name\": \"A\"}");
             Assert.IsNotNull(data);
             Assert.AreEqual(data.Value, 1);
             Assert.AreEqual(data.Name, "A");
+        }
+
+        [Test]
+        public void DeserializeWithStructureTest()
+        {
+            var data = Json.Deserialize<SampleStruct[]>(ArrayStruct);
+            Assert.IsNotNull(data);
+            Assert.IsTrue(data.Any());
+            Assert.AreEqual(data.First().Value, 1);
+            Assert.AreEqual(data.First().Name, "A");
         }
     }
 }
