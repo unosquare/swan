@@ -3931,6 +3931,42 @@ references:
   commentId: Overload:Unosquare.Swan.Components.MessageHubSubscriptionToken.Dispose
   fullName: Unosquare.Swan.Components.MessageHubSubscriptionToken.Dispose
   nameWithType: MessageHubSubscriptionToken.Dispose
+- uid: Unosquare.Swan.Components.ObjectComparer
+  name: ObjectComparer
+  href: api/Unosquare.Swan.Components.ObjectComparer.html
+  commentId: T:Unosquare.Swan.Components.ObjectComparer
+  fullName: Unosquare.Swan.Components.ObjectComparer
+  nameWithType: ObjectComparer
+- uid: Unosquare.Swan.Components.ObjectComparer.AreEqual*
+  name: AreEqual
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEqual_
+  commentId: Overload:Unosquare.Swan.Components.ObjectComparer.AreEqual
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreEqual
+  nameWithType: ObjectComparer.AreEqual
+- uid: Unosquare.Swan.Components.ObjectComparer.AreEqual``1(``0,``0)
+  name: AreEqual<T>(T, T)
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEqual__1___0___0_
+  commentId: M:Unosquare.Swan.Components.ObjectComparer.AreEqual``1(``0,``0)
+  name.vb: AreEqual(Of T)(T, T)
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreEqual<T>(T, T)
+  fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreEqual(Of T)(T, T)
+  nameWithType: ObjectComparer.AreEqual<T>(T, T)
+  nameWithType.vb: ObjectComparer.AreEqual(Of T)(T, T)
+- uid: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual*
+  name: AreStructsEqual
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreStructsEqual_
+  commentId: Overload:Unosquare.Swan.Components.ObjectComparer.AreStructsEqual
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual
+  nameWithType: ObjectComparer.AreStructsEqual
+- uid: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual``1(``0,``0)
+  name: AreStructsEqual<T>(T, T)
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreStructsEqual__1___0___0_
+  commentId: M:Unosquare.Swan.Components.ObjectComparer.AreStructsEqual``1(``0,``0)
+  name.vb: AreStructsEqual(Of T)(T, T)
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual<T>(T, T)
+  fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual(Of T)(T, T)
+  nameWithType: ObjectComparer.AreStructsEqual<T>(T, T)
+  nameWithType.vb: ObjectComparer.AreStructsEqual(Of T)(T, T)
 - uid: Unosquare.Swan.Components.ObjectMap`2
   name: ObjectMap<TSource, TDestination>
   href: api/Unosquare.Swan.Components.ObjectMap-2.html
