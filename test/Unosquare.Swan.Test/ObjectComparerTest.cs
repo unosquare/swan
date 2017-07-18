@@ -11,6 +11,7 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class ObjectComparerTest
     {
+
         [Test]
         public void CompareEqualsObjectsTest()
         {
@@ -28,5 +29,24 @@ namespace Unosquare.Swan.Test
 
             Assert.IsFalse(ObjectComparer.AreEqual(left, right));
         }
+
+        [Test]
+        public void CompareObjectsWithArray()
+        {
+            var first = new[] { BasicJson.GetDefault() };
+            var second = new[] { BasicJson.GetDefault() };
+
+            Assert.IsTrue(ObjectComparer.AreEqual(first, second));
+        }
+
+        [Test]
+        public void CompareObjectsWithArrayObject()
+        {
+            var first = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+            var second = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+
+            Assert.IsTrue(ObjectComparer.AreEqual(first, second));
+        }
+
     }
 }

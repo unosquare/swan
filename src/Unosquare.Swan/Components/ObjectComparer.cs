@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Unosquare.Swan.Reflection;
@@ -51,20 +52,39 @@ namespace Unosquare.Swan.Components
         /// <param name="right">The right.</param>
         /// <returns></returns>
         public static bool AreEqual<T>(T left, T right) where T : class
-        {
+        {                             
             var properties = RetrieveProperties<T>().ToArray();
 
             foreach (var propertyTarget in properties)
             {
-                var targetPropertyGetMethod = propertyTarget.GetGetMethod();
-                
-                if (object.Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
-                    return false;
-            }
+                var targetPropertyGetMethod = (propertyTarget as PropertyInfo).GetGetMethod();
 
+                if ((propertyTarget as PropertyInfo).PropertyType.IsClass())
+                {
+                    var leftObj = targetPropertyGetMethod.Invoke(left, null);
+                    var leftProperties = leftObj.GetType().GetProperties();                    
+
+                    var rightObj = targetPropertyGetMethod.Invoke(right, null);
+                    var rightProperties = rightObj.GetType().GetProperties();
+
+                    if (leftProperties.Count() != rightProperties.Count())
+                        return false;
+
+                    for (int i = 0; i < leftProperties.Length; i++)
+                    {                     
+                        if (object.Equals(leftProperties[i].GetValue(leftObj), rightProperties[i].GetValue(rightObj)) == false)
+                            return false;
+                    }
+                }
+                else
+                {
+                    if (object.Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                        return false;
+                }                
+            }
             return true;
         }
-
+       
         /// <summary>
         /// Compare if two structs of the same type are equal.
         /// </summary>
@@ -103,5 +123,6 @@ namespace Unosquare.Swan.Components
 
             return true;
         }
+
     }
 }
