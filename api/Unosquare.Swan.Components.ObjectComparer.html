@@ -81,7 +81,7 @@
   <h1 id="Unosquare_Swan_Components_ObjectComparer" data-uid="Unosquare.Swan.Components.ObjectComparer" class="text-break">Class ObjectComparer
   </h1>
   <div class="markdown level0 summary"><p>Represents a quick object comparer using the public properties of an object
-or the public members in a struct</p>
+or the public members in a structure</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -123,14 +123,144 @@ or the public members in a struct</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Components_ObjectComparer_AreEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual*"></a>
-  <h4 id="Unosquare_Swan_Components_ObjectComparer_AreEqual__1___0___0_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual``1(``0,``0)">AreEqual&lt;T&gt;(T, T)</h4>
-  <div class="markdown level1 summary"><p>Compare if two object of the same type are equal.</p>
+  <a id="Unosquare_Swan_Components_ObjectComparer_AreEnumsEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectComparer_AreEnumsEqual__1___0___0_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual``1(``0,``0)">AreEnumsEqual&lt;T&gt;(T, T)</h4>
+  <div class="markdown level1 summary"><p>Compare if two enumerables are equal.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool AreEqual&lt;T&gt;(T left, T right)where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool AreEnumsEqual&lt;T&gt;(T left, T right)where T : IEnumerable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ObjectComparer_AreEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectComparer_AreEqual__1___0___0_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual``1(``0,``0)">AreEqual&lt;T&gt;(T, T)</h4>
+  <div class="markdown level1 summary"><p>Compare if two variables of the same type are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AreEqual&lt;T&gt;(T left, T right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ObjectComparer_AreObjectsEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectComparer_AreObjectsEqual__1___0___0_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual``1(``0,``0)">AreObjectsEqual&lt;T&gt;(T, T)</h4>
+  <div class="markdown level1 summary"><p>Compare if two objects of the same type are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AreObjectsEqual&lt;T&gt;(T left, T right)where T : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -190,7 +320,7 @@ or the public members in a struct</p>
   
   <a id="Unosquare_Swan_Components_ObjectComparer_AreStructsEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreStructsEqual*"></a>
   <h4 id="Unosquare_Swan_Components_ObjectComparer_AreStructsEqual__1___0___0_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreStructsEqual``1(``0,``0)">AreStructsEqual&lt;T&gt;(T, T)</h4>
-  <div class="markdown level1 summary"><p>Compare if two structs of the same type are equal.</p>
+  <div class="markdown level1 summary"><p>Compare if two structures of the same type are equal.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
