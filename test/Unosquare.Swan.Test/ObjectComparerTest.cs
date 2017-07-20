@@ -75,10 +75,10 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void CompareEqualObjectWithArray()
+        public void CompareEqualArrayWithObjects()
         {
-            var first = new[] { BasicJson.GetDefault() };
-            var second = new[] { BasicJson.GetDefault() };
+            var first = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
+            var second = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
 
             Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
         }

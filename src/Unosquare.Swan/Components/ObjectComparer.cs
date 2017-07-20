@@ -53,14 +53,9 @@ namespace Unosquare.Swan.Components
 
                 if ((propertyTarget as PropertyInfo).PropertyType.IsArray)
                 {
-                    var leftObj = ((targetPropertyGetMethod.Invoke(left, null) as IEnumerable).Cast<object>()).ToArray();
-                    var rightObj = ((targetPropertyGetMethod.Invoke(right, null) as IEnumerable).Cast<object>()).ToArray();
-
-                    if (leftObj == null || rightObj == null)
-                        return false;
-                    if (leftObj.Count() != rightObj.Count())
-                        return false;
-
+                    var leftObj = (targetPropertyGetMethod.Invoke(left, null) as IEnumerable);
+                    var rightObj = (targetPropertyGetMethod.Invoke(right, null) as IEnumerable);
+                    
                     if (AreEnumsEqual(leftObj, rightObj) == false)
                         return false;
                 }
@@ -70,9 +65,7 @@ namespace Unosquare.Swan.Components
                         return false;
                 }
             }
-            return true;
-            //return properties.Select(x => x.GetGetMethod())
-            //    .All(propertyTarget => Equals(propertyTarget.Invoke(left, null), propertyTarget.Invoke(right, null)));
+            return true;            
         }
 
         private static bool AreStructsEqual(object left, object right, Type targetType)
