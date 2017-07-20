@@ -18,10 +18,10 @@ namespace Unosquare.Swan.Test
     {
         static void Main(string[] args)
         {
-            var left = BasicJson.GetDefault();
-            var right = BasicJson.GetDefault();
+            var first = new[] { 1, 2, 3 };
+            var second = new[] { 1, 2, 4 };
 
-            Assert.IsTrue(ObjectComparer.AreEqual(left, right));
+            Assert.IsFalse(ObjectComparer.AreEnumsEqual(first, second));
 
             Console.ReadLine();
         }

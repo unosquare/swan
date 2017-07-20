@@ -92,4 +92,10 @@ namespace Unosquare.Swan.Test.Mocks
         public string Filename { get; set; }
         public byte[] Data { get; set; }       
     }
+
+    public struct SampleStruct
+    {
+        public int Value;
+        public string Name;
+    }
 }

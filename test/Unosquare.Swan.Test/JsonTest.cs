@@ -61,13 +61,7 @@ namespace Unosquare.Swan.Test
 
         private string _arrayOfObjStr =
             "[{\"Property\": \"WebServerPort\",\"DataType\": \"Int32\",\"Value\": null,\"DefaultValue\": 9898,\"Name\": \"Web Server Port\",\"Description\": \"The port on which the web server listens for requests\",\"GroupName\": \"Administration\"},{\"Property\": \"WebServerHostname\",\"DataType\": \"String\",\"Value\": null,\"DefaultValue\": \"localhost\",\"Name\": \"Web Server Host Name\",\"Description\": \"The hostname to which the web server binds, it can be localhost, a specific IP address or a '+' sign to bind to all IP addresses\",\"GroupName\": \"Administration\"}]";
-
-        private struct SampleStruct
-        {
-            public int Value;
-            public string Name;
-        }
-
+        
         [Test]
         public void SerializeBasicObjectTest()
         {

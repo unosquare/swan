@@ -11,14 +11,13 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class ObjectComparerTest
     {
-
         [Test]
         public void CompareEqualsObjectsTest()
         {
             var left = DateBasicJson.GetDateDefault();
             var right = DateBasicJson.GetDateDefault();
 
-            Assert.IsTrue(ObjectComparer.AreEqual(left, right));
+            Assert.IsTrue(ObjectComparer.AreObjectsEqual(left, right));
         }
 
         [Test]
@@ -27,25 +26,43 @@ namespace Unosquare.Swan.Test
             var left = BasicJson.GetDefault();
             var right = new BasicJson();
 
-            Assert.IsFalse(ObjectComparer.AreEqual(left, right));
+            Assert.IsFalse(ObjectComparer.AreObjectsEqual(left, right));
         }
 
         [Test]
-        public void CompareObjectsWithArray()
+        public void CompareEqualsStructsTest()
         {
-            var first = new[] { BasicJson.GetDefault() };
-            var second = new[] { BasicJson.GetDefault() };
+            var left = new SampleStruct();
+            var right = new SampleStruct();
 
-            Assert.IsTrue(ObjectComparer.AreEqual(first, second));
+            Assert.IsTrue(ObjectComparer.AreStructsEqual(left, right));
         }
 
         [Test]
-        public void CompareObjectsWithArrayObject()
+        public void CompareDifferentStructsTest()
         {
-            var first = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
-            var second = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+            var left = new SampleStruct() { Name = "PEPE", Value = 1 };
+            var right = new SampleStruct() { Name = "PEPE", Value = 2  };
 
-            Assert.IsTrue(ObjectComparer.AreEqual(first, second));
+            Assert.IsFalse(ObjectComparer.AreStructsEqual(left, right));
+        }
+
+        [Test]
+        public void CompareEqualsArrayTest()
+        {
+            var first = new[] { 1, 2, 3 };
+            var second = new[] { 1, 2, 3 };
+
+            Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
+        }
+
+        [Test]
+        public void CompareDifferentsArrayTest()
+        {
+            var first = new[] { 1, 2, 3 };
+            var second = new[] { 1, 2, 4 };
+
+            Assert.IsFalse(ObjectComparer.AreEnumsEqual(first, second));
         }
 
     }

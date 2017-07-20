@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +9,7 @@ namespace Unosquare.Swan.Components
 {
     /// <summary>
     /// Represents a quick object comparer using the public properties of an object
-    /// or the public members in a struct
+    /// or the public members in a structure
     /// </summary>
     public static class ObjectComparer
     {
@@ -20,13 +21,13 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Retrieves PropertyInfo[] (both public and non-public) for the given type
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="targetType">Type of the target.</param>
         /// <returns></returns>
-        private static PropertyInfo[] RetrieveProperties<T>()
+        private static PropertyInfo[] RetrieveProperties(Type targetType)
         {
-            return PropertyTypeCache.Retrieve(typeof(T), () =>
+            return PropertyTypeCache.Retrieve(targetType, () =>
             {
-                return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                return targetType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                     .Where(p => p.CanRead || p.CanWrite).ToArray();
             });
         }
@@ -34,74 +35,27 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Retrieves FieldInfo[] (public) for the given type
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="targetType">Type of the target.</param>
         /// <returns></returns>
-        private static FieldInfo[] RetrieveFields<T>()
+        private static FieldInfo[] RetrieveFields(Type targetType)
         {
-            return FieldTypeCache.Retrieve(typeof(T),
-                () => typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
+            return FieldTypeCache.Retrieve(targetType,
+                () => targetType.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
         }
 
-        #endregion
+        private static bool AreObjectsEqual(object left, object right, Type targetType)
+        {
+            var properties = RetrieveProperties(targetType).ToArray();
 
-        /// <summary>
-        /// Compare if two object of the same type are equal.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static bool AreEqual<T>(T left, T right) where T : class
-        {                             
-            var properties = RetrieveProperties<T>().ToArray();
-
-            foreach (var propertyTarget in properties)
-            {
-                var targetPropertyGetMethod = (propertyTarget as PropertyInfo).GetGetMethod();
-
-                if ((propertyTarget as PropertyInfo).PropertyType.IsClass())
-                {
-                    var leftObj = targetPropertyGetMethod.Invoke(left, null);
-                    var leftProperties = leftObj.GetType().GetProperties();                    
-
-                    var rightObj = targetPropertyGetMethod.Invoke(right, null);
-                    var rightProperties = rightObj.GetType().GetProperties();
-
-                    if (leftProperties.Count() != rightProperties.Count())
-                        return false;
-
-                    for (int i = 0; i < leftProperties.Length; i++)
-                    {                     
-                        if (object.Equals(leftProperties[i].GetValue(leftObj), rightProperties[i].GetValue(rightObj)) == false)
-                            return false;
-                    }
-                }
-                else
-                {
-                    if (object.Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
-                        return false;
-                }                
-            }
-            return true;
+            return properties.Select(x => x.GetGetMethod())
+                .All(propertyTarget => Equals(propertyTarget.Invoke(left, null), propertyTarget.Invoke(right, null)));
         }
-       
-        /// <summary>
-        /// Compare if two structs of the same type are equal.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static bool AreStructsEqual<T>(T left, T right) where T : struct
+
+        private static bool AreStructsEqual(object left, object right, Type targetType)
         {
             var fields = new List<MemberInfo>();
-
-            if (typeof(T).IsValueType())
-            {
-                fields.AddRange(RetrieveFields<T>());
-            }
-
-            fields.AddRange(RetrieveProperties<T>().ToArray());
+            fields.AddRange(RetrieveFields(targetType));
+            fields.AddRange(RetrieveProperties(targetType));
 
             foreach (var targetMember in fields)
             {
@@ -109,14 +63,14 @@ namespace Unosquare.Swan.Components
 
                 if (targetField != null)
                 {
-                    if (targetField.GetValue(left).Equals(targetField.GetValue(right)) == false)
+                    if (Equals(targetField.GetValue(left), targetField.GetValue(right)) == false)
                         return false;
                 }
                 else
                 {
                     var targetPropertyGetMethod = (targetMember as PropertyInfo).GetGetMethod();
 
-                    if (object.Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                    if (Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
                         return false;
                 }
             }
@@ -124,5 +78,82 @@ namespace Unosquare.Swan.Components
             return true;
         }
 
+        private static bool AreEqual(object left, object right, Type targetType)
+        {
+            if (Definitions.BasicTypesInfo.ContainsKey(targetType))
+                return Equals(left, right);
+
+            if (targetType.IsValueType())
+                return AreStructsEqual(left, right, targetType);
+
+            return AreObjectsEqual(left, right, targetType);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Compare if two variables of the same type are equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static bool AreEqual<T>(T left, T right)
+        {
+            return AreEqual(left, right, typeof(T));
+        }
+        
+        /// <summary>
+        /// Compare if two objects of the same type are equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static bool AreObjectsEqual<T>(T left, T right) where T : class
+        {
+            return AreObjectsEqual(left, right, typeof(T));
+        }
+
+        /// <summary>
+        /// Compare if two structures of the same type are equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static bool AreStructsEqual<T>(T left, T right) where T : struct
+        {
+            return AreStructsEqual(left, right, typeof(T));
+        }
+
+        /// <summary>
+        /// Compare if two enumerables are equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static bool AreEnumsEqual<T>(T left, T right) where T : IEnumerable
+        {
+            var leftEnumerable = left.Cast<object>().ToArray();
+            var rightEnumerable = right.Cast<object>().ToArray();
+
+            if (leftEnumerable.Count() != rightEnumerable.Count())
+                return false;
+
+            for (var i = 0; i < leftEnumerable.Count(); i++)
+            {
+                var leftEl = leftEnumerable[i];
+                var rightEl = rightEnumerable[i];
+                var targetType = leftEl.GetType();
+
+                if (AreEqual(leftEl, rightEl, targetType) == false)
+                    return false;
+
+            }
+
+            return true;
+        }
     }
 }
