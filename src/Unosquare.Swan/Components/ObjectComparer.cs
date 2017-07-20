@@ -47,8 +47,32 @@ namespace Unosquare.Swan.Components
         {
             var properties = RetrieveProperties(targetType).ToArray();
 
-            return properties.Select(x => x.GetGetMethod())
-                .All(propertyTarget => Equals(propertyTarget.Invoke(left, null), propertyTarget.Invoke(right, null)));
+            foreach (var propertyTarget in properties)
+            {
+                var targetPropertyGetMethod = (propertyTarget as PropertyInfo).GetGetMethod();
+
+                if ((propertyTarget as PropertyInfo).PropertyType.IsArray)
+                {
+                    var leftObj = ((targetPropertyGetMethod.Invoke(left, null) as IEnumerable).Cast<object>()).ToArray();
+                    var rightObj = ((targetPropertyGetMethod.Invoke(right, null) as IEnumerable).Cast<object>()).ToArray();
+
+                    if (leftObj == null || rightObj == null)
+                        return false;
+                    if (leftObj.Count() != rightObj.Count())
+                        return false;
+
+                    if (AreEnumsEqual(leftObj, rightObj) == false)
+                        return false;
+                }
+                else
+                {
+                    if (object.Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                        return false;
+                }
+            }
+            return true;
+            //return properties.Select(x => x.GetGetMethod())
+            //    .All(propertyTarget => Equals(propertyTarget.Invoke(left, null), propertyTarget.Invoke(right, null)));
         }
 
         private static bool AreStructsEqual(object left, object right, Type targetType)
@@ -83,7 +107,7 @@ namespace Unosquare.Swan.Components
             if (Definitions.BasicTypesInfo.ContainsKey(targetType))
                 return Equals(left, right);
 
-            if (targetType.IsValueType())
+            if (targetType.IsValueType() || targetType.IsArray)
                 return AreStructsEqual(left, right, targetType);
 
             return AreObjectsEqual(left, right, targetType);

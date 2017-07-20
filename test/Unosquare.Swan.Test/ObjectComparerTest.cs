@@ -65,5 +65,22 @@ namespace Unosquare.Swan.Test
             Assert.IsFalse(ObjectComparer.AreEnumsEqual(first, second));
         }
 
+        [Test]
+        public void CompareEqualObjectsWithArrayProperty()
+        {
+            var first = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+            var second = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+
+            Assert.IsTrue(ObjectComparer.AreEqual(first, second));
+        }
+
+        [Test]
+        public void CompareEqualObjectWithArray()
+        {
+            var first = new[] { BasicJson.GetDefault() };
+            var second = new[] { BasicJson.GetDefault() };
+
+            Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
+        }
     }
 }
