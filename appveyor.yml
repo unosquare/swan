@@ -58,4 +58,3 @@ after_build:
             git push origin gh-pages -q
             CD ..
         }
-- type mailoutput.txt
