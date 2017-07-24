@@ -19,6 +19,9 @@ environment:
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 before_build:
+- ps: Install-Product node
+- npm install maildev
+- ps: Start-Process -FilePath 'node' -ArgumentList 'mail.js'
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
