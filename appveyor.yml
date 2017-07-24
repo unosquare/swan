@@ -21,7 +21,7 @@ init:
 before_build:
 - ps: Install-Product node
 - npm install maildev
-- ps: $SMTPServer = Start-Process -FilePath 'node' -ArgumentList 'mail.js' -PassThru
+- ps: $SMTPServer = Start-Process -FilePath 'node' -ArgumentList 'mail.js' -PassThru -RedirectStandardOutput "mailoutput.txt" -RedirectStandardError "mailerror.txt" 
 - ps: $SMTPServer | Format-Table
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
@@ -58,3 +58,5 @@ after_build:
             git push origin gh-pages -q
             CD ..
         }
+- type mailoutput.txt
+- type mailerror.txt
