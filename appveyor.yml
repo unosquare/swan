@@ -21,7 +21,8 @@ init:
 before_build:
 - ps: Install-Product node
 - npm install maildev
-- ps: Start-Process -FilePath 'node' -ArgumentList 'mail.js'
+- ps: $SMTPServer = Start-Process -FilePath 'node' -ArgumentList 'mail.js' -PassThru
+- ps: $SMTPServer | Format-Table
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
