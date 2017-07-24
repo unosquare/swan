@@ -4,7 +4,7 @@ const os = require('os');
 const path = require('path');
 
 const maildev = new MailDev({
-  smtp: 1025 // incoming SMTP port - default is 1025
+  smtp: 1030
 })
 
 maildev.listen(function(err) {

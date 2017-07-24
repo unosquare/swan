@@ -35,7 +35,7 @@ namespace Unosquare.Swan.Test
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var email = new SmtpClient("localhost", 1025);
+            var email = new SmtpClient("localhost", 1030);
             var session = new SmtpSessionState() {
                 SenderAddress = "test@test.com",
                 
