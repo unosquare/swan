@@ -12,7 +12,9 @@ matrix:
       mono: none
       dotnet: 1.0.0-preview2-003131
 install:
+  - npm install maildev
   - dotnet restore
 script:
+  - node ./mail.js &
   - dotnet build ./src/Unosquare.Swan -f netstandard1.6
   - dotnet test ./test/Unosquare.Swan.Test -f netcoreapp1.1
