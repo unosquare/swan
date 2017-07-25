@@ -7501,54 +7501,54 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Connection.ProtocolBlockSize
   fullName: Unosquare.Swan.Networking.Connection.ProtocolBlockSize
   nameWithType: Connection.ProtocolBlockSize
-- uid: Unosquare.Swan.Networking.Connection.ReadDataAsync
-  name: ReadDataAsync()
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadDataAsync
-  commentId: M:Unosquare.Swan.Networking.Connection.ReadDataAsync
-  fullName: Unosquare.Swan.Networking.Connection.ReadDataAsync()
-  nameWithType: Connection.ReadDataAsync()
-- uid: Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan)
-  name: ReadDataAsync(TimeSpan)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadDataAsync_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan)
-  fullName: Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan)
-  nameWithType: Connection.ReadDataAsync(TimeSpan)
+- uid: Unosquare.Swan.Networking.Connection.ReadDataAsync(System.Threading.CancellationToken)
+  name: ReadDataAsync(CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadDataAsync_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.ReadDataAsync(System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.ReadDataAsync(System.Threading.CancellationToken)
+  nameWithType: Connection.ReadDataAsync(CancellationToken)
+- uid: Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan,System.Threading.CancellationToken)
+  name: ReadDataAsync(TimeSpan, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadDataAsync_System_TimeSpan_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan, System.Threading.CancellationToken)
+  nameWithType: Connection.ReadDataAsync(TimeSpan, CancellationToken)
 - uid: Unosquare.Swan.Networking.Connection.ReadDataAsync*
   name: ReadDataAsync
   href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadDataAsync_
   commentId: Overload:Unosquare.Swan.Networking.Connection.ReadDataAsync
   fullName: Unosquare.Swan.Networking.Connection.ReadDataAsync
   nameWithType: Connection.ReadDataAsync
-- uid: Unosquare.Swan.Networking.Connection.ReadLineAsync
-  name: ReadLineAsync()
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadLineAsync
-  commentId: M:Unosquare.Swan.Networking.Connection.ReadLineAsync
-  fullName: Unosquare.Swan.Networking.Connection.ReadLineAsync()
-  nameWithType: Connection.ReadLineAsync()
-- uid: Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan)
-  name: ReadLineAsync(TimeSpan)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadLineAsync_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan)
-  fullName: Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan)
-  nameWithType: Connection.ReadLineAsync(TimeSpan)
+- uid: Unosquare.Swan.Networking.Connection.ReadLineAsync(System.Threading.CancellationToken)
+  name: ReadLineAsync(CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadLineAsync_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.ReadLineAsync(System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.ReadLineAsync(System.Threading.CancellationToken)
+  nameWithType: Connection.ReadLineAsync(CancellationToken)
+- uid: Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan,System.Threading.CancellationToken)
+  name: ReadLineAsync(TimeSpan, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadLineAsync_System_TimeSpan_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan, System.Threading.CancellationToken)
+  nameWithType: Connection.ReadLineAsync(TimeSpan, CancellationToken)
 - uid: Unosquare.Swan.Networking.Connection.ReadLineAsync*
   name: ReadLineAsync
   href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadLineAsync_
   commentId: Overload:Unosquare.Swan.Networking.Connection.ReadLineAsync
   fullName: Unosquare.Swan.Networking.Connection.ReadLineAsync
   nameWithType: Connection.ReadLineAsync
-- uid: Unosquare.Swan.Networking.Connection.ReadTextAsync
-  name: ReadTextAsync()
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadTextAsync
-  commentId: M:Unosquare.Swan.Networking.Connection.ReadTextAsync
-  fullName: Unosquare.Swan.Networking.Connection.ReadTextAsync()
-  nameWithType: Connection.ReadTextAsync()
-- uid: Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan)
-  name: ReadTextAsync(TimeSpan)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadTextAsync_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan)
-  fullName: Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan)
-  nameWithType: Connection.ReadTextAsync(TimeSpan)
+- uid: Unosquare.Swan.Networking.Connection.ReadTextAsync(System.Threading.CancellationToken)
+  name: ReadTextAsync(CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadTextAsync_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.ReadTextAsync(System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.ReadTextAsync(System.Threading.CancellationToken)
+  nameWithType: Connection.ReadTextAsync(CancellationToken)
+- uid: Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan,System.Threading.CancellationToken)
+  name: ReadTextAsync(TimeSpan, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadTextAsync_System_TimeSpan_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan, System.Threading.CancellationToken)
+  nameWithType: Connection.ReadTextAsync(TimeSpan, CancellationToken)
 - uid: Unosquare.Swan.Networking.Connection.ReadTextAsync*
   name: ReadTextAsync
   href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_ReadTextAsync_
@@ -7621,51 +7621,51 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Connection.UpgradeToSecureAsServerAsync
   fullName: Unosquare.Swan.Networking.Connection.UpgradeToSecureAsServerAsync
   nameWithType: Connection.UpgradeToSecureAsServerAsync
-- uid: Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[],System.Boolean)
-  name: WriteDataAsync(Byte[], Boolean)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteDataAsync_System_Byte___System_Boolean_
-  commentId: M:Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[],System.Boolean)
-  name.vb: WriteDataAsync(Byte(), Boolean)
-  fullName: Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[], System.Boolean)
-  fullName.vb: Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte(), System.Boolean)
-  nameWithType: Connection.WriteDataAsync(Byte[], Boolean)
-  nameWithType.vb: Connection.WriteDataAsync(Byte(), Boolean)
+- uid: Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[],System.Boolean,System.Threading.CancellationToken)
+  name: WriteDataAsync(Byte[], Boolean, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteDataAsync_System_Byte___System_Boolean_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[],System.Boolean,System.Threading.CancellationToken)
+  name.vb: WriteDataAsync(Byte(), Boolean, CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[], System.Boolean, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte(), System.Boolean, System.Threading.CancellationToken)
+  nameWithType: Connection.WriteDataAsync(Byte[], Boolean, CancellationToken)
+  nameWithType.vb: Connection.WriteDataAsync(Byte(), Boolean, CancellationToken)
 - uid: Unosquare.Swan.Networking.Connection.WriteDataAsync*
   name: WriteDataAsync
   href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteDataAsync_
   commentId: Overload:Unosquare.Swan.Networking.Connection.WriteDataAsync
   fullName: Unosquare.Swan.Networking.Connection.WriteDataAsync
   nameWithType: Connection.WriteDataAsync
-- uid: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String)
-  name: WriteLineAsync(String)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_
-  commentId: M:Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String)
-  fullName: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String)
-  nameWithType: Connection.WriteLineAsync(String)
-- uid: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Text.Encoding)
-  name: WriteLineAsync(String, Encoding)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_System_Text_Encoding_
-  commentId: M:Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Text.Encoding)
-  fullName: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String, System.Text.Encoding)
-  nameWithType: Connection.WriteLineAsync(String, Encoding)
+- uid: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)
+  name: WriteLineAsync(String, Encoding, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_System_Text_Encoding_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String, System.Text.Encoding, System.Threading.CancellationToken)
+  nameWithType: Connection.WriteLineAsync(String, Encoding, CancellationToken)
+- uid: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Threading.CancellationToken)
+  name: WriteLineAsync(String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String, System.Threading.CancellationToken)
+  nameWithType: Connection.WriteLineAsync(String, CancellationToken)
 - uid: Unosquare.Swan.Networking.Connection.WriteLineAsync*
   name: WriteLineAsync
   href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteLineAsync_
   commentId: Overload:Unosquare.Swan.Networking.Connection.WriteLineAsync
   fullName: Unosquare.Swan.Networking.Connection.WriteLineAsync
   nameWithType: Connection.WriteLineAsync
-- uid: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String)
-  name: WriteTextAsync(String)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_
-  commentId: M:Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String)
-  fullName: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String)
-  nameWithType: Connection.WriteTextAsync(String)
-- uid: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Text.Encoding)
-  name: WriteTextAsync(String, Encoding)
-  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_System_Text_Encoding_
-  commentId: M:Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Text.Encoding)
-  fullName: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String, System.Text.Encoding)
-  nameWithType: Connection.WriteTextAsync(String, Encoding)
+- uid: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)
+  name: WriteTextAsync(String, Encoding, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_System_Text_Encoding_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String, System.Text.Encoding, System.Threading.CancellationToken)
+  nameWithType: Connection.WriteTextAsync(String, Encoding, CancellationToken)
+- uid: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Threading.CancellationToken)
+  name: WriteTextAsync(String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String, System.Threading.CancellationToken)
+  nameWithType: Connection.WriteTextAsync(String, CancellationToken)
 - uid: Unosquare.Swan.Networking.Connection.WriteTextAsync*
   name: WriteTextAsync
   href: api/Unosquare.Swan.Networking.Connection.html#Unosquare_Swan_Networking_Connection_WriteTextAsync_
@@ -8401,21 +8401,21 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.SmtpClient.Port
   fullName: Unosquare.Swan.Networking.SmtpClient.Port
   nameWithType: SmtpClient.Port
-- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String)
-  name: SendMailAsync(IEnumerable<SmtpSessionState>, String)
-  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Unosquare_Swan_Networking_SmtpSessionState__System_String_
-  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String)
-  name.vb: SendMailAsync(IEnumerable(Of SmtpSessionState), String)
-  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable<Unosquare.Swan.Networking.SmtpSessionState>, System.String)
-  fullName.vb: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Networking.SmtpSessionState), System.String)
-  nameWithType: SmtpClient.SendMailAsync(IEnumerable<SmtpSessionState>, String)
-  nameWithType.vb: SmtpClient.SendMailAsync(IEnumerable(Of SmtpSessionState), String)
-- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String)
-  name: SendMailAsync(SmtpSessionState, String)
-  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_Unosquare_Swan_Networking_SmtpSessionState_System_String_
-  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String)
-  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState, System.String)
-  nameWithType: SmtpClient.SendMailAsync(SmtpSessionState, String)
+- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String,System.Threading.CancellationToken)
+  name: SendMailAsync(IEnumerable<SmtpSessionState>, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Unosquare_Swan_Networking_SmtpSessionState__System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String,System.Threading.CancellationToken)
+  name.vb: SendMailAsync(IEnumerable(Of SmtpSessionState), String, CancellationToken)
+  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable<Unosquare.Swan.Networking.SmtpSessionState>, System.String, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Networking.SmtpSessionState), System.String, System.Threading.CancellationToken)
+  nameWithType: SmtpClient.SendMailAsync(IEnumerable<SmtpSessionState>, String, CancellationToken)
+  nameWithType.vb: SmtpClient.SendMailAsync(IEnumerable(Of SmtpSessionState), String, CancellationToken)
+- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String,System.Threading.CancellationToken)
+  name: SendMailAsync(SmtpSessionState, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_Unosquare_Swan_Networking_SmtpSessionState_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState,System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(Unosquare.Swan.Networking.SmtpSessionState, System.String, System.Threading.CancellationToken)
+  nameWithType: SmtpClient.SendMailAsync(SmtpSessionState, String, CancellationToken)
 - uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync*
   name: SendMailAsync
   href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_

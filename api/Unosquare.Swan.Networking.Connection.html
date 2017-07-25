@@ -728,14 +728,32 @@ determined by this property has been received. Useful for fixed-length message p
   
   
   <a id="Unosquare_Swan_Networking_Connection_ReadDataAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_ReadDataAsync" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync">ReadDataAsync()</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_ReadDataAsync_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync(System.Threading.CancellationToken)">ReadDataAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Reads data asynchronously from the remote stream with a 5000 millisecond timeout.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(CancellationToken ct)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -754,13 +772,13 @@ determined by this property has been received. Useful for fixed-length message p
   
   
   <a id="Unosquare_Swan_Networking_Connection_ReadDataAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_ReadDataAsync_System_TimeSpan_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan)">ReadDataAsync(TimeSpan)</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_ReadDataAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.ReadDataAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadDataAsync(TimeSpan, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Reads data from the remote client asynchronously and with the given timeout.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout, CancellationToken ct)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -776,6 +794,12 @@ determined by this property has been received. Useful for fixed-length message p
         <td><span class="xref">System.TimeSpan</span></td>
         <td><span class="parametername">timeout</span></td>
         <td><p>The timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -819,14 +843,31 @@ determined by this property has been received. Useful for fixed-length message p
   
   
   <a id="Unosquare_Swan_Networking_Connection_ReadLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_ReadLineAsync" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync">ReadLineAsync()</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_ReadLineAsync_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync(System.Threading.CancellationToken)">ReadLineAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Performs the same task as this method&apos;s overload but it defaults to a read timeout of 30 seconds.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(CancellationToken ct)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -845,7 +886,7 @@ determined by this property has been received. Useful for fixed-length message p
   
   
   <a id="Unosquare_Swan_Networking_Connection_ReadLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_ReadLineAsync_System_TimeSpan_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan)">ReadLineAsync(TimeSpan)</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_ReadLineAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadLineAsync(TimeSpan, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Reads the next available line of text in queue. Return null when no text is read.
 This method differs from the rest of the read methods because it keeps an internal
 queue of lines that are read from the stream and only returns the one line next in the queue.
@@ -855,7 +896,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout, CancellationToken ct)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -870,7 +911,14 @@ and the rest of the read methods are not called.</p>
       <tr>
         <td><span class="xref">System.TimeSpan</span></td>
         <td><span class="parametername">timeout</span></td>
-        <td></td>
+        <td><p>The timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -908,14 +956,31 @@ and the rest of the read methods are not called.</p>
   
   
   <a id="Unosquare_Swan_Networking_Connection_ReadTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_ReadTextAsync" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync">ReadTextAsync()</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_ReadTextAsync_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync(System.Threading.CancellationToken)">ReadTextAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Asynchronously reads data as text with a 5000 millisecond timeout.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(CancellationToken ct = null)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -934,13 +999,13 @@ and the rest of the read methods are not called.</p>
   
   
   <a id="Unosquare_Swan_Networking_Connection_ReadTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_ReadTextAsync_System_TimeSpan_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan)">ReadTextAsync(TimeSpan)</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_ReadTextAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.ReadTextAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadTextAsync(TimeSpan, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Asynchronously reads data as text with the given timeout.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout, CancellationToken ct)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -956,6 +1021,12 @@ and the rest of the read methods are not called.</p>
         <td><span class="xref">System.TimeSpan</span></td>
         <td><span class="parametername">timeout</span></td>
         <td><p>The timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -1099,13 +1170,13 @@ Remarks: DO NOT use this method in production. It accepts ALL server certificate
   
   
   <a id="Unosquare_Swan_Networking_Connection_WriteDataAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteDataAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_WriteDataAsync_System_Byte___System_Boolean_" data-uid="Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[],System.Boolean)">WriteDataAsync(Byte[], Boolean)</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_WriteDataAsync_System_Byte___System_Boolean_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.WriteDataAsync(System.Byte[],System.Boolean,System.Threading.CancellationToken)">WriteDataAsync(Byte[], Boolean, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Writes data asynchronously.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1129,49 +1200,10 @@ Remarks: DO NOT use this method in production. It accepts ALL server certificate
         <td><p>if set to <code>true</code> [force flush].</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Connection_WriteLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String)">WriteLineAsync(String)</h4>
-  <div class="markdown level1 summary"><p>Writes a line of text asynchronously. 
-The new line sequence is added automatically at the end of the line.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">line</span></td>
-        <td><p>The line.</p>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -1194,14 +1226,14 @@ The new line sequence is added automatically at the end of the line.</p>
   
   
   <a id="Unosquare_Swan_Networking_Connection_WriteLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_System_Text_Encoding_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Text.Encoding)">WriteLineAsync(String, Encoding)</h4>
-  <div class="markdown level1 summary"><p>Writes a line of text asynchronously. 
+  <h4 id="Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_System_Text_Encoding_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)">WriteLineAsync(String, Encoding, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of text asynchronously.
 The new line sequence is added automatically at the end of the line.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1225,6 +1257,12 @@ The new line sequence is added automatically at the end of the line.</p>
         <td><p>The encoding.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1244,14 +1282,15 @@ The new line sequence is added automatically at the end of the line.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Connection_WriteTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String)">WriteTextAsync(String)</h4>
-  <div class="markdown level1 summary"><p>Writes text asynchronously.</p>
+  <a id="Unosquare_Swan_Networking_Connection_WriteLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync*"></a>
+  <h4 id="Unosquare_Swan_Networking_Connection_WriteLineAsync_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.WriteLineAsync(System.String,System.Threading.CancellationToken)">WriteLineAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes a line of text asynchronously.
+The new line sequence is added automatically at the end of the line.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, CancellationToken ct)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1265,8 +1304,14 @@ The new line sequence is added automatically at the end of the line.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">text</span></td>
-        <td><p>The text.</p>
+        <td><span class="parametername">line</span></td>
+        <td><p>The line.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -1289,13 +1334,13 @@ The new line sequence is added automatically at the end of the line.</p>
   
   
   <a id="Unosquare_Swan_Networking_Connection_WriteTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync*"></a>
-  <h4 id="Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_System_Text_Encoding_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Text.Encoding)">WriteTextAsync(String, Encoding)</h4>
+  <h4 id="Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_System_Text_Encoding_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Text.Encoding,System.Threading.CancellationToken)">WriteTextAsync(String, Encoding, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Writes text asynchronously.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1317,6 +1362,62 @@ The new line sequence is added automatically at the end of the line.</p>
         <td><span class="xref">System.Text.Encoding</span></td>
         <td><span class="parametername">encoding</span></td>
         <td><p>The encoding.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Connection_WriteTextAsync_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync*"></a>
+  <h4 id="Unosquare_Swan_Networking_Connection_WriteTextAsync_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.WriteTextAsync(System.String,System.Threading.CancellationToken)">WriteTextAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Writes text asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, CancellationToken ct)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
