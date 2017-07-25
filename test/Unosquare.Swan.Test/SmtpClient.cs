@@ -30,6 +30,9 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task SendLocalEmail()
         {
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                Assert.Inconclusive("Can not test in AppVeyor");
+
             var filename = Path.Combine(Path.GetTempPath(), "tempFile.msg");
             if (File.Exists(filename))
                 File.Delete(filename);

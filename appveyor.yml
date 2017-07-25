@@ -19,10 +19,6 @@ environment:
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 before_build:
-- ps: Install-Product node
-- npm install maildev
-- ps: $SMTPServer = Start-Process -FilePath 'node' -ArgumentList 'mail.js' -PassThru -Verb runas
-- ps: $SMTPServer | Format-Table
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
@@ -34,7 +30,7 @@ before_build:
 - nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 - nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
 build_script:
-- dotnet build "src\Unosquare.Swan" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build src\**\project.json -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 test_script:
 - tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test -c %CONFIGURATION%" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
 - tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --serviceName appveyor --jobId %APPVEYOR_BUILD_NUMBER%
