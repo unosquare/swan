@@ -1,0 +1,540 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LBERDecoder
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LBERDecoder
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.21.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_LBERDecoder" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder" class="text-break">Class LBERDecoder
+  </h1>
+  <div class="markdown level0 summary"><p>This class provides LBER decoding routines for ASN.1 Types. LBER is a
+subset of BER as described in the following taken from 5.1 of RFC 2251:
+5.1. Mapping Onto BER-based Transport Services
+The protocol elements of Ldap are encoded for exchange using the
+Basic Encoding Rules (BER) [11] of ASN.1 [3]. However, due to the
+high overhead involved in using certain elements of the BER, the
+following additional restrictions are placed on BER-encodings of Ldap
+protocol elements:
+<li>(1) Only the definite form of length encoding will be used.</li>
+<li>(2) OCTET STRING values will be encoded in the primitive form only.</li>
+<li>
+    (3) If the value of a BOOLEAN type is true, the encoding MUST have
+    its contents octets set to hex &quot;FF&quot;.
+</li>
+<li>
+    (4) If a value of a type is its default value, it MUST be absent.
+    Only some BOOLEAN and INTEGER types have default values in this
+    protocol definition.
+    These restrictions do not apply to ASN.1 types encapsulated inside of
+    OCTET STRING values, such as attribute values, unless otherwise
+    noted.
+</li>
+[3] ITU-T Rec. X.680, &quot;Abstract Syntax Notation One (ASN.1) -
+Specification of Basic Notation&quot;, 1994.
+[11] ITU-T Rec. X.690, &quot;Specification of ASN.1 encoding rules: Basic,
+Canonical, and Distinguished Encoding Rules&quot;, 1994.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">LBERDecoder</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class LBERDecoder : Asn1Decoder</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.#ctor">LBERDecoder()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LBERDecoder()</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decode_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decode_Stream_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decode(Stream)">decode(Stream)</h4>
+  <div class="markdown level1 summary"><p>Decode an LBER encoded value into an Asn1Type from an InputStream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Asn1Object decode(Stream in_Renamed)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Stream</span></td>
+        <td><span class="parametername">in_Renamed</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html">Asn1Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html#Unosquare_Swan_Networking_Ldap_Asn1Decoder_decode_Stream_">Asn1Decoder.decode(Stream)</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decode_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decode_Stream_System_Int32___" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decode(Stream,System.Int32[])">decode(Stream, Int32[])</h4>
+  <div class="markdown level1 summary"><p>Decode an LBER encoded value into an Asn1Object from an InputStream.
+This method also returns the total length of this encoded
+Asn1Object (length of type + length of length + length of content)
+in the parameter len. This information is helpful when decoding
+structured types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Asn1Object decode(Stream in_Renamed, int[] len)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Stream</span></td>
+        <td><span class="parametername">in_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span>[]</td>
+        <td><span class="parametername">len</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html">Asn1Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html#Unosquare_Swan_Networking_Ldap_Asn1Decoder_decode_Stream_System_Int32___">Asn1Decoder.decode(Stream, Int32[])</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decode_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decode_System_SByte___" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decode(System.SByte[])">decode(SByte[])</h4>
+  <div class="markdown level1 summary"><p>Decode an LBER encoded value into an Asn1Type from a byte array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Asn1Object decode(sbyte[] value_Renamed)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><span class="parametername">value_Renamed</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html">Asn1Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html#Unosquare_Swan_Networking_Ldap_Asn1Decoder_decode_System_SByte___">Asn1Decoder.decode(SByte[])</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeBoolean_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeBoolean*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeBoolean_Stream_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeBoolean(Stream,System.Int32)">decodeBoolean(Stream, Int32)</h4>
+  <div class="markdown level1 summary"><p>Decode a boolean directly from a stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object decodeBoolean(Stream in_Renamed, int len)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Stream</span></td>
+        <td><span class="parametername">in_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">len</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html#Unosquare_Swan_Networking_Ldap_Asn1Decoder_decodeBoolean_Stream_System_Int32_">Asn1Decoder.decodeBoolean(Stream, Int32)</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeCharacterString_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeCharacterString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeCharacterString_Stream_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeCharacterString(Stream,System.Int32)">decodeCharacterString(Stream, Int32)</h4>
+  <div class="markdown level1 summary"><p>Decode a CharacterString directly from a stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object decodeCharacterString(Stream in_Renamed, int len)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Stream</span></td>
+        <td><span class="parametername">in_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">len</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html#Unosquare_Swan_Networking_Ldap_Asn1Decoder_decodeCharacterString_Stream_System_Int32_">Asn1Decoder.decodeCharacterString(Stream, Int32)</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeNumeric_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeNumeric*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeNumeric_Stream_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeNumeric(Stream,System.Int32)">decodeNumeric(Stream, Int32)</h4>
+  <div class="markdown level1 summary"><p>Decode a Numeric type directly from a stream. Decodes INTEGER
+and ENUMERATED types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object decodeNumeric(Stream in_Renamed, int len)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Stream</span></td>
+        <td><span class="parametername">in_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">len</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html#Unosquare_Swan_Networking_Ldap_Asn1Decoder_decodeNumeric_Stream_System_Int32_">Asn1Decoder.decodeNumeric(Stream, Int32)</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeOctetString_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeOctetString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LBERDecoder_decodeOctetString_Stream_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LBERDecoder.decodeOctetString(Stream,System.Int32)">decodeOctetString(Stream, Int32)</h4>
+  <div class="markdown level1 summary"><p>Decode an OctetString directly from a stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object decodeOctetString(Stream in_Renamed, int len)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Stream</span></td>
+        <td><span class="parametername">in_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">len</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html#Unosquare_Swan_Networking_Ldap_Asn1Decoder_decodeOctetString_Stream_System_Int32_">Asn1Decoder.decodeOctetString(Stream, Int32)</a></div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1050 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LdapSearchRequest
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LdapSearchRequest
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.21.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest" class="text-break">Class LdapSearchRequest
+  </h1>
+  <div class="markdown level0 summary"><p>Represents an Ldap Search request.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
+    <div class="level2"><span class="xref">LdapSearchRequest</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls">LdapMessage.Controls</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID">LdapMessage.MessageID</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Type">LdapMessage.Type</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request">LdapMessage.Request</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Tag">LdapMessage.Tag</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_BIND_REQUEST">LdapMessage.BIND_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_BIND_RESPONSE">LdapMessage.BIND_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_UNBIND_REQUEST">LdapMessage.UNBIND_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_REQUEST">LdapMessage.SEARCH_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESPONSE">LdapMessage.SEARCH_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESULT">LdapMessage.SEARCH_RESULT</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ABANDON_REQUEST">LdapMessage.ABANDON_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESULT_REFERENCE">LdapMessage.SEARCH_RESULT_REFERENCE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_EXTENDED_REQUEST">LdapMessage.EXTENDED_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_EXTENDED_RESPONSE">LdapMessage.EXTENDED_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_INTERMEDIATE_RESPONSE">LdapMessage.INTERMEDIATE_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_message">LdapMessage.message</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ToString">LdapMessage.ToString()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class LdapSearchRequest : LdapMessage</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest__ctor_System_String_System_Int32_System_String_System_String___System_Int32_System_Int32_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_LdapControl___" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.#ctor(System.String,System.Int32,System.String,System.String[],System.Int32,System.Int32,System.Int32,System.Boolean,Unosquare.Swan.Networking.Ldap.LdapControl[])">LdapSearchRequest(String, Int32, String, String[], Int32, Int32, Int32, Boolean, LdapControl[])</h4>
+  <div class="markdown level1 summary"><p>Constructs an Ldap Search Request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapSearchRequest(string base_Renamed, int scope, string filter, string[] attrs, int dereference, int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">base_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">scope</span></td>
+        <td><p>The scope of the entries to search. The following
+are the valid options:
+<ul>
+<li>SCOPE_BASE - searches only the base DN</li>
+<li>SCOPE_ONE - searches only entries under the base DN</li>
+<li>
+    SCOPE_SUB - searches the base DN and all entries
+    within its subtree
+</li>
+</ul></p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>The search filter specifying the search criteria.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">attrs</span></td>
+        <td><p>The names of attributes to retrieve.
+operation exceeds the time limit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">dereference</span></td>
+        <td><p>Specifies when aliases should be dereferenced.
+Must be one of the constants defined in
+LdapConstraints, which are DEREF_NEVER,
+DEREF_FINDING, DEREF_SEARCHING, or DEREF_ALWAYS.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">maxResults</span></td>
+        <td><p>The maximum number of search results to return
+for a search request.
+The search operation will be terminated by the server
+with an LdapException.SIZE_LIMIT_EXCEEDED if the
+number of results exceed the maximum.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">serverTimeLimit</span></td>
+        <td><p>The maximum time in seconds that the server
+should spend returning search results. This is a
+server-enforced limit.  A value of 0 means
+no time limit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">typesOnly</span></td>
+        <td><p>If true, returns the names but not the values of
+the attributes found.  If false, returns the
+names and values for attributes found.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
+        <td><span class="parametername">cont</span></td>
+        <td><p>Any controls that apply to the search request.
+or null if none.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest__ctor_System_String_System_Int32_System_String_System_String___System_Int32_System_Int32_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_LdapControl____seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest__ctor_System_String_System_Int32_Unosquare_Swan_Networking_Ldap_RfcFilter_System_String___System_Int32_System_Int32_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_LdapControl___" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.#ctor(System.String,System.Int32,Unosquare.Swan.Networking.Ldap.RfcFilter,System.String[],System.Int32,System.Int32,System.Int32,System.Boolean,Unosquare.Swan.Networking.Ldap.LdapControl[])">LdapSearchRequest(String, Int32, RfcFilter, String[], Int32, Int32, Int32, Boolean, LdapControl[])</h4>
+  <div class="markdown level1 summary"><p>Constructs an Ldap Search Request with a filter in Asn1 format.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapSearchRequest(string base_Renamed, int scope, RfcFilter filter, string[] attrs, int dereference, int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">base_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">scope</span></td>
+        <td><p>The scope of the entries to search. The following
+are the valid options:
+<ul>
+<li>SCOPE_BASE - searches only the base DN</li>
+<li>SCOPE_ONE - searches only entries under the base DN</li>
+<li>
+    SCOPE_SUB - searches the base DN and all entries
+    within its subtree
+</li>
+</ul></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcFilter.html">RfcFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>The search filter specifying the search criteria.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">attrs</span></td>
+        <td><p>The names of attributes to retrieve.
+operation exceeds the time limit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">dereference</span></td>
+        <td><p>Specifies when aliases should be dereferenced.
+Must be either one of the constants defined in
+LdapConstraints, which are DEREF_NEVER,
+DEREF_FINDING, DEREF_SEARCHING, or DEREF_ALWAYS.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">maxResults</span></td>
+        <td><p>The maximum number of search results to return
+for a search request.
+The search operation will be terminated by the server
+with an LdapException.SIZE_LIMIT_EXCEEDED if the
+number of results exceed the maximum.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">serverTimeLimit</span></td>
+        <td><p>The maximum time in seconds that the server
+should spend returning search results. This is a
+server-enforced limit.  A value of 0 means
+no time limit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">typesOnly</span></td>
+        <td><p>If true, returns the names but not the values of
+the attributes found.  If false, returns the
+names and values for attributes found.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
+        <td><span class="parametername">cont</span></td>
+        <td><p>Any controls that apply to the search request.
+or null if none.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest__ctor_System_String_System_Int32_Unosquare_Swan_Networking_Ldap_RfcFilter_System_String___System_Int32_System_Int32_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_LdapControl____seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></div>
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_AND" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.AND">AND</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for an AND component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int AND = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_ANY" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.ANY">ANY</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for an ANY component of a SUBSTRING.
+Note: An ANY SUBSTRING is represented as &quot;<em>value</em>&quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int ANY = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_APPROX_MATCH" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.APPROX_MATCH">APPROX_MATCH</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for an APPROX_MATCH component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int APPROX_MATCH = 8</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_EQUALITY_MATCH" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.EQUALITY_MATCH">EQUALITY_MATCH</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for an EQUALITY_MATCH component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int EQUALITY_MATCH = 3</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_EXTENSIBLE_MATCH" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.EXTENSIBLE_MATCH">EXTENSIBLE_MATCH</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for an EXTENSIBLE_MATCH component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int EXTENSIBLE_MATCH = 9</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_FINAL" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.FINAL">FINAL</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for a FINAL component of a SUBSTRING.
+Note: A FINAL SUBSTRING is represented as &quot;*value&quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int FINAL = 2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_GREATER_OR_EQUAL" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.GREATER_OR_EQUAL">GREATER_OR_EQUAL</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for a GREATER_OR_EQUAL component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int GREATER_OR_EQUAL = 5</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_INITIAL" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.INITIAL">INITIAL</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for an INITIAL component of a SUBSTRING.
+Note: An initial SUBSTRING is represented as &quot;value*&quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int INITIAL = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_LESS_OR_EQUAL" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.LESS_OR_EQUAL">LESS_OR_EQUAL</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for a LESS_OR_EQUAL component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int LESS_OR_EQUAL = 6</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_NOT" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.NOT">NOT</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for a NOT component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int NOT = 2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_OR" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.OR">OR</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for an OR component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int OR = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_PRESENT" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.PRESENT">PRESENT</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for a PRESENT component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int PRESENT = 7</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_SUBSTRINGS" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.SUBSTRINGS">SUBSTRINGS</h4>
+  <div class="markdown level1 summary"><p>Search Filter Identifier for a SUBSTRINGS component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int SUBSTRINGS = 4</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Attributes_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.Attributes*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Attributes" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.Attributes">Attributes</h4>
+  <div class="markdown level1 summary"><p>Retrieves an array of attribute names to request for in a search.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string[] Attributes { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><p>Attribute names to be searched</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Dereference_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.Dereference*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Dereference" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.Dereference">Dereference</h4>
+  <div class="markdown level1 summary"><p>Retrieves the behaviour of dereferencing aliases on a search request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int Dereference { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>integer representing how to dereference aliases</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Dereference_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_ALWAYS">DEREF_ALWAYS</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_FINDING">DEREF_FINDING</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_NEVER">DEREF_NEVER</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_SEARCHING">DEREF_SEARCHING</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_DN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.DN*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_DN" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.DN">DN</h4>
+  <div class="markdown level1 summary"><p>Retrieves the Base DN for a search request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string DN { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>the base DN for a search request</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_MaxResults_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.MaxResults*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_MaxResults" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.MaxResults">MaxResults</h4>
+  <div class="markdown level1 summary"><p>Retrieves the maximum number of entries to be returned on a search.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int MaxResults { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Maximum number of search entries.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Scope_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.Scope*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Scope" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.Scope">Scope</h4>
+  <div class="markdown level1 summary"><p>Retrieves the scope of a search request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int Scope { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>scope of a search request</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_Scope_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_BASE">SCOPE_BASE</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_ONE">SCOPE_ONE</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_SUB">SCOPE_SUB</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_SearchFilter_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.SearchFilter*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_SearchFilter" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.SearchFilter">SearchFilter</h4>
+  <div class="markdown level1 summary"><p>Retrieves an Iterator object representing the parsed filter for
+this search request.
+The first object returned from the Iterator is an Integer indicating
+the type of filter component. One or more values follow the component
+type as subsequent items in the Iterator. The pattern of Integer
+component type followed by values continues until the end of the
+filter.
+Values returned as a byte array may represent UTF-8 characters or may
+be binary values. The possible Integer components of a search filter
+and the associated values that follow are:
+<ul>
+<li>AND - followed by an Iterator value</li>
+<li>OR - followed by an Iterator value</li>
+<li>NOT - followed by an Iterator value</li>
+<li>
+    EQUALITY_MATCH - followed by the attribute name represented as a
+    String, and by the attribute value represented as a byte array
+</li>
+<li>
+    GREATER_OR_EQUAL - followed by the attribute name represented as a
+    String, and by the attribute value represented as a byte array
+</li>
+<li>
+    LESS_OR_EQUAL - followed by the attribute name represented as a
+    String, and by the attribute value represented as a byte array
+</li>
+<li>
+    APPROX_MATCH - followed by the attribute name represented as a
+    String, and by the attribute value represented as a byte array
+</li>
+<li>PRESENT - followed by a attribute name respresented as a String</li>
+<li>
+    EXTENSIBLE_MATCH - followed by the name of the matching rule
+    represented as a String, by the attribute name represented
+    as a String, and by the attribute value represented as a
+    byte array.
+</li>
+<li>
+    SUBSTRINGS - followed by the attribute name represented as a
+    String, by one or more SUBSTRING components (INITIAL, ANY,
+    or FINAL) followed by the SUBSTRING value.
+</li>
+</ul></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IEnumerator SearchFilter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerator</span></td>
+        <td><p>Iterator representing filter components</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_ServerTimeLimit_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.ServerTimeLimit*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_ServerTimeLimit" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.ServerTimeLimit">ServerTimeLimit</h4>
+  <div class="markdown level1 summary"><p>Retrieves the server time limit for a search request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int ServerTimeLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>server time limit in nanoseconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_StringFilter_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.StringFilter*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_StringFilter" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.StringFilter">StringFilter</h4>
+  <div class="markdown level1 summary"><p>Creates a string representation of the filter in this search request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string StringFilter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>filter string for this search request</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_TypesOnly_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.TypesOnly*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchRequest_TypesOnly" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.TypesOnly">TypesOnly</h4>
+  <div class="markdown level1 summary"><p>Retrieves whether attribute values or only attribute types(names) should
+be returned in a search request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool TypesOnly { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if only attribute types (names) are returned, false if
+attributes types and values are to be returned.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

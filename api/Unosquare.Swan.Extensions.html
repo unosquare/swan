@@ -2735,6 +2735,69 @@ per line.</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Extensions_ReadInput_" data-uid="Unosquare.Swan.Extensions.ReadInput*"></a>
+  <h4 id="Unosquare_Swan_Extensions_ReadInput_System_IO_Stream_System_SByte____System_Int32_System_Int32_" data-uid="Unosquare.Swan.Extensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)">ReadInput(Stream, ref SByte[], Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Reads a number of characters from the current source Stream and writes the data to the target array at the
+specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int ReadInput(this Stream sourceStream, ref sbyte[] target, int start, int count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">sourceStream</span></td>
+        <td><p>The source stream.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><span class="parametername">target</span></td>
+        <td><p>The target.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The start.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>The count.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Extensions_RemoveControlChars_" data-uid="Unosquare.Swan.Extensions.RemoveControlChars*"></a>
   <h4 id="Unosquare_Swan_Extensions_RemoveControlChars_System_String_" data-uid="Unosquare.Swan.Extensions.RemoveControlChars(System.String)">RemoveControlChars(String)</h4>
   <div class="markdown level1 summary"><p>Removes all control characters from a string, including new line sequences.</p>
@@ -3663,6 +3726,50 @@ column number</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Extensions_ToByteArray_" data-uid="Unosquare.Swan.Extensions.ToByteArray*"></a>
+  <h4 id="Unosquare_Swan_Extensions_ToByteArray_System_SByte___" data-uid="Unosquare.Swan.Extensions.ToByteArray(System.SByte[])">ToByteArray(SByte[])</h4>
+  <div class="markdown level1 summary"><p>Converts an array of sbytes to an array of bytes</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] ToByteArray(this sbyte[] sbyteArray)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><span class="parametername">sbyteArray</span></td>
+        <td><p>The sbyte array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Extensions_ToBytes_" data-uid="Unosquare.Swan.Extensions.ToBytes*"></a>
   <h4 id="Unosquare_Swan_Extensions_ToBytes__1___0_" data-uid="Unosquare.Swan.Extensions.ToBytes``1(``0)">ToBytes&lt;T&gt;(T)</h4>
   <div class="markdown level1 summary"><p>Converts a struct to an array of bytes</p>
@@ -4018,6 +4125,50 @@ uppercase characters</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Extensions_ToSByteArray_" data-uid="Unosquare.Swan.Extensions.ToSByteArray*"></a>
+  <h4 id="Unosquare_Swan_Extensions_ToSByteArray_System_Byte___" data-uid="Unosquare.Swan.Extensions.ToSByteArray(System.Byte[])">ToSByteArray(Byte[])</h4>
+  <div class="markdown level1 summary"><p>Receives a byte array and returns it transformed in an sbyte array</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static sbyte[] ToSByteArray(this byte[] byteArray)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">byteArray</span></td>
+        <td><p>The byte array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
         <td></td>
       </tr>
     </tbody>
@@ -4778,6 +4929,57 @@ if the buffer ends and/or starts with such sequence</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Extensions_VectorRemoveElement_" data-uid="Unosquare.Swan.Extensions.VectorRemoveElement*"></a>
+  <h4 id="Unosquare_Swan_Extensions_VectorRemoveElement_System_Collections_ArrayList_System_Object_" data-uid="Unosquare.Swan.Extensions.VectorRemoveElement(System.Collections.ArrayList,System.Object)">VectorRemoveElement(ArrayList, Object)</h4>
+  <div class="markdown level1 summary"><p>Removes the first occurrence of an specific object from an ArrayList instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool VectorRemoveElement(this ArrayList arrayList, object element)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.ArrayList</span></td>
+        <td><span class="parametername">arrayList</span></td>
+        <td><p>The ArrayList instance</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">element</span></td>
+        <td><p>The element to remove</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if item is found in the ArrayList; otherwise, false</p>
+</td>
       </tr>
     </tbody>
   </table>
