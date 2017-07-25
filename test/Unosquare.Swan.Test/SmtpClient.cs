@@ -62,5 +62,39 @@ namespace Unosquare.Swan.Test
 
             Assert.AreEqual("hh", smtpMock.headers.First().Key);
         }
+
+#if NET452
+        [Test]
+        public async Task SendLocalEmailWithMailMessage()
+        {
+            const string senderEmail = "test@test.com";
+            const string recipientEmail = "me@test.com";
+
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                Assert.Inconclusive("Can not test in AppVeyor");
+
+            var filename = Path.Combine(Path.GetTempPath(), "tempFile.msg");
+
+            if (File.Exists(filename))
+                File.Delete(filename);
+
+            Assert.IsFalse(File.Exists(filename));
+            var email = new SmtpClient("localhost", 1030);
+            var emailMessage = new System.Net.Mail.MailMessage(senderEmail, recipientEmail, "Test", "Sure");
+
+            await email.SendMailAsync(emailMessage);
+            await Task.Delay(100);
+            Assert.IsTrue(File.Exists(filename));
+
+            var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
+            Assert.IsNotNull(smtpMock);
+
+            Assert.AreEqual(senderEmail, smtpMock.envelope.from.address);
+            Assert.AreEqual(recipientEmail, smtpMock.envelope.to.First().address);
+
+            Assert.AreEqual("x-sender", smtpMock.headers.First().Key);
+            Assert.AreEqual(senderEmail, smtpMock.headers.First().Value);
+        }
+#endif
     }
 }
