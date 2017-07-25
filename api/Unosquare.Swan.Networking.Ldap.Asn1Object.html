@@ -157,8 +157,8 @@
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_encode_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.encode*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)">encode(Asn1Encoder, Stream)</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_Encode_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.Encode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)">Encode(Asn1Encoder, Stream)</h4>
   <div class="markdown level1 summary"><p>Abstract method that must be implemented by each child
 class to encode itself ( an Asn1Object) directly intto
 a output stream.</p>
@@ -166,7 +166,7 @@ a output stream.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void encode(Asn1Encoder enc, Stream out_Renamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract void Encode(Asn1Encoder enc, Stream outRenamed)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -185,15 +185,15 @@ a output stream.</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">out_Renamed</span></td>
+        <td><span class="parametername">outRenamed</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_getEncoding_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_getEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)">getEncoding(Asn1Encoder)</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_GetEncoding_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_GetEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)">GetEncoding(Asn1Encoder)</h4>
   <div class="markdown level1 summary"><p>This method returns a byte array representing the encoded
 Asn1Object.  It in turn calls the encode method that is
 defined in Asn1Object but will usually be implemented
@@ -202,7 +202,7 @@ in the child Asn1 classses.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sbyte[] getEncoding(Asn1Encoder enc)</code></pre>
+    <pre><code class="lang-csharp hljs">public sbyte[] GetEncoding(Asn1Encoder enc)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -238,8 +238,8 @@ in the child Asn1 classses.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_getIdentifier_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_getIdentifier" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier">getIdentifier()</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_GetIdentifier_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_GetIdentifier" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier">GetIdentifier()</h4>
   <div class="markdown level1 summary"><p>Returns the identifier for this Asn1Object as an Asn1Identifier.
 This Asn1Identifier object will include the CLASS, FORM and TAG
 for this Asn1Object.</p>
@@ -247,7 +247,7 @@ for this Asn1Object.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Asn1Identifier getIdentifier()</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Asn1Identifier GetIdentifier()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -266,15 +266,15 @@ for this Asn1Object.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_setIdentifier_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_setIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)">setIdentifier(Asn1Identifier)</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1Object_SetIdentifier_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Object_SetIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)">SetIdentifier(Asn1Identifier)</h4>
   <div class="markdown level1 summary"><p>Sets the identifier for this Asn1Object. This is helpful when
 creating implicit Asn1Tagged types.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void setIdentifier(Asn1Identifier id)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void SetIdentifier(Asn1Identifier id)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

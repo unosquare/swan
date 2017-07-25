@@ -100,13 +100,13 @@ usual after the Asn1Tagged identifier has been encoded.</p>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getIdentifier">Asn1Object.getIdentifier()</a>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetIdentifier">Asn1Object.GetIdentifier()</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_setIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_">Asn1Object.setIdentifier(Asn1Identifier)</a>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_SetIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_">Asn1Object.SetIdentifier(Asn1Identifier)</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_">Asn1Object.getEncoding(Asn1Encoder)</a>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_">Asn1Object.GetEncoding(Asn1Encoder)</a>
     </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
@@ -145,7 +145,7 @@ input stream.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Asn1Tagged(Asn1Decoder dec, Stream in_Renamed, int len, Asn1Identifier identifier)</code></pre>
+    <pre><code class="lang-csharp hljs">public Asn1Tagged(Asn1Decoder dec, Stream inRenamed, int len, Asn1Identifier identifier)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -167,7 +167,7 @@ in his/her own decoder object</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">in_Renamed</span></td>
+        <td><span class="parametername">inRenamed</span></td>
         <td></td>
       </tr>
       <tr>
@@ -193,7 +193,7 @@ The explicit flag defaults to true as per the spec.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Asn1Tagged(Asn1Identifier identifier, Asn1Object object_Renamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public Asn1Tagged(Asn1Identifier identifier, Asn1Object objectRenamed)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -212,7 +212,7 @@ The explicit flag defaults to true as per the spec.</p>
       </tr>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html">Asn1Object</a></td>
-        <td><span class="parametername">object_Renamed</span></td>
+        <td><span class="parametername">objectRenamed</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -226,7 +226,7 @@ The explicit flag defaults to true as per the spec.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Asn1Tagged(Asn1Identifier identifier, Asn1Object object_Renamed, bool explicit_Renamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public Asn1Tagged(Asn1Identifier identifier, Asn1Object objectRenamed, bool explicitRenamed)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -245,12 +245,12 @@ The explicit flag defaults to true as per the spec.</p>
       </tr>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html">Asn1Object</a></td>
-        <td><span class="parametername">object_Renamed</span></td>
+        <td><span class="parametername">objectRenamed</span></td>
         <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">explicit_Renamed</span></td>
+        <td><span class="parametername">explicitRenamed</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -314,15 +314,15 @@ EXPLICIT tagging.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1Tagged_encode_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Tagged_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)">encode(Asn1Encoder, Stream)</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1Tagged_Encode_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Tagged_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)">Encode(Asn1Encoder, Stream)</h4>
   <div class="markdown level1 summary"><p>Call this method to encode the current instance into the
 specified output stream using the specified encoder object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void encode(Asn1Encoder enc, Stream out_Renamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Encode(Asn1Encoder enc, Stream outRenamed)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -342,13 +342,13 @@ specified output stream using the specified encoder object.</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">out_Renamed</span></td>
+        <td><span class="parametername">outRenamed</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_">Asn1Object.encode(Asn1Encoder, Stream)</a></div>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_">Asn1Object.Encode(Asn1Encoder, Stream)</a></div>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_Asn1Tagged_taggedValue_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Tagged.taggedValue*"></a>

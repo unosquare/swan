@@ -8410,30 +8410,30 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Boolean.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.Asn1Boolean
   nameWithType: Asn1Boolean.Asn1Boolean
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.booleanValue
-  name: booleanValue()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_booleanValue
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Boolean.booleanValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.booleanValue()
-  nameWithType: Asn1Boolean.booleanValue()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.booleanValue*
-  name: booleanValue
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_booleanValue_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Boolean.booleanValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.booleanValue
-  nameWithType: Asn1Boolean.booleanValue
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Boolean.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Boolean.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Boolean.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.encode
-  nameWithType: Asn1Boolean.encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.BooleanValue
+  name: BooleanValue()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_BooleanValue
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Boolean.BooleanValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.BooleanValue()
+  nameWithType: Asn1Boolean.BooleanValue()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.BooleanValue*
+  name: BooleanValue
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_BooleanValue_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Boolean.BooleanValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.BooleanValue
+  nameWithType: Asn1Boolean.BooleanValue
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Boolean.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Boolean.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Boolean.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Boolean.Encode
+  nameWithType: Asn1Boolean.Encode
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Boolean.ID
   name: ID
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Boolean.html#Unosquare_Swan_Networking_Ldap_Asn1Boolean_ID
@@ -8506,42 +8506,42 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Choice.ChoiceValue
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.ChoiceValue
   nameWithType: Asn1Choice.ChoiceValue
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Choice.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Choice.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Choice.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.encode
-  nameWithType: Asn1Choice.encode
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Choice.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.getIdentifier()
-  nameWithType: Asn1Choice.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Choice.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.getIdentifier
-  nameWithType: Asn1Choice.getIdentifier
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.setIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
-  name: setIdentifier(Asn1Identifier)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_setIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Choice.setIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.setIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
-  nameWithType: Asn1Choice.setIdentifier(Asn1Identifier)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.setIdentifier*
-  name: setIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_setIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Choice.setIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.setIdentifier
-  nameWithType: Asn1Choice.setIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Choice.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Choice.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Choice.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.Encode
+  nameWithType: Asn1Choice.Encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Choice.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.GetIdentifier()
+  nameWithType: Asn1Choice.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Choice.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.GetIdentifier
+  nameWithType: Asn1Choice.GetIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.SetIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
+  name: SetIdentifier(Asn1Identifier)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_SetIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Choice.SetIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.SetIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
+  nameWithType: Asn1Choice.SetIdentifier(Asn1Identifier)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.SetIdentifier*
+  name: SetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_SetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Choice.SetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Choice.SetIdentifier
+  nameWithType: Asn1Choice.SetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Choice.ToString
   name: ToString()
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Choice.html#Unosquare_Swan_Networking_Ldap_Asn1Choice_ToString
@@ -8722,18 +8722,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Enumerated.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.Asn1Enumerated
   nameWithType: Asn1Enumerated.Asn1Enumerated
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html#Unosquare_Swan_Networking_Ldap_Asn1Enumerated_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Enumerated.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Enumerated.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html#Unosquare_Swan_Networking_Ldap_Asn1Enumerated_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Enumerated.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.encode
-  nameWithType: Asn1Enumerated.encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html#Unosquare_Swan_Networking_Ldap_Asn1Enumerated_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Enumerated.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Enumerated.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html#Unosquare_Swan_Networking_Ldap_Asn1Enumerated_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Enumerated.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.Encode
+  nameWithType: Asn1Enumerated.Encode
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Enumerated.ID
   name: ID
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html#Unosquare_Swan_Networking_Ldap_Asn1Enumerated_ID
@@ -8890,18 +8890,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Identifier.Private
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Identifier.Private
   nameWithType: Asn1Identifier.Private
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Identifier.reset(Stream)
-  name: reset(Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Identifier.html#Unosquare_Swan_Networking_Ldap_Asn1Identifier_reset_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Identifier.reset(Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Identifier.reset(Stream)
-  nameWithType: Asn1Identifier.reset(Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Identifier.reset*
-  name: reset
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Identifier.html#Unosquare_Swan_Networking_Ldap_Asn1Identifier_reset_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Identifier.reset
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Identifier.reset
-  nameWithType: Asn1Identifier.reset
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Identifier.Reset(Stream)
+  name: Reset(Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Identifier.html#Unosquare_Swan_Networking_Ldap_Asn1Identifier_Reset_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Identifier.Reset(Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Identifier.Reset(Stream)
+  nameWithType: Asn1Identifier.Reset(Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Identifier.Reset*
+  name: Reset
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Identifier.html#Unosquare_Swan_Networking_Ldap_Asn1Identifier_Reset_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Identifier.Reset
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Identifier.Reset
+  nameWithType: Asn1Identifier.Reset
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Identifier.Tag
   name: Tag
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Identifier.html#Unosquare_Swan_Networking_Ldap_Asn1Identifier_Tag
@@ -8962,18 +8962,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Integer.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Integer.Asn1Integer
   nameWithType: Asn1Integer.Asn1Integer
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Integer.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Integer.html#Unosquare_Swan_Networking_Ldap_Asn1Integer_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Integer.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Integer.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Integer.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Integer.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Integer.html#Unosquare_Swan_Networking_Ldap_Asn1Integer_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Integer.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Integer.encode
-  nameWithType: Asn1Integer.encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Integer.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Integer.html#Unosquare_Swan_Networking_Ldap_Asn1Integer_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Integer.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Integer.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Integer.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Integer.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Integer.html#Unosquare_Swan_Networking_Ldap_Asn1Integer_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Integer.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Integer.Encode
+  nameWithType: Asn1Integer.Encode
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Integer.ID
   name: ID
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Integer.html#Unosquare_Swan_Networking_Ldap_Asn1Integer_ID
@@ -9052,18 +9052,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Length.Length
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Length.Length
   nameWithType: Asn1Length.Length
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Length.reset(Stream)
-  name: reset(Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Length.html#Unosquare_Swan_Networking_Ldap_Asn1Length_reset_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Length.reset(Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Length.reset(Stream)
-  nameWithType: Asn1Length.reset(Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Length.reset*
-  name: reset
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Length.html#Unosquare_Swan_Networking_Ldap_Asn1Length_reset_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Length.reset
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Length.reset
-  nameWithType: Asn1Length.reset
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Length.Reset(Stream)
+  name: Reset(Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Length.html#Unosquare_Swan_Networking_Ldap_Asn1Length_Reset_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Length.Reset(Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Length.Reset(Stream)
+  nameWithType: Asn1Length.Reset(Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Length.Reset*
+  name: Reset
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Length.html#Unosquare_Swan_Networking_Ldap_Asn1Length_Reset_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Length.Reset
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Length.Reset
+  nameWithType: Asn1Length.Reset
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Null
   name: Asn1Null
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Null.html
@@ -9082,18 +9082,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Null.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Null.Asn1Null
   nameWithType: Asn1Null.Asn1Null
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Null.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Null.html#Unosquare_Swan_Networking_Ldap_Asn1Null_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Null.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Null.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Null.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Null.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Null.html#Unosquare_Swan_Networking_Ldap_Asn1Null_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Null.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Null.encode
-  nameWithType: Asn1Null.encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Null.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Null.html#Unosquare_Swan_Networking_Ldap_Asn1Null_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Null.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Null.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Null.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Null.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Null.html#Unosquare_Swan_Networking_Ldap_Asn1Null_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Null.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Null.Encode
+  nameWithType: Asn1Null.Encode
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Null.ID
   name: ID
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Null.html#Unosquare_Swan_Networking_Ldap_Asn1Null_ID
@@ -9124,30 +9124,30 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.Asn1Numeric
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric
   nameWithType: Asn1Numeric
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.intValue
-  name: intValue()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_intValue
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Numeric.intValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.intValue()
-  nameWithType: Asn1Numeric.intValue()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.intValue*
-  name: intValue
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_intValue_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Numeric.intValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.intValue
-  nameWithType: Asn1Numeric.intValue
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.longValue
-  name: longValue()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_longValue
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Numeric.longValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.longValue()
-  nameWithType: Asn1Numeric.longValue()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.longValue*
-  name: longValue
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_longValue_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Numeric.longValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.longValue
-  nameWithType: Asn1Numeric.longValue
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.IntValue
+  name: IntValue()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_IntValue
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Numeric.IntValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.IntValue()
+  nameWithType: Asn1Numeric.IntValue()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.IntValue*
+  name: IntValue
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_IntValue_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Numeric.IntValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.IntValue
+  nameWithType: Asn1Numeric.IntValue
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.LongValue
+  name: LongValue()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_LongValue
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Numeric.LongValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.LongValue()
+  nameWithType: Asn1Numeric.LongValue()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Numeric.LongValue*
+  name: LongValue
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Numeric.html#Unosquare_Swan_Networking_Ldap_Asn1Numeric_LongValue_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Numeric.LongValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Numeric.LongValue
+  nameWithType: Asn1Numeric.LongValue
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Object
   name: Asn1Object
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html
@@ -9166,54 +9166,54 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.Asn1Object
   nameWithType: Asn1Object.Asn1Object
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Object.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.encode
-  nameWithType: Asn1Object.encode
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)
-  name: getEncoding(Asn1Encoder)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)
-  nameWithType: Asn1Object.getEncoding(Asn1Encoder)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding*
-  name: getEncoding
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getEncoding_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.getEncoding
-  nameWithType: Asn1Object.getEncoding
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier()
-  nameWithType: Asn1Object.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.getIdentifier
-  nameWithType: Asn1Object.getIdentifier
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
-  name: setIdentifier(Asn1Identifier)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_setIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
-  nameWithType: Asn1Object.setIdentifier(Asn1Identifier)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier*
-  name: setIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_setIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.setIdentifier
-  nameWithType: Asn1Object.setIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Object.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.Encode
+  nameWithType: Asn1Object.Encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)
+  name: GetEncoding(Asn1Encoder)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding(Unosquare.Swan.Networking.Ldap.Asn1Encoder)
+  nameWithType: Asn1Object.GetEncoding(Asn1Encoder)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding*
+  name: GetEncoding
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetEncoding_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.GetEncoding
+  nameWithType: Asn1Object.GetEncoding
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier()
+  nameWithType: Asn1Object.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.GetIdentifier
+  nameWithType: Asn1Object.GetIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
+  name: SetIdentifier(Asn1Identifier)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_SetIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier(Unosquare.Swan.Networking.Ldap.Asn1Identifier)
+  nameWithType: Asn1Object.SetIdentifier(Asn1Identifier)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier*
+  name: SetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_SetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Object.SetIdentifier
+  nameWithType: Asn1Object.SetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Object.ToString
   name: ToString()
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_ToString
@@ -9259,48 +9259,48 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1OctetString.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.Asn1OctetString
   nameWithType: Asn1OctetString.Asn1OctetString
-- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue
-  name: byteValue()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_byteValue
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue()
-  nameWithType: Asn1OctetString.byteValue()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue*
-  name: byteValue
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_byteValue_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue
-  nameWithType: Asn1OctetString.byteValue
-- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1OctetString.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode
-  nameWithType: Asn1OctetString.encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue
+  name: ByteValue()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_ByteValue
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue()
+  nameWithType: Asn1OctetString.ByteValue()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue*
+  name: ByteValue
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_ByteValue_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue
+  nameWithType: Asn1OctetString.ByteValue
+- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1OctetString.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode
+  nameWithType: Asn1OctetString.Encode
 - uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.ID
   name: ID
   href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_ID
   commentId: F:Unosquare.Swan.Networking.Ldap.Asn1OctetString.ID
   fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.ID
   nameWithType: Asn1OctetString.ID
-- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue
-  name: stringValue()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_stringValue
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue()
-  nameWithType: Asn1OctetString.stringValue()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue*
-  name: stringValue
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_stringValue_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue
-  nameWithType: Asn1OctetString.stringValue
+- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue
+  name: StringValue()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_StringValue
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue()
+  nameWithType: Asn1OctetString.StringValue()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue*
+  name: StringValue
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_StringValue_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue
+  nameWithType: Asn1OctetString.StringValue
 - uid: Unosquare.Swan.Networking.Ldap.Asn1OctetString.TAG
   name: TAG
   href: api/Unosquare.Swan.Networking.Ldap.Asn1OctetString.html#Unosquare_Swan_Networking_Ldap_Asn1OctetString_TAG
@@ -9577,42 +9577,42 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.Asn1Structured
   nameWithType: Asn1Structured.Asn1Structured
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.add(Unosquare.Swan.Networking.Ldap.Asn1Object)
-  name: add(Asn1Object)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_add_Unosquare_Swan_Networking_Ldap_Asn1Object_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.add(Unosquare.Swan.Networking.Ldap.Asn1Object)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.add(Unosquare.Swan.Networking.Ldap.Asn1Object)
-  nameWithType: Asn1Structured.add(Asn1Object)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.add*
-  name: add
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_add_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.add
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.add
-  nameWithType: Asn1Structured.add
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.decodeStructured(Unosquare.Swan.Networking.Ldap.Asn1Decoder,Stream,System.Int32)
-  name: decodeStructured(Asn1Decoder, Stream, Int32)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_decodeStructured_Unosquare_Swan_Networking_Ldap_Asn1Decoder_Stream_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.decodeStructured(Unosquare.Swan.Networking.Ldap.Asn1Decoder,Stream,System.Int32)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.decodeStructured(Unosquare.Swan.Networking.Ldap.Asn1Decoder, Stream, System.Int32)
-  nameWithType: Asn1Structured.decodeStructured(Asn1Decoder, Stream, Int32)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.decodeStructured*
-  name: decodeStructured
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_decodeStructured_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.decodeStructured
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.decodeStructured
-  nameWithType: Asn1Structured.decodeStructured
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Structured.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.encode
-  nameWithType: Asn1Structured.encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.Add(Unosquare.Swan.Networking.Ldap.Asn1Object)
+  name: Add(Asn1Object)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Add_Unosquare_Swan_Networking_Ldap_Asn1Object_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.Add(Unosquare.Swan.Networking.Ldap.Asn1Object)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.Add(Unosquare.Swan.Networking.Ldap.Asn1Object)
+  nameWithType: Asn1Structured.Add(Asn1Object)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.Add*
+  name: Add
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Add_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.Add
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.Add
+  nameWithType: Asn1Structured.Add
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.DecodeStructured(Unosquare.Swan.Networking.Ldap.Asn1Decoder,Stream,System.Int32)
+  name: DecodeStructured(Asn1Decoder, Stream, Int32)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_DecodeStructured_Unosquare_Swan_Networking_Ldap_Asn1Decoder_Stream_System_Int32_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.DecodeStructured(Unosquare.Swan.Networking.Ldap.Asn1Decoder,Stream,System.Int32)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.DecodeStructured(Unosquare.Swan.Networking.Ldap.Asn1Decoder, Stream, System.Int32)
+  nameWithType: Asn1Structured.DecodeStructured(Asn1Decoder, Stream, Int32)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.DecodeStructured*
+  name: DecodeStructured
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_DecodeStructured_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.DecodeStructured
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.DecodeStructured
+  nameWithType: Asn1Structured.DecodeStructured
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Structured.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.Encode
+  nameWithType: Asn1Structured.Encode
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.get_Renamed(System.Int32)
   name: get_Renamed(Int32)
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_get_Renamed_System_Int32_
@@ -9637,30 +9637,30 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.set_Renamed
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.set_Renamed
   nameWithType: Asn1Structured.set_Renamed
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.size
-  name: size()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_size
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.size
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.size()
-  nameWithType: Asn1Structured.size()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.size*
-  name: size
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_size_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.size
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.size
-  nameWithType: Asn1Structured.size
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.toArray
-  name: toArray()
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_toArray
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.toArray
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.toArray()
-  nameWithType: Asn1Structured.toArray()
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.toArray*
-  name: toArray
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_toArray_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.toArray
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.toArray
-  nameWithType: Asn1Structured.toArray
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.Size
+  name: Size()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Size
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.Size
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.Size()
+  nameWithType: Asn1Structured.Size()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.Size*
+  name: Size
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Size_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.Size
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.Size
+  nameWithType: Asn1Structured.Size
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.ToArray
+  name: ToArray()
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_ToArray
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Structured.ToArray
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.ToArray()
+  nameWithType: Asn1Structured.ToArray()
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.ToArray*
+  name: ToArray
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_ToArray_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Structured.ToArray
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Structured.ToArray
+  nameWithType: Asn1Structured.ToArray
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Structured.ToString(System.String)
   name: ToString(String)
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_ToString_System_String_
@@ -9703,18 +9703,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Tagged.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.Asn1Tagged.Asn1Tagged
   nameWithType: Asn1Tagged.Asn1Tagged
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  name: encode(Asn1Encoder, Stream)
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Tagged.html#Unosquare_Swan_Networking_Ldap_Asn1Tagged_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
-  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
-  nameWithType: Asn1Tagged.encode(Asn1Encoder, Stream)
-- uid: Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode*
-  name: encode
-  href: api/Unosquare.Swan.Networking.Ldap.Asn1Tagged.html#Unosquare_Swan_Networking_Ldap_Asn1Tagged_encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode
-  fullName: Unosquare.Swan.Networking.Ldap.Asn1Tagged.encode
-  nameWithType: Asn1Tagged.encode
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  name: Encode(Asn1Encoder, Stream)
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Tagged.html#Unosquare_Swan_Networking_Ldap_Asn1Tagged_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_
+  commentId: M:Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder, Stream)
+  nameWithType: Asn1Tagged.Encode(Asn1Encoder, Stream)
+- uid: Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode*
+  name: Encode
+  href: api/Unosquare.Swan.Networking.Ldap.Asn1Tagged.html#Unosquare_Swan_Networking_Ldap_Asn1Tagged_Encode_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode
+  fullName: Unosquare.Swan.Networking.Ldap.Asn1Tagged.Encode
+  nameWithType: Asn1Tagged.Encode
 - uid: Unosquare.Swan.Networking.Ldap.Asn1Tagged.Explicit
   name: Explicit
   href: api/Unosquare.Swan.Networking.Ldap.Asn1Tagged.html#Unosquare_Swan_Networking_Ldap_Asn1Tagged_Explicit
@@ -14275,18 +14275,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcBindRequest.dupRequest
   fullName: Unosquare.Swan.Networking.Ldap.RfcBindRequest.dupRequest
   nameWithType: RfcBindRequest.dupRequest
-- uid: Unosquare.Swan.Networking.Ldap.RfcBindRequest.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcBindRequest.html#Unosquare_Swan_Networking_Ldap_RfcBindRequest_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcBindRequest.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcBindRequest.getIdentifier()
-  nameWithType: RfcBindRequest.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcBindRequest.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcBindRequest.html#Unosquare_Swan_Networking_Ldap_RfcBindRequest_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcBindRequest.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcBindRequest.getIdentifier
-  nameWithType: RfcBindRequest.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcBindRequest.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcBindRequest.html#Unosquare_Swan_Networking_Ldap_RfcBindRequest_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcBindRequest.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcBindRequest.GetIdentifier()
+  nameWithType: RfcBindRequest.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcBindRequest.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcBindRequest.html#Unosquare_Swan_Networking_Ldap_RfcBindRequest_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcBindRequest.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcBindRequest.GetIdentifier
+  nameWithType: RfcBindRequest.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcBindRequest.getRequestDN
   name: getRequestDN()
   href: api/Unosquare.Swan.Networking.Ldap.RfcBindRequest.html#Unosquare_Swan_Networking_Ldap_RfcBindRequest_getRequestDN
@@ -14353,18 +14353,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcBindResponse.getErrorMessage
   fullName: Unosquare.Swan.Networking.Ldap.RfcBindResponse.getErrorMessage
   nameWithType: RfcBindResponse.getErrorMessage
-- uid: Unosquare.Swan.Networking.Ldap.RfcBindResponse.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcBindResponse.html#Unosquare_Swan_Networking_Ldap_RfcBindResponse_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcBindResponse.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcBindResponse.getIdentifier()
-  nameWithType: RfcBindResponse.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcBindResponse.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcBindResponse.html#Unosquare_Swan_Networking_Ldap_RfcBindResponse_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcBindResponse.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcBindResponse.getIdentifier
-  nameWithType: RfcBindResponse.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcBindResponse.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcBindResponse.html#Unosquare_Swan_Networking_Ldap_RfcBindResponse_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcBindResponse.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcBindResponse.GetIdentifier()
+  nameWithType: RfcBindResponse.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcBindResponse.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcBindResponse.html#Unosquare_Swan_Networking_Ldap_RfcBindResponse_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcBindResponse.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcBindResponse.GetIdentifier
+  nameWithType: RfcBindResponse.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcBindResponse.getMatchedDN
   name: getMatchedDN()
   href: api/Unosquare.Swan.Networking.Ldap.RfcBindResponse.html#Unosquare_Swan_Networking_Ldap_RfcBindResponse_getMatchedDN
@@ -14533,18 +14533,18 @@ references:
   commentId: F:Unosquare.Swan.Networking.Ldap.RfcControls.CONTROLS
   fullName: Unosquare.Swan.Networking.Ldap.RfcControls.CONTROLS
   nameWithType: RfcControls.CONTROLS
-- uid: Unosquare.Swan.Networking.Ldap.RfcControls.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcControls.html#Unosquare_Swan_Networking_Ldap_RfcControls_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcControls.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcControls.getIdentifier()
-  nameWithType: RfcControls.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcControls.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcControls.html#Unosquare_Swan_Networking_Ldap_RfcControls_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcControls.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcControls.getIdentifier
-  nameWithType: RfcControls.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcControls.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcControls.html#Unosquare_Swan_Networking_Ldap_RfcControls_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcControls.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcControls.GetIdentifier()
+  nameWithType: RfcControls.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcControls.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcControls.html#Unosquare_Swan_Networking_Ldap_RfcControls_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcControls.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcControls.GetIdentifier
+  nameWithType: RfcControls.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcControls.set_Renamed(System.Int32,Unosquare.Swan.Networking.Ldap.RfcControl)
   name: set_Renamed(Int32, RfcControl)
   href: api/Unosquare.Swan.Networking.Ldap.RfcControls.html#Unosquare_Swan_Networking_Ldap_RfcControls_set_Renamed_System_Int32_Unosquare_Swan_Networking_Ldap_RfcControl_
@@ -14587,18 +14587,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getErrorMessage
   fullName: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getErrorMessage
   nameWithType: RfcExtendedResponse.getErrorMessage
-- uid: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.html#Unosquare_Swan_Networking_Ldap_RfcExtendedResponse_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getIdentifier()
-  nameWithType: RfcExtendedResponse.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.html#Unosquare_Swan_Networking_Ldap_RfcExtendedResponse_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getIdentifier
-  nameWithType: RfcExtendedResponse.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.html#Unosquare_Swan_Networking_Ldap_RfcExtendedResponse_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.GetIdentifier()
+  nameWithType: RfcExtendedResponse.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.html#Unosquare_Swan_Networking_Ldap_RfcExtendedResponse_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.GetIdentifier
+  nameWithType: RfcExtendedResponse.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.getMatchedDN
   name: getMatchedDN()
   href: api/Unosquare.Swan.Networking.Ldap.RfcExtendedResponse.html#Unosquare_Swan_Networking_Ldap_RfcExtendedResponse_getMatchedDN
@@ -14932,18 +14932,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getErrorMessage
   fullName: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getErrorMessage
   nameWithType: RfcIntermediateResponse.getErrorMessage
-- uid: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.html#Unosquare_Swan_Networking_Ldap_RfcIntermediateResponse_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getIdentifier()
-  nameWithType: RfcIntermediateResponse.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.html#Unosquare_Swan_Networking_Ldap_RfcIntermediateResponse_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getIdentifier
-  nameWithType: RfcIntermediateResponse.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.html#Unosquare_Swan_Networking_Ldap_RfcIntermediateResponse_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.GetIdentifier()
+  nameWithType: RfcIntermediateResponse.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.html#Unosquare_Swan_Networking_Ldap_RfcIntermediateResponse_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.GetIdentifier
+  nameWithType: RfcIntermediateResponse.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.getMatchedDN
   name: getMatchedDN()
   href: api/Unosquare.Swan.Networking.Ldap.RfcIntermediateResponse.html#Unosquare_Swan_Networking_Ldap_RfcIntermediateResponse_getMatchedDN
@@ -15499,18 +15499,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchRequest.dupRequest
   fullName: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.dupRequest
   nameWithType: RfcSearchRequest.dupRequest
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchRequest.html#Unosquare_Swan_Networking_Ldap_RfcSearchRequest_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchRequest.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.getIdentifier()
-  nameWithType: RfcSearchRequest.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchRequest.html#Unosquare_Swan_Networking_Ldap_RfcSearchRequest_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchRequest.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.getIdentifier
-  nameWithType: RfcSearchRequest.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchRequest.html#Unosquare_Swan_Networking_Ldap_RfcSearchRequest_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchRequest.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.GetIdentifier()
+  nameWithType: RfcSearchRequest.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchRequest.html#Unosquare_Swan_Networking_Ldap_RfcSearchRequest_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchRequest.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.GetIdentifier
+  nameWithType: RfcSearchRequest.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcSearchRequest.getRequestDN
   name: getRequestDN()
   href: api/Unosquare.Swan.Networking.Ldap.RfcSearchRequest.html#Unosquare_Swan_Networking_Ldap_RfcSearchRequest_getRequestDN
@@ -15547,18 +15547,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.RfcSearchResultDone
   nameWithType: RfcSearchResultDone.RfcSearchResultDone
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultDone_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.getIdentifier()
-  nameWithType: RfcSearchResultDone.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultDone_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.getIdentifier
-  nameWithType: RfcSearchResultDone.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultDone_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.GetIdentifier()
+  nameWithType: RfcSearchResultDone.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultDone_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.GetIdentifier
+  nameWithType: RfcSearchResultDone.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry
   name: RfcSearchResultEntry
   href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.html
@@ -15589,18 +15589,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.Attributes
   fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.Attributes
   nameWithType: RfcSearchResultEntry.Attributes
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultEntry_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.getIdentifier()
-  nameWithType: RfcSearchResultEntry.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultEntry_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.getIdentifier
-  nameWithType: RfcSearchResultEntry.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultEntry_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.GetIdentifier()
+  nameWithType: RfcSearchResultEntry.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultEntry_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.GetIdentifier
+  nameWithType: RfcSearchResultEntry.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.ObjectName
   name: ObjectName
   href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultEntry.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultEntry_ObjectName
@@ -15631,18 +15631,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.RfcSearchResultReference
   nameWithType: RfcSearchResultReference.RfcSearchResultReference
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultReference_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.getIdentifier()
-  nameWithType: RfcSearchResultReference.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultReference_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.getIdentifier
-  nameWithType: RfcSearchResultReference.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultReference_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.GetIdentifier()
+  nameWithType: RfcSearchResultReference.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.html#Unosquare_Swan_Networking_Ldap_RfcSearchResultReference_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcSearchResultReference.GetIdentifier
+  nameWithType: RfcSearchResultReference.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcSubstringFilter
   name: RfcSubstringFilter
   href: api/Unosquare.Swan.Networking.Ldap.RfcSubstringFilter.html
@@ -15679,18 +15679,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.dupRequest
   fullName: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.dupRequest
   nameWithType: RfcUnbindRequest.dupRequest
-- uid: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.getIdentifier
-  name: getIdentifier()
-  href: api/Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.html#Unosquare_Swan_Networking_Ldap_RfcUnbindRequest_getIdentifier
-  commentId: M:Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.getIdentifier()
-  nameWithType: RfcUnbindRequest.getIdentifier()
-- uid: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.getIdentifier*
-  name: getIdentifier
-  href: api/Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.html#Unosquare_Swan_Networking_Ldap_RfcUnbindRequest_getIdentifier_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.getIdentifier
-  fullName: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.getIdentifier
-  nameWithType: RfcUnbindRequest.getIdentifier
+- uid: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.GetIdentifier
+  name: GetIdentifier()
+  href: api/Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.html#Unosquare_Swan_Networking_Ldap_RfcUnbindRequest_GetIdentifier
+  commentId: M:Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.GetIdentifier()
+  nameWithType: RfcUnbindRequest.GetIdentifier()
+- uid: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.GetIdentifier*
+  name: GetIdentifier
+  href: api/Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.html#Unosquare_Swan_Networking_Ldap_RfcUnbindRequest_GetIdentifier_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.GetIdentifier
+  fullName: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.GetIdentifier
+  nameWithType: RfcUnbindRequest.GetIdentifier
 - uid: Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.getRequestDN
   name: getRequestDN()
   href: api/Unosquare.Swan.Networking.Ldap.RfcUnbindRequest.html#Unosquare_Swan_Networking_Ldap_RfcUnbindRequest_getRequestDN
@@ -15898,18 +15898,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.ThreadClass.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.ThreadClass.ThreadClass
   nameWithType: ThreadClass.ThreadClass
-- uid: Unosquare.Swan.Networking.Ldap.ThreadClass.Current
-  name: Current()
-  href: api/Unosquare.Swan.Networking.Ldap.ThreadClass.html#Unosquare_Swan_Networking_Ldap_ThreadClass_Current
-  commentId: M:Unosquare.Swan.Networking.Ldap.ThreadClass.Current
-  fullName: Unosquare.Swan.Networking.Ldap.ThreadClass.Current()
-  nameWithType: ThreadClass.Current()
-- uid: Unosquare.Swan.Networking.Ldap.ThreadClass.Current*
-  name: Current
-  href: api/Unosquare.Swan.Networking.Ldap.ThreadClass.html#Unosquare_Swan_Networking_Ldap_ThreadClass_Current_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.ThreadClass.Current
-  fullName: Unosquare.Swan.Networking.Ldap.ThreadClass.Current
-  nameWithType: ThreadClass.Current
 - uid: Unosquare.Swan.Networking.Ldap.ThreadClass.Instance
   name: Instance
   href: api/Unosquare.Swan.Networking.Ldap.ThreadClass.html#Unosquare_Swan_Networking_Ldap_ThreadClass_Instance

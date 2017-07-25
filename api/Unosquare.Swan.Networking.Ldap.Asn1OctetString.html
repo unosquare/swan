@@ -94,13 +94,13 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getIdentifier">Asn1Object.getIdentifier()</a>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetIdentifier">Asn1Object.GetIdentifier()</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_setIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_">Asn1Object.setIdentifier(Asn1Identifier)</a>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_SetIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_">Asn1Object.SetIdentifier(Asn1Identifier)</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_getEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_">Asn1Object.getEncoding(Asn1Encoder)</a>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_">Asn1Object.GetEncoding(Asn1Encoder)</a>
     </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
@@ -201,7 +201,7 @@ input stream.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Asn1OctetString(Asn1Decoder dec, Stream in_Renamed, int len)</code></pre>
+    <pre><code class="lang-csharp hljs">public Asn1OctetString(Asn1Decoder dec, Stream inRenamed, int len)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -223,7 +223,7 @@ in his/her own decoder object</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">in_Renamed</span></td>
+        <td><span class="parametername">inRenamed</span></td>
         <td></td>
       </tr>
       <tr>
@@ -291,14 +291,14 @@ thus we create it only once.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_byteValue_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_byteValue" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.byteValue">byteValue()</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_ByteValue_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_ByteValue" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.ByteValue">ByteValue()</h4>
   <div class="markdown level1 summary"><p>Returns the content of this Asn1OctetString as a byte array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sbyte[] byteValue()</code></pre>
+    <pre><code class="lang-csharp hljs">public sbyte[] ByteValue()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -317,15 +317,15 @@ thus we create it only once.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_encode_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)">encode(Asn1Encoder, Stream)</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_Encode_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.Encode(Unosquare.Swan.Networking.Ldap.Asn1Encoder,Stream)">Encode(Asn1Encoder, Stream)</h4>
   <div class="markdown level1 summary"><p>Call this method to encode the current instance into the
 specified output stream using the specified encoder object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void encode(Asn1Encoder enc, Stream out_Renamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Encode(Asn1Encoder enc, Stream outRenamed)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -345,23 +345,23 @@ specified output stream using the specified encoder object.</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">out_Renamed</span></td>
+        <td><span class="parametername">outRenamed</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_">Asn1Object.encode(Asn1Encoder, Stream)</a></div>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_">Asn1Object.Encode(Asn1Encoder, Stream)</a></div>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_stringValue_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_stringValue" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.stringValue">stringValue()</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_StringValue_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1OctetString_StringValue" data-uid="Unosquare.Swan.Networking.Ldap.Asn1OctetString.StringValue">StringValue()</h4>
   <div class="markdown level1 summary"><p>Returns the content of this Asn1OctetString as a String.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string stringValue()</code></pre>
+    <pre><code class="lang-csharp hljs">public string StringValue()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
