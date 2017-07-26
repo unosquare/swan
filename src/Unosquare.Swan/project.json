@@ -3,6 +3,12 @@
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
   "version": "0.14.9-*",
+  "dependencies": {
+    "StyleCop.Analyzers": {
+      "type": "build",
+      "version": "1.0.0"
+    }
+  },
   "frameworks": {
     "uap10.0": {
       "dependencies": {
