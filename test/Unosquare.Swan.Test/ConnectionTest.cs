@@ -22,7 +22,7 @@ namespace Unosquare.Swan.Test
                         connectionListener.Start();
 
                         await client.ConnectAsync("localhost", port);
-                        await Task.Delay(100);
+                        await Task.Delay(200);
 
                         var connection = new Connection(client);
 
@@ -55,7 +55,7 @@ namespace Unosquare.Swan.Test
                         };
 
                         await client.ConnectAsync("localhost", port);
-                        await Task.Delay(100);
+                        await Task.Delay(200);
 
                         var connection = new Connection(client, Encoding.ASCII, "\r\n", true, 0);
                         var response = await connection.ReadTextAsync();
