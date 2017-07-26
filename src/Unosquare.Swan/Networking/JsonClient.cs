@@ -15,7 +15,6 @@
     /// </summary>
     public class JsonClient
     {
-
         private const string JsonMimeType = "application/json";
 
         #region Methods
@@ -34,7 +33,7 @@
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostString(url, payload, authorization, ct);
-            
+
             return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
         }
 
@@ -50,7 +49,7 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<Tuple<bool, T, TE>> PostOrError<T, TE>(string url, object payload,
+        public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(string url, object payload,
             int httpStatusError = 500, string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
@@ -63,14 +62,20 @@
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    return new Tuple<bool, T, TE>(true,
-                        string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString), default(TE));
+                    return new OkOrError<T, TE>
+                    {
+                        IsOk = true,
+                        Ok = string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString)
+                    };
 
-                if ((int) response.StatusCode == httpStatusError)
-                    return new Tuple<bool, T, TE>(false, default(T),
-                        string.IsNullOrEmpty(jsonString) ? default(TE) : Json.Deserialize<TE>(jsonString));
+                if ((int)response.StatusCode == httpStatusError)
+                    return new OkOrError<T, TE>
+                    {
+                        IsOk = false,
+                        Error = string.IsNullOrEmpty(jsonString) ? default(TE) : Json.Deserialize<TE>(jsonString)
+                    };
 
-                return new Tuple<bool, T, TE>(false, default(T), default(TE));
+                return new OkOrError<T, TE>();
             }
         }
 
@@ -273,7 +278,8 @@
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
         /// <returns></returns>
-        public static async Task<string> PostFileString(string url, byte[] buffer, string fileName, string authorization = null)
+        public static async Task<string> PostFileString(string url, byte[] buffer, string fileName,
+            string authorization = null)
         {
             return await PostString(url, new { Filename = fileName, Data = buffer }, authorization);
         }
@@ -291,6 +297,7 @@
         {
             return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
         }
+
         #endregion
 
         #region Private Methods
@@ -307,5 +314,28 @@
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// Represents a Ok value or Error value
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TError">The type of the error.</typeparam>
+    public class OkOrError<T, TError>
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is ok.
+        /// </summary>
+        public bool IsOk { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ok.
+        /// </summary>
+        public T Ok { get; set; } = default(T);
+
+        /// <summary>
+        /// Gets or sets the error.
+        /// </summary>
+        public TError Error { get; set; } = default(TError);
     }
 }
