@@ -94,6 +94,12 @@ in response to an asynchronous request.</p>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID">LdapMessage.MessageID</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Type">LdapMessage.Type</a>
+    </div>
+    <div>
       <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request">LdapMessage.Request</a>
     </div>
     <div>
@@ -204,7 +210,7 @@ are set to their empty values.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String_System_String___Unosquare_Swan_Networking_Ldap_LdapControl___" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32,System.Int32,System.String,System.String,System.String[],Unosquare.Swan.Networking.Ldap.LdapControl[])">LdapResponse(Int32, Int32, String, String, String[], LdapControl[])</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32,System.Int32,System.String,System.String)">LdapResponse(Int32, Int32, String, String)</h4>
   <div class="markdown level1 summary"><p>Creates a response LdapMessage from parameters. Typically the data
 comes from a source other than a BER encoded Ldap message,
 such as from DSML.</p>
@@ -212,7 +218,7 @@ such as from DSML.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapResponse(int type, int resultCode, string matchedDN, string serverMessage, string[] referrals, LdapControl[] controls)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapResponse(int type, int resultCode, string matchedDN, string serverMessage)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -251,23 +257,9 @@ or <pre><code>null</code></pre> if none.</p>
 an empty string or <pre><code>null</code></pre> if none.</p>
 </td>
       </tr>
-      <tr>
-        <td><span class="xref">System.String</span>[]</td>
-        <td><span class="parametername">referrals</span></td>
-        <td><p>The referral URLs returned for a REFERRAL result
-code or <pre><code>null</code></pre> if none.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
-        <td><span class="parametername">controls</span></td>
-        <td><p>Any controls returned by the server or</p>
-<pre><code>null</code></pre> if none.
-</td>
-      </tr>
     </tbody>
   </table>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String_System_String___Unosquare_Swan_Networking_Ldap_LdapControl____seealso">See Also</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String__seealso">See Also</h5>
   <div class="seealso">
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></div>
@@ -275,7 +267,7 @@ code or <pre><code>null</code></pre> if none.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_InterThreadException_Unosquare_Swan_Networking_Ldap_ReferralInfo_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.InterThreadException,Unosquare.Swan.Networking.Ldap.ReferralInfo)">LdapResponse(InterThreadException, ReferralInfo)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapException_Unosquare_Swan_Networking_Ldap_ReferralInfo_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapException,Unosquare.Swan.Networking.Ldap.ReferralInfo)">LdapResponse(LdapException, ReferralInfo)</h4>
   <div class="markdown level1 summary"><p>Creates an LdapResponse using an LdapException.
 Used to wake up the user following an abandon.
 Note: The abandon doesn&apos;t have to be user initiated
@@ -286,7 +278,7 @@ to follow a referral.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapResponse(InterThreadException ex, ReferralInfo activeReferral)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapResponse(LdapException ex, ReferralInfo activeReferral)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -299,7 +291,7 @@ to follow a referral.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.InterThreadException.html">InterThreadException</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></td>
         <td><span class="parametername">ex</span></td>
         <td><p>The exception</p>
 </td>
@@ -400,34 +392,6 @@ if the response contains one.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_MessageID_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.MessageID*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_MessageID" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.MessageID">MessageID</h4>
-  <div class="markdown level1 summary"><p>Returns the message ID.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override int MessageID { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID">LdapMessage.MessageID</a></div>
-  
-  
   <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_Referrals_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Referrals*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_Referrals" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Referrals">Referrals</h4>
   <div class="markdown level1 summary"><p>Returns all referrals in a server response, if the response contains any.</p>
@@ -481,35 +445,6 @@ For a list of result codes, see the LdapException class.</p>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_Type_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Type*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_Type" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Type">Type</h4>
-  <div class="markdown level1 summary"><p>Returns the Ldap operation type of the message.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override int Type { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><p>The operation type of the message.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Type">LdapMessage.Type</a></div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</a></div>

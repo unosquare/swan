@@ -181,7 +181,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapSearchRequest(string base_Renamed, int scope, string filter, string[] attrs, int dereference, int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapSearchRequest(string ldapBase, int scope, string filter, string[] attrs, int dereference, int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -195,8 +195,9 @@
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">base_Renamed</span></td>
-        <td></td>
+        <td><span class="parametername">ldapBase</span></td>
+        <td><p>The base distinguished name to search from.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>

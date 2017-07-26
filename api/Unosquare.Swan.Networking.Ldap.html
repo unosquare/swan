@@ -207,8 +207,6 @@ by the Ldap API libraries.
 Two entries are made for each message, a String identifier, and the
 actual error string.  Parameters are identified as {0}, {1}, etc.</p>
 </section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.InterThreadException.html">InterThreadException</a></h4>
-      <section></section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LBERDecoder.html">LBERDecoder</a></h4>
       <section><p>This class provides LBER decoding routines for ASN.1 Types. LBER is a
 subset of BER as described in the following taken from 5.1 of RFC 2251:
@@ -938,9 +936,6 @@ isn&apos;t arbitrarily run up.)</p>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html">SetSupport</a></h4>
       <section><p>This class manages a set of elements.</p>
 </section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ThreadClass.html">ThreadClass</a></h4>
-      <section><p>Support class used to handle threads</p>
-</section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.Tokenizer.html">Tokenizer</a></h4>
       <section><p>The class performs token processing from strings</p>
 </section>
@@ -983,25 +978,9 @@ authentication. Referral URLs of any type other than Ldap (i.e. a
 referral URL other than ldap://something) are not chased automatically
 by the API on automatic following.</p>
 </section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapBindHandler.html">LdapBindHandler</a></h4>
-      <section><p>Used to do explicit bind processing on a referral.
-This interface allows a programmer to override the default
-authentication and reauthentication behavior when automatically
-following referrals and search references. It is used to control the
-authentication mechanism used on automatic referral following.
-A client can specify an instance of this class to be used
-on a single operation (through the LdapConstraints object)
-or for all operations (through the LdapContraints object
-associated with the connection).</p>
-</section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralHandler.html">LdapReferralHandler</a></h4>
       <section><p>Shared ancestor to the two types of referral objects - LdapBindHandler and
 LdapAuthHandler.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapUnsolicitedNotificationListener.html">LdapUnsolicitedNotificationListener</a></h4>
-      <section><p>An object that implements this interface can be notified when
-unsolicited messages arrive from the server. A client registers the
-object with LdapConnection.AddUnsolicitedNotificationListener.</p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcRequest.html">RfcRequest</a></h4>
       <section><p>This interface represents Protocol Operations that are requests from a
@@ -1013,10 +992,6 @@ server.
 If the protocol operation of the RfcLdapMessage is of this type,
 it contains at least an RfcLdapResult.</p>
 </section>
-    <h3 id="delegates">Delegates
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.RemoteCertificateValidationCallback.html">RemoteCertificateValidationCallback</a></h4>
-      <section></section>
 </article>
           </div>
           
