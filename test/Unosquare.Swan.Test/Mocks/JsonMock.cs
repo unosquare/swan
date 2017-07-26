@@ -2,6 +2,11 @@
 
 namespace Unosquare.Swan.Test.Mocks
 {
+    public class ErrorJson
+    {
+        public string Message { get; set; }
+    }
+
     public class BasicJson
     {
         public string StringData { get; set; }

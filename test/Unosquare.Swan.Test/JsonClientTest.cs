@@ -251,5 +251,48 @@ namespace Unosquare.Swan.Test
                 Assert.AreEqual(data.Filename, nameof(PostFileStringTest));
             }
         }
+
+
+        [Test]
+        public async Task PostOrErrorTest()
+        {
+            using (var webserver = new WebServer(_defaultPort))
+            {
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+                {
+                    var obj = ctx.ParseJson<BasicJson>();
+
+                    if (obj.IntData == 1)
+                    {
+                        ctx.JsonResponse(obj);
+                    }
+                    else
+                    {
+                        ctx.Response.StatusCode = 500;
+                        ctx.JsonResponse(new ErrorJson {Message = "ERROR"});
+                    }
+
+                    return true;
+                }));
+
+                webserver.RunAsync();
+                await Task.Delay(100);
+
+                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson { IntData = 1 });
+
+                Assert.IsNotNull(data);
+                Assert.IsTrue(data.IsOk);
+                Assert.IsNotNull(data.Ok);
+                Assert.AreEqual(1, data.Ok.IntData);
+
+                var dataError = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson { IntData = 2 });
+
+                Assert.IsNotNull(dataError);
+                Assert.IsFalse(dataError.IsOk);
+                Assert.IsNotNull(dataError.Error);
+                Assert.AreEqual("ERROR", dataError.Error.Message);
+            }
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Networking
 {
+    using Models;
     using Formatters;
     using System;
     using System.Collections.Generic;
@@ -15,7 +16,6 @@
     /// </summary>
     public class JsonClient
     {
-
         private const string JsonMimeType = "application/json";
 
         #region Methods
@@ -34,8 +34,49 @@
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostString(url, payload, authorization, ct);
-            
+
             return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
+        }
+
+        /// <summary>
+        /// Posts a object as JSON with optional authorization token and retrieve an object
+        /// or an error.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TE">The type of the e.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="payload">The payload.</param>
+        /// <param name="httpStatusError">The HTTP status error.</param>
+        /// <param name="authorization">The authorization.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(string url, object payload,
+            int httpStatusError = 500, string authorization = null,
+            CancellationToken ct = default(CancellationToken))
+        {
+            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
+            {
+                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
+
+                var response = await httpClient.PostAsync(url, payloadJson, ct);
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    return new OkOrError<T, TE>
+                    {
+                        IsOk = true,
+                        Ok = string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString)
+                    };
+
+                if ((int)response.StatusCode == httpStatusError)
+                    return new OkOrError<T, TE>
+                    {
+                        Error = string.IsNullOrEmpty(jsonString) ? default(TE) : Json.Deserialize<TE>(jsonString)
+                    };
+
+                return new OkOrError<T, TE>();
+            }
         }
 
         /// <summary>
@@ -237,7 +278,8 @@
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
         /// <returns></returns>
-        public static async Task<string> PostFileString(string url, byte[] buffer, string fileName, string authorization = null)
+        public static async Task<string> PostFileString(string url, byte[] buffer, string fileName,
+            string authorization = null)
         {
             return await PostString(url, new { Filename = fileName, Data = buffer }, authorization);
         }
@@ -255,6 +297,7 @@
         {
             return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
         }
+
         #endregion
 
         #region Private Methods
