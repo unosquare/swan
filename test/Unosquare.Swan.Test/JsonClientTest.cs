@@ -281,16 +281,16 @@ namespace Unosquare.Swan.Test
                 var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson { IntData = 1 });
 
                 Assert.IsNotNull(data);
-                Assert.IsTrue(data.Item1);
-                Assert.IsNotNull(data.Item2);
-                Assert.AreEqual(1, data.Item2.IntData);
+                Assert.IsTrue(data.IsOk);
+                Assert.IsNotNull(data.Ok);
+                Assert.AreEqual(1, data.Ok.IntData);
 
                 var dataError = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson { IntData = 2 });
 
                 Assert.IsNotNull(dataError);
-                Assert.IsFalse(dataError.Item1);
-                Assert.IsNotNull(dataError.Item3);
-                Assert.AreEqual("ERROR", dataError.Item3.Message);
+                Assert.IsFalse(dataError.IsOk);
+                Assert.IsNotNull(dataError.Error);
+                Assert.AreEqual("ERROR", dataError.Error.Message);
             }
         }
 
