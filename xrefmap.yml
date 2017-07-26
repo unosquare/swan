@@ -7015,6 +7015,69 @@ references:
   commentId: Overload:Unosquare.Swan.MessageHubSubscriptionException.#ctor
   fullName: Unosquare.Swan.MessageHubSubscriptionException.MessageHubSubscriptionException
   nameWithType: MessageHubSubscriptionException.MessageHubSubscriptionException
+- uid: Unosquare.Swan.Models
+  name: Unosquare.Swan.Models
+  href: api/Unosquare.Swan.Models.html
+  commentId: N:Unosquare.Swan.Models
+  fullName: Unosquare.Swan.Models
+  nameWithType: Unosquare.Swan.Models
+- uid: Unosquare.Swan.Models.OkOrError`2
+  name: OkOrError<T, TError>
+  href: api/Unosquare.Swan.Models.OkOrError-2.html
+  commentId: T:Unosquare.Swan.Models.OkOrError`2
+  name.vb: OkOrError(Of T, TError)
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError)
+  nameWithType: OkOrError<T, TError>
+  nameWithType.vb: OkOrError(Of T, TError)
+- uid: Unosquare.Swan.Models.OkOrError`2.Error
+  name: Error
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Error
+  commentId: P:Unosquare.Swan.Models.OkOrError`2.Error
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Error
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Error
+  nameWithType: OkOrError<T, TError>.Error
+  nameWithType.vb: OkOrError(Of T, TError).Error
+- uid: Unosquare.Swan.Models.OkOrError`2.Error*
+  name: Error
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Error_
+  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.Error
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Error
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Error
+  nameWithType: OkOrError<T, TError>.Error
+  nameWithType.vb: OkOrError(Of T, TError).Error
+- uid: Unosquare.Swan.Models.OkOrError`2.IsOk
+  name: IsOk
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_IsOk
+  commentId: P:Unosquare.Swan.Models.OkOrError`2.IsOk
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.IsOk
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).IsOk
+  nameWithType: OkOrError<T, TError>.IsOk
+  nameWithType.vb: OkOrError(Of T, TError).IsOk
+- uid: Unosquare.Swan.Models.OkOrError`2.IsOk*
+  name: IsOk
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_IsOk_
+  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.IsOk
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.IsOk
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).IsOk
+  nameWithType: OkOrError<T, TError>.IsOk
+  nameWithType.vb: OkOrError(Of T, TError).IsOk
+- uid: Unosquare.Swan.Models.OkOrError`2.Ok
+  name: Ok
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Ok
+  commentId: P:Unosquare.Swan.Models.OkOrError`2.Ok
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Ok
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Ok
+  nameWithType: OkOrError<T, TError>.Ok
+  nameWithType.vb: OkOrError(Of T, TError).Ok
+- uid: Unosquare.Swan.Models.OkOrError`2.Ok*
+  name: Ok
+  href: api/Unosquare.Swan.Models.OkOrError-2.html#Unosquare_Swan_Models_OkOrError_2_Ok_
+  commentId: Overload:Unosquare.Swan.Models.OkOrError`2.Ok
+  fullName: Unosquare.Swan.Models.OkOrError<T, TError>.Ok
+  fullName.vb: Unosquare.Swan.Models.OkOrError(Of T, TError).Ok
+  nameWithType: OkOrError<T, TError>.Ok
+  nameWithType.vb: OkOrError(Of T, TError).Ok
 - uid: Unosquare.Swan.Network
   name: Network
   href: api/Unosquare.Swan.Network.html
@@ -8278,6 +8341,21 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.JsonClient.PostFileString
   fullName: Unosquare.Swan.Networking.JsonClient.PostFileString
   nameWithType: JsonClient.PostFileString
+- uid: Unosquare.Swan.Networking.JsonClient.PostOrError*
+  name: PostOrError
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostOrError_
+  commentId: Overload:Unosquare.Swan.Networking.JsonClient.PostOrError
+  fullName: Unosquare.Swan.Networking.JsonClient.PostOrError
+  nameWithType: JsonClient.PostOrError
+- uid: Unosquare.Swan.Networking.JsonClient.PostOrError``2(System.String,System.Object,System.Int32,System.String,System.Threading.CancellationToken)
+  name: PostOrError<T, TE>(String, Object, Int32, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostOrError__2_System_String_System_Object_System_Int32_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.PostOrError``2(System.String,System.Object,System.Int32,System.String,System.Threading.CancellationToken)
+  name.vb: PostOrError(Of T, TE)(String, Object, Int32, String, CancellationToken)
+  fullName: Unosquare.Swan.Networking.JsonClient.PostOrError<T, TE>(System.String, System.Object, System.Int32, System.String, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.JsonClient.PostOrError(Of T, TE)(System.String, System.Object, System.Int32, System.String, System.Threading.CancellationToken)
+  nameWithType: JsonClient.PostOrError<T, TE>(String, Object, Int32, String, CancellationToken)
+  nameWithType.vb: JsonClient.PostOrError(Of T, TE)(String, Object, Int32, String, CancellationToken)
 - uid: Unosquare.Swan.Networking.JsonClient.PostString(System.String,System.Object,System.String,System.Threading.CancellationToken)
   name: PostString(String, Object, String, CancellationToken)
   href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_PostString_System_String_System_Object_System_String_System_Threading_CancellationToken_
