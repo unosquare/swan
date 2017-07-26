@@ -166,7 +166,7 @@ a output stream.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void Encode(Asn1Encoder enc, Stream outRenamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract void Encode(Asn1Encoder enc, Stream stream)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -181,12 +181,14 @@ a output stream.</p>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Encoder.html">Asn1Encoder</a></td>
         <td><span class="parametername">enc</span></td>
-        <td></td>
+        <td><p>The enc.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">outRenamed</span></td>
-        <td></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -197,7 +199,7 @@ a output stream.</p>
   <div class="markdown level1 summary"><p>This method returns a byte array representing the encoded
 Asn1Object.  It in turn calls the encode method that is
 defined in Asn1Object but will usually be implemented
-in the child Asn1 classses.</p>
+in the child Asn1 classes.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

@@ -110,7 +110,7 @@ building Ldap packets.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Asn1Object decode(Stream inRenamed)</code></pre>
+    <pre><code class="lang-csharp hljs">Asn1Object decode(Stream stream)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -124,7 +124,7 @@ building Ldap packets.</p>
     <tbody>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -153,7 +153,7 @@ building Ldap packets.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Asn1Object decode(Stream inRenamed, int[] length)</code></pre>
+    <pre><code class="lang-csharp hljs">Asn1Object decode(Stream stream, int[] length)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -167,7 +167,7 @@ building Ldap packets.</p>
     <tbody>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
       <tr>
@@ -249,7 +249,7 @@ know that the next ASN.1 encoded element is a BOOLEAN</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object decodeBoolean(Stream inRenamed, int len)</code></pre>
+    <pre><code class="lang-csharp hljs">object decodeBoolean(Stream stream, int len)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -263,7 +263,7 @@ know that the next ASN.1 encoded element is a BOOLEAN</p>
     <tbody>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
       <tr>
@@ -299,7 +299,7 @@ Decodes any of the specialized character strings.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object decodeCharacterString(Stream inRenamed, int len)</code></pre>
+    <pre><code class="lang-csharp hljs">object decodeCharacterString(Stream stream, int len)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -313,7 +313,7 @@ Decodes any of the specialized character strings.</p>
     <tbody>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
       <tr>
@@ -350,7 +350,7 @@ Can be used to decodes INTEGER and ENUMERATED types.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object decodeNumeric(Stream inRenamed, int len)</code></pre>
+    <pre><code class="lang-csharp hljs">object decodeNumeric(Stream stream, int len)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -364,7 +364,7 @@ Can be used to decodes INTEGER and ENUMERATED types.</p>
     <tbody>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
       <tr>
@@ -400,7 +400,7 @@ know that the next ASN.1 encoded element is a OCTET_STRING.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object decodeOctetString(Stream inRenamed, int len)</code></pre>
+    <pre><code class="lang-csharp hljs">object decodeOctetString(Stream stream, int len)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -414,7 +414,7 @@ know that the next ASN.1 encoded element is a OCTET_STRING.</p>
     <tbody>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
       <tr>

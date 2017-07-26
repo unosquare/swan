@@ -82,37 +82,34 @@
   </h1>
   <div class="markdown level0 summary"><p>This class is used to encapsulate an ASN.1 Identifier.
 An Asn1Identifier is composed of three parts:
-<li> a class type,</li>
-<li> a form, and</li>
-<li> a tag.</li>
+<li> a class type,</li><li> a form, and</li><li> a tag.</li>
 The class type is defined as:</p>
 <pre>
-    bit 8 7 TAG CLASS
-    ------- -----------
-    0 0 UNIVERSAL
-    0 1 APPLICATION
-    1 0 CONTEXT
-    1 1 PRIVATE
+bit 8 7 TAG CLASS
+------- -----------
+0 0 UNIVERSAL
+0 1 APPLICATION
+1 0 CONTEXT
+1 1 PRIVATE
 </pre>
 <p>The form is defined as:</p>
 <pre>
-    bit 6 FORM
-    ----- --------
-    0 PRIMITIVE
-    1 CONSTRUCTED
+bit 6 FORM
+----- --------
+0 PRIMITIVE
+1 CONSTRUCTED
 </pre>
 <p>Note: CONSTRUCTED types are made up of other CONSTRUCTED or PRIMITIVE
 types.
 The tag is defined as:</p>
 <pre>
-    bit 5 4 3 2 1 TAG
-    ------------- ---------------------------------------------
-    0 0 0 0 0
-    . . . . .
-    1 1 1 1 0 (0-30) single octet tag
-    1 1 1 1 1 (> 30) multiple octet tag, more octets follow
-</pre>
-</div>
+bit 5 4 3 2 1 TAG
+------------- ---------------------------------------------
+0 0 0 0 0
+. . . . .
+1 1 1 1 0 (0-30) single octet tag
+1 1 1 1 1 (> 30) multiple octet tag, more octets follow
+</pre></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>

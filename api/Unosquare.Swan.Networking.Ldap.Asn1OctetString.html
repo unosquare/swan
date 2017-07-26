@@ -201,7 +201,7 @@ input stream.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Asn1OctetString(Asn1Decoder dec, Stream inRenamed, int len)</code></pre>
+    <pre><code class="lang-csharp hljs">public Asn1OctetString(Asn1Decoder dec, Stream stream, int len)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -223,13 +223,15 @@ in his/her own decoder object</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
-        <td></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">len</span></td>
-        <td></td>
+        <td><p>The length.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -325,7 +327,7 @@ specified output stream using the specified encoder object.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void Encode(Asn1Encoder enc, Stream outRenamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Encode(Asn1Encoder enc, Stream stream)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -345,7 +347,7 @@ specified output stream using the specified encoder object.</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">outRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
     </tbody>

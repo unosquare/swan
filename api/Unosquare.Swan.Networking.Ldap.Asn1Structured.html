@@ -271,7 +271,7 @@ object.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void DecodeStructured(Asn1Decoder dec, Stream inRenamed, int len)</code></pre>
+    <pre><code class="lang-csharp hljs">protected void DecodeStructured(Asn1Decoder dec, Stream stream, int len)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -290,7 +290,7 @@ object.</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">inRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
       <tr>
@@ -310,7 +310,7 @@ stream.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void Encode(Asn1Encoder enc, Stream outRenamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Encode(Asn1Encoder enc, Stream stream)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -329,7 +329,7 @@ stream.</p>
       </tr>
       <tr>
         <td><span class="xref">Stream</span></td>
-        <td><span class="parametername">outRenamed</span></td>
+        <td><span class="parametername">stream</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -338,14 +338,14 @@ stream.</p>
   <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_">Asn1Object.Encode(Asn1Encoder, Stream)</a></div>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1Structured_get_Renamed_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.get_Renamed*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Structured_get_Renamed_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.get_Renamed(System.Int32)">get_Renamed(Int32)</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1Structured_Get_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.Get*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Structured_Get_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.Get(System.Int32)">Get(Int32)</h4>
   <div class="markdown level1 summary"><p>Gets a specific Asn1Object in this structred object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Asn1Object get_Renamed(int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public Asn1Object Get(int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -383,15 +383,15 @@ this Asn1Structured object.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_Asn1Structured_set_Renamed_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.set_Renamed*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Structured_set_Renamed_System_Int32_Unosquare_Swan_Networking_Ldap_Asn1Object_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.set_Renamed(System.Int32,Unosquare.Swan.Networking.Ldap.Asn1Object)">set_Renamed(Int32, Asn1Object)</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_Asn1Structured_Set_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.Set*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Asn1Structured_Set_System_Int32_Unosquare_Swan_Networking_Ldap_Asn1Object_" data-uid="Unosquare.Swan.Networking.Ldap.Asn1Structured.Set(System.Int32,Unosquare.Swan.Networking.Ldap.Asn1Object)">Set(Int32, Asn1Object)</h4>
   <div class="markdown level1 summary"><p>Replaces the Asn1Object in the specified index position of
 this Asn1Structured object.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void set_Renamed(int index, Asn1Object valueRenamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Set(int index, Asn1Object value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -412,8 +412,10 @@ this new ANS1Object will be placed.</p>
       </tr>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html">Asn1Object</a></td>
-        <td><span class="parametername">valueRenamed</span></td>
-        <td></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The Asn1Object to set in this Asn1Structured
+object.</p>
+</td>
       </tr>
     </tbody>
   </table>
