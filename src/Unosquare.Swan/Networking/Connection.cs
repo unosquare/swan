@@ -536,15 +536,17 @@ namespace Unosquare.Swan.Networking
         /// <summary>
         /// Asynchronously reads data as text with a 5000 millisecond timeout.
         /// </summary>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         public async Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
         {
             return await ReadTextAsync(TimeSpan.FromSeconds(5), ct);
         }
-        
+
         /// <summary>
         /// Performs the same task as this method's overload but it defaults to a read timeout of 30 seconds.
         /// </summary>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         public async Task<string> ReadLineAsync(CancellationToken ct)
         {

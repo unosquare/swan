@@ -7,7 +7,7 @@
     using System.Reflection;
     using System.Text;
 
-    partial class Json
+    public partial class Json
     {
         /// <summary>
         /// A simple JSON serializer
@@ -362,7 +362,6 @@
             /// <summary>
             /// Removes the last comma in the current string builder.
             /// </summary>
-            /// <returns></returns>
             private void RemoveLastComma()
             {
                 if (Builder.Length < LastCommaSearch.Length)

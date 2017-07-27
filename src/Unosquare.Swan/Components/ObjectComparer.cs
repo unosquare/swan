@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Unosquare.Swan.Reflection;
-
-namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Components
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using Reflection;
+
     /// <summary>
     /// Represents a quick object comparer using the public properties of an object
     /// or the public members in a structure

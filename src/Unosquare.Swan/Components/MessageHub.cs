@@ -129,6 +129,10 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Initializes a new instance of the TinyMessageSubscriptionToken class.
         /// </summary>
+        /// <param name="hub">The hub.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <exception cref="System.ArgumentNullException">hub</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">messageType</exception>
         public MessageHubSubscriptionToken(IMessageHub hub, Type messageType)
         {
             if (hub == null)

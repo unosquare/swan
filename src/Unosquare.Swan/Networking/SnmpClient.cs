@@ -180,7 +180,7 @@
 
             // Community name
             packet[pos++] = 0x04; // String type
-            packet[pos++] = Convert.ToByte(comlen); //length
+            packet[pos++] = Convert.ToByte(comlen); // length
             // Convert community name to byte array
             var data = Encoding.ASCII.GetBytes(community);
 

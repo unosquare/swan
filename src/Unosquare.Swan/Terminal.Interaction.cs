@@ -144,7 +144,8 @@
 
                 { // Title
                     Table.Vertical();
-                    var titleText = string.Format(textFormat,
+                    var titleText = string.Format(
+                        textFormat,
                         string.IsNullOrWhiteSpace(title) ?
                             " Select an option from the list below." :
                             $" {title}");

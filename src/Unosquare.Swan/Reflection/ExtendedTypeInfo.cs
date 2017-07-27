@@ -286,10 +286,12 @@
         }
 
         /// <summary>
-        /// Converts this instance to its string representation, 
+        /// Converts this instance to its string representation,
         /// trying to use the CultureInfo.InvariantCulture
         /// IFormat provider if the overload is available
         /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns></returns>
         public string ToStringInvariant(T instance) => base.ToStringInvariant(instance);
     }
 }

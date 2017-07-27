@@ -65,9 +65,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="replyText">The reply text.</param>
         /// <param name="sessionId">The session id.</param>
-        /// <returns></returns>
-        /// <exception cref="SmtpException">
-        /// </exception>
+        /// <exception cref="SmtpException"></exception>
         private static void ValidateReply(string replyText, string sessionId)
         {
             if (replyText == null)
@@ -84,7 +82,7 @@ namespace Unosquare.Swan.Networking
                 if (response.Content.Count > 0)
                     responseContent = string.Join(";", response.Content.ToArray());
 
-                throw new SmtpException((SmtpStatusCode) response.ReplyCode, responseContent);
+                throw new SmtpException((SmtpStatusCode)response.ReplyCode, responseContent);
             }
             catch
             {
@@ -193,6 +191,7 @@ namespace Unosquare.Swan.Networking
                             await connection.WriteLineAsync(requestText, ct);
                             replyText = await connection.ReadLineAsync(ct);
                             ValidateReply(replyText, sessionId);
+
                             if (await connection.UpgradeToSecureAsClientAsync() == false)
                                 throw new SecurityException("Could not upgrade the channel to SSL.");
                         }
@@ -206,7 +205,8 @@ namespace Unosquare.Swan.Networking
                             do
                             {
                                 replyText = await connection.ReadLineAsync(ct);
-                            } while (replyText.StartsWith("250 ") == false);
+                            }
+                            while (replyText.StartsWith("250 ") == false);
 
                             ValidateReply(replyText, sessionId);
                         }

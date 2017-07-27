@@ -2,7 +2,7 @@
 {
     using System;
 
-    partial class Terminal
+    public partial class Terminal
     {
         /// <summary>
         /// Represents a Table to print in console

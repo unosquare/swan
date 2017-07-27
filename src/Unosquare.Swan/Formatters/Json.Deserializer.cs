@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    partial class Json
+    public partial class Json
     {
         /// <summary>
         /// A simple JSON Deserializer

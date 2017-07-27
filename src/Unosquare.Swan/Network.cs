@@ -146,6 +146,7 @@
         /// <summary>
         /// Gets the public IP address using ipify.org.
         /// </summary>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken ct = default(CancellationToken))
         {
@@ -354,10 +355,10 @@
             // NTP message size - 16 bytes of the digest (RFC 2030)
             var ntpData = new byte[48];
 
-            //Setting the Leap Indicator, Version Number and Mode values
+            // Setting the Leap Indicator, Version Number and Mode values
             ntpData[0] = 0x1B; //LI = 0 (no warning), VN = 3 (IPv4 only), Mode = 3 (Client Mode)
 
-            //The UDP port number assigned to NTP is 123
+            // The UDP port number assigned to NTP is 123
             var ipEndPoint = new IPEndPoint(ntpServerAddress, port);
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
@@ -367,17 +368,17 @@
             socket.Receive(ntpData);
             socket.Dispose();
 
-            //Offset to get to the "Transmit Timestamp" field (time at which the reply 
-            //departed the server for the client, in 64-bit timestamp format."
+            // Offset to get to the "Transmit Timestamp" field (time at which the reply 
+            // departed the server for the client, in 64-bit timestamp format."
             const byte serverReplyTime = 40;
 
-            //Get the seconds part
+            // Get the seconds part
             ulong intPart = BitConverter.ToUInt32(ntpData, serverReplyTime);
 
-            //Get the seconds fraction
+            // Get the seconds fraction
             ulong fractPart = BitConverter.ToUInt32(ntpData, serverReplyTime + 4);
 
-            //Convert From big-endian to little-endian to match the platform
+            // Convert From big-endian to little-endian to match the platform
             if (BitConverter.IsLittleEndian)
             {
                 intPart = intPart.SwapEndianness();

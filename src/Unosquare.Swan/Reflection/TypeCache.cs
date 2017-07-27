@@ -61,17 +61,17 @@
         /// If the properties are not available, it calls the factory method to retrieve them
         /// and returns them as an array of PropertyInfo
         /// </summary>
-        /// <typeparam name="TOut"></typeparam>
+        /// <typeparam name="TOut">The type of the out.</typeparam>
         /// <param name="factory">The factory.</param>
         /// <returns></returns>
         public T[] Retrieve<TOut>(Func<IEnumerable<T>> factory) => Retrieve(typeof(TOut), factory);
 
         /// <summary>
-        /// Gets or sets the <see cref="IEnumerable{PropertyInfo}"/> with the specified type.
+        /// Gets or sets the <see cref="IEnumerable{PropertyInfo}" /> with the specified type.
         /// If the properties are not available, it returns null.
         /// </summary>
         /// <value>
-        /// The <see cref="IEnumerable{PropertyInfo}"/>.
+        /// The <see cref="IEnumerable{PropertyInfo}" />.
         /// </value>
         /// <param name="type">The type.</param>
         /// <returns></returns>

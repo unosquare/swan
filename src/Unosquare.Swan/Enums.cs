@@ -39,6 +39,7 @@
         /// Gets the items with the enum item index.
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns></returns>
         public static Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
         {
