@@ -122,7 +122,16 @@
         /// <summary>
         /// Gets number of lines that have been written, including the headings line
         /// </summary>
-        public ulong Count { get { lock (SyncLock) { return m_Count; } } }
+        public ulong Count
+        {
+            get
+            {
+                lock (SyncLock)
+                {
+                    return m_Count;
+                }
+            }
+        }
 
         #endregion
 

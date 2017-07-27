@@ -7,12 +7,13 @@
     /// </summary>
     public class DnsQueryResult
     {
-
         private readonly List<DnsRecord> m_AnswerRecords = new List<DnsRecord>();
         private readonly List<DnsRecord> m_AdditionalRecords = new List<DnsRecord>();
         private readonly List<DnsRecord> m_AuthorityRecords = new List<DnsRecord>();
 
-        private DnsQueryResult() { }
+        private DnsQueryResult()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsQueryResult"/> class.

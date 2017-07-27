@@ -14,15 +14,14 @@
     {
         #region Private Declarations
 
+        private static readonly Task DequeueOutputTask;
         private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
 
         private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
         private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
-        private static bool? m_IsConsolePresent;
-
-        private static readonly Task DequeueOutputTask;
+        private static bool? m_IsConsolePresent;        
 
         #endregion
 

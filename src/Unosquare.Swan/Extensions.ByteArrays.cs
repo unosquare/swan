@@ -9,7 +9,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    partial class Extensions
+    public partial class Extensions
     {
         /// <summary>
         /// Converts an array of bytes to its lower-case, hexadecimal representation

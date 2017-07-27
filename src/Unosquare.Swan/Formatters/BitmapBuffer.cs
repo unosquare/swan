@@ -16,7 +16,6 @@ namespace Unosquare.Swan.Formatters
     /// </summary>
     public class BitmapBuffer
     {
-
         #region Constant Definitions
 
         /// <summary>

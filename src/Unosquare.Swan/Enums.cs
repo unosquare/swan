@@ -68,14 +68,17 @@
         /// Unknown OS
         /// </summary>
         Unknown,
+        
         /// <summary>
         /// Windows
         /// </summary>
         Windows,
+        
         /// <summary>
         /// UNIX/Linux
         /// </summary>
         Unix,
+        
         /// <summary>
         /// Mac OSX
         /// </summary>
@@ -91,6 +94,7 @@
         /// The stopped
         /// </summary>
         Stopped,
+        
         /// <summary>
         /// The running
         /// </summary>
@@ -106,14 +110,17 @@
         /// The trigger was a forceful flush of the buffer
         /// </summary>
         Flush,
+        
         /// <summary>
         /// The new line sequence bytes were received
         /// </summary>
         NewLineSequenceEncountered,
+        
         /// <summary>
         /// The buffer was full
         /// </summary>
         BufferFull,
+        
         /// <summary>
         /// The block size reached
         /// </summary>

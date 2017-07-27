@@ -181,7 +181,8 @@ namespace Unosquare.Swan.Networking
                             do
                             {
                                 replyText = await connection.ReadLineAsync(ct);
-                            } while (replyText.StartsWith("250 ") == false);
+                            } 
+                            while (replyText.StartsWith("250 ") == false);
 
                             ValidateReply(replyText, sessionId);
                         }

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    partial class DnsClient
+    internal partial class DnsClient
     {
         public interface IDnsMessage
         {

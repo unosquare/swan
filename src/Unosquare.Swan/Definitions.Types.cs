@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Net;
 
-    partial class Definitions
+    public partial class Definitions
     {
         #region Main Dictionary Definition
 

@@ -26,9 +26,7 @@
         /// </summary>
         static Definitions()
         {
-
             CurrentAnsiEncoding = Encoding.GetEncoding(default(int));
-
             try
             {
                 Windows1252Encoding = Encoding.GetEncoding(1252);

@@ -6,7 +6,7 @@
     using System.Net;
     using Exceptions;
 
-    internal partial class DnsClient
+    partial class DnsClient
     {
         private readonly IPEndPoint dns;
         private readonly IDnsRequestResolver resolver;
@@ -19,11 +19,13 @@
 
         public DnsClient(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
             : this(new IPEndPoint(ip, port), resolver)
-        { }
+        {
+        }
 
         public DnsClient(string ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
             : this(IPAddress.Parse(ip), port, resolver)
-        { }
+        {
+        }
 
         public DnsClientRequest FromArray(byte[] message)
         {

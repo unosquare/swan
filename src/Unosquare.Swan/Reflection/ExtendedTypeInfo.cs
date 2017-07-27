@@ -19,7 +19,8 @@
         private const string TryParseMethodName = nameof(byte.TryParse);
         private const string ToStringMethodName = nameof(ToString);
 
-        private static readonly Type[] NumericTypes = {
+        private static readonly Type[] NumericTypes = 
+        {
             typeof(byte),
             typeof(sbyte),
             typeof(decimal),

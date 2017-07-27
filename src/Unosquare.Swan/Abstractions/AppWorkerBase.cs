@@ -11,8 +11,8 @@
     {
         #region Property Backing
 
-        private AppWorkerState _workerState = AppWorkerState.Stopped;
         private readonly object _syncLock = new object();
+        private AppWorkerState _workerState = AppWorkerState.Stopped;        
         private CancellationTokenSource _tokenSource;
 
         /// <summary>

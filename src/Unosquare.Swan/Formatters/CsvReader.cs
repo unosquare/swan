@@ -17,9 +17,11 @@
     /// <seealso cref="System.IDisposable" />
     public class CsvReader : IDisposable
     {
+        private readonly object _syncLock = new object();
+
         #region Static Declarations
 
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();        
 
         #endregion
 
@@ -32,8 +34,7 @@
         #endregion
 
         #region State Variables
-
-        private readonly object _syncLock = new object();
+        
         private bool _hasDisposed; // To detect redundant calls
         private string[] _headings;
         private Dictionary<string, string> _defaultMap;
@@ -129,7 +130,16 @@
         /// <summary>
         /// Gets number of lines that have been read, including the headings
         /// </summary>
-        public ulong Count { get { lock (_syncLock) { return _count; } } }
+        public ulong Count
+        {
+            get
+            {
+                lock (_syncLock)
+                {
+                    return _count;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the escape character.
@@ -341,7 +351,8 @@
                 var values = ReadLine();
 
                 // Extract properties from cache
-                var properties = TypeCache.Retrieve<T>(() => {
+                var properties = TypeCache.Retrieve<T>(() => 
+                {
                     return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Where(x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType));
                 });

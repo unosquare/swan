@@ -9,7 +9,7 @@
     using System.Text;
     using System.Text.RegularExpressions;
 
-    partial class Extensions
+    public partial class Extensions
     {
         #region Private Declarations
 
@@ -78,7 +78,8 @@
                     md5.TransformFinalBlock(buffer, 0, bytesRead);
                 else
                     md5.TransformBlock(buffer, 0, bytesRead, buffer, 0);
-            } while (readAheadBytesRead != 0);
+            } 
+            while (readAheadBytesRead != 0);
 
             return md5.Hash;
 #else

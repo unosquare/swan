@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
-    partial class Definitions
+    public partial class Definitions
     {
         /// <summary>
         /// The string sequence that delimits the end of the DATA command
@@ -42,6 +42,7 @@
             /// The plain method
             /// </summary>
             public const string Plain = "PLAIN";
+            
             /// <summary>
             /// The login method
             /// </summary>

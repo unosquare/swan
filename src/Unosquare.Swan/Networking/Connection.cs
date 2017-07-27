@@ -32,6 +32,10 @@ namespace Unosquare.Swan.Networking
         private readonly byte[] NewLineSequenceBytes;
         private readonly char[] NewLineSequenceChars;
         private readonly string[] NewLineSequenceLineSplitter;
+        private readonly byte[] ReceiveBuffer;
+        private readonly TimeSpan ContinuousReadingInterval = TimeSpan.FromMilliseconds(5);
+        private readonly Queue<string> _readLineBuffer = new Queue<string>();
+        private readonly ManualResetEventSlim _writeDone = new ManualResetEventSlim(true);
 
         // Disconnect and Dispose
         private bool _hasDisposed;
@@ -39,15 +43,12 @@ namespace Unosquare.Swan.Networking
 
         // Continuous Reading
         private Thread ContinuousReadingThread;
-        private readonly TimeSpan ContinuousReadingInterval = TimeSpan.FromMilliseconds(5);
-        private readonly byte[] ReceiveBuffer;
+                
         private int ReceiveBufferPointer;
 
         // Reading and writing
         private Task<int> _readTask;
-        private readonly Queue<string> _readLineBuffer = new Queue<string>();
-        private readonly ManualResetEventSlim _writeDone = new ManualResetEventSlim(true);
-
+        
 #endregion
 
 #region Events
@@ -386,7 +387,6 @@ namespace Unosquare.Swan.Networking
                 // Depending on the last segment determine what to do with the receive buffer
                 if (isLast)
                 {
-
                     if (isNewLineTerminated)
                     {
                         // Simply reset the buffer pointer if the last segment was also terminated
@@ -455,9 +455,9 @@ namespace Unosquare.Swan.Networking
             }
         }
 
-        #endregion
+#endregion
 
-        #region Read Methods
+#region Read Methods
 
         /// <summary>
         /// Reads data from the remote client asynchronously and with the given timeout.
@@ -608,9 +608,9 @@ namespace Unosquare.Swan.Networking
             return null;
         }
 
-        #endregion
+#endregion
 
-        #region Write Methods
+#region Write Methods
 
         /// <summary>
         /// Writes data asynchronously.
@@ -687,9 +687,9 @@ namespace Unosquare.Swan.Networking
             await WriteLineAsync(line, TextEncoding, ct);
         }
 
-        #endregion
+#endregion
 
-        #region Socket Methods
+#region Socket Methods
 
         /// <summary>
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the server.

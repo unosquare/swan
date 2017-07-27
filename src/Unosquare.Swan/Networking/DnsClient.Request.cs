@@ -27,11 +27,13 @@
 
             public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
                 : this(new IPEndPoint(ip, port), request, resolver)
-            { }
+            {
+            }
 
             public DnsClientRequest(string ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
                 : this(IPAddress.Parse(ip), port, request, resolver)
-            { }
+            {
+            }
 
             public int Id
             {
@@ -596,7 +598,9 @@
             }
 
             public DnsDomain(string domain) 
-                : this(domain.Split('.')) { }
+                : this(domain.Split('.'))
+            {
+            }
 
             public DnsDomain(string[] labels)
             {

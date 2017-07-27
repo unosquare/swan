@@ -8,7 +8,7 @@
     /// <summary>
     /// Provides various extension methods
     /// </summary>
-    partial class Extensions
+    public partial class Extensions
     {
         /// <summary>
         /// Clamps the specified value between the minimum and the maximum

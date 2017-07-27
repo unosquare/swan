@@ -5,7 +5,7 @@
     using System.Net;
     using System.Net.Sockets;
 
-    partial class Extensions
+    public partial class Extensions
     {
         /// <summary>
         /// Determines whether the IP address is private

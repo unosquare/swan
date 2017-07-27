@@ -6,7 +6,7 @@
     using System.Reflection;
     using System.Collections.Generic;
 
-    partial class Extensions
+    public partial class Extensions
     {
         #region Assembly Extensions
 

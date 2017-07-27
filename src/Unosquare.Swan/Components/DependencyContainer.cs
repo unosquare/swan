@@ -62,6 +62,7 @@ namespace Unosquare.Swan.Components
         /// The attempt unnamed resolution
         /// </summary>
         AttemptUnnamedResolution,
+        
         /// <summary>
         /// The fail
         /// </summary>
@@ -77,10 +78,12 @@ namespace Unosquare.Swan.Components
         /// The register single
         /// </summary>
         RegisterSingle,
+        
         /// <summary>
         /// The register multiple
         /// </summary>
         RegisterMultiple,
+        
         /// <summary>
         /// The fail
         /// </summary>
@@ -183,6 +186,7 @@ namespace Unosquare.Swan.Components
     public sealed class DependencyContainer : IDisposable
     {
         #region "Fluent" API
+        
         /// <summary>
         /// Registration options for "fluent" API
         /// </summary>
@@ -1245,6 +1249,7 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Object Factories
+        
         /// <summary>
         /// Provides custom lifetime management for ASP.Net per-request lifetimes etc.
         /// </summary>
