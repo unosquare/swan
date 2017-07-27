@@ -8,47 +8,47 @@
     public enum SmtpStatusCode
     {
         /// <summary>
-        /// 
+        /// System code
         /// </summary>
         SystemStatus = 211,
         
         /// <summary>
-        /// 
+        /// Help message code
         /// </summary>
         HelpMessage = 214,
         
         /// <summary>
-        /// 
+        /// Service ready code
         /// </summary>
         ServiceReady = 220,
         
         /// <summary>
-        /// 
+        /// Service closing channel code
         /// </summary>
         ServiceClosingTransmissionChannel = 221,
         
         /// <summary>
-        /// 
+        /// OK Code
         /// </summary>
         Ok = 250,
         
         /// <summary>
-        /// 
+        /// User not local code
         /// </summary>
         UserNotLocalWillForward = 251,
         
         /// <summary>
-        /// 
+        /// Cannot verify user code
         /// </summary>
         CannotVerifyUserWillAttemptDelivery = 252,
         
         /// <summary>
-        /// 
+        /// Start Mail Input code
         /// </summary>
         StartMailInput = 354,
         
         /// <summary>
-        /// 
+        /// Service Not Available code
         /// </summary>
         ServiceNotAvailable = 421,
         
@@ -128,7 +128,7 @@
         TransactionFailed = 554,
         
         /// <summary>
-        /// 
+        /// General Failure code
         /// </summary>
         GeneralFailure = -1,
     }

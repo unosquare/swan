@@ -22,12 +22,12 @@
 
         #region State Variables
 
-        private readonly object SyncLock = new object();
-        private readonly Stream OutputStream;
-        private readonly Encoding Encoding;
-        private readonly bool LeaveStreamOpen;
-        private bool IsDisposing;
-        private ulong m_Count;
+        private readonly object _syncLock = new object();
+        private readonly Stream _outputStream;
+        private readonly Encoding _encoding;
+        private readonly bool _leaveStreamOpen;
+        private bool _isDisposing;
+        private ulong _mCount;
 
         #endregion
 
@@ -41,9 +41,9 @@
         /// <param name="encoding">The encoding.</param>
         public CsvWriter(Stream outputStream, bool leaveOpen, Encoding encoding)
         {
-            OutputStream = outputStream;
-            Encoding = encoding;
-            LeaveStreamOpen = leaveOpen;
+            _outputStream = outputStream;
+            _encoding = encoding;
+            _leaveStreamOpen = leaveOpen;
         }
 
         /// <summary>
@@ -126,9 +126,9 @@
         {
             get
             {
-                lock (SyncLock)
+                lock (_syncLock)
                 {
-                    return m_Count;
+                    return _mCount;
                 }
             }
         }
@@ -145,11 +145,11 @@
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 var length = items.Length;
-                var separatorBytes = Encoding.GetBytes(new[] { SeparatorCharacter });
-                var endOfLineBytes = Encoding.GetBytes(NewLineSequence);
+                var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
+                var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
 
                 // Declare state variables here to avoid recreation, allocation and
                 // reassignment in every loop
@@ -180,18 +180,18 @@
                         textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
 
                     // Get the bytes to write to the stream and write them
-                    output = Encoding.GetBytes(textValue);
-                    OutputStream.Write(output, 0, output.Length);
+                    output = _encoding.GetBytes(textValue);
+                    _outputStream.Write(output, 0, output.Length);
 
                     // only write a separator if we are moving in between values.
                     // the last value should not be written.
                     if (i < length - 1)
-                        OutputStream.Write(separatorBytes, 0, separatorBytes.Length);
+                        _outputStream.Write(separatorBytes, 0, separatorBytes.Length);
                 }
 
                 // output the newline sequence
-                OutputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
-                m_Count += 1;
+                _outputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
+                _mCount += 1;
             }
         }
 
@@ -212,7 +212,7 @@
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 { // Handling as Dynamic Object
                     var typedItem = item as IDictionary<string, object>;
@@ -269,7 +269,7 @@
         /// <param name="items">The items.</param>
         public void WriteObjects<T>(IEnumerable<T> items)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 foreach (var item in items)
                     WriteObject(item);
@@ -501,7 +501,7 @@
         /// <returns></returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 return TypeCache.Retrieve(type, () => 
                     {
@@ -555,17 +555,17 @@
         /// <param name="disposeAlsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposeAlsoManaged)
         {
-            if (!IsDisposing)
+            if (!_isDisposing)
             {
                 if (disposeAlsoManaged)
                 {
-                    if (LeaveStreamOpen == false)
+                    if (_leaveStreamOpen == false)
                     {
-                        OutputStream.Dispose();
+                        _outputStream.Dispose();
                     }
                 }
 
-                IsDisposing = true;
+                _isDisposing = true;
             }
         }
 

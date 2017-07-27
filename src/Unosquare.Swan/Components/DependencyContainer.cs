@@ -1616,45 +1616,47 @@ namespace Unosquare.Swan.Components
         /// </summary>
         private class SingletonFactory : ObjectFactoryBase, IDisposable
         {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            private readonly object SingletonLock = new object();
-            private object _Current;
+            private readonly Type _registerType;
+            private readonly Type _registerImplementation;
+            private readonly object _singletonLock = new object();
+            private object _current;
 
             public SingletonFactory(Type registerType, Type registerImplementation)
             {
                 if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
+                    throw new DependencyContainerRegistrationTypeException(registerImplementation, nameof(SingletonFactory));
 
                 if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
+                    throw new DependencyContainerRegistrationTypeException(registerImplementation, nameof(SingletonFactory));
 
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
+                _registerType = registerType;
+                _registerImplementation = registerImplementation;
             }
 
-            public override Type CreatesType => registerImplementation;
+            public override Type CreatesType => _registerImplementation;
 
             public override object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
             {
                 if (parameters.Count != 0)
                     throw new ArgumentException("Cannot specify parameters for singleton types");
 
-                lock (SingletonLock)
-                    if (_Current == null)
-                        _Current = container.ConstructType(registerImplementation, Constructor, options);
+                lock (_singletonLock)
+                {
+                    if (_current == null)
+                        _current = container.ConstructType(_registerImplementation, Constructor, options);
+                }
 
-                return _Current;
+                return _current;
             }
 
             public override ObjectFactoryBase SingletonVariant => this;
 
             public override ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
             {
-                return new CustomObjectLifetimeFactory(registerType, registerImplementation, lifetimeProvider, errorString);
+                return new CustomObjectLifetimeFactory(_registerType, _registerImplementation, lifetimeProvider, errorString);
             }
 
-            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(registerType, registerImplementation);
+            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(_registerType, _registerImplementation);
 
             public override ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
             {
@@ -1667,7 +1669,7 @@ namespace Unosquare.Swan.Components
 
             public void Dispose()
             {
-                var disposable = _Current as IDisposable;
+                var disposable = _current as IDisposable;
 
                 disposable?.Dispose();
             }

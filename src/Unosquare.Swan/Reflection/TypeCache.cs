@@ -11,6 +11,7 @@
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
+    /// <typeparam name="T">The type of Member to be cached</typeparam>
     public abstract class TypeCache<T>
         where T : MemberInfo
     {

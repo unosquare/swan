@@ -80,8 +80,6 @@
         /// <param name="args">The arguments.</param>
         /// <param name="instance">The instance.</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">args</exception>
-        /// <exception cref="System.InvalidOperationException"></exception>
         /// <exception cref="ArgumentNullException">args</exception>
         /// <exception cref="InvalidOperationException"></exception>
         public bool ParseArguments<T>(IEnumerable<string> args, T instance)
