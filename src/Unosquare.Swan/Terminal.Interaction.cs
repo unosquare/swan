@@ -134,7 +134,8 @@
             var lineAlign = -(lineLength - 2);
             var textFormat = "{0," + lineAlign + "}";
 
-            lock (SyncLock) // lock the output as an atomic operation
+            // lock the output as an atomic operation
+            lock (SyncLock) 
             {
                 { // Top border
                     Table.TopLeft();
@@ -146,9 +147,7 @@
                     Table.Vertical();
                     var titleText = string.Format(
                         textFormat,
-                        string.IsNullOrWhiteSpace(title) ?
-                            " Select an option from the list below." :
-                            $" {title}");
+                        string.IsNullOrWhiteSpace(title) ? " Select an option from the list below." : $" {title}");
                     titleText.Write(textColor); // , titleText);
                     Table.Vertical();
                 }

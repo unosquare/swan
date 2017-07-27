@@ -130,7 +130,9 @@
         /// <param name="target">The target.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns></returns>
-        public static int CopyPropertiesTo(this IDictionary<string, object> source, object target,
+        public static int CopyPropertiesTo(
+            this IDictionary<string, object> source, 
+            object target,
             string[] ignoreProperties)
         {
             var copiedProperties = 0;
@@ -239,7 +241,9 @@
             {
                 action();
                 return null;
-            }, retryInterval, retryCount);
+            }, 
+            retryInterval, 
+            retryCount);
         }
         
         /// <summary>

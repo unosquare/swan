@@ -27,13 +27,20 @@ namespace Unosquare.Swan
         {
             var result = new MemoryStream();
             var mailWriter = MimeMessageConstants.MailWriterConstructor.Invoke(new object[] { result });
-            MimeMessageConstants.SendMethod.Invoke(self, MimeMessageConstants.PrivateInstanceFlags, null, 
-                MimeMessageConstants.IsRunningInDotNetFourPointFive ? 
-                    new[] { mailWriter, true, true } : new[] { mailWriter, true }, null);
+            MimeMessageConstants.SendMethod.Invoke(
+                self, 
+                MimeMessageConstants.PrivateInstanceFlags, 
+                null, 
+                MimeMessageConstants.IsRunningInDotNetFourPointFive ? new[] { mailWriter, true, true } : new[] { mailWriter, true }, 
+                null);
 
             result = new MemoryStream(result.ToArray());
-            MimeMessageConstants.CloseMethod.Invoke(mailWriter, MimeMessageConstants.PrivateInstanceFlags, 
-                null, new object[] { }, null);
+            MimeMessageConstants.CloseMethod.Invoke(
+                mailWriter, 
+                MimeMessageConstants.PrivateInstanceFlags, 
+                null, 
+                new object[] { }, 
+                null);
             result.Position = 0;
             return result;
         }

@@ -128,7 +128,8 @@
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns></returns>
-        public static bool AreObjectsEqual<T>(T left, T right) where T : class
+        public static bool AreObjectsEqual<T>(T left, T right) 
+            where T : class
         {
             return AreObjectsEqual(left, right, typeof(T));
         }
@@ -140,7 +141,8 @@
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns></returns>
-        public static bool AreStructsEqual<T>(T left, T right) where T : struct
+        public static bool AreStructsEqual<T>(T left, T right) 
+            where T : struct
         {
             return AreStructsEqual(left, right, typeof(T));
         }
@@ -152,7 +154,8 @@
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns></returns>
-        public static bool AreEnumsEqual<T>(T left, T right) where T : IEnumerable
+        public static bool AreEnumsEqual<T>(T left, T right) 
+            where T : IEnumerable
         {
             var leftEnumerable = left.Cast<object>().ToArray();
             var rightEnumerable = right.Cast<object>().ToArray();

@@ -32,7 +32,9 @@
                 using (var udp = new UdpClient(IPAddress.Broadcast.AddressFamily))
                 {
                     udp.EnableBroadcast = true;
-                    await udp.SendAsync(DiscoverMessage, DiscoverMessage.Length,
+                    await udp.SendAsync(
+                        DiscoverMessage, 
+                        DiscoverMessage.Length,
                         new IPEndPoint(IPAddress.Broadcast, 161));
 
                     while (true)
@@ -236,10 +238,14 @@
             packet[pos++] = 0x00; // Null
 
             // Send packet to destination
-            var sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
+            var sock = new Socket(
+                AddressFamily.InterNetwork, 
+                SocketType.Dgram,
                 ProtocolType.Udp);
-            sock.SetSocketOption(SocketOptionLevel.Socket,
-                SocketOptionName.ReceiveTimeout, 5000);
+            sock.SetSocketOption(
+                SocketOptionLevel.Socket,
+                SocketOptionName.ReceiveTimeout, 
+                5000);
             var ep = (EndPoint) host;
             sock.SendTo(packet, snmplen, SocketFlags.None, host);
 

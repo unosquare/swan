@@ -315,8 +315,12 @@
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType,
-            IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))
+        public static async Task<DnsQueryResult> QueryDnsAsync(
+            string query, 
+            DnsRecordType recordType,
+            IPAddress dnsServer, 
+            int port, 
+            CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => QueryDns(query, recordType, dnsServer, port), ct);
         }
@@ -356,14 +360,14 @@
             var ntpData = new byte[48];
 
             // Setting the Leap Indicator, Version Number and Mode values
-            ntpData[0] = 0x1B; //LI = 0 (no warning), VN = 3 (IPv4 only), Mode = 3 (Client Mode)
+            ntpData[0] = 0x1B; // LI = 0 (no warning), VN = 3 (IPv4 only), Mode = 3 (Client Mode)
 
             // The UDP port number assigned to NTP is 123
             var ipEndPoint = new IPEndPoint(ntpServerAddress, port);
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
             socket.Connect(ipEndPoint);
-            socket.ReceiveTimeout = 3000; //Stops code hang if NTP is blocked
+            socket.ReceiveTimeout = 3000; // Stops code hang if NTP is blocked
             socket.Send(ntpData);
             socket.Receive(ntpData);
             socket.Dispose();
@@ -411,8 +415,10 @@
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<DateTime> GetNetworkTimeUtcAsync(IPAddress ntpServerAddress,
-            int port = Definitions.NtpDefaultPort, CancellationToken ct = default(CancellationToken))
+        public static async Task<DateTime> GetNetworkTimeUtcAsync(
+            IPAddress ntpServerAddress,
+            int port = Definitions.NtpDefaultPort, 
+            CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerAddress, port), ct);
         }
@@ -424,8 +430,10 @@
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<DateTime> GetNetworkTimeUtcAsync(string ntpServerName,
-            int port = Definitions.NtpDefaultPort, CancellationToken ct = default(CancellationToken))
+        public static async Task<DateTime> GetNetworkTimeUtcAsync(
+            string ntpServerName,
+            int port = Definitions.NtpDefaultPort, 
+            CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerName, port), ct);
         }

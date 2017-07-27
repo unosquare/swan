@@ -76,7 +76,8 @@ namespace Unosquare.Swan.Formatters
             // Lock the bits
             var sourceDataLocker = sourceBitmap.LockBits(
                 new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height),
-                ImageLockMode.ReadOnly, sourceBitmap.PixelFormat);
+                ImageLockMode.ReadOnly, 
+                sourceBitmap.PixelFormat);
 
             // Set basic properties
             ImageWidth = sourceBitmap.Width;

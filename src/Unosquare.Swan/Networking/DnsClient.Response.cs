@@ -143,8 +143,12 @@
                     DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AdditionalRecordCount, out offset));
             }
 
-            public DnsResponse(DnsHeader header, IList<DnsQuestion> questions, IList<IDnsResourceRecord> answers,
-                    IList<IDnsResourceRecord> authority, IList<IDnsResourceRecord> additional)
+            public DnsResponse(
+                DnsHeader header, 
+                IList<DnsQuestion> questions, 
+                IList<IDnsResourceRecord> answers,
+                IList<IDnsResourceRecord> authority, 
+                IList<IDnsResourceRecord> additional)
             {
                 this.header = header;
                 this.Questions = questions;
@@ -257,8 +261,13 @@
             {
                 UpdateHeader();
 
-                return Json.SerializeOnly(this, true,
-                    nameof(Questions), nameof(AnswerRecords), nameof(AuthorityRecords), nameof(AdditionalRecords));
+                return Json.SerializeOnly(
+                    this, 
+                    true,
+                    nameof(Questions), 
+                    nameof(AnswerRecords), 
+                    nameof(AuthorityRecords), 
+                    nameof(AdditionalRecords));
             }
 
             private void UpdateHeader()

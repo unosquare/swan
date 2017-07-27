@@ -212,7 +212,11 @@ namespace Unosquare.Swan.Networking
         /// <param name="newLineSequence">The new line sequence used for read and write operations.</param>
         /// <param name="disableContinuousReading">if set to <c>true</c> [disable continuous reading].</param>
         /// <param name="blockSize">Size of the block. -- set to 0 or less to disable</param>
-        public Connection(TcpClient client, Encoding textEncoding, string newLineSequence, bool disableContinuousReading,
+        public Connection(
+            TcpClient client, 
+            Encoding textEncoding, 
+            string newLineSequence, 
+            bool disableContinuousReading,
             int blockSize)
         {
             // Setup basic properties
@@ -264,12 +268,12 @@ namespace Unosquare.Swan.Networking
             if (activeThreadPoolTreads < Environment.ProcessorCount / 4)
             {
                 ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
-                //Log.Trace($"Queued new ThreadPool Thread. Active TP Threads: {activeThreadPoolTreads}");
+                // Log.Trace($"Queued new ThreadPool Thread. Active TP Threads: {activeThreadPoolTreads}");
             }
             else
             {
                 new Thread(PerformContinuousReading) { IsBackground = true }.Start();
-                //Log.Trace($"Created standard thread. Active TP Threads: {activeThreadPoolTreads}");
+                // Log.Trace($"Created standard thread. Active TP Threads: {activeThreadPoolTreads}");
             }
 #endif
         }
@@ -321,9 +325,10 @@ namespace Unosquare.Swan.Networking
                     var eventBuffer = new byte[ReceiveBuffer.Length];
                     Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
 
-                    DataReceived(this,
-                        new ConnectionDataReceivedEventArgs(
-                            eventBuffer, ConnectionDataReceivedTrigger.BlockSizeReached, moreAvailable));
+                    DataReceived(this, new ConnectionDataReceivedEventArgs(
+                            eventBuffer, 
+                            ConnectionDataReceivedTrigger.BlockSizeReached, 
+                            moreAvailable));
                     ReceiveBufferPointer = 0;
                     continue;
                 }
@@ -333,9 +338,10 @@ namespace Unosquare.Swan.Networking
                 {
                     var eventBuffer = new byte[ReceiveBuffer.Length];
                     Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
-                    DataReceived(this,
-                        new ConnectionDataReceivedEventArgs(
-                            eventBuffer, ConnectionDataReceivedTrigger.BufferFull, moreAvailable));
+                    DataReceived(this, new ConnectionDataReceivedEventArgs(
+                                eventBuffer, 
+                                ConnectionDataReceivedTrigger.BufferFull, 
+                                moreAvailable));
                     ReceiveBufferPointer = 0;
                 }
             }
@@ -357,7 +363,7 @@ namespace Unosquare.Swan.Networking
             if (sequences.Count == 1 && sequences[0].EndsWith(NewLineSequenceBytes) == false)
                 return;
 
-            //Log.Trace(" > > > Showing sequences: ");
+            // Log.Trace(" > > > Showing sequences: ");
 
             // Process the events for each sequence
             for (var i = 0; i < sequences.Count; i++)
@@ -366,12 +372,14 @@ namespace Unosquare.Swan.Networking
                 var isNewLineTerminated = sequences[i].EndsWith(NewLineSequenceBytes);
                 var isLast = i == sequences.Count - 1;
 
-                //Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");
+                // Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");
 
                 if (isNewLineTerminated)
                 {
-                    var eventArgs = new ConnectionDataReceivedEventArgs(sequenceBytes,
-                        ConnectionDataReceivedTrigger.NewLineSequenceEncountered, isLast == false);
+                    var eventArgs = new ConnectionDataReceivedEventArgs(
+                                        sequenceBytes,
+                                        ConnectionDataReceivedTrigger.NewLineSequenceEncountered, 
+                                        isLast == false);
                     DataReceived(this, eventArgs);
                 }
 

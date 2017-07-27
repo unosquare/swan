@@ -10,7 +10,8 @@ namespace Unosquare.Swan.Exceptions
         /// Initializes a new instance of the <see cref="SmtpException" /> class with a message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public SmtpException(string message) : base(message)
+        public SmtpException(string message) 
+            : base(message)
         {
         }
 

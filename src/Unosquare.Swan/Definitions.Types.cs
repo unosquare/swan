@@ -70,8 +70,7 @@
         public static List<Type> AllNumericTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsNumeric)
-                .Select(kvp => kvp.Key).ToArray()
-        );
+                .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>
         /// Gets all numeric types without their nullable counterparts. 
@@ -80,8 +79,7 @@
         public static List<Type> AllNumericValueTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsNumeric && kvp.Value.IsNullableValueType == false)
-                .Select(kvp => kvp.Key).ToArray()
-        );
+                .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>
         /// Contains all basic value types. i.e. excludes string and nullables
@@ -89,8 +87,7 @@
         public static List<Type> AllBasicValueTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsValueType)
-                .Select(kvp => kvp.Key).ToArray()
-        );
+                .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>
         /// Contains all basic value types including the string type. i.e. excludes nullables
@@ -98,8 +95,7 @@
         public static List<Type> AllBasicValueAndStringTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsValueType || kvp.Key == typeof(string))
-                .Select(kvp => kvp.Key).ToArray()
-        );
+                .Select(kvp => kvp.Key).ToArray());
 
         /// <summary>
         /// Gets all nullable value types. i.e. excludes string and all basic value types
@@ -107,7 +103,6 @@
         public static List<Type> AllBasicNullableValueTypes { get; } = new List<Type>(
             BasicTypesInfo
                 .Where(kvp => kvp.Value.IsNullableValueType)
-                .Select(kvp => kvp.Key).ToArray()
-        );
+                .Select(kvp => kvp.Key).ToArray());
     }
 }

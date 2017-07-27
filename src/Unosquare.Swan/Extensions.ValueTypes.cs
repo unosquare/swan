@@ -104,7 +104,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        public static T ToStruct<T>(this byte[] data) where T : struct
+        public static T ToStruct<T>(this byte[] data) 
+            where T : struct
         {
             return ToStruct<T>(data, 0, data.Length);
         }
@@ -117,7 +118,8 @@
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <returns></returns>
-        public static T ToStruct<T>(this byte[] data, int offset, int length) where T : struct
+        public static T ToStruct<T>(this byte[] data, int offset, int length) 
+            where T : struct
         {
             var buffer = new byte[length];
             Array.Copy(data, offset, buffer, 0, buffer.Length);
@@ -139,7 +141,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="obj">The object.</param>
         /// <returns></returns>
-        public static byte[] ToBytes<T>(this T obj) where T : struct
+        public static byte[] ToBytes<T>(this T obj) 
+            where T : struct
         {
             var data = new byte[Marshal.SizeOf(obj)];
             var handle = GCHandle.Alloc(data, GCHandleType.Pinned);

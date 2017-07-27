@@ -25,8 +25,16 @@
         /// <param name="callerMemberName">Name of the caller member.</param>
         /// <param name="callerFilePath">The caller file path.</param>
         /// <param name="callerLineNumber">The caller line number.</param>
-        public LogMessageReceivedEventArgs(ulong sequence, LogMessageType messageType, DateTime utcDate, string source,
-            string message, object extendedData, string callerMemberName, string callerFilePath, int callerLineNumber)
+        public LogMessageReceivedEventArgs(
+            ulong sequence, 
+            LogMessageType messageType, 
+            DateTime utcDate, 
+            string source,
+            string message, 
+            object extendedData, 
+            string callerMemberName, 
+            string callerFilePath, 
+            int callerLineNumber)
         {
             Sequence = sequence;
             MessageType = messageType;
@@ -107,8 +115,16 @@
         /// </summary>
         /// <param name="data">The <see cref="LogMessageReceivedEventArgs"/> instance containing the event data.</param>
         public LogMessageDisplayingEventArgs(LogMessageReceivedEventArgs data)
-            : base(data.Sequence, data.MessageType, data.UtcDate, data.Source, data.Message, data.ExtendedData, 
-                  data.CallerMemberName, data.CallerFilePath, data.CallerLineNumber)
+            : base(
+                  data.Sequence, 
+                  data.MessageType, 
+                  data.UtcDate, 
+                  data.Source, 
+                  data.Message, 
+                  data.ExtendedData, 
+                  data.CallerMemberName, 
+                  data.CallerFilePath, 
+                  data.CallerLineNumber)
         {
             CancelOutput = false;
         }

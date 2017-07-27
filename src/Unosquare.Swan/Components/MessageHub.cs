@@ -304,7 +304,9 @@ namespace Unosquare.Swan.Components
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences,
+        MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction, 
+            bool useStrongReferences,
             IMessageHubProxy proxy)
             where TMessage : class, IMessageHubMessage;
 
@@ -336,8 +338,10 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter, IMessageHubProxy proxy)
+        MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, 
+            IMessageHubProxy proxy)
             where TMessage : class, IMessageHubMessage;
 
         /// <summary>
@@ -352,8 +356,11 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter, bool useStrongReferences) where TMessage : class, IMessageHubMessage;
+        MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, 
+            bool useStrongReferences) 
+            where TMessage : class, IMessageHubMessage;
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -369,8 +376,11 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter, bool useStrongReferences, IMessageHubProxy proxy)
+        MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, 
+            bool useStrongReferences, 
+            IMessageHubProxy proxy)
             where TMessage : class, IMessageHubMessage;
 
         /// <summary>
@@ -455,8 +465,10 @@ namespace Unosquare.Swan.Components
             /// or
             /// messageFilter
             /// </exception>
-            public WeakTinyMessageSubscription(MessageHubSubscriptionToken subscriptionToken,
-                Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter)
+            public WeakTinyMessageSubscription(
+                MessageHubSubscriptionToken subscriptionToken,
+                Action<TMessage> deliveryAction, 
+                Func<TMessage, bool> messageFilter)
             {
                 if (subscriptionToken == null)
                 {
@@ -612,10 +624,15 @@ namespace Unosquare.Swan.Components
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences)
+        public MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction, 
+            bool useStrongReferences)
             where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal(deliveryAction, (m) => true, useStrongReferences,
+            return AddSubscriptionInternal(
+                deliveryAction, 
+                (m) => true, 
+                useStrongReferences,
                 MessageHubDefaultProxy.Instance);
         }
 
@@ -630,8 +647,11 @@ namespace Unosquare.Swan.Components
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences,
-            IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction, 
+            bool useStrongReferences,
+            IMessageHubProxy proxy) 
+            where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal(deliveryAction, (m) => true, useStrongReferences, proxy);
         }
@@ -647,10 +667,15 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter)
+            where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal(deliveryAction, messageFilter, true,
+            return AddSubscriptionInternal(
+                deliveryAction, 
+                messageFilter, 
+                true,
                 MessageHubDefaultProxy.Instance);
         }
 
@@ -667,8 +692,11 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter, IMessageHubProxy proxy) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, 
+            IMessageHubProxy proxy) 
+            where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal(deliveryAction, messageFilter, true, proxy);
         }
@@ -685,10 +713,16 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter, bool useStrongReferences) where TMessage : class, IMessageHubMessage
+        public MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, 
+            bool useStrongReferences) 
+            where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal(deliveryAction, messageFilter, useStrongReferences,
+            return AddSubscriptionInternal(
+                deliveryAction, 
+                messageFilter, 
+                useStrongReferences,
                 MessageHubDefaultProxy.Instance);
         }
 
@@ -706,8 +740,11 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
-        public MessageHubSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter, bool useStrongReferences, IMessageHubProxy proxy)
+        public MessageHubSubscriptionToken Subscribe<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, 
+            bool useStrongReferences, 
+            IMessageHubProxy proxy)
             where TMessage : class, IMessageHubMessage
         {
             return AddSubscriptionInternal(deliveryAction, messageFilter, useStrongReferences, proxy);
@@ -731,7 +768,8 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
-        public void Publish<TMessage>(TMessage message) where TMessage : class, IMessageHubMessage
+        public void Publish<TMessage>(TMessage message) 
+            where TMessage : class, IMessageHubMessage
         {
             PublishInternal(message);
         }
@@ -741,7 +779,8 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
-        public async Task PublishAsync<TMessage>(TMessage message) where TMessage : class, IMessageHubMessage
+        public async Task PublishAsync<TMessage>(TMessage message) 
+            where TMessage : class, IMessageHubMessage
         {
             await Task.Factory.StartNew(() =>
             {
@@ -753,8 +792,11 @@ namespace Unosquare.Swan.Components
 
         #region Internal Methods
 
-        private MessageHubSubscriptionToken AddSubscriptionInternal<TMessage>(Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter, bool strongReference, IMessageHubProxy proxy)
+        private MessageHubSubscriptionToken AddSubscriptionInternal<TMessage>(
+            Action<TMessage> deliveryAction,
+            Func<TMessage, bool> messageFilter, 
+            bool strongReference, 
+            IMessageHubProxy proxy)
             where TMessage : class, IMessageHubMessage
         {
             if (deliveryAction == null)
@@ -780,10 +822,14 @@ namespace Unosquare.Swan.Components
 
                 IMessageHubSubscription subscription;
                 if (strongReference)
-                    subscription = new StrongTinyMessageSubscription<TMessage>(subscriptionToken, deliveryAction,
+                    subscription = new StrongTinyMessageSubscription<TMessage>(
+                        subscriptionToken, 
+                        deliveryAction,
                         messageFilter);
                 else
-                    subscription = new WeakTinyMessageSubscription<TMessage>(subscriptionToken, deliveryAction,
+                    subscription = new WeakTinyMessageSubscription<TMessage>(
+                        subscriptionToken, 
+                        deliveryAction,
                         messageFilter);
 
                 currentSubscriptions.Add(new SubscriptionItem(proxy, subscription));

@@ -202,7 +202,9 @@
 
                 if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
-                    var parsedValue = Enum.Parse(targetProperty.PropertyType, propertyValueString,
+                    var parsedValue = Enum.Parse(
+                        targetProperty.PropertyType, 
+                        propertyValueString,
                         Settings.CaseInsensitiveEnumValues);
                     targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
 

@@ -31,8 +31,12 @@ namespace Unosquare.Swan.Components
         /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        private static async Task<ulong> CopyStreamAsync(Process process, Stream baseStream, ProcessDataReceivedCallback onDataCallback, 
-            bool syncEvents, CancellationToken ct)
+        private static async Task<ulong> CopyStreamAsync(
+            Process process, 
+            Stream baseStream, 
+            ProcessDataReceivedCallback onDataCallback, 
+            bool syncEvents, 
+            CancellationToken ct)
         {
             return await Task.Factory.StartNew(async () =>
             {
@@ -138,10 +142,13 @@ namespace Unosquare.Swan.Components
             var standardOutputBuilder = new StringBuilder();
             var standardErrorBuilder = new StringBuilder();
 
-            var processReturn = await RunProcessAsync(filename, arguments,
-                (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
-                (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
-                true, ct);
+            var processReturn = await RunProcessAsync(
+                                filename, 
+                                arguments,
+                                (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
+                                (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
+                                true, 
+                                ct);
 
             return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
         }

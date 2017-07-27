@@ -111,8 +111,16 @@
                     $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
 
                 // Log the message asynchronously with the appropriate event args
-                var eventArgs = new LogMessageReceivedEventArgs(sequence, messageType, date, sourceName, loggerMessage, extendedData, callerMemberName,
-                    callerFilePath, callerLineNumber);
+                var eventArgs = new LogMessageReceivedEventArgs(
+                    sequence, 
+                    messageType, 
+                    date, 
+                    sourceName, 
+                    loggerMessage, 
+                    extendedData, 
+                    callerMemberName,
+                    callerFilePath, 
+                    callerLineNumber);
 
                 #endregion
 

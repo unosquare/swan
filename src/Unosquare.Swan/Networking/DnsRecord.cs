@@ -30,13 +30,13 @@
             // PTR
             PointerDomainName = (record as DnsClient.DnsPointerResourceRecord)?.PointerDomainName?.ToString();
 
-            //A
+            // A
             IPAddress = (record as DnsClient.DnsIPAddressResourceRecord)?.IPAddress;
 
-            //NS
+            // NS
             NameServerDomainName = (record as DnsClient.DnsNameServerResourceRecord)?.NSDomainName?.ToString();
 
-            //CNAME
+            // CNAME
             CanonicalDomainName = (record as DnsClient.DnsCanonicalNameResourceRecord)?.CanonicalDomainName.ToString();
 
             // MX

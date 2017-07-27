@@ -133,7 +133,9 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public async Task SendMailAsync(SmtpSessionState sessionState, string sessionId = null,
+        public async Task SendMailAsync(
+            SmtpSessionState sessionState, 
+            string sessionId = null,
             CancellationToken ct = default(CancellationToken))
         {
             $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info(
@@ -152,7 +154,9 @@ namespace Unosquare.Swan.Networking
         /// <returns></returns>
         /// <exception cref="System.Security.SecurityException">Could not upgrade the channel to SSL.</exception>
         /// <exception cref="SmtpException"></exception>
-        public async Task SendMailAsync(IEnumerable<SmtpSessionState> sessionStates, string sessionId = null,
+        public async Task SendMailAsync(
+            IEnumerable<SmtpSessionState> sessionStates, 
+            string sessionId = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var tcpClient = new TcpClient())

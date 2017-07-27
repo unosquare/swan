@@ -77,7 +77,10 @@
         /// <param name="targetInstance">An optional target instance. If null, we will attempt creation.</param>
         /// <param name="includeNonPublic">if set to <c>true</c> [include private].</param>
         /// <returns></returns>
-        private static object ConvertFromJsonResult(object source, Type targetType, ref object targetInstance,
+        private static object ConvertFromJsonResult(
+            object source, 
+            Type targetType, 
+            ref object targetInstance,
             bool includeNonPublic)
         {
             #region Setup: State and Validation
@@ -187,8 +190,11 @@
                             try
                             {
                                 object instance = null;
-                                var targetEntryValue = ConvertFromJsonResult(sourceProperty.Value, targetEntryType,
-                                    ref instance, includeNonPublic);
+                                var targetEntryValue = ConvertFromJsonResult(
+                                    sourceProperty.Value, 
+                                    targetEntryType,
+                                    ref instance, 
+                                    includeNonPublic);
                                 targetDictionary.Add(sourceProperty.Key, targetEntryValue);
                             }
                             catch
@@ -233,8 +239,11 @@
                             try
                             {
                                 object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(sourceList[i], targetType.GetElementType(),
-                                    ref nullRef, includeNonPublic);
+                                var targetItem = ConvertFromJsonResult(
+                                    sourceList[i], 
+                                    targetType.GetElementType(),
+                                    ref nullRef, 
+                                    includeNonPublic);
                                 targetArray.SetValue(targetItem, i);
                             }
                             catch
@@ -262,8 +271,11 @@
                             try
                             {
                                 object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(item, addMethod.GetParameters()[0].ParameterType,
-                                    ref nullRef, includeNonPublic);
+                                var targetItem = ConvertFromJsonResult(
+                                    item, 
+                                    addMethod.GetParameters()[0].ParameterType,
+                                    ref nullRef, 
+                                    includeNonPublic);
                                 targetList.Add(targetItem);
                             }
                             catch
@@ -342,8 +354,7 @@
                 {
                     try
                     {
-                        currentPropertyValue = (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?
-                            .Invoke(target, null);
+                        currentPropertyValue = (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null);
                     }
                     catch
                     {
@@ -355,16 +366,22 @@
                 {
                     if (targetType.IsValueType())
                     {
-                        var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
-                            (targetProperty as FieldInfo).FieldType, ref currentPropertyValue, includeNonPublic);
+                        var targetPropertyValue = ConvertFromJsonResult(
+                            sourcePropertyValue,
+                            (targetProperty as FieldInfo).FieldType, 
+                            ref currentPropertyValue, 
+                            includeNonPublic);
 
                         (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
                     }
                     else
                     {
                         // Try to write properties to the current property value as a reference to the current property value
-                        var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
-                            (targetProperty as PropertyInfo).PropertyType, ref currentPropertyValue, includeNonPublic);
+                        var targetPropertyValue = ConvertFromJsonResult(
+                            sourcePropertyValue,
+                            (targetProperty as PropertyInfo).PropertyType, 
+                            ref currentPropertyValue, 
+                            includeNonPublic);
 
                         // HACK: Always try to write the value of possible; otherwise it was most likely (hopefully) set by reference
                         // if (currentPropertyValue == null || targetProperty.PropertyType == typeof(string) || targetProperty.PropertyType.IsValueType())
@@ -394,8 +411,13 @@
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
         /// <returns></returns>
-        public static string Serialize(object obj, bool format = false, string typeSpecifier = null, bool includeNonPublic = false,
-            string[] includedNames = null, string[] excludedNames = null)
+        public static string Serialize(
+            object obj, 
+            bool format = false, 
+            string typeSpecifier = null, 
+            bool includeNonPublic = false,
+            string[] includedNames = null, 
+            string[] excludedNames = null)
         {
             if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
                 throw new ArgumentException("You need to provide an object or array", nameof(obj));

@@ -144,7 +144,7 @@
             SupportsExtensions = false;
             ClientHostname = string.Empty;
             ResetEmail();
-            //ResetAuthentication();
+            // ResetAuthentication();
 
             if (clearExtensionData)
                 ExtendedData = null;

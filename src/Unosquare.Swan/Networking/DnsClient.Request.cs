@@ -25,12 +25,12 @@
                 _resolver = resolver ?? new DnsUdpRequestResolver();
             }
 
-            public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
-                this(new IPEndPoint(ip, port), request, resolver)
+            public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
+                : this(new IPEndPoint(ip, port), request, resolver)
             { }
 
-            public DnsClientRequest(string ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
-                this(IPAddress.Parse(ip), port, request, resolver)
+            public DnsClientRequest(string ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
+                : this(IPAddress.Parse(ip), port, request, resolver)
             { }
 
             public int Id
@@ -595,7 +595,8 @@
                 return string.Join(".", nibbles.Reverse().Select(b => b.ToString("x"))) + ".ip6.arpa";
             }
 
-            public DnsDomain(string domain) : this(domain.Split('.')) { }
+            public DnsDomain(string domain) 
+                : this(domain.Split('.')) { }
 
             public DnsDomain(string[] labels)
             {
@@ -715,8 +716,7 @@
 
             public override string ToString()
             {
-                return Json.SerializeOnly(this, true,
-                    nameof(Name), nameof(Type), nameof(Class));
+                return Json.SerializeOnly(this, true, nameof(Name), nameof(Type), nameof(Class));
             }
 
             [StructEndianness(Endianness.Big)]

@@ -313,7 +313,8 @@
                                 ? (field as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
                                 : (field as FieldInfo).GetValue(target);
                     }
-                    catch // (Exception ex)
+                    catch 
+                    ////(Exception ex)
                     {
                         /* ignored */
                     }

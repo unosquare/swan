@@ -30,7 +30,10 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<T> Post<T>(string url, object payload, string authorization = null,
+        public static async Task<T> Post<T>(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostString(url, payload, authorization, ct);
@@ -50,8 +53,11 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(string url, object payload,
-            int httpStatusError = 500, string authorization = null,
+        public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
+            string url, 
+            object payload,
+            int httpStatusError = 500, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -87,8 +93,11 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<IDictionary<string, object>> Post(string url, object payload,
-            string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<IDictionary<string, object>> Post(
+            string url, 
+            object payload,
+            string authorization = null, 
+            CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostString(url, payload, authorization, ct);
 
@@ -106,7 +115,10 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> PostString(string url, object payload, string authorization = null,
+        public static async Task<string> PostString(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -131,7 +143,10 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<T> Put<T>(string url, object payload, string authorization = null,
+        public static async Task<T> Put<T>(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PutString(url, payload, authorization, ct);
@@ -147,8 +162,11 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public static async Task<IDictionary<string, object>> Put(string url, object payload,
-            string authorization = null, CancellationToken ct = default(CancellationToken))
+        public static async Task<IDictionary<string, object>> Put(
+            string url, 
+            object payload,
+            string authorization = null, 
+            CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PutString(url, payload, authorization, ct);
 
@@ -166,7 +184,10 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> PutString(string url, object payload, string authorization = null,
+        public static async Task<string> PutString(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -190,7 +211,9 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<string> GetString(string url, string authorization = null,
+        public static async Task<string> GetString(
+            string url, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -214,7 +237,9 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<T> Get<T>(string url, string authorization = null,
+        public static async Task<T> Get<T>(
+            string url, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await GetString(url, authorization, ct);
@@ -229,7 +254,9 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        public static async Task<byte[]> GetBinary(string url, string authorization = null,
+        public static async Task<byte[]> GetBinary(
+            string url, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -252,13 +279,18 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static async Task<IDictionary<string, object>> Authenticate(string url, string username, string password,
+        public static async Task<IDictionary<string, object>> Authenticate(
+            string url, 
+            string username, 
+            string password,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = new HttpClient())
             {
-                var requestContent = new StringContent($"grant_type=password&username={username}&password={password}",
-                    Encoding.UTF8, "application/x-www-form-urlencoded");
+                var requestContent = new StringContent(
+                    $"grant_type=password&username={username}&password={password}",
+                    Encoding.UTF8, 
+                    "application/x-www-form-urlencoded");
                 var response = await httpClient.PostAsync(url, requestContent, ct);
 
                 if (response.IsSuccessStatusCode == false)
@@ -278,7 +310,10 @@
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
         /// <returns></returns>
-        public static async Task<string> PostFileString(string url, byte[] buffer, string fileName,
+        public static async Task<string> PostFileString(
+            string url, 
+            byte[] buffer, 
+            string fileName,
             string authorization = null)
         {
             return await PostString(url, new { Filename = fileName, Data = buffer }, authorization);
