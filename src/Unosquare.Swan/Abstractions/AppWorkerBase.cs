@@ -101,7 +101,10 @@
         /// </summary>
         public AppWorkerState State
         {
-            get { return _workerState; }
+            get
+            {
+                return _workerState;
+            }
             private set
             {
                 lock (_syncLock)
