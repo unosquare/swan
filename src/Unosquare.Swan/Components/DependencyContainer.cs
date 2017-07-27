@@ -210,7 +210,7 @@ namespace Unosquare.Swan.Components
             /// Make registration a singleton (single instance) if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions AsSingleton()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -225,7 +225,7 @@ namespace Unosquare.Swan.Components
             /// Make registration multi-instance if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions AsMultiInstance()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -240,7 +240,7 @@ namespace Unosquare.Swan.Components
             /// Make registration hold a weak reference if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions WithWeakReference()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -255,7 +255,7 @@ namespace Unosquare.Swan.Components
             /// Make registration hold a strong reference if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions WithStrongReference()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -272,8 +272,7 @@ namespace Unosquare.Swan.Components
             /// <typeparam name="RegisterType">The type of the register type.</typeparam>
             /// <param name="constructor">The constructor.</param>
             /// <returns></returns>
-            /// <exception cref="DependencyContainerConstructorResolutionException">
-            /// </exception>
+            /// <exception cref="DependencyContainerConstructorResolutionException">Constructor resolution exception</exception>
             public RegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
             {
                 var lambda = constructor as LambdaExpression;
@@ -346,7 +345,7 @@ namespace Unosquare.Swan.Components
             /// Make registration a singleton (single instance) if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
             public MultiRegisterOptions AsSingleton()
             {
                 _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsSingleton());
@@ -357,7 +356,7 @@ namespace Unosquare.Swan.Components
             /// Make registration multi-instance if possible
             /// </summary>
             /// <returns>MultiRegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
             public MultiRegisterOptions AsMultiInstance()
             {
                 _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsMultiInstance());
@@ -423,7 +422,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        /// <exception cref="DependencyContainerAutoRegistrationException"/>
+        /// <exception cref="DependencyContainerAutoRegistrationException">Auto-registration Exception</exception> 
         public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
             AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
@@ -437,7 +436,7 @@ namespace Unosquare.Swan.Components
         /// <param name="assemblies">Assemblies to process</param>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        /// <exception cref="DependencyContainerAutoRegistrationException"/>
+        /// <exception cref="DependencyContainerAutoRegistrationException">Auto-registration Exception</exception> 
         public void AutoRegister(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
             AutoRegisterInternal(assemblies, duplicateAction, registrationPredicate);
@@ -602,8 +601,10 @@ namespace Unosquare.Swan.Components
                 throw new ArgumentNullException(nameof(implementationTypes), "types is null.");
 
             foreach (var type in implementationTypes)
+            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                 if (!registrationType.IsAssignableFrom(type))
                     throw new ArgumentException($"types: The type {registrationType.FullName} is not assignable from {type.FullName}");
+            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
             {

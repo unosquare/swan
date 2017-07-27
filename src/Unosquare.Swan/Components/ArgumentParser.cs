@@ -80,8 +80,13 @@
         /// <param name="args">The arguments.</param>
         /// <param name="instance">The instance.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">args</exception>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentNullException">
+        /// The exception that is thrown when a null reference (Nothing in Visual Basic) 
+        /// is passed to a method that does not accept it as a valid argument
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The exception that is thrown when a method call is invalid for the object's current state
+        /// </exception>
         public bool ParseArguments<T>(IEnumerable<string> args, T instance)
         {
             if (args == null)

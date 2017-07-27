@@ -29,7 +29,7 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<T> Post<T>(
             string url, 
             object payload, 
@@ -69,17 +69,21 @@
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                     return new OkOrError<T, TE>
                     {
                         IsOk = true,
                         Ok = string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString)
                     };
+                #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
                 if ((int)response.StatusCode == httpStatusError)
+                #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                     return new OkOrError<T, TE>
                     {
                         Error = string.IsNullOrEmpty(jsonString) ? default(TE) : Json.Deserialize<TE>(jsonString)
                     };
+                #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
                 return new OkOrError<T, TE>();
             }
@@ -114,7 +118,7 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> PostString(
             string url, 
             object payload, 
@@ -183,7 +187,7 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> PutString(
             string url, 
             object payload, 
@@ -210,7 +214,7 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> GetString(
             string url, 
             string authorization = null,
@@ -236,7 +240,7 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<T> Get<T>(
             string url, 
             string authorization = null,
@@ -253,7 +257,7 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<byte[]> GetBinary(
             string url, 
             string authorization = null,
@@ -278,7 +282,7 @@
         /// <param name="password">The password.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">Represents errors that occur during application execution</exception>
         public static async Task<IDictionary<string, object>> Authenticate(
             string url, 
             string username, 
@@ -342,8 +346,10 @@
             var httpClient = new HttpClient();
 
             if (string.IsNullOrWhiteSpace(authorization) == false)
+            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                 httpClient.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
+            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
             return httpClient;
         }

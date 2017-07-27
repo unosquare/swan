@@ -65,7 +65,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="replyText">The reply text.</param>
         /// <param name="sessionId">The session id.</param>
-        /// <exception cref="SmtpException"></exception>
+        /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
         private static void ValidateReply(string replyText, string sessionId)
         {
             if (replyText == null)
@@ -153,7 +153,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.Security.SecurityException">Could not upgrade the channel to SSL.</exception>
-        /// <exception cref="SmtpException"></exception>
+        /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
         public async Task SendMailAsync(
             IEnumerable<SmtpSessionState> sessionStates, 
             string sessionId = null,

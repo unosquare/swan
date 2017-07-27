@@ -245,7 +245,7 @@
             retryInterval, 
             retryCount);
         }
-        
+
         /// <summary>
         /// Does the specified action.
         /// </summary>
@@ -254,7 +254,9 @@
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
         /// <returns></returns>
-        /// <exception cref="AggregateException"></exception>
+        /// <exception cref="AggregateException">
+        ///     Represents one or many errors that occur during application execution
+        /// </exception>
         public static T Retry<T>(
             this Func<T> action,
             TimeSpan retryInterval = default(TimeSpan),

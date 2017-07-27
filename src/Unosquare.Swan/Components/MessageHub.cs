@@ -824,15 +824,19 @@ namespace Unosquare.Swan.Components
 
                 IMessageHubSubscription subscription;
                 if (strongReference)
+                #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                     subscription = new StrongTinyMessageSubscription<TMessage>(
                         subscriptionToken, 
                         deliveryAction,
                         messageFilter);
+                #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
                 else
+                #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                     subscription = new WeakTinyMessageSubscription<TMessage>(
                         subscriptionToken, 
                         deliveryAction,
                         messageFilter);
+                #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
                 currentSubscriptions.Add(new SubscriptionItem(proxy, subscription));
 

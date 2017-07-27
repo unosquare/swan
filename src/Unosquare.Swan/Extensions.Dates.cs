@@ -33,8 +33,11 @@
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">sortableDate</exception>
         /// <exception cref="Exception">
+        /// Represents errors that occur during application execution
         /// </exception>
-        /// <exception cref="ArgumentException">Unable to parse sortable date and time. - sortableDate</exception>
+        /// <exception cref="ArgumentException">
+        /// Unable to parse sortable date and time. - sortableDate
+        /// </exception>
         public static DateTime ToDateTime(this string sortableDate)
         {
             if (string.IsNullOrWhiteSpace(sortableDate))

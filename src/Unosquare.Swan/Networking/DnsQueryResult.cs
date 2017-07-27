@@ -30,16 +30,22 @@
             ResponseCode = response.ResponseCode;
 
             if (response.AnswerRecords != null)
+            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                 foreach (var record in response.AnswerRecords)
                     AnswerRecords.Add(new DnsRecord(record));
+            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
             if (response.AuthorityRecords != null)
+            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                 foreach (var record in response.AuthorityRecords)
                     AuthorityRecords.Add(new DnsRecord(record));
+            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
             if (response.AdditionalRecords != null)
-                foreach (var record in response.AdditionalRecords)
+            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
+                foreach (var record in response.AdditionalRecords)                
                     AdditionalRecords.Add(new DnsRecord(record));
+            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
         }
 
         /// <summary>

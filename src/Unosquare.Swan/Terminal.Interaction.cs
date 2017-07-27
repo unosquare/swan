@@ -48,8 +48,10 @@
             lock (SyncLock)
             {
                 if (prompt != null)
+                #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                     ($" {(string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ? string.Empty : DateTime.Now.ToString(Settings.LoggingTimeFormat) + " ")}" +
                         $"{Settings.UserInputPrefix} << {prompt} ").Write(ConsoleColor.White);
+                #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
                 var input = ReadKey(true);
                 var echo = preventEcho ? string.Empty : input.Key.ToString();

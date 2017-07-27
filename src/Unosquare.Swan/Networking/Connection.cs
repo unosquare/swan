@@ -488,8 +488,10 @@ namespace Unosquare.Swan.Networking
                 while (receiveBuilder.Count <= 0)
                 {
                     if (DateTime.UtcNow.Subtract(startTime) >= timeout)
+                    #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                         throw new TimeoutException(
                             $"Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} ms");
+                    #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
                     if (_readTask == null)
                         _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length, ct);
@@ -578,8 +580,10 @@ namespace Unosquare.Swan.Networking
         public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct)
         {
             if (IsContinuousReadingEnabled)
+            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
                 throw new InvalidOperationException(
                     "Read methods have been disabled because continuous reading is enabled.");
+            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
 
             if (_readLineBuffer.Count > 0)
                 return _readLineBuffer.Dequeue();

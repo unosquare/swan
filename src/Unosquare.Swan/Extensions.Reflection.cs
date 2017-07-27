@@ -62,7 +62,7 @@
             return sourceType != typeof(string) &&
                              typeof(IEnumerable).IsAssignableFrom(sourceType);
         }
-        
+
         /// <summary>
         /// Gets a method from a type given the method name, binding flags, generic types and parameter types
         /// </summary>
@@ -72,7 +72,10 @@
         /// <param name="genericTypes">The generic types.</param>
         /// <param name="parameterTypes">The parameter types.</param>
         /// <returns></returns>
-        /// <exception cref="System.Reflection.AmbiguousMatchException"></exception>
+        /// <exception cref="System.Reflection.AmbiguousMatchException">
+        /// The exception that is thrown when binding to a member results in more than one member matching the 
+        /// binding criteria. This class cannot be inherited
+        /// </exception>
         public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
         {
             var methods =
