@@ -448,7 +448,6 @@ namespace Unosquare.Swan.Components
         public RegisterOptions Register(Type registerType, string name = "")
         {
             return RegisterInternal(registerType, name, GetDefaultObjectFactory(registerType, registerType));
-
         }
 
         /// <summary>
@@ -2021,7 +2020,7 @@ namespace Unosquare.Swan.Components
                     return true;
 
                 if (factory.Constructor == null)
-                    return (GetBestConstructor(factory.CreatesType, parameters, options) != null);
+                    return GetBestConstructor(factory.CreatesType, parameters, options) != null;
 
                 return CanConstruct(factory.Constructor, parameters, options);
             }

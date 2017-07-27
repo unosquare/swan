@@ -236,7 +236,6 @@
                     WriteObjectValues(item);
                 }
             }
-
         }
 
         /// <summary>

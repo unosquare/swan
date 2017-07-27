@@ -434,7 +434,6 @@ namespace Unosquare.Swan.Networking
                     {
                         doThreadSleep = _disconnectCalls <= 0;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -502,7 +501,6 @@ namespace Unosquare.Swan.Networking
                         await Task.Delay(ContinuousReadingInterval, ct);
                     }
                 }
-
             }
             catch (Exception ex)
             {

@@ -17,7 +17,6 @@
         public MessageHubSubscriptionException(Type messageType, string reason)
             : base(string.Format(ErrorText, messageType, reason))
         {
-
         }
 
         /// <summary>
@@ -29,7 +28,6 @@
         public MessageHubSubscriptionException(Type messageType, string reason, Exception innerException)
             : base(string.Format(ErrorText, messageType, reason), innerException)
         {
-
         }
     }
 }

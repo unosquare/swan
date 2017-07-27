@@ -42,7 +42,7 @@
                             var buffer = new byte[udp.Client.ReceiveBufferSize];
                             EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
                             udp.Client.ReceiveFrom(buffer, ref remote);
-                            endpoints.Add((remote as IPEndPoint));
+                            endpoints.Add(remote as IPEndPoint);
                         }
                         catch
                         {
@@ -155,8 +155,8 @@
                 int temp = Convert.ToInt16(mibvals[i]);
                 if (temp > 127)
                 {
-                    mib[cnt] = Convert.ToByte(128 + (temp / 128));
-                    mib[cnt + 1] = Convert.ToByte(temp - ((temp / 128) * 128));
+                    mib[cnt] = Convert.ToByte(128 + temp / 128);
+                    mib[cnt + 1] = Convert.ToByte(temp - temp / 128 * 128);
                     cnt += 2;
                     miblen++;
                 }
@@ -170,13 +170,13 @@
             var snmplen = 29 + comlen + miblen - 1;
 
             // The SNMP sequence start
-            packet[pos++] = 0x30; //Sequence start
-            packet[pos++] = Convert.ToByte(snmplen - 2); //sequence size
+            packet[pos++] = 0x30; // Sequence start
+            packet[pos++] = Convert.ToByte(snmplen - 2); // sequence size
 
             // SNMP version
-            packet[pos++] = 0x02; //Integer type
-            packet[pos++] = 0x01; //length
-            packet[pos++] = 0x00; //SNMP version 1
+            packet[pos++] = 0x02; // Integer type
+            packet[pos++] = 0x01; // length
+            packet[pos++] = 0x00; // SNMP version 1
 
             // Community name
             packet[pos++] = 0x04; // String type

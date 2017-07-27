@@ -105,7 +105,6 @@
     /// </summary>
     public class PropertyTypeCache : TypeCache<PropertyInfo>
     {
-        
     }
 
     /// <summary>
@@ -116,6 +115,5 @@
     /// </summary>
     public class FieldTypeCache : TypeCache<FieldInfo>
     {
-
     }
 }

@@ -80,7 +80,6 @@
             }
 
             return result;
-
         }
 
         /// <summary>

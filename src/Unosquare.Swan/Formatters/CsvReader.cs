@@ -464,6 +464,7 @@
                                 currentState = ReadState.PushingNormal;
                                 continue;
                             }
+
                         case ReadState.PushingNormal:
                             {
                                 // Handle field content delimiter by comma
@@ -487,6 +488,7 @@
                                 currentValue.Append(currentChar);
                                 break;
                             }
+
                         case ReadState.PushingQuoted:
                             {
                                 // Handle field content delimiter by ending double quotes

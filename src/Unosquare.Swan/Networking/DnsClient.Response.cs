@@ -269,6 +269,5 @@
                 header.AdditionalRecordCount = AdditionalRecords.Count;
             }
         }
-
     }
 }

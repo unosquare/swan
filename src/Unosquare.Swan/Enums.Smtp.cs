@@ -246,5 +246,4 @@
         /// </summary>
         System = 5,
     }
-
 }

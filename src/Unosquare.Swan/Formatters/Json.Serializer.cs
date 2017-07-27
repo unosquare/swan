@@ -104,8 +104,8 @@
                         Result = decimal.TryParse(escapedValue, out val) ?
                             $"{escapedValue}" :
                             $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
-
                     }
+
                     return;
                 }
 
@@ -458,6 +458,7 @@
                             {
                                 builder.Append(currentChar);
                             }
+
                             break;
                     }
                 }
@@ -467,6 +468,5 @@
 
             #endregion
         }
-
     }
 }

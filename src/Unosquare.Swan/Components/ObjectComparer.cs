@@ -49,22 +49,23 @@ namespace Unosquare.Swan.Components
 
             foreach (var propertyTarget in properties)
             {
-                var targetPropertyGetMethod = (propertyTarget as PropertyInfo).GetGetMethod();
+                var targetPropertyGetMethod = propertyTarget.GetGetMethod();
 
-                if ((propertyTarget as PropertyInfo).PropertyType.IsArray)
+                if (propertyTarget.PropertyType.IsArray)
                 {
-                    var leftObj = (targetPropertyGetMethod.Invoke(left, null) as IEnumerable);
-                    var rightObj = (targetPropertyGetMethod.Invoke(right, null) as IEnumerable);
+                    var leftObj = targetPropertyGetMethod.Invoke(left, null) as IEnumerable;
+                    var rightObj = targetPropertyGetMethod.Invoke(right, null) as IEnumerable;
                     
                     if (AreEnumsEqual(leftObj, rightObj) == false)
                         return false;
                 }
                 else
                 {
-                    if (object.Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                    if (Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
                         return false;
                 }
             }
+
             return true;            
         }
 
@@ -76,7 +77,7 @@ namespace Unosquare.Swan.Components
 
             foreach (var targetMember in fields)
             {
-                var targetField = (targetMember as FieldInfo);
+                var targetField = targetMember as FieldInfo;
 
                 if (targetField != null)
                 {
@@ -166,8 +167,9 @@ namespace Unosquare.Swan.Components
                 var targetType = leftEl.GetType();
 
                 if (AreEqual(leftEl, rightEl, targetType) == false)
+                {
                     return false;
-
+                }
             }
 
             return true;

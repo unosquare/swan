@@ -38,7 +38,6 @@
         public ConnectionAcceptingEventArgs(TcpClient client)
             : base(client)
         {
-
         }
 
         /// <summary>

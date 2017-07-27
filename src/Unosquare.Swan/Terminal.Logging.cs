@@ -8,7 +8,7 @@
     {
         #region Private Declarations
 
-        private static ulong LoggingSequence;
+        private static ulong _loggingSequence;
 
         #endregion
 
@@ -90,9 +90,9 @@
 
                 #region Create and Format the Output
 
-                var sequence = LoggingSequence;
+                var sequence = _loggingSequence;
                 var date = DateTime.UtcNow;
-                LoggingSequence++;
+                _loggingSequence++;
 
                 var loggerMessage = string.IsNullOrWhiteSpace(message) ?
                     string.Empty : message.RemoveControlCharsExcept('\n');

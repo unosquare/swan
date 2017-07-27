@@ -85,6 +85,7 @@
                     {
                         throw new DnsQueryException(response, "Mismatching request/response IDs");
                     }
+
                     if (response.ResponseCode != DnsResponseCode.NoError)
                     {
                         throw new DnsQueryException(response);

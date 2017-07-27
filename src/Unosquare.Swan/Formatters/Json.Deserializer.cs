@@ -156,6 +156,7 @@
                                     State = ReadState.WaitingForNextOrRootClose;
                                     continue;
                                 }
+
                             case OpenObjectChar: // expect object
                             case OpenArrayChar: // expect array
                                 {
@@ -172,6 +173,7 @@
                                     State = ReadState.WaitingForNextOrRootClose;
                                     continue;
                                 }
+
                             case 't': // expect true
                                 {
                                     if (json.SliceLength(i, TrueLiteral.Length).Equals(TrueLiteral))
@@ -191,6 +193,7 @@
 
                                     throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
+
                             case 'f': // expect false
                                 {
                                     if (json.SliceLength(i, FalseLiteral.Length).Equals(FalseLiteral))
@@ -210,6 +213,7 @@
 
                                     throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
+
                             case 'n': // expect null
                                 {
                                     if (json.SliceLength(i, NullLiteral.Length).Equals(NullLiteral))
@@ -229,6 +233,7 @@
 
                                     throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
+
                             default: // expect number
                                 {
                                     var charCount = 0;

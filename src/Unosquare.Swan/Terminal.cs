@@ -167,6 +167,7 @@
                     }
                 }
             }
+
             // ReSharper disable once FunctionNeverReturns
         }
 
@@ -283,7 +284,6 @@
                     Flush();
                     return Console.CursorLeft;
                 }
-
             }
             set
             {

@@ -34,7 +34,6 @@
                     InputDone.Set();
                 }
             }
-
         }
 
         /// <summary>
@@ -57,7 +56,6 @@
                 echo.WriteLine();
                 return input;
             }
-
         }
 
         /// <summary>
@@ -94,7 +92,6 @@
                     InputDone.Set();
                 }
             }
-
         }
 
         /// <summary>
@@ -119,7 +116,6 @@
 
                 return parsedInt;
             }
-
         }
 
         /// <summary>
@@ -198,7 +194,6 @@
                     Table.Horizontal(lineLength - 2);
                     Table.BottomRight();
                 }
-
             }
 
             var inputLeft = Settings.UserOptionText.Length + 3;

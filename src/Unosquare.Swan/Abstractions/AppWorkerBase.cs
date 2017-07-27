@@ -105,6 +105,7 @@
             {
                 return _workerState;
             }
+
             private set
             {
                 lock (_syncLock)
