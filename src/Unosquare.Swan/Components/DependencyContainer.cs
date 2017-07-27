@@ -23,6 +23,7 @@ namespace Unosquare.Swan.Components
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Exceptions;
 
     #region Enumerations
 
@@ -261,14 +262,13 @@ namespace Unosquare.Swan.Components
                 return _container.AddUpdateRegistration(_registration, currentFactory.StrongReferenceVariant);
             }
 
-
             /// <summary>
             /// Sets the constructor to use
             /// </summary>
             /// <typeparam name="RegisterType">The type of the register type.</typeparam>
             /// <param name="constructor">The constructor.</param>
             /// <returns></returns>
-            /// <exception cref="Unosquare.Swan.DependencyContainerConstructorResolutionException">
+            /// <exception cref="DependencyContainerConstructorResolutionException">
             /// </exception>
             public RegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
             {
@@ -2025,8 +2025,7 @@ namespace Unosquare.Swan.Components
 
                 return CanConstruct(factory.Constructor, parameters, options);
             }
-
-
+            
             // Fail if requesting named resolution and settings set to fail if unresolved
             // Or bubble up if we have a parent
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.Fail)

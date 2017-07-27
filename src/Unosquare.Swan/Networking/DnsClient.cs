@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using Exceptions;
 
     internal partial class DnsClient
     {
@@ -57,10 +58,7 @@
             return ips;
         }
 
-        public string Reverse(string ip)
-        {
-            return Reverse(IPAddress.Parse(ip));
-        }
+        public string Reverse(string ip) => Reverse(IPAddress.Parse(ip));
 
         public string Reverse(IPAddress ip)
         {

@@ -137,7 +137,10 @@
         /// </summary>
         public char EscapeCharacter
         {
-            get { return _escapeCharacter; }
+            get
+            {
+                return _escapeCharacter;
+            }
             set
             {
                 lock (_syncLock)
@@ -153,7 +156,10 @@
         /// </summary>
         public char SeparatorCharacter
         {
-            get { return _separatorCharacter; }
+            get
+            {
+                return _separatorCharacter;
+            }
             set
             {
                 lock (_syncLock)
@@ -440,23 +446,23 @@
                         case ReadState.WaitingForNewField:
                             {
                                 currentValue.Clear();
+
                                 if (currentChar == escapeCharacter)
                                 {
                                     currentState = ReadState.PushingQuoted;
                                     continue;
                                 }
-                                else if (currentChar == separatorCharacter)
+
+                                if (currentChar == separatorCharacter)
                                 {
                                     values.Add(currentValue.ToString());
                                     currentState = ReadState.WaitingForNewField;
                                     continue;
                                 }
-                                else
-                                {
-                                    currentValue.Append(currentChar);
-                                    currentState = ReadState.PushingNormal;
-                                    continue;
-                                }
+
+                                currentValue.Append(currentChar);
+                                currentState = ReadState.PushingNormal;
+                                continue;
                             }
                         case ReadState.PushingNormal:
                             {

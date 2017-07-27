@@ -53,8 +53,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
         /// </summary>
-        public ArgumentParser() : 
-            this(new ArgumentParserSettings())
+        public ArgumentParser()
+            : this(new ArgumentParserSettings())
         {
         }
 
@@ -76,7 +76,7 @@
         /// <summary>
         /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the options</typeparam>
         /// <param name="args">The arguments.</param>
         /// <param name="instance">The instance.</param>
         /// <returns></returns>

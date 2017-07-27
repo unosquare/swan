@@ -75,5 +75,4 @@
         /// </summary>
         Warning = 16,
     }
-
 }

@@ -7,15 +7,6 @@ namespace Unosquare.Swan.Reflection
     internal class AssemblyInfo
     {
         /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// Gets or sets the version.
-        /// </summary>
-        public string Version { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AssemblyInfo"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -33,6 +24,15 @@ namespace Unosquare.Swan.Reflection
                 Version = parts[1];
             }
         }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the version.
+        /// </summary>
+        public string Version { get; set; }
     }
 }
 #endif

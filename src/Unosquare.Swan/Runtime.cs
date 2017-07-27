@@ -39,7 +39,6 @@
 #endif
         private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
 
-
 #if !NETSTANDARD1_3 && !UWP
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {

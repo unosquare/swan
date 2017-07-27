@@ -65,7 +65,7 @@ namespace Unosquare.Swan.Formatters
                 sourceBitmap = new Bitmap(sourceImage.Width, sourceImage.Height, PixelFormat);
                 using (var g = Graphics.FromImage(sourceBitmap))
                 {
-                    //g.Clear(Color.Black);
+                    // g.Clear(Color.Black);
                     g.DrawImage(sourceImage, 0, 0);
                 }
 
@@ -103,7 +103,6 @@ namespace Unosquare.Swan.Formatters
             {
                 sourceBitmap.Dispose();
             }
-
         }
 
         #endregion

@@ -131,11 +131,6 @@
     public class ConnectionFailureEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets the error.
-        /// </summary>
-        public Exception Error { get; private set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ConnectionFailureEventArgs"/> class.
         /// </summary>
         /// <param name="ex">The ex.</param>
@@ -143,6 +138,11 @@
         {
             Error = ex;
         }
+
+        /// <summary>
+        /// Gets the error.
+        /// </summary>
+        public Exception Error { get; private set; }
     }
 
     /// <summary>

@@ -23,7 +23,7 @@ namespace Unosquare.Swan.Test
 #if NET452
             Assert.ThrowsAsync<System.Net.Mail.SmtpException>
 #else
-            Assert.ThrowsAsync<SmtpException>
+            Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>
 #endif
             (async () =>
             {

@@ -37,7 +37,6 @@
             bool RecursionDesired { get; set; }
         }
 
-
         public interface IDnsResponse : IDnsMessage
         {
             int Id { get; set; }

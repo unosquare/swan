@@ -24,14 +24,14 @@
         #region Private State Variables
 
         /// <summary>
-        /// The unmanaged buffer
-        /// </summary>
-        private IntPtr _buffer = IntPtr.Zero;
-
-        /// <summary>
         /// The locking object to perform synchronization.
         /// </summary>
         private readonly object _syncLock = new object();
+
+        /// <summary>
+        /// The unmanaged buffer
+        /// </summary>
+        private IntPtr _buffer = IntPtr.Zero;
 
         #endregion
 

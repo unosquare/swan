@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan
 {
-
 #if !NET452
 
     /// <summary>

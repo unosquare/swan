@@ -77,7 +77,6 @@
                 // ignored
             }
 
-
             // Extract the ToString method Info
             try
             {
