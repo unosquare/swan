@@ -50,9 +50,10 @@ namespace Unosquare.Swan.Components
         public object Sender => _sender?.Target;
 
         /// <summary>
-        /// Initializes a new instance of the MessageBase class.
+        /// Initializes a new instance of the <see cref="MessageHubMessageBase"/> class.
         /// </summary>
-        /// <param name="sender">Message sender (usually "this")</param>
+        /// <param name="sender">The sender.</param>
+        /// <exception cref="System.ArgumentNullException">sender</exception>
         protected MessageHubMessageBase(object sender)
         {
             if (sender == null)
@@ -74,10 +75,10 @@ namespace Unosquare.Swan.Components
         public TContent Content { get; protected set; }
 
         /// <summary>
-        /// Create a new instance of the GenericTinyMessage class.
+        /// Initializes a new instance of the <see cref="MessageHubGenericMessage{TContent}"/> class.
         /// </summary>
-        /// <param name="sender">Message sender (usually "this")</param>
-        /// <param name="content">Contents of the message</param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="content">The content.</param>
         public MessageHubGenericMessage(object sender, TContent content)
             : base(sender)
         {
@@ -102,11 +103,12 @@ namespace Unosquare.Swan.Components
         public TContent Content { get; protected set; }
 
         /// <summary>
-        /// Create a new instance of the CancellableGenericTinyMessage class.
+        /// Initializes a new instance of the <see cref="MessageHubCancellableGenericMessage{TContent}"/> class.
         /// </summary>
-        /// <param name="sender">Message sender (usually "this")</param>
-        /// <param name="content">Contents of the message</param>
-        /// <param name="cancelAction">Action to call for cancellation</param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="content">The content.</param>
+        /// <param name="cancelAction">The cancel action.</param>
+        /// <exception cref="System.ArgumentNullException">cancelAction</exception>
         public MessageHubCancellableGenericMessage(object sender, TContent content, Action cancelAction)
             : base(sender)
         {
@@ -127,7 +129,7 @@ namespace Unosquare.Swan.Components
         private readonly Type _messageType;
 
         /// <summary>
-        /// Initializes a new instance of the TinyMessageSubscriptionToken class.
+        /// Initializes a new instance of the <see cref="MessageHubSubscriptionToken"/> class.
         /// </summary>
         /// <param name="hub">The hub.</param>
         /// <param name="messageType">Type of the message.</param>
@@ -453,11 +455,11 @@ namespace Unosquare.Swan.Components
             }
 
             /// <summary>
-            /// Initializes a new instance of the WeakTinyMessageSubscription class.
+            /// Initializes a new instance of the <see cref="WeakTinyMessageSubscription{TMessage}"/> class.
             /// </summary>
             /// <param name="subscriptionToken">The subscription token.</param>
-            /// <param name="deliveryAction">Delivery action</param>
-            /// <param name="messageFilter">Filter function</param>
+            /// <param name="deliveryAction">The delivery action.</param>
+            /// <param name="messageFilter">The message filter.</param>
             /// <exception cref="System.ArgumentNullException">
             /// subscriptionToken
             /// or
@@ -520,11 +522,11 @@ namespace Unosquare.Swan.Components
             }
 
             /// <summary>
-            /// Initializes a new instance of the TinyMessageSubscription class.
+            /// Initializes a new instance of the <see cref="StrongTinyMessageSubscription{TMessage}"/> class.
             /// </summary>
             /// <param name="subscriptionToken">The subscription token.</param>
-            /// <param name="deliveryAction">Delivery action</param>
-            /// <param name="messageFilter">Filter function</param>
+            /// <param name="deliveryAction">The delivery action.</param>
+            /// <param name="messageFilter">The message filter.</param>
             /// <exception cref="System.ArgumentNullException">
             /// subscriptionToken
             /// or

@@ -334,9 +334,9 @@ namespace Unosquare.Swan.Components
             private IEnumerable<RegisterOptions> _registerOptions;
 
             /// <summary>
-            /// Initializes a new instance of the MultiRegisterOptions class.
+            /// Initializes a new instance of the <see cref="MultiRegisterOptions"/> class.
             /// </summary>
-            /// <param name="registerOptions">Registration options</param>
+            /// <param name="registerOptions">The register options.</param>
             public MultiRegisterOptions(IEnumerable<RegisterOptions> registerOptions)
             {
                 _registerOptions = registerOptions;
@@ -2076,13 +2076,12 @@ namespace Unosquare.Swan.Components
                 return true;
 
             // 2 parameter func with string as first parameter (name)
-            if ((genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string)))
+            if (genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string))
                 return true;
 
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-
-            if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
-                 type.GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
+            if (genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
+                type.GetGenericArguments()[1] == typeof(IDictionary<String, object>))
                 return true;
 
             return false;

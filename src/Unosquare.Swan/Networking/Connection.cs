@@ -326,7 +326,8 @@ namespace Unosquare.Swan.Networking
                     var eventBuffer = new byte[ReceiveBuffer.Length];
                     Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
 
-                    DataReceived(this, new ConnectionDataReceivedEventArgs(
+                    DataReceived(this, 
+                        new ConnectionDataReceivedEventArgs(
                             eventBuffer, 
                             ConnectionDataReceivedTrigger.BlockSizeReached, 
                             moreAvailable));
@@ -339,7 +340,9 @@ namespace Unosquare.Swan.Networking
                 {
                     var eventBuffer = new byte[ReceiveBuffer.Length];
                     Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
-                    DataReceived(this, new ConnectionDataReceivedEventArgs(
+
+                    DataReceived(this, 
+                        new ConnectionDataReceivedEventArgs(
                                 eventBuffer, 
                                 ConnectionDataReceivedTrigger.BufferFull, 
                                 moreAvailable));

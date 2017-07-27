@@ -15,11 +15,6 @@
         private AppWorkerState _workerState = AppWorkerState.Stopped;        
         private CancellationTokenSource _tokenSource;
 
-        /// <summary>
-        /// Occurs when [state changed].
-        /// </summary>
-        public event EventHandler<AppWorkerStateChangedEventArgs> StateChanged;
-
         #endregion
 
         #region Constructors
@@ -34,6 +29,11 @@
         }
 
         #endregion
+
+        /// <summary>
+        /// Occurs when [state changed].
+        /// </summary>
+        public event EventHandler<AppWorkerStateChangedEventArgs> StateChanged;
 
         #region Abstract and Virtual Methods
 

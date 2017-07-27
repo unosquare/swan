@@ -102,7 +102,7 @@
     public class ConnectionListenerStoppedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectionListenerFailedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="ConnectionListenerStoppedEventArgs"/> class.
         /// </summary>
         /// <param name="listenerEndPoint">The listener end point.</param>
         /// <param name="ex">The ex.</param>
