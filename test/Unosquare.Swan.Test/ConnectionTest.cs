@@ -13,6 +13,9 @@ namespace Unosquare.Swan.Test
         [TestCase(13245)]
         public async Task ConnectionOpenTest(int port)
         {
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                Assert.Inconclusive("Can not test in AppVeyor");
+
             using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
@@ -33,6 +36,9 @@ namespace Unosquare.Swan.Test
         [TestCase(13246)]
         public async Task ConnectionWriteTest(int port)
         {
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                Assert.Inconclusive("Can not test in AppVeyor");
+
             var message = Encoding.ASCII.GetBytes("HOLA");
 
             using (var connectionListener = new ConnectionListener(port))
