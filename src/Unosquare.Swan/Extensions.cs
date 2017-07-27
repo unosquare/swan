@@ -158,7 +158,9 @@
                 if (targetProperty == null) continue;
 
                 if (ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
+                {
                     continue;
+                }
 
                 try
                 {
@@ -172,7 +174,11 @@
                     var sourceStringValue = sourceKey.Value.ToStringInvariant();
 
                     if (targetProperty.PropertyType == typeof(bool))
-                        sourceStringValue = sourceStringValue == "1" ? "true" : "false";
+                    {
+                        sourceStringValue = sourceStringValue == "1"
+                            ? bool.TrueString.ToLowerInvariant()
+                            : bool.FalseString.ToLowerInvariant();
+                    }
 
                     object targetValue;
                     if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue,

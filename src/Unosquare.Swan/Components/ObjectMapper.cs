@@ -8,29 +8,11 @@
     using Reflection;
 
     /// <summary>
-    /// Interface object map
-    /// </summary>
-    public interface IObjectMap
-    {
-        /// <summary>
-        /// Gets or sets the map.
-        /// </summary>
-        Dictionary<PropertyInfo, List<PropertyInfo>> Map { get; }
-
-        /// <summary>
-        /// Gets or sets the type of the source.
-        /// </summary>
-        Type SourceType { get; }
-
-        /// <summary>
-        /// Gets or sets the type of the destination.
-        /// </summary>
-        Type DestinationType { get; }
-    }
-
-    /// <summary>
     /// Represents an object map
     /// </summary>
+    /// <typeparam name="TSource">The type of the source.</typeparam>
+    /// <typeparam name="TDestination">The type of the destination.</typeparam>
+    /// <seealso cref="Unosquare.Swan.Components.IObjectMap" />
     public class ObjectMap<TSource, TDestination> : IObjectMap
     {
         /// <summary>
@@ -82,7 +64,9 @@
             var propertyDestinationInfo = memberDestinationExpression?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
+            {
                 throw new Exception("Invalid destination expression");
+            }
 
             var sourceMembers = new List<PropertyInfo>();
             var initialExpression = sourceProperty?.Body as MemberExpression;
@@ -97,7 +81,9 @@
             }
 
             if (sourceMembers.Any() == false)
+            {
                 throw new Exception("Invalid source expression");
+            }
 
             // reverse order
             sourceMembers.Reverse();
@@ -168,7 +154,9 @@
         public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
         {
             if (_maps.Any(x => x.SourceType == typeof(TSource) && x.DestinationType == typeof(TDestination)))
+            {
                 throw new InvalidOperationException("You can't create an existing map");
+            }
 
             var sourceType = GetTypeProperties(typeof(TSource));
             var destinationType = GetTypeProperties(typeof(TDestination));
@@ -176,7 +164,9 @@
             var intersect = sourceType.Intersect(destinationType, new PropertyInfoComparer()).ToArray();
 
             if (intersect.Any() == false)
+            {
                 throw new InvalidOperationException("Types doesn't match");
+            }
 
             var objMap = new ObjectMap<TSource, TDestination>(intersect);
 
@@ -218,8 +208,10 @@
             else
             {
                 if (autoResolve == false)
+                {
                     throw new InvalidOperationException(
                         $"You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}");
+                }
 
                 // Missing mapping, try to use default behavior
                 source.CopyPropertiesTo(destination);
@@ -237,5 +229,26 @@
                     .ToArray();
             });
         }
+    }
+
+    /// <summary>
+    /// Interface object map
+    /// </summary>
+    public interface IObjectMap
+    {
+        /// <summary>
+        /// Gets or sets the map.
+        /// </summary>
+        Dictionary<PropertyInfo, List<PropertyInfo>> Map { get; }
+
+        /// <summary>
+        /// Gets or sets the type of the source.
+        /// </summary>
+        Type SourceType { get; }
+
+        /// <summary>
+        /// Gets or sets the type of the destination.
+        /// </summary>
+        Type DestinationType { get; }
     }
 }

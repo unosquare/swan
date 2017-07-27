@@ -38,7 +38,7 @@
             }
 
             protected virtual string[] IncludedProperties
-                => new string[] {nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength)};
+                => new[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) };
 
             public override string ToString()
             {
@@ -284,7 +284,10 @@
             {
                 get
                 {
-                    var temp = new List<string>(base.IncludedProperties) {nameof(CanonicalDomainName)};
+                    var temp = new List<string>(base.IncludedProperties)
+                    {
+                        nameof(CanonicalDomainName)
+                    };
                     return temp.ToArray();
                 }
             }
@@ -292,7 +295,7 @@
 
         public class DnsMailExchangeResourceRecord : DnsResourceRecordBase
         {
-            private const int PREFERENCE_SIZE = 2;
+            private const int PreferenceSize = 2;
 
             private static IDnsResourceRecord Create(DnsDomain domain, int preference, DnsDomain exchange, TimeSpan ttl)
             {
@@ -313,7 +316,7 @@
             public DnsMailExchangeResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
                 : base(record)
             {
-                var preference = new byte[PREFERENCE_SIZE];
+                var preference = new byte[PreferenceSize];
                 Array.Copy(message, dataOffset, preference, 0, preference.Length);
 
                 if (BitConverter.IsLittleEndian)
@@ -321,7 +324,7 @@
                     Array.Reverse(preference);
                 }
 
-                dataOffset += PREFERENCE_SIZE;
+                dataOffset += PreferenceSize;
 
                 Preference = BitConverter.ToUInt16(preference, 0);
                 ExchangeDomainName = DnsDomain.FromArray(message, dataOffset);

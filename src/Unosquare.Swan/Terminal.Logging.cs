@@ -118,8 +118,14 @@
                 {
                     Task.Factory.StartNew(() =>
                     {
-                        try { OnLogMessageReceived?.Invoke(sourceName, eventArgs); }
-                        catch { /* Ignore */ }
+                        try
+                        {
+                            OnLogMessageReceived?.Invoke(sourceName, eventArgs);
+                        }
+                        catch
+                        {
+                            // Ignore
+                        }
                     });
                 }
 

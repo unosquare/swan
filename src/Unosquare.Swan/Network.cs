@@ -315,9 +315,10 @@
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
         /// <returns></returns>
-        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))
+        public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType,
+            IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))
         {
-            return await Task.Factory.StartNew(()=> QueryDns(query, recordType, dnsServer, port), ct);
+            return await Task.Factory.StartNew(() => QueryDns(query, recordType, dnsServer, port), ct);
         }
 
         /// <summary>

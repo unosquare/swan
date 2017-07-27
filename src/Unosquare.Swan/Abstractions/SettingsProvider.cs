@@ -63,7 +63,9 @@
                     PersistGlobalSettings();
                 }
                 else
+                {
                     _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                }
             }
         }
 

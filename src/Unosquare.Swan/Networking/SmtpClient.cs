@@ -184,7 +184,7 @@ namespace Unosquare.Swan.Networking
                             ValidateReply(replyText, sessionId);
                         }
 
-                        //   STARTTLS
+                        // STARTTLS
                         if (EnableSsl)
                         {
                             requestText = $"{SmtpCommandNames.STARTTLS}";
@@ -211,7 +211,7 @@ namespace Unosquare.Swan.Networking
                             ValidateReply(replyText, sessionId);
                         }
 
-                        //   AUTH
+                        // AUTH
                         if (Credentials != null)
                         {
                             requestText =
@@ -241,7 +241,7 @@ namespace Unosquare.Swan.Networking
                                 ValidateReply(replyText, sessionId);
                             }
 
-                            //   RCPT TO
+                            // RCPT TO
                             foreach (var recipient in sessionState.Recipients)
                             {
                                 requestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";

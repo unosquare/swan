@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    partial class Terminal
+    public partial class Terminal
     {
         #region ReadKey
 
@@ -65,10 +65,7 @@
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <returns></returns>
-        public static ConsoleKeyInfo ReadKey(this string prompt)
-        {
-            return prompt.ReadKey(true);
-        }
+        public static ConsoleKeyInfo ReadKey(this string prompt) => prompt.ReadKey(true);
 
         #endregion
 
@@ -85,6 +82,7 @@
             {
                 Flush();
                 InputDone.Reset();
+
                 try
                 {
                     Console.CursorVisible = true;
@@ -154,7 +152,7 @@
                         string.IsNullOrWhiteSpace(title) ?
                             " Select an option from the list below." :
                             $" {title}");
-                    titleText.Write(textColor); //, titleText);
+                    titleText.Write(textColor); // , titleText);
                     Table.Vertical();
                 }
 

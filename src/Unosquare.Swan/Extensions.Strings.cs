@@ -13,10 +13,10 @@
     {
         #region Private Declarations
 
-        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
-
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
+
+        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
 
         private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
         private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);

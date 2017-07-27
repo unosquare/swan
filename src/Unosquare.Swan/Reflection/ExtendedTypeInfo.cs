@@ -20,17 +20,17 @@
         private const string ToStringMethodName = nameof(ToString);
 
         private static readonly Type[] NumericTypes = {
-            typeof (byte),
-            typeof (sbyte),
-            typeof (decimal),
-            typeof (double),
-            typeof (float),
-            typeof (int),
-            typeof (uint),
-            typeof (long),
-            typeof (ulong),
-            typeof (short),
-            typeof (ushort),
+            typeof(byte),
+            typeof(sbyte),
+            typeof(decimal),
+            typeof(double),
+            typeof(float),
+            typeof(int),
+            typeof(uint),
+            typeof(long),
+            typeof(ulong),
+            typeof(short),
+            typeof(ushort),
         };
 
         #endregion

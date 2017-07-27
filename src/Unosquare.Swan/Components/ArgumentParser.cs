@@ -243,7 +243,7 @@
 
             foreach (var option in options)
             {
-                "".WriteLine();
+                string.Empty.WriteLine();
                 // TODO: If Enum list values
                 var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
                 var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
@@ -253,7 +253,7 @@
                 $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
             }
 
-            "".WriteLine();
+            string.Empty.WriteLine();
             "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
         }
     }

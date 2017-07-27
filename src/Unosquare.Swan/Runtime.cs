@@ -43,19 +43,19 @@
 #if !NETSTANDARD1_3 && !UWP
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
-            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute);
+            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute;
             return attribute == null ? string.Empty : attribute.Company;
         });
 
         private static readonly Lazy<string> m_ProductName = new Lazy<string>(() =>
         {
-            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute);
+            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute;
             return attribute == null ? string.Empty : attribute.Product;
         });
 
         private static readonly Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
         {
-            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute);
+            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
             return attribute == null ? string.Empty : attribute.Trademark;
         });
 #endif

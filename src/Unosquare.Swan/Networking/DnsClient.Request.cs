@@ -100,7 +100,7 @@
 
         public class DnsRequest : IDnsRequest
         {
-            private static readonly Random RANDOM = new Random();
+            private static readonly Random Random = new Random();
 
             private readonly IList<DnsQuestion> questions;
             private DnsHeader header;
@@ -113,7 +113,6 @@
                         header.AdditionalRecordCount + header.AnswerRecordCount + header.AuthorityRecordCount > 0 ||
                         header.ResponseCode != DnsResponseCode.NoError)
                 {
-
                     throw new ArgumentException("Invalid request message");
                 }
 
@@ -133,7 +132,7 @@
                 {
                     OperationCode = DnsOperationCode.Query,
                     Response = false,
-                    Id = RANDOM.Next(UInt16.MaxValue)
+                    Id = Random.Next(UInt16.MaxValue)
                 };
             }
 

@@ -1,17 +1,17 @@
-﻿//===============================================================================
+﻿// ===============================================================================
 // TinyIoC
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
 // https://github.com/grumpydev/TinyIoC
-//===============================================================================
+// ===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
 // OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
 // LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
 // FITNESS FOR A PARTICULAR PURPOSE.
-//===============================================================================
+// ===============================================================================
 
 #define USE_OBJECT_CONSTRUCTOR
 
@@ -836,7 +836,7 @@ namespace Unosquare.Swan.Components
         public bool CanResolve<ResolveType>(DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
-            return CanResolve(typeof(ResolveType), parameters, "", options);
+            return CanResolve(typeof(ResolveType), parameters, string.Empty, options);
         }
 
         /// <summary>
@@ -1682,7 +1682,7 @@ namespace Unosquare.Swan.Components
             public CustomObjectLifetimeFactory(Type registerType, Type registerImplementation, ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorMessage)
             {
                 if (lifetimeProvider == null)
-                    throw new ArgumentNullException(nameof(lifetimeProvider), "lifetimeProvider is null.");
+                    throw new ArgumentNullException(nameof(lifetimeProvider));
 
                 if (!IsValidAssignment(registerType, registerImplementation))
                     throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
@@ -1704,6 +1704,7 @@ namespace Unosquare.Swan.Components
                 lock (SingletonLock)
                 {
                     current = _LifetimeProvider.GetObject();
+
                     if (current == null)
                     {
                         current = container.ConstructType(registerImplementation, Constructor, options);
@@ -1783,6 +1784,7 @@ namespace Unosquare.Swan.Components
             /// The type.
             /// </value>
             public Type Type { get; }
+            
             /// <summary>
             /// Gets the name.
             /// </summary>
@@ -1827,10 +1829,7 @@ namespace Unosquare.Swan.Components
             /// <returns>
             /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
             /// </returns>
-            public override int GetHashCode()
-            {
-                return _hashCode;
-            }
+            public override int GetHashCode() =>_hashCode;
         }
 
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
