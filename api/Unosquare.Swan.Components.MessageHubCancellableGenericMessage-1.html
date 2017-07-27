@@ -144,7 +144,7 @@
   
   <a id="Unosquare_Swan_Components_MessageHubCancellableGenericMessage_1__ctor_" data-uid="Unosquare.Swan.Components.MessageHubCancellableGenericMessage`1.#ctor*"></a>
   <h4 id="Unosquare_Swan_Components_MessageHubCancellableGenericMessage_1__ctor_System_Object__0_System_Action_" data-uid="Unosquare.Swan.Components.MessageHubCancellableGenericMessage`1.#ctor(System.Object,`0,System.Action)">MessageHubCancellableGenericMessage(Object, TContent, Action)</h4>
-  <div class="markdown level1 summary"><p>Create a new instance of the CancellableGenericTinyMessage class.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.MessageHubCancellableGenericMessage-1.html">MessageHubCancellableGenericMessage&lt;TContent&gt;</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -164,19 +164,35 @@
       <tr>
         <td><span class="xref">System.Object</span></td>
         <td><span class="parametername">sender</span></td>
-        <td><p>Message sender (usually &quot;this&quot;)</p>
+        <td><p>The sender.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">TContent</span></td>
         <td><span class="parametername">content</span></td>
-        <td><p>Contents of the message</p>
+        <td><p>The content.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.Action</span></td>
         <td><span class="parametername">cancelAction</span></td>
-        <td><p>Action to call for cancellation</p>
+        <td><p>The cancel action.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>cancelAction</p>
 </td>
       </tr>
     </tbody>
