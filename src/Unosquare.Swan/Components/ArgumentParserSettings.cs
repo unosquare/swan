@@ -8,8 +8,6 @@
     /// </summary>
     public class ArgumentParserSettings
     {
-        internal StringComparison NameComparer => CaseSensitive ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
-
         /// <summary>
         /// Gets or sets a value indicating whether [write banner].
         /// </summary>
@@ -43,5 +41,7 @@
         /// when these are unknown by the main program at build time.
         /// </remarks>
         public bool IgnoreUnknownArguments { get; set; } = true;
+
+        internal StringComparison NameComparer => CaseSensitive ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
     }
 }

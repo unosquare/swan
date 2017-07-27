@@ -403,6 +403,9 @@ namespace Unosquare.Swan.Networking
         {
             ContinuousReadingThread = Thread.CurrentThread;
 
+            // Check if the RemoteClient is still there
+            if (RemoteClient == null) return;
+
             var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
 
             while (IsConnected && _disconnectCalls <= 0)
@@ -460,8 +463,10 @@ namespace Unosquare.Swan.Networking
         public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct)
         {
             if (IsContinuousReadingEnabled)
+            {
                 throw new InvalidOperationException(
                     "Read methods have been disabled because continuous reading is enabled.");
+            }
 
             var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
             var receiveBuilder = new List<byte>(receiveBuffer.Length);
