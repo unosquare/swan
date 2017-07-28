@@ -56,7 +56,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>The computed hash code</returns>
         public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
         {
 #if NET452
@@ -98,7 +98,7 @@
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>The computed hash code</returns>
         public static byte[] ComputeMD5(this string inputString, bool createHasher = false)
         {
             return Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
@@ -109,7 +109,7 @@
         /// </summary>
         /// <param name="data">The data.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>The computed hash code</returns>
         public static byte[] ComputeMD5(this byte[] data, bool createHasher = false)
         {
             return (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
@@ -120,7 +120,10 @@
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>
+        /// The computes a Hash-based Message Authentication Code (HMAC) 
+        /// using the SHA1 hash function
+        /// </returns>
         public static byte[] ComputeSha1(this string inputString, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString);
@@ -132,7 +135,10 @@
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>
+        /// The computes a Hash-based Message Authentication Code (HMAC) 
+        /// by using the SHA256 hash function
+        /// </returns>
         public static byte[] ComputeSha256(this string inputString, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString);
@@ -144,7 +150,10 @@
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>
+        /// The computes a Hash-based Message Authentication Code (HMAC) 
+        /// using the SHA512 hash function
+        /// </returns>
         public static byte[] ComputeSha512(this string inputString, bool createHasher = false)
         {
             var inputBytes = Encoding.UTF8.GetBytes(inputString);
@@ -157,7 +166,7 @@
         /// overload exists.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string ToStringInvariant(this object item)
         {
             if (item == null)
@@ -180,7 +189,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item">The item.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string ToStringInvariant<T>(this T item)
         {
             if (typeof(string) == typeof(T))
@@ -194,7 +203,7 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="excludeChars">When specified, these characters will not be removed.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string RemoveControlCharsExcept(this string input, params char[] excludeChars)
         {
             if (excludeChars == null)
@@ -209,7 +218,7 @@
         /// Removes all control characters from a string, including new line sequences.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string RemoveControlChars(this string input)
         {
             return input.RemoveControlCharsExcept(null);
@@ -221,7 +230,7 @@
         /// </summary>
         /// <param name="jsonResult">The json result.</param>
         /// <param name="indent">The indent.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         private static string HumanizeJson(object jsonResult, int indent)
         {
             if (jsonResult == null)
@@ -337,7 +346,7 @@
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string ToJson(this object obj, bool format = true)
         {
             return obj == null ? string.Empty : Json.Serialize(obj, format);
@@ -349,7 +358,7 @@
         /// examine objects.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string Stringify(this object obj)
         {
             if (obj == null)
@@ -378,7 +387,7 @@
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>Retrieves a substring from this instance</returns>
         public static string Slice(this string str, int startIndex, int endIndex)
         {
             if (str == null)
@@ -396,7 +405,7 @@
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>Retrieves a substring from this instance</returns>
         public static string SliceLength(this string str, int startIndex, int length)
         {
             if (str == null) return string.Empty;
@@ -422,7 +431,7 @@
         /// Camel Case and Snake_Case will be converted to Snake Case.
         /// </summary>
         /// <param name="identifierString">The identifier-style string.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string Humanize(this string identifierString)
         {
             var returnValue = identifierString ?? string.Empty;
@@ -437,7 +446,7 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="spaces">The spaces.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string Indent(this string text, int spaces = 4)
         {
             if (text == null) text = string.Empty;
@@ -493,7 +502,7 @@
         /// Makes the file name system safe.
         /// </summary>
         /// <param name="s">The s.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>Returns a section of a string</returns>
         public static string ToSafeFilename(this string s)
         {
             foreach (var c in InvalidFilenameChars.Value)
@@ -506,14 +515,19 @@
         /// Formats a long into the closest bytes string.
         /// </summary>
         /// <param name="bytes">The bytes length</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>
+        /// The string representation of the current Byte object, formatted as specified by the format parameter
+        /// </returns>
         public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
 
         /// <summary>
         /// Formats a long into the closest bytes string.
         /// </summary>
         /// <param name="bytes">The bytes length</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>
+        /// A copy of format in which the format items have been replaced by the string 
+        /// representations of the corresponding arguments
+        /// </returns>
         public static string FormatBytes(this ulong bytes)
         {
             int i;
@@ -532,7 +546,10 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="maximumLength">The maximum length.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>
+        /// Retrieves a substring from this instance. 
+        /// The substring starts at a specified character position and has a specified length
+        /// </returns>
         public static string Truncate(this string value, int maximumLength)
         {
             return value.Length > maximumLength ? value.Substring(0, maximumLength) : value;

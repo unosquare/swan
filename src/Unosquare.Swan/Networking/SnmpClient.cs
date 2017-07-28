@@ -64,7 +64,10 @@
         /// Gets the name of the public.
         /// </summary>
         /// <param name="host">The host.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>
+        /// A string that contains the results of decoding the specified sequence 
+        /// of bytes ref=GetString"
+        /// </returns>
         public static string GetPublicName(IPEndPoint host) => GetString(host, "1.3.6.1.2.1.1.5.0");
 
         /// <summary>
@@ -102,7 +105,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public static string GetString(IPEndPoint host, string mibstring)
         {
             var response = Get(host, mibstring);
@@ -124,7 +127,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] Get(IPEndPoint host, string mibstring)
         {
             return Get("get", host, "public", mibstring);
@@ -137,7 +140,7 @@
         /// <param name="host">The host.</param>
         /// <param name="community">The community.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] Get(string request, IPEndPoint host, string community, string mibstring)
         {
             var packet = new byte[1024];

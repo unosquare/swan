@@ -115,7 +115,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
         public static bool AreEqual<T>(T left, T right)
         {
             return AreEqual(left, right, typeof(T));
@@ -127,7 +127,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if two specified objects are equal; otherwise, false</returns>
         public static bool AreObjectsEqual<T>(T left, T right) 
             where T : class
         {
@@ -140,7 +140,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
         public static bool AreStructsEqual<T>(T left, T right) 
             where T : struct
         {
@@ -153,7 +153,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
         public static bool AreEnumsEqual<T>(T left, T right) 
             where T : IEnumerable
         {

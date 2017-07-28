@@ -410,7 +410,7 @@
         /// <param name="includeNonPublic">if set to <c>true</c> non-public getters will be also read.</param>
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string Serialize(
             object obj, 
             bool format = false, 
@@ -439,7 +439,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="includeNames">The include names.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, includeNames, null, true, null);
@@ -451,7 +451,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="excludeNames">The exclude names.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false, null);
@@ -474,7 +474,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="json">The json.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The deserialized specified type object</returns>
         public static T Deserialize<T>(string json)
         {
             return (T) Deserialize(json, typeof(T), false);
@@ -486,7 +486,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="json">The json.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The deserialized specified type object</returns>
         public static T Deserialize<T>(string json, bool includeNonPublic)
         {
             return (T) Deserialize(json, typeof(T), includeNonPublic);

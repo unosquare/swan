@@ -200,7 +200,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public static string GetStringFromBuffer(byte[] buffer, Encoding encoding)
         {
             return encoding.GetString(buffer).TrimEnd('\r', '\n');
@@ -210,7 +210,7 @@
         /// Gets the string from buffer.
         /// </summary>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public string GetStringFromBuffer(Encoding encoding)
         {
             return GetStringFromBuffer(Buffer, encoding);

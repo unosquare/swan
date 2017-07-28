@@ -632,7 +632,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="RegisterType">Type to unregister</typeparam>
         /// <param name="name">Name of registration</param>
-        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
         public bool Unregister<RegisterType>(string name = "")
         {
             return Unregister(typeof(RegisterType), name);
@@ -643,7 +643,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="registerType">Type to unregister</param>
         /// <param name="name">Name of registration</param>
-        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
         public bool Unregister(Type registerType, string name = "")
         {
             var typeRegistration = new TypeRegistration(registerType, name);

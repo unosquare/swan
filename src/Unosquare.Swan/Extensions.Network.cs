@@ -11,7 +11,7 @@
         /// Determines whether the IP address is private
         /// </summary>
         /// <param name="address">The IP address.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if the IP Address is private; otherwise, false</returns>
         public static bool IsPrivateAddress(this IPAddress address)
         {
             var octets = address.ToString().Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Select(byte.Parse).ToArray();

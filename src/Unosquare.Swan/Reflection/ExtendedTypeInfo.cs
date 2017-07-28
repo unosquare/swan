@@ -164,7 +164,7 @@
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if parse was converted successfully; otherwise, false</returns>
         public bool TryParse(string s, out object result)
         {
             result = GetDefault();
@@ -231,7 +231,7 @@
         /// IFormat provider if the overload is available
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public string ToStringInvariant(object instance)
         {
             if (instance == null)
@@ -271,7 +271,7 @@
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if parse was converted successfully; otherwise, false</returns>
         public bool TryParse(string s, out T result)
         {
             result = default(T);
@@ -292,7 +292,7 @@
         /// IFormat provider if the overload is available
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public string ToStringInvariant(T instance) => base.ToStringInvariant(instance);
     }
 }

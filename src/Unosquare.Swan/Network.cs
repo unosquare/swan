@@ -249,7 +249,7 @@
         /// <param name="query">The query.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string GetDnsPointerEntry(IPAddress query, IPAddress dnsServer, int port)
         {
             var client = new DnsClient(dnsServer, port);
@@ -263,7 +263,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetDnsPointerEntry(query, dnsServer, port), ct);
@@ -273,7 +273,7 @@
         /// Gets the reverse lookup FQDN of the given IP Address.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static string GetDnsPointerEntry(IPAddress query)
         {
             var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault());
@@ -285,7 +285,7 @@
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A string that represents the current object</returns>
         public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetDnsPointerEntry(query), ct);

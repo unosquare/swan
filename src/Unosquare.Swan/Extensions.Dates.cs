@@ -10,7 +10,7 @@
         /// Converts the date to a YYYY-MM-DD string
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>The concatenation of date.Year, date.Month and date.Day</returns>
         public static string ToSortableDate(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}";
@@ -20,7 +20,7 @@
         /// Converts the date to a YYYY-MM-DD HH:II:SS string
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>The concatenation of date.Year, date.Month, date.Day, date.Hour, date.Minute and date.Second</returns>
         public static string ToSortableDateTime(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";

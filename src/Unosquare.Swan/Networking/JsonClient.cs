@@ -28,7 +28,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The type of the result produced by this Task</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<T> Post<T>(
             string url, 
@@ -117,7 +117,9 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>
+        /// The type of the result produced by this Task
+        /// </returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> PostString(
             string url, 
@@ -146,7 +148,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The type of the result produced by this Task</returns>
         public static async Task<T> Put<T>(
             string url, 
             object payload, 
@@ -186,7 +188,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>The type of the result produced by this Task</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> PutString(
             string url, 
@@ -213,7 +215,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>The type of the result produced by this Task</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> GetString(
             string url, 
@@ -239,7 +241,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The type of the result produced by this Task</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<T> Get<T>(
             string url, 
@@ -256,7 +258,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<byte[]> GetBinary(
             string url, 
@@ -313,7 +315,7 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>The type of the result produced by this Task</returns>
         public static async Task<string> PostFileString(
             string url, 
             byte[] buffer, 
@@ -331,7 +333,7 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The type of the result produced by this Task</returns>
         public static async Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
         {
             return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);

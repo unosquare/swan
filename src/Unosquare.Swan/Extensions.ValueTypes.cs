@@ -17,7 +17,7 @@
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>A value that indicates the relative order of the objects being compared</returns>
         public static T Clamp<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
@@ -60,7 +60,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         private static byte[] GetStructBytes<T>(byte[] data)
         {
 #if !NETSTANDARD1_3 && !UWP
@@ -100,7 +100,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>a struct type derived from convert an array of bytes ref=ToStruct"</returns>
         public static T ToStruct<T>(this byte[] data) 
             where T : struct
         {
@@ -114,7 +114,7 @@
         /// <param name="data">The data.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>A managed object containing the data pointed to by the ptr parameter</returns>
         public static T ToStruct<T>(this byte[] data, int offset, int length) 
             where T : struct
         {
@@ -137,7 +137,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj">The object.</param>
-        /// <returns>method returns an array of bytes</returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] ToBytes<T>(this T obj) 
             where T : struct
         {

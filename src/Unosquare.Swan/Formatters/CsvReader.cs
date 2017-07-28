@@ -400,7 +400,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The conversion of specific type of object</returns>
         /// <exception cref="System.ArgumentNullException">map</exception>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
@@ -417,7 +417,7 @@
         /// the property names of the target type match the heading names of the file.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The conversion of specific type of object</returns>
         public T ReadObject<T>()
             where T : new()
         {

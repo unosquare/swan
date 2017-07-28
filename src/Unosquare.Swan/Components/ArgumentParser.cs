@@ -79,7 +79,7 @@
         /// <typeparam name="T">The type of the options</typeparam>
         /// <param name="args">The arguments.</param>
         /// <param name="instance">The instance.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if was converted successfully; otherwise, false</returns>
         /// <exception cref="ArgumentNullException">
         /// The exception that is thrown when a null reference (Nothing in Visual Basic) 
         /// is passed to a method that does not accept it as a valid argument
@@ -193,7 +193,7 @@
         /// <param name="targetProperty">The target property.</param>
         /// <param name="propertyValueString">The property value string.</param>
         /// <param name="result">The result.</param>
-        /// <returns>method returns a bool</returns>
+        /// <returns>True if parse was assigned successfully; otherwise, false</returns>
         private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
             try

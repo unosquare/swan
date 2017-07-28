@@ -40,7 +40,10 @@
         /// Gets the types string.
         /// </summary>
         /// <param name="types">The types.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>
+        /// A string that consists of the elements in value delimited by the separator string. 
+        /// If value is an empty array, the method returns String.Empty
+        /// </returns>
         private static string GetTypesString(IEnumerable<Type> types)
         {
             return string.Join(",", types.Select(type => type.FullName));

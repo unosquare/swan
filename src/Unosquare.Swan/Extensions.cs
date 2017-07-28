@@ -112,7 +112,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>Returns the specified type of properties that were successfully copied</returns>
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
         {
             var target = Activator.CreateInstance<T>();
@@ -253,7 +253,7 @@
         /// <param name="action">The action.</param>
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
-        /// <returns>method returns a generic type</returns>
+        /// <returns>The return value of the method that this delegate encapsulates</returns>
         /// <exception cref="AggregateException">
         ///     Represents one or many errors that occur during application execution
         /// </exception>
@@ -290,7 +290,7 @@
         /// </summary>
         /// <param name="ex">The ex.</param>
         /// <param name="priorMessage">The prior message.</param>
-        /// <returns>method returns a string</returns>
+        /// <returns>A <see cref="System.String" /> that represents this instance</returns>
         public static string ExceptionMessage(this Exception ex, string priorMessage = "")
         {
             while (true)
