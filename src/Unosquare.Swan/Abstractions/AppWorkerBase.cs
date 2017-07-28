@@ -143,10 +143,10 @@
         public virtual void Initialize()
         {
             if (State != AppWorkerState.Stopped)
-            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
+            {
                 throw new InvalidOperationException(
                     "Service cannot be initialized because it seems to be currently running");
-            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
+            }
         }
 
         /// <summary>

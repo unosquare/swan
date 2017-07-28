@@ -38,10 +38,10 @@
 
             var middleDigit = 0;
             if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out middleDigit))
-            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
+            {
                 if (middleDigit >= 0 && middleDigit <= 5)
                     ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;
-            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
+            }
         }
 
         /// <summary>

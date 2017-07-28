@@ -601,10 +601,10 @@ namespace Unosquare.Swan.Components
                 throw new ArgumentNullException(nameof(implementationTypes), "types is null.");
 
             foreach (var type in implementationTypes)
-            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
+            {
                 if (!registrationType.IsAssignableFrom(type))
                     throw new ArgumentException($"types: The type {registrationType.FullName} is not assignable from {type.FullName}");
-            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
+            }
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
             {
@@ -1301,7 +1301,7 @@ namespace Unosquare.Swan.Components
             /// <param name="container">Container that requested the creation</param>
             /// <param name="parameters">Any user parameters passed</param>
             /// <param name="options"></param>
-            /// <returns></returns>
+            /// <returns>The method returns an object</returns>
             public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
 
             public virtual ObjectFactoryBase SingletonVariant

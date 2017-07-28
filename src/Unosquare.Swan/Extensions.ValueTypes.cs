@@ -78,14 +78,11 @@
             foreach (var field in fields)
             {
                 if (endian == null && !field.IsDefined(typeof(StructEndiannessAttribute), false))
-                {
                     continue;
-                }
                 
                 var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
-#pragma warning disable CS0618 // Type or member is obsolete
                 var length = Marshal.SizeOf(field.FieldType);
-#pragma warning restore CS0618 // Type or member is obsolete
+
                 endian = endian ?? field.GetCustomAttributes(typeof(StructEndiannessAttribute), false).ToArray()[0] as StructEndiannessAttribute;
 
                 if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||

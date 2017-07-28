@@ -69,21 +69,21 @@
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
+                {
                     return new OkOrError<T, TE>
                     {
                         IsOk = true,
                         Ok = string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString)
                     };
-                #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
+                }
 
                 if ((int)response.StatusCode == httpStatusError)
-                #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
+                {
                     return new OkOrError<T, TE>
                     {
                         Error = string.IsNullOrEmpty(jsonString) ? default(TE) : Json.Deserialize<TE>(jsonString)
                     };
-                #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
+                }
 
                 return new OkOrError<T, TE>();
             }
@@ -346,10 +346,10 @@
             var httpClient = new HttpClient();
 
             if (string.IsNullOrWhiteSpace(authorization) == false)
-            #pragma warning disable SA1519 // Braces should not be omitted from multi-line child statement
+            {
                 httpClient.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
-            #pragma warning restore SA1519 // Braces should not be omitted from multi-line child statement
+            }
 
             return httpClient;
         }
