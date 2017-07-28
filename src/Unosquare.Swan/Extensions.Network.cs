@@ -11,7 +11,7 @@
         /// Determines whether the IP address is private
         /// </summary>
         /// <param name="address">The IP address.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public static bool IsPrivateAddress(this IPAddress address)
         {
             var octets = address.ToString().Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Select(byte.Parse).ToArray();
@@ -26,7 +26,7 @@
         /// Converts an IPv4 Address to its Unsigned, 32-bit integer representation.
         /// </summary>
         /// <param name="address">The address.</param>
-        /// <returns></returns>
+        /// <returns>method returns an unit</returns>
         public static uint ToUInt32(this IPAddress address)
         {
             if (address.AddressFamily != AddressFamily.InterNetwork)

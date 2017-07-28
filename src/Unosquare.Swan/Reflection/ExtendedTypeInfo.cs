@@ -151,7 +151,7 @@
         /// Gets the default value of this type. For reference types it return null.
         /// For value types it returns the default value.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns an object</returns>
         public object GetDefault()
         {
             return Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
@@ -164,7 +164,7 @@
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public bool TryParse(string s, out object result)
         {
             result = GetDefault();
@@ -231,7 +231,7 @@
         /// IFormat provider if the overload is available
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public string ToStringInvariant(object instance)
         {
             if (instance == null)
@@ -271,7 +271,7 @@
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public bool TryParse(string s, out T result)
         {
             result = default(T);
@@ -292,7 +292,7 @@
         /// IFormat provider if the overload is available
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public string ToStringInvariant(T instance) => base.ToStringInvariant(instance);
     }
 }

@@ -40,7 +40,7 @@
         /// Gets the types string.
         /// </summary>
         /// <param name="types">The types.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         private static string GetTypesString(IEnumerable<Type> types)
         {
             return string.Join(",", types.Select(type => type.FullName));

@@ -22,7 +22,7 @@
         /// Retrieves PropertyInfo[] (both public and non-public) for the given type
         /// </summary>
         /// <param name="targetType">Type of the target.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of PropertyInfo object</returns>
         private static PropertyInfo[] RetrieveProperties(Type targetType)
         {
             return PropertyTypeCache.Retrieve(targetType, () =>
@@ -36,7 +36,7 @@
         /// Retrieves FieldInfo[] (public) for the given type
         /// </summary>
         /// <param name="targetType">Type of the target.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of FieldInfo</returns>
         private static FieldInfo[] RetrieveFields(Type targetType)
         {
             return FieldTypeCache.Retrieve(targetType,
@@ -115,19 +115,19 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public static bool AreEqual<T>(T left, T right)
         {
             return AreEqual(left, right, typeof(T));
         }
-        
+
         /// <summary>
         /// Compare if two objects of the same type are equal.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public static bool AreObjectsEqual<T>(T left, T right) 
             where T : class
         {
@@ -140,7 +140,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public static bool AreStructsEqual<T>(T left, T right) 
             where T : struct
         {
@@ -153,7 +153,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public static bool AreEnumsEqual<T>(T left, T right) 
             where T : IEnumerable
         {

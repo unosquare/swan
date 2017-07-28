@@ -10,7 +10,7 @@
         /// Converts the date to a YYYY-MM-DD string
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string ToSortableDate(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}";
@@ -20,7 +20,7 @@
         /// Converts the date to a YYYY-MM-DD HH:II:SS string
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string ToSortableDateTime(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
@@ -30,7 +30,7 @@
         /// Parses a YYYY-MM-DD and optionally it time part, HH:II:SS into a DateTime
         /// </summary>
         /// <param name="sortableDate">The sortable date.</param>
-        /// <returns></returns>
+        /// <returns>method returns a date time</returns>
         /// <exception cref="ArgumentNullException">sortableDate</exception>
         /// <exception cref="Exception">
         /// Represents errors that occur during application execution
@@ -84,7 +84,7 @@
         /// </summary>
         /// <param name="startDate">The start date.</param>
         /// <param name="endDate">The end date.</param>
-        /// <returns></returns>
+        /// <returns>method returns a date time collection</returns>
         public static IEnumerable<DateTime> DateRange(this DateTime startDate, DateTime endDate)
         {
             return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
@@ -95,7 +95,7 @@
         /// </summary>
         /// <param name="dt">The datetime.</param>
         /// <param name="d">The timespan to match.</param>
-        /// <returns></returns>
+        /// <returns>method returns a date time</returns>
         public static DateTime RoundUp(this DateTime dt, TimeSpan d)
         {
             return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);

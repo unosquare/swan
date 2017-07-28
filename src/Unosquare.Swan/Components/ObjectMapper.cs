@@ -35,7 +35,7 @@
         /// </summary>
         /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <typeparam name="TDestination">The type of the destination.</typeparam>
-        /// <returns></returns>
+        /// <returns>method returns a generic object map of source/destination pairs</returns>
         /// <exception cref="System.InvalidOperationException">
         /// You can't create an existing map
         /// or
@@ -168,7 +168,7 @@
         /// <typeparam name="TSourceProperty">The type of the source property.</typeparam>
         /// <param name="destinationProperty">The destination property.</param>
         /// <param name="sourceProperty">The source property.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic object map of source/destination pairs</returns>
         public ObjectMap<TSource, TDestination> MapProperty
             <TDestinationProperty, TSourceProperty>(
                 Expression<Func<TDestination, TDestinationProperty>> destinationProperty,
@@ -211,7 +211,7 @@
         /// </summary>
         /// <typeparam name="TDestinationProperty">The type of the destination property.</typeparam>
         /// <param name="destinationProperty">The destination property.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic object map of source/destination pairs</returns>
         /// <exception cref="System.Exception">Invalid destination expression</exception>
         public ObjectMap<TSource, TDestination> RemoveMap<TDestinationProperty>(
             Expression<Func<TDestination, TDestinationProperty>> destinationProperty)

@@ -96,7 +96,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="sessionId">The session identifier.</param>
-        /// <returns></returns>
+        /// <returns>method returns type for an async method</returns>
         public async Task SendMailAsync(MailMessage message, string sessionId = null)
         {
             var state = new SmtpSessionState
@@ -132,7 +132,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionState">The state.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns type for an async method</returns>
         public async Task SendMailAsync(
             SmtpSessionState sessionState, 
             string sessionId = null,
@@ -151,7 +151,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionStates">The session states.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a </returns>
         /// <exception cref="System.Security.SecurityException">Could not upgrade the channel to SSL.</exception>
         /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
         public async Task SendMailAsync(

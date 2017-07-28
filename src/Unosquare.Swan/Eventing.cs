@@ -200,7 +200,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string GetStringFromBuffer(byte[] buffer, Encoding encoding)
         {
             return encoding.GetString(buffer).TrimEnd('\r', '\n');
@@ -210,7 +210,7 @@
         /// Gets the string from buffer.
         /// </summary>
         /// <param name="encoding">The encoding.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public string GetStringFromBuffer(Encoding encoding)
         {
             return GetStringFromBuffer(Buffer, encoding);

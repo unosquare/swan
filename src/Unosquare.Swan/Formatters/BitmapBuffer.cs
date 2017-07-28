@@ -16,7 +16,7 @@ namespace Unosquare.Swan.Formatters
     /// </summary>
     public class BitmapBuffer
     {
-        #region Constant Definitions
+#region Constant Definitions
 
         /// <summary>
         /// A constant representing the number of
@@ -45,9 +45,9 @@ namespace Unosquare.Swan.Formatters
         /// </summary>
         public const int AOffset = 3;
 
-        #endregion
+#endregion
 
-        #region Constructor
+#region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BitmapBuffer"/> class.
@@ -105,9 +105,9 @@ namespace Unosquare.Swan.Formatters
             }
         }
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Contains all the bytes of the pixel data
@@ -146,16 +146,16 @@ namespace Unosquare.Swan.Formatters
         /// </summary>
         public int LineLength { get; }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// Gets the index of the first byte in the BGRA pixel data for the given image coordinates.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns></returns>
+        /// <returns>method returns an int</returns>
         /// <exception cref="ArgumentOutOfRangeException">
         /// x
         /// or
@@ -173,7 +173,7 @@ namespace Unosquare.Swan.Formatters
         /// Converts the pixel data bytes held in the buffer
         /// to a 32-bit RGBA bitmap.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns a Bitmap object</returns>
         public Bitmap ToBitmap()
         {
             var bitmap = new Bitmap(ImageWidth, ImageHeight, PixelFormat);
@@ -191,7 +191,7 @@ namespace Unosquare.Swan.Formatters
             return bitmap;
         }
 
-        #endregion
+#endregion
 
     }
 }

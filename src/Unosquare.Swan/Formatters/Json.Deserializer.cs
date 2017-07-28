@@ -379,7 +379,7 @@
             /// Deserializes specified JSON string
             /// </summary>
             /// <param name="json">The json.</param>
-            /// <returns></returns>
+            /// <returns>method returns an object</returns>
             public static object DeserializeInternal(string json)
             {
                 var deserializer = new Deserializer(json, 0);

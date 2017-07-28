@@ -28,7 +28,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<T> Post<T>(
             string url, 
@@ -52,7 +52,7 @@
         /// <param name="httpStatusError">The HTTP status error.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns an Ok value or Error value</returns>
         public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
             string url, 
             object payload,
@@ -96,7 +96,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Post(
             string url, 
             object payload,
@@ -117,7 +117,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> PostString(
             string url, 
@@ -146,7 +146,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         public static async Task<T> Put<T>(
             string url, 
             object payload, 
@@ -165,7 +165,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Put(
             string url, 
             object payload,
@@ -186,7 +186,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> PutString(
             string url, 
@@ -213,7 +213,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<string> GetString(
             string url, 
@@ -239,7 +239,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<T> Get<T>(
             string url, 
@@ -256,7 +256,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of bytes</returns>
         /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<byte[]> GetBinary(
             string url, 
@@ -281,7 +281,7 @@
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a collection of key/value pairs</returns>
         /// <exception cref="Exception">Represents errors that occur during application execution</exception>
         public static async Task<IDictionary<string, object>> Authenticate(
             string url, 
@@ -313,7 +313,7 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static async Task<string> PostFileString(
             string url, 
             byte[] buffer, 
@@ -331,7 +331,7 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         public static async Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
         {
             return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);

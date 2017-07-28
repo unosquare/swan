@@ -30,7 +30,7 @@ namespace Unosquare.Swan.Components
         /// <param name="onDataCallback">The on data callback.</param>
         /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>method returns an ulong</returns>
         private static async Task<ulong> CopyStreamAsync(
             Process process, 
             Stream baseStream, 
@@ -121,7 +121,7 @@ namespace Unosquare.Swan.Components
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
             var result = await GetProcessResultAsync(filename, arguments, ct);
@@ -136,7 +136,7 @@ namespace Unosquare.Swan.Components
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>method returns a ProcessResult object</returns>
         public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
             var standardOutputBuilder = new StringBuilder();
@@ -166,7 +166,7 @@ namespace Unosquare.Swan.Components
         /// <param name="onErrorData">The on error data.</param>
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>method returns an int</returns>
         public static async Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default(CancellationToken))
         {
             var task = Task.Factory.StartNew(() =>

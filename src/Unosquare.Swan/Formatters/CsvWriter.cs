@@ -414,7 +414,7 @@
         /// Gets the filtered dictionary keys using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of objects</returns>
         private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
             var keys = new List<object>();
@@ -435,7 +435,7 @@
         /// Gets the filtered dictionary keys using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of objects</returns>
         private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
         {
             var keys = new List<object>();
@@ -456,7 +456,7 @@
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of objects</returns>
         private object[] GetFilteredDictionaryValues(IDictionary dictionary)
         {
             var values = new List<object>();
@@ -477,7 +477,7 @@
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of object</returns>
         private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
         {
             var values = new List<object>();
@@ -493,12 +493,12 @@
 
             return values.ToArray();
         }
-        
+
         /// <summary>
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of PropertyInfo</returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
         {
             lock (_syncLock)
@@ -525,7 +525,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
-        /// <returns></returns>
+        /// <returns>method returns an int</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
             var fullPath = Path.GetFullPath(filePath);

@@ -282,7 +282,7 @@
         /// Build a full path pointing to the current user's desktop with the given filename
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string GetDesktopFilePath(string filename)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);

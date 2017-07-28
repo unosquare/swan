@@ -51,7 +51,7 @@
         /// Gets the active IPv4 interfaces.
         /// Only those interfaces with a valid unicast address and a valid gateway will be returned in the collection
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns a collection of NetworkInterface/IPInterfaceProperties pairs</returns>
         public static Dictionary<NetworkInterface, IPInterfaceProperties> GetIPv4Interfaces()
         {
             // zero conf ip address
@@ -86,7 +86,7 @@
         /// Retrieves the local ip addresses.
         /// </summary>
         /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddres collection</returns>
         public static IPAddress[] GetIPv4Addresses(bool includeLoopback = true)
         {
             return GetIPv4Addresses(NetworkInterfaceType.Unknown, true, includeLoopback);
@@ -96,7 +96,7 @@
         /// Retrieves the local IP addresses.
         /// </summary>
         /// <param name="interfaceType">Type of the interface.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddress collection</returns>
         public static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType)
         {
             return GetIPv4Addresses(interfaceType, false, false);
@@ -108,7 +108,7 @@
         /// <param name="interfaceType">Type of the interface.</param>
         /// <param name="skipTypeFilter">if set to <c>true</c> [skip type filter].</param>
         /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddress collection</returns>
         private static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType, bool skipTypeFilter, bool includeLoopback)
         {
             var addressList = new List<IPAddress>();
@@ -147,7 +147,7 @@
         /// Gets the public IP address using ipify.org.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns an IPAddress collection</returns>
         public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken ct = default(CancellationToken))
         {
             using (var client = new HttpClient())
@@ -160,7 +160,7 @@
         /// <summary>
         /// Gets the public IP address using ipify.org.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns an IPAdress collection</returns>
         public static IPAddress GetPublicIPAddress()
         {
             return GetPublicIPAddressAsync().Result;
@@ -169,7 +169,7 @@
         /// <summary>
         /// Gets the configured IPv4 DNS servers for the active network interfaces.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddrees collection</returns>
         public static IPAddress[] GetIPv4DnsServers()
         {
             var adapters = GetIPv4Interfaces();
@@ -186,7 +186,7 @@
         /// Gets the DNS host entry (a list of IP addresses) for the domain name.
         /// </summary>
         /// <param name="fqdn">The FQDN.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddress collection</returns>
         public static IPAddress[] GetDnsHostEntry(string fqdn)
         {
             var dnsServer = GetIPv4DnsServers().FirstOrDefault() ?? IPAddress.Parse("8.8.8.8");
@@ -198,7 +198,7 @@
         /// </summary>
         /// <param name="fqdn">The FQDN.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddress collection</returns>
         public static async Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn, CancellationToken ct)
         {
             return await Task.Factory.StartNew(() => GetDnsHostEntry(fqdn), ct);
@@ -210,7 +210,7 @@
         /// <param name="fqdn">The FQDN.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddress collection </returns>
         public static IPAddress[] GetDnsHostEntry(string fqdn, IPAddress dnsServer, int port)
         {
             if (fqdn.IndexOf(".", StringComparison.Ordinal) == -1)
@@ -237,7 +237,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPAddress collection</returns>
         public static async Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port, CancellationToken ct)
         {
             return await Task.Factory.StartNew(() => GetDnsHostEntry(fqdn, dnsServer, port), ct);
@@ -249,7 +249,7 @@
         /// <param name="query">The query.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string GetDnsPointerEntry(IPAddress query, IPAddress dnsServer, int port)
         {
             var client = new DnsClient(dnsServer, port);
@@ -263,7 +263,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetDnsPointerEntry(query, dnsServer, port), ct);
@@ -273,7 +273,7 @@
         /// Gets the reverse lookup FQDN of the given IP Address.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string GetDnsPointerEntry(IPAddress query)
         {
             var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault());
@@ -285,7 +285,7 @@
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static async Task<string> GetDnsPointerEntryAsync(IPAddress query, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => GetDnsPointerEntry(query), ct);
@@ -298,7 +298,7 @@
         /// <param name="recordType">Type of the record.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <returns></returns>
+        /// <returns>method returns a DnsQueryResult object</returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, int port)
         {
             var client = new DnsClient(dnsServer, port);
@@ -314,7 +314,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>method returns a DnsQueryResult object</returns>
         public static async Task<DnsQueryResult> QueryDnsAsync(
             string query, 
             DnsRecordType recordType,
@@ -330,7 +330,7 @@
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="recordType">Type of the record.</param>
-        /// <returns></returns>
+        /// <returns>method returns a DnsQueryResult object</returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType)
         {
             return QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), Definitions.DnsDefaultPort);
@@ -342,7 +342,7 @@
         /// <param name="query">The query.</param>
         /// <param name="recordType">Type of the record.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a DnsQueryResult object</returns>
         public static async Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType, CancellationToken ct = default(CancellationToken))
         {
             return await Task.Factory.StartNew(() => QueryDns(query, recordType), ct);
@@ -353,7 +353,7 @@
         /// </summary>
         /// <param name="ntpServerAddress">The NTP server address.</param>
         /// <param name="port">The port.</param>
-        /// <returns></returns>
+        /// <returns>method returns a date time</returns>
         public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = Definitions.NtpDefaultPort)
         {
             // NTP message size - 16 bytes of the digest (RFC 2030)
@@ -401,7 +401,7 @@
         /// </summary>
         /// <param name="ntpServerName">The NTP server, by default pool.ntp.org.</param>
         /// <param name="port">The port, by default NTP 123.</param>
-        /// <returns></returns>
+        /// <returns>method returns a date time</returns>
         public static DateTime GetNetworkTimeUtc(string ntpServerName = "pool.ntp.org", int port = Definitions.NtpDefaultPort)
         {
             var addresses = GetDnsHostEntry(ntpServerName);
@@ -414,7 +414,7 @@
         /// <param name="ntpServerAddress">The NTP server address.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a date time</returns>
         public static async Task<DateTime> GetNetworkTimeUtcAsync(
             IPAddress ntpServerAddress,
             int port = Definitions.NtpDefaultPort, 
@@ -429,7 +429,7 @@
         /// <param name="ntpServerName">Name of the NTP server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a date time</returns>
         public static async Task<DateTime> GetNetworkTimeUtcAsync(
             string ntpServerName,
             int port = Definitions.NtpDefaultPort, 

@@ -467,7 +467,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of bytes</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         /// <exception cref="TimeoutException">Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m</exception>
         public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct)
@@ -528,7 +528,7 @@ namespace Unosquare.Swan.Networking
         /// Reads data asynchronously from the remote stream with a 5000 millisecond timeout.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a array of byte</returns>
         public async Task<byte[]> ReadDataAsync(CancellationToken ct)
         {
             return await ReadDataAsync(TimeSpan.FromSeconds(5), ct);
@@ -539,7 +539,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct)
         {
             var buffer = await ReadDataAsync(timeout, ct);
@@ -550,7 +550,7 @@ namespace Unosquare.Swan.Networking
         /// Asynchronously reads data as text with a 5000 millisecond timeout.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public async Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
         {
             return await ReadTextAsync(TimeSpan.FromSeconds(5), ct);
@@ -560,7 +560,7 @@ namespace Unosquare.Swan.Networking
         /// Performs the same task as this method's overload but it defaults to a read timeout of 30 seconds.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public async Task<string> ReadLineAsync(CancellationToken ct)
         {
             return await ReadLineAsync(TimeSpan.FromSeconds(30), ct);
@@ -575,7 +575,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct)
         {
@@ -625,7 +625,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="buffer">The buffer.</param>
         /// <param name="forceFlush">if set to <c>true</c> [force flush].</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns type for an async method</returns>
         public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct)
         {
             try
@@ -649,7 +649,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns type for an async method</returns>
         public async Task WriteTextAsync(string text, CancellationToken ct)
         {
             await WriteTextAsync(text, TextEncoding, ct);
@@ -661,7 +661,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="text">The text.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns type for an async method</returns>
         public async Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct)
         {
             var buffer = encoding.GetBytes(text);
@@ -675,7 +675,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="line">The line.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns type for an async method</returns>
         public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct)
         {
             var buffer = encoding.GetBytes($"{line}{NewLineSequence}");
@@ -688,7 +688,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>method returns type for an async method</returns>
         public async Task WriteLineAsync(string line, CancellationToken ct)
         {
             await WriteLineAsync(line, TextEncoding, ct);
@@ -702,7 +702,7 @@ namespace Unosquare.Swan.Networking
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the server.
         /// </summary>
         /// <param name="serverCertificate">The server certificate.</param>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public async Task<bool> UpgradeToSecureAsServerAsync(X509Certificate2 serverCertificate)
         {
             if (IsActiveStreamSecure)
@@ -733,8 +733,9 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="hostname">The hostname.</param>
         /// <param name="callback">The callback.</param>
-        /// <returns></returns>
-        public async Task<bool> UpgradeToSecureAsClientAsync(string hostname,
+        /// <returns>method returns a bool</returns>
+        public async Task<bool> UpgradeToSecureAsClientAsync(
+            string hostname,
             RemoteCertificateValidationCallback callback)
         {
             if (IsActiveStreamSecure)
@@ -761,10 +762,11 @@ namespace Unosquare.Swan.Networking
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the client.
         /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them!
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns a bool</returns>
         public async Task<bool> UpgradeToSecureAsClientAsync()
         {
-            return await UpgradeToSecureAsClientAsync(Network.HostName.ToLowerInvariant(),
+            return await UpgradeToSecureAsClientAsync(
+                Network.HostName.ToLowerInvariant(),
                 (a, b, c, d) => true);
         }
 

@@ -64,7 +64,7 @@
         /// Reads a key from the terminal preventing the key from being echoed.
         /// </summary>
         /// <param name="prompt">The prompt.</param>
-        /// <returns></returns>
+        /// <returns>method returns a ConsoleKeyInfo object</returns>
         public static ConsoleKeyInfo ReadKey(this string prompt) => prompt.ReadKey(true);
 
         #endregion
@@ -101,7 +101,7 @@
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <param name="defaultNumber">The default number.</param>
-        /// <returns></returns>
+        /// <returns>method returns an int</returns>
         public static int ReadNumber(this string prompt, int defaultNumber)
         {
             if (IsConsolePresent == false) return defaultNumber;
@@ -126,7 +126,7 @@
         /// <param name="title">The title.</param>
         /// <param name="options">The options.</param>
         /// <param name="anyKeyOption">Any key option.</param>
-        /// <returns></returns>
+        /// <returns>method returns a ConsoleKeyInfo object</returns>
         public static ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);

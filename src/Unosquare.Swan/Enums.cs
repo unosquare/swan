@@ -19,7 +19,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
-        /// <returns></returns>
+        /// <returns>method returns a tuple collection of 2 data types</returns>
         public static Tuple<int, string>[] GetItemsWithValue<T>(bool humanize = true)
         {
             lock (LockObject)
@@ -40,7 +40,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
-        /// <returns></returns>
+        /// <returns>method returns a collection of type/tuple pairs</returns>
         public static Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
         {
             lock (LockObject)

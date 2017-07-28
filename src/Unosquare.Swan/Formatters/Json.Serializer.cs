@@ -255,7 +255,7 @@
             /// <param name="excludeProperties">The exclude properties.</param>
             /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
             /// <param name="parentReferences">The parent references.</param>
-            /// <returns></returns>
+            /// <returns>method returns a string</returns>
             public static string Serialize(object obj, int depth, bool format, string typeSepcifier, string[] includeProperties, string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
             {
                 var serializer = new Serializer(obj, depth, format, typeSepcifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
@@ -273,7 +273,7 @@
             /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
             /// <param name="targetType">Type of the target.</param>
             /// <param name="target">The target.</param>
-            /// <returns></returns>
+            /// <returns>method returns a collection of key/value pairs</returns>
             private Dictionary<string, object> CreateDictionary(string typeSpecifier, bool includeNonPublic, Type targetType, object target)
             {
                 // Create the dictionary and extract the properties
@@ -327,7 +327,7 @@
             /// Gets the indent string given the depth.
             /// </summary>
             /// <param name="depth">The depth.</param>
-            /// <returns></returns>
+            /// <returns>method returns a string</returns>
             private string GetIndentString(int depth)
             {
                 if (Format == false) return string.Empty;
@@ -410,7 +410,7 @@
             /// Escapes the specified string as a JSON string.
             /// </summary>
             /// <param name="str">The string to escape.</param>
-            /// <returns></returns>
+            /// <returns>method returns a string</returns>
             private static string Escape(string str)
             {
                 if (string.IsNullOrEmpty(str))

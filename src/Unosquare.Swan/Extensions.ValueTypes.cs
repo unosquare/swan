@@ -17,7 +17,7 @@
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         public static T Clamp<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
@@ -46,7 +46,7 @@
         /// Swaps the endianness of an unsigned long to an unsigned integer.
         /// </summary>
         /// <param name="longBytes">The bytes contained in a long.</param>
-        /// <returns></returns>
+        /// <returns>method returns a unit</returns>
         internal static uint SwapEndianness(this ulong longBytes)
         {
             return (uint)(((longBytes & 0x000000ff) << 24) +
@@ -60,7 +60,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of bytes</returns>
         private static byte[] GetStructBytes<T>(byte[] data)
         {
 #if !NETSTANDARD1_3 && !UWP
@@ -100,7 +100,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         public static T ToStruct<T>(this byte[] data) 
             where T : struct
         {
@@ -114,7 +114,7 @@
         /// <param name="data">The data.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         public static T ToStruct<T>(this byte[] data, int offset, int length) 
             where T : struct
         {
@@ -137,7 +137,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj">The object.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of bytes</returns>
         public static byte[] ToBytes<T>(this T obj) 
             where T : struct
         {

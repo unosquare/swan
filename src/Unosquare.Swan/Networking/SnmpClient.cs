@@ -22,7 +22,7 @@
         /// Discovers the specified SNMP time out.
         /// </summary>
         /// <param name="snmpTimeOut">The SNMP time out.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of IPEndPoint object</returns>
         public static IPEndPoint[] Discover(int snmpTimeOut = 6000)
         {
             var endpoints = new List<IPEndPoint>();
@@ -64,7 +64,7 @@
         /// Gets the name of the public.
         /// </summary>
         /// <param name="host">The host.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string GetPublicName(IPEndPoint host) => GetString(host, "1.3.6.1.2.1.1.5.0");
 
         /// <summary>
@@ -72,7 +72,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>method returns a TimeSpan object</returns>
         public static TimeSpan GetUptime(IPEndPoint host, string mibstring = "1.3.6.1.2.1.1.3.0")
         {
             var response = Get(host, mibstring);
@@ -102,7 +102,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string GetString(IPEndPoint host, string mibstring)
         {
             var response = Get(host, mibstring);
@@ -124,7 +124,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of bytes</returns>
         public static byte[] Get(IPEndPoint host, string mibstring)
         {
             return Get("get", host, "public", mibstring);
@@ -137,7 +137,7 @@
         /// <param name="host">The host.</param>
         /// <param name="community">The community.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of bytes</returns>
         public static byte[] Get(string request, IPEndPoint host, string community, string mibstring)
         {
             var packet = new byte[1024];

@@ -163,7 +163,7 @@
         /// <summary>
         /// Gets the list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns a list of generic ExtendedPropertyInfo</returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
             var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;

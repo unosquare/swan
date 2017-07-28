@@ -204,7 +204,7 @@
         /// <summary>
         /// Reads a line of CSV text into an array of strings
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns an array of string</returns>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public string[] ReadLine()
         {
@@ -244,7 +244,7 @@
         /// Reads a line of CSV text and stores the values read as a representation of the column names
         /// to be used for parsing objects. You have to call this method before calling ReadObject methods.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns an array of string</returns>
         /// <exception cref="System.InvalidOperationException">
         /// Reading headings is only supported as the first read operation.
         /// or
@@ -276,7 +276,7 @@
         /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings
         /// </summary>
         /// <param name="map">The mappings between CSV headings (keys) and object properties (values)</param>
-        /// <returns></returns>
+        /// <returns>method returns a collection of key/value pairs</returns>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         /// <exception cref="System.ArgumentNullException">map</exception>
@@ -309,7 +309,7 @@
         /// Reads a line of CSV text, converting it into a dynamic object
         /// The property names correspond to the names of the CSV headings
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns a collection of key/value pairs</returns>
         public IDictionary<string, object> ReadObject()
         {
             return ReadObject(_defaultMap);
@@ -400,7 +400,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         /// <exception cref="System.ArgumentNullException">map</exception>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
@@ -417,7 +417,7 @@
         /// the property names of the target type match the heading names of the file.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         public T ReadObject<T>()
             where T : new()
         {
@@ -435,7 +435,7 @@
         /// <param name="reader">The reader.</param>
         /// <param name="escapeCharacter">The escape character.</param>
         /// <param name="separatorCharacter">The separator character.</param>
-        /// <returns></returns>
+        /// <returns>method returns an array of strings</returns>
         private static string[] ParseRecord(StreamReader reader, char escapeCharacter = '"', char separatorCharacter = ',')
         {
             var values = new List<string>();
@@ -562,7 +562,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="filePath">The file path.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic IList</returns>
         public static IList<T> LoadRecords<T>(string filePath)
             where T : new()
         {

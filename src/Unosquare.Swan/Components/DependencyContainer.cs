@@ -103,7 +103,7 @@ namespace Unosquare.Swan.Components
         /// Creates a new instance from a Dictionary
         /// </summary>
         /// <param name="data">The data.</param>
-        /// <returns></returns>
+        /// <returns>method returns a DependencyContainerNamedParameterOverloads object</returns>
         public static DependencyContainerNamedParameterOverloads FromIDictionary(IDictionary<string, object> data)
         {
             return data as DependencyContainerNamedParameterOverloads ?? new DependencyContainerNamedParameterOverloads(data);
@@ -271,7 +271,7 @@ namespace Unosquare.Swan.Components
             /// </summary>
             /// <typeparam name="RegisterType">The type of the register type.</typeparam>
             /// <param name="constructor">The constructor.</param>
-            /// <returns></returns>
+            /// <returns>method returns a RegisterOptions object</returns>
             /// <exception cref="DependencyContainerConstructorResolutionException">Constructor resolution exception</exception>
             public RegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
             {
@@ -405,7 +405,7 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Gets the child container.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>method returns an DependencyContainer object</returns>
         public DependencyContainer GetChildContainer()
         {
             return new DependencyContainer(this);

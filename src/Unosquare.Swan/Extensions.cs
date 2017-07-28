@@ -21,7 +21,7 @@
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <returns></returns>
+        /// <returns>method returns an int</returns>
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             return CopyPropertiesTo(source, target, null);
@@ -112,7 +112,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
         {
             var target = Activator.CreateInstance<T>();
@@ -129,7 +129,7 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns></returns>
+        /// <returns>method returns an int</returns>
         public static int CopyPropertiesTo(
             this IDictionary<string, object> source, 
             object target,
@@ -204,7 +204,7 @@
         /// This method uses a high precision Stopwatch.
         /// </summary>
         /// <param name="target">The target.</param>
-        /// <returns></returns>
+        /// <returns>method returns a TimeSpan object</returns>
         public static TimeSpan Benchmark(this Action target)
         {
             var sw = new Stopwatch();
@@ -253,7 +253,7 @@
         /// <param name="action">The action.</param>
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
-        /// <returns></returns>
+        /// <returns>method returns a generic type</returns>
         /// <exception cref="AggregateException">
         ///     Represents one or many errors that occur during application execution
         /// </exception>
@@ -290,7 +290,7 @@
         /// </summary>
         /// <param name="ex">The ex.</param>
         /// <param name="priorMessage">The prior message.</param>
-        /// <returns></returns>
+        /// <returns>method returns a string</returns>
         public static string ExceptionMessage(this Exception ex, string priorMessage = "")
         {
             while (true)

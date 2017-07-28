@@ -147,7 +147,7 @@
         /// Parses the specified text into a Server Reply for thorough analysis.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <returns></returns>
+        /// <returns>method returns a SmtpServerReply object</returns>
         public static SmtpServerReply Parse(string text)
         {
             var lines = text.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
