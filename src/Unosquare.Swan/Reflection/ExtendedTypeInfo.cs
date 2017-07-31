@@ -151,7 +151,7 @@
         /// Gets the default value of this type. For reference types it return null.
         /// For value types it returns the default value.
         /// </summary>
-        /// <returns>method returns an object</returns>
+        /// <returns> Default value of this type</returns>
         public object GetDefault()
         {
             return Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;

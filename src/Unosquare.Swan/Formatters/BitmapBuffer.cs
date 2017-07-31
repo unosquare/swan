@@ -173,7 +173,7 @@ namespace Unosquare.Swan.Formatters
         /// Converts the pixel data bytes held in the buffer
         /// to a 32-bit RGBA bitmap.
         /// </summary>
-        /// <returns>method returns a Bitmap object</returns>
+        /// <returns>Pixel data for a graphics image and its attribute</returns>
         public Bitmap ToBitmap()
         {
             var bitmap = new Bitmap(ImageWidth, ImageHeight, PixelFormat);

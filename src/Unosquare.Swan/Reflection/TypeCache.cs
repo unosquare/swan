@@ -46,7 +46,7 @@
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="factory">The factory.</param>
-        /// <returns>method returns a generic array</returns>
+        /// <returns>An array of the properties stored for the specified type</returns>
         public T[] Retrieve(Type type, Func<IEnumerable<T>> factory)
         {
             lock (_syncLock)
@@ -64,7 +64,7 @@
         /// </summary>
         /// <typeparam name="TOut">The type of the out.</typeparam>
         /// <param name="factory">The factory.</param>
-        /// <returns>method returns an generic array</returns>
+        /// <returns>An array of the properties stored for the specified type</returns>
         public T[] Retrieve<TOut>(Func<IEnumerable<T>> factory) => Retrieve(typeof(TOut), factory);
 
         /// <summary>
@@ -75,7 +75,9 @@
         /// The <see cref="IEnumerable{PropertyInfo}" />.
         /// </value>
         /// <param name="type">The type.</param>
-        /// <returns>method returns a generic collection</returns>
+        /// <returns>
+        /// A sequence of <see cref="IEnumerable{PropertyInfo}" /> with a specified type
+        /// </returns>
         public IEnumerable<T> this[Type type]
         {
             get

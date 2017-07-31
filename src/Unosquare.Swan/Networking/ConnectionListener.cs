@@ -132,7 +132,7 @@
         /// <summary>
         /// Continuously checks for client connections until the Close method has been called.
         /// </summary>
-        /// <returns>method returns type for an async method</returns>
+        /// <returns>A task that represents the asynchronous connection operation</returns>
         private async Task DoWorkAsync()
         {
             _cancellationPending = false;

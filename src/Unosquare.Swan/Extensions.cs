@@ -204,7 +204,9 @@
         /// This method uses a high precision Stopwatch.
         /// </summary>
         /// <param name="target">The target.</param>
-        /// <returns>method returns a TimeSpan object</returns>
+        /// <returns>
+        /// A  time interval that represents a specified time, where the specification is in units of ticks
+        /// </returns>
         public static TimeSpan Benchmark(this Action target)
         {
             var sw = new Stopwatch();

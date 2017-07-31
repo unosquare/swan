@@ -56,7 +56,7 @@
         /// Converts an array of bytes to a base-64 encoded string
         /// </summary>
         /// <param name="bytes">The bytes.</param>
-        /// <returns>returns a string</returns>
+        /// <returns>A string converted from an array of bytes</returns>
         public static string ToBase64(this byte[] bytes) => Convert.ToBase64String(bytes);
 
         /// <summary>
@@ -80,7 +80,9 @@
         /// <param name="b">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
-        /// <returns>method returns a byte</returns>
+        /// <returns>
+        /// Bit value at the given offset
+        /// </returns>
         public static byte GetBitValueAt(this byte b, byte offset, byte length)
         {
             return (byte)((b >> offset) & ~(0xff << length));
@@ -91,7 +93,7 @@
         /// </summary>
         /// <param name="b">The b.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>method returns a byte</returns>
+        /// <returns>Bit value at the given offset</returns>
         public static byte GetBitValueAt(this byte b, byte offset)
         {
             return b.GetBitValueAt(offset, 1);
@@ -104,7 +106,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <param name="value">The value.</param>
-        /// <returns>method returns a byte</returns>
+        /// <returns>Bit value at the given offset</returns>
         public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
         {
             var mask = ~(0xff << length);
@@ -119,7 +121,7 @@
         /// <param name="b">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="value">The value.</param>
-        /// <returns>method returns a byte</returns>
+        /// <returns>Bit value at the given offset</returns>
         public static byte SetBitValueAt(this byte b, byte offset, byte value)
         {
             return b.SetBitValueAt(offset, 1, value);
@@ -134,7 +136,9 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="offset">The offset at which to start splitting bytes. Any bytes befor this will be discarded.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>method returns a list of array of bytes</returns>
+        /// <returns>
+        /// A byte array containing the results the specified sequence of bytes
+        /// </returns>
         /// <exception cref="System.ArgumentNullException">
         /// buffer
         /// or
@@ -243,7 +247,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>true if the specified buffer starts; otherwise, false.</returns>
+        /// <returns>True if the specified buffer starts; otherwise, false.</returns>
         public static bool StartsWith(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) == 0;
 
         /// <summary>
@@ -310,7 +314,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>method returns a MemoryStream object</returns>
+        /// <returns>Block of bytes to the current stream using data read from a buffer</returns>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer)
         {
             return Append(stream, buffer.ToArray());
@@ -321,7 +325,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffers">The buffers.</param>
-        /// <returns>method returns a MemoryStream object</returns>
+        /// <returns>Block of bytes to the current stream using data read from a buffer</returns>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte[]> buffers)
         {
             foreach (var buffer in buffers)

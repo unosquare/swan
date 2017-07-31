@@ -103,7 +103,9 @@ namespace Unosquare.Swan.Components
         /// Creates a new instance from a Dictionary
         /// </summary>
         /// <param name="data">The data.</param>
-        /// <returns>method returns a DependencyContainerNamedParameterOverloads object</returns>
+        /// <returns>
+        /// A new instance of the <see cref="DependencyContainerNamedParameterOverloads"/> class
+        /// </returns>
         public static DependencyContainerNamedParameterOverloads FromIDictionary(IDictionary<string, object> data)
         {
             return data as DependencyContainerNamedParameterOverloads ?? new DependencyContainerNamedParameterOverloads(data);
@@ -209,7 +211,7 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration a singleton (single instance) if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
+            /// <returns>A registration options  for fluent API</returns>
             /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions AsSingleton()
             {
@@ -224,7 +226,7 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration multi-instance if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
+            /// <returns>A registration options  for fluent API</returns>
             /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions AsMultiInstance()
             {
@@ -239,7 +241,7 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration hold a weak reference if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
+            /// <returns>A registration options  for fluent API</returns>
             /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions WithWeakReference()
             {
@@ -254,7 +256,7 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration hold a strong reference if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
+            /// <returns>A registration options  for fluent API</returns>
             /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions WithStrongReference()
             {
@@ -271,7 +273,7 @@ namespace Unosquare.Swan.Components
             /// </summary>
             /// <typeparam name="RegisterType">The type of the register type.</typeparam>
             /// <param name="constructor">The constructor.</param>
-            /// <returns>method returns a RegisterOptions object</returns>
+            /// <returns>A registration options  for fluent API</returns>
             /// <exception cref="DependencyContainerConstructorResolutionException">Constructor resolution exception</exception>
             public RegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
             {
@@ -344,7 +346,7 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration a singleton (single instance) if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
+            /// <returns>A registration multi-instance for fluent API</returns>
             /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
             public MultiRegisterOptions AsSingleton()
             {
@@ -355,7 +357,7 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration multi-instance if possible
             /// </summary>
-            /// <returns>MultiRegisterOptions</returns>
+            /// <returns>A registration multi-instance for fluent API</returns>
             /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
             public MultiRegisterOptions AsMultiInstance()
             {
@@ -405,7 +407,7 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Gets the child container.
         /// </summary>
-        /// <returns>method returns an DependencyContainer object</returns>
+        /// <returns>A new instance of the <see cref="DependencyContainer"/> class</returns>
         public DependencyContainer GetChildContainer()
         {
             return new DependencyContainer(this);
@@ -1301,7 +1303,7 @@ namespace Unosquare.Swan.Components
             /// <param name="container">Container that requested the creation</param>
             /// <param name="parameters">Any user parameters passed</param>
             /// <param name="options"></param>
-            /// <returns>The method returns an object</returns>
+            /// <returns>Instance of type</returns>
             public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
 
             public virtual ObjectFactoryBase SingletonVariant

@@ -22,7 +22,7 @@
         /// Retrieves PropertyInfo[] (both public and non-public) for the given type
         /// </summary>
         /// <param name="targetType">Type of the target.</param>
-        /// <returns>method returns an array of PropertyInfo object</returns>
+        /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type targetType)
         {
             return PropertyTypeCache.Retrieve(targetType, () =>
@@ -36,7 +36,7 @@
         /// Retrieves FieldInfo[] (public) for the given type
         /// </summary>
         /// <param name="targetType">Type of the target.</param>
-        /// <returns>method returns an array of FieldInfo</returns>
+        /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type targetType)
         {
             return FieldTypeCache.Retrieve(targetType,

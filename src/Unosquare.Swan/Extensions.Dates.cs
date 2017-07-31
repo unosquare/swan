@@ -30,7 +30,10 @@
         /// Parses a YYYY-MM-DD and optionally it time part, HH:II:SS into a DateTime
         /// </summary>
         /// <param name="sortableDate">The sortable date.</param>
-        /// <returns>method returns a date time</returns>
+        /// <returns>
+        /// A new instance of the DateTime structure to 
+        /// the specified year, month, day, hour, minute and second
+        /// </returns>
         /// <exception cref="ArgumentNullException">sortableDate</exception>
         /// <exception cref="Exception">
         /// Represents errors that occur during application execution
@@ -84,7 +87,9 @@
         /// </summary>
         /// <param name="startDate">The start date.</param>
         /// <param name="endDate">The end date.</param>
-        /// <returns>method returns a date time collection</returns>
+        /// <returns>
+        /// A sequence of integral numbers within a specified date's range
+        /// </returns>
         public static IEnumerable<DateTime> DateRange(this DateTime startDate, DateTime endDate)
         {
             return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
@@ -95,7 +100,9 @@
         /// </summary>
         /// <param name="dt">The datetime.</param>
         /// <param name="d">The timespan to match.</param>
-        /// <returns>method returns a date time</returns>
+        /// <returns>
+        /// A new instance of the DateTime structure to the specified datetime and timespan ticks
+        /// </returns>
         public static DateTime RoundUp(this DateTime dt, TimeSpan d)
         {
             return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);

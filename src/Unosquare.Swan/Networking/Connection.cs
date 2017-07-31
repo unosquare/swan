@@ -528,7 +528,7 @@ namespace Unosquare.Swan.Networking
         /// Reads data asynchronously from the remote stream with a 5000 millisecond timeout.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a array of byte</returns>
+        /// <returns>A byte array containing the results the specified sequence of bytes</returns>
         public async Task<byte[]> ReadDataAsync(CancellationToken ct)
         {
             return await ReadDataAsync(TimeSpan.FromSeconds(5), ct);
@@ -630,7 +630,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="buffer">The buffer.</param>
         /// <param name="forceFlush">if set to <c>true</c> [force flush].</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns type for an async method</returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct)
         {
             try
@@ -654,7 +654,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns type for an async method</returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteTextAsync(string text, CancellationToken ct)
         {
             await WriteTextAsync(text, TextEncoding, ct);
@@ -666,7 +666,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="text">The text.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns type for an async method</returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct)
         {
             var buffer = encoding.GetBytes(text);
@@ -680,7 +680,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="line">The line.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns type for an async method</returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct)
         {
             var buffer = encoding.GetBytes($"{line}{NewLineSequence}");
@@ -693,7 +693,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns type for an async method</returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteLineAsync(string line, CancellationToken ct)
         {
             await WriteLineAsync(line, TextEncoding, ct);

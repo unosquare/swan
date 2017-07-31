@@ -48,7 +48,7 @@
         /// Retrieves PropertyInfo[] (both public and non-public) for the given type
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>method returns an array of PropertyInfo object</returns>
+        /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type type)
         {
             return PropertyTypeCache.Retrieve(type, () =>
@@ -63,7 +63,7 @@
         /// Retrieves FieldInfo[] (public) for the given type
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>method returns an array of FieldInfo object</returns>
+        /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type type)
         {
             return FieldTypeCache.Retrieve(type, () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
@@ -76,7 +76,7 @@
         /// <param name="targetType">Type of the target.</param>
         /// <param name="targetInstance">An optional target instance. If null, we will attempt creation.</param>
         /// <param name="includeNonPublic">if set to <c>true</c> [include private].</param>
-        /// <returns>method returns an object</returns>
+        /// <returns>Type of the current convertion from json result</returns>
         private static object ConvertFromJsonResult(
             object source, 
             Type targetType, 
@@ -462,7 +462,7 @@
         /// depending on the syntax of the JSON string
         /// </summary>
         /// <param name="json">The json.</param>
-        /// <returns>method returns an object</returns>
+        /// <returns>Type of the current deserializes</returns>
         public static object Deserialize(string json)
         {
             return Deserializer.DeserializeInternal(json);
@@ -498,7 +498,7 @@
         /// <param name="json">The json.</param>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
-        /// <returns>method returns an object</returns>
+        /// <returns>Type of the current convertion from json result</returns>
         public static object Deserialize(string json, Type resultType, bool includeNonPublic)
         {
             var source = Deserializer.DeserializeInternal(json);

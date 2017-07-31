@@ -14,7 +14,9 @@
         /// Gets all types within an assembly in a safe manner.
         /// </summary>
         /// <param name="assembly">The assembly.</param>
-        /// <returns>method returns an array of data types</returns>
+        /// <returns>
+        /// Array of Type objects representing the types specified by an assembly
+        /// </returns>
         public static Type[] GetAllTypes(this Assembly assembly)
         {
             Type[] assemblyTypes;
@@ -47,7 +49,7 @@
         /// The closest programmatic equivalent of default(T)
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>method returns an object</returns>
+        /// <returns>Default value of this type</returns>
         public static object GetDefault(this Type type)
         {
             return type.IsValueType() ? Activator.CreateInstance(type) : null;
@@ -71,7 +73,9 @@
         /// <param name="methodName">Name of the method.</param>
         /// <param name="genericTypes">The generic types.</param>
         /// <param name="parameterTypes">The parameter types.</param>
-        /// <returns>method returns a MethodInfo object</returns>
+        /// <returns>
+        /// An object that represents the method with the specified name
+        /// </returns>
         /// <exception cref="System.Reflection.AmbiguousMatchException">
         /// The exception that is thrown when binding to a member results in more than one member matching the 
         /// binding criteria. This class cannot be inherited
@@ -177,7 +181,9 @@
         /// <param name="type">The type.</param>
         /// <param name="attributeType">Type of the attribute.</param>
         /// <param name="inherit">if set to <c>true</c> [inherit].</param>
-        /// <returns>method returns an array of Attribute object</returns>
+        /// <returns>
+        /// Attributes associated with the property represented by this PropertyInfo object
+        /// </returns>
         public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit)
         {
             return type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();

@@ -19,7 +19,10 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
-        /// <returns>method returns a tuple collection of 2 data types</returns>
+        /// <returns>
+        /// A collection of Type/Tuple pairs
+		/// that represents items with the enum item value
+        /// </returns>
         public static Tuple<int, string>[] GetItemsWithValue<T>(bool humanize = true)
         {
             lock (LockObject)
@@ -40,7 +43,10 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
-        /// <returns>method returns a collection of type/tuple pairs</returns>
+        /// <returns>
+        /// A collection of Type/Tuple pairs
+		/// that represents items with the enum item value
+        /// </returns>
         public static Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
         {
             lock (LockObject)

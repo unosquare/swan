@@ -136,7 +136,9 @@ namespace Unosquare.Swan.Components
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns>method returns a ProcessResult object</returns>
+        /// <returns>
+        /// Text of the standard output and standard error streams along with the exit code
+        /// </returns>
         public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
             var standardOutputBuilder = new StringBuilder();

@@ -26,7 +26,7 @@
         /// Converts an IPv4 Address to its Unsigned, 32-bit integer representation.
         /// </summary>
         /// <param name="address">The address.</param>
-        /// <returns>method returns an unit</returns>
+        /// <returns>A 32-bit unsigned integer converted from four bytes at a specified position in a byte array</returns>
         public static uint ToUInt32(this IPAddress address)
         {
             if (address.AddressFamily != AddressFamily.InterNetwork)

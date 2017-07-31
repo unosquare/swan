@@ -110,7 +110,7 @@
         /// <summary>
         /// Dequeues the output asynchronously.
         /// </summary>
-        /// <returns>method returns type for an async method</returns>
+        /// <returns>A task that represents the asynchronous dequeue output operation</returns>
         private static async Task DequeueOutputAsync()
         {
             if (AvailableWriters == TerminalWriters.None)

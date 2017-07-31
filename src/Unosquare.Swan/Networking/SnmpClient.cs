@@ -22,7 +22,7 @@
         /// Discovers the specified SNMP time out.
         /// </summary>
         /// <param name="snmpTimeOut">The SNMP time out.</param>
-        /// <returns>method returns an array of IPEndPoint object</returns>
+        /// <returns>An array of network endpoint as an IP address and a port number</returns>
         public static IPEndPoint[] Discover(int snmpTimeOut = 6000)
         {
             var endpoints = new List<IPEndPoint>();
@@ -75,7 +75,10 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>method returns a TimeSpan object</returns>
+        /// <returns>
+        ///  A time interval that represents a specified number of seconds, 
+        ///  where the specification is accurate to the nearest millisecond
+        ///  </returns>
         public static TimeSpan GetUptime(IPEndPoint host, string mibstring = "1.3.6.1.2.1.1.3.0")
         {
             var response = Get(host, mibstring);
