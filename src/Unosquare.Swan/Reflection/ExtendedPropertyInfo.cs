@@ -9,7 +9,7 @@
     public class ExtendedPropertyInfo
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExtendedPropertyInfo{T}"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedPropertyInfo"/> class.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         public ExtendedPropertyInfo(PropertyInfo propertyInfo)
@@ -87,13 +87,15 @@
     /// <summary>
     /// Represents a Property object from a Object Reflection Property with extended values
     /// </summary>
+    /// <typeparam name="T">The type of the object</typeparam>
     public class ExtendedPropertyInfo<T> : ExtendedPropertyInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedPropertyInfo{T}"/> class.
         /// </summary>
         /// <param name="property">The property.</param>
-        public ExtendedPropertyInfo(string property) : base(typeof(T).GetProperty(property))
+        public ExtendedPropertyInfo(string property) 
+            : base(typeof(T).GetProperty(property))
         {
         }
     }

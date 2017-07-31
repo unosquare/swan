@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Unosquare.Swan.Reflection;
-
-namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Components
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using Reflection;
+
     /// <summary>
     /// Represents a quick object comparer using the public properties of an object
     /// or the public members in a structure
@@ -22,25 +22,20 @@ namespace Unosquare.Swan.Components
         /// Retrieves PropertyInfo[] (both public and non-public) for the given type
         /// </summary>
         /// <param name="targetType">Type of the target.</param>
-        /// <returns></returns>
+        /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type targetType)
         {
-            return PropertyTypeCache.Retrieve(targetType, () =>
-            {
-                return targetType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Where(p => p.CanRead || p.CanWrite).ToArray();
-            });
+            return PropertyTypeCache.Retrieve(targetType, PropertyTypeCache.GetAllPropertiesFunc(targetType));
         }
 
         /// <summary>
         /// Retrieves FieldInfo[] (public) for the given type
         /// </summary>
         /// <param name="targetType">Type of the target.</param>
-        /// <returns></returns>
+        /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type targetType)
         {
-            return FieldTypeCache.Retrieve(targetType,
-                () => targetType.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
+            return FieldTypeCache.Retrieve(targetType, FieldTypeCache.GetAllFieldsFunc(targetType));
         }
 
         private static bool AreObjectsEqual(object left, object right, Type targetType)
@@ -49,22 +44,23 @@ namespace Unosquare.Swan.Components
 
             foreach (var propertyTarget in properties)
             {
-                var targetPropertyGetMethod = (propertyTarget as PropertyInfo).GetGetMethod();
+                var targetPropertyGetMethod = propertyTarget.GetGetMethod();
 
-                if ((propertyTarget as PropertyInfo).PropertyType.IsArray)
+                if (propertyTarget.PropertyType.IsArray)
                 {
-                    var leftObj = (targetPropertyGetMethod.Invoke(left, null) as IEnumerable);
-                    var rightObj = (targetPropertyGetMethod.Invoke(right, null) as IEnumerable);
+                    var leftObj = targetPropertyGetMethod.Invoke(left, null) as IEnumerable;
+                    var rightObj = targetPropertyGetMethod.Invoke(right, null) as IEnumerable;
                     
                     if (AreEnumsEqual(leftObj, rightObj) == false)
                         return false;
                 }
                 else
                 {
-                    if (object.Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                    if (Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
                         return false;
                 }
             }
+
             return true;            
         }
 
@@ -76,7 +72,7 @@ namespace Unosquare.Swan.Components
 
             foreach (var targetMember in fields)
             {
-                var targetField = (targetMember as FieldInfo);
+                var targetField = targetMember as FieldInfo;
 
                 if (targetField != null)
                 {
@@ -114,20 +110,21 @@ namespace Unosquare.Swan.Components
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
         public static bool AreEqual<T>(T left, T right)
         {
             return AreEqual(left, right, typeof(T));
         }
-        
+
         /// <summary>
         /// Compare if two objects of the same type are equal.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static bool AreObjectsEqual<T>(T left, T right) where T : class
+        /// <returns>True if two specified objects are equal; otherwise, false</returns>
+        public static bool AreObjectsEqual<T>(T left, T right) 
+            where T : class
         {
             return AreObjectsEqual(left, right, typeof(T));
         }
@@ -138,8 +135,9 @@ namespace Unosquare.Swan.Components
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static bool AreStructsEqual<T>(T left, T right) where T : struct
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
+        public static bool AreStructsEqual<T>(T left, T right) 
+            where T : struct
         {
             return AreStructsEqual(left, right, typeof(T));
         }
@@ -150,8 +148,9 @@ namespace Unosquare.Swan.Components
         /// <typeparam name="T"></typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static bool AreEnumsEqual<T>(T left, T right) where T : IEnumerable
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
+        public static bool AreEnumsEqual<T>(T left, T right) 
+            where T : IEnumerable
         {
             var leftEnumerable = left.Cast<object>().ToArray();
             var rightEnumerable = right.Cast<object>().ToArray();
@@ -166,8 +165,9 @@ namespace Unosquare.Swan.Components
                 var targetType = leftEl.GetType();
 
                 if (AreEqual(leftEl, rightEl, targetType) == false)
+                {
                     return false;
-
+                }
             }
 
             return true;

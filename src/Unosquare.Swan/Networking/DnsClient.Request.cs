@@ -9,59 +9,62 @@
     using System.Net.Sockets;
     using System.Runtime.InteropServices;
     using System.Text;
+    using Exceptions;
 
-    partial class DnsClient
+    internal partial class DnsClient
     {
         public class DnsClientRequest : IDnsRequest
         {
-            private readonly IDnsRequestResolver resolver;
-            private readonly IDnsRequest request;
+            private readonly IDnsRequestResolver _resolver;
+            private readonly IDnsRequest _request;
 
             public DnsClientRequest(IPEndPoint dns, IDnsRequest request = null, IDnsRequestResolver resolver = null)
             {
-                this.Dns = dns;
-                this.request = request == null ? new DnsRequest() : new DnsRequest(request);
-                this.resolver = resolver ?? new DnsUdpRequestResolver();
+                Dns = dns;
+                _request = request == null ? new DnsRequest() : new DnsRequest(request);
+                _resolver = resolver ?? new DnsUdpRequestResolver();
             }
 
-            public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
-                this(new IPEndPoint(ip, port), request, resolver)
-            { }
+            public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
+                : this(new IPEndPoint(ip, port), request, resolver)
+            {
+            }
 
-            public DnsClientRequest(string ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) :
-                this(IPAddress.Parse(ip), port, request, resolver)
-            { }
+            public DnsClientRequest(string ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
+                : this(IPAddress.Parse(ip), port, request, resolver)
+            {
+            }
 
             public int Id
             {
-                get { return request.Id; }
-                set { request.Id = value; }
+                get { return _request.Id; }
+                set { _request.Id = value; }
             }
 
             public DnsOperationCode OperationCode
             {
-                get { return request.OperationCode; }
-                set { request.OperationCode = value; }
+                get { return _request.OperationCode; }
+                set { _request.OperationCode = value; }
             }
 
             public bool RecursionDesired
             {
-                get { return request.RecursionDesired; }
-                set { request.RecursionDesired = value; }
+                get { return _request.RecursionDesired; }
+                set { _request.RecursionDesired = value; }
             }
 
-            public IList<DnsQuestion> Questions => request.Questions;
+            public IList<DnsQuestion> Questions => _request.Questions;
 
-            public int Size => request.Size;
+            public int Size => _request.Size;
 
             public byte[] ToArray()
             {
-                return request.ToArray();
+                return _request.ToArray();
             }
 
             public override string ToString()
             {
-                return request.ToString();
+                return _request.ToString();
             }
 
             public IPEndPoint Dns { get; set; }
@@ -78,12 +81,13 @@
             {
                 try
                 {
-                    var response = resolver.Request(this);
+                    var response = _resolver.Request(this);
 
-                    if (response.Id != this.Id)
+                    if (response.Id != Id)
                     {
                         throw new DnsQueryException(response, "Mismatching request/response IDs");
                     }
+
                     if (response.ResponseCode != DnsResponseCode.NoError)
                     {
                         throw new DnsQueryException(response);
@@ -100,7 +104,7 @@
 
         public class DnsRequest : IDnsRequest
         {
-            private static readonly Random RANDOM = new Random();
+            private static readonly Random Random = new Random();
 
             private readonly IList<DnsQuestion> questions;
             private DnsHeader header;
@@ -113,7 +117,6 @@
                         header.AdditionalRecordCount + header.AnswerRecordCount + header.AuthorityRecordCount > 0 ||
                         header.ResponseCode != DnsResponseCode.NoError)
                 {
-
                     throw new ArgumentException("Invalid request message");
                 }
 
@@ -128,21 +131,21 @@
 
             public DnsRequest()
             {
-                this.questions = new List<DnsQuestion>();
-                this.header = new DnsHeader
+                questions = new List<DnsQuestion>();
+                header = new DnsHeader
                 {
                     OperationCode = DnsOperationCode.Query,
                     Response = false,
-                    Id = RANDOM.Next(UInt16.MaxValue)
+                    Id = Random.Next(UInt16.MaxValue)
                 };
             }
 
             public DnsRequest(IDnsRequest request)
             {
-                this.header = new DnsHeader();
-                this.questions = new List<DnsQuestion>(request.Questions);
+                header = new DnsHeader();
+                questions = new List<DnsQuestion>(request.Questions);
 
-                this.header.Response = false;
+                header.Response = false;
 
                 Id = request.Id;
                 OperationCode = request.OperationCode;
@@ -272,7 +275,7 @@
 
             public DnsUdpRequestResolver()
             {
-                this.fallback = new DnsNullRequestResolver();
+                fallback = new DnsNullRequestResolver();
             }
 
             public DnsClientResponse Request(DnsClientRequest request)
@@ -293,7 +296,8 @@
                         var tempBuffer = new byte[1024];
                         var receiveCount = udp.Client.Receive(tempBuffer);
                         bufferList.AddRange(tempBuffer.Skip(0).Take(receiveCount));
-                    } while (udp.Client.Available > 0 || bufferList.Count == 0);
+                    }
+                    while (udp.Client.Available > 0 || bufferList.Count == 0);
 
                     var buffer = bufferList.ToArray();
                     var response = DnsResponse.FromArray(buffer);
@@ -425,7 +429,7 @@
                 set { RCode = (byte)value; }
             }
 
-            public int Size => DnsHeader.SIZE;
+            public int Size => SIZE;
 
             public byte[] ToArray()
             {
@@ -543,7 +547,8 @@
 
                         continue;
                     }
-                    else if (lengthOrPointer.GetBitValueAt(6, 2) != 0)
+
+                    if (lengthOrPointer.GetBitValueAt(6, 2) != 0)
                     {
                         throw new ArgumentException("Unexpected bit pattern in label length");
                     }
@@ -592,7 +597,10 @@
                 return string.Join(".", nibbles.Reverse().Select(b => b.ToString("x"))) + ".ip6.arpa";
             }
 
-            public DnsDomain(string domain) : this(domain.Split('.')) { }
+            public DnsDomain(string domain) 
+                : this(domain.Split('.'))
+            {
+            }
 
             public DnsDomain(string[] labels)
             {
@@ -636,12 +644,7 @@
 
             public override bool Equals(object obj)
             {
-                if (!(obj is DnsDomain))
-                {
-                    return false;
-                }
-
-                return CompareTo((DnsDomain) obj) == 0;
+                return obj is DnsDomain && CompareTo((DnsDomain) obj) == 0;
             }
 
             public override int GetHashCode()
@@ -717,8 +720,7 @@
 
             public override string ToString()
             {
-                return Json.SerializeOnly(this, true,
-                    nameof(Name), nameof(Type), nameof(Class));
+                return Json.SerializeOnly(this, true, nameof(Name), nameof(Type), nameof(Class));
             }
 
             [StructEndianness(Endianness.Big)]

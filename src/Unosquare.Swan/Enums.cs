@@ -19,7 +19,10 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A collection of Type/Tuple pairs 
+        /// that represents items with the enum item value
+        /// </returns>
         public static Tuple<int, string>[] GetItemsWithValue<T>(bool humanize = true)
         {
             lock (LockObject)
@@ -39,7 +42,10 @@
         /// Gets the items with the enum item index.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <param name="humanize">if set to <c>true</c> [humanize].</param>
+        /// <returns>
+        /// A collection of Type/Tuple pairs that represents items with the enum item value
+        /// </returns>
         public static Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
         {
             lock (LockObject)
@@ -67,14 +73,17 @@
         /// Unknown OS
         /// </summary>
         Unknown,
+        
         /// <summary>
         /// Windows
         /// </summary>
         Windows,
+        
         /// <summary>
         /// UNIX/Linux
         /// </summary>
         Unix,
+        
         /// <summary>
         /// Mac OSX
         /// </summary>
@@ -90,6 +99,7 @@
         /// The stopped
         /// </summary>
         Stopped,
+        
         /// <summary>
         /// The running
         /// </summary>
@@ -105,18 +115,20 @@
         /// The trigger was a forceful flush of the buffer
         /// </summary>
         Flush,
+        
         /// <summary>
         /// The new line sequence bytes were received
         /// </summary>
         NewLineSequenceEncountered,
+        
         /// <summary>
         /// The buffer was full
         /// </summary>
         BufferFull,
+        
         /// <summary>
         /// The block size reached
         /// </summary>
         BlockSizeReached
     }
-
 }

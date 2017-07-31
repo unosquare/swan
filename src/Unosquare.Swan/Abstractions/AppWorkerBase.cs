@@ -10,15 +10,10 @@
     public abstract class AppWorkerBase
     {
         #region Property Backing
-        
-        private AppWorkerState _workerState = AppWorkerState.Stopped;
-        private readonly object _syncLock = new object();
-        private CancellationTokenSource _tokenSource;
 
-        /// <summary>
-        /// Occurs when [state changed].
-        /// </summary>
-        public event EventHandler<AppWorkerStateChangedEventArgs> StateChanged;
+        private readonly object _syncLock = new object();
+        private AppWorkerState _workerState = AppWorkerState.Stopped;        
+        private CancellationTokenSource _tokenSource;
 
         #endregion
 
@@ -34,6 +29,11 @@
         }
 
         #endregion
+
+        /// <summary>
+        /// Occurs when [state changed].
+        /// </summary>
+        public event EventHandler<AppWorkerStateChangedEventArgs> StateChanged;
 
         #region Abstract and Virtual Methods
 
@@ -51,39 +51,40 @@
             });
 
             Task.Factory.StartNew(() =>
+            {
+                IsBusy = true;
+
+                try
                 {
-                    IsBusy = true;
+                    WorkerThreadLoop();
+                }
+                catch (AggregateException)
+                {
+                    // Ignored
+                }
+                catch (Exception ex)
+                {
+                    ex.Log(GetType().Name);
+                    OnWorkerThreadLoopException(ex);
 
-                    try
-                    {
-                        WorkerThreadLoop();
-                    }
-                    catch (AggregateException)
-                    {
-                        // Ignored
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.Log(GetType().Name);
-                        OnWorkerThreadLoopException(ex);
-
-                        if (_tokenSource.IsCancellationRequested == false)
-                            _tokenSource.Cancel();
-                    }
-                }, _tokenSource.Token);
+                    if (_tokenSource.IsCancellationRequested == false)
+                        _tokenSource.Cancel();
+                }
+            }, _tokenSource.Token);
         }
 
         /// <summary>
         /// Called when an unhandled exception is thrown.
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual void OnWorkerThreadLoopException(Exception ex) => "Service exception detected.".Debug(GetType().Name, ex);
+        protected virtual void OnWorkerThreadLoopException(Exception ex)
+            => "Service exception detected.".Debug(GetType().Name, ex);
 
         /// <summary>
         /// This method is called when the user loop has exited
         /// </summary>
         protected virtual void OnWorkerThreadExit() => "Service thread is stopping.".Debug(GetType().Name);
-        
+
         /// <summary>
         /// Implement this method as a loop that checks whether CancellationPending has been set to true
         /// If so, immediately exit the loop.
@@ -100,7 +101,11 @@
         /// </summary>
         public AppWorkerState State
         {
-            get { return _workerState; }
+            get
+            {
+                return _workerState;
+            }
+
             private set
             {
                 lock (_syncLock)
@@ -116,7 +121,7 @@
                 }
             }
         }
-        
+
         /// <summary>
         /// Gets the cancellation token.
         /// </summary>
@@ -138,8 +143,10 @@
         public virtual void Initialize()
         {
             if (State != AppWorkerState.Stopped)
+            {
                 throw new InvalidOperationException(
                     "Service cannot be initialized because it seems to be currently running");
+            }
         }
 
         /// <summary>

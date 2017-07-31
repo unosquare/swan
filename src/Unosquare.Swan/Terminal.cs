@@ -14,15 +14,14 @@
     {
         #region Private Declarations
 
+        private static readonly Task DequeueOutputTask;
         private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
 
         private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
         private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
 
-        private static bool? m_IsConsolePresent;
-
-        private static readonly Task DequeueOutputTask;
+        private static bool? m_IsConsolePresent;        
 
         #endregion
 
@@ -39,8 +38,10 @@
             public OutputContext()
             {
                 OriginalColor = Settings.DefaultColor;
-                OutputWriters = IsConsolePresent ? TerminalWriters.StandardOutput :
-                    IsDebuggerAttached ? TerminalWriters.Diagnostics
+                OutputWriters = IsConsolePresent
+                    ? TerminalWriters.StandardOutput
+                    : IsDebuggerAttached
+                        ? TerminalWriters.Diagnostics
                         : TerminalWriters.None;
             }
 
@@ -52,7 +53,6 @@
 
         #endregion
 
-
         #region Constructors
 
         /// <summary>
@@ -62,8 +62,7 @@
         {
             lock (SyncLock)
             {
-                if (DequeueOutputTask != null)
-                    return;
+                if (DequeueOutputTask != null) return;
 
                 if (IsConsolePresent)
                 {
@@ -72,7 +71,6 @@
 #endif
                     Console.CursorVisible = false;
                 }
-                    
 
                 // Here we start the output task, fire-and-forget
                 DequeueOutputTask = DequeueOutputAsync();
@@ -112,7 +110,7 @@
         /// <summary>
         /// Dequeues the output asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous dequeue output operation</returns>
         private static async Task DequeueOutputAsync()
         {
             if (AvailableWriters == TerminalWriters.None)
@@ -131,21 +129,18 @@
                     await Task.Delay(1);
                     continue;
                 }
-                else
-                {
-                    OutputDone.Reset();
-                }
+
+                OutputDone.Reset();
 
                 while (OutputQueue.Count > 0)
                 {
                     OutputContext context;
-                    if (OutputQueue.TryDequeue(out context) == false)
-                        continue;
+                    if (OutputQueue.TryDequeue(out context) == false) continue;
 
                     // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
                     if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
                     {
-                        // Output to the sandard output
+                        // Output to the standard output
                         if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
                         {
                             Console.ForegroundColor = context.OutputColor;
@@ -171,6 +166,7 @@
                     }
                 }
             }
+
             // ReSharper disable once FunctionNeverReturns
         }
 
@@ -222,7 +218,10 @@
                         var windowHeight = Console.WindowHeight;
                         m_IsConsolePresent = windowHeight >= 0;
                     }
-                    catch { m_IsConsolePresent = false; }
+                    catch
+                    {
+                        m_IsConsolePresent = false;
+                    }
                 }
 
                 return m_IsConsolePresent.Value;
@@ -284,7 +283,6 @@
                     Flush();
                     return Console.CursorLeft;
                 }
-
             }
             set
             {
@@ -357,6 +355,5 @@
         }
 
         #endregion
-
     }
 }

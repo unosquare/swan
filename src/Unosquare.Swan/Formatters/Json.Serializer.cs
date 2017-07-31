@@ -7,7 +7,7 @@
     using System.Reflection;
     using System.Text;
 
-    partial class Json
+    public partial class Json
     {
         /// <summary>
         /// A simple JSON serializer
@@ -104,8 +104,8 @@
                         Result = decimal.TryParse(escapedValue, out val) ?
                             $"{escapedValue}" :
                             $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
-
                     }
+
                     return;
                 }
 
@@ -255,7 +255,7 @@
             /// <param name="excludeProperties">The exclude properties.</param>
             /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
             /// <param name="parentReferences">The parent references.</param>
-            /// <returns></returns>
+            /// <returns>A string that represents the current object</returns>
             public static string Serialize(object obj, int depth, bool format, string typeSepcifier, string[] includeProperties, string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
             {
                 var serializer = new Serializer(obj, depth, format, typeSepcifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
@@ -273,7 +273,7 @@
             /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
             /// <param name="targetType">Type of the target.</param>
             /// <param name="target">The target.</param>
-            /// <returns></returns>
+            /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
             private Dictionary<string, object> CreateDictionary(string typeSpecifier, bool includeNonPublic, Type targetType, object target)
             {
                 // Create the dictionary and extract the properties
@@ -313,7 +313,8 @@
                                 ? (field as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null)
                                 : (field as FieldInfo).GetValue(target);
                     }
-                    catch // (Exception ex)
+                    catch 
+                    ////(Exception ex)
                     {
                         /* ignored */
                     }
@@ -326,7 +327,7 @@
             /// Gets the indent string given the depth.
             /// </summary>
             /// <param name="depth">The depth.</param>
-            /// <returns></returns>
+            /// <returns>A string that represents the current object</returns>
             private string GetIndentString(int depth)
             {
                 if (Format == false) return string.Empty;
@@ -362,7 +363,6 @@
             /// <summary>
             /// Removes the last comma in the current string builder.
             /// </summary>
-            /// <returns></returns>
             private void RemoveLastComma()
             {
                 if (Builder.Length < LastCommaSearch.Length)
@@ -410,7 +410,7 @@
             /// Escapes the specified string as a JSON string.
             /// </summary>
             /// <param name="str">The string to escape.</param>
-            /// <returns></returns>
+            /// <returns>A string that represents the current object</returns>
             private static string Escape(string str)
             {
                 if (string.IsNullOrEmpty(str))
@@ -458,6 +458,7 @@
                             {
                                 builder.Append(currentChar);
                             }
+
                             break;
                     }
                 }
@@ -467,6 +468,5 @@
 
             #endregion
         }
-
     }
 }

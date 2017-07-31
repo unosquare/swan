@@ -63,7 +63,9 @@
                     PersistGlobalSettings();
                 }
                 else
+                {
                     _global = Json.Deserialize<T>(File.ReadAllText(ConfigurationFilePath));
+                }
             }
         }
 
@@ -82,6 +84,7 @@
         /// Updates settings from list.
         /// </summary>
         /// <param name="propertyList">The list.</param>
+        /// <returns></returns>
         public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
         {
             var changedSettings = new List<string>();
@@ -161,7 +164,7 @@
         /// <summary>
         /// Gets the list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A List of ExtendedPropertyInfo of the type T</returns>
         public List<ExtendedPropertyInfo<T>> GetList()
         {
             var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;

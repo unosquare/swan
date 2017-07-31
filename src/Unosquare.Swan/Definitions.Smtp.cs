@@ -1,6 +1,9 @@
 ﻿namespace Unosquare.Swan
 {
-    partial class Definitions
+    /// <summary>
+    /// Contains useful constants and definitions
+    /// </summary>
+    public partial class Definitions
     {
         /// <summary>
         /// The string sequence that delimits the end of the DATA command
@@ -14,11 +17,11 @@
         public static readonly SmtpCommandNames[] SmtpGroupableCommandNames =
         {
             SmtpCommandNames.RSET,
-            SmtpCommandNames.MAIL, //FROM:
-            SmtpCommandNames.SEND, //FROM:
-            SmtpCommandNames.SOML, //FROM:
-            SmtpCommandNames.SAML, //FROM:
-            SmtpCommandNames.RCPT //TO:
+            SmtpCommandNames.MAIL, // FROM:
+            SmtpCommandNames.SEND, // FROM:
+            SmtpCommandNames.SOML, // FROM:
+            SmtpCommandNames.SAML, // FROM:
+            SmtpCommandNames.RCPT // TO:
         };
 
         /// <summary>
@@ -42,6 +45,7 @@
             /// The plain method
             /// </summary>
             public const string Plain = "PLAIN";
+            
             /// <summary>
             /// The login method
             /// </summary>

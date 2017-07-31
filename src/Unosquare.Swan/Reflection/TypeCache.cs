@@ -11,6 +11,7 @@
     /// calls the retrieval process if the type is not contained
     /// in the cache.
     /// </summary>
+    /// <typeparam name="T">The type of Member to be cached</typeparam>
     public abstract class TypeCache<T>
         where T : MemberInfo
     {
@@ -21,6 +22,9 @@
         /// Determines whether the cache contains the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified type]; otherwise, <c>false</c>.
+        /// </returns>
         public bool Contains(Type type)
         {
             lock (_syncLock)
@@ -45,7 +49,7 @@
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="factory">The factory.</param>
-        /// <returns></returns>
+        /// <returns>An array of the properties stored for the specified type</returns>
         public T[] Retrieve(Type type, Func<IEnumerable<T>> factory)
         {
             lock (_syncLock)
@@ -61,20 +65,22 @@
         /// If the properties are not available, it calls the factory method to retrieve them
         /// and returns them as an array of PropertyInfo
         /// </summary>
-        /// <typeparam name="TOut"></typeparam>
+        /// <typeparam name="TOut">The type of the out.</typeparam>
         /// <param name="factory">The factory.</param>
-        /// <returns></returns>
+        /// <returns>An array of the properties stored for the specified type</returns>
         public T[] Retrieve<TOut>(Func<IEnumerable<T>> factory) => Retrieve(typeof(TOut), factory);
 
         /// <summary>
-        /// Gets or sets the <see cref="IEnumerable{PropertyInfo}"/> with the specified type.
+        /// Gets or sets the <see cref="IEnumerable{PropertyInfo}" /> with the specified type.
         /// If the properties are not available, it returns null.
         /// </summary>
         /// <value>
-        /// The <see cref="IEnumerable{PropertyInfo}"/>.
+        /// The <see cref="IEnumerable{PropertyInfo}" />.
         /// </value>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A sequence of <see cref="IEnumerable{PropertyInfo}" /> with a specified type
+        /// </returns>
         public IEnumerable<T> this[Type type]
         {
             get
@@ -105,7 +111,29 @@
     /// </summary>
     public class PropertyTypeCache : TypeCache<PropertyInfo>
     {
-        
+        /// <summary>
+        /// Gets all properties function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>A function to retrieve all properties</returns>
+        public static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
+        {
+            return () => type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(p => p.CanRead || p.CanWrite)
+                .ToArray();
+        }
+
+        /// <summary>
+        /// Gets all public properties function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>A function to retrieve all public properties</returns>
+        public static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
+        {
+            return () => type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.CanRead || p.CanWrite)
+                .ToArray();
+        }
     }
 
     /// <summary>
@@ -116,6 +144,14 @@
     /// </summary>
     public class FieldTypeCache : TypeCache<FieldInfo>
     {
-
+        /// <summary>
+        /// Gets all fields function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>A function to retrieve all fields</returns>
+        public static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
+        {
+            return () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray();
+        }
     }
 }

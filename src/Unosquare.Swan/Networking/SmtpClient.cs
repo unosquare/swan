@@ -1,5 +1,4 @@
 ﻿#if !UWP
-
 namespace Unosquare.Swan.Networking
 {
     using System.Threading;
@@ -11,9 +10,10 @@ namespace Unosquare.Swan.Networking
     using System.Text;
     using System.Threading.Tasks;
     using System.Collections.Generic;
-
 #if NET452
     using System.Net.Mail;
+#else
+    using Exceptions;
 #endif
 
     /// <summary>
@@ -65,9 +65,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="replyText">The reply text.</param>
         /// <param name="sessionId">The session id.</param>
-        /// <returns></returns>
-        /// <exception cref="SmtpException">
-        /// </exception>
+        /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
         private static void ValidateReply(string replyText, string sessionId)
         {
             if (replyText == null)
@@ -84,7 +82,7 @@ namespace Unosquare.Swan.Networking
                 if (response.Content.Count > 0)
                     responseContent = string.Join(";", response.Content.ToArray());
 
-                throw new SmtpException((SmtpStatusCode) response.ReplyCode, responseContent);
+                throw new SmtpException((SmtpStatusCode)response.ReplyCode, responseContent);
             }
             catch
             {
@@ -98,7 +96,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="sessionId">The session identifier.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous of send email operation</returns>
         public async Task SendMailAsync(MailMessage message, string sessionId = null)
         {
             var state = new SmtpSessionState
@@ -134,8 +132,10 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionState">The state.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        public async Task SendMailAsync(SmtpSessionState sessionState, string sessionId = null,
+        /// <returns>A task that represents the asynchronous of send email operation</returns>
+        public async Task SendMailAsync(
+            SmtpSessionState sessionState, 
+            string sessionId = null,
             CancellationToken ct = default(CancellationToken))
         {
             $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info(
@@ -151,10 +151,12 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionStates">The session states.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous of send email operation</returns>
         /// <exception cref="System.Security.SecurityException">Could not upgrade the channel to SSL.</exception>
-        /// <exception cref="SmtpException"></exception>
-        public async Task SendMailAsync(IEnumerable<SmtpSessionState> sessionStates, string sessionId = null,
+        /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
+        public async Task SendMailAsync(
+            IEnumerable<SmtpSessionState> sessionStates, 
+            string sessionId = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var tcpClient = new TcpClient())
@@ -179,12 +181,13 @@ namespace Unosquare.Swan.Networking
                             do
                             {
                                 replyText = await connection.ReadLineAsync(ct);
-                            } while (replyText.StartsWith("250 ") == false);
+                            } 
+                            while (replyText.StartsWith("250 ") == false);
 
                             ValidateReply(replyText, sessionId);
                         }
 
-                        //   STARTTLS
+                        // STARTTLS
                         if (EnableSsl)
                         {
                             requestText = $"{SmtpCommandNames.STARTTLS}";
@@ -193,6 +196,7 @@ namespace Unosquare.Swan.Networking
                             await connection.WriteLineAsync(requestText, ct);
                             replyText = await connection.ReadLineAsync(ct);
                             ValidateReply(replyText, sessionId);
+
                             if (await connection.UpgradeToSecureAsClientAsync() == false)
                                 throw new SecurityException("Could not upgrade the channel to SSL.");
                         }
@@ -206,12 +210,13 @@ namespace Unosquare.Swan.Networking
                             do
                             {
                                 replyText = await connection.ReadLineAsync(ct);
-                            } while (replyText.StartsWith("250 ") == false);
+                            }
+                            while (replyText.StartsWith("250 ") == false);
 
                             ValidateReply(replyText, sessionId);
                         }
 
-                        //   AUTH
+                        // AUTH
                         if (Credentials != null)
                         {
                             requestText =
@@ -241,7 +246,7 @@ namespace Unosquare.Swan.Networking
                                 ValidateReply(replyText, sessionId);
                             }
 
-                            //   RCPT TO
+                            // RCPT TO
                             foreach (var recipient in sessionState.Recipients)
                             {
                                 requestText = $"{SmtpCommandNames.RCPT} TO:<{recipient}>";

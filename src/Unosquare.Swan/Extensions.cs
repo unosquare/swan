@@ -8,6 +8,9 @@
     using System.Linq;
     using System.Reflection;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     public static partial class Extensions
     {
         private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
@@ -21,7 +24,7 @@
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <returns></returns>
+        /// <returns>Number of properties that was copied successful</returns>
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             return CopyPropertiesTo(source, target, null);
@@ -112,7 +115,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns></returns>
+        /// <returns>Returns the specified type of properties that were successfully copied</returns>
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
         {
             var target = Activator.CreateInstance<T>();
@@ -129,8 +132,10 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns></returns>
-        public static int CopyPropertiesTo(this IDictionary<string, object> source, object target,
+        /// <returns>Number of properties that was copied successful</returns>
+        public static int CopyPropertiesTo(
+            this IDictionary<string, object> source, 
+            object target,
             string[] ignoreProperties)
         {
             var copiedProperties = 0;
@@ -158,7 +163,9 @@
                 if (targetProperty == null) continue;
 
                 if (ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
+                {
                     continue;
+                }
 
                 try
                 {
@@ -172,7 +179,11 @@
                     var sourceStringValue = sourceKey.Value.ToStringInvariant();
 
                     if (targetProperty.PropertyType == typeof(bool))
-                        sourceStringValue = sourceStringValue == "1" ? "true" : "false";
+                    {
+                        sourceStringValue = sourceStringValue == "1"
+                            ? bool.TrueString.ToLowerInvariant()
+                            : bool.FalseString.ToLowerInvariant();
+                    }
 
                     object targetValue;
                     if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue,
@@ -196,7 +207,9 @@
         /// This method uses a high precision Stopwatch.
         /// </summary>
         /// <param name="target">The target.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A  time interval that represents a specified time, where the specification is in units of ticks
+        /// </returns>
         public static TimeSpan Benchmark(this Action target)
         {
             var sw = new Stopwatch();
@@ -233,9 +246,11 @@
             {
                 action();
                 return null;
-            }, retryInterval, retryCount);
+            }, 
+            retryInterval, 
+            retryCount);
         }
-        
+
         /// <summary>
         /// Does the specified action.
         /// </summary>
@@ -243,8 +258,10 @@
         /// <param name="action">The action.</param>
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
-        /// <returns></returns>
-        /// <exception cref="AggregateException"></exception>
+        /// <returns>The return value of the method that this delegate encapsulates</returns>
+        /// <exception cref="AggregateException">
+        ///     Represents one or many errors that occur during application execution
+        /// </exception>
         public static T Retry<T>(
             this Func<T> action,
             TimeSpan retryInterval = default(TimeSpan),
@@ -278,7 +295,7 @@
         /// </summary>
         /// <param name="ex">The ex.</param>
         /// <param name="priorMessage">The prior message.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="System.String" /> that represents this instance</returns>
         public static string ExceptionMessage(this Exception ex, string priorMessage = "")
         {
             while (true)

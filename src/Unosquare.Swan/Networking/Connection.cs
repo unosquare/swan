@@ -32,6 +32,10 @@ namespace Unosquare.Swan.Networking
         private readonly byte[] NewLineSequenceBytes;
         private readonly char[] NewLineSequenceChars;
         private readonly string[] NewLineSequenceLineSplitter;
+        private readonly byte[] ReceiveBuffer;
+        private readonly TimeSpan ContinuousReadingInterval = TimeSpan.FromMilliseconds(5);
+        private readonly Queue<string> _readLineBuffer = new Queue<string>();
+        private readonly ManualResetEventSlim _writeDone = new ManualResetEventSlim(true);
 
         // Disconnect and Dispose
         private bool _hasDisposed;
@@ -39,15 +43,12 @@ namespace Unosquare.Swan.Networking
 
         // Continuous Reading
         private Thread ContinuousReadingThread;
-        private readonly TimeSpan ContinuousReadingInterval = TimeSpan.FromMilliseconds(5);
-        private readonly byte[] ReceiveBuffer;
+                
         private int ReceiveBufferPointer;
 
         // Reading and writing
         private Task<int> _readTask;
-        private readonly Queue<string> _readLineBuffer = new Queue<string>();
-        private readonly ManualResetEventSlim _writeDone = new ManualResetEventSlim(true);
-
+        
 #endregion
 
 #region Events
@@ -212,7 +213,11 @@ namespace Unosquare.Swan.Networking
         /// <param name="newLineSequence">The new line sequence used for read and write operations.</param>
         /// <param name="disableContinuousReading">if set to <c>true</c> [disable continuous reading].</param>
         /// <param name="blockSize">Size of the block. -- set to 0 or less to disable</param>
-        public Connection(TcpClient client, Encoding textEncoding, string newLineSequence, bool disableContinuousReading,
+        public Connection(
+            TcpClient client, 
+            Encoding textEncoding, 
+            string newLineSequence, 
+            bool disableContinuousReading,
             int blockSize)
         {
             // Setup basic properties
@@ -264,12 +269,12 @@ namespace Unosquare.Swan.Networking
             if (activeThreadPoolTreads < Environment.ProcessorCount / 4)
             {
                 ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
-                //Log.Trace($"Queued new ThreadPool Thread. Active TP Threads: {activeThreadPoolTreads}");
+                // Log.Trace($"Queued new ThreadPool Thread. Active TP Threads: {activeThreadPoolTreads}");
             }
             else
             {
                 new Thread(PerformContinuousReading) { IsBackground = true }.Start();
-                //Log.Trace($"Created standard thread. Active TP Threads: {activeThreadPoolTreads}");
+                // Log.Trace($"Created standard thread. Active TP Threads: {activeThreadPoolTreads}");
             }
 #endif
         }
@@ -321,9 +326,11 @@ namespace Unosquare.Swan.Networking
                     var eventBuffer = new byte[ReceiveBuffer.Length];
                     Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
 
-                    DataReceived(this,
+                    DataReceived(this, 
                         new ConnectionDataReceivedEventArgs(
-                            eventBuffer, ConnectionDataReceivedTrigger.BlockSizeReached, moreAvailable));
+                            eventBuffer, 
+                            ConnectionDataReceivedTrigger.BlockSizeReached, 
+                            moreAvailable));
                     ReceiveBufferPointer = 0;
                     continue;
                 }
@@ -333,9 +340,12 @@ namespace Unosquare.Swan.Networking
                 {
                     var eventBuffer = new byte[ReceiveBuffer.Length];
                     Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
-                    DataReceived(this,
+
+                    DataReceived(this, 
                         new ConnectionDataReceivedEventArgs(
-                            eventBuffer, ConnectionDataReceivedTrigger.BufferFull, moreAvailable));
+                                eventBuffer, 
+                                ConnectionDataReceivedTrigger.BufferFull, 
+                                moreAvailable));
                     ReceiveBufferPointer = 0;
                 }
             }
@@ -357,7 +367,7 @@ namespace Unosquare.Swan.Networking
             if (sequences.Count == 1 && sequences[0].EndsWith(NewLineSequenceBytes) == false)
                 return;
 
-            //Log.Trace(" > > > Showing sequences: ");
+            // Log.Trace(" > > > Showing sequences: ");
 
             // Process the events for each sequence
             for (var i = 0; i < sequences.Count; i++)
@@ -366,19 +376,20 @@ namespace Unosquare.Swan.Networking
                 var isNewLineTerminated = sequences[i].EndsWith(NewLineSequenceBytes);
                 var isLast = i == sequences.Count - 1;
 
-                //Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");
+                // Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");
 
                 if (isNewLineTerminated)
                 {
-                    var eventArgs = new ConnectionDataReceivedEventArgs(sequenceBytes,
-                        ConnectionDataReceivedTrigger.NewLineSequenceEncountered, isLast == false);
+                    var eventArgs = new ConnectionDataReceivedEventArgs(
+                                        sequenceBytes,
+                                        ConnectionDataReceivedTrigger.NewLineSequenceEncountered, 
+                                        isLast == false);
                     DataReceived(this, eventArgs);
                 }
 
                 // Depending on the last segment determine what to do with the receive buffer
                 if (isLast)
                 {
-
                     if (isNewLineTerminated)
                     {
                         // Simply reset the buffer pointer if the last segment was also terminated
@@ -402,6 +413,9 @@ namespace Unosquare.Swan.Networking
         private void PerformContinuousReading(object threadContext)
         {
             ContinuousReadingThread = Thread.CurrentThread;
+
+            // Check if the RemoteClient is still there
+            if (RemoteClient == null) return;
 
             var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
 
@@ -431,7 +445,6 @@ namespace Unosquare.Swan.Networking
                     {
                         doThreadSleep = _disconnectCalls <= 0;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -445,23 +458,25 @@ namespace Unosquare.Swan.Networking
             }
         }
 
-        #endregion
+#endregion
 
-        #region Read Methods
+#region Read Methods
 
         /// <summary>
         /// Reads data from the remote client asynchronously and with the given timeout.
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         /// <exception cref="TimeoutException">Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m</exception>
         public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct)
         {
             if (IsContinuousReadingEnabled)
+            {
                 throw new InvalidOperationException(
                     "Read methods have been disabled because continuous reading is enabled.");
+            }
 
             var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
             var receiveBuilder = new List<byte>(receiveBuffer.Length);
@@ -473,8 +488,10 @@ namespace Unosquare.Swan.Networking
                 while (receiveBuilder.Count <= 0)
                 {
                     if (DateTime.UtcNow.Subtract(startTime) >= timeout)
+                    {
                         throw new TimeoutException(
                             $"Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} ms");
+                    }
 
                     if (_readTask == null)
                         _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length, ct);
@@ -497,7 +514,6 @@ namespace Unosquare.Swan.Networking
                         await Task.Delay(ContinuousReadingInterval, ct);
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -512,7 +528,7 @@ namespace Unosquare.Swan.Networking
         /// Reads data asynchronously from the remote stream with a 5000 millisecond timeout.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results the specified sequence of bytes</returns>
         public async Task<byte[]> ReadDataAsync(CancellationToken ct)
         {
             return await ReadDataAsync(TimeSpan.FromSeconds(5), ct);
@@ -523,7 +539,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct)
         {
             var buffer = await ReadDataAsync(timeout, ct);
@@ -533,16 +549,21 @@ namespace Unosquare.Swan.Networking
         /// <summary>
         /// Asynchronously reads data as text with a 5000 millisecond timeout.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>When this method completes successfully, it returns the contents of the file as a text string</returns>
         public async Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
         {
             return await ReadTextAsync(TimeSpan.FromSeconds(5), ct);
         }
-        
+
         /// <summary>
         /// Performs the same task as this method's overload but it defaults to a read timeout of 30 seconds.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The value of the TResult parameter 
+        /// contains the next line from the stream, or is null if all the characters have been read
+        /// </returns>
         public async Task<string> ReadLineAsync(CancellationToken ct)
         {
             return await ReadLineAsync(TimeSpan.FromSeconds(30), ct);
@@ -557,13 +578,17 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The object that is removed from the beginning of the Queue<T>
+        /// </returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct)
         {
             if (IsContinuousReadingEnabled)
+            {
                 throw new InvalidOperationException(
                     "Read methods have been disabled because continuous reading is enabled.");
+            }
 
             if (_readLineBuffer.Count > 0)
                 return _readLineBuffer.Dequeue();
@@ -595,9 +620,9 @@ namespace Unosquare.Swan.Networking
             return null;
         }
 
-        #endregion
+#endregion
 
-        #region Write Methods
+#region Write Methods
 
         /// <summary>
         /// Writes data asynchronously.
@@ -605,7 +630,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="buffer">The buffer.</param>
         /// <param name="forceFlush">if set to <c>true</c> [force flush].</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct)
         {
             try
@@ -629,7 +654,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteTextAsync(string text, CancellationToken ct)
         {
             await WriteTextAsync(text, TextEncoding, ct);
@@ -641,7 +666,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="text">The text.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct)
         {
             var buffer = encoding.GetBytes(text);
@@ -655,7 +680,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="line">The line.</param>
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct)
         {
             var buffer = encoding.GetBytes($"{line}{NewLineSequence}");
@@ -668,21 +693,21 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteLineAsync(string line, CancellationToken ct)
         {
             await WriteLineAsync(line, TextEncoding, ct);
         }
 
-        #endregion
+#endregion
 
-        #region Socket Methods
+#region Socket Methods
 
         /// <summary>
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the server.
         /// </summary>
         /// <param name="serverCertificate">The server certificate.</param>
-        /// <returns></returns>
+        /// <returns>True if the object is hosted in the server; otherwise, false</returns>
         public async Task<bool> UpgradeToSecureAsServerAsync(X509Certificate2 serverCertificate)
         {
             if (IsActiveStreamSecure)
@@ -713,8 +738,9 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="hostname">The hostname.</param>
         /// <param name="callback">The callback.</param>
-        /// <returns></returns>
-        public async Task<bool> UpgradeToSecureAsClientAsync(string hostname,
+        /// <returns>True if the object is hosted in the client; otherwise, false</returns>
+        public async Task<bool> UpgradeToSecureAsClientAsync(
+            string hostname,
             RemoteCertificateValidationCallback callback)
         {
             if (IsActiveStreamSecure)
@@ -741,10 +767,11 @@ namespace Unosquare.Swan.Networking
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the client.
         /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them!
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if the object is hosted in the client; otherwise, false</returns>
         public async Task<bool> UpgradeToSecureAsClientAsync()
         {
-            return await UpgradeToSecureAsClientAsync(Network.HostName.ToLowerInvariant(),
+            return await UpgradeToSecureAsClientAsync(
+                Network.HostName.ToLowerInvariant(),
                 (a, b, c, d) => true);
         }
 

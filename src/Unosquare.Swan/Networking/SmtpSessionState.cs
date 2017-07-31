@@ -144,7 +144,7 @@
             SupportsExtensions = false;
             ClientHostname = string.Empty;
             ResetEmail();
-            //ResetAuthentication();
+            // ResetAuthentication();
 
             if (clearExtensionData)
                 ExtendedData = null;
@@ -153,6 +153,7 @@
         /// <summary>
         /// Creates a new object that is a copy of the current instance.
         /// </summary>
+        /// <returns></returns>
         public virtual SmtpSessionState Clone()
         {
             // TODO: Use a binary formatter or something similar when it comes out in .net core/standard

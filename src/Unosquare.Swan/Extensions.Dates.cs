@@ -4,13 +4,16 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     partial class Extensions
     {
         /// <summary>
         /// Converts the date to a YYYY-MM-DD string
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns></returns>
+        /// <returns>The concatenation of date.Year, date.Month and date.Day</returns>
         public static string ToSortableDate(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}";
@@ -20,7 +23,7 @@
         /// Converts the date to a YYYY-MM-DD HH:II:SS string
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <returns></returns>
+        /// <returns>The concatenation of date.Year, date.Month, date.Day, date.Hour, date.Minute and date.Second</returns>
         public static string ToSortableDateTime(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
@@ -30,11 +33,17 @@
         /// Parses a YYYY-MM-DD and optionally it time part, HH:II:SS into a DateTime
         /// </summary>
         /// <param name="sortableDate">The sortable date.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A new instance of the DateTime structure to 
+        /// the specified year, month, day, hour, minute and second
+        /// </returns>
         /// <exception cref="ArgumentNullException">sortableDate</exception>
         /// <exception cref="Exception">
+        /// Represents errors that occur during application execution
         /// </exception>
-        /// <exception cref="ArgumentException">Unable to parse sortable date and time. - sortableDate</exception>
+        /// <exception cref="ArgumentException">
+        /// Unable to parse sortable date and time. - sortableDate
+        /// </exception>
         public static DateTime ToDateTime(this string sortableDate)
         {
             if (string.IsNullOrWhiteSpace(sortableDate))
@@ -81,7 +90,9 @@
         /// </summary>
         /// <param name="startDate">The start date.</param>
         /// <param name="endDate">The end date.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A sequence of integral numbers within a specified date's range
+        /// </returns>
         public static IEnumerable<DateTime> DateRange(this DateTime startDate, DateTime endDate)
         {
             return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
@@ -92,7 +103,9 @@
         /// </summary>
         /// <param name="dt">The datetime.</param>
         /// <param name="d">The timespan to match.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A new instance of the DateTime structure to the specified datetime and timespan ticks
+        /// </returns>
         public static DateTime RoundUp(this DateTime dt, TimeSpan d)
         {
             return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);

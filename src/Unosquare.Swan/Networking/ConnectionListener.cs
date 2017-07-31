@@ -89,7 +89,6 @@
         public ConnectionListener(int listenPort)
             : this(new IPEndPoint(IPAddress.Loopback, listenPort))
         {
-
         }
 
         /// <summary>
@@ -100,7 +99,6 @@
         public ConnectionListener(IPAddress listenAddress, int listenPort)
             : this(new IPEndPoint(listenAddress, listenPort))
         {
-
         }
 
         #endregion
@@ -117,10 +115,15 @@
             lock (_stateLock)
             {
                 if (_backgroundWorkerTask != null)
+                {
                     return;
+                }
 
                 if (_cancellationPending)
-                    throw new InvalidOperationException("Cancellation has already been requested. This listener is not reusable.");
+                {
+                    throw new InvalidOperationException(
+                        "Cancellation has already been requested. This listener is not reusable.");
+                }
 
                 _backgroundWorkerTask = DoWorkAsync();
             }
@@ -129,7 +132,7 @@
         /// <summary>
         /// Continuously checks for client connections until the Close method has been called.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous connection operation</returns>
         private async Task DoWorkAsync()
         {
             _cancellationPending = false;
@@ -146,6 +149,7 @@
                         var client = await Task.Run(() => _listenerSocket.AcceptTcpClientAsync(), _cancelListening.Token);
                         var acceptingArgs = new ConnectionAcceptingEventArgs(client);
                         OnConnectionAccepting(this, acceptingArgs);
+
                         if (acceptingArgs.Cancel)
                         {
 #if !NET452
@@ -172,7 +176,8 @@
             }
             catch (Exception ex)
             {
-                OnListenerStopped(this, new ConnectionListenerStoppedEventArgs(LocalEndPoint, _cancellationPending ? null : ex));
+                OnListenerStopped(this,
+                    new ConnectionListenerStoppedEventArgs(LocalEndPoint, _cancellationPending ? null : ex));
             }
             finally
             {
@@ -249,6 +254,5 @@
         }
 
         #endregion
-
     }
 }

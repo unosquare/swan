@@ -17,9 +17,11 @@
     /// <seealso cref="System.IDisposable" />
     public class CsvReader : IDisposable
     {
+        private readonly object _syncLock = new object();
+
         #region Static Declarations
 
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();        
 
         #endregion
 
@@ -32,8 +34,7 @@
         #endregion
 
         #region State Variables
-
-        private readonly object _syncLock = new object();
+        
         private bool _hasDisposed; // To detect redundant calls
         private string[] _headings;
         private Dictionary<string, string> _defaultMap;
@@ -129,7 +130,16 @@
         /// <summary>
         /// Gets number of lines that have been read, including the headings
         /// </summary>
-        public ulong Count { get { lock (_syncLock) { return _count; } } }
+        public ulong Count
+        {
+            get
+            {
+                lock (_syncLock)
+                {
+                    return _count;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the escape character.
@@ -137,7 +147,10 @@
         /// </summary>
         public char EscapeCharacter
         {
-            get { return _escapeCharacter; }
+            get
+            {
+                return _escapeCharacter;
+            }
             set
             {
                 lock (_syncLock)
@@ -153,7 +166,10 @@
         /// </summary>
         public char SeparatorCharacter
         {
-            get { return _separatorCharacter; }
+            get
+            {
+                return _separatorCharacter;
+            }
             set
             {
                 lock (_syncLock)
@@ -188,7 +204,7 @@
         /// <summary>
         /// Reads a line of CSV text into an array of strings
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList</returns>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         public string[] ReadLine()
         {
@@ -228,7 +244,7 @@
         /// Reads a line of CSV text and stores the values read as a representation of the column names
         /// to be used for parsing objects. You have to call this method before calling ReadObject methods.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList</returns>
         /// <exception cref="System.InvalidOperationException">
         /// Reading headings is only supported as the first read operation.
         /// or
@@ -260,7 +276,7 @@
         /// Reads a line of CSV text, converting it into a dynamic object in which properties correspond to the names of the headings
         /// </summary>
         /// <param name="map">The mappings between CSV headings (keys) and object properties (values)</param>
-        /// <returns></returns>
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
         /// <exception cref="System.ArgumentNullException">map</exception>
@@ -293,7 +309,7 @@
         /// Reads a line of CSV text, converting it into a dynamic object
         /// The property names correspond to the names of the CSV headings
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
         public IDictionary<string, object> ReadObject()
         {
             return ReadObject(_defaultMap);
@@ -335,7 +351,8 @@
                 var values = ReadLine();
 
                 // Extract properties from cache
-                var properties = TypeCache.Retrieve<T>(() => {
+                var properties = TypeCache.Retrieve<T>(() => 
+                {
                     return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Where(x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType));
                 });
@@ -383,7 +400,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
-        /// <returns></returns>
+        /// <returns>The conversion of specific type of object</returns>
         /// <exception cref="System.ArgumentNullException">map</exception>
         /// <exception cref="System.InvalidOperationException">ReadHeadings</exception>
         /// <exception cref="System.IO.EndOfStreamException">Cannot read past the end of the stream</exception>
@@ -400,7 +417,7 @@
         /// the property names of the target type match the heading names of the file.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <returns>The conversion of specific type of object</returns>
         public T ReadObject<T>()
             where T : new()
         {
@@ -418,7 +435,7 @@
         /// <param name="reader">The reader.</param>
         /// <param name="escapeCharacter">The escape character.</param>
         /// <param name="separatorCharacter">The separator character.</param>
-        /// <returns></returns>
+        /// <returns>An array of the specified element type containing copies of the elements of the ArrayList</returns>
         private static string[] ParseRecord(StreamReader reader, char escapeCharacter = '"', char separatorCharacter = ',')
         {
             var values = new List<string>();
@@ -440,24 +457,25 @@
                         case ReadState.WaitingForNewField:
                             {
                                 currentValue.Clear();
+
                                 if (currentChar == escapeCharacter)
                                 {
                                     currentState = ReadState.PushingQuoted;
                                     continue;
                                 }
-                                else if (currentChar == separatorCharacter)
+
+                                if (currentChar == separatorCharacter)
                                 {
                                     values.Add(currentValue.ToString());
                                     currentState = ReadState.WaitingForNewField;
                                     continue;
                                 }
-                                else
-                                {
-                                    currentValue.Append(currentChar);
-                                    currentState = ReadState.PushingNormal;
-                                    continue;
-                                }
+
+                                currentValue.Append(currentChar);
+                                currentState = ReadState.PushingNormal;
+                                continue;
                             }
+
                         case ReadState.PushingNormal:
                             {
                                 // Handle field content delimiter by comma
@@ -481,6 +499,7 @@
                                 currentValue.Append(currentChar);
                                 break;
                             }
+
                         case ReadState.PushingQuoted:
                             {
                                 // Handle field content delimiter by ending double quotes
@@ -543,7 +562,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="filePath">The file path.</param>
-        /// <returns></returns>
+        /// <returns>A generic collection of objects that can be individually accessed by index</returns>
         public static IList<T> LoadRecords<T>(string filePath)
             where T : new()
         {

@@ -22,12 +22,12 @@
 
         #region State Variables
 
-        private readonly object SyncLock = new object();
-        private readonly Stream OutputStream;
-        private readonly Encoding Encoding;
-        private readonly bool LeaveStreamOpen;
-        private bool IsDisposing;
-        private ulong m_Count;
+        private readonly object _syncLock = new object();
+        private readonly Stream _outputStream;
+        private readonly Encoding _encoding;
+        private readonly bool _leaveStreamOpen;
+        private bool _isDisposing;
+        private ulong _mCount;
 
         #endregion
 
@@ -41,9 +41,9 @@
         /// <param name="encoding">The encoding.</param>
         public CsvWriter(Stream outputStream, bool leaveOpen, Encoding encoding)
         {
-            OutputStream = outputStream;
-            Encoding = encoding;
-            LeaveStreamOpen = leaveOpen;
+            _outputStream = outputStream;
+            _encoding = encoding;
+            _leaveStreamOpen = leaveOpen;
         }
 
         /// <summary>
@@ -122,7 +122,16 @@
         /// <summary>
         /// Gets number of lines that have been written, including the headings line
         /// </summary>
-        public ulong Count { get { lock (SyncLock) { return m_Count; } } }
+        public ulong Count
+        {
+            get
+            {
+                lock (_syncLock)
+                {
+                    return _mCount;
+                }
+            }
+        }
 
         #endregion
 
@@ -136,11 +145,11 @@
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 var length = items.Length;
-                var separatorBytes = Encoding.GetBytes(new[] { SeparatorCharacter });
-                var endOfLineBytes = Encoding.GetBytes(NewLineSequence);
+                var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
+                var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
 
                 // Declare state variables here to avoid recreation, allocation and
                 // reassignment in every loop
@@ -171,18 +180,18 @@
                         textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
 
                     // Get the bytes to write to the stream and write them
-                    output = Encoding.GetBytes(textValue);
-                    OutputStream.Write(output, 0, output.Length);
+                    output = _encoding.GetBytes(textValue);
+                    _outputStream.Write(output, 0, output.Length);
 
                     // only write a separator if we are moving in between values.
                     // the last value should not be written.
                     if (i < length - 1)
-                        OutputStream.Write(separatorBytes, 0, separatorBytes.Length);
+                        _outputStream.Write(separatorBytes, 0, separatorBytes.Length);
                 }
 
                 // output the newline sequence
-                OutputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
-                m_Count += 1;
+                _outputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
+                _mCount += 1;
             }
         }
 
@@ -203,7 +212,7 @@
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 { // Handling as Dynamic Object
                     var typedItem = item as IDictionary<string, object>;
@@ -236,7 +245,6 @@
                     WriteObjectValues(item);
                 }
             }
-
         }
 
         /// <summary>
@@ -261,7 +269,7 @@
         /// <param name="items">The items.</param>
         public void WriteObjects<T>(IEnumerable<T> items)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 foreach (var item in items)
                     WriteObject(item);
@@ -406,7 +414,7 @@
         /// Gets the filtered dictionary keys using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
             var keys = new List<object>();
@@ -427,7 +435,7 @@
         /// Gets the filtered dictionary keys using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
         {
             var keys = new List<object>();
@@ -448,7 +456,7 @@
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryValues(IDictionary dictionary)
         {
             var values = new List<object>();
@@ -469,7 +477,7 @@
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns></returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
         {
             var values = new List<object>();
@@ -485,15 +493,15 @@
 
             return values.ToArray();
         }
-        
+
         /// <summary>
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>Filtered type properties using the IgnoreProperties list</returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
         {
-            lock (SyncLock)
+            lock (_syncLock)
             {
                 return TypeCache.Retrieve(type, () => 
                     {
@@ -517,7 +525,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
-        /// <returns></returns>
+        /// <returns>Number of item of CsvWriter</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
             var fullPath = Path.GetFullPath(filePath);
@@ -547,17 +555,17 @@
         /// <param name="disposeAlsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposeAlsoManaged)
         {
-            if (!IsDisposing)
+            if (!_isDisposing)
             {
                 if (disposeAlsoManaged)
                 {
-                    if (LeaveStreamOpen == false)
+                    if (_leaveStreamOpen == false)
                     {
-                        OutputStream.Dispose();
+                        _outputStream.Dispose();
                     }
                 }
 
-                IsDisposing = true;
+                _isDisposing = true;
             }
         }
 

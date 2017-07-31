@@ -4,8 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using Exceptions;
 
-    internal partial class DnsClient
+    partial class DnsClient
     {
         private readonly IPEndPoint dns;
         private readonly IDnsRequestResolver resolver;
@@ -16,13 +17,15 @@
             this.resolver = resolver ?? new DnsUdpRequestResolver(new DnsTcpRequestResolver());
         }
 
-        public DnsClient(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) :
-            this(new IPEndPoint(ip, port), resolver)
-        { }
+        public DnsClient(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
+            : this(new IPEndPoint(ip, port), resolver)
+        {
+        }
 
-        public DnsClient(string ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) :
-            this(IPAddress.Parse(ip), port, resolver)
-        { }
+        public DnsClient(string ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
+            : this(IPAddress.Parse(ip), port, resolver)
+        {
+        }
 
         public DnsClientRequest FromArray(byte[] message)
         {
@@ -57,10 +60,7 @@
             return ips;
         }
 
-        public string Reverse(string ip)
-        {
-            return Reverse(IPAddress.Parse(ip));
-        }
+        public string Reverse(string ip) => Reverse(IPAddress.Parse(ip));
 
         public string Reverse(IPAddress ip)
         {

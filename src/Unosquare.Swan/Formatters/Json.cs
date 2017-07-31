@@ -48,25 +48,20 @@
         /// Retrieves PropertyInfo[] (both public and non-public) for the given type
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type type)
         {
-            return PropertyTypeCache.Retrieve(type, () =>
-            {
-                return
-                    type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                        .Where(p => p.CanRead || p.CanWrite).ToArray();
-            });
+            return PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPropertiesFunc(type));
         }
 
         /// <summary>
         /// Retrieves FieldInfo[] (public) for the given type
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type type)
         {
-            return FieldTypeCache.Retrieve(type, () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
+            return FieldTypeCache.Retrieve(type, FieldTypeCache.GetAllFieldsFunc(type));
         }
 
         /// <summary>
@@ -76,8 +71,11 @@
         /// <param name="targetType">Type of the target.</param>
         /// <param name="targetInstance">An optional target instance. If null, we will attempt creation.</param>
         /// <param name="includeNonPublic">if set to <c>true</c> [include private].</param>
-        /// <returns></returns>
-        private static object ConvertFromJsonResult(object source, Type targetType, ref object targetInstance,
+        /// <returns>Type of the current conversion from json result</returns>
+        private static object ConvertFromJsonResult(
+            object source, 
+            Type targetType, 
+            ref object targetInstance,
             bool includeNonPublic)
         {
             #region Setup: State and Validation
@@ -187,8 +185,11 @@
                             try
                             {
                                 object instance = null;
-                                var targetEntryValue = ConvertFromJsonResult(sourceProperty.Value, targetEntryType,
-                                    ref instance, includeNonPublic);
+                                var targetEntryValue = ConvertFromJsonResult(
+                                    sourceProperty.Value, 
+                                    targetEntryType,
+                                    ref instance, 
+                                    includeNonPublic);
                                 targetDictionary.Add(sourceProperty.Key, targetEntryValue);
                             }
                             catch
@@ -233,8 +234,11 @@
                             try
                             {
                                 object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(sourceList[i], targetType.GetElementType(),
-                                    ref nullRef, includeNonPublic);
+                                var targetItem = ConvertFromJsonResult(
+                                    sourceList[i], 
+                                    targetType.GetElementType(),
+                                    ref nullRef, 
+                                    includeNonPublic);
                                 targetArray.SetValue(targetItem, i);
                             }
                             catch
@@ -262,8 +266,11 @@
                             try
                             {
                                 object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(item, addMethod.GetParameters()[0].ParameterType,
-                                    ref nullRef, includeNonPublic);
+                                var targetItem = ConvertFromJsonResult(
+                                    item, 
+                                    addMethod.GetParameters()[0].ParameterType,
+                                    ref nullRef, 
+                                    includeNonPublic);
                                 targetList.Add(targetItem);
                             }
                             catch
@@ -342,8 +349,7 @@
                 {
                     try
                     {
-                        currentPropertyValue = (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?
-                            .Invoke(target, null);
+                        currentPropertyValue = (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null);
                     }
                     catch
                     {
@@ -355,16 +361,22 @@
                 {
                     if (targetType.IsValueType())
                     {
-                        var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
-                            (targetProperty as FieldInfo).FieldType, ref currentPropertyValue, includeNonPublic);
+                        var targetPropertyValue = ConvertFromJsonResult(
+                            sourcePropertyValue,
+                            (targetProperty as FieldInfo).FieldType, 
+                            ref currentPropertyValue, 
+                            includeNonPublic);
 
                         (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
                     }
                     else
                     {
                         // Try to write properties to the current property value as a reference to the current property value
-                        var targetPropertyValue = ConvertFromJsonResult(sourcePropertyValue,
-                            (targetProperty as PropertyInfo).PropertyType, ref currentPropertyValue, includeNonPublic);
+                        var targetPropertyValue = ConvertFromJsonResult(
+                            sourcePropertyValue,
+                            (targetProperty as PropertyInfo).PropertyType, 
+                            ref currentPropertyValue, 
+                            includeNonPublic);
 
                         // HACK: Always try to write the value of possible; otherwise it was most likely (hopefully) set by reference
                         // if (currentPropertyValue == null || targetProperty.PropertyType == typeof(string) || targetProperty.PropertyType.IsValueType())
@@ -393,9 +405,14 @@
         /// <param name="includeNonPublic">if set to <c>true</c> non-public getters will be also read.</param>
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
-        /// <returns></returns>
-        public static string Serialize(object obj, bool format = false, string typeSpecifier = null, bool includeNonPublic = false,
-            string[] includedNames = null, string[] excludedNames = null)
+        /// <returns>A string that represents the current object</returns>
+        public static string Serialize(
+            object obj, 
+            bool format = false, 
+            string typeSpecifier = null, 
+            bool includeNonPublic = false,
+            string[] includedNames = null, 
+            string[] excludedNames = null)
         {
             if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
                 throw new ArgumentException("You need to provide an object or array", nameof(obj));
@@ -417,7 +434,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="includeNames">The include names.</param>
-        /// <returns></returns>
+        /// <returns>A string that represents the current object</returns>
         public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, includeNames, null, true, null);
@@ -429,7 +446,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="excludeNames">The exclude names.</param>
-        /// <returns></returns>
+        /// <returns>A string that represents the current object</returns>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false, null);
@@ -440,19 +457,19 @@
         /// depending on the syntax of the JSON string
         /// </summary>
         /// <param name="json">The json.</param>
-        /// <returns></returns>
+        /// <returns>Type of the current deserializes</returns>
         public static object Deserialize(string json)
         {
             return Deserializer.DeserializeInternal(json);
         }
-        
+
         /// <summary>
         /// Deserializes the specified json string and converts it to the specified object type.
         /// Non-public constructors and property setters are ignored.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="json">The json.</param>
-        /// <returns></returns>
+        /// <returns>The deserialized specified type object</returns>
         public static T Deserialize<T>(string json)
         {
             return (T) Deserialize(json, typeof(T), false);
@@ -464,7 +481,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="json">The json.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
-        /// <returns></returns>
+        /// <returns>The deserialized specified type object</returns>
         public static T Deserialize<T>(string json, bool includeNonPublic)
         {
             return (T) Deserialize(json, typeof(T), includeNonPublic);
@@ -476,7 +493,7 @@
         /// <param name="json">The json.</param>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
-        /// <returns></returns>
+        /// <returns>Type of the current convertion from json result</returns>
         public static object Deserialize(string json, Type resultType, bool includeNonPublic)
         {
             var source = Deserializer.DeserializeInternal(json);

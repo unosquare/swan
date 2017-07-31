@@ -6,9 +6,11 @@ namespace Unosquare.Swan
     using System.Threading;
     using System.ServiceProcess;
 
-    partial class Extensions
+    /// <summary>
+    /// Extension methods
+    /// </summary>
+    public partial class Extensions
     {
-        
         /// <summary>
         /// Runs a service in console mode.
         /// </summary>
@@ -24,12 +26,12 @@ namespace Unosquare.Swan
         /// <param name="servicesToRun">The services to run.</param>
         public static void RunInConsoleMode(this ServiceBase[] servicesToRun)
         {
-            const string OnStartMethodName = "OnStart";
-            const string OnStopMethodName = "OnStop";
+            const string onStartMethodName = "OnStart";
+            const string onStopMethodName = "OnStop";
 
-            var onStartMethod = typeof(ServiceBase).GetMethod(OnStartMethodName,
+            var onStartMethod = typeof(ServiceBase).GetMethod(onStartMethodName,
                     BindingFlags.Instance | BindingFlags.NonPublic);
-            var onStopMethod = typeof(ServiceBase).GetMethod(OnStopMethodName,
+            var onStopMethod = typeof(ServiceBase).GetMethod(onStopMethodName,
                 BindingFlags.Instance | BindingFlags.NonPublic);
             var serviceThreads = new List<Thread>();
 

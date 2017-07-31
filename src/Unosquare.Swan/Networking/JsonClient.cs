@@ -28,9 +28,12 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
-        public static async Task<T> Post<T>(string url, object payload, string authorization = null,
+        /// <returns>The type of the result produced by this Task</returns>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        public static async Task<T> Post<T>(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostString(url, payload, authorization, ct);
@@ -49,9 +52,12 @@
         /// <param name="httpStatusError">The HTTP status error.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(string url, object payload,
-            int httpStatusError = 500, string authorization = null,
+        /// <returns>The Ok value or Error value of the result produced by this Task</returns>
+        public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
+            string url, 
+            object payload,
+            int httpStatusError = 500, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -63,17 +69,21 @@
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
                     return new OkOrError<T, TE>
                     {
                         IsOk = true,
                         Ok = string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString)
                     };
+                }
 
                 if ((int)response.StatusCode == httpStatusError)
+                {
                     return new OkOrError<T, TE>
                     {
                         Error = string.IsNullOrEmpty(jsonString) ? default(TE) : Json.Deserialize<TE>(jsonString)
                     };
+                }
 
                 return new OkOrError<T, TE>();
             }
@@ -86,9 +96,12 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        public static async Task<IDictionary<string, object>> Post(string url, object payload,
-            string authorization = null, CancellationToken ct = default(CancellationToken))
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
+        public static async Task<IDictionary<string, object>> Post(
+            string url, 
+            object payload,
+            string authorization = null, 
+            CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PostString(url, payload, authorization, ct);
 
@@ -104,9 +117,14 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
-        public static async Task<string> PostString(string url, object payload, string authorization = null,
+        /// <returns>
+        /// The type of the result produced by this Task
+        /// </returns>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        public static async Task<string> PostString(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -130,8 +148,11 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        public static async Task<T> Put<T>(string url, object payload, string authorization = null,
+        /// <returns>The type of the result produced by this Task</returns>
+        public static async Task<T> Put<T>(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PutString(url, payload, authorization, ct);
@@ -146,9 +167,12 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        public static async Task<IDictionary<string, object>> Put(string url, object payload,
-            string authorization = null, CancellationToken ct = default(CancellationToken))
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
+        public static async Task<IDictionary<string, object>> Put(
+            string url, 
+            object payload,
+            string authorization = null, 
+            CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await PutString(url, payload, authorization, ct);
 
@@ -164,9 +188,12 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
-        public static async Task<string> PutString(string url, object payload, string authorization = null,
+        /// <returns>The type of the result produced by this Task</returns>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        public static async Task<string> PutString(
+            string url, 
+            object payload, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -188,9 +215,11 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
-        public static async Task<string> GetString(string url, string authorization = null,
+        /// <returns>The type of the result produced by this Task</returns>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        public static async Task<string> GetString(
+            string url, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -208,13 +237,15 @@
         /// Gets the specified URL and return the JSON data as object
         /// with optional authorization token.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The response type</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
-        public static async Task<T> Get<T>(string url, string authorization = null,
+        /// <returns>The type of the result produced by this Task</returns>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        public static async Task<T> Get<T>(
+            string url, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             var jsonString = await GetString(url, authorization, ct);
@@ -227,9 +258,11 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception"></exception>
-        public static async Task<byte[]> GetBinary(string url, string authorization = null,
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        public static async Task<byte[]> GetBinary(
+            string url, 
+            string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
@@ -250,15 +283,20 @@
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public static async Task<IDictionary<string, object>> Authenticate(string url, string username, string password,
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
+        /// <exception cref="Exception">Represents errors that occur during application execution</exception>
+        public static async Task<IDictionary<string, object>> Authenticate(
+            string url, 
+            string username, 
+            string password,
             CancellationToken ct = default(CancellationToken))
         {
             using (var httpClient = new HttpClient())
             {
-                var requestContent = new StringContent($"grant_type=password&username={username}&password={password}",
-                    Encoding.UTF8, "application/x-www-form-urlencoded");
+                var requestContent = new StringContent(
+                    $"grant_type=password&username={username}&password={password}",
+                    Encoding.UTF8, 
+                    "application/x-www-form-urlencoded");
                 var response = await httpClient.PostAsync(url, requestContent, ct);
 
                 if (response.IsSuccessStatusCode == false)
@@ -277,8 +315,11 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns></returns>
-        public static async Task<string> PostFileString(string url, byte[] buffer, string fileName,
+        /// <returns>The type of the result produced by this Task</returns>
+        public static async Task<string> PostFileString(
+            string url, 
+            byte[] buffer, 
+            string fileName,
             string authorization = null)
         {
             return await PostString(url, new { Filename = fileName, Data = buffer }, authorization);
@@ -287,12 +328,12 @@
         /// <summary>
         /// Posts the file.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The response type</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns></returns>
+        /// <returns>The type of the result produced by this Task</returns>
         public static async Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
         {
             return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
@@ -307,8 +348,10 @@
             var httpClient = new HttpClient();
 
             if (string.IsNullOrWhiteSpace(authorization) == false)
+            {
                 httpClient.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorization);
+            }
 
             return httpClient;
         }

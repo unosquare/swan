@@ -30,9 +30,13 @@ namespace Unosquare.Swan.Components
         /// <param name="onDataCallback">The on data callback.</param>
         /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
-        private static async Task<ulong> CopyStreamAsync(Process process, Stream baseStream, ProcessDataReceivedCallback onDataCallback, 
-            bool syncEvents, CancellationToken ct)
+        /// <returns>Total copies stream</returns>
+        private static async Task<ulong> CopyStreamAsync(
+            Process process, 
+            Stream baseStream, 
+            ProcessDataReceivedCallback onDataCallback, 
+            bool syncEvents, 
+            CancellationToken ct)
         {
             return await Task.Factory.StartNew(async () =>
             {
@@ -117,7 +121,7 @@ namespace Unosquare.Swan.Components
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>The type of the result produced by this Task</returns>
         public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
             var result = await GetProcessResultAsync(filename, arguments, ct);
@@ -132,16 +136,21 @@ namespace Unosquare.Swan.Components
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Text of the standard output and standard error streams along with the exit code
+        /// </returns>
         public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
             var standardOutputBuilder = new StringBuilder();
             var standardErrorBuilder = new StringBuilder();
 
-            var processReturn = await RunProcessAsync(filename, arguments,
-                (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
-                (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
-                true, ct);
+            var processReturn = await RunProcessAsync(
+                                filename, 
+                                arguments,
+                                (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
+                                (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
+                                true, 
+                                ct);
 
             return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
         }
@@ -159,7 +168,7 @@ namespace Unosquare.Swan.Components
         /// <param name="onErrorData">The on error data.</param>
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns></returns>
+        /// <returns>Value type will be -1 for forceful termination of the process</returns>
         public static async Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default(CancellationToken))
         {
             var task = Task.Factory.StartNew(() =>

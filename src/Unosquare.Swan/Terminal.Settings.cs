@@ -2,9 +2,8 @@
 {
     using System;
 
-    partial class Terminal
+    public partial class Terminal
     {
-
         /// <summary>
         /// Terminal global settings
         /// </summary>

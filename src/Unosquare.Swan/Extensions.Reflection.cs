@@ -6,7 +6,10 @@
     using System.Reflection;
     using System.Collections.Generic;
 
-    partial class Extensions
+    /// <summary>
+    /// Extension methods
+    /// </summary>
+    public partial class Extensions
     {
         #region Assembly Extensions
 
@@ -14,7 +17,9 @@
         /// Gets all types within an assembly in a safe manner.
         /// </summary>
         /// <param name="assembly">The assembly.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Array of Type objects representing the types specified by an assembly
+        /// </returns>
         public static Type[] GetAllTypes(this Assembly assembly)
         {
             Type[] assemblyTypes;
@@ -47,7 +52,7 @@
         /// The closest programmatic equivalent of default(T)
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>Default value of this type</returns>
         public static object GetDefault(this Type type)
         {
             return type.IsValueType() ? Activator.CreateInstance(type) : null;
@@ -57,12 +62,15 @@
         /// Determines whether this type is compatible with ICollection.
         /// </summary>
         /// <param name="sourceType">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified source type is collection; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsCollection(this Type sourceType)
         {
             return sourceType != typeof(string) &&
                              typeof(IEnumerable).IsAssignableFrom(sourceType);
         }
-        
+
         /// <summary>
         /// Gets a method from a type given the method name, binding flags, generic types and parameter types
         /// </summary>
@@ -71,8 +79,13 @@
         /// <param name="methodName">Name of the method.</param>
         /// <param name="genericTypes">The generic types.</param>
         /// <param name="parameterTypes">The parameter types.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Reflection.AmbiguousMatchException"></exception>
+        /// <returns>
+        /// An object that represents the method with the specified name
+        /// </returns>
+        /// <exception cref="System.Reflection.AmbiguousMatchException">
+        /// The exception that is thrown when binding to a member results in more than one member matching the 
+        /// binding criteria. This class cannot be inherited
+        /// </exception>
         public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
         {
             var methods =
@@ -174,7 +187,9 @@
         /// <param name="type">The type.</param>
         /// <param name="attributeType">Type of the attribute.</param>
         /// <param name="inherit">if set to <c>true</c> [inherit].</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Attributes associated with the property represented by this PropertyInfo object
+        /// </returns>
         public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit)
         {
             return type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).Cast<Attribute>().ToArray();
@@ -193,14 +208,14 @@
         /// Bases the type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>returns a type of data</returns>
         public static Type BaseType(this Type type) => type.GetTypeInfo().BaseType;
 
         /// <summary>
         /// Assemblies the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>returns an Assembly object</returns>
         public static Assembly Assembly(this Type type) => type.GetTypeInfo().Assembly;
 
         /// <summary>

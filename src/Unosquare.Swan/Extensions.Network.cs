@@ -5,13 +5,16 @@
     using System.Net;
     using System.Net.Sockets;
 
-    partial class Extensions
+    /// <summary>
+    /// Extension methods
+    /// </summary>
+    public partial class Extensions
     {
         /// <summary>
         /// Determines whether the IP address is private
         /// </summary>
         /// <param name="address">The IP address.</param>
-        /// <returns></returns>
+        /// <returns>True if the IP Address is private; otherwise, false</returns>
         public static bool IsPrivateAddress(this IPAddress address)
         {
             var octets = address.ToString().Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Select(byte.Parse).ToArray();
@@ -26,7 +29,7 @@
         /// Converts an IPv4 Address to its Unsigned, 32-bit integer representation.
         /// </summary>
         /// <param name="address">The address.</param>
-        /// <returns></returns>
+        /// <returns>A 32-bit unsigned integer converted from four bytes at a specified position in a byte array</returns>
         public static uint ToUInt32(this IPAddress address)
         {
             if (address.AddressFamily != AddressFamily.InterNetwork)

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    partial class Json
+    public partial class Json
     {
         /// <summary>
         /// A simple JSON Deserializer
@@ -156,6 +156,7 @@
                                     State = ReadState.WaitingForNextOrRootClose;
                                     continue;
                                 }
+
                             case OpenObjectChar: // expect object
                             case OpenArrayChar: // expect array
                                 {
@@ -172,6 +173,7 @@
                                     State = ReadState.WaitingForNextOrRootClose;
                                     continue;
                                 }
+
                             case 't': // expect true
                                 {
                                     if (json.SliceLength(i, TrueLiteral.Length).Equals(TrueLiteral))
@@ -191,6 +193,7 @@
 
                                     throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
+
                             case 'f': // expect false
                                 {
                                     if (json.SliceLength(i, FalseLiteral.Length).Equals(FalseLiteral))
@@ -210,6 +213,7 @@
 
                                     throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
+
                             case 'n': // expect null
                                 {
                                     if (json.SliceLength(i, NullLiteral.Length).Equals(NullLiteral))
@@ -229,6 +233,7 @@
 
                                     throw CreateParserException(json, i, State, $"'{ValueSeparatorChar}'");
                                 }
+
                             default: // expect number
                                 {
                                     var charCount = 0;
@@ -294,9 +299,7 @@
                         }
 
                         throw CreateParserException(json, i, State, $"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
-
                     }
-
                     #endregion
                 }
             }
@@ -344,6 +347,7 @@
                                 i += 5;
                                 break;
                             }
+
                         case 'b':
                             builder.Append('\b');
                             i += 1;
@@ -369,7 +373,6 @@
                             i += 1;
                             break;
                     }
-
                 }
 
                 return builder.ToString();
@@ -379,7 +382,7 @@
             /// Deserializes specified JSON string
             /// </summary>
             /// <param name="json">The json.</param>
-            /// <returns></returns>
+            /// <returns>Type of the current deserializes specified JSON string</returns>
             public static object DeserializeInternal(string json)
             {
                 var deserializer = new Deserializer(json, 0);

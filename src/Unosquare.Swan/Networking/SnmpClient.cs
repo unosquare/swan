@@ -22,7 +22,7 @@
         /// Discovers the specified SNMP time out.
         /// </summary>
         /// <param name="snmpTimeOut">The SNMP time out.</param>
-        /// <returns></returns>
+        /// <returns>An array of network endpoint as an IP address and a port number</returns>
         public static IPEndPoint[] Discover(int snmpTimeOut = 6000)
         {
             var endpoints = new List<IPEndPoint>();
@@ -32,7 +32,9 @@
                 using (var udp = new UdpClient(IPAddress.Broadcast.AddressFamily))
                 {
                     udp.EnableBroadcast = true;
-                    await udp.SendAsync(DiscoverMessage, DiscoverMessage.Length,
+                    await udp.SendAsync(
+                        DiscoverMessage, 
+                        DiscoverMessage.Length,
                         new IPEndPoint(IPAddress.Broadcast, 161));
 
                     while (true)
@@ -42,7 +44,7 @@
                             var buffer = new byte[udp.Client.ReceiveBufferSize];
                             EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
                             udp.Client.ReceiveFrom(buffer, ref remote);
-                            endpoints.Add((remote as IPEndPoint));
+                            endpoints.Add(remote as IPEndPoint);
                         }
                         catch
                         {
@@ -50,7 +52,7 @@
                         }
                     }
 #if NET452
-                udp.Close();
+                    udp.Close();
 #endif
                 }
             }), Task.Delay(snmpTimeOut));
@@ -62,7 +64,10 @@
         /// Gets the name of the public.
         /// </summary>
         /// <param name="host">The host.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A string that contains the results of decoding the specified sequence 
+        /// of bytes ref=GetString"
+        /// </returns>
         public static string GetPublicName(IPEndPoint host) => GetString(host, "1.3.6.1.2.1.1.5.0");
 
         /// <summary>
@@ -70,7 +75,10 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>
+        ///  A time interval that represents a specified number of seconds, 
+        ///  where the specification is accurate to the nearest millisecond
+        ///  </returns>
         public static TimeSpan GetUptime(IPEndPoint host, string mibstring = "1.3.6.1.2.1.1.3.0")
         {
             var response = Get(host, mibstring);
@@ -100,7 +108,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public static string GetString(IPEndPoint host, string mibstring)
         {
             var response = Get(host, mibstring);
@@ -122,7 +130,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] Get(IPEndPoint host, string mibstring)
         {
             return Get("get", host, "public", mibstring);
@@ -135,7 +143,7 @@
         /// <param name="host">The host.</param>
         /// <param name="community">The community.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] Get(string request, IPEndPoint host, string community, string mibstring)
         {
             var packet = new byte[1024];
@@ -155,8 +163,8 @@
                 int temp = Convert.ToInt16(mibvals[i]);
                 if (temp > 127)
                 {
-                    mib[cnt] = Convert.ToByte(128 + (temp/128));
-                    mib[cnt + 1] = Convert.ToByte(temp - ((temp/128)*128));
+                    mib[cnt] = Convert.ToByte(128 + temp / 128);
+                    mib[cnt + 1] = Convert.ToByte(temp - temp / 128 * 128);
                     cnt += 2;
                     miblen++;
                 }
@@ -169,19 +177,19 @@
 
             var snmplen = 29 + comlen + miblen - 1;
 
-            //The SNMP sequence start
-            packet[pos++] = 0x30; //Sequence start
-            packet[pos++] = Convert.ToByte(snmplen - 2); //sequence size
+            // The SNMP sequence start
+            packet[pos++] = 0x30; // Sequence start
+            packet[pos++] = Convert.ToByte(snmplen - 2); // sequence size
 
-            //SNMP version
-            packet[pos++] = 0x02; //Integer type
-            packet[pos++] = 0x01; //length
-            packet[pos++] = 0x00; //SNMP version 1
+            // SNMP version
+            packet[pos++] = 0x02; // Integer type
+            packet[pos++] = 0x01; // length
+            packet[pos++] = 0x00; // SNMP version 1
 
-            //Community name
+            // Community name
             packet[pos++] = 0x04; // String type
-            packet[pos++] = Convert.ToByte(comlen); //length
-            //Convert community name to byte array
+            packet[pos++] = Convert.ToByte(comlen); // length
+            // Convert community name to byte array
             var data = Encoding.ASCII.GetBytes(community);
 
             foreach (var t in data)
@@ -189,61 +197,65 @@
                 packet[pos++] = t;
             }
 
-            //Add GetRequest or GetNextRequest value
+            // Add GetRequest or GetNextRequest value
             if (request == "get")
                 packet[pos++] = 0xA0;
             else
                 packet[pos++] = 0xA1;
 
-            packet[pos++] = Convert.ToByte(20 + miblen - 1); //Size of total MIB
+            packet[pos++] = Convert.ToByte(20 + miblen - 1); // Size of total MIB
 
-            //Request ID
-            packet[pos++] = 0x02; //Integer type
-            packet[pos++] = 0x04; //length
-            packet[pos++] = 0x00; //SNMP request ID
+            // Request ID
+            packet[pos++] = 0x02; // Integer type
+            packet[pos++] = 0x04; // length
+            packet[pos++] = 0x00; // SNMP request ID
             packet[pos++] = 0x00;
             packet[pos++] = 0x00;
             packet[pos++] = 0x01;
 
-            //Error status
-            packet[pos++] = 0x02; //Integer type
-            packet[pos++] = 0x01; //length
-            packet[pos++] = 0x00; //SNMP error status
+            // Error status
+            packet[pos++] = 0x02; // Integer type
+            packet[pos++] = 0x01; // length
+            packet[pos++] = 0x00; // SNMP error status
 
-            //Error index
-            packet[pos++] = 0x02; //Integer type
-            packet[pos++] = 0x01; //length
-            packet[pos++] = 0x00; //SNMP error index
+            // Error index
+            packet[pos++] = 0x02; // Integer type
+            packet[pos++] = 0x01; // length
+            packet[pos++] = 0x00; // SNMP error index
 
-            //Start of variable bindings
-            packet[pos++] = 0x30; //Start of variable bindings sequence
+            // Start of variable bindings
+            packet[pos++] = 0x30; // Start of variable bindings sequence
 
             packet[pos++] = Convert.ToByte(6 + miblen - 1); // Size of variable binding
 
-            packet[pos++] = 0x30; //Start of first variable bindings sequence
+            packet[pos++] = 0x30; // Start of first variable bindings sequence
             packet[pos++] = Convert.ToByte(6 + miblen - 1 - 2); // size
-            packet[pos++] = 0x06; //Object type
-            packet[pos++] = Convert.ToByte(miblen - 1); //length
+            packet[pos++] = 0x06; // Object type
+            packet[pos++] = Convert.ToByte(miblen - 1); // length
 
-            //Start of MIB
+            // Start of MIB
             packet[pos++] = 0x2b;
 
-            //Place MIB array in packet
+            // Place MIB array in packet
             for (var i = 2; i < miblen; i++)
                 packet[pos++] = Convert.ToByte(mib[i]);
 
-            packet[pos++] = 0x05; //Null object value
-            packet[pos++] = 0x00; //Null
+            packet[pos++] = 0x05; // Null object value
+            packet[pos++] = 0x00; // Null
 
-            //Send packet to destination
-            var sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
+            // Send packet to destination
+            var sock = new Socket(
+                AddressFamily.InterNetwork, 
+                SocketType.Dgram,
                 ProtocolType.Udp);
-            sock.SetSocketOption(SocketOptionLevel.Socket,
-                SocketOptionName.ReceiveTimeout, 5000);
+            sock.SetSocketOption(
+                SocketOptionLevel.Socket,
+                SocketOptionName.ReceiveTimeout, 
+                5000);
             var ep = (EndPoint) host;
             sock.SendTo(packet, snmplen, SocketFlags.None, host);
 
-            //Receive response from packet
+            // Receive response from packet
             try
             {
                 sock.ReceiveFrom(packet, ref ep);

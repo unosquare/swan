@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Unosquare.Swan
+﻿namespace Unosquare.Swan
 {
+    using System;
+
     /// <summary>
     /// An attribute used to help conversion structs back and forth into arrays of bytes via
     /// extension methods included in this library ToStruct and ToBytes.
@@ -37,18 +37,6 @@ namespace Unosquare.Swan
     public sealed class ArgumentOptionAttribute : Attribute
     {
         private string _setName;
-
-        private ArgumentOptionAttribute(string shortName, string longName)
-        {
-            if (shortName == null) throw new ArgumentNullException(nameof(shortName));
-            if (longName == null) throw new ArgumentNullException(nameof(longName));
-
-            ShortName = shortName;
-            LongName = longName;
-
-            _setName = string.Empty;
-            Separator = '\0';
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentOptionAttribute"/> class.
@@ -102,7 +90,10 @@ namespace Unosquare.Swan
         /// </summary>
         public string SetName
         {
-            get { return _setName; }
+            get
+            {
+                return _setName;
+            }
             set
             {
                 if (value == null) throw new ArgumentNullException(nameof(value));
@@ -131,6 +122,18 @@ namespace Unosquare.Swan
         /// Gets or sets a short description of this command line option. Usually a sentence summary.
         /// </summary>
         public string HelpText { get; set; }
+
+        private ArgumentOptionAttribute(string shortName, string longName)
+        {
+            if (shortName == null) throw new ArgumentNullException(nameof(shortName));
+            if (longName == null) throw new ArgumentNullException(nameof(longName));
+
+            ShortName = shortName;
+            LongName = longName;
+
+            _setName = string.Empty;
+            Separator = '\0';
+        }
     }
 
     /// <summary>

@@ -7,14 +7,26 @@
     /// </summary>
     public static partial class Definitions
     {
+        #region Network
+
+        /// <summary>
+        /// The DNS default port
+        /// </summary>
+        public const int DnsDefaultPort = 53;
+
+        /// <summary>
+        /// The NTP default port
+        /// </summary>
+        public const int NtpDefaultPort = 123;
+
+        #endregion
+
         /// <summary>
         /// Initializes the <see cref="Definitions"/> class.
         /// </summary>
         static Definitions()
         {
-
             CurrentAnsiEncoding = Encoding.GetEncoding(default(int));
-
             try
             {
                 Windows1252Encoding = Encoding.GetEncoding(1252);
@@ -37,19 +49,5 @@
         /// system's regional and language settings
         /// </summary>
         public static readonly Encoding CurrentAnsiEncoding;
-
-        #region Network
-
-        /// <summary>
-        /// The DNS default port
-        /// </summary>
-        public const int DnsDefaultPort = 53;
-
-        /// <summary>
-        /// The NTP default port
-        /// </summary>
-        public const int NtpDefaultPort = 123;
-        
-        #endregion
     }
 }

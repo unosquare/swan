@@ -39,23 +39,22 @@
 #endif
         private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
 
-
 #if !NETSTANDARD1_3 && !UWP
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
-            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute);
+            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute;
             return attribute == null ? string.Empty : attribute.Company;
         });
 
         private static readonly Lazy<string> m_ProductName = new Lazy<string>(() =>
         {
-            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute);
+            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute;
             return attribute == null ? string.Empty : attribute.Product;
         });
 
         private static readonly Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
         {
-            var attribute = (EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute);
+            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
             return attribute == null ? string.Empty : attribute.Trademark;
         });
 #endif
@@ -283,7 +282,7 @@
         /// Build a full path pointing to the current user's desktop with the given filename
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <returns></returns>
+        /// <returns>The fully qualified location of path, such as "C:\MyFile.txt"</returns>
         public static string GetDesktopFilePath(string filename)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);

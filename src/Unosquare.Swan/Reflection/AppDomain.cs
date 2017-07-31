@@ -9,7 +9,7 @@ namespace Unosquare.Swan.Reflection
     using System.Linq;
     using Formatters;
 #endif
-    
+
     /// <summary>
     /// Represents a polyfill class to replace interoperability with .net core
     /// Idea taken from: http://www.michael-whelan.net/replacing-appdomain-in-dotnet-core/
@@ -22,7 +22,7 @@ namespace Unosquare.Swan.Reflection
         /// <summary>
         /// The dependency context
         /// </summary>
-        private readonly System.Lazy<Dictionary<string, object>> _dependencyContext = new System.Lazy<Dictionary<string, object>>(() =>
+        private readonly System.Lazy<Dictionary<string, object>> dependencyContext = new System.Lazy<Dictionary<string, object>>(() =>
         {
             var deps = System.AppContext.GetData(DepsFilesProperty);
             var fileToLoad =
@@ -52,7 +52,7 @@ namespace Unosquare.Swan.Reflection
         /// <summary>
         /// Gets all the assemblies in the current app domain.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The assemblies in the AppDomain</returns>
         public Assembly[] GetAssemblies()
         {
 #if NET452
@@ -78,24 +78,12 @@ namespace Unosquare.Swan.Reflection
 #endif
         }
 
-        private static Assembly SafeLoadAssemblyByName(string assemblyName)
-        {
-            try
-            {
-                return Assembly.Load(new AssemblyName(assemblyName));
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
 #if !NET452
         /// <summary>
         /// Gets the dependency context.
         /// </summary>
-        /// <returns></returns>
-        public Dictionary<string, object> GetDependencyContext() => _dependencyContext.Value;
+        /// <returns>The Dependency Context</returns>
+        public Dictionary<string, object> GetDependencyContext() => dependencyContext.Value;
 
         /// <summary>
         /// Gets the get runtime target.
@@ -118,7 +106,7 @@ namespace Unosquare.Swan.Reflection
         /// <summary>
         /// Gets the runtime assemblies.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The runtime assemblies in the AppDomain</returns>
         public Dictionary<AssemblyInfo, object> GetRuntimeAssemblies()
         {
             var targets = GetDependencyContext()["targets"] as Dictionary<string, object>;
@@ -131,6 +119,18 @@ namespace Unosquare.Swan.Reflection
             return assemblies.ToDictionary(x => new AssemblyInfo(x.Key), x => x.Value);
         }
 #endif
+
+        private static Assembly SafeLoadAssemblyByName(string assemblyName)
+        {
+            try
+            {
+                return Assembly.Load(new AssemblyName(assemblyName));
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
 #endif

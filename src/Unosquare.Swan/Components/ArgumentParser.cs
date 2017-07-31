@@ -16,10 +16,41 @@
         
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
+        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
+        {
+            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+        }
+
+        /// <summary>
+        /// Writes the application usage.
+        /// </summary>
+        /// <param name="properties">The properties.</param>
+        private static void WriteUsage(IEnumerable<PropertyInfo> properties)
+        {
+            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
+
+            foreach (var option in options)
+            {
+                string.Empty.WriteLine();
+                
+                // TODO: If Enum list values
+                var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
+                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
+                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
+                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
+
+                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
+            }
+
+            string.Empty.WriteLine();
+            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
         /// </summary>
-        public ArgumentParser() : this(new ArgumentParserSettings())
+        public ArgumentParser()
+            : this(new ArgumentParserSettings())
         {
         }
 
@@ -32,7 +63,7 @@
         {
             Settings = parseSettings;
         }
-        
+
         /// <summary>
         /// Gets the instance that implements <see cref="ArgumentParserSettings"/> in use.
         /// </summary>
@@ -41,12 +72,17 @@
         /// <summary>
         /// Parses a string array of command line arguments constructing values in an instance of type <typeparamref name="T" />.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the options</typeparam>
         /// <param name="args">The arguments.</param>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">args</exception>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <returns>True if was converted successfully; otherwise, false</returns>
+        /// <exception cref="ArgumentNullException">
+        /// The exception that is thrown when a null reference (Nothing in Visual Basic) 
+        /// is passed to a method that does not accept it as a valid argument
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The exception that is thrown when a method call is invalid for the object's current state
+        /// </exception>
         public bool ParseArguments<T>(IEnumerable<string> args, T instance)
         {
             if (args == null)
@@ -153,7 +189,7 @@
         /// <param name="targetProperty">The target property.</param>
         /// <param name="propertyValueString">The property value string.</param>
         /// <param name="result">The result.</param>
-        /// <returns></returns>
+        /// <returns>True if parse was assigned successfully; otherwise, false</returns>
         private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
             try
@@ -165,7 +201,9 @@
 
                 if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
-                    var parsedValue = Enum.Parse(targetProperty.PropertyType, propertyValueString,
+                    var parsedValue = Enum.Parse(
+                        targetProperty.PropertyType, 
+                        propertyValueString,
                         Settings.CaseInsensitiveEnumValues);
                     targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
 
@@ -221,40 +259,6 @@
             return properties.FirstOrDefault(p =>
                 string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName, propertyName, Settings.NameComparer) ||
                 string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName, propertyName, Settings.NameComparer));
-        }
-
-        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
-        {
-            return TypeCache.Retrieve(type, () =>
-            {
-                return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.CanRead || p.CanWrite)
-                    .ToArray();
-            });
-        }
-
-        /// <summary>
-        /// Writes the application usage.
-        /// </summary>
-        /// <param name="properties">The properties.</param>
-        private static void WriteUsage(IEnumerable<PropertyInfo> properties)
-        {
-            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
-
-            foreach (var option in options)
-            {
-                "".WriteLine();
-                // TODO: If Enum list values
-                var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
-                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
-                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
-                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
-
-                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
-            }
-
-            "".WriteLine();
-            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
         }
     }
 }

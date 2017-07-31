@@ -7,12 +7,13 @@
     /// </summary>
     public class DnsQueryResult
     {
-
         private readonly List<DnsRecord> m_AnswerRecords = new List<DnsRecord>();
         private readonly List<DnsRecord> m_AdditionalRecords = new List<DnsRecord>();
         private readonly List<DnsRecord> m_AuthorityRecords = new List<DnsRecord>();
 
-        private DnsQueryResult() { }
+        private DnsQueryResult()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsQueryResult"/> class.
@@ -29,16 +30,22 @@
             ResponseCode = response.ResponseCode;
 
             if (response.AnswerRecords != null)
+            {
                 foreach (var record in response.AnswerRecords)
                     AnswerRecords.Add(new DnsRecord(record));
+            }
 
             if (response.AuthorityRecords != null)
+            {
                 foreach (var record in response.AuthorityRecords)
                     AuthorityRecords.Add(new DnsRecord(record));
+            }
 
             if (response.AdditionalRecords != null)
+            {
                 foreach (var record in response.AdditionalRecords)
                     AdditionalRecords.Add(new DnsRecord(record));
+            }
         }
 
         /// <summary>

@@ -8,7 +8,7 @@
     /// <summary>
     /// Provides various extension methods
     /// </summary>
-    partial class Extensions
+    public partial class Extensions
     {
         /// <summary>
         /// Clamps the specified value between the minimum and the maximum
@@ -17,7 +17,7 @@
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
-        /// <returns></returns>
+        /// <returns>A value that indicates the relative order of the objects being compared</returns>
         public static T Clamp<T>(this T value, T min, T max)
             where T : struct, IComparable
         {
@@ -46,7 +46,10 @@
         /// Swaps the endianness of an unsigned long to an unsigned integer.
         /// </summary>
         /// <param name="longBytes">The bytes contained in a long.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A 32-bit unsigned integer equivalent to the ulong 
+        /// contained in longBytes
+        /// </returns>
         internal static uint SwapEndianness(this ulong longBytes)
         {
             return (uint)(((longBytes & 0x000000ff) << 24) +
@@ -60,7 +63,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         private static byte[] GetStructBytes<T>(byte[] data)
         {
 #if !NETSTANDARD1_3 && !UWP
@@ -78,14 +81,11 @@
             foreach (var field in fields)
             {
                 if (endian == null && !field.IsDefined(typeof(StructEndiannessAttribute), false))
-                {
                     continue;
-                }
                 
                 var offset = Marshal.OffsetOf<T>(field.Name).ToInt32();
-#pragma warning disable CS0618 // Type or member is obsolete
                 var length = Marshal.SizeOf(field.FieldType);
-#pragma warning restore CS0618 // Type or member is obsolete
+
                 endian = endian ?? field.GetCustomAttributes(typeof(StructEndiannessAttribute), false).ToArray()[0] as StructEndiannessAttribute;
 
                 if (endian != null && (endian.Endianness == Endianness.Big && BitConverter.IsLittleEndian ||
@@ -103,8 +103,9 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data">The data.</param>
-        /// <returns></returns>
-        public static T ToStruct<T>(this byte[] data) where T : struct
+        /// <returns>a struct type derived from convert an array of bytes ref=ToStruct"</returns>
+        public static T ToStruct<T>(this byte[] data) 
+            where T : struct
         {
             return ToStruct<T>(data, 0, data.Length);
         }
@@ -116,8 +117,9 @@
         /// <param name="data">The data.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
-        /// <returns></returns>
-        public static T ToStruct<T>(this byte[] data, int offset, int length) where T : struct
+        /// <returns>A managed object containing the data pointed to by the ptr parameter</returns>
+        public static T ToStruct<T>(this byte[] data, int offset, int length) 
+            where T : struct
         {
             var buffer = new byte[length];
             Array.Copy(data, offset, buffer, 0, buffer.Length);
@@ -138,8 +140,9 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj">The object.</param>
-        /// <returns></returns>
-        public static byte[] ToBytes<T>(this T obj) where T : struct
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        public static byte[] ToBytes<T>(this T obj) 
+            where T : struct
         {
             var data = new byte[Marshal.SizeOf(obj)];
             var handle = GCHandle.Alloc(data, GCHandleType.Pinned);

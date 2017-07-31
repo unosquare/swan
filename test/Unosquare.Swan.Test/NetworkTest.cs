@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using System.Net;
+using Unosquare.Swan.Exceptions;
 
 namespace Unosquare.Swan.Test
 {

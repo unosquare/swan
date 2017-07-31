@@ -24,14 +24,14 @@
         #region Private State Variables
 
         /// <summary>
-        /// The unmanaged buffer
-        /// </summary>
-        private IntPtr _buffer = IntPtr.Zero;
-
-        /// <summary>
         /// The locking object to perform synchronization.
         /// </summary>
         private readonly object _syncLock = new object();
+
+        /// <summary>
+        /// The unmanaged buffer
+        /// </summary>
+        private IntPtr _buffer = IntPtr.Zero;
 
         #endregion
 
@@ -107,14 +107,18 @@
         /// <param name="requestedBytes">The requested bytes.</param>
         /// <param name="target">The target.</param>
         /// <param name="targetOffset">The target offset.</param>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <exception cref="System.InvalidOperationException">
+        /// Exception that is thrown when a method call is invalid for the object's current state
+        /// </exception>
         public void Read(int requestedBytes, byte[] target, int targetOffset)
         {
             lock (_syncLock)
             {
                 if (requestedBytes > ReadableCount)
+                {
                     throw new InvalidOperationException(
                         $"Unable to read {requestedBytes} bytes. Only {ReadableCount} bytes are available");
+                }
 
                 var readCount = 0;
                 while (readCount < requestedBytes)
@@ -146,8 +150,10 @@
             lock (_syncLock)
             {
                 if (ReadableCount + length > Length)
+                {
                     throw new InvalidOperationException(
                         $"Unable to write to circular buffer. Call the {nameof(Read)} method to make some additional room");
+                }
 
                 var writeCount = 0;
                 while (writeCount < length)

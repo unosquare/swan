@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
 
-    partial class Terminal
+    public partial class Terminal
     {
         #region Helper Methods
 

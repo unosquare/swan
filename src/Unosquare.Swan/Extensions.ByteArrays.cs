@@ -9,14 +9,17 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    partial class Extensions
+    /// <summary>
+    /// Extension methods
+    /// </summary>
+    public partial class Extensions
     {
         /// <summary>
         /// Converts an array of bytes to its lower-case, hexadecimal representation
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <param name="addPrefix">if set to <c>true</c> add the 0x prefix tot he output.</param>
-        /// <returns></returns>
+        /// <returns>The specified string instance; no actual conversion is performed</returns>
         public static string ToLowerHex(this byte[] bytes, bool addPrefix = false)
         {
             var sb = new StringBuilder(bytes.Length * 2);
@@ -31,7 +34,7 @@
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <param name="addPrefix">if set to <c>true</c> [add prefix].</param>
-        /// <returns></returns>
+        /// <returns>The specified string instance; no actual conversion is performed</returns>
         public static string ToUpperHex(this byte[] bytes, bool addPrefix = false)
         {
             var sb = new StringBuilder(bytes.Length * 2);
@@ -46,14 +49,17 @@
         /// uppercase characters
         /// </summary>
         /// <param name="bytes">The bytes.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A string of hexadecimal pairs separated by hyphens, where each pair represents 
+        /// the corresponding element in value; for example, "7F-2C-4A-00"
+        /// </returns>
         public static string ToDashedHex(this byte[] bytes) => BitConverter.ToString(bytes);
 
         /// <summary>
         /// Converts an array of bytes to a base-64 encoded string
         /// </summary>
         /// <param name="bytes">The bytes.</param>
-        /// <returns></returns>
+        /// <returns>A string converted from an array of bytes</returns>
         public static string ToBase64(this byte[] bytes) => Convert.ToBase64String(bytes);
 
         /// <summary>
@@ -62,7 +68,7 @@
         /// any prefix (such as 0x) has to be avoided for this to work properly
         /// </summary>
         /// <param name="hex">The hexadecimal.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] ConvertHexadecimalToBytes(this string hex)
         {
             return Enumerable
@@ -77,7 +83,9 @@
         /// <param name="b">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Bit value at the given offset
+        /// </returns>
         public static byte GetBitValueAt(this byte b, byte offset, byte length)
         {
             return (byte)((b >> offset) & ~(0xff << length));
@@ -88,7 +96,7 @@
         /// </summary>
         /// <param name="b">The b.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns></returns>
+        /// <returns>Bit value at the given offset</returns>
         public static byte GetBitValueAt(this byte b, byte offset)
         {
             return b.GetBitValueAt(offset, 1);
@@ -101,7 +109,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>Bit value at the given offset</returns>
         public static byte SetBitValueAt(this byte b, byte offset, byte length, byte value)
         {
             var mask = ~(0xff << length);
@@ -116,7 +124,7 @@
         /// <param name="b">The b.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>Bit value at the given offset</returns>
         public static byte SetBitValueAt(this byte b, byte offset, byte value)
         {
             return b.SetBitValueAt(offset, 1, value);
@@ -131,7 +139,9 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="offset">The offset at which to start splitting bytes. Any bytes befor this will be discarded.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A byte array containing the results the specified sequence of bytes
+        /// </returns>
         /// <exception cref="System.ArgumentNullException">
         /// buffer
         /// or
@@ -172,7 +182,7 @@
         /// Colones the specified buffer, byte by byte
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] DeepClone(this byte[] buffer)
         {
             if (buffer == null)
@@ -187,6 +197,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
+        /// <returns></returns>
         public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
         {
             if (buffer.StartsWith(sequence) == false)
@@ -201,7 +212,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] TrimEnd(this byte[] buffer, params byte[] sequence)
         {
             if (buffer.EndsWith(sequence) == false) return buffer.DeepClone();
@@ -216,7 +227,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] Trim(this byte[] buffer, params byte[] sequence)
         {
             var trimStart = buffer.TrimStart(sequence);
@@ -228,7 +239,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns></returns>
+        /// <returns>True if the specified buffer is ends; otherwise, false.</returns>
         public static bool EndsWith(this byte[] buffer, params byte[] sequence)
         {
             var startIndex = buffer.Length - sequence.Length;
@@ -240,7 +251,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns></returns>
+        /// <returns>True if the specified buffer starts; otherwise, false.</returns>
         public static bool StartsWith(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) == 0;
 
         /// <summary>
@@ -248,6 +259,9 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified sequence]; otherwise, <c>false</c>.
+        /// </returns>
         public static bool Contains(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) >= 0;
 
         /// <summary>
@@ -255,6 +269,9 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
+        /// <returns>
+        ///   <c>true</c> if [is equal to] [the specified sequence]; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsEqualTo(this byte[] buffer, params byte[] sequence)
         {
             if (ReferenceEquals(buffer, sequence)) return true;
@@ -296,6 +313,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
+        /// <returns></returns>
         public static MemoryStream Append(this MemoryStream stream, byte[] buffer)
         {
             stream.Write(buffer, 0, buffer.Length);
@@ -307,7 +325,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
-        /// <returns></returns>
+        /// <returns>Block of bytes to the current stream using data read from a buffer</returns>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer)
         {
             return Append(stream, buffer.ToArray());
@@ -318,7 +336,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffers">The buffers.</param>
-        /// <returns></returns>
+        /// <returns>Block of bytes to the current stream using data read from a buffer</returns>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte[]> buffers)
         {
             foreach (var buffer in buffers)
@@ -332,14 +350,14 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns></returns>
+        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public static string ToText(this byte[] buffer, Encoding encoding) => encoding.GetString(buffer);
 
         /// <summary>
         /// Converts an array of bytes into text with UTF8 encoding
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <returns></returns>
+        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public static string ToText(this byte[] buffer) => buffer.ToText(Encoding.UTF8);
 
         /// <summary>
@@ -414,7 +432,7 @@
         /// <param name="length">The length.</param>
         /// <param name="bufferLength">Length of the buffer.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken ct = default(CancellationToken))
         {
             using (var dest = new MemoryStream())
@@ -450,7 +468,7 @@
         /// <param name="stream">The stream.</param>
         /// <param name="length">The length.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken ct = default(CancellationToken))
         {
             var buff = new byte[length];

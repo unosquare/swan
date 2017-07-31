@@ -1,17 +1,17 @@
-﻿//===============================================================================
+﻿// ===============================================================================
 // TinyIoC
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
 // https://github.com/grumpydev/TinyIoC
-//===============================================================================
+// ===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
 // OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
 // LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
 // FITNESS FOR A PARTICULAR PURPOSE.
-//===============================================================================
+// ===============================================================================
 
 #define USE_OBJECT_CONSTRUCTOR
 
@@ -23,6 +23,7 @@ namespace Unosquare.Swan.Components
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Exceptions;
 
     #region Enumerations
 
@@ -61,6 +62,7 @@ namespace Unosquare.Swan.Components
         /// The attempt unnamed resolution
         /// </summary>
         AttemptUnnamedResolution,
+        
         /// <summary>
         /// The fail
         /// </summary>
@@ -76,10 +78,12 @@ namespace Unosquare.Swan.Components
         /// The register single
         /// </summary>
         RegisterSingle,
+        
         /// <summary>
         /// The register multiple
         /// </summary>
         RegisterMultiple,
+        
         /// <summary>
         /// The fail
         /// </summary>
@@ -99,7 +103,9 @@ namespace Unosquare.Swan.Components
         /// Creates a new instance from a Dictionary
         /// </summary>
         /// <param name="data">The data.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A new instance of the <see cref="DependencyContainerNamedParameterOverloads"/> class
+        /// </returns>
         public static DependencyContainerNamedParameterOverloads FromIDictionary(IDictionary<string, object> data)
         {
             return data as DependencyContainerNamedParameterOverloads ?? new DependencyContainerNamedParameterOverloads(data);
@@ -182,6 +188,7 @@ namespace Unosquare.Swan.Components
     public sealed class DependencyContainer : IDisposable
     {
         #region "Fluent" API
+        
         /// <summary>
         /// Registration options for "fluent" API
         /// </summary>
@@ -204,8 +211,8 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration a singleton (single instance) if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <returns>A registration options  for fluent API</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions AsSingleton()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -219,8 +226,8 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration multi-instance if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <returns>A registration options  for fluent API</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions AsMultiInstance()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -234,8 +241,8 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration hold a weak reference if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <returns>A registration options  for fluent API</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions WithWeakReference()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -249,8 +256,8 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration hold a strong reference if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <returns>A registration options  for fluent API</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
             public RegisterOptions WithStrongReference()
             {
                 var currentFactory = _container.GetCurrentFactory(_registration);
@@ -261,15 +268,13 @@ namespace Unosquare.Swan.Components
                 return _container.AddUpdateRegistration(_registration, currentFactory.StrongReferenceVariant);
             }
 
-
             /// <summary>
             /// Sets the constructor to use
             /// </summary>
             /// <typeparam name="RegisterType">The type of the register type.</typeparam>
             /// <param name="constructor">The constructor.</param>
-            /// <returns></returns>
-            /// <exception cref="Unosquare.Swan.DependencyContainerConstructorResolutionException">
-            /// </exception>
+            /// <returns>A registration options  for fluent API</returns>
+            /// <exception cref="DependencyContainerConstructorResolutionException">Constructor resolution exception</exception>
             public RegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
             {
                 var lambda = constructor as LambdaExpression;
@@ -330,9 +335,9 @@ namespace Unosquare.Swan.Components
             private IEnumerable<RegisterOptions> _registerOptions;
 
             /// <summary>
-            /// Initializes a new instance of the MultiRegisterOptions class.
+            /// Initializes a new instance of the <see cref="MultiRegisterOptions"/> class.
             /// </summary>
-            /// <param name="registerOptions">Registration options</param>
+            /// <param name="registerOptions">The register options.</param>
             public MultiRegisterOptions(IEnumerable<RegisterOptions> registerOptions)
             {
                 _registerOptions = registerOptions;
@@ -341,8 +346,8 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration a singleton (single instance) if possible
             /// </summary>
-            /// <returns>RegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <returns>A registration multi-instance for fluent API</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
             public MultiRegisterOptions AsSingleton()
             {
                 _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsSingleton());
@@ -352,8 +357,8 @@ namespace Unosquare.Swan.Components
             /// <summary>
             /// Make registration multi-instance if possible
             /// </summary>
-            /// <returns>MultiRegisterOptions</returns>
-            /// <exception cref="DependencyContainerRegistrationException"></exception>
+            /// <returns>A registration multi-instance for fluent API</returns>
+            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
             public MultiRegisterOptions AsMultiInstance()
             {
                 _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsMultiInstance());
@@ -402,7 +407,7 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Gets the child container.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A new instance of the <see cref="DependencyContainer"/> class</returns>
         public DependencyContainer GetChildContainer()
         {
             return new DependencyContainer(this);
@@ -419,7 +424,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        /// <exception cref="DependencyContainerAutoRegistrationException"/>
+        /// <exception cref="DependencyContainerAutoRegistrationException">Auto-registration Exception</exception> 
         public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
             AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
@@ -433,7 +438,7 @@ namespace Unosquare.Swan.Components
         /// <param name="assemblies">Assemblies to process</param>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        /// <exception cref="DependencyContainerAutoRegistrationException"/>
+        /// <exception cref="DependencyContainerAutoRegistrationException">Auto-registration Exception</exception> 
         public void AutoRegister(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
             AutoRegisterInternal(assemblies, duplicateAction, registrationPredicate);
@@ -448,7 +453,6 @@ namespace Unosquare.Swan.Components
         public RegisterOptions Register(Type registerType, string name = "")
         {
             return RegisterInternal(registerType, name, GetDefaultObjectFactory(registerType, registerType));
-
         }
 
         /// <summary>
@@ -599,8 +603,10 @@ namespace Unosquare.Swan.Components
                 throw new ArgumentNullException(nameof(implementationTypes), "types is null.");
 
             foreach (var type in implementationTypes)
+            {
                 if (!registrationType.IsAssignableFrom(type))
                     throw new ArgumentException($"types: The type {registrationType.FullName} is not assignable from {type.FullName}");
+            }
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
             {
@@ -628,7 +634,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="RegisterType">Type to unregister</typeparam>
         /// <param name="name">Name of registration</param>
-        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
         public bool Unregister<RegisterType>(string name = "")
         {
             return Unregister(typeof(RegisterType), name);
@@ -639,7 +645,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="registerType">Type to unregister</param>
         /// <param name="name">Name of registration</param>
-        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
         public bool Unregister(Type registerType, string name = "")
         {
             var typeRegistration = new TypeRegistration(registerType, name);
@@ -836,7 +842,7 @@ namespace Unosquare.Swan.Components
         public bool CanResolve<ResolveType>(DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
-            return CanResolve(typeof(ResolveType), parameters, "", options);
+            return CanResolve(typeof(ResolveType), parameters, string.Empty, options);
         }
 
         /// <summary>
@@ -1246,6 +1252,7 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Object Factories
+        
         /// <summary>
         /// Provides custom lifetime management for ASP.Net per-request lifetimes etc.
         /// </summary>
@@ -1296,7 +1303,7 @@ namespace Unosquare.Swan.Components
             /// <param name="container">Container that requested the creation</param>
             /// <param name="parameters">Any user parameters passed</param>
             /// <param name="options"></param>
-            /// <returns></returns>
+            /// <returns>Instance of type</returns>
             public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
 
             public virtual ObjectFactoryBase SingletonVariant
@@ -1612,45 +1619,47 @@ namespace Unosquare.Swan.Components
         /// </summary>
         private class SingletonFactory : ObjectFactoryBase, IDisposable
         {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            private readonly object SingletonLock = new object();
-            private object _Current;
+            private readonly Type _registerType;
+            private readonly Type _registerImplementation;
+            private readonly object _singletonLock = new object();
+            private object _current;
 
             public SingletonFactory(Type registerType, Type registerImplementation)
             {
                 if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
+                    throw new DependencyContainerRegistrationTypeException(registerImplementation, nameof(SingletonFactory));
 
                 if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
+                    throw new DependencyContainerRegistrationTypeException(registerImplementation, nameof(SingletonFactory));
 
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
+                _registerType = registerType;
+                _registerImplementation = registerImplementation;
             }
 
-            public override Type CreatesType => registerImplementation;
+            public override Type CreatesType => _registerImplementation;
 
             public override object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
             {
                 if (parameters.Count != 0)
                     throw new ArgumentException("Cannot specify parameters for singleton types");
 
-                lock (SingletonLock)
-                    if (_Current == null)
-                        _Current = container.ConstructType(registerImplementation, Constructor, options);
+                lock (_singletonLock)
+                {
+                    if (_current == null)
+                        _current = container.ConstructType(_registerImplementation, Constructor, options);
+                }
 
-                return _Current;
+                return _current;
             }
 
             public override ObjectFactoryBase SingletonVariant => this;
 
             public override ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
             {
-                return new CustomObjectLifetimeFactory(registerType, registerImplementation, lifetimeProvider, errorString);
+                return new CustomObjectLifetimeFactory(_registerType, _registerImplementation, lifetimeProvider, errorString);
             }
 
-            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(registerType, registerImplementation);
+            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(_registerType, _registerImplementation);
 
             public override ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
             {
@@ -1663,7 +1672,7 @@ namespace Unosquare.Swan.Components
 
             public void Dispose()
             {
-                var disposable = _Current as IDisposable;
+                var disposable = _current as IDisposable;
 
                 disposable?.Dispose();
             }
@@ -1682,7 +1691,7 @@ namespace Unosquare.Swan.Components
             public CustomObjectLifetimeFactory(Type registerType, Type registerImplementation, ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorMessage)
             {
                 if (lifetimeProvider == null)
-                    throw new ArgumentNullException(nameof(lifetimeProvider), "lifetimeProvider is null.");
+                    throw new ArgumentNullException(nameof(lifetimeProvider));
 
                 if (!IsValidAssignment(registerType, registerImplementation))
                     throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
@@ -1704,6 +1713,7 @@ namespace Unosquare.Swan.Components
                 lock (SingletonLock)
                 {
                     current = _LifetimeProvider.GetObject();
+
                     if (current == null)
                     {
                         current = container.ConstructType(registerImplementation, Constructor, options);
@@ -1783,6 +1793,7 @@ namespace Unosquare.Swan.Components
             /// The type.
             /// </value>
             public Type Type { get; }
+            
             /// <summary>
             /// Gets the name.
             /// </summary>
@@ -1827,10 +1838,7 @@ namespace Unosquare.Swan.Components
             /// <returns>
             /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
             /// </returns>
-            public override int GetHashCode()
-            {
-                return _hashCode;
-            }
+            public override int GetHashCode() =>_hashCode;
         }
 
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
@@ -2022,12 +2030,11 @@ namespace Unosquare.Swan.Components
                     return true;
 
                 if (factory.Constructor == null)
-                    return (GetBestConstructor(factory.CreatesType, parameters, options) != null);
+                    return GetBestConstructor(factory.CreatesType, parameters, options) != null;
 
                 return CanConstruct(factory.Constructor, parameters, options);
             }
-
-
+            
             // Fail if requesting named resolution and settings set to fail if unresolved
             // Or bubble up if we have a parent
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.Fail)
@@ -2074,13 +2081,12 @@ namespace Unosquare.Swan.Components
                 return true;
 
             // 2 parameter func with string as first parameter (name)
-            if ((genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string)))
+            if (genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string))
                 return true;
 
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-
-            if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
-                 type.GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
+            if (genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
+                type.GetGenericArguments()[1] == typeof(IDictionary<String, object>))
                 return true;
 
             return false;

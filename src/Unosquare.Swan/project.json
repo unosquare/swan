@@ -31,7 +31,7 @@
         "System.Net.Http": "4.3.2",
         "System.Diagnostics.Debug": "4.3.0"
       },
-      "buildOptions": {"define": ["UWP"]}
+      "buildOptions": { "define": ["UWP"] }
     },
     "netstandard1.6": {
       "dependencies": {
@@ -95,6 +95,9 @@
     }
   },
   "buildOptions": {
+    "additionalArguments": [
+      "/ruleset:../../StyleCop.Analyzers.ruleset"
+    ],
     "xmlDoc": true
   }
 }
