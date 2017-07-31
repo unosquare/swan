@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Extensions
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.21.2.0">
+    <meta name="generator" content="docfx 2.22.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -887,7 +887,7 @@ the specified array of <span class="xref">System.Char</span>.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if <span class="paramref">value</span> contains any of <span class="paramref">chars</span>;
+        <td><p><code>true</code> if <code data-dev-comment-type="paramref">value</code> contains any of <code data-dev-comment-type="paramref">chars</code>;
 otherwise, <code>false</code>.</p>
 </td>
       </tr>
@@ -994,7 +994,7 @@ instance, writable property in the destination.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>method returns an int</p>
+        <td><p>Number of properties that was copied successful</p>
 </td>
       </tr>
     </tbody>
@@ -1106,7 +1106,7 @@ This method only supports basic types and it is not multi level</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>method returns an int</p>
+        <td><p>Number of properties that was copied successful</p>
 </td>
       </tr>
     </tbody>
@@ -3466,8 +3466,8 @@ examine objects.</p>
   
   <a id="Unosquare_Swan_Extensions_SubArray_" data-uid="Unosquare.Swan.Extensions.SubArray*"></a>
   <h4 id="Unosquare_Swan_Extensions_SubArray__1___0___System_Int32_System_Int32_" data-uid="Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int32,System.Int32)">SubArray&lt;T&gt;(T[], Int32, Int32)</h4>
-  <div class="markdown level1 summary"><p>Retrieves a sub-array from the specified <span class="paramref">array</span>. A sub-array starts at
-the specified element position in <span class="paramref">array</span>.</p>
+  <div class="markdown level1 summary"><p>Retrieves a sub-array from the specified <code data-dev-comment-type="paramref">array</code>. A sub-array starts at
+the specified element position in <code data-dev-comment-type="paramref">array</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -3494,7 +3494,7 @@ the specified element position in <span class="paramref">array</span>.</p>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">startIndex</span></td>
         <td><p>An <span class="xref">System.Int32</span> that represents the zero-based starting position of
-a sub-array in <span class="paramref">array</span>.</p>
+a sub-array in <code data-dev-comment-type="paramref">array</code>.</p>
 </td>
       </tr>
       <tr>
@@ -3533,7 +3533,7 @@ the parameters.</p>
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>The type of elements in <span class="paramref">array</span>.</p>
+        <td><p>The type of elements in <code data-dev-comment-type="paramref">array</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -3542,8 +3542,8 @@ the parameters.</p>
   
   <a id="Unosquare_Swan_Extensions_SubArray_" data-uid="Unosquare.Swan.Extensions.SubArray*"></a>
   <h4 id="Unosquare_Swan_Extensions_SubArray__1___0___System_Int64_System_Int64_" data-uid="Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int64,System.Int64)">SubArray&lt;T&gt;(T[], Int64, Int64)</h4>
-  <div class="markdown level1 summary"><p>Retrieves a sub-array from the specified <span class="paramref">array</span>. A sub-array starts at
-the specified element position in <span class="paramref">array</span>.</p>
+  <div class="markdown level1 summary"><p>Retrieves a sub-array from the specified <code data-dev-comment-type="paramref">array</code>. A sub-array starts at
+the specified element position in <code data-dev-comment-type="paramref">array</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -3570,7 +3570,7 @@ the specified element position in <span class="paramref">array</span>.</p>
         <td><span class="xref">System.Int64</span></td>
         <td><span class="parametername">startIndex</span></td>
         <td><p>A <span class="xref">System.Int64</span> that represents the zero-based starting position of
-a sub-array in <span class="paramref">array</span>.</p>
+a sub-array in <code data-dev-comment-type="paramref">array</code>.</p>
 </td>
       </tr>
       <tr>
@@ -3609,7 +3609,7 @@ the parameters.</p>
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>The type of elements in <span class="paramref">array</span>.</p>
+        <td><p>The type of elements in <code data-dev-comment-type="paramref">array</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -3664,7 +3664,7 @@ column number</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Tuple</span>&lt;<span class="xref">System.Int32</span>, <span class="xref">System.Int32</span>&gt;</td>
-        <td><p>method returns a tuple of 2 data types including two int</p>
+        <td><p>A 2-tuple whose value is (item1, item2)</p>
 </td>
       </tr>
     </tbody>
@@ -3983,7 +3983,8 @@ the corresponding element in value; for example, &quot;7F-2C-4A-00&quot;</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span>[]</td>
-        <td><p>method returns an array of strings</p>
+        <td><p>An array whose elements contain the substrings from this instance 
+that are delimited by one or more characters in separator</p>
 </td>
       </tr>
     </tbody>
