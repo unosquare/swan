@@ -419,7 +419,10 @@
         /// Splits the specified text into r, n or rn separated lines
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <returns>method returns an array of strings</returns>
+        /// <returns>
+        /// An array whose elements contain the substrings from this instance 
+        /// that are delimited by one or more characters in separator
+        /// </returns>
         public static string[] ToLines(this string text)
         {
             return text == null ? new string[] { } : SplitLinesRegex.Value.Split(text);
@@ -473,7 +476,7 @@
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="charIndex">Index of the character.</param>
-        /// <returns>method returns a tuple of 2 data types including two int</returns>
+        /// <returns>A 2-tuple whose value is (item1, item2)</returns>
         public static Tuple<int, int> TextPositionAt(this string str, int charIndex)
         {
             if (str == null) return Tuple.Create(0, 0);

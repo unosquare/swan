@@ -52,7 +52,7 @@
         /// <param name="httpStatusError">The HTTP status error.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns an Ok value or Error value</returns>
+        /// <returns>The Ok value or Error value of the result produced by this Task</returns>
         public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
             string url, 
             object payload,
@@ -96,7 +96,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a collection of key/value pairs</returns>
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Post(
             string url, 
             object payload,
@@ -167,7 +167,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a collection of key/value pairs</returns>
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Put(
             string url, 
             object payload,
@@ -283,7 +283,7 @@
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>method returns a collection of key/value pairs</returns>
+        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
         /// <exception cref="Exception">Represents errors that occur during application execution</exception>
         public static async Task<IDictionary<string, object>> Authenticate(
             string url, 

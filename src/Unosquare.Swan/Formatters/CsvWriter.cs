@@ -414,7 +414,7 @@
         /// Gets the filtered dictionary keys using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns>method returns an array of objects</returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
             var keys = new List<object>();
@@ -435,7 +435,7 @@
         /// Gets the filtered dictionary keys using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns>method returns an array of objects</returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
         {
             var keys = new List<object>();
@@ -456,7 +456,7 @@
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns>method returns an array of objects</returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryValues(IDictionary dictionary)
         {
             var values = new List<object>();
@@ -477,7 +477,7 @@
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
-        /// <returns>method returns an array of object</returns>
+        /// <returns>An array containing copies of the elements of the dictionary</returns>
         private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
         {
             var values = new List<object>();
@@ -498,7 +498,7 @@
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>method returns an array of PropertyInfo</returns>
+        /// <returns>Filtered type properties using the IgnoreProperties list</returns>
         private PropertyInfo[] GetFilteredTypeProperties(Type type)
         {
             lock (_syncLock)
@@ -525,7 +525,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
-        /// <returns>method returns an int</returns>
+        /// <returns>Number of item of CsvWriter</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
             var fullPath = Path.GetFullPath(filePath);

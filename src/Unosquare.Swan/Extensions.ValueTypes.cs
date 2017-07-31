@@ -46,7 +46,10 @@
         /// Swaps the endianness of an unsigned long to an unsigned integer.
         /// </summary>
         /// <param name="longBytes">The bytes contained in a long.</param>
-        /// <returns>method returns a unit</returns>
+        /// <returns>
+        /// A 32-bit unsigned integer equivalent to the ulong 
+        /// contained in longBytes
+        /// </returns>
         internal static uint SwapEndianness(this ulong longBytes)
         {
             return (uint)(((longBytes & 0x000000ff) << 24) +

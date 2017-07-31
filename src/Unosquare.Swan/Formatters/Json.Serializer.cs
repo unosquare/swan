@@ -273,7 +273,7 @@
             /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
             /// <param name="targetType">Type of the target.</param>
             /// <param name="target">The target.</param>
-            /// <returns>method returns a collection of key/value pairs</returns>
+            /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
             private Dictionary<string, object> CreateDictionary(string typeSpecifier, bool includeNonPublic, Type targetType, object target)
             {
                 // Create the dictionary and extract the properties

@@ -155,7 +155,7 @@ namespace Unosquare.Swan.Formatters
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>method returns an int</returns>
+        /// <returns>Index of the first byte in the BGRA pixel</returns>
         /// <exception cref="ArgumentOutOfRangeException">
         /// x
         /// or

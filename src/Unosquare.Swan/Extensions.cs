@@ -21,7 +21,7 @@
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <returns>method returns an int</returns>
+        /// <returns>Number of properties that was copied successful</returns>
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             return CopyPropertiesTo(source, target, null);
@@ -129,7 +129,7 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>method returns an int</returns>
+        /// <returns>Number of properties that was copied successful</returns>
         public static int CopyPropertiesTo(
             this IDictionary<string, object> source, 
             object target,
