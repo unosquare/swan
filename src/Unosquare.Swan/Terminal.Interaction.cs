@@ -11,9 +11,9 @@
         /// Reads a key from the Terminal. This is the closest equivalent to Console.ReadKey
         /// </summary>
         /// <param name="intercept">if set to <c>true</c> the pressed key will not be rendered to the output.</param>
-        /// <param name="disableLocking">if set to <c>true</c> the output will continue to be shown. 
-        /// This is useful for services and daemons that are running as console applications and wait for a key to exit the program.
-        /// </param>
+        /// <param name="disableLocking">if set to <c>true</c> the output will continue to be shown.
+        /// This is useful for services and daemons that are running as console applications and wait for a key to exit the program.</param>
+        /// <returns></returns>
         public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)
         {
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);
@@ -41,6 +41,7 @@
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
+        /// <returns></returns>
         public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
         {
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);
@@ -74,6 +75,7 @@
         /// <summary>
         /// Reads a line of text from the console
         /// </summary>
+        /// <returns>The read line</returns>
         public static string ReadLine()
         {
             if (IsConsolePresent == false) return default(string);

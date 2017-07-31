@@ -5,6 +5,9 @@
     using System.Net;
     using System.Net.Sockets;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     public partial class Extensions
     {
         /// <summary>

@@ -51,12 +51,7 @@
         /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type type)
         {
-            return PropertyTypeCache.Retrieve(type, () =>
-            {
-                return
-                    type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                        .Where(p => p.CanRead || p.CanWrite).ToArray();
-            });
+            return PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPropertiesFunc(type));
         }
 
         /// <summary>
@@ -66,7 +61,7 @@
         /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type type)
         {
-            return FieldTypeCache.Retrieve(type, () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
+            return FieldTypeCache.Retrieve(type, FieldTypeCache.GetAllFieldsFunc(type));
         }
 
         /// <summary>
@@ -76,7 +71,7 @@
         /// <param name="targetType">Type of the target.</param>
         /// <param name="targetInstance">An optional target instance. If null, we will attempt creation.</param>
         /// <param name="includeNonPublic">if set to <c>true</c> [include private].</param>
-        /// <returns>Type of the current convertion from json result</returns>
+        /// <returns>Type of the current conversion from json result</returns>
         private static object ConvertFromJsonResult(
             object source, 
             Type targetType, 

@@ -6,6 +6,9 @@ namespace Unosquare.Swan
     using System.Net.Mail;
     using System.Reflection;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     public partial class Extensions
     {
         internal static class MimeMessageConstants

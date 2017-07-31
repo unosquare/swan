@@ -8,6 +8,9 @@
     using System.Linq;
     using System.Reflection;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     public static partial class Extensions
     {
         private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());

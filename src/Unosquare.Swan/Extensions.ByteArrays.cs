@@ -9,6 +9,9 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     public partial class Extensions
     {
         /// <summary>
@@ -194,6 +197,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
+        /// <returns></returns>
         public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
         {
             if (buffer.StartsWith(sequence) == false)
@@ -255,6 +259,9 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified sequence]; otherwise, <c>false</c>.
+        /// </returns>
         public static bool Contains(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) >= 0;
 
         /// <summary>
@@ -262,6 +269,9 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
+        /// <returns>
+        ///   <c>true</c> if [is equal to] [the specified sequence]; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsEqualTo(this byte[] buffer, params byte[] sequence)
         {
             if (ReferenceEquals(buffer, sequence)) return true;
@@ -303,6 +313,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
+        /// <returns></returns>
         public static MemoryStream Append(this MemoryStream stream, byte[] buffer)
         {
             stream.Write(buffer, 0, buffer.Length);

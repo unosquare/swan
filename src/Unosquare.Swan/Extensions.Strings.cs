@@ -39,11 +39,11 @@
 
         private static readonly Lazy<MatchEvaluator> SplitCamelCaseString = new Lazy<MatchEvaluator>(() =>
         {
-            return (m =>
+            return m =>
             {
                 var x = m.ToString();
                 return x[0] + " " + x.Substring(1, x.Length - 1);
-            });
+            };
         });
 
         private static readonly Lazy<string[]> InvalidFilenameChars = new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());

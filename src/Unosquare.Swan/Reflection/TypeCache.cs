@@ -22,6 +22,9 @@
         /// Determines whether the cache contains the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified type]; otherwise, <c>false</c>.
+        /// </returns>
         public bool Contains(Type type)
         {
             lock (_syncLock)
@@ -108,6 +111,29 @@
     /// </summary>
     public class PropertyTypeCache : TypeCache<PropertyInfo>
     {
+        /// <summary>
+        /// Gets all properties function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>A function to retrieve all properties</returns>
+        public static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
+        {
+            return () => type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(p => p.CanRead || p.CanWrite)
+                .ToArray();
+        }
+
+        /// <summary>
+        /// Gets all public properties function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>A function to retrieve all public properties</returns>
+        public static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
+        {
+            return () => type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.CanRead || p.CanWrite)
+                .ToArray();
+        }
     }
 
     /// <summary>
@@ -118,5 +144,14 @@
     /// </summary>
     public class FieldTypeCache : TypeCache<FieldInfo>
     {
+        /// <summary>
+        /// Gets all fields function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>A function to retrieve all fields</returns>
+        public static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
+        {
+            return () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray();
+        }
     }
 }

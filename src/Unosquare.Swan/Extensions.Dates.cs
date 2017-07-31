@@ -4,6 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     partial class Extensions
     {
         /// <summary>

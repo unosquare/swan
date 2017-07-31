@@ -18,12 +18,7 @@
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
         {
-            return TypeCache.Retrieve(type, () =>
-            {
-                return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.CanRead || p.CanWrite)
-                    .ToArray();
-            });
+            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
         }
 
         /// <summary>
@@ -37,6 +32,7 @@
             foreach (var option in options)
             {
                 string.Empty.WriteLine();
+                
                 // TODO: If Enum list values
                 var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
                 var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";

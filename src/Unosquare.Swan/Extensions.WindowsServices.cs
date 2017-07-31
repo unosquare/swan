@@ -6,6 +6,9 @@ namespace Unosquare.Swan
     using System.Threading;
     using System.ServiceProcess;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     public partial class Extensions
     {
         /// <summary>

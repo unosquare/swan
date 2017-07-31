@@ -25,11 +25,7 @@
         /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type targetType)
         {
-            return PropertyTypeCache.Retrieve(targetType, () =>
-            {
-                return targetType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Where(p => p.CanRead || p.CanWrite).ToArray();
-            });
+            return PropertyTypeCache.Retrieve(targetType, PropertyTypeCache.GetAllPropertiesFunc(targetType));
         }
 
         /// <summary>
@@ -39,8 +35,7 @@
         /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type targetType)
         {
-            return FieldTypeCache.Retrieve(targetType,
-                () => targetType.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray());
+            return FieldTypeCache.Retrieve(targetType, FieldTypeCache.GetAllFieldsFunc(targetType));
         }
 
         private static bool AreObjectsEqual(object left, object right, Type targetType)

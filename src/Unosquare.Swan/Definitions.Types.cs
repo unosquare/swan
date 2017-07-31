@@ -6,6 +6,9 @@
     using System.Linq;
     using System.Net;
 
+    /// <summary>
+    /// Contains useful constants and definitions
+    /// </summary>
     public partial class Definitions
     {
         #region Main Dictionary Definition

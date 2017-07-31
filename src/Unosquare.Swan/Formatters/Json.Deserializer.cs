@@ -297,6 +297,7 @@
                             Result = ResultObject ?? ResultArray as object;
                             return;
                         }
+
                         throw CreateParserException(json, i, State, $"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
                     }
                     #endregion
@@ -346,6 +347,7 @@
                                 i += 5;
                                 break;
                             }
+
                         case 'b':
                             builder.Append('\b');
                             i += 1;
@@ -372,6 +374,7 @@
                             break;
                     }
                 }
+
                 return builder.ToString();
             }
 

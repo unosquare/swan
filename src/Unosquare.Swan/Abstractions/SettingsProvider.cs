@@ -84,6 +84,7 @@
         /// Updates settings from list.
         /// </summary>
         /// <param name="propertyList">The list.</param>
+        /// <returns></returns>
         public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
         {
             var changedSettings = new List<string>();

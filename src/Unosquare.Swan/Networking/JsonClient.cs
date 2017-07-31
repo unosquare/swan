@@ -237,7 +237,7 @@
         /// Gets the specified URL and return the JSON data as object
         /// with optional authorization token.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The response type</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
@@ -328,7 +328,7 @@
         /// <summary>
         /// Posts the file.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The response type</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>

@@ -1,5 +1,8 @@
 ﻿namespace Unosquare.Swan
 {
+    /// <summary>
+    /// Contains useful constants and definitions
+    /// </summary>
     public partial class Definitions
     {
         /// <summary>

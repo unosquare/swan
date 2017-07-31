@@ -20,8 +20,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>
-        /// A collection of Type/Tuple pairs
-		/// that represents items with the enum item value
+        /// A collection of Type/Tuple pairs 
+        /// that represents items with the enum item value
         /// </returns>
         public static Tuple<int, string>[] GetItemsWithValue<T>(bool humanize = true)
         {
@@ -44,8 +44,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>
-        /// A collection of Type/Tuple pairs
-		/// that represents items with the enum item value
+        /// A collection of Type/Tuple pairs that represents items with the enum item value
         /// </returns>
         public static Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
         {

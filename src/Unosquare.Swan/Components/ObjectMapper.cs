@@ -115,12 +115,7 @@
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
         {
-            return TypeCache.Retrieve(type, () =>
-            {
-                return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.CanRead || p.CanWrite)
-                    .ToArray();
-            });
+            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
         }
     }
 

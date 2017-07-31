@@ -6,6 +6,9 @@
     using System.Reflection;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Extension methods
+    /// </summary>
     public partial class Extensions
     {
         #region Assembly Extensions
@@ -59,6 +62,9 @@
         /// Determines whether this type is compatible with ICollection.
         /// </summary>
         /// <param name="sourceType">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified source type is collection; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsCollection(this Type sourceType)
         {
             return sourceType != typeof(string) &&
