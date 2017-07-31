@@ -9555,12 +9555,48 @@ references:
   commentId: T:Unosquare.Swan.Reflection.FieldTypeCache
   fullName: Unosquare.Swan.Reflection.FieldTypeCache
   nameWithType: FieldTypeCache
+- uid: Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc(System.Type)
+  name: GetAllFieldsFunc(Type)
+  href: api/Unosquare.Swan.Reflection.FieldTypeCache.html#Unosquare_Swan_Reflection_FieldTypeCache_GetAllFieldsFunc_System_Type_
+  commentId: M:Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc(System.Type)
+  fullName: Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc(System.Type)
+  nameWithType: FieldTypeCache.GetAllFieldsFunc(Type)
+- uid: Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc*
+  name: GetAllFieldsFunc
+  href: api/Unosquare.Swan.Reflection.FieldTypeCache.html#Unosquare_Swan_Reflection_FieldTypeCache_GetAllFieldsFunc_
+  commentId: Overload:Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc
+  fullName: Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc
+  nameWithType: FieldTypeCache.GetAllFieldsFunc
 - uid: Unosquare.Swan.Reflection.PropertyTypeCache
   name: PropertyTypeCache
   href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html
   commentId: T:Unosquare.Swan.Reflection.PropertyTypeCache
   fullName: Unosquare.Swan.Reflection.PropertyTypeCache
   nameWithType: PropertyTypeCache
+- uid: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPropertiesFunc(System.Type)
+  name: GetAllPropertiesFunc(Type)
+  href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html#Unosquare_Swan_Reflection_PropertyTypeCache_GetAllPropertiesFunc_System_Type_
+  commentId: M:Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPropertiesFunc(System.Type)
+  fullName: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPropertiesFunc(System.Type)
+  nameWithType: PropertyTypeCache.GetAllPropertiesFunc(Type)
+- uid: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPropertiesFunc*
+  name: GetAllPropertiesFunc
+  href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html#Unosquare_Swan_Reflection_PropertyTypeCache_GetAllPropertiesFunc_
+  commentId: Overload:Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPropertiesFunc
+  fullName: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPropertiesFunc
+  nameWithType: PropertyTypeCache.GetAllPropertiesFunc
+- uid: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPublicPropertiesFunc(System.Type)
+  name: GetAllPublicPropertiesFunc(Type)
+  href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html#Unosquare_Swan_Reflection_PropertyTypeCache_GetAllPublicPropertiesFunc_System_Type_
+  commentId: M:Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPublicPropertiesFunc(System.Type)
+  fullName: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPublicPropertiesFunc(System.Type)
+  nameWithType: PropertyTypeCache.GetAllPublicPropertiesFunc(Type)
+- uid: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPublicPropertiesFunc*
+  name: GetAllPublicPropertiesFunc
+  href: api/Unosquare.Swan.Reflection.PropertyTypeCache.html#Unosquare_Swan_Reflection_PropertyTypeCache_GetAllPublicPropertiesFunc_
+  commentId: Overload:Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPublicPropertiesFunc
+  fullName: Unosquare.Swan.Reflection.PropertyTypeCache.GetAllPublicPropertiesFunc
+  nameWithType: PropertyTypeCache.GetAllPublicPropertiesFunc
 - uid: Unosquare.Swan.Reflection.TypeCache`1
   name: TypeCache<T>
   href: api/Unosquare.Swan.Reflection.TypeCache-1.html
