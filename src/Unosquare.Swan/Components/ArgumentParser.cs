@@ -20,11 +20,7 @@
         {
             return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
         }
-
-        /// <summary>
-        /// Writes the application usage.
-        /// </summary>
-        /// <param name="properties">The properties.</param>
+       
         private static void WriteUsage(IEnumerable<PropertyInfo> properties)
         {
             var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
@@ -181,15 +177,7 @@
 
             return false;
         }
-
-        /// <summary>
-        /// Parse and assign the basic type value to the property
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="targetProperty">The target property.</param>
-        /// <param name="propertyValueString">The property value string.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>True if parse was assigned successfully; otherwise, false</returns>
+        
         private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
             try
