@@ -95,7 +95,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested collection of key/value pairs</returns>
+        /// <returns>A task with a result as a collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Post(
             string url, 
             object payload,
