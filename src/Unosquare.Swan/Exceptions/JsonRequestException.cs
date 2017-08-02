@@ -6,6 +6,9 @@
     /// Represents errors that occurs requesting a JSON file through HTTP
     /// </summary>
     /// <seealso cref="System.Exception" />
+#if NET452
+    [Serializable]
+#endif
     public class JsonRequestException 
         : Exception
     {

@@ -28,9 +28,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// The type of the result produced by this Task
-        /// </returns>
+        /// <returns>A task with a result of the requested type</returns>
         public static async Task<T> Post<T>(
             string url, 
             object payload, 
@@ -53,7 +51,7 @@
         /// <param name="httpStatusError">The HTTP status error.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The Ok value or Error value of the result produced by this Task</returns>
+        /// <returns>A task with a result of the requested type or an error object</returns>
         public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
             string url, 
             object payload,
@@ -97,7 +95,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
+        /// <returns>A task with a result of the requested collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Post(
             string url, 
             object payload,
@@ -118,9 +116,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// The type of the result produced by this Task
-        /// </returns>
+        /// <returns>A task with a result of the requested string</returns>
         /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error POST Json.</exception>
         public static async Task<string> PostString(
             string url, 
@@ -149,7 +145,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The type of the result produced by this Task</returns>
+        /// <returns>A task with a result of the requested type</returns>
         public static async Task<T> Put<T>(
             string url, 
             object payload, 
@@ -168,7 +164,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
+        /// <returns>A task with a result of the requested collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Put(
             string url, 
             object payload,
@@ -189,7 +185,7 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with the string value from request</returns>
+        /// <returns>A task with a result of the requested string</returns>
         /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error PUT JSON</exception>
         public static async Task<string> PutString(
             string url, 
@@ -216,7 +212,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with the string value from request</returns>
+        /// <returns>A task with a result of the requested string</returns>
         /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error GET JSON</exception>
         public static async Task<string> GetString(
             string url, 
@@ -242,7 +238,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The type of the result produced by this Task</returns>
+        /// <returns>A task with a result of the requested type</returns>
         public static async Task<T> Get<T>(
             string url, 
             string authorization = null,
@@ -258,9 +254,7 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// A byte array containing the results of encoding the specified set of characters
-        /// </returns>
+        /// <returns>A task with a result of the requested byte array</returns>
         /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error GET Binary</exception>
         public static async Task<byte[]> GetBinary(
             string url, 
@@ -317,7 +311,7 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns>The type of the result produced by this Task</returns>
+        /// <returns>A task with a result of the requested string</returns>
         public static async Task<string> PostFileString(
             string url, 
             byte[] buffer, 
@@ -335,7 +329,7 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
-        /// <returns>The type of the result produced by this Task</returns>
+        /// <returns>A task with a result of the requested string</returns>
         public static async Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
         {
             return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
