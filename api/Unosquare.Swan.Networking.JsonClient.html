@@ -125,7 +125,7 @@ and bearer tokens authentication</p>
   
   <a id="Unosquare_Swan_Networking_JsonClient_Authenticate_" data-uid="Unosquare.Swan.Networking.JsonClient.Authenticate*"></a>
   <h4 id="Unosquare_Swan_Networking_JsonClient_Authenticate_System_String_System_String_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.JsonClient.Authenticate(System.String,System.String,System.String,System.Threading.CancellationToken)">Authenticate(String, String, String, CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Authenticate</p>
+  <div class="markdown level1 summary"><p>Authenticate against a web server using Bearer Token</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -179,7 +179,7 @@ and bearer tokens authentication</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;&gt;</td>
-        <td><p>Object of the type of the elements in the collection of key/value pairs</p>
+        <td><p>A task with a Dictionary with authentication data</p>
 </td>
       </tr>
     </tbody>
@@ -194,9 +194,8 @@ and bearer tokens authentication</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><p>Represents errors that occur during application execution</p>
-</td>
+        <td><span class="xref">System.Security.SecurityException</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -274,22 +273,6 @@ with optional authorization token.</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><p>Represents errors that occur during application execution</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   
   
   <a id="Unosquare_Swan_Networking_JsonClient_GetBinary_" data-uid="Unosquare.Swan.Networking.JsonClient.GetBinary*"></a>
@@ -357,8 +340,8 @@ with optional authorization token.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><p>Represents errors that occur during application execution</p>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a></td>
+        <td><p>Error GET Binary</p>
 </td>
       </tr>
     </tbody>
@@ -415,7 +398,7 @@ with optional authorization token.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
-        <td><p>The type of the result produced by this Task</p>
+        <td><p>A task with the string value from request</p>
 </td>
       </tr>
     </tbody>
@@ -430,8 +413,8 @@ with optional authorization token.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><p>Represents errors that occur during application execution</p>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a></td>
+        <td><p>Error GET JSON</p>
 </td>
       </tr>
     </tbody>
@@ -574,22 +557,6 @@ with optional authorization token.</p>
       <tr>
         <td><span class="parametername">T</span></td>
         <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><p>Represents errors that occur during application execution</p>
-</td>
       </tr>
     </tbody>
   </table>
@@ -898,8 +865,8 @@ or an error.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><p>Represents errors that occur during application execution</p>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a></td>
+        <td><p>Error POST Json.</p>
 </td>
       </tr>
     </tbody>
@@ -1103,7 +1070,7 @@ or an error.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
-        <td><p>The type of the result produced by this Task</p>
+        <td><p>A task with the string value from request</p>
 </td>
       </tr>
     </tbody>
@@ -1118,8 +1085,8 @@ or an error.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><p>Represents errors that occur during application execution</p>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.JsonRequestException.html">JsonRequestException</a></td>
+        <td><p>Error PUT JSON</p>
 </td>
       </tr>
     </tbody>

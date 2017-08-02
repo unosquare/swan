@@ -5137,6 +5137,36 @@ references:
   commentId: T:Unosquare.Swan.Exceptions.DnsQueryException
   fullName: Unosquare.Swan.Exceptions.DnsQueryException
   nameWithType: DnsQueryException
+- uid: Unosquare.Swan.Exceptions.JsonRequestException
+  name: JsonRequestException
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html
+  commentId: T:Unosquare.Swan.Exceptions.JsonRequestException
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException
+  nameWithType: JsonRequestException
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32)
+  name: JsonRequestException(String, Int32)
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException__ctor_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Exceptions.JsonRequestException.#ctor(System.String,System.Int32)
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.JsonRequestException(System.String, System.Int32)
+  nameWithType: JsonRequestException.JsonRequestException(String, Int32)
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.#ctor*
+  name: JsonRequestException
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException__ctor_
+  commentId: Overload:Unosquare.Swan.Exceptions.JsonRequestException.#ctor
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.JsonRequestException
+  nameWithType: JsonRequestException.JsonRequestException
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
+  name: HttpErrorCode
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException_HttpErrorCode
+  commentId: P:Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
+  nameWithType: JsonRequestException.HttpErrorCode
+- uid: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode*
+  name: HttpErrorCode
+  href: api/Unosquare.Swan.Exceptions.JsonRequestException.html#Unosquare_Swan_Exceptions_JsonRequestException_HttpErrorCode_
+  commentId: Overload:Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
+  fullName: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
+  nameWithType: JsonRequestException.HttpErrorCode
 - uid: Unosquare.Swan.Exceptions.MessageHubSubscriptionException
   name: MessageHubSubscriptionException
   href: api/Unosquare.Swan.Exceptions.MessageHubSubscriptionException.html
