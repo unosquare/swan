@@ -1,8 +1,8 @@
 ﻿namespace Unosquare.Swan.Networking
 {
+    using Exceptions;
     using Models;
     using Formatters;
-    using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Security;
@@ -28,8 +28,9 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The type of the result produced by this Task</returns>
-        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        /// <returns>
+        /// The type of the result produced by this Task
+        /// </returns>
         public static async Task<T> Post<T>(
             string url, 
             object payload, 
@@ -120,7 +121,7 @@
         /// <returns>
         /// The type of the result produced by this Task
         /// </returns>
-        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error POST Json.</exception>
         public static async Task<string> PostString(
             string url, 
             object payload, 
@@ -134,7 +135,7 @@
                 var response = await httpClient.PostAsync(url, payloadJson, ct);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new Exception($"Error POST Json. Status code: {response.StatusCode}");
+                    throw new JsonRequestException("Error POST JSON", (int) response.StatusCode);
 
                 return await response.Content.ReadAsStringAsync();
             }
@@ -188,8 +189,8 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The type of the result produced by this Task</returns>
-        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        /// <returns>A task with the string value from request</returns>
+        /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error PUT JSON</exception>
         public static async Task<string> PutString(
             string url, 
             object payload, 
@@ -203,7 +204,7 @@
                 var response = await httpClient.PutAsync(url, payloadJson, ct);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new Exception($"Error POST Json. Status code: {response.StatusCode}");
+                    throw new JsonRequestException("Error PUT JSON", (int)response.StatusCode);
 
                 return await response.Content.ReadAsStringAsync();
             }
@@ -215,8 +216,8 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>The type of the result produced by this Task</returns>
-        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        /// <returns>A task with the string value from request</returns>
+        /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error GET JSON</exception>
         public static async Task<string> GetString(
             string url, 
             string authorization = null,
@@ -227,7 +228,7 @@
                 var response = await httpClient.GetAsync(url, ct);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new Exception($"Error POST Json. Status code: {response.StatusCode}");
+                    throw new JsonRequestException("Error GET JSON", (int)response.StatusCode);
 
                 return await response.Content.ReadAsStringAsync();
             }
@@ -242,7 +243,6 @@
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task</returns>
-        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
         public static async Task<T> Get<T>(
             string url, 
             string authorization = null,
@@ -258,8 +258,10 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
-        /// <exception cref="System.Exception">Represents errors that occur during application execution</exception>
+        /// <returns>
+        /// A byte array containing the results of encoding the specified set of characters
+        /// </returns>
+        /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error GET Binary</exception>
         public static async Task<byte[]> GetBinary(
             string url, 
             string authorization = null,
@@ -270,21 +272,21 @@
                 var response = await httpClient.GetAsync(url, ct);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new Exception($"Error POST Json. Status code: {response.StatusCode}");
+                    throw new JsonRequestException("Error GET Binary", (int)response.StatusCode);
 
                 return await response.Content.ReadAsByteArrayAsync();
             }
         }
 
         /// <summary>
-        /// Authenticate
+        /// Authenticate against a web server using Bearer Token
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>Object of the type of the elements in the collection of key/value pairs</returns>
-        /// <exception cref="Exception">Represents errors that occur during application execution</exception>
+        /// <returns>A task with a Dictionary with authentication data</returns>
+        /// <exception cref="System.Security.SecurityException"></exception>
         public static async Task<IDictionary<string, object>> Authenticate(
             string url, 
             string username, 
