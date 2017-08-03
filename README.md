@@ -146,9 +146,9 @@ You can serialize and deserialize strings and objects using Swan's `Json` Format
 Serializes the specified object into a JSON string.
 
 ```csharp
-//The object to be serialize
+// The object to be serialize
 var basicObject = new { One = "One", Two = "Two", Three = "Three" };
-//Serializes the specified object into a JSON string.
+// Serializes the specified object into a JSON string.
 var data = Json.Serialize(basicObject);
 ```
 
@@ -157,11 +157,11 @@ var data = Json.Serialize(basicObject);
 Serializes the specified object only including the specified property names.
 
 ```csharp
-//The object to be serialize
+// The object to be serialize
 var basicObject = new { One = "One", Two = "Two", Three = "Three" };
-//The included names
+// The included names
 var includedNames  = new[] { "Two", "Three" };
-//Serializes the specified object only including the specified property names.
+// Serializes the specified object only including the specified property names.
 var data = Json.SerializeOnly(basicObject, true, includedNames);
 ```
 
@@ -170,11 +170,11 @@ var data = Json.SerializeOnly(basicObject, true, includedNames);
 Serializes the specified object excluding the specified property names.
 
 ```csharp         
-//The object to be serialize
+// The object to be serialize
 var basicObject = new { One = "One", Two = "Two", Three = "Three" };
-//The excluded names
+// The excluded names
 var excludeNames  = new[] { "Two", "Three" };
-//Serializes the specified object excluding the specified property names.
+// Serializes the specified object excluding the specified property names.
 var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 ``` 
 #### Example 4: Deserialize
@@ -182,9 +182,9 @@ var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 Deserializes the specified json string as either a `Dictionary<string, object>` or as a `List<object>` depending on the syntax of the JSON string.
 
 ```csharp 
-//The json to be deserialize
+// The json to be deserialize
 var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
-//Deserializes the specified json into Dictionary<string, object>.
+// Deserializes the specified json into Dictionary<string, object>.
 var data = Json.Deserialize(basicJson);
 ``` 
 
@@ -193,9 +193,9 @@ var data = Json.Deserialize(basicJson);
 Deserializes the specified json string as either a `Dictionary<string, object>` or as a `List<object>` depending on the syntax of the JSON string
 
 ```csharp 
-//The json Type BasicJson to be deserialize
+// The json Type BasicJson to be deserialize
 var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
-//Deserializes the specified object into Dictionary<string, object>.
+// Deserializes the specified object into Dictionary<string, object>.
 var data = Json.Deserialize<BasicJson>(basicJson);
 ``` 
 
@@ -210,12 +210,12 @@ Many projects require the use o CSV files to export the information, with `CsvWr
 This is the way to write a list of objects into a CSV format.
 
 ```csharp
- //The list of object to be written as CSV
+ // The list of object to be written as CSV
 var basicObj = new List<BasicJson>();
 
 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString())))
 {               
-    //The writer of the CSV
+    // The writer of the CSV
     var reader = new CsvWriter(stream);
 };
 ```
@@ -225,9 +225,9 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString()
 You also can write the object into a file or a temporal file.
 
 ```csharp
-//The list of object to be written as CSV
+// The list of object to be written as CSV
 var basicObj = new List<BasicJson>();
-//This is where the object is save into a file
+// This is where the object is save into a file
 CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
 ```
 
@@ -242,14 +242,14 @@ When you use and manage the information through CSV files you need to have an ea
 This is a way to read CSV format data.
 
 ```csharp
- //The data to be readed
+ // The data to be readed
 var data = @"Company,OpenPositions,MainTechnology,Revenue
     Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
     Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 {               
-    //The reader of the CSV
+    // The reader of the CSV
     var reader = new CsvReader(stream, true, Encoding.ASCII);
 };
 ```
@@ -259,11 +259,11 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 From a csv file you can read and load the information to a generic list.
 
 ```csharp
-//The list of object to be written as CSV
+// The list of object to be written as CSV
 var basicObj = new List<BasicJson>();
-//This is where the object is save into a file
+// This is where the object is save into a file
 CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
-//This is how you can load the records of the CSV file
+// This is how you can load the records of the CSV file
 var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/CsvFile");
 ``` 
 
@@ -278,7 +278,7 @@ Represents a wrapper `HttpClient` with extended methods to use with JSON payload
 You can Authentication into your application.
 
 ```csharp
-//The Authenticate
+// The Authenticate
 var data = JsonClient.Authenticate("https://mywebsite.com/api/token", "admin", "password");
 ```
 
@@ -287,7 +287,7 @@ var data = JsonClient.Authenticate("https://mywebsite.com/api/token", "admin", "
 Easy way to make a GET using `JsonClient`.
 
 ```csharp
-//The GET
+// The GET
 var data = JsonClient.Get<BasicJson>("https://mywebsite.com/api/data");
 ```
 
@@ -296,7 +296,7 @@ var data = JsonClient.Get<BasicJson>("https://mywebsite.com/api/data");
 Easy way to make a POST using `JsonClient`.
 
 ```csharp
-//The POST
+// The POST
 var data = JsonClient.Post<BasicJson>("https://mywebsite.com/api/data", new { filter = true });
 ```
 
@@ -305,7 +305,7 @@ var data = JsonClient.Post<BasicJson>("https://mywebsite.com/api/data", new { fi
 Easy way to make a PUT using `JsonClient`.
 
 ```csharp
-//The PUT
+// The PUT
 var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { filter = true });
 ```
 
@@ -320,29 +320,50 @@ It's a Swan's basic SMTP client that is capable of submitting messages to an SMT
 The mails are sent asynchronously.
 
 ```csharp
-//Sending mails async
+// Sending mails async
 await client.SendMailAsync(new MailMessage());
 
-//Or sent the mail based on the Smtp session state
+// Or sent the mail based on the Smtp session state
 await client.SendMailAsync(new SmtpSessionState());
 ```
 
 ### The `ObjectMapper`
 
-It's a very handly component of Swan that maps objects. This component makes use of the `Runtime`
+It's a very handly component of Swan that maps objects. You can access a default instance of ObjectMapper by `Runtime` class.
 
 [ObjectMapper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html)
 
-#### Example 1: Creating a map
+#### Example 1: Mapping with default map
+
+The conversion generates a map automatically between the properties in base of the properties names.
 
 ```csharp
-//Creating a map
-Runtime.ObjectMapper.CreateMap<User, UserDto>();
+// Here is mapping the specific user to a destination
+var destination = Runtime.ObjectMapper.Map<UserDto>(user);
 ```
 
-#### Example 2: Mapping a specific source
+#### Example 2: Mapping with a custom map
+
+With CreateMap you generates a new map and you can map one custom property with MapProperty.
 
 ```csharp
-//Here is mapping the specific user to a destination
-var destination = Runtime.ObjectMapper.Map<UserDto>(user);
+// Creating an Object Mapper
+var mapper = new ObjectMapper();
+// Creating the map and mapping the property
+mapper.CreateMap<User, UserDto>().MapProperty(d => d.Role, s => s.Role.Name);
+// Then you map the custom map to a destination
+var destination = mapper.Map<UserDto>(user);            
+```
+
+#### Example 3: Removing a property from the map
+
+To remove a custom property you also use CreateMap and then remove the costum property of the mapping.
+
+```csharp
+// Create an Object Mapper
+var mapper = new ObjectMapper();
+// Creating a map and removing a property
+mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t.Name);
+// Then you map the custom map to a destination
+var destination = mapper.Map<UserDto>(user);
 ```

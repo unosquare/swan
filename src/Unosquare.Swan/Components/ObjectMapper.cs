@@ -208,7 +208,7 @@
         }
 
         /// <summary>
-        /// Removes the map.
+        /// Removes the map property.
         /// </summary>
         /// <typeparam name="TDestinationProperty">The type of the destination property.</typeparam>
         /// <param name="destinationProperty">The destination property.</param>
@@ -217,7 +217,7 @@
         /// and type of the source property 
         /// </returns>
         /// <exception cref="System.Exception">Invalid destination expression</exception>
-        public ObjectMap<TSource, TDestination> RemoveMap<TDestinationProperty>(
+        public ObjectMap<TSource, TDestination> RemoveMapProperty<TDestinationProperty>(
             Expression<Func<TDestination, TDestinationProperty>> destinationProperty)
         {
             var memberDestinationExpression = destinationProperty?.Body as MemberExpression;
