@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Modules;
+using Unosquare.Swan.Exceptions;
 using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
@@ -278,14 +279,15 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson { IntData = 1 });
+                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson {IntData = 1});
 
                 Assert.IsNotNull(data);
                 Assert.IsTrue(data.IsOk);
                 Assert.IsNotNull(data.Ok);
                 Assert.AreEqual(1, data.Ok.IntData);
 
-                var dataError = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson { IntData = 2 });
+                var dataError = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp,
+                    new BasicJson {IntData = 2});
 
                 Assert.IsNotNull(dataError);
                 Assert.IsFalse(dataError.IsOk);
@@ -294,5 +296,23 @@ namespace Unosquare.Swan.Test
             }
         }
 
+        [Test]
+        public void JsonRequestErrorTest()
+        {
+            var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
+            {
+                using (var webserver = new WebServer(_defaultPort))
+                {
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+
+                    webserver.RunAsync();
+                    await Task.Delay(100);
+
+                    await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
+                }
+            });
+            
+            Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+        }
     }
 }
