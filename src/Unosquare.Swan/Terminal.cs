@@ -130,52 +130,54 @@
 
             using (var tickLock = new ManualResetEvent(false))
             {
-                InputDone.WaitOne();
-
-                if (OutputQueue.Count <= 0)
+                while (true)
                 {
-                    OutputDone.Set();
-                    tickLock.WaitOne(1);
-                }
+                    InputDone.WaitOne();
 
-                OutputDone.Reset();
-
-                while (OutputQueue.Count > 0)
-                {
-                    OutputContext context;
-                    if (OutputQueue.TryDequeue(out context) == false) continue;
-
-                    // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                    if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
+                    if (OutputQueue.Count <= 0)
                     {
-                        // Output to the standard output
-                        if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
-                        {
-                            Console.ForegroundColor = context.OutputColor;
-                            Console.Out.Write(context.OutputText);
-                            Console.ResetColor();
-                            Console.ForegroundColor = context.OriginalColor;
-                        }
-
-                        // output to the standard error
-                        if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
-                        {
-                            Console.ForegroundColor = context.OutputColor;
-                            Console.Error.Write(context.OutputText);
-                            Console.ResetColor();
-                            Console.ForegroundColor = context.OriginalColor;
-                        }
+                        OutputDone.Set();
+                        tickLock.WaitOne(1);
+                        continue;
                     }
 
-                    // Process Debugger output
-                    if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
+                    OutputDone.Reset();
+
+                    while (OutputQueue.Count > 0)
                     {
-                        System.Diagnostics.Debug.Write(new string(context.OutputText));
+                        OutputContext context;
+                        if (OutputQueue.TryDequeue(out context) == false) continue;
+
+                        // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
+                        if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
+                        {
+                            // Output to the standard output
+                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
+                            {
+                                Console.ForegroundColor = context.OutputColor;
+                                Console.Out.Write(context.OutputText);
+                                Console.ResetColor();
+                                Console.ForegroundColor = context.OriginalColor;
+                            }
+
+                            // output to the standard error
+                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
+                            {
+                                Console.ForegroundColor = context.OutputColor;
+                                Console.Error.Write(context.OutputText);
+                                Console.ResetColor();
+                                Console.ForegroundColor = context.OriginalColor;
+                            }
+                        }
+
+                        // Process Debugger output
+                        if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
+                        {
+                            System.Diagnostics.Debug.Write(new string(context.OutputText));
+                        }
                     }
                 }
             }
-
-            // ReSharper disable once FunctionNeverReturns
         }
 
         /// <summary>
