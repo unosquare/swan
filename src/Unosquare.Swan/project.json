@@ -12,6 +12,7 @@
   "frameworks": {
     "uap10.0": {
       "dependencies": {
+        "System.Threading.Thread": "4.3.0",
         "System.Globalization": "4.3.0",
         "System.ComponentModel.TypeConverter": "4.3.0",
         "System.Threading": "4.3.0",

@@ -4,7 +4,6 @@
     using System.Collections.Concurrent;
     using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
@@ -14,12 +13,12 @@
     {
         #region Private Declarations
 
-        private static readonly Task DequeueOutputTask;
+        private static readonly Thread DequeueOutputTask;
         private static readonly object SyncLock = new object();
         private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
 
-        private static readonly ManualResetEventSlim OutputDone = new ManualResetEventSlim(false);
-        private static readonly ManualResetEventSlim InputDone = new ManualResetEventSlim(true);
+        private static readonly ManualResetEvent OutputDone = new ManualResetEvent(false);
+        private static readonly ManualResetEvent InputDone = new ManualResetEvent(true);
 
         private static bool? m_IsConsolePresent;        
 
@@ -73,7 +72,17 @@
                 }
 
                 // Here we start the output task, fire-and-forget
-                DequeueOutputTask = DequeueOutputAsync();
+                DequeueOutputTask = // Here we start the output task, fire-and-forget
+                DequeueOutputTask = new Thread(DequeueOutputAsync)
+                {
+#if !UWP
+                    IsBackground = true,
+#endif
+                    Name = nameof(DequeueOutputTask),
+#if NET452
+                    Priority = ThreadPriority.BelowNormal
+#endif
+                };
             }
         }
 
@@ -111,7 +120,7 @@
         /// Dequeues the output asynchronously.
         /// </summary>
         /// <returns>A task that represents the asynchronous dequeue output operation</returns>
-        private static async Task DequeueOutputAsync()
+        private static void DequeueOutputAsync()
         {
             if (AvailableWriters == TerminalWriters.None)
             {
@@ -119,15 +128,14 @@
                 return;
             }
 
-            while (true)
+            using (var tickLock = new ManualResetEvent(false))
             {
-                InputDone.Wait();
+                InputDone.WaitOne();
 
                 if (OutputQueue.Count <= 0)
                 {
                     OutputDone.Set();
-                    await Task.Delay(1);
-                    continue;
+                    tickLock.WaitOne(1);
                 }
 
                 OutputDone.Reset();
@@ -179,13 +187,13 @@
         /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
         public static void Flush(TimeSpan? timeout = null)
         {
-            if (OutputDone.IsSet) return;
+            if (OutputDone.WaitOne(0)) return;
             if (timeout == null) timeout = TimeSpan.Zero;
             var startTime = DateTime.UtcNow;
 
             while (true)
             {
-                if (OutputDone.Wait(1))
+                if (OutputDone.WaitOne(1))
                     break;
 
                 if (timeout.Value == TimeSpan.Zero)
