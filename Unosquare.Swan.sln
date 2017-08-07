@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2D969810-4C1B-4354-9D55-5961EFF55AB3}"
 EndProject
@@ -9,23 +9,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
-		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
 		StyleCop.Analyzers.ruleset = StyleCop.Analyzers.ruleset
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan", "src\Unosquare.Swan\Unosquare.Swan.xproj", "{F6849B76-E09A-4F84-B299-804A63F12ADC}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan.Samples", "src\Unosquare.Swan.Samples\Unosquare.Swan.Samples.xproj", "{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FD98D3F3-CD24-467A-A730-CAA79F92E693}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan.Test", "test\Unosquare.Swan.Test\Unosquare.Swan.Test.xproj", "{60B68528-8E90-4616-BC6A-C703F018EFEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan", "src\Unosquare.Swan\Unosquare.Swan.csproj", "{F6849B76-E09A-4F84-B299-804A63F12ADC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan.AspNetCore", "src\Unosquare.Swan.AspNetCore\Unosquare.Swan.AspNetCore.xproj", "{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.Samples", "src\Unosquare.Swan.Samples\Unosquare.Swan.Samples.csproj", "{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Unosquare.Swan.AspNetCore.Sample", "src\Unosquare.Swan.AspNetCore.Sample\Unosquare.Swan.AspNetCore.Sample.xproj", "{6823A467-8AA8-40F5-B934-24D5DBDA65AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.Test", "test\Unosquare.Swan.Test\Unosquare.Swan.Test.csproj", "{60B68528-8E90-4616-BC6A-C703F018EFEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.AspNetCore", "src\Unosquare.Swan.AspNetCore\Unosquare.Swan.AspNetCore.csproj", "{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.AspNetCore.Sample", "src\Unosquare.Swan.AspNetCore.Sample\Unosquare.Swan.AspNetCore.Sample.csproj", "{6823A467-8AA8-40F5-B934-24D5DBDA65AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

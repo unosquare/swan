@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿#pragma warning disable 4014
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace Unosquare.Swan.Test
 
                     return true;
                 }));
-
+                
                 webserver.RunAsync();
 
                 var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
@@ -316,3 +317,4 @@ namespace Unosquare.Swan.Test
         }
     }
 }
+#pragma warning restore 4014

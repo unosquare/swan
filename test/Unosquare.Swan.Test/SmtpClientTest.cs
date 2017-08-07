@@ -114,7 +114,9 @@ namespace Unosquare.Swan.Test
             session.Recipients.Add(RecipientEmail);
             session.DataBuffer.AddRange(new byte[] {0x48, 0x48, 0x0A, 0x0C});
 
+#pragma warning disable 4014
             email.SendMailAsync(session, ct: cts.Token);
+#pragma warning restore 4014
             cts.Cancel();
             await Task.Delay(100);
             Assert.IsFalse(File.Exists(filename));

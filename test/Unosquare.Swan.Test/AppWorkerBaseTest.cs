@@ -43,7 +43,7 @@ namespace Unosquare.Swan.Test
             var mock = new AppWorkerMock();
             mock.Start();
             // Mock increase count by one every 100 ms, wait a little bit
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(2));
 
             Assert.IsFalse(mock.IsBusy, "The AppWorker is not busy");
             Assert.IsFalse(mock.ExitBecauseCancellation, "The AppWorker doesn't exit because cancellation");

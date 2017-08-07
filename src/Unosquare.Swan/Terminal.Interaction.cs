@@ -13,7 +13,7 @@
         /// <param name="intercept">if set to <c>true</c> the pressed key will not be rendered to the output.</param>
         /// <param name="disableLocking">if set to <c>true</c> the output will continue to be shown.
         /// This is useful for services and daemons that are running as console applications and wait for a key to exit the program.</param>
-        /// <returns></returns>
+        /// <returns>The console key information</returns>
         public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)
         {
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);
@@ -41,7 +41,7 @@
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
-        /// <returns></returns>
+        /// <returns>The console key information</returns>
         public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
         {
             if (IsConsolePresent == false) return default(ConsoleKeyInfo);
@@ -104,7 +104,7 @@
         /// <param name="prompt">The prompt.</param>
         /// <param name="defaultNumber">The default number.</param>
         /// <returns>
-        /// Convertions of string representation of a number to its 32-bit signed integer equivalent
+        /// Conversions of string representation of a number to its 32-bit signed integer equivalent
         /// </returns>
         public static int ReadNumber(this string prompt, int defaultNumber)
         {
@@ -114,8 +114,8 @@
             {
                 $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ".Write(ConsoleColor.White);
                 var input = ReadLine();
-                int parsedInt;
-                if (int.TryParse(input, out parsedInt) == false)
+
+                if (int.TryParse(input, out int parsedInt) == false)
                 {
                     parsedInt = defaultNumber;
                 }

@@ -17,4 +17,4 @@ install:
 script:
   - node ./mail.js &
   - dotnet build ./src/Unosquare.Swan -f netstandard1.6
-  - dotnet test ./test/Unosquare.Swan.Test -f netcoreapp1.1
+  - dotnet test ./test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -f netcoreapp1.1

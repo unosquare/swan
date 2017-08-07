@@ -221,13 +221,6 @@ namespace Unosquare.Swan.Components
     public sealed class MessageHubDefaultProxy : IMessageHubProxy
     {
         /// <summary>
-        /// Initializes the <see cref="MessageHubDefaultProxy"/> class.
-        /// </summary>
-        static MessageHubDefaultProxy()
-        {
-        }
-
-        /// <summary>
         /// Singleton instance of the proxy.
         /// </summary>
         public static MessageHubDefaultProxy Instance { get; } = new MessageHubDefaultProxy();

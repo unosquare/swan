@@ -280,7 +280,7 @@
         /// <param name="password">The password.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a Dictionary with authentication data</returns>
-        /// <exception cref="System.Security.SecurityException"></exception>
+        /// <exception cref="System.Security.SecurityException">Error Authenticating</exception>
         public static async Task<IDictionary<string, object>> Authenticate(
             string url, 
             string username, 

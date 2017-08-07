@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Some usage samples of the Swan library</Description>
+    <Copyright>Copyright (c) 2016 - Unosquare</Copyright>
+    <AssemblyTitle>Unosquare SWAN Samples</AssemblyTitle>
+    <TargetFramework>net452</TargetFramework>
+    <AssemblyName>Unosquare.Swan.Samples</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Unosquare.Swan.Samples</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Unosquare.Swan\Unosquare.Swan.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
