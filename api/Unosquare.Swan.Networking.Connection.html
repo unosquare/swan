@@ -892,7 +892,12 @@ contains the next line from the stream, or is null if all the characters have be
   
   <a id="Unosquare_Swan_Networking_Connection_ReadLineAsync_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync*"></a>
   <h4 id="Unosquare_Swan_Networking_Connection_ReadLineAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Connection.ReadLineAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadLineAsync(TimeSpan, CancellationToken)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Reads the next available line of text in queue. Return null when no text is read.
+This method differs from the rest of the read methods because it keeps an internal
+queue of lines that are read from the stream and only returns the one line next in the queue.
+It is only recommended to use this method when you are working with text-based protocols
+and the rest of the read methods are not called.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -911,12 +916,14 @@ contains the next line from the stream, or is null if all the characters have be
       <tr>
         <td><span class="xref">System.TimeSpan</span></td>
         <td><span class="parametername">timeout</span></td>
-        <td></td>
+        <td><p>The timeout.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
-        <td></td>
+        <td><p>The cancellation token.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -931,7 +938,24 @@ contains the next line from the stream, or is null if all the characters have be
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
-        <td></td>
+        <td><p>A task with a string line from the queue</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>Read methods have been disabled because continuous reading is enabled.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -1054,7 +1078,7 @@ Remarks: DO NOT use this method in production. It accepts ALL server certificate
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
-        <td><p>True if the object is hosted in the client; otherwise, false</p>
+        <td><p>A tasks with <code>true</code> if the upgrade to SSL was successful; otherwise, <code>false</code></p>
 </td>
       </tr>
     </tbody>
@@ -1105,7 +1129,7 @@ Remarks: DO NOT use this method in production. It accepts ALL server certificate
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
-        <td><p>True if the object is hosted in the client; otherwise, false</p>
+        <td><p>A tasks with <code>true</code> if the upgrade to SSL was successful; otherwise, <code>false</code></p>
 </td>
       </tr>
     </tbody>
