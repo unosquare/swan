@@ -10,7 +10,7 @@
         /// <summary>
         /// The internally accessible list of recipients
         /// </summary>
-        protected readonly List<string> m_Recipients = new List<string>();
+        private readonly List<string> m_Recipients = new List<string>();
 
         #region Constructors
 
@@ -144,8 +144,7 @@
             SupportsExtensions = false;
             ClientHostname = string.Empty;
             ResetEmail();
-            // ResetAuthentication();
-
+            
             if (clearExtensionData)
                 ExtendedData = null;
         }
@@ -153,7 +152,7 @@
         /// <summary>
         /// Creates a new object that is a copy of the current instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A clone</returns>
         public virtual SmtpSessionState Clone()
         {
             // TODO: Use a binary formatter or something similar when it comes out in .net core/standard

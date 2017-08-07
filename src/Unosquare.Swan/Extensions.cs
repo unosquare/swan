@@ -42,7 +42,6 @@
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
         {
             // TODO: Add recursive so child objects can be copied also
-
             var copiedProperties = 0;
 
             // Sources

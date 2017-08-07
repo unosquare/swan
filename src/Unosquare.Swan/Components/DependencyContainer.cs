@@ -1296,16 +1296,6 @@ namespace Unosquare.Swan.Components
             /// </summary>
             public ConstructorInfo Constructor { get; private set; }
 
-            /// <summary>
-            /// Create the type
-            /// </summary>
-            /// <param name="requestedType">Type user requested to be resolved</param>
-            /// <param name="container">Container that requested the creation</param>
-            /// <param name="parameters">Any user parameters passed</param>
-            /// <param name="options"></param>
-            /// <returns>Instance of type</returns>
-            public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
-
             public virtual ObjectFactoryBase SingletonVariant
             {
                 get
@@ -1337,6 +1327,16 @@ namespace Unosquare.Swan.Components
                     throw new DependencyContainerRegistrationException(GetType(), "weak reference");
                 }
             }
+
+            /// <summary>
+            /// Create the type
+            /// </summary>
+            /// <param name="requestedType">Type user requested to be resolved</param>
+            /// <param name="container">Container that requested the creation</param>
+            /// <param name="parameters">Any user parameters passed</param>
+            /// <param name="options">The options.</param>
+            /// <returns> Instance of type </returns>
+            public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
 
             public virtual ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
             {
@@ -1841,6 +1841,8 @@ namespace Unosquare.Swan.Components
             public override int GetHashCode() =>_hashCode;
         }
 
+        private readonly DependencyContainer _parent;
+
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
         private delegate object ObjectConstructor(params object[] parameters);
 #if USE_OBJECT_CONSTRUCTOR
@@ -1861,7 +1863,6 @@ namespace Unosquare.Swan.Components
             RegisterDefaultTypes();
         }
 
-        readonly DependencyContainer _parent;
         private DependencyContainer(DependencyContainer parent)
             : this()
         {

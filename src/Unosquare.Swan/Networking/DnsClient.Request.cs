@@ -431,10 +431,7 @@
 
             public int Size => SIZE;
 
-            public byte[] ToArray()
-            {
-                return this.ToBytes();
-            }
+            public byte[] ToArray() => this.ToBytes();
 
             public override string ToString()
             {

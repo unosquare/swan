@@ -163,8 +163,8 @@
                 int temp = Convert.ToInt16(mibvals[i]);
                 if (temp > 127)
                 {
-                    mib[cnt] = Convert.ToByte(128 + temp / 128);
-                    mib[cnt + 1] = Convert.ToByte(temp - temp / 128 * 128);
+                    mib[cnt] = Convert.ToByte(128 + (temp / 128));
+                    mib[cnt + 1] = Convert.ToByte(temp - ((temp / 128) * 128));
                     cnt += 2;
                     miblen++;
                 }

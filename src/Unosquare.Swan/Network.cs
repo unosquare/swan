@@ -353,10 +353,10 @@
             ntpData[0] = 0x1B; // LI = 0 (no warning), VN = 3 (IPv4 only), Mode = 3 (Client Mode)
 
             // The UDP port number assigned to NTP is 123
-            var ipEndPoint = new IPEndPoint(ntpServerAddress, port);
+            var endPoint = new IPEndPoint(ntpServerAddress, port);
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-            socket.Connect(ipEndPoint);
+            socket.Connect(endPoint);
             socket.ReceiveTimeout = 3000; // Stops code hang if NTP is blocked
             socket.Send(ntpData);
             socket.Receive(ntpData);
@@ -382,8 +382,7 @@
             var milliseconds = (intPart * 1000) + ((fractPart * 1000) / 0x100000000L);
 
             // The time is given in UTC
-            var networkDateTime = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds((long)milliseconds);
-            return networkDateTime;
+            return new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds((long)milliseconds);
         }
 
         /// <summary>

@@ -7,7 +7,7 @@
     using System.IO;
     using System.Linq;
 
-    partial class DnsClient
+    internal partial class DnsClient
     {
         public class DnsClientResponse : IDnsResponse
         {

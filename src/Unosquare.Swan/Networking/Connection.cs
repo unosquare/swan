@@ -269,12 +269,10 @@ namespace Unosquare.Swan.Networking
             if (activeThreadPoolTreads < Environment.ProcessorCount / 4)
             {
                 ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
-                // Log.Trace($"Queued new ThreadPool Thread. Active TP Threads: {activeThreadPoolTreads}");
             }
             else
             {
                 new Thread(PerformContinuousReading) { IsBackground = true }.Start();
-                // Log.Trace($"Created standard thread. Active TP Threads: {activeThreadPoolTreads}");
             }
 #endif
         }

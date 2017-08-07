@@ -112,7 +112,7 @@
         /// Deserializes the specified json string and converts it to the specified object type.
         /// Non-public constructors and property setters are ignored.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to deserialize</typeparam>
         /// <param name="json">The json.</param>
         /// <returns>The deserialized specified type object</returns>
         public static T Deserialize<T>(string json)
@@ -138,7 +138,7 @@
         /// <param name="json">The json.</param>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
-        /// <returns>Type of the current convertion from json result</returns>
+        /// <returns>Type of the current conversion from json result</returns>
         public static object Deserialize(string json, Type resultType, bool includeNonPublic)
         {
             var source = Deserializer.DeserializeInternal(json);
@@ -190,56 +190,51 @@
 
             const string addMethodName = "Add";
             object target = null;
+            
+            var sourceType = source.GetType();
 
-            {    
-                var sourceType = source.GetType();
-
-                if (targetInstance != null) targetType = targetInstance.GetType();
-                if (targetType == null || targetType == typeof(object)) targetType = sourceType;
-                if (sourceType == targetType) return source;
-            }
-
+            if (targetInstance != null) targetType = targetInstance.GetType();
+            if (targetType == null || targetType == typeof(object)) targetType = sourceType;
+            if (sourceType == targetType) return source;
+            
             #endregion
 
             #region Setup: Target Instantiation or Assignment
 
+            if (targetInstance == null)
             {
-                if (targetInstance == null)
+                // Try to create a default instance
+                try
                 {
-                    // Try to create a default instance
-                    try
+                    // When using arrays, there is no default constructor, attempt to build a compatible array
+                    var sourceObjectList = source as List<object>;
+                    if (sourceObjectList != null && targetType.IsArray)
                     {
-                        // When using arrays, there is no default constructor, attempt to build a compatible array
-                        var sourceObjectList = source as List<object>;
-                        if (sourceObjectList != null && targetType.IsArray)
-                        {
-                            target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
-                        }
-                        else if (source is string && targetType == typeof(byte[]))
-                        {
-                            // do nothing. Simply skip creation
-                        }
-                        else
-                        {
-                            target = Activator.CreateInstance(targetType, includeNonPublic);
-                        }
+                        target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
                     }
-                    catch
+                    else if (source is string && targetType == typeof(byte[]))
                     {
-                        return targetType.GetDefault();
+                        // do nothing. Simply skip creation
+                    }
+                    else
+                    {
+                        target = Activator.CreateInstance(targetType, includeNonPublic);
                     }
                 }
-                else
+                catch
                 {
-                    target = targetInstance;
+                    return targetType.GetDefault();
                 }
+            }
+            else
+            {
+                target = targetInstance;
             }
 
             #endregion
 
             #region Case 0: Special Cases Handling (Source and Target are of specific convertible types)
-
-            {
+            
                 #region Case 0.1: Source is string, Target is byte[]
 
                 var sourceString = source as string;
@@ -258,7 +253,6 @@
                 }
 
                 #endregion
-            }
 
             #endregion
 

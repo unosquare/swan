@@ -7,7 +7,7 @@
     /// <summary>
     /// Extension methods
     /// </summary>
-    partial class Extensions
+    public partial class Extensions
     {
         /// <summary>
         /// Converts the date to a YYYY-MM-DD string

@@ -272,6 +272,7 @@
         /// <summary>
         /// Gets all the loaded assemblies in the current application domain.
         /// </summary>
+        /// <returns>An array of assemblies</returns>
         public static Assembly[] GetAssemblies()
         {
             return Reflection.AppDomain.CurrentDomain.GetAssemblies();

@@ -537,6 +537,7 @@
                     // push anything that has not been pushed (flush) into a last value
                     values.Add(currentValue.ToString());
                     currentValue.Clear();
+                    
                     // stop reading more lines we have reached the end of the CSV record
                     break;
                 }
