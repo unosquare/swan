@@ -32,7 +32,7 @@ before_build:
 build_script:
 - msbuild /p:Configuration=%CONFIGURATION%
 test_script:
-- dotnet test test/Unosquare.Swan.Test -c %CONFIGURATION% -f netcoreapp1.1
+- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c %CONFIGURATION% -f netcoreapp1.1
 - tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test -c %CONFIGURATION% -f net452" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
 - tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --serviceName appveyor --jobId %APPVEYOR_BUILD_NUMBER%
 after_build:
