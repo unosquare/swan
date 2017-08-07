@@ -4072,23 +4072,23 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination).MapProperty(Of TDestinationProperty, TSourceProperty)(Expression(Of System.Func(Of TDestination, TDestinationProperty)), Expression(Of System.Func(Of TSource, TSourceProperty)))
   nameWithType: ObjectMap<TSource, TDestination>.MapProperty<TDestinationProperty, TSourceProperty>(Expression<Func<TDestination, TDestinationProperty>>, Expression<Func<TSource, TSourceProperty>>)
   nameWithType.vb: ObjectMap(Of TSource, TDestination).MapProperty(Of TDestinationProperty, TSourceProperty)(Expression(Of Func(Of TDestination, TDestinationProperty)), Expression(Of Func(Of TSource, TSourceProperty)))
-- uid: Unosquare.Swan.Components.ObjectMap`2.RemoveMap*
-  name: RemoveMap
-  href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2_RemoveMap_
-  commentId: Overload:Unosquare.Swan.Components.ObjectMap`2.RemoveMap
-  fullName: Unosquare.Swan.Components.ObjectMap<TSource, TDestination>.RemoveMap
-  fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination).RemoveMap
-  nameWithType: ObjectMap<TSource, TDestination>.RemoveMap
-  nameWithType.vb: ObjectMap(Of TSource, TDestination).RemoveMap
-- uid: Unosquare.Swan.Components.ObjectMap`2.RemoveMap``1(Expression{System.Func{`1,``0}})
-  name: RemoveMap<TDestinationProperty>(Expression<Func<TDestination, TDestinationProperty>>)
-  href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2_RemoveMap__1_Expression_System_Func__1___0___
-  commentId: M:Unosquare.Swan.Components.ObjectMap`2.RemoveMap``1(Expression{System.Func{`1,``0}})
-  name.vb: RemoveMap(Of TDestinationProperty)(Expression(Of Func(Of TDestination, TDestinationProperty)))
-  fullName: Unosquare.Swan.Components.ObjectMap<TSource, TDestination>.RemoveMap<TDestinationProperty>(Expression<System.Func<TDestination, TDestinationProperty>>)
-  fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination).RemoveMap(Of TDestinationProperty)(Expression(Of System.Func(Of TDestination, TDestinationProperty)))
-  nameWithType: ObjectMap<TSource, TDestination>.RemoveMap<TDestinationProperty>(Expression<Func<TDestination, TDestinationProperty>>)
-  nameWithType.vb: ObjectMap(Of TSource, TDestination).RemoveMap(Of TDestinationProperty)(Expression(Of Func(Of TDestination, TDestinationProperty)))
+- uid: Unosquare.Swan.Components.ObjectMap`2.RemoveMapProperty*
+  name: RemoveMapProperty
+  href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2_RemoveMapProperty_
+  commentId: Overload:Unosquare.Swan.Components.ObjectMap`2.RemoveMapProperty
+  fullName: Unosquare.Swan.Components.ObjectMap<TSource, TDestination>.RemoveMapProperty
+  fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination).RemoveMapProperty
+  nameWithType: ObjectMap<TSource, TDestination>.RemoveMapProperty
+  nameWithType.vb: ObjectMap(Of TSource, TDestination).RemoveMapProperty
+- uid: Unosquare.Swan.Components.ObjectMap`2.RemoveMapProperty``1(Expression{System.Func{`1,``0}})
+  name: RemoveMapProperty<TDestinationProperty>(Expression<Func<TDestination, TDestinationProperty>>)
+  href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2_RemoveMapProperty__1_Expression_System_Func__1___0___
+  commentId: M:Unosquare.Swan.Components.ObjectMap`2.RemoveMapProperty``1(Expression{System.Func{`1,``0}})
+  name.vb: RemoveMapProperty(Of TDestinationProperty)(Expression(Of Func(Of TDestination, TDestinationProperty)))
+  fullName: Unosquare.Swan.Components.ObjectMap<TSource, TDestination>.RemoveMapProperty<TDestinationProperty>(Expression<System.Func<TDestination, TDestinationProperty>>)
+  fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination).RemoveMapProperty(Of TDestinationProperty)(Expression(Of System.Func(Of TDestination, TDestinationProperty)))
+  nameWithType: ObjectMap<TSource, TDestination>.RemoveMapProperty<TDestinationProperty>(Expression<Func<TDestination, TDestinationProperty>>)
+  nameWithType.vb: ObjectMap(Of TSource, TDestination).RemoveMapProperty(Of TDestinationProperty)(Expression(Of Func(Of TDestination, TDestinationProperty)))
 - uid: Unosquare.Swan.Components.ObjectMap`2.SourceType
   name: SourceType
   href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2_SourceType
@@ -5536,6 +5536,12 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.GetAllTypes
   fullName: Unosquare.Swan.Extensions.GetAllTypes
   nameWithType: Extensions.GetAllTypes
+- uid: Unosquare.Swan.Extensions.GetBitValueAt(System.Byte,System.Byte)
+  name: GetBitValueAt(Byte, Byte)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetBitValueAt_System_Byte_System_Byte_
+  commentId: M:Unosquare.Swan.Extensions.GetBitValueAt(System.Byte,System.Byte)
+  fullName: Unosquare.Swan.Extensions.GetBitValueAt(System.Byte, System.Byte)
+  nameWithType: Extensions.GetBitValueAt(Byte, Byte)
 - uid: Unosquare.Swan.Extensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)
   name: GetBitValueAt(Byte, Byte, Byte)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetBitValueAt_System_Byte_System_Byte_System_Byte_
