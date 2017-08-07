@@ -16,5 +16,5 @@ install:
   - dotnet restore
 script:
   - node ./mail.js &
-  - dotnet build ./src/Unosquare.Swan -f netstandard1.6
+  - msbuild
   - dotnet test ./test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -f netcoreapp1.1
