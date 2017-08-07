@@ -107,7 +107,19 @@
         /// <param name="json">The json.</param>
         /// <returns>Type of the current deserializes</returns>
         public static object Deserialize(string json) => Deserializer.DeserializeInternal(json);
-        
+
+        /// <summary>
+        /// Deserializes the specified json string and converts it to the specified object type.
+        /// Non-public constructors and property setters are ignored.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json">The json.</param>
+        /// <returns>The deserialized specified type object</returns>
+        public static T Deserialize<T>(string json)
+        {
+            return (T)Deserialize(json, typeof(T), false);
+        }
+
         /// <summary>
         /// Deserializes the specified json string and converts it to the specified object type.
         /// </summary>
@@ -115,7 +127,7 @@
         /// <param name="json">The json.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <returns>The deserialized specified type object</returns>
-        public static T Deserialize<T>(string json, bool includeNonPublic = false)
+        public static T Deserialize<T>(string json, bool includeNonPublic)
         {
             return (T) Deserialize(json, typeof(T), includeNonPublic);
         }

@@ -128,21 +128,17 @@
 
             public byte[] ToArray()
             {
-                var result = new MemoryStream(Size);
-
-                result
+                return new MemoryStream(Size)
                     .Append(Name.ToArray())
-                    .Append((new Tail()
+                    .Append(new Tail()
                     {
                         Type = Type,
                         Class = Class,
                         TimeToLive = TimeToLive,
                         DataLength = Data.Length
-                    })
-                    .ToBytes())
-                    .Append(Data);
-
-                return result.ToArray();
+                    }.ToBytes())
+                    .Append(Data)
+                    .ToArray();
             }
 
             public override string ToString()
