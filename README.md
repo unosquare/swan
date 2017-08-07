@@ -137,7 +137,7 @@ the current thread until the entire output queue becomes empty.
 
 ### The `Json`
 
-You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to json format and vice versa. For example, you need to send information as json format to other point of your application and also when arrives it's necessary to get back to the object that is going to be used, and thanks to json format the data can interchange in a lightweight way.
+You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and also when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
 
 [Json Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
 
@@ -179,7 +179,7 @@ var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 ``` 
 #### Example 4: Deserialize
 
-Deserializes the specified json string as either a `Dictionary<string, object>` or as a `List<object>` depending on the syntax of the JSON string.
+Deserializes the specified JSON string as either a `Dictionary<string, object>` or as a `List<object>` depending on the syntax of the JSON string.
 
 ```csharp 
 // The json to be deserialize
@@ -190,12 +190,12 @@ var data = Json.Deserialize(basicJson);
 
 #### Example 5: Deserialize a generic type `<T>`
 
-Deserializes the specified json string as either a `Dictionary<string, object>` or as a `List<object>` depending on the syntax of the JSON string
+Deserializes the specified JSON string as either a `Dictionary<string, object>` or as a `List<object>` depending on the syntax of the JSON string
 
 ```csharp 
 // The json Type BasicJson to be deserialize
 var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
-// Deserializes the specified object into Dictionary<string, object>.
+// Deserializes the specified stirng in a new instance of the type BasicJson.
 var data = Json.Deserialize<BasicJson>(basicJson);
 ``` 
 
@@ -256,7 +256,7 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 
 #### Example 2: Reading a CSV file
 
-From a csv file you can read and load the information to a generic list.
+From a CSV file you can read and load the information to a generic list.
 
 ```csharp
 // The list of object to be written as CSV
@@ -284,7 +284,7 @@ var data = JsonClient.Authenticate("https://mywebsite.com/api/token", "admin", "
 
 #### Example 2: Making a GET
 
-Easy way to make a GET using `JsonClient`.
+Easy way to make a HTTP GET using `JsonClient`.
 
 ```csharp
 // The GET
