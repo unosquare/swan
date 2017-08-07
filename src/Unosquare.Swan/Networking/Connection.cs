@@ -35,7 +35,7 @@ namespace Unosquare.Swan.Networking
         private readonly byte[] ReceiveBuffer;
         private readonly TimeSpan ContinuousReadingInterval = TimeSpan.FromMilliseconds(5);
         private readonly Queue<string> _readLineBuffer = new Queue<string>();
-        private readonly ManualResetEventSlim _writeDone = new ManualResetEventSlim(true);
+        private readonly ManualResetEvent _writeDone = new ManualResetEvent(true);
 
         // Disconnect and Dispose
         private bool _hasDisposed;
@@ -578,9 +578,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>
-        /// The object that is removed from the beginning of the Queue<T>
-        /// </returns>
+        /// <returns>A task with a string line from the queue</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct)
         {
@@ -635,7 +633,7 @@ namespace Unosquare.Swan.Networking
         {
             try
             {
-                _writeDone.Wait(ct);
+                _writeDone.WaitOne();
                 _writeDone.Reset();
                 await ActiveStream.WriteAsync(buffer, 0, buffer.Length, ct);
                 if (forceFlush)
@@ -669,8 +667,7 @@ namespace Unosquare.Swan.Networking
         /// <returns>A task that represents the asynchronous write operation</returns>
         public async Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct)
         {
-            var buffer = encoding.GetBytes(text);
-            await WriteDataAsync(buffer, true, ct);
+            await WriteDataAsync(encoding.GetBytes(text), true, ct);
         }
 
         /// <summary>
@@ -713,7 +710,7 @@ namespace Unosquare.Swan.Networking
             if (IsActiveStreamSecure)
                 return true;
 
-            _writeDone.Wait();
+            _writeDone.WaitOne();
 
             SslStream secureStream = null;
 
@@ -738,7 +735,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="hostname">The hostname.</param>
         /// <param name="callback">The callback.</param>
-        /// <returns>True if the object is hosted in the client; otherwise, false</returns>
+        /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c></returns>
         public async Task<bool> UpgradeToSecureAsClientAsync(
             string hostname,
             RemoteCertificateValidationCallback callback)
@@ -767,7 +764,7 @@ namespace Unosquare.Swan.Networking
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the client.
         /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them!
         /// </summary>
-        /// <returns>True if the object is hosted in the client; otherwise, false</returns>
+        /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c></returns>
         public async Task<bool> UpgradeToSecureAsClientAsync()
         {
             return await UpgradeToSecureAsClientAsync(
@@ -784,7 +781,7 @@ namespace Unosquare.Swan.Networking
                 return;
 
             _disconnectCalls++;
-            _writeDone.Wait();
+            _writeDone.WaitOne();
 
             try
             {
