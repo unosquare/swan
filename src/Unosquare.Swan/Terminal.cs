@@ -72,17 +72,16 @@
                 }
 
                 // Here we start the output task, fire-and-forget
-                DequeueOutputTask = // Here we start the output task, fire-and-forget
                 DequeueOutputTask = new Thread(DequeueOutputAsync)
                 {
-#if !UWP
                     IsBackground = true,
-#endif
                     Name = nameof(DequeueOutputTask),
 #if NET452
                     Priority = ThreadPriority.BelowNormal
 #endif
                 };
+
+                DequeueOutputTask.Start();
             }
         }
 
@@ -137,7 +136,7 @@
                     if (OutputQueue.Count <= 0)
                     {
                         OutputDone.Set();
-                        tickLock.WaitOne(1);
+                        tickLock.WaitOne(10);
                         continue;
                     }
 
