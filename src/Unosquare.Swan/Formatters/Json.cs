@@ -73,7 +73,7 @@
                 excludedNames = excludedNames == null ? excludedByAttr.ToArray() : excludedByAttr.Intersect(excludedNames).ToArray();
             }
 
-            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, null);
+            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@
         /// <returns>A string that represents the current object</returns>
         public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
-            return Serializer.Serialize(obj, 0, format, null, includeNames, null, true, null);
+            return Serializer.Serialize(obj, 0, format, null, includeNames, null, true);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@
         /// <returns>A string that represents the current object</returns>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
-            return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false, null);
+            return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false);
         }
 
         /// <summary>
@@ -107,19 +107,7 @@
         /// <param name="json">The json.</param>
         /// <returns>Type of the current deserializes</returns>
         public static object Deserialize(string json) => Deserializer.DeserializeInternal(json);
-
-        /// <summary>
-        /// Deserializes the specified json string and converts it to the specified object type.
-        /// Non-public constructors and property setters are ignored.
-        /// </summary>
-        /// <typeparam name="T">The type of object to deserialize</typeparam>
-        /// <param name="json">The json.</param>
-        /// <returns>The deserialized specified type object</returns>
-        public static T Deserialize<T>(string json)
-        {
-            return (T) Deserialize(json, typeof(T), false);
-        }
-
+        
         /// <summary>
         /// Deserializes the specified json string and converts it to the specified object type.
         /// </summary>
@@ -127,7 +115,7 @@
         /// <param name="json">The json.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <returns>The deserialized specified type object</returns>
-        public static T Deserialize<T>(string json, bool includeNonPublic)
+        public static T Deserialize<T>(string json, bool includeNonPublic = false)
         {
             return (T) Deserialize(json, typeof(T), includeNonPublic);
         }
@@ -186,11 +174,12 @@
         {
             #region Setup: State and Validation
 
+            if (source == null) return targetType.GetDefault();
+
             const string addMethodName = "Add";
             object target = null;
 
-            {
-                if (source == null) return targetType.GetDefault();
+            {    
                 var sourceType = source.GetType();
 
                 if (targetInstance != null) targetType = targetInstance.GetType();

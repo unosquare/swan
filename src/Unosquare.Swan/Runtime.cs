@@ -137,6 +137,7 @@
                             // If exception occurred, there is no such mutex.
                             var appMutex = new Mutex(true, ApplicationMutexName);
                             $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(typeof(Runtime));
+
                             // Only one instance.
                             return true;
                         }
@@ -271,6 +272,7 @@
         /// <summary>
         /// Gets all the loaded assemblies in the current application domain.
         /// </summary>
+        /// <returns>An array of assemblies</returns>
         public static Assembly[] GetAssemblies()
         {
             return Reflection.AppDomain.CurrentDomain.GetAssemblies();

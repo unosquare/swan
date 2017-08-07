@@ -132,16 +132,26 @@
             /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
             /// <param name="parentReferences">The parent references.</param>
             /// <returns>A string that represents the current object</returns>
-            public static string Serialize(object obj, int depth, bool format, string typeSpecifier, string[] includeProperties, string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
+            public static string Serialize(
+                object obj, 
+                int depth, 
+                bool format, 
+                string typeSpecifier, 
+                string[] includeProperties, 
+                string[] excludeProperties, 
+                bool includeNonPublic, 
+                List<WeakReference> parentReferences = null)
             {
                 var options = new SerializerOptions
                 {
                     TypeSpecifier = typeSpecifier,
                     IncludeProperties = includeProperties,
                     ExcludeProperties = excludeProperties,
-                    IncludeNonPublic = includeNonPublic,
-                    ParentReferences = parentReferences
+                    IncludeNonPublic = includeNonPublic
                 };
+
+                if (parentReferences != null)
+                    options.ParentReferences = parentReferences;
 
                 return Serialize(obj, depth, format, options);
             }
