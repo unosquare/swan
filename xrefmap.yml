@@ -6754,6 +6754,15 @@ references:
   commentId: Overload:Unosquare.Swan.Formatters.Json.Deserialize
   fullName: Unosquare.Swan.Formatters.Json.Deserialize
   nameWithType: Json.Deserialize
+- uid: Unosquare.Swan.Formatters.Json.Deserialize``1(System.String)
+  name: Deserialize<T>(String)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize__1_System_String_
+  commentId: M:Unosquare.Swan.Formatters.Json.Deserialize``1(System.String)
+  name.vb: Deserialize(Of T)(String)
+  fullName: Unosquare.Swan.Formatters.Json.Deserialize<T>(System.String)
+  fullName.vb: Unosquare.Swan.Formatters.Json.Deserialize(Of T)(System.String)
+  nameWithType: Json.Deserialize<T>(String)
+  nameWithType.vb: Json.Deserialize(Of T)(String)
 - uid: Unosquare.Swan.Formatters.Json.Deserialize``1(System.String,System.Boolean)
   name: Deserialize<T>(String, Boolean)
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Deserialize__1_System_String_System_Boolean_
