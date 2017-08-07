@@ -533,9 +533,9 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A byte array containing the results the specified sequence of bytes</returns>
-        public async Task<byte[]> ReadDataAsync(CancellationToken ct)
+        public Task<byte[]> ReadDataAsync(CancellationToken ct)
         {
-            return await ReadDataAsync(TimeSpan.FromSeconds(5), ct);
+            return ReadDataAsync(TimeSpan.FromSeconds(5), ct);
         }
 
         /// <summary>
@@ -555,9 +555,9 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string</returns>
-        public async Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
+        public Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await ReadTextAsync(TimeSpan.FromSeconds(5), ct);
+            return ReadTextAsync(TimeSpan.FromSeconds(5), ct);
         }
 
         /// <summary>
@@ -568,9 +568,9 @@ namespace Unosquare.Swan.Networking
         /// A task that represents the asynchronous read operation. The value of the TResult parameter 
         /// contains the next line from the stream, or is null if all the characters have been read
         /// </returns>
-        public async Task<string> ReadLineAsync(CancellationToken ct)
+        public Task<string> ReadLineAsync(CancellationToken ct)
         {
-            return await ReadLineAsync(TimeSpan.FromSeconds(30), ct);
+            return ReadLineAsync(TimeSpan.FromSeconds(30), ct);
         }
 
         /// <summary>
@@ -765,9 +765,9 @@ namespace Unosquare.Swan.Networking
         /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them!
         /// </summary>
         /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c></returns>
-        public async Task<bool> UpgradeToSecureAsClientAsync()
+        public Task<bool> UpgradeToSecureAsClientAsync()
         {
-            return await UpgradeToSecureAsClientAsync(
+            return UpgradeToSecureAsClientAsync(
                 Network.HostName.ToLowerInvariant(),
                 (a, b, c, d) => true);
         }

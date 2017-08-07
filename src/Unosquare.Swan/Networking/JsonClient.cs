@@ -312,13 +312,13 @@
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
         /// <returns>A task with a result of the requested string</returns>
-        public static async Task<string> PostFileString(
+        public static Task<string> PostFileString(
             string url, 
             byte[] buffer, 
             string fileName,
             string authorization = null)
         {
-            return await PostString(url, new { Filename = fileName, Data = buffer }, authorization);
+            return PostString(url, new { Filename = fileName, Data = buffer }, authorization);
         }
 
         /// <summary>
@@ -330,9 +330,9 @@
         /// <param name="fileName">Name of the file.</param>
         /// <param name="authorization">The authorization.</param>
         /// <returns>A task with a result of the requested string</returns>
-        public static async Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
+        public static Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
         {
-            return await Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
+            return Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
         }
 
         #endregion

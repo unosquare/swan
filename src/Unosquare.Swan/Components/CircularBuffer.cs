@@ -12,15 +12,6 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class CircularBuffer : IDisposable
     {
-        /// <summary>
-        /// Fast pointer memory block copy function
-        /// </summary>
-        /// <param name="destination">The destination.</param>
-        /// <param name="source">The source.</param>
-        /// <param name="length">The length.</param>
-        [DllImport("kernel32")]
-        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
-
         #region Private State Variables
 
         /// <summary>
@@ -53,6 +44,15 @@
         }
 
         #endregion
+
+        /// <summary>
+        /// Fast pointer memory block copy function
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="length">The length.</param>
+        [DllImport("kernel32")]
+        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
 
         #region Properties
 

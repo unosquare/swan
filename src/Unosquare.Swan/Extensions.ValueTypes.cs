@@ -13,7 +13,7 @@
         /// <summary>
         /// Clamps the specified value between the minimum and the maximum
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of value to clamp</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
@@ -101,7 +101,7 @@
         /// <summary>
         /// Converts an array of bytes into the given struct type
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of structure to convert</typeparam>
         /// <param name="data">The data.</param>
         /// <returns>a struct type derived from convert an array of bytes ref=ToStruct"</returns>
         public static T ToStruct<T>(this byte[] data) 
@@ -113,7 +113,7 @@
         /// <summary>
         /// Converts an array of bytes into the given struct type
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of structure to convert</typeparam>
         /// <param name="data">The data.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
@@ -138,7 +138,7 @@
         /// <summary>
         /// Converts a struct to an array of bytes
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of structure to convert</typeparam>
         /// <param name="obj">The object.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         public static byte[] ToBytes<T>(this T obj) 

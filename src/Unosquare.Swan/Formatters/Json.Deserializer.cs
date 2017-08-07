@@ -4,6 +4,13 @@
     using System.Collections.Generic;
     using System.Text;
 
+    /// <summary>
+    /// A very simple, light-weight JSON library written by Mario
+    /// to teach Geo how things are done
+    /// 
+    /// This is an useful helper for small tasks but it doesn't represent a full-featured
+    /// serializer such as the beloved Json.NET
+    /// </summary>
     public partial class Json
     {
         /// <summary>

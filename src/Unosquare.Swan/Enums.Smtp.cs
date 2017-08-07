@@ -53,22 +53,22 @@
         ServiceNotAvailable = 421,
         
         /// <summary>
-        /// 
+        /// Mailbox Busy code
         /// </summary>
         MailboxBusy = 450,
         
         /// <summary>
-        /// 
+        /// Local Error code
         /// </summary>
         LocalErrorInProcessing = 451,
         
         /// <summary>
-        /// 
+        /// Insufficient storage code
         /// </summary>
         InsufficientStorage = 452,
         
         /// <summary>
-        /// 
+        /// Client not permitted code
         /// </summary>
         ClientNotPermitted = 454,
         
@@ -78,7 +78,7 @@
         CommandUnrecognized = 500,
         
         /// <summary>
-        /// 
+        /// Syntax error
         /// </summary>
         SyntaxError = 501,
         
@@ -118,12 +118,12 @@
         ExceededStorageAllocation = 552,
         
         /// <summary>
-        /// 
+        /// Mailbox name not allowed code
         /// </summary>
         MailboxNameNotAllowed = 553,
         
         /// <summary>
-        /// 
+        /// Transaction failed code
         /// </summary>
         TransactionFailed = 554,
         

@@ -7,8 +7,24 @@
     using System.Reflection;
     using System.Text;
 
+    /// <summary>
+    /// A very simple, light-weight JSON library written by Mario
+    /// to teach Geo how things are done
+    /// 
+    /// This is an useful helper for small tasks but it doesn't represent a full-featured
+    /// serializer such as the beloved Json.NET
+    /// </summary>
     public partial class Json
     {
+        private class SerializerOptions
+        {
+            public string TypeSpecifier { get; set; }
+            public string[] IncludeProperties { get; set; }
+            public string[] ExcludeProperties { get; set; }
+            public bool IncludeNonPublic { get; set; }
+            public List<WeakReference> ParentReferences { get; set; } = new List<WeakReference>();
+        }
+
         /// <summary>
         /// A simple JSON serializer
         /// </summary>
@@ -35,13 +51,8 @@
             /// <param name="obj">The object.</param>
             /// <param name="depth">The depth.</param>
             /// <param name="format">if set to <c>true</c> [format].</param>
-            /// <param name="typeSpecifier">The type specifier. Leave null or empty to skip.</param>
-            /// <param name="includeProperties">The include properties.</param>
-            /// <param name="excludeProperties">The exclude properties.</param>
-            /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
-            /// <param name="parentReferences">The parent references.</param>
-            private Serializer(object obj, int depth, bool format, string typeSpecifier, string[] includeProperties,
-                string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
+            /// <param name="options">The options.</param>
+            private Serializer(object obj, int depth, bool format, SerializerOptions options)
             {
                 // Basic Type Handling (nulls, strings and bool)
                 _result = ResolveBasicType(obj, depth);
@@ -49,11 +60,11 @@
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
 
-                if (includeProperties != null && includeProperties.Length > 0)
-                    _includeProperties.AddRange(includeProperties);
+                if (options.IncludeProperties != null && options.IncludeProperties.Length > 0)
+                    _includeProperties.AddRange(options.IncludeProperties);
 
-                if (excludeProperties != null && excludeProperties.Length > 0)
-                    _excludeProperties.AddRange(excludeProperties);
+                if (options.ExcludeProperties != null && options.ExcludeProperties.Length > 0)
+                    _excludeProperties.AddRange(options.ExcludeProperties);
 
                 _format = format;
                 _lastCommaSearch = FieldSeparatorChar + (_format ? Environment.NewLine : string.Empty);
@@ -72,27 +83,22 @@
                 _builder = new StringBuilder();
 
                 // Handle circular references correctly and avoid them
-                if (parentReferences == null)
-                    parentReferences = new List<WeakReference>();
-
-                if (parentReferences.Any(p => ReferenceEquals(p.Target, obj)))
+                if (options.ParentReferences.Any(p => ReferenceEquals(p.Target, obj)))
                 {
                     _result = $"{{ \"$circref\": \"{Escape(obj.GetHashCode().ToStringInvariant())}\" }}";
                     return;
                 }
 
-                parentReferences.Add(new WeakReference(obj));
+                options.ParentReferences.Add(new WeakReference(obj));
 
                 // Dictionary Type Handling (IDictionary)
-                _result = ResolveDictionary(obj, depth, typeSpecifier, includeProperties,
-                    excludeProperties, includeNonPublic, parentReferences);
+                _result = ResolveDictionary(obj, depth, options);
 
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
 
                 // Enumerable Type Handling (IEnumerable)
-                _result = ResolveEnumerable(obj, depth, typeSpecifier, includeProperties,
-                    excludeProperties, includeNonPublic, parentReferences);
+                _result = ResolveEnumerable(obj, depth, options);
 
                 if (string.IsNullOrWhiteSpace(_result) == false)
                     return;
@@ -100,7 +106,7 @@
                 // If we arrive here, then we convert the object into a 
                 // dictionary of property names and values and call the serialization
                 // function again
-                var objectDictionary = CreateDictionary(typeSpecifier, includeNonPublic, targetType, target);
+                var objectDictionary = CreateDictionary(options.TypeSpecifier, options.IncludeNonPublic, targetType, target);
 
                 // At this point we either have a dictionary with or without properties
                 // If we have at least one property then we send it through the serialization method
@@ -111,10 +117,9 @@
                     return;
                 }
 
-                _result = Serialize(objectDictionary, depth, _format, typeSpecifier, includeProperties,
-                        excludeProperties, includeNonPublic, parentReferences);
+                _result = Serialize(objectDictionary, depth, _format, options);
             }
-
+            
             /// <summary>
             /// Serializes the specified object.
             /// </summary>
@@ -129,104 +134,27 @@
             /// <returns>A string that represents the current object</returns>
             public static string Serialize(object obj, int depth, bool format, string typeSpecifier, string[] includeProperties, string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
             {
-                var serializer = new Serializer(obj, depth, format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
+                var options = new SerializerOptions
+                {
+                    TypeSpecifier = typeSpecifier,
+                    IncludeProperties = includeProperties,
+                    ExcludeProperties = excludeProperties,
+                    IncludeNonPublic = includeNonPublic,
+                    ParentReferences = parentReferences
+                };
+
+                return Serialize(obj, depth, format, options);
+            }
+
+            private static string Serialize(object obj, int depth, bool format, SerializerOptions options)
+            {
+                var serializer = new Serializer(obj, depth, format, options);
                 return serializer._result;
             }
 
             #endregion
 
             #region Helper Methods
-
-            private string ResolveDictionary(object target, int depth, string typeSpecifier, string[] includeProperties,
-                string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
-            {
-                if (target is IDictionary == false)
-                    return string.Empty;
-
-                // Cast the items as an IDictionary
-                var items = (IDictionary)target;
-
-                // Append the start of an object or empty object
-                if (items.Count <= 0)
-                {
-                    return EmptyObjectLiteral;
-                }
-
-                Append(OpenObjectChar, depth);
-                AppendLine();
-
-                // Iterate through the elements and output recursively
-                var writeCount = 0;
-                foreach (DictionaryEntry entry in items)
-                {
-                    // Serialize and append the key
-                    Append(
-                        $"{StringQuotedChar}{Escape(entry.Key.ToString())}{StringQuotedChar}{ValueSeparatorChar} ",
-                        depth + 1);
-
-                    // Serialize and append the value
-                    var serializedValue = Serialize(entry.Value, depth + 1, _format, typeSpecifier, includeProperties,
-                        excludeProperties, includeNonPublic, parentReferences);
-                    if (IsNonEmptyJsonArrayOrObject(serializedValue)) AppendLine();
-                    Append(serializedValue, 0);
-
-                    // Add a comma and start a new line -- We will remove the last one when we are done writing the elements
-                    Append(FieldSeparatorChar, 0);
-                    AppendLine();
-                    writeCount++;
-                }
-
-                // Output the end of the object and set the result
-                RemoveLastComma();
-                Append(CloseObjectChar, writeCount > 0 ? depth : 0);
-                return _builder.ToString();
-            }
-
-            private string ResolveEnumerable(object target, int depth, string typeSpecifier, string[] includeProperties, string[] excludeProperties, bool includeNonPublic, List<WeakReference> parentReferences)
-            {
-                if (target is IEnumerable == false) return string.Empty;
-
-                // Special byte array handling
-                if (target is byte[])
-                {
-                    return Serialize((target as byte[]).ToBase64(), depth, _format, typeSpecifier, includeProperties,
-                        excludeProperties, includeNonPublic, parentReferences);
-                }
-
-                // Cast the items as a generic object array
-                var items = ((IEnumerable)target).Cast<object>().ToArray();
-
-                // Append the start of an array or empty array
-                if (items.Length <= 0)
-                {
-                    return EmptyArrayLiteral;
-                }
-
-                Append(OpenArrayChar, depth);
-                AppendLine();
-
-                // Iterate through the elements and output recursively
-                var writeCount = 0;
-                foreach (var entry in items)
-                {
-                    var serializedValue = Serialize(entry, depth + 1, _format, typeSpecifier, includeProperties,
-                        excludeProperties, includeNonPublic, parentReferences);
-
-                    if (IsNonEmptyJsonArrayOrObject(serializedValue))
-                        Append(serializedValue, 0);
-                    else
-                        Append(serializedValue, depth + 1);
-
-                    Append(FieldSeparatorChar, 0);
-                    AppendLine();
-                    writeCount++;
-                }
-
-                // Output the end of the array and set the result
-                RemoveLastComma();
-                Append(CloseArrayChar, writeCount > 0 ? depth : 0);
-                return _builder.ToString();
-            }
 
             private static string ResolveBasicType(object obj, int depth)
             {
@@ -271,6 +199,94 @@
                 return decimal.TryParse(escapedValue, out val)
                     ? $"{escapedValue}"
                     : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
+            }
+
+            private string ResolveDictionary(object target, int depth, SerializerOptions options)
+            {
+                if (target is IDictionary == false)
+                    return string.Empty;
+
+                // Cast the items as an IDictionary
+                var items = (IDictionary)target;
+
+                // Append the start of an object or empty object
+                if (items.Count <= 0)
+                {
+                    return EmptyObjectLiteral;
+                }
+
+                Append(OpenObjectChar, depth);
+                AppendLine();
+
+                // Iterate through the elements and output recursively
+                var writeCount = 0;
+                foreach (DictionaryEntry entry in items)
+                {
+                    // Serialize and append the key
+                    Append(
+                        $"{StringQuotedChar}{Escape(entry.Key.ToString())}{StringQuotedChar}{ValueSeparatorChar} ",
+                        depth + 1);
+
+                    // Serialize and append the value
+                    var serializedValue = Serialize(entry.Value, depth + 1, _format, options);
+
+                    if (IsNonEmptyJsonArrayOrObject(serializedValue)) AppendLine();
+                    Append(serializedValue, 0);
+
+                    // Add a comma and start a new line -- We will remove the last one when we are done writing the elements
+                    Append(FieldSeparatorChar, 0);
+                    AppendLine();
+                    writeCount++;
+                }
+
+                // Output the end of the object and set the result
+                RemoveLastComma();
+                Append(CloseObjectChar, writeCount > 0 ? depth : 0);
+                return _builder.ToString();
+            }
+
+            private string ResolveEnumerable(object target, int depth, SerializerOptions options)
+            {
+                if (target is IEnumerable == false) return string.Empty;
+
+                // Special byte array handling
+                if (target is byte[])
+                {
+                    return Serialize((target as byte[]).ToBase64(), depth, _format, options);
+                }
+
+                // Cast the items as a generic object array
+                var items = ((IEnumerable)target).Cast<object>().ToArray();
+
+                // Append the start of an array or empty array
+                if (items.Length <= 0)
+                {
+                    return EmptyArrayLiteral;
+                }
+
+                Append(OpenArrayChar, depth);
+                AppendLine();
+
+                // Iterate through the elements and output recursively
+                var writeCount = 0;
+                foreach (var entry in items)
+                {
+                    var serializedValue = Serialize(entry, depth + 1, _format, options);
+
+                    if (IsNonEmptyJsonArrayOrObject(serializedValue))
+                        Append(serializedValue, 0);
+                    else
+                        Append(serializedValue, depth + 1);
+
+                    Append(FieldSeparatorChar, 0);
+                    AppendLine();
+                    writeCount++;
+                }
+
+                // Output the end of the array and set the result
+                RemoveLastComma();
+                Append(CloseArrayChar, writeCount > 0 ? depth : 0);
+                return _builder.ToString();
             }
 
             /// <summary>
