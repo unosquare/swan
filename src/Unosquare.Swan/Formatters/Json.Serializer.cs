@@ -242,7 +242,7 @@
 
                 if (obj is bool)
                 {
-                    return ((bool)obj) ? TrueLiteral : FalseLiteral;
+                    return (bool)obj ? TrueLiteral : FalseLiteral;
                 }
 
                 if (obj is Type || obj is Assembly || obj is MethodInfo || obj is PropertyInfo || obj is EventInfo)
