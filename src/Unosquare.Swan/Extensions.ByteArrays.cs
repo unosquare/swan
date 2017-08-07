@@ -86,22 +86,11 @@
         /// <returns>
         /// Bit value at the given offset
         /// </returns>
-        public static byte GetBitValueAt(this byte b, byte offset, byte length)
+        public static byte GetBitValueAt(this byte b, byte offset, byte length = 1)
         {
             return (byte)((b >> offset) & ~(0xff << length));
         }
-
-        /// <summary>
-        /// Gets the bit value at the given offset.
-        /// </summary>
-        /// <param name="b">The b.</param>
-        /// <param name="offset">The offset.</param>
-        /// <returns>Bit value at the given offset</returns>
-        public static byte GetBitValueAt(this byte b, byte offset)
-        {
-            return b.GetBitValueAt(offset, 1);
-        }
-
+        
         /// <summary>
         /// Sets the bit value at the given offset.
         /// </summary>

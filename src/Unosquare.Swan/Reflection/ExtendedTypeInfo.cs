@@ -152,10 +152,7 @@
         /// For value types it returns the default value.
         /// </summary>
         /// <returns> Default value of this type</returns>
-        public object GetDefault()
-        {
-            return Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
-        }
+        public object GetDefault() => Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
 
         /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
@@ -177,13 +174,10 @@
                     return true;
                 }
 
-                if (IsNullableValueType)
+                if (IsNullableValueType && string.IsNullOrEmpty(s))
                 {
-                    if (string.IsNullOrEmpty(s))
-                    {
-                        result = GetDefault();
-                        return true;
-                    }
+                    result = GetDefault();
+                    return true;
                 }
 
                 if (CanParseNatively == false)
@@ -208,9 +202,8 @@
 
                 dynamicArguments.Add(null);
                 var parseArguments = dynamicArguments.ToArray();
-
-                var parseResult = (bool)TryParseMethodInfo.Invoke(null, parseArguments);
-                if (parseResult == false)
+                
+                if ((bool)TryParseMethodInfo.Invoke(null, parseArguments) == false)
                 {
                     result = GetDefault();
                     return false;

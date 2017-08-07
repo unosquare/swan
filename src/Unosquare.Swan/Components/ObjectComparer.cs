@@ -66,9 +66,8 @@
 
         private static bool AreStructsEqual(object left, object right, Type targetType)
         {
-            var fields = new List<MemberInfo>();
-            fields.AddRange(RetrieveFields(targetType));
-            fields.AddRange(RetrieveProperties(targetType));
+            var fields = new List<MemberInfo>(RetrieveFields(targetType))
+                .Union(RetrieveProperties(targetType));
 
             foreach (var targetMember in fields)
             {
@@ -81,9 +80,10 @@
                 }
                 else
                 {
-                    var targetPropertyGetMethod = (targetMember as PropertyInfo).GetGetMethod();
+                    var targetPropertyGetMethod = (targetMember as PropertyInfo)?.GetGetMethod();
 
-                    if (Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                    if (targetPropertyGetMethod != null &&
+                        Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
                         return false;
                 }
             }
@@ -111,10 +111,7 @@
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>True if two specified types are equal; otherwise, false</returns>
-        public static bool AreEqual<T>(T left, T right)
-        {
-            return AreEqual(left, right, typeof(T));
-        }
+        public static bool AreEqual<T>(T left, T right) => AreEqual(left, right, typeof(T));
 
         /// <summary>
         /// Compare if two objects of the same type are equal.
