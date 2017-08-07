@@ -267,14 +267,6 @@ references:
   fullName.vb: Unosquare.Swan.Abstractions.SettingsProvider(Of T).ResetGlobalSettings
   nameWithType: SettingsProvider<T>.ResetGlobalSettings
   nameWithType.vb: SettingsProvider(Of T).ResetGlobalSettings
-- uid: Unosquare.Swan.Abstractions.SettingsProvider`1.SyncRoot
-  name: SyncRoot
-  href: api/Unosquare.Swan.Abstractions.SettingsProvider-1.html#Unosquare_Swan_Abstractions_SettingsProvider_1_SyncRoot
-  commentId: F:Unosquare.Swan.Abstractions.SettingsProvider`1.SyncRoot
-  fullName: Unosquare.Swan.Abstractions.SettingsProvider<T>.SyncRoot
-  fullName.vb: Unosquare.Swan.Abstractions.SettingsProvider(Of T).SyncRoot
-  nameWithType: SettingsProvider<T>.SyncRoot
-  nameWithType.vb: SettingsProvider(Of T).SyncRoot
 - uid: Unosquare.Swan.Abstractions.SingletonBase`1
   name: SingletonBase<T>
   href: api/Unosquare.Swan.Abstractions.SingletonBase-1.html
@@ -8971,12 +8963,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.SmtpSessionState.IsInDataMode
   fullName: Unosquare.Swan.Networking.SmtpSessionState.IsInDataMode
   nameWithType: SmtpSessionState.IsInDataMode
-- uid: Unosquare.Swan.Networking.SmtpSessionState.m_Recipients
-  name: m_Recipients
-  href: api/Unosquare.Swan.Networking.SmtpSessionState.html#Unosquare_Swan_Networking_SmtpSessionState_m_Recipients
-  commentId: F:Unosquare.Swan.Networking.SmtpSessionState.m_Recipients
-  fullName: Unosquare.Swan.Networking.SmtpSessionState.m_Recipients
-  nameWithType: SmtpSessionState.m_Recipients
 - uid: Unosquare.Swan.Networking.SmtpSessionState.Password
   name: Password
   href: api/Unosquare.Swan.Networking.SmtpSessionState.html#Unosquare_Swan_Networking_SmtpSessionState_Password
