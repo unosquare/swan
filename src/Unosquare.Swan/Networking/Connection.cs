@@ -317,37 +317,7 @@ namespace Unosquare.Swan.Networking
 
             for (var i = 0; i < receivedData.Length; i++)
             {
-                ReceiveBuffer[ReceiveBufferPointer] = receivedData[i];
-                ReceiveBufferPointer++;
-
-                // Block size reached
-                if (ProtocolBlockSize > 0 && ReceiveBufferPointer >= ProtocolBlockSize)
-                {
-                    var eventBuffer = new byte[ReceiveBuffer.Length];
-                    Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
-
-                    DataReceived(this, 
-                        new ConnectionDataReceivedEventArgs(
-                            eventBuffer, 
-                            ConnectionDataReceivedTrigger.BlockSizeReached, 
-                            moreAvailable));
-                    ReceiveBufferPointer = 0;
-                    continue;
-                }
-
-                // The receive buffer is full. Time to flush
-                if (ReceiveBufferPointer >= ReceiveBuffer.Length)
-                {
-                    var eventBuffer = new byte[ReceiveBuffer.Length];
-                    Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
-
-                    DataReceived(this, 
-                        new ConnectionDataReceivedEventArgs(
-                                eventBuffer, 
-                                ConnectionDataReceivedTrigger.BufferFull, 
-                                moreAvailable));
-                    ReceiveBufferPointer = 0;
-                }
+                ProcessReceivedBlock(receivedData, i, moreAvailable);
             }
 
             // Check if we are left with some more stuff to handle
@@ -388,21 +358,55 @@ namespace Unosquare.Swan.Networking
                 }
 
                 // Depending on the last segment determine what to do with the receive buffer
-                if (isLast)
+                if (!isLast) continue;
+
+                if (isNewLineTerminated)
                 {
-                    if (isNewLineTerminated)
-                    {
-                        // Simply reset the buffer pointer if the last segment was also terminated
-                        ReceiveBufferPointer = 0;
-                    }
-                    else
-                    {
-                        // If we have not received the termination sequence, then just shift the receive buffer to the left
-                        // and adjust the pointer
-                        Array.Copy(sequenceBytes, ReceiveBuffer, sequenceBytes.Length);
-                        ReceiveBufferPointer = sequenceBytes.Length;
-                    }
+                    // Simply reset the buffer pointer if the last segment was also terminated
+                    ReceiveBufferPointer = 0;
                 }
+                else
+                {
+                    // If we have not received the termination sequence, then just shift the receive buffer to the left
+                    // and adjust the pointer
+                    Array.Copy(sequenceBytes, ReceiveBuffer, sequenceBytes.Length);
+                    ReceiveBufferPointer = sequenceBytes.Length;
+                }
+            }
+        }
+
+        private void ProcessReceivedBlock(byte[] receivedData, int i, bool moreAvailable)
+        {
+            ReceiveBuffer[ReceiveBufferPointer] = receivedData[i];
+            ReceiveBufferPointer++;
+
+            // Block size reached
+            if (ProtocolBlockSize > 0 && ReceiveBufferPointer >= ProtocolBlockSize)
+            {
+                var eventBuffer = new byte[ReceiveBuffer.Length];
+                Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
+
+                DataReceived(this,
+                    new ConnectionDataReceivedEventArgs(
+                        eventBuffer,
+                        ConnectionDataReceivedTrigger.BlockSizeReached,
+                        moreAvailable));
+                ReceiveBufferPointer = 0;
+                return;
+            }
+
+            // The receive buffer is full. Time to flush
+            if (ReceiveBufferPointer >= ReceiveBuffer.Length)
+            {
+                var eventBuffer = new byte[ReceiveBuffer.Length];
+                Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
+
+                DataReceived(this,
+                    new ConnectionDataReceivedEventArgs(
+                        eventBuffer,
+                        ConnectionDataReceivedTrigger.BufferFull,
+                        moreAvailable));
+                ReceiveBufferPointer = 0;
             }
         }
 
@@ -601,21 +605,17 @@ namespace Unosquare.Swan.Networking
 
                 builder.Append(text);
 
-                if (text.EndsWith(NewLineSequence))
-                {
-                    var lines = builder.ToString().TrimEnd(NewLineSequenceChars)
-                        .Split(NewLineSequenceLineSplitter, StringSplitOptions.None);
-                    foreach (var item in lines)
-                        _readLineBuffer.Enqueue(item);
+                if (text.EndsWith(NewLineSequence) == false) continue;
 
-                    break;
-                }
+                var lines = builder.ToString().TrimEnd(NewLineSequenceChars)
+                    .Split(NewLineSequenceLineSplitter, StringSplitOptions.None);
+                foreach (var item in lines)
+                    _readLineBuffer.Enqueue(item);
+
+                break;
             }
 
-            if (_readLineBuffer.Count > 0)
-                return _readLineBuffer.Dequeue();
-
-            return null;
+            return _readLineBuffer.Count > 0 ? _readLineBuffer.Dequeue() : null;
         }
 
 #endregion

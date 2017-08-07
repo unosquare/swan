@@ -244,13 +244,20 @@
             packet[pos++] = 0x00; // Null
 
             // Send packet to destination
+            SendPacket(host, packet, snmplen);
+
+            return packet;
+        }
+
+        private static void SendPacket(IPEndPoint host, byte[] packet, int snmplen)
+        {
             var sock = new Socket(
-                AddressFamily.InterNetwork, 
+                AddressFamily.InterNetwork,
                 SocketType.Dgram,
                 ProtocolType.Udp);
             sock.SetSocketOption(
                 SocketOptionLevel.Socket,
-                SocketOptionName.ReceiveTimeout, 
+                SocketOptionName.ReceiveTimeout,
                 5000);
             var ep = (EndPoint) host;
             sock.SendTo(packet, snmplen, SocketFlags.None, host);
@@ -264,8 +271,6 @@
             {
                 packet[0] = 0xff;
             }
-
-            return packet;
         }
     }
 }
