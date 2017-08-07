@@ -229,75 +229,13 @@ depending on the syntax of the JSON string</p>
   
   
   <a id="Unosquare_Swan_Formatters_Json_Deserialize_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize*"></a>
-  <h4 id="Unosquare_Swan_Formatters_Json_Deserialize__1_System_String_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize``1(System.String)">Deserialize&lt;T&gt;(String)</h4>
-  <div class="markdown level1 summary"><p>Deserializes the specified json string and converts it to the specified object type.
-Non-public constructors and property setters are ignored.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T Deserialize&lt;T&gt;(string json)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">json</span></td>
-        <td><p>The json.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><p>The deserialized specified type object</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The type of object to deserialize</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Formatters_Json_Deserialize_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize*"></a>
   <h4 id="Unosquare_Swan_Formatters_Json_Deserialize__1_System_String_System_Boolean_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize``1(System.String,System.Boolean)">Deserialize&lt;T&gt;(String, Boolean)</h4>
   <div class="markdown level1 summary"><p>Deserializes the specified json string and converts it to the specified object type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T Deserialize&lt;T&gt;(string json, bool includeNonPublic)</code></pre>
+    <pre><code class="lang-csharp hljs">public static T Deserialize&lt;T&gt;(string json, bool includeNonPublic = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
