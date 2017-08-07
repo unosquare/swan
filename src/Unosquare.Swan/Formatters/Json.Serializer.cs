@@ -239,7 +239,7 @@
                     if (objectDictionary.Count > 0)
                         Result = Serialize(objectDictionary, depth, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
                     else
-                        Result = Serialize(target.ToString(), 0, Format, typeSpecifier, includeProperties, excludeProperties, includeNonPublic, parentReferences);
+                        Result = EmptyObjectLiteral;
                 }
                 #endregion
             }

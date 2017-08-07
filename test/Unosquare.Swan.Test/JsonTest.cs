@@ -319,5 +319,22 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(data.First().Value, 1);
             Assert.AreEqual(data.First().Name, "A");
         }
+
+        [Test]
+        public void SerializeClassEmptyTest()
+        {
+            var data = Json.Serialize(new EmptyJson());
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{ }", data);
+        }
+
+        [Test]
+        public void DeserializeClassEmptyTest()
+        {
+            var data = Json.Deserialize<EmptyJson>("{ }");
+
+            Assert.IsNotNull(data);
+        }
     }
 }

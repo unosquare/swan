@@ -2,7 +2,7 @@
   "title": "Unosquare SWAN",
   "copyright": "Copyright (c) 2016-2017 - Unosquare",
   "description": "Class library with Stuff We All Need",
-  "version": "0.14.9-*",
+  "version": "0.14.11-*",
   "dependencies": {
     "StyleCop.Analyzers": {
       "type": "build",

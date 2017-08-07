@@ -52,6 +52,11 @@ namespace Unosquare.Swan.Test.Mocks
         }
     }
 
+    public class EmptyJson
+    {
+        // Nothing
+    }
+
     public class BasicArrayJson
     {
         public int Id { get; set; }
