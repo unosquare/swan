@@ -287,7 +287,7 @@ mapper.CreateMap&lt;User, UserDto&gt;().MapProperty(d =&gt; d.Role, s =&gt; s.Ro
 // Then you map the custom map to a destination
 var destination = mapper.Map&lt;UserDto&gt;(user);            
 </code></pre><h4 id="example-3-removing-a-property-from-the-map">Example 3: Removing a property from the map</h4>
-<p>To remove a custom property, you also use <code>CreateMap</code> and then remove the costume property of the mapping.</p>
+<p>To remove a custom property, you also use <code>CreateMap</code> and then remove the custome property of the mapping.</p>
 <pre><code class="lang-csharp">// Create an Object Mapper
 var mapper = new ObjectMapper();
 // Creating a map and removing a property
@@ -322,6 +322,19 @@ var mxRecord = Network.QueryDns(&quot;google-public-dns-a.google.com&quot;, DnsR
 
 // Gets the UTC time by querying from an NTP server
 var dateTime = Network.GetNetworkTimeUtc();
+</code></pre><h3 id="the-objectcomparer">The <code>ObjectComparer</code></h3>
+<p>Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With <code>ObjectComparer</code> you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.</p>
+<pre><code class="lang-csharp">// Compare if two variables of the same type are equal.
+ObjectComparer.AreEqual(first, second)
+
+// Compare if two objects of the same type are equal. 
+ObjectComparer.AreObjectsEqual(first, second);
+
+// Compare if two structures of the same type are equal.
+ObjectComparer.AreStructsEqual(first, second)
+
+// Compare if two enumerables are equal.
+ObjectComparer.AreEnumsEqual(first, second)
 </code></pre></article>
           </div>
           
