@@ -269,12 +269,10 @@ namespace Unosquare.Swan.Networking
             if (activeThreadPoolTreads < Environment.ProcessorCount / 4)
             {
                 ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
-                // Log.Trace($"Queued new ThreadPool Thread. Active TP Threads: {activeThreadPoolTreads}");
             }
             else
             {
                 new Thread(PerformContinuousReading) { IsBackground = true }.Start();
-                // Log.Trace($"Created standard thread. Active TP Threads: {activeThreadPoolTreads}");
             }
 #endif
         }
@@ -317,37 +315,7 @@ namespace Unosquare.Swan.Networking
 
             for (var i = 0; i < receivedData.Length; i++)
             {
-                ReceiveBuffer[ReceiveBufferPointer] = receivedData[i];
-                ReceiveBufferPointer++;
-
-                // Block size reached
-                if (ProtocolBlockSize > 0 && ReceiveBufferPointer >= ProtocolBlockSize)
-                {
-                    var eventBuffer = new byte[ReceiveBuffer.Length];
-                    Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
-
-                    DataReceived(this, 
-                        new ConnectionDataReceivedEventArgs(
-                            eventBuffer, 
-                            ConnectionDataReceivedTrigger.BlockSizeReached, 
-                            moreAvailable));
-                    ReceiveBufferPointer = 0;
-                    continue;
-                }
-
-                // The receive buffer is full. Time to flush
-                if (ReceiveBufferPointer >= ReceiveBuffer.Length)
-                {
-                    var eventBuffer = new byte[ReceiveBuffer.Length];
-                    Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
-
-                    DataReceived(this, 
-                        new ConnectionDataReceivedEventArgs(
-                                eventBuffer, 
-                                ConnectionDataReceivedTrigger.BufferFull, 
-                                moreAvailable));
-                    ReceiveBufferPointer = 0;
-                }
+                ProcessReceivedBlock(receivedData, i, moreAvailable);
             }
 
             // Check if we are left with some more stuff to handle
@@ -388,21 +356,55 @@ namespace Unosquare.Swan.Networking
                 }
 
                 // Depending on the last segment determine what to do with the receive buffer
-                if (isLast)
+                if (!isLast) continue;
+
+                if (isNewLineTerminated)
                 {
-                    if (isNewLineTerminated)
-                    {
-                        // Simply reset the buffer pointer if the last segment was also terminated
-                        ReceiveBufferPointer = 0;
-                    }
-                    else
-                    {
-                        // If we have not received the termination sequence, then just shift the receive buffer to the left
-                        // and adjust the pointer
-                        Array.Copy(sequenceBytes, ReceiveBuffer, sequenceBytes.Length);
-                        ReceiveBufferPointer = sequenceBytes.Length;
-                    }
+                    // Simply reset the buffer pointer if the last segment was also terminated
+                    ReceiveBufferPointer = 0;
                 }
+                else
+                {
+                    // If we have not received the termination sequence, then just shift the receive buffer to the left
+                    // and adjust the pointer
+                    Array.Copy(sequenceBytes, ReceiveBuffer, sequenceBytes.Length);
+                    ReceiveBufferPointer = sequenceBytes.Length;
+                }
+            }
+        }
+
+        private void ProcessReceivedBlock(byte[] receivedData, int i, bool moreAvailable)
+        {
+            ReceiveBuffer[ReceiveBufferPointer] = receivedData[i];
+            ReceiveBufferPointer++;
+
+            // Block size reached
+            if (ProtocolBlockSize > 0 && ReceiveBufferPointer >= ProtocolBlockSize)
+            {
+                var eventBuffer = new byte[ReceiveBuffer.Length];
+                Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
+
+                DataReceived(this,
+                    new ConnectionDataReceivedEventArgs(
+                        eventBuffer,
+                        ConnectionDataReceivedTrigger.BlockSizeReached,
+                        moreAvailable));
+                ReceiveBufferPointer = 0;
+                return;
+            }
+
+            // The receive buffer is full. Time to flush
+            if (ReceiveBufferPointer >= ReceiveBuffer.Length)
+            {
+                var eventBuffer = new byte[ReceiveBuffer.Length];
+                Array.Copy(ReceiveBuffer, eventBuffer, eventBuffer.Length);
+
+                DataReceived(this,
+                    new ConnectionDataReceivedEventArgs(
+                        eventBuffer,
+                        ConnectionDataReceivedTrigger.BufferFull,
+                        moreAvailable));
+                ReceiveBufferPointer = 0;
             }
         }
 
@@ -529,9 +531,9 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A byte array containing the results the specified sequence of bytes</returns>
-        public async Task<byte[]> ReadDataAsync(CancellationToken ct)
+        public Task<byte[]> ReadDataAsync(CancellationToken ct)
         {
-            return await ReadDataAsync(TimeSpan.FromSeconds(5), ct);
+            return ReadDataAsync(TimeSpan.FromSeconds(5), ct);
         }
 
         /// <summary>
@@ -551,9 +553,9 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string</returns>
-        public async Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
+        public Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
         {
-            return await ReadTextAsync(TimeSpan.FromSeconds(5), ct);
+            return ReadTextAsync(TimeSpan.FromSeconds(5), ct);
         }
 
         /// <summary>
@@ -564,9 +566,9 @@ namespace Unosquare.Swan.Networking
         /// A task that represents the asynchronous read operation. The value of the TResult parameter 
         /// contains the next line from the stream, or is null if all the characters have been read
         /// </returns>
-        public async Task<string> ReadLineAsync(CancellationToken ct)
+        public Task<string> ReadLineAsync(CancellationToken ct)
         {
-            return await ReadLineAsync(TimeSpan.FromSeconds(30), ct);
+            return ReadLineAsync(TimeSpan.FromSeconds(30), ct);
         }
 
         /// <summary>
@@ -601,21 +603,17 @@ namespace Unosquare.Swan.Networking
 
                 builder.Append(text);
 
-                if (text.EndsWith(NewLineSequence))
-                {
-                    var lines = builder.ToString().TrimEnd(NewLineSequenceChars)
-                        .Split(NewLineSequenceLineSplitter, StringSplitOptions.None);
-                    foreach (var item in lines)
-                        _readLineBuffer.Enqueue(item);
+                if (text.EndsWith(NewLineSequence) == false) continue;
 
-                    break;
-                }
+                var lines = builder.ToString().TrimEnd(NewLineSequenceChars)
+                    .Split(NewLineSequenceLineSplitter, StringSplitOptions.None);
+                foreach (var item in lines)
+                    _readLineBuffer.Enqueue(item);
+
+                break;
             }
 
-            if (_readLineBuffer.Count > 0)
-                return _readLineBuffer.Dequeue();
-
-            return null;
+            return _readLineBuffer.Count > 0 ? _readLineBuffer.Dequeue() : null;
         }
 
 #endregion
@@ -765,9 +763,9 @@ namespace Unosquare.Swan.Networking
         /// Remarks: DO NOT use this method in production. It accepts ALL server certificates without even checking them!
         /// </summary>
         /// <returns>A tasks with <c>true</c> if the upgrade to SSL was successful; otherwise, <c>false</c></returns>
-        public async Task<bool> UpgradeToSecureAsClientAsync()
+        public Task<bool> UpgradeToSecureAsClientAsync()
         {
-            return await UpgradeToSecureAsClientAsync(
+            return UpgradeToSecureAsClientAsync(
                 Network.HostName.ToLowerInvariant(),
                 (a, b, c, d) => true);
         }

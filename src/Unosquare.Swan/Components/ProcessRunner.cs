@@ -31,14 +31,14 @@ namespace Unosquare.Swan.Components
         /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
         /// <param name="ct">The ct.</param>
         /// <returns>Total copies stream</returns>
-        private static async Task<ulong> CopyStreamAsync(
+        private static Task<ulong> CopyStreamAsync(
             Process process, 
             Stream baseStream, 
             ProcessDataReceivedCallback onDataCallback, 
             bool syncEvents, 
             CancellationToken ct)
         {
-            return await Task.Factory.StartNew(async () =>
+            return Task.Factory.StartNew(async () =>
             {
                 // define some state variables
                 var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
@@ -169,9 +169,9 @@ namespace Unosquare.Swan.Components
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
         /// <returns>Value type will be -1 for forceful termination of the process</returns>
-        public static async Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default(CancellationToken))
+        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default(CancellationToken))
         {
-            var task = Task.Factory.StartNew(() =>
+            return Task.Factory.StartNew(() =>
             {
                 // Setup the process and its corresponding start info
                 var process = new Process
@@ -242,8 +242,6 @@ namespace Unosquare.Swan.Components
                     return -1;
                 }
             }, ct);
-
-            return await task;
         }
     }
 }

@@ -35,8 +35,10 @@
                 {typeof(bool), new ExtendedTypeInfo<bool>()},
                 {typeof(decimal), new ExtendedTypeInfo<decimal>()},
                 {typeof(Guid), new ExtendedTypeInfo<Guid>()},
+                
                 // Strings is also considered a basic type (it's the only basic reference type)
                 {typeof(string), new ExtendedTypeInfo<string>()},
+                
                 // Nullables
                 {typeof(DateTime?), new ExtendedTypeInfo<DateTime?>()},
                 {typeof(byte?), new ExtendedTypeInfo<byte?>()},
@@ -53,6 +55,7 @@
                 {typeof(bool?), new ExtendedTypeInfo<bool?>()},
                 {typeof(decimal?), new ExtendedTypeInfo<decimal?>()},
                 {typeof(Guid?), new ExtendedTypeInfo<Guid?>()},
+                
                 // Additional Types
                 {typeof(TimeSpan), new ExtendedTypeInfo<TimeSpan>()},
                 {typeof(TimeSpan?), new ExtendedTypeInfo<TimeSpan?>()},

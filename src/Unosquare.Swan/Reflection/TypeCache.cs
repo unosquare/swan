@@ -49,9 +49,15 @@
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="factory">The factory.</param>
-        /// <returns>An array of the properties stored for the specified type</returns>
+        /// <returns>
+        /// An array of the properties stored for the specified type
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">type</exception>
         public T[] Retrieve(Type type, Func<IEnumerable<T>> factory)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             lock (_syncLock)
             {
                 if (Contains(type)) return _cache[type];

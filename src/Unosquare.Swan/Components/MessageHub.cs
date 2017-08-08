@@ -221,13 +221,6 @@ namespace Unosquare.Swan.Components
     public sealed class MessageHubDefaultProxy : IMessageHubProxy
     {
         /// <summary>
-        /// Initializes the <see cref="MessageHubDefaultProxy"/> class.
-        /// </summary>
-        static MessageHubDefaultProxy()
-        {
-        }
-
-        /// <summary>
         /// Singleton instance of the proxy.
         /// </summary>
         public static MessageHubDefaultProxy Instance { get; } = new MessageHubDefaultProxy();
@@ -666,7 +659,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
-        /// <param name="messageFilter"></param>
+        /// <param name="messageFilter">The message filter.</param>
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
         /// </returns>
@@ -690,7 +683,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
-        /// <param name="messageFilter"></param>
+        /// <param name="messageFilter">The message filter.</param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
@@ -711,7 +704,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
-        /// <param name="messageFilter"></param>
+        /// <param name="messageFilter">The message filter.</param>
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction</param>
         /// <returns>
         /// TinyMessageSubscription used to unsubscribing
@@ -737,7 +730,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
-        /// <param name="messageFilter"></param>
+        /// <param name="messageFilter">The message filter.</param>
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction</param>
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>
@@ -782,11 +775,11 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
-        /// <returns></returns>
-        public async Task PublishAsync<TMessage>(TMessage message) 
+        /// <returns>A task with the publish</returns>
+        public Task PublishAsync<TMessage>(TMessage message) 
             where TMessage : class, IMessageHubMessage
         {
-            await Task.Factory.StartNew(() =>
+            return Task.Factory.StartNew(() =>
             {
                 PublishInternal(message);
             });

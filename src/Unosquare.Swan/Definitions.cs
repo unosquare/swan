@@ -22,6 +22,18 @@
         #endregion
 
         /// <summary>
+        /// The MS Windows codepage 1252 encoding used in some legacy scenarios
+        /// such as default CSV text encoding from Excel
+        /// </summary>
+        public static readonly Encoding Windows1252Encoding;
+
+        /// <summary>
+        /// The encoding associated with the default ANSI code page in the operating 
+        /// system's regional and language settings
+        /// </summary>
+        public static readonly Encoding CurrentAnsiEncoding;
+
+        /// <summary>
         /// Initializes the <see cref="Definitions"/> class.
         /// </summary>
         static Definitions()
@@ -37,17 +49,5 @@
                 Windows1252Encoding = CurrentAnsiEncoding;
             }
         }
-
-        /// <summary>
-        /// The MS Windows codepage 1252 encoding used in some legacy scenarios
-        /// such as default CSV text encoding from Excel
-        /// </summary>
-        public static readonly Encoding Windows1252Encoding;
-
-        /// <summary>
-        /// The encoding associated with the default ANSI code page in the operating 
-        /// system's regional and language settings
-        /// </summary>
-        public static readonly Encoding CurrentAnsiEncoding;
     }
 }

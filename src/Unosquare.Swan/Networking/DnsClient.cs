@@ -6,7 +6,7 @@
     using System.Net;
     using Exceptions;
 
-    partial class DnsClient
+    internal partial class DnsClient
     {
         private readonly IPEndPoint dns;
         private readonly IDnsRequestResolver resolver;

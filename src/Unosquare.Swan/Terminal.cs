@@ -86,122 +86,63 @@
         }
 
         #endregion
-
-        #region Methods
+        
+        #region Synchronized Cursor Movement
 
         /// <summary>
-        /// Enqueues the output to be written to the console
-        /// This is the only method that should enqueue to the output
-        /// Please note that if AvailableWriters is None, then no output will be enqueued
+        /// Gets or sets the cursor left position.
         /// </summary>
-        /// <param name="context">The context.</param>
-        private static void EnqueueOutput(OutputContext context)
+        /// <value>
+        /// The cursor left.
+        /// </value>
+        public static int CursorLeft
         {
-            lock (SyncLock)
+            get
             {
-                var availableWriters = AvailableWriters;
-
-                if (availableWriters == TerminalWriters.None || context.OutputWriters == TerminalWriters.None)
+                if (IsConsolePresent == false) return -1;
+                lock (SyncLock)
                 {
-                    OutputDone.Set();
-                    return;
+                    Flush();
+                    return Console.CursorLeft;
                 }
-
-                if ((context.OutputWriters & availableWriters) == TerminalWriters.None)
-                    return;
-
-                OutputDone.Reset();
-                OutputQueue.Enqueue(context);
             }
-        }
-
-        /// <summary>
-        /// Dequeues the output asynchronously.
-        /// </summary>
-        /// <returns>A task that represents the asynchronous dequeue output operation</returns>
-        private static void DequeueOutputAsync()
-        {
-            if (AvailableWriters == TerminalWriters.None)
+            set
             {
-                OutputDone.Set();
-                return;
-            }
-
-            using (var tickLock = new ManualResetEvent(false))
-            {
-                while (true)
+                if (IsConsolePresent == false) return;
+                lock (SyncLock)
                 {
-                    InputDone.WaitOne();
-
-                    if (OutputQueue.Count <= 0)
-                    {
-                        OutputDone.Set();
-                        tickLock.WaitOne(10);
-                        continue;
-                    }
-
-                    OutputDone.Reset();
-
-                    while (OutputQueue.Count > 0)
-                    {
-                        OutputContext context;
-                        if (OutputQueue.TryDequeue(out context) == false) continue;
-
-                        // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                        if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
-                        {
-                            // Output to the standard output
-                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Out.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
-
-                            // output to the standard error
-                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Error.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
-                        }
-
-                        // Process Debugger output
-                        if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
-                        {
-                            System.Diagnostics.Debug.Write(new string(context.OutputText));
-                        }
-                    }
+                    Flush();
+                    Console.CursorLeft = value;
                 }
             }
         }
 
         /// <summary>
-        /// Waits for all of the queued output messages to be written out to the console.
-        /// Call this method if it is important to display console text before
-        /// quitting the application such as showing usage or help.
-        /// Set the timeout to null or TimeSpan.Zero to wait indefinitely.
+        /// Gets or sets the cursor top position.
         /// </summary>
-        /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
-        public static void Flush(TimeSpan? timeout = null)
+        /// <value>
+        /// The cursor top.
+        /// </value>
+        public static int CursorTop
         {
-            if (OutputDone.WaitOne(0)) return;
-            if (timeout == null) timeout = TimeSpan.Zero;
-            var startTime = DateTime.UtcNow;
-
-            while (true)
+            get
             {
-                if (OutputDone.WaitOne(1))
-                    break;
+                if (IsConsolePresent == false) return -1;
+                lock (SyncLock)
+                {
+                    Flush();
+                    return Console.CursorTop;
+                }
+            }
+            set
+            {
+                if (IsConsolePresent == false) return;
 
-                if (timeout.Value == TimeSpan.Zero)
-                    continue;
-
-                if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
-                    break;
+                lock (SyncLock)
+                {
+                    Flush();
+                    Console.CursorTop = value;
+                }
             }
         }
 
@@ -274,62 +215,31 @@
 
         #endregion
 
-        #region Synchronized Cursor Movement
+        #region Methods
 
         /// <summary>
-        /// Gets or sets the cursor left position.
+        /// Waits for all of the queued output messages to be written out to the console.
+        /// Call this method if it is important to display console text before
+        /// quitting the application such as showing usage or help.
+        /// Set the timeout to null or TimeSpan.Zero to wait indefinitely.
         /// </summary>
-        /// <value>
-        /// The cursor left.
-        /// </value>
-        public static int CursorLeft
+        /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
+        public static void Flush(TimeSpan? timeout = null)
         {
-            get
-            {
-                if (IsConsolePresent == false) return -1;
-                lock (SyncLock)
-                {
-                    Flush();
-                    return Console.CursorLeft;
-                }
-            }
-            set
-            {
-                if (IsConsolePresent == false) return;
-                lock (SyncLock)
-                {
-                    Flush();
-                    Console.CursorLeft = value;
-                }
-            }
-        }
+            if (OutputDone.WaitOne(0)) return;
+            if (timeout == null) timeout = TimeSpan.Zero;
+            var startTime = DateTime.UtcNow;
 
-        /// <summary>
-        /// Gets or sets the cursor top position.
-        /// </summary>
-        /// <value>
-        /// The cursor top.
-        /// </value>
-        public static int CursorTop
-        {
-            get
+            while (true)
             {
-                if (IsConsolePresent == false) return -1;
-                lock (SyncLock)
-                {
-                    Flush();
-                    return Console.CursorTop;
-                }
-            }
-            set
-            {
-                if (IsConsolePresent == false) return;
+                if (OutputDone.WaitOne(1))
+                    break;
 
-                lock (SyncLock)
-                {
-                    Flush();
-                    Console.CursorTop = value;
-                }
+                if (timeout.Value == TimeSpan.Zero)
+                    continue;
+
+                if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
+                    break;
             }
         }
 
@@ -358,9 +268,95 @@
         /// previous line so you might need to clear it by writing an empty string the 
         /// length of the console width
         /// </summary>
-        public static void BacklineCursor()
+        public static void BacklineCursor() => SetCursorPosition(0, CursorTop - 1);
+
+        /// <summary>
+        /// Enqueues the output to be written to the console
+        /// This is the only method that should enqueue to the output
+        /// Please note that if AvailableWriters is None, then no output will be enqueued
+        /// </summary>
+        /// <param name="context">The context.</param>
+        private static void EnqueueOutput(OutputContext context)
         {
-            SetCursorPosition(0, CursorTop - 1);
+            lock (SyncLock)
+            {
+                var availableWriters = AvailableWriters;
+
+                if (availableWriters == TerminalWriters.None || context.OutputWriters == TerminalWriters.None)
+                {
+                    OutputDone.Set();
+                    return;
+                }
+
+                if ((context.OutputWriters & availableWriters) == TerminalWriters.None)
+                    return;
+
+                OutputDone.Reset();
+                OutputQueue.Enqueue(context);
+            }
+        }
+
+        /// <summary>
+        /// Dequeues the output asynchronously.
+        /// </summary>
+        private static void DequeueOutputAsync()
+        {
+            if (AvailableWriters == TerminalWriters.None)
+            {
+                OutputDone.Set();
+                return;
+            }
+
+            using (var tickLock = new ManualResetEvent(false))
+            {
+                while (true)
+                {
+                    InputDone.WaitOne();
+
+                    if (OutputQueue.Count <= 0)
+                    {
+                        OutputDone.Set();
+                        tickLock.WaitOne(10);
+                        continue;
+                    }
+
+                    OutputDone.Reset();
+
+                    while (OutputQueue.Count > 0)
+                    {
+                        OutputContext context;
+                        if (OutputQueue.TryDequeue(out context) == false) continue;
+
+                        // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
+                        if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
+                        {
+                            // Output to the standard output
+                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
+                            {
+                                Console.ForegroundColor = context.OutputColor;
+                                Console.Out.Write(context.OutputText);
+                                Console.ResetColor();
+                                Console.ForegroundColor = context.OriginalColor;
+                            }
+
+                            // output to the standard error
+                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
+                            {
+                                Console.ForegroundColor = context.OutputColor;
+                                Console.Error.Write(context.OutputText);
+                                Console.ResetColor();
+                                Console.ForegroundColor = context.OriginalColor;
+                            }
+                        }
+
+                        // Process Debugger output
+                        if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
+                        {
+                            System.Diagnostics.Debug.Write(new string(context.OutputText));
+                        }
+                    }
+                }
+            }
         }
 
         #endregion

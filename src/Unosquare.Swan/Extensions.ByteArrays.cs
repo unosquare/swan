@@ -86,22 +86,11 @@
         /// <returns>
         /// Bit value at the given offset
         /// </returns>
-        public static byte GetBitValueAt(this byte b, byte offset, byte length)
+        public static byte GetBitValueAt(this byte b, byte offset, byte length = 1)
         {
             return (byte)((b >> offset) & ~(0xff << length));
         }
-
-        /// <summary>
-        /// Gets the bit value at the given offset.
-        /// </summary>
-        /// <param name="b">The b.</param>
-        /// <param name="offset">The offset.</param>
-        /// <returns>Bit value at the given offset</returns>
-        public static byte GetBitValueAt(this byte b, byte offset)
-        {
-            return b.GetBitValueAt(offset, 1);
-        }
-
+        
         /// <summary>
         /// Sets the bit value at the given offset.
         /// </summary>
@@ -179,7 +168,7 @@
         }
 
         /// <summary>
-        /// Colones the specified buffer, byte by byte
+        /// Clones the specified buffer, byte by byte
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
@@ -187,6 +176,7 @@
         {
             if (buffer == null)
                 return null;
+
             var result = new byte[buffer.Length];
             Array.Copy(buffer, result, buffer.Length);
             return result;
@@ -197,7 +187,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns></returns>
+        /// <returns>A new trimmed byte array</returns>
         public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
         {
             if (buffer.StartsWith(sequence) == false)
@@ -285,6 +275,12 @@
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
         /// <param name="offset">The offset.</param>
+        /// <returns>The index of the sequence</returns>
+        /// <exception cref="ArgumentNullException">
+        /// buffer
+        /// or
+        /// sequence
+        /// </exception>
         public static int GetIndexOf(this byte[] buffer, byte[] sequence, int offset = 0)
         {
             if (buffer == null) throw new ArgumentNullException(nameof(buffer));
@@ -313,7 +309,7 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
-        /// <returns></returns>
+        /// <returns>The same MemoryStream instance</returns>
         public static MemoryStream Append(this MemoryStream stream, byte[] buffer)
         {
             stream.Write(buffer, 0, buffer.Length);

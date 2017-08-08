@@ -9,6 +9,9 @@
     using System.Text;
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    /// String related extension methods
+    /// </summary>
     public partial class Extensions
     {
         #region Private Declarations
@@ -187,7 +190,7 @@
         /// It tries to use InvariantCulture if the ToString(IFormatProvider)
         /// overload exists.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to get the string</typeparam>
         /// <param name="item">The item.</param>
         /// <returns>A string that represents the current object</returns>
         public static string ToStringInvariant<T>(this T item)
@@ -222,123 +225,6 @@
         public static string RemoveControlChars(this string input)
         {
             return input.RemoveControlCharsExcept(null);
-        }
-
-        /// <summary>
-        /// Humanizes a JSON serialization result.
-        /// jsonResult has to be a Dictionary[string,object] or List[object]
-        /// </summary>
-        /// <param name="jsonResult">The json result.</param>
-        /// <param name="indent">The indent.</param>
-        /// <returns>A string that represents the current object</returns>
-        private static string HumanizeJson(object jsonResult, int indent)
-        {
-            if (jsonResult == null)
-                return string.Empty;
-
-            var builder = new StringBuilder();
-            var indentStr = new string(' ', indent * 4);
-            
-            var dictionary = jsonResult as Dictionary<string, object>;
-            var list = jsonResult as List<object>;
-
-            if (dictionary != null)
-            {
-                foreach (var kvp in dictionary)
-                {
-                    if (kvp.Value == null) continue;
-
-                    var valueDictionary = kvp.Value as Dictionary<string, object>;
-                    var valueList = kvp.Value as List<object>;
-                    var writeOutput = false;
-
-                    if (valueDictionary != null)
-                    {
-                        if (valueDictionary.Count > 0)
-                        {
-                            writeOutput = true;
-                            builder.Append($"{indentStr}{kvp.Key,-16}: object");
-                            builder.AppendLine();
-                        }
-                    }
-                    else if (valueList != null)
-                    {
-                        if (valueList.Count > 0)
-                        {
-                            writeOutput = true;
-                            builder.Append($"{indentStr}{kvp.Key,-16}: array[{valueList.Count}]");
-                            builder.AppendLine();
-                        }
-                    }
-                    else
-                    {
-                        writeOutput = true;
-                        builder.Append($"{indentStr}{kvp.Key,-16}: ");
-                    }
-
-                    if (writeOutput)
-                        builder.AppendLine(HumanizeJson(kvp.Value, indent + 1).TrimEnd());
-                }
-
-                return builder.ToString().TrimEnd();
-            }
-
-            if (list != null)
-            {
-                var index = 0;
-                foreach (var value in list)
-                {
-                    var valueDictionary = value as Dictionary<string, object>;
-                    var valueList = value as List<object>;
-                    var writeOutput = false;
-
-                    if (valueDictionary != null)
-                    {
-                        if (valueDictionary.Count > 0)
-                        {
-                            writeOutput = true;
-                            builder.Append($"{indentStr}[{index}]: object");
-                            builder.AppendLine();
-                        }
-                    }
-                    else if (valueList != null)
-                    {
-                        if (valueList.Count > 0)
-                        {
-                            writeOutput = true;
-                            builder.Append($"{indentStr}[{index}]: array[{valueList.Count}]");
-                            builder.AppendLine();
-                        }
-                    }
-                    else
-                    {
-                        writeOutput = true;
-                        builder.Append($"{indentStr}[{index}]: ");
-                    }
-
-                    index++;
-                    if (writeOutput)
-                        builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
-                }
-
-                return builder.ToString().TrimEnd();
-            }
-
-            var stringValue = jsonResult.ToString();
-
-            if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 || stringValue.IndexOf('\n') >= 0)
-            {
-                builder.AppendLine();
-                var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
-                foreach (var line in stringLines)
-                    builder.AppendLine($"{indentStr}{line}");
-            }
-            else
-            {
-                builder.Append($"{stringValue}");
-            }
-
-            return builder.ToString().TrimEnd();
         }
 
         /// <summary>
@@ -510,7 +396,7 @@
         {
             foreach (var c in InvalidFilenameChars.Value)
                 s = s.Replace(c, string.Empty);
-            
+
             return s.Slice(0, 220);
         }
 
@@ -575,6 +461,123 @@
         public static bool Contains(this string value, params char[] chars)
         {
             return chars?.Length == 0 || !string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1;
+        }
+
+        /// <summary>
+        /// Humanizes a JSON serialization result.
+        /// jsonResult has to be a Dictionary[string,object] or List[object]
+        /// </summary>
+        /// <param name="jsonResult">The json result.</param>
+        /// <param name="indent">The indent.</param>
+        /// <returns>A string that represents the current object</returns>
+        private static string HumanizeJson(object jsonResult, int indent)
+        {
+            if (jsonResult == null)
+                return string.Empty;
+
+            var builder = new StringBuilder();
+            var indentStr = new string(' ', indent * 4);
+
+            var dictionary = jsonResult as Dictionary<string, object>;
+            var list = jsonResult as List<object>;
+
+            if (dictionary != null)
+            {
+                foreach (var kvp in dictionary)
+                {
+                    if (kvp.Value == null) continue;
+
+                    var valueDictionary = kvp.Value as Dictionary<string, object>;
+                    var valueList = kvp.Value as List<object>;
+                    var writeOutput = false;
+
+                    if (valueDictionary != null)
+                    {
+                        if (valueDictionary.Count > 0)
+                        {
+                            writeOutput = true;
+                            builder.Append($"{indentStr}{kvp.Key,-16}: object");
+                            builder.AppendLine();
+                        }
+                    }
+                    else if (valueList != null)
+                    {
+                        if (valueList.Count > 0)
+                        {
+                            writeOutput = true;
+                            builder.Append($"{indentStr}{kvp.Key,-16}: array[{valueList.Count}]");
+                            builder.AppendLine();
+                        }
+                    }
+                    else
+                    {
+                        writeOutput = true;
+                        builder.Append($"{indentStr}{kvp.Key,-16}: ");
+                    }
+
+                    if (writeOutput)
+                        builder.AppendLine(HumanizeJson(kvp.Value, indent + 1).TrimEnd());
+                }
+
+                return builder.ToString().TrimEnd();
+            }
+
+            if (list != null)
+            {
+                var index = 0;
+                foreach (var value in list)
+                {
+                    var valueDictionary = value as Dictionary<string, object>;
+                    var valueList = value as List<object>;
+                    var writeOutput = false;
+
+                    if (valueDictionary != null)
+                    {
+                        if (valueDictionary.Count > 0)
+                        {
+                            writeOutput = true;
+                            builder.Append($"{indentStr}[{index}]: object");
+                            builder.AppendLine();
+                        }
+                    }
+                    else if (valueList != null)
+                    {
+                        if (valueList.Count > 0)
+                        {
+                            writeOutput = true;
+                            builder.Append($"{indentStr}[{index}]: array[{valueList.Count}]");
+                            builder.AppendLine();
+                        }
+                    }
+                    else
+                    {
+                        writeOutput = true;
+                        builder.Append($"{indentStr}[{index}]: ");
+                    }
+
+                    index++;
+                    if (writeOutput)
+                        builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
+                }
+
+                return builder.ToString().TrimEnd();
+            }
+
+            var stringValue = jsonResult.ToString();
+
+            if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 || stringValue.IndexOf('\n') >= 0)
+            {
+                builder.AppendLine();
+                var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
+                foreach (var line in stringLines)
+                    builder.AppendLine($"{indentStr}{line}");
+            }
+            else
+            {
+                builder.Append($"{stringValue}");
+            }
+
+            return builder.ToString().TrimEnd();
         }
     }
 }

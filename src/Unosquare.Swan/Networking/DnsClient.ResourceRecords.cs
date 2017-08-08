@@ -7,7 +7,7 @@
     using System.Net;
     using System.Runtime.InteropServices;
 
-    partial class DnsClient
+    internal partial class DnsClient
     {
         public abstract class DnsResourceRecordBase : IDnsResourceRecord
         {
@@ -32,13 +32,10 @@
 
             public int Size => record.Size;
 
-            public byte[] ToArray()
-            {
-                return record.ToArray();
-            }
-
             protected virtual string[] IncludedProperties
                 => new[] { nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength) };
+
+            public byte[] ToArray() => record.ToArray();
 
             public override string ToString()
             {
@@ -128,21 +125,17 @@
 
             public byte[] ToArray()
             {
-                var result = new MemoryStream(Size);
-
-                result
+                return new MemoryStream(Size)
                     .Append(Name.ToArray())
-                    .Append((new Tail()
+                    .Append(new Tail()
                     {
                         Type = Type,
                         Class = Class,
                         TimeToLive = TimeToLive,
                         DataLength = Data.Length
-                    })
-                    .ToBytes())
-                    .Append(Data);
-
-                return result.ToArray();
+                    }.ToBytes())
+                    .Append(Data)
+                    .ToArray();
             }
 
             public override string ToString()

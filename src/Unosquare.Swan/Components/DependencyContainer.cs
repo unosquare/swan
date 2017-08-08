@@ -1296,16 +1296,6 @@ namespace Unosquare.Swan.Components
             /// </summary>
             public ConstructorInfo Constructor { get; private set; }
 
-            /// <summary>
-            /// Create the type
-            /// </summary>
-            /// <param name="requestedType">Type user requested to be resolved</param>
-            /// <param name="container">Container that requested the creation</param>
-            /// <param name="parameters">Any user parameters passed</param>
-            /// <param name="options"></param>
-            /// <returns>Instance of type</returns>
-            public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
-
             public virtual ObjectFactoryBase SingletonVariant
             {
                 get
@@ -1337,6 +1327,16 @@ namespace Unosquare.Swan.Components
                     throw new DependencyContainerRegistrationException(GetType(), "weak reference");
                 }
             }
+
+            /// <summary>
+            /// Create the type
+            /// </summary>
+            /// <param name="requestedType">Type user requested to be resolved</param>
+            /// <param name="container">Container that requested the creation</param>
+            /// <param name="parameters">Any user parameters passed</param>
+            /// <param name="options">The options.</param>
+            /// <returns> Instance of type </returns>
+            public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
 
             public virtual ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
             {
@@ -1787,22 +1787,6 @@ namespace Unosquare.Swan.Components
             private readonly int _hashCode;
 
             /// <summary>
-            /// Gets the type.
-            /// </summary>
-            /// <value>
-            /// The type.
-            /// </value>
-            public Type Type { get; }
-            
-            /// <summary>
-            /// Gets the name.
-            /// </summary>
-            /// <value>
-            /// The name.
-            /// </value>
-            public string Name { get; }
-
-            /// <summary>
             /// Initializes a new instance of the <see cref="TypeRegistration"/> class.
             /// </summary>
             /// <param name="type">The type.</param>
@@ -1814,6 +1798,22 @@ namespace Unosquare.Swan.Components
 
                 _hashCode = string.Concat(Type.FullName, "|", Name).GetHashCode();
             }
+
+            /// <summary>
+            /// Gets the type.
+            /// </summary>
+            /// <value>
+            /// The type.
+            /// </value>
+            public Type Type { get; }
+
+            /// <summary>
+            /// Gets the name.
+            /// </summary>
+            /// <value>
+            /// The name.
+            /// </value>
+            public string Name { get; }
 
             /// <summary>
             /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
@@ -1841,6 +1841,8 @@ namespace Unosquare.Swan.Components
             public override int GetHashCode() =>_hashCode;
         }
 
+        private readonly DependencyContainer _parent;
+
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
         private delegate object ObjectConstructor(params object[] parameters);
 #if USE_OBJECT_CONSTRUCTOR
@@ -1861,7 +1863,6 @@ namespace Unosquare.Swan.Components
             RegisterDefaultTypes();
         }
 
-        readonly DependencyContainer _parent;
         private DependencyContainer(DependencyContainer parent)
             : this()
         {
@@ -1931,6 +1932,7 @@ namespace Unosquare.Swan.Components
             }
         }
 
+        #if !NETSTANDARD1_3 && !UWP
         private static bool IsIgnoredAssembly(Assembly assembly)
         {
             // TODO - find a better way to remove "system" assemblies from the auto registration
@@ -1948,6 +1950,7 @@ namespace Unosquare.Swan.Components
 
             return ignoreChecks.Any(check => check(assembly));
         }
+        #endif
 
         private static bool IsIgnoredType(Type type, Func<Type, bool> registrationPredicate)
         {
@@ -1967,6 +1970,14 @@ namespace Unosquare.Swan.Components
             }
 
             return ignoreChecks.Any(check => check(type));
+        }
+
+        private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
+        {
+            if (registerType.IsInterface() || registerType.IsAbstract())
+                return new SingletonFactory(registerType, registerImplementation);
+
+            return new MultiInstanceFactory(registerType, registerImplementation);
         }
 
         private void RegisterDefaultTypes()
@@ -2005,14 +2016,6 @@ namespace Unosquare.Swan.Components
         {
             ObjectFactoryBase item;
             return _registeredTypes.TryRemove(typeRegistration, out item);
-        }
-
-        private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
-        {
-            if (registerType.IsInterface() || registerType.IsAbstract())
-                return new SingletonFactory(registerType, registerImplementation);
-
-            return new MultiInstanceFactory(registerType, registerImplementation);
         }
 
         private bool CanResolveInternal(TypeRegistration registration, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
@@ -2389,9 +2392,9 @@ namespace Unosquare.Swan.Components
             return true;
         }
 
-        #endregion
+#endregion
 
-        #region IDisposable Members
+#region IDisposable Members
 
         private bool _disposed;
 
@@ -2412,6 +2415,6 @@ namespace Unosquare.Swan.Components
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+#endregion
     }
 }

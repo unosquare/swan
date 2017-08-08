@@ -12,13 +12,13 @@
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of settings model</typeparam>
     public class SettingsProvider<T> : SingletonBase<SettingsProvider<T>>
     {
         /// <summary>
         /// A synchronization root that is commonly used for cross-thread operations.
         /// </summary>
-        protected readonly object SyncRoot = new object();
+        private readonly object _syncRoot = new object();
 
         private T _global;
 
@@ -40,7 +40,7 @@
         {
             get
             {
-                lock (SyncRoot)
+                lock (_syncRoot)
                 {
                     if (_global == null)
                         ReloadGlobalSettings();
@@ -55,7 +55,7 @@
         /// </summary>
         public void ReloadGlobalSettings()
         {
-            lock (SyncRoot)
+            lock (_syncRoot)
             {
                 if (File.Exists(ConfigurationFilePath) == false || File.ReadAllText(ConfigurationFilePath).Length == 0)
                 {
@@ -74,7 +74,7 @@
         /// </summary>
         public void PersistGlobalSettings()
         {
-            lock (SyncRoot)
+            lock (_syncRoot)
             {
                 File.WriteAllText(ConfigurationFilePath, Json.Serialize(Global));
             }
@@ -179,7 +179,7 @@
         /// </summary>
         public void ResetGlobalSettings()
         {
-            lock (SyncRoot)
+            lock (_syncRoot)
             {
                 var stringData = Json.Serialize(Activator.CreateInstance<T>());
                 File.WriteAllText(ConfigurationFilePath, stringData);

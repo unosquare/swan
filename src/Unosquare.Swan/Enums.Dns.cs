@@ -114,7 +114,6 @@
         /// Status operation
         /// </summary> 
         Status,
-        // Reserved = 3        
         
         /// <summary>
         /// Notify operation

@@ -4,6 +4,10 @@
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// A console terminal helper to create nicer output and receive input from the user
+    /// This class is thread-safe :)
+    /// </summary>
     public partial class Terminal
     {
         #region Private Declarations

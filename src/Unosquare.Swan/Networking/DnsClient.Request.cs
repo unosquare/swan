@@ -431,10 +431,7 @@
 
             public int Size => SIZE;
 
-            public byte[] ToArray()
-            {
-                return this.ToBytes();
-            }
+            public byte[] ToArray() => this.ToBytes();
 
             public override string ToString()
             {
@@ -647,10 +644,7 @@
                 return obj is DnsDomain && CompareTo((DnsDomain) obj) == 0;
             }
 
-            public override int GetHashCode()
-            {
-                return ToString().GetHashCode();
-            }
+            public override int GetHashCode() => ToString().GetHashCode();
         }
 
         public class DnsQuestion : IDnsMessageEntry
@@ -709,13 +703,10 @@
 
             public byte[] ToArray()
             {
-                var result = new MemoryStream(Size);
-
-                result
+                return new MemoryStream(Size)
                     .Append(domain.ToArray())
-                    .Append((new Tail { Type = Type, Class = Class }).ToBytes());
-
-                return result.ToArray();
+                    .Append(new Tail { Type = Type, Class = Class }.ToBytes())
+                    .ToArray();
             }
 
             public override string ToString()

@@ -211,10 +211,7 @@
         /// </summary>
         /// <param name="encoding">The encoding.</param>
         /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
-        public string GetStringFromBuffer(Encoding encoding)
-        {
-            return GetStringFromBuffer(Buffer, encoding);
-        }
+        public string GetStringFromBuffer(Encoding encoding) => GetStringFromBuffer(Buffer, encoding);
     }
 
     #endregion
@@ -227,16 +224,6 @@
     public class AppWorkerStateChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets the state to which the application service changed.
-        /// </summary>
-        public AppWorkerState NewState { get; private set; }
-
-        /// <summary>
-        /// Gets the old state.
-        /// </summary>
-        public AppWorkerState OldState { get; private set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AppWorkerStateChangedEventArgs" /> class.
         /// </summary>
         /// <param name="oldState">The old state.</param>
@@ -246,6 +233,16 @@
             OldState = oldState;
             NewState = newState;
         }
+
+        /// <summary>
+        /// Gets the state to which the application service changed.
+        /// </summary>
+        public AppWorkerState NewState { get; private set; }
+
+        /// <summary>
+        /// Gets the old state.
+        /// </summary>
+        public AppWorkerState OldState { get; private set; }
     }
 
     #endregion

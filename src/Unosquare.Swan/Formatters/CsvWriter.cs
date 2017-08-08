@@ -255,10 +255,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item">The item.</param>
-        public void WriteObject<T>(T item)
-        {
-            WriteObject(item as object);
-        }
+        public void WriteObject<T>(T item) => WriteObject(item as object);
 
         /// <summary>
         /// Writes a set of items, one per line and atomically by repeatedly calling the
@@ -304,16 +301,7 @@
         /// Writes the collection values.
         /// </summary>
         /// <param name="typedItem">The typed item.</param>
-        private void WriteCollectionValues(ICollection typedItem)
-        {
-            var values = new List<object>();
-            foreach (var item in typedItem)
-            {
-                values.Add(item);
-            }
-
-            WriteLine(values.ToArray());
-        }
+        private void WriteCollectionValues(ICollection typedItem) => WriteLine(typedItem.Cast<object>().ToArray());
 
         /// <summary>
         /// Writes the dictionary values.
@@ -509,7 +497,8 @@
                             .Where(p => p.CanRead)
                             .ToArray();
                     })
-                    .Where(p => IgnorePropertyNames.Contains(p.Name) == false).ToArray();
+                    .Where(p => IgnorePropertyNames.Contains(p.Name) == false)
+                    .ToArray();
             }
         }
 
@@ -522,7 +511,7 @@
         /// If the file exits, it overwrites it. If it does not, it creates it.
         /// It uses the Windows 1252 text encoding for output
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of enumeration</typeparam>
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
         /// <returns>Number of item of CsvWriter</returns>
@@ -550,6 +539,11 @@
         #region IDisposable Support
 
         /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose() => Dispose(true);
+
+        /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposeAlsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
@@ -568,15 +562,7 @@
                 _isDisposing = true;
             }
         }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-
+        
         #endregion
 
     }
