@@ -359,7 +359,7 @@ var destination = mapper.Map<UserDto>(user);
 
 #### Example 3: Removing a property from the map
 
-To remove a custom property, you also use `CreateMap` and then remove the costume property of the mapping.
+To remove a custom property, you also use `CreateMap` and then remove the custome property of the mapping.
 
 ```csharp
 // Create an Object Mapper
@@ -408,4 +408,22 @@ var mxRecord = Network.QueryDns("google-public-dns-a.google.com", DnsRecordType.
 
 // Gets the UTC time by querying from an NTP server
 var dateTime = Network.GetNetworkTimeUtc();
+```
+
+### The `ObjectComparer`
+
+Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
+
+```csharp
+// Compare if two variables of the same type are equal.
+ObjectComparer.AreEqual(first, second)
+
+// Compare if two objects of the same type are equal. 
+ObjectComparer.AreObjectsEqual(first, second);
+
+// Compare if two structures of the same type are equal.
+ObjectComparer.AreStructsEqual(first, second)
+
+// Compare if two enumerables are equal.
+ObjectComparer.AreEnumsEqual(first, second)
 ```
