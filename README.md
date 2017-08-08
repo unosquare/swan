@@ -31,7 +31,7 @@ PM> Install-Package Unosquare.Swan.AspNetCore
 
 ## What's in the library
 
-In this section we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
+In this section, we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
 SWAN won't force you to use any of its components, classes or methods.
 
 ### The `Runtime`
@@ -42,7 +42,7 @@ SWAN won't force you to use any of its components, classes or methods.
 
 ### The `Terminal`
 
-Many times we find ourselves implementing `Console` output code as some NLog or Log4Net logger or adapter, especially 
+Many times, we find ourselves implementing `Console` output code as some NLog or Log4Net logger or adapter, especially 
 when writing console applications, daemons and windows services. We also tend to write `Console` code for reading user 
 input because it can't be some logger or adapter. And then you have the `System.Diagnostics.Debug` class to write 
 to the debugger output. And finally, all your `Console` user interaction looks primitive and unprofessional. In other 
@@ -57,14 +57,14 @@ The Swan `Terminal` is __all__ of the following:
 - Console Standard Input Reader
 - Log message forwarder
 
-It is also very easy to use, it's thread-safe, and it does not rquire you to learn anything new. In fact it simplifies logging
-messages and diplaying `Console` messages by providing `string` extension methods.
+It is also very easy to use, it's thread-safe, and it does not require you to learn anything new. In fact, it simplifies logging
+messages and displaying `Console` messages by providing `string` extension methods.
 
 [Terminal Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html)
 
 #### Example 1: Writing to the Terminal
 
-This only writes messages out to the `TerminalWriters` if they are avialble. In practice, we typically **DO NOT** use
+This only writes messages out to the `TerminalWriters` if they are available. In practice, we typically **DO NOT** use
 the `Write` and `WriteLine` methods but they are provided for convenience, extensibility and customization. Please note
 that these methods do not forward messages as logging events and therefore whatever is written via these methods
 will not show up in you logging subsystem.
@@ -116,15 +116,17 @@ The Swan `Terminal` would not be complete without a way to read user input. The 
 that `Terminal` can create decent-looking user prompts if a very convenient way.
 
 ```csharp
-// TODO: These examples need work.
-
+// Reads a line of text from the console.
 var lineResult = Terminal.ReadLine();
 
-var numberResult = Terminal.ReadNumber();
+// Reads a number from the input. If unable to parse, it returns the default number, in this case (default 0).
+var numberResult = Terminal.ReadNumber("Read Number", 0);
 
-var promptResult = Terminal.ReadPrompt();
+// Creates a table prompt where the user can enter an option based on the options dictionary provided.
+var promptResult = Terminal.ReadPrompt("Read Promp", options, "A");
 
-var keyResult = Terminal.ReadKey();
+// Reads a key from the terminal preventing the key from being echoed.
+var keyResult = Terminal.ReadKey("Read Key");
 ``` 
 
 #### Example 6: Other Useful Functions
@@ -132,12 +134,12 @@ var keyResult = Terminal.ReadKey();
 Swan's `Terminal` also provides additional methods to accomplish very specific tasks. Given the fact that `Terminal`
 is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queue to be written
 out to the `Console` before the program exits. For example, when we write a console application that requires its usage
-to be fully printed out before the process is terminated. In these scenarios we use `Terminal.Flush` which blocks
+to be fully printed out before the process is terminated. In these scenarios, we use `Terminal.Flush` which blocks
 the current thread until the entire output queue becomes empty.
 
 ### The `Json`
 
-You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and also when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
+You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
 
 [Json Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
 
@@ -201,7 +203,7 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 
 ### The `CsvWriter`
 
-Many projects require the use o CSV files to export the information, with `CsvWriter` you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.
+Many projects require the use of CSV files to export the information, with `CsvWriter` you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.
 
 [CsvWriter Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
 
@@ -233,7 +235,7 @@ CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
 
 ### The `CsvReader`
 
-When you use and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of `CsvReader` to read and load CSV files.
+When you use, and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of `CsvReader` to read and load CSV files.
 
 [CsvReader Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html)
 
@@ -256,7 +258,7 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
 
 #### Example 2: Reading a CSV file
 
-From a CSV file you can read and load the information to a generic list.
+From a CSV file, you can read and load the information to a generic list.
 
 ```csharp
 // The list of object to be written as CSV
@@ -311,7 +313,7 @@ var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { fil
 
 ### The `SmtpClient`
 
-It's a Swan's basic SMTP client that is capable of submitting messages to an SMTP server. It's very easy to manage an provide a very handly way to make use of SMTP in your application to send mails to any registered user.
+It's a Swan's basic SMTP client that can submit messages to an SMTP server. It's very easy to manage and provide a very handy way to make use of SMTP in your application to send mails to any registered user.
 
 [SmtpClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
@@ -329,7 +331,7 @@ await client.SendMailAsync(new SmtpSessionState());
 
 ### The `ObjectMapper`
 
-It's a very handly component of Swan that maps objects. You can access a default instance of `ObjectMapper` by `Runtime` class.
+It's a very handy component of Swan that maps objects. You can access a default instance of `ObjectMapper` by `Runtime` class.
 
 [ObjectMapper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html)
 
@@ -344,7 +346,7 @@ var destination = Runtime.ObjectMapper.Map<UserDto>(user);
 
 #### Example 2: Mapping with a custom map
 
-With `CreateMap` you generates a new map and you can map one custom property with `MapProperty`.
+With `CreateMap` you generate a new map and you can map one custom property with `MapProperty`.
 
 ```csharp
 // Creating an Object Mapper
@@ -357,7 +359,7 @@ var destination = mapper.Map<UserDto>(user);
 
 #### Example 3: Removing a property from the map
 
-To remove a custom property you also use `CreateMap` and then remove the costum property of the mapping.
+To remove a custom property, you also use `CreateMap` and then remove the costume property of the mapping.
 
 ```csharp
 // Create an Object Mapper
@@ -370,11 +372,11 @@ var destination = mapper.Map<UserDto>(user);
 
 ### The `Network`
 
-When you are working with projects related to network or you want to extend your application to use some network funtionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
+When you are working with projects related to network or you want to extend your application to use some network functionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
 
 #### Example 1: IPv4 and adapters information
 
-It's allways usefull to have a tool that gives you access to your adapters information and your ip address local and public and use it in your application.
+It's always useful to have a tool that gives you access to your adapters information and your IP address local and public and use it in your application.
 
 ```csharp
 // Gets the active IPv4 interfaces.
@@ -389,7 +391,7 @@ var publicAddress = Network.GetPublicIPAddress();
 
 #### Example 2: DNS and NTP
 
-Also you can use the `Network` utility to access the IPs of the DNS servers and the UTC from the NTP servers.
+Also, you can use the `Network` utility to access the IPs of the DNS servers and the UTC from the NTP servers.
 
 ```csharp
 // Gets the configured IPv4 DNS servers for the active network interfaces.
