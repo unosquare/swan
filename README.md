@@ -367,3 +367,43 @@ mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t.Name);
 // Then you map the custom map to a destination
 var destination = mapper.Map<UserDto>(user);
 ```
+
+### The `Network`
+
+When you are working with projects related to network or you want to extend your application to use some network funtionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
+
+#### Example 1: IPv4 and adapters information
+
+It's allways usefull to have a tool that gives you access to your adapters information and your ip address local and public and use it in your application.
+
+```csharp
+// Gets the active IPv4 interfaces.
+var interfaces = Network.GetIPv4Interfaces();
+
+// Retrieves the local IP addresses.
+var address = Network.GetIPv4Addresses();
+
+// Gets the public IP address using ipify.org.
+var publicAddress = Network.GetPublicIPAddress();
+```
+
+#### Example 2: DNS and NTP
+
+Also you can use the `Network` utility to access the IPs of the DNS servers and the UTC from the NTP servers.
+
+```csharp
+// Gets the configured IPv4 DNS servers for the active network interfaces.
+var dnsServers = Network.GetIPv4DnsServers();
+
+// Gets the DNS host entry (a list of IP addresses) for the domain name.
+var dnsAddresses = Network.GetDnsHostEntry("google-public-dns-a.google.com");
+
+// Gets the reverse lookup FQDN of the given IP Address.
+var dnsPointer = Network.GetDnsPointerEntry(IPAddress.Parse("8.8.8.8"));
+
+// Queries the DNS server for the specified record type.
+var mxRecord = Network.QueryDns("google-public-dns-a.google.com", DnsRecordType.MX);
+
+// Gets the UTC time by querying from an NTP server
+var dateTime = Network.GetNetworkTimeUtc();
+```
