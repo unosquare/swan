@@ -85,13 +85,13 @@ Our philosophy is that SWAN should have no external dependencies, it should be c
 <p><a href="https://badge.fury.io/nu/Unosquare.AspNetCore.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.AspNetCore.svg" alt="NuGet version"></a></p>
 <pre><code>PM&gt; Install-Package Unosquare.Swan.AspNetCore
 </code></pre><h2 id="whats-in-the-library">What&#39;s in the library</h2>
-<p>In this section we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
+<p>In this section, we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
 SWAN won&#39;t force you to use any of its components, classes or methods.</p>
 <h3 id="the-runtime">The <code>Runtime</code></h3>
 <p><code>Runtime</code> provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan as <code>ObjectMapper</code>.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html">Runtime Documentation</a></p>
 <h3 id="the-terminal">The <code>Terminal</code></h3>
-<p>Many times we find ourselves implementing <code>Console</code> output code as some NLog or Log4Net logger or adapter, especially 
+<p>Many times, we find ourselves implementing <code>Console</code> output code as some NLog or Log4Net logger or adapter, especially 
 when writing console applications, daemons and windows services. We also tend to write <code>Console</code> code for reading user 
 input because it can&#39;t be some logger or adapter. And then you have the <code>System.Diagnostics.Debug</code> class to write 
 to the debugger output. And finally, all your <code>Console</code> user interaction looks primitive and unprofessional. In other 
@@ -106,11 +106,11 @@ code everywhere in your application and it makes it look silly, bloated and writ
 <li>Console Standard Input Reader</li>
 <li>Log message forwarder</li>
 </ul>
-<p>It is also very easy to use, it&#39;s thread-safe, and it does not rquire you to learn anything new. In fact it simplifies logging
-messages and diplaying <code>Console</code> messages by providing <code>string</code> extension methods.</p>
+<p>It is also very easy to use, it&#39;s thread-safe, and it does not require you to learn anything new. In fact, it simplifies logging
+messages and displaying <code>Console</code> messages by providing <code>string</code> extension methods.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html">Terminal Documentation</a></p>
 <h4 id="example-1-writing-to-the-terminal">Example 1: Writing to the Terminal</h4>
-<p>This only writes messages out to the <code>TerminalWriters</code> if they are avialble. In practice, we typically <strong>DO NOT</strong> use
+<p>This only writes messages out to the <code>TerminalWriters</code> if they are available. In practice, we typically <strong>DO NOT</strong> use
 the <code>Write</code> and <code>WriteLine</code> methods but they are provided for convenience, extensibility and customization. Please note
 that these methods do not forward messages as logging events and therefore whatever is written via these methods
 will not show up in you logging subsystem.</p>
@@ -146,23 +146,25 @@ liking. You can change the output colors,  </p>
 <h4 id="example-5-user-interaction">Example 5: User Interaction</h4>
 <p>The Swan <code>Terminal</code> would not be complete without a way to read user input. The good news is
 that <code>Terminal</code> can create decent-looking user prompts if a very convenient way.</p>
-<pre><code class="lang-csharp">// TODO: These examples need work.
-
+<pre><code class="lang-csharp">// Reads a line of text from the console.
 var lineResult = Terminal.ReadLine();
 
-var numberResult = Terminal.ReadNumber();
+// Reads a number from the input. If unable to parse, it returns the default number, in this case (default 0).
+var numberResult = Terminal.ReadNumber(&quot;Read Number&quot;, 0);
 
-var promptResult = Terminal.ReadPrompt();
+// Creates a table prompt where the user can enter an option based on the options dictionary provided.
+var promptResult = Terminal.ReadPrompt(&quot;Read Promp&quot;, options, &quot;A&quot;);
 
-var keyResult = Terminal.ReadKey();
+// Reads a key from the terminal preventing the key from being echoed.
+var keyResult = Terminal.ReadKey(&quot;Read Key&quot;);
 </code></pre><h4 id="example-6-other-useful-functions">Example 6: Other Useful Functions</h4>
 <p>Swan&#39;s <code>Terminal</code> also provides additional methods to accomplish very specific tasks. Given the fact that <code>Terminal</code>
 is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queue to be written
 out to the <code>Console</code> before the program exits. For example, when we write a console application that requires its usage
-to be fully printed out before the process is terminated. In these scenarios we use <code>Terminal.Flush</code> which blocks
+to be fully printed out before the process is terminated. In these scenarios, we use <code>Terminal.Flush</code> which blocks
 the current thread until the entire output queue becomes empty.</p>
 <h3 id="the-json">The <code>Json</code></h3>
-<p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter. It&#39;s a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and also when arrives it&#39;s necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.</p>
+<p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter. It&#39;s a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and when arrives it&#39;s necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html">Json Documentation</a></p>
 <h4 id="example-1-serialize">Example 1: Serialize</h4>
 <p>Serializes the specified object into a JSON <code>string</code>.</p>
@@ -199,7 +201,7 @@ var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&q
 // Deserializes the specified string in a new instance of the type BasicJson.
 var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
 </code></pre><h3 id="the-csvwriter">The <code>CsvWriter</code></h3>
-<p>Many projects require the use o CSV files to export the information, with <code>CsvWriter</code> you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.</p>
+<p>Many projects require the use of CSV files to export the information, with <code>CsvWriter</code> you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter Documentation</a></p>
 <h4 id="example-1-writing-a-list-of-objects">Example 1: Writing a List of objects</h4>
 <p>This is the way to write a list of objects into a CSV format.</p>
@@ -218,7 +220,7 @@ var basicObj = new List&lt;BasicJson&gt;();
 // This is where the object is save into a file
 CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
 </code></pre><h3 id="the-csvreader">The <code>CsvReader</code></h3>
-<p>When you use and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load CSV files.</p>
+<p>When you use, and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load CSV files.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html">CsvReader Documentation</a></p>
 <h4 id="example-1-reading-a-csv-data-format">Example 1: Reading a CSV data format</h4>
 <p>This is a way to read CSV format data.</p>
@@ -233,7 +235,7 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
     var reader = new CsvReader(stream, true, Encoding.ASCII);
 };
 </code></pre><h4 id="example-2-reading-a-csv-file">Example 2: Reading a CSV file</h4>
-<p>From a CSV file you can read and load the information to a generic list.</p>
+<p>From a CSV file, you can read and load the information to a generic list.</p>
 <pre><code class="lang-csharp">// The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
 // This is where the object is save into a file
@@ -260,7 +262,7 @@ var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data
 <pre><code class="lang-csharp">// The PUT
 var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
 </code></pre><h3 id="the-smtpclient">The <code>SmtpClient</code></h3>
-<p>It&#39;s a Swan&#39;s basic SMTP client that is capable of submitting messages to an SMTP server. It&#39;s very easy to manage an provide a very handly way to make use of SMTP in your application to send mails to any registered user.</p>
+<p>It&#39;s a Swan&#39;s basic SMTP client that can submit messages to an SMTP server. It&#39;s very easy to manage and provide a very handy way to make use of SMTP in your application to send mails to any registered user.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html">SmtpClient</a></p>
 <h4 id="example-1-sending-mails">Example 1: Sending mails</h4>
 <p>The mails are sent asynchronously.</p>
@@ -270,14 +272,14 @@ await client.SendMailAsync(new MailMessage());
 // Or sent the mail based on the Smtp session state
 await client.SendMailAsync(new SmtpSessionState());
 </code></pre><h3 id="the-objectmapper">The <code>ObjectMapper</code></h3>
-<p>It&#39;s a very handly component of Swan that maps objects. You can access a default instance of <code>ObjectMapper</code> by <code>Runtime</code> class.</p>
+<p>It&#39;s a very handy component of Swan that maps objects. You can access a default instance of <code>ObjectMapper</code> by <code>Runtime</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html">ObjectMapper</a></p>
 <h4 id="example-1-mapping-with-default-map">Example 1: Mapping with default map</h4>
 <p>The conversion generates a map automatically between the properties in base of the properties names.</p>
 <pre><code class="lang-csharp">// Here is mapping the specific user to a destination
 var destination = Runtime.ObjectMapper.Map&lt;UserDto&gt;(user);
 </code></pre><h4 id="example-2-mapping-with-a-custom-map">Example 2: Mapping with a custom map</h4>
-<p>With <code>CreateMap</code> you generates a new map and you can map one custom property with <code>MapProperty</code>.</p>
+<p>With <code>CreateMap</code> you generate a new map and you can map one custom property with <code>MapProperty</code>.</p>
 <pre><code class="lang-csharp">// Creating an Object Mapper
 var mapper = new ObjectMapper();
 // Creating the map and mapping the property
@@ -285,7 +287,7 @@ mapper.CreateMap&lt;User, UserDto&gt;().MapProperty(d =&gt; d.Role, s =&gt; s.Ro
 // Then you map the custom map to a destination
 var destination = mapper.Map&lt;UserDto&gt;(user);            
 </code></pre><h4 id="example-3-removing-a-property-from-the-map">Example 3: Removing a property from the map</h4>
-<p>To remove a custom property you also use <code>CreateMap</code> and then remove the costum property of the mapping.</p>
+<p>To remove a custom property, you also use <code>CreateMap</code> and then remove the costume property of the mapping.</p>
 <pre><code class="lang-csharp">// Create an Object Mapper
 var mapper = new ObjectMapper();
 // Creating a map and removing a property
@@ -293,9 +295,9 @@ mapper.CreateMap&lt;User, UserDto&gt;().RemoveMapProperty(t =&gt; t.Name);
 // Then you map the custom map to a destination
 var destination = mapper.Map&lt;UserDto&gt;(user);
 </code></pre><h3 id="the-network">The <code>Network</code></h3>
-<p>When you are working with projects related to network or you want to extend your application to use some network funtionality the Swan&#39;s <code>Network</code> provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.</p>
+<p>When you are working with projects related to network or you want to extend your application to use some network functionality the Swan&#39;s <code>Network</code> provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.</p>
 <h4 id="example-1-ipv4-and-adapters-information">Example 1: IPv4 and adapters information</h4>
-<p>It&#39;s allways usefull to have a tool that gives you access to your adapters information and your ip address local and public and use it in your application.</p>
+<p>It&#39;s always useful to have a tool that gives you access to your adapters information and your IP address local and public and use it in your application.</p>
 <pre><code class="lang-csharp">// Gets the active IPv4 interfaces.
 var interfaces = Network.GetIPv4Interfaces();
 
@@ -305,7 +307,7 @@ var address = Network.GetIPv4Addresses();
 // Gets the public IP address using ipify.org.
 var publicAddress = Network.GetPublicIPAddress();
 </code></pre><h4 id="example-2-dns-and-ntp">Example 2: DNS and NTP</h4>
-<p>Also you can use the <code>Network</code> utility to access the IPs of the DNS servers and the UTC from the NTP servers.</p>
+<p>Also, you can use the <code>Network</code> utility to access the IPs of the DNS servers and the UTC from the NTP servers.</p>
 <pre><code class="lang-csharp">// Gets the configured IPv4 DNS servers for the active network interfaces.
 var dnsServers = Network.GetIPv4DnsServers();
 
