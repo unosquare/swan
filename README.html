@@ -296,6 +296,7 @@ mapper.CreateMap&lt;User, UserDto&gt;().RemoveMapProperty(t =&gt; t.Name);
 var destination = mapper.Map&lt;UserDto&gt;(user);
 </code></pre><h3 id="the-network">The <code>Network</code></h3>
 <p>When you are working with projects related to network or you want to extend your application to use some network functionality the Swan&#39;s <code>Network</code> provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html">Network</a></p>
 <h4 id="example-1-ipv4-and-adapters-information">Example 1: IPv4 and adapters information</h4>
 <p>It&#39;s always useful to have a tool that gives you access to your adapters information and your IP address local and public and use it in your application.</p>
 <pre><code class="lang-csharp">// Gets the active IPv4 interfaces.
@@ -324,6 +325,7 @@ var mxRecord = Network.QueryDns(&quot;google-public-dns-a.google.com&quot;, DnsR
 var dateTime = Network.GetNetworkTimeUtc();
 </code></pre><h3 id="the-objectcomparer">The <code>ObjectComparer</code></h3>
 <p>Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With <code>ObjectComparer</code> you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html">ObjectComparer</a></p>
 <pre><code class="lang-csharp">// Compare if two variables of the same type are equal.
 ObjectComparer.AreEqual(first, second)
 
@@ -336,7 +338,10 @@ ObjectComparer.AreStructsEqual(first, second)
 // Compare if two enumerables are equal.
 ObjectComparer.AreEnumsEqual(first, second)
 </code></pre><h3 id="the-dependencycontainer">The <code>DependencyContainer</code></h3>
-<p>Is an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them.</p>
+<p>It&#39;s an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a default instance of <code>DependencyContainer</code> called <code>Container</code> by <code>Runtime</code> class.</p>
+<p><a href="https://github.com/grumpydev/TinyIoC">TiniIoC</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer</a></p>
+<h4 id="example-1-basic-example">Example 1: Basic Example</h4>
 <pre><code class="lang-csharp">// Initialize a new instance of DependencyContainer
 var container = new DependencyContainer();
 
@@ -348,6 +353,24 @@ var resolve = container.Resolve&lt;IAnimal&gt;();
 
 // Remove a named container class registration.
 container.Unregister&lt;IAnimal&gt;();            
+</code></pre><h4 id="example-2-using-runtime-class">Example 2: Using <code>Runtime</code> class</h4>
+<p>It&#39;s a easy usage of the <code>Runtime</code> class to access the <code>Container</code> to quickly use the <code>DependencyContainer</code>.</p>
+<pre><code class="lang-csharp">// Creates/replaces a named container class registration with a given implementation and default options. 
+Runtime.Container.Register&lt;IAnimal, Dog&gt;();
+
+// Attempts to resolve a type using specified options.
+var resolve = Runtime.Container.Resolve&lt;IAnimal&gt;();
+
+// Remove a named container class registration.
+Runtime.Container.Unregister&lt;IAnimal&gt;();    
+</code></pre><h4 id="example-3-canresolve">Example 3: <code>CanResolve</code></h4>
+<p>A very handy method to determine if a type can be resolve.</p>
+<pre><code class="lang-csharp">// Using CanResolve to check if type can be resolve
+if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
+{
+    // Attempts to resolve a type using specified options.
+    Runtime.Container.Resolve&lt;IAnimal&gt;();
+}
 </code></pre></article>
           </div>
           
