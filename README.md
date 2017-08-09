@@ -427,3 +427,22 @@ ObjectComparer.AreStructsEqual(first, second)
 // Compare if two enumerables are equal.
 ObjectComparer.AreEnumsEqual(first, second)
 ```
+
+### The `DependencyContainer`
+
+Is an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them.
+
+
+```csharp
+// Initialize a new instance of DependencyContainer
+var container = new DependencyContainer();
+
+// Creates/replaces a named container class registration with a given implementation and default options. 
+container.Register<IAnimal, Cat>();
+
+// Attempts to resolve a type using specified options.
+var resolve = container.Resolve<IAnimal>();
+
+// Remove a named container class registration.
+container.Unregister<IAnimal>();            
+```
