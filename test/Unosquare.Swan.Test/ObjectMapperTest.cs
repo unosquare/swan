@@ -46,7 +46,7 @@ namespace Unosquare.Swan.Test
         public void RemoveyMapTest()
         {
             var mapper = new ObjectMapper();
-            mapper.CreateMap<User, UserDto>().RemoveMap(t => t.Email);
+            mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t.Email);
 
             var destination = mapper.Map<UserDto>(_sourceUser);
 
@@ -91,7 +91,7 @@ namespace Unosquare.Swan.Test
         {
             Assert.Throws<Exception>(() => {
                 var mapper = new ObjectMapper();
-                mapper.CreateMap<User, UserDto>().RemoveMap(t => t);
+                mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t);
             });
         }
 
