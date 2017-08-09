@@ -374,6 +374,8 @@ var destination = mapper.Map<UserDto>(user);
 
 When you are working with projects related to network or you want to extend your application to use some network functionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
 
+[Network](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html)
+
 #### Example 1: IPv4 and adapters information
 
 It's always useful to have a tool that gives you access to your adapters information and your IP address local and public and use it in your application.
@@ -414,6 +416,8 @@ var dateTime = Network.GetNetworkTimeUtc();
 
 Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
 
+[ObjectComparer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html)
+
 ```csharp
 // Compare if two variables of the same type are equal.
 ObjectComparer.AreEqual(first, second)
@@ -430,8 +434,13 @@ ObjectComparer.AreEnumsEqual(first, second)
 
 ### The `DependencyContainer`
 
-Is an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them.
+It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a default instance of `DependencyContainer` called `Container` by `Runtime` class.
 
+[TiniIoC](https://github.com/grumpydev/TinyIoC)
+
+[DependencyContainer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html)
+
+#### Example 1: Basic Example
 
 ```csharp
 // Initialize a new instance of DependencyContainer
@@ -445,4 +454,32 @@ var resolve = container.Resolve<IAnimal>();
 
 // Remove a named container class registration.
 container.Unregister<IAnimal>();            
+```
+
+#### Example 2: Using `Runtime` class
+
+It's a easy usage of the `Runtime` class to access the `Container` to quickly use the `DependencyContainer`.
+
+```csharp
+// Creates/replaces a named container class registration with a given implementation and default options. 
+Runtime.Container.Register<IAnimal, Dog>();
+
+// Attempts to resolve a type using specified options.
+var resolve = Runtime.Container.Resolve<IAnimal>();
+
+// Remove a named container class registration.
+Runtime.Container.Unregister<IAnimal>();    
+```
+
+#### Example 3: `CanResolve`
+
+A very handy method to determine if a type can be resolve.
+
+```csharp
+// Using CanResolve to check if type can be resolve
+if (Runtime.Container.CanResolve<IAnimal>())
+{
+    // Attempts to resolve a type using specified options.
+    Runtime.Container.Resolve<IAnimal>();
+}
 ```
