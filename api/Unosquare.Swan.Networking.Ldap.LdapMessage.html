@@ -92,8 +92,6 @@ Subclassed by response messages used in asynchronous operations.</p>
       <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.html">LdapAbandonRequest</a></div>
       <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapBindRequest.html">LdapBindRequest</a></div>
       <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchRequest.html">LdapSearchRequest</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchResult.html">LdapSearchResult</a></div>
       <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchResultReference.html">LdapSearchResultReference</a></div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -122,38 +120,6 @@ Subclassed by response messages used in asynchronous operations.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class LdapMessage</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage__ctor_Unosquare_Swan_Networking_Ldap_RfcLdapMessage_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.#ctor(Unosquare.Swan.Networking.Ldap.RfcLdapMessage)">LdapMessage(RfcLdapMessage)</h4>
-  <div class="markdown level1 summary"><p>Creates an Rfc 2251 LdapMessage when the libraries receive a response
-from a command.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected LdapMessage(RfcLdapMessage message)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapMessage.html">RfcLdapMessage</a></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>A response message.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="fields">Fields
   </h3>
   
@@ -308,31 +274,6 @@ INTERMEDIATE_RESONSE = 25</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_message" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.message">message</h4>
-  <div class="markdown level1 summary"><p>A request or response message for an asynchronous Ldap operation.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected RfcLdapMessage message</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapMessage.html">RfcLdapMessage</a></td>
         <td></td>
       </tr>
     </tbody>
