@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         UnbindRequest ::= [APPLICATION 2] NULL
     ///     </pre>
     /// </summary>
-    public class RfcUnbindRequest : Asn1Null, RfcRequest
+    internal class RfcUnbindRequest : Asn1Null, RfcRequest
     {
         /// <summary>
         ///     Override getIdentifier to return an application-wide id.
@@ -45,7 +45,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     /// <seealso cref="LdapBindHandler">
     /// </seealso>
-    public class LdapAuthProvider
+    internal class LdapAuthProvider
     {
         /// <summary>
         ///     Returns the distinguished name to be used for authentication on
@@ -103,7 +103,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     /// <seealso cref="LdapConstraints.ReferralFollowing">
     /// </seealso>
-    public interface LdapAuthHandler : LdapReferralHandler
+    internal interface LdapAuthHandler : LdapReferralHandler
     {
         /// <summary>
         ///     Returns an object which can provide credentials for authenticating to
@@ -122,6 +122,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         LdapAuthProvider getAuthProvider(string host, int port);
     }
+
     /// <summary>
     ///     The Base64 utility class performs base64 encoding and decoding.
     ///     The Base64 Content-Transfer-Encoding is designed to represent
@@ -131,7 +132,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     unencoded data.  The base64 encoding algorithm is defined by
     ///     RFC 2045.
     /// </summary>
-    public class Base64
+    internal class Base64
     {
         /// <summary>
         ///     Conversion table for encoding to base64.
@@ -795,6 +796,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return true;
         }
     }
+
     /// <summary>
     ///     The name and values of one attribute of a directory entry.
     ///     LdapAttribute objects are used when searching for, adding,
@@ -881,9 +883,9 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         var encoder = Encoding.GetEncoding("utf-8");
                         var dchar = encoder.GetChars(((sbyte[])values[j]).ToByteArray());
-                        //						char[] dchar = encoder.GetChars((byte[])values[j]);
+                        // char[] dchar = encoder.GetChars((byte[])values[j]);
                         sva[j] = new string(dchar);
-                        //						sva[j] = new String((sbyte[]) values[j], "UTF-8");
+                        // sva[j] = new String((sbyte[]) values[j], "UTF-8");
                     }
                     catch (IOException uee)
                     {
@@ -920,7 +922,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         var encoder = Encoding.GetEncoding("utf-8");
                         var dchar = encoder.GetChars(((sbyte[])values[0]).ToByteArray());
-                        //						char[] dchar = encoder.GetChars((byte[]) this.values[0]);
+                        // char[] dchar = encoder.GetChars((byte[]) this.values[0]);
                         rval = new string(dchar);
                     }
                     catch (IOException use)
@@ -931,6 +933,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return rval;
             }
         }
+
         /// <summary>
         ///     Returns the the first value of the attribute as a byte array.
         /// </summary>
@@ -1654,6 +1657,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return result.ToString();
         }
     }
+
     /// <summary>
     ///     A set of {@link LdapAttribute} objects.
     ///     An <code>LdapAttributeSet</code> is a collection of <code>LdapAttribute</code>
@@ -1668,7 +1672,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     /// <seealso cref="LdapEntry">
     /// </seealso>
-    public class LdapAttributeSet : SetSupport //, SupportClass.SetSupport
+    public class LdapAttributeSet : SetSupport 
     {
         /// <summary>
         ///     Returns the number of attributes in this set.
@@ -1747,6 +1751,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return (LdapAttribute)map[attrName.ToUpper()];
         }
+
         /// <summary>
         ///     Returns a single best-match attribute, or <code>null</code> if no match is
         ///     available in the entry.
@@ -2086,9 +2091,11 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 attrs = new LdapAttributeSet();
             }
+
             this.dn = dn;
             this.attrs = attrs;
         }
+
         /// <summary>
         ///     Returns the attributes matching the specified attrName.
         /// </summary>
@@ -2102,6 +2109,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return attrs.getAttribute(attrName);
         }
+
         /// <summary>
         ///     Returns the attribute set of the entry.
         ///     All base and subtype variants of all attributes are
@@ -2148,7 +2156,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapConnection.Search">
     /// </seealso>
-    public class LdapSearchResult : LdapMessage
+    internal class LdapSearchResult : LdapMessage
     {
         /// <summary>
         ///     Returns the entry of a server's search response.
@@ -2231,7 +2239,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapConnection.ExtendedOperation">
     /// </seealso>
-    public class LdapExtendedOperation
+    internal class LdapExtendedOperation
     {
         private string oid;
         private sbyte[] vals;
@@ -2312,13 +2320,14 @@ namespace Unosquare.Swan.Networking.Ldap
             oid = newoid;
         }
     }
+
     /// <summary>
     ///     Represents an Ldap Search Result Reference.
     ///     <pre>
     ///         SearchResultReference ::= [APPLICATION 19] SEQUENCE OF LdapURL
     ///     </pre>
     /// </summary>
-    public class RfcSearchResultReference : Asn1SequenceOf
+    internal class RfcSearchResultReference : Asn1SequenceOf
     {
         // Constructors for SearchResultReference
         /// <summary>
@@ -2335,8 +2344,9 @@ namespace Unosquare.Swan.Networking.Ldap
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESULT_REFERENCE);
         }
     }
+
     /// <summary> Represnts an Ldap String.</summary>
-    public class RfcLdapString : Asn1OctetString
+    internal class RfcLdapString : Asn1OctetString
     {
         public RfcLdapString(string s) : base(s)
         {
@@ -2354,7 +2364,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         LdapDN ::= LdapString
     ///     </pre>
     /// </summary>
-    public class RfcLdapDN : RfcLdapString
+    internal class RfcLdapDN : RfcLdapString
     {
         // Constructors for RfcLdapDN
         public RfcLdapDN(string s) : base(s)
@@ -2373,7 +2383,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         response         [11] OCTET STRING OPTIONAL }
     ///     </pre>
     /// </summary>
-    public class RfcExtendedResponse : Asn1Sequence, RfcResponse
+    internal class RfcExtendedResponse : Asn1Sequence, RfcResponse
     {
         public virtual RfcLdapOID ResponseName
         {
@@ -2455,7 +2465,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         serverSaslCreds    [7] OCTET STRING OPTIONAL }
     ///     </pre>
     /// </summary>
-    public class RfcBindResponse : Asn1Sequence, RfcResponse
+    internal class RfcBindResponse : Asn1Sequence, RfcResponse
     {
         /// <summary>
         ///     Returns the OPTIONAL serverSaslCreds of a BindResponse if it exists
@@ -2537,7 +2547,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     responseName     [10] LDAPOID OPTIONAL,
     ///     responseValue    [11] OCTET STRING OPTIONAL }
     /// </summary>
-    public class RfcIntermediateResponse : Asn1Sequence, RfcResponse
+    internal class RfcIntermediateResponse : Asn1Sequence, RfcResponse
     {
         /**
          * Context-specific TAG for optional responseName.

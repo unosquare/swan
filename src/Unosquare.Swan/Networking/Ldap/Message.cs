@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     ///     The class performs token processing from strings
     /// </summary>
-    public class Tokenizer
+    internal class Tokenizer
     {
         //Element list identified
         private ArrayList elements;
@@ -182,7 +182,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// dnAttributes    [4] BOOLEAN DEFAULT FALSE }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    public class RfcMatchingRuleAssertion : Asn1Sequence
+    internal class RfcMatchingRuleAssertion : Asn1Sequence
     {
         /// <summary>
         /// Creates a MatchingRuleAssertion with the only required parameter.
@@ -223,7 +223,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// AttributeDescription
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
-    public class RfcAttributeDescriptionList : Asn1SequenceOf
+    internal class RfcAttributeDescriptionList : Asn1SequenceOf
     {
         /// <summary> </summary>
         public RfcAttributeDescriptionList(int size) : base(size)
@@ -268,7 +268,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         attributes      AttributeDescriptionList }
     ///     </pre>
     /// </summary>
-    public class RfcSearchRequest : Asn1Sequence, RfcRequest
+    internal class RfcSearchRequest : Asn1Sequence, RfcRequest
     {
         public RfcSearchRequest(RfcLdapDN baseObject, Asn1Enumerated scope, Asn1Enumerated derefAliases,
             Asn1Integer sizeLimit, Asn1Integer timeLimit, Asn1Boolean typesOnly, RfcFilter filter,
@@ -345,7 +345,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         final   [2] LdapString } }
     ///     </pre>
     /// </summary>
-    public class RfcSubstringFilter : Asn1Sequence
+    internal class RfcSubstringFilter : Asn1Sequence
     {
         public RfcSubstringFilter(RfcLdapString type, Asn1SequenceOf substrings) : base(2)
         {
@@ -362,7 +362,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         assertionValue  AssertionValue }
     ///     </pre>
     /// </summary>
-    public class RfcAttributeValueAssertion : Asn1Sequence
+    internal class RfcAttributeValueAssertion : Asn1Sequence
     {
         /// <summary>
         ///     Returns the attribute description.
@@ -422,7 +422,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         extensibleMatch [9] MatchingRuleAssertion }
     ///     </pre>
     /// </summary>
-    public class RfcFilter : Asn1Choice
+    internal class RfcFilter : Asn1Choice
     {
         // Public variables for Filter
         /// <summary> Identifier for AND component.</summary>
@@ -1729,7 +1729,7 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary> Encapsulates an Ldap Bind properties</summary>
-    public class BindProperties
+    internal class BindProperties
     {
         /// <summary> gets the protocol version</summary>
         public virtual int ProtocolVersion { get; } = 3;

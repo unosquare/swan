@@ -607,15 +607,11 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         referral        [3] Referral OPTIONAL }
     ///     </pre>
     /// </summary>
-    public class RfcLdapResult : Asn1Sequence, RfcResponse
+    internal class RfcLdapResult : Asn1Sequence, RfcResponse
     {
         /// <summary> Context-specific TAG for optional Referral.</summary>
         public const int REFERRAL = 3;
-
-        //*************************************************************************
-        // Constructors for RfcLdapResult
-        //*************************************************************************
-
+        
         /// <summary>
         ///     Constructs an RfcLdapResult from parameters
         /// </summary>
@@ -675,11 +671,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
-
-        //*************************************************************************
-        // Accessors
-        //*************************************************************************
-
+        
         /// <summary>
         ///     Returns the result code from the server
         /// </summary>
@@ -731,12 +723,8 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         SearchResultDone ::= [APPLICATION 5] LdapResult
     ///     </pre>
     /// </summary>
-    public class RfcSearchResultDone : RfcLdapResult
+    internal class RfcSearchResultDone : RfcLdapResult
     {
-        //*************************************************************************
-        // Constructors for SearchResultDone
-        //*************************************************************************
-
         /// <summary> Decode a search result done from the input stream.</summary>
         
         public RfcSearchResultDone(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
@@ -762,11 +750,7 @@ namespace Unosquare.Swan.Networking.Ldap
             Asn1SequenceOf referral) : base(resultCode, matchedDN, errorMessage, referral)
         {
         }
-
-        //*************************************************************************
-        // Accessors
-        //*************************************************************************
-
+        
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()
         {
@@ -782,7 +766,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         attributes      PartialAttributeList }
     ///     </pre>
     /// </summary>
-    public class RfcSearchResultEntry : Asn1Sequence
+    internal class RfcSearchResultEntry : Asn1Sequence
     {
         /// <summary> </summary>
         public virtual Asn1OctetString ObjectName
@@ -802,12 +786,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         public RfcSearchResultEntry(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
-            // Decode objectName
-            //      set(0, new RfcLdapDN(((Asn1OctetString)get(0)).stringValue()));
-
-            // Create PartitalAttributeList. This does not need to be decoded, only
-            // typecast.
-            //      set(1, new PartitalAttributeList());
         }
         
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
@@ -879,7 +857,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         Controls ::= SEQUENCE OF Control
     ///     </pre>
     /// </summary>
-    public class RfcControls : Asn1SequenceOf
+    internal class RfcControls : Asn1SequenceOf
     {
         /// <summary> Controls context specific tag</summary>
         public const int CONTROLS = 0;
@@ -904,11 +882,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Set(i, tempControl);
             }
         }
-
-        //*************************************************************************
-        // Mutators
-        //*************************************************************************
-
+        
         /// <summary> Override add() of Asn1SequenceOf to only accept a Control type.</summary>
         public void add(RfcControl control)
         {
@@ -920,11 +894,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             base.Set(index, control);
         }
-
-        //*************************************************************************
-        // Accessors
-        //*************************************************************************
-
+        
         /// <summary> Override getIdentifier to return a context specific id.</summary>
         public override Asn1Identifier GetIdentifier()
         {
@@ -938,7 +908,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     If the protocol operation of the RfcLdapMessage is of this type,
     ///     it contains at least an RfcLdapResult.
     /// </summary>
-    public interface RfcResponse
+    internal interface RfcResponse
     {
         /// <summary> </summary>
         Asn1Enumerated getResultCode();
@@ -1001,7 +971,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     constructor should be package protected. (So the MessageID value
     ///     isn't arbitrarily run up.)
     /// </summary>
-    public class RfcLdapMessage : Asn1Sequence
+    internal class RfcLdapMessage : Asn1Sequence
     {
         /// <summary> Returns this RfcLdapMessage's messageID as an int.</summary>
         public virtual int MessageID
@@ -1554,7 +1524,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int INTERMEDIATE_RESPONSE = 25;
 
         /// <summary> A request or response message for an asynchronous Ldap operation.</summary>
-        protected internal RfcLdapMessage message;
+        internal RfcLdapMessage message;
 
         /// <summary> Lock object to protect counter for message numbers</summary>
         /// <summary>
@@ -1617,7 +1587,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="message">
         ///     A response message.
         /// </param>
-        protected internal LdapMessage(RfcLdapMessage message)
+        internal LdapMessage(RfcLdapMessage message)
         {
             this.message = message;
         }
@@ -1726,7 +1696,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     The response can contain the OID of the extension, an octet string
     ///     with the operation's data, both, or neither.
     /// </summary>
-    public class LdapExtendedResponse : LdapResponse
+    internal class LdapExtendedResponse : LdapResponse
     {
         /// <summary>
         ///     Returns the message identifier of the response.

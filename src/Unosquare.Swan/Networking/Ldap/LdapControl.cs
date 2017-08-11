@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Unosquare.Swan.Networking.Ldap
 {
@@ -17,7 +16,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// credentials             OCTET STRING OPTIONAL }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    public class RfcSaslCredentials : Asn1Sequence
+    internal class RfcSaslCredentials : Asn1Sequence
     {
         public RfcSaslCredentials(RfcLdapString mechanism) : this(mechanism, null)
         {
@@ -40,7 +39,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// sasl                    [3] SaslCredentials }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Choice" />
-    public class RfcAuthenticationChoice : Asn1Choice
+    internal class RfcAuthenticationChoice : Asn1Choice
     {
         public RfcAuthenticationChoice(Asn1Tagged choice) : base(choice)
         {
@@ -66,7 +65,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.RfcRequest" />
-    public class RfcBindRequest : Asn1Sequence, RfcRequest
+    internal class RfcBindRequest : Asn1Sequence, RfcRequest
     {
         /// <summary> Sets the protocol version</summary>
         public virtual Asn1Integer Version
@@ -1819,12 +1818,8 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
     }
-
-    /*
-        * Represents an LdapOID.
-        */
-
-    public class RfcLdapOID : Asn1OctetString
+    
+    internal class RfcLdapOID : Asn1OctetString
     {
         public RfcLdapOID(string s) : base(s)
         {
@@ -1844,7 +1839,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         controlValue            OCTET STRING OPTIONAL }
     ///     </pre>
     /// </summary>
-    public class RfcControl : Asn1Sequence
+    internal class RfcControl : Asn1Sequence
     {
         public virtual Asn1OctetString ControlType => (Asn1OctetString) Get(0);
 
@@ -2036,7 +2031,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary> Create an LdapControl from an existing control.</summary>
-        protected internal LdapControl(RfcControl control)
+        internal LdapControl(RfcControl control)
         {
             this.control = control;
         }

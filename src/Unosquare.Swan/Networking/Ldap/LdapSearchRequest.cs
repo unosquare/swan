@@ -29,7 +29,7 @@ namespace Unosquare.Swan.Networking.Ldap
      *               filter          Filter,
      *               attributes      AttributeDescriptionList }
      */
-    public class LdapSearchRequest : LdapMessage
+    internal class LdapSearchRequest : LdapMessage
     {
         /// <summary>
         ///     Retrieves the Base DN for a search request.
