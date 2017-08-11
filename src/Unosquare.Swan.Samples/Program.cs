@@ -1,5 +1,7 @@
 ﻿namespace Unosquare.Swan.Samples
 {
+    using System.Threading.Tasks;
+    using Networking.Ldap;
     using Formatters;
     using System;
     using System.Collections.Generic;
@@ -16,6 +18,28 @@
         public static void Main(string[] args)
         {
             Runtime.WriteWelcomeBanner(ConsoleColor.Green);
+#if !NET46
+            Task.Factory.StartNew(async () =>
+            {
+                var cn = new LdapConnection();
+                await cn.Connect("ldap.forumsys.com", 389);
+                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+
+                var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
+
+                while (lsc.hasMore())
+                {
+                    var entry = lsc.next();
+                    var ldapAttributes = entry.getAttributeSet();
+
+                    $"{ldapAttributes.getAttribute("uniqueMember")?.StringValue ?? string.Empty}"
+                        .Info();
+                }
+
+                //While all the entries are parsed, disconnect   
+                cn.Disconnect();
+            });
+#endif
             TestApplicationInfo();
             // TestNetworkUtilities();
             //TestContainerAndMessageHub();
