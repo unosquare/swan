@@ -41,9 +41,6 @@
         /// <returns>Returns the number of properties that were successfully copied</returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
         {
-            // TODO: Add recursive so child objects can be copied also
-            var copiedProperties = 0;
-
             // Sources
             var sourceType = source.GetType();
             var sourceProperties = CopyPropertiesSources.Value.Retrieve(sourceType, () =>
@@ -70,14 +67,82 @@
                                         .Select(p => p.ToLowerInvariant())
                                         .ToArray() ?? new string[] { };
 
+            return CopyHelper(filteredSourceProperties, targetProperties, source, target, null, ignoredProperties);
+        }
+
+        /// <summary>
+        /// Iterates over the public, instance, readable properties of the source and
+        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// This method only supports basic types and it is not multi level
+        /// </summary>
+        /// <typeparam name="T">The type of the source.</typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>Number of properties that was copied successful</returns>
+        public static int CopyOnlyPropertiesTo<T>(this T source, object target)
+        {
+            return CopyOnlyPropertiesTo(source, target, null);
+        }
+
+        /// <summary>
+        /// Iterates over the public, instance, readable properties of the source and
+        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// This method only supports basic types and it is not multi level
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The destination.</param>
+        /// <param name="propertiesToCopy">Properties to copy.</param>
+        /// <returns>Returns the number of properties that were successfully copied</returns>
+        public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
+        {
+            // Sources
+            var sourceType = source.GetType();
+            var sourceProperties = CopyPropertiesSources.Value.Retrieve(sourceType, () =>
+            {
+                return sourceType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(x => x.CanRead && Definitions.AllBasicTypes.Contains(x.PropertyType));
+            });
+
+            // Targets
+            var targetType = target.GetType();
+            var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
+            {
+                return targetType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
+            });
+
+            // Filter properties
+            var targetPropertyNames = targetProperties.Select(t => t.Name.ToLowerInvariant());
+            var filteredSourceProperties = sourceProperties
+                .Where(s => targetPropertyNames.Contains(s.Name.ToLowerInvariant()))
+                .ToArray();
+
+            var requiredProperties = propertiesToCopy?.Where(p => string.IsNullOrWhiteSpace(p) == false)
+                                        .Select(p => p.ToLowerInvariant())
+                                        .ToArray() ?? new string[] { };
+
+            return CopyHelper(filteredSourceProperties, targetProperties, source, target, requiredProperties, null);
+        }
+
+        private static int CopyHelper(
+            PropertyInfo[] filteredSourceProperties,
+            PropertyInfo[] targetProperties,
+            object source,
+            object target,
+            string[] requiredProperties = null,
+            string[] ignoredProperties = null)
+        {
+            var copiedProperties = 0;
             // Copy source properties
             foreach (var sourceProperty in filteredSourceProperties)
             {
                 var targetProperty = targetProperties.SingleOrDefault(s => s.Name.ToLowerInvariant() == sourceProperty.Name.ToLowerInvariant());
                 if (targetProperty == null) continue;
+                
+                if (requiredProperties != null && requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()) == false)
+                    continue;
 
-                // Skip over ignored properties
-                if (ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
+                if (ignoredProperties != null && ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
                     continue;
 
                 try

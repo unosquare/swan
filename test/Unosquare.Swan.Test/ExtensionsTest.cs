@@ -36,6 +36,19 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
+        public void OnlyPropertiesTest()
+        {
+            var source = BasicJson.GetDefault();
+            var destination = new BasicJson();
+            string[] Only = { "NegativeInt", "BoolData" };
+            source.CopyOnlyPropertiesTo(destination, Only);
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
+            Assert.AreNotEqual(source.StringData, destination.StringData);
+        }
+
+        [Test]
         public void CopyPropertiesToNewTest()
         {
             var source = BasicJson.GetDefault();
