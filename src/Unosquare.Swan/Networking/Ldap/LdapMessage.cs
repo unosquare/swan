@@ -795,16 +795,11 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get { return (Asn1Sequence)Get(1); }
         }
-
-        //*************************************************************************
-        // Constructors for SearchResultEntry
-        //*************************************************************************
-
+        
         /// <summary>
         ///     The only time a client will create a SearchResultEntry is when it is
         ///     decoding it from an InputStream
         /// </summary>
-        
         public RfcSearchResultEntry(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
             // Decode objectName
@@ -814,11 +809,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // typecast.
             //      set(1, new PartitalAttributeList());
         }
-
-        //*************************************************************************
-        // Accessors
-        //*************************************************************************
-
+        
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()
         {
@@ -892,11 +883,7 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         /// <summary> Controls context specific tag</summary>
         public const int CONTROLS = 0;
-
-        //*************************************************************************
-        // Constructors for Controls
-        //*************************************************************************
-
+        
         /// <summary>
         ///     Constructs a Controls object. This constructor is used in combination
         ///     with the add() method to construct a set of Controls to send to the
@@ -1135,7 +1122,6 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary> Will decode an RfcLdapMessage directly from an InputStream.</summary>
-        
         public RfcLdapMessage(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
             sbyte[] content;

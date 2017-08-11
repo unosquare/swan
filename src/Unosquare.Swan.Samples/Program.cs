@@ -21,23 +21,30 @@
 #if !NET46
             Task.Factory.StartNew(async () =>
             {
-                var cn = new LdapConnection();
-                await cn.Connect("ldap.forumsys.com", 389);
-                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-
-                var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
-
-                while (lsc.hasMore())
+                try
                 {
-                    var entry = lsc.next();
-                    var ldapAttributes = entry.getAttributeSet();
+                    var cn = new LdapConnection();
 
-                    $"{ldapAttributes.getAttribute("uniqueMember")?.StringValue ?? string.Empty}"
-                        .Info();
+                    await cn.Connect("ldap.forumsys.com", 389);
+                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+
+                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
+
+                    while (lsc.hasMore())
+                    {
+                        var entry = lsc.next();
+                        var ldapAttributes = entry.getAttributeSet();
+
+                        Console.WriteLine($"{ldapAttributes.getAttribute("uniqueMember")?.StringValue ?? string.Empty}");
+                    }
+
+                    //While all the entries are parsed, disconnect   
+                    cn.Disconnect();
                 }
-
-                //While all the entries are parsed, disconnect   
-                cn.Disconnect();
+                catch (Exception ex)
+                {
+                    ex.Error(nameof(Main), "Error LDAP");
+                }
             });
 #endif
             TestApplicationInfo();
@@ -46,9 +53,9 @@
             //TestJson();
             //TestExceptionLogging();
             //TestTerminalOutputs();
-            TestFastOutputAndReadPrompt();
+            //TestFastOutputAndReadPrompt();
             // TestCsvFormatters();
-            Terminal.Flush();
+            //Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
         }
 

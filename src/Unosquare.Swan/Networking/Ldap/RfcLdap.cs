@@ -2062,6 +2062,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapEntry(string dn) : this(dn, null)
         {
         }
+
         /// <summary>
         ///     Constructs a new entry with the specified distinguished name and set
         ///     of attributes.
@@ -2181,34 +2182,36 @@ namespace Unosquare.Swan.Networking.Ldap
                 return entry;
             }
         }
+
         private LdapEntry entry;
+
         /// <summary>
         ///     Constructs an LdapSearchResult object.
         /// </summary>
         /// <param name="message">
         ///     The RfcLdapMessage with a search result.
         /// </param>
-        /*package*/
-        internal LdapSearchResult(RfcLdapMessage message) : base(message)
+        internal LdapSearchResult(RfcLdapMessage message) 
+            : base(message)
         {
         }
+
         /// <summary>
         ///     Constructs an LdapSearchResult object from an LdapEntry.
         /// </summary>
         /// <param name="entry">
         ///     the LdapEntry represented by this search result.
         /// </param>
-        /// <param name="cont">
-        ///     controls associated with the search result
-        /// </param>
-        public LdapSearchResult(LdapEntry entry, LdapControl[] cont)
+        public LdapSearchResult(LdapEntry entry)
         {
             if (entry == null)
             {
                 throw new ArgumentException("Argument \"entry\" cannot be null");
             }
+
             this.entry = entry;
         }
+
         /// <summary>
         ///     Return a String representation of this object.
         /// </summary>
@@ -2217,18 +2220,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override string ToString()
         {
-            string str;
-            if (entry == null)
-            {
-                str = base.ToString();
-            }
-            else
-            {
-                str = entry.ToString();
-            }
-            return str;
+            return entry == null ? base.ToString() : entry.ToString();
         }
     }
+
     /// <summary>
     ///     Encapsulates an ID which uniquely identifies a particular extended
     ///     operation, known to a particular server, and the data associated
@@ -2240,6 +2235,7 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         private string oid;
         private sbyte[] vals;
+
         /// <summary>
         ///     Constructs a new object with the specified object ID and data.
         /// </summary>
@@ -2254,6 +2250,7 @@ namespace Unosquare.Swan.Networking.Ldap
             this.oid = oid;
             this.vals = vals;
         }
+
         /// <summary>
         ///     Returns a clone of this object.
         /// </summary>

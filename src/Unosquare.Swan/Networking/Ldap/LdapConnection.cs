@@ -2,6 +2,8 @@
 // Base on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -70,6 +72,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return prop.Anonymous ? null : prop.AuthenticationDN;
             }
         }
+
         /// <summary>
         ///     Returns the method used to authenticate the connection. The return
         ///     value is one of the following:
@@ -85,7 +88,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The method used to authenticate the connection.
         /// </returns>
-        public virtual string AuthenticationMethod => BindProperties == null ? "simple" : BindProperties.AuthenticationMethod;
+        public virtual string AuthenticationMethod
+            => BindProperties == null ? "simple" : BindProperties.AuthenticationMethod;
 
         /// <summary>
         ///     Returns the properties if any specified on binding with a
@@ -121,6 +125,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return BindProperties.SaslCallbackHandler;
             }
         }
+
         /// <summary>
         ///     Returns a copy of the set of constraints associated with this
         ///     connection. These constraints apply to all operations performed
@@ -176,6 +181,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 defSearchCons = newCons;
             }
         }
+
         ///// <summary>
         /////     Returns the host name of the Ldap server to which the object is or
         /////     was last connected, in the format originally specified.
@@ -248,6 +254,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     True if connection is open; false if the connection is closed.
         /// </returns>
         public virtual bool Connected => conn?.IsConnected == true;
+
         /// <summary>
         ///     Indicatates if the connection is protected by TLS.
         /// </summary>
@@ -305,6 +312,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return clonedControl;
             }
         }
+
         /// <summary>
         ///     Return the Connection object associated with this LdapConnection
         /// </summary>
@@ -329,36 +337,42 @@ namespace Unosquare.Swan.Networking.Ldap
         private static object nameLock; // protect agentNum
         private static int lConnNum = 0; // Debug, LdapConnection number
         private string name; // String name for debug
+
         /// <summary>
         ///     Used with search to specify that the scope of entrys to search is to
         ///     search only the base obect.
         ///     SCOPE_BASE = 0
         /// </summary>
         public const int SCOPE_BASE = 0;
+
         /// <summary>
         ///     Used with search to specify that the scope of entrys to search is to
         ///     search only the immediate subordinates of the base obect.
         ///     SCOPE_ONE = 1
         /// </summary>
         public const int SCOPE_ONE = 1;
+
         /// <summary>
         ///     Used with search to specify that the scope of entrys to search is to
         ///     search the base object and all entries within its subtree.
         ///     SCOPE_ONE = 2
         /// </summary>
         public const int SCOPE_SUB = 2;
+
         /// <summary>
         ///     Used with search instead of an attribute list to indicate that no
         ///     attributes are to be returned.
         ///     NO_ATTRS = "1.1"
         /// </summary>
         public const string NO_ATTRS = "1.1";
+
         /// <summary>
         ///     Used with search instead of an attribute list to indicate that all
         ///     attributes are to be returned.
         ///     ALL_USER_ATTRS = "*"
         /// </summary>
         public const string ALL_USER_ATTRS = "*";
+
         /// <summary>
         ///     Specifies the Ldapv3 protocol version when performing a bind operation.
         ///     Specifies Ldap version V3 of the protocol, and is specified
@@ -369,6 +383,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Ldap_V3 = 3
         /// </summary>
         public const int Ldap_V3 = 3;
+
         /// <summary>
         ///     The default port number for Ldap servers.
         ///     You can use this identifier to specify the port when establishing
@@ -376,6 +391,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     DEFAULT_PORT = 389
         /// </summary>
         public const int DEFAULT_PORT = 389;
+
         /// <summary>
         ///     The default SSL port number for Ldap servers.
         ///     DEFAULT_SSL_PORT = 636
@@ -383,12 +399,14 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     a an SSL connection to a server..
         /// </summary>
         public const int DEFAULT_SSL_PORT = 636;
+
         /// <summary>
         ///     A string that can be passed in to the getProperty method.
         ///     Ldap_PROPERTY_SDK = "version.sdk"
         ///     You can use this string to request the version of the SDK.
         /// </summary>
         public const string Ldap_PROPERTY_SDK = "version.sdk";
+
         /// <summary>
         ///     A string that can be passed in to the getProperty method.
         ///     Ldap_PROPERTY_PROTOCOL = "version.protocol"
@@ -396,6 +414,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Ldap protocol.
         /// </summary>
         public const string Ldap_PROPERTY_PROTOCOL = "version.protocol";
+
         /// <summary>
         ///     A string that can be passed in to the getProperty method.
         ///     Ldap_PROPERTY_SECURITY = "version.security"
@@ -403,6 +422,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     being used.
         /// </summary>
         public const string Ldap_PROPERTY_SECURITY = "version.security";
+
         /// <summary>
         ///     A string that corresponds to the server shutdown notification OID.
         ///     This notification may be used by the server to advise the client that
@@ -411,8 +431,10 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     SERVER_SHUTDOWN_OID = "1.3.6.1.4.1.1466.20036"
         /// </summary>
         public const string SERVER_SHUTDOWN_OID = "1.3.6.1.4.1.1466.20036";
+
         /// <summary> The OID string that identifies a StartTLS request and response.</summary>
         private const string START_TLS_OID = "1.3.6.1.4.1.1466.20037";
+
         /// <summary>
         ///     Constructs a new LdapConnection object, which will use the supplied
         ///     class factory to construct a socket connection during
@@ -423,6 +445,7 @@ namespace Unosquare.Swan.Networking.Ldap
             defSearchCons = new LdapSearchConstraints();
             responseCtlSemaphore = new object();
         }
+
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
@@ -430,6 +453,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             Dispose(true);
         }
+
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
@@ -442,6 +466,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Disconnect();
             }
         }
+
         /// <summary>
         ///     Returns a property of a connection object.
         /// </summary>
@@ -485,6 +510,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return "simple";
             return null;
         }
+
         /// <summary>
         ///     Starts Transport Layer Security (TLS) protocol on this connection
         ///     to enable session privacy.
@@ -609,6 +635,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             await Bind(Ldap_V3, dn, passwd, cons);
         }
+
         /// <summary>
         ///     Synchronously authenticates to the Ldap server (that the object is
         ///     currently connected to) using the specified name, password, Ldap version,
@@ -683,7 +710,7 @@ namespace Unosquare.Swan.Networking.Ldap
             dn = string.IsNullOrEmpty(dn) ? "" : dn.Trim();
 
             if (passwd == null)
-                passwd = new sbyte[] { };
+                passwd = new sbyte[] {};
 
             var anonymous = false;
 
@@ -693,11 +720,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 dn = ""; // set to null if anonymous
             }
             var msg = new LdapBindRequest(version, dn, passwd, (cons ?? defSearchCons).getControls());
-            
+
             BindProperties = new BindProperties(version, dn, "simple", anonymous, null, null);
 
             await RequestLdapMessage(msg);
         }
+
+        private CancellationTokenSource cts = new CancellationTokenSource();
 
         /// <summary>
         /// Connects to the specified host and port.
@@ -718,6 +747,9 @@ namespace Unosquare.Swan.Networking.Ldap
             conn = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 0);
             conn.ConnectionFailure += Conn_ConnectionFailure;
             conn.ClientDisconnected += Conn_ClientDisconnected;
+
+            // TODO: how to stop?
+            Task.Factory.StartNew(RetrieveMessages, cts.Token);
         }
 
         private void Conn_ClientDisconnected(object sender, EventArgs e)
@@ -729,7 +761,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         ///     Synchronously disconnects from the Ldap server.
         ///     Before the object can perform Ldap operations again, it must
@@ -746,6 +778,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // disconnect from API call
             conn.Disconnect();
         }
+
         // TODO: REAL
         //Task.Factory.StartNew(() =>
         //    {
@@ -802,13 +835,22 @@ namespace Unosquare.Swan.Networking.Ldap
         //            }
         //        }
 
-        internal async Task<RfcLdapMessage> RequestLdapMessage(LdapMessage msg, CancellationToken ct = default(CancellationToken))
+        internal async Task RequestLdapMessage(LdapMessage msg,
+            CancellationToken ct = default(CancellationToken))
         {
             var encoder = new LBEREncoder();
-            var decoder = new LBERDecoder();
-
             var ber = msg.Asn1Object.GetEncoding(encoder);
             await conn.WriteDataAsync(ber.ToByteArray(), true, ct);
+
+            while (new List<RfcLdapMessage>(messages).Any(x => x.MessageID == msg.MessageID) == false)
+                await Task.Delay(100, ct);
+        }
+
+        internal List<RfcLdapMessage> messages { get; } = new List<RfcLdapMessage>();
+
+        internal void RetrieveMessages()
+        {
+            var decoder = new LBERDecoder();
 
             while (true)
             {
@@ -818,10 +860,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     continue; // loop looking for an RfcLdapMessage identifier
                 }
+
                 // Turn the message into an RfcMessage class
                 var asn1Len = new Asn1Length(conn.ActiveStream);
 
-                return new RfcLdapMessage(decoder, conn.ActiveStream, asn1Len.Length);
+                messages.Add(new RfcLdapMessage(decoder, conn.ActiveStream, asn1Len.Length));
             }
         }
 
@@ -847,19 +890,21 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </exception>
         public async Task<LdapEntry> Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null)
         {
-            var sr = await Search(dn, SCOPE_BASE, null, attrs, false, cons ?? defSearchCons);
-            LdapEntry ret = null;
-            if (sr.hasMore())
-            {
-                ret = sr.next();
-                if (sr.hasMore())
-                {
-                    // "Read response is ambiguous, multiple entries returned"
-                    throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapException.AMBIGUOUS_RESPONSE);
-                }
-            }
-            return ret;
+            throw new NotImplementedException();
+            //var sr = await Search(dn, SCOPE_BASE, null, attrs, false, cons ?? defSearchCons);
+            //LdapEntry ret = null;
+            //if (sr.hasMore())
+            //{
+            //    ret = sr.next();
+            //    if (sr.hasMore())
+            //    {
+            //        // "Read response is ambiguous, multiple entries returned"
+            //        throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapException.AMBIGUOUS_RESPONSE);
+            //    }
+            //}
+            //return ret;
         }
+
         /// <summary>
         ///  Performs the search specified by the parameters,
         ///     also allowing specification of constraints for the search (such
@@ -909,12 +954,11 @@ namespace Unosquare.Swan.Networking.Ldap
             var msg = new LdapSearchRequest(@base, scope, filter, attrs, cons.Dereference, cons.MaxResults,
                 cons.ServerTimeLimit, typesOnly, cons.getControls());
 
-            var response = await RequestLdapMessage(msg);
-
-            //var results = new LdapSearchResult();
-            // TODO: Get Result
-            return null;
+            await RequestLdapMessage(msg);
+            
+            return new LdapSearchResults(this, msg.MessageID);
         }
     }
 }
+
 #endif
