@@ -13328,15 +13328,12 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapSearchResult
   fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResult
   nameWithType: LdapSearchResult
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchResult.#ctor(Unosquare.Swan.Networking.Ldap.LdapEntry,Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name: LdapSearchResult(LdapEntry, LdapControl[])
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResult.html#Unosquare_Swan_Networking_Ldap_LdapSearchResult__ctor_Unosquare_Swan_Networking_Ldap_LdapEntry_Unosquare_Swan_Networking_Ldap_LdapControl___
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapSearchResult.#ctor(Unosquare.Swan.Networking.Ldap.LdapEntry,Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name.vb: LdapSearchResult(LdapEntry, LdapControl())
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResult.LdapSearchResult(Unosquare.Swan.Networking.Ldap.LdapEntry, Unosquare.Swan.Networking.Ldap.LdapControl[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapSearchResult.LdapSearchResult(Unosquare.Swan.Networking.Ldap.LdapEntry, Unosquare.Swan.Networking.Ldap.LdapControl())
-  nameWithType: LdapSearchResult.LdapSearchResult(LdapEntry, LdapControl[])
-  nameWithType.vb: LdapSearchResult.LdapSearchResult(LdapEntry, LdapControl())
+- uid: Unosquare.Swan.Networking.Ldap.LdapSearchResult.#ctor(Unosquare.Swan.Networking.Ldap.LdapEntry)
+  name: LdapSearchResult(LdapEntry)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResult.html#Unosquare_Swan_Networking_Ldap_LdapSearchResult__ctor_Unosquare_Swan_Networking_Ldap_LdapEntry_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapSearchResult.#ctor(Unosquare.Swan.Networking.Ldap.LdapEntry)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResult.LdapSearchResult(Unosquare.Swan.Networking.Ldap.LdapEntry)
+  nameWithType: LdapSearchResult.LdapSearchResult(LdapEntry)
 - uid: Unosquare.Swan.Networking.Ldap.LdapSearchResult.#ctor*
   name: LdapSearchResult
   href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResult.html#Unosquare_Swan_Networking_Ldap_LdapSearchResult__ctor_
@@ -13427,30 +13424,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchResults.next
   fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResults.next
   nameWithType: LdapSearchResults.next
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchResults.ResponseControls
-  name: ResponseControls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResults.html#Unosquare_Swan_Networking_Ldap_LdapSearchResults_ResponseControls
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapSearchResults.ResponseControls
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResults.ResponseControls
-  nameWithType: LdapSearchResults.ResponseControls
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchResults.ResponseControls*
-  name: ResponseControls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResults.html#Unosquare_Swan_Networking_Ldap_LdapSearchResults_ResponseControls_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchResults.ResponseControls
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResults.ResponseControls
-  nameWithType: LdapSearchResults.ResponseControls
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchResults.SetSize(ArrayList,System.Int32)
-  name: SetSize(ArrayList, Int32)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResults.html#Unosquare_Swan_Networking_Ldap_LdapSearchResults_SetSize_ArrayList_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapSearchResults.SetSize(ArrayList,System.Int32)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResults.SetSize(ArrayList, System.Int32)
-  nameWithType: LdapSearchResults.SetSize(ArrayList, Int32)
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchResults.SetSize*
-  name: SetSize
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResults.html#Unosquare_Swan_Networking_Ldap_LdapSearchResults_SetSize_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchResults.SetSize
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResults.SetSize
-  nameWithType: LdapSearchResults.SetSize
 - uid: Unosquare.Swan.Networking.Ldap.LdapUrl
   name: LdapUrl
   href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html
