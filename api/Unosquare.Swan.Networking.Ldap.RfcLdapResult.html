@@ -1,0 +1,523 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RfcLdapResult
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RfcLdapResult
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.22.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult" class="text-break">Class RfcLdapResult
+  </h1>
+  <div class="markdown level0 summary"><p>Represents an LdapResult.</p>
+<pre>
+    LdapResult ::= SEQUENCE {
+    resultCode      ENUMERATED {
+    success                      (0),
+    operationsError              (1),
+    protocolError                (2),
+    timeLimitExceeded            (3),
+    sizeLimitExceeded            (4),
+    compareFalse                 (5),
+    compareTrue                  (6),
+    authMethodNotSupported       (7),
+    strongAuthRequired           (8),
+    -- 9 reserved --
+    referral                     (10),  -- new
+    adminLimitExceeded           (11),  -- new
+    unavailableCriticalExtension (12),  -- new
+    confidentialityRequired      (13),  -- new
+    saslBindInProgress           (14),  -- new
+    noSuchAttribute              (16),
+    undefinedAttributeType       (17),
+    inappropriateMatching        (18),
+    constraintViolation          (19),
+    attributeOrValueExists       (20),
+    invalidAttributeSyntax       (21),
+    -- 22-31 unused --
+    noSuchObject                 (32),
+    aliasProblem                 (33),
+    invalidDNSyntax              (34),
+    -- 35 reserved for undefined isLeaf --
+    aliasDereferencingProblem    (36),
+    -- 37-47 unused --
+    inappropriateAuthentication  (48),
+    invalidCredentials           (49),
+    insufficientAccessRights     (50),
+    busy                         (51),
+    unavailable                  (52),
+    unwillingToPerform           (53),
+    loopDetect                   (54),
+    -- 55-63 unused --
+    namingViolation              (64),
+    objectClassViolation         (65),
+    notAllowedOnNonLeaf          (66),
+    notAllowedOnRDN              (67),
+    entryAlreadyExists           (68),
+    objectClassModsProhibited    (69),
+    -- 70 reserved for CLdap --
+    affectsMultipleDSAs          (71), -- new
+    -- 72-79 unused --
+    other                        (80) },
+    -- 81-90 reserved for APIs --
+    matchedDN       LdapDN,
+    errorMessage    LdapString,
+    referral        [3] Referral OPTIONAL }
+</pre>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html">Asn1Object</a></div>
+    <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html">Asn1Structured</a></div>
+    <div class="level3"><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Sequence.html">Asn1Sequence</a></div>
+    <div class="level4"><span class="xref">RfcLdapResult</span></div>
+  </div>
+      <div class="level5"><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcSearchResultDone.html">RfcSearchResultDone</a></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Sequence.html#Unosquare_Swan_Networking_Ldap_Asn1Sequence_TAG">Asn1Sequence.TAG</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Sequence.html#Unosquare_Swan_Networking_Ldap_Asn1Sequence_ToString">Asn1Sequence.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Encode_Unosquare_Swan_Networking_Ldap_Asn1Encoder_Stream_">Asn1Structured.Encode(Asn1Encoder, Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_DecodeStructured_Unosquare_Swan_Networking_Ldap_Asn1Decoder_Stream_System_Int32_">Asn1Structured.DecodeStructured(Asn1Decoder, Stream, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_ToArray">Asn1Structured.ToArray()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Add_Unosquare_Swan_Networking_Ldap_Asn1Object_">Asn1Structured.Add(Asn1Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Set_System_Int32_Unosquare_Swan_Networking_Ldap_Asn1Object_">Asn1Structured.Set(Int32, Asn1Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Get_System_Int32_">Asn1Structured.Get(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_Size">Asn1Structured.Size()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Structured.html#Unosquare_Swan_Networking_Ldap_Asn1Structured_ToString_System_String_">Asn1Structured.ToString(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetIdentifier">Asn1Object.GetIdentifier()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_SetIdentifier_Unosquare_Swan_Networking_Ldap_Asn1Identifier_">Asn1Object.SetIdentifier(Asn1Identifier)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Object.html#Unosquare_Swan_Networking_Ldap_Asn1Object_GetEncoding_Unosquare_Swan_Networking_Ldap_Asn1Encoder_">Asn1Object.GetEncoding(Asn1Encoder)</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class RfcLdapResult : Asn1Sequence, RfcResponse</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_RfcLdapResult__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult__ctor_Unosquare_Swan_Networking_Ldap_Asn1Decoder_Stream_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.#ctor(Unosquare.Swan.Networking.Ldap.Asn1Decoder,Stream,System.Int32)">RfcLdapResult(Asn1Decoder, Stream, Int32)</h4>
+  <div class="markdown level1 summary"><p>Constructs an RfcLdapResult from the inputstream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RfcLdapResult(Asn1Decoder dec, Stream in_Renamed, int len)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Decoder.html">Asn1Decoder</a></td>
+        <td><span class="parametername">dec</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Stream</span></td>
+        <td><span class="parametername">in_Renamed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">len</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_RfcLdapResult__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult__ctor_Unosquare_Swan_Networking_Ldap_Asn1Enumerated_Unosquare_Swan_Networking_Ldap_RfcLdapDN_Unosquare_Swan_Networking_Ldap_RfcLdapString_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.#ctor(Unosquare.Swan.Networking.Ldap.Asn1Enumerated,Unosquare.Swan.Networking.Ldap.RfcLdapDN,Unosquare.Swan.Networking.Ldap.RfcLdapString)">RfcLdapResult(Asn1Enumerated, RfcLdapDN, RfcLdapString)</h4>
+  <div class="markdown level1 summary"><p>Constructs an RfcLdapResult from parameters</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html">Asn1Enumerated</a></td>
+        <td><span class="parametername">resultCode</span></td>
+        <td><p>the result code of the operation</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapDN.html">RfcLdapDN</a></td>
+        <td><span class="parametername">matchedDN</span></td>
+        <td><p>the matched DN returned from the server</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapString.html">RfcLdapString</a></td>
+        <td><span class="parametername">errorMessage</span></td>
+        <td><p>the diagnostic message returned from the server</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_RfcLdapResult__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult__ctor_Unosquare_Swan_Networking_Ldap_Asn1Enumerated_Unosquare_Swan_Networking_Ldap_RfcLdapDN_Unosquare_Swan_Networking_Ldap_RfcLdapString_Unosquare_Swan_Networking_Ldap_Asn1SequenceOf_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.#ctor(Unosquare.Swan.Networking.Ldap.Asn1Enumerated,Unosquare.Swan.Networking.Ldap.RfcLdapDN,Unosquare.Swan.Networking.Ldap.RfcLdapString,Unosquare.Swan.Networking.Ldap.Asn1SequenceOf)">RfcLdapResult(Asn1Enumerated, RfcLdapDN, RfcLdapString, Asn1SequenceOf)</h4>
+  <div class="markdown level1 summary"><p>Constructs an RfcLdapResult from parameters</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html">Asn1Enumerated</a></td>
+        <td><span class="parametername">resultCode</span></td>
+        <td><p>the result code of the operation</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapDN.html">RfcLdapDN</a></td>
+        <td><span class="parametername">matchedDN</span></td>
+        <td><p>the matched DN returned from the server</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapString.html">RfcLdapString</a></td>
+        <td><span class="parametername">errorMessage</span></td>
+        <td><p>the diagnostic message returned from the server</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf.html">Asn1SequenceOf</a></td>
+        <td><span class="parametername">referral</span></td>
+        <td><p>the referral(s) returned by the server</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_REFERRAL" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.REFERRAL">REFERRAL</h4>
+  <div class="markdown level1 summary"><p>Context-specific TAG for optional Referral.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int REFERRAL = 3</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getErrorMessage_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getErrorMessage*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getErrorMessage" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getErrorMessage">getErrorMessage()</h4>
+  <div class="markdown level1 summary"><p>Returns the error message from the server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RfcLdapString getErrorMessage()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapString.html">RfcLdapString</a></td>
+        <td><p>the server error message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcResponse.html#Unosquare_Swan_Networking_Ldap_RfcResponse_getErrorMessage">RfcResponse.getErrorMessage()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getMatchedDN_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getMatchedDN*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getMatchedDN" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getMatchedDN">getMatchedDN()</h4>
+  <div class="markdown level1 summary"><p>Returns the matched DN from the server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RfcLdapDN getMatchedDN()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcLdapDN.html">RfcLdapDN</a></td>
+        <td><p>the matched DN</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcResponse.html#Unosquare_Swan_Networking_Ldap_RfcResponse_getMatchedDN">RfcResponse.getMatchedDN()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getReferral_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getReferral*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getReferral" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getReferral">getReferral()</h4>
+  <div class="markdown level1 summary"><p>Returns the referral(s) from the server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Asn1SequenceOf getReferral()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf.html">Asn1SequenceOf</a></td>
+        <td><p>the referral(s)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcResponse.html#Unosquare_Swan_Networking_Ldap_RfcResponse_getReferral">RfcResponse.getReferral()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getResultCode_" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getResultCode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_RfcLdapResult_getResultCode" data-uid="Unosquare.Swan.Networking.Ldap.RfcLdapResult.getResultCode">getResultCode()</h4>
+  <div class="markdown level1 summary"><p>Returns the result code from the server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Asn1Enumerated getResultCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.Asn1Enumerated.html">Asn1Enumerated</a></td>
+        <td><p>the result code</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcResponse.html#Unosquare_Swan_Networking_Ldap_RfcResponse_getResultCode">RfcResponse.getResultCode()</a></div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

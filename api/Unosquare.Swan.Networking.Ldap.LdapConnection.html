@@ -1,0 +1,1369 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LdapConnection
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LdapConnection
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.22.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapConnection" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection" class="text-break">Class LdapConnection
+  </h1>
+  <div class="markdown level0 summary"><p>The central class that encapsulates the connection
+to a directory server through the Ldap protocol.
+LdapConnection objects are used to perform common Ldap
+operations such as search, modify and add.
+In addition, LdapConnection objects allow you to bind to an
+Ldap server, set connection and search constraints, and perform
+several other tasks.
+An LdapConnection object is not connected on
+construction and can only be connected to one server at one
+port. Multiple threads may share this single connection, typically
+by cloning the connection object, one for each thread. An
+application may have more than one LdapConnection object, connected
+to the same or different directory servers.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">LdapConnection</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class LdapConnection</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.#ctor">LdapConnection()</h4>
+  <div class="markdown level1 summary"><p>Constructs a new LdapConnection object, which will use the supplied
+class factory to construct a socket connection during
+LdapConnection.connect method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapConnection()</code></pre>
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ALL_USER_ATTRS" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ALL_USER_ATTRS">ALL_USER_ATTRS</h4>
+  <div class="markdown level1 summary"><p>Used with search instead of an attribute list to indicate that all
+attributes are to be returned.
+ALL_USER_ATTRS = &quot;*&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string ALL_USER_ATTRS = &quot;*&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DEFAULT_PORT" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DEFAULT_PORT">DEFAULT_PORT</h4>
+  <div class="markdown level1 summary"><p>The default port number for Ldap servers.
+You can use this identifier to specify the port when establishing
+a clear text connection to a server.  This the default port.
+DEFAULT_PORT = 389</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DEFAULT_PORT = 389</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DEFAULT_SSL_PORT" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DEFAULT_SSL_PORT">DEFAULT_SSL_PORT</h4>
+  <div class="markdown level1 summary"><p>The default SSL port number for Ldap servers.
+DEFAULT_SSL_PORT = 636
+You can use this identifier to specify the port when establishing
+a an SSL connection to a server..</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DEFAULT_SSL_PORT = 636</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_PROPERTY_PROTOCOL" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_PROPERTY_PROTOCOL">Ldap_PROPERTY_PROTOCOL</h4>
+  <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
+Ldap_PROPERTY_PROTOCOL = &quot;version.protocol&quot;
+You can use this string to request the version of the
+Ldap protocol.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Ldap_PROPERTY_PROTOCOL = &quot;version.protocol&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_PROPERTY_SDK" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_PROPERTY_SDK">Ldap_PROPERTY_SDK</h4>
+  <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
+Ldap_PROPERTY_SDK = &quot;version.sdk&quot;
+You can use this string to request the version of the SDK.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Ldap_PROPERTY_SDK = &quot;version.sdk&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_PROPERTY_SECURITY" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_PROPERTY_SECURITY">Ldap_PROPERTY_SECURITY</h4>
+  <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
+Ldap_PROPERTY_SECURITY = &quot;version.security&quot;
+You can use this string to request the type of security
+being used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Ldap_PROPERTY_SECURITY = &quot;version.security&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_V3" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_V3">Ldap_V3</h4>
+  <div class="markdown level1 summary"><p>Specifies the Ldapv3 protocol version when performing a bind operation.
+Specifies Ldap version V3 of the protocol, and is specified
+when performing bind operations.
+You can use this identifier in the version parameter
+of the bind method to specify an Ldapv3 bind.
+Ldap_V3 is the default protocol version
+Ldap_V3 = 3</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int Ldap_V3 = 3</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_NO_ATTRS" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.NO_ATTRS">NO_ATTRS</h4>
+  <div class="markdown level1 summary"><p>Used with search instead of an attribute list to indicate that no
+attributes are to be returned.
+NO_ATTRS = &quot;1.1&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string NO_ATTRS = &quot;1.1&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_BASE" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SCOPE_BASE">SCOPE_BASE</h4>
+  <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
+search only the base obect.
+SCOPE_BASE = 0</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int SCOPE_BASE = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_ONE" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SCOPE_ONE">SCOPE_ONE</h4>
+  <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
+search only the immediate subordinates of the base obect.
+SCOPE_ONE = 1</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int SCOPE_ONE = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_SUB" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SCOPE_SUB">SCOPE_SUB</h4>
+  <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
+search the base object and all entries within its subtree.
+SCOPE_ONE = 2</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int SCOPE_SUB = 2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SERVER_SHUTDOWN_OID" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SERVER_SHUTDOWN_OID">SERVER_SHUTDOWN_OID</h4>
+  <div class="markdown level1 summary"><p>A string that corresponds to the server shutdown notification OID.
+This notification may be used by the server to advise the client that
+the server is about to close the connection due to an error
+condition.
+SERVER_SHUTDOWN_OID = &quot;1.3.6.1.4.1.1466.20036&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string SERVER_SHUTDOWN_OID = &quot;1.3.6.1.4.1.1466.20036&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationDN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationDN*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationDN" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationDN">AuthenticationDN</h4>
+  <div class="markdown level1 summary"><p>Returns the distinguished name (DN) used for as the bind name during
+the last successful bind operation.  <pre><code>null</code></pre> is returned
+if no authentication has been performed or if the bind resulted in
+an aonymous connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string AuthenticationDN { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The distinguished name if authenticated; otherwise, null.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationMethod_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationMethod*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationMethod" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationMethod">AuthenticationMethod</h4>
+  <div class="markdown level1 summary"><p>Returns the method used to authenticate the connection. The return
+value is one of the following:
+<ul>
+<li>&quot;none&quot; indicates the connection is not authenticated.</li>
+<li>
+    &quot;simple&quot; indicates simple authentication was used or that a null
+    or empty authentication DN was specified.
+</li>
+<li>&quot;sasl&quot; indicates that a SASL mechanism was used to authenticate</li>
+</ul></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string AuthenticationMethod { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The method used to authenticate the connection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Connected_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Connected*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Connected" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Connected">Connected</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the connection represented by this object is open
+at this time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Connected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if connection is open; false if the connection is closed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Constraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Constraints" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints">Constraints</h4>
+  <div class="markdown level1 summary"><p>Returns a copy of the set of constraints associated with this
+connection. These constraints apply to all operations performed
+through this connection (unless a different set of constraints is
+specified when calling an operation method).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual LdapConstraints Constraints { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a></td>
+        <td><p>The set of default contraints that apply to this connection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Constraints_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Constraints">Constraints</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_SearchConstraints">SearchConstraints</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_ProtocolVersion_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ProtocolVersion*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ProtocolVersion" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ProtocolVersion">ProtocolVersion</h4>
+  <div class="markdown level1 summary"><p>Returns the protocol version uses to authenticate.
+0 is returned if no authentication has been performed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int ProtocolVersion { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The protol version used for authentication or 0
+not authenticated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ResponseControls">ResponseControls</h4>
+  <div class="markdown level1 summary"><p>Returns the Server Controls associated with the most recent response
+to a synchronous request on this connection object, or null
+if the latest response contained no Server Controls. The method
+always returns null for asynchronous requests. For asynchronous
+requests, the response controls are available in LdapMessage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual LdapControl[] ResponseControls { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
+        <td><p>The server controls associated with the most recent response
+to a synchronous request or null if the response contains no server
+controls.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ResponseControls_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls">Controls</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_SaslBindCallbackHandler_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SaslBindCallbackHandler*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SaslBindCallbackHandler" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SaslBindCallbackHandler">SaslBindCallbackHandler</h4>
+  <div class="markdown level1 summary"><p>Returns the call back handler if any specified on binding with a
+SASL mechanism.
+Null is returned if no authentication has been performed
+or no authentication call back handler is present.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual object SaslBindCallbackHandler { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>The call back handler used for SASL bind or null if the
+object is not present or not authenticated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_SaslBindProperties_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SaslBindProperties*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SaslBindProperties" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SaslBindProperties">SaslBindProperties</h4>
+  <div class="markdown level1 summary"><p>Returns the properties if any specified on binding with a
+SASL mechanism.
+Null is returned if no authentication has been performed
+or no authentication Map is present.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IDictionary SaslBindProperties { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IDictionary</span></td>
+        <td><p>The bind properties Map Object used for SASL bind or null if
+the connection is not present or not authenticated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_SearchConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SearchConstraints" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints">SearchConstraints</h4>
+  <div class="markdown level1 summary"><p>Returns a copy of the set of search constraints associated with this
+connection. These constraints apply to search operations performed
+through this connection (unless a different set of
+constraints is specified when calling the search operation method).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual LdapSearchConstraints SearchConstraints { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></td>
+        <td><p>The set of default search contraints that apply to
+this connection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SearchConstraints_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Constraints">Constraints</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></div>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_SByte___Unosquare_Swan_Networking_Ldap_LdapConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.SByte[],Unosquare.Swan.Networking.Ldap.LdapConstraints)">Bind(Int32, String, SByte[], LdapConstraints)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously authenticates to the Ldap server (that the object is
+currently connected to) using the specified name, password, Ldap
+version, queue, and constraints.
+If the object has been disconnected from an Ldap server,
+this method attempts to reconnect to the server. If the object
+had already authenticated, the old authentication is discarded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task Bind(int version, string dn, sbyte[] passwd, LdapConstraints cons = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">version</span></td>
+        <td><p>The Ldap protocol version, use Ldap_V3.
+Ldap_V2 is not supported.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">dn</span></td>
+        <td><p>If non-null and non-empty, specifies that the
+connection and all operations through it should
+be authenticated with dn as the distinguished
+name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><span class="parametername">passwd</span></td>
+        <td><p>If non-null and non-empty, specifies that the
+connection and all operations through it should
+be authenticated with dn as the distinguished
+name and passwd as password.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a></td>
+        <td><span class="parametername">cons</span></td>
+        <td><p>Constraints specific to the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_String_Unosquare_Swan_Networking_Ldap_LdapConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.String,Unosquare.Swan.Networking.Ldap.LdapConstraints)">Bind(Int32, String, String, LdapConstraints)</h4>
+  <div class="markdown level1 summary"><p>Synchronously authenticates to the Ldap server (that the object is
+currently connected to) using the specified name, password, Ldap version,
+and constraints.
+If the object has been disconnected from an Ldap server,
+this method attempts to reconnect to the server. If the object
+has already authenticated, the old authentication is discarded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task Bind(int version, string dn, string passwd, LdapConstraints cons = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">version</span></td>
+        <td><p>The Ldap protocol version, use Ldap_V3.
+Ldap_V2 is not supported.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">dn</span></td>
+        <td><p>If non-null and non-empty, specifies that the
+connection and all operations through it should
+be authenticated with dn as the distinguished
+name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">passwd</span></td>
+        <td><p>If non-null and non-empty, specifies that the
+connection and all operations through it should
+be authenticated with dn as the distinguished
+name and passwd as password.
+Note: the application should use care in the use
+of String password objects.  These are long lived
+objects, and may expose a security risk, especially
+in objects that are serialized.  The LdapConnection
+keeps no long lived instances of these objects.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a></td>
+        <td><span class="parametername">cons</span></td>
+        <td><p>The constraints specific to the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_String_System_String_Unosquare_Swan_Networking_Ldap_LdapConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String,System.String,Unosquare.Swan.Networking.Ldap.LdapConstraints)">Bind(String, String, LdapConstraints)</h4>
+  <div class="markdown level1 summary"><p>Synchronously authenticates to the Ldap server (that the object is
+currently connected to) as an Ldapv3 bind, using the specified name,
+password, and constraints.
+If the object has been disconnected from an Ldap server,
+this method attempts to reconnect to the server. If the object
+has already authenticated, the old authentication is discarded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task Bind(string dn, string passwd, LdapConstraints cons = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">dn</span></td>
+        <td><p>If non-null and non-empty, specifies that the
+connection and all operations through it should
+be authenticated with dn as the distinguished
+name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">passwd</span></td>
+        <td><p>If non-null and non-empty, specifies that the
+connection and all operations through it should
+be authenticated with dn as the distinguished
+name and passwd as password.
+Note: the application should use care in the use
+of String password objects.  These are long lived
+objects, and may expose a security risk, especially
+in objects that are serialized.  The LdapConnection
+keeps no long lived instances of these objects.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a></td>
+        <td><span class="parametername">cons</span></td>
+        <td><p>Constraints specific to the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Connect*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_System_String_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String,System.Int32)">Connect(String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Connects to the specified host and port.
+If this LdapConnection object represents an open connection, the
+connection is closed first before the new connection is opened.
+At this point, there is no authentication, and any operations are
+conducted as an anonymous client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task Connect(string host, int port)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">host</span></td>
+        <td><p>A host name or a dotted string representing the IP address
+of a host running an Ldap server.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The TCP or UDP port number to connect to or contact.
+The default Ldap port is 389.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Disconnect_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Disconnect*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Disconnect" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Disconnect">Disconnect()</h4>
+  <div class="markdown level1 summary"><p>Synchronously disconnects from the Ldap server.
+Before the object can perform Ldap operations again, it must
+reconnect to the server by calling connect.
+The disconnect method abandons any outstanding requests, issues an
+unbind request to the server, and then closes the socket.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Disconnect()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose_System_Boolean_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool isDisposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isDisposing</span></td>
+        <td><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_getProperty_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.getProperty*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_getProperty_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.getProperty(System.String)">getProperty(String)</h4>
+  <div class="markdown level1 summary"><p>Returns a property of a connection object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual object getProperty(string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of the property to be returned.
+The following read-only properties are available
+for any given connection:
+<ul>
+<li>
+    Ldap_PROPERTY_SDK returns the version of this SDK,
+    as a Float data type.
+</li>
+<li>
+    Ldap_PROPERTY_PROTOCOL returns the highest supported version of
+    the Ldap protocol, as a Float data type.
+</li>
+<li>
+    Ldap_PROPERTY_SECURITY returns a comma-separated list of the
+    types of authentication supported, as a
+    string.
+</li>
+</ul>
+A deep copy of the property is provided where applicable; a
+client does not need to clone the object received.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>The object associated with the requested property,
+or null if the property is not defined.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_getProperty_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_getProperty_System_String_">getProperty</a>(<span class="xref">System.String</span>)</div>
+      <div><span class="xref">System.Object</span></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Read_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Read*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Read_System_String_System_String___Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String,System.String[],Unosquare.Swan.Networking.Ldap.LdapSearchConstraints)">Read(String, String[], LdapSearchConstraints)</h4>
+  <div class="markdown level1 summary"><p>Synchronously reads the entry for the specified distinguished name (DN),
+using the specified constraints, and retrieves only the specified
+attributes from the entry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;LdapEntry&gt; Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">dn</span></td>
+        <td><p>The distinguished name of the entry to retrieve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">attrs</span></td>
+        <td><p>The names of the attributes to retrieve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></td>
+        <td><span class="parametername">cons</span></td>
+        <td><p>The constraints specific to the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a>&gt;</td>
+        <td><p>the LdapEntry read from the server</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,Unosquare.Swan.Networking.Ldap.LdapSearchConstraints)">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</h4>
+  <div class="markdown level1 summary"><p>Performs the search specified by the parameters,
+also allowing specification of constraints for the search (such
+as the maximum number of entries to find or the maximum time to
+wait for search results).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;LdapSearchResults&gt; Search(string base, int scope, string filter = null, string[] attrs = null, bool typesOnly = false, LdapSearchConstraints cons = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">base</span></td>
+        <td><p>The base distinguished name to search from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">scope</span></td>
+        <td><p>The scope of the entries to search. The following
+are the valid options:
+<ul>
+<li>SCOPE_BASE - searches only the base DN</li>
+<li>SCOPE_ONE - searches only entries under the base DN</li>
+<li>
+    SCOPE_SUB - searches the base DN and all entries
+    within its subtree
+</li>
+</ul></p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>The search filter specifying the search criteria.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">attrs</span></td>
+        <td><p>The names of attributes to retrieve.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">typesOnly</span></td>
+        <td><p>If true, returns the names but not the values of
+the attributes found.  If false, returns the
+names and values for attributes found.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></td>
+        <td><span class="parametername">cons</span></td>
+        <td><p>The constraints specific to the search.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchResults.html">LdapSearchResults</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Base64
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Base64
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.22.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.Base64">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_Base64" data-uid="Unosquare.Swan.Networking.Ldap.Base64" class="text-break">Class Base64
+  </h1>
+  <div class="markdown level0 summary"><p>The Base64 utility class performs base64 encoding and decoding.
+The Base64 Content-Transfer-Encoding is designed to represent
+arbitrary sequences of octets in a form that need not be humanly
+readable.  The encoding and decoding algorithms are simple, but the
+encoded data are consistently only about 33 percent larger than the
+unencoded data.  The base64 encoding algorithm is defined by
+RFC 2045.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Base64</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_Base64_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Base64</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_decode_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.decode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_decode_StringBuilder_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.decode(StringBuilder,System.Int32,System.Int32)">decode(StringBuilder, Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Decodes a base64 encoded StringBuffer.
+Decodes all or part of the input base64 encoded StringBuffer, each
+Character value representing a base64 character. The resulting
+binary data is returned as an array of bytes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static sbyte[] decode(StringBuilder encodedSBuf, int start, int end)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">StringBuilder</span></td>
+        <td><span class="parametername">encodedSBuf</span></td>
+        <td><p>The StringBuffer object that contains base64
+encoded data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The start index of the base64 encoded data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The end index + 1 of the base64 encoded data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><p>The decoded byte array</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_decode_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.decode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_decode_System_Char___" data-uid="Unosquare.Swan.Networking.Ldap.Base64.decode(System.Char[])">decode(Char[])</h4>
+  <div class="markdown level1 summary"><p>Decodes the input base64 encoded array of characters.
+The resulting binary data is returned as an array of bytes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static sbyte[] decode(char[] encodedChars)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span>[]</td>
+        <td><span class="parametername">encodedChars</span></td>
+        <td><p>The character array containing the base64 encoded data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><p>A byte array object containing decoded bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_decode_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.decode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_decode_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.decode(System.String)">decode(String)</h4>
+  <div class="markdown level1 summary"><p>Decodes the input base64 encoded String.
+The resulting binary data is returned as an array of bytes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static sbyte[] decode(string encodedString)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">encodedString</span></td>
+        <td><p>The base64 encoded String object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><p>The decoded byte array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_encode_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.encode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_encode_System_SByte___" data-uid="Unosquare.Swan.Networking.Ldap.Base64.encode(System.SByte[])">encode(SByte[])</h4>
+  <div class="markdown level1 summary"><p>Encodes the specified bytes into a base64 array of bytes.
+Each byte in the return array represents a base64 character.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string encode(sbyte[] inputBytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><span class="parametername">inputBytes</span></td>
+        <td><p>the byte array to be encoded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>a String containing the base64 encoded data</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_encode_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.encode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_encode_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.encode(System.String)">encode(String)</h4>
+  <div class="markdown level1 summary"><p>Encodes the specified String into a base64 encoded String object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string encode(string inputString)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">inputString</span></td>
+        <td><p>The String object to be encoded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>a String containing the encoded value of the input.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_GetCharsFromString_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.GetCharsFromString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_GetCharsFromString_System_String_System_Int32_System_Int32_System_Char____System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.GetCharsFromString(System.String,System.Int32,System.Int32,System.Char[]@,System.Int32)">GetCharsFromString(String, Int32, Int32, ref Char[], Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void GetCharsFromString(string sourceString, int sourceStart, int sourceEnd, ref char[] destinationArray, int destinationStart)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">sourceString</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">sourceStart</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">sourceEnd</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span>[]</td>
+        <td><span class="parametername">destinationArray</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">destinationStart</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_Identity_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.Identity*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_Identity_System_Int64_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.Identity(System.Int64)">Identity(Int64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static long Identity(long literal)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">literal</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_isLDIFSafe_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.isLDIFSafe*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_isLDIFSafe_System_SByte___" data-uid="Unosquare.Swan.Networking.Ldap.Base64.isLDIFSafe(System.SByte[])">isLDIFSafe(SByte[])</h4>
+  <div class="markdown level1 summary"><p>Checks if the input byte array contains only safe values, that is,
+the data does not need to be encoded for use with LDIF.
+The rules for checking safety are based on the rules for LDIF
+(Ldap Data Interchange Format) per RFC 2849.  The data does
+not need to be encoded if all the following are true:
+The data cannot start with the following byte values:</p>
+<pre>
+    00 (NUL)
+    10 (LF)
+    13 (CR)
+    32 (SPACE)
+    58 (:)
+    60 (LESSTHAN)
+    Any character with value greater than 127
+    (Negative for a byte value)
+</pre>
+<p>The data cannot contain any of the following byte values:</p>
+<pre>
+    00 (NUL)
+    10 (LF)
+    13 (CR)
+    Any character with value greater than 127
+    (Negative for a byte value)
+</pre>
+<p>The data cannot end with a space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool isLDIFSafe(sbyte[] bytes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><span class="parametername">bytes</span></td>
+        <td><p>the bytes to be checked.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if encoding not required for LDIF</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_isLDIFSafe_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.isLDIFSafe*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_isLDIFSafe_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.isLDIFSafe(System.String)">isLDIFSafe(String)</h4>
+  <div class="markdown level1 summary"><p>Checks if the input String contains only safe values, that is,
+the data does not need to be encoded for use with LDIF.
+The rules for checking safety are based on the rules for LDIF
+(Ldap Data Interchange Format) per RFC 2849.  The data does
+not need to be encoded if all the following are true:
+The data cannot start with the following char values:</p>
+<pre>
+    00 (NUL)
+    10 (LF)
+    13 (CR)
+    32 (SPACE)
+    58 (:)
+    60 (LESSTHAN)
+    Any character with value greater than 127
+</pre>
+<p>The data cannot contain any of the following char values:</p>
+<pre>
+    00 (NUL)
+    10 (LF)
+    13 (CR)
+    Any character with value greater than 127
+</pre>
+<p>The data cannot end with a space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool isLDIFSafe(string str)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">str</span></td>
+        <td><p>the String to be checked.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if encoding not required for LDIF</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_Base64_isValidUTF8_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.isValidUTF8*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_Base64_isValidUTF8_System_SByte___System_Boolean_" data-uid="Unosquare.Swan.Networking.Ldap.Base64.isValidUTF8(System.SByte[],System.Boolean)">isValidUTF8(SByte[], Boolean)</h4>
+  <div class="markdown level1 summary"><p>Determines if an array of bytes contains only valid UTF-8 characters.
+UTF-8 is the standard encoding for Ldap strings.  If a value contains
+data that is not valid UTF-8 then data is lost converting the
+value to a Java String.
+In addition, Java Strings currently use UCS2 (Unicode Code Standard
+2-byte characters). UTF-8 can be encoded as USC2 and UCS4 (4-byte
+characters).  Some valid UTF-8 characters cannot be represented as UCS2
+characters. To determine if all UTF-8 sequences can be encoded into
+UCS2 characters (a Java String), specify the <pre><code>isUCS2Only</code></pre>
+parameter as <pre><code>true</code></pre>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool isValidUTF8(sbyte[] array, bool isUCS2Only)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.SByte</span>[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>An array of bytes that are to be tested for valid UTF-8
+encoding.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isUCS2Only</span></td>
+        <td><p>true if the UTF-8 values must be restricted to fit
+within UCS2 encoding (2 bytes)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if all values in the byte array are valid UTF-8
+sequences.  If <pre><code>isUCS2Only</code></pre> is</p>
+<pre><code>true</code></pre>, the method returns false if a UTF-8
+<p>sequence generates any character that cannot be
+represented as a UCS2 character (Java String)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
