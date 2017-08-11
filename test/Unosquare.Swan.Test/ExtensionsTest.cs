@@ -62,7 +62,21 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(source.StringData, destination.StringData);
             Assert.AreEqual(source.StringNull, destination.StringNull);
         }
-        
+
+        [Test]
+        public void CopyOnlyPropertiesToNewTest()
+        {
+            var source = BasicJson.GetDefault();
+            string[] Only = { "BoolData", "DecimalData" };
+            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(Only);
+
+            Assert.IsNotNull(destination);
+            Assert.AreSame(source.GetType(), destination.GetType());
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.DecimalData, destination.DecimalData);
+        }
+
         [Test]
         public void ActionRetryTest()
         {
