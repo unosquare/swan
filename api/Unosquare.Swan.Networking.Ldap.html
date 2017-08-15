@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace Unosquare.Swan.Networking.Ldap
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace Unosquare.Swan.Networking.Ldap
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.22.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap">
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap" data-uid="Unosquare.Swan.Networking.Ldap" class="text-break">Namespace Unosquare.Swan.Networking.Ldap
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.CollectionSupport.html">CollectionSupport</a></h4>
+      <section><p>This class contains different methods to manage Collections.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ExceptionMessages.html">ExceptionMessages</a></h4>
+      <section><p>This class contains strings that may be associated with Exceptions generated
+by the Ldap API libraries.
+Two entries are made for each message, a String identifier, and the
+actual error string.  Parameters are identified as {0}, {1}, etc.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.html">LdapAbandonRequest</a></h4>
+      <section><p>Represents an Ldap Abandon Request</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></h4>
+      <section><p>The name and values of one attribute of a directory entry.
+LdapAttribute objects are used when searching for, adding,
+modifying, and deleting attributes from the directory.
+LdapAttributes are often used in conjunction with an
+{@link LdapAttributeSet} when retrieving or adding multiple
+attributes to an entry.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html">LdapAttributeSet</a></h4>
+      <section><p>A set of {@link LdapAttribute} objects.
+An <pre><code>LdapAttributeSet</code></pre> is a collection of <pre><code>LdapAttribute</code></pre>
+classes as returned from an <pre><code>LdapEntry</code></pre> on a search or read
+operation. <pre><code>LdapAttributeSet</code></pre> may be also used to contruct an entry
+to be added to a directory.  If the <pre><code>add()</code></pre> or <pre><code>addAll()</code></pre>
+methods are called and one or more of the objects to be added is not
+an <pre><code>LdapAttribute, ClassCastException</code></pre> is thrown (as discussed in the
+documentation for <pre><code>java.util.Collection</code></pre>).</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapBindRequest.html">LdapBindRequest</a></h4>
+      <section><p>Represents a simple bind request.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html">LdapConnection</a></h4>
+      <section><p>The central class that encapsulates the connection
+to a directory server through the Ldap protocol.
+LdapConnection objects are used to perform common Ldap
+operations such as search, modify and add.
+In addition, LdapConnection objects allow you to bind to an
+Ldap server, set connection and search constraints, and perform
+several other tasks.
+An LdapConnection object is not connected on
+construction and can only be connected to one server at one
+port. Multiple threads may share this single connection, typically
+by cloning the connection object, one for each thread. An
+application may have more than one LdapConnection object, connected
+to the same or different directory servers.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a></h4>
+      <section><p>Defines options controlling Ldap operations on the directory.
+An LdapConstraints object is always associated with an LdapConnection
+object; its values can be changed with LdapConnection.setConstraints, or
+overridden by passing an LdapConstraints object to an operation.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a></h4>
+      <section><p>Encapsulates optional additional parameters or constraints to be applied to
+an Ldap operation.
+When included with LdapConstraints or LdapSearchConstraints
+on an LdapConnection or with a specific operation request, it is
+sent to the server along with operation requests.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a></h4>
+      <section><p>Represents a single entry in a directory, consisting of
+a distinguished name (DN) and zero or more attributes.
+An instance of
+LdapEntry is created in order to add an entry to a directory, and
+instances of LdapEntry are returned on a search by enumerating an
+LdapSearchResults.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></h4>
+      <section><p>Thrown to indicate that an Ldap exception has occurred. This is a general
+exception which includes a message and an Ldap result code.
+An LdapException can result from physical problems (such as
+network errors) as well as problems with Ldap operations detected
+by the server. For example, if an Ldap add operation fails because of a
+duplicate entry, the server returns a result code.
+Five possible sources of information are available from LdapException:
+<dl>
+<dt>Result Code:</dt>
+<dd>
+    The <pre><code>getResultCode</code></pre> method returns a result code,
+    which can be compared against standard Ldap result codes.
+</dd>
+<dt>Message:</dt>
+<dd>
+    The <pre><code>getMessage</code></pre> method returns a localized message
+    from the message resource that corresponds to the result code.
+</dd>
+<dt>Ldap server Message:</dt>
+<dd>
+    The <pre><code>getLdapErrorMessage</code></pre> method returns any error
+    message received from the Ldap server.
+</dd>
+<dt>Matched DN:</dt>
+<dd>
+    The <pre><code>getMatchedDN</code></pre> method retrieves the part of a
+    submitted distinguished name which could be matched by the server
+</dd>
+<dt>Root Cause:</dt>
+<dd>
+    The <pre><code>getCause</code></pre> method returns the a nested exception
+    that was the original cause for the error.
+</dd>
+</dl>
+The <pre><code>ToString</code></pre> method returns a string containing all
+the above sources of information, if they have a value.
+Exceptions generated by the API, i.e. that are not a result
+of a server response, can be identified as
+<tt>
+    instanceof
+    {@link LdapLocalException}
+</tt>
+The following table lists the standard Ldap result codes.
+See RFC2251 for a discussion of the meanings of the result codes.
+The corresponding ASN.1 definition from RFC2251 is provided in parentheses.
+<table>
+<tr>
+<td>
+<strong>Value</strong>
+</td>
+<td>
+<strong>Result Code</strong>
+</td>
+</tr>
+<tr>
+<td> 0</td><td>{@link #SUCCESS} (success) </td>
+</tr>
+<tr>
+<td> 1</td><td>{@link #OPERATIONS_ERROR} (operationsError) </td>
+</tr>
+<tr>
+<td> 2</td><td>{@link #PROTOCOL_ERROR} (protocolError) </td>
+</tr>
+<tr>
+<td> 3</td><td>{@link #TIME_LIMIT_EXCEEDED} (timeLimitExceeded) </td>
+</tr>
+<tr>
+<td> 4</td><td>{@link #SIZE_LIMIT_EXCEEDED} (sizeLimitExceeded) </td>
+</tr>
+<tr>
+<td> 5</td><td>{@link #COMPARE_FALSE} (compareFalse) </td>
+</tr>
+<tr>
+<td> 6</td><td>{@link #COMPARE_TRUE} (compareTrue) </td>
+</tr>
+<tr>
+<td> 7</td><td>{@link #AUTH_METHOD_NOT_SUPPORTED} (authMethodNotSupported) </td>
+</tr>
+<tr>
+<td> 8</td><td>{@link #STRONG_AUTH_REQUIRED} (strongAuthRequired) </td>
+</tr>
+<tr>
+<td> 10</td><td>{@link #REFERRAL} (referral) </td>
+</tr>
+<tr>
+<td> 11</td><td>{@link #ADMIN_LIMIT_EXCEEDED} (adminLimitExceeded) </td>
+</tr>
+<tr>
+<td> 12</td><td>{@link #UNAVAILABLE_CRITICAL_EXTENSION} (unavailableCriticalExtension) </td>
+</tr>
+<tr>
+<td> 13</td><td>{@link #CONFIDENTIALITY_REQUIRED} (confidentialityRequired) </td>
+</tr>
+<tr>
+<td> 14</td><td>{@link #SASL_BIND_IN_PROGRESS} (saslBindInProgress) </td>
+</tr>
+<tr>
+<td> 16</td><td>{@link #NO_SUCH_ATTRIBUTE} (noSuchAttribute) </td>
+</tr>
+<tr>
+<td> 17</td><td>{@link #UNDEFINED_ATTRIBUTE_TYPE} (undefinedAttributeType) </td>
+</tr>
+<tr>
+<td> 18</td><td>{@link #INAPPROPRIATE_MATCHING} (inappropriateMatching) </td>
+</tr>
+<tr>
+<td> 19</td><td>{@link #CONSTRAINT_VIOLATION} (constraintViolation) </td>
+</tr>
+<tr>
+<td> 20</td><td>{@link #ATTRIBUTE_OR_VALUE_EXISTS} (AttributeOrValueExists) </td>
+</tr>
+<tr>
+<td> 21</td><td>{@link #INVALID_ATTRIBUTE_SYNTAX} (invalidAttributeSyntax) </td>
+</tr>
+<tr>
+<td> 32</td><td>{@link #NO_SUCH_OBJECT} (noSuchObject) </td>
+</tr>
+<tr>
+<td> 33</td><td>{@link #ALIAS_PROBLEM} (aliasProblem) </td>
+</tr>
+<tr>
+<td> 34</td><td>{@link #INVALID_DN_SYNTAX} (invalidDNSyntax) </td>
+</tr>
+<tr>
+<td> 35</td><td>{@link #IS_LEAF} (isLeaf) </td>
+</tr>
+<tr>
+<td> 36</td><td>{@link #ALIAS_DEREFERENCING_PROBLEM} (aliasDereferencingProblem) </td>
+</tr>
+<tr>
+<td> 48</td><td>{@link #INAPPROPRIATE_AUTHENTICATION} (inappropriateAuthentication) </td>
+</tr>
+<tr>
+<td> 49</td><td>{@link #INVALID_CREDENTIALS} (invalidCredentials) </td>
+</tr>
+<tr>
+<td> 50</td><td>{@link #INSUFFICIENT_ACCESS_RIGHTS} (insufficientAccessRights) </td>
+</tr>
+<tr>
+<td> 51</td><td>{@link #BUSY} (busy) </td>
+</tr>
+<tr>
+<td> 52</td><td>{@link #UNAVAILABLE} (unavailable) </td>
+</tr>
+<tr>
+<td> 53</td><td>{@link #UNWILLING_TO_PERFORM} (unwillingToPerform) </td>
+</tr>
+<tr>
+<td> 54</td><td>{@link #LOOP_DETECT} (loopDetect) </td>
+</tr>
+<tr>
+<td> 64</td><td>{@link #NAMING_VIOLATION} (namingViolation) </td>
+</tr>
+<tr>
+<td> 65</td><td>{@link #OBJECT_CLASS_VIOLATION} (objectClassViolation) </td>
+</tr>
+<tr>
+<td> 66</td><td>{@link #NOT_ALLOWED_ON_NONLEAF} (notAllowedOnNonLeaf) </td>
+</tr>
+<tr>
+<td> 67</td><td>{@link #NOT_ALLOWED_ON_RDN} (notAllowedOnRDN) </td>
+</tr>
+<tr>
+<td> 68</td><td>{@link #ENTRY_ALREADY_EXISTS} (entryAlreadyExists) </td>
+</tr>
+<tr>
+<td> 69</td><td>{@link #OBJECT_CLASS_MODS_PROHIBITED} (objectClassModsProhibited) </td>
+</tr>
+<tr>
+<td> 71</td><td>{@link #AFFECTS_MULTIPLE_DSAS} (affectsMultipleDSAs </td>
+</tr>
+<tr>
+<td> 80</td><td>{@link #OTHER} (other) </td>
+</tr>
+</table>
+Local errors, resulting from actions other than an operation on a
+server.
+<table>
+<tr>
+<td>
+<strong>Value</strong>
+</td>
+<td>
+<strong>Result Code</strong>
+</td>
+</tr>
+<tr>
+<td>81</td><td>{@link #SERVER_DOWN}</td>
+</tr>
+<tr>
+<td>82</td><td>{@link #LOCAL_ERROR}</td>
+</tr>
+<tr>
+<td>83</td><td>{@link #ENCODING_ERROR}</td>
+</tr>
+<tr>
+<td>84</td><td>{@link #DECODING_ERROR}</td>
+</tr>
+<tr>
+<td>85</td><td>{@link #Ldap_TIMEOUT}</td>
+</tr>
+<tr>
+<td>86</td><td>{@link #AUTH_UNKNOWN}</td>
+</tr>
+<tr>
+<td>87</td><td>{@link #FILTER_ERROR}</td>
+</tr>
+<tr>
+<td>88</td><td>{@link #USER_CANCELLED}</td>
+</tr>
+<tr>
+<td>90</td><td>{@link #NO_MEMORY}</td>
+</tr>
+<tr>
+<td>91</td><td>{@link #CONNECT_ERROR}</td>
+</tr>
+<tr>
+<td>92</td><td>{@link #Ldap_NOT_SUPPORTED}</td>
+</tr>
+<tr>
+<td>93</td><td>{@link #CONTROL_NOT_FOUND}</td>
+</tr>
+<tr>
+<td>94</td><td>{@link #NO_RESULTS_RETURNED}</td>
+</tr>
+<tr>
+<td>95</td><td>{@link #MORE_RESULTS_TO_RETURN}</td>
+</tr>
+<tr>
+<td>96</td><td>{@link #CLIENT_LOOP}</td>
+</tr>
+<tr>
+<td>97</td><td>{@link #REFERRAL_LIMIT_EXCEEDED}</td>
+</tr>
+<tr>
+<td>100</td><td>{@link #INVALID_RESPONSE}</td>
+</tr>
+<tr>
+<td>101</td><td>{@link #AMBIGUOUS_RESPONSE}</td>
+</tr>
+<tr>
+<td>112</td><td>{@link #TLS_NOT_SUPPORTED}</td>
+</tr>
+</table></p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a></h4>
+      <section><p>Represents an Ldap exception that is not a result of a server response.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></h4>
+      <section><p>The base class for Ldap request and response messages.
+Subclassed by response messages used in asynchronous operations.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a></h4>
+      <section><p>Thrown when a server returns a referral and when a referral has not
+been followed.  It contains a list of URL strings corresponding
+to the referrals or search continuation references received on an Ldap
+operation.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a></h4>
+      <section><p>A message received from an LdapServer
+in response to an asynchronous request.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></h4>
+      <section><p>Defines the options controlling search operations.
+An LdapSearchConstraints object is always associated with an
+LdapConnection object; its values can be changed with the
+LdapConnection.setConstraints method, or overridden by passing
+an LdapSearchConstraints object to the search operation.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchResultReference.html">LdapSearchResultReference</a></h4>
+      <section><p>Encapsulates a continuation reference from an asynchronous search operation.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchResults.html">LdapSearchResults</a></h4>
+      <section><p>An LdapSearchResults object is returned from a synchronous search
+operation. It provides access to all results received during the
+operation (entries and exceptions).</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapUrl.html">LdapUrl</a></h4>
+      <section><p>Encapsulates parameters of an Ldap URL query as defined in RFC2255.
+An LdapUrl object can be passed to LdapConnection.search to retrieve
+search results.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ReferralInfo.html">ReferralInfo</a></h4>
+      <section><p>This class encapsulates the combination of LdapReferral URL and
+the connection opened to service this URL</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ResourcesHandler.html">ResourcesHandler</a></h4>
+      <section><p>A utility class to get strings from the ExceptionMessages and
+ResultCodeMessages resources.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.RespControlVector.html">RespControlVector</a></h4>
+      <section><p>The <pre><code>MessageVector</code></pre> class implements extends the
+existing Vector class so that it can be used to maintain a
+list of currently registered control responses.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.RespExtensionSet.html">RespExtensionSet</a></h4>
+      <section><p>This  class  extends the AbstractSet and Implements the Set
+so that it can be used to maintain a list of currently
+registered extended responses.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ResultCodeMessages.html">ResultCodeMessages</a></h4>
+      <section><p>This class contains strings corresponding to Ldap Result Codes.
+The resources are accessed by the String representation of the result code.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html">SetSupport</a></h4>
+      <section><p>This class manages a set of elements.</p>
+</section>
+    <h3 id="interfaces">Interfaces
+  </h3>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralHandler.html">LdapReferralHandler</a></h4>
+      <section><p>Shared ancestor to the two types of referral objects - LdapBindHandler and
+LdapAuthHandler.</p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcRequest.html">RfcRequest</a></h4>
+      <section><p>This interface represents Protocol Operations that are requests from a
+client.</p>
+</section>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

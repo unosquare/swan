@@ -1,0 +1,484 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LdapResponse
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LdapResponse
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.22.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapResponse" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse" class="text-break">Class LdapResponse
+  </h1>
+  <div class="markdown level0 summary"><p>A message received from an LdapServer
+in response to an asynchronous request.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
+    <div class="level2"><span class="xref">LdapResponse</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID">LdapMessage.MessageID</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Type">LdapMessage.Type</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request">LdapMessage.Request</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Tag">LdapMessage.Tag</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_BIND_REQUEST">LdapMessage.BIND_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_BIND_RESPONSE">LdapMessage.BIND_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_UNBIND_REQUEST">LdapMessage.UNBIND_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_REQUEST">LdapMessage.SEARCH_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESPONSE">LdapMessage.SEARCH_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESULT">LdapMessage.SEARCH_RESULT</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ABANDON_REQUEST">LdapMessage.ABANDON_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESULT_REFERENCE">LdapMessage.SEARCH_RESULT_REFERENCE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_EXTENDED_REQUEST">LdapMessage.EXTENDED_REQUEST</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_EXTENDED_RESPONSE">LdapMessage.EXTENDED_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_INTERMEDIATE_RESPONSE">LdapMessage.INTERMEDIATE_RESPONSE</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ToString">LdapMessage.ToString()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class LdapResponse : LdapMessage</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32)">LdapResponse(Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a> class.
+Creates a SUCCESS response LdapMessage. Typically the response
+comes from a source other than a BER encoded Ldap message,
+such as from DSML.  Other values which are allowed in a response
+are set to their empty values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapResponse(int type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The message type as defined in LdapMessage.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32,System.Int32,System.String,System.String)">LdapResponse(Int32, Int32, String, String)</h4>
+  <div class="markdown level1 summary"><p>Creates a response LdapMessage from parameters. Typically the data
+comes from a source other than a BER encoded Ldap message,
+such as from DSML.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapResponse(int type, int resultCode, string matchedDN, string serverMessage)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The message type as defined in LdapMessage.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">resultCode</span></td>
+        <td><p>The result code as defined in LdapException.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">matchedDN</span></td>
+        <td><p>The name of the lowest entry that was matched
+for some error result codes, an empty string
+or <pre><code>null</code></pre> if none.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">serverMessage</span></td>
+        <td><p>A diagnostic message returned by the server,
+an empty string or <pre><code>null</code></pre> if none.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></div>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapException_Unosquare_Swan_Networking_Ldap_ReferralInfo_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapException,Unosquare.Swan.Networking.Ldap.ReferralInfo)">LdapResponse(LdapException, ReferralInfo)</h4>
+  <div class="markdown level1 summary"><p>Creates an LdapResponse using an LdapException.
+Used to wake up the user following an abandon.
+Note: The abandon doesn&apos;t have to be user initiated
+but may be the result of error conditions.
+Referral information is available if this connection created solely
+to follow a referral.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapResponse(LdapException ex, ReferralInfo activeReferral)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></td>
+        <td><span class="parametername">ex</span></td>
+        <td><p>The exception</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.ReferralInfo.html">ReferralInfo</a></td>
+        <td><span class="parametername">activeReferral</span></td>
+        <td><p>The referral actually used to create the
+connection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_Controls_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Controls*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_Controls" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Controls">Controls</h4>
+  <div class="markdown level1 summary"><p>Returns any controls in the message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override LdapControl[] Controls { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls">LdapMessage.Controls</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_ErrorMessage_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ErrorMessage*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_ErrorMessage" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ErrorMessage">ErrorMessage</h4>
+  <div class="markdown level1 summary"><p>Returns any error message in the response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string ErrorMessage { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Any error message in the response.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_MatchedDN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.MatchedDN*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_MatchedDN" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.MatchedDN">MatchedDN</h4>
+  <div class="markdown level1 summary"><p>Returns the partially matched DN field from the server response,
+if the response contains one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string MatchedDN { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The partially matched DN field, if the response contains one.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_Referrals_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Referrals*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_Referrals" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Referrals">Referrals</h4>
+  <div class="markdown level1 summary"><p>Returns all referrals in a server response, if the response contains any.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string[] Referrals { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><p>All the referrals in the server response.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_ResultCode_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ResultCode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_ResultCode" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ResultCode">ResultCode</h4>
+  <div class="markdown level1 summary"><p>Returns the result code in a server response.
+For a list of result codes, see the LdapException class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int ResultCode { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The result code.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</a></div>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
