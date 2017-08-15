@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
+using Unosquare.Swan.Networking.Ldap;
 
 namespace Unosquare.Swan.Test
 {
@@ -82,6 +84,26 @@ namespace Unosquare.Swan.Test
                 Assert.Inconclusive("OSX is returning time out");
 
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+        }
+
+        [Test]
+        public void LdapTest()
+        {
+            Task.Factory.StartNew(async () => 
+            {
+                var cn = new LdapConnection();
+
+                await cn.Connect("ldap.forumsys.com", 389);
+                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+
+                Assert.IsTrue(cn.Connected);
+                var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
+
+                lsc.Count.ToString().Info(nameof(LdapTest));
+                Assert.AreNotEqual(lsc.Count, 0);
+                Assert.IsTrue(lsc.hasMore());
+            });
+
         }
     }
 }

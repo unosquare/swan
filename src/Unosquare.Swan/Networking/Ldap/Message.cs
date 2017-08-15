@@ -1,15 +1,15 @@
 ﻿#if !UWP
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     ///     The class performs token processing from strings
     /// </summary>
@@ -130,12 +130,12 @@ namespace Unosquare.Swan.Networking.Ldap
             if (source == string.Empty) throw new Exception();
             if (returnDelims)
             {
-                //						Tokenize();
                 RemoveEmptyStrings();
                 result = (string) elements[0];
                 elements.RemoveAt(0);
                 return result;
             }
+
             elements = new ArrayList();
             elements.AddRange(source.Split(delimiters.ToCharArray()));
             RemoveEmptyStrings();
@@ -728,17 +728,18 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Replace escaped hex digits with the equivalent binary representation.
-        ///     Assume either V2 or V3 escape mechanisms:
-        ///     V2: \*,  \(,  \),  \\.
-        ///     V3: \2A, \28, \29, \5C, \00.
+        /// Replace escaped hex digits with the equivalent binary representation.
+        /// Assume either V2 or V3 escape mechanisms:
+        /// V2: \*,  \(,  \),  \\.
+        /// V3: \2A, \28, \29, \5C, \00.
         /// </summary>
-        /// <param name="string">
-        ///     A part of the input filter string to be converted.
-        /// </param>
+        /// <param name="string_Renamed">The string renamed.</param>
         /// <returns>
-        ///     octet-string encoding of the specified string.
+        /// octet-string encoding of the specified string.
         /// </returns>
+        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapLocalException">
+        /// </exception>
+        /// <exception cref="Exception">UTF-8 String encoding not supported by JVM</exception>
         private sbyte[] unescapeString(string string_Renamed)
         {
             // give octets enough space to grow
@@ -933,23 +934,26 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Adds a Substring component of initial, any or final substring matching.
-        ///     This method can be invoked only if startSubString was the last filter-
-        ///     building method called.  A substring is not required to have an 'INITIAL'
-        ///     substring.  However, when a filter contains an 'INITIAL' substring only
-        ///     one can be added, and it must be the first substring added. Any number of
-        ///     'ANY' substrings can be added. A substring is not required to have a
-        ///     'FINAL' substrings either.  However, when a filter does contain a 'FINAL'
-        ///     substring only one can be added, and it must be the last substring added.
+        /// Adds a Substring component of initial, any or final substring matching.
+        /// This method can be invoked only if startSubString was the last filter-
+        /// building method called.  A substring is not required to have an 'INITIAL'
+        /// substring.  However, when a filter contains an 'INITIAL' substring only
+        /// one can be added, and it must be the first substring added. Any number of
+        /// 'ANY' substrings can be added. A substring is not required to have a
+        /// 'FINAL' substrings either.  However, when a filter does contain a 'FINAL'
+        /// substring only one can be added, and it must be the last substring added.
         /// </summary>
-        /// <param name="type">
-        ///     Substring type: INITIAL | ANY | FINAL]
-        /// </param>
-        /// <param name="value">
-        ///     Value to use for matching
-        ///     @throws LdapLocalException   Occurs if this method is called out of
-        ///     sequence or the type added is out of sequence.
-        /// </param>
+        /// <param name="type">Substring type: INITIAL | ANY | FINAL]</param>
+        /// <param name="value_Renamed">The value renamed.</param>
+        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapLocalException">
+        /// Attempt to add an invalid " + "substring type
+        /// or
+        /// Attempt to add an initial " + "substring match after the first substring
+        /// or
+        /// Attempt to add a substring " + "match after a final substring match
+        /// or
+        /// A call to addSubstring occured " + "without calling startSubstring
+        /// </exception>
         public virtual void addSubstring(int type, sbyte[] value_Renamed)
         {
             try

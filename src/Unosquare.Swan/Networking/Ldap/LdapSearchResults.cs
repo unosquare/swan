@@ -1,12 +1,12 @@
 ﻿#if !UWP
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     /// <summary>
     ///     An LdapSearchResults object is returned from a synchronous search
     ///     operation. It provides access to all results received during the

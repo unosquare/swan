@@ -1,17 +1,16 @@
 ﻿#if !UWP
-using System;
-using System.Collections;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+
+    using System;
+    using System.Collections;
+
     /// <summary>
-    ///     Shared ancestor to the two types of referral objects - LdapBindHandler and
-    ///     LdapAuthHandler.
+    /// Shared ancestor to the two types of referral objects - LdapBindHandler and
+    /// LdapAuthHandler.
     /// </summary>
-    /// <seealso cref="LdapBindHandler">
-    /// </seealso>
-    /// <seealso cref="LdapAuthHandler">
-    /// </seealso>
+    /// <seealso cref="LdapBindHandler"></seealso>
+    /// <seealso cref="LdapAuthHandler"></seealso>
     public interface LdapReferralHandler
     {
     }
@@ -64,19 +63,17 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Gets all the properties of the constraints object which has been
-        ///     assigned with {@link #setProperty(String, Object)}.
-        ///     A value of <code>null</code> is returned if no properties are defined.
+        /// Gets all the properties of the constraints object which has been
+        /// assigned with {@link #setProperty(String, Object)}.
+        /// A value of <code>null</code> is returned if no properties are defined.
         /// </summary>
-        /// <seealso cref="object">
-        /// </seealso>
-        /// <seealso cref="LdapConnection.getProperty">
-        /// </seealso>
-        /// <summary>
-        ///     Sets all the properties of the constraints object.
-        /// </summary>
+        /// <value>
+        /// The properties.
+        /// </value>
+        /// <seealso cref="object"></seealso>
+        /// <seealso cref="LdapConnection.getProperty"></seealso>
         /// <param name="props">
-        ///     the properties represented by the Hashtable object to set.
+        /// the properties represented by the Hashtable object to set.
         /// </param>
         internal virtual Hashtable Properties
         {
@@ -86,24 +83,15 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Specified whether or not referrals are followed automatically.
+        /// Specified whether or not referrals are followed automatically.
         /// </summary>
-        /// <returns>
-        ///     True if referrals are followed automatically, or
-        ///     false if referrals throw an LdapReferralException.
-        /// </returns>
-        /// <summary>
-        ///     Specifies whether referrals are followed automatically or if
-        ///     referrals throw an LdapReferralException.
-        ///     Referrals of any type other than to an Ldap server (for example, a
-        ///     referral URL other than ldap://something) are ignored on automatic
-        ///     referral following.
-        ///     The default is false.
-        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [referral following]; otherwise, <c>false</c>.
+        /// </value>
         /// <param name="doReferrals">
-        ///     True to follow referrals automatically.
-        ///     False to throw an LdapReferralException if
-        ///     the server returns a referral.
+        /// True to follow referrals automatically.
+        /// False to throw an LdapReferralException if
+        /// the server returns a referral.
         /// </param>
         public virtual bool ReferralFollowing
         {
@@ -113,36 +101,24 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the maximum number of milliseconds to wait for any operation
-        ///     under these constraints.
-        ///     If the value is 0, there is no maximum time limit on waiting
-        ///     for operation results. The actual granularity of the timeout depends
-        ///     platform.  This limit is enforced the the API on an
-        ///     operation, not by the server.
-        ///     The operation will be abandoned and terminated by the
-        ///     API with a result code of LdapException.Ldap_TIMEOUT if the
-        ///     operation exceeds the time limit.
+        /// Returns the maximum number of milliseconds to wait for any operation
+        /// under these constraints.
+        /// If the value is 0, there is no maximum time limit on waiting
+        /// for operation results. The actual granularity of the timeout depends
+        /// platform.  This limit is enforced the the API on an
+        /// operation, not by the server.
+        /// The operation will be abandoned and terminated by the
+        /// API with a result code of LdapException.Ldap_TIMEOUT if the
+        /// operation exceeds the time limit.
         /// </summary>
-        /// <returns>
-        ///     The maximum number of milliseconds to wait for the operation.
-        /// </returns>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT">
-        /// </seealso>
-        /// <summary>
-        ///     Sets the maximum number of milliseconds the client waits for
-        ///     any operation under these constraints to complete.
-        ///     If the value is 0, there is no maximum time limit enforced by the
-        ///     API on waiting for the operation results. The actual granularity of
-        ///     the timeout depends on the platform.
-        ///     The operation will be abandoned and terminated by the
-        ///     API with a result code of LdapException.Ldap_TIMEOUT if the
-        ///     operation exceeds the time limit.
-        /// </summary>
+        /// <value>
+        /// The time limit.
+        /// </value>
+        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
         /// <param name="msLimit">
-        ///     The maximum milliseconds to wait.
+        /// The maximum milliseconds to wait.
         /// </param>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT">
-        /// </seealso>
+        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
         public virtual int TimeLimit
         {
             get { return msLimit; }
@@ -161,8 +137,8 @@ namespace Unosquare.Swan.Networking.Ldap
         private Hashtable properties; // Properties
 
         /// <summary>
-        ///     Constructs a new LdapConstraints object that specifies the default
-        ///     set of constraints.
+        /// Constructs a new LdapConstraints object that specifies the default
+        /// set of constraints.
         /// </summary>
         public LdapConstraints()
         {
@@ -170,62 +146,48 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs a new LdapConstraints object specifying constraints that
-        ///     control wait time, and referral handling.
+        /// Constructs a new LdapConstraints object specifying constraints that
+        /// control wait time, and referral handling.
         /// </summary>
-        /// <param name="msLimit">
-        ///     The maximum time in milliseconds to wait for results.
-        ///     The default is 0, which means that there is no
-        ///     maximum time limit. This limit is enforced for an
-        ///     operation by the API, not by the server.
-        ///     The operation will be abandoned and terminated by the
-        ///     API with a result code of LdapException.Ldap_TIMEOUT
-        ///     if the operation exceeds the time limit.
-        /// </param>
-        /// <param name="doReferrals">
-        ///     Determines whether to automatically follow
-        ///     referrals or not. Specify true to follow
-        ///     referrals automatically, and false to throw
-        ///     an LdapReferralException if the server responds
-        ///     with a referral. False is the default value.
-        ///     The way referrals are followed automatically is
-        ///     determined by the setting of the handler parameter.
-        ///     It is ignored for asynchronous operations.
-        /// </param>
-        /// <param name="handler">
-        ///     The custom authentication handler called when
-        ///     LdapConnection needs to authenticate, typically on
-        ///     following a referral.  A null may be specified to
-        ///     indicate default authentication processing, i.e.
-        ///     referrals are followed with anonymous authentication.
-        ///     The handler object may be an implemention of either the
-        ///     LdapBindHandler or LdapAuthHandler interface.
-        ///     The implementation of these interfaces determines how
-        ///     authentication is performed when following referrals.
-        ///     It is ignored for asynchronous operations.
-        /// </param>
-        /// <param name="hop_limit">
-        ///     The maximum number of referrals to follow in a
-        ///     sequence during automatic referral following.
-        ///     The default value is 10. A value of 0 means no limit.
-        ///     The operation will be abandoned and terminated by the
-        ///     API with a result code of
-        ///     LdapException.REFERRAL_LIMIT_EXCEEDED if the
-        ///     number of referrals in a sequence exceeds the limit.
-        ///     It is ignored for asynchronous operations.
-        /// </param>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT">
-        /// </seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED">
-        /// </seealso>
-        /// <seealso cref="LdapException.REFERRAL">
-        /// </seealso>
-        /// <seealso cref="LdapReferralException">
-        /// </seealso>
-        /// <seealso cref="LdapBindHandler">
-        /// </seealso>
-        /// <seealso cref="LdapAuthHandler">
-        /// </seealso>
+        /// <param name="msLimit">The maximum time in milliseconds to wait for results.
+        /// The default is 0, which means that there is no
+        /// maximum time limit. This limit is enforced for an
+        /// operation by the API, not by the server.
+        /// The operation will be abandoned and terminated by the
+        /// API with a result code of LdapException.Ldap_TIMEOUT
+        /// if the operation exceeds the time limit.</param>
+        /// <param name="doReferrals">Determines whether to automatically follow
+        /// referrals or not. Specify true to follow
+        /// referrals automatically, and false to throw
+        /// an LdapReferralException if the server responds
+        /// with a referral. False is the default value.
+        /// The way referrals are followed automatically is
+        /// determined by the setting of the handler parameter.
+        /// It is ignored for asynchronous operations.</param>
+        /// <param name="handler">The custom authentication handler called when
+        /// LdapConnection needs to authenticate, typically on
+        /// following a referral.  A null may be specified to
+        /// indicate default authentication processing, i.e.
+        /// referrals are followed with anonymous authentication.
+        /// The handler object may be an implemention of either the
+        /// LdapBindHandler or LdapAuthHandler interface.
+        /// The implementation of these interfaces determines how
+        /// authentication is performed when following referrals.
+        /// It is ignored for asynchronous operations.</param>
+        /// <param name="hop_limit">The maximum number of referrals to follow in a
+        /// sequence during automatic referral following.
+        /// The default value is 10. A value of 0 means no limit.
+        /// The operation will be abandoned and terminated by the
+        /// API with a result code of
+        /// LdapException.REFERRAL_LIMIT_EXCEEDED if the
+        /// number of referrals in a sequence exceeds the limit.
+        /// It is ignored for asynchronous operations.</param>
+        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
+        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
+        /// <seealso cref="LdapException.REFERRAL"></seealso>
+        /// <seealso cref="LdapReferralException"></seealso>
+        /// <seealso cref="LdapBindHandler"></seealso>
+        /// <seealso cref="LdapAuthHandler"></seealso>
         public LdapConstraints(int msLimit, bool doReferrals, LdapReferralHandler handler, int hop_limit)
         {
             this.msLimit = msLimit;
@@ -236,33 +198,28 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the controls to be sent to the server.
+        /// Returns the controls to be sent to the server.
         /// </summary>
         /// <returns>
-        ///     The controls to be sent to the server, or null if none.
+        /// The controls to be sent to the server, or null if none.
         /// </returns>
-        /// <seealso cref="Controls">
-        /// </seealso>
+        /// <seealso cref="Controls"></seealso>
         public virtual LdapControl[] getControls()
         {
             return controls;
         }
 
         /// <summary>
-        ///     Gets a property of the constraints object which has been
-        ///     assigned with {@link #setProperty(String, Object)}.
+        /// Gets a property of the constraints object which has been
+        /// assigned with {@link #setProperty(String, Object)}.
         /// </summary>
-        /// <param name="name">
-        ///     Name of the property to be returned.
-        /// </param>
+        /// <param name="name">Name of the property to be returned.</param>
         /// <returns>
-        ///     the object associated with the property,
-        ///     or <code>null</code> if the property is not set.
+        /// the object associated with the property,
+        /// or <code>null</code> if the property is not set.
         /// </returns>
-        /// <seealso cref="object">
-        /// </seealso>
-        /// <seealso cref="LdapConnection.getProperty(string)">
-        /// </seealso>
+        /// <seealso cref="object"></seealso>
+        /// <seealso cref="LdapConnection.getProperty(string)"></seealso>
         public virtual object getProperty(string name)
         {
             if (properties == null)
@@ -273,12 +230,12 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns an object that can process authentication for automatic
-        ///     referral handling.
-        ///     It may be null.
+        /// Returns an object that can process authentication for automatic
+        /// referral handling.
+        /// It may be null.
         /// </summary>
         /// <returns>
-        ///     An LdapReferralHandler object that can process authentication.
+        /// An LdapReferralHandler object that can process authentication.
         /// </returns>
         /*package*/
         internal virtual LdapReferralHandler getReferralHandler()
@@ -287,12 +244,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Sets a single control to be sent to the server.
+        /// Sets a single control to be sent to the server.
         /// </summary>
-        /// <param name="control">
-        ///     A single control to be sent to the server or
-        ///     null if none.
-        /// </param>
+        /// <param name="control">A single control to be sent to the server or
+        /// null if none.</param>
         public virtual void setControls(LdapControl control)
         {
             if (control == null)
@@ -305,12 +260,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Sets controls to be sent to the server.
+        /// Sets controls to be sent to the server.
         /// </summary>
-        /// <param name="controls">
-        ///     An array of controls to be sent to the server or
-        ///     null if none.
-        /// </param>
+        /// <param name="controls">An array of controls to be sent to the server or
+        /// null if none.</param>
         public virtual void setControls(LdapControl[] controls)
         {
             if (controls == null || controls.Length == 0)
@@ -326,21 +279,14 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Sets a property of the constraints object.
-        ///     No property names have been defined at this time, but the
-        ///     mechanism is in place in order to support revisional as well as
-        ///     dynamic and proprietary extensions to operation modifiers.
+        /// Sets a property of the constraints object.
+        /// No property names have been defined at this time, but the
+        /// mechanism is in place in order to support revisional as well as
+        /// dynamic and proprietary extensions to operation modifiers.
         /// </summary>
-        /// <param name="name">
-        ///     Name of the property to set.
-        /// </param>
-        /// <param name="value">
-        ///     Value to assign to the property.
-        ///     property is not supported.
-        ///     @throws NullPointerException if name or value are null
-        /// </param>
-        /// <seealso cref="LdapConnection.getProperty">
-        /// </seealso>
+        /// <param name="name">Name of the property to set.</param>
+        /// <param name="value_Renamed">The value renamed.</param>
+        /// <seealso cref="LdapConnection.getProperty"></seealso>
         public virtual void setProperty(string name, object value_Renamed)
         {
             if (properties == null)

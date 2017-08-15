@@ -1,14 +1,17 @@
 ﻿#if !UWP
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
-    /// <summary>  Represents an Ldap exception that is not a result of a server response.</summary>
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Represents an Ldap exception that is not a result of a server response.
+    /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapException" />
     public class LdapLocalException : LdapException
     {
         /// <summary> Constructs a default exception with no specific error information.</summary>
@@ -17,105 +20,82 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs a local exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String and the result code.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
+        /// Constructs a local exception with a detailed message obtained from the
+        /// specified <code>MessageOrKey</code> String and the result code.
+        /// The String is used either as a message key to obtain a localized
+        /// messsage from ExceptionMessages, or if there is no key in the
+        /// resource matching the text, it is used as the detailed message itself.
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        public LdapLocalException(string messageOrKey, int resultCode) : base(messageOrKey, resultCode, null)
+        /// <param name="messageOrKey">Key to addition result information, a key into
+        /// ExceptionMessages, or the information
+        /// itself if the key doesn't exist.</param>
+        /// <param name="resultCode">The result code returned.</param>
+        public LdapLocalException(string messageOrKey, int resultCode) 
+            : base(messageOrKey, resultCode, null)
         {
         }
 
         /// <summary>
-        ///     Constructs a local exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String and modifying arguments.
-        ///     Additional parameters specify the result code.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        ///     The message in the default locale is built with the supplied arguments,
-        ///     which are saved to be used for building messages for other locales.
+        /// Constructs a local exception with a detailed message obtained from the
+        /// specified <code>MessageOrKey</code> String and modifying arguments.
+        /// Additional parameters specify the result code.
+        /// The String is used either as a message key to obtain a localized
+        /// messsage from ExceptionMessages, or if there is no key in the
+        /// resource matching the text, it is used as the detailed message itself.
+        /// The message in the default locale is built with the supplied arguments,
+        /// which are saved to be used for building messages for other locales.
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
+        /// <param name="messageOrKey">Key to addition result information, a key into
+        /// ExceptionMessages, or the information
+        /// itself if the key doesn't exist.</param>
+        /// <param name="arguments">The modifying arguments to be included in the
+        /// message string.</param>
+        /// <param name="resultCode">The result code returned.</param>
         public LdapLocalException(string messageOrKey, object[] arguments, int resultCode)
             : base(messageOrKey, arguments, resultCode, null)
         {
         }
 
         /// <summary>
-        ///     Constructs a local exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String.
-        ///     Additional parameters specify the result code and a rootException which
-        ///     is the underlying cause of an error on the client.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
+        /// Constructs a local exception with a detailed message obtained from the
+        /// specified <code>MessageOrKey</code> String.
+        /// Additional parameters specify the result code and a rootException which
+        /// is the underlying cause of an error on the client.
+        /// The String is used either as a message key to obtain a localized
+        /// messsage from ExceptionMessages, or if there is no key in the
+        /// resource matching the text, it is used as the detailed message itself.
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="rootException">
-        ///     A throwable which is the underlying cause
-        ///     of the LdapException.
-        /// </param>
+        /// <param name="messageOrKey">Key to addition result information, a key into
+        /// ExceptionMessages, or the information
+        /// itself if the key doesn't exist.</param>
+        /// <param name="resultCode">The result code returned.</param>
+        /// <param name="rootException">A throwable which is the underlying cause
+        /// of the LdapException.</param>
         public LdapLocalException(string messageOrKey, int resultCode, Exception rootException)
             : base(messageOrKey, resultCode, null, rootException)
         {
         }
 
         /// <summary>
-        ///     Constructs a local exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String and modifying arguments.
-        ///     Additional parameters specify the result code
-        ///     and a rootException which is the underlying cause of an error
-        ///     on the client.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        ///     The message in the default locale is built with the supplied arguments,
-        ///     which are saved to be used for building messages for other locales.
+        /// Constructs a local exception with a detailed message obtained from the
+        /// specified <code>MessageOrKey</code> String and modifying arguments.
+        /// Additional parameters specify the result code
+        /// and a rootException which is the underlying cause of an error
+        /// on the client.
+        /// The String is used either as a message key to obtain a localized
+        /// messsage from ExceptionMessages, or if there is no key in the
+        /// resource matching the text, it is used as the detailed message itself.
+        /// The message in the default locale is built with the supplied arguments,
+        /// which are saved to be used for building messages for other locales.
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="rootException">
-        ///     A throwable which is the underlying cause
-        ///     of the LdapException.
-        /// </param>
+        /// <param name="messageOrKey">Key to addition result information, a key into
+        /// ExceptionMessages, or the information
+        /// itself if the key doesn't exist.</param>
+        /// <param name="arguments">The modifying arguments to be included in the
+        /// message string.</param>
+        /// <param name="resultCode">The result code returned.</param>
+        /// <param name="rootException">A throwable which is the underlying cause
+        /// of the LdapException.</param>
         public LdapLocalException(string messageOrKey, object[] arguments, int resultCode, Exception rootException)
             : base(messageOrKey, arguments, resultCode, null, rootException)
         {
@@ -359,6 +339,11 @@ namespace Unosquare.Swan.Networking.Ldap
             {"114", "SSL Provider not found"}
         };
 
+        /// <summary>
+        /// Gets the result code.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <returns>String code</returns>
         public static string GetResultCode(string code)
         {
             return errorCodes[code];
@@ -376,24 +361,22 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        /// <summary> The default Locale</summary>
+        /// <summary>
+        /// The default Locale
+        /// </summary>
         private static CultureInfo defaultLocale;
 
         /// <summary>
-        ///     Returns a string using the MessageOrKey as a key into
-        ///     ExceptionMessages or, if the Key does not exist, returns the
-        ///     string messageOrKey.  In addition it formats the arguments into the message
-        ///     according to MessageFormat.
+        /// Returns a string using the MessageOrKey as a key into
+        /// ExceptionMessages or, if the Key does not exist, returns the
+        /// string messageOrKey.  In addition it formats the arguments into the message
+        /// according to MessageFormat.
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key string for the resource.
-        /// </param>
-        /// <param name="">
-        ///     arguments
-        /// </param>
+        /// <param name="messageOrKey">Key string for the resource.</param>
+        /// <param name="arguments">The arguments.</param>
         /// <returns>
-        ///     the text for the message specified by the MessageKey or the Key
-        ///     if it there is no message for that key.
+        /// the text for the message specified by the MessageKey or the Key
+        /// if it there is no message for that key.
         /// </returns>
         public static string getMessage(string messageOrKey, object[] arguments)
         {
@@ -401,25 +384,19 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the message stored in the ExceptionMessages resource for the
-        ///     specified locale using messageOrKey and argments passed into the
-        ///     constructor.  If no string exists in the resource then this returns
-        ///     the string stored in message.  (This method is identical to
-        ///     getLdapErrorMessage(Locale locale).)
+        /// Returns the message stored in the ExceptionMessages resource for the
+        /// specified locale using messageOrKey and argments passed into the
+        /// constructor.  If no string exists in the resource then this returns
+        /// the string stored in message.  (This method is identical to
+        /// getLdapErrorMessage(Locale locale).)
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key string for the resource.
-        /// </param>
-        /// <param name="">
-        ///     arguments
-        /// </param>
-        /// <param name="locale">
-        ///     The Locale that should be used to pull message
-        ///     strings out of ExceptionMessages.
-        /// </param>
+        /// <param name="messageOrKey">Key string for the resource.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="locale">The Locale that should be used to pull message
+        /// strings out of ExceptionMessages.</param>
         /// <returns>
-        ///     the text for the message specified by the MessageKey or the Key
-        ///     if it there is no message for that key.
+        /// the text for the message specified by the MessageKey or the Key
+        /// if it there is no message for that key.
         /// </returns>
         public static string getMessage(string messageOrKey, object[] arguments, CultureInfo locale)
         {

@@ -1,16 +1,15 @@
 ﻿#if !UWP
 // Base on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
     /// <summary>
     ///     The central class that encapsulates the connection
     ///     to a directory server through the Ldap protocol.
@@ -31,13 +30,12 @@ namespace Unosquare.Swan.Networking.Ldap
         internal BindProperties BindProperties { get; set; }
 
         /// <summary>
-        ///     Returns the protocol version uses to authenticate.
-        ///     0 is returned if no authentication has been performed.
+        /// Returns the protocol version uses to authenticate.
+        /// 0 is returned if no authentication has been performed.
         /// </summary>
-        /// <returns>
-        ///     The protol version used for authentication or 0
-        ///     not authenticated.
-        /// </returns>
+        /// <value>
+        /// The protocol version.
+        /// </value>
         public virtual int ProtocolVersion
         {
             get
@@ -161,6 +159,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     defSearchCons = (LdapSearchConstraints) value.Clone();
                     return;
                 }
+
                 // We set the constraints this way, so a thread doesn't get an
                 // conconsistant view of the referrals.
                 var newCons = (LdapSearchConstraints) defSearchCons.Clone();
@@ -190,10 +189,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /////     The host name of the Ldap server to which the object last
         /////     connected or null if the object has never connected.
         ///// </returns>
-        //public virtual string Host
-        //{
+        // public virtual string Host
+        // {
         //    get { return conn.Host; }
-        //}
+        // }
         ///// <summary>
         /////     Returns the port number of the Ldap server to which the object is or
         /////     was last connected.
@@ -202,24 +201,21 @@ namespace Unosquare.Swan.Networking.Ldap
         /////     The port number of the Ldap server to which the object last
         /////     connected or -1 if the object has never connected.
         ///// </returns>
-        //public virtual int Port
-        //{
+        // public virtual int Port
+        // {
         //    get { return conn.Port; }
-        //}
+        // }
         /// <summary>
-        ///     Returns a copy of the set of search constraints associated with this
-        ///     connection. These constraints apply to search operations performed
-        ///     through this connection (unless a different set of
-        ///     constraints is specified when calling the search operation method).
+        /// Returns a copy of the set of search constraints associated with this
+        /// connection. These constraints apply to search operations performed
+        /// through this connection (unless a different set of
+        /// constraints is specified when calling the search operation method).
         /// </summary>
-        /// <returns>
-        ///     The set of default search contraints that apply to
-        ///     this connection.
-        /// </returns>
-        /// <seealso cref="Constraints">
-        /// </seealso>
-        /// <seealso cref="LdapSearchConstraints">
-        /// </seealso>
+        /// <value>
+        /// The search constraints.
+        /// </value>
+        /// <seealso cref="Constraints"></seealso>
+        /// <seealso cref="LdapSearchConstraints"></seealso>
         public virtual LdapSearchConstraints SearchConstraints => (LdapSearchConstraints) defSearchCons.Clone();
 
         /// <summary>
@@ -229,11 +225,11 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     True if SSL is on
         ///     False if its not on
         /// </returns>
-        //public bool SecureSocketLayer
-        //{
+        // public bool SecureSocketLayer
+        // {
         //    get { return conn.Ssl; }
         //    set { conn.Ssl = value; }
-        //}
+        // }
         /// <summary>
         ///     Indicates whether the object has authenticated to the connected Ldap
         ///     server.
@@ -242,10 +238,10 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     True if the object has authenticated; false if it has not
         ///     authenticated.
         /// </returns>
-        //public virtual bool Bound
-        //{
+        // public virtual bool Bound
+        // {
         //    get { return conn.Bound; }
-        //}
+        // }
         /// <summary>
         ///     Indicates whether the connection represented by this object is open
         ///     at this time.
@@ -265,10 +261,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     True if the connection is protected by TLS.
         /// </returns>
-        //public virtual bool TLS
-        //{
+        // public virtual bool TLS
+        // {
         //    get { return conn.TLS; }
-        //}
+        // }
         /// <summary>
         ///     Returns the Server Controls associated with the most recent response
         ///     to a synchronous request on this connection object, or null
@@ -306,6 +302,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         clonedControl[i] = (LdapControl) responseCtls[i].Clone();
                     }
                 }
+
                 // Return the cloned copy.  Note we have still left the
                 // control in the local responseCtls variable just in case
                 // somebody requests it again.
@@ -331,7 +328,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
         private LdapSearchConstraints defSearchCons;
         private LdapControl[] responseCtls;
-        // Synchronization Object used to synchronize access to responseCtls
         private object responseCtlSemaphore;
         private Connection conn;
         private static object nameLock; // protect agentNum
@@ -436,9 +432,9 @@ namespace Unosquare.Swan.Networking.Ldap
         private const string START_TLS_OID = "1.3.6.1.4.1.1466.20037";
 
         /// <summary>
-        ///     Constructs a new LdapConnection object, which will use the supplied
-        ///     class factory to construct a socket connection during
-        ///     LdapConnection.connect method.
+        /// Constructs a new LdapConnection object, which will use the supplied
+        /// class factory to construct a socket connection during
+        /// LdapConnection.connect method.
         /// </summary>
         public LdapConnection()
         {
@@ -512,166 +508,57 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Starts Transport Layer Security (TLS) protocol on this connection
-        ///     to enable session privacy.
-        ///     This affects the LdapConnection object and all cloned objects. A
-        ///     socket factory that implements LdapTLSSocketFactory must be set on the
-        ///     connection.
+        /// Starts Transport Layer Security (TLS) protocol on this connection
+        /// to enable session privacy.
+        /// This affects the LdapConnection object and all cloned objects. A
+        /// socket factory that implements LdapTLSSocketFactory must be set on the
+        /// connection.
         /// </summary>
-        /// <exception>
-        ///     LdapException Thrown if TLS cannot be started.  If a
-        ///     SocketFactory has been specified that does not implement
-        ///     LdapTLSSocketFactory an LdapException is thrown.
-        /// </exception>
-        //public virtual void StartTls()
-        //{
-        //    var startTLS = MakeExtendedOperation(new LdapExtendedOperation(START_TLS_OID, null), null);
-        //    var tlsID = startTLS.MessageID;
-        //    conn.acquireWriteSemaphore(tlsID);
-        //    try
-        //    {
-        //        if (!conn.AreMessagesComplete())
-        //        {
-        //            throw new LdapLocalException(ExceptionMessages.OUTSTANDING_OPERATIONS,
-        //                LdapException.OPERATIONS_ERROR);
-        //        }
-        //        // Stop reader when response to startTLS request received
-        //        conn.stopReaderOnReply(tlsID);
-        //        // send tls message
-        //        // agent.sendMessage(conn, msg, timeout, bindProps);
-        //        var queue = SendRequestToServer(startTLS, defSearchCons.TimeLimit, null, null);
-        //        var response = (LdapExtendedResponse)queue.getResponse();
-        //        response.chkResultCode();
-        //        conn.startTLS();
-        //    }
-        //    finally
-        //    {
-        //        //Free this semaphore no matter what exceptions get thrown                
-        //        conn.freeWriteSemaphore(tlsID);
-        //    }
-        //}
-        /// <summary>
-        ///     Stops Transport Layer Security(TLS) on the LDAPConnection and reverts
-        ///     back to an anonymous state.
-        ///     @throws LDAPException This can occur for the following reasons:
-        ///     <UL>
-        ///         <LI>StartTLS has not been called before stopTLS</LI>
-        ///         <LI>
-        ///             There exists outstanding messages that have not received all
-        ///             responses
-        ///         </LI>
-        ///         <LI>The sever was not able to support the operation</LI>
-        ///     </UL>
-        ///     <p>
-        ///         Note: The Sun and IBM implementions of JSSE do not currently allow
-        ///         stopping TLS on an open Socket.  In order to produce the same results
-        ///         this method currently disconnects the socket and reconnects, giving
-        ///         the application an anonymous connection to the server, as required
-        ///         by StopTLS
-        ///     </p>
-        /// </summary>
-        //public virtual void StopTls()
-        //{
-        //    if (!TLS)
-        //    {
-        //        throw new LdapLocalException(ExceptionMessages.NO_STARTTLS, LdapException.OPERATIONS_ERROR);
-        //    }
-        //    var semaphoreID = conn.acquireWriteSemaphore();
-        //    try
-        //    {
-        //        if (!conn.AreMessagesComplete())
-        //        {
-        //            throw new LdapLocalException(ExceptionMessages.OUTSTANDING_OPERATIONS,
-        //                LdapException.OPERATIONS_ERROR);
-        //        }
-        //        //stopTLS stops and starts the reader thread for us.
-        //        conn.stopTLS();
-        //    }
-        //    finally
-        //    {
-        //        conn.freeWriteSemaphore(semaphoreID);
-        //    }
-        //    /* Now that the TLS socket is closed, reset everything.  This next
-        //    line is temporary until JSSE is fixed to properly handle TLS stop */
-        //    /* After stopTls the stream is very likely unusable */
-        //    Connect(Host, Port);
-        //}
-        //*************************************************************************
-        // bind methods
-        //*************************************************************************
-        /// <summary>
-        ///     Synchronously authenticates to the Ldap server (that the object is
-        ///     currently connected to) as an Ldapv3 bind, using the specified name,
-        ///     password, and constraints.
-        ///     If the object has been disconnected from an Ldap server,
-        ///     this method attempts to reconnect to the server. If the object
-        ///     has already authenticated, the old authentication is discarded.
-        /// </summary>
-        /// <param name="dn">
-        ///     If non-null and non-empty, specifies that the
-        ///     connection and all operations through it should
-        ///     be authenticated with dn as the distinguished
-        ///     name.
-        /// </param>
-        /// <param name="passwd">
-        ///     If non-null and non-empty, specifies that the
-        ///     connection and all operations through it should
-        ///     be authenticated with dn as the distinguished
-        ///     name and passwd as password.
-        ///     Note: the application should use care in the use
-        ///     of String password objects.  These are long lived
-        ///     objects, and may expose a security risk, especially
-        ///     in objects that are serialized.  The LdapConnection
-        ///     keeps no long lived instances of these objects.
-        /// </param>
-        /// <param name="cons">
-        ///     Constraints specific to the operation.
-        /// </param>
-        /// <exception>
-        ///     LdapException A general exception which includes an error
-        ///     message and an Ldap error code.
-        /// </exception>
+        /// <param name="dn">If non-null and non-empty, specifies that the
+        /// connection and all operations through it should
+        /// be authenticated with dn as the distinguished
+        /// name.</param>
+        /// <param name="passwd">If non-null and non-empty, specifies that the
+        /// connection and all operations through it should
+        /// be authenticated with dn as the distinguished
+        /// name and passwd as password.
+        /// Note: the application should use care in the use
+        /// of String password objects.  These are long lived
+        /// objects, and may expose a security risk, especially
+        /// in objects that are serialized.  The LdapConnection
+        /// keeps no long lived instances of these objects.</param>
+        /// <param name="cons">Constraints specific to the operation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task Bind(string dn, string passwd, LdapConstraints cons = null)
         {
             await Bind(Ldap_V3, dn, passwd, cons);
         }
 
         /// <summary>
-        ///     Synchronously authenticates to the Ldap server (that the object is
-        ///     currently connected to) using the specified name, password, Ldap version,
-        ///     and constraints.
-        ///     If the object has been disconnected from an Ldap server,
-        ///     this method attempts to reconnect to the server. If the object
-        ///     has already authenticated, the old authentication is discarded.
+        /// Synchronously authenticates to the Ldap server (that the object is
+        /// currently connected to) using the specified name, password, Ldap version,
+        /// and constraints.
+        /// If the object has been disconnected from an Ldap server,
+        /// this method attempts to reconnect to the server. If the object
+        /// has already authenticated, the old authentication is discarded.
         /// </summary>
-        /// <param name="version">
-        ///     The Ldap protocol version, use Ldap_V3.
-        ///     Ldap_V2 is not supported.
-        /// </param>
-        /// <param name="dn">
-        ///     If non-null and non-empty, specifies that the
-        ///     connection and all operations through it should
-        ///     be authenticated with dn as the distinguished
-        ///     name.
-        /// </param>
-        /// <param name="passwd">
-        ///     If non-null and non-empty, specifies that the
-        ///     connection and all operations through it should
-        ///     be authenticated with dn as the distinguished
-        ///     name and passwd as password.
-        ///     Note: the application should use care in the use
-        ///     of String password objects.  These are long lived
-        ///     objects, and may expose a security risk, especially
-        ///     in objects that are serialized.  The LdapConnection
-        ///     keeps no long lived instances of these objects.
-        /// </param>
-        /// <param name="cons">
-        ///     The constraints specific to the operation.
-        /// </param>
-        /// <exception>
-        ///     LdapException A general exception which includes an error
-        ///     message and an Ldap error code.
-        /// </exception>
+        /// <param name="version">The Ldap protocol version, use Ldap_V3.
+        /// Ldap_V2 is not supported.</param>
+        /// <param name="dn">If non-null and non-empty, specifies that the
+        /// connection and all operations through it should
+        /// be authenticated with dn as the distinguished
+        /// name.</param>
+        /// <param name="passwd">If non-null and non-empty, specifies that the
+        /// connection and all operations through it should
+        /// be authenticated with dn as the distinguished
+        /// name and passwd as password.
+        /// Note: the application should use care in the use
+        /// of String password objects.  These are long lived
+        /// objects, and may expose a security risk, especially
+        /// in objects that are serialized.  The LdapConnection
+        /// keeps no long lived instances of these objects.</param>
+        /// <param name="cons">The constraints specific to the operation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task Bind(int version, string dn, string passwd, LdapConstraints cons = null)
         {
             sbyte[] pw = null;
@@ -701,7 +588,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.</param>
         /// <param name="cons">Constraints specific to the operation.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task Bind(int version, string dn, sbyte[] passwd, LdapConstraints cons = null)
         {
             if (cons == null)
@@ -739,7 +626,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// of a host running an Ldap server.</param>
         /// <param name="port">The TCP or UDP port number to connect to or contact.
         /// The default Ldap port is 389.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual async Task Connect(string host, int port)
         {
             var tcpClient = new TcpClient();
@@ -763,16 +650,12 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Synchronously disconnects from the Ldap server.
-        ///     Before the object can perform Ldap operations again, it must
-        ///     reconnect to the server by calling connect.
-        ///     The disconnect method abandons any outstanding requests, issues an
-        ///     unbind request to the server, and then closes the socket.
+        /// Synchronously disconnects from the Ldap server.
+        /// Before the object can perform Ldap operations again, it must
+        /// reconnect to the server by calling connect.
+        /// The disconnect method abandons any outstanding requests, issues an
+        /// unbind request to the server, and then closes the socket.
         /// </summary>
-        /// <exception>
-        ///     LdapException A general exception which includes an error
-        ///     message and an Ldap error code.
-        /// </exception>
         public virtual void Disconnect()
         {
             // disconnect from API call
@@ -835,6 +718,12 @@ namespace Unosquare.Swan.Networking.Ldap
         //            }
         //        }
 
+        /// <summary>
+        /// Requests the LDAP message.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         internal async Task RequestLdapMessage(LdapMessage msg,
             CancellationToken ct = default(CancellationToken))
         {
@@ -869,25 +758,17 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Synchronously reads the entry for the specified distinguished name (DN),
-        ///     using the specified constraints, and retrieves only the specified
-        ///     attributes from the entry.
+        /// Synchronously reads the entry for the specified distinguished name (DN),
+        /// using the specified constraints, and retrieves only the specified
+        /// attributes from the entry.
         /// </summary>
-        /// <param name="dn">
-        ///     The distinguished name of the entry to retrieve.
-        /// </param>
-        /// <param name="attrs">
-        ///     The names of the attributes to retrieve.
-        /// </param>
-        /// <param name="cons">
-        ///     The constraints specific to the operation.
-        /// </param>
+        /// <param name="dn">The distinguished name of the entry to retrieve.</param>
+        /// <param name="attrs">The names of the attributes to retrieve.</param>
+        /// <param name="cons">The constraints specific to the operation.</param>
         /// <returns>
-        ///     the LdapEntry read from the server
+        /// the LdapEntry read from the server
         /// </returns>
-        /// <exception>
-        ///     LdapException if the object was not found
-        /// </exception>
+        /// <exception cref="NotImplementedException">The Exception.</exception>
         public async Task<LdapEntry> Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null)
         {
             throw new NotImplementedException();
@@ -906,44 +787,25 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///  Performs the search specified by the parameters,
-        ///     also allowing specification of constraints for the search (such
-        ///     as the maximum number of entries to find or the maximum time to
-        ///     wait for search results).
+        /// Performs the search specified by the parameters,
+        /// also allowing specification of constraints for the search (such
+        /// as the maximum number of entries to find or the maximum time to
+        /// wait for search results).
         /// </summary>
-        /// <param name="base">
-        ///     The base distinguished name to search from.
-        /// </param>
-        /// <param name="scope">
-        ///     The scope of the entries to search. The following
-        ///     are the valid options:
-        ///     <ul>
-        ///         <li>SCOPE_BASE - searches only the base DN</li>
-        ///         <li>SCOPE_ONE - searches only entries under the base DN</li>
-        ///         <li>
-        ///             SCOPE_SUB - searches the base DN and all entries
-        ///             within its subtree
-        ///         </li>
-        ///     </ul>
-        /// </param>
-        /// <param name="filter">
-        ///     The search filter specifying the search criteria.
-        /// </param>
-        /// <param name="attrs">
-        ///     The names of attributes to retrieve.
-        /// </param>
-        /// <param name="typesOnly">
-        ///     If true, returns the names but not the values of
-        ///     the attributes found.  If false, returns the
-        ///     names and values for attributes found.
-        /// </param>
-        /// <param name="cons">
-        ///     The constraints specific to the search.
-        /// </param>
-        /// <exception>
-        ///     LdapException A general exception which includes an error
-        ///     message and an Ldap error code.
-        /// </exception>
+        /// <param name="base">The base distinguished name to search from.</param>
+        /// <param name="scope">The scope of the entries to search. The following
+        /// are the valid options:
+        /// <ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
+        /// SCOPE_SUB - searches the base DN and all entries
+        /// within its subtree
+        /// </li></ul></param>
+        /// <param name="filter">The search filter specifying the search criteria.</param>
+        /// <param name="attrs">The names of attributes to retrieve.</param>
+        /// <param name="typesOnly">If true, returns the names but not the values of
+        /// the attributes found.  If false, returns the
+        /// names and values for attributes found.</param>
+        /// <param name="cons">The constraints specific to the search.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<LdapSearchResults> Search(string @base, int scope, string filter = null, string[] attrs = null,
             bool typesOnly = false, LdapSearchConstraints cons = null)
         {

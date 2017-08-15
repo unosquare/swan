@@ -1,13 +1,13 @@
 ﻿#if !UWP
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+
     /// <summary>
     /// Represents Ldap Sasl Credentials.
     /// <pre>
@@ -87,14 +87,20 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     ID is added for Optimization.
-        ///     ID needs only be one Value for every instance,
-        ///     thus we create it only once.
+        /// ID is added for Optimization.
+        /// ID needs only be one Value for every instance,
+        /// thus we create it only once.
         /// </summary>
-        private static readonly Asn1Identifier ID = new Asn1Identifier(Asn1Identifier.APPLICATION, true,
-            LdapMessage.BIND_REQUEST);
-        
-        public RfcBindRequest(Asn1Integer version, RfcLdapDN name, RfcAuthenticationChoice auth) : base(3)
+        private static readonly Asn1Identifier ID = new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.BIND_REQUEST);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RfcBindRequest"/> class.
+        /// </summary>
+        /// <param name="version">The version.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="auth">The authentication.</param>
+        public RfcBindRequest(Asn1Integer version, RfcLdapDN name, RfcAuthenticationChoice auth)
+            : base(3)
         {
             Add(version);
             Add(name);
@@ -107,10 +113,13 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs a new Bind Request copying the original data from
-        ///     an existing request.
+        /// Constructs a new Bind Request copying the original data from
+        /// an existing request.
         /// </summary>
-        internal RfcBindRequest(Asn1Object[] origRequest, string base_Renamed) : base(origRequest, origRequest.Length)
+        /// <param name="origRequest">The original request.</param>
+        /// <param name="base_Renamed">The base renamed.</param>
+        internal RfcBindRequest(Asn1Object[] origRequest, string base_Renamed) 
+            : base(origRequest, origRequest.Length)
         {
             // Replace the dn if specified, otherwise keep original base
             if ((object)base_Renamed != null)
@@ -120,11 +129,14 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Override getIdentifier to return an application-wide id.
-        ///     <pre>
-        ///         ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 0. (0x60)
-        ///     </pre>
+        /// Override getIdentifier to return an application-wide id.
+        /// <pre>
+        /// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 0. (0x60)
+        /// </pre>
         /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return ID;
@@ -142,16 +154,10 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents a simple bind request.
+    /// Represents a simple bind request.
     /// </summary>
-    /// <seealso cref="LdapConnection.SendRequest">
-    /// </seealso>
-    /*
-     *       BindRequest ::= [APPLICATION 0] SEQUENCE {
-     *               version                 INTEGER (1 .. 127),
-     *               name                    LdapDN,
-     *               authentication          AuthenticationChoice }
-     */
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
+    /// <seealso cref="LdapConnection.SendRequest"></seealso>
     public class LdapBindRequest : LdapMessage
     {
         /// <summary>
@@ -166,28 +172,20 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs a simple bind request.
+        /// Constructs a simple bind request.
         /// </summary>
-        /// <param name="version">
-        ///     The Ldap protocol version, use Ldap_V3.
-        ///     Ldap_V2 is not supported.
-        /// </param>
-        /// <param name="dn">
-        ///     If non-null and non-empty, specifies that the
-        ///     connection and all operations through it should
-        ///     be authenticated with dn as the distinguished
-        ///     name.
-        /// </param>
-        /// <param name="passwd">
-        ///     If non-null and non-empty, specifies that the
-        ///     connection and all operations through it should
-        ///     be authenticated with dn as the distinguished
-        ///     name and passwd as password.
-        /// </param>
-        /// <param name="cont">
-        ///     Any controls that apply to the simple bind request,
-        ///     or null if none.
-        /// </param>
+        /// <param name="version">The Ldap protocol version, use Ldap_V3.
+        /// Ldap_V2 is not supported.</param>
+        /// <param name="dn">If non-null and non-empty, specifies that the
+        /// connection and all operations through it should
+        /// be authenticated with dn as the distinguished
+        /// name.</param>
+        /// <param name="passwd">If non-null and non-empty, specifies that the
+        /// connection and all operations through it should
+        /// be authenticated with dn as the distinguished
+        /// name and passwd as password.</param>
+        /// <param name="cont">Any controls that apply to the simple bind request,
+        /// or null if none.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd, LdapControl[] cont)
             : base(
                 BIND_REQUEST,
@@ -198,9 +196,12 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Return an Asn1 representation of this add request.
-        ///     #return an Asn1 representation of this object.
+        /// Return an Asn1 representation of this add request.
+        /// #return an Asn1 representation of this object.
         /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return Asn1Object.ToString();
@@ -213,20 +214,20 @@ namespace Unosquare.Swan.Networking.Ldap
     public class LdapSearchResultReference : LdapMessage
     {
         /// <summary>
-        ///     Returns any URLs in the object.
+        /// Returns any URLs in the object.
         /// </summary>
-        /// <returns>
-        ///     The URLs.
-        /// </returns>
+        /// <value>
+        /// The referrals.
+        /// </value>
         public virtual string[] Referrals
         {
             get
             {
-                var references = ((RfcSearchResultReference) message.Response).ToArray();
+                var references = ((RfcSearchResultReference)message.Response).ToArray();
                 srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
-                    srefs[i] = ((Asn1OctetString) references[i]).StringValue();
+                    srefs[i] = ((Asn1OctetString)references[i]).StringValue();
                 }
                 return srefs;
             }
@@ -235,15 +236,13 @@ namespace Unosquare.Swan.Networking.Ldap
         private string[] srefs;
         private static int refNum = 0; // Debug, LdapConnection number
         private string name; // String name for debug
-        /*package*/
 
         /// <summary>
-        ///     Constructs an LdapSearchResultReference object.
+        /// Constructs an LdapSearchResultReference object.
         /// </summary>
-        /// <param name="message">
-        ///     The LdapMessage with a search reference.
-        /// </param>
-        internal LdapSearchResultReference(RfcLdapMessage message) : base(message)
+        /// <param name="message">The LdapMessage with a search reference.</param>
+        internal LdapSearchResultReference(RfcLdapMessage message)
+            : base(message)
         {
         }
     }
@@ -267,30 +266,20 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the number of results to block on during receipt of search
-        ///     results.
-        ///     This should be 0 if intermediate reults are not needed,
-        ///     and 1 if results are to be processed as they come in. A value of
-        ///     indicates block until all results are received.  Default:
+        /// Returns the number of results to block on during receipt of search
+        /// results.
+        /// This should be 0 if intermediate reults are not needed,
+        /// and 1 if results are to be processed as they come in. A value of
+        /// indicates block until all results are received.  Default:
         /// </summary>
-        /// <returns>
-        ///     The the number of results to block on.
-        /// </returns>
-        /// <seealso cref="BatchSize">
-        /// </seealso>
-        /// <summary>
-        ///     Specifies the number of results to return in a batch.
-        ///     Specifying 0 means to block until all results are received.
-        ///     Specifying 1 means to return results one result at a time.  Default: 1
-        ///     This should be 0 if intermediate results are not needed,
-        ///     and 1 if results are to be processed as they come in.  The
-        ///     default is 1.
-        /// </summary>
+        /// <value>
+        /// The size of the batch.
+        /// </value>
+        /// <seealso cref="BatchSize"></seealso>
         /// <param name="batchSize">
-        ///     The number of results to block on.
+        /// The number of results to block on.
         /// </param>
-        /// <seealso cref="BatchSize">
-        /// </seealso>
+        /// <seealso cref="BatchSize"></seealso>
         public virtual int BatchSize
         {
             get { return batchSize; }
@@ -469,8 +458,8 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int DEREF_ALWAYS = 3;
 
         /// <summary>
-        ///     Constructs an LdapSearchConstraints object with a default set
-        ///     of search constraints.
+        /// Constructs an LdapSearchConstraints object with a default set
+        /// of search constraints.
         /// </summary>
         public LdapSearchConstraints()
         {
@@ -479,10 +468,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs an LdapSearchConstraints object initialized with values
-        ///     from an existing constraints object (LdapConstraints
-        ///     or LdapSearchConstraints).
+        /// Constructs an LdapSearchConstraints object initialized with values
+        /// from an existing constraints object (LdapConstraints
+        /// or LdapSearchConstraints).
         /// </summary>
+        /// <param name="cons">The cons.</param>
         public LdapSearchConstraints(LdapConstraints cons)
             : base(cons.TimeLimit, cons.ReferralFollowing, cons.getReferralHandler(), cons.HopLimit)
         {
@@ -511,85 +501,65 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs a new LdapSearchConstraints object and allows the
-        ///     specification operational constraints in that object.
+        /// Constructs a new LdapSearchConstraints object and allows the
+        /// specification operational constraints in that object.
         /// </summary>
-        /// <param name="msLimit">
-        ///     The maximum time in milliseconds to wait for results.
-        ///     The default is 0, which means that there is no
-        ///     maximum time limit. This limit is enforced for an
-        ///     operation by the API, not by the server.
-        ///     The operation will be abandoned and terminated by the
-        ///     API with an LdapException.Ldap_TIMEOUT if the
-        ///     operation exceeds the time limit.
-        /// </param>
-        /// <param name="serverTimeLimit">
-        ///     The maximum time in seconds that the server
-        ///     should spend returning search results. This is a
-        ///     server-enforced limit.  The default of 0 means
-        ///     no time limit.
-        ///     The operation will be terminated by the server with an
-        ///     LdapException.TIME_LIMIT_EXCEEDED if the search
-        ///     operation exceeds the time limit.
-        /// </param>
-        /// <param name="dereference">
-        ///     Specifies when aliases should be dereferenced.
-        ///     Must be either DEREF_NEVER, DEREF_FINDING,
-        ///     DEREF_SEARCHING, or DEREF_ALWAYS from this class.
-        ///     Default: DEREF_NEVER
-        /// </param>
-        /// <param name="maxResults">
-        ///     The maximum number of search results to return
-        ///     for a search request.
-        ///     The search operation will be terminated by the server
-        ///     with an LdapException.SIZE_LIMIT_EXCEEDED if the
-        ///     number of results exceed the maximum.
-        ///     Default: 1000
-        /// </param>
-        /// <param name="doReferrals">
-        ///     Determines whether to automatically follow
-        ///     referrals or not. Specify true to follow
-        ///     referrals automatically, and false to throw
-        ///     an LdapException.REFERRAL if the server responds
-        ///     with a referral.
-        ///     It is ignored for asynchronous operations.
-        ///     Default: false
-        /// </param>
-        /// <param name="batchSize">
-        ///     The number of results to return in a batch. Specifying
-        ///     0 means to block until all results are received.
-        ///     Specifying 1 means to return results one result at a
-        ///     time.  Default: 1
-        /// </param>
-        /// <param name="handler">
-        ///     The custom authentication handler called when
-        ///     LdapConnection needs to authenticate, typically on
-        ///     following a referral.  A null may be specified to
-        ///     indicate default authentication processing, i.e.
-        ///     referrals are followed with anonymous authentication.
-        ///     ThE object may be an implemention of either the
-        ///     the LdapBindHandler or LdapAuthHandler interface.
-        ///     It is ignored for asynchronous operations.
-        /// </param>
-        /// <param name="hop_limit">
-        ///     The maximum number of referrals to follow in a
-        ///     sequence during automatic referral following.
-        ///     The default value is 10. A value of 0 means no limit.
-        ///     It is ignored for asynchronous operations.
-        ///     The operation will be abandoned and terminated by the
-        ///     API with an LdapException.REFERRAL_LIMIT_EXCEEDED if the
-        ///     number of referrals in a sequence exceeds the limit.
-        /// </param>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT">
-        /// </seealso>
-        /// <seealso cref="LdapException.REFERRAL">
-        /// </seealso>
-        /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED">
-        /// </seealso>
-        /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED">
-        /// </seealso>
-        public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals,
-            int batchSize, LdapReferralHandler handler, int hop_limit) : base(msLimit, doReferrals, handler, hop_limit)
+        /// <param name="msLimit">The maximum time in milliseconds to wait for results.
+        /// The default is 0, which means that there is no
+        /// maximum time limit. This limit is enforced for an
+        /// operation by the API, not by the server.
+        /// The operation will be abandoned and terminated by the
+        /// API with an LdapException.Ldap_TIMEOUT if the
+        /// operation exceeds the time limit.</param>
+        /// <param name="serverTimeLimit">The maximum time in seconds that the server
+        /// should spend returning search results. This is a
+        /// server-enforced limit.  The default of 0 means
+        /// no time limit.
+        /// The operation will be terminated by the server with an
+        /// LdapException.TIME_LIMIT_EXCEEDED if the search
+        /// operation exceeds the time limit.</param>
+        /// <param name="dereference">Specifies when aliases should be dereferenced.
+        /// Must be either DEREF_NEVER, DEREF_FINDING,
+        /// DEREF_SEARCHING, or DEREF_ALWAYS from this class.
+        /// Default: DEREF_NEVER</param>
+        /// <param name="maxResults">The maximum number of search results to return
+        /// for a search request.
+        /// The search operation will be terminated by the server
+        /// with an LdapException.SIZE_LIMIT_EXCEEDED if the
+        /// number of results exceed the maximum.
+        /// Default: 1000</param>
+        /// <param name="doReferrals">Determines whether to automatically follow
+        /// referrals or not. Specify true to follow
+        /// referrals automatically, and false to throw
+        /// an LdapException.REFERRAL if the server responds
+        /// with a referral.
+        /// It is ignored for asynchronous operations.
+        /// Default: false</param>
+        /// <param name="batchSize">The number of results to return in a batch. Specifying
+        /// 0 means to block until all results are received.
+        /// Specifying 1 means to return results one result at a
+        /// time.  Default: 1</param>
+        /// <param name="handler">The custom authentication handler called when
+        /// LdapConnection needs to authenticate, typically on
+        /// following a referral.  A null may be specified to
+        /// indicate default authentication processing, i.e.
+        /// referrals are followed with anonymous authentication.
+        /// ThE object may be an implemention of either the
+        /// the LdapBindHandler or LdapAuthHandler interface.
+        /// It is ignored for asynchronous operations.</param>
+        /// <param name="hop_limit">The maximum number of referrals to follow in a
+        /// sequence during automatic referral following.
+        /// The default value is 10. A value of 0 means no limit.
+        /// It is ignored for asynchronous operations.
+        /// The operation will be abandoned and terminated by the
+        /// API with an LdapException.REFERRAL_LIMIT_EXCEEDED if the
+        /// number of referrals in a sequence exceeds the limit.</param>
+        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
+        /// <seealso cref="LdapException.REFERRAL"></seealso>
+        /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED"></seealso>
+        /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED"></seealso>
+        public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, LdapReferralHandler handler, int hop_limit) 
+            : base(msLimit, doReferrals, handler, hop_limit)
         {
             InitBlock();
             this.serverTimeLimit = serverTimeLimit;
@@ -599,6 +569,9 @@ namespace Unosquare.Swan.Networking.Ldap
             // Get a unique connection name for debug
         }
 
+        /// <summary>
+        /// Initializes the <see cref="LdapSearchConstraints"/> class.
+        /// </summary>
         static LdapSearchConstraints()
         {
             nameLock = new object();
@@ -635,20 +608,17 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual string[] ReferralList => referralList;
 
-        //		private DirectoryEntry conn;
+        // private DirectoryEntry conn;
         private readonly LdapConnection conn;
         private readonly LdapUrl referralUrl;
         private readonly string[] referralList;
 
         /// <summary>
-        ///     Construct the ReferralInfo class
+        /// Construct the ReferralInfo class
         /// </summary>
-        /// <param name="lc">
-        ///     The DirectoryEntry opened to process this referral
-        /// </param>
-        /// <param name="refUrl">
-        ///     The URL string associated with this connection
-        /// </param>
+        /// <param name="lc">The DirectoryEntry opened to process this referral</param>
+        /// <param name="refList">The reference list.</param>
+        /// <param name="refUrl">The URL string associated with this connection</param>
         public ReferralInfo(LdapConnection lc, string[] refList, LdapUrl refUrl)
         {
             conn = lc;
@@ -672,11 +642,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns an array of attribute names specified in the URL.
+        /// Returns an array of attribute names specified in the URL.
         /// </summary>
-        /// <returns>
-        ///     An array of attribute names in the URL.
-        /// </returns>
+        /// <value>
+        /// The attribute array.
+        /// </value>
         public virtual string[] AttributeArray => attrs;
 
         /// <summary>
@@ -765,16 +735,11 @@ namespace Unosquare.Swan.Networking.Ldap
         private string[] extensions; // Extensions
 
         /// <summary>
-        ///     Constructs a URL object with the specified string as the URL.
+        /// Constructs a URL object with the specified string as the URL.
         /// </summary>
-        /// <param name="url">
-        ///     An Ldap URL string, e.g.
-        ///     "ldap://ldap.example.com:80/dc=example,dc=com?cn,
-        ///     sn?sub?(objectclass=inetOrgPerson)".
-        /// </param>
-        /// <exception>
-        ///     MalformedURLException The specified URL cannot be parsed.
-        /// </exception>
+        /// <param name="url">An Ldap URL string, e.g.
+        /// "ldap://ldap.example.com:80/dc=example,dc=com?cn,
+        /// sn?sub?(objectclass=inetOrgPerson)".</param>
         public LdapUrl(string url)
         {
             InitBlock();
@@ -782,21 +747,15 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs a URL object with the specified host, port, and DN.
-        ///     This form is used to create URL references to a particular object
-        ///     in the directory.
+        /// Constructs a URL object with the specified host, port, and DN.
+        /// This form is used to create URL references to a particular object
+        /// in the directory.
         /// </summary>
-        /// <param name="host">
-        ///     Host identifier of Ldap server, or null for
-        ///     "localhost".
-        /// </param>
-        /// <param name="port">
-        ///     The port number for Ldap server (use
-        ///     LdapConnection.DEFAULT_PORT for default port).
-        /// </param>
-        /// <param name="dn">
-        ///     Distinguished name of the base object of the search.
-        /// </param>
+        /// <param name="host">Host identifier of Ldap server, or null for
+        /// "localhost".</param>
+        /// <param name="port">The port number for Ldap server (use
+        /// LdapConnection.DEFAULT_PORT for default port).</param>
+        /// <param name="dn">Distinguished name of the base object of the search.</param>
         public LdapUrl(string host, int port, string dn)
         {
             InitBlock();
@@ -806,45 +765,30 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs an Ldap URL with all fields explicitly assigned, to
-        ///     specify an Ldap search operation.
+        /// Constructs an Ldap URL with all fields explicitly assigned, to
+        /// specify an Ldap search operation.
         /// </summary>
-        /// <param name="host">
-        ///     Host identifier of Ldap server, or null for
-        ///     "localhost".
-        /// </param>
-        /// <param name="port">
-        ///     The port number for Ldap server (use
-        ///     LdapConnection.DEFAULT_PORT for default port).
-        /// </param>
-        /// <param name="dn">
-        ///     Distinguished name of the base object of the search.
-        /// </param>
-        /// <param name="attrNames">
-        ///     Names or OIDs of attributes to retrieve.  Passing a
-        ///     null array signifies that all user attributes are to be
-        ///     retrieved. Passing a value of "*" allows you to specify
-        ///     that all user attributes as well as any specified
-        ///     operational attributes are to be retrieved.
-        /// </param>
-        /// <param name="scope">
-        ///     Depth of search (in DN namespace). Use one of
-        ///     SCOPE_BASE, SCOPE_ONE, SCOPE_SUB from LdapConnection.
-        /// </param>
-        /// <param name="filter">
-        ///     The search filter specifying the search criteria.
-        /// </param>
-        /// <param name="extensions">
-        ///     Extensions provide a mechanism to extend the
-        ///     functionality of Ldap URLs. Currently no
-        ///     Ldap URL extensions are defined. Each extension
-        ///     specification is a type=value expression, and  may
-        ///     be <code>null</code> or empty.  The =value part may be
-        ///     omitted. The expression may be prefixed with '!' if it
-        ///     is mandatory for the evaluation of the URL.
-        /// </param>
-        public LdapUrl(string host, int port, string dn, string[] attrNames, int scope, string filter,
-            string[] extensions)
+        /// <param name="host">Host identifier of Ldap server, or null for
+        /// "localhost".</param>
+        /// <param name="port">The port number for Ldap server (use
+        /// LdapConnection.DEFAULT_PORT for default port).</param>
+        /// <param name="dn">Distinguished name of the base object of the search.</param>
+        /// <param name="attrNames">Names or OIDs of attributes to retrieve.  Passing a
+        /// null array signifies that all user attributes are to be
+        /// retrieved. Passing a value of "*" allows you to specify
+        /// that all user attributes as well as any specified
+        /// operational attributes are to be retrieved.</param>
+        /// <param name="scope">Depth of search (in DN namespace). Use one of
+        /// SCOPE_BASE, SCOPE_ONE, SCOPE_SUB from LdapConnection.</param>
+        /// <param name="filter">The search filter specifying the search criteria.</param>
+        /// <param name="extensions">Extensions provide a mechanism to extend the
+        /// functionality of Ldap URLs. Currently no
+        /// Ldap URL extensions are defined. Each extension
+        /// specification is a type=value expression, and  may
+        /// be <code>null</code> or empty.  The =value part may be
+        /// omitted. The expression may be prefixed with '!' if it
+        /// is mandatory for the evaluation of the URL.</param>
+        public LdapUrl(string host, int port, string dn, string[] attrNames, int scope, string filter, string[] extensions)
         {
             InitBlock();
             this.host = host;
@@ -859,49 +803,32 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs an Ldap URL with all fields explicitly assigned, including
-        ///     isSecure, to specify an Ldap search operation.
+        /// Constructs an Ldap URL with all fields explicitly assigned, including
+        /// isSecure, to specify an Ldap search operation.
         /// </summary>
-        /// <param name="host">
-        ///     Host identifier of Ldap server, or null for
-        ///     "localhost".
-        /// </param>
-        /// <param name="port">
-        ///     The port number for Ldap server (use
-        ///     LdapConnection.DEFAULT_PORT for default port).
-        /// </param>
-        /// <param name="dn">
-        ///     Distinguished name of the base object of the search.
-        /// </param>
-        /// <param name="attrNames">
-        ///     Names or OIDs of attributes to retrieve.  Passing a
-        ///     null array signifies that all user attributes are to be
-        ///     retrieved. Passing a value of "*" allows you to specify
-        ///     that all user attributes as well as any specified
-        ///     operational attributes are to be retrieved.
-        /// </param>
-        /// <param name="scope">
-        ///     Depth of search (in DN namespace). Use one of
-        ///     SCOPE_BASE, SCOPE_ONE, SCOPE_SUB from LdapConnection.
-        /// </param>
-        /// <param name="filter">
-        ///     The search filter specifying the search criteria.
-        ///     from LdapConnection: SCOPE_BASE, SCOPE_ONE, SCOPE_SUB.
-        /// </param>
-        /// <param name="extensions">
-        ///     Extensions provide a mechanism to extend the
-        ///     functionality of Ldap URLs. Currently no
-        ///     Ldap URL extensions are defined. Each extension
-        ///     specification is a type=value expression, and  may
-        ///     be <code>null</code> or empty.  The =value part may be
-        ///     omitted. The expression may be prefixed with '!' if it
-        ///     is mandatory for the evaluation of the URL.
-        /// </param>
-        /// <param name="secure">
-        ///     If true creates an Ldap URL of the ldaps type
-        /// </param>
-        public LdapUrl(string host, int port, string dn, string[] attrNames, int scope, string filter,
-            string[] extensions, bool secure)
+        /// <param name="host">Host identifier of Ldap server, or null for
+        /// "localhost".</param>
+        /// <param name="port">The port number for Ldap server (use
+        /// LdapConnection.DEFAULT_PORT for default port).</param>
+        /// <param name="dn">Distinguished name of the base object of the search.</param>
+        /// <param name="attrNames">Names or OIDs of attributes to retrieve.  Passing a
+        /// null array signifies that all user attributes are to be
+        /// retrieved. Passing a value of "*" allows you to specify
+        /// that all user attributes as well as any specified
+        /// operational attributes are to be retrieved.</param>
+        /// <param name="scope">Depth of search (in DN namespace). Use one of
+        /// SCOPE_BASE, SCOPE_ONE, SCOPE_SUB from LdapConnection.</param>
+        /// <param name="filter">The search filter specifying the search criteria.
+        /// from LdapConnection: SCOPE_BASE, SCOPE_ONE, SCOPE_SUB.</param>
+        /// <param name="extensions">Extensions provide a mechanism to extend the
+        /// functionality of Ldap URLs. Currently no
+        /// Ldap URL extensions are defined. Each extension
+        /// specification is a type=value expression, and  may
+        /// be <code>null</code> or empty.  The =value part may be
+        /// omitted. The expression may be prefixed with '!' if it
+        /// is mandatory for the evaluation of the URL.</param>
+        /// <param name="secure">If true creates an Ldap URL of the ldaps type</param>
+        public LdapUrl(string host, int port, string dn, string[] attrNames, int scope, string filter, string[] extensions, bool secure)
         {
             InitBlock();
             this.host = host;
@@ -934,18 +861,19 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Decodes a URL-encoded string.
-        ///     Any occurences of %HH are decoded to the hex value represented.
-        ///     However, this method does NOT decode "+" into " ".
+        /// Decodes a URL-encoded string.
+        /// Any occurences of %HH are decoded to the hex value represented.
+        /// However, this method does NOT decode "+" into " ".
         /// </summary>
-        /// <param name="URLEncoded">
-        ///     String to decode.
-        /// </param>
+        /// <param name="URLEncoded">String to decode.</param>
         /// <returns>
-        ///     The decoded string.
+        /// The decoded string.
         /// </returns>
-        /// <exception>
-        ///     MalformedURLException The URL could not be parsed.
+        /// <exception cref="UriFormatException">
+        /// LdapUrl.decode: must be two hex characters following escape character '%'
+        /// or
+        /// LdapUrl.decode: error converting hex characters to integer \"" +
+        ///                                                  ex.Message + "\"
         /// </exception>
         public static string decode(string URLEncoded)
         {
@@ -994,15 +922,13 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Encodes an arbitrary string using the URL encoding rules.
-        ///     Any illegal characters are encoded as %HH.
+        /// Encodes an arbitrary string using the URL encoding rules.
+        /// Any illegal characters are encoded as %HH.
         /// </summary>
-        /// <param name="toEncode">
-        ///     The string to encode.
-        /// </param>
+        /// <param name="toEncode">The string to encode.</param>
         /// <returns>
-        ///     The URL-encoded string.
-        ///     Comment: An illegal character consists of any non graphical US-ASCII character, Unsafe, or reserved characters.
+        /// The URL-encoded string.
+        /// Comment: An illegal character consists of any non graphical US-ASCII character, Unsafe, or reserved characters.
         /// </returns>
         public static string encode(string toEncode)
         {
@@ -1250,14 +1176,6 @@ namespace Unosquare.Swan.Networking.Ldap
             var novell = false;
             if (dnStart < 0)
             {
-                /*
-                                * Kludge. check for ldap://111.222.333.444:389??cn=abc,o=company
-                                *
-                                * Check for broken Novell referral format.  The dn is in
-                                * the scope position, but the required slash is missing.
-                                * This is illegal syntax but we need to account for it.
-                                * Fortunately it can't be confused with anything real.
-                                */
                 dnStart = url.IndexOf("?", scanStart);
                 if (dnStart > 0)
                 {
@@ -1566,10 +1484,9 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns any controls in the message.
+        /// Returns any controls in the message.
         /// </summary>
-        /// <seealso cref="Novell.Directory.Ldap.LdapMessage.Controls">
-        /// </seealso>
+        /// <seealso cref="Novell.Directory.Ldap.LdapMessage.Controls"></seealso>
         public override LdapControl[] Controls
         {
             get
@@ -1603,20 +1520,16 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly ReferralInfo activeReferral;
 
         /// <summary>
-        ///     Creates an LdapResponse using an LdapException.
-        ///     Used to wake up the user following an abandon.
-        ///     Note: The abandon doesn't have to be user initiated
-        ///     but may be the result of error conditions.
-        ///     Referral information is available if this connection created solely
-        ///     to follow a referral.
+        /// Creates an LdapResponse using an LdapException.
+        /// Used to wake up the user following an abandon.
+        /// Note: The abandon doesn't have to be user initiated
+        /// but may be the result of error conditions.
+        /// Referral information is available if this connection created solely
+        /// to follow a referral.
         /// </summary>
-        /// <param name="ex">
-        ///     The exception
-        /// </param>
-        /// <param name="activeReferral">
-        ///     The referral actually used to create the
-        ///     connection
-        /// </param>
+        /// <param name="ex">The exception</param>
+        /// <param name="activeReferral">The referral actually used to create the
+        /// connection</param>
         public LdapResponse(LdapException ex, ReferralInfo activeReferral)
         {
             exception = ex;
@@ -1624,56 +1537,42 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Creates a response LdapMessage when receiving an asynchronous
-        ///     response from a server.
+        /// Creates a response LdapMessage when receiving an asynchronous
+        /// response from a server.
         /// </summary>
-        /// <param name="message">
-        ///     The RfcLdapMessage from a server.
-        /// </param>
+        /// <param name="message">The RfcLdapMessage from a server.</param>
         /*package*/
         internal LdapResponse(RfcLdapMessage message) : base(message)
         {
         }
 
         /// <summary>
-        ///     Creates a SUCCESS response LdapMessage. Typically the response
-        ///     comes from a source other than a BER encoded Ldap message,
-        ///     such as from DSML.  Other values which are allowed in a response
-        ///     are set to their empty values.
+        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
+        /// Creates a SUCCESS response LdapMessage. Typically the response
+        /// comes from a source other than a BER encoded Ldap message,
+        /// such as from DSML.  Other values which are allowed in a response
+        /// are set to their empty values.
         /// </summary>
-        /// <param name="type">
-        ///     The message type as defined in LdapMessage.
-        /// </param>
-        /// <seealso cref="LdapMessage">
-        /// </seealso>
+        /// <param name="type">The message type as defined in LdapMessage.</param>
+        /// <seealso cref="LdapMessage"></seealso>
         public LdapResponse(int type) : this(type, LdapException.SUCCESS, null, null)
         {
         }
 
         /// <summary>
-        ///     Creates a response LdapMessage from parameters. Typically the data
-        ///     comes from a source other than a BER encoded Ldap message,
-        ///     such as from DSML.
+        /// Creates a response LdapMessage from parameters. Typically the data
+        /// comes from a source other than a BER encoded Ldap message,
+        /// such as from DSML.
         /// </summary>
-        /// <param name="type">
-        ///     The message type as defined in LdapMessage.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code as defined in LdapException.
-        /// </param>
-        /// <param name="matchedDN">
-        ///     The name of the lowest entry that was matched
-        ///     for some error result codes, an empty string
-        ///     or <code>null</code> if none.
-        /// </param>
-        /// <param name="serverMessage">
-        ///     A diagnostic message returned by the server,
-        ///     an empty string or <code>null</code> if none.
-        /// </param>
-        /// <seealso cref="LdapMessage">
-        /// </seealso>
-        /// <seealso cref="LdapException">
-        /// </seealso>
+        /// <param name="type">The message type as defined in LdapMessage.</param>
+        /// <param name="resultCode">The result code as defined in LdapException.</param>
+        /// <param name="matchedDN">The name of the lowest entry that was matched
+        /// for some error result codes, an empty string
+        /// or <code>null</code> if none.</param>
+        /// <param name="serverMessage">A diagnostic message returned by the server,
+        /// an empty string or <code>null</code> if none.</param>
+        /// <seealso cref="LdapMessage"></seealso>
+        /// <seealso cref="LdapException"></seealso>
         public LdapResponse(int type, int resultCode, string matchedDN, string serverMessage)
             : base(new RfcLdapMessage(RfcResultFactory(type, resultCode, matchedDN, serverMessage)))
         {
@@ -1927,10 +1826,13 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Note: criticality is only added if true, as per RFC 2251 sec 5.1 part
-        ///     (4): If a value of a type is its default value, it MUST be
-        ///     absent.
+        /// Note: criticality is only added if true, as per RFC 2251 sec 5.1 part
+        /// (4): If a value of a type is its default value, it MUST be
+        /// absent.
         /// </summary>
+        /// <param name="controlType">Type of the control.</param>
+        /// <param name="criticality">The criticality.</param>
+        /// <param name="controlValue">The control value.</param>
         public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality, Asn1OctetString controlValue) : base(3)
         {
             Add(controlType);
@@ -2001,19 +1903,14 @@ namespace Unosquare.Swan.Networking.Ldap
         private RfcControl control; // An RFC 2251 Control
 
         /// <summary>
-        ///     Constructs a new LdapControl object using the specified values.
+        /// Constructs a new LdapControl object using the specified values.
         /// </summary>
-        /// <param name="oid">
-        ///     The OID of the control, as a dotted string.
-        /// </param>
-        /// <param name="critical">
-        ///     True if the Ldap operation should be discarded if
-        ///     the control is not supported. False if
-        ///     the operation can be processed without the control.
-        /// </param>
-        /// <param name="values">
-        ///     The control-specific data.
-        /// </param>
+        /// <param name="oid">The OID of the control, as a dotted string.</param>
+        /// <param name="critical">True if the Ldap operation should be discarded if
+        /// the control is not supported. False if
+        /// the operation can be processed without the control.</param>
+        /// <param name="values">The control-specific data.</param>
+        /// <exception cref="ArgumentException">An OID must be specified</exception>
         public LdapControl(string oid, bool critical, sbyte[] values)
         {
             if ((object) oid == null)
@@ -2030,7 +1927,10 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary> Create an LdapControl from an existing control.</summary>
+        /// <summary>
+        /// Create an LdapControl from an existing control.
+        /// </summary>
+        /// <param name="control">The control.</param>
         internal LdapControl(RfcControl control)
         {
             this.control = control;
@@ -2090,9 +1990,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Sets the control-specific data of the object.  This method is for
-        ///     use by an extension of LdapControl.
+        /// Sets the control-specific data of the object.  This method is for
+        /// use by an extension of LdapControl.
         /// </summary>
+        /// <param name="controlValue">The control value.</param>
         protected internal virtual void setValue(sbyte[] controlValue)
         {
             control.ControlValue = new Asn1OctetString(controlValue);

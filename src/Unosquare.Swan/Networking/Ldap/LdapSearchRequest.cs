@@ -11,24 +11,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapConnection.SendRequest">
     /// </seealso>
-    /*
-     *       SearchRequest ::= [APPLICATION 3] SEQUENCE {
-     *               baseObject      LdapDN,
-     *               scope           ENUMERATED {
-     *                       baseObject              (0),
-     *                       singleLevel             (1),
-     *                       wholeSubtree            (2) },
-     *               derefAliases    ENUMERATED {
-     *                       neverDerefAliases       (0),
-     *                       derefInSearching        (1),
-     *                       derefFindingBaseObj     (2),
-     *                       derefAlways             (3) },
-     *               sizeLimit       INTEGER (0 .. maxInt),
-     *               timeLimit       INTEGER (0 .. maxInt),
-     *               typesOnly       BOOLEAN,
-     *               filter          Filter,
-     *               attributes      AttributeDescriptionList }
-     */
     internal class LdapSearchRequest : LdapMessage
     {
         /// <summary>
@@ -264,62 +246,38 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs an Ldap Search Request with a filter in Asn1 format.
+        /// Constructs an Ldap Search Request with a filter in Asn1 format.
         /// </summary>
-        /// <param name="base">
-        ///     The base distinguished name to search from.
-        /// </param>
-        /// <param name="scope">
-        ///     The scope of the entries to search. The following
-        ///     are the valid options:
-        ///     <ul>
-        ///         <li>SCOPE_BASE - searches only the base DN</li>
-        ///         <li>SCOPE_ONE - searches only entries under the base DN</li>
-        ///         <li>
-        ///             SCOPE_SUB - searches the base DN and all entries
-        ///             within its subtree
-        ///         </li>
-        ///     </ul>
-        /// </param>
-        /// <param name="filter">
-        ///     The search filter specifying the search criteria.
-        /// </param>
-        /// <param name="attrs">
-        ///     The names of attributes to retrieve.
-        ///     operation exceeds the time limit.
-        /// </param>
-        /// <param name="dereference">
-        ///     Specifies when aliases should be dereferenced.
-        ///     Must be either one of the constants defined in
-        ///     LdapConstraints, which are DEREF_NEVER,
-        ///     DEREF_FINDING, DEREF_SEARCHING, or DEREF_ALWAYS.
-        /// </param>
-        /// <param name="maxResults">
-        ///     The maximum number of search results to return
-        ///     for a search request.
-        ///     The search operation will be terminated by the server
-        ///     with an LdapException.SIZE_LIMIT_EXCEEDED if the
-        ///     number of results exceed the maximum.
-        /// </param>
-        /// <param name="serverTimeLimit">
-        ///     The maximum time in seconds that the server
-        ///     should spend returning search results. This is a
-        ///     server-enforced limit.  A value of 0 means
-        ///     no time limit.
-        /// </param>
-        /// <param name="typesOnly">
-        ///     If true, returns the names but not the values of
-        ///     the attributes found.  If false, returns the
-        ///     names and values for attributes found.
-        /// </param>
-        /// <param name="cont">
-        ///     Any controls that apply to the search request.
-        ///     or null if none.
-        /// </param>
-        /// <seealso cref="LdapConnection.Search">
-        /// </seealso>
-        /// <seealso cref="LdapSearchConstraints">
-        /// </seealso>
+        /// <param name="base_Renamed">The base renamed.</param>
+        /// <param name="scope">The scope of the entries to search. The following
+        /// are the valid options:
+        /// <ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
+        /// SCOPE_SUB - searches the base DN and all entries
+        /// within its subtree
+        /// </li></ul></param>
+        /// <param name="filter">The search filter specifying the search criteria.</param>
+        /// <param name="attrs">The names of attributes to retrieve.
+        /// operation exceeds the time limit.</param>
+        /// <param name="dereference">Specifies when aliases should be dereferenced.
+        /// Must be either one of the constants defined in
+        /// LdapConstraints, which are DEREF_NEVER,
+        /// DEREF_FINDING, DEREF_SEARCHING, or DEREF_ALWAYS.</param>
+        /// <param name="maxResults">The maximum number of search results to return
+        /// for a search request.
+        /// The search operation will be terminated by the server
+        /// with an LdapException.SIZE_LIMIT_EXCEEDED if the
+        /// number of results exceed the maximum.</param>
+        /// <param name="serverTimeLimit">The maximum time in seconds that the server
+        /// should spend returning search results. This is a
+        /// server-enforced limit.  A value of 0 means
+        /// no time limit.</param>
+        /// <param name="typesOnly">If true, returns the names but not the values of
+        /// the attributes found.  If false, returns the
+        /// names and values for attributes found.</param>
+        /// <param name="cont">Any controls that apply to the search request.
+        /// or null if none.</param>
+        /// <seealso cref="LdapConnection.Search"></seealso>
+        /// <seealso cref="LdapSearchConstraints"></seealso>
         public LdapSearchRequest(string base_Renamed, int scope, RfcFilter filter, string[] attrs, int dereference,
             int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)
             : base(

@@ -55,11 +55,13 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Encode an Asn1Numeric directly into the specified outputstream.
-        ///     Use a two's complement representation in the fewest number of octets
-        ///     possible.
-        ///     Can be used to encode INTEGER and ENUMERATED values.
+        /// Encode an Asn1Numeric directly into the specified outputstream.
+        /// Use a two's complement representation in the fewest number of octets
+        /// possible.
+        /// Can be used to encode INTEGER and ENUMERATED values.
         /// </summary>
+        /// <param name="n">The Asn1Numeric object to encode</param>
+        /// <param name="stream">The stram</param>
         public void encode(Asn1Numeric n, Stream stream)
         {
             var octets = new sbyte[8];
@@ -81,67 +83,36 @@ namespace Unosquare.Swan.Networking.Ldap
                 stream.WriteByte((byte)octets[i]);
         }
 
-        /* Asn1 TYPE NOT YET SUPPORTED
-        * Encode an Asn1Real directly to a stream.
-        public void encode(Asn1Real r, OutputStream out)
-        throws IOException
-        {
-        throw new IOException("LBEREncoder: Encode to a stream not implemented");
-        }
-        */
-
-        /// <summary> Encode an Asn1Null directly into the specified outputstream.</summary>
+        /// <summary>
+        /// Encode an Asn1Null directly into the specified outputstream.
+        /// </summary>
+        /// <param name="n">The Asn1Null object to encode</param>
+        /// <param name="stream">The stream.</param>
         public void encode(Asn1Null n, Stream stream)
         {
             encode(n.GetIdentifier(), stream);
             stream.WriteByte(0x00); // Length (with no Content)
         }
 
-        /* Asn1 TYPE NOT YET SUPPORTED
-        * Encode an Asn1BitString directly to a stream.
-        public void encode(Asn1BitString bs, OutputStream out)
-        throws IOException
-        {
-        throw new IOException("LBEREncoder: Encode to a stream not implemented");
-        }
-        */
-
-        /// <summary> Encode an Asn1OctetString directly into the specified outputstream.</summary>
+        /// <summary>
+        /// Encode an Asn1OctetString directly into the specified outputstream.
+        /// </summary>
+        /// <param name="os">The Asn1OctetString object to encode</param>
+        /// <param name="stream">The stream.</param>
         public void encode(Asn1OctetString os, Stream stream)
         {
             encode(os.GetIdentifier(), stream);
             encodeLength(os.ByteValue().Length, stream);
             var temp_sbyteArray = os.ByteValue();
             stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
-            ;
-            ;
         }
 
-        /* Asn1 TYPE NOT YET SUPPORTED
-        * Encode an Asn1ObjectIdentifier directly to a stream.
-        * public void encode(Asn1ObjectIdentifier oi, OutputStream out)
-        * throws IOException
-        * {
-        * throw new IOException("LBEREncoder: Encode to a stream not implemented");
-        * }
-        */
-
-        /* Asn1 TYPE NOT YET SUPPORTED
-        * Encode an Asn1CharacterString directly to a stream.
-        * public void encode(Asn1CharacterString cs, OutputStream out)
-        * throws IOException
-        * {
-        * throw new IOException("LBEREncoder: Encode to a stream not implemented");
-        * }
-        */
-
-        /* Encoders for ASN.1 structured types
-        */
-
         /// <summary>
-        ///     Encode an Asn1Structured into the specified outputstream.  This method
-        ///     can be used to encode SET, SET_OF, SEQUENCE, SEQUENCE_OF
+        /// Encode an Asn1Structured into the specified outputstream.  This method
+        /// can be used to encode SET, SET_OF, SEQUENCE, SEQUENCE_OF
         /// </summary>
+        /// <param name="c">The Asn1Structured object to encode</param>
+        /// <param name="stream">The stream.</param>
         public void encode(Asn1Structured c, Stream stream)
         {
             encode(c.GetIdentifier(), stream);
@@ -164,7 +135,11 @@ namespace Unosquare.Swan.Networking.Ldap
             stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
         }
 
-        /// <summary> Encode an Asn1Tagged directly into the specified outputstream.</summary>
+        /// <summary>
+        /// Encode an Asn1Tagged directly into the specified outputstream.
+        /// </summary>
+        /// <param name="t">The Asn1Tagged object to encode</param>
+        /// <param name="stream">The stream.</param>
         public void encode(Asn1Tagged t, Stream stream)
         {
             if (t.Explicit)
@@ -184,8 +159,12 @@ namespace Unosquare.Swan.Networking.Ldap
                 t.taggedValue().Encode(this, stream);
             }
         }
-        
-        /// <summary> Encode an Asn1Identifier directly into the specified outputstream.</summary>
+
+        /// <summary>
+        /// Encode an Asn1Identifier directly into the specified outputstream.
+        /// </summary>
+        /// <param name="id">The Asn1Identifier object to encode</param>
+        /// <param name="stream">The stream.</param>
         public void encode(Asn1Identifier id, Stream stream)
         {
             var c = id.Asn1Class;
@@ -205,13 +184,11 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /* Private helper methods
-        */
-
-        /*
-        *  Encodes the specified length into the the outputstream
-        */
-
+        /// <summary>
+        /// Encodes the length.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <param name="stream">The stream.</param>
         private void encodeLength(int length, Stream stream)
         {
             if (length < 0x80)
@@ -235,7 +212,11 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary> Encodes the provided tag into the outputstream.</summary>
+        /// <summary>
+        /// Encodes the provided tag into the outputstream.
+        /// </summary>
+        /// <param name="value_Renamed">The value renamed.</param>
+        /// <param name="stream">The stream.</param>
         private void encodeTagInteger(int value_Renamed, Stream stream)
         {
             var octets = new sbyte[5];

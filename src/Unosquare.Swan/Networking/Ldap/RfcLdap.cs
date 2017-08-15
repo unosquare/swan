@@ -1,12 +1,12 @@
 ﻿#if !UWP
-
-using System;
-using System.Collections;
-using System.IO;
-using System.Text;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+
+    using System;
+    using System.Collections;
+    using System.IO;
+    using System.Text;
+
     /// <summary>
     ///     Represents the Ldap Unbind request.
     ///     <pre>
@@ -2194,22 +2194,19 @@ namespace Unosquare.Swan.Networking.Ldap
         private LdapEntry entry;
 
         /// <summary>
-        ///     Constructs an LdapSearchResult object.
+        /// Constructs an LdapSearchResult object.
         /// </summary>
-        /// <param name="message">
-        ///     The RfcLdapMessage with a search result.
-        /// </param>
+        /// <param name="message">The RfcLdapMessage with a search result.</param>
         internal LdapSearchResult(RfcLdapMessage message) 
             : base(message)
         {
         }
 
         /// <summary>
-        ///     Constructs an LdapSearchResult object from an LdapEntry.
+        /// Constructs an LdapSearchResult object from an LdapEntry.
         /// </summary>
-        /// <param name="entry">
-        ///     the LdapEntry represented by this search result.
-        /// </param>
+        /// <param name="entry">the LdapEntry represented by this search result.</param>
+        /// <exception cref="ArgumentException">Argument \"entry\" cannot be null</exception>
         public LdapSearchResult(LdapEntry entry)
         {
             if (entry == null)
@@ -2245,14 +2242,10 @@ namespace Unosquare.Swan.Networking.Ldap
         private sbyte[] vals;
 
         /// <summary>
-        ///     Constructs a new object with the specified object ID and data.
+        /// Constructs a new object with the specified object ID and data.
         /// </summary>
-        /// <param name="oid">
-        ///     The unique identifier of the operation.
-        /// </param>
-        /// <param name="vals">
-        ///     The operation-specific data of the operation.
-        /// </param>
+        /// <param name="oid">The unique identifier of the operation.</param>
+        /// <param name="vals">The operation-specific data of the operation.</param>
         public LdapExtendedOperation(string oid, sbyte[] vals)
         {
             this.oid = oid;
@@ -2331,9 +2324,12 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         // Constructors for SearchResultReference
         /// <summary>
-        ///     The only time a client will create a SearchResultReference is when it is
-        ///     decoding it from an InputStream
+        /// The only time a client will create a SearchResultReference is when it is
+        /// decoding it from an InputStream
         /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
         public RfcSearchResultReference(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
         }
@@ -2367,10 +2363,12 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcLdapDN : RfcLdapString
     {
         // Constructors for RfcLdapDN
-        public RfcLdapDN(string s) : base(s)
+        public RfcLdapDN(string s)
+            : base(s)
         {
         }
-        public RfcLdapDN(sbyte[] s) : base(s)
+        public RfcLdapDN(sbyte[] s)
+            : base(s)
         {
         }
     }
@@ -2402,9 +2400,12 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly int responseIndex;
         // Constructors for ExtendedResponse
         /// <summary>
-        ///     The only time a client will create a ExtendedResponse is when it is
-        ///     decoding it from an InputStream
+        /// The only time a client will create a ExtendedResponse is when it is
+        /// decoding it from an InputStream
         /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
         public RfcExtendedResponse(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
             // decode optional tagged elements
@@ -2489,12 +2490,16 @@ namespace Unosquare.Swan.Networking.Ldap
         }
         // Constructors for BindResponse
         /// <summary>
-        ///     The only time a client will create a BindResponse is when it is
-        ///     decoding it from an InputStream
-        ///     Note: If serverSaslCreds is included in the BindResponse, it does not
-        ///     need to be decoded since it is already an OCTET STRING.
+        /// The only time a client will create a BindResponse is when it is
+        /// decoding it from an InputStream
+        /// Note: If serverSaslCreds is included in the BindResponse, it does not
+        /// need to be decoded since it is already an OCTET STRING.
         /// </summary>
-        public RfcBindResponse(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
+        public RfcBindResponse(Asn1Decoder dec, Stream in_Renamed, int len) 
+            : base(dec, in_Renamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
@@ -2592,7 +2597,14 @@ namespace Unosquare.Swan.Networking.Ldap
          * oid of the response. The element at m_responseValueIndex will be set
          * to an ASN1OctetString containing the value bytes.
          */
-        public RfcIntermediateResponse(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RfcIntermediateResponse"/> class.
+        /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
+        public RfcIntermediateResponse(Asn1Decoder dec, Stream in_Renamed, int len) 
+            : base(dec, in_Renamed, len)
         //		throws IOException
         {
             //		super(dec, in, len);
@@ -2657,9 +2669,14 @@ namespace Unosquare.Swan.Networking.Ldap
                 ? (Asn1OctetString)Get(m_responseValueIndex)
                 : null;
         }
-        /**
-         * Override getIdentifier to return an application-wide id.
-         */
+        /// <summary>
+        /// Returns the identifier for this Asn1Object as an Asn1Identifier.
+        /// This Asn1Identifier object will include the CLASS, FORM and TAG
+        /// for this Asn1Object.
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true,

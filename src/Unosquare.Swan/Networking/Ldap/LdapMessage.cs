@@ -1,14 +1,13 @@
 ﻿#if !UWP
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
 
     /// <summary>
     ///     This class contains different methods to manage Collections.
@@ -442,11 +441,19 @@ namespace Unosquare.Swan.Networking.Ldap
 
         private readonly Hashtable map;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RespExtensionSet"/> class.
+        /// </summary>
         public RespExtensionSet()
         {
             map = new Hashtable();
         }
-        
+
+        /// <summary>
+        /// Registers the response extension.
+        /// </summary>
+        /// <param name="oid">The oid.</param>
+        /// <param name="extClass">The ext class.</param>
         public void registerResponseExtension(string oid, Type extClass)
         {
             lock (this)
@@ -470,11 +477,11 @@ namespace Unosquare.Swan.Networking.Ldap
             return map.Values.GetEnumerator();
         }
 
-        /* Searches the list of registered responses for a mathcing response.  We
-        * search using the OID string.  If a match is found we return the
-        * Class name that was provided to us on registration.
-        */
-
+        /// <summary>
+        /// Finds the response extension.
+        /// </summary>
+        /// <param name="searchOID">The search oid.</param>
+        /// <returns></returns>
         public Type findResponseExtension(string searchOID)
         {
             lock (this)
@@ -497,8 +504,12 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcAbandonRequest : RfcMessageID, RfcRequest
     {
-        /// <summary> Constructs an RfcAbandonRequest</summary>
-        public RfcAbandonRequest(int msgId) : base(msgId)
+        /// <summary>
+        /// Constructs an RfcAbandonRequest
+        /// </summary>
+        /// <param name="msgId">The MSG identifier.</param>
+        public RfcAbandonRequest(int msgId)
+            : base(msgId)
         {
         }
         
@@ -526,26 +537,20 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an Ldap Abandon Request
+    /// Represents an Ldap Abandon Request
     /// </summary>
-    /// <seealso cref="LdapConnection.SendRequest">
-    /// </seealso>
-    /*
-     *       AbandonRequest ::= [APPLICATION 16] MessageID
-     */
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
+    /// <seealso cref="LdapConnection.SendRequest"></seealso>
     public class LdapAbandonRequest : LdapMessage
     {
         /// <summary>
-        ///     Construct an Ldap Abandon Request.
+        /// Construct an Ldap Abandon Request.
         /// </summary>
-        /// <param name="id">
-        ///     The ID of the operation to abandon.
-        /// </param>
-        /// <param name="cont">
-        ///     Any controls that apply to the abandon request
-        ///     or null if none.
-        /// </param>
-        public LdapAbandonRequest(int id, LdapControl[] cont) : base(ABANDON_REQUEST, new RfcAbandonRequest(id), cont)
+        /// <param name="id">The ID of the operation to abandon.</param>
+        /// <param name="cont">Any controls that apply to the abandon request
+        /// or null if none.</param>
+        public LdapAbandonRequest(int id, LdapControl[] cont)
+            : base(ABANDON_REQUEST, new RfcAbandonRequest(id), cont)
         {
         }
     }
@@ -611,41 +616,27 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         /// <summary> Context-specific TAG for optional Referral.</summary>
         public const int REFERRAL = 3;
-        
+
         /// <summary>
-        ///     Constructs an RfcLdapResult from parameters
+        /// Constructs an RfcLdapResult from parameters
         /// </summary>
-        /// <param name="resultCode">
-        ///     the result code of the operation
-        /// </param>
-        /// <param name="matchedDN">
-        ///     the matched DN returned from the server
-        /// </param>
-        /// <param name="errorMessage">
-        ///     the diagnostic message returned from the server
-        /// </param>
+        /// <param name="resultCode">the result code of the operation</param>
+        /// <param name="matchedDN">the matched DN returned from the server</param>
+        /// <param name="errorMessage">the diagnostic message returned from the server</param>
         public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage)
             : this(resultCode, matchedDN, errorMessage, null)
         {
         }
 
         /// <summary>
-        ///     Constructs an RfcLdapResult from parameters
+        /// Constructs an RfcLdapResult from parameters
         /// </summary>
-        /// <param name="resultCode">
-        ///     the result code of the operation
-        /// </param>
-        /// <param name="matchedDN">
-        ///     the matched DN returned from the server
-        /// </param>
-        /// <param name="errorMessage">
-        ///     the diagnostic message returned from the server
-        /// </param>
-        /// <param name="referral">
-        ///     the referral(s) returned by the server
-        /// </param>
-        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage,
-            Asn1SequenceOf referral) : base(4)
+        /// <param name="resultCode">the result code of the operation</param>
+        /// <param name="matchedDN">the matched DN returned from the server</param>
+        /// <param name="errorMessage">the diagnostic message returned from the server</param>
+        /// <param name="referral">the referral(s) returned by the server</param>
+        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
+            : base(4)
         {
             Add(resultCode);
             Add(matchedDN);
@@ -654,9 +645,14 @@ namespace Unosquare.Swan.Networking.Ldap
                 Add(referral);
         }
 
-        /// <summary> Constructs an RfcLdapResult from the inputstream</summary>
-        
-        public RfcLdapResult(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        /// <summary>
+        /// Constructs an RfcLdapResult from the inputstream
+        /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
+        public RfcLdapResult(Asn1Decoder dec, Stream in_Renamed, int len) 
+            : base(dec, in_Renamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
@@ -725,33 +721,35 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcSearchResultDone : RfcLdapResult
     {
-        /// <summary> Decode a search result done from the input stream.</summary>
-        
-        public RfcSearchResultDone(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        /// <summary>
+        /// Decode a search result done from the input stream.
+        /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
+        public RfcSearchResultDone(Asn1Decoder dec, Stream in_Renamed, int len) 
+            : base(dec, in_Renamed, len)
         {
         }
 
         /// <summary>
-        ///     Constructs an RfcSearchResultDone from parameters.
+        /// Constructs an RfcSearchResultDone from parameters.
         /// </summary>
-        /// <param name="resultCode">
-        ///     the result code of the operation
-        /// </param>
-        /// <param name="matchedDN">
-        ///     the matched DN returned from the server
-        /// </param>
-        /// <param name="errorMessage">
-        ///     the diagnostic message returned from the server
-        /// </param>
-        /// <param name="referral">
-        ///     the referral(s) returned by the server
-        /// </param>
-        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage,
-            Asn1SequenceOf referral) : base(resultCode, matchedDN, errorMessage, referral)
+        /// <param name="resultCode">the result code of the operation</param>
+        /// <param name="matchedDN">the matched DN returned from the server</param>
+        /// <param name="errorMessage">the diagnostic message returned from the server</param>
+        /// <param name="referral">the referral(s) returned by the server</param>
+        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
+            : base(resultCode, matchedDN, errorMessage, referral)
         {
         }
-        
-        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+
+        /// <summary>
+        /// Override getIdentifier to return an application-wide id.
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESULT);
@@ -768,7 +766,12 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcSearchResultEntry : Asn1Sequence
     {
-        /// <summary> </summary>
+        /// <summary>
+        /// Gets the name of the object.
+        /// </summary>
+        /// <value>
+        /// The name of the object.
+        /// </value>
         public virtual Asn1OctetString ObjectName
         {
             get { return (Asn1OctetString)Get(0); }
@@ -779,16 +782,25 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get { return (Asn1Sequence)Get(1); }
         }
-        
+
         /// <summary>
-        ///     The only time a client will create a SearchResultEntry is when it is
-        ///     decoding it from an InputStream
+        /// The only time a client will create a SearchResultEntry is when it is
+        /// decoding it from an InputStream
         /// </summary>
-        public RfcSearchResultEntry(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
+        public RfcSearchResultEntry(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
         {
         }
-        
-        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+
+        /// <summary>
+        /// Override getIdentifier to return an application-wide id.
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESPONSE);
@@ -831,16 +843,20 @@ namespace Unosquare.Swan.Networking.Ldap
         private static readonly object lock_Renamed;
 
         /// <summary>
-        ///     Creates a MessageID with an auto incremented Asn1Integer value.
-        ///     Bounds: (0 .. 2,147,483,647) (2^^31 - 1 or Integer.MAX_VALUE)
-        ///     MessageID zero is never used in this implementation.  Always
-        ///     start the messages with one.
+        /// Creates a MessageID with an auto incremented Asn1Integer value.
+        /// Bounds: (0 .. 2,147,483,647) (2^^31 - 1 or Integer.MAX_VALUE)
+        /// MessageID zero is never used in this implementation.  Always
+        /// start the messages with one.
         /// </summary>
-        protected internal RfcMessageID() : base(MessageID)
+        protected internal RfcMessageID()
+            : base(MessageID)
         {
         }
 
-        /// <summary> Creates a MessageID with a specified int value.</summary>
+        /// <summary>
+        /// Creates a MessageID with a specified int value.
+        /// </summary>
+        /// <param name="i">The i.</param>
         protected internal RfcMessageID(int i) : base(i)
         {
         }
@@ -861,18 +877,23 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         /// <summary> Controls context specific tag</summary>
         public const int CONTROLS = 0;
-        
+
         /// <summary>
-        ///     Constructs a Controls object. This constructor is used in combination
-        ///     with the add() method to construct a set of Controls to send to the
-        ///     server.
+        /// Constructs a Controls object. This constructor is used in combination
+        /// with the add() method to construct a set of Controls to send to the
+        /// server.
         /// </summary>
-        public RfcControls() : base(5)
+        public RfcControls()
+            : base(5)
         {
         }
 
-        /// <summary> Constructs a Controls object by decoding it from an InputStream.</summary>
-        
+        /// <summary>
+        /// Constructs a Controls object by decoding it from an InputStream.
+        /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
         public RfcControls(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
             // Convert each SEQUENCE element to a Control
@@ -882,20 +903,32 @@ namespace Unosquare.Swan.Networking.Ldap
                 Set(i, tempControl);
             }
         }
-        
-        /// <summary> Override add() of Asn1SequenceOf to only accept a Control type.</summary>
+
+        /// <summary>
+        /// Override add() of Asn1SequenceOf to only accept a Control type.
+        /// </summary>
+        /// <param name="control">The control.</param>
         public void add(RfcControl control)
         {
             base.Add(control);
         }
 
-        /// <summary> Override set() of Asn1SequenceOf to only accept a Control type.</summary>
+        /// <summary>
+        /// Override set() of Asn1SequenceOf to only accept a Control type.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <param name="control">The control.</param>
         public void Set(int index, RfcControl control)
         {
             base.Set(index, control);
         }
-        
-        /// <summary> Override getIdentifier to return a context specific id.</summary>
+
+        /// <summary>
+        /// Override getIdentifier to return a context specific id.
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.CONTEXT, true, CONTROLS);
@@ -903,36 +936,57 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     This interface represents RfcLdapMessages that contain a response from a
-    ///     server.
-    ///     If the protocol operation of the RfcLdapMessage is of this type,
-    ///     it contains at least an RfcLdapResult.
+    /// This interface represents RfcLdapMessages that contain a response from a
+    /// server.
+    /// If the protocol operation of the RfcLdapMessage is of this type,
+    /// it contains at least an RfcLdapResult.
     /// </summary>
     internal interface RfcResponse
     {
-        /// <summary> </summary>
+        /// <summary>
+        /// Gets the result code.
+        /// </summary>
+        /// <returns>Asn1Enumerated</returns>
         Asn1Enumerated getResultCode();
 
-        /// <summary> </summary>
+        /// <summary>
+        /// Gets the matched dn.
+        /// </summary>
+        /// <returns>RfcLdapDN</returns>
         RfcLdapDN getMatchedDN();
 
-        /// <summary> </summary>
+        /// <summary>
+        /// Gets the error message.
+        /// </summary>
+        /// <returns>RfcLdapString</returns>
         RfcLdapString getErrorMessage();
 
-        /// <summary> </summary>
+        /// <summary>
+        /// Gets the referral.
+        /// </summary>
+        /// <returns>Asn1SequenceOf</returns>
         Asn1SequenceOf getReferral();
     }
 
     /// <summary>
-    ///     This interface represents Protocol Operations that are requests from a
-    ///     client.
+    /// This interface represents Protocol Operations that are requests from a
+    /// client.
     /// </summary>
     public interface RfcRequest
     {
-        /// <summary> Builds a new request using the data from the this object.</summary>
+        /// <summary>
+        /// Builds a new request using the data from the this object.
+        /// </summary>
+        /// <param name="base_Renamed">The base renamed.</param>
+        /// <param name="filter">The filter.</param>
+        /// <param name="reference">if set to <c>true</c> [reference].</param>
+        /// <returns>Rfc request</returns>
         RfcRequest dupRequest(string base_Renamed, string filter, bool reference);
 
-        /// <summary> Builds a new request using the data from the this object.</summary>
+        /// <summary>
+        /// Builds a new request using the data from the this object.
+        /// </summary>
+        /// <returns>String</returns>
         string getRequestDN();
     }
 
@@ -1037,13 +1091,15 @@ namespace Unosquare.Swan.Networking.Ldap
         private LdapMessage requestMessage;
 
         /// <summary>
-        ///     Create an RfcLdapMessage by copying the content array
+        /// Create an RfcLdapMessage by copying the content array
         /// </summary>
-        /// <param name="origContent">
-        ///     the array list to copy
-        /// </param>
-        internal RfcLdapMessage(Asn1Object[] origContent, RfcRequest origRequest, string dn, string filter,
-            bool reference) : base(origContent, origContent.Length)
+        /// <param name="origContent">the array list to copy</param>
+        /// <param name="origRequest">The original request.</param>
+        /// <param name="dn">The dn.</param>
+        /// <param name="filter">The filter.</param>
+        /// <param name="reference">if set to <c>true</c> [reference].</param>
+        internal RfcLdapMessage(Asn1Object[] origContent, RfcRequest origRequest, string dn, string filter, bool reference)
+            : base(origContent, origContent.Length)
         {
             Set(0, new RfcMessageID()); // MessageID has static counter
 
@@ -1053,13 +1109,22 @@ namespace Unosquare.Swan.Networking.Ldap
             Set(1, (Asn1Object)newreq);
         }
 
-        /// <summary> Create an RfcLdapMessage using the specified Ldap Request.</summary>
-        public RfcLdapMessage(RfcRequest op) : this(op, null)
+        /// <summary>
+        /// Create an RfcLdapMessage using the specified Ldap Request.
+        /// </summary>
+        /// <param name="op">The op.</param>
+        public RfcLdapMessage(RfcRequest op) 
+            : this(op, null)
         {
         }
 
-        /// <summary> Create an RfcLdapMessage request from input parameters.</summary>
-        public RfcLdapMessage(RfcRequest op, RfcControls controls) : base(3)
+        /// <summary>
+        /// Create an RfcLdapMessage request from input parameters.
+        /// </summary>
+        /// <param name="op">The op.</param>
+        /// <param name="controls">The controls.</param>
+        public RfcLdapMessage(RfcRequest op, RfcControls controls) 
+            : base(3)
         {
             this.op = (Asn1Object)op;
             this.controls = controls;
@@ -1072,13 +1137,22 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary> Create an RfcLdapMessage using the specified Ldap Response.</summary>
-        public RfcLdapMessage(Asn1Sequence op) : this(op, null)
+        /// <summary>
+        /// Create an RfcLdapMessage using the specified Ldap Response.
+        /// </summary>
+        /// <param name="op">The op.</param>
+        public RfcLdapMessage(Asn1Sequence op) 
+            : this(op, null)
         {
         }
 
-        /// <summary> Create an RfcLdapMessage response from input parameters.</summary>
-        public RfcLdapMessage(Asn1Sequence op, RfcControls controls) : base(3)
+        /// <summary>
+        /// Create an RfcLdapMessage response from input parameters.
+        /// </summary>
+        /// <param name="op">The op.</param>
+        /// <param name="controls">The controls.</param>
+        public RfcLdapMessage(Asn1Sequence op, RfcControls controls)
+            : base(3)
         {
             this.op = op;
             this.controls = controls;
@@ -1091,8 +1165,15 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary> Will decode an RfcLdapMessage directly from an InputStream.</summary>
-        public RfcLdapMessage(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        /// <summary>
+        /// Will decode an RfcLdapMessage directly from an InputStream.
+        /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
+        /// <exception cref="Exception">RfcLdapMessage: Invalid tag: " + protocolOpId.Tag</exception>
+        public RfcLdapMessage(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
         {
             sbyte[] content;
             MemoryStream bais;
@@ -1205,30 +1286,16 @@ namespace Unosquare.Swan.Networking.Ldap
             get { return message.RequestingMessage; }
         }
 
-        /// <summary> Returns any controls in the message.</summary>
+        /// <summary>
+        /// Returns any controls in the message.
+        /// </summary>
+        /// <value>
+        /// The controls.
+        /// </value>
         public virtual LdapControl[] Controls
         {
             get
             {
-                /*				LdapControl[] controls = null;
-                                RfcControls asn1Ctrls = message.Controls;
-
-                                if (asn1Ctrls != null)
-                                {
-                                    controls = new LdapControl[asn1Ctrls.size()];
-                                    for (int i = 0; i < asn1Ctrls.size(); i++)
-                                    {
-                                        RfcControl rfcCtl = (RfcControl) asn1Ctrls.Get(i);
-                                        System.String oid = rfcCtl.ControlType.stringValue();
-                                        sbyte[] value_Renamed = rfcCtl.ControlValue.byteValue();
-                                        bool critical = rfcCtl.Criticality.booleanValue();
-
-                                        controls[i] = controlFactory(oid, critical, value_Renamed);
-                                    }
-                                }
-
-                                return controls;
-                */
                 LdapControl[] controls = null;
                 var asn1Ctrls = message.Controls;
 
@@ -1238,19 +1305,6 @@ namespace Unosquare.Swan.Networking.Ldap
                     controls = new LdapControl[asn1Ctrls.Size()];
                     for (var i = 0; i < asn1Ctrls.Size(); i++)
                     {
-                        /*
-                                                * At this point we have an RfcControl which needs to be
-                                                * converted to the appropriate Response Control.  This requires
-                                                * calling the constructor of a class that extends LDAPControl.
-                                                * The controlFactory method searches the list of registered
-                                                * controls and if a match is found calls the constructor
-                                                * for that child LDAPControl. Otherwise, it returns a regular
-                                                * LDAPControl object.
-                                                *
-                                                * Question: Why did we not call the controlFactory method when
-                                                * we were parsing the control. Answer: By the time the
-                                                * code realizes that we have a control it is already too late.
-                                                */
                         var rfcCtl = (RfcControl)asn1Ctrls.Get(i);
                         var oid = rfcCtl.ControlType.StringValue();
                         var value_Renamed = rfcCtl.ControlValue.ByteValue();
@@ -1541,23 +1595,21 @@ namespace Unosquare.Swan.Networking.Ldap
         /* application defined tag to identify this message */
         private string stringTag;
 
-        /// <summary> Dummy constuctor</summary>
+        /// <summary>
+        /// Dummy constuctor
+        /// </summary>
         internal LdapMessage()
         {
         }
 
         /// <summary>
-        ///     Creates an LdapMessage when sending a protocol operation and sends
-        ///     some optional controls with the message.
+        /// Creates an LdapMessage when sending a protocol operation and sends
+        /// some optional controls with the message.
         /// </summary>
-        /// <param name="op">
-        ///     The operation type of message.
-        /// </param>
-        /// <param name="controls">
-        ///     The controls to use with the operation.
-        /// </param>
-        /// <seealso cref="Type">
-        /// </seealso>
+        /// <param name="type">The type.</param>
+        /// <param name="op">The operation type of message.</param>
+        /// <param name="controls">The controls to use with the operation.</param>
+        /// <seealso cref="Type"></seealso>
         /*package*/
         internal LdapMessage(int type, RfcRequest op, LdapControl[] controls)
         {
@@ -1571,7 +1623,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 asn1Ctrls = new RfcControls();
                 for (var i = 0; i < controls.Length; i++)
                 {
-                    //					asn1Ctrls.add(null);
                     asn1Ctrls.add(controls[i].Asn1Object);
                 }
             }
@@ -1581,12 +1632,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Creates an Rfc 2251 LdapMessage when the libraries receive a response
-        ///     from a command.
+        /// Creates an Rfc 2251 LdapMessage when the libraries receive a response
+        /// from a command.
         /// </summary>
-        /// <param name="message">
-        ///     A response message.
-        /// </param>
+        /// <param name="message">A response message.</param>
         internal LdapMessage(RfcLdapMessage message)
         {
             this.message = message;
@@ -1614,11 +1663,15 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Instantiates an LdapControl.  We search through our list of
-        ///     registered controls.  If we find a matchiing OID we instantiate
-        ///     that control by calling its contructor.  Otherwise we default to
-        ///     returning a regular LdapControl object
+        /// Instantiates an LdapControl.  We search through our list of
+        /// registered controls.  If we find a matchiing OID we instantiate
+        /// that control by calling its contructor.  Otherwise we default to
+        /// returning a regular LdapControl object
         /// </summary>
+        /// <param name="oid">The oid.</param>
+        /// <param name="critical">if set to <c>true</c> [critical].</param>
+        /// <param name="value_Renamed">The value renamed.</param>
+        /// <returns>LdapControl</returns>
         private LdapControl controlFactory(string oid, bool critical, sbyte[] value_Renamed)
         {
             var regControls = LdapControl.RegisteredControls;
@@ -1643,9 +1696,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                     try
                     {
-                        /* Call the control constructor for a registered Class*/
                         object ctl = null;
-                        //						ctl = ctlConstructor.newInstance(args);
                         ctl = ctlConstructor.Invoke(args);
                         return (LdapControl)ctl;
                     }
@@ -1679,10 +1730,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Creates a String representation of this object
+        /// Creates a String representation of this object
         /// </summary>
         /// <returns>
-        ///     a String representation for this LdapMessage
+        /// a String representation for this LdapMessage
         /// </returns>
         public override string ToString()
         {
@@ -1738,33 +1789,28 @@ namespace Unosquare.Swan.Networking.Ldap
         private static readonly RespExtensionSet registeredResponses;
 
         /// <summary>
-        ///     Creates an LdapExtendedResponse object which encapsulates
-        ///     a server response to an asynchronous extended operation request.
+        /// Creates an LdapExtendedResponse object which encapsulates
+        /// a server response to an asynchronous extended operation request.
         /// </summary>
-        /// <param name="message">
-        ///     The RfcLdapMessage to convert to an
-        ///     LdapExtendedResponse object.
-        /// </param>
-        public LdapExtendedResponse(RfcLdapMessage message) : base(message)
+        /// <param name="message">The RfcLdapMessage to convert to an
+        /// LdapExtendedResponse object.</param>
+        public LdapExtendedResponse(RfcLdapMessage message)
+            : base(message)
         {
         }
 
         /// <summary>
-        ///     Registers a class to be instantiated on receipt of a extendedresponse
-        ///     with the given OID.
-        ///     <p>
-        ///         Any previous registration for the OID is overridden. The
-        ///         extendedResponseClass object MUST be an extension of
-        ///         LDAPExtendedResponse.
-        ///     </p>
+        /// Registers a class to be instantiated on receipt of a extendedresponse
+        /// with the given OID.
+        /// <p>
+        /// Any previous registration for the OID is overridden. The
+        /// extendedResponseClass object MUST be an extension of
+        /// LDAPExtendedResponse.
+        /// </p>
         /// </summary>
-        /// <param name="oid">
-        ///     The object identifier of the control.
-        /// </param>
-        /// <param name="extendedResponseClass">
-        ///     A class which can instantiate an
-        ///     LDAPExtendedResponse.
-        /// </param>
+        /// <param name="oid">The object identifier of the control.</param>
+        /// <param name="extendedResponseClass">A class which can instantiate an
+        /// LDAPExtendedResponse.</param>
         public static void register(string oid, Type extendedResponseClass)
         {
             registeredResponses.registerResponseExtension(oid, extendedResponseClass);
