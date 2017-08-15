@@ -31,10 +31,11 @@
 
             // Sources
             var sourceType = source.GetType();
+
             var sourceProperties = CopyPropertiesSources.Value.Retrieve(sourceType, () =>
             {
                 return sourceType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(x => x.CanRead && Definitions.AllBasicTypes.Contains(x.PropertyType));
+                    .Where(x => x.CanRead);
             });
 
             // Targets
@@ -42,7 +43,7 @@
             var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
             {
                 return targetType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
+                .Where(x => x.CanWrite);
             });
 
             // Filter properties
@@ -62,6 +63,7 @@
             // Copy source properties
             foreach (var sourceProperty in filteredSourceProperties)
             {
+                
                 var targetProperty = targetProperties.SingleOrDefault(s => s.Name.ToLowerInvariant() == sourceProperty.Name.ToLowerInvariant());
                 if (targetProperty == null) continue;
 
