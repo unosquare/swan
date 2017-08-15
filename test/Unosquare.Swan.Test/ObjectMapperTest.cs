@@ -65,7 +65,7 @@ namespace Unosquare.Swan.Test
             Assert.IsNotNull(destination);
             Assert.AreEqual(_sourceUser.Name, destination.Name);
             Assert.AreEqual(_sourceUser.Email, destination.Email);
-            Assert.IsNull(destination.Role);
+            Assert.IsNotNull(destination.Role);
         }
 
         [Test]
