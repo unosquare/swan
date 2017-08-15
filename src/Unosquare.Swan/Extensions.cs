@@ -14,7 +14,6 @@
     public static partial class Extensions
     {
         private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
-        private static readonly Lazy<PropertyTypeCache> CopyPropertiesSources = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -41,77 +40,41 @@
         /// <returns>Returns the number of properties that were successfully copied</returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
         {
-            // TODO: Add recursive so child objects can be copied also
-            var copiedProperties = 0;
+            return Components.ObjectCopier.Copy(source, target, null, ignoreProperties);
+        }
 
-            // Sources
-            var sourceType = source.GetType();
-            var sourceProperties = CopyPropertiesSources.Value.Retrieve(sourceType, () =>
-            {
-                return sourceType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(x => x.CanRead && Definitions.AllBasicTypes.Contains(x.PropertyType));
-            });
+        /// <summary>
+        /// Iterates over the public, instance, readable properties of the source and
+        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// This method only supports basic types and it is not multi level
+        /// </summary>
+        /// <typeparam name="T">The type of the source.</typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>Number of properties that was copied successful</returns>
+        public static int CopyOnlyPropertiesTo<T>(this T source, object target)
+        {
+            return CopyOnlyPropertiesTo(source, target, null);
+        }
 
-            // Targets
-            var targetType = target.GetType();
-            var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
-            {
-                return targetType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
-            });
-
-            // Filter properties
-            var targetPropertyNames = targetProperties.Select(t => t.Name.ToLowerInvariant());
-            var filteredSourceProperties = sourceProperties
-                .Where(s => targetPropertyNames.Contains(s.Name.ToLowerInvariant()))
-                .ToArray();
-
-            var ignoredProperties = ignoreProperties?.Where(p => string.IsNullOrWhiteSpace(p) == false)
-                                        .Select(p => p.ToLowerInvariant())
-                                        .ToArray() ?? new string[] { };
-
-            // Copy source properties
-            foreach (var sourceProperty in filteredSourceProperties)
-            {
-                var targetProperty = targetProperties.SingleOrDefault(s => s.Name.ToLowerInvariant() == sourceProperty.Name.ToLowerInvariant());
-                if (targetProperty == null) continue;
-
-                // Skip over ignored properties
-                if (ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                    continue;
-
-                try
-                {
-                    // Direct Copy
-                    if (targetProperty.PropertyType == sourceProperty.PropertyType)
-                    {
-                        targetProperty.SetValue(target, sourceProperty.GetValue(source));
-                        copiedProperties++;
-                        continue;
-                    }
-
-                    // String to target type conversion
-                    var sourceStringValue = sourceProperty.GetValue(source).ToStringInvariant();
-                    object targetValue;
-                    if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue, out targetValue))
-                    {
-                        targetProperty.SetValue(target, targetValue);
-                        copiedProperties++;
-                    }
-                }
-                catch
-                {
-                    // swallow
-                }
-            }
-
-            return copiedProperties;
+        /// <summary>
+        /// Iterates over the public, instance, readable properties of the source and
+        /// tries to write a compatible value to a public, instance, writable property in the destination
+        /// This method only supports basic types and it is not multi level
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The destination.</param>
+        /// <param name="propertiesToCopy">Properties to copy.</param>
+        /// <returns>Returns the number of properties that were successfully copied</returns>
+        public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
+        {
+            return Components.ObjectCopier.Copy(source, target, propertiesToCopy, null);
         }
 
         /// <summary>
         /// Copies the properties to new.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Object Type</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>Returns the specified type of properties that were successfully copied</returns>
@@ -119,6 +82,20 @@
         {
             var target = Activator.CreateInstance<T>();
             source.CopyPropertiesTo(target, ignoreProperties);
+            return target;
+        }
+
+        /// <summary>
+        /// Copies the only properties to new.
+        /// </summary>
+        /// <typeparam name="T">Object Type</typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="propertiesToCopy">The properties to copy.</param>
+        /// <returns>Returns the specified type of properties that were successfully copied</returns>
+        public static T CopyOnlyPropertiesToNew<T>(this object source, string[] propertiesToCopy = null)
+        {
+            var target = Activator.CreateInstance<T>();
+            source.CopyOnlyPropertiesTo(target, propertiesToCopy);
             return target;
         }
 

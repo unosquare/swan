@@ -36,6 +36,19 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
+        public void OnlyPropertiesTest()
+        {
+            var source = BasicJson.GetDefault();
+            var destination = new BasicJson();
+            string[] Only = { "NegativeInt", "BoolData" };
+            source.CopyOnlyPropertiesTo(destination, Only);
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
+            Assert.AreNotEqual(source.StringData, destination.StringData);
+        }
+
+        [Test]
         public void CopyPropertiesToNewTest()
         {
             var source = BasicJson.GetDefault();
@@ -49,7 +62,21 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(source.StringData, destination.StringData);
             Assert.AreEqual(source.StringNull, destination.StringNull);
         }
-        
+
+        [Test]
+        public void CopyOnlyPropertiesToNewTest()
+        {
+            var source = BasicJson.GetDefault();
+            string[] Only = { "BoolData", "DecimalData" };
+            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(Only);
+
+            Assert.IsNotNull(destination);
+            Assert.AreSame(source.GetType(), destination.GetType());
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.DecimalData, destination.DecimalData);
+        }
+
         [Test]
         public void ActionRetryTest()
         {
