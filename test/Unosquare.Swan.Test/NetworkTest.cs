@@ -22,11 +22,11 @@ namespace Unosquare.Swan.Test
 
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
             Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
-            
+
             var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
             Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
                 "GoogleDnsFqdn with trailing period resolution is not null");
-            
+
             var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
             Assert.IsNotNull(targetIP, "Google address is IPv4");
 
@@ -87,23 +87,27 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void LdapTest()
+        public async void LdapTest()
         {
-            Task.Factory.StartNew(async () => 
+            var cn = new LdapConnection();
+
+            await cn.Connect("ldap.forumsys.com", 389);
+            await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+
+            Assert.IsTrue(cn.Connected);
+            var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
+
+            if (lsc.hasMore())
             {
-                var cn = new LdapConnection();
-
-                await cn.Connect("ldap.forumsys.com", 389);
-                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-
-                Assert.IsTrue(cn.Connected);
-                var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
-
-                lsc.Count.ToString().Info(nameof(LdapTest));
-                Assert.AreNotEqual(lsc.Count, 0);
-                Assert.IsTrue(lsc.hasMore());
-            });
-
+                var entry = lsc.next();
+                var ldapAttributes = entry.getAttributeSet();
+                var obj = ldapAttributes.getAttribute("uniqueMember")?.StringValue ?? null;
+                obj.Info(nameof(LdapTest));
+                Assert.IsTrue(obj != null);
+            }
+            lsc.Count.ToString().Info(nameof(LdapTest));
+            Assert.AreNotEqual(lsc.Count, 0);
+            Assert.IsTrue(lsc.hasMore());
         }
     }
 }
