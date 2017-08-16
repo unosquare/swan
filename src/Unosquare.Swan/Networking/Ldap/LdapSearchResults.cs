@@ -2,10 +2,8 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     ///     An LdapSearchResults object is returned from a synchronous search
@@ -31,7 +29,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The number of items received but not retrieved by the application
         /// </returns>
-        public virtual int Count => new List<RfcLdapMessage>(conn.messages)
+        public virtual int Count => new List<RfcLdapMessage>(conn.Messages)
             .Count(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
@@ -51,7 +49,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     true if there are more search results.
         /// </returns>
-        public virtual bool hasMore() => new List<RfcLdapMessage>(conn.messages)
+        public virtual bool hasMore() => new List<RfcLdapMessage>(conn.Messages)
             .Any(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
@@ -73,12 +71,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </exception>
         public virtual LdapEntry next()
         {
-            var list = new List<RfcLdapMessage>(conn.messages)
+            var list = new List<RfcLdapMessage>(conn.Messages)
                 .Where(x => x.MessageID == _messageId);
 
             foreach (var item in list)
             {
-                conn.messages.Remove(item);
+                conn.Messages.Remove(item);
                 var response = GetResponse(item);
 
                 if (response is LdapSearchResult)

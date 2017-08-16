@@ -1,5 +1,4 @@
 ﻿#if !UWP
-// Base on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
@@ -10,6 +9,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+
     /// <summary>
     ///     The central class that encapsulates the connection
     ///     to a directory server through the Ldap protocol.
@@ -24,6 +24,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     by cloning the connection object, one for each thread. An
     ///     application may have more than one LdapConnection object, connected
     ///     to the same or different directory servers.
+    ///     Base on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
     /// </summary>
     public class LdapConnection
     {
@@ -36,18 +37,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The protocol version.
         /// </value>
-        public virtual int ProtocolVersion
-        {
-            get
-            {
-                var prop = BindProperties;
-                if (prop == null)
-                {
-                    return Ldap_V3;
-                }
-                return prop.ProtocolVersion;
-            }
-        }
+        public virtual int ProtocolVersion => BindProperties?.ProtocolVersion ?? Ldap_V3;
 
         /// <summary>
         ///     Returns the distinguished name (DN) used for as the bind name during
@@ -58,18 +48,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The distinguished name if authenticated; otherwise, null.
         /// </returns>
-        public virtual string AuthenticationDN
-        {
-            get
-            {
-                var prop = BindProperties;
-                if (prop == null)
-                {
-                    return null;
-                }
-                return prop.Anonymous ? null : prop.AuthenticationDN;
-            }
-        }
+        public virtual string AuthenticationDN => BindProperties == null ? null : (BindProperties.Anonymous ? null : BindProperties.AuthenticationDN);
 
         /// <summary>
         ///     Returns the method used to authenticate the connection. The return
@@ -111,46 +90,27 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The call back handler used for SASL bind or null if the
         ///     object is not present or not authenticated.
         /// </returns>
-        public virtual object SaslBindCallbackHandler
+        public virtual object SaslBindCallbackHandler => BindProperties?.SaslCallbackHandler;
+
+        /// <summary>
+        /// Returns a copy of the set of constraints associated with this
+        /// connection. These constraints apply to all operations performed
+        /// through this connection (unless a different set of constraints is
+        /// specified when calling an operation method).
+        /// </summary>
+        /// <value>
+        /// The constraints.
+        /// </value>
+        /// 
+        /// <seealso cref="Constraints()"></seealso>
+        /// {D255958A-8513-4226-94B9-080D98F904A1}<seealso cref="SearchConstraints()"></seealso>
+        public virtual LdapConstraints Constraints
         {
             get
             {
-                var prop = BindProperties;
-                if (prop == null)
-                {
-                    return null;
-                }
-                return BindProperties.SaslCallbackHandler;
+                return (LdapConstraints) defSearchCons.Clone();
             }
-        }
 
-        /// <summary>
-        ///     Returns a copy of the set of constraints associated with this
-        ///     connection. These constraints apply to all operations performed
-        ///     through this connection (unless a different set of constraints is
-        ///     specified when calling an operation method).
-        /// </summary>
-        /// <returns>
-        ///     The set of default contraints that apply to this connection.
-        /// </returns>
-        /// <summary>
-        ///     Sets the constraints that apply to all operations performed through
-        ///     this connection (unless a different set of constraints is specified
-        ///     when calling an operation method).  An LdapSearchConstraints object
-        ///     which is passed to this method sets all constraints, while an
-        ///     LdapConstraints object passed to this method sets only base constraints.
-        /// </summary>
-        /// <param name="cons">
-        ///     An LdapConstraints or LdapSearchConstraints Object
-        ///     containing the contstraint values to set.
-        /// </param>
-        /// <seealso cref="Constraints()">
-        /// </seealso>
-        /// <seealso cref="SearchConstraints()">
-        /// </seealso>
-        public virtual LdapConstraints Constraints
-        {
-            get { return (LdapConstraints) defSearchCons.Clone(); }
             set
             {
                 // Set all constraints, replace the object with a new one
@@ -172,39 +132,17 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     newCons.setControls(lsc);
                 }
+
                 var lp = newCons.Properties;
                 if (lp != null)
                 {
                     newCons.Properties = lp;
                 }
+
                 defSearchCons = newCons;
             }
         }
-
-        ///// <summary>
-        /////     Returns the host name of the Ldap server to which the object is or
-        /////     was last connected, in the format originally specified.
-        ///// </summary>
-        ///// <returns>
-        /////     The host name of the Ldap server to which the object last
-        /////     connected or null if the object has never connected.
-        ///// </returns>
-        // public virtual string Host
-        // {
-        //    get { return conn.Host; }
-        // }
-        ///// <summary>
-        /////     Returns the port number of the Ldap server to which the object is or
-        /////     was last connected.
-        ///// </summary>
-        ///// <returns>
-        /////     The port number of the Ldap server to which the object last
-        /////     connected or -1 if the object has never connected.
-        ///// </returns>
-        // public virtual int Port
-        // {
-        //    get { return conn.Port; }
-        // }
+        
         /// <summary>
         /// Returns a copy of the set of search constraints associated with this
         /// connection. These constraints apply to search operations performed
@@ -217,31 +155,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="Constraints"></seealso>
         /// <seealso cref="LdapSearchConstraints"></seealso>
         public virtual LdapSearchConstraints SearchConstraints => (LdapSearchConstraints) defSearchCons.Clone();
-
-        /// <summary>
-        ///     Indicates whther the perform Secure Operation or not
-        /// </summary>
-        /// <returns>
-        ///     True if SSL is on
-        ///     False if its not on
-        /// </returns>
-        // public bool SecureSocketLayer
-        // {
-        //    get { return conn.Ssl; }
-        //    set { conn.Ssl = value; }
-        // }
-        /// <summary>
-        ///     Indicates whether the object has authenticated to the connected Ldap
-        ///     server.
-        /// </summary>
-        /// <returns>
-        ///     True if the object has authenticated; false if it has not
-        ///     authenticated.
-        /// </returns>
-        // public virtual bool Bound
-        // {
-        //    get { return conn.Bound; }
-        // }
+        
         /// <summary>
         ///     Indicates whether the connection represented by this object is open
         ///     at this time.
@@ -250,21 +164,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     True if connection is open; false if the connection is closed.
         /// </returns>
         public virtual bool Connected => conn?.IsConnected == true;
-
-        /// <summary>
-        ///     Indicatates if the connection is protected by TLS.
-        /// </summary>
-        /// <returns>
-        ///     If startTLS has completed this method returns true.
-        ///     If stopTLS has completed or start tls failed, this method returns false.
-        /// </returns>
-        /// <returns>
-        ///     True if the connection is protected by TLS.
-        /// </returns>
-        // public virtual bool TLS
-        // {
-        //    get { return conn.TLS; }
-        // }
+        
         /// <summary>
         ///     Returns the Server Controls associated with the most recent response
         ///     to a synchronous request on this connection object, or null
@@ -287,10 +187,12 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     return null;
                 }
+
                 // We have to clone the control just in case
                 // we have two client threads that end up retreiving the
                 // same control.
                 var clonedControl = new LdapControl[responseCtls.Length];
+
                 // Also note we synchronize access to the local response
                 // control object just in case another message containing controls
                 // comes in from the server while we are busy duplicating
@@ -529,9 +431,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// keeps no long lived instances of these objects.</param>
         /// <param name="cons">Constraints specific to the operation.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task Bind(string dn, string passwd, LdapConstraints cons = null)
+        public virtual Task Bind(string dn, string passwd, LdapConstraints cons = null)
         {
-            await Bind(Ldap_V3, dn, passwd, cons);
+            return Bind(Ldap_V3, dn, passwd, cons);
         }
 
         /// <summary>
@@ -559,14 +461,15 @@ namespace Unosquare.Swan.Networking.Ldap
         /// keeps no long lived instances of these objects.</param>
         /// <param name="cons">The constraints specific to the operation.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task Bind(int version, string dn, string passwd, LdapConstraints cons = null)
+        public virtual Task Bind(int version, string dn, string passwd, LdapConstraints cons = null)
         {
             sbyte[] pw = null;
             if (string.IsNullOrWhiteSpace(passwd) == false)
             {
                 pw = Encoding.UTF8.GetBytes(passwd).ToSByteArray();
             }
-            await Bind(version, dn, pw, cons);
+
+            return Bind(version, dn, pw, cons);
         }
 
         /// <summary>
@@ -589,12 +492,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// name and passwd as password.</param>
         /// <param name="cons">Constraints specific to the operation.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task Bind(int version, string dn, sbyte[] passwd, LdapConstraints cons = null)
+        public virtual Task Bind(int version, string dn, sbyte[] passwd, LdapConstraints cons = null)
         {
             if (cons == null)
                 cons = defSearchCons;
 
-            dn = string.IsNullOrEmpty(dn) ? "" : dn.Trim();
+            dn = string.IsNullOrEmpty(dn) ? string.Empty : dn.Trim();
 
             if (passwd == null)
                 passwd = new sbyte[] {};
@@ -604,13 +507,14 @@ namespace Unosquare.Swan.Networking.Ldap
             if (passwd.Length == 0)
             {
                 anonymous = true; // anonymous, passwd length zero with simple bind
-                dn = ""; // set to null if anonymous
+                dn = string.Empty; // set to null if anonymous
             }
+
             var msg = new LdapBindRequest(version, dn, passwd, (cons ?? defSearchCons).getControls());
 
             BindProperties = new BindProperties(version, dn, "simple", anonymous, null, null);
 
-            await RequestLdapMessage(msg);
+            return RequestLdapMessage(msg);
         }
 
         private CancellationTokenSource cts = new CancellationTokenSource();
@@ -632,23 +536,11 @@ namespace Unosquare.Swan.Networking.Ldap
             var tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(host, port);
             conn = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 0);
-            conn.ConnectionFailure += Conn_ConnectionFailure;
-            conn.ClientDisconnected += Conn_ClientDisconnected;
-
+            
             // TODO: how to stop?
             Task.Factory.StartNew(RetrieveMessages, cts.Token);
         }
-
-        private void Conn_ClientDisconnected(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Conn_ConnectionFailure(object sender, ConnectionFailureEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         /// <summary>
         /// Synchronously disconnects from the Ldap server.
         /// Before the object can perform Ldap operations again, it must
@@ -661,63 +553,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // disconnect from API call
             conn.Disconnect();
         }
-
-        // TODO: REAL
-        //Task.Factory.StartNew(() =>
-        //    {
-        //        try
-        //        {
-        //            while (cts.IsCancellationRequested == false && in_Renamed != null)
-        //            {
-        //                // Decode an RfcLdapMessage directly from the socket.
-        //                var asn1ID = new Asn1Identifier(in_Renamed);
-        //                if (asn1ID.Tag != Asn1Sequence.TAG)
-        //                {
-        //                    continue; // loop looking for an RfcLdapMessage identifier
-        //                }
-        //                // Turn the message into an RfcMessage class
-        //                var asn1Len = new Asn1Length(in_Renamed);
-        //var msg = new RfcLdapMessage(decoder, in_Renamed, asn1Len.Length);
-        //// ------------------------------------------------------------
-        //// Process the decoded RfcLdapMessage.
-        //// ------------------------------------------------------------
-        //var msgId = msg.MessageID;
-        //                // Find the message which requested this response.
-        //                // It is possible to receive a response for a request which
-        //                // has been abandoned. If abandoned, throw it away
-        //                try
-        //                {
-        //                    var info = messages.FindMessageById(msgId);
-        //info.putReply(msg); // queue & wake up waiting thread
-        //                }
-        //                catch (FieldAccessException)
-        //                {
-        //                    // Ignore
-        //                }
-        //            }
-        //        catch (Exception)
-        //        {
-        //            // Ignore
-        //        }
-        //        finally
-        //        {
-        //        }
-        //    }, cts.Token);
-        //if (BindProperties != null && out_Renamed != null && out_Renamed.CanWrite && !BindProperties.Anonymous)
-        //        {
-        //            try
-        //            {
-        //                var msg = new LdapMessage(LdapMessage.UNBIND_REQUEST, new RfcUnbindRequest(), null);
-        //var ber = msg.Asn1Object.GetEncoding(encoder);
-        //out_Renamed.Write(ber.ToByteArray(), 0, ber.Length);
-        //                out_Renamed.Flush();
-        //            }
-        //            catch (Exception)
-        //            {
-        //                ; // don't worry about error
-        //            }
-        //        }
-
+        
         /// <summary>
         /// Requests the LDAP message.
         /// </summary>
@@ -731,11 +567,11 @@ namespace Unosquare.Swan.Networking.Ldap
             var ber = msg.Asn1Object.GetEncoding(encoder);
             await conn.WriteDataAsync(ber.ToByteArray(), true, ct);
 
-            while (new List<RfcLdapMessage>(messages).Any(x => x.MessageID == msg.MessageID) == false)
+            while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageID == msg.MessageID) == false)
                 await Task.Delay(100, ct);
         }
 
-        internal List<RfcLdapMessage> messages { get; } = new List<RfcLdapMessage>();
+        internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
 
         internal void RetrieveMessages()
         {
@@ -753,7 +589,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 // Turn the message into an RfcMessage class
                 var asn1Len = new Asn1Length(conn.ActiveStream);
 
-                messages.Add(new RfcLdapMessage(decoder, conn.ActiveStream, asn1Len.Length));
+                Messages.Add(new RfcLdapMessage(decoder, conn.ActiveStream, asn1Len.Length));
             }
         }
 
@@ -768,22 +604,22 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// the LdapEntry read from the server
         /// </returns>
-        /// <exception cref="NotImplementedException">The Exception.</exception>
         public async Task<LdapEntry> Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null)
         {
-            throw new NotImplementedException();
-            //var sr = await Search(dn, SCOPE_BASE, null, attrs, false, cons ?? defSearchCons);
-            //LdapEntry ret = null;
-            //if (sr.hasMore())
-            //{
-            //    ret = sr.next();
-            //    if (sr.hasMore())
-            //    {
-            //        // "Read response is ambiguous, multiple entries returned"
-            //        throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapException.AMBIGUOUS_RESPONSE);
-            //    }
-            //}
-            //return ret;
+            var sr = await Search(dn, SCOPE_BASE, null, attrs, false, cons ?? defSearchCons);
+            LdapEntry ret = null;
+
+            if (sr.hasMore())
+            {
+                ret = sr.next();
+                if (sr.hasMore())
+                {
+                    // "Read response is ambiguous, multiple entries returned"
+                    throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapException.AMBIGUOUS_RESPONSE);
+                }
+            }
+
+            return ret;
         }
 
         /// <summary>
@@ -806,8 +642,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// names and values for attributes found.</param>
         /// <param name="cons">The constraints specific to the search.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<LdapSearchResults> Search(string @base, int scope, string filter = null, string[] attrs = null,
-            bool typesOnly = false, LdapSearchConstraints cons = null)
+        public async Task<LdapSearchResults> Search(
+            string @base, 
+            int scope, 
+            string filter = null, 
+            string[] attrs = null,
+            bool typesOnly = false, 
+            LdapSearchConstraints cons = null)
         {
             if (string.IsNullOrWhiteSpace(filter))
                 filter = "objectclass=*";

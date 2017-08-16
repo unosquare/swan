@@ -8,214 +8,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-
-    /// <summary>
-    ///     This class contains different methods to manage Collections.
-    /// </summary>
-    public class CollectionSupport : CollectionBase
-    {
-        /// <summary>
-        ///     Adds an specified element to the collection.
-        /// </summary>
-        /// <param name="element">The element to be added.</param>
-        /// <returns>Returns true if the element was successfuly added. Otherwise returns false.</returns>
-        public virtual bool Add(object element)
-        {
-            return List.Add(element) != -1;
-        }
-
-        /// <summary>
-        ///     Adds all the elements contained in the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be added.</param>
-        /// <returns>Returns true if all the elements were successfuly added. Otherwise returns false.</returns>
-        public virtual bool AddAll(ICollection collection)
-        {
-            var result = false;
-            if (collection != null)
-            {
-                var tempEnumerator = new ArrayList(collection).GetEnumerator();
-                while (tempEnumerator.MoveNext())
-                {
-                    if (tempEnumerator.Current != null)
-                        result = Add(tempEnumerator.Current);
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        ///     Adds all the elements contained in the specified support class collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be added.</param>
-        /// <returns>Returns true if all the elements were successfuly added. Otherwise returns false.</returns>
-        public virtual bool AddAll(CollectionSupport collection)
-        {
-            return AddAll((ICollection)collection);
-        }
-
-        /// <summary>
-        ///     Verifies if the specified element is contained into the collection.
-        /// </summary>
-        /// <param name="element"> The element that will be verified.</param>
-        /// <returns>Returns true if the element is contained in the collection. Otherwise returns false.</returns>
-        public virtual bool Contains(object element)
-        {
-            return List.Contains(element);
-        }
-
-        /// <summary>
-        ///     Verifies if all the elements of the specified collection are contained into the current collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be verified.</param>
-        /// <returns>Returns true if all the elements are contained in the collection. Otherwise returns false.</returns>
-        public virtual bool ContainsAll(ICollection collection)
-        {
-            var result = false;
-            var tempEnumerator = new ArrayList(collection).GetEnumerator();
-            while (tempEnumerator.MoveNext())
-                if (!(result = Contains(tempEnumerator.Current)))
-                    break;
-            return result;
-        }
-
-        /// <summary>
-        ///     Verifies if all the elements of the specified collection are contained into the current collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be verified.</param>
-        /// <returns>Returns true if all the elements are contained in the collection. Otherwise returns false.</returns>
-        public virtual bool ContainsAll(CollectionSupport collection)
-        {
-            return ContainsAll((ICollection)collection);
-        }
-
-        /// <summary>
-        ///     Verifies if the collection is empty.
-        /// </summary>
-        /// <returns>Returns true if the collection is empty. Otherwise returns false.</returns>
-        public virtual bool IsEmpty()
-        {
-            return Count == 0;
-        }
-
-        /// <summary>
-        ///     Removes an specified element from the collection.
-        /// </summary>
-        /// <param name="element">The element to be removed.</param>
-        /// <returns>Returns true if the element was successfuly removed. Otherwise returns false.</returns>
-        public virtual bool Remove(object element)
-        {
-            var result = false;
-            if (Contains(element))
-            {
-                List.Remove(element);
-                result = true;
-            }
-            return result;
-        }
-
-        /// <summary>
-        ///     Removes all the elements contained into the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be removed.</param>
-        /// <returns>Returns true if all the elements were successfuly removed. Otherwise returns false.</returns>
-        public virtual bool RemoveAll(ICollection collection)
-        {
-            var result = false;
-            var tempEnumerator = new ArrayList(collection).GetEnumerator();
-            while (tempEnumerator.MoveNext())
-            {
-                if (Contains(tempEnumerator.Current))
-                    result = Remove(tempEnumerator.Current);
-            }
-            return result;
-        }
-
-        /// <summary>
-        ///     Removes all the elements contained into the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be removed.</param>
-        /// <returns>Returns true if all the elements were successfuly removed. Otherwise returns false.</returns>
-        public virtual bool RemoveAll(CollectionSupport collection)
-        {
-            return RemoveAll((ICollection)collection);
-        }
-
-        /// <summary>
-        ///     Removes all the elements that aren't contained into the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection used to verify the elements that will be retained.</param>
-        /// <returns>Returns true if all the elements were successfully removed. Otherwise returns false.</returns>
-        public virtual bool RetainAll(ICollection collection)
-        {
-            var result = false;
-            var tempEnumerator = GetEnumerator();
-            var tempCollection = new CollectionSupport();
-            tempCollection.AddAll(collection);
-            while (tempEnumerator.MoveNext())
-                if (!tempCollection.Contains(tempEnumerator.Current))
-                {
-                    result = Remove(tempEnumerator.Current);
-
-                    if (result)
-                    {
-                        tempEnumerator = GetEnumerator();
-                    }
-                }
-            return result;
-        }
-
-        /// <summary>
-        ///     Removes all the elements that aren't contained into the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection used to verify the elements that will be retained.</param>
-        /// <returns>Returns true if all the elements were successfully removed. Otherwise returns false.</returns>
-        public virtual bool RetainAll(CollectionSupport collection)
-        {
-            return RetainAll((ICollection)collection);
-        }
-
-        /// <summary>
-        ///     Obtains an array containing all the elements of the collection.
-        /// </summary>
-        /// <returns>The array containing all the elements of the collection</returns>
-        public virtual object[] ToArray()
-        {
-            var index = 0;
-            var objects = new object[Count];
-            var tempEnumerator = GetEnumerator();
-            while (tempEnumerator.MoveNext())
-                objects[index++] = tempEnumerator.Current;
-            return objects;
-        }
-
-        /// <summary>
-        ///     Obtains an array containing all the elements of the collection.
-        /// </summary>
-        /// <param name="objects">The array into which the elements of the collection will be stored.</param>
-        /// <returns>The array containing all the elements of the collection.</returns>
-        public virtual object[] ToArray(object[] objects)
-        {
-            var index = 0;
-            var tempEnumerator = GetEnumerator();
-            while (tempEnumerator.MoveNext())
-                objects[index++] = tempEnumerator.Current;
-            return objects;
-        }
-
-        /// <summary>
-        ///     Creates a CollectionSupport object with the contents specified in array.
-        /// </summary>
-        /// <param name="array">The array containing the elements used to populate the new CollectionSupport object.</param>
-        /// <returns>A CollectionSupport object populated with the contents of array.</returns>
-        public static CollectionSupport ToCollectionSupport(object[] array)
-        {
-            var tempCollectionSupport = new CollectionSupport();
-            tempCollectionSupport.AddAll(array);
-            return tempCollectionSupport;
-        }
-    }
-
+    
     /// <summary>
     ///     This class manages a set of elements.
     /// </summary>
@@ -232,7 +25,8 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Creates a new set initialized with System.Collections.ICollection object
         /// </summary>
         /// <param name="collection">System.Collections.ICollection object to initialize the set object</param>
-        public SetSupport(ICollection collection) : base(collection)
+        public SetSupport(ICollection collection) 
+            : base(collection)
         {
         }
 
@@ -240,7 +34,8 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Creates a new set initialized with a specific capacity.
         /// </summary>
         /// <param name="capacity">value to set the capacity of the set object</param>
-        public SetSupport(int capacity) : base(capacity)
+        public SetSupport(int capacity) 
+            : base(capacity)
         {
         }
 
@@ -265,6 +60,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual bool AddAll(ICollection collection)
         {
             var result = false;
+
             if (collection != null)
             {
                 var tempEnumerator = new ArrayList(collection).GetEnumerator();
@@ -274,19 +70,10 @@ namespace Unosquare.Swan.Networking.Ldap
                         result = Add(tempEnumerator.Current);
                 }
             }
+
             return result;
         }
-
-        /// <summary>
-        ///     Adds all the elements contained in the specified support class collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be added.</param>
-        /// <returns>Returns true if all the elements were successfuly added. Otherwise returns false.</returns>
-        public virtual bool AddAll(CollectionSupport collection)
-        {
-            return AddAll((ICollection)collection);
-        }
-
+        
         /// <summary>
         ///     Verifies that all the elements of the specified collection are contained into the current collection.
         /// </summary>
@@ -301,17 +88,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     break;
             return result;
         }
-
-        /// <summary>
-        ///     Verifies if all the elements of the specified collection are contained into the current collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be verified.</param>
-        /// <returns>Returns true if all the elements are contained in the collection. Otherwise returns false.</returns>
-        public virtual bool ContainsAll(CollectionSupport collection)
-        {
-            return ContainsAll((ICollection)collection);
-        }
-
+        
         /// <summary>
         ///     Verifies if the collection is empty.
         /// </summary>
@@ -328,9 +105,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>True if the element was removed.</returns>
         public new virtual bool Remove(object elementToRemove)
         {
-            var result = false;
-            if (Contains(elementToRemove))
-                result = true;
+            var result = Contains(elementToRemove);
             base.Remove(elementToRemove);
             return result;
         }
@@ -350,19 +125,10 @@ namespace Unosquare.Swan.Networking.Ldap
                     result = true;
                 Remove(tempEnumerator.Current);
             }
+
             return result;
         }
-
-        /// <summary>
-        ///     Removes all the elements contained into the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection used to extract the elements that will be removed.</param>
-        /// <returns>Returns true if all the elements were successfully removed. Otherwise returns false.</returns>
-        public virtual bool RemoveAll(CollectionSupport collection)
-        {
-            return RemoveAll((ICollection)collection);
-        }
-
+        
         /// <summary>
         ///     Removes all the elements that aren't contained in the specified collection.
         /// </summary>
@@ -374,24 +140,17 @@ namespace Unosquare.Swan.Networking.Ldap
             var tempEnumerator = collection.GetEnumerator();
             var tempSet = (SetSupport)collection;
             while (tempEnumerator.MoveNext())
+            {
                 if (!tempSet.Contains(tempEnumerator.Current))
                 {
                     result = Remove(tempEnumerator.Current);
                     tempEnumerator = GetEnumerator();
                 }
+            }
+
             return result;
         }
-
-        /// <summary>
-        ///     Removes all the elements that aren't contained into the specified collection.
-        /// </summary>
-        /// <param name="collection">The collection used to verify the elements that will be retained.</param>
-        /// <returns>Returns true if all the elements were successfully removed. Otherwise returns false.</returns>
-        public virtual bool RetainAll(CollectionSupport collection)
-        {
-            return RetainAll((ICollection)collection);
-        }
-
+        
         /// <summary>
         ///     Obtains an array containing all the elements of the collection.
         /// </summary>
@@ -420,82 +179,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return objects;
         }
     }
-
-    /// <summary>
-    ///     This  class  extends the AbstractSet and Implements the Set
-    ///     so that it can be used to maintain a list of currently
-    ///     registered extended responses.
-    /// </summary>
-    public class RespExtensionSet : SetSupport
-    {
-        /// <summary>
-        ///     Returns the number of extensions in this set.
-        /// </summary>
-        /// <returns>
-        ///     number of extensions in this set.
-        /// </returns>
-        public override int Count
-        {
-            get { return map.Count; }
-        }
-
-        private readonly Hashtable map;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RespExtensionSet"/> class.
-        /// </summary>
-        public RespExtensionSet()
-        {
-            map = new Hashtable();
-        }
-
-        /// <summary>
-        /// Registers the response extension.
-        /// </summary>
-        /// <param name="oid">The oid.</param>
-        /// <param name="extClass">The ext class.</param>
-        public void registerResponseExtension(string oid, Type extClass)
-        {
-            lock (this)
-            {
-                if (!map.ContainsKey(oid))
-                {
-                    map.Add(oid, extClass);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Returns an iterator over the responses in this set.  The responses
-        ///     returned from this iterator are not in any particular order.
-        /// </summary>
-        /// <returns>
-        ///     iterator over the responses in this set
-        /// </returns>
-        public override IEnumerator GetEnumerator()
-        {
-            return map.Values.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Finds the response extension.
-        /// </summary>
-        /// <param name="searchOID">The search oid.</param>
-        /// <returns></returns>
-        public Type findResponseExtension(string searchOID)
-        {
-            lock (this)
-            {
-                if (map.ContainsKey(searchOID))
-                {
-                    return (Type)map[searchOID];
-                }
-                /* The requested extension does not have a registered response class */
-                return null;
-            }
-        }
-    }
-
+    
     /// <summary>
     ///     Represents the Ldap Abandon Request.
     ///     <pre>
@@ -535,26 +219,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return null;
         }
     }
-
-    /// <summary>
-    /// Represents an Ldap Abandon Request
-    /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
-    /// <seealso cref="LdapConnection.SendRequest"></seealso>
-    public class LdapAbandonRequest : LdapMessage
-    {
-        /// <summary>
-        /// Construct an Ldap Abandon Request.
-        /// </summary>
-        /// <param name="id">The ID of the operation to abandon.</param>
-        /// <param name="cont">Any controls that apply to the abandon request
-        /// or null if none.</param>
-        public LdapAbandonRequest(int id, LdapControl[] cont)
-            : base(ABANDON_REQUEST, new RfcAbandonRequest(id), cont)
-        {
-        }
-    }
-
+    
     /// <summary>
     ///     Represents an LdapResult.
     ///     <pre>
@@ -1724,6 +1389,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 // No match with the OID
                 // Do nothing. Fall through and construct a default LDAPControl object.
             }
+
             // If we get here we did not have a registered response control
             // for this oid.  Return a default LDAPControl object.
             return new LdapControl(oid, critical, value_Renamed);
@@ -1735,85 +1401,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// a String representation for this LdapMessage
         /// </returns>
-        public override string ToString()
-        {
-            return Name + "(" + MessageID + "): " + message;
-        }
-    }
-
-    /// <summary>
-    ///     Encapsulates the response returned by an Ldap server on an
-    ///     asynchronous extended operation request.  It extends LdapResponse.
-    ///     The response can contain the OID of the extension, an octet string
-    ///     with the operation's data, both, or neither.
-    /// </summary>
-    internal class LdapExtendedResponse : LdapResponse
-    {
-        /// <summary>
-        ///     Returns the message identifier of the response.
-        /// </summary>
-        /// <returns>
-        ///     OID of the response.
-        /// </returns>
-        public virtual string ID
-        {
-            get
-            {
-                var respOID = ((RfcExtendedResponse)message.Response).ResponseName;
-                return respOID?.StringValue();
-            }
-        }
-
-        static LdapExtendedResponse()
-        {
-            registeredResponses = new RespExtensionSet();
-        }
-
-        public static RespExtensionSet RegisteredResponses => registeredResponses;
-
-        /// <summary>
-        ///     Returns the value part of the response in raw bytes.
-        /// </summary>
-        /// <returns>
-        ///     The value of the response.
-        /// </returns>
-        public virtual sbyte[] Value
-        {
-            get
-            {
-                var tempString = ((RfcExtendedResponse)message.Response).Response;
-                return tempString?.ByteValue();
-            }
-        }
-
-        private static readonly RespExtensionSet registeredResponses;
-
-        /// <summary>
-        /// Creates an LdapExtendedResponse object which encapsulates
-        /// a server response to an asynchronous extended operation request.
-        /// </summary>
-        /// <param name="message">The RfcLdapMessage to convert to an
-        /// LdapExtendedResponse object.</param>
-        public LdapExtendedResponse(RfcLdapMessage message)
-            : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Registers a class to be instantiated on receipt of a extendedresponse
-        /// with the given OID.
-        /// <p>
-        /// Any previous registration for the OID is overridden. The
-        /// extendedResponseClass object MUST be an extension of
-        /// LDAPExtendedResponse.
-        /// </p>
-        /// </summary>
-        /// <param name="oid">The object identifier of the control.</param>
-        /// <param name="extendedResponseClass">A class which can instantiate an
-        /// LDAPExtendedResponse.</param>
-        public static void register(string oid, Type extendedResponseClass)
-        {
-            registeredResponses.registerResponseExtension(oid, extendedResponseClass);
+        public override string ToString() => Name + "(" + MessageID + "): " + message;
         }
     }
 }

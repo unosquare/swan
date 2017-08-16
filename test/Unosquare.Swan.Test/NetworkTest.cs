@@ -85,29 +85,5 @@ namespace Unosquare.Swan.Test
 
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
-
-        [Test]
-        public async void LdapTest()
-        {
-            var cn = new LdapConnection();
-
-            await cn.Connect("ldap.forumsys.com", 389);
-            await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-
-            Assert.IsTrue(cn.Connected);
-            var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
-
-            if (lsc.hasMore())
-            {
-                var entry = lsc.next();
-                var ldapAttributes = entry.getAttributeSet();
-                var obj = ldapAttributes.getAttribute("uniqueMember")?.StringValue ?? null;
-                obj.Info(nameof(LdapTest));
-                Assert.IsTrue(obj != null);
-            }
-            lsc.Count.ToString().Info(nameof(LdapTest));
-            Assert.AreNotEqual(lsc.Count, 0);
-            Assert.IsTrue(lsc.hasMore());
-        }
     }
 }

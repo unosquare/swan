@@ -1,7 +1,6 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
-
     using System;
     using System.Collections;
     using System.IO;
@@ -25,16 +24,19 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.UNBIND_REQUEST);
         }
+
         public RfcRequest dupRequest(string @base, string filter, bool request)
         {
             throw new LdapException(ExceptionMessages.NO_DUP_REQUEST, new object[] { "unbind" },
                 LdapException.Ldap_NOT_SUPPORTED, null);
         }
+
         public string getRequestDN()
         {
             return null;
         }
     }
+
     /// <summary>
     ///     An implementation of LdapAuthHandler must be able to provide an
     ///     LdapAuthProvider object at the time of a referral.  The class
@@ -54,10 +56,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The distinguished name from the object.
         /// </returns>
-        public virtual string DN
-        {
-            get { return dn; }
-        }
+        public virtual string DN { get; }
+
         /// <summary>
         ///     Returns the password to be used for authentication on automatic
         ///     referral following.
@@ -65,11 +65,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The byte[] value (UTF-8) of the password from the object.
         /// </returns>
-        public virtual sbyte[] Password
-        {
-            get { return password; }
-        }
-        private readonly string dn;
+        public virtual sbyte[] Password => password;
+
         private readonly sbyte[] password;
         /// <summary>
         ///     Constructs information that is used by the client for authentication
@@ -84,7 +81,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public LdapAuthProvider(string dn, sbyte[] password)
         {
-            this.dn = dn;
+            this.DN = dn;
             this.password = password;
         }
     }
@@ -2354,6 +2351,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
     }
+
     /// <summary>
     ///     Represents an Ldap DN.
     ///     <pre>
@@ -2372,6 +2370,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
     }
+
     /// <summary>
     ///     Represents an Ldap Extended Response.
     ///     <pre>
@@ -2398,7 +2397,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly int referralIndex;
         private readonly int responseNameIndex;
         private readonly int responseIndex;
-        // Constructors for ExtendedResponse
+        
         /// <summary>
         /// The only time a client will create a ExtendedResponse is when it is
         /// decoding it from an InputStream
