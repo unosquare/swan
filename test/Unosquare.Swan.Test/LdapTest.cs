@@ -51,5 +51,17 @@ namespace Unosquare.Swan.Test
             Assert.AreNotEqual(lsc.Count, 0);
             Assert.IsTrue(lsc.hasMore());
         }
+
+        [Test]
+        public async Task Disconnect()
+        {
+            var cn = new LdapConnection();
+            await cn.Connect("ldap.forumsys.com", 389);
+            await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+            Assert.IsTrue(cn.Connected);
+            "Disconnecting...".Info(nameof(LdapTest));
+            cn.Disconnect();
+            Assert.IsFalse(cn.Connected);
+        }
     }
 }

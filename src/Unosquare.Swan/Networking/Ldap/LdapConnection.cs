@@ -550,6 +550,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual void Disconnect()
         {
             // disconnect from API call
+            cts.Cancel();
             conn.Disconnect();
         }
         
