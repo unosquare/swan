@@ -659,7 +659,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             try
             {
-                var encoder = Encoding.GetEncoding("utf-8");
+                var encoder = Encoding.UTF8;
                 var dchar = encoder.GetChars(_content.ToByteArray());
                 return new string(dchar);
             }

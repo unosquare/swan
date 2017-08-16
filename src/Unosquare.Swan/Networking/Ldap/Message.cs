@@ -24,7 +24,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly bool returnDelims;
 
         /// <summary>
-        ///     Initializes a new class instance with a specified string to process
+        /// Initializes a new class instance with a specified string to process
         /// </summary>
         /// <param name="source">String to tokenize</param>
         public Tokenizer(string source)
@@ -66,7 +66,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private void Tokenize()
         {
             var tempstr = source;
-            var toks = "";
+            var toks = string.Empty;
             if (tempstr.IndexOfAny(delimiters.ToCharArray()) < 0 && tempstr.Length > 0)
             {
                 elements.Add(tempstr);
@@ -75,6 +75,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 return;
             }
+
             while (tempstr.IndexOfAny(delimiters.ToCharArray()) >= 0)
             {
                 if (tempstr.IndexOfAny(delimiters.ToCharArray()) == 0)
@@ -802,7 +803,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             {
                                 // char > 0x7f, could be encoded in 2 or 3 bytes
                                 ca[0] = ch;
-                                var encoder = Encoding.GetEncoding("utf-8");
+                                var encoder = Encoding.UTF8;
                                 var ibytes = encoder.GetBytes(new string(ca));
                                 utf8Bytes = ibytes.ToSByteArray();
                                 //								utf8Bytes = new System.String(ca).getBytes("UTF-8");
@@ -817,7 +818,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             // found invalid character
                             var escString = "";
                             ca[0] = ch;
-                            var encoder = Encoding.GetEncoding("utf-8");
+                            var encoder = Encoding.UTF8;
                             var ibytes = encoder.GetBytes(new string(ca));
                             utf8Bytes = ibytes.ToSByteArray();
                             //							utf8Bytes = new System.String(ca).getBytes("UTF-8");
@@ -1278,6 +1279,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     stringFilter((IEnumerator) filterpart, filter);
                 }
             }
+
             filter.Append(')');
         }
 
@@ -1287,43 +1289,15 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         private static string byteString(sbyte[] value_Renamed)
         {
-            string toReturn = null;
-            if (Base64.isValidUTF8(value_Renamed, true))
+            try
             {
-                try
-                {
-                    var encoder = Encoding.GetEncoding("utf-8");
-                    var dchar = encoder.GetChars(value_Renamed.ToByteArray());
-                    toReturn = new string(dchar);
-                    //					toReturn = new String(value_Renamed, "UTF-8");
-                }
-                catch (IOException e)
-                {
-                    throw new Exception("Default JVM does not support UTF-8 encoding" + e);
-                }
+                var dchar = Encoding.UTF8.GetChars(value_Renamed.ToByteArray());
+                return new string(dchar);
             }
-            else
+            catch (IOException e)
             {
-                var binary = new StringBuilder();
-                for (var i = 0; i < value_Renamed.Length; i++)
-                {
-                    //TODO repair binary output
-                    //Every octet needs to be escaped
-                    if (value_Renamed[i] >= 0)
-                    {
-                        //one character hex string
-                        binary.Append("\\0");
-                        binary.Append(Convert.ToString(value_Renamed[i], 16));
-                    }
-                    else
-                    {
-                        //negative (eight character) hex string
-                        binary.Append("\\" + Convert.ToString(value_Renamed[i], 16).Substring(6));
-                    }
-                }
-                toReturn = binary.ToString();
+                throw new Exception("Default JVM does not support UTF-8 encoding" + e);
             }
-            return toReturn;
         }
 
         /// <summary>

@@ -8,14 +8,14 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    
+
     /// <summary>
     ///     This class manages a set of elements.
     /// </summary>
     public class SetSupport : ArrayList
     {
         /// <summary>
-        ///     Creates a new set.
+        /// Initializes a new instance of the <see cref="SetSupport"/> class.
         /// </summary>
         public SetSupport()
         {
@@ -25,7 +25,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Creates a new set initialized with System.Collections.ICollection object
         /// </summary>
         /// <param name="collection">System.Collections.ICollection object to initialize the set object</param>
-        public SetSupport(ICollection collection) 
+        public SetSupport(ICollection collection)
             : base(collection)
         {
         }
@@ -34,7 +34,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Creates a new set initialized with a specific capacity.
         /// </summary>
         /// <param name="capacity">value to set the capacity of the set object</param>
-        public SetSupport(int capacity) 
+        public SetSupport(int capacity)
             : base(capacity)
         {
         }
@@ -73,7 +73,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             return result;
         }
-        
+
         /// <summary>
         ///     Verifies that all the elements of the specified collection are contained into the current collection.
         /// </summary>
@@ -88,7 +88,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     break;
             return result;
         }
-        
+
         /// <summary>
         ///     Verifies if the collection is empty.
         /// </summary>
@@ -128,7 +128,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             return result;
         }
-        
+
         /// <summary>
         ///     Removes all the elements that aren't contained in the specified collection.
         /// </summary>
@@ -138,7 +138,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var result = false;
             var tempEnumerator = collection.GetEnumerator();
-            var tempSet = (SetSupport)collection;
+            var tempSet = (SetSupport) collection;
             while (tempEnumerator.MoveNext())
             {
                 if (!tempSet.Contains(tempEnumerator.Current))
@@ -150,7 +150,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             return result;
         }
-        
+
         /// <summary>
         ///     Obtains an array containing all the elements of the collection.
         /// </summary>
@@ -179,47 +179,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return objects;
         }
     }
-    
-    /// <summary>
-    ///     Represents the Ldap Abandon Request.
-    ///     <pre>
-    ///         AbandonRequest ::= [APPLICATION 16] MessageID
-    ///     </pre>
-    /// </summary>
-    internal class RfcAbandonRequest : RfcMessageID, RfcRequest
-    {
-        /// <summary>
-        /// Constructs an RfcAbandonRequest
-        /// </summary>
-        /// <param name="msgId">The MSG identifier.</param>
-        public RfcAbandonRequest(int msgId)
-            : base(msgId)
-        {
-        }
-        
-        /// <summary>
-        ///     Override getIdentifier to return an application-wide id.
-        ///     <pre>
-        ///         ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 16. (0x50)
-        ///     </pre>
-        /// </summary>
-        public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.ABANDON_REQUEST);
-        }
 
-        public RfcRequest dupRequest(string base_Renamed, string filter, bool reference)
-        {
-            throw new LdapException(ExceptionMessages.NO_DUP_REQUEST, new object[] { "Abandon" },
-                LdapException.Ldap_NOT_SUPPORTED, null);
-        }
-
-        public string getRequestDN()
-        {
-            return null;
-        }
-    }
-    
     /// <summary>
     ///     Represents an LdapResult.
     ///     <pre>
@@ -300,7 +260,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="matchedDN">the matched DN returned from the server</param>
         /// <param name="errorMessage">the diagnostic message returned from the server</param>
         /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
+        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage,
+            Asn1SequenceOf referral)
             : base(4)
         {
             Add(resultCode);
@@ -316,23 +277,23 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcLdapResult(Asn1Decoder dec, Stream in_Renamed, int len) 
+        public RfcLdapResult(Asn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
             {
-                var obj = (Asn1Tagged)Get(3);
+                var obj = (Asn1Tagged) Get(3);
                 var id = obj.GetIdentifier();
                 if (id.Tag == REFERRAL)
                 {
-                    var content = ((Asn1OctetString)obj.taggedValue()).ByteValue();
+                    var content = ((Asn1OctetString) obj.taggedValue()).ByteValue();
                     var bais = new MemoryStream(content.ToByteArray());
                     Set(3, new Asn1SequenceOf(dec, bais, content.Length));
                 }
             }
         }
-        
+
         /// <summary>
         ///     Returns the result code from the server
         /// </summary>
@@ -341,7 +302,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public Asn1Enumerated getResultCode()
         {
-            return (Asn1Enumerated)Get(0);
+            return (Asn1Enumerated) Get(0);
         }
 
         /// <summary>
@@ -352,7 +313,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public RfcLdapDN getMatchedDN()
         {
-            return new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
+            return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
         }
 
         /// <summary>
@@ -363,7 +324,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public RfcLdapString getErrorMessage()
         {
-            return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+            return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
         }
 
         /// <summary>
@@ -374,7 +335,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public Asn1SequenceOf getReferral()
         {
-            return Size() > 3 ? (Asn1SequenceOf)Get(3) : null;
+            return Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
         }
     }
 
@@ -392,7 +353,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultDone(Asn1Decoder dec, Stream in_Renamed, int len) 
+        public RfcSearchResultDone(Asn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
         }
@@ -404,7 +365,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="matchedDN">the matched DN returned from the server</param>
         /// <param name="errorMessage">the diagnostic message returned from the server</param>
         /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
+        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage,
+            Asn1SequenceOf referral)
             : base(resultCode, matchedDN, errorMessage, referral)
         {
         }
@@ -439,13 +401,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         public virtual Asn1OctetString ObjectName
         {
-            get { return (Asn1OctetString)Get(0); }
+            get { return (Asn1OctetString) Get(0); }
         }
 
         /// <summary> </summary>
         public virtual Asn1Sequence Attributes
         {
-            get { return (Asn1Sequence)Get(1); }
+            get { return (Asn1Sequence) Get(1); }
         }
 
         /// <summary>
@@ -564,7 +526,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Convert each SEQUENCE element to a Control
             for (var i = 0; i < Size(); i++)
             {
-                var tempControl = new RfcControl((Asn1Sequence)Get(i));
+                var tempControl = new RfcControl((Asn1Sequence) Get(i));
                 Set(i, tempControl);
             }
         }
@@ -695,7 +657,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary> Returns this RfcLdapMessage's messageID as an int.</summary>
         public virtual int MessageID
         {
-            get { return ((Asn1Integer)Get(0)).IntValue(); }
+            get { return ((Asn1Integer) Get(0)).IntValue(); }
         }
 
         /// <summary> Returns this RfcLdapMessage's message type</summary>
@@ -721,7 +683,7 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 if (Size() > 2)
-                    return (RfcControls)Get(2);
+                    return (RfcControls) Get(2);
                 return null;
             }
         }
@@ -729,7 +691,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary> Returns the dn of the request, may be null</summary>
         public virtual string RequestDN
         {
-            get { return ((RfcRequest)op).getRequestDN(); }
+            get { return ((RfcRequest) op).getRequestDN(); }
         }
 
         /// <summary>
@@ -763,22 +725,23 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dn">The dn.</param>
         /// <param name="filter">The filter.</param>
         /// <param name="reference">if set to <c>true</c> [reference].</param>
-        internal RfcLdapMessage(Asn1Object[] origContent, RfcRequest origRequest, string dn, string filter, bool reference)
+        internal RfcLdapMessage(Asn1Object[] origContent, RfcRequest origRequest, string dn, string filter,
+            bool reference)
             : base(origContent, origContent.Length)
         {
             Set(0, new RfcMessageID()); // MessageID has static counter
 
-            var req = (RfcRequest)origContent[1];
+            var req = (RfcRequest) origContent[1];
             var newreq = req.dupRequest(dn, filter, reference);
-            op = (Asn1Object)newreq;
-            Set(1, (Asn1Object)newreq);
+            op = (Asn1Object) newreq;
+            Set(1, (Asn1Object) newreq);
         }
 
         /// <summary>
         /// Create an RfcLdapMessage using the specified Ldap Request.
         /// </summary>
         /// <param name="op">The op.</param>
-        public RfcLdapMessage(RfcRequest op) 
+        public RfcLdapMessage(RfcRequest op)
             : this(op, null)
         {
         }
@@ -788,14 +751,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="op">The op.</param>
         /// <param name="controls">The controls.</param>
-        public RfcLdapMessage(RfcRequest op, RfcControls controls) 
+        public RfcLdapMessage(RfcRequest op, RfcControls controls)
             : base(3)
         {
-            this.op = (Asn1Object)op;
+            this.op = (Asn1Object) op;
             this.controls = controls;
 
             Add(new RfcMessageID()); // MessageID has static counter
-            Add((Asn1Object)op);
+            Add((Asn1Object) op);
             if (controls != null)
             {
                 Add(controls);
@@ -806,7 +769,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Create an RfcLdapMessage using the specified Ldap Response.
         /// </summary>
         /// <param name="op">The op.</param>
-        public RfcLdapMessage(Asn1Sequence op) 
+        public RfcLdapMessage(Asn1Sequence op)
             : this(op, null)
         {
         }
@@ -845,9 +808,9 @@ namespace Unosquare.Swan.Networking.Ldap
 
             // Decode implicitly tagged protocol operation from an Asn1Tagged type
             // to its appropriate application type.
-            var protocolOp = (Asn1Tagged)Get(1);
+            var protocolOp = (Asn1Tagged) Get(1);
             var protocolOpId = protocolOp.GetIdentifier();
-            content = ((Asn1OctetString)protocolOp.taggedValue()).ByteValue();
+            content = ((Asn1OctetString) protocolOp.taggedValue()).ByteValue();
             bais = new MemoryStream(content.ToByteArray());
 
             switch (protocolOpId.Tag)
@@ -863,11 +826,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 case LdapMessage.SEARCH_RESULT_REFERENCE:
                     Set(1, new RfcSearchResultReference(dec, bais, content.Length));
                     break;
-                    
+
                 case LdapMessage.BIND_RESPONSE:
                     Set(1, new RfcBindResponse(dec, bais, content.Length));
                     break;
-                    
+
                 case LdapMessage.EXTENDED_RESPONSE:
                     Set(1, new RfcExtendedResponse(dec, bais, content.Length));
                     break;
@@ -875,7 +838,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 case LdapMessage.INTERMEDIATE_RESPONSE:
                     Set(1, new RfcIntermediateResponse(dec, bais, content.Length));
                     break;
-                    
+
                 default:
                     throw new Exception("RfcLdapMessage: Invalid tag: " + protocolOpId.Tag);
             }
@@ -884,11 +847,11 @@ namespace Unosquare.Swan.Networking.Ldap
             // to RFC 2251 types.
             if (Size() > 2)
             {
-                var controls = (Asn1Tagged)Get(2);
+                var controls = (Asn1Tagged) Get(2);
                 //   Asn1Identifier controlsId = protocolOp.getIdentifier();
                 // we could check to make sure we have controls here....
 
-                content = ((Asn1OctetString)controls.taggedValue()).ByteValue();
+                content = ((Asn1OctetString) controls.taggedValue()).ByteValue();
                 bais = new MemoryStream(content.ToByteArray());
                 Set(2, new RfcControls(dec, bais, content.Length));
             }
@@ -904,7 +867,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         public RfcRequest getRequest()
         {
-            return (RfcRequest)Get(1);
+            return (RfcRequest) Get(1);
         }
 
         public virtual bool isRequest()
@@ -934,7 +897,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new LdapException("DUP_ERROR", LdapException.LOCAL_ERROR, null);
             }
 
-            var newMsg = new RfcLdapMessage(ToArray(), (RfcRequest)Get(1), dn, filter, reference);
+            var newMsg = new RfcLdapMessage(ToArray(), (RfcRequest) Get(1), dn, filter, reference);
             return newMsg;
         }
     }
@@ -970,7 +933,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     controls = new LdapControl[asn1Ctrls.Size()];
                     for (var i = 0; i < asn1Ctrls.Size(); i++)
                     {
-                        var rfcCtl = (RfcControl)asn1Ctrls.Get(i);
+                        var rfcCtl = (RfcControl) asn1Ctrls.Get(i);
                         var oid = rfcCtl.ControlType.StringValue();
                         var value_Renamed = rfcCtl.ControlValue.ByteValue();
                         var critical = rfcCtl.Criticality.BooleanValue();
@@ -1080,7 +1043,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     case SEARCH_REQUEST:
                         name = "LdapSearchRequest";
                         break;
-                        
+
                     case BIND_REQUEST:
                         name = "LdapBindRequest";
                         break;
@@ -1157,7 +1120,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if ((object)stringTag != null)
+                if ((object) stringTag != null)
                 {
                     return stringTag;
                 }
@@ -1211,7 +1174,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     SEARCH_RESULT = 5
         /// </summary>
         public const int SEARCH_RESULT = 5;
-        
+
         /// <summary>
         ///     An abandon request operation.
         ///     ABANDON_REQUEST = 16
@@ -1324,7 +1287,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         internal LdapMessage Clone(string dn, string filter, bool reference)
         {
-            return new LdapMessage((RfcLdapMessage)message.dupMessage(dn, filter, reference));
+            return new LdapMessage((RfcLdapMessage) message.dupMessage(dn, filter, reference));
         }
 
         /// <summary>
@@ -1353,8 +1316,8 @@ namespace Unosquare.Swan.Networking.Ldap
                     return new LdapControl(oid, critical, value_Renamed);
 
                 /* If found, get LDAPControl constructor */
-                Type[] argsClass = { typeof(string), typeof(bool), typeof(sbyte[]) };
-                object[] args = { oid, critical, value_Renamed };
+                Type[] argsClass = {typeof(string), typeof(bool), typeof(sbyte[])};
+                object[] args = {oid, critical, value_Renamed};
                 try
                 {
                     var ctlConstructor = respCtlClass.GetConstructor(argsClass);
@@ -1363,7 +1326,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         object ctl = null;
                         ctl = ctlConstructor.Invoke(args);
-                        return (LdapControl)ctl;
+                        return (LdapControl) ctl;
                     }
                     catch (UnauthorizedAccessException)
                     {
@@ -1402,7 +1365,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// a String representation for this LdapMessage
         /// </returns>
         public override string ToString() => Name + "(" + MessageID + "): " + message;
-        }
     }
 }
+
 #endif

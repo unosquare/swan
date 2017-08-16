@@ -1,41 +1,11 @@
 ﻿#if !UWP
+
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections;
     using System.IO;
     using System.Text;
-
-    /// <summary>
-    ///     Represents the Ldap Unbind request.
-    ///     <pre>
-    ///         UnbindRequest ::= [APPLICATION 2] NULL
-    ///     </pre>
-    /// </summary>
-    internal class RfcUnbindRequest : Asn1Null, RfcRequest
-    {
-        /// <summary>
-        ///     Override getIdentifier to return an application-wide id.
-        ///     <pre>
-        ///         ID = CLASS: APPLICATION, FORM: PRIMITIVE, TAG: 2. (0x42)
-        ///     </pre>
-        /// </summary>
-        public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.UNBIND_REQUEST);
-        }
-
-        public RfcRequest dupRequest(string @base, string filter, bool request)
-        {
-            throw new LdapException(ExceptionMessages.NO_DUP_REQUEST, new object[] { "unbind" },
-                LdapException.Ldap_NOT_SUPPORTED, null);
-        }
-
-        public string getRequestDN()
-        {
-            return null;
-        }
-    }
 
     /// <summary>
     ///     An implementation of LdapAuthHandler must be able to provide an
@@ -68,6 +38,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual sbyte[] Password => password;
 
         private readonly sbyte[] password;
+
         /// <summary>
         ///     Constructs information that is used by the client for authentication
         ///     when following referrals automatically.
@@ -85,6 +56,7 @@ namespace Unosquare.Swan.Networking.Ldap
             this.password = password;
         }
     }
+
     /// <summary>
     ///     Used to provide credentials for authentication when processing a
     ///     referral.
@@ -119,681 +91,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         LdapAuthProvider getAuthProvider(string host, int port);
     }
-
-    /// <summary>
-    ///     The Base64 utility class performs base64 encoding and decoding.
-    ///     The Base64 Content-Transfer-Encoding is designed to represent
-    ///     arbitrary sequences of octets in a form that need not be humanly
-    ///     readable.  The encoding and decoding algorithms are simple, but the
-    ///     encoded data are consistently only about 33 percent larger than the
-    ///     unencoded data.  The base64 encoding algorithm is defined by
-    ///     RFC 2045.
-    /// </summary>
-    internal class Base64
-    {
-        /// <summary>
-        ///     Conversion table for encoding to base64.
-        ///     emap is a six-bit value to base64 (8-bit) converstion table.
-        ///     For example, the value of the 6-bit value 15
-        ///     is mapped to 0x50 which is the ASCII letter 'P', i.e. the letter P
-        ///     is the base64 encoded character that represents the 6-bit value 15.
-        /// </summary>
-        /*
-        * 8-bit base64 encoded character                 base64       6-bit
-        *                                                encoded      original
-        *                                                character    binary value
-        */
-        private static readonly char[] emap =
-        {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-            'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-            'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', '+', '/'
-        }; // 4-9, + /;  56-63
-        /// <summary>
-        ///     conversion table for decoding from base64.
-        ///     dmap is a base64 (8-bit) to six-bit value converstion table.
-        ///     For example the ASCII character 'P' has a value of 80.
-        ///     The value in the 80th position of the table is 0x0f or 15.
-        ///     15 is the original 6-bit value that the letter 'P' represents.
-        /// </summary>
-        /*
-        * 6-bit decoded value                            base64    base64
-        *                                                encoded   character
-        *                                                value
-        *
-        * Note: about half of the values in the table are only place holders
-        */
-        private static readonly sbyte[] dmap =
-        {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3e, 0x00, 0x00, 0x00, 0x3f,
-            0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12,
-            0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e,
-            0x1f, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f, 0x30,
-            0x31, 0x32, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00
-        }; // 120-127 'xyz     '
-        /// <summary>
-        ///     Default constructor, don't allow instances of the
-        ///     utility class to be created.
-        /// </summary>
-        private Base64()
-        {
-        }
-        /// <summary>
-        ///     Encodes the specified String into a base64 encoded String object.
-        /// </summary>
-        /// <param name="inputString">
-        ///     The String object to be encoded.
-        /// </param>
-        /// <returns>
-        ///     a String containing the encoded value of the input.
-        /// </returns>
-        public static string encode(string inputString)
-        {
-            try
-            {
-                var encoder = Encoding.GetEncoding("utf-8");
-                var ibytes = encoder.GetBytes(inputString);
-                var sbytes = ibytes.ToSByteArray();
-                return encode(sbytes);
-            }
-            catch (IOException ue)
-            {
-                throw new Exception("US-ASCII String encoding not supported by JVM", ue);
-            }
-        }
-        /// <summary>
-        ///     Encodes the specified bytes into a base64 array of bytes.
-        ///     Each byte in the return array represents a base64 character.
-        /// </summary>
-        /// <param name="inputBytes">
-        ///     the byte array to be encoded.
-        /// </param>
-        /// <returns>
-        ///     a String containing the base64 encoded data
-        /// </returns>
-        public static string encode(sbyte[] inputBytes)
-        {
-            int i, j, k;
-            int t, t1, t2;
-            int ntb; // number of three-bytes in inputBytes
-            bool onePadding = false, twoPaddings = false;
-            char[] encodedChars; // base64 encoded chars
-            var len = inputBytes.Length;
-            if (len == 0)
-            {
-                // No data, return no data.
-                return new StringBuilder("").ToString();
-            }
-            // every three bytes will be encoded into four bytes
-            if (len % 3 == 0)
-            {
-                ntb = len / 3;
-            }
-            // the last one or two bytes will be encoded into
-            // four bytes with one or two paddings
-            else
-            {
-                ntb = len / 3 + 1;
-            }
-            // need two paddings
-            if (len % 3 == 1)
-            {
-                twoPaddings = true;
-            }
-            // need one padding
-            else if (len % 3 == 2)
-            {
-                onePadding = true;
-            }
-            encodedChars = new char[ntb * 4];
-            // map of decoded and encoded bits
-            //     bits in 3 decoded bytes:   765432  107654  321076  543210
-            //     bits in 4 encoded bytes: 76543210765432107654321076543210
-            //       plain           "AAA":   010000  010100  000101  000001
-            //       base64 encoded "QUFB": 00010000000101000000010100000001
-            // one padding:
-            //     bits in 2 decoded bytes:   765432  10 7654  3210
-            //     bits in 4 encoded bytes: 765432107654 321076543210 '='
-            //       plain            "AA":   010000  010100  0001
-            //       base64 encoded "QUE=": 00010000000101000000010000111101
-            // two paddings:
-            //     bits in 1 decoded bytes:   765432  10
-            //     bits in 4 encoded bytes: 7654321076543210 '=' '='
-            //       plain             "A":   010000  01
-            //       base64 encoded "QQ==": 00010000000100000011110100111101
-            //
-            // note: the encoded bits which have no corresponding decoded bits
-            // are filled with zeros; '=' = 00111101.
-            for (i = 0, j = 0, k = 1; i < len; i += 3, j += 4, k++)
-            {
-                // build encodedChars[j]
-                t = 0x00ff & inputBytes[i];
-                encodedChars[j] = emap[t >> 2];
-                // build encodedChars[j+1]
-                if (k == ntb && twoPaddings)
-                {
-                    encodedChars[j + 1] = emap[(t & 0x03) << 4];
-                    encodedChars[j + 2] = '=';
-                    encodedChars[j + 3] = '=';
-                    break;
-                }
-                t1 = 0x00ff & inputBytes[i + 1];
-                encodedChars[j + 1] = emap[((t & 0x03) << 4) + ((t1 & 0xf0) >> 4)];
-                // build encodedChars[j+2]
-                if (k == ntb && onePadding)
-                {
-                    encodedChars[j + 2] = emap[(t1 & 0x0f) << 2];
-                    encodedChars[j + 3] = '=';
-                    break;
-                }
-                t2 = 0x00ff & inputBytes[i + 2];
-                encodedChars[j + 2] = emap[((t1 & 0x0f) << 2) | ((t2 & 0xc0) >> 6)];
-                // build encodedChars[j+3]
-                encodedChars[j + 3] = emap[t2 & 0x3f];
-            }
-            return new string(encodedChars);
-        }
-        public static void GetCharsFromString(string sourceString, int sourceStart, int sourceEnd,
-        ref char[] destinationArray, int destinationStart)
-        {
-            int sourceCounter;
-            int destinationCounter;
-            sourceCounter = sourceStart;
-            destinationCounter = destinationStart;
-            while (sourceCounter < sourceEnd)
-            {
-                destinationArray[destinationCounter] = sourceString[sourceCounter];
-                sourceCounter++;
-                destinationCounter++;
-            }
-        }
-        /// <summary>
-        ///     Decodes the input base64 encoded String.
-        ///     The resulting binary data is returned as an array of bytes.
-        /// </summary>
-        /// <param name="encodedString">
-        ///     The base64 encoded String object.
-        /// </param>
-        /// <returns>
-        ///     The decoded byte array.
-        /// </returns>
-        public static sbyte[] decode(string encodedString)
-        {
-            var c = new char[encodedString.Length];
-            GetCharsFromString(encodedString, 0, encodedString.Length, ref c, 0);
-            return decode(c);
-        }
-        /// <summary>
-        ///     Decodes the input base64 encoded array of characters.
-        ///     The resulting binary data is returned as an array of bytes.
-        /// </summary>
-        /// <param name="encodedChars">
-        ///     The character array containing the base64 encoded data.
-        /// </param>
-        /// <returns>
-        ///     A byte array object containing decoded bytes.
-        /// </returns>
-        public static sbyte[] decode(char[] encodedChars)
-        {
-            int i, j, k;
-            var ecLen = encodedChars.Length; // length of encodedChars
-            var gn = ecLen / 4; // number of four-byte groups in encodedChars
-            int dByteLen; // length of decoded bytes, default is '0'
-            bool onePad = false, twoPads = false;
-            sbyte[] decodedBytes; // decoded bytes
-            if (encodedChars.Length == 0)
-            {
-                return new sbyte[0];
-            }
-            // the number of encoded bytes should be multiple of 4
-            if (ecLen % 4 != 0)
-            {
-                throw new Exception("Novell.Directory.Ldap.ldif_dsml." +
-                                    "Base64Decoder: decode: mal-formatted encode value");
-            }
-            // every four-bytes in encodedString, except the last one if it in the
-            // form of '**==' or '***=' ( can't be '*===' or '===='), will be
-            // decoded into three bytes.
-            if (encodedChars[ecLen - 1] == '=' && encodedChars[ecLen - 2] == '=')
-            {
-                // the last four bytes of encodedChars is in the form of '**=='
-                twoPads = true;
-                // the first two bytes of the last four-bytes of encodedChars will
-                // be decoded into one byte.
-                dByteLen = gn * 3 - 2;
-                decodedBytes = new sbyte[dByteLen];
-            }
-            else if (encodedChars[ecLen - 1] == '=')
-            {
-                // the last four bytes of encodedChars is in the form of '***='
-                onePad = true;
-                // the first two bytes of the last four-bytes of encodedChars will
-                // be decoded into two bytes.
-                dByteLen = gn * 3 - 1;
-                decodedBytes = new sbyte[dByteLen];
-            }
-            else
-            {
-                // the last four bytes of encodedChars is in the form of '****',
-                // e.g. no pad.
-                dByteLen = gn * 3;
-                decodedBytes = new sbyte[dByteLen];
-            }
-            // map of encoded and decoded bits
-            // no padding:
-            //     bits in 4 encoded bytes: 76543210 76543210 76543210 76543210
-            //     bits in 3 decoded bytes:   765432   107654   321076   543210
-            //        base64  string "QUFB":00010000 00010100 000001010 0000001
-            //          plain string  "AAA":   010000  010100  000101  000001
-            // one padding:
-            //     bits in 4 encoded bytes: 76543210 76543210 76543210 76543210
-            //     bits in 2 decoded bytes:   765432   107654   3210
-            //       base64  string "QUE=": 00010000 000101000 0000100 00111101
-            //         plain string   "AA":   010000  010100  0001
-            // two paddings:
-            //     bits in 4 encoded bytes: 76543210 76543210 76543210 76543210
-            //     bits in 1 decoded bytes:   765432   10
-            //       base64  string "QQ==": 00010000 00010000 00111101 00111101
-            //         plain string    "A":   010000  01
-            for (i = 0, j = 0, k = 1; i < ecLen; i += 4, j += 3, k++)
-            {
-                // build decodedBytes[j].
-                decodedBytes[j] = (sbyte)((dmap[encodedChars[i]] << 2) | ((dmap[encodedChars[i + 1]] & 0x30) >> 4));
-                // build decodedBytes[j+1]
-                if (k == gn && twoPads)
-                {
-                    break;
-                }
-                decodedBytes[j + 1] =
-                    (sbyte)(((dmap[encodedChars[i + 1]] & 0x0f) << 4) | ((dmap[encodedChars[i + 2]] & 0x3c) >> 2));
-                // build decodedBytes[j+2]
-                if (k == gn && onePad)
-                {
-                    break;
-                }
-                decodedBytes[j + 2] =
-                    (sbyte)(((dmap[encodedChars[i + 2]] & 0x03) << 6) | (dmap[encodedChars[i + 3]] & 0x3f));
-            }
-            return decodedBytes;
-        }
-        /// <summary>
-        ///     Decodes a base64 encoded StringBuffer.
-        ///     Decodes all or part of the input base64 encoded StringBuffer, each
-        ///     Character value representing a base64 character. The resulting
-        ///     binary data is returned as an array of bytes.
-        /// </summary>
-        /// <param name="encodedSBuf">
-        ///     The StringBuffer object that contains base64
-        ///     encoded data.
-        /// </param>
-        /// <param name="start">
-        ///     The start index of the base64 encoded data.
-        /// </param>
-        /// <param name="end">
-        ///     The end index + 1 of the base64 encoded data.
-        /// </param>
-        /// <returns>
-        ///     The decoded byte array
-        /// </returns>
-        public static sbyte[] decode(StringBuilder encodedSBuf, int start, int end)
-        {
-            int i, j, k;
-            var esbLen = end - start; // length of the encoded part
-            var gn = esbLen / 4; // number of four-bytes group in ebs
-            int dByteLen; // length of dbs, default is '0'
-            bool onePad = false, twoPads = false;
-            sbyte[] decodedBytes; // decoded bytes
-            if (encodedSBuf.Length == 0)
-            {
-                return new sbyte[0];
-            }
-            // the number of encoded bytes should be multiple of number 4
-            if (esbLen % 4 != 0)
-            {
-                throw new Exception("Novell.Directory.Ldap.ldif_dsml." +
-                                    "Base64Decoder: decode error: mal-formatted encode value");
-            }
-            // every four-bytes in ebs, except the last one if it in the form of
-            // '**==' or '***=' ( can't be '*===' or '===='), will be decoded into
-            // three bytes.
-            if (encodedSBuf[end - 1] == '=' && encodedSBuf[end - 2] == '=')
-            {
-                // the last four bytes of ebs is in the form of '**=='
-                twoPads = true;
-                // the first two bytes of the last four-bytes of ebs will be
-                // decoded into one byte.
-                dByteLen = gn * 3 - 2;
-                decodedBytes = new sbyte[dByteLen];
-            }
-            else if (encodedSBuf[end - 1] == '=')
-            {
-                // the last four bytes of ebs is in the form of '***='
-                onePad = true;
-                // the first two bytes of the last four-bytes of ebs will be
-                // decoded into two bytes.
-                dByteLen = gn * 3 - 1;
-                decodedBytes = new sbyte[dByteLen];
-            }
-            else
-            {
-                // the last four bytes of ebs is in the form of '****', eg. no pad.
-                dByteLen = gn * 3;
-                decodedBytes = new sbyte[dByteLen];
-            }
-            // map of encoded and decoded bits
-            // no padding:
-            //     bits in 4 encoded bytes: 76543210 76543210 76543210 76543210
-            //     bits in 3 decoded bytes:   765432   107654   321076   543210
-            //        base64  string "QUFB":00010000 00010100 000001010 0000001
-            //          plain string  "AAA":   010000  010100  000101  000001
-            // one padding:
-            //     bits in 4 encoded bytes: 76543210 76543210 76543210 76543210
-            //     bits in 2 decoded bytes:   765432   107654   3210
-            //       base64  string "QUE=": 00010000 000101000 0000100 00111101
-            //         plain string   "AA":   010000  010100  0001
-            // two paddings:
-            //     bits in 4 encoded bytes: 76543210 76543210 76543210 76543210
-            //     bits in 1 decoded bytes:   765432   10
-            //       base64  string "QQ==": 00010000 00010000 00111101 00111101
-            //         plain string    "A":   010000  01
-            for (i = 0, j = 0, k = 1; i < esbLen; i += 4, j += 3, k++)
-            {
-                // build decodedBytes[j].
-                decodedBytes[j] =
-                    (sbyte)((dmap[encodedSBuf[start + i]] << 2) | ((dmap[encodedSBuf[start + i + 1]] & 0x30) >> 4));
-                // build decodedBytes[j+1]
-                if (k == gn && twoPads)
-                {
-                    break;
-                }
-                decodedBytes[j + 1] =
-                    (sbyte)
-                    (((dmap[encodedSBuf[start + i + 1]] & 0x0f) << 4) | ((dmap[encodedSBuf[start + i + 2]] & 0x3c) >> 2));
-                // build decodedBytes[j+2]
-                if (k == gn && onePad)
-                {
-                    break;
-                }
-                decodedBytes[j + 2] =
-                    (sbyte)
-                    (((dmap[encodedSBuf[start + i + 2]] & 0x03) << 6) | (dmap[encodedSBuf[start + i + 3]] & 0x3f));
-            }
-            return decodedBytes;
-        }
-        /// <summary>
-        ///     Checks if the input byte array contains only safe values, that is,
-        ///     the data does not need to be encoded for use with LDIF.
-        ///     The rules for checking safety are based on the rules for LDIF
-        ///     (Ldap Data Interchange Format) per RFC 2849.  The data does
-        ///     not need to be encoded if all the following are true:
-        ///     The data cannot start with the following byte values:
-        ///     <pre>
-        ///         00 (NUL)
-        ///         10 (LF)
-        ///         13 (CR)
-        ///         32 (SPACE)
-        ///         58 (:)
-        ///         60 (LESSTHAN)
-        ///         Any character with value greater than 127
-        ///         (Negative for a byte value)
-        ///     </pre>
-        ///     The data cannot contain any of the following byte values:
-        ///     <pre>
-        ///         00 (NUL)
-        ///         10 (LF)
-        ///         13 (CR)
-        ///         Any character with value greater than 127
-        ///         (Negative for a byte value)
-        ///     </pre>
-        ///     The data cannot end with a space.
-        /// </summary>
-        /// <param name="bytes">
-        ///     the bytes to be checked.
-        /// </param>
-        /// <returns>
-        ///     true if encoding not required for LDIF
-        /// </returns>
-        public static bool isLDIFSafe(sbyte[] bytes)
-        {
-            var len = bytes.Length;
-            if (len > 0)
-            {
-                int testChar = bytes[0];
-                // unsafe if first character is a NON-SAFE-INIT-CHAR
-                if (testChar == 0x00 || testChar == 0x0A || testChar == 0x0D || testChar == 0x20 || testChar == 0x3A ||
-                    testChar == 0x3C || testChar < 0)
-                {
-                    // non ascii (>127 is negative)
-                    return false;
-                }
-                // unsafe if last character is a space
-                if (bytes[len - 1] == ' ')
-                {
-                    return false;
-                }
-                // unsafe if contains any non safe character
-                if (len > 1)
-                {
-                    for (var i = 1; i < bytes.Length; i++)
-                    {
-                        testChar = bytes[i];
-                        if (testChar == 0x00 || testChar == 0x0A || testChar == 0x0D || testChar < 0)
-                        {
-                            // non ascii (>127 is negative)
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-        /// <summary>
-        ///     Checks if the input String contains only safe values, that is,
-        ///     the data does not need to be encoded for use with LDIF.
-        ///     The rules for checking safety are based on the rules for LDIF
-        ///     (Ldap Data Interchange Format) per RFC 2849.  The data does
-        ///     not need to be encoded if all the following are true:
-        ///     The data cannot start with the following char values:
-        ///     <pre>
-        ///         00 (NUL)
-        ///         10 (LF)
-        ///         13 (CR)
-        ///         32 (SPACE)
-        ///         58 (:)
-        ///         60 (LESSTHAN)
-        ///         Any character with value greater than 127
-        ///     </pre>
-        ///     The data cannot contain any of the following char values:
-        ///     <pre>
-        ///         00 (NUL)
-        ///         10 (LF)
-        ///         13 (CR)
-        ///         Any character with value greater than 127
-        ///     </pre>
-        ///     The data cannot end with a space.
-        /// </summary>
-        /// <param name="str">
-        ///     the String to be checked.
-        /// </param>
-        /// <returns>
-        ///     true if encoding not required for LDIF
-        /// </returns>
-        public static bool isLDIFSafe(string str)
-        {
-            try
-            {
-                var encoder = Encoding.GetEncoding("utf-8");
-                var ibytes = encoder.GetBytes(str);
-                var sbytes = ibytes.ToSByteArray();
-                return isLDIFSafe(sbytes);
-            }
-            catch (IOException ue)
-            {
-                throw new Exception("UTF-8 String encoding not supported by JVM", ue);
-            }
-        }
-        /* **************UTF-8 Validation methods and members*******************
-        * The following text is taken from draft-yergeau-rfc2279bis-02 and explains
-        * UTF-8 encoding:
-        *
-        *In UTF-8, characters are encoded using sequences of 1 to 6 octets.
-        * If the range of character numbers is restricted to U+0000..U+10FFFF
-        * (the UTF-16 accessible range), then only sequences of one to four
-        * octets will occur.  The only octet of a "sequence" of one has the
-        * higher-order bit set to 0, the remaining 7 bits being used to encode
-        * the character number.  In a sequence of n octets, n>1, the initial
-        * octet has the n higher-order bits set to 1, followed by a bit set to
-        * 0.  The remaining bit(s) of that octet contain bits from the number
-        * of the character to be encoded.  The following octet(s) all have the
-        * higher-order bit set to 1 and the following bit set to 0, leaving 6
-        * bits in each to contain bits from the character to be encoded.
-        *
-        * The table below summarizes the format of these different octet types.
-        * The letter x indicates bits available for encoding bits of the
-        * character number.
-        *
-        * <pre>
-        * Char. number range  |        UTF-8 octet sequence
-        *    (hexadecimal)    |              (binary)
-        * --------------------+---------------------------------------------
-        * 0000 0000-0000 007F | 0xxxxxxx
-        * 0000 0080-0000 07FF | 110xxxxx 10xxxxxx
-        * 0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx
-        * 0001 0000-001F FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
-        * 0020 0000-03FF FFFF | 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
-        * 0400 0000-7FFF FFFF | 1111110x 10xxxxxx ... 10xxxxxx
-        * </pre>
-        */
-        /// <summary>
-        ///     Given the first byte in a sequence, getByteCount returns the number of
-        ///     additional bytes in a UTF-8 character sequence (not including the first
-        ///     byte).
-        /// </summary>
-        /// <param name="b">
-        ///     The first byte in a UTF-8 character sequence.
-        /// </param>
-        /// <returns>
-        ///     the number of additional bytes in a UTF-8 character sequence.
-        /// </returns>
-        private static int getByteCount(sbyte b)
-        {
-            if (b > 0)
-                return 0;
-            if ((b & 0xE0) == 0xC0)
-            {
-                return 1; //one additional byte (2 bytes total)
-            }
-            if ((b & 0xF0) == 0xE0)
-            {
-                return 2; //two additional bytes (3 bytes total)
-            }
-            if ((b & 0xF8) == 0xF0)
-            {
-                return 3; //three additional bytes (4 bytes total)
-            }
-            if ((b & 0xFC) == 0xF8)
-            {
-                return 4; //four additional bytes (5 bytes total)
-            }
-            if ((b & 0xFF) == 0xFC)
-            {
-                return 5; //five additional bytes (6 bytes total)
-            }
-            return -1;
-        }
-        /// <summary>
-        ///     Bit masks used to determine if a the value of UTF-8 byte sequence
-        ///     is less than the minimum value.
-        ///     If the value of a byte sequence is less than the minimum value then
-        ///     the number should be encoded in fewer bytes and is invalid.  For example
-        ///     If the first byte indicates that a sequence has three bytes in a
-        ///     sequence. Then the top five bits cannot be zero.  Notice the index into
-        ///     the array is one less than the number of bytes in a sequence.
-        ///     A validity test for this could be:
-        /// </summary>
-        private static readonly sbyte[][] lowerBoundMask =
-        {
-            new sbyte[] {0, 0}, new[] {(sbyte) 0x1E, (sbyte) 0x00},
-            new[] {(sbyte) 0x0F, (sbyte) 0x20}, new[] {(sbyte) 0x07, (sbyte) 0x30}, new[] {(sbyte) 0x02, (sbyte) 0x38},
-            new[] {(sbyte) 0x01, (sbyte) 0x3C}
-        };
-        public static long Identity(long literal)
-        {
-            return literal;
-        }
-        /// <summary>mask to AND with a continuation byte: should equal continuationResult </summary>
-        private static readonly sbyte continuationMask = (sbyte)Identity(0xC0);
-        /// <summary>expected result of ANDing a continuation byte with continuationMask </summary>
-        private static readonly sbyte continuationResult = (sbyte)Identity(0x80);
-        /// <summary>
-        ///     Determines if an array of bytes contains only valid UTF-8 characters.
-        ///     UTF-8 is the standard encoding for Ldap strings.  If a value contains
-        ///     data that is not valid UTF-8 then data is lost converting the
-        ///     value to a Java String.
-        ///     In addition, Java Strings currently use UCS2 (Unicode Code Standard
-        ///     2-byte characters). UTF-8 can be encoded as USC2 and UCS4 (4-byte
-        ///     characters).  Some valid UTF-8 characters cannot be represented as UCS2
-        ///     characters. To determine if all UTF-8 sequences can be encoded into
-        ///     UCS2 characters (a Java String), specify the <code>isUCS2Only</code>
-        ///     parameter as <code>true</code>.
-        /// </summary>
-        /// <param name="array">
-        ///     An array of bytes that are to be tested for valid UTF-8
-        ///     encoding.
-        /// </param>
-        /// <param name="isUCS2Only">
-        ///     true if the UTF-8 values must be restricted to fit
-        ///     within UCS2 encoding (2 bytes)
-        /// </param>
-        /// <returns>
-        ///     true if all values in the byte array are valid UTF-8
-        ///     sequences.  If <code>isUCS2Only</code> is
-        ///     <code>true</code>, the method returns false if a UTF-8
-        ///     sequence generates any character that cannot be
-        ///     represented as a UCS2 character (Java String)
-        /// </returns>
-        public static bool isValidUTF8(sbyte[] array, bool isUCS2Only)
-        {
-            var index = 0;
-            while (index < array.Length)
-            {
-                var count = getByteCount(array[index]);
-                if (count == 0)
-                {
-                    //anything that qualifies as count=0 is valid UTF-8
-                    index++;
-                    continue;
-                }
-                if (count == -1 || index + count >= array.Length || isUCS2Only && count >= 3)
-                {
-                    /* Any count that puts us out of bounds for the index is
-                    * invalid.  Valid UCS2 characters can only have 2 additional
-                    * bytes. (three total) */
-                    return false;
-                }
-                /* Tests if the first and second byte are below the minimum bound */
-                if ((lowerBoundMask[count][0] & array[index]) == 0 && (lowerBoundMask[count][1] & array[index + 1]) == 0)
-                {
-                    return false;
-                }
-                /* testing continuation on the second and following bytes */
-                for (var i = 1; i <= count; i++)
-                {
-                    if ((array[index + i] & continuationMask) != continuationResult)
-                    {
-                        return false;
-                    }
-                }
-                index += count + 1;
-            }
-            return true;
-        }
-    }
-
+    
     /// <summary>
     ///     The name and values of one attribute of a directory entry.
     ///     LdapAttribute objects are used when searching for, adding,
@@ -853,12 +151,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 // Deep copy so application cannot change values
                 for (int i = 0, u = size; i < u; i++)
                 {
-                    bva[i] = new sbyte[((sbyte[])values[i]).Length];
-                    Array.Copy((Array)values[i], 0, bva[i], 0, bva[i].Length);
+                    bva[i] = new sbyte[((sbyte[]) values[i]).Length];
+                    Array.Copy((Array) values[i], 0, bva[i], 0, bva[i].Length);
                 }
                 return bva;
             }
         }
+
         /// <summary>
         ///     Returns the values of the attribute as an array of strings.
         /// </summary>
@@ -878,8 +177,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     try
                     {
-                        var encoder = Encoding.GetEncoding("utf-8");
-                        var dchar = encoder.GetChars(((sbyte[])values[j]).ToByteArray());
+                        var encoder = Encoding.UTF8;
+                        var dchar = encoder.GetChars(((sbyte[]) values[j]).ToByteArray());
                         // char[] dchar = encoder.GetChars((byte[])values[j]);
                         sva[j] = new string(dchar);
                         // sva[j] = new String((sbyte[]) values[j], "UTF-8");
@@ -893,6 +192,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return sva;
             }
         }
+
         /// <summary>
         ///     Returns the the first value of the attribute as a <code>String</code>.
         /// </summary>
@@ -917,8 +217,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     try
                     {
-                        var encoder = Encoding.GetEncoding("utf-8");
-                        var dchar = encoder.GetChars(((sbyte[])values[0]).ToByteArray());
+                        var encoder = Encoding.UTF8;
+                        var dchar = encoder.GetChars(((sbyte[]) values[0]).ToByteArray());
                         // char[] dchar = encoder.GetChars((byte[]) this.values[0]);
                         rval = new string(dchar);
                     }
@@ -947,12 +247,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (values != null)
                 {
                     // Deep copy so app can't change the value
-                    bva = new sbyte[((sbyte[])values[0]).Length];
-                    Array.Copy((Array)values[0], 0, bva, 0, bva.Length);
+                    bva = new sbyte[((sbyte[]) values[0]).Length];
+                    Array.Copy((Array) values[0], 0, bva, 0, bva.Length);
                 }
                 return bva;
             }
         }
+
         /// <summary>
         ///     Returns the language subtype of the attribute, if any.
         ///     For example, if the attribute name is cn;lang-ja;phonetic,
@@ -979,6 +280,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return null;
             }
         }
+
         /// <summary>
         ///     Returns the name of the attribute.
         /// </summary>
@@ -989,6 +291,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get { return name; }
         }
+
         /// <summary>
         ///     Replaces all values with the specified value. This protected method is
         ///     used by sub-classes of LdapSchemaElement because the value cannot be set
@@ -1001,7 +304,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 values = null;
                 try
                 {
-                    var encoder = Encoding.GetEncoding("utf-8");
+                    var encoder = Encoding.UTF8;
                     var ibytes = encoder.GetBytes(value);
                     var sbytes = ibytes.ToSByteArray();
                     add(sbytes);
@@ -1012,10 +315,12 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
+
         private readonly string name; // full attribute name
         private readonly string baseName; // cn of cn;lang-ja;phonetic
         private readonly string[] subTypes; // lang-ja of cn;lang-ja
         private object[] values; // Array of byte[] attribute values
+
         /// <summary>
         ///     Constructs an attribute with copies of all values of the input
         ///     attribute.
@@ -1045,6 +350,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Array.Copy(attr.values, 0, values, 0, values.Length);
             }
         }
+
         /// <summary>
         ///     Constructs an attribute with no values.
         /// </summary>
@@ -1054,7 +360,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public LdapAttribute(string attrName)
         {
-            if ((object)attrName == null)
+            if ((object) attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -1062,6 +368,7 @@ namespace Unosquare.Swan.Networking.Ldap
             baseName = getBaseName(attrName);
             subTypes = getSubtypes(attrName);
         }
+
         /// <summary>
         ///     Constructs an attribute with a byte-formatted value.
         /// </summary>
@@ -1084,6 +391,7 @@ namespace Unosquare.Swan.Networking.Ldap
             Array.Copy(attrBytes, 0, tmp, 0, attrBytes.Length);
             add(tmp);
         }
+
         /// <summary>
         ///     Constructs an attribute with a single string value.
         /// </summary>
@@ -1096,13 +404,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public LdapAttribute(string attrName, string attrString) : this(attrName)
         {
-            if ((object)attrString == null)
+            if ((object) attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
             try
             {
-                var encoder = Encoding.GetEncoding("utf-8");
+                var encoder = Encoding.UTF8;
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
                 add(sbytes);
@@ -1112,6 +420,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception(e.ToString());
             }
         }
+
         /// <summary>
         ///     Constructs an attribute with an array of string values.
         /// </summary>
@@ -1133,11 +442,11 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 try
                 {
-                    if ((object)attrStrings[i] == null)
+                    if ((object) attrStrings[i] == null)
                     {
                         throw new ArgumentException("Attribute value " + "at array index " + i + " cannot be null");
                     }
-                    var encoder = Encoding.GetEncoding("utf-8");
+                    var encoder = Encoding.UTF8;
                     var ibytes = encoder.GetBytes(attrStrings[i]);
                     var sbytes = ibytes.ToSByteArray();
                     add(sbytes);
@@ -1149,6 +458,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
+
         /// <summary>
         ///     Returns a clone of this LdapAttribute.
         /// </summary>
@@ -1162,7 +472,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var newObj = MemberwiseClone();
                 if (values != null)
                 {
-                    Array.Copy(values, 0, ((LdapAttribute)newObj).values, 0, values.Length);
+                    Array.Copy(values, 0, ((LdapAttribute) newObj).values, 0, values.Length);
                 }
                 return newObj;
             }
@@ -1171,6 +481,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception("Internal error, cannot create clone", ce);
             }
         }
+
         /// <summary>
         ///     Adds a string value to the attribute.
         /// </summary>
@@ -1180,13 +491,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual void addValue(string attrString)
         {
-            if ((object)attrString == null)
+            if ((object) attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
             try
             {
-                var encoder = Encoding.GetEncoding("utf-8");
+                var encoder = Encoding.UTF8;
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
                 add(sbytes);
@@ -1197,6 +508,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception(ue.ToString());
             }
         }
+
         /// <summary>
         ///     Adds a byte-formatted value to the attribute.
         /// </summary>
@@ -1213,6 +525,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             add(attrBytes);
         }
+
         /// <summary>
         ///     Adds a base64 encoded value to the attribute.
         ///     The value will be decoded and stored as bytes.  String
@@ -1224,12 +537,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual void addBase64Value(string attrString)
         {
-            if ((object)attrString == null)
+            if ((object) attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
-            add(Base64.decode(attrString));
+            add(Convert.FromBase64String(attrString).ToSByteArray());
         }
+
         /// <summary>
         ///     Adds a base64 encoded value to the attribute.
         ///     The value will be decoded and stored as bytes.  Character
@@ -1251,8 +565,9 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
-            add(Base64.decode(attrString, start, end));
+            add(Convert.FromBase64String(attrString.ToString(start, end)).ToSByteArray());
         }
+
         /// <summary>
         ///     Adds a base64 encoded value to the attribute.
         ///     The value will be decoded and stored as bytes.  Character
@@ -1269,8 +584,9 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
-            add(Base64.decode(attrChars));
+            add(Convert.FromBase64CharArray(attrChars, 0, attrChars.Length).ToSByteArray());
         }
+
         /// <summary>
         ///     Returns the base name of the attribute.
         ///     For example, if the attribute name is cn;lang-ja;phonetic,
@@ -1283,6 +599,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return baseName;
         }
+
         /// <summary>
         ///     Returns the base name of the specified attribute name.
         ///     For example, if the attribute name is cn;lang-ja;phonetic,
@@ -1298,7 +615,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public static string getBaseName(string attrName)
         {
-            if ((object)attrName == null)
+            if ((object) attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -1309,6 +626,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             return attrName.Substring(0, idx - 0);
         }
+
         /// <summary>
         ///     Extracts the subtypes from the attribute name.
         ///     For example, if the attribute name is cn;lang-ja;phonetic,
@@ -1321,6 +639,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return subTypes;
         }
+
         /// <summary>
         ///     Extracts the subtypes from the specified attribute name.
         ///     For example, if the attribute name is cn;lang-ja;phonetic,
@@ -1336,7 +655,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public static string[] getSubtypes(string attrName)
         {
-            if ((object)attrName == null)
+            if ((object) attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -1355,6 +674,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             return subTypes;
         }
+
         /// <summary>
         ///     Reports if the attribute name contains the specified subtype.
         ///     For example, if you check for the subtype lang-en and the
@@ -1370,7 +690,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual bool hasSubtype(string subtype)
         {
-            if ((object)subtype == null)
+            if ((object) subtype == null)
             {
                 throw new ArgumentException("subtype cannot be null");
             }
@@ -1384,6 +704,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             return false;
         }
+
         /// <summary>
         ///     Reports if the attribute name contains all the specified subtypes.
         ///     For example, if you check for the subtypes lang-en and phonetic
@@ -1410,7 +731,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 for (var j = 0; j < subTypes.Length; j++)
                 {
-                    if ((object)subTypes[j] == null)
+                    if ((object) subTypes[j] == null)
                     {
                         throw new ArgumentException("subtype " + "at array index " + i + " cannot be null");
                     }
@@ -1425,6 +746,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             return true;
         }
+
         /// <summary>
         ///     Removes a string value from the attribute.
         /// </summary>
@@ -1436,13 +758,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual void removeValue(string attrString)
         {
-            if (null == (object)attrString)
+            if (null == (object) attrString)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
             try
             {
-                var encoder = Encoding.GetEncoding("utf-8");
+                var encoder = Encoding.UTF8;
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
                 removeValue(sbytes);
@@ -1454,6 +776,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception(uee.ToString());
             }
         }
+
         /// <summary>
         ///     Removes a byte-formatted value from the attribute.
         /// </summary>
@@ -1473,7 +796,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             for (var i = 0; i < values.Length; i++)
             {
-                if (equals(attrBytes, (sbyte[])values[i]))
+                if (equals(attrBytes, (sbyte[]) values[i]))
                 {
                     if (0 == i && 1 == values.Length)
                     {
@@ -1504,6 +827,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
+
         /// <summary>
         ///     Returns the number of values in the attribute.
         /// </summary>
@@ -1514,6 +838,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return null == values ? 0 : values.Length;
         }
+
         /// <summary>
         ///     Compares this object with the specified object for order.
         ///     Ordering is determined by comparing attribute names (see
@@ -1529,8 +854,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual int CompareTo(object attribute)
         {
-            return name.CompareTo(((LdapAttribute)attribute).name);
+            return name.CompareTo(((LdapAttribute) attribute).name);
         }
+
         /// <summary>
         ///     Adds an object to <code>this</code> object's list of attribute values
         /// </summary>
@@ -1544,14 +870,14 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (null == values)
             {
-                values = new object[] { bytes };
+                values = new object[] {bytes};
             }
             else
             {
                 // Duplicate attribute values not allowed
                 for (var i = 0; i < values.Length; i++)
                 {
-                    if (equals(bytes, (sbyte[])values[i]))
+                    if (equals(bytes, (sbyte[]) values[i]))
                     {
                         return; // Duplicate, don't add
                     }
@@ -1563,6 +889,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 tmp = null;
             }
         }
+
         /// <summary>
         ///     Returns true if the two specified arrays of bytes are equal to each
         ///     another.  Matches the logic of Arrays.equals which is not available
@@ -1597,6 +924,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             return true;
         }
+
         /// <summary>
         ///     Returns a string representation of this LdapAttribute
         /// </summary>
@@ -1626,13 +954,13 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             result.Append("','");
                         }
-                        if (((sbyte[])values[i]).Length == 0)
+                        if (((sbyte[]) values[i]).Length == 0)
                         {
                             continue;
                         }
-                        var encoder = Encoding.GetEncoding("utf-8");
+                        var encoder = Encoding.UTF8;
                         //						char[] dchar = encoder.GetChars((byte[]) values[i]);
-                        var dchar = encoder.GetChars(((sbyte[])values[i]).ToByteArray());
+                        var dchar = encoder.GetChars(((sbyte[]) values[i]).ToByteArray());
                         var sval = new string(dchar);
                         //						System.String sval = new String((sbyte[]) values[i], "UTF-8");
                         if (sval.Length == 0)
@@ -1669,7 +997,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     /// <seealso cref="LdapEntry">
     /// </seealso>
-    public class LdapAttributeSet : SetSupport 
+    public class LdapAttributeSet : SetSupport
     {
         /// <summary>
         ///     Returns the number of attributes in this set.
@@ -1696,6 +1024,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             map = new Hashtable();
         }
+
         // ---  methods not defined in Set ---
         /// <summary>
         ///     Returns a deep copy of this attribute set.
@@ -1711,7 +1040,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var i = GetEnumerator();
                 while (i.MoveNext())
                 {
-                    ((LdapAttributeSet)newObj).Add(((LdapAttribute)i.Current).Clone());
+                    ((LdapAttributeSet) newObj).Add(((LdapAttribute) i.Current).Clone());
                 }
                 return newObj;
             }
@@ -1720,6 +1049,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception("Internal error, cannot create clone", ce);
             }
         }
+
         /// <summary>
         ///     Returns the attribute matching the specified attrName.
         ///     For example:
@@ -1746,7 +1076,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual LdapAttribute getAttribute(string attrName)
         {
-            return (LdapAttribute)map[attrName.ToUpper()];
+            return (LdapAttribute) map[attrName.ToUpper()];
         }
 
         /// <summary>
@@ -1814,8 +1144,9 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual LdapAttribute getAttribute(string attrName, string lang)
         {
             var key = attrName + ";" + lang;
-            return (LdapAttribute)map[key.ToUpper()];
+            return (LdapAttribute) map[key.ToUpper()];
         }
+
         /// <summary>
         ///     Creates a new attribute set containing only the attributes that have
         ///     the specified subtypes.
@@ -1861,7 +1192,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Cycle throught this.attributeSet
             while (i.MoveNext())
             {
-                var attr = (LdapAttribute)i.Current;
+                var attr = (LdapAttribute) i.Current;
                 // Does this attribute have the subtype we are looking for. If
                 // yes then add it to our AttributeSet, else next attribute
                 if (attr.hasSubtype(subtype))
@@ -1869,6 +1200,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             return tempAttributeSet;
         }
+
         // --- methods defined in set ---
         /// <summary>
         ///     Returns an iterator over the attributes in this set.  The attributes
@@ -1881,6 +1213,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return map.Values.GetEnumerator();
         }
+
         /// <summary>
         ///     Returns <code>true</code> if this set contains no elements
         /// </summary>
@@ -1891,6 +1224,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return map.Count == 0;
         }
+
         /// <summary>
         ///     Returns <code>true</code> if this set contains an attribute of the same name
         ///     as the specified attribute.
@@ -1905,9 +1239,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override bool Contains(object attr)
         {
-            var attribute = (LdapAttribute)attr;
+            var attribute = (LdapAttribute) attr;
             return map.ContainsKey(attribute.Name.ToUpper());
         }
+
         /// <summary>
         ///     Adds the specified attribute to this set if it is not already present.
         ///     If an attribute with the same name already exists in the set then the
@@ -1924,13 +1259,14 @@ namespace Unosquare.Swan.Networking.Ldap
         public override bool Add(object attr)
         {
             //We must enforce that attr is an LdapAttribute
-            var attribute = (LdapAttribute)attr;
+            var attribute = (LdapAttribute) attr;
             var name = attribute.Name.ToUpper();
             if (map.ContainsKey(name))
                 return false;
             map[name] = attribute;
             return true;
         }
+
         /// <summary>
         ///     Removes the specified object from this set if it is present.
         ///     If the specified object is of type <code>LdapAttribute</code>, the
@@ -1952,13 +1288,13 @@ namespace Unosquare.Swan.Networking.Ldap
             string attributeName; //the name is the key to object in the HashMap
             if (object_Renamed is string)
             {
-                attributeName = (string)object_Renamed;
+                attributeName = (string) object_Renamed;
             }
             else
             {
-                attributeName = ((LdapAttribute)object_Renamed).Name;
+                attributeName = ((LdapAttribute) object_Renamed).Name;
             }
-            if ((object)attributeName == null)
+            if ((object) attributeName == null)
             {
                 return false;
             }
@@ -1966,11 +1302,13 @@ namespace Unosquare.Swan.Networking.Ldap
             map.Remove(e);
             return e != null;
         }
+
         /// <summary> Removes all of the elements from this set.</summary>
         public override void Clear()
         {
             map.Clear();
         }
+
         /// <summary>
         ///     Adds all <code>LdapAttribute</code> objects in the specified collection to
         ///     this collection.
@@ -1998,6 +1336,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             return setChanged;
         }
+
         /// <summary>
         ///     Returns a string representation of this LdapAttributeSet
         /// </summary>
@@ -2016,12 +1355,13 @@ namespace Unosquare.Swan.Networking.Ldap
                     retValue.Append(" ");
                 }
                 first = false;
-                var attr = (LdapAttribute)attrs.Current;
+                var attr = (LdapAttribute) attrs.Current;
                 retValue.Append(attr);
             }
             return retValue.ToString();
         }
     }
+
     /// <summary>
     ///     Represents a single entry in a directory, consisting of
     ///     a distinguished name (DN) and zero or more attributes.
@@ -2046,12 +1386,15 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get { return dn; }
         }
+
         protected internal string dn;
         protected internal LdapAttributeSet attrs;
+
         /// <summary> Constructs an empty entry.</summary>
         public LdapEntry() : this(null, null)
         {
         }
+
         /// <summary>
         ///     Constructs a new entry with the specified distinguished name and with
         ///     an empty attribute set.
@@ -2080,7 +1423,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public LdapEntry(string dn, LdapAttributeSet attrs)
         {
-            if ((object)dn == null)
+            if ((object) dn == null)
             {
                 dn = "";
             }
@@ -2120,6 +1463,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return attrs;
         }
+
         /// <summary>
         ///     Returns an attribute set from the entry, consisting of only those
         ///     attributes matching the specified subtypes.
@@ -2147,6 +1491,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return attrs.getSubset(subtype);
         }
     }
+
     /// <summary>
     ///     Encapsulates a single search result that is in response to an asynchronous
     ///     search operation.
@@ -2168,21 +1513,21 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (entry == null)
                 {
                     var attrs = new LdapAttributeSet();
-                    var attrList = ((RfcSearchResultEntry)message.Response).Attributes;
+                    var attrList = ((RfcSearchResultEntry) message.Response).Attributes;
                     var seqArray = attrList.ToArray();
                     for (var i = 0; i < seqArray.Length; i++)
                     {
-                        var seq = (Asn1Sequence)seqArray[i];
-                        var attr = new LdapAttribute(((Asn1OctetString)seq.Get(0)).StringValue());
-                        var Set = (Asn1Set)seq.Get(1);
+                        var seq = (Asn1Sequence) seqArray[i];
+                        var attr = new LdapAttribute(((Asn1OctetString) seq.Get(0)).StringValue());
+                        var Set = (Asn1Set) seq.Get(1);
                         object[] setArray = Set.ToArray();
                         for (var j = 0; j < setArray.Length; j++)
                         {
-                            attr.addValue(((Asn1OctetString)setArray[j]).ByteValue());
+                            attr.addValue(((Asn1OctetString) setArray[j]).ByteValue());
                         }
                         attrs.Add(attr);
                     }
-                    entry = new LdapEntry(((RfcSearchResultEntry)message.Response).ObjectName.StringValue(), attrs);
+                    entry = new LdapEntry(((RfcSearchResultEntry) message.Response).ObjectName.StringValue(), attrs);
                 }
                 return entry;
             }
@@ -2194,7 +1539,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an LdapSearchResult object.
         /// </summary>
         /// <param name="message">The RfcLdapMessage with a search result.</param>
-        internal LdapSearchResult(RfcLdapMessage message) 
+        internal LdapSearchResult(RfcLdapMessage message)
             : base(message)
         {
         }
@@ -2261,7 +1606,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 var newObj = MemberwiseClone();
                 //				Array.Copy((System.Array)SupportClass.ToByteArray( this.vals), 0, (System.Array)SupportClass.ToByteArray( ((LdapExtendedOperation) newObj).vals), 0, this.vals.Length);
-                Array.Copy(vals, 0, ((LdapExtendedOperation)newObj).vals, 0, vals.Length);
+                Array.Copy(vals, 0, ((LdapExtendedOperation) newObj).vals, 0, vals.Length);
                 return newObj;
             }
             catch (Exception ce)
@@ -2269,6 +1614,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception("Internal error, cannot create clone", ce);
             }
         }
+
         /// <summary>
         ///     Returns the unique identifier of the operation.
         /// </summary>
@@ -2279,6 +1625,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return oid;
         }
+
         /// <summary>
         ///     Returns a reference to the operation-specific data.
         /// </summary>
@@ -2289,6 +1636,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return vals;
         }
+
         /// <summary>
         ///     Sets the value for the operation-specific data.
         /// </summary>
@@ -2299,6 +1647,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             vals = newVals;
         }
+
         /// <summary>
         ///     Resets the OID for the operation to a new value
         /// </summary>
@@ -2330,6 +1679,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcSearchResultReference(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
         }
+
         // Accessors
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()
@@ -2344,9 +1694,11 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcLdapString(string s) : base(s)
         {
         }
+
         public RfcLdapString(sbyte[] ba) : base(ba)
         {
         }
+
         public RfcLdapString(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
         }
@@ -2365,6 +1717,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(s)
         {
         }
+
         public RfcLdapDN(sbyte[] s)
             : base(s)
         {
@@ -2384,20 +1737,24 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         public virtual RfcLdapOID ResponseName
         {
-            get { return responseNameIndex != 0 ? (RfcLdapOID)Get(responseNameIndex) : null; }
+            get { return responseNameIndex != 0 ? (RfcLdapOID) Get(responseNameIndex) : null; }
         }
+
         public virtual Asn1OctetString Response
         {
-            get { return responseIndex != 0 ? (Asn1OctetString)Get(responseIndex) : null; }
+            get { return responseIndex != 0 ? (Asn1OctetString) Get(responseIndex) : null; }
         }
+
         /// <summary> Context-specific TAG for optional responseName.</summary>
         public const int RESPONSE_NAME = 10;
+
         /// <summary> Context-specific TAG for optional response.</summary>
         public const int RESPONSE = 11;
+
         private readonly int referralIndex;
         private readonly int responseNameIndex;
         private readonly int responseIndex;
-        
+
         /// <summary>
         /// The only time a client will create a ExtendedResponse is when it is
         /// decoding it from an InputStream
@@ -2412,18 +1769,18 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 for (var i = 3; i < Size(); i++)
                 {
-                    var obj = (Asn1Tagged)Get(i);
+                    var obj = (Asn1Tagged) Get(i);
                     var id = obj.GetIdentifier();
                     switch (id.Tag)
                     {
                         case RfcLdapResult.REFERRAL:
-                            var content = ((Asn1OctetString)obj.taggedValue()).ByteValue();
+                            var content = ((Asn1OctetString) obj.taggedValue()).ByteValue();
                             var bais = new MemoryStream(content.ToByteArray());
                             Set(i, new Asn1SequenceOf(dec, bais, content.Length));
                             referralIndex = i;
                             break;
                         case RESPONSE_NAME:
-                            Set(i, new RfcLdapOID(((Asn1OctetString)obj.taggedValue()).ByteValue()));
+                            Set(i, new RfcLdapOID(((Asn1OctetString) obj.taggedValue()).ByteValue()));
                             responseNameIndex = i;
                             break;
                         case RESPONSE:
@@ -2434,29 +1791,35 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
+
         // Accessors
         public Asn1Enumerated getResultCode()
         {
-            return (Asn1Enumerated)Get(0);
+            return (Asn1Enumerated) Get(0);
         }
+
         public RfcLdapDN getMatchedDN()
         {
-            return new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
+            return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
         }
+
         public RfcLdapString getErrorMessage()
         {
-            return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+            return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
         }
+
         public Asn1SequenceOf getReferral()
         {
-            return referralIndex != 0 ? (Asn1SequenceOf)Get(referralIndex) : null;
+            return referralIndex != 0 ? (Asn1SequenceOf) Get(referralIndex) : null;
         }
+
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.EXTENDED_RESPONSE);
         }
     }
+
     /// <summary>
     ///     Represents and Ldap Bind Response.
     ///     <pre>
@@ -2476,17 +1839,18 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 if (Size() == 5)
-                    return (Asn1OctetString)((Asn1Tagged)Get(4)).taggedValue();
+                    return (Asn1OctetString) ((Asn1Tagged) Get(4)).taggedValue();
                 if (Size() == 4)
                 {
                     // could be referral or serverSaslCreds
                     var obj = Get(3);
                     if (obj is Asn1Tagged)
-                        return (Asn1OctetString)((Asn1Tagged)obj).taggedValue();
+                        return (Asn1OctetString) ((Asn1Tagged) obj).taggedValue();
                 }
                 return null;
             }
         }
+
         // Constructors for BindResponse
         /// <summary>
         /// The only time a client will create a BindResponse is when it is
@@ -2497,51 +1861,57 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcBindResponse(Asn1Decoder dec, Stream in_Renamed, int len) 
+        public RfcBindResponse(Asn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
             {
-                var obj = (Asn1Tagged)Get(3);
+                var obj = (Asn1Tagged) Get(3);
                 var id = obj.GetIdentifier();
                 if (id.Tag == RfcLdapResult.REFERRAL)
                 {
-                    var content = ((Asn1OctetString)obj.taggedValue()).ByteValue();
+                    var content = ((Asn1OctetString) obj.taggedValue()).ByteValue();
                     var bais = new MemoryStream(content.ToByteArray());
                     Set(3, new Asn1SequenceOf(dec, bais, content.Length));
                 }
             }
         }
+
         // Accessors
         public Asn1Enumerated getResultCode()
         {
-            return (Asn1Enumerated)Get(0);
+            return (Asn1Enumerated) Get(0);
         }
+
         public RfcLdapDN getMatchedDN()
         {
-            return new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
+            return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
         }
+
         public RfcLdapString getErrorMessage()
         {
-            return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+            return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
         }
+
         public Asn1SequenceOf getReferral()
         {
             if (Size() > 3)
             {
                 var obj = Get(3);
                 if (obj is Asn1SequenceOf)
-                    return (Asn1SequenceOf)obj;
+                    return (Asn1SequenceOf) obj;
             }
             return null;
         }
+
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.BIND_RESPONSE);
         }
     }
+
     /// <summary>
     ///     Represents an LDAP Intermediate Response.
     ///     IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
@@ -2564,47 +1934,15 @@ namespace Unosquare.Swan.Networking.Ldap
         private int m_referralIndex;
         private readonly int m_responseNameIndex;
         private readonly int m_responseValueIndex;
-        // Constructors for ExtendedResponse
-        /**
-         * The only time a client will create a IntermediateResponse is when it is
-         * decoding it from an InputStream. The stream contains the intermediate
-         * response sequence that follows the msgID in the PDU. The intermediate
-         * response draft defines this as:
-         *      IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
-         *             responseName     [0] LDAPOID OPTIONAL,
-         *             responseValue    [1] OCTET STRING OPTIONAL }
-         *
-         * Until post Falcon sp1, the LDAP server was incorrectly encoding
-         * intermediate response as:
-         *      IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
-         *             Components of LDAPResult,
-         *             responseName     [0] LDAPOID OPTIONAL,
-         *             responseValue    [1] OCTET STRING OPTIONAL }
-         *
-         * where the Components of LDAPResult are
-         *               resultCode      ENUMERATED {...}
-         *               matchedDN       LDAPDN,
-         *               errorMessage    LDAPString,
-         *               referral        [3] Referral OPTIONAL }
-         *
-         *
-         * (The components of LDAPResult never have the optional referral.)
-         * This constructor is written to handle both cases.
-         *
-         * The sequence of this intermediate response will have the element
-         * at index m_responseNameIndex set to an RfcLDAPOID containing the
-         * oid of the response. The element at m_responseValueIndex will be set
-         * to an ASN1OctetString containing the value bytes.
-         */
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcIntermediateResponse"/> class.
         /// </summary>
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcIntermediateResponse(Asn1Decoder dec, Stream in_Renamed, int len) 
+        public RfcIntermediateResponse(Asn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
-        //		throws IOException
         {
             //		super(dec, in, len);
             var i = 0;
@@ -2618,13 +1956,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 i = 0; //correctly encoded case, can have zero components
             for (; i < Size(); i++)
             {
-                var obj = (Asn1Tagged)Get(i);
+                var obj = (Asn1Tagged) Get(i);
                 var id = obj.GetIdentifier();
                 switch (id.Tag)
                 {
                     case TAG_RESPONSE_NAME:
                         Set(i, new RfcLdapOID(
-                            ((Asn1OctetString)obj.taggedValue()).ByteValue()));
+                            ((Asn1OctetString) obj.taggedValue()).ByteValue()));
                         m_responseNameIndex = i;
                         break;
                     case TAG_RESPONSE:
@@ -2634,40 +1972,47 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
+
         public Asn1Enumerated getResultCode()
         {
             if (Size() > 3)
-                return (Asn1Enumerated)Get(0);
+                return (Asn1Enumerated) Get(0);
             return null;
         }
+
         public RfcLdapDN getMatchedDN()
         {
             if (Size() > 3)
-                return new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
+                return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
             return null;
         }
+
         public RfcLdapString getErrorMessage()
         {
             if (Size() > 3)
-                return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+                return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
             return null;
         }
+
         public Asn1SequenceOf getReferral()
         {
-            return Size() > 3 ? (Asn1SequenceOf)Get(3) : null;
+            return Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
         }
+
         public RfcLdapOID getResponseName()
         {
             return m_responseNameIndex >= 0
-                ? (RfcLdapOID)Get(m_responseNameIndex)
+                ? (RfcLdapOID) Get(m_responseNameIndex)
                 : null;
         }
+
         public Asn1OctetString getResponse()
         {
             return m_responseValueIndex != 0
-                ? (Asn1OctetString)Get(m_responseValueIndex)
+                ? (Asn1OctetString) Get(m_responseValueIndex)
                 : null;
         }
+
         /// <summary>
         /// Returns the identifier for this Asn1Object as an Asn1Identifier.
         /// This Asn1Identifier object will include the CLASS, FORM and TAG
@@ -2683,4 +2028,5 @@ namespace Unosquare.Swan.Networking.Ldap
         }
     }
 }
+
 #endif

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Unosquare.Swan.Networking.Ldap;
 
@@ -10,16 +12,16 @@ namespace Unosquare.Swan.Test
     public class LdapTest
     {
         [Test]
-        public async void ConnectTest()
+        public async Task ConnectTest()
         {
             var cn = new LdapConnection();
 
             await cn.Connect("ldap.forumsys.com", 389);
-            Assert.IsTrue(cn.Connected);;
+            Assert.IsTrue(cn.Connected);
         }
 
         [Test]
-        public async void BindTest()
+        public async Task BindTest()
         {
             var cn = new LdapConnection();
 
@@ -28,7 +30,7 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async void SearchTest()
+        public async Task SearchTest()
         {
             var cn = new LdapConnection();
 

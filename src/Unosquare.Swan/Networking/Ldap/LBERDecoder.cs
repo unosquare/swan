@@ -212,7 +212,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 octets[i] = (sbyte)ret;
             }
 
-            var encoder = Encoding.GetEncoding("utf-8");
+            var encoder = Encoding.UTF8;
             var dchar = encoder.GetChars(octets.ToByteArray());
             var rval = new string(dchar);
 
