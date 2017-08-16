@@ -92,7 +92,8 @@ construction and can only be connected to one server at one
 port. Multiple threads may share this single connection, typically
 by cloning the connection object, one for each thread. An
 application may have more than one LdapConnection object, connected
-to the same or different directory servers.</p>
+to the same or different directory servers.
+Base on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a></p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -602,7 +603,7 @@ specified when calling an operation method).</p>
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a></td>
-        <td><p>The set of default contraints that apply to this connection.</p>
+        <td><p>The constraints.</p>
 </td>
       </tr>
     </tbody>
@@ -1240,22 +1241,6 @@ attributes from the entry.</p>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a>&gt;</td>
         <td><p>the LdapEntry read from the server</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.NotImplementedException</span></td>
-        <td><p>The Exception.</p>
 </td>
       </tr>
     </tbody>

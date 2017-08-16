@@ -8498,168 +8498,6 @@ references:
   commentId: N:Unosquare.Swan.Networking.Ldap
   fullName: Unosquare.Swan.Networking.Ldap
   nameWithType: Unosquare.Swan.Networking.Ldap
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport
-  name: CollectionSupport
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.CollectionSupport
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport
-  nameWithType: CollectionSupport
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.Add(System.Object)
-  name: Add(Object)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_Add_System_Object_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.Add(System.Object)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.Add(System.Object)
-  nameWithType: CollectionSupport.Add(Object)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.Add*
-  name: Add
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_Add_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.Add
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.Add
-  nameWithType: CollectionSupport.Add
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll(System.Collections.ICollection)
-  name: AddAll(ICollection)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_AddAll_System_Collections_ICollection_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll(System.Collections.ICollection)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll(System.Collections.ICollection)
-  nameWithType: CollectionSupport.AddAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: AddAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_AddAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: CollectionSupport.AddAll(CollectionSupport)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll*
-  name: AddAll
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_AddAll_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.AddAll
-  nameWithType: CollectionSupport.AddAll
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.Contains(System.Object)
-  name: Contains(Object)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_Contains_System_Object_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.Contains(System.Object)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.Contains(System.Object)
-  nameWithType: CollectionSupport.Contains(Object)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.Contains*
-  name: Contains
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_Contains_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.Contains
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.Contains
-  nameWithType: CollectionSupport.Contains
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll(System.Collections.ICollection)
-  name: ContainsAll(ICollection)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ContainsAll_System_Collections_ICollection_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll(System.Collections.ICollection)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll(System.Collections.ICollection)
-  nameWithType: CollectionSupport.ContainsAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: ContainsAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ContainsAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: CollectionSupport.ContainsAll(CollectionSupport)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll*
-  name: ContainsAll
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ContainsAll_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ContainsAll
-  nameWithType: CollectionSupport.ContainsAll
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.IsEmpty
-  name: IsEmpty()
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_IsEmpty
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.IsEmpty
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.IsEmpty()
-  nameWithType: CollectionSupport.IsEmpty()
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.IsEmpty*
-  name: IsEmpty
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_IsEmpty_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.IsEmpty
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.IsEmpty
-  nameWithType: CollectionSupport.IsEmpty
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.Remove(System.Object)
-  name: Remove(Object)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_Remove_System_Object_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.Remove(System.Object)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.Remove(System.Object)
-  nameWithType: CollectionSupport.Remove(Object)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.Remove*
-  name: Remove
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_Remove_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.Remove
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.Remove
-  nameWithType: CollectionSupport.Remove
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll(System.Collections.ICollection)
-  name: RemoveAll(ICollection)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_RemoveAll_System_Collections_ICollection_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll(System.Collections.ICollection)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll(System.Collections.ICollection)
-  nameWithType: CollectionSupport.RemoveAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: RemoveAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_RemoveAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: CollectionSupport.RemoveAll(CollectionSupport)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll*
-  name: RemoveAll
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_RemoveAll_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.RemoveAll
-  nameWithType: CollectionSupport.RemoveAll
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll(System.Collections.ICollection)
-  name: RetainAll(ICollection)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_RetainAll_System_Collections_ICollection_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll(System.Collections.ICollection)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll(System.Collections.ICollection)
-  nameWithType: CollectionSupport.RetainAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: RetainAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_RetainAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: CollectionSupport.RetainAll(CollectionSupport)
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll*
-  name: RetainAll
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_RetainAll_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.RetainAll
-  nameWithType: CollectionSupport.RetainAll
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray
-  name: ToArray()
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ToArray
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray()
-  nameWithType: CollectionSupport.ToArray()
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray(System.Object[])
-  name: ToArray(Object[])
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ToArray_System_Object___
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray(System.Object[])
-  name.vb: ToArray(Object())
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray(System.Object[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray(System.Object())
-  nameWithType: CollectionSupport.ToArray(Object[])
-  nameWithType.vb: CollectionSupport.ToArray(Object())
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray*
-  name: ToArray
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ToArray_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToArray
-  nameWithType: CollectionSupport.ToArray
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToCollectionSupport(System.Object[])
-  name: ToCollectionSupport(Object[])
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ToCollectionSupport_System_Object___
-  commentId: M:Unosquare.Swan.Networking.Ldap.CollectionSupport.ToCollectionSupport(System.Object[])
-  name.vb: ToCollectionSupport(Object())
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToCollectionSupport(System.Object[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToCollectionSupport(System.Object())
-  nameWithType: CollectionSupport.ToCollectionSupport(Object[])
-  nameWithType.vb: CollectionSupport.ToCollectionSupport(Object())
-- uid: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToCollectionSupport*
-  name: ToCollectionSupport
-  href: api/Unosquare.Swan.Networking.Ldap.CollectionSupport.html#Unosquare_Swan_Networking_Ldap_CollectionSupport_ToCollectionSupport_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.CollectionSupport.ToCollectionSupport
-  fullName: Unosquare.Swan.Networking.Ldap.CollectionSupport.ToCollectionSupport
-  nameWithType: CollectionSupport.ToCollectionSupport
 - uid: Unosquare.Swan.Networking.Ldap.ExceptionMessages
   name: ExceptionMessages
   href: api/Unosquare.Swan.Networking.Ldap.ExceptionMessages.html
@@ -9056,27 +8894,6 @@ references:
   commentId: F:Unosquare.Swan.Networking.Ldap.ExceptionMessages.WRONG_FACTORY
   fullName: Unosquare.Swan.Networking.Ldap.ExceptionMessages.WRONG_FACTORY
   nameWithType: ExceptionMessages.WRONG_FACTORY
-- uid: Unosquare.Swan.Networking.Ldap.LdapAbandonRequest
-  name: LdapAbandonRequest
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.LdapAbandonRequest
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAbandonRequest
-  nameWithType: LdapAbandonRequest
-- uid: Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.#ctor(System.Int32,Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name: LdapAbandonRequest(Int32, LdapControl[])
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.html#Unosquare_Swan_Networking_Ldap_LdapAbandonRequest__ctor_System_Int32_Unosquare_Swan_Networking_Ldap_LdapControl___
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.#ctor(System.Int32,Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name.vb: LdapAbandonRequest(Int32, LdapControl())
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.LdapAbandonRequest(System.Int32, Unosquare.Swan.Networking.Ldap.LdapControl[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.LdapAbandonRequest(System.Int32, Unosquare.Swan.Networking.Ldap.LdapControl())
-  nameWithType: LdapAbandonRequest.LdapAbandonRequest(Int32, LdapControl[])
-  nameWithType.vb: LdapAbandonRequest.LdapAbandonRequest(Int32, LdapControl())
-- uid: Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.#ctor*
-  name: LdapAbandonRequest
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.html#Unosquare_Swan_Networking_Ldap_LdapAbandonRequest__ctor_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.LdapAbandonRequest
-  nameWithType: LdapAbandonRequest.LdapAbandonRequest
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttribute
   name: LdapAttribute
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttribute.html
@@ -11678,72 +11495,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RespControlVector.registerResponseControl
   fullName: Unosquare.Swan.Networking.Ldap.RespControlVector.registerResponseControl
   nameWithType: RespControlVector.registerResponseControl
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet
-  name: RespExtensionSet
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.RespExtensionSet
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet
-  nameWithType: RespExtensionSet
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.#ctor
-  name: RespExtensionSet()
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet__ctor
-  commentId: M:Unosquare.Swan.Networking.Ldap.RespExtensionSet.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.RespExtensionSet()
-  nameWithType: RespExtensionSet.RespExtensionSet()
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.#ctor*
-  name: RespExtensionSet
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet__ctor_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RespExtensionSet.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.RespExtensionSet
-  nameWithType: RespExtensionSet.RespExtensionSet
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.Count
-  name: Count
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_Count
-  commentId: P:Unosquare.Swan.Networking.Ldap.RespExtensionSet.Count
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.Count
-  nameWithType: RespExtensionSet.Count
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.Count*
-  name: Count
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_Count_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RespExtensionSet.Count
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.Count
-  nameWithType: RespExtensionSet.Count
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.findResponseExtension(System.String)
-  name: findResponseExtension(String)
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_findResponseExtension_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.RespExtensionSet.findResponseExtension(System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.findResponseExtension(System.String)
-  nameWithType: RespExtensionSet.findResponseExtension(String)
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.findResponseExtension*
-  name: findResponseExtension
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_findResponseExtension_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RespExtensionSet.findResponseExtension
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.findResponseExtension
-  nameWithType: RespExtensionSet.findResponseExtension
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.GetEnumerator
-  name: GetEnumerator()
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_GetEnumerator
-  commentId: M:Unosquare.Swan.Networking.Ldap.RespExtensionSet.GetEnumerator
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.GetEnumerator()
-  nameWithType: RespExtensionSet.GetEnumerator()
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.GetEnumerator*
-  name: GetEnumerator
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_GetEnumerator_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RespExtensionSet.GetEnumerator
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.GetEnumerator
-  nameWithType: RespExtensionSet.GetEnumerator
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.registerResponseExtension(System.String,System.Type)
-  name: registerResponseExtension(String, Type)
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_registerResponseExtension_System_String_System_Type_
-  commentId: M:Unosquare.Swan.Networking.Ldap.RespExtensionSet.registerResponseExtension(System.String,System.Type)
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.registerResponseExtension(System.String, System.Type)
-  nameWithType: RespExtensionSet.registerResponseExtension(String, Type)
-- uid: Unosquare.Swan.Networking.Ldap.RespExtensionSet.registerResponseExtension*
-  name: registerResponseExtension
-  href: api/Unosquare.Swan.Networking.Ldap.RespExtensionSet.html#Unosquare_Swan_Networking_Ldap_RespExtensionSet_registerResponseExtension_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.RespExtensionSet.registerResponseExtension
-  fullName: Unosquare.Swan.Networking.Ldap.RespExtensionSet.registerResponseExtension
-  nameWithType: RespExtensionSet.registerResponseExtension
 - uid: Unosquare.Swan.Networking.Ldap.ResultCodeMessages
   name: ResultCodeMessages
   href: api/Unosquare.Swan.Networking.Ldap.ResultCodeMessages.html
@@ -11840,12 +11591,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.AddAll(System.Collections.ICollection)
   fullName: Unosquare.Swan.Networking.Ldap.SetSupport.AddAll(System.Collections.ICollection)
   nameWithType: SetSupport.AddAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.SetSupport.AddAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: AddAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_AddAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.AddAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.SetSupport.AddAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: SetSupport.AddAll(CollectionSupport)
 - uid: Unosquare.Swan.Networking.Ldap.SetSupport.AddAll*
   name: AddAll
   href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_AddAll_
@@ -11858,12 +11603,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.ContainsAll(System.Collections.ICollection)
   fullName: Unosquare.Swan.Networking.Ldap.SetSupport.ContainsAll(System.Collections.ICollection)
   nameWithType: SetSupport.ContainsAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.SetSupport.ContainsAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: ContainsAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ContainsAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.ContainsAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.SetSupport.ContainsAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: SetSupport.ContainsAll(CollectionSupport)
 - uid: Unosquare.Swan.Networking.Ldap.SetSupport.ContainsAll*
   name: ContainsAll
   href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ContainsAll_
@@ -11900,12 +11639,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.RemoveAll(System.Collections.ICollection)
   fullName: Unosquare.Swan.Networking.Ldap.SetSupport.RemoveAll(System.Collections.ICollection)
   nameWithType: SetSupport.RemoveAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.SetSupport.RemoveAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: RemoveAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RemoveAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.RemoveAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.SetSupport.RemoveAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: SetSupport.RemoveAll(CollectionSupport)
 - uid: Unosquare.Swan.Networking.Ldap.SetSupport.RemoveAll*
   name: RemoveAll
   href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RemoveAll_
@@ -11918,12 +11651,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.RetainAll(System.Collections.ICollection)
   fullName: Unosquare.Swan.Networking.Ldap.SetSupport.RetainAll(System.Collections.ICollection)
   nameWithType: SetSupport.RetainAll(ICollection)
-- uid: Unosquare.Swan.Networking.Ldap.SetSupport.RetainAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  name: RetainAll(CollectionSupport)
-  href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RetainAll_Unosquare_Swan_Networking_Ldap_CollectionSupport_
-  commentId: M:Unosquare.Swan.Networking.Ldap.SetSupport.RetainAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  fullName: Unosquare.Swan.Networking.Ldap.SetSupport.RetainAll(Unosquare.Swan.Networking.Ldap.CollectionSupport)
-  nameWithType: SetSupport.RetainAll(CollectionSupport)
 - uid: Unosquare.Swan.Networking.Ldap.SetSupport.RetainAll*
   name: RetainAll
   href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RetainAll_

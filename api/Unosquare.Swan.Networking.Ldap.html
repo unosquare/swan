@@ -84,17 +84,11 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.CollectionSupport.html">CollectionSupport</a></h4>
-      <section><p>This class contains different methods to manage Collections.</p>
-</section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ExceptionMessages.html">ExceptionMessages</a></h4>
       <section><p>This class contains strings that may be associated with Exceptions generated
 by the Ldap API libraries.
 Two entries are made for each message, a String identifier, and the
 actual error string.  Parameters are identified as {0}, {1}, etc.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAbandonRequest.html">LdapAbandonRequest</a></h4>
-      <section><p>Represents an Ldap Abandon Request</p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></h4>
       <section><p>The name and values of one attribute of a directory entry.
@@ -130,7 +124,8 @@ construction and can only be connected to one server at one
 port. Multiple threads may share this single connection, typically
 by cloning the connection object, one for each thread. An
 application may have more than one LdapConnection object, connected
-to the same or different directory servers.</p>
+to the same or different directory servers.
+Base on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a></p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a></h4>
       <section><p>Defines options controlling Ldap operations on the directory.
@@ -448,11 +443,6 @@ ResultCodeMessages resources.</p>
       <section><p>The <pre><code>MessageVector</code></pre> class implements extends the
 existing Vector class so that it can be used to maintain a
 list of currently registered control responses.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.RespExtensionSet.html">RespExtensionSet</a></h4>
-      <section><p>This  class  extends the AbstractSet and Implements the Set
-so that it can be used to maintain a list of currently
-registered extended responses.</p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ResultCodeMessages.html">ResultCodeMessages</a></h4>
       <section><p>This class contains strings corresponding to Ldap Result Codes.
