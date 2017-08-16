@@ -1,8 +1,5 @@
 ﻿#if !UWP
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Unosquare.Swan.Networking.Ldap
 {

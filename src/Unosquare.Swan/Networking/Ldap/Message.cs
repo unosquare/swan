@@ -3,12 +3,8 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///     The class performs token processing from strings
@@ -1062,36 +1058,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 new RfcLdapString(attrName), false);
             addObject(current);
         }
-
-        /// <summary>
-        ///     Adds an extensible match to the filter.
-        /// </summary>
-        /// <param name="">
-        ///     matchingRule
-        ///     OID or name of the matching rule to use for comparison
-        /// </param>
-        /// <param name="attrName">
-        ///     Name of the attribute to match.
-        /// </param>
-        /// <param name="value">
-        ///     Value of the attribute to match against.
-        /// </param>
-        /// <param name="useDNMatching">
-        ///     Indicates whether DN matching should be used.
-        ///     @throws LdapLocalException
-        ///     Occurs when addExtensibleMatch is called out of sequence.
-        /// </param>
-        public virtual void addExtensibleMatch(string matchingRule, string attrName, sbyte[] value_Renamed,
-            bool useDNMatching)
-        {
-            Asn1Object current = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, EXTENSIBLE_MATCH),
-                new RfcMatchingRuleAssertion(
-                    (object) matchingRule == null ? null : new RfcLdapString(matchingRule),
-                    (object) attrName == null ? null : new RfcLdapString(attrName),
-                    new Asn1OctetString(value_Renamed), useDNMatching == false ? null : new Asn1Boolean(true)), false);
-            addObject(current);
-        }
-
+        
         /// <summary>
         ///     Creates and adds the Asn1Tagged value for a nestedFilter: AND, OR, or
         ///     NOT.

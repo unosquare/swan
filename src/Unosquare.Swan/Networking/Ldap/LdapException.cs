@@ -4,9 +4,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents an Ldap exception that is not a result of a server response.
@@ -419,12 +417,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 var strB = new StringBuilder();
                 strB.AppendFormat(pattern, arguments);
                 pattern = strB.ToString();
-                //				MessageFormat mf = new MessageFormat(pattern);
-                //				pattern=System.String.Format(locale,pattern,arguments);
-                //				mf.setLocale(locale);
-                //this needs to be reset with the new local - i18n defect in java
-                //				mf.applyPattern(pattern);
-                //				pattern = mf.format(arguments);
             }
             return pattern;
         }

@@ -3,11 +3,8 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Reflection;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///     This class manages a set of elements.
@@ -495,7 +492,7 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents Ldap Contreols.
+    ///     Represents Ldap Controls.
     ///     <pre>
     ///         Controls ::= SEQUENCE OF Control
     ///     </pre>
