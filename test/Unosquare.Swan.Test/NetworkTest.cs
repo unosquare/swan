@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
+using Unosquare.Swan.Networking.Ldap;
 
 namespace Unosquare.Swan.Test
 {
@@ -20,11 +22,11 @@ namespace Unosquare.Swan.Test
 
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
             Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
-            
+
             var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
             Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
                 "GoogleDnsFqdn with trailing period resolution is not null");
-            
+
             var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
             Assert.IsNotNull(targetIP, "Google address is IPv4");
 
