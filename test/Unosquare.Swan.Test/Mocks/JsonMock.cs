@@ -108,4 +108,19 @@ namespace Unosquare.Swan.Test.Mocks
         public int Value;
         public string Name;
     }
+
+    public class ObjectEnum
+    {
+        private MyEnum _value;
+
+        public int Id { get; set; }
+        public MyEnum MyEnum{ get; set; }
+    }
+
+    public enum MyEnum
+    {
+        One = 1,
+        Two,
+        Three
+    }
 }
