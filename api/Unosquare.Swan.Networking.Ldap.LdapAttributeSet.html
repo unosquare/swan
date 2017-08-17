@@ -1,0 +1,920 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LdapAttributeSet
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LdapAttributeSet
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.22.3.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet" class="text-break">Class LdapAttributeSet
+  </h1>
+  <div class="markdown level0 summary"><p>A set of {@link LdapAttribute} objects.
+An <pre><code>LdapAttributeSet</code></pre> is a collection of <pre><code>LdapAttribute</code></pre>
+classes as returned from an <pre><code>LdapEntry</code></pre> on a search or read
+operation. <pre><code>LdapAttributeSet</code></pre> may be also used to contruct an entry
+to be added to a directory.  If the <pre><code>add()</code></pre> or <pre><code>addAll()</code></pre>
+methods are called and one or more of the objects to be added is not
+an <pre><code>LdapAttribute, ClassCastException</code></pre> is thrown (as discussed in the
+documentation for <pre><code>java.util.Collection</code></pre>).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">System.Collections.ArrayList</span></div>
+    <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html">SetSupport</a></div>
+    <div class="level3"><span class="xref">LdapAttributeSet</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ContainsAll_System_Collections_ICollection_">SetSupport.ContainsAll(ICollection)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RemoveAll_System_Collections_ICollection_">SetSupport.RemoveAll(ICollection)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RetainAll_System_Collections_ICollection_">SetSupport.RetainAll(ICollection)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ToArray">SetSupport.ToArray()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ToArray_System_Object___">SetSupport.ToArray(Object[])</a>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Adapter(System.Collections.IList)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.AddRange(System.Collections.ICollection)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.BinarySearch(System.Int32, System.Int32, System.Object, System.Collections.IComparer)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.BinarySearch(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.BinarySearch(System.Object, System.Collections.IComparer)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.CopyTo(System.Array)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.CopyTo(System.Array, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.CopyTo(System.Int32, System.Array, System.Int32, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.FixedSize(System.Collections.IList)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.FixedSize(System.Collections.ArrayList)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.GetEnumerator(System.Int32, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.IndexOf(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.IndexOf(System.Object, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.IndexOf(System.Object, System.Int32, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Insert(System.Int32, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.InsertRange(System.Int32, System.Collections.ICollection)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.LastIndexOf(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.LastIndexOf(System.Object, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.LastIndexOf(System.Object, System.Int32, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.ReadOnly(System.Collections.IList)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.ReadOnly(System.Collections.ArrayList)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.RemoveAt(System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.RemoveRange(System.Int32, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Repeat(System.Object, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Reverse()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Reverse(System.Int32, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.SetRange(System.Int32, System.Collections.ICollection)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.GetRange(System.Int32, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Sort()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Sort(System.Collections.IComparer)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Sort(System.Int32, System.Int32, System.Collections.IComparer)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Synchronized(System.Collections.IList)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Synchronized(System.Collections.ArrayList)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.ToArray(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.TrimToSize()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Capacity</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.IsFixedSize</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.IsReadOnly</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.IsSynchronized</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.SyncRoot</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.ArrayList.Item[System.Int32]</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class LdapAttributeSet : SetSupport, IList, ICollection, IEnumerable, ICloneable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor">LdapAttributeSet()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html">LdapAttributeSet</a> class.
+Constructs an empty set of attributes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapAttributeSet()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count">Count</h4>
+  <div class="markdown level1 summary"><p>Returns the number of attributes in this set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>number of attributes in this set.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Collections.ArrayList.Count</span></div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Add_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add(System.Object)">Add(Object)</h4>
+  <div class="markdown level1 summary"><p>Adds the specified attribute to this set if it is not already present.
+If an attribute with the same name already exists in the set then the
+specified attribute will not be added.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Add(object attr)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">attr</span></td>
+        <td><p>Object of type <pre><code>LdapAttribute</code></pre></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if the attribute was added.
+@throws ClassCastException occurs the specified Object
+is not of type <pre><code>LdapAttribute</code></pre>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_Add_System_Object_">SetSupport.Add(Object)</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_AddAll_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.AddAll*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_AddAll_System_Collections_ICollection_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.AddAll(System.Collections.ICollection)">AddAll(ICollection)</h4>
+  <div class="markdown level1 summary"><p>Adds all <pre><code>LdapAttribute</code></pre> objects in the specified collection to
+this collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool AddAll(ICollection c)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.ICollection</span></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>Collection of <pre><code>LdapAttribute</code></pre> objects.
+@throws ClassCastException occurs when an element in the
+collection is not of type <pre><code>LdapAttribute</code></pre>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if this set changed as a result of the call.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_AddAll_System_Collections_ICollection_">SetSupport.AddAll(ICollection)</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Removes all of the elements from this set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Clear()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Collections.ArrayList.Clear()</span></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone">Clone()</h4>
+  <div class="markdown level1 summary"><p>Returns a deep copy of this attribute set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override object Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>A deep copy of this attribute set.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Collections.ArrayList.Clone()</span></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Contains_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Contains_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains(System.Object)">Contains(Object)</h4>
+  <div class="markdown level1 summary"><p>Returns <pre><code>true</code></pre> if this set contains an attribute of the same name
+as the specified attribute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Contains(object attr)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">attr</span></td>
+        <td><p>Object of type <pre><code>LdapAttribute</code></pre></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if this set contains the specified attribute
+@throws ClassCastException occurs the specified Object
+is not of type LdapAttribute.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Collections.ArrayList.Contains(System.Object)</span></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)">GetAttribute(String)</h4>
+  <div class="markdown level1 summary"><p>Returns the attribute matching the specified attrName.
+For example:
+<ul>
+<li><pre><code>getAttribute(&quot;cn&quot;)</code></pre>      returns only the &quot;cn&quot; attribute</li>
+<li><p>
+<pre><code>getAttribute(&quot;cn;lang-en&quot;)</code></pre> returns only the &quot;cn;lang-en&quot;
+<p>attribute.
+</li>
+</ul>
+In both cases, <pre><code>null</code></pre> is returned if there is no exact match to
+the specified attrName.
+Note: Novell eDirectory does not currently support language subtypes.
+It does support the &quot;binary&quot; subtype.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual LdapAttribute GetAttribute(string attrName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">attrName</span></td>
+        <td><p>The name of an attribute to retrieve, with or without
+subtype specifications. For example, &quot;cn&quot;, &quot;cn;phonetic&quot;, and
+&quot;cn;binary&quot; are valid attribute names.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
+        <td><p>The attribute matching the specified attrName, or <pre><code>null</code></pre>
+if there is no exact match.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String,System.String)">GetAttribute(String, String)</h4>
+  <div class="markdown level1 summary"><p>Returns a single best-match attribute, or <pre><code>null</code></pre> if no match is
+available in the entry.
+Ldap version 3 allows adding a subtype specification to an attribute
+name. For example, &quot;cn;lang-ja&quot; indicates a Japanese language
+subtype of the &quot;cn&quot; attribute and &quot;cn;lang-ja-JP-kanji&quot; may be a subtype
+of &quot;cn;lang-ja&quot;. This feature may be used to provide multiple
+localizations in the same directory. For attributes which do not vary
+among localizations, only the base attribute may be stored, whereas
+for others there may be varying degrees of specialization.
+For example, <pre><code>getAttribute(attrName,lang)</code></pre> returns the</p>
+<pre><code>LdapAttribute</code></pre> that exactly matches attrName and that
+<p>best matches lang.
+If there are subtypes other than &quot;lang&quot; subtypes included
+in attrName, for example, &quot;cn;binary&quot;, only attributes with all of
+those subtypes are returned. If lang is <pre><code>null</code></pre> or empty, the
+method behaves as getAttribute(attrName). If there are no matching
+attributes, <pre><code>null</code></pre> is returned.
+Assume the entry contains only the following attributes:
+<ul>
+<li>cn;lang-en</li>
+<li>cn;lang-ja-JP-kanji</li>
+<li>sn</li>
+</ul>
+Examples:
+<ul>
+<li><pre><code>getAttribute( &quot;cn&quot; )</code></pre>       returns <pre><code>null</code></pre>.</li>
+<li><pre><code>getAttribute( &quot;sn&quot; )</code></pre>       returns the &quot;sn&quot; attribute.</li>
+<li><p>
+<pre><code>getAttribute( &quot;cn&quot;, &quot;lang-en-us&quot; )</code></pre>
+<p>returns the &quot;cn;lang-en&quot; attribute.
+</li>
+<li><p>
+<pre><code>getAttribute( &quot;cn&quot;, &quot;lang-en&quot; )</code></pre>
+<p>returns the &quot;cn;lang-en&quot; attribute.
+</li>
+<li><p>
+<pre><code>getAttribute( &quot;cn&quot;, &quot;lang-ja&quot; )</code></pre>
+<p>returns <pre><code>null</code></pre>.
+</li>
+<li><p>
+<pre><code>getAttribute( &quot;sn&quot;, &quot;lang-en&quot; )</code></pre>
+<p>returns the &quot;sn&quot; attribute.
+</li>
+</ul>
+Note: Novell eDirectory does not currently support language subtypes.
+It does support the &quot;binary&quot; subtype.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual LdapAttribute GetAttribute(string attrName, string lang)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">attrName</span></td>
+        <td><p>The name of an attribute to retrieve, with or without
+subtype specifications. For example, &quot;cn&quot;, &quot;cn;phonetic&quot;, and
+cn;binary&quot; are valid attribute names.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">lang</span></td>
+        <td><p>A language specification with optional subtypes
+appended using &quot;-&quot; as separator. For example, &quot;lang-en&quot;, &quot;lang-en-us&quot;,
+&quot;lang-ja&quot;, and &quot;lang-ja-JP-kanji&quot; are valid language specification.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
+        <td><p>A single best-match <pre><code>LdapAttribute</code></pre>, or <pre><code>null</code></pre>
+if no match is found in the entry.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetEnumerator_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetEnumerator" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Returns an iterator over the attributes in this set.  The attributes
+returned from this iterator are not in any particular order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override IEnumerator GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.IEnumerator</span></td>
+        <td><p>iterator over the attributes in this set</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Collections.ArrayList.GetEnumerator()</span></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetSubset_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetSubset_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset(System.String)">GetSubset(String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new attribute set containing only the attributes that have
+the specified subtypes.
+For example, suppose an attribute set contains the following
+attributes:
+<ul>
+<li>    cn</li>
+<li>    cn;lang-ja</li>
+<li>    sn;phonetic;lang-ja</li>
+<li>    sn;lang-us</li>
+</ul>
+Calling the <pre><code>getSubset</code></pre> method and passing lang-ja as the
+argument, the method returns an attribute set containing the following
+attributes:
+<ul>
+<li>cn;lang-ja</li>
+<li>sn;phonetic;lang-ja</li>
+</ul></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual LdapAttributeSet GetSubset(string subtype)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">subtype</span></td>
+        <td><p>Semi-colon delimited list of subtypes to include. For
+example:
+<ul>
+<li> &quot;lang-ja&quot; specifies only Japanese language subtypes</li>
+<li> &quot;binary&quot; specifies only binary subtypes</li>
+<li>
+    &quot;binary;lang-ja&quot; specifies only Japanese language subtypes
+    which also are binary
+</li>
+</ul>
+Note: Novell eDirectory does not currently support language subtypes.
+It does support the &quot;binary&quot; subtype.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html">LdapAttributeSet</a></td>
+        <td><p>An attribute set containing the attributes that match the
+specified subtype.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty">IsEmpty()</h4>
+  <div class="markdown level1 summary"><p>Returns <pre><code>true</code></pre> if this set contains no elements</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool IsEmpty()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><pre><code>true</code></pre> if this set contains no elements
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_IsEmpty">SetSupport.IsEmpty()</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)">Remove(Object)</h4>
+  <div class="markdown level1 summary"><p>Removes the specified object from this set if it is present.
+If the specified object is of type <pre><code>LdapAttribute</code></pre>, the
+specified attribute will be removed.  If the specified object is of type</p>
+<pre><code>String</code></pre>, the attribute with a name that matches the string will
+<p>be removed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Remove(object object_Renamed)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">object_Renamed</span></td>
+        <td><p>The object renamed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if the object was removed.
+@throws ClassCastException occurs the specified Object
+is not of type <pre><code>LdapAttribute</code></pre> or of type <pre><code>String</code></pre>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_Remove_System_Object_">SetSupport.Remove(Object)</a></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.ToString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string representation of this LdapAttributeSet</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>a string representation of this LdapAttributeSet</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.ToString()</span></div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a></div>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
