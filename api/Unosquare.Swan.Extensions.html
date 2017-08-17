@@ -945,6 +945,201 @@ any prefix (such as 0x) has to be avoided for this to work properly</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo*"></a>
+  <h4 id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])">CopyOnlyPropertiesTo(Object, Object, String[])</h4>
+  <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
+tries to write a compatible value to a public, instance, writable property in the destination
+This method only supports basic types and it is not multi level</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">target</span></td>
+        <td><p>The destination.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">propertiesToCopy</span></td>
+        <td><p>Properties to copy.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Returns the number of properties that were successfully copied</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo*"></a>
+  <h4 id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo__1___0_System_Object_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo``1(``0,System.Object)">CopyOnlyPropertiesTo&lt;T&gt;(T, Object)</h4>
+  <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
+tries to write a compatible value to a public, instance, writable property in the destination
+This method only supports basic types and it is not multi level</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int CopyOnlyPropertiesTo&lt;T&gt;(this T source, object target)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">target</span></td>
+        <td><p>The target.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Number of properties that was copied successful</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Extensions_CopyOnlyPropertiesToNew_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesToNew*"></a>
+  <h4 id="Unosquare_Swan_Extensions_CopyOnlyPropertiesToNew__1_System_Object_System_String___" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesToNew``1(System.Object,System.String[])">CopyOnlyPropertiesToNew&lt;T&gt;(Object, String[])</h4>
+  <div class="markdown level1 summary"><p>Copies the only properties to new.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T CopyOnlyPropertiesToNew&lt;T&gt;(this object source, string[] propertiesToCopy = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">propertiesToCopy</span></td>
+        <td><p>The properties to copy.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>Returns the specified type of properties that were successfully copied</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Object Type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Extensions_CopyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyPropertiesTo*"></a>
   <h4 id="Unosquare_Swan_Extensions_CopyPropertiesTo_System_Collections_Generic_IDictionary_System_String_System_Object__System_Object_System_String___" data-uid="Unosquare.Swan.Extensions.CopyPropertiesTo(System.Collections.Generic.IDictionary{System.String,System.Object},System.Object,System.String[])">CopyPropertiesTo(IDictionary&lt;String, Object&gt;, Object, String[])</h4>
   <div class="markdown level1 summary"><p>Iterates over the keys of the source and tries to write a compatible value to a public, 
@@ -1192,7 +1387,8 @@ This method only supports basic types and it is not multi level</p>
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td></td>
+        <td><p>Object Type</p>
+</td>
       </tr>
     </tbody>
   </table>
