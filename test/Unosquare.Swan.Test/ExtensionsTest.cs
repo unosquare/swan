@@ -113,8 +113,6 @@ namespace Unosquare.Swan.Test
             source.Id = 1;
             source.MyEnum = MyEnum.Two;
             var result = source.CopyOnlyPropertiesToNew<ObjectEnum>();
-            source.MyEnum.ToString().Info(nameof(ExtensionsTest));
-            result.MyEnum.ToString().Info(nameof(ExtensionsTest));
             Assert.AreEqual(source.MyEnum, result.MyEnum);
         }
     }

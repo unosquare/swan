@@ -114,17 +114,7 @@ namespace Unosquare.Swan.Test.Mocks
         private MyEnum _value;
 
         public int Id { get; set; }
-        public MyEnum MyEnum
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                _value = value;
-            }
-        }
+        public MyEnum MyEnum{ get; set; }
     }
 
     public enum MyEnum
