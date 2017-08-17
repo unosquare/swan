@@ -41,8 +41,8 @@ namespace Unosquare.Swan.Test
             if (lsc.hasMore())
             {
                 var entry = lsc.next();
-                var ldapAttributes = entry.getAttributeSet();
-                var obj = ldapAttributes.getAttribute("uniqueMember")?.StringValue ?? null;
+                var ldapAttributes = entry.GetAttributeSet();
+                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? null;
                 obj.Info(nameof(LdapTest));
                 Assert.IsTrue(obj != null);
             }

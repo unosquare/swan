@@ -16,7 +16,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcSaslCredentials : Asn1Sequence
     {
-        public RfcSaslCredentials(RfcLdapString mechanism) : this(mechanism, null)
+        public RfcSaslCredentials(RfcLdapString mechanism)
+            : this(mechanism, null)
         {
         }
 
@@ -39,15 +40,13 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Choice" />
     internal class RfcAuthenticationChoice : Asn1Choice
     {
-        public RfcAuthenticationChoice(Asn1Tagged choice) : base(choice)
+        public RfcAuthenticationChoice(Asn1Tagged choice)
+            : base(choice)
         {
         }
 
         public RfcAuthenticationChoice(string mechanism, sbyte[] credentials)
-            : base(
-                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3),
-                    new RfcSaslCredentials(new RfcLdapString(mechanism),
-                        credentials != null ? new Asn1OctetString(credentials) : null), false))
+            : base(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3), new RfcSaslCredentials(new RfcLdapString(mechanism), credentials != null ? new Asn1OctetString(credentials) : null), false))
         {
             // implicit tagging
         }
@@ -111,6 +110,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcBindRequest"/> class.
         /// Constructs a new Bind Request copying the original data from
         /// an existing request.
         /// </summary>
@@ -145,7 +145,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return new RfcBindRequest(ToArray(), base_Renamed);
         }
 
-        public string getRequestDN()
+        public string GetRequestDN()
         {
             return ((RfcLdapDN)Get(1)).StringValue();
         }
@@ -170,6 +170,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapBindRequest"/> class.
         /// Constructs a simple bind request.
         /// </summary>
         /// <param name="version">The Ldap protocol version, use Ldap_V3.
@@ -185,11 +186,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cont">Any controls that apply to the simple bind request,
         /// or null if none.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd, LdapControl[] cont)
-            : base(
-                BIND_REQUEST,
-                new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn),
-                    new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 0),
-                        new Asn1OctetString(passwd), false))), cont)
+            : base(BIND_REQUEST, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 0), new Asn1OctetString(passwd), false))), cont)
         {
         }
 
@@ -236,6 +233,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private string name; // String name for debug
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapSearchResultReference"/> class.
         /// Constructs an LdapSearchResultReference object.
         /// </summary>
         /// <param name="message">The LdapMessage with a search reference.</param>
@@ -470,15 +468,15 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="cons">The cons.</param>
         public LdapSearchConstraints(LdapConstraints cons)
-            : base(cons.TimeLimit, cons.ReferralFollowing, cons.getReferralHandler(), cons.HopLimit)
+            : base(cons.TimeLimit, cons.ReferralFollowing, cons.GetReferralHandler(), cons.HopLimit)
         {
             InitBlock();
-            var lsc = cons.getControls();
+            var lsc = cons.GetControls();
             if (lsc != null)
             {
                 var generated_var = new LdapControl[lsc.Length];
                 lsc.CopyTo(generated_var, 0);
-                setControls(generated_var);
+                SetControls(generated_var);
             }
             var lp = cons.Properties;
             if (lp != null)
@@ -497,6 +495,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapSearchConstraints"/> class.
         /// Constructs a new LdapSearchConstraints object and allows the
         /// specification operational constraints in that object.
         /// </summary>
@@ -566,6 +565,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes static members of the <see cref="LdapSearchConstraints"/> class.
         /// Initializes the <see cref="LdapSearchConstraints"/> class.
         /// </summary>
         static LdapSearchConstraints()
@@ -610,6 +610,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly string[] referralList;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ReferralInfo"/> class.
         /// Construct the ReferralInfo class
         /// </summary>
         /// <param name="lc">The DirectoryEntry opened to process this referral</param>
@@ -651,10 +652,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     An enumeration of attribute names.
         /// </returns>
-        //public virtual IEnumerator Attributes
-        //{
-        //    get { return new ArrayEnumeration(attrs); }
-        //}
         /// <summary>
         ///     Returns any Ldap URL extensions specified, or null if none are
         ///     specified. Each extension is a type=value expression. The =value part
@@ -731,6 +728,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private string[] extensions; // Extensions
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapUrl"/> class.
         /// Constructs a URL object with the specified string as the URL.
         /// </summary>
         /// <param name="url">An Ldap URL string, e.g.
@@ -743,6 +741,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapUrl"/> class.
         /// Constructs a URL object with the specified host, port, and DN.
         /// This form is used to create URL references to a particular object
         /// in the directory.
@@ -761,6 +760,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapUrl"/> class.
         /// Constructs an Ldap URL with all fields explicitly assigned, to
         /// specify an Ldap search operation.
         /// </summary>
@@ -799,6 +799,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapUrl"/> class.
         /// Constructs an Ldap URL with all fields explicitly assigned, including
         /// isSecure, to specify an Ldap search operation.
         /// </summary>
@@ -928,7 +929,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public static string encode(string toEncode)
         {
-            var buffer = new StringBuilder(toEncode.Length); //empty but initial capicity of 'length'
+            var buffer = new StringBuilder(toEncode.Length);
             string temp;
             char currChar;
             for (var i = 0; i < toEncode.Length; i++)
@@ -943,7 +944,6 @@ namespace Unosquare.Swan.Networking.Ldap
                     temp = Convert.ToString(currChar, 16);
                     if (temp.Length == 1)
                         buffer.Append("%0" + temp);
-                    //if(temp.length()==2) this can only be two or one digit long.
                     else
                         buffer.Append("%" + Convert.ToString(currChar, 16));
                 }
@@ -959,13 +959,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The base distinguished name specified in the URL, or null if none.
         /// </returns>
-        public virtual string getDN()
+        public virtual string GetDN()
         {
             return dn;
         }
 
         /// <summary> Sets the base distinguished name encapsulated in the URL.</summary>
-        internal virtual void setDN(string dn)
+        internal virtual void SetDN(string dn)
         {
             this.dn = dn;
         }
@@ -1336,7 +1336,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     return exception.LdapErrorMessage;
                 }
 
-                return ((RfcResponse) message.Response).getErrorMessage().StringValue();
+                return ((RfcResponse) message.Response).GetErrorMessage().StringValue();
             }
         }
 
@@ -1355,7 +1355,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     return exception.MatchedDN;
                 }
-                return ((RfcResponse) message.Response).getMatchedDN().StringValue();
+                return ((RfcResponse) message.Response).GetMatchedDN().StringValue();
             }
         }
 
@@ -1370,7 +1370,7 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 string[] referrals = null;
-                var ref_Renamed = ((RfcResponse) message.Response).getReferral();
+                var ref_Renamed = ((RfcResponse) message.Response).GetReferral();
                 if (ref_Renamed == null)
                 {
                     referrals = new string[0];
@@ -1387,13 +1387,13 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             // get the referral URL
                             var urlRef = new LdapUrl(aRef);
-                            if ((object) urlRef.getDN() == null)
+                            if ((object) urlRef.GetDN() == null)
                             {
                                 var origMsg = Asn1Object.RequestingMessage.Asn1Object;
                                 string dn;
                                 if ((object) (dn = origMsg.RequestDN) != null)
                                 {
-                                    urlRef.setDN(dn);
+                                    urlRef.SetDN(dn);
                                     aRef = urlRef.ToString();
                                 }
                             }
@@ -1429,7 +1429,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
                 if ((RfcResponse) message.Response is RfcIntermediateResponse)
                     return 0;
-                return ((RfcResponse) message.Response).getResultCode().IntValue();
+                return ((RfcResponse) message.Response).GetResultCode().IntValue();
             }
         }
 
@@ -1452,11 +1452,10 @@ namespace Unosquare.Swan.Networking.Ldap
                         var refs = Referrals;
                         ex = new LdapReferralException("Automatic referral following not enabled",
                             LdapException.REFERRAL, ErrorMessage);
-                        ((LdapReferralException) ex).setReferrals(refs);
+                        ((LdapReferralException) ex).SetReferrals(refs);
                         break;
                     default:
-                        ex = new LdapException(LdapException.resultCodeToString(ResultCode), ResultCode, ErrorMessage,
-                            MatchedDN);
+                        ex = new LdapException(LdapException.resultCodeToString(ResultCode), ResultCode, ErrorMessage, MatchedDN);
                         break;
                 }
                 return ex;
@@ -1466,6 +1465,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Returns any controls in the message.
         /// </summary>
+        /// <value>
+        /// The controls.
+        /// </value>
         /// <seealso cref="Novell.Directory.Ldap.LdapMessage.Controls"></seealso>
         public override LdapControl[] Controls
         {
@@ -1500,6 +1502,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly ReferralInfo activeReferral;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
         /// Creates an LdapResponse using an LdapException.
         /// Used to wake up the user following an abandon.
         /// Note: The abandon doesn't have to be user initiated
@@ -1517,6 +1520,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
         /// Creates a response LdapMessage when receiving an asynchronous
         /// response from a server.
         /// </summary>
@@ -1540,6 +1544,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
         /// Creates a response LdapMessage from parameters. Typically the data
         /// comes from a source other than a BER encoded Ldap message,
         /// such as from DSML.
@@ -1596,7 +1601,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     LdapException A general exception which includes an error
         ///     message and an Ldap error code.
         /// </exception>
-        internal virtual void chkResultCode()
+        internal virtual void ChkResultCode()
         {
             if (exception != null)
             {
@@ -1608,9 +1613,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw ex;
             }
         }
-
-        /* Methods from LdapMessage */
-
+        
         /// <summary>
         ///     Indicates if this response is an embedded exception response
         /// </summary>
@@ -1618,7 +1621,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     true if contains an embedded Ldapexception
         /// </returns>
         /*package*/
-        internal virtual bool hasException()
+        internal virtual bool HasException()
         {
             return exception != null;
         }
@@ -1631,7 +1634,13 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public class RespControlVector : ArrayList
     {
-        public RespControlVector(int cap, int incr) : base(cap)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RespControlVector"/> class.
+        /// </summary>
+        /// <param name="cap">The cap.</param>
+        /// <param name="incr">The incr.</param>
+        public RespControlVector(int cap, int incr) 
+            : base(cap)
         {
         }
 
@@ -1655,11 +1664,12 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /* Adds a control to the current list of registered response controls.
-                *
-                */
-
-        public void registerResponseControl(string oid, Type controlClass)
+        /// <summary>
+        /// Registers the response control.
+        /// </summary>
+        /// <param name="oid">The oid.</param>
+        /// <param name="controlClass">The control class.</param>
+        public void RegisterResponseControl(string oid, Type controlClass)
         {
             lock (this)
             {
@@ -1667,12 +1677,13 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /* Searches the list of registered controls for a mathcing control.  We
-                * search using the OID string.  If a match is found we return the
-                * Class name that was provided to us on registration.
-                */
-
-        public Type findResponseControl(string searchOID)
+        /// <summary>
+        /// Finds the response control.
+        /// </summary>
+        /// <param name="searchOID">The search oid.</param>
+        /// <returns></returns>
+        /// <exception cref="FieldAccessException"></exception>
+        public Type FindResponseControl(string searchOID)
         {
             lock (this)
             {
@@ -1700,11 +1711,13 @@ namespace Unosquare.Swan.Networking.Ldap
     
     internal class RfcLdapOID : Asn1OctetString
     {
-        public RfcLdapOID(string s) : base(s)
+        public RfcLdapOID(string s) 
+            : base(s)
         {
         }
 
-        public RfcLdapOID(sbyte[] s) : base(s)
+        public RfcLdapOID(sbyte[] s)
+            : base(s)
         {
         }
     }
@@ -1806,6 +1819,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcControl"/> class.
         /// Note: criticality is only added if true, as per RFC 2251 sec 5.1 part
         /// (4): If a value of a type is its default value, it MUST be
         /// absent.
@@ -1813,7 +1827,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="controlType">Type of the control.</param>
         /// <param name="criticality">The criticality.</param>
         /// <param name="controlValue">The control value.</param>
-        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality, Asn1OctetString controlValue) : base(3)
+        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality, Asn1OctetString controlValue)
+            : base(3)
         {
             Add(controlType);
             if (criticality.BooleanValue())
@@ -1822,13 +1837,23 @@ namespace Unosquare.Swan.Networking.Ldap
                 Add(controlValue);
         }
 
-        /// <summary> Constructs a Control object by decoding it from an InputStream.</summary>
-        public RfcControl(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        /// <summary>
+        /// Constructs a Control object by decoding it from an InputStream.
+        /// </summary>
+        /// <param name="dec">The decimal.</param>
+        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="len">The length.</param>
+        public RfcControl(Asn1Decoder dec, Stream in_Renamed, int len) 
+            : base(dec, in_Renamed, len)
         {
         }
 
-        /// <summary> Constructs a Control object by decoding from an Asn1Sequence</summary>
-        public RfcControl(Asn1Sequence seqObj) : base(3)
+        /// <summary>
+        /// Constructs a Control object by decoding from an Asn1Sequence
+        /// </summary>
+        /// <param name="seqObj">The seq object.</param>
+        public RfcControl(Asn1Sequence seqObj)
+            : base(3)
         {
             var len = seqObj.Size();
             for (var i = 0; i < len; i++)
@@ -1845,7 +1870,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapConnection.ResponseControls">
     /// </seealso>
-    /// <seealso cref="LdapConstraints.getControls">
+    /// <seealso cref="LdapConstraints.GetControls">
     /// </seealso>
     public class LdapControl
     {
@@ -1881,6 +1906,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private RfcControl control; // An RFC 2251 Control
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapControl"/> class.
         /// Constructs a new LdapControl object using the specified values.
         /// </summary>
         /// <param name="oid">The OID of the control, as a dotted string.</param>
@@ -1906,6 +1932,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapControl"/> class.
         /// Create an LdapControl from an existing control.
         /// </summary>
         /// <param name="control">The control.</param>
@@ -1931,7 +1958,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new Exception("Internal error, cannot create clone", ce);
             }
-            var vals = getValue();
+            var vals = GetValue();
             sbyte[] twin = null;
             if (vals != null)
             {
@@ -1956,7 +1983,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The control-specific data of the object as a byte array,
         ///     or null if the control has no data.
         /// </returns>
-        public virtual sbyte[] getValue()
+        public virtual sbyte[] GetValue()
         {
             sbyte[] result = null;
             var val = control.ControlValue;
@@ -1972,28 +1999,27 @@ namespace Unosquare.Swan.Networking.Ldap
         /// use by an extension of LdapControl.
         /// </summary>
         /// <param name="controlValue">The control value.</param>
-        protected internal virtual void setValue(sbyte[] controlValue)
+        protected internal virtual void SetValue(sbyte[] controlValue)
         {
             control.ControlValue = new Asn1OctetString(controlValue);
         }
 
         /// <summary>
-        ///     Registers a class to be instantiated on receipt of a control with the
-        ///     given OID.
-        ///     Any previous registration for the OID is overridden. The
-        ///     controlClass must be an extension of LdapControl.
+        /// Registers a class to be instantiated on receipt of a control with the
+        /// given OID.
+        /// Any previous registration for the OID is overridden. The
+        /// controlClass must be an extension of LdapControl.
         /// </summary>
-        /// <param name="oid">
-        ///     The object identifier of the control.
-        /// </param>
-        /// <param name="controlClass">
-        ///     A class which can instantiate an LdapControl.
-        /// </param>
-        public static void register(string oid, Type controlClass)
+        /// <param name="oid">The object identifier of the control.</param>
+        /// <param name="controlClass">A class which can instantiate an LdapControl.</param>
+        public static void Register(string oid, Type controlClass)
         {
-            registeredControls.registerResponseControl(oid, controlClass);
+            registeredControls.RegisterResponseControl(oid, controlClass);
         }
 
+        /// <summary>
+        /// Initializes the <see cref="LdapControl" /> class.
+        /// </summary>
         static LdapControl()
         {
             registeredControls = new RespControlVector(5, 5);

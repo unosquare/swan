@@ -33,9 +33,9 @@
                     while (lsc.hasMore())
                     {
                         var entry = lsc.next();
-                        var ldapAttributes = entry.getAttributeSet();
+                        var ldapAttributes = entry.GetAttributeSet();
 
-                        Console.WriteLine($"{ldapAttributes.getAttribute("uniqueMember")?.StringValue ?? string.Empty}");
+                        Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
                     }
 
                     //While all the entries are parsed, disconnect   

@@ -75,18 +75,14 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     The Asn1Choice object represents the choice of any Asn1Object. All
     ///     Asn1Object methods are delegated to the object this Asn1Choice contains.
     /// </summary>
-    /* Can a CHOICE contain anything BUT a TAGGED Type?
-    */
     internal class Asn1Choice : Asn1Object
     {
         /// <summary>
-        ///     Sets the CHOICE value stored in this Asn1Choice.
+        /// Sets the CHOICE value stored in this Asn1Choice.
         /// </summary>
-        /// <param name="content">
-        ///     The Asn1Object that this Asn1Choice will
-        ///     encode.  Since all Asn1 objects are derived from Asn1Object
-        ///     any basic type can be passed in.
-        /// </param>
+        /// <value>
+        /// The choice value.
+        /// </value>
         protected internal virtual Asn1Object ChoiceValue
         {
             set { _content = value; }
@@ -167,7 +163,12 @@ namespace Unosquare.Swan.Networking.Ldap
             _content.SetIdentifier(id);
         }
 
-        /// <summary> Return a String representation of this Asn1Object.</summary>
+        /// <summary>
+        /// Return a String representation of this Asn1Object.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return _content.ToString();
@@ -1005,10 +1006,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="in">
         ///     An input stream containig the encoded ASN.1 data.
         /// </param>
+        /// <returns></returns>
         Asn1Object decode(Stream stream, int[] length);
-
-        /* Decoders for ASN.1 simple types
-                */
 
         /// <summary>
         /// Decode a BOOLEAN directly from a stream. Call this method when you

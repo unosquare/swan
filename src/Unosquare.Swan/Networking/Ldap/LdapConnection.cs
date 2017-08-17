@@ -27,6 +27,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public class LdapConnection
     {
+
+        private CancellationTokenSource cts = new CancellationTokenSource();
+
         internal BindProperties BindProperties { get; set; }
 
         /// <summary>
@@ -102,7 +105,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         /// 
         /// <seealso cref="Constraints()"></seealso>
-        /// {D255958A-8513-4226-94B9-080D98F904A1}<seealso cref="SearchConstraints()"></seealso>
+        /// <seealso cref="SearchConstraints()"></seealso>
         public virtual LdapConstraints Constraints
         {
             get
@@ -124,12 +127,12 @@ namespace Unosquare.Swan.Networking.Ldap
                 var newCons = (LdapSearchConstraints) defSearchCons.Clone();
                 newCons.HopLimit = value.HopLimit;
                 newCons.TimeLimit = value.TimeLimit;
-                newCons.setReferralHandler(value.getReferralHandler());
+                newCons.SetReferralHandler(value.GetReferralHandler());
                 newCons.ReferralFollowing = value.ReferralFollowing;
-                var lsc = value.getControls();
+                var lsc = value.GetControls();
                 if (lsc != null)
                 {
-                    newCons.setControls(lsc);
+                    newCons.SetControls(lsc);
                 }
 
                 var lp = newCons.Properties;
@@ -365,39 +368,31 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns a property of a connection object.
+        /// Returns a property of a connection object.
         /// </summary>
-        /// <param name="name">
-        ///     Name of the property to be returned.
-        ///     The following read-only properties are available
-        ///     for any given connection:
-        ///     <ul>
-        ///         <li>
-        ///             Ldap_PROPERTY_SDK returns the version of this SDK,
-        ///             as a Float data type.
-        ///         </li>
-        ///         <li>
-        ///             Ldap_PROPERTY_PROTOCOL returns the highest supported version of
-        ///             the Ldap protocol, as a Float data type.
-        ///         </li>
-        ///         <li>
-        ///             Ldap_PROPERTY_SECURITY returns a comma-separated list of the
-        ///             types of authentication supported, as a
-        ///             string.
-        ///         </li>
-        ///     </ul>
-        ///     A deep copy of the property is provided where applicable; a
-        ///     client does not need to clone the object received.
-        /// </param>
+        /// <param name="name">Name of the property to be returned.
+        /// The following read-only properties are available
+        /// for any given connection:
+        /// <ul><li>
+        /// Ldap_PROPERTY_SDK returns the version of this SDK,
+        /// as a Float data type.
+        /// </li><li>
+        /// Ldap_PROPERTY_PROTOCOL returns the highest supported version of
+        /// the Ldap protocol, as a Float data type.
+        /// </li><li>
+        /// Ldap_PROPERTY_SECURITY returns a comma-separated list of the
+        /// types of authentication supported, as a
+        /// string.
+        /// </li></ul>
+        /// A deep copy of the property is provided where applicable; a
+        /// client does not need to clone the object received.</param>
         /// <returns>
-        ///     The object associated with the requested property,
-        ///     or null if the property is not defined.
+        /// The object associated with the requested property,
+        /// or null if the property is not defined.
         /// </returns>
-        /// <seealso cref="LdapConstraints.getProperty">
-        /// </seealso>
-        /// <seealso cref="object">
-        /// </seealso>
-        public virtual object getProperty(string name)
+        /// <seealso cref="LdapConstraints.GetProperty"></seealso>
+        /// <seealso cref="object"></seealso>
+        public virtual object GetProperty(string name)
         {
             if (name.ToUpper().Equals(Ldap_PROPERTY_SDK.ToUpper()))
                 return "2.2.1";
@@ -509,15 +504,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 dn = string.Empty; // set to null if anonymous
             }
 
-            var msg = new LdapBindRequest(version, dn, passwd, (cons ?? defSearchCons).getControls());
+            var msg = new LdapBindRequest(version, dn, passwd, (cons ?? defSearchCons).GetControls());
 
             BindProperties = new BindProperties(version, dn, "simple", anonymous, null, null);
 
             return RequestLdapMessage(msg);
         }
-
-        private CancellationTokenSource cts = new CancellationTokenSource();
-
+        
         /// <summary>
         /// Connects to the specified host and port.
         /// If this LdapConnection object represents an open connection, the
@@ -535,9 +528,9 @@ namespace Unosquare.Swan.Networking.Ldap
             var tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(host, port);
             conn = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 0);
-            
+
             // TODO: how to stop?
-            Task.Factory.StartNew(RetrieveMessages, cts.Token);
+            await Task.Factory.StartNew(RetrieveMessages, cts.Token);
         }
         
         /// <summary>
@@ -654,8 +647,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 filter = "objectclass=*";
             if (cons == null)
                 cons = defSearchCons;
-            var msg = new LdapSearchRequest(@base, scope, filter, attrs, cons.Dereference, cons.MaxResults,
-                cons.ServerTimeLimit, typesOnly, cons.getControls());
+            var msg = new LdapSearchRequest(@base, scope, filter, attrs, cons.Dereference, cons.MaxResults, cons.ServerTimeLimit, typesOnly, cons.GetControls());
 
             await RequestLdapMessage(msg);
             

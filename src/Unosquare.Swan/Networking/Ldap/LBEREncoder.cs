@@ -102,7 +102,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public void encode(Asn1OctetString os, Stream stream)
         {
             encode(os.GetIdentifier(), stream);
-            encodeLength(os.ByteValue().Length, stream);
+            EncodeLength(os.ByteValue().Length, stream);
             var temp_sbyteArray = os.ByteValue();
             stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
         }
@@ -120,17 +120,14 @@ namespace Unosquare.Swan.Networking.Ldap
             var value_Renamed = c.ToArray();
 
             var output = new MemoryStream();
-
-            /* Cycle through each element encoding each element */
+            
             for (var i = 0; i < value_Renamed.Length; i++)
             {
                 value_Renamed[i].Encode(this, output);
             }
-
-            /* Encode the length */
-            encodeLength((int)output.Length, stream);
-
-            /* Add each encoded element into the output stream */
+            
+            EncodeLength((int)output.Length, stream);
+            
             var temp_sbyteArray = output.ToArray().ToSByteArray();
             stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
         }
@@ -150,7 +147,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var encodedContent = new MemoryStream();
                 t.taggedValue().Encode(this, encodedContent);
 
-                encodeLength((int)encodedContent.Length, stream);
+                EncodeLength((int)encodedContent.Length, stream);
                 var temp_sbyteArray = encodedContent.ToArray().ToSByteArray();
                 stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
             }
@@ -173,14 +170,12 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (t < 30)
             {
-                /* single octet */
                 stream.WriteByte((byte)(ccf | t));
             }
             else
             {
-                /* multiple octet */
                 stream.WriteByte((byte)(ccf | 0x1F));
-                encodeTagInteger(t, stream);
+                EncodeTagInteger(t, stream);
             }
         }
 
@@ -189,7 +184,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="length">The length.</param>
         /// <param name="stream">The stream.</param>
-        private void encodeLength(int length, Stream stream)
+        private void EncodeLength(int length, Stream stream)
         {
             if (length < 0x80)
             {
@@ -217,7 +212,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="value_Renamed">The value renamed.</param>
         /// <param name="stream">The stream.</param>
-        private void encodeTagInteger(int value_Renamed, Stream stream)
+        private void EncodeTagInteger(int value_Renamed, Stream stream)
         {
             var octets = new sbyte[5];
             int n;

@@ -19,7 +19,8 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Creates a new set initialized with System.Collections.ICollection object
+        /// Initializes a new instance of the <see cref="SetSupport" /> class.
+        /// Creates a new set initialized with System.Collections.ICollection object
         /// </summary>
         /// <param name="collection">System.Collections.ICollection object to initialize the set object</param>
         public SetSupport(ICollection collection)
@@ -28,7 +29,8 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Creates a new set initialized with a specific capacity.
+        /// Initializes a new instance of the <see cref="SetSupport" /> class.
+        /// Creates a new set initialized with a specific capacity.
         /// </summary>
         /// <param name="capacity">value to set the capacity of the set object</param>
         public SetSupport(int capacity)
@@ -81,25 +83,32 @@ namespace Unosquare.Swan.Networking.Ldap
             var result = false;
             var tempEnumerator = collection.GetEnumerator();
             while (tempEnumerator.MoveNext())
+            {
                 if (!(result = Contains(tempEnumerator.Current)))
                     break;
+            }
+
             return result;
         }
 
         /// <summary>
-        ///     Verifies if the collection is empty.
+        /// Verifies if the collection is empty.
         /// </summary>
-        /// <returns>True if the collection is empty, false otherwise.</returns>
+        /// <returns>
+        /// True if the collection is empty, false otherwise.
+        /// </returns>
         public virtual bool IsEmpty()
         {
             return Count == 0;
         }
 
         /// <summary>
-        ///     Removes an element from the set.
+        /// Removes an element from the set.
         /// </summary>
         /// <param name="elementToRemove">The element to be removed.</param>
-        /// <returns>True if the element was removed.</returns>
+        /// <returns>
+        /// True if the element was removed.
+        /// </returns>
         public new virtual bool Remove(object elementToRemove)
         {
             var result = Contains(elementToRemove);
@@ -108,10 +117,12 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Removes all the elements contained in the specified collection.
+        /// Removes all the elements contained in the specified collection.
         /// </summary>
         /// <param name="collection">The collection used to extract the elements that will be removed.</param>
-        /// <returns>True if all the elements were successfuly removed, false otherwise.</returns>
+        /// <returns>
+        /// True if all the elements were successfuly removed, false otherwise.
+        /// </returns>
         public virtual bool RemoveAll(ICollection collection)
         {
             var result = false;
@@ -127,10 +138,12 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Removes all the elements that aren't contained in the specified collection.
+        /// Removes all the elements that aren't contained in the specified collection.
         /// </summary>
         /// <param name="collection">The collection used to verify the elements that will be retained.</param>
-        /// <returns>True if all the elements were successfully removed, false otherwise.</returns>
+        /// <returns>
+        /// True if all the elements were successfully removed, false otherwise.
+        /// </returns>
         public virtual bool RetainAll(ICollection collection)
         {
             var result = false;
@@ -149,9 +162,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Obtains an array containing all the elements of the collection.
+        /// Obtains an array containing all the elements of the collection.
         /// </summary>
-        /// <returns>The array containing all the elements of the collection.</returns>
+        /// <returns>
+        /// The array containing all the elements of the collection.
+        /// </returns>
         public new virtual object[] ToArray()
         {
             var index = 0;
@@ -163,10 +178,12 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Obtains an array containing all the elements in the collection.
+        /// Obtains an array containing all the elements in the collection.
         /// </summary>
         /// <param name="objects">The array into which the elements of the collection will be stored.</param>
-        /// <returns>The array containing all the elements of the collection.</returns>
+        /// <returns>
+        /// The array containing all the elements of the collection.
+        /// </returns>
         public virtual object[] ToArray(object[] objects)
         {
             var index = 0;
@@ -240,6 +257,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int REFERRAL = 3;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
         /// Constructs an RfcLdapResult from parameters
         /// </summary>
         /// <param name="resultCode">the result code of the operation</param>
@@ -251,14 +269,14 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
         /// Constructs an RfcLdapResult from parameters
         /// </summary>
         /// <param name="resultCode">the result code of the operation</param>
         /// <param name="matchedDN">the matched DN returned from the server</param>
         /// <param name="errorMessage">the diagnostic message returned from the server</param>
         /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage,
-            Asn1SequenceOf referral)
+        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
             : base(4)
         {
             Add(resultCode);
@@ -269,6 +287,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
         /// Constructs an RfcLdapResult from the inputstream
         /// </summary>
         /// <param name="dec">The decimal.</param>
@@ -297,7 +316,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the result code
         /// </returns>
-        public Asn1Enumerated getResultCode()
+        public Asn1Enumerated GetResultCode()
         {
             return (Asn1Enumerated) Get(0);
         }
@@ -308,7 +327,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the matched DN
         /// </returns>
-        public RfcLdapDN getMatchedDN()
+        public RfcLdapDN GetMatchedDN()
         {
             return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
         }
@@ -319,7 +338,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the server error message
         /// </returns>
-        public RfcLdapString getErrorMessage()
+        public RfcLdapString GetErrorMessage()
         {
             return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
         }
@@ -330,7 +349,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the referral(s)
         /// </returns>
-        public Asn1SequenceOf getReferral()
+        public Asn1SequenceOf GetReferral()
         {
             return Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
         }
@@ -345,6 +364,7 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcSearchResultDone : RfcLdapResult
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcSearchResultDone"/> class.
         /// Decode a search result done from the input stream.
         /// </summary>
         /// <param name="dec">The decimal.</param>
@@ -356,6 +376,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcSearchResultDone"/> class.
         /// Constructs an RfcSearchResultDone from parameters.
         /// </summary>
         /// <param name="resultCode">the result code of the operation</param>
@@ -408,6 +429,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcSearchResultEntry"/> class.
         /// The only time a client will create a SearchResultEntry is when it is
         /// decoding it from an InputStream
         /// </summary>
@@ -467,6 +489,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private static readonly object lock_Renamed;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcMessageID"/> class.
         /// Creates a MessageID with an auto incremented Asn1Integer value.
         /// Bounds: (0 .. 2,147,483,647) (2^^31 - 1 or Integer.MAX_VALUE)
         /// MessageID zero is never used in this implementation.  Always
@@ -503,6 +526,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int CONTROLS = 0;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcControls"/> class.
         /// Constructs a Controls object. This constructor is used in combination
         /// with the add() method to construct a set of Controls to send to the
         /// server.
@@ -513,6 +537,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcControls"/> class.
         /// Constructs a Controls object by decoding it from an InputStream.
         /// </summary>
         /// <param name="dec">The decimal.</param>
@@ -571,25 +596,25 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Gets the result code.
         /// </summary>
         /// <returns>Asn1Enumerated</returns>
-        Asn1Enumerated getResultCode();
+        Asn1Enumerated GetResultCode();
 
         /// <summary>
         /// Gets the matched dn.
         /// </summary>
         /// <returns>RfcLdapDN</returns>
-        RfcLdapDN getMatchedDN();
+        RfcLdapDN GetMatchedDN();
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         /// <returns>RfcLdapString</returns>
-        RfcLdapString getErrorMessage();
+        RfcLdapString GetErrorMessage();
 
         /// <summary>
         /// Gets the referral.
         /// </summary>
         /// <returns>Asn1SequenceOf</returns>
-        Asn1SequenceOf getReferral();
+        Asn1SequenceOf GetReferral();
     }
 
     /// <summary>
@@ -611,7 +636,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Builds a new request using the data from the this object.
         /// </summary>
         /// <returns>String</returns>
-        string getRequestDN();
+        string GetRequestDN();
     }
 
     /// <summary>
@@ -688,7 +713,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary> Returns the dn of the request, may be null</summary>
         public virtual string RequestDN
         {
-            get { return ((RfcRequest) op).getRequestDN(); }
+            get { return ((RfcRequest) op).GetRequestDN(); }
         }
 
         /// <summary>
@@ -715,6 +740,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private LdapMessage requestMessage;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Create an RfcLdapMessage by copying the content array
         /// </summary>
         /// <param name="origContent">the array list to copy</param>
@@ -735,6 +761,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Create an RfcLdapMessage using the specified Ldap Request.
         /// </summary>
         /// <param name="op">The op.</param>
@@ -744,6 +771,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Create an RfcLdapMessage request from input parameters.
         /// </summary>
         /// <param name="op">The op.</param>
@@ -763,6 +791,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Create an RfcLdapMessage using the specified Ldap Response.
         /// </summary>
         /// <param name="op">The op.</param>
@@ -772,6 +801,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Create an RfcLdapMessage response from input parameters.
         /// </summary>
         /// <param name="op">The op.</param>
@@ -791,6 +821,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Will decode an RfcLdapMessage directly from an InputStream.
         /// </summary>
         /// <param name="dec">The decimal.</param>
@@ -854,10 +885,6 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        //*************************************************************************
-        // Accessors
-        //*************************************************************************
-
         /// <summary>
         ///     Returns the request associated with this RfcLdapMessage.
         ///     Throws a class cast exception if the RfcLdapMessage is not a request.
@@ -887,7 +914,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the object representing the new message
         /// </returns>
-        public object dupMessage(string dn, string filter, bool reference)
+        public object DupMessage(string dn, string filter, bool reference)
         {
             if (op == null)
             {
@@ -939,7 +966,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         * or a class extending LDAPControl that implements the
                         * appropriate registered response control
                         */
-                        controls[i] = controlFactory(oid, critical, value_Renamed);
+                        controls[i] = ControlFactory(oid, critical, value_Renamed);
                     }
                 }
                 return controls;
@@ -1221,6 +1248,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private string stringTag;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
         /// Dummy constuctor
         /// </summary>
         internal LdapMessage()
@@ -1228,6 +1256,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
         /// Creates an LdapMessage when sending a protocol operation and sends
         /// some optional controls with the message.
         /// </summary>
@@ -1257,6 +1286,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
         /// Creates an Rfc 2251 LdapMessage when the libraries receive a response
         /// from a command.
         /// </summary>
@@ -1284,7 +1314,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         internal LdapMessage Clone(string dn, string filter, bool reference)
         {
-            return new LdapMessage((RfcLdapMessage) message.dupMessage(dn, filter, reference));
+            return new LdapMessage((RfcLdapMessage) message.DupMessage(dn, filter, reference));
         }
 
         /// <summary>
@@ -1297,7 +1327,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="critical">if set to <c>true</c> [critical].</param>
         /// <param name="value_Renamed">The value renamed.</param>
         /// <returns>LdapControl</returns>
-        private LdapControl controlFactory(string oid, bool critical, sbyte[] value_Renamed)
+        private LdapControl ControlFactory(string oid, bool critical, sbyte[] value_Renamed)
         {
             var regControls = LdapControl.RegisteredControls;
             try
@@ -1306,7 +1336,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 * search through the registered extension list to find the
                 * response control class
                 */
-                var respCtlClass = regControls.findResponseControl(oid);
+                var respCtlClass = regControls.FindResponseControl(oid);
 
                 // Did not find a match so return default LDAPControl
                 if (respCtlClass == null)

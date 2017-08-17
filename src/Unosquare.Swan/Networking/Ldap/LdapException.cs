@@ -12,12 +12,15 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapException" />
     public class LdapLocalException : LdapException
     {
-        /// <summary> Constructs a default exception with no specific error information.</summary>
+        /// <summary>
+        /// Constructs a default exception with no specific error information.
+        /// </summary>
         public LdapLocalException()
         {
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
         /// Constructs a local exception with a detailed message obtained from the
         /// specified <code>MessageOrKey</code> String and the result code.
         /// The String is used either as a message key to obtain a localized
@@ -34,6 +37,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
         /// Constructs a local exception with a detailed message obtained from the
         /// specified <code>MessageOrKey</code> String and modifying arguments.
         /// Additional parameters specify the result code.
@@ -55,6 +59,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
         /// Constructs a local exception with a detailed message obtained from the
         /// specified <code>MessageOrKey</code> String.
         /// Additional parameters specify the result code and a rootException which
@@ -75,6 +80,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
         /// Constructs a local exception with a detailed message obtained from the
         /// specified <code>MessageOrKey</code> String and modifying arguments.
         /// Additional parameters specify the result code
@@ -116,7 +122,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     Two entries are made for each message, a String identifier, and the
     ///     actual error string.  Parameters are identified as {0}, {1}, etc.
     /// </summary>
-    public class ExceptionMessages //: System.Resources.ResourceManager
+    public class ExceptionMessages // : System.Resources.ResourceManager
     {
         //static strings to aide lookup and guarantee accuracy:
         //DO NOT include these strings in other Locales
@@ -185,7 +191,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public const string CANNOT_BIND = "CANNOT_BIND";
         public const string SSL_PROVIDER_MISSING = "SSL_PROVIDER_MISSING";
 
-        internal static readonly Dictionary<string, string> messageMap = new Dictionary<string, string>
+        internal static readonly Dictionary<string, string> MessageMap = new Dictionary<string, string>
         {
             {TOSTRING, "{0}: {1} ({2}) {3}"},
             {SERVER_MSG, "{0}: Server Message: {1}"},
@@ -258,21 +264,28 @@ namespace Unosquare.Swan.Networking.Ldap
             {SSL_PROVIDER_MISSING, "Please ensure that SSL Provider is properly installed."}
         };
 
+        /// <summary>
+        /// Gets the error message.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <returns></returns>
         public static string GetErrorMessage(string code)
         {
-            if (messageMap.ContainsKey(code))
-                return messageMap[code];
+            if (MessageMap.ContainsKey(code))
+                return MessageMap[code];
             return code;
         }
-    } //End ExceptionMessages
+    } 
+
+    // End ExceptionMessages
 
     /// <summary>
     ///     This class contains strings corresponding to Ldap Result Codes.
     ///     The resources are accessed by the String representation of the result code.
     /// </summary>
-    public class ResultCodeMessages //:System.Resources.ResourceManager
+    public class ResultCodeMessages // : System.Resources.ResourceManager
     {
-        internal static readonly Dictionary<string, string> errorCodes = new Dictionary<string, string>
+        internal static readonly Dictionary<string, string> ErrorCodes = new Dictionary<string, string>
         {
             {"0", "Success"},
             {"1", "Operations Error"},
@@ -344,9 +357,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>String code</returns>
         public static string GetResultCode(string code)
         {
-            return errorCodes[code];
+            return ErrorCodes[code];
         }
-    } //End ResultCodeMessages
+    }
+    
+    // End ResultCodeMessages
 
     /// <summary>
     ///     A utility class to get strings from the ExceptionMessages and
@@ -376,9 +391,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// the text for the message specified by the MessageKey or the Key
         /// if it there is no message for that key.
         /// </returns>
-        public static string getMessage(string messageOrKey, object[] arguments)
+        public static string GetMessage(string messageOrKey, object[] arguments)
         {
-            return getMessage(messageOrKey, arguments, null);
+            return GetMessage(messageOrKey, arguments, null);
         }
 
         /// <summary>
@@ -396,7 +411,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// the text for the message specified by the MessageKey or the Key
         /// if it there is no message for that key.
         /// </returns>
-        public static string getMessage(string messageOrKey, object[] arguments, CultureInfo locale)
+        public static string GetMessage(string messageOrKey, object[] arguments, CultureInfo locale)
         {
             if (defaultLocale == null)
                 defaultLocale = CultureInfo.CurrentUICulture;
@@ -431,9 +446,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the String representing the result code.
         /// </returns>
-        public static string getResultString(int code)
+        public static string GetResultString(int code)
         {
-            return getResultString(code, null);
+            return GetResultString(code, null);
         }
 
         /// <summary>
@@ -450,7 +465,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the String representing the result code.
         /// </returns>
-        public static string getResultString(int code, CultureInfo locale)
+        public static string GetResultString(int code, CultureInfo locale)
         {
             string result;
             try
@@ -459,8 +474,9 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             catch (ArgumentNullException)
             {
-                result = getMessage(ExceptionMessages.UNKNOWN_RESULT, new object[] {code}, locale);
+                result = GetMessage(ExceptionMessages.UNKNOWN_RESULT, new object[] {code}, locale);
             }
+
             return result;
         }
 
@@ -468,7 +484,8 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             defaultLocale = CultureInfo.CurrentUICulture;
         }
-    } //end class ResourcesHandler
+    } 
+    // end class ResourcesHandler
 
     /// <summary>
     ///     Thrown to indicate that an Ldap exception has occurred. This is a general
@@ -777,15 +794,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public override string Message => resultCodeToString();
 
-        /*	public override System.String Message
-                {
-                    get
-                    {
-                        return resultCodeToString();
-                    }
-                    
-                }
-            */
         // The Result Code
         private readonly int resultCode;
         // The localized message
@@ -1345,6 +1353,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapException"/> class.
         ///     Constructs an exception with a detailed message obtained from the
         ///     specified <code>MessageOrKey</code> String, the result code,
         ///     and a server meessage.
@@ -1370,6 +1379,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapException"/> class.
         ///     Constructs an exception with a detailed message obtained from the
         ///     specified <code>MessageOrKey</code> String and modifying arguments.
         ///     Additional parameters specify the result code and server message.
@@ -1401,6 +1411,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapException"/> class.
         ///     Constructs an exception with a detailed message obtained from the
         ///     specified <code>MessageOrKey</code> String.
         ///     Additional parameters specify the result code, the server message, and a
@@ -1431,6 +1442,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapException"/> class.
         ///     Constructs an exception with a detailed message obtained from the
         ///     specified <code>MessageOrKey</code> String and modifying arguments.
         ///     Additional parameters specify the result code, the server message,
@@ -1462,12 +1474,12 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     A throwable which is the underlying cause
         ///     of the LdapException.
         /// </param>
-        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
-            Exception rootException) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
+        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg, Exception rootException) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
         {
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapException"/> class.
         ///     Constructs an exception with a detailed message obtained from the
         ///     specified <code>MessageOrKey</code> String.
         ///     Additional parameters specify the result code, the message returned
@@ -1498,6 +1510,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapException"/> class.
         ///     Constructs an exception with a detailed message obtained from the
         ///     specified <code>MessageOrKey</code> String and modifying arguments.
         ///     Additional parameters specify the result code, a message returned from
@@ -1534,6 +1547,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapException"/> class.
         ///     Constructs an exception with a detailed message obtained from the
         ///     specified <code>MessageOrKey</code> String and modifying arguments.
         ///     Additional parameters specify the result code, a message returned
@@ -1572,7 +1586,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         internal LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
             string matchedDN, Exception rootException)
-            : base(ResourcesHandler.getMessage(messageOrKey, arguments))
+            : base(ResourcesHandler.GetMessage(messageOrKey, arguments))
         {
             this.messageOrKey = messageOrKey;
             this.arguments = arguments;
@@ -1591,7 +1605,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual string resultCodeToString()
         {
-            return ResourcesHandler.getResultString(resultCode);
+            return ResourcesHandler.GetResultString(resultCode);
         }
 
         /// <summary>
@@ -1607,7 +1621,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public static string resultCodeToString(int code)
         {
-            return ResourcesHandler.getResultString(code);
+            return ResourcesHandler.GetResultString(code);
         }
 
         /// <summary>
@@ -1624,7 +1638,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual string resultCodeToString(CultureInfo locale)
         {
-            return ResourcesHandler.getResultString(resultCode, locale);
+            return ResourcesHandler.GetResultString(resultCode, locale);
         }
 
         /// <summary>
@@ -1645,7 +1659,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public static string resultCodeToString(int code, CultureInfo locale)
         {
-            return ResourcesHandler.getResultString(code, locale);
+            return ResourcesHandler.GetResultString(code, locale);
         }
 
         /// <summary>
@@ -1671,7 +1685,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Format the basic exception information
 
             // Craft a string from the resouce file
-            var msg = ResourcesHandler.getMessage("TOSTRING",
+            var msg = ResourcesHandler.GetMessage("TOSTRING",
                 new object[] {exception, base.Message, resultCode, resultCodeToString()});
             // If found no string from resource file, use a default string
             if (msg.ToUpper().Equals("TOSTRING".ToUpper()))
@@ -1682,7 +1696,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Add server message
             if ((object) serverMessage != null && serverMessage.Length != 0)
             {
-                tmsg = ResourcesHandler.getMessage("SERVER_MSG", new object[] {exception, serverMessage});
+                tmsg = ResourcesHandler.GetMessage("SERVER_MSG", new object[] {exception, serverMessage});
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                 {
@@ -1695,7 +1709,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Add Matched DN message
             if ((object) matchedDN != null)
             {
-                tmsg = ResourcesHandler.getMessage("MATCHED_DN", new object[] {exception, matchedDN});
+                tmsg = ResourcesHandler.GetMessage("MATCHED_DN", new object[] {exception, matchedDN});
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("MATCHED_DN".ToUpper()))
                 {
@@ -1742,12 +1756,16 @@ namespace Unosquare.Swan.Networking.Ldap
         private string failedReferral;
         private string[] referrals;
 
-        /// <summary> Constructs a default exception with no specific error information.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
+        /// Constructs a default exception with no specific error information.
+        /// </summary>
         public LdapReferralException()
         {
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs a default exception with a specified string as additional
         ///     information.
         ///     This form is used for lower-level errors.
@@ -1760,6 +1778,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs a default exception with a specified string as additional
         ///     information.
         ///     This form is used for lower-level errors.
@@ -1776,6 +1795,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs a default exception with a specified string as additional
         ///     information and an exception that indicates a failure to follow a
         ///     referral. This excepiton applies only to synchronous operations and
@@ -1794,6 +1814,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs a default exception with a specified string as additional
         ///     information and an exception that indicates a failure to follow a
         ///     referral. This excepiton applies only to synchronous operations and
@@ -1816,6 +1837,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs an exception with a specified error string, result code, and
         ///     an error message from the server.
         /// </summary>
@@ -1835,6 +1857,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs an exception with a specified error string, result code, and
         ///     an error message from the server.
         /// </summary>
@@ -1858,46 +1881,36 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs an exception with a specified error string, result code,
-        ///     an error message from the server, and an exception that indicates
-        ///     a failure to follow a referral.
+        /// Initializes a new instance of the <see cref="LdapReferralException" /> class.
+        /// Constructs an exception with a specified error string, result code,
+        /// an error message from the server, and an exception that indicates
+        /// a failure to follow a referral.
         /// </summary>
-        /// <param name="message">
-        ///     The additional error information.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMessage">
-        ///     Error message specifying additional information
-        ///     from the server.
-        /// </param>
+        /// <param name="message">The additional error information.</param>
+        /// <param name="resultCode">The result code returned.</param>
+        /// <param name="serverMessage">Error message specifying additional information
+        /// from the server.</param>
+        /// <param name="rootException">The root exception.</param>
         public LdapReferralException(string message, int resultCode, string serverMessage, Exception rootException)
             : base(message, resultCode, serverMessage, rootException)
         {
         }
 
         /// <summary>
-        ///     Constructs an exception with a specified error string, result code,
-        ///     an error message from the server, and an exception that indicates
-        ///     a failure to follow a referral.
+        /// Initializes a new instance of the <see cref="LdapReferralException" /> class.
+        /// Constructs an exception with a specified error string, result code,
+        /// an error message from the server, and an exception that indicates
+        /// a failure to follow a referral.
         /// </summary>
-        /// <param name="message">
-        ///     The additional error information.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMessage">
-        ///     Error message specifying additional information
-        ///     from the server.
-        /// </param>
-        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage,
-            Exception rootException) : base(message, arguments, resultCode, serverMessage, rootException)
+        /// <param name="message">The additional error information.</param>
+        /// <param name="arguments">The modifying arguments to be included in the
+        /// message string.</param>
+        /// <param name="resultCode">The result code returned.</param>
+        /// <param name="serverMessage">Error message specifying additional information
+        /// from the server.</param>
+        /// <param name="rootException">The root exception.</param>
+        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException) 
+            : base(message, arguments, resultCode, serverMessage, rootException)
         {
         }
 
@@ -1910,7 +1923,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The list of URLs that comprise this referral
         /// </returns>
-        public virtual string[] getReferrals()
+        public virtual string[] GetReferrals()
         {
             return referrals;
         }
@@ -1922,15 +1935,18 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     the list of referrals returned by the Ldap server in a
         ///     single response.
         /// </param>
-        internal virtual void setReferrals(string[] urls)
+        internal virtual void SetReferrals(string[] urls)
         {
             referrals = urls;
         }
 
         /// <summary>
-        ///     returns a string of information about the exception and the
-        ///     the nested exceptions, if any.
+        /// returns a string of information about the exception and the
+        /// the nested exceptions, if any.
         /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             string msg, tmsg;
@@ -1941,7 +1957,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Add failed referral information
             if ((object)failedReferral != null)
             {
-                tmsg = ResourcesHandler.getMessage("FAILED_REFERRAL",
+                tmsg = ResourcesHandler.GetMessage("FAILED_REFERRAL",
                     new object[] { "LdapReferralException", failedReferral });
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
@@ -1956,7 +1972,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 for (var i = 0; i < referrals.Length; i++)
                 {
-                    tmsg = ResourcesHandler.getMessage("REFERRAL_ITEM",
+                    tmsg = ResourcesHandler.GetMessage("REFERRAL_ITEM",
                         new object[] { "LdapReferralException", referrals[i] });
                     // If found no string from resource file, use a default string
                     if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))

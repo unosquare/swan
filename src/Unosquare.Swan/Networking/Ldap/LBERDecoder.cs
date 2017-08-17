@@ -43,7 +43,11 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly Asn1Identifier asn1ID;
         private readonly Asn1Length asn1Len;
 
-        /// <summary> Decode an LBER encoded value into an Asn1Type from a byte array.</summary>
+        /// <summary>
+        /// Decode an LBER encoded value into an Asn1Type from a byte array.
+        /// </summary>
+        /// <param name="value_Renamed">The value renamed.</param>
+        /// <returns>Decoded Asn1Object</returns>
         public virtual Asn1Object decode(sbyte[] value_Renamed)
         {
             Asn1Object asn1 = null;
@@ -60,8 +64,13 @@ namespace Unosquare.Swan.Networking.Ldap
             return asn1;
         }
 
-        /// <summary> Decode an LBER encoded value into an Asn1Type from an InputStream.</summary>
-        /// <returns>Decoded Asn1Object</returns>
+        /// <summary>
+        /// Decode an LBER encoded value into an Asn1Type from an InputStream.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>
+        /// Decoded Asn1Object
+        /// </returns>
         public virtual Asn1Object decode(Stream stream)
         {
             var len = new int[1];
@@ -69,13 +78,18 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Decode an LBER encoded value into an Asn1Object from an InputStream.
-        ///     This method also returns the total length of this encoded
-        ///     Asn1Object (length of type + length of length + length of content)
-        ///     in the parameter len. This information is helpful when decoding
-        ///     structured types.
+        /// Decode an LBER encoded value into an Asn1Object from an InputStream.
+        /// This method also returns the total length of this encoded
+        /// Asn1Object (length of type + length of length + length of content)
+        /// in the parameter len. This information is helpful when decoding
+        /// structured types.
         /// </summary>
-        /// <returns>Decoded Asn1Obect</returns>
+        /// <param name="stream">The stream.</param>
+        /// <param name="len">The length.</param>
+        /// <returns>
+        /// Decoded Asn1Obect
+        /// </returns>
+        /// <exception cref="EndOfStreamException">Unknown tag</exception>
         public virtual Asn1Object decode(Stream stream, int[] len)
         {
             asn1ID.Reset(stream);
@@ -117,9 +131,16 @@ namespace Unosquare.Swan.Networking.Ldap
             // APPLICATION or CONTEXT-SPECIFIC tag
             return new Asn1Tagged(this, stream, length, (Asn1Identifier)asn1ID.Clone());
         }
-        
-        /// <summary> Decode a boolean directly from a stream.</summary>
-        /// <returns>Decoded boolean object</returns>
+
+        /// <summary>
+        /// Decode a boolean directly from a stream.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="len">Length in bytes</param>
+        /// <returns>
+        /// Decoded boolean object
+        /// </returns>
+        /// <exception cref="EndOfStreamException">LBER: BOOLEAN: decode error: EOF</exception>
         public object decodeBoolean(Stream stream, int len)
         {
             var lber = new sbyte[len];

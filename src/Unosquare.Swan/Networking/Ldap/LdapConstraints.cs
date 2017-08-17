@@ -1,7 +1,6 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
-
     using System;
     using System.Collections;
 
@@ -25,6 +24,11 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     public class LdapConstraints
     {
+        static LdapConstraints()
+        {
+            nameLock = new object();
+        }
+
         /// <summary>
         ///     Returns the maximum number of referrals to follow during automatic
         ///     referral following.  The operation will be abandoned and terminated by
@@ -71,7 +75,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The properties.
         /// </value>
         /// <seealso cref="object"></seealso>
-        /// <seealso cref="LdapConnection.getProperty"></seealso>
+        /// <seealso cref="LdapConnection.GetProperty"></seealso>
         /// <param name="props">
         /// the properties represented by the Hashtable object to set.
         /// </param>
@@ -137,6 +141,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private Hashtable properties; // Properties
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapConstraints"/> class.
         /// Constructs a new LdapConstraints object that specifies the default
         /// set of constraints.
         /// </summary>
@@ -146,6 +151,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapConstraints"/> class.
         /// Constructs a new LdapConstraints object specifying constraints that
         /// control wait time, and referral handling.
         /// </summary>
@@ -204,7 +210,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The controls to be sent to the server, or null if none.
         /// </returns>
         /// <seealso cref="Controls"></seealso>
-        public virtual LdapControl[] getControls()
+        public virtual LdapControl[] GetControls()
         {
             return controls;
         }
@@ -219,8 +225,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or <code>null</code> if the property is not set.
         /// </returns>
         /// <seealso cref="object"></seealso>
-        /// <seealso cref="LdapConnection.getProperty(string)"></seealso>
-        public virtual object getProperty(string name)
+        /// <seealso cref="LdapConnection.GetProperty(string)"></seealso>
+        public virtual object GetProperty(string name)
         {
             if (properties == null)
             {
@@ -238,7 +244,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// An LdapReferralHandler object that can process authentication.
         /// </returns>
         /*package*/
-        internal virtual LdapReferralHandler getReferralHandler()
+        internal virtual LdapReferralHandler GetReferralHandler()
         {
             return refHandler;
         }
@@ -248,7 +254,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="control">A single control to be sent to the server or
         /// null if none.</param>
-        public virtual void setControls(LdapControl control)
+        public virtual void SetControls(LdapControl control)
         {
             if (control == null)
             {
@@ -264,7 +270,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="controls">An array of controls to be sent to the server or
         /// null if none.</param>
-        public virtual void setControls(LdapControl[] controls)
+        public virtual void SetControls(LdapControl[] controls)
         {
             if (controls == null || controls.Length == 0)
             {
@@ -286,8 +292,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="name">Name of the property to set.</param>
         /// <param name="value_Renamed">The value renamed.</param>
-        /// <seealso cref="LdapConnection.getProperty"></seealso>
-        public virtual void setProperty(string name, object value_Renamed)
+        /// <seealso cref="LdapConnection.GetProperty"></seealso>
+        public virtual void SetProperty(string name, object value_Renamed)
         {
             if (properties == null)
             {
@@ -298,19 +304,15 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Specifies the object that will process authentication requests
-        ///     during automatic referral following.
-        ///     The default is null.
+        /// Specifies the object that will process authentication requests
+        /// during automatic referral following.
+        /// The default is null.
         /// </summary>
-        /// <param name="handler">
-        ///     An object that implements LdapBindHandler or
-        ///     LdapAuthHandler
-        /// </param>
-        /// <seealso cref="LdapAuthHandler">
-        /// </seealso>
-        /// <seealso cref="LdapBindHandler">
-        /// </seealso>
-        public virtual void setReferralHandler(LdapReferralHandler handler)
+        /// <param name="handler">An object that implements LdapBindHandler or
+        /// LdapAuthHandler</param>
+        /// <seealso cref="LdapAuthHandler"></seealso>
+        /// <seealso cref="LdapBindHandler"></seealso>
+        public virtual void SetReferralHandler(LdapReferralHandler handler)
         {
             refHandler = handler;
         }
@@ -328,12 +330,12 @@ namespace Unosquare.Swan.Networking.Ldap
                 var newObj = MemberwiseClone();
                 if (controls != null)
                 {
-                    ((LdapConstraints) newObj).controls = new LdapControl[controls.Length];
-                    controls.CopyTo(((LdapConstraints) newObj).controls, 0);
+                    ((LdapConstraints)newObj).controls = new LdapControl[controls.Length];
+                    controls.CopyTo(((LdapConstraints)newObj).controls, 0);
                 }
                 if (properties != null)
                 {
-                    ((LdapConstraints) newObj).properties = (Hashtable) properties.Clone();
+                    ((LdapConstraints)newObj).properties = (Hashtable)properties.Clone();
                 }
                 return newObj;
             }
@@ -341,11 +343,6 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new Exception("Internal error, cannot create clone", ce);
             }
-        }
-
-        static LdapConstraints()
-        {
-            nameLock = new object();
         }
     }
 }

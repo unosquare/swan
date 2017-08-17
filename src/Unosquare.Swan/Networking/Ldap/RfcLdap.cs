@@ -40,6 +40,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly sbyte[] password;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAuthProvider"/> class.
         ///     Constructs information that is used by the client for authentication
         ///     when following referrals automatically.
         /// </summary>
@@ -56,7 +57,7 @@ namespace Unosquare.Swan.Networking.Ldap
             this.password = password;
         }
     }
-    
+
     /// <summary>
     ///     The name and values of one attribute of a directory entry.
     ///     LdapAttribute objects are used when searching for, adding,
@@ -116,8 +117,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 // Deep copy so application cannot change values
                 for (int i = 0, u = size; i < u; i++)
                 {
-                    bva[i] = new sbyte[((sbyte[]) values[i]).Length];
-                    Array.Copy((Array) values[i], 0, bva[i], 0, bva[i].Length);
+                    bva[i] = new sbyte[((sbyte[])values[i]).Length];
+                    Array.Copy((Array)values[i], 0, bva[i], 0, bva[i].Length);
                 }
                 return bva;
             }
@@ -143,7 +144,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     try
                     {
                         var encoder = Encoding.UTF8;
-                        var dchar = encoder.GetChars(((sbyte[]) values[j]).ToByteArray());
+                        var dchar = encoder.GetChars(((sbyte[])values[j]).ToByteArray());
                         // char[] dchar = encoder.GetChars((byte[])values[j]);
                         sva[j] = new string(dchar);
                         // sva[j] = new String((sbyte[]) values[j], "UTF-8");
@@ -183,7 +184,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     try
                     {
                         var encoder = Encoding.UTF8;
-                        var dchar = encoder.GetChars(((sbyte[]) values[0]).ToByteArray());
+                        var dchar = encoder.GetChars(((sbyte[])values[0]).ToByteArray());
                         // char[] dchar = encoder.GetChars((byte[]) this.values[0]);
                         rval = new string(dchar);
                     }
@@ -212,8 +213,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (values != null)
                 {
                     // Deep copy so app can't change the value
-                    bva = new sbyte[((sbyte[]) values[0]).Length];
-                    Array.Copy((Array) values[0], 0, bva, 0, bva.Length);
+                    bva = new sbyte[((sbyte[])values[0]).Length];
+                    Array.Copy((Array)values[0], 0, bva, 0, bva.Length);
                 }
                 return bva;
             }
@@ -269,7 +270,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     var encoder = Encoding.UTF8;
                     var ibytes = encoder.GetBytes(value);
                     var sbytes = ibytes.ToSByteArray();
-                    add(sbytes);
+                    Add(sbytes);
                 }
                 catch (IOException ue)
                 {
@@ -284,13 +285,13 @@ namespace Unosquare.Swan.Networking.Ldap
         private object[] values; // Array of byte[] attribute values
 
         /// <summary>
-        ///     Constructs an attribute with copies of all values of the input
-        ///     attribute.
+        /// Initializes a new instance of the <see cref="LdapAttribute" /> class.
+        /// Constructs an attribute with copies of all values of the input
+        /// attribute.
         /// </summary>
-        /// <param name="attr">
-        ///     An LdapAttribute to use as a template.
-        ///     @throws IllegalArgumentException if attr is null
-        /// </param>
+        /// <param name="attr">An LdapAttribute to use as a template.
+        /// @throws IllegalArgumentException if attr is null</param>
+        /// <exception cref="ArgumentException">LdapAttribute class cannot be null</exception>
         public LdapAttribute(LdapAttribute attr)
         {
             if (attr == null)
@@ -314,24 +315,25 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Constructs an attribute with no values.
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
+        /// Constructs an attribute with no values.
         /// </summary>
-        /// <param name="attrName">
-        ///     Name of the attribute.
-        ///     @throws IllegalArgumentException if attrName is null
-        /// </param>
+        /// <param name="attrName">Name of the attribute.
+        /// @throws IllegalArgumentException if attrName is null</param>
+        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
         public LdapAttribute(string attrName)
         {
-            if ((object) attrName == null)
+            if ((object)attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
             name = attrName;
-            baseName = getBaseName(attrName);
-            subTypes = getSubtypes(attrName);
+            baseName = GetBaseName(attrName);
+            subTypes = GetSubtypes(attrName);
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
         ///     Constructs an attribute with a byte-formatted value.
         /// </summary>
         /// <param name="attrName">
@@ -342,7 +344,8 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
         ///     @throws IllegalArgumentException if attrName or attrBytes is null
         /// </param>
-        public LdapAttribute(string attrName, sbyte[] attrBytes) : this(attrName)
+        public LdapAttribute(string attrName, sbyte[] attrBytes)
+            : this(attrName)
         {
             if (attrBytes == null)
             {
@@ -351,10 +354,11 @@ namespace Unosquare.Swan.Networking.Ldap
             // Make our own copy of the byte array to prevent app from changing it
             var tmp = new sbyte[attrBytes.Length];
             Array.Copy(attrBytes, 0, tmp, 0, attrBytes.Length);
-            add(tmp);
+            Add(tmp);
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
         ///     Constructs an attribute with a single string value.
         /// </summary>
         /// <param name="attrName">
@@ -364,9 +368,10 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Value of the attribute as a string.
         ///     @throws IllegalArgumentException if attrName or attrString is null
         /// </param>
-        public LdapAttribute(string attrName, string attrString) : this(attrName)
+        public LdapAttribute(string attrName, string attrString)
+            : this(attrName)
         {
-            if ((object) attrString == null)
+            if ((object)attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
@@ -375,7 +380,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var encoder = Encoding.UTF8;
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
-                add(sbytes);
+                Add(sbytes);
             }
             catch (IOException e)
             {
@@ -384,6 +389,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
         ///     Constructs an attribute with an array of string values.
         /// </summary>
         /// <param name="attrName">
@@ -394,7 +400,8 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     @throws IllegalArgumentException if attrName, attrStrings, or a member
         ///     of attrStrings is null
         /// </param>
-        public LdapAttribute(string attrName, string[] attrStrings) : this(attrName)
+        public LdapAttribute(string attrName, string[] attrStrings)
+            : this(attrName)
         {
             if (attrStrings == null)
             {
@@ -404,15 +411,14 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 try
                 {
-                    if ((object) attrStrings[i] == null)
+                    if ((object)attrStrings[i] == null)
                     {
                         throw new ArgumentException("Attribute value " + "at array index " + i + " cannot be null");
                     }
                     var encoder = Encoding.UTF8;
                     var ibytes = encoder.GetBytes(attrStrings[i]);
                     var sbytes = ibytes.ToSByteArray();
-                    add(sbytes);
-                    //					this.add(attrStrings[i].getBytes("UTF-8"));
+                    Add(sbytes);
                 }
                 catch (IOException e)
                 {
@@ -434,7 +440,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var newObj = MemberwiseClone();
                 if (values != null)
                 {
-                    Array.Copy(values, 0, ((LdapAttribute) newObj).values, 0, values.Length);
+                    Array.Copy(values, 0, ((LdapAttribute)newObj).values, 0, values.Length);
                 }
                 return newObj;
             }
@@ -451,9 +457,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Value of the attribute as a String.
         ///     @throws IllegalArgumentException if attrString is null
         /// </param>
-        public virtual void addValue(string attrString)
+        public virtual void AddValue(string attrString)
         {
-            if ((object) attrString == null)
+            if ((object)attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
@@ -462,8 +468,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var encoder = Encoding.UTF8;
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
-                add(sbytes);
-                //				this.add(attrString.getBytes("UTF-8"));
+                Add(sbytes);
             }
             catch (IOException ue)
             {
@@ -479,13 +484,13 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
         ///     @throws IllegalArgumentException if attrBytes is null
         /// </param>
-        public virtual void addValue(sbyte[] attrBytes)
+        public virtual void AddValue(sbyte[] attrBytes)
         {
             if (attrBytes == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
-            add(attrBytes);
+            Add(attrBytes);
         }
 
         /// <summary>
@@ -497,13 +502,13 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The base64 value of the attribute as a String.
         ///     @throws IllegalArgumentException if attrString is null
         /// </param>
-        public virtual void addBase64Value(string attrString)
+        public virtual void AddBase64Value(string attrString)
         {
-            if ((object) attrString == null)
+            if ((object)attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
-            add(Convert.FromBase64String(attrString).ToSByteArray());
+            Add(Convert.FromBase64String(attrString).ToSByteArray());
         }
 
         /// <summary>
@@ -521,13 +526,13 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The end index of base encoded part, exclusive.
         ///     @throws IllegalArgumentException if attrString is null
         /// </param>
-        public virtual void addBase64Value(StringBuilder attrString, int start, int end)
+        public virtual void AddBase64Value(StringBuilder attrString, int start, int end)
         {
             if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
-            add(Convert.FromBase64String(attrString.ToString(start, end)).ToSByteArray());
+            Add(Convert.FromBase64String(attrString.ToString(start, end)).ToSByteArray());
         }
 
         /// <summary>
@@ -540,13 +545,13 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     characters.
         ///     @throws IllegalArgumentException if attrString is null
         /// </param>
-        public virtual void addBase64Value(char[] attrChars)
+        public virtual void AddBase64Value(char[] attrChars)
         {
             if (attrChars == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
-            add(Convert.FromBase64CharArray(attrChars, 0, attrChars.Length).ToSByteArray());
+            Add(Convert.FromBase64CharArray(attrChars, 0, attrChars.Length).ToSByteArray());
         }
 
         /// <summary>
@@ -557,7 +562,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The base name of the attribute.
         /// </returns>
-        public virtual string getBaseName()
+        public virtual string GetBaseName()
         {
             return baseName;
         }
@@ -575,9 +580,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The base name of the attribute.
         ///     @throws IllegalArgumentException if attrName is null
         /// </returns>
-        public static string getBaseName(string attrName)
+        public static string GetBaseName(string attrName)
         {
-            if ((object) attrName == null)
+            if ((object)attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -597,7 +602,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     An array subtypes or null if the attribute has none.
         /// </returns>
-        public virtual string[] getSubtypes()
+        public virtual string[] GetSubtypes()
         {
             return subTypes;
         }
@@ -615,9 +620,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     An array subtypes or null if the attribute has none.
         ///     @throws IllegalArgumentException if attrName is null
         /// </returns>
-        public static string[] getSubtypes(string attrName)
+        public static string[] GetSubtypes(string attrName)
         {
-            if ((object) attrName == null)
+            if ((object)attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -650,9 +655,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     false, if it doesn't.
         ///     @throws IllegalArgumentException if subtype is null
         /// </returns>
-        public virtual bool hasSubtype(string subtype)
+        public virtual bool HasSubtype(string subtype)
         {
-            if ((object) subtype == null)
+            if ((object)subtype == null)
             {
                 throw new ArgumentException("subtype cannot be null");
             }
@@ -683,7 +688,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     @throws IllegalArgumentException if subtypes is null or if array member
         ///     is null.
         /// </returns>
-        public virtual bool hasSubtypes(string[] subtypes)
+        public virtual bool HasSubtypes(string[] subtypes)
         {
             if (subtypes == null)
             {
@@ -693,7 +698,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 for (var j = 0; j < subTypes.Length; j++)
                 {
-                    if ((object) subTypes[j] == null)
+                    if ((object)subTypes[j] == null)
                     {
                         throw new ArgumentException("subtype " + "at array index " + i + " cannot be null");
                     }
@@ -718,9 +723,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     no effect.
         ///     @throws IllegalArgumentException if attrString is null
         /// </param>
-        public virtual void removeValue(string attrString)
+        public virtual void RemoveValue(string attrString)
         {
-            if (null == (object) attrString)
+            if (null == (object)attrString)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
@@ -729,12 +734,10 @@ namespace Unosquare.Swan.Networking.Ldap
                 var encoder = Encoding.UTF8;
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
-                removeValue(sbytes);
-                //				this.removeValue(attrString.getBytes("UTF-8"));
+                RemoveValue(sbytes);
             }
             catch (IOException uee)
             {
-                // This should NEVER happen but just in case ...
                 throw new Exception(uee.ToString());
             }
         }
@@ -750,7 +753,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     no effect.
         ///     @throws IllegalArgumentException if attrBytes is null
         /// </param>
-        public virtual void removeValue(sbyte[] attrBytes)
+        public virtual void RemoveValue(sbyte[] attrBytes)
         {
             if (null == attrBytes)
             {
@@ -758,7 +761,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             for (var i = 0; i < values.Length; i++)
             {
-                if (equals(attrBytes, (sbyte[]) values[i]))
+                if (Equals(attrBytes, (sbyte[])values[i]))
                 {
                     if (0 == i && 1 == values.Length)
                     {
@@ -796,7 +799,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The number of values in the attribute.
         /// </returns>
-        public virtual int size()
+        public virtual int Size()
         {
             return null == values ? 0 : values.Length;
         }
@@ -816,7 +819,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual int CompareTo(object attribute)
         {
-            return name.CompareTo(((LdapAttribute) attribute).name);
+            return name.CompareTo(((LdapAttribute)attribute).name);
         }
 
         /// <summary>
@@ -828,18 +831,18 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     that all data added to our list is in binary form.
         ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
         /// </param>
-        private void add(sbyte[] bytes)
+        private void Add(sbyte[] bytes)
         {
             if (null == values)
             {
-                values = new object[] {bytes};
+                values = new object[] { bytes };
             }
             else
             {
                 // Duplicate attribute values not allowed
                 for (var i = 0; i < values.Length; i++)
                 {
-                    if (equals(bytes, (sbyte[]) values[i]))
+                    if (Equals(bytes, (sbyte[])values[i]))
                     {
                         return; // Duplicate, don't add
                     }
@@ -866,7 +869,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     true if the two arrays are equal
         /// </returns>
-        private bool equals(sbyte[] e1, sbyte[] e2)
+        private bool Equals(sbyte[] e1, sbyte[] e2)
         {
             // If same object, they compare true
             if (e1 == e2)
@@ -888,11 +891,12 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns a string representation of this LdapAttribute
+        /// Returns a string representation of this LdapAttribute
         /// </summary>
         /// <returns>
-        ///     a string representation of this LdapAttribute
+        /// a string representation of this LdapAttribute
         /// </returns>
+        /// <exception cref="Exception"></exception>
         public override string ToString()
         {
             var result = new StringBuilder("LdapAttribute: ");
@@ -916,15 +920,13 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             result.Append("','");
                         }
-                        if (((sbyte[]) values[i]).Length == 0)
+                        if (((sbyte[])values[i]).Length == 0)
                         {
                             continue;
                         }
                         var encoder = Encoding.UTF8;
-                        //						char[] dchar = encoder.GetChars((byte[]) values[i]);
-                        var dchar = encoder.GetChars(((sbyte[]) values[i]).ToByteArray());
+                        var dchar = encoder.GetChars(((sbyte[])values[i]).ToByteArray());
                         var sval = new string(dchar);
-                        //						System.String sval = new String((sbyte[]) values[i], "UTF-8");
                         if (sval.Length == 0)
                         {
                             // didn't decode well, must be binary
@@ -981,13 +983,15 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         private readonly Hashtable map;
 
-        /// <summary> Constructs an empty set of attributes.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttributeSet"/> class.
+        /// Constructs an empty set of attributes.
+        /// </summary>
         public LdapAttributeSet()
         {
             map = new Hashtable();
         }
 
-        // ---  methods not defined in Set ---
         /// <summary>
         ///     Returns a deep copy of this attribute set.
         /// </summary>
@@ -1002,7 +1006,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var i = GetEnumerator();
                 while (i.MoveNext())
                 {
-                    ((LdapAttributeSet) newObj).Add(((LdapAttribute) i.Current).Clone());
+                    ((LdapAttributeSet)newObj).Add(((LdapAttribute)i.Current).Clone());
                 }
                 return newObj;
             }
@@ -1036,9 +1040,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The attribute matching the specified attrName, or <code>null</code>
         ///     if there is no exact match.
         /// </returns>
-        public virtual LdapAttribute getAttribute(string attrName)
+        public virtual LdapAttribute GetAttribute(string attrName)
         {
-            return (LdapAttribute) map[attrName.ToUpper()];
+            return (LdapAttribute)map[attrName.ToUpper()];
         }
 
         /// <summary>
@@ -1103,10 +1107,10 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     A single best-match <code>LdapAttribute</code>, or <code>null</code>
         ///     if no match is found in the entry.
         /// </returns>
-        public virtual LdapAttribute getAttribute(string attrName, string lang)
+        public virtual LdapAttribute GetAttribute(string attrName, string lang)
         {
             var key = attrName + ";" + lang;
-            return (LdapAttribute) map[key.ToUpper()];
+            return (LdapAttribute)map[key.ToUpper()];
         }
 
         /// <summary>
@@ -1146,7 +1150,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     An attribute set containing the attributes that match the
         ///     specified subtype.
         /// </returns>
-        public virtual LdapAttributeSet getSubset(string subtype)
+        public virtual LdapAttributeSet GetSubset(string subtype)
         {
             // Create a new tempAttributeSet
             var tempAttributeSet = new LdapAttributeSet();
@@ -1154,10 +1158,10 @@ namespace Unosquare.Swan.Networking.Ldap
             // Cycle throught this.attributeSet
             while (i.MoveNext())
             {
-                var attr = (LdapAttribute) i.Current;
+                var attr = (LdapAttribute)i.Current;
                 // Does this attribute have the subtype we are looking for. If
                 // yes then add it to our AttributeSet, else next attribute
-                if (attr.hasSubtype(subtype))
+                if (attr.HasSubtype(subtype))
                     tempAttributeSet.Add(attr.Clone());
             }
             return tempAttributeSet;
@@ -1201,7 +1205,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override bool Contains(object attr)
         {
-            var attribute = (LdapAttribute) attr;
+            var attribute = (LdapAttribute)attr;
             return map.ContainsKey(attribute.Name.ToUpper());
         }
 
@@ -1220,8 +1224,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override bool Add(object attr)
         {
-            //We must enforce that attr is an LdapAttribute
-            var attribute = (LdapAttribute) attr;
+            var attribute = (LdapAttribute)attr;
             var name = attribute.Name.ToUpper();
             if (map.ContainsKey(name))
                 return false;
@@ -1230,33 +1233,30 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Removes the specified object from this set if it is present.
-        ///     If the specified object is of type <code>LdapAttribute</code>, the
-        ///     specified attribute will be removed.  If the specified object is of type
-        ///     <code>String</code>, the attribute with a name that matches the string will
-        ///     be removed.
+        /// Removes the specified object from this set if it is present.
+        /// If the specified object is of type <code>LdapAttribute</code>, the
+        /// specified attribute will be removed.  If the specified object is of type
+        /// <code>String</code>, the attribute with a name that matches the string will
+        /// be removed.
         /// </summary>
-        /// <param name="object">
-        ///     LdapAttribute to be removed or <code>String</code> naming
-        ///     the attribute to be removed.
-        /// </param>
+        /// <param name="object_Renamed">The object renamed.</param>
         /// <returns>
-        ///     true if the object was removed.
-        ///     @throws ClassCastException occurs the specified Object
-        ///     is not of type <code>LdapAttribute</code> or of type <code>String</code>.
+        /// true if the object was removed.
+        /// @throws ClassCastException occurs the specified Object
+        /// is not of type <code>LdapAttribute</code> or of type <code>String</code>.
         /// </returns>
         public override bool Remove(object object_Renamed)
         {
-            string attributeName; //the name is the key to object in the HashMap
+            string attributeName;
             if (object_Renamed is string)
             {
-                attributeName = (string) object_Renamed;
+                attributeName = (string)object_Renamed;
             }
             else
             {
-                attributeName = ((LdapAttribute) object_Renamed).Name;
+                attributeName = ((LdapAttribute)object_Renamed).Name;
             }
-            if ((object) attributeName == null)
+            if ((object)attributeName == null)
             {
                 return false;
             }
@@ -1265,7 +1265,9 @@ namespace Unosquare.Swan.Networking.Ldap
             return e != null;
         }
 
-        /// <summary> Removes all of the elements from this set.</summary>
+        /// <summary>
+        /// Removes all of the elements from this set.
+        /// </summary>
         public override void Clear()
         {
             map.Clear();
@@ -1317,7 +1319,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     retValue.Append(" ");
                 }
                 first = false;
-                var attr = (LdapAttribute) attrs.Current;
+                var attr = (LdapAttribute)attrs.Current;
                 retValue.Append(attr);
             }
             return retValue.ToString();
@@ -1352,12 +1354,17 @@ namespace Unosquare.Swan.Networking.Ldap
         protected internal string dn;
         protected internal LdapAttributeSet attrs;
 
-        /// <summary> Constructs an empty entry.</summary>
-        public LdapEntry() : this(null, null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapEntry"/> class.
+        /// Constructs an empty entry.
+        /// </summary>
+        public LdapEntry()
+            : this(null, null)
         {
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapEntry"/> class.
         ///     Constructs a new entry with the specified distinguished name and with
         ///     an empty attribute set.
         /// </summary>
@@ -1366,11 +1373,13 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     value is not validated. An invalid distinguished
         ///     name will cause operations using this entry to fail.
         /// </param>
-        public LdapEntry(string dn) : this(dn, null)
+        public LdapEntry(string dn) 
+            : this(dn, null)
         {
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapEntry"/> class.
         ///     Constructs a new entry with the specified distinguished name and set
         ///     of attributes.
         /// </summary>
@@ -1385,7 +1394,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public LdapEntry(string dn, LdapAttributeSet attrs)
         {
-            if ((object) dn == null)
+            if ((object)dn == null)
             {
                 dn = "";
             }
@@ -1407,9 +1416,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     An array of LdapAttribute objects.
         /// </returns>
-        public virtual LdapAttribute getAttribute(string attrName)
+        public virtual LdapAttribute GetAttribute(string attrName)
         {
-            return attrs.getAttribute(attrName);
+            return attrs.GetAttribute(attrName);
         }
 
         /// <summary>
@@ -1421,7 +1430,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The attribute set of the entry.
         /// </returns>
-        public virtual LdapAttributeSet getAttributeSet()
+        public virtual LdapAttributeSet GetAttributeSet()
         {
             return attrs;
         }
@@ -1448,9 +1457,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     match the specified subtypes or an empty set if no attributes
         ///     match.
         /// </returns>
-        public virtual LdapAttributeSet getAttributeSet(string subtype)
+        public virtual LdapAttributeSet GetAttributeSet(string subtype)
         {
-            return attrs.getSubset(subtype);
+            return attrs.GetSubset(subtype);
         }
     }
 
@@ -1475,21 +1484,21 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (entry == null)
                 {
                     var attrs = new LdapAttributeSet();
-                    var attrList = ((RfcSearchResultEntry) message.Response).Attributes;
+                    var attrList = ((RfcSearchResultEntry)message.Response).Attributes;
                     var seqArray = attrList.ToArray();
                     for (var i = 0; i < seqArray.Length; i++)
                     {
-                        var seq = (Asn1Sequence) seqArray[i];
-                        var attr = new LdapAttribute(((Asn1OctetString) seq.Get(0)).StringValue());
-                        var Set = (Asn1Set) seq.Get(1);
+                        var seq = (Asn1Sequence)seqArray[i];
+                        var attr = new LdapAttribute(((Asn1OctetString)seq.Get(0)).StringValue());
+                        var Set = (Asn1Set)seq.Get(1);
                         object[] setArray = Set.ToArray();
                         for (var j = 0; j < setArray.Length; j++)
                         {
-                            attr.addValue(((Asn1OctetString) setArray[j]).ByteValue());
+                            attr.AddValue(((Asn1OctetString)setArray[j]).ByteValue());
                         }
                         attrs.Add(attr);
                     }
-                    entry = new LdapEntry(((RfcSearchResultEntry) message.Response).ObjectName.StringValue(), attrs);
+                    entry = new LdapEntry(((RfcSearchResultEntry)message.Response).ObjectName.StringValue(), attrs);
                 }
                 return entry;
             }
@@ -1498,6 +1507,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private LdapEntry entry;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
         /// Constructs an LdapSearchResult object.
         /// </summary>
         /// <param name="message">The RfcLdapMessage with a search result.</param>
@@ -1507,6 +1517,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
         /// Constructs an LdapSearchResult object from an LdapEntry.
         /// </summary>
         /// <param name="entry">the LdapEntry represented by this search result.</param>
@@ -1546,6 +1557,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private sbyte[] vals;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapExtendedOperation"/> class.
         /// Constructs a new object with the specified object ID and data.
         /// </summary>
         /// <param name="oid">The unique identifier of the operation.</param>
@@ -1567,8 +1579,7 @@ namespace Unosquare.Swan.Networking.Ldap
             try
             {
                 var newObj = MemberwiseClone();
-                //				Array.Copy((System.Array)SupportClass.ToByteArray( this.vals), 0, (System.Array)SupportClass.ToByteArray( ((LdapExtendedOperation) newObj).vals), 0, this.vals.Length);
-                Array.Copy(vals, 0, ((LdapExtendedOperation) newObj).vals, 0, vals.Length);
+                Array.Copy(vals, 0, ((LdapExtendedOperation)newObj).vals, 0, vals.Length);
                 return newObj;
             }
             catch (Exception ce)
@@ -1583,7 +1594,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The OID (object ID) of the operation.
         /// </returns>
-        public virtual string getID()
+        public virtual string GetID()
         {
             return oid;
         }
@@ -1594,7 +1605,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The operation-specific data.
         /// </returns>
-        public virtual sbyte[] getValue()
+        public virtual sbyte[] GetValue()
         {
             return vals;
         }
@@ -1605,7 +1616,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="newVals">
         ///     The byte array of operation-specific data.
         /// </param>
-        protected internal virtual void setValue(sbyte[] newVals)
+        protected internal virtual void SetValue(sbyte[] newVals)
         {
             vals = newVals;
         }
@@ -1616,7 +1627,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="newoid">
         ///     The new OID for the operation
         /// </param>
-        protected internal virtual void setID(string newoid)
+        protected internal virtual void SetID(string newoid)
         {
             oid = newoid;
         }
@@ -1630,20 +1641,25 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcSearchResultReference : Asn1SequenceOf
     {
-        // Constructors for SearchResultReference
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcSearchResultReference"/> class.
         /// The only time a client will create a SearchResultReference is when it is
         /// decoding it from an InputStream
         /// </summary>
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultReference(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        public RfcSearchResultReference(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
         {
         }
 
-        // Accessors
-        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+        /// <summary>
+        /// Override getIdentifier to return an application-wide id.
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESULT_REFERENCE);
@@ -1653,15 +1669,18 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary> Represnts an Ldap String.</summary>
     internal class RfcLdapString : Asn1OctetString
     {
-        public RfcLdapString(string s) : base(s)
+        public RfcLdapString(string s) 
+            : base(s)
         {
         }
 
-        public RfcLdapString(sbyte[] ba) : base(ba)
+        public RfcLdapString(sbyte[] ba)
+            : base(ba)
         {
         }
 
-        public RfcLdapString(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        public RfcLdapString(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
         {
         }
     }
@@ -1674,7 +1693,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcLdapDN : RfcLdapString
     {
-        // Constructors for RfcLdapDN
         public RfcLdapDN(string s)
             : base(s)
         {
@@ -1699,12 +1717,12 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         public virtual RfcLdapOID ResponseName
         {
-            get { return responseNameIndex != 0 ? (RfcLdapOID) Get(responseNameIndex) : null; }
+            get { return responseNameIndex != 0 ? (RfcLdapOID)Get(responseNameIndex) : null; }
         }
 
         public virtual Asn1OctetString Response
         {
-            get { return responseIndex != 0 ? (Asn1OctetString) Get(responseIndex) : null; }
+            get { return responseIndex != 0 ? (Asn1OctetString)Get(responseIndex) : null; }
         }
 
         /// <summary> Context-specific TAG for optional responseName.</summary>
@@ -1718,31 +1736,32 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly int responseIndex;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcExtendedResponse"/> class.
         /// The only time a client will create a ExtendedResponse is when it is
         /// decoding it from an InputStream
         /// </summary>
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcExtendedResponse(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        public RfcExtendedResponse(Asn1Decoder dec, Stream in_Renamed, int len) 
+            : base(dec, in_Renamed, len)
         {
-            // decode optional tagged elements
             if (Size() > 3)
             {
                 for (var i = 3; i < Size(); i++)
                 {
-                    var obj = (Asn1Tagged) Get(i);
+                    var obj = (Asn1Tagged)Get(i);
                     var id = obj.GetIdentifier();
                     switch (id.Tag)
                     {
                         case RfcLdapResult.REFERRAL:
-                            var content = ((Asn1OctetString) obj.taggedValue()).ByteValue();
+                            var content = ((Asn1OctetString)obj.taggedValue()).ByteValue();
                             var bais = new MemoryStream(content.ToByteArray());
                             Set(i, new Asn1SequenceOf(dec, bais, content.Length));
                             referralIndex = i;
                             break;
                         case RESPONSE_NAME:
-                            Set(i, new RfcLdapOID(((Asn1OctetString) obj.taggedValue()).ByteValue()));
+                            Set(i, new RfcLdapOID(((Asn1OctetString)obj.taggedValue()).ByteValue()));
                             responseNameIndex = i;
                             break;
                         case RESPONSE:
@@ -1755,27 +1774,32 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         // Accessors
-        public Asn1Enumerated getResultCode()
+        public Asn1Enumerated GetResultCode()
         {
-            return (Asn1Enumerated) Get(0);
+            return (Asn1Enumerated)Get(0);
         }
 
-        public RfcLdapDN getMatchedDN()
+        public RfcLdapDN GetMatchedDN()
         {
-            return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
+            return new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
         }
 
-        public RfcLdapString getErrorMessage()
+        public RfcLdapString GetErrorMessage()
         {
-            return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+            return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
         }
 
-        public Asn1SequenceOf getReferral()
+        public Asn1SequenceOf GetReferral()
         {
-            return referralIndex != 0 ? (Asn1SequenceOf) Get(referralIndex) : null;
+            return referralIndex != 0 ? (Asn1SequenceOf)Get(referralIndex) : null;
         }
 
-        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+        /// <summary>
+        /// Override getIdentifier to return an application-wide id.
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.EXTENDED_RESPONSE);
@@ -1801,13 +1825,13 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 if (Size() == 5)
-                    return (Asn1OctetString) ((Asn1Tagged) Get(4)).taggedValue();
+                    return (Asn1OctetString)((Asn1Tagged)Get(4)).taggedValue();
                 if (Size() == 4)
                 {
                     // could be referral or serverSaslCreds
                     var obj = Get(3);
                     if (obj is Asn1Tagged)
-                        return (Asn1OctetString) ((Asn1Tagged) obj).taggedValue();
+                        return (Asn1OctetString)((Asn1Tagged)obj).taggedValue();
                 }
                 return null;
             }
@@ -1815,6 +1839,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         // Constructors for BindResponse
         /// <summary>
+        /// Initializes a new instance of the <see cref="RfcBindResponse"/> class.
         /// The only time a client will create a BindResponse is when it is
         /// decoding it from an InputStream
         /// Note: If serverSaslCreds is included in the BindResponse, it does not
@@ -1829,11 +1854,11 @@ namespace Unosquare.Swan.Networking.Ldap
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
             {
-                var obj = (Asn1Tagged) Get(3);
+                var obj = (Asn1Tagged)Get(3);
                 var id = obj.GetIdentifier();
                 if (id.Tag == RfcLdapResult.REFERRAL)
                 {
-                    var content = ((Asn1OctetString) obj.taggedValue()).ByteValue();
+                    var content = ((Asn1OctetString)obj.taggedValue()).ByteValue();
                     var bais = new MemoryStream(content.ToByteArray());
                     Set(3, new Asn1SequenceOf(dec, bais, content.Length));
                 }
@@ -1841,28 +1866,28 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         // Accessors
-        public Asn1Enumerated getResultCode()
+        public Asn1Enumerated GetResultCode()
         {
-            return (Asn1Enumerated) Get(0);
+            return (Asn1Enumerated)Get(0);
         }
 
-        public RfcLdapDN getMatchedDN()
+        public RfcLdapDN GetMatchedDN()
         {
-            return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
+            return new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
         }
 
-        public RfcLdapString getErrorMessage()
+        public RfcLdapString GetErrorMessage()
         {
-            return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+            return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
         }
 
-        public Asn1SequenceOf getReferral()
+        public Asn1SequenceOf GetReferral()
         {
             if (Size() > 3)
             {
                 var obj = Get(3);
                 if (obj is Asn1SequenceOf)
-                    return (Asn1SequenceOf) obj;
+                    return (Asn1SequenceOf)obj;
             }
             return null;
         }
@@ -1885,18 +1910,12 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcIntermediateResponse : Asn1Sequence, RfcResponse
     {
-        /**
-         * Context-specific TAG for optional responseName.
-         */
         public const int TAG_RESPONSE_NAME = 0;
-        /**
-         * Context-specific TAG for optional response.
-         */
         public const int TAG_RESPONSE = 1;
         private int m_referralIndex;
         private readonly int m_responseNameIndex;
         private readonly int m_responseValueIndex;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcIntermediateResponse"/> class.
         /// </summary>
@@ -1906,25 +1925,20 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcIntermediateResponse(Asn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
-            //		super(dec, in, len);
             var i = 0;
             m_responseNameIndex = m_responseValueIndex = 0;
-            // decode optional tagged elements. The parent class constructor will
-            // have decoded these elements as ASN1Tagged objects with the value
-            // stored as an ASN1OctectString object.
-            if (Size() >= 3) //the incorrectly encoded case, LDAPResult contains 
-                i = 3; //at least 3 components
+            if (Size() >= 3)
+                i = 3;
             else
-                i = 0; //correctly encoded case, can have zero components
+                i = 0; 
             for (; i < Size(); i++)
             {
-                var obj = (Asn1Tagged) Get(i);
+                var obj = (Asn1Tagged)Get(i);
                 var id = obj.GetIdentifier();
                 switch (id.Tag)
                 {
                     case TAG_RESPONSE_NAME:
-                        Set(i, new RfcLdapOID(
-                            ((Asn1OctetString) obj.taggedValue()).ByteValue()));
+                        Set(i, new RfcLdapOID(((Asn1OctetString)obj.taggedValue()).ByteValue()));
                         m_responseNameIndex = i;
                         break;
                     case TAG_RESPONSE:
@@ -1935,43 +1949,43 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        public Asn1Enumerated getResultCode()
+        public Asn1Enumerated GetResultCode()
         {
             if (Size() > 3)
-                return (Asn1Enumerated) Get(0);
+                return (Asn1Enumerated)Get(0);
             return null;
         }
 
-        public RfcLdapDN getMatchedDN()
+        public RfcLdapDN GetMatchedDN()
         {
             if (Size() > 3)
-                return new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
+                return new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
             return null;
         }
 
-        public RfcLdapString getErrorMessage()
+        public RfcLdapString GetErrorMessage()
         {
             if (Size() > 3)
-                return new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+                return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
             return null;
         }
 
-        public Asn1SequenceOf getReferral()
+        public Asn1SequenceOf GetReferral()
         {
-            return Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
+            return Size() > 3 ? (Asn1SequenceOf)Get(3) : null;
         }
 
         public RfcLdapOID getResponseName()
         {
             return m_responseNameIndex >= 0
-                ? (RfcLdapOID) Get(m_responseNameIndex)
+                ? (RfcLdapOID)Get(m_responseNameIndex)
                 : null;
         }
 
         public Asn1OctetString getResponse()
         {
             return m_responseValueIndex != 0
-                ? (Asn1OctetString) Get(m_responseValueIndex)
+                ? (Asn1OctetString)Get(m_responseValueIndex)
                 : null;
         }
 
@@ -1985,8 +1999,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, true,
-                LdapMessage.INTERMEDIATE_RESPONSE);
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.INTERMEDIATE_RESPONSE);
         }
     }
 }

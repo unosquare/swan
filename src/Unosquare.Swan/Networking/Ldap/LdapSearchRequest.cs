@@ -1,8 +1,7 @@
 ﻿#if !UWP
-using System.Collections;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System.Collections;
     /// <summary>
     ///     Represents an Ldap Search request.
     /// </summary>
@@ -92,7 +91,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     filter string for this search request
         /// </returns>
-        public virtual string StringFilter => RfcFilter.filterToString();
+        public virtual string StringFilter => RfcFilter.FilterToString();
 
         /// <summary> Retrieves an SearchFilter object representing a filter for a search request</summary>
         /// <returns>
@@ -148,7 +147,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Iterator representing filter components
         /// </returns>
-        public virtual IEnumerator SearchFilter => RfcFilter.getFilterIterator();
+        public virtual IEnumerator SearchFilter => RfcFilter.GetFilterIterator();
 
         // Public variables for Filter
         /// <summary> Search Filter Identifier for an AND component.</summary>
@@ -232,17 +231,21 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or null if none.</param>
         /// <seealso cref="LdapConnection.Search"></seealso>
         /// <seealso cref="LdapSearchConstraints"></seealso>
-        public LdapSearchRequest(string ldapBase, int scope, string filter, string[] attrs, int dereference,
-            int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)
-            : base(
-                SEARCH_REQUEST,
-                new RfcSearchRequest(new RfcLdapDN(ldapBase), new Asn1Enumerated(scope),
-                    new Asn1Enumerated(dereference), new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit),
-                    new Asn1Boolean(typesOnly), new RfcFilter(filter), new RfcAttributeDescriptionList(attrs)), cont)
+        public LdapSearchRequest(string ldapBase,
+            int scope, 
+            string filter, 
+            string[] attrs, 
+            int dereference,
+            int maxResults, 
+            int serverTimeLimit, 
+            bool typesOnly, 
+            LdapControl[] cont)
+            : base(SEARCH_REQUEST, new RfcSearchRequest(new RfcLdapDN(ldapBase), new Asn1Enumerated(scope), new Asn1Enumerated(dereference), new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit), new Asn1Boolean(typesOnly), new RfcFilter(filter), new RfcAttributeDescriptionList(attrs)), cont)
         {
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapSearchRequest"/> class.
         /// Constructs an Ldap Search Request with a filter in Asn1 format.
         /// </summary>
         /// <param name="base_Renamed">The base renamed.</param>
@@ -275,13 +278,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or null if none.</param>
         /// <seealso cref="LdapConnection.Search"></seealso>
         /// <seealso cref="LdapSearchConstraints"></seealso>
-        public LdapSearchRequest(string base_Renamed, int scope, RfcFilter filter, string[] attrs, int dereference,
-            int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)
+        public LdapSearchRequest(string base_Renamed, int scope, RfcFilter filter, string[] attrs, int dereference, int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)
             : base(
                 SEARCH_REQUEST,
-                new RfcSearchRequest(new RfcLdapDN(base_Renamed), new Asn1Enumerated(scope),
-                    new Asn1Enumerated(dereference), new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit),
-                    new Asn1Boolean(typesOnly), filter, new RfcAttributeDescriptionList(attrs)), cont)
+                new RfcSearchRequest(new RfcLdapDN(base_Renamed), new Asn1Enumerated(scope), new Asn1Enumerated(dereference), new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit), new Asn1Boolean(typesOnly), filter, new RfcAttributeDescriptionList(attrs)), cont)
         {
         }
     }
