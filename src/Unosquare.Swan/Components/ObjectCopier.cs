@@ -79,7 +79,7 @@
                     if (targetProperty.PropertyType == sourceProperty.PropertyType)
                     {
                         // If is Enum (PropertyType.IsEnum doesn´t exist)
-                        if (sourceProperty.PropertyType.BaseType().Name.ToLower() == "enum")
+                        if (sourceProperty.PropertyType.GetTypeInfo().IsEnum)
                         {
                             targetProperty.SetValue(target, Enum.ToObject(targetProperty.PropertyType, sourceProperty.GetValue(source)));
                             continue;
