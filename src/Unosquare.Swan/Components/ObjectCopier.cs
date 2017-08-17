@@ -78,6 +78,12 @@
                     // Direct Copy
                     if (targetProperty.PropertyType == sourceProperty.PropertyType)
                     {
+                        if (sourceProperty.PropertyType.GetTypeInfo().IsEnum)
+                        {
+                            targetProperty.SetValue(target, Enum.ToObject(targetProperty.PropertyType, sourceProperty.GetValue(source)));
+                            continue;
+                        }
+
                         targetProperty.SetValue(target, sourceProperty.GetValue(source));
                         copiedProperties++;
                         continue;

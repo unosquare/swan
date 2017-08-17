@@ -105,5 +105,17 @@ namespace Unosquare.Swan.Test
             var result = action.Retry();
             Assert.AreEqual(3, result);
         }
+
+        [Test]
+        public void CopyEnum()
+        {
+            var source = new ObjectEnum();
+            source.Id = 1;
+            source.MyEnum = MyEnum.Two;
+            var result = source.CopyOnlyPropertiesToNew<ObjectEnum>();
+            source.MyEnum.ToString().Info(nameof(ExtensionsTest));
+            result.MyEnum.ToString().Info(nameof(ExtensionsTest));
+            Assert.AreEqual(source.MyEnum, result.MyEnum);
+        }
     }
 }
