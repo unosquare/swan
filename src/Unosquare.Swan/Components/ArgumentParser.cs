@@ -13,34 +13,8 @@
     public class ArgumentParser
     {
         private const char Dash = '-';
-        
+
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
-
-        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
-        {
-            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
-        }
-       
-        private static void WriteUsage(IEnumerable<PropertyInfo> properties)
-        {
-            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
-
-            foreach (var option in options)
-            {
-                string.Empty.WriteLine();
-                
-                // TODO: If Enum list values
-                var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
-                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
-                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
-                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
-
-                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
-            }
-
-            string.Empty.WriteLine();
-            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
@@ -136,7 +110,7 @@
             {
                 unknownList.Add(propertyName);
             }
-            
+
             foreach (var targetProperty in properties.Except(updatedList))
             {
                 var defaultValue = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>()?.DefaultValue;
@@ -163,8 +137,8 @@
             if ((Settings.IgnoreUnknownArguments || !unknownList.Any()) && !requiredList.Any()) return true;
 
 #if !NETSTANDARD1_3 && !UWP
-                if (Settings.WriteBanner)
-                    Runtime.WriteWelcomeBanner();
+            if (Settings.WriteBanner)
+                Runtime.WriteWelcomeBanner();
 #endif
 
             WriteUsage(properties);
@@ -177,7 +151,59 @@
 
             return false;
         }
-        
+
+        private static void SetCollectionValue<T>(
+            PropertyInfo targetProperty,
+            string propertyValueString,
+            T result,
+            ArgumentOptionAttribute optionAttr)
+        {
+            var itemType = targetProperty.PropertyType.GetElementType();
+            var primitiveValue = Definitions.AllBasicTypes.Contains(itemType);
+            var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
+
+            var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
+
+            var i = 0;
+            foreach (var value in propertyArrayValue)
+            {
+                if (primitiveValue)
+                {
+                    if (Definitions.BasicTypesInfo[itemType].TryParse(value, out object itemvalue))
+                        arr.SetValue(itemvalue, i++);
+                }
+                else
+                {
+                    arr.SetValue(value, i++);
+                }
+            }
+
+            targetProperty.SetValue(result, arr);
+        }
+
+        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type) => TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+
+        private static void WriteUsage(IEnumerable<PropertyInfo> properties)
+        {
+            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
+
+            foreach (var option in options)
+            {
+                string.Empty.WriteLine();
+
+                // TODO: If Enum list values
+                var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
+                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
+                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
+                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
+
+                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
+            }
+
+            string.Empty.WriteLine();
+            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
+        }
+
         private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
             try
@@ -190,7 +216,7 @@
                 if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
                 {
                     var parsedValue = Enum.Parse(
-                        targetProperty.PropertyType, 
+                        targetProperty.PropertyType,
                         propertyValueString,
                         Settings.CaseInsensitiveEnumValues);
                     targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
@@ -200,35 +226,13 @@
 
                 if (targetProperty.PropertyType.IsCollection())
                 {
-                    var itemType = targetProperty.PropertyType.GetElementType();
-                    var primitiveValue = Definitions.AllBasicTypes.Contains(itemType);
-                    var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
-
-                    var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
-
-                    var i = 0;
-                    foreach (var value in propertyArrayValue)
-                    {
-                        if (primitiveValue)
-                        {
-                            object itemvalue;
-                            if (Definitions.BasicTypesInfo[itemType].TryParse(value, out itemvalue))
-                                arr.SetValue(itemvalue, i++);
-                        }
-                        else
-                        {
-                            arr.SetValue(value, i++);
-                        }
-                    }
-
-                    targetProperty.SetValue(result, arr);
+                    SetCollectionValue(targetProperty, propertyValueString, result, optionAttr);
 
                     return true;
                 }
 
-                object propertyValue;
                 if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyValueString,
-                    out propertyValue))
+                    out object propertyValue))
                 {
                     targetProperty.SetValue(result, propertyValue);
                     return true;

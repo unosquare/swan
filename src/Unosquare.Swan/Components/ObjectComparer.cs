@@ -16,6 +16,72 @@
         private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
         private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
 
+        /// <summary>
+        /// Compare if two variables of the same type are equal.
+        /// </summary>
+        /// <typeparam name="T">The type of instance to compare</typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
+        public static bool AreEqual<T>(T left, T right) => AreEqual(left, right, typeof(T));
+
+        /// <summary>
+        /// Compare if two objects of the same type are equal.
+        /// </summary>
+        /// <typeparam name="T">The type of object to compare</typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>True if two specified objects are equal; otherwise, false</returns>
+        public static bool AreObjectsEqual<T>(T left, T right)
+            where T : class
+        {
+            return AreObjectsEqual(left, right, typeof(T));
+        }
+
+        /// <summary>
+        /// Compare if two structures of the same type are equal.
+        /// </summary>
+        /// <typeparam name="T">The type of struct to compare</typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
+        public static bool AreStructsEqual<T>(T left, T right)
+            where T : struct
+        {
+            return AreStructsEqual(left, right, typeof(T));
+        }
+
+        /// <summary>
+        /// Compare if two enumerables are equal.
+        /// </summary>
+        /// <typeparam name="T">The type of enum to compare</typeparam>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>True if two specified types are equal; otherwise, false</returns>
+        public static bool AreEnumsEqual<T>(T left, T right)
+            where T : IEnumerable
+        {
+            var leftEnumerable = left.Cast<object>().ToArray();
+            var rightEnumerable = right.Cast<object>().ToArray();
+
+            if (leftEnumerable.Length != rightEnumerable.Length)
+                return false;
+
+            for (var i = 0; i < leftEnumerable.Count(); i++)
+            {
+                var leftEl = leftEnumerable[i];
+                var rightEl = rightEnumerable[i];
+                var targetType = leftEl.GetType();
+
+                if (AreEqual(leftEl, rightEl, targetType) == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         #region Private API
 
         /// <summary>
@@ -50,7 +116,7 @@
                 {
                     var leftObj = targetPropertyGetMethod.Invoke(left, null) as IEnumerable;
                     var rightObj = targetPropertyGetMethod.Invoke(right, null) as IEnumerable;
-                    
+
                     if (AreEnumsEqual(leftObj, rightObj) == false)
                         return false;
                 }
@@ -61,7 +127,7 @@
                 }
             }
 
-            return true;            
+            return true;
         }
 
         private static bool AreStructsEqual(object left, object right, Type targetType)
@@ -71,9 +137,7 @@
 
             foreach (var targetMember in fields)
             {
-                var targetField = targetMember as FieldInfo;
-
-                if (targetField != null)
+                if (targetMember is FieldInfo targetField)
                 {
                     if (Equals(targetField.GetValue(left), targetField.GetValue(right)) == false)
                         return false;
@@ -83,7 +147,8 @@
                     var targetPropertyGetMethod = (targetMember as PropertyInfo)?.GetGetMethod();
 
                     if (targetPropertyGetMethod != null &&
-                        Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) == false)
+                        Equals(targetPropertyGetMethod.Invoke(left, null), targetPropertyGetMethod.Invoke(right, null)) ==
+                        false)
                         return false;
                 }
             }
@@ -103,71 +168,5 @@
         }
 
         #endregion
-
-        /// <summary>
-        /// Compare if two variables of the same type are equal.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>True if two specified types are equal; otherwise, false</returns>
-        public static bool AreEqual<T>(T left, T right) => AreEqual(left, right, typeof(T));
-
-        /// <summary>
-        /// Compare if two objects of the same type are equal.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>True if two specified objects are equal; otherwise, false</returns>
-        public static bool AreObjectsEqual<T>(T left, T right) 
-            where T : class
-        {
-            return AreObjectsEqual(left, right, typeof(T));
-        }
-
-        /// <summary>
-        /// Compare if two structures of the same type are equal.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>True if two specified types are equal; otherwise, false</returns>
-        public static bool AreStructsEqual<T>(T left, T right) 
-            where T : struct
-        {
-            return AreStructsEqual(left, right, typeof(T));
-        }
-
-        /// <summary>
-        /// Compare if two enumerables are equal.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>True if two specified types are equal; otherwise, false</returns>
-        public static bool AreEnumsEqual<T>(T left, T right) 
-            where T : IEnumerable
-        {
-            var leftEnumerable = left.Cast<object>().ToArray();
-            var rightEnumerable = right.Cast<object>().ToArray();
-
-            if (leftEnumerable.Count() != rightEnumerable.Count())
-                return false;
-
-            for (var i = 0; i < leftEnumerable.Count(); i++)
-            {
-                var leftEl = leftEnumerable[i];
-                var rightEl = rightEnumerable[i];
-                var targetType = leftEl.GetType();
-
-                if (AreEqual(leftEl, rightEl, targetType) == false)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }

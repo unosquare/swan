@@ -7,9 +7,6 @@
     <AssemblyName>Unosquare.Swan.AspNetCore.Sample</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Unosquare.Swan.AspNetCore.Sample</PackageId>
-    <RuntimeIdentifiers>win7-x64</RuntimeIdentifiers>
-    <RuntimeFrameworkVersion>1.1.2</RuntimeFrameworkVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>

@@ -13,20 +13,6 @@
     /// </summary>
     public class ObjectMapper
     {
-        internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
-        {
-            public bool Equals(PropertyInfo x, PropertyInfo y)
-            {
-                // TODO: Include mapping matcher and types proximity
-                return x.Name == y.Name && x.PropertyType == y.PropertyType;
-            }
-
-            public int GetHashCode(PropertyInfo obj)
-            {
-                return obj.Name.GetHashCode() + obj.PropertyType.Name.GetHashCode();
-            }
-        }
-
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
         private readonly List<IObjectMap> _maps = new List<IObjectMap>();
 
@@ -116,6 +102,20 @@
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
         {
             return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+        }
+
+        internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
+        {
+            public bool Equals(PropertyInfo x, PropertyInfo y)
+            {
+                // TODO: Include mapping matcher and types proximity
+                return x.Name == y.Name && x.PropertyType == y.PropertyType;
+            }
+
+            public int GetHashCode(PropertyInfo obj)
+            {
+                return obj.Name.GetHashCode() + obj.PropertyType.Name.GetHashCode();
+            }
         }
     }
 

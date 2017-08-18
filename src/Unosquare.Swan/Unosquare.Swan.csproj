@@ -4,7 +4,7 @@
     <Description>Class library with Stuff We All Need</Description>
     <Copyright>Copyright (c) 2016-2017 - Unosquare</Copyright>
     <AssemblyTitle>Unosquare SWAN</AssemblyTitle>
-    <VersionPrefix>0.14.11</VersionPrefix>
+    <VersionPrefix>0.15.0</VersionPrefix>
     <TargetFrameworks>netstandard1.6;netstandard1.3;net452;uap10.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Unosquare.Swan</AssemblyName>
