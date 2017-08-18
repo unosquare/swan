@@ -902,7 +902,7 @@ namespace Unosquare.Swan.Networking.Ldap
             else
             {
                 var topOfStack = (Asn1Tagged) filterStack.Peek();
-                var value_Renamed = topOfStack.taggedValue();
+                var value_Renamed = topOfStack.TaggedValue;
                 if (value_Renamed == null)
                 {
                     topOfStack.TaggedValue = current;
@@ -922,6 +922,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         LdapException.FILTER_ERROR);
                 }
             }
+
             var type = current.GetIdentifier().Tag;
             if (type == AND || type == OR || type == NOT)
             {
@@ -978,21 +979,25 @@ namespace Unosquare.Swan.Networking.Ldap
                     throw new LdapLocalException("Attempt to add an invalid " + "substring type",
                         LdapException.FILTER_ERROR);
                 }
+
                 if (type == INITIAL && substringSeq.Size() != 0)
                 {
                     throw new LdapLocalException(
                         "Attempt to add an initial " + "substring match after the first substring",
                         LdapException.FILTER_ERROR);
                 }
+
                 if (finalFound)
                 {
                     throw new LdapLocalException("Attempt to add a substring " + "match after a final substring match",
                         LdapException.FILTER_ERROR);
                 }
+
                 if (type == FINAL)
                 {
                     finalFound = true;
                 }
+
                 substringSeq.Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, type),
                     new RfcLdapString(value_Renamed), false));
             }
@@ -1325,7 +1330,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
                     else
                     {
-                        var asn1 = root.taggedValue();
+                        var asn1 = root.TaggedValue;
                         if (asn1 is RfcLdapString)
                         {
                             //one value to iterate
@@ -1354,7 +1359,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                 //return substring value
                                 var substrs = (Asn1SequenceOf) sub.Get(1);
                                 var tag = (Asn1Tagged) substrs.Get(Index / 2);
-                                var value_Renamed = (RfcLdapString) tag.taggedValue();
+                                var value_Renamed = (RfcLdapString) tag.TaggedValue;
                                 toReturn = value_Renamed.StringValue();
                                 Index++;
                             }
@@ -1388,7 +1393,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                 Index = 0;
                             }
                             toReturn =
-                                ((Asn1OctetString) ((Asn1Tagged) exMatch.Get(Index++)).taggedValue())
+                                ((Asn1OctetString) ((Asn1Tagged) exMatch.Get(Index++)).TaggedValue)
                                 .StringValue();
                             if (Index > 2)
                             {

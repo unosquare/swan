@@ -29,8 +29,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Decoder" />
-    internal class LBERDecoder : Asn1Decoder
+    /// <seealso cref="IAsn1Decoder" />
+    internal class LBERDecoder : IAsn1Decoder
     {
         public LBERDecoder()
         {
@@ -48,14 +48,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="value_Renamed">The value renamed.</param>
         /// <returns>Decoded Asn1Object</returns>
-        public virtual Asn1Object decode(sbyte[] value_Renamed)
+        public virtual Asn1Object Decode(sbyte[] value_Renamed)
         {
             Asn1Object asn1 = null;
 
             var stream = new MemoryStream(value_Renamed.ToByteArray());
             try
             {
-                asn1 = decode(stream);
+                asn1 = Decode(stream);
             }
             catch (IOException)
             {
@@ -71,10 +71,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Decoded Asn1Object
         /// </returns>
-        public virtual Asn1Object decode(Stream stream)
+        public virtual Asn1Object Decode(Stream stream)
         {
             var len = new int[1];
-            return decode(stream, len);
+            return Decode(stream, len);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded Asn1Obect
         /// </returns>
         /// <exception cref="EndOfStreamException">Unknown tag</exception>
-        public virtual Asn1Object decode(Stream stream, int[] len)
+        public virtual Asn1Object Decode(Stream stream, int[] len)
         {
             asn1ID.Reset(stream);
             asn1Len.Reset(stream);
@@ -98,38 +98,35 @@ namespace Unosquare.Swan.Networking.Ldap
             var length = asn1Len.Length;
             len[0] = asn1ID.EncodedLength + asn1Len.EncodedLength + length;
 
-            if (asn1ID.Universal)
+            if (asn1ID.Universal == false)
+                return new Asn1Tagged(this, stream, length, (Asn1Identifier) asn1ID.Clone());
+
+            switch (asn1ID.Tag)
             {
-                switch (asn1ID.Tag)
-                {
-                    case Asn1Sequence.TAG:
-                        return new Asn1Sequence(this, stream, length);
+                case Asn1Sequence.TAG:
+                    return new Asn1Sequence(this, stream, length);
 
-                    case Asn1Set.TAG:
-                        return new Asn1Set(this, stream, length);
+                case Asn1Set.TAG:
+                    return new Asn1Set(this, stream, length);
 
-                    case Asn1Boolean.TAG:
-                        return new Asn1Boolean(this, stream, length);
+                case Asn1Boolean.TAG:
+                    return new Asn1Boolean(this, stream, length);
 
-                    case Asn1Integer.TAG:
-                        return new Asn1Integer(this, stream, length);
+                case Asn1Integer.TAG:
+                    return new Asn1Integer(this, stream, length);
 
-                    case Asn1OctetString.TAG:
-                        return new Asn1OctetString(this, stream, length);
+                case Asn1OctetString.TAG:
+                    return new Asn1OctetString(this, stream, length);
 
-                    case Asn1Enumerated.TAG:
-                        return new Asn1Enumerated(this, stream, length);
+                case Asn1Enumerated.TAG:
+                    return new Asn1Enumerated(this, stream, length);
 
-                    case Asn1Null.TAG:
-                        return new Asn1Null(); // has no content to decode.
+                case Asn1Null.TAG:
+                    return new Asn1Null(); // has no content to decode.
 
-                    default:
-                        throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
-                }
+                default:
+                    throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
             }
-
-            // APPLICATION or CONTEXT-SPECIFIC tag
-            return new Asn1Tagged(this, stream, length, (Asn1Identifier)asn1ID.Clone());
         }
 
         /// <summary>
@@ -141,7 +138,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded boolean object
         /// </returns>
         /// <exception cref="EndOfStreamException">LBER: BOOLEAN: decode error: EOF</exception>
-        public object decodeBoolean(Stream stream, int len)
+        public object DecodeBoolean(Stream stream, int len)
         {
             var lber = new sbyte[len];
 
@@ -167,7 +164,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or
         /// LBER: NUMERIC: decode error: EOF
         /// </exception>
-        public object decodeNumeric(Stream stream, int len)
+        public object DecodeNumeric(Stream stream, int len)
         {
             long l = 0;
             var r = stream.ReadByte();
@@ -190,6 +187,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     throw new EndOfStreamException("LBER: NUMERIC: decode error: EOF");
                 l = (l << 8) | r;
             }
+
             return l;
         }
 
@@ -199,7 +197,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream</param>
         /// <param name="len">Length in bytes</param>
         /// <returns>Decoded octet </returns>
-        public object decodeOctetString(Stream stream, int len)
+        public object DecodeOctetString(Stream stream, int len)
         {
             var octets = new sbyte[len];
             var totalLen = 0;
@@ -221,7 +219,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="len">Length in bytes</param>
         /// <returns>Decoded character string</returns>
         /// <exception cref="EndOfStreamException">LBER: CHARACTER STRING: decode error: EOF</exception>
-        public object decodeCharacterString(Stream stream, int len)
+        public object DecodeCharacterString(Stream stream, int len)
         {
             var octets = new sbyte[len];
 

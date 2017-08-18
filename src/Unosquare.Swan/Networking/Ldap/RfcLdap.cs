@@ -1649,7 +1649,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultReference(Asn1Decoder dec, Stream in_Renamed, int len)
+        public RfcSearchResultReference(IAsn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
         }
@@ -1679,7 +1679,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        public RfcLdapString(Asn1Decoder dec, Stream in_Renamed, int len)
+        public RfcLdapString(IAsn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
         }
@@ -1741,10 +1741,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// decoding it from an InputStream
         /// </summary>
         /// <param name="dec">The decimal.</param>
-        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public RfcExtendedResponse(Asn1Decoder dec, Stream in_Renamed, int len) 
-            : base(dec, in_Renamed, len)
+        public RfcExtendedResponse(IAsn1Decoder dec, Stream stream, int len) 
+            : base(dec, stream, len)
         {
             if (Size() > 3)
             {
@@ -1755,17 +1755,17 @@ namespace Unosquare.Swan.Networking.Ldap
                     switch (id.Tag)
                     {
                         case RfcLdapResult.REFERRAL:
-                            var content = ((Asn1OctetString)obj.taggedValue()).ByteValue();
+                            var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
                             var bais = new MemoryStream(content.ToByteArray());
                             Set(i, new Asn1SequenceOf(dec, bais, content.Length));
                             referralIndex = i;
                             break;
                         case RESPONSE_NAME:
-                            Set(i, new RfcLdapOID(((Asn1OctetString)obj.taggedValue()).ByteValue()));
+                            Set(i, new RfcLdapOID(((Asn1OctetString)obj.TaggedValue).ByteValue()));
                             responseNameIndex = i;
                             break;
                         case RESPONSE:
-                            Set(i, obj.taggedValue());
+                            Set(i, obj.TaggedValue);
                             responseIndex = i;
                             break;
                     }
@@ -1825,14 +1825,16 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 if (Size() == 5)
-                    return (Asn1OctetString)((Asn1Tagged)Get(4)).taggedValue();
+                    return (Asn1OctetString)((Asn1Tagged)Get(4)).TaggedValue;
+
                 if (Size() == 4)
                 {
                     // could be referral or serverSaslCreds
                     var obj = Get(3);
                     if (obj is Asn1Tagged)
-                        return (Asn1OctetString)((Asn1Tagged)obj).taggedValue();
+                        return (Asn1OctetString)((Asn1Tagged)obj).TaggedValue;
                 }
+
                 return null;
             }
         }
@@ -1848,7 +1850,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcBindResponse(Asn1Decoder dec, Stream in_Renamed, int len)
+        public RfcBindResponse(IAsn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
@@ -1858,7 +1860,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var id = obj.GetIdentifier();
                 if (id.Tag == RfcLdapResult.REFERRAL)
                 {
-                    var content = ((Asn1OctetString)obj.taggedValue()).ByteValue();
+                    var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
                     var bais = new MemoryStream(content.ToByteArray());
                     Set(3, new Asn1SequenceOf(dec, bais, content.Length));
                 }
@@ -1889,10 +1891,16 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (obj is Asn1SequenceOf)
                     return (Asn1SequenceOf)obj;
             }
+
             return null;
         }
 
-        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+        /// <summary>
+        /// Override getIdentifier to return an application-wide id.
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.BIND_RESPONSE);
@@ -1922,7 +1930,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcIntermediateResponse(Asn1Decoder dec, Stream in_Renamed, int len)
+        public RfcIntermediateResponse(IAsn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
             var i = 0;
@@ -1938,11 +1946,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 switch (id.Tag)
                 {
                     case TAG_RESPONSE_NAME:
-                        Set(i, new RfcLdapOID(((Asn1OctetString)obj.taggedValue()).ByteValue()));
+                        Set(i, new RfcLdapOID(((Asn1OctetString)obj.TaggedValue).ByteValue()));
                         m_responseNameIndex = i;
                         break;
                     case TAG_RESPONSE:
-                        Set(i, obj.taggedValue());
+                        Set(i, obj.TaggedValue);
                         m_responseValueIndex = i;
                         break;
                 }
@@ -1967,6 +1975,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (Size() > 3)
                 return new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+
             return null;
         }
 

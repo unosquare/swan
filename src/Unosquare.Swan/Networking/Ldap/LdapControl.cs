@@ -1843,7 +1843,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcControl(Asn1Decoder dec, Stream in_Renamed, int len) 
+        public RfcControl(IAsn1Decoder dec, Stream in_Renamed, int len) 
             : base(dec, in_Renamed, len)
         {
         }

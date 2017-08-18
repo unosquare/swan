@@ -7,8 +7,9 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Reflection;
 
     /// <summary>
-    ///     This class manages a set of elements.
+    /// This class manages a set of elements.
     /// </summary>
+    /// <seealso cref="System.Collections.ArrayList" />
     public class SetSupport : ArrayList
     {
         /// <summary>
@@ -291,10 +292,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an RfcLdapResult from the inputstream
         /// </summary>
         /// <param name="dec">The decimal.</param>
-        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcLdapResult(Asn1Decoder dec, Stream in_Renamed, int len)
-            : base(dec, in_Renamed, len)
+        public RfcLdapResult(IAsn1Decoder dec, Stream stream, int len)
+            : base(dec, stream, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
@@ -303,7 +304,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var id = obj.GetIdentifier();
                 if (id.Tag == REFERRAL)
                 {
-                    var content = ((Asn1OctetString) obj.taggedValue()).ByteValue();
+                    var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
                     var bais = new MemoryStream(content.ToByteArray());
                     Set(3, new Asn1SequenceOf(dec, bais, content.Length));
                 }
@@ -370,7 +371,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultDone(Asn1Decoder dec, Stream in_Renamed, int len)
+        public RfcSearchResultDone(IAsn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
         }
@@ -436,7 +437,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultEntry(Asn1Decoder dec, Stream in_Renamed, int len)
+        public RfcSearchResultEntry(IAsn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
         }
@@ -543,7 +544,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcControls(Asn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        public RfcControls(IAsn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
         {
             // Convert each SEQUENCE element to a Control
             for (var i = 0; i < Size(); i++)
@@ -828,18 +829,15 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
         /// <exception cref="Exception">RfcLdapMessage: Invalid tag: " + protocolOpId.Tag</exception>
-        public RfcLdapMessage(Asn1Decoder dec, Stream in_Renamed, int len)
+        public RfcLdapMessage(IAsn1Decoder dec, Stream in_Renamed, int len)
             : base(dec, in_Renamed, len)
         {
-            sbyte[] content;
-            MemoryStream bais;
-
             // Decode implicitly tagged protocol operation from an Asn1Tagged type
             // to its appropriate application type.
             var protocolOp = (Asn1Tagged) Get(1);
             var protocolOpId = protocolOp.GetIdentifier();
-            content = ((Asn1OctetString) protocolOp.taggedValue()).ByteValue();
-            bais = new MemoryStream(content.ToByteArray());
+            var content = ((Asn1OctetString) protocolOp.TaggedValue).ByteValue();
+            var bais = new MemoryStream(content.ToByteArray());
 
             switch (protocolOpId.Tag)
             {
@@ -879,25 +877,26 @@ namespace Unosquare.Swan.Networking.Ldap
                 //   Asn1Identifier controlsId = protocolOp.getIdentifier();
                 // we could check to make sure we have controls here....
 
-                content = ((Asn1OctetString) controls.taggedValue()).ByteValue();
+                content = ((Asn1OctetString) controls.TaggedValue).ByteValue();
                 bais = new MemoryStream(content.ToByteArray());
                 Set(2, new RfcControls(dec, bais, content.Length));
             }
         }
 
         /// <summary>
-        ///     Returns the request associated with this RfcLdapMessage.
-        ///     Throws a class cast exception if the RfcLdapMessage is not a request.
+        /// Returns the request associated with this RfcLdapMessage.
+        /// Throws a class cast exception if the RfcLdapMessage is not a request.
         /// </summary>
-        public RfcRequest getRequest()
-        {
-            return (RfcRequest) Get(1);
-        }
+        /// <returns></returns>
+        public RfcRequest getRequest() => (RfcRequest) Get(1);
 
-        public virtual bool isRequest()
-        {
-            return Get(1) is RfcRequest;
-        }
+        /// <summary>
+        /// Determines whether this instance is request.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is request; otherwise, <c>false</c>.
+        /// </returns>
+        public virtual bool isRequest() => Get(1) is RfcRequest;
 
         /// <summary>
         ///     Duplicate this message, replacing base dn, filter, and scope if supplied
@@ -933,10 +932,7 @@ namespace Unosquare.Swan.Networking.Ldap
     public class LdapMessage
     {
         /// <summary> Returns the LdapMessage request associated with this response</summary>
-        internal virtual LdapMessage RequestingMessage
-        {
-            get { return message.RequestingMessage; }
-        }
+        internal virtual LdapMessage RequestingMessage => message.RequestingMessage;
 
         /// <summary>
         /// Returns any controls in the message.
@@ -985,6 +981,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     imsgNum = message.MessageID;
                 }
+
                 return imsgNum;
             }
         }
@@ -1358,17 +1355,17 @@ namespace Unosquare.Swan.Networking.Ldap
                     catch (UnauthorizedAccessException)
                     {
                     }
-                    catch (TargetInvocationException e)
+                    catch (TargetInvocationException)
                     {
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         // Could not create the ResponseControl object
                         // All possible exceptions are ignored. We fall through
                         // and create a default LDAPControl object
                     }
                 }
-                catch (MethodAccessException e)
+                catch (MethodAccessException)
                 {
                     // bad class was specified, fall through and return a
                     // default LDAPControl object
