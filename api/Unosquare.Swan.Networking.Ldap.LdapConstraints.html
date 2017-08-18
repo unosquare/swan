@@ -140,7 +140,7 @@ set of constraints.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_LdapReferralHandler_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor(System.Int32,System.Boolean,Unosquare.Swan.Networking.Ldap.LdapReferralHandler,System.Int32)">LdapConstraints(Int32, Boolean, LdapReferralHandler, Int32)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_ILdapReferralHandler_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor(System.Int32,System.Boolean,Unosquare.Swan.Networking.Ldap.ILdapReferralHandler,System.Int32)">LdapConstraints(Int32, Boolean, ILdapReferralHandler, Int32)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html">LdapConstraints</a> class.
 Constructs a new LdapConstraints object specifying constraints that
 control wait time, and referral handling.</p>
@@ -148,7 +148,7 @@ control wait time, and referral handling.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapConstraints(int msLimit, bool doReferrals, LdapReferralHandler handler, int hop_limit)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapConstraints(int msLimit, bool doReferrals, ILdapReferralHandler handler, int hop_limit)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -186,7 +186,7 @@ It is ignored for asynchronous operations.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralHandler.html">LdapReferralHandler</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.ILdapReferralHandler.html">ILdapReferralHandler</a></td>
         <td><span class="parametername">handler</span></td>
         <td><p>The custom authentication handler called when
 LdapConnection needs to authenticate, typically on
@@ -215,7 +215,7 @@ It is ignored for asynchronous operations.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_LdapReferralHandler_System_Int32__seealso">See Also</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor_System_Int32_System_Boolean_Unosquare_Swan_Networking_Ldap_ILdapReferralHandler_System_Int32__seealso">See Also</h5>
   <div class="seealso">
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Ldap_TIMEOUT">Ldap_TIMEOUT</a></div>
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_REFERRAL_LIMIT_EXCEEDED">REFERRAL_LIMIT_EXCEEDED</a></div>
@@ -250,7 +250,7 @@ It is ignored for asynchronous operations.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>The maximum number of referrals to follow in sequence</p>
+        <td><p>The hop limit.</p>
 </td>
       </tr>
     </tbody>
@@ -541,7 +541,7 @@ dynamic and proprietary extensions to operation modifiers.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConstraints_SetReferralHandler_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConstraints.SetReferralHandler*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConstraints_SetReferralHandler_Unosquare_Swan_Networking_Ldap_LdapReferralHandler_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConstraints.SetReferralHandler(Unosquare.Swan.Networking.Ldap.LdapReferralHandler)">SetReferralHandler(LdapReferralHandler)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConstraints_SetReferralHandler_Unosquare_Swan_Networking_Ldap_ILdapReferralHandler_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConstraints.SetReferralHandler(Unosquare.Swan.Networking.Ldap.ILdapReferralHandler)">SetReferralHandler(ILdapReferralHandler)</h4>
   <div class="markdown level1 summary"><p>Specifies the object that will process authentication requests
 during automatic referral following.
 The default is null.</p>
@@ -549,7 +549,7 @@ The default is null.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void SetReferralHandler(LdapReferralHandler handler)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void SetReferralHandler(ILdapReferralHandler handler)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -562,7 +562,7 @@ The default is null.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralHandler.html">LdapReferralHandler</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.ILdapReferralHandler.html">ILdapReferralHandler</a></td>
         <td><span class="parametername">handler</span></td>
         <td><p>An object that implements LdapBindHandler or
 LdapAuthHandler</p>

@@ -1298,6 +1298,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Networking.Ldap.ILdapReferralHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Networking.Ldap.ILdapReferralHandler.html",
+          "hash": "4QRAd2gaYYmBa+HTj42Nzw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Networking.Ldap.IRfcRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Networking.Ldap.IRfcRequest.html",
+          "hash": "2/crU7ZR05gM/3Q//9K1aw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Networking.Ldap.LdapAttribute.yml",
       "output": {
         ".html": {
@@ -1338,7 +1362,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapConnection.html",
-          "hash": "N4CRA3P5YGu5mtKLlWxRFA=="
+          "hash": "ESg1pmQBuPL2EqKe2XbDiA=="
         }
       },
       "is_incremental": false,
@@ -1350,7 +1374,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html",
-          "hash": "/kXn8vsnnLmnniFYJ5LKsQ=="
+          "hash": "dlZTB5ncS0hze/ae7dwwPQ=="
         }
       },
       "is_incremental": false,
@@ -1386,7 +1410,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapException.html",
-          "hash": "6rN5IvtigPI1BRW/WyGQjQ=="
+          "hash": "cCbN9SC4kBHE4mIP70ZdQQ=="
         }
       },
       "is_incremental": false,
@@ -1398,7 +1422,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html",
-          "hash": "Ng8r2MR1AoYwo15T/kW2QA=="
+          "hash": "VQpX6oba7O1jRX9YX4hUIQ=="
         }
       },
       "is_incremental": false,
@@ -1410,7 +1434,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapMessage.html",
-          "hash": "+oigSAOsHpBMG9plDwrGdA=="
+          "hash": "2m69Gdhr+/1I6vMCQhH8sw=="
         }
       },
       "is_incremental": false,
@@ -1422,19 +1446,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html",
-          "hash": "PAsVRZVV7q8id1J4JF9K8Q=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Networking.Ldap.LdapReferralHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapReferralHandler.html",
-          "hash": "lCEZhgL8jr1PamfWutL7IA=="
+          "hash": "RtzdJXM8UE1jUhypkFLAJw=="
         }
       },
       "is_incremental": false,
@@ -1458,7 +1470,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html",
-          "hash": "Rk8NOjFYxaoR0q075YDdTw=="
+          "hash": "xiObwhuBYWRaLm37F9DFsg=="
         }
       },
       "is_incremental": false,
@@ -1482,7 +1494,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapSearchResults.html",
-          "hash": "8RR8yxcLpLLaPUW5y6K5cg=="
+          "hash": "4NNc/W+pwcJfy/m/rBMPqA=="
         }
       },
       "is_incremental": false,
@@ -1494,7 +1506,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapUrl.html",
-          "hash": "BAb0pRU6Snj4PspQsaMFfQ=="
+          "hash": "Gc75e/1QYT3wwIBIo1pTsA=="
         }
       },
       "is_incremental": false,
@@ -1550,23 +1562,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Networking.Ldap.RfcRequest.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Networking.Ldap.RfcRequest.html",
-          "hash": "NWooKp7rKrJStlN8k42kxA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Networking.Ldap.SetSupport.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.SetSupport.html",
-          "hash": "i0BEV3pFioGCE/i6Ma8mpQ=="
+          "hash": "qHY3oB+RX7pn6nJ7jT25xg=="
         }
       },
       "is_incremental": false,
@@ -1578,7 +1578,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.html",
-          "hash": "t5aupo9pIyN9A1a/ZGzXCw=="
+          "hash": "a6+NArE+idUzMW2KE8+ZDQ=="
         }
       },
       "is_incremental": false,
@@ -1890,7 +1890,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "rjiAcuSaFZTg1ErZgFrzrg=="
+          "hash": "BOZ+YKE3BaLZPWmZanKdgA=="
         }
       },
       "is_incremental": false,
@@ -1917,11 +1917,6 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "RestApiDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
@@ -1933,6 +1928,11 @@
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {
