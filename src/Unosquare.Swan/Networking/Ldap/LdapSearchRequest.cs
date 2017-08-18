@@ -1,12 +1,13 @@
 ﻿#if !UWP
+
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System.Collections;
+
     /// <summary>
-    ///     Represents an Ldap Search request.
+    /// Represents an Ldap Search request.
     /// </summary>
-    /// <seealso cref="LdapConnection.SendRequest">
-    /// </seealso>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
     internal class LdapSearchRequest : LdapMessage
     {
         /// <summary>
@@ -83,6 +84,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     rAttrs[i] = ((RfcLdapString)attrs.Get(i)).StringValue();
                 }
+
                 return rAttrs;
             }
         }
@@ -100,56 +102,44 @@ namespace Unosquare.Swan.Networking.Ldap
         private RfcFilter RfcFilter => (RfcFilter)((RfcSearchRequest)Asn1Object.Get(1)).Get(6);
 
         /// <summary>
-        ///     Retrieves an Iterator object representing the parsed filter for
-        ///     this search request.
-        ///     The first object returned from the Iterator is an Integer indicating
-        ///     the type of filter component. One or more values follow the component
-        ///     type as subsequent items in the Iterator. The pattern of Integer
-        ///     component type followed by values continues until the end of the
-        ///     filter.
-        ///     Values returned as a byte array may represent UTF-8 characters or may
-        ///     be binary values. The possible Integer components of a search filter
-        ///     and the associated values that follow are:
-        ///     <ul>
-        ///         <li>AND - followed by an Iterator value</li>
-        ///         <li>OR - followed by an Iterator value</li>
-        ///         <li>NOT - followed by an Iterator value</li>
-        ///         <li>
-        ///             EQUALITY_MATCH - followed by the attribute name represented as a
-        ///             String, and by the attribute value represented as a byte array
-        ///         </li>
-        ///         <li>
-        ///             GREATER_OR_EQUAL - followed by the attribute name represented as a
-        ///             String, and by the attribute value represented as a byte array
-        ///         </li>
-        ///         <li>
-        ///             LESS_OR_EQUAL - followed by the attribute name represented as a
-        ///             String, and by the attribute value represented as a byte array
-        ///         </li>
-        ///         <li>
-        ///             APPROX_MATCH - followed by the attribute name represented as a
-        ///             String, and by the attribute value represented as a byte array
-        ///         </li>
-        ///         <li>PRESENT - followed by a attribute name respresented as a String</li>
-        ///         <li>
-        ///             EXTENSIBLE_MATCH - followed by the name of the matching rule
-        ///             represented as a String, by the attribute name represented
-        ///             as a String, and by the attribute value represented as a
-        ///             byte array.
-        ///         </li>
-        ///         <li>
-        ///             SUBSTRINGS - followed by the attribute name represented as a
-        ///             String, by one or more SUBSTRING components (INITIAL, ANY,
-        ///             or FINAL) followed by the SUBSTRING value.
-        ///         </li>
-        ///     </ul>
+        /// Retrieves an Iterator object representing the parsed filter for
+        /// this search request.
+        /// The first object returned from the Iterator is an Integer indicating
+        /// the type of filter component. One or more values follow the component
+        /// type as subsequent items in the Iterator. The pattern of Integer
+        /// component type followed by values continues until the end of the
+        /// filter.
+        /// Values returned as a byte array may represent UTF-8 characters or may
+        /// be binary values. The possible Integer components of a search filter
+        /// and the associated values that follow are:
+        /// <ul><li>AND - followed by an Iterator value</li><li>OR - followed by an Iterator value</li><li>NOT - followed by an Iterator value</li><li>
+        /// EQUALITY_MATCH - followed by the attribute name represented as a
+        /// String, and by the attribute value represented as a byte array
+        /// </li><li>
+        /// GREATER_OR_EQUAL - followed by the attribute name represented as a
+        /// String, and by the attribute value represented as a byte array
+        /// </li><li>
+        /// LESS_OR_EQUAL - followed by the attribute name represented as a
+        /// String, and by the attribute value represented as a byte array
+        /// </li><li>
+        /// APPROX_MATCH - followed by the attribute name represented as a
+        /// String, and by the attribute value represented as a byte array
+        /// </li><li>PRESENT - followed by a attribute name respresented as a String</li><li>
+        /// EXTENSIBLE_MATCH - followed by the name of the matching rule
+        /// represented as a String, by the attribute name represented
+        /// as a String, and by the attribute value represented as a
+        /// byte array.
+        /// </li><li>
+        /// SUBSTRINGS - followed by the attribute name represented as a
+        /// String, by one or more SUBSTRING components (INITIAL, ANY,
+        /// or FINAL) followed by the SUBSTRING value.
+        /// </li></ul>
         /// </summary>
-        /// <returns>
-        ///     Iterator representing filter components
-        /// </returns>
+        /// <value>
+        /// The search filter.
+        /// </value>
         public virtual IEnumerator SearchFilter => RfcFilter.GetFilterIterator();
-
-        // Public variables for Filter
+        
         /// <summary> Search Filter Identifier for an AND component.</summary>
         public const int AND = 0;
 
@@ -232,15 +222,19 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapConnection.Search"></seealso>
         /// <seealso cref="LdapSearchConstraints"></seealso>
         public LdapSearchRequest(string ldapBase,
-            int scope, 
-            string filter, 
-            string[] attrs, 
+            int scope,
+            string filter,
+            string[] attrs,
             int dereference,
-            int maxResults, 
-            int serverTimeLimit, 
-            bool typesOnly, 
+            int maxResults,
+            int serverTimeLimit,
+            bool typesOnly,
             LdapControl[] cont)
-            : base(SEARCH_REQUEST, new RfcSearchRequest(new RfcLdapDN(ldapBase), new Asn1Enumerated(scope), new Asn1Enumerated(dereference), new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit), new Asn1Boolean(typesOnly), new RfcFilter(filter), new RfcAttributeDescriptionList(attrs)), cont)
+            : base(
+                SEARCH_REQUEST,
+                new RfcSearchRequest(new RfcLdapDN(ldapBase), new Asn1Enumerated(scope), new Asn1Enumerated(dereference),
+                    new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit), new Asn1Boolean(typesOnly),
+                    new RfcFilter(filter), new RfcAttributeDescriptionList(attrs)), cont)
         {
         }
 
@@ -248,7 +242,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="LdapSearchRequest"/> class.
         /// Constructs an Ldap Search Request with a filter in Asn1 format.
         /// </summary>
-        /// <param name="base_Renamed">The base renamed.</param>
+        /// <param name="searchBase">The search base.</param>
         /// <param name="scope">The scope of the entries to search. The following
         /// are the valid options:
         /// <ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
@@ -278,12 +272,30 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or null if none.</param>
         /// <seealso cref="LdapConnection.Search"></seealso>
         /// <seealso cref="LdapSearchConstraints"></seealso>
-        public LdapSearchRequest(string base_Renamed, int scope, RfcFilter filter, string[] attrs, int dereference, int maxResults, int serverTimeLimit, bool typesOnly, LdapControl[] cont)
-            : base(
-                SEARCH_REQUEST,
-                new RfcSearchRequest(new RfcLdapDN(base_Renamed), new Asn1Enumerated(scope), new Asn1Enumerated(dereference), new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit), new Asn1Boolean(typesOnly), filter, new RfcAttributeDescriptionList(attrs)), cont)
+        public LdapSearchRequest(
+            string searchBase,
+            int scope,
+            RfcFilter filter,
+            string[] attrs,
+            int dereference,
+            int maxResults,
+            int serverTimeLimit,
+            bool typesOnly,
+            LdapControl[] cont)
+            : base(SEARCH_REQUEST,
+                new RfcSearchRequest(
+                    new RfcLdapDN(searchBase),
+                    new Asn1Enumerated(scope),
+                    new Asn1Enumerated(dereference),
+                    new Asn1Integer(maxResults),
+                    new Asn1Integer(serverTimeLimit),
+                    new Asn1Boolean(typesOnly),
+                    filter,
+                    new RfcAttributeDescriptionList(attrs)),
+                cont)
         {
         }
     }
 }
+
 #endif

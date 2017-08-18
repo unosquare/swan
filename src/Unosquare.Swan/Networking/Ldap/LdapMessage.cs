@@ -1261,17 +1261,17 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="op">The operation type of message.</param>
         /// <param name="controls">The controls to use with the operation.</param>
         /// <seealso cref="Type"></seealso>
-        /*package*/
         internal LdapMessage(int type, RfcRequest op, LdapControl[] controls)
         {
             // Get a unique number for this request message
-
             messageType = type;
             RfcControls asn1Ctrls = null;
+
             if (controls != null)
             {
                 // Move LdapControls into an RFC 2251 Controls object.
                 asn1Ctrls = new RfcControls();
+
                 for (var i = 0; i < controls.Length; i++)
                 {
                     asn1Ctrls.add(controls[i].Asn1Object);

@@ -35,7 +35,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// This method returns the literal value received
         /// </summary>
         /// <param name="literal">The literal.</param>
-        /// <returns></returns>
+        /// <returns>The literal value</returns>
         public static long Identity(long literal)
         {
             return literal;
@@ -70,14 +70,14 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var octets = new sbyte[8];
             sbyte len;
-            var value_Renamed = n.LongValue();
-            long endValue = value_Renamed < 0 ? -1 : 0;
+            var longValue = n.LongValue();
+            long endValue = longValue < 0 ? -1 : 0;
             var endSign = endValue & 0x80;
 
-            for (len = 0; len == 0 || value_Renamed != endValue || (octets[len - 1] & 0x80) != endSign; len++)
+            for (len = 0; len == 0 || longValue != endValue || (octets[len - 1] & 0x80) != endSign; len++)
             {
-                octets[len] = (sbyte)(value_Renamed & 0xFF);
-                value_Renamed >>= 8;
+                octets[len] = (sbyte)(longValue & 0xFF);
+                longValue >>= 8;
             }
 
             Encode(n.GetIdentifier(), stream);
@@ -110,8 +110,8 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             Encode(os.GetIdentifier(), stream);
             EncodeLength(os.ByteValue().Length, stream);
-            var temp_sbyteArray = os.ByteValue();
-            stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
+            var tempSbyteArray = os.ByteValue();
+            stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
         }
 
         /// <summary>
@@ -124,19 +124,19 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             Encode(c.GetIdentifier(), stream);
 
-            var value_Renamed = c.ToArray();
+            var arrayValue = c.ToArray();
 
             var output = new MemoryStream();
             
-            for (var i = 0; i < value_Renamed.Length; i++)
+            for (var i = 0; i < arrayValue.Length; i++)
             {
-                value_Renamed[i].Encode(this, output);
+                arrayValue[i].Encode(this, output);
             }
             
             EncodeLength((int)output.Length, stream);
             
-            var temp_sbyteArray = output.ToArray().ToSByteArray();
-            stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
+            var tempSbyteArray = output.ToArray().ToSByteArray();
+            stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
         }
 
         /// <summary>
@@ -155,8 +155,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 t.TaggedValue.Encode(this, encodedContent);
 
                 EncodeLength((int)encodedContent.Length, stream);
-                var temp_sbyteArray = encodedContent.ToArray().ToSByteArray();
-                stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
+                var tempSbyteArray = encodedContent.ToArray().ToSByteArray();
+                stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
             }
             else
             {
@@ -191,7 +191,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="length">The length.</param>
         /// <param name="stream">The stream.</param>
-        private void EncodeLength(int length, Stream stream)
+        private static void EncodeLength(int length, Stream stream)
         {
             if (length < 0x80)
             {
@@ -219,7 +219,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="val">The value.</param>
         /// <param name="stream">The stream.</param>
-        private void EncodeTagInteger(int val, Stream stream)
+        private static void EncodeTagInteger(int val, Stream stream)
         {
             var octets = new sbyte[5];
             int n;

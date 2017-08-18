@@ -42,7 +42,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// specified <code>MessageOrKey</code> String and modifying arguments.
         /// Additional parameters specify the result code.
         /// The String is used either as a message key to obtain a localized
-        /// messsage from ExceptionMessages, or if there is no key in the
+        /// message from ExceptionMessages, or if there is no key in the
         /// resource matching the text, it is used as the detailed message itself.
         /// The message in the default locale is built with the supplied arguments,
         /// which are saved to be used for building messages for other locales.
@@ -65,7 +65,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Additional parameters specify the result code and a rootException which
         /// is the underlying cause of an error on the client.
         /// The String is used either as a message key to obtain a localized
-        /// messsage from ExceptionMessages, or if there is no key in the
+        /// message from ExceptionMessages, or if there is no key in the
         /// resource matching the text, it is used as the detailed message itself.
         /// </summary>
         /// <param name="messageOrKey">Key to addition result information, a key into
@@ -106,13 +106,16 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     returns a string of information about the exception and the
-        ///     the nested exceptions, if any.
+        /// Returns a string of information about the exception and the
+        /// the nested exceptions, if any.
         /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             // Format the basic exception information
-            return getExceptionString("LdapLocalException");
+            return GetExceptionString("LdapLocalException");
         }
     }
 
@@ -867,24 +870,20 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int AUTH_METHOD_NOT_SUPPORTED = 7;
 
         /// <summary>
-        ///     Indicates a problem with the level of authentication.
-        ///     One of the following has occurred:
-        ///     <ul>
-        ///         <li>
-        ///             In bind requests, the Ldap server accepts only strong
-        ///             authentication.
-        ///         </li>
-        ///         <li>
-        ///             In a client request, the client requested an operation such as delete
-        ///             that requires strong authentication.
-        ///         </li>
-        ///         <li>
-        ///             In an unsolicited notice of disconnection, the Ldap server discovers
-        ///             the security protecting the communication between the client and
-        ///             server has unexpectedly failed or been compromised.
-        ///         </li>
-        ///     </ul>
-        ///     STRONG_AUTH_REQUIRED = 8
+        /// Indicates a problem with the level of authentication.
+        /// One of the following has occurred:
+        /// <ul><li>
+        /// In bind requests, the Ldap server accepts only strong
+        /// authentication.
+        /// </li><li>
+        /// In a client request, the client requested an operation such as delete
+        /// that requires strong authentication.
+        /// </li><li>
+        /// In an unsolicited notice of disconnection, the Ldap server discovers
+        /// the security protecting the communication between the client and
+        /// server has unexpectedly failed or been compromised.
+        /// </li></ul>
+        /// STRONG_AUTH_REQUIRED = 8
         /// </summary>
         public const int STRONG_AUTH_REQUIRED = 8;
 
@@ -1668,7 +1667,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         public override string ToString()
         {
-            return getExceptionString("LdapException");
+            return GetExceptionString("LdapException");
         }
 
         /// <summary>
@@ -1678,7 +1677,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="exception">
         ///     The name of the exception class
         /// </param>
-        internal virtual string getExceptionString(string exception)
+        internal virtual string GetExceptionString(string exception)
         {
             string tmsg;
 
@@ -1687,6 +1686,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Craft a string from the resouce file
             var msg = ResourcesHandler.GetMessage("TOSTRING",
                 new object[] {exception, base.Message, resultCode, resultCodeToString()});
+
             // If found no string from resource file, use a default string
             if (msg.ToUpper().Equals("TOSTRING".ToUpper()))
             {
@@ -1697,6 +1697,7 @@ namespace Unosquare.Swan.Networking.Ldap
             if ((object) serverMessage != null && serverMessage.Length != 0)
             {
                 tmsg = ResourcesHandler.GetMessage("SERVER_MSG", new object[] {exception, serverMessage});
+
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                 {
@@ -1710,6 +1711,7 @@ namespace Unosquare.Swan.Networking.Ldap
             if ((object) matchedDN != null)
             {
                 tmsg = ResourcesHandler.GetMessage("MATCHED_DN", new object[] {exception, matchedDN});
+
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("MATCHED_DN".ToUpper()))
                 {
@@ -1723,6 +1725,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 msg = msg + '\n' + rootException;
             }
+
             return msg;
         }
     }
@@ -1743,11 +1746,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual string FailedReferral
         {
-            /* Gets the referral that could not be processed.  If multiple referrals
-            * could not be processed, the method returns one of them.
-            *
-            * @return the referral that could not be followed.
-            */
             get { return failedReferral; }
 
             set { failedReferral = value; }
@@ -1773,7 +1771,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="message">
         ///     The additional error information.
         /// </param>
-        public LdapReferralException(string message) : base(message, REFERRAL, null)
+        public LdapReferralException(string message) 
+            : base(message, REFERRAL, null)
         {
         }
 
@@ -1790,7 +1789,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="message">
         ///     The additional error information.
         /// </param>
-        public LdapReferralException(string message, object[] arguments) : base(message, arguments, REFERRAL, null)
+        public LdapReferralException(string message, object[] arguments) 
+            : base(message, arguments, REFERRAL, null)
         {
         }
 
@@ -1798,7 +1798,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs a default exception with a specified string as additional
         ///     information and an exception that indicates a failure to follow a
-        ///     referral. This excepiton applies only to synchronous operations and
+        ///     referral. This exception applies only to synchronous operations and
         ///     is thrown only on receipt of a referral when the referral was not
         ///     followed.
         /// </summary>
@@ -1949,10 +1949,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override string ToString()
         {
-            string msg, tmsg;
+            string tmsg;
 
             // Format the basic exception information
-            msg = getExceptionString("LdapReferralException");
+            var msg = GetExceptionString("LdapReferralException");
 
             // Add failed referral information
             if ((object)failedReferral != null)
@@ -1982,6 +1982,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     msg = msg + '\n' + tmsg;
                 }
             }
+
             return msg;
         }
     }

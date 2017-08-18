@@ -46,22 +46,23 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Decode an LBER encoded value into an Asn1Type from a byte array.
         /// </summary>
-        /// <param name="value_Renamed">The value renamed.</param>
-        /// <returns>Decoded Asn1Object</returns>
-        public virtual Asn1Object Decode(sbyte[] value_Renamed)
+        /// <param name="inArray">The in array.</param>
+        /// <returns>
+        /// Decoded Asn1Object
+        /// </returns>
+        public virtual Asn1Object Decode(sbyte[] inArray)
         {
-            Asn1Object asn1 = null;
-
-            var stream = new MemoryStream(value_Renamed.ToByteArray());
+            var stream = new MemoryStream(inArray.ToByteArray());
             try
             {
-                asn1 = Decode(stream);
+                return Decode(stream);
             }
             catch (IOException)
             {
                 // Ignore
             }
-            return asn1;
+
+            return null;
         }
 
         /// <summary>

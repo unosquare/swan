@@ -26,39 +26,32 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         static LdapConstraints()
         {
-            nameLock = new object();
+            new object();
         }
 
         /// <summary>
-        ///     Returns the maximum number of referrals to follow during automatic
-        ///     referral following.  The operation will be abandoned and terminated by
-        ///     the API with a result code of LdapException.REFERRAL_LIMIT_EXCEEDED
-        ///     if the number of referrals in a sequence exceeds the limit.
-        ///     It is ignored for asynchronous operations.
+        /// Returns the maximum number of referrals to follow during automatic
+        /// referral following.  The operation will be abandoned and terminated by
+        /// the API with a result code of LdapException.REFERRAL_LIMIT_EXCEEDED
+        /// if the number of referrals in a sequence exceeds the limit.
+        /// It is ignored for asynchronous operations.
         /// </summary>
-        /// <returns>
-        ///     The maximum number of referrals to follow in sequence
-        /// </returns>
-        /// <seealso cref="HopLimit">
-        /// </seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED">
-        /// </seealso>
-        /// <summary>
-        ///     Sets the maximum number of referrals to follow in sequence during
-        ///     automatic referral following.
-        /// </summary>
+        /// <value>
+        /// The hop limit.
+        /// </value>
+        /// <seealso cref="HopLimit"></seealso>
+        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
         /// <param name="hop_limit">
-        ///     The maximum number of referrals to follow in a
-        ///     sequence during automatic referral following.
-        ///     The default value is 10. A value of 0 means no limit.
-        ///     The operation will be abandoned and terminated by the
-        ///     API with a result code of
-        ///     LdapException.REFERRAL_LIMIT_EXCEEDED if the
-        ///     number of referrals in a sequence exceeds the limit.
-        ///     It is ignored for asynchronous operations.
+        /// The maximum number of referrals to follow in a
+        /// sequence during automatic referral following.
+        /// The default value is 10. A value of 0 means no limit.
+        /// The operation will be abandoned and terminated by the
+        /// API with a result code of
+        /// LdapException.REFERRAL_LIMIT_EXCEEDED if the
+        /// number of referrals in a sequence exceeds the limit.
+        /// It is ignored for asynchronous operations.
         /// </param>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED">
-        /// </seealso>
+        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
         public virtual int HopLimit
         {
             get { return hopLimit; }
@@ -135,7 +128,6 @@ namespace Unosquare.Swan.Networking.Ldap
         private bool doReferrals;
         private LdapReferralHandler refHandler;
         private LdapControl[] controls;
-        private static object nameLock; // protect agentNum
         private static int lConsNum = 0; // Debug, LdapConstraints num
         private string name; // String name for debug
         private Hashtable properties; // Properties
@@ -228,11 +220,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapConnection.GetProperty(string)"></seealso>
         public virtual object GetProperty(string name)
         {
-            if (properties == null)
-            {
-                return null; // Requested property not available.
-            }
-            return properties[name];
+            return properties?[name];
         }
 
         /// <summary>
@@ -243,11 +231,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// An LdapReferralHandler object that can process authentication.
         /// </returns>
-        /*package*/
-        internal virtual LdapReferralHandler GetReferralHandler()
-        {
-            return refHandler;
-        }
+        internal virtual LdapReferralHandler GetReferralHandler() => refHandler;
 
         /// <summary>
         /// Sets a single control to be sent to the server.
@@ -277,6 +261,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 this.controls = null;
                 return;
             }
+
             this.controls = new LdapControl[controls.Length];
             for (var i = 0; i < controls.Length; i++)
             {
@@ -333,10 +318,12 @@ namespace Unosquare.Swan.Networking.Ldap
                     ((LdapConstraints)newObj).controls = new LdapControl[controls.Length];
                     controls.CopyTo(((LdapConstraints)newObj).controls, 0);
                 }
+
                 if (properties != null)
                 {
                     ((LdapConstraints)newObj).properties = (Hashtable)properties.Clone();
                 }
+
                 return newObj;
             }
             catch (Exception ce)

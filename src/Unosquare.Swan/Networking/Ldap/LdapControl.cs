@@ -46,7 +46,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         public RfcAuthenticationChoice(string mechanism, sbyte[] credentials)
-            : base(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3), new RfcSaslCredentials(new RfcLdapString(mechanism), credentials != null ? new Asn1OctetString(credentials) : null), false))
+            : base(
+                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3),
+                    new RfcSaslCredentials(new RfcLdapString(mechanism),
+                        credentials != null ? new Asn1OctetString(credentials) : null), false))
         {
             // implicit tagging
         }
@@ -164,10 +167,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the Authentication DN for a bind request
         /// </returns>
-        public virtual string AuthenticationDN
-        {
-            get { return Asn1Object.RequestDN; }
-        }
+        public virtual string AuthenticationDN => Asn1Object.RequestDN;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapBindRequest"/> class.
@@ -197,10 +197,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-        {
-            return Asn1Object.ToString();
-        }
+        public override string ToString() => Asn1Object.ToString();
     }
 
     /// <summary>
@@ -478,11 +475,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 lsc.CopyTo(generated_var, 0);
                 SetControls(generated_var);
             }
+
             var lp = cons.Properties;
             if (lp != null)
             {
                 Properties = (Hashtable) lp.Clone();
             }
+
             if (cons is LdapSearchConstraints)
             {
                 var scons = (LdapSearchConstraints) cons;
@@ -491,7 +490,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 maxResults = scons.MaxResults;
                 batchSize = scons.BatchSize;
             }
-            // Get a unique connection name for debug
         }
 
         /// <summary>
@@ -561,16 +559,6 @@ namespace Unosquare.Swan.Networking.Ldap
             this.dereference = dereference;
             this.maxResults = maxResults;
             this.batchSize = batchSize;
-            // Get a unique connection name for debug
-        }
-
-        /// <summary>
-        /// Initializes static members of the <see cref="LdapSearchConstraints"/> class.
-        /// Initializes the <see cref="LdapSearchConstraints"/> class.
-        /// </summary>
-        static LdapSearchConstraints()
-        {
-            new object();
         }
     }
 
@@ -625,12 +613,11 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Encapsulates parameters of an Ldap URL query as defined in RFC2255.
-    ///     An LdapUrl object can be passed to LdapConnection.search to retrieve
-    ///     search results.
+    /// Encapsulates parameters of an Ldap URL query as defined in RFC2255.
+    /// An LdapUrl object can be passed to LdapConnection.search to retrieve
+    /// search results.
     /// </summary>
-    /// <seealso cref="LdapConnection.Search">
-    /// </seealso>
+    /// <seealso cref="LdapConnection.Search"></seealso>
     public class LdapUrl
     {
         private void InitBlock()
@@ -685,17 +672,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The port number in the URL.
         /// </returns>
-        public virtual int Port
-        {
-            get
-            {
-                if (port == 0)
-                {
-                    return LdapConnection.DEFAULT_PORT;
-                }
-                return port;
-            }
-        }
+        public virtual int Port => port == 0 ? LdapConnection.DEFAULT_PORT : port;
 
         /// <summary>
         ///     Returns the depth of search. It returns one of the following from
@@ -716,6 +693,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual bool Secure => secure;
 
         private static readonly int DEFAULT_SCOPE = LdapConnection.SCOPE_BASE;
+
         // Broken out parts of the URL
         private bool secure; // URL scheme ldap/ldaps
         private readonly bool ipV6 = false; // TCP/IP V6
@@ -862,29 +840,27 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Any occurences of %HH are decoded to the hex value represented.
         /// However, this method does NOT decode "+" into " ".
         /// </summary>
-        /// <param name="URLEncoded">String to decode.</param>
+        /// <param name="urlEncoded">String to decode.</param>
         /// <returns>
         /// The decoded string.
         /// </returns>
-        /// <exception cref="UriFormatException">
-        /// LdapUrl.decode: must be two hex characters following escape character '%'
+        /// <exception cref="UriFormatException">LdapUrl.decode: must be two hex characters following escape character '%'
         /// or
         /// LdapUrl.decode: error converting hex characters to integer \"" +
-        ///                                                  ex.Message + "\"
-        /// </exception>
-        public static string decode(string URLEncoded)
+        /// ex.Message + "\"</exception>
+        public static string decode(string urlEncoded)
         {
             var searchStart = 0;
             int fieldStart;
-            fieldStart = URLEncoded.IndexOf("%", searchStart);
+            fieldStart = urlEncoded.IndexOf("%", searchStart);
             // Return now if no encoded data
             if (fieldStart < 0)
             {
-                return URLEncoded;
+                return urlEncoded;
             }
             // Decode the %HH value and copy to new string buffer
             var fieldEnd = 0; // end of previous field
-            var dataLen = URLEncoded.Length;
+            var dataLen = urlEncoded.Length;
             var decoded = new StringBuilder(dataLen);
             while (true)
             {
@@ -896,24 +872,25 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (fieldStart < 0)
                     fieldStart = dataLen;
                 // Copy to string buffer from end of last field to start of next
-                decoded.Append(URLEncoded.Substring(fieldEnd, fieldStart - fieldEnd));
+                decoded.Append(urlEncoded.Substring(fieldEnd, fieldStart - fieldEnd));
                 fieldStart += 1;
                 if (fieldStart >= dataLen)
                     break;
                 fieldEnd = fieldStart + 2;
                 try
                 {
-                    decoded.Append((char) Convert.ToInt32(URLEncoded.Substring(fieldStart, fieldEnd - fieldStart), 16));
+                    decoded.Append((char) Convert.ToInt32(urlEncoded.Substring(fieldStart, fieldEnd - fieldStart), 16));
                 }
                 catch (FormatException ex)
                 {
                     throw new UriFormatException("LdapUrl.decode: error converting hex characters to integer \"" +
                                                  ex.Message + "\"");
                 }
+
                 searchStart = fieldEnd;
                 if (searchStart == dataLen)
                     break;
-                fieldStart = URLEncoded.IndexOf("%", searchStart);
+                fieldStart = urlEncoded.IndexOf("%", searchStart);
             }
             return decoded.ToString();
         }
@@ -932,6 +909,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var buffer = new StringBuilder(toEncode.Length);
             string temp;
             char currChar;
+
             for (var i = 0; i < toEncode.Length; i++)
             {
                 currChar = toEncode[i];
@@ -948,8 +926,11 @@ namespace Unosquare.Swan.Networking.Ldap
                         buffer.Append("%" + Convert.ToString(currChar, 16));
                 }
                 else
+                {
                     buffer.Append(currChar);
+                }
             }
+
             return buffer.ToString();
         }
 
@@ -959,10 +940,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The base distinguished name specified in the URL, or null if none.
         /// </returns>
-        public virtual string GetDN()
-        {
-            return dn;
-        }
+        public virtual string GetDN() => dn;
 
         /// <summary> Sets the base distinguished name encapsulated in the URL.</summary>
         internal virtual void SetDN(string dn)
@@ -971,23 +949,18 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns a valid string representation of this Ldap URL.
+        /// Returns a valid string representation of this Ldap URL.
         /// </summary>
         /// <returns>
-        ///     The string representation of the Ldap URL.
+        /// The string representation of the Ldap URL.
         /// </returns>
         public override string ToString()
         {
             var url = new StringBuilder(256);
+
             // Scheme
-            if (secure)
-            {
-                url.Append("ldaps://");
-            }
-            else
-            {
-                url.Append("ldap://");
-            }
+            url.Append(secure ? "ldaps://" : "ldap://");
+
             // Host:port/dn
             if (ipV6)
             {
@@ -997,25 +970,30 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 url.Append(host);
             }
+
             // Port not specified
             if (port != 0)
             {
                 url.Append(":" + port);
             }
+
             if ((object) dn == null && attrs == null && scope == DEFAULT_SCOPE && (object) filter == null &&
                 extensions == null)
             {
                 return url.ToString();
             }
+
             url.Append("/");
             if ((object) dn != null)
             {
                 url.Append(dn);
             }
+
             if (attrs == null && scope == DEFAULT_SCOPE && (object) filter == null && extensions == null)
             {
                 return url.ToString();
             }
+
             // attributes
             url.Append("?");
             if (attrs != null)
@@ -1107,6 +1085,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     break;
                 }
             }
+
             // Now fill in the array with the attributes
             itemStart = listStart;
             list = new string[itemCount];
@@ -1129,6 +1108,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     break;
                 }
             }
+
             return list;
         }
 
@@ -1138,6 +1118,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var scanEnd = url.Length;
             if ((object) url == null)
                 throw new UriFormatException("LdapUrl: URL cannot be null");
+
             // Check if URL is enclosed by < & >
             if (url[scanStart] == '<')
             {
@@ -1166,6 +1147,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new UriFormatException("LdapUrl: URL scheme is not ldap");
             }
+
             // Find where host:port ends and dn begins
             var dnStart = url.IndexOf("/", scanStart);
             var hostPortEnd = scanEnd;
@@ -1355,6 +1337,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     return exception.MatchedDN;
                 }
+
                 return ((RfcResponse) message.Response).GetMatchedDN().StringValue();
             }
         }
@@ -1427,6 +1410,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     return exception.ResultCode;
                 }
+
                 if ((RfcResponse) message.Response is RfcIntermediateResponse)
                     return 0;
                 return ((RfcResponse) message.Response).GetResultCode().IntValue();
@@ -1468,18 +1452,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The controls.
         /// </value>
-        /// <seealso cref="Novell.Directory.Ldap.LdapMessage.Controls"></seealso>
-        public override LdapControl[] Controls
-        {
-            get
-            {
-                if (exception != null)
-                {
-                    return null;
-                }
-                return base.Controls;
-            }
-        }
+        public override LdapControl[] Controls => exception != null ? null : base.Controls;
 
         /// <summary>
         ///     Returns an embedded exception response
@@ -1525,8 +1498,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// response from a server.
         /// </summary>
         /// <param name="message">The RfcLdapMessage from a server.</param>
-        /*package*/
-        internal LdapResponse(RfcLdapMessage message) : base(message)
+        internal LdapResponse(RfcLdapMessage message) 
+            : base(message)
         {
         }
 
@@ -1567,9 +1540,9 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             Asn1Sequence ret;
             if ((object) matchedDN == null)
-                matchedDN = "";
+                matchedDN = string.Empty;
             if ((object) serverMessage == null)
-                serverMessage = "";
+                serverMessage = string.Empty;
             switch (type)
             {
                 case SEARCH_RESULT:
@@ -1607,6 +1580,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw exception;
             }
+
             var ex = ResultException;
             if (ex != null)
             {
@@ -1620,11 +1594,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     true if contains an embedded Ldapexception
         /// </returns>
-        /*package*/
-        internal virtual bool HasException()
-        {
-            return exception != null;
-        }
+        internal virtual bool HasException() =>exception != null;
     }
 
     /// <summary>
@@ -1703,6 +1673,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         return ctl.myClass;
                     }
                 }
+
                 /* The requested control does not have a registered response class */
                 return null;
             }
@@ -1723,14 +1694,15 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an Ldap Control.
-    ///     <pre>
-    ///         Control ::= SEQUENCE {
-    ///         controlType             LdapOID,
-    ///         criticality             BOOLEAN DEFAULT FALSE,
-    ///         controlValue            OCTET STRING OPTIONAL }
-    ///     </pre>
+    /// Represents an Ldap Control.
+    /// <pre>
+    /// Control ::= SEQUENCE {
+    /// controlType             LdapOID,
+    /// criticality             BOOLEAN DEFAULT FALSE,
+    /// controlValue            OCTET STRING OPTIONAL }
+    /// </pre>
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcControl : Asn1Sequence
     {
         public virtual Asn1OctetString ControlType => (Asn1OctetString) Get(0);
@@ -1750,6 +1722,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     if (obj is Asn1Boolean)
                         return (Asn1Boolean) obj;
                 }
+
                 return new Asn1Boolean(false);
             }
         }
@@ -1772,6 +1745,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     // MUST be a control value
                     return (Asn1OctetString) Get(2);
                 }
+
                 if (Size() > 1)
                 {
                     // MAY be a control value
@@ -1779,6 +1753,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     if (obj is Asn1OctetString)
                         return (Asn1OctetString) obj;
                 }
+
                 return null;
             }
             set
@@ -1810,11 +1785,22 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        public RfcControl(RfcLdapOID controlType) : this(controlType, new Asn1Boolean(false), null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RfcControl"/> class.
+        /// </summary>
+        /// <param name="controlType">Type of the control.</param>
+        public RfcControl(RfcLdapOID controlType) 
+            : this(controlType, new Asn1Boolean(false), null)
         {
         }
 
-        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality) : this(controlType, criticality, null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RfcControl"/> class.
+        /// </summary>
+        /// <param name="controlType">Type of the control.</param>
+        /// <param name="criticality">The criticality.</param>
+        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality) 
+            : this(controlType, criticality, null)
         {
         }
 
@@ -1838,18 +1824,20 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Constructs a Control object by decoding it from an InputStream.
+        /// Initializes a new instance of the <see cref="RfcControl"/> class.
         /// </summary>
-        /// <param name="dec">The decimal.</param>
-        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="dec">The decoder object to use when decoding the
+        /// input stream.  Sometimes a developer might want to pass
+        /// in his/her own decoder object</param>
+        /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public RfcControl(IAsn1Decoder dec, Stream in_Renamed, int len) 
-            : base(dec, in_Renamed, len)
+        public RfcControl(IAsn1Decoder dec, Stream stream, int len) 
+            : base(dec, stream, len)
         {
         }
 
         /// <summary>
-        /// Constructs a Control object by decoding from an Asn1Sequence
+        /// Initializes a new instance of the <see cref="RfcControl"/> class.
         /// </summary>
         /// <param name="seqObj">The seq object.</param>
         public RfcControl(Asn1Sequence seqObj)
@@ -1862,16 +1850,14 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Encapsulates optional additional parameters or constraints to be applied to
-    ///     an Ldap operation.
-    ///     When included with LdapConstraints or LdapSearchConstraints
-    ///     on an LdapConnection or with a specific operation request, it is
-    ///     sent to the server along with operation requests.
+    /// Encapsulates optional additional parameters or constraints to be applied to
+    /// an Ldap operation.
+    /// When included with LdapConstraints or LdapSearchConstraints
+    /// on an LdapConnection or with a specific operation request, it is
+    /// sent to the server along with operation requests.
     /// </summary>
-    /// <seealso cref="LdapConnection.ResponseControls">
-    /// </seealso>
-    /// <seealso cref="LdapConstraints.GetControls">
-    /// </seealso>
+    /// <seealso cref="LdapConnection.ResponseControls"></seealso>
+    /// <seealso cref="LdapConstraints.GetControls"></seealso>
     public class LdapControl
     {
         /// <summary>
@@ -1921,14 +1907,10 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new ArgumentException("An OID must be specified");
             }
-            if (values == null)
-            {
-                control = new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical));
-            }
-            else
-            {
-                control = new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
-            }
+
+            control = values == null
+                ? new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical))
+                : new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
         }
 
         /// <summary>
@@ -1958,6 +1940,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new Exception("Internal error, cannot create clone", ce);
             }
+
             var vals = GetValue();
             sbyte[] twin = null;
             if (vals != null)
@@ -1971,8 +1954,10 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     twin[i] = vals[i];
                 }
+
                 cont.control = new RfcControl(new RfcLdapOID(ID), new Asn1Boolean(Critical), new Asn1OctetString(twin));
             }
+
             return cont;
         }
 
@@ -1991,6 +1976,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 result = val.ByteValue();
             }
+
             return result;
         }
 

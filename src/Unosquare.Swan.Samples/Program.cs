@@ -30,9 +30,9 @@
 
                     var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
 
-                    while (lsc.hasMore())
+                    while (lsc.HasMore())
                     {
-                        var entry = lsc.next();
+                        var entry = lsc.Next();
                         var ldapAttributes = entry.GetAttributeSet();
 
                         Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");

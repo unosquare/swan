@@ -13,8 +13,10 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         // Element list identified
         private ArrayList elements;
+
         // Source string to use
         private string source;
+        
         // The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character
         private string delimiters = " \t\n\r";
         private readonly bool returnDelims;
@@ -91,14 +93,18 @@ namespace Unosquare.Swan.Networking.Ldap
                     toks = tempstr.Substring(0, tempstr.IndexOfAny(delimiters.ToCharArray()));
                     elements.Add(toks);
                     elements.Add(tempstr.Substring(toks.Length, 1));
+
                     if (tempstr.Length > toks.Length + 1)
                     {
                         tempstr = tempstr.Substring(toks.Length + 1);
                     }
                     else
+                    {
                         tempstr = "";
+                    }
                 }
             }
+
             if (tempstr.Length > 0)
             {
                 elements.Add(tempstr);
@@ -1123,11 +1129,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 //if this is a Not than Not should be the second thing on the stack
                 filterStack.Pop();
             }
+
             var topOfStackType = ((Asn1Object) filterStack.Peek()).GetIdentifier().Tag;
             if (topOfStackType != rfcType)
             {
                 throw new LdapLocalException("Missmatched ending of nested filter", LdapException.FILTER_ERROR);
             }
+
             filterStack.Pop();
         }
 
@@ -1260,6 +1268,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                         break;
                                 }
                             }
+
                             break;
                         }
                     }
@@ -1300,7 +1309,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     the type of filter component.  Then the component values will be returned
         ///     AND, NOT, and OR components values will be returned as Iterators.
         /// </summary>
-        private class FilterIterator : IEnumerator
+        private sealed class FilterIterator : IEnumerator
         {
             public void Reset()
             {
@@ -1318,7 +1327,7 @@ namespace Unosquare.Swan.Networking.Ldap
             ///     The first object returned is an Integer identifying
             ///     its type.
             /// </summary>
-            public virtual object Current
+            public object Current
             {
                 get
                 {
@@ -1422,6 +1431,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             hasMore = false;
                         }
                     }
+
                     return toReturn;
                 }
             }
@@ -1448,7 +1458,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 this.root = root;
             }
 
-            public virtual bool MoveNext()
+            public bool MoveNext()
             {
                 return hasMore;
             }
@@ -1486,11 +1496,12 @@ namespace Unosquare.Swan.Networking.Ldap
                     int index;
                     if (offset >= filterLength)
                     {
-                        //"Unexpected end of filter",
                         throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                     }
+
                     int ret;
                     int testChar = filter[offset];
+
                     if (testChar == '&')
                     {
                         offset++;
@@ -1512,11 +1523,13 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             throw new LdapLocalException(ExceptionMessages.NO_MATCHING_RULE, LdapException.FILTER_ERROR);
                         }
+
                         if (filter.Substring(offset).StartsWith("::=") || filter.Substring(offset).StartsWith(":::="))
                         {
                             throw new LdapLocalException(ExceptionMessages.NO_DN_NOR_MATCHING_RULE,
                                 LdapException.FILTER_ERROR);
                         }
+
                         // get first component of 'item' (attr or :dn or :matchingrule)
                         var delims = "=~<>()";
                         var sb = new StringBuilder();
@@ -1525,12 +1538,15 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             sb.Append(filter[offset++]);
                         }
+                        
                         attr = sb.ToString().Trim();
+
                         // is there an attribute name specified in the filter ?
                         if (attr.Length == 0 || attr[0] == ';')
                         {
                             throw new LdapLocalException(ExceptionMessages.NO_ATTRIBUTE_NAME, LdapException.FILTER_ERROR);
                         }
+
                         for (index = 0; index < attr.Length; index++)
                         {
                             var atIndex = attr[index];
@@ -1547,14 +1563,17 @@ namespace Unosquare.Swan.Networking.Ldap
                                     new object[] {atIndex}, LdapException.FILTER_ERROR);
                             }
                         }
+
                         // is there an option specified in the filter ?
                         index = attr.IndexOf(';');
                         if (index != -1 && index == attr.Length - 1)
                         {
                             throw new LdapLocalException(ExceptionMessages.NO_OPTION, LdapException.FILTER_ERROR);
                         }
+
                         ret = -1;
                     }
+
                     return ret;
                 }
             }
@@ -1572,6 +1591,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         //"Unexpected end of filter",
                         throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                     }
+
                     int ret;
                     if (filter.Substring(offset).StartsWith(">="))
                     {
@@ -1600,10 +1620,10 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
                     else
                     {
-                        //"Invalid comparison operator",
                         throw new LdapLocalException(ExceptionMessages.INVALID_FILTER_COMPARISON,
                             LdapException.FILTER_ERROR);
                     }
+
                     return ret;
                 }
             }
@@ -1615,32 +1635,36 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if (offset >= filterLength)
                     {
-                        //"Unexpected end of filter",
                         throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                     }
+
                     var idx = filter.IndexOf(')', offset);
                     if (idx == -1)
                     {
                         idx = filterLength;
                     }
+
                     var ret = filter.Substring(offset, idx - offset);
                     offset = idx;
                     return ret;
                 }
             }
 
-            /// <summary> Returns the current attribute identifier.</summary>
+            /// <summary>
+            /// Returns the current attribute identifier.
+            /// </summary>
+            /// <value>
+            /// The attribute.
+            /// </value>
             public virtual string Attr => attr;
 
             public RfcFilter Enclosing_Instance => enclosingInstance;
-
-            // Private variables
+            
             private readonly string filter; // The filter string to parse
             private string attr; // Name of the attribute just parsed
             private int offset; // Offset pointer into the filter string
             private readonly int filterLength; // Length of the filter string to parse
-            // Constructor
-
+            
             /// <summary>
             /// Constructs a FilterTokenizer for a filter.
             /// </summary>
@@ -1653,9 +1677,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 offset = 0;
                 filterLength = filter.Length;
             }
-
-            // Tokenizer methods
-
+            
             /// <summary>
             /// Reads the current char and throws an Exception if it is not a left
             /// parenthesis.
@@ -1669,6 +1691,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     //"Unexpected end of filter",
                     throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                 }
+
                 if (filter[offset++] != '(')
                 {
                     //"Missing left paren",
@@ -1688,6 +1711,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     //"Unexpected end of filter",
                     throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                 }
+
                 if (filter[offset++] != ')')
                 {
                     //"Missing right paren",
@@ -1710,6 +1734,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     //"Unexpected end of filter",
                     throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                 }
+
                 return filter[offset];
             }
         }

@@ -38,9 +38,9 @@ namespace Unosquare.Swan.Test
             await cn.Bind("uid=riemann,dc=example,dc=com", "password");
             var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
 
-            if (lsc.hasMore())
+            if (lsc.HasMore())
             {
-                var entry = lsc.next();
+                var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
                 var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
                 obj.Info(nameof(LdapTest));
@@ -49,7 +49,7 @@ namespace Unosquare.Swan.Test
 
             lsc.Count.ToString().Info(nameof(LdapTest));
             Assert.AreNotEqual(lsc.Count, 0);
-            Assert.IsTrue(lsc.hasMore());
+            Assert.IsTrue(lsc.HasMore());
         }
 
         [Test]

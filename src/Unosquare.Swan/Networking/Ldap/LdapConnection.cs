@@ -27,7 +27,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public class LdapConnection
     {
-
         private CancellationTokenSource cts = new CancellationTokenSource();
 
         internal BindProperties BindProperties { get; set; }
@@ -42,14 +41,14 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual int ProtocolVersion => BindProperties?.ProtocolVersion ?? Ldap_V3;
 
         /// <summary>
-        ///     Returns the distinguished name (DN) used for as the bind name during
-        ///     the last successful bind operation.  <code>null</code> is returned
-        ///     if no authentication has been performed or if the bind resulted in
-        ///     an aonymous connection.
+        /// Returns the distinguished name (DN) used for as the bind name during
+        /// the last successful bind operation.  <code>null</code> is returned
+        /// if no authentication has been performed or if the bind resulted in
+        /// an anonymous connection.
         /// </summary>
-        /// <returns>
-        ///     The distinguished name if authenticated; otherwise, null.
-        /// </returns>
+        /// <value>
+        /// The authentication dn.
+        /// </value>
         public virtual string AuthenticationDN => BindProperties == null ? null : (BindProperties.Anonymous ? null : BindProperties.AuthenticationDN);
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
 
                 // We set the constraints this way, so a thread doesn't get an
-                // conconsistant view of the referrals.
+                // consistent view of the referrals.
                 var newCons = (LdapSearchConstraints) defSearchCons.Clone();
                 newCons.HopLimit = value.HopLimit;
                 newCons.TimeLimit = value.TimeLimit;
@@ -222,20 +221,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         internal virtual Connection Connection => conn;
 
-        /// <summary>
-        ///     Return the Connection object name associated with this LdapConnection
-        /// </summary>
-        /// <returns>
-        ///     the Connection object name
-        /// </returns>
-        internal virtual string ConnectionName => name;
+        private static object nameLock; // protect agentNum
+        private static int lConnNum = 0; // Debug, LdapConnection number
 
         private LdapSearchConstraints defSearchCons;
         private LdapControl[] responseCtls;
-        private object responseCtlSemaphore;
+        private readonly object responseCtlSemaphore;
         private Connection conn;
-        private static object nameLock; // protect agentNum
-        private static int lConnNum = 0; // Debug, LdapConnection number
         private string name; // String name for debug
 
         /// <summary>
@@ -336,6 +328,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private const string START_TLS_OID = "1.3.6.1.4.1.1466.20037";
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapConnection"/> class.
         /// Constructs a new LdapConnection object, which will use the supplied
         /// class factory to construct a socket connection during
         /// LdapConnection.connect method.
@@ -400,6 +393,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return 3;
             if (name.ToUpper().Equals(Ldap_PROPERTY_SECURITY.ToUpper()))
                 return "simple";
+
             return null;
         }
 
@@ -528,9 +522,10 @@ namespace Unosquare.Swan.Networking.Ldap
             var tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(host, port);
             conn = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 0);
-
-            // TODO: how to stop?
-            await Task.Factory.StartNew(RetrieveMessages, cts.Token);
+            
+#pragma warning disable 4014
+            Task.Factory.StartNew(RetrieveMessages, cts.Token);
+#pragma warning restore 4014
         }
         
         /// <summary>
@@ -602,10 +597,10 @@ namespace Unosquare.Swan.Networking.Ldap
             var sr = await Search(dn, SCOPE_BASE, null, attrs, false, cons ?? defSearchCons);
             LdapEntry ret = null;
 
-            if (sr.hasMore())
+            if (sr.HasMore())
             {
-                ret = sr.next();
-                if (sr.hasMore())
+                ret = sr.Next();
+                if (sr.HasMore())
                 {
                     // "Read response is ambiguous, multiple entries returned"
                     throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapException.AMBIGUOUS_RESPONSE);
@@ -638,15 +633,14 @@ namespace Unosquare.Swan.Networking.Ldap
         public async Task<LdapSearchResults> Search(
             string @base, 
             int scope, 
-            string filter = null, 
+            string filter = "objectclass=*", 
             string[] attrs = null,
             bool typesOnly = false, 
             LdapSearchConstraints cons = null)
         {
-            if (string.IsNullOrWhiteSpace(filter))
-                filter = "objectclass=*";
             if (cons == null)
                 cons = defSearchCons;
+
             var msg = new LdapSearchRequest(@base, scope, filter, attrs, cons.Dereference, cons.MaxResults, cons.ServerTimeLimit, typesOnly, cons.GetControls());
 
             await RequestLdapMessage(msg);
