@@ -28,8 +28,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Encoder" />
-    internal class LBEREncoder : Asn1Encoder
+    /// <seealso cref="IAsn1Encoder" />
+    internal class LBEREncoder : IAsn1Encoder
     {
         /// <summary>
         /// This method returns the literal value received

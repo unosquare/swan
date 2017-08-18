@@ -42,7 +42,7 @@ namespace Unosquare.Swan.Test
             {
                 var entry = lsc.next();
                 var ldapAttributes = entry.GetAttributeSet();
-                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? null;
+                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
                 obj.Info(nameof(LdapTest));
                 Assert.IsTrue(obj != null);
             }

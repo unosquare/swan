@@ -40,8 +40,8 @@ namespace Unosquare.Swan.Test
         {
             var source = BasicJson.GetDefault();
             var destination = new BasicJson();
-            string[] Only = { "NegativeInt", "BoolData" };
-            source.CopyOnlyPropertiesTo(destination, Only);
+            string[] only = { "NegativeInt", "BoolData" };
+            source.CopyOnlyPropertiesTo(destination, only);
 
             Assert.AreEqual(source.BoolData, destination.BoolData);
             Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
@@ -67,8 +67,8 @@ namespace Unosquare.Swan.Test
         public void CopyOnlyPropertiesToNewTest()
         {
             var source = BasicJson.GetDefault();
-            string[] Only = { "BoolData", "DecimalData" };
-            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(Only);
+            string[] only = { "BoolData", "DecimalData" };
+            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(only);
 
             Assert.IsNotNull(destination);
             Assert.AreSame(source.GetType(), destination.GetType());
@@ -109,9 +109,12 @@ namespace Unosquare.Swan.Test
         [Test]
         public void CopyEnum()
         {
-            var source = new ObjectEnum();
-            source.Id = 1;
-            source.MyEnum = MyEnum.Two;
+            var source = new ObjectEnum
+            {
+                Id = 1,
+                MyEnum = MyEnum.Two
+            };
+
             var result = source.CopyOnlyPropertiesToNew<ObjectEnum>();
             Assert.AreEqual(source.MyEnum, result.MyEnum);
         }

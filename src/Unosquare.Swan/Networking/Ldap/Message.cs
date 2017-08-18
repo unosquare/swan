@@ -893,7 +893,8 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 filterStack = new Stack();
             }
-            if (choiceValue() == null)
+
+            if (ChoiceValue == null)
             {
                 //ChoiceValue is the root Asn1 node
                 ChoiceValue = current;
@@ -1137,7 +1138,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual IEnumerator GetFilterIterator()
         {
-            return new FilterIterator(this, (Asn1Tagged) choiceValue());
+            return new FilterIterator(this, (Asn1Tagged) ChoiceValue);
         }
 
         /// <summary>
