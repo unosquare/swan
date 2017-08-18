@@ -1767,7 +1767,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 RegisteredControl ctl = null;
 
-                /* loop through the contents of the vector */
+                // loop through the contents of the vector
                 for (var i = 0; i < Count; i++)
                 {
                     /* Get next registered control */

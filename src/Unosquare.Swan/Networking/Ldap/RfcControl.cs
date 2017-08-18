@@ -79,6 +79,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     Set(2, value);
                     return;
                 }
+
                 if (Size() == 2)
                 {
                     // Get the second element

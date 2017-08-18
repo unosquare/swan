@@ -24,27 +24,26 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                LdapControl[] controls = null;
                 var asn1Ctrls = message.Controls;
 
                 // convert from RFC 2251 Controls to LDAPControl[].
-                if (asn1Ctrls != null)
-                {
-                    controls = new LdapControl[asn1Ctrls.Size()];
-                    for (var i = 0; i < asn1Ctrls.Size(); i++)
-                    {
-                        var rfcCtl = (RfcControl)asn1Ctrls.Get(i);
-                        var oid = rfcCtl.ControlType.StringValue();
-                        var value_Renamed = rfcCtl.ControlValue.ByteValue();
-                        var critical = rfcCtl.Criticality.BooleanValue();
+                if (asn1Ctrls == null) return null;
 
-                        /* Return from this call should return either an LDAPControl
-                        * or a class extending LDAPControl that implements the
-                        * appropriate registered response control
-                        */
-                        controls[i] = ControlFactory(oid, critical, value_Renamed);
-                    }
+                var controls = new LdapControl[asn1Ctrls.Size()];
+
+                for (var i = 0; i < asn1Ctrls.Size(); i++)
+                {
+                    var rfcCtl = (RfcControl)asn1Ctrls.Get(i);
+                    var oid = rfcCtl.ControlType.StringValue();
+                    var arrayValue = rfcCtl.ControlValue.ByteValue();
+                    var critical = rfcCtl.Criticality.BooleanValue();
+
+                    // Return from this call should return either an LDAPControl
+                    // or a class extending LDAPControl that implements the
+                    // appropriate registered response control
+                    controls[i] = ControlFactory(oid, critical, arrayValue);
                 }
+
                 return controls;
             }
         }
@@ -592,8 +591,10 @@ namespace Unosquare.Swan.Networking.Ldap
             var index = 0;
             var tempObject = new object[Count];
             var tempEnumerator = GetEnumerator();
+
             while (tempEnumerator.MoveNext())
                 tempObject[index++] = tempEnumerator.Current;
+
             return tempObject;
         }
 
@@ -608,8 +609,10 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var index = 0;
             var tempEnumerator = GetEnumerator();
+
             while (tempEnumerator.MoveNext())
                 objects[index++] = tempEnumerator.Current;
+
             return objects;
         }
     }

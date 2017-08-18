@@ -1,4 +1,5 @@
 ﻿#if !UWP
+
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
@@ -31,7 +32,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// ExceptionMessages, or the information
         /// itself if the key doesn't exist.</param>
         /// <param name="resultCode">The result code returned.</param>
-        public LdapLocalException(string messageOrKey, int resultCode) 
+        public LdapLocalException(string messageOrKey, int resultCode)
             : base(messageOrKey, resultCode, null)
         {
         }
@@ -278,7 +279,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return MessageMap[code];
             return code;
         }
-    } 
+    }
 
     // End ExceptionMessages
 
@@ -363,7 +364,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return ErrorCodes[code];
         }
     }
-    
+
     // End ResultCodeMessages
 
     /// <summary>
@@ -487,7 +488,8 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             defaultLocale = CultureInfo.CurrentUICulture;
         }
-    } 
+    }
+
     // end class ResourcesHandler
 
     /// <summary>
@@ -1473,7 +1475,8 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     A throwable which is the underlying cause
         ///     of the LdapException.
         /// </param>
-        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg, Exception rootException) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
+        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
+            Exception rootException) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
         {
         }
 
@@ -1729,7 +1732,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return msg;
         }
     }
-    
+
     /// <summary>
     ///     Thrown when a server returns a referral and when a referral has not
     ///     been followed.  It contains a list of URL strings corresponding
@@ -1771,7 +1774,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="message">
         ///     The additional error information.
         /// </param>
-        public LdapReferralException(string message) 
+        public LdapReferralException(string message)
             : base(message, REFERRAL, null)
         {
         }
@@ -1789,7 +1792,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="message">
         ///     The additional error information.
         /// </param>
-        public LdapReferralException(string message, object[] arguments) 
+        public LdapReferralException(string message, object[] arguments)
             : base(message, arguments, REFERRAL, null)
         {
         }
@@ -1909,7 +1912,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="serverMessage">Error message specifying additional information
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException) 
+        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage,
+            Exception rootException)
             : base(message, arguments, resultCode, serverMessage, rootException)
         {
         }
@@ -1923,10 +1927,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The list of URLs that comprise this referral
         /// </returns>
-        public virtual string[] GetReferrals()
-        {
-            return referrals;
-        }
+        public virtual string[] GetReferrals() => referrals;
 
         /// <summary>
         ///     Sets the list of referrals
@@ -1955,15 +1956,17 @@ namespace Unosquare.Swan.Networking.Ldap
             var msg = GetExceptionString("LdapReferralException");
 
             // Add failed referral information
-            if ((object)failedReferral != null)
+            if ((object) failedReferral != null)
             {
                 tmsg = ResourcesHandler.GetMessage("FAILED_REFERRAL",
-                    new object[] { "LdapReferralException", failedReferral });
+                    new object[] {"LdapReferralException", failedReferral});
+
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                 {
                     tmsg = "LdapReferralException: Failed Referral: " + failedReferral;
                 }
+
                 msg = msg + '\n' + tmsg;
             }
 
@@ -1973,12 +1976,14 @@ namespace Unosquare.Swan.Networking.Ldap
                 for (var i = 0; i < referrals.Length; i++)
                 {
                     tmsg = ResourcesHandler.GetMessage("REFERRAL_ITEM",
-                        new object[] { "LdapReferralException", referrals[i] });
+                        new object[] {"LdapReferralException", referrals[i]});
+
                     // If found no string from resource file, use a default string
                     if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                     {
                         tmsg = "LdapReferralException: Referral: " + referrals[i];
                     }
+
                     msg = msg + '\n' + tmsg;
                 }
             }
