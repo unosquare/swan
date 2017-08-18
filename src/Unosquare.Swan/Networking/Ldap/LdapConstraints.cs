@@ -10,7 +10,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapBindHandler"></seealso>
     /// <seealso cref="LdapAuthHandler"></seealso>
-    public interface LdapReferralHandler
+    public interface ILdapReferralHandler
     {
     }
 
@@ -126,7 +126,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private int msLimit;
         private int hopLimit = 10;
         private bool doReferrals;
-        private LdapReferralHandler refHandler;
+        private ILdapReferralHandler refHandler;
         private LdapControl[] controls;
         private static int lConsNum = 0; // Debug, LdapConstraints num
         private string name; // String name for debug
@@ -186,7 +186,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapReferralException"></seealso>
         /// <seealso cref="LdapBindHandler"></seealso>
         /// <seealso cref="LdapAuthHandler"></seealso>
-        public LdapConstraints(int msLimit, bool doReferrals, LdapReferralHandler handler, int hop_limit)
+        public LdapConstraints(int msLimit, bool doReferrals, ILdapReferralHandler handler, int hop_limit)
         {
             this.msLimit = msLimit;
             this.doReferrals = doReferrals;
@@ -231,7 +231,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// An LdapReferralHandler object that can process authentication.
         /// </returns>
-        internal virtual LdapReferralHandler GetReferralHandler() => refHandler;
+        internal virtual ILdapReferralHandler GetReferralHandler() => refHandler;
 
         /// <summary>
         /// Sets a single control to be sent to the server.
@@ -297,7 +297,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// LdapAuthHandler</param>
         /// <seealso cref="LdapAuthHandler"></seealso>
         /// <seealso cref="LdapBindHandler"></seealso>
-        public virtual void SetReferralHandler(LdapReferralHandler handler)
+        public virtual void SetReferralHandler(ILdapReferralHandler handler)
         {
             refHandler = handler;
         }

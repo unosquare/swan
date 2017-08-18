@@ -283,7 +283,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         attributes      AttributeDescriptionList }
     ///     </pre>
     /// </summary>
-    internal class RfcSearchRequest : Asn1Sequence, RfcRequest
+    internal class RfcSearchRequest : Asn1Sequence, IRfcRequest
     {
         public RfcSearchRequest(
             RfcLdapDN baseObject,
@@ -350,7 +350,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_REQUEST);
         }
 
-        public RfcRequest dupRequest(string base_Renamed, string filter, bool request)
+        public IRfcRequest DupRequest(string base_Renamed, string filter, bool request)
         {
             return new RfcSearchRequest(ToArray(), base_Renamed, filter, request);
         }
@@ -1372,6 +1372,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                 toReturn = value_Renamed.StringValue();
                                 Index++;
                             }
+
                             if (Index / 2 >= ((Asn1SequenceOf) sub.Get(1)).Size())
                             {
                                 hasMore = false;

@@ -3,55 +3,169 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections;
-    using System.IO;
     using System.Text;
-
+    
     /// <summary>
-    /// Represents Ldap Sasl Credentials.
-    /// <pre>
-    /// SaslCredentials ::= SEQUENCE {
-    /// mechanism               LdapString,
-    /// credentials             OCTET STRING OPTIONAL }
-    /// </pre></summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    internal class RfcSaslCredentials : Asn1Sequence
+    /// Encapsulates optional additional parameters or constraints to be applied to
+    /// an Ldap operation.
+    /// When included with LdapConstraints or LdapSearchConstraints
+    /// on an LdapConnection or with a specific operation request, it is
+    /// sent to the server along with operation requests.
+    /// </summary>
+    /// <seealso cref="LdapConnection.ResponseControls"></seealso>
+    /// <seealso cref="LdapConstraints.GetControls"></seealso>
+    public class LdapControl
     {
-        public RfcSaslCredentials(RfcLdapString mechanism)
-            : this(mechanism, null)
+        /// <summary>
+        ///     Returns the identifier of the control.
+        /// </summary>
+        /// <returns>
+        ///     The object ID of the control.
+        /// </returns>
+        public virtual string ID => new StringBuilder(control.ControlType.StringValue()).ToString();
+
+        /// <summary>
+        ///     Returns whether the control is critical for the operation.
+        /// </summary>
+        /// <returns>
+        ///     Returns true if the control must be supported for an associated
+        ///     operation to be executed, and false if the control is not required for
+        ///     the operation.
+        /// </returns>
+        public virtual bool Critical => control.Criticality.BooleanValue();
+
+        internal static RespControlVector RegisteredControls => registeredControls;
+
+        /// <summary>
+        ///     Returns the RFC 2251 Control object.
+        /// </summary>
+        /// <returns>
+        ///     An ASN.1 RFC 2251 Control.
+        /// </returns>
+        internal virtual RfcControl Asn1Object => control;
+
+        private static readonly RespControlVector registeredControls;
+        private RfcControl control; // An RFC 2251 Control
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapControl"/> class.
+        /// Constructs a new LdapControl object using the specified values.
+        /// </summary>
+        /// <param name="oid">The OID of the control, as a dotted string.</param>
+        /// <param name="critical">True if the Ldap operation should be discarded if
+        /// the control is not supported. False if
+        /// the operation can be processed without the control.</param>
+        /// <param name="values">The control-specific data.</param>
+        /// <exception cref="ArgumentException">An OID must be specified</exception>
+        public LdapControl(string oid, bool critical, sbyte[] values)
         {
+            if ((object)oid == null)
+            {
+                throw new ArgumentException("An OID must be specified");
+            }
+
+            control = values == null
+                ? new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical))
+                : new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
         }
 
-        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials) : base(2)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapControl"/> class.
+        /// Create an LdapControl from an existing control.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        internal LdapControl(RfcControl control)
         {
-            Add(mechanism);
-            if (credentials != null)
-                Add(credentials);
-        }
-    }
-
-    /// <summary>
-    /// Represents an Ldap Authentication Choice.
-    /// <pre>
-    /// AuthenticationChoice ::= CHOICE {
-    /// simple                  [0] OCTET STRING,
-    /// -- 1 and 2 reserved
-    /// sasl                    [3] SaslCredentials }
-    /// </pre></summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Choice" />
-    internal class RfcAuthenticationChoice : Asn1Choice
-    {
-        public RfcAuthenticationChoice(Asn1Tagged choice)
-            : base(choice)
-        {
+            this.control = control;
         }
 
-        public RfcAuthenticationChoice(string mechanism, sbyte[] credentials)
-            : base(
-                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3),
-                    new RfcSaslCredentials(new RfcLdapString(mechanism),
-                        credentials != null ? new Asn1OctetString(credentials) : null), false))
+        /// <summary>
+        ///     Returns a copy of the current LdapControl object.
+        /// </summary>
+        /// <returns>
+        ///     A copy of the current LdapControl object.
+        /// </returns>
+        public object Clone()
         {
-            // implicit tagging
+            LdapControl cont;
+            try
+            {
+                cont = (LdapControl)MemberwiseClone();
+            }
+            catch (Exception ce)
+            {
+                throw new Exception("Internal error, cannot create clone", ce);
+            }
+
+            var vals = GetValue();
+            sbyte[] twin = null;
+
+            if (vals != null)
+            {
+                //is this necessary?
+                // Yes even though the contructor above allocates a
+                // new Asn1OctetString, vals in that constuctor
+                // is only copied by reference
+                twin = new sbyte[vals.Length];
+                for (var i = 0; i < vals.Length; i++)
+                {
+                    twin[i] = vals[i];
+                }
+
+                cont.control = new RfcControl(new RfcLdapOID(ID), new Asn1Boolean(Critical), new Asn1OctetString(twin));
+            }
+
+            return cont;
+        }
+
+        /// <summary>
+        ///     Returns the control-specific data of the object.
+        /// </summary>
+        /// <returns>
+        ///     The control-specific data of the object as a byte array,
+        ///     or null if the control has no data.
+        /// </returns>
+        public virtual sbyte[] GetValue()
+        {
+            sbyte[] result = null;
+            var val = control.ControlValue;
+            if (val != null)
+            {
+                result = val.ByteValue();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Sets the control-specific data of the object.  This method is for
+        /// use by an extension of LdapControl.
+        /// </summary>
+        /// <param name="controlValue">The control value.</param>
+        protected internal virtual void SetValue(sbyte[] controlValue)
+        {
+            control.ControlValue = new Asn1OctetString(controlValue);
+        }
+
+        /// <summary>
+        /// Registers a class to be instantiated on receipt of a control with the
+        /// given OID.
+        /// Any previous registration for the OID is overridden. The
+        /// controlClass must be an extension of LdapControl.
+        /// </summary>
+        /// <param name="oid">The object identifier of the control.</param>
+        /// <param name="controlClass">A class which can instantiate an LdapControl.</param>
+        public static void Register(string oid, Type controlClass)
+        {
+            registeredControls.RegisterResponseControl(oid, controlClass);
+        }
+
+        /// <summary>
+        /// Initializes the <see cref="LdapControl" /> class.
+        /// </summary>
+        static LdapControl()
+        {
+            registeredControls = new RespControlVector(5, 5);
         }
     }
 
@@ -64,8 +178,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// authentication          AuthenticationChoice }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.RfcRequest" />
-    internal class RfcBindRequest : Asn1Sequence, RfcRequest
+    /// <seealso cref="IRfcRequest" />
+    internal class RfcBindRequest : Asn1Sequence, IRfcRequest
     {
         /// <summary> Sets the protocol version</summary>
         public virtual Asn1Integer Version
@@ -143,7 +257,7 @@ namespace Unosquare.Swan.Networking.Ldap
             return ID;
         }
 
-        public RfcRequest dupRequest(string base_Renamed, string filter, bool request)
+        public IRfcRequest DupRequest(string base_Renamed, string filter, bool request)
         {
             return new RfcBindRequest(ToArray(), base_Renamed);
         }
@@ -551,7 +665,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapException.REFERRAL"></seealso>
         /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED"></seealso>
         /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED"></seealso>
-        public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, LdapReferralHandler handler, int hop_limit) 
+        public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hop_limit) 
             : base(msLimit, doReferrals, handler, hop_limit)
         {
             InitBlock();
@@ -1173,6 +1287,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 hostPortEnd = dnStart;
             }
+
             // Check for IPV6 "[ipaddress]:port"
             int portStart;
             var hostEnd = hostPortEnd;
@@ -1195,6 +1310,7 @@ namespace Unosquare.Swan.Networking.Ldap
             else
             {
                 portStart = url.IndexOf(":", scanStart);
+
                 // Isolate the host and port
                 if (portStart < 0 || portStart > hostPortEnd)
                 {
@@ -1208,12 +1324,15 @@ namespace Unosquare.Swan.Networking.Ldap
                     port = int.Parse(url.Substring(portStart + 1, hostPortEnd - (portStart + 1)));
                 }
             }
+
             scanStart = hostPortEnd + 1;
             if (scanStart >= scanEnd || dnStart < 0)
                 return;
+
             // Parse out the base dn
             scanStart = dnStart + 1;
             var attrsStart = url.IndexOf('?', scanStart);
+
             if (attrsStart < 0)
             {
                 dn = url.Substring(scanStart, scanEnd - scanStart);
@@ -1222,7 +1341,9 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 dn = url.Substring(scanStart, attrsStart - scanStart);
             }
+
             scanStart = attrsStart + 1;
+
             // Wierd novell syntax can have nothing beyond the dn
             if (scanStart >= scanEnd || attrsStart < 0 || novell)
                 return;
@@ -1265,6 +1386,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new UriFormatException("LdapUrl: URL invalid scope");
             }
+
             scanStart = filterStart + 1;
             if (scanStart >= scanEnd || filterStart < 0)
                 return;
@@ -1272,6 +1394,7 @@ namespace Unosquare.Swan.Networking.Ldap
             scanStart = filterStart + 1;
             string filterStr;
             var extStart = url.IndexOf('?', scanStart);
+
             if (extStart < 0)
             {
                 filterStr = url.Substring(scanStart, scanEnd - scanStart);
@@ -1280,13 +1403,16 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 filterStr = url.Substring(scanStart, extStart - scanStart);
             }
+
             if (!filterStr.Equals(""))
             {
                 filter = filterStr; // Only modify if not the default filter
             }
+
             scanStart = extStart + 1;
             if (scanStart >= scanEnd || extStart < 0)
                 return;
+
             // Parse out the extensions
             var end = url.IndexOf('?', scanStart);
             if (end > 0)
@@ -1309,18 +1435,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Any error message in the response.
         /// </returns>
-        public virtual string ErrorMessage
-        {
-            get
-            {
-                if (exception != null)
-                {
-                    return exception.LdapErrorMessage;
-                }
-
-                return ((RfcResponse) message.Response).GetErrorMessage().StringValue();
-            }
-        }
+        public virtual string ErrorMessage => exception != null ? exception.LdapErrorMessage : ((IRfcResponse) message.Response).GetErrorMessage().StringValue();
 
         /// <summary>
         ///     Returns the partially matched DN field from the server response,
@@ -1329,18 +1444,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The partially matched DN field, if the response contains one.
         /// </returns>
-        public virtual string MatchedDN
-        {
-            get
-            {
-                if (exception != null)
-                {
-                    return exception.MatchedDN;
-                }
-
-                return ((RfcResponse) message.Response).GetMatchedDN().StringValue();
-            }
-        }
+        public virtual string MatchedDN => exception != null ? exception.MatchedDN : ((IRfcResponse) message.Response).GetMatchedDN().StringValue();
 
         /// <summary>
         ///     Returns all referrals in a server response, if the response contains any.
@@ -1353,7 +1457,8 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 string[] referrals = null;
-                var ref_Renamed = ((RfcResponse) message.Response).GetReferral();
+                var ref_Renamed = ((IRfcResponse) message.Response).GetReferral();
+
                 if (ref_Renamed == null)
                 {
                     referrals = new string[0];
@@ -1391,6 +1496,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         }
                     }
                 }
+
                 return referrals;
             }
         }
@@ -1411,9 +1517,9 @@ namespace Unosquare.Swan.Networking.Ldap
                     return exception.ResultCode;
                 }
 
-                if ((RfcResponse) message.Response is RfcIntermediateResponse)
+                if ((IRfcResponse) message.Response is RfcIntermediateResponse)
                     return 0;
-                return ((RfcResponse) message.Response).GetResultCode().IntValue();
+                return ((IRfcResponse) message.Response).GetResultCode().IntValue();
             }
         }
 
@@ -1442,6 +1548,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         ex = new LdapException(LdapException.resultCodeToString(ResultCode), ResultCode, ErrorMessage, MatchedDN);
                         break;
                 }
+
                 return ex;
             }
         }
@@ -1512,7 +1619,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="type">The message type as defined in LdapMessage.</param>
         /// <seealso cref="LdapMessage"></seealso>
-        public LdapResponse(int type) : this(type, LdapException.SUCCESS, null, null)
+        public LdapResponse(int type) 
+            : this(type, LdapException.SUCCESS, null, null)
         {
         }
 
@@ -1658,6 +1766,7 @@ namespace Unosquare.Swan.Networking.Ldap
             lock (this)
             {
                 RegisteredControl ctl = null;
+
                 /* loop through the contents of the vector */
                 for (var i = 0; i < Count; i++)
                 {
@@ -1666,6 +1775,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         throw new FieldAccessException();
                     }
+
                     /* Does the stored OID match with whate we are looking for */
                     if (ctl.myOID.CompareTo(searchOID) == 0)
                     {
@@ -1677,338 +1787,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 /* The requested control does not have a registered response class */
                 return null;
             }
-        }
-    }
-    
-    internal class RfcLdapOID : Asn1OctetString
-    {
-        public RfcLdapOID(string s) 
-            : base(s)
-        {
-        }
-
-        public RfcLdapOID(sbyte[] s)
-            : base(s)
-        {
-        }
-    }
-
-    /// <summary>
-    /// Represents an Ldap Control.
-    /// <pre>
-    /// Control ::= SEQUENCE {
-    /// controlType             LdapOID,
-    /// criticality             BOOLEAN DEFAULT FALSE,
-    /// controlValue            OCTET STRING OPTIONAL }
-    /// </pre>
-    /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    internal class RfcControl : Asn1Sequence
-    {
-        public virtual Asn1OctetString ControlType => (Asn1OctetString) Get(0);
-
-        /// <summary>
-        ///     Returns criticality.
-        ///     If no value present, return the default value of FALSE.
-        /// </summary>
-        public virtual Asn1Boolean Criticality
-        {
-            get
-            {
-                if (Size() > 1)
-                {
-                    // MAY be a criticality
-                    var obj = Get(1);
-                    if (obj is Asn1Boolean)
-                        return (Asn1Boolean) obj;
-                }
-
-                return new Asn1Boolean(false);
-            }
-        }
-
-        /// <summary>
-        ///     Since controlValue is an OPTIONAL component, we need to check
-        ///     to see if one is available. Remember that if criticality is of default
-        ///     value, it will not be present.
-        /// </summary>
-        /// <summary>
-        ///     Called to set/replace the ControlValue.  Will normally be called by
-        ///     the child classes after the parent has been instantiated.
-        /// </summary>
-        public virtual Asn1OctetString ControlValue
-        {
-            get
-            {
-                if (Size() > 2)
-                {
-                    // MUST be a control value
-                    return (Asn1OctetString) Get(2);
-                }
-
-                if (Size() > 1)
-                {
-                    // MAY be a control value
-                    var obj = Get(1);
-                    if (obj is Asn1OctetString)
-                        return (Asn1OctetString) obj;
-                }
-
-                return null;
-            }
-            set
-            {
-                if (value == null)
-                    return;
-                if (Size() == 3)
-                {
-                    // We already have a control value, replace it
-                    Set(2, value);
-                    return;
-                }
-                if (Size() == 2)
-                {
-                    // Get the second element
-                    var obj = Get(1);
-                    // Is this a control value
-                    if (obj is Asn1OctetString)
-                    {
-                        // replace this one
-                        Set(1, value);
-                    }
-                    else
-                    {
-                        // add a new one at the end
-                        Add(value);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="controlType">Type of the control.</param>
-        public RfcControl(RfcLdapOID controlType) 
-            : this(controlType, new Asn1Boolean(false), null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="controlType">Type of the control.</param>
-        /// <param name="criticality">The criticality.</param>
-        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality) 
-            : this(controlType, criticality, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// Note: criticality is only added if true, as per RFC 2251 sec 5.1 part
-        /// (4): If a value of a type is its default value, it MUST be
-        /// absent.
-        /// </summary>
-        /// <param name="controlType">Type of the control.</param>
-        /// <param name="criticality">The criticality.</param>
-        /// <param name="controlValue">The control value.</param>
-        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality, Asn1OctetString controlValue)
-            : base(3)
-        {
-            Add(controlType);
-            if (criticality.BooleanValue())
-                Add(criticality);
-            if (controlValue != null)
-                Add(controlValue);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">The length.</param>
-        public RfcControl(IAsn1Decoder dec, Stream stream, int len) 
-            : base(dec, stream, len)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="seqObj">The seq object.</param>
-        public RfcControl(Asn1Sequence seqObj)
-            : base(3)
-        {
-            var len = seqObj.Size();
-            for (var i = 0; i < len; i++)
-                Add(seqObj.Get(i));
-        }
-    }
-
-    /// <summary>
-    /// Encapsulates optional additional parameters or constraints to be applied to
-    /// an Ldap operation.
-    /// When included with LdapConstraints or LdapSearchConstraints
-    /// on an LdapConnection or with a specific operation request, it is
-    /// sent to the server along with operation requests.
-    /// </summary>
-    /// <seealso cref="LdapConnection.ResponseControls"></seealso>
-    /// <seealso cref="LdapConstraints.GetControls"></seealso>
-    public class LdapControl
-    {
-        /// <summary>
-        ///     Returns the identifier of the control.
-        /// </summary>
-        /// <returns>
-        ///     The object ID of the control.
-        /// </returns>
-        public virtual string ID => new StringBuilder(control.ControlType.StringValue()).ToString();
-
-        /// <summary>
-        ///     Returns whether the control is critical for the operation.
-        /// </summary>
-        /// <returns>
-        ///     Returns true if the control must be supported for an associated
-        ///     operation to be executed, and false if the control is not required for
-        ///     the operation.
-        /// </returns>
-        public virtual bool Critical => control.Criticality.BooleanValue();
-
-        internal static RespControlVector RegisteredControls => registeredControls;
-
-        /// <summary>
-        ///     Returns the RFC 2251 Control object.
-        /// </summary>
-        /// <returns>
-        ///     An ASN.1 RFC 2251 Control.
-        /// </returns>
-        internal virtual RfcControl Asn1Object => control;
-
-        private static readonly RespControlVector registeredControls;
-        private RfcControl control; // An RFC 2251 Control
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapControl"/> class.
-        /// Constructs a new LdapControl object using the specified values.
-        /// </summary>
-        /// <param name="oid">The OID of the control, as a dotted string.</param>
-        /// <param name="critical">True if the Ldap operation should be discarded if
-        /// the control is not supported. False if
-        /// the operation can be processed without the control.</param>
-        /// <param name="values">The control-specific data.</param>
-        /// <exception cref="ArgumentException">An OID must be specified</exception>
-        public LdapControl(string oid, bool critical, sbyte[] values)
-        {
-            if ((object) oid == null)
-            {
-                throw new ArgumentException("An OID must be specified");
-            }
-
-            control = values == null
-                ? new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical))
-                : new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapControl"/> class.
-        /// Create an LdapControl from an existing control.
-        /// </summary>
-        /// <param name="control">The control.</param>
-        internal LdapControl(RfcControl control)
-        {
-            this.control = control;
-        }
-
-        /// <summary>
-        ///     Returns a copy of the current LdapControl object.
-        /// </summary>
-        /// <returns>
-        ///     A copy of the current LdapControl object.
-        /// </returns>
-        public object Clone()
-        {
-            LdapControl cont;
-            try
-            {
-                cont = (LdapControl) MemberwiseClone();
-            }
-            catch (Exception ce)
-            {
-                throw new Exception("Internal error, cannot create clone", ce);
-            }
-
-            var vals = GetValue();
-            sbyte[] twin = null;
-            if (vals != null)
-            {
-                //is this necessary?
-                // Yes even though the contructor above allocates a
-                // new Asn1OctetString, vals in that constuctor
-                // is only copied by reference
-                twin = new sbyte[vals.Length];
-                for (var i = 0; i < vals.Length; i++)
-                {
-                    twin[i] = vals[i];
-                }
-
-                cont.control = new RfcControl(new RfcLdapOID(ID), new Asn1Boolean(Critical), new Asn1OctetString(twin));
-            }
-
-            return cont;
-        }
-
-        /// <summary>
-        ///     Returns the control-specific data of the object.
-        /// </summary>
-        /// <returns>
-        ///     The control-specific data of the object as a byte array,
-        ///     or null if the control has no data.
-        /// </returns>
-        public virtual sbyte[] GetValue()
-        {
-            sbyte[] result = null;
-            var val = control.ControlValue;
-            if (val != null)
-            {
-                result = val.ByteValue();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Sets the control-specific data of the object.  This method is for
-        /// use by an extension of LdapControl.
-        /// </summary>
-        /// <param name="controlValue">The control value.</param>
-        protected internal virtual void SetValue(sbyte[] controlValue)
-        {
-            control.ControlValue = new Asn1OctetString(controlValue);
-        }
-
-        /// <summary>
-        /// Registers a class to be instantiated on receipt of a control with the
-        /// given OID.
-        /// Any previous registration for the OID is overridden. The
-        /// controlClass must be an extension of LdapControl.
-        /// </summary>
-        /// <param name="oid">The object identifier of the control.</param>
-        /// <param name="controlClass">A class which can instantiate an LdapControl.</param>
-        public static void Register(string oid, Type controlClass)
-        {
-            registeredControls.RegisterResponseControl(oid, controlClass);
-        }
-
-        /// <summary>
-        /// Initializes the <see cref="LdapControl" /> class.
-        /// </summary>
-        static LdapControl()
-        {
-            registeredControls = new RespControlVector(5, 5);
         }
     }
 }

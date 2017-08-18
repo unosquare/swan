@@ -1488,28 +1488,23 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
-        /// Constructs an LdapSearchResult object.
-        /// </summary>
-        /// <param name="message">The RfcLdapMessage with a search result.</param>
-        internal LdapSearchResult(RfcLdapMessage message)
-            : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
         /// Constructs an LdapSearchResult object from an LdapEntry.
         /// </summary>
         /// <param name="entry">the LdapEntry represented by this search result.</param>
         /// <exception cref="ArgumentException">Argument \"entry\" cannot be null</exception>
         public LdapSearchResult(LdapEntry entry)
         {
-            if (entry == null)
-            {
-                throw new ArgumentException("Argument \"entry\" cannot be null");
-            }
+            this.entry = entry ?? throw new ArgumentNullException(nameof(entry));
+        }
 
-            this.entry = entry;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
+        /// Constructs an LdapSearchResult object.
+        /// </summary>
+        /// <param name="message">The RfcLdapMessage with a search result.</param>
+        internal LdapSearchResult(RfcLdapMessage message)
+            : base(message)
+        {
         }
 
         /// <summary>
@@ -1693,7 +1688,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         response         [11] OCTET STRING OPTIONAL }
     ///     </pre>
     /// </summary>
-    internal class RfcExtendedResponse : Asn1Sequence, RfcResponse
+    internal class RfcExtendedResponse : Asn1Sequence, IRfcResponse
     {
         public virtual RfcLdapOID ResponseName
         {
@@ -1794,7 +1789,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         serverSaslCreds    [7] OCTET STRING OPTIONAL }
     ///     </pre>
     /// </summary>
-    internal class RfcBindResponse : Asn1Sequence, RfcResponse
+    internal class RfcBindResponse : Asn1Sequence, IRfcResponse
     {
         /// <summary>
         ///     Returns the OPTIONAL serverSaslCreds of a BindResponse if it exists
@@ -1896,7 +1891,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     responseName     [10] LDAPOID OPTIONAL,
     ///     responseValue    [11] OCTET STRING OPTIONAL }
     /// </summary>
-    internal class RfcIntermediateResponse : Asn1Sequence, RfcResponse
+    internal class RfcIntermediateResponse : Asn1Sequence, IRfcResponse
     {
         public const int TAG_RESPONSE_NAME = 0;
         public const int TAG_RESPONSE = 1;
