@@ -149,6 +149,14 @@ namespace Unosquare.Swan.Networking.Ldap
                         name = "LdapIntermediateResponse";
                         break;
 
+                    case MODIFY_REQUEST:
+                        name = "LdapModifyRequest";
+                        break;
+
+                    case MODIFY_RESPONSE:
+                        name = "LdapModifyResponse";
+                        break;
+
                     default:
                         throw new Exception("LdapMessage: Unknown Type " + Type);
                 }
@@ -240,6 +248,18 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     SEARCH_RESULT = 5
         /// </summary>
         public const int SEARCH_RESULT = 5;
+        
+        /// <summary>
+        ///     A modify request operation.
+        ///     MODIFY_REQUEST = 6
+        /// </summary>
+        public const int MODIFY_REQUEST = 6;
+
+        /// <summary>
+        ///     A modify response operation.
+        ///     MODIFY_RESPONSE = 7
+        /// </summary>
+        public const int MODIFY_RESPONSE = 7;
 
         /// <summary>
         ///     An abandon request operation.

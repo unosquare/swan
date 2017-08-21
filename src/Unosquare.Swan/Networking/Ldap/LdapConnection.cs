@@ -647,6 +647,11 @@ namespace Unosquare.Swan.Networking.Ldap
             
             return new LdapSearchResults(this, msg.MessageID);
         }
+        
+        //public async Task Modify()
+        //{
+
+        //}
     }
 }
 
