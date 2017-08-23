@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LdapSearchResultReference
+    <title>Class LdapModifyRequest
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LdapSearchResultReference
+    <meta name="title" content="Class LdapModifyRequest
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.23.1.0">
     
@@ -75,19 +75,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResultReference">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_LdapSearchResultReference" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResultReference" class="text-break">Class LdapSearchResultReference
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest" class="text-break">Class LdapModifyRequest
   </h1>
-  <div class="markdown level0 summary"><p>Encapsulates a continuation reference from an asynchronous search operation.</p>
+  <div class="markdown level0 summary"><p>Modification Request</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
-    <div class="level2"><span class="xref">LdapSearchResultReference</span></div>
+    <div class="level2"><span class="xref">LdapModifyRequest</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -146,9 +146,6 @@
       <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_INTERMEDIATE_RESPONSE">LdapMessage.INTERMEDIATE_RESPONSE</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ToString">LdapMessage.ToString()</a>
-    </div>
-    <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
     <div>
@@ -169,22 +166,65 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchResultReference_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapSearchResultReference : LdapMessage</code></pre>
+    <pre><code class="lang-csharp hljs">public class LdapModifyRequest : LdapMessage</code></pre>
   </div>
-  <h3 id="properties">Properties
+  <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchResultReference_Referrals_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResultReference.Referrals*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchResultReference_Referrals" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResultReference.Referrals">Referrals</h4>
-  <div class="markdown level1 summary"><p>Returns any URLs in the object.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapModification___Unosquare_Swan_Networking_Ldap_LdapControl___" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapModification[],Unosquare.Swan.Networking.Ldap.LdapControl[])">LdapModifyRequest(String, LdapModification[], LdapControl[])</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html">LdapModifyRequest</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string[] Referrals { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapModifyRequest(string dn, LdapModification[] modifications, LdapControl[] control)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">dn</span></td>
+        <td><p>The dn.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a>[]</td>
+        <td><span class="parametername">modifications</span></td>
+        <td><p>The modifications.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
+        <td><span class="parametername">control</span></td>
+        <td><p>The control.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest_DN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.DN*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest_DN" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.DN">DN</h4>
+  <div class="markdown level1 summary"><p>Gets the dn.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string DN { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -196,12 +236,90 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span>[]</td>
-        <td><p>The referrals.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The dn.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest_Modifications_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest_Modifications" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.Modifications">Modifications</h4>
+  <div class="markdown level1 summary"><p>Gets the modifications.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual LdapModification[] Modifications { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a>[]</td>
+        <td><p>The modifications.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><p>Modification Exception</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.ToString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModifyRequest_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Return an Asn1 representation of this modify request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A <span class="xref">System.String</span> that represents this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ToString">LdapMessage.ToString()</a></div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
+  </div>
 </article>
           </div>
           

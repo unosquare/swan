@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LdapResponse
+    <title>Class LdapModification
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LdapResponse
+    <meta name="title" content="Class LdapModification
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.23.1.0">
     
@@ -75,23 +75,53 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_LdapResponse" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse" class="text-break">Class LdapResponse
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapModification" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification" class="text-break">Class LdapModification
   </h1>
-  <div class="markdown level0 summary"><p>A message received from an LdapServer
-in response to an asynchronous request.</p>
+  <div class="markdown level0 summary"><p>A single add, delete, or replace operation to an LdapAttribute.
+An LdapModification contains information on the type of modification
+being performed, the name of the attribute to be replaced, and the new
+value.  Multiple modifications are expressed as an array of modifications,
+i.e., <pre><code>LdapModification[]</code></pre>.
+An LdapModification or an LdapModification array enable you to modify
+an attribute of an Ldap entry. The entire array of modifications must
+be performed by the server as a single atomic operation in the order they
+are listed. No changes are made to the directory unless all the operations
+succeed. If all succeed, a success result is returned to the application.
+It should be noted that if the connection fails during a modification,
+it is indeterminate whether the modification occurred or not.
+There are three types of modification operations: Add, Delete,
+and Replace.
+<strong>Add: </strong>Creates the attribute if it doesn&apos;t exist, and adds
+the specified values. This operation must contain at least one value, and
+all values of the attribute must be unique.
+<strong>Delete: </strong>Deletes specified values from the attribute. If no
+values are specified, or if all existing values of the attribute are
+specified, the attribute is removed. Mandatory attributes cannot be
+removed.
+<strong>Replace: </strong>Creates the attribute if necessary, and replaces
+all existing values of the attribute with the specified values.
+If you wish to keep any existing values of a multi-valued attribute,
+you must include these values in the replace operation.
+A replace operation with no value will remove the entire attribute if it
+exists, and is ignored if the attribute does not exist.
+Additional information on Ldap modifications is available in section 4.6
+of <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a></p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
-    <div class="level2"><span class="xref">LdapResponse</span></div>
+    <div class="level2"><span class="xref">LdapModification</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls">LdapMessage.Controls</a>
+    </div>
     <div>
       <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID">LdapMessage.MessageID</a>
     </div>
@@ -167,26 +197,23 @@ in response to an asynchronous request.</p>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapModification_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapResponse : LdapMessage</code></pre>
+    <pre><code class="lang-csharp hljs">public class LdapModification : LdapMessage</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32)">LdapResponse(Int32)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a> class.
-Creates a SUCCESS response LdapMessage. Typically the response
-comes from a source other than a BER encoded Ldap message,
-such as from DSML.  Other values which are allowed in a response
-are set to their empty values.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_System_Int32_Unosquare_Swan_Networking_Ldap_LdapAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(System.Int32,Unosquare.Swan.Networking.Ldap.LdapAttribute)">LdapModification(Int32, LdapAttribute)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a> class.
+Specifies a modification to be made to an attribute.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapResponse(int type)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapModification(int op, LdapAttribute attr)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -200,113 +227,115 @@ are set to their empty values.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The message type as defined in LdapMessage.</p>
+        <td><span class="parametername">op</span></td>
+        <td><p>The type of modification to make, which can be
+one of the following:
+<ul><li>
+LdapModification.ADD - The value should be added to
+the attribute
+</li><li>
+LdapModification.DELETE - The value should be removed
+from the attribute
+</li><li>
+LdapModification.REPLACE - The value should replace all
+existing values of the
+attribute
+</li></ul></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
+        <td><span class="parametername">attr</span></td>
+        <td><p>The attribute to modify.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32__seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
-  </div>
+  <h3 id="fields">Fields
+  </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32,System.Int32,System.String,System.String)">LdapResponse(Int32, Int32, String, String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a> class.
-Creates a response LdapMessage from parameters. Typically the data
-comes from a source other than a BER encoded Ldap message,
-such as from DSML.</p>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_ADD" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.ADD">ADD</h4>
+  <div class="markdown level1 summary"><p>Adds the listed values to the given attribute, creating
+the attribute if it does not already exist.
+ADD = 0</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapResponse(int type, int resultCode, string matchedDN, string serverMessage)</code></pre>
+    <pre><code class="lang-csharp hljs">public const int ADD = 0</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The message type as defined in LdapMessage.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">resultCode</span></td>
-        <td><p>The result code as defined in LdapException.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">matchedDN</span></td>
-        <td><p>The name of the lowest entry that was matched
-for some error result codes, an empty string
-or <pre><code>null</code></pre> if none.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">serverMessage</span></td>
-        <td><p>A diagnostic message returned by the server,
-an empty string or <pre><code>null</code></pre> if none.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String__seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></div>
-  </div>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapException_Unosquare_Swan_Networking_Ldap_ReferralInfo_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapException,Unosquare.Swan.Networking.Ldap.ReferralInfo)">LdapResponse(LdapException, ReferralInfo)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a> class.
-Creates an LdapResponse using an LdapException.
-Used to wake up the user following an abandon.
-Note: The abandon doesn&apos;t have to be user initiated
-but may be the result of error conditions.
-Referral information is available if this connection created solely
-to follow a referral.</p>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_DELETE" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.DELETE">DELETE</h4>
+  <div class="markdown level1 summary"><p>Deletes the listed values from the given attribute,
+removing the entire attribute (1) if no values are listed or
+(2) if all current values of the attribute are listed for
+deletion.
+DELETE = 1</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapResponse(LdapException ex, ReferralInfo activeReferral)</code></pre>
+    <pre><code class="lang-csharp hljs">public const int DELETE = 1</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></td>
-        <td><span class="parametername">ex</span></td>
-        <td><p>The exception</p>
-</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
       </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_REPLACE" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.REPLACE">REPLACE</h4>
+  <div class="markdown level1 summary"><p>Replaces all existing values of the given attribute
+with the new values listed, creating the attribute if it
+does not already exist.
+A replace with no value deletes the entire attribute if it
+exists, and is ignored if the attribute does not exist.
+REPLACE = 2</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int REPLACE = 2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.ReferralInfo.html">ReferralInfo</a></td>
-        <td><span class="parametername">activeReferral</span></td>
-        <td><p>The referral actually used to create the
-connection</p>
-</td>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -314,14 +343,14 @@ connection</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_Controls_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Controls*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_Controls" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Controls">Controls</h4>
-  <div class="markdown level1 summary"><p>Returns any controls in the message.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModification_Attribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Attribute*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_Attribute" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Attribute">Attribute</h4>
+  <div class="markdown level1 summary"><p>Returns the attribute to modify, with any existing values.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override LdapControl[] Controls { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual LdapAttribute Attribute { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -333,107 +362,24 @@ connection</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
-        <td><p>The controls.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls">LdapMessage.Controls</a></div>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_ErrorMessage_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ErrorMessage*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_ErrorMessage" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ErrorMessage">ErrorMessage</h4>
-  <div class="markdown level1 summary"><p>Returns any error message in the response.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string ErrorMessage { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>Any error message in the response.</p>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
+        <td><p>The attribute.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_MatchedDN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.MatchedDN*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_MatchedDN" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.MatchedDN">MatchedDN</h4>
-  <div class="markdown level1 summary"><p>Returns the partially matched DN field from the server response,
-if the response contains one.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapModification_Op_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Op*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_Op" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.Op">Op</h4>
+  <div class="markdown level1 summary"><p>Returns the type of modification specified by this object.
+The type is one of the following:
+<ul><li>LdapModification.ADD</li><li>LdapModification.DELETE</li><li>LdapModification.REPLACE</li></ul></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string MatchedDN { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>The partially matched DN field, if the response contains one.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_Referrals_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Referrals*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_Referrals" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.Referrals">Referrals</h4>
-  <div class="markdown level1 summary"><p>Returns all referrals in a server response, if the response contains any.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string[] Referrals { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span>[]</td>
-        <td><p>All the referrals in the server response.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse_ResultCode_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ResultCode*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse_ResultCode" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.ResultCode">ResultCode</h4>
-  <div class="markdown level1 summary"><p>Returns the result code in a server response.
-For a list of result codes, see the LdapException class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int ResultCode { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual int Op { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -446,14 +392,15 @@ For a list of result codes, see the LdapException class.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>The result code.</p>
+        <td><p>The op.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_System_String_Unosquare_Swan_Networking_Ldap_LdapModification___Unosquare_Swan_Networking_Ldap_LdapConstraints_">Modify(String, LdapModification[], LdapConstraints)</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></div>
   </div>
 </article>
           </div>
