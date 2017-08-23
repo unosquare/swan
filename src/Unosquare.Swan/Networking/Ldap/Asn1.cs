@@ -881,6 +881,26 @@ namespace Unosquare.Swan.Networking.Ldap
 
             return base.ToString() + sb;
         }
+
+        public Asn1Object SetRenamed(int index, Asn1Object valueRenamed)
+        {
+            if (index>= _contentIndex || index < 0)
+            {
+                throw new IndexOutOfRangeException($"Asn1Structured: set: index {index}, size {_contentIndex}");
+            }
+
+            return _content[index] = valueRenamed;
+        }
+
+        public Asn1Object GetRenamed(int index)
+        {
+            if (index >= _contentIndex || index < 0)
+            {
+                throw new IndexOutOfRangeException($"Asn1Structured: set: index {index}, size {_contentIndex}");
+            }
+
+            return _content[index];
+        }
     }
 
     /// <summary>

@@ -1,6 +1,4 @@
-﻿/// <summary>
-/// 
-/// </summary>
+﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
     /// <summary>
@@ -117,3 +115,4 @@ namespace Unosquare.Swan.Networking.Ldap
         }
     }
 }
+#endif

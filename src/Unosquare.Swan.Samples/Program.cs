@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Collections;
 
     public partial class Program
     {
@@ -19,6 +20,33 @@
         {
             Runtime.WriteWelcomeBanner(ConsoleColor.Green);
 #if !NET46
+            //Task.Factory.StartNew(async () =>
+            //{
+            //    try
+            //    {
+            //        var cn = new LdapConnection(); 
+
+            //        await cn.Connect("ad.unosquare.com", 389);
+            //        await cn.Bind("uid=nestor.soto,dc=ad,dc=unosquare,dc=com", "square.nes65");
+            //        Console.WriteLine($"Conected: {cn.Connected}");
+            //        var lsc = await cn.Search("ou=Disabled Employees,dc=ad,dc=unosquare,dc=com", LdapConnection.SCOPE_SUB);
+
+            //        while (lsc.HasMore())
+            //        {
+            //            var entry = lsc.Next();
+            //            var ldapAttributes = entry.GetAttributeSet();
+
+            //            Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
+            //        }
+
+            //        //While all the entries are parsed, disconnect   
+            //        cn.Disconnect();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ex.Error(nameof(Main), "Error LDAP");
+            //    }
+            //});
             Task.Factory.StartNew(async () =>
             {
                 try
@@ -46,6 +74,30 @@
                     ex.Error(nameof(Main), "Error LDAP");
                 }
             });
+            //Task.Factory.StartNew(async () =>
+            //{
+            //    try
+            //    {
+            //        var cn = new LdapConnection();
+
+            //        await cn.Connect("ad.unosquare.com", 389);
+            //        await cn.Bind("uid=nestor.soto,dc=unosquare,dc=com", "square.nes65");
+            //        Console.WriteLine($"Is conected: {cn.Connected}");
+            //        var newPasswd = "pass.word0";
+            //        var modList = new ArrayList();
+            //        var attribute = new LdapAttribute("userPassword", newPasswd);
+            //        modList.Add(new LdapModification(LdapModification.REPLACE, attribute));
+            //        LdapModification[] mods = new LdapModification[modList.Count];
+            //        Type mtype = Type.GetType("LdapModification");
+            //        mods = (LdapModification[])modList.ToArray(typeof(LdapModification));
+            //        await cn.Modify("uid = nestor.soto, dc = unosquare, dc = com", mods);
+            //        cn.Disconnect();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ex.Error(nameof(Main), "Error LDAP");
+            //    }
+            //});
 #endif
             TestApplicationInfo();
             // TestNetworkUtilities();

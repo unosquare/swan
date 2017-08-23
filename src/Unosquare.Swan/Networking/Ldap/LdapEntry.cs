@@ -278,6 +278,17 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Gets the byte values.
+        /// </summary>
+        /// <value>
+        /// The byte values.
+        /// </value>
+        public virtual IEnumerator ByteValues
+        {
+            get { return new ArrayEnumeration(ByteValueArray); }
+        }
+
+        /// <summary>
         ///     Returns the language subtype of the attribute, if any.
         ///     For example, if the attribute name is cn;lang-ja;phonetic,
         ///     this method returns the string, lang-ja.
@@ -1408,6 +1419,87 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             return retValue.ToString();
+        }
+    }
+
+    /// <summary>
+    /// asdasdasdsad
+    /// </summary>
+    /// <seealso cref="System.Collections.IEnumerator" />
+    public class ArrayEnumeration : IEnumerator
+    {
+        private object tempAuxObj;
+        private readonly object[] eArray;
+        private int index;
+
+        /// <summary>
+        /// Obtiene el elemento actual de la colección.
+        /// </summary>
+        public virtual object Current
+        {
+            get { return tempAuxObj; }
+        }
+
+        /// <summary>
+        /// Desplaza el enumerador al siguiente elemento de la colección.
+        /// </summary>
+        /// <returns>
+        /// Es true si el enumerador avanzó con éxito hasta el siguiente elemento; es false si el enumerador alcanzó el final de la colección.
+        /// </returns>
+        public virtual bool MoveNext()
+        {
+            var result = HasMoreElements();
+            if (result)
+            {
+                tempAuxObj = NextElement();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Establece el enumerador en su posición inicial (antes del primer elemento de la colección).
+        /// </summary>
+        public virtual void Reset()
+        {
+            tempAuxObj = null;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArrayEnumeration" /> class.
+        /// Constructor to create the Enumeration
+        /// </summary>
+        /// <param name="eArray">the array to use for the Enumeration</param>
+        public ArrayEnumeration(object[] eArray)
+        {
+            this.eArray = eArray;
+        }
+
+        /// <summary>
+        /// Determines whether [has more elements].
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if [has more elements]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool HasMoreElements()
+        {
+            if (eArray == null)
+                return false;
+            return index < eArray.Length;
+        }
+
+        /// <summary>
+        /// Nexts the element.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public object NextElement()
+        {
+            if (eArray == null || index >= eArray.Length)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return eArray[index++];
         }
     }
 }

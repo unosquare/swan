@@ -1,6 +1,7 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -633,7 +634,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public async Task<LdapSearchResults> Search(
             string @base, 
             int scope, 
-            string filter = "objectclass=*", 
+            string filter = "objectClass=*", 
             string[] attrs = null,
             bool typesOnly = false, 
             LdapSearchConstraints cons = null)
@@ -647,11 +648,31 @@ namespace Unosquare.Swan.Networking.Ldap
             
             return new LdapSearchResults(this, msg.MessageID);
         }
-        
-        //public async Task Modify()
-        //{
 
-        //}
+        /// <summary>
+        /// Modifies the specified dn.
+        /// </summary>
+        /// <param name="dn">The dn.</param>
+        /// <param name="mods">The mods.</param>
+        /// <param name="cons">The cons.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public async Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null)
+        {
+            if (cons == null)
+                cons = defSearchCons;
+
+            if ((object) dn == null)
+            {
+                throw new ArgumentException(ExceptionMessages.DN_PARAM_ERROR);
+            }
+
+            var msg = new LdapModifyRequest(dn, mods, cons.GetControls());
+
+            await RequestLdapMessage(msg);
+
+            // Should return something?
+        }
     }
 }
 

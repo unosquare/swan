@@ -1,24 +1,47 @@
-﻿namespace Unosquare.Swan.Networking.Ldap
+﻿#if !UWP
+namespace Unosquare.Swan.Networking.Ldap
 {
-    internal class RfcModifyRquest : IRfcRequest
+    /// <summary>
+    /// Represents an Ldap Modify Request.
+    /// <pre>
+    /// ModifyRequest ::= [APPLICATION 6] SEQUENCE {
+    /// object          LdapDN,
+    /// modification    SEQUENCE OF SEQUENCE {
+    /// operation       ENUMERATED {
+    /// add     (0),
+    /// delete  (1),
+    /// replace (2) },
+    /// modification    AttributeTypeAndValues } }
+    /// </pre>
+    /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcRequest" />
+    internal class RfcModifyRquest : Asn1Sequence, IRfcRequest
     {
-        private RfcLdapDN rfcLdapDN;
-        private object p;
-
-        public RfcModifyRquest(RfcLdapDN rfcLdapDN, object p)
+        public RfcModifyRquest(RfcLdapDN objectRenamed, Asn1SequenceOf modification)
+            : base(2)
         {
-            this.rfcLdapDN = rfcLdapDN;
-            this.p = p;
+            Add(objectRenamed);
+            Add(modification);
         }
 
-        //public virtual Asn1SequenceOf Modifications
-        //{
-        //    get { return (Asn1SequenceOf) get}
-        //}
+        internal RfcModifyRquest(Asn1Object[] origiRequest, string baseRenamed)
+            : base(origiRequest, origiRequest.Length)
+        {
+            if ((object)baseRenamed != null)
+            {
+                SetRenamed(0, new RfcLdapDN(baseRenamed));
+            }
+        }
+
+        public virtual Asn1SequenceOf Modifications
+        {
+            get { return (Asn1SequenceOf)GetRenamed(1); }
+        }
 
         public IRfcRequest DupRequest(string requestBase, string filter, bool reference)
         {
-            throw new System.NotImplementedException();
+            return new RfcModifyRquest(ToArray(), requestBase);
         }
 
         public override Asn1Identifier GetIdentifier()
@@ -28,7 +51,8 @@
 
         public string GetRequestDN()
         {
-            throw new System.NotImplementedException();
+            return ((RfcLdapDN)GetRenamed(0)).StringValue();
         }
-    }        
+    }
 }
+#endif
