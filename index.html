@@ -81,9 +81,6 @@ Our philosophy is that SWAN should have no external dependencies, it should be c
 <h2 id="nuget-installation">NuGet Installation:</h2>
 <p><a href="https://badge.fury.io/nu/Unosquare.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.svg" alt="NuGet version"></a></p>
 <pre><code>PM&gt; Install-Package Unosquare.Swan
-</code></pre><p>We have a nuget including helpful providers for <code>AspNetCore</code> at:</p>
-<p><a href="https://badge.fury.io/nu/Unosquare.AspNetCore.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.AspNetCore.svg" alt="NuGet version"></a></p>
-<pre><code>PM&gt; Install-Package Unosquare.Swan.AspNetCore
 </code></pre><h2 id="whats-in-the-library">What&#39;s in the library</h2>
 <p>In this section, we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
 SWAN won&#39;t force you to use any of its components, classes or methods.</p>
@@ -226,13 +223,13 @@ CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/C
 <p>This is a way to read CSV format data.</p>
 <pre><code class="lang-csharp"> // The data to be readed
 var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
-    Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot; 
-    Ca,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;&quot; $1,359,885 &quot;&quot;&quot;;
+    Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;500&quot; 
+    Ca,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;600&quot;;
 
-using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
 {               
     // The reader of the CSV
-    var reader = new CsvReader(stream, true, Encoding.ASCII);
+    var reader = new CsvReader(stream, true, Encoding.UTF8);
 };
 </code></pre><h4 id="example-2-reading-a-csv-file">Example 2: Reading a CSV file</h4>
 <p>From a CSV file, you can read and load the information to a generic list.</p>
