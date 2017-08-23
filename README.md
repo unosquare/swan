@@ -21,14 +21,6 @@ NuGet Installation:
 PM> Install-Package Unosquare.Swan
 ```
 
-We have a nuget including helpful providers for `AspNetCore` at:
-
-[![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.AspNetCore.svg)](https://badge.fury.io/nu/Unosquare.AspNetCore.Swan)
-
-```
-PM> Install-Package Unosquare.Swan.AspNetCore
-```
-
 ## What's in the library
 
 In this section, we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
@@ -246,13 +238,13 @@ This is a way to read CSV format data.
 ```csharp
  // The data to be readed
 var data = @"Company,OpenPositions,MainTechnology,Revenue
-    Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
-    Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+    Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","500" 
+    Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","600";
 
-using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
+using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
 {               
     // The reader of the CSV
-    var reader = new CsvReader(stream, true, Encoding.ASCII);
+    var reader = new CsvReader(stream, true, Encoding.UTF8);
 };
 ```
 
