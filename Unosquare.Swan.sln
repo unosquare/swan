@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2D969810-4C1B-4354-9D55-5961EFF55AB3}"
 EndProject
@@ -22,10 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.Samples", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.Test", "test\Unosquare.Swan.Test\Unosquare.Swan.Test.csproj", "{60B68528-8E90-4616-BC6A-C703F018EFEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.AspNetCore", "src\Unosquare.Swan.AspNetCore\Unosquare.Swan.AspNetCore.csproj", "{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.Swan.AspNetCore.Sample", "src\Unosquare.Swan.AspNetCore.Sample\Unosquare.Swan.AspNetCore.Sample.csproj", "{6823A467-8AA8-40F5-B934-24D5DBDA65AE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,14 +40,6 @@ Global
 		{60B68528-8E90-4616-BC6A-C703F018EFEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60B68528-8E90-4616-BC6A-C703F018EFEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60B68528-8E90-4616-BC6A-C703F018EFEC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6823A467-8AA8-40F5-B934-24D5DBDA65AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6823A467-8AA8-40F5-B934-24D5DBDA65AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6823A467-8AA8-40F5-B934-24D5DBDA65AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6823A467-8AA8-40F5-B934-24D5DBDA65AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,7 +48,8 @@ Global
 		{F6849B76-E09A-4F84-B299-804A63F12ADC} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{1FC9CBD9-92B1-4A82-AB3D-8F6ADE0F4430} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
 		{60B68528-8E90-4616-BC6A-C703F018EFEC} = {FD98D3F3-CD24-467A-A730-CAA79F92E693}
-		{9A13E05E-61D9-41BA-B0F7-B5A5C0DB5182} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
-		{6823A467-8AA8-40F5-B934-24D5DBDA65AE} = {2D969810-4C1B-4354-9D55-5961EFF55AB3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5977823D-9DDF-4C6D-AA39-87491F030AC1}
 	EndGlobalSection
 EndGlobal
