@@ -529,10 +529,11 @@ namespace Unosquare.Swan.Networking.Ldap
             await tcpClient.ConnectAsync(host, port);
             conn = new Connection(tcpClient, Encoding.UTF8, "\r\n", true, 0);
 
-            // TODO: how to stop?
-            await Task.Factory.StartNew(RetrieveMessages, cts.Token);
+#pragma warning disable 4014
+            Task.Factory.StartNew(RetrieveMessages, cts.Token);
+#pragma warning restore 4014
         }
-        
+
         /// <summary>
         /// Synchronously disconnects from the Ldap server.
         /// Before the object can perform Ldap operations again, it must

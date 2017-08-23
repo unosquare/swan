@@ -1,4 +1,5 @@
-version: '1.0.{build}'
+version: '0.15.{build}'
+image: Visual Studio 2017
 configuration:
 - Release
 platform: Any CPU
@@ -39,13 +40,12 @@ after_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
-            docfx docfx.json
+            docfx docfx.json --logLevel Error
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
             git config --global core.autocrlf false 
             git config --global user.email $env:op_build_user_email
             git config --global user.name $env:op_build_user
-
             git clone https://github.com/unosquare/swan.git -b gh-pages origin_site -q
             Copy-Item origin_site/.git _site -recurse
             CD _site
