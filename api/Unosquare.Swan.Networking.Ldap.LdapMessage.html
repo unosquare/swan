@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class LdapMessage
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.22.3.0">
+    <meta name="generator" content="docfx 2.23.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -530,7 +530,29 @@ if none.</p>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_Type" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Type">Type</h4>
   <div class="markdown level1 summary"><p>Returns the Ldap operation type of the message.
 The type is one of the following:
-<ul><li>BIND_REQUEST            = 0;</li><li>BIND_RESPONSE           = 1;</li><li>UNBIND_REQUEST          = 2;</li><li>SEARCH_REQUEST          = 3;</li><li>SEARCH_RESPONSE         = 4;</li><li>SEARCH_RESULT           = 5;</li><li>MODIFY_REQUEST          = 6;</li><li>MODIFY_RESPONSE         = 7;</li><li>ADD_REQUEST             = 8;</li><li>ADD_RESPONSE            = 9;</li><li>DEL_REQUEST             = 10;</li><li>DEL_RESPONSE            = 11;</li><li>MODIFY_RDN_REQUEST      = 12;</li><li>MODIFY_RDN_RESPONSE     = 13;</li><li>COMPARE_REQUEST         = 14;</li><li>COMPARE_RESPONSE        = 15;</li><li>ABANDON_REQUEST         = 16;</li><li>SEARCH_RESULT_REFERENCE = 19;</li><li>EXTENDED_REQUEST        = 23;</li><li>EXTENDED_RESPONSE       = 24;</li><li>INTERMEDIATE_RESPONSE   = 25;</li></ul></p>
+<ul>
+<li>BIND_REQUEST            = 0;</li>
+<li>BIND_RESPONSE           = 1;</li>
+<li>UNBIND_REQUEST          = 2;</li>
+<li>SEARCH_REQUEST          = 3;</li>
+<li>SEARCH_RESPONSE         = 4;</li>
+<li>SEARCH_RESULT           = 5;</li>
+<li>MODIFY_REQUEST          = 6;</li>
+<li>MODIFY_RESPONSE         = 7;</li>
+<li>ADD_REQUEST             = 8;</li>
+<li>ADD_RESPONSE            = 9;</li>
+<li>DEL_REQUEST             = 10;</li>
+<li>DEL_RESPONSE            = 11;</li>
+<li>MODIFY_RDN_REQUEST      = 12;</li>
+<li>MODIFY_RDN_RESPONSE     = 13;</li>
+<li>COMPARE_REQUEST         = 14;</li>
+<li>COMPARE_RESPONSE        = 15;</li>
+<li>ABANDON_REQUEST         = 16;</li>
+<li>SEARCH_RESULT_REFERENCE = 19;</li>
+<li>EXTENDED_REQUEST        = 23;</li>
+<li>EXTENDED_RESPONSE       = 24;</li>
+<li>INTERMEDIATE_RESPONSE   = 25;</li>
+</ul></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -548,7 +570,7 @@ The type is one of the following:
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>The type.</p>
+        <td><p>The operation type of the message.</p>
 </td>
       </tr>
     </tbody>
@@ -559,7 +581,7 @@ The type is one of the following:
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.ToString*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.ToString">ToString()</h4>
-  <div class="markdown level1 summary"><p>Returns a <span class="xref">System.String</span> that represents this instance.</p>
+  <div class="markdown level1 summary"><p>Creates a String representation of this object</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -577,7 +599,7 @@ The type is one of the following:
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that represents this instance.</p>
+        <td><p>a String representation for this LdapMessage</p>
 </td>
       </tr>
     </tbody>
