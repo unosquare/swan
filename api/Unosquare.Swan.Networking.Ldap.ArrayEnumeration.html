@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LdapSearchResults
+    <title>Class ArrayEnumeration
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LdapSearchResults
+    <meta name="title" content="Class ArrayEnumeration
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.23.1.0">
     
@@ -75,20 +75,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults" class="text-break">Class LdapSearchResults
+  <h1 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration" class="text-break">Class ArrayEnumeration
   </h1>
-  <div class="markdown level0 summary"><p>An LdapSearchResults object is returned from a synchronous search
-operation. It provides access to all results received during the
-operation (entries and exceptions).</p>
+  <div class="markdown level0 summary"><p>asdasdasdsad</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">LdapSearchResults</span></div>
+    <div class="level1"><span class="xref">ArrayEnumeration</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -116,28 +114,54 @@ operation (entries and exceptions).</p>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapSearchResults</code></pre>
+    <pre><code class="lang-csharp hljs">public class ArrayEnumeration : IEnumerator</code></pre>
   </div>
-  <h3 id="properties">Properties
+  <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Count_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Count*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Count" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Count">Count</h4>
-  <div class="markdown level1 summary"><p>Returns a count of the items in the search result.
-Returns a count of the entries and exceptions remaining in the object.
-If the search was submitted with a batch size greater than zero,
-getCount reports the number of results received so far but not enumerated
-with next().  If batch size equals zero, getCount reports the number of
-items received, since the application thread blocks until all results are
-received.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration__ctor_System_Object___" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.#ctor(System.Object[])">ArrayEnumeration(Object[])</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.html">ArrayEnumeration</a> class.
+Constructor to create the Enumeration</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int Count { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public ArrayEnumeration(object[] eArray)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span>[]</td>
+        <td><span class="parametername">eArray</span></td>
+        <td><p>the array to use for the Enumeration</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_Current_" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.Current*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_Current" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.Current">Current</h4>
+  <div class="markdown level1 summary"><p>Obtiene el elemento actual de la colección.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual object Current { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -149,24 +173,25 @@ received.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><p>The number of items received but not retrieved by the application</p>
-</td>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">System.Collections.IEnumerator.Current</span></div>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_HasMore_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.HasMore*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_HasMore" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.HasMore">HasMore()</h4>
-  <div class="markdown level1 summary"><p>Reports if there are more search results.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_HasMoreElements_" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.HasMoreElements*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_HasMoreElements" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.HasMoreElements">HasMoreElements()</h4>
+  <div class="markdown level1 summary"><p>Determines whether [has more elements].</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool HasMore()</code></pre>
+    <pre><code class="lang-csharp hljs">public bool HasMoreElements()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -179,24 +204,21 @@ received.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>true if there are more search results.</p>
+        <td><p><code>true</code> if [has more elements]; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Next_" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Next*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_Next" data-uid="Unosquare.Swan.Networking.Ldap.LdapSearchResults.Next">Next()</h4>
-  <div class="markdown level1 summary"><p>Returns the next result as an LdapEntry.
-If automatic referral following is disabled or if a referral
-was not followed, next() will throw an LdapReferralException
-when the referral is received.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_MoveNext_" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.MoveNext*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_MoveNext" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.MoveNext">MoveNext()</h4>
+  <div class="markdown level1 summary"><p>Desplaza el enumerador al siguiente elemento de la colección.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapEntry Next()</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual bool MoveNext()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -208,15 +230,71 @@ when the referral is received.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a></td>
-        <td><p>The next search result as an LdapEntry.</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>Es true si el enumerador avanzó con éxito hasta el siguiente elemento; es false si el enumerador alcanzó el final de la colección.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">System.Collections.IEnumerator.MoveNext()</span></div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_NextElement_" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.NextElement*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_NextElement" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.NextElement">NextElement()</h4>
+  <div class="markdown level1 summary"><p>Nexts the element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object NextElement()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_Reset_" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.Reset*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_ArrayEnumeration_Reset" data-uid="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.Reset">Reset()</h4>
+  <div class="markdown level1 summary"><p>Establece el enumerador en su posición inicial (antes del primer elemento de la colección).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Reset()</code></pre>
+  </div>
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">System.Collections.IEnumerator.Reset()</span></div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</a></div>
+      <div><span class="xref">System.Collections.IEnumerator</span></div>
   </div>
 </article>
           </div>
