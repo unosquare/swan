@@ -1594,12 +1594,12 @@ This method only supports basic types and it is not multi level</p>
   
   <a id="Unosquare_Swan_Extensions_ForEach_" data-uid="Unosquare.Swan.Extensions.ForEach*"></a>
   <h4 id="Unosquare_Swan_Extensions_ForEach__1_System_Collections_Generic_Dictionary___0___0__System_Action___0___0__" data-uid="Unosquare.Swan.Extensions.ForEach``1(System.Collections.Generic.Dictionary{``0,``0},System.Action{``0,``0})">ForEach&lt;T&gt;(Dictionary&lt;T, T&gt;, Action&lt;T, T&gt;)</h4>
-  <div class="markdown level1 summary"><p>Fors the each.</p>
+  <div class="markdown level1 summary"><p>Executes the item action for each element in the Dictionary</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void ForEach&lt;T&gt;(this Dictionary&lt;T, T&gt; dict, Action&lt;T, T&gt; mapAction)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void ForEach&lt;T&gt;(this Dictionary&lt;T, T&gt; dict, Action&lt;T, T&gt; itemAction)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1619,8 +1619,8 @@ This method only supports basic types and it is not multi level</p>
       </tr>
       <tr>
         <td><span class="xref">System.Action</span>&lt;T, T&gt;</td>
-        <td><span class="parametername">mapAction</span></td>
-        <td><p>The map action.</p>
+        <td><span class="parametername">itemAction</span></td>
+        <td><p>The item action.</p>
 </td>
       </tr>
     </tbody>

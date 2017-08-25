@@ -98,11 +98,71 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.ArgumentOptionAttribute.yml",
+      "source_relative_path": "obj/api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Unosquare.Swan.ArgumentOptionAttribute.html",
-          "hash": "oeyReoL/7MICo75ZAP0P8Q=="
+          "relative_path": "api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html",
+          "hash": "bfG59EhvGT0M5S1Vk2J5iA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Attributes.CopyableAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Attributes.CopyableAttribute.html",
+          "hash": "7jsI7vkinJOaqSmzeSDqLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Attributes.JsonPropertyAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html",
+          "hash": "J3gWYpkMjzUadlr9gcCL0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html",
+          "hash": "eLhEeFKgxHNiSjHieasJyg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Attributes.StructEndiannessAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Attributes.StructEndiannessAttribute.html",
+          "hash": "5RzMbvoj7U6DEYU4JCJgBQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Attributes.html",
+          "hash": "IvEmMMm77YSGqgmlK6sm6A=="
         }
       },
       "is_incremental": false,
@@ -822,7 +882,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Extensions.html",
-          "hash": "dQ6AHIRbW5wmFpNuiEgTyw=="
+          "hash": "6BSEob4Gmt6N1aEaiLMq/g=="
         }
       },
       "is_incremental": false,
@@ -871,18 +931,6 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.Formatters.html",
           "hash": "sQH5llurKJKjlkyScukopQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.JsonPropertyAttribute.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.JsonPropertyAttribute.html",
-          "hash": "R1LK1tJdvuLUFc9RTz04kA=="
         }
       },
       "is_incremental": false,
@@ -1394,18 +1442,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.PropertyDisplayAttribute.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.PropertyDisplayAttribute.html",
-          "hash": "cZW0Y8P6JT7+9XPf9w9kaA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Reflection.ExtendedPropertyInfo-1.yml",
       "output": {
         ".html": {
@@ -1562,18 +1598,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.StructEndiannessAttribute.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.StructEndiannessAttribute.html",
-          "hash": "fw6/9T0j8OW1Ct+jzC/hTQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Terminal.Settings.yml",
       "output": {
         ".html": {
@@ -1614,7 +1638,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "xLpLROvlF5kwQxenAwm/hQ=="
+          "hash": "Hj0yoA6DKR7FB3tIRiCs9A=="
         }
       },
       "is_incremental": false,
@@ -1626,7 +1650,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "/wSyuATypKE8wug3pKwatw=="
+          "hash": "iBSU13YE6erPSWNt9L82pw=="
         }
       },
       "is_incremental": false,
@@ -1658,17 +1682,17 @@
           "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "incrementalPhase": "build"
-        },
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {

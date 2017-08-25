@@ -384,126 +384,264 @@ references:
   commentId: Overload:Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState
   fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState
   nameWithType: AppWorkerStateChangedEventArgs.OldState
-- uid: Unosquare.Swan.ArgumentOptionAttribute
+- uid: Unosquare.Swan.Attributes
+  name: Unosquare.Swan.Attributes
+  href: api/Unosquare.Swan.Attributes.html
+  commentId: N:Unosquare.Swan.Attributes
+  fullName: Unosquare.Swan.Attributes
+  nameWithType: Unosquare.Swan.Attributes
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute
   name: ArgumentOptionAttribute
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html
-  commentId: T:Unosquare.Swan.ArgumentOptionAttribute
-  fullName: Unosquare.Swan.ArgumentOptionAttribute
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html
+  commentId: T:Unosquare.Swan.Attributes.ArgumentOptionAttribute
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute
   nameWithType: ArgumentOptionAttribute
-- uid: Unosquare.Swan.ArgumentOptionAttribute.#ctor
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor
   name: ArgumentOptionAttribute()
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute__ctor
-  commentId: M:Unosquare.Swan.ArgumentOptionAttribute.#ctor
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.ArgumentOptionAttribute()
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute__ctor
+  commentId: M:Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ArgumentOptionAttribute()
   nameWithType: ArgumentOptionAttribute.ArgumentOptionAttribute()
-- uid: Unosquare.Swan.ArgumentOptionAttribute.#ctor(System.Char)
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor(System.Char)
   name: ArgumentOptionAttribute(Char)
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute__ctor_System_Char_
-  commentId: M:Unosquare.Swan.ArgumentOptionAttribute.#ctor(System.Char)
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.ArgumentOptionAttribute(System.Char)
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute__ctor_System_Char_
+  commentId: M:Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor(System.Char)
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ArgumentOptionAttribute(System.Char)
   nameWithType: ArgumentOptionAttribute.ArgumentOptionAttribute(Char)
-- uid: Unosquare.Swan.ArgumentOptionAttribute.#ctor(System.Char,System.String)
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor(System.Char,System.String)
   name: ArgumentOptionAttribute(Char, String)
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute__ctor_System_Char_System_String_
-  commentId: M:Unosquare.Swan.ArgumentOptionAttribute.#ctor(System.Char,System.String)
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.ArgumentOptionAttribute(System.Char, System.String)
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute__ctor_System_Char_System_String_
+  commentId: M:Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor(System.Char,System.String)
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ArgumentOptionAttribute(System.Char, System.String)
   nameWithType: ArgumentOptionAttribute.ArgumentOptionAttribute(Char, String)
-- uid: Unosquare.Swan.ArgumentOptionAttribute.#ctor(System.String)
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor(System.String)
   name: ArgumentOptionAttribute(String)
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute__ctor_System_String_
-  commentId: M:Unosquare.Swan.ArgumentOptionAttribute.#ctor(System.String)
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.ArgumentOptionAttribute(System.String)
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute__ctor_System_String_
+  commentId: M:Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor(System.String)
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ArgumentOptionAttribute(System.String)
   nameWithType: ArgumentOptionAttribute.ArgumentOptionAttribute(String)
-- uid: Unosquare.Swan.ArgumentOptionAttribute.#ctor*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor*
   name: ArgumentOptionAttribute
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute__ctor_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.#ctor
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.ArgumentOptionAttribute
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute__ctor_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.#ctor
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ArgumentOptionAttribute
   nameWithType: ArgumentOptionAttribute.ArgumentOptionAttribute
-- uid: Unosquare.Swan.ArgumentOptionAttribute.DefaultValue
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.DefaultValue
   name: DefaultValue
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_DefaultValue
-  commentId: P:Unosquare.Swan.ArgumentOptionAttribute.DefaultValue
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.DefaultValue
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_DefaultValue
+  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.DefaultValue
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.DefaultValue
   nameWithType: ArgumentOptionAttribute.DefaultValue
-- uid: Unosquare.Swan.ArgumentOptionAttribute.DefaultValue*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.DefaultValue*
   name: DefaultValue
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_DefaultValue_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.DefaultValue
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.DefaultValue
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_DefaultValue_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.DefaultValue
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.DefaultValue
   nameWithType: ArgumentOptionAttribute.DefaultValue
-- uid: Unosquare.Swan.ArgumentOptionAttribute.HelpText
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.HelpText
   name: HelpText
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_HelpText
-  commentId: P:Unosquare.Swan.ArgumentOptionAttribute.HelpText
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.HelpText
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_HelpText
+  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.HelpText
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.HelpText
   nameWithType: ArgumentOptionAttribute.HelpText
-- uid: Unosquare.Swan.ArgumentOptionAttribute.HelpText*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.HelpText*
   name: HelpText
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_HelpText_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.HelpText
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.HelpText
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_HelpText_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.HelpText
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.HelpText
   nameWithType: ArgumentOptionAttribute.HelpText
-- uid: Unosquare.Swan.ArgumentOptionAttribute.LongName
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.LongName
   name: LongName
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_LongName
-  commentId: P:Unosquare.Swan.ArgumentOptionAttribute.LongName
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.LongName
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_LongName
+  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.LongName
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.LongName
   nameWithType: ArgumentOptionAttribute.LongName
-- uid: Unosquare.Swan.ArgumentOptionAttribute.LongName*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.LongName*
   name: LongName
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_LongName_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.LongName
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.LongName
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_LongName_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.LongName
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.LongName
   nameWithType: ArgumentOptionAttribute.LongName
-- uid: Unosquare.Swan.ArgumentOptionAttribute.Required
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Required
   name: Required
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_Required
-  commentId: P:Unosquare.Swan.ArgumentOptionAttribute.Required
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.Required
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_Required
+  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.Required
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Required
   nameWithType: ArgumentOptionAttribute.Required
-- uid: Unosquare.Swan.ArgumentOptionAttribute.Required*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Required*
   name: Required
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_Required_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.Required
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.Required
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_Required_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.Required
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Required
   nameWithType: ArgumentOptionAttribute.Required
-- uid: Unosquare.Swan.ArgumentOptionAttribute.Separator
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Separator
   name: Separator
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_Separator
-  commentId: P:Unosquare.Swan.ArgumentOptionAttribute.Separator
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.Separator
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_Separator
+  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.Separator
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Separator
   nameWithType: ArgumentOptionAttribute.Separator
-- uid: Unosquare.Swan.ArgumentOptionAttribute.Separator*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Separator*
   name: Separator
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_Separator_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.Separator
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.Separator
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_Separator_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.Separator
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.Separator
   nameWithType: ArgumentOptionAttribute.Separator
-- uid: Unosquare.Swan.ArgumentOptionAttribute.SetName
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
   name: SetName
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_SetName
-  commentId: P:Unosquare.Swan.ArgumentOptionAttribute.SetName
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.SetName
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_SetName
+  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
   nameWithType: ArgumentOptionAttribute.SetName
-- uid: Unosquare.Swan.ArgumentOptionAttribute.SetName*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName*
   name: SetName
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_SetName_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.SetName
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.SetName
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_SetName_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.SetName
   nameWithType: ArgumentOptionAttribute.SetName
-- uid: Unosquare.Swan.ArgumentOptionAttribute.ShortName
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ShortName
   name: ShortName
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_ShortName
-  commentId: P:Unosquare.Swan.ArgumentOptionAttribute.ShortName
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.ShortName
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_ShortName
+  commentId: P:Unosquare.Swan.Attributes.ArgumentOptionAttribute.ShortName
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ShortName
   nameWithType: ArgumentOptionAttribute.ShortName
-- uid: Unosquare.Swan.ArgumentOptionAttribute.ShortName*
+- uid: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ShortName*
   name: ShortName
-  href: api/Unosquare.Swan.ArgumentOptionAttribute.html#Unosquare_Swan_ArgumentOptionAttribute_ShortName_
-  commentId: Overload:Unosquare.Swan.ArgumentOptionAttribute.ShortName
-  fullName: Unosquare.Swan.ArgumentOptionAttribute.ShortName
+  href: api/Unosquare.Swan.Attributes.ArgumentOptionAttribute.html#Unosquare_Swan_Attributes_ArgumentOptionAttribute_ShortName_
+  commentId: Overload:Unosquare.Swan.Attributes.ArgumentOptionAttribute.ShortName
+  fullName: Unosquare.Swan.Attributes.ArgumentOptionAttribute.ShortName
   nameWithType: ArgumentOptionAttribute.ShortName
+- uid: Unosquare.Swan.Attributes.CopyableAttribute
+  name: CopyableAttribute
+  href: api/Unosquare.Swan.Attributes.CopyableAttribute.html
+  commentId: T:Unosquare.Swan.Attributes.CopyableAttribute
+  fullName: Unosquare.Swan.Attributes.CopyableAttribute
+  nameWithType: CopyableAttribute
+- uid: Unosquare.Swan.Attributes.JsonPropertyAttribute
+  name: JsonPropertyAttribute
+  href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html
+  commentId: T:Unosquare.Swan.Attributes.JsonPropertyAttribute
+  fullName: Unosquare.Swan.Attributes.JsonPropertyAttribute
+  nameWithType: JsonPropertyAttribute
+- uid: Unosquare.Swan.Attributes.JsonPropertyAttribute.#ctor(System.String,System.Boolean)
+  name: JsonPropertyAttribute(String, Boolean)
+  href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html#Unosquare_Swan_Attributes_JsonPropertyAttribute__ctor_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.Attributes.JsonPropertyAttribute.#ctor(System.String,System.Boolean)
+  fullName: Unosquare.Swan.Attributes.JsonPropertyAttribute.JsonPropertyAttribute(System.String, System.Boolean)
+  nameWithType: JsonPropertyAttribute.JsonPropertyAttribute(String, Boolean)
+- uid: Unosquare.Swan.Attributes.JsonPropertyAttribute.#ctor*
+  name: JsonPropertyAttribute
+  href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html#Unosquare_Swan_Attributes_JsonPropertyAttribute__ctor_
+  commentId: Overload:Unosquare.Swan.Attributes.JsonPropertyAttribute.#ctor
+  fullName: Unosquare.Swan.Attributes.JsonPropertyAttribute.JsonPropertyAttribute
+  nameWithType: JsonPropertyAttribute.JsonPropertyAttribute
+- uid: Unosquare.Swan.Attributes.JsonPropertyAttribute.Ignored
+  name: Ignored
+  href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html#Unosquare_Swan_Attributes_JsonPropertyAttribute_Ignored
+  commentId: P:Unosquare.Swan.Attributes.JsonPropertyAttribute.Ignored
+  fullName: Unosquare.Swan.Attributes.JsonPropertyAttribute.Ignored
+  nameWithType: JsonPropertyAttribute.Ignored
+- uid: Unosquare.Swan.Attributes.JsonPropertyAttribute.Ignored*
+  name: Ignored
+  href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html#Unosquare_Swan_Attributes_JsonPropertyAttribute_Ignored_
+  commentId: Overload:Unosquare.Swan.Attributes.JsonPropertyAttribute.Ignored
+  fullName: Unosquare.Swan.Attributes.JsonPropertyAttribute.Ignored
+  nameWithType: JsonPropertyAttribute.Ignored
+- uid: Unosquare.Swan.Attributes.JsonPropertyAttribute.PropertyName
+  name: PropertyName
+  href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html#Unosquare_Swan_Attributes_JsonPropertyAttribute_PropertyName
+  commentId: P:Unosquare.Swan.Attributes.JsonPropertyAttribute.PropertyName
+  fullName: Unosquare.Swan.Attributes.JsonPropertyAttribute.PropertyName
+  nameWithType: JsonPropertyAttribute.PropertyName
+- uid: Unosquare.Swan.Attributes.JsonPropertyAttribute.PropertyName*
+  name: PropertyName
+  href: api/Unosquare.Swan.Attributes.JsonPropertyAttribute.html#Unosquare_Swan_Attributes_JsonPropertyAttribute_PropertyName_
+  commentId: Overload:Unosquare.Swan.Attributes.JsonPropertyAttribute.PropertyName
+  fullName: Unosquare.Swan.Attributes.JsonPropertyAttribute.PropertyName
+  nameWithType: JsonPropertyAttribute.PropertyName
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute
+  name: PropertyDisplayAttribute
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html
+  commentId: T:Unosquare.Swan.Attributes.PropertyDisplayAttribute
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute
+  nameWithType: PropertyDisplayAttribute
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.DefaultValue
+  name: DefaultValue
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_DefaultValue
+  commentId: P:Unosquare.Swan.Attributes.PropertyDisplayAttribute.DefaultValue
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.DefaultValue
+  nameWithType: PropertyDisplayAttribute.DefaultValue
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.DefaultValue*
+  name: DefaultValue
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_DefaultValue_
+  commentId: Overload:Unosquare.Swan.Attributes.PropertyDisplayAttribute.DefaultValue
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.DefaultValue
+  nameWithType: PropertyDisplayAttribute.DefaultValue
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Description
+  name: Description
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_Description
+  commentId: P:Unosquare.Swan.Attributes.PropertyDisplayAttribute.Description
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Description
+  nameWithType: PropertyDisplayAttribute.Description
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Description*
+  name: Description
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_Description_
+  commentId: Overload:Unosquare.Swan.Attributes.PropertyDisplayAttribute.Description
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Description
+  nameWithType: PropertyDisplayAttribute.Description
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.GroupName
+  name: GroupName
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_GroupName
+  commentId: P:Unosquare.Swan.Attributes.PropertyDisplayAttribute.GroupName
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.GroupName
+  nameWithType: PropertyDisplayAttribute.GroupName
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.GroupName*
+  name: GroupName
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_GroupName_
+  commentId: Overload:Unosquare.Swan.Attributes.PropertyDisplayAttribute.GroupName
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.GroupName
+  nameWithType: PropertyDisplayAttribute.GroupName
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name
+  name: Name
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_Name
+  commentId: P:Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name
+  nameWithType: PropertyDisplayAttribute.Name
+- uid: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name*
+  name: Name
+  href: api/Unosquare.Swan.Attributes.PropertyDisplayAttribute.html#Unosquare_Swan_Attributes_PropertyDisplayAttribute_Name_
+  commentId: Overload:Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name
+  fullName: Unosquare.Swan.Attributes.PropertyDisplayAttribute.Name
+  nameWithType: PropertyDisplayAttribute.Name
+- uid: Unosquare.Swan.Attributes.StructEndiannessAttribute
+  name: StructEndiannessAttribute
+  href: api/Unosquare.Swan.Attributes.StructEndiannessAttribute.html
+  commentId: T:Unosquare.Swan.Attributes.StructEndiannessAttribute
+  fullName: Unosquare.Swan.Attributes.StructEndiannessAttribute
+  nameWithType: StructEndiannessAttribute
+- uid: Unosquare.Swan.Attributes.StructEndiannessAttribute.#ctor(Unosquare.Swan.Endianness)
+  name: StructEndiannessAttribute(Endianness)
+  href: api/Unosquare.Swan.Attributes.StructEndiannessAttribute.html#Unosquare_Swan_Attributes_StructEndiannessAttribute__ctor_Unosquare_Swan_Endianness_
+  commentId: M:Unosquare.Swan.Attributes.StructEndiannessAttribute.#ctor(Unosquare.Swan.Endianness)
+  fullName: Unosquare.Swan.Attributes.StructEndiannessAttribute.StructEndiannessAttribute(Unosquare.Swan.Endianness)
+  nameWithType: StructEndiannessAttribute.StructEndiannessAttribute(Endianness)
+- uid: Unosquare.Swan.Attributes.StructEndiannessAttribute.#ctor*
+  name: StructEndiannessAttribute
+  href: api/Unosquare.Swan.Attributes.StructEndiannessAttribute.html#Unosquare_Swan_Attributes_StructEndiannessAttribute__ctor_
+  commentId: Overload:Unosquare.Swan.Attributes.StructEndiannessAttribute.#ctor
+  fullName: Unosquare.Swan.Attributes.StructEndiannessAttribute.StructEndiannessAttribute
+  nameWithType: StructEndiannessAttribute.StructEndiannessAttribute
+- uid: Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
+  name: Endianness
+  href: api/Unosquare.Swan.Attributes.StructEndiannessAttribute.html#Unosquare_Swan_Attributes_StructEndiannessAttribute_Endianness
+  commentId: P:Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
+  fullName: Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
+  nameWithType: StructEndiannessAttribute.Endianness
+- uid: Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness*
+  name: Endianness
+  href: api/Unosquare.Swan.Attributes.StructEndiannessAttribute.html#Unosquare_Swan_Attributes_StructEndiannessAttribute_Endianness_
+  commentId: Overload:Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
+  fullName: Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
+  nameWithType: StructEndiannessAttribute.Endianness
 - uid: Unosquare.Swan.Components
   name: Unosquare.Swan.Components
   href: api/Unosquare.Swan.Components.html
@@ -5327,48 +5465,6 @@ references:
   commentId: Overload:Unosquare.Swan.Formatters.Json.SerializeOnly
   fullName: Unosquare.Swan.Formatters.Json.SerializeOnly
   nameWithType: Json.SerializeOnly
-- uid: Unosquare.Swan.JsonPropertyAttribute
-  name: JsonPropertyAttribute
-  href: api/Unosquare.Swan.JsonPropertyAttribute.html
-  commentId: T:Unosquare.Swan.JsonPropertyAttribute
-  fullName: Unosquare.Swan.JsonPropertyAttribute
-  nameWithType: JsonPropertyAttribute
-- uid: Unosquare.Swan.JsonPropertyAttribute.#ctor(System.String,System.Boolean)
-  name: JsonPropertyAttribute(String, Boolean)
-  href: api/Unosquare.Swan.JsonPropertyAttribute.html#Unosquare_Swan_JsonPropertyAttribute__ctor_System_String_System_Boolean_
-  commentId: M:Unosquare.Swan.JsonPropertyAttribute.#ctor(System.String,System.Boolean)
-  fullName: Unosquare.Swan.JsonPropertyAttribute.JsonPropertyAttribute(System.String, System.Boolean)
-  nameWithType: JsonPropertyAttribute.JsonPropertyAttribute(String, Boolean)
-- uid: Unosquare.Swan.JsonPropertyAttribute.#ctor*
-  name: JsonPropertyAttribute
-  href: api/Unosquare.Swan.JsonPropertyAttribute.html#Unosquare_Swan_JsonPropertyAttribute__ctor_
-  commentId: Overload:Unosquare.Swan.JsonPropertyAttribute.#ctor
-  fullName: Unosquare.Swan.JsonPropertyAttribute.JsonPropertyAttribute
-  nameWithType: JsonPropertyAttribute.JsonPropertyAttribute
-- uid: Unosquare.Swan.JsonPropertyAttribute.Ignored
-  name: Ignored
-  href: api/Unosquare.Swan.JsonPropertyAttribute.html#Unosquare_Swan_JsonPropertyAttribute_Ignored
-  commentId: P:Unosquare.Swan.JsonPropertyAttribute.Ignored
-  fullName: Unosquare.Swan.JsonPropertyAttribute.Ignored
-  nameWithType: JsonPropertyAttribute.Ignored
-- uid: Unosquare.Swan.JsonPropertyAttribute.Ignored*
-  name: Ignored
-  href: api/Unosquare.Swan.JsonPropertyAttribute.html#Unosquare_Swan_JsonPropertyAttribute_Ignored_
-  commentId: Overload:Unosquare.Swan.JsonPropertyAttribute.Ignored
-  fullName: Unosquare.Swan.JsonPropertyAttribute.Ignored
-  nameWithType: JsonPropertyAttribute.Ignored
-- uid: Unosquare.Swan.JsonPropertyAttribute.PropertyName
-  name: PropertyName
-  href: api/Unosquare.Swan.JsonPropertyAttribute.html#Unosquare_Swan_JsonPropertyAttribute_PropertyName
-  commentId: P:Unosquare.Swan.JsonPropertyAttribute.PropertyName
-  fullName: Unosquare.Swan.JsonPropertyAttribute.PropertyName
-  nameWithType: JsonPropertyAttribute.PropertyName
-- uid: Unosquare.Swan.JsonPropertyAttribute.PropertyName*
-  name: PropertyName
-  href: api/Unosquare.Swan.JsonPropertyAttribute.html#Unosquare_Swan_JsonPropertyAttribute_PropertyName_
-  commentId: Overload:Unosquare.Swan.JsonPropertyAttribute.PropertyName
-  fullName: Unosquare.Swan.JsonPropertyAttribute.PropertyName
-  nameWithType: JsonPropertyAttribute.PropertyName
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html
@@ -10865,60 +10961,6 @@ references:
   commentId: F:Unosquare.Swan.OperatingSystem.Windows
   fullName: Unosquare.Swan.OperatingSystem.Windows
   nameWithType: OperatingSystem.Windows
-- uid: Unosquare.Swan.PropertyDisplayAttribute
-  name: PropertyDisplayAttribute
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html
-  commentId: T:Unosquare.Swan.PropertyDisplayAttribute
-  fullName: Unosquare.Swan.PropertyDisplayAttribute
-  nameWithType: PropertyDisplayAttribute
-- uid: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
-  name: DefaultValue
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_DefaultValue
-  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
-  nameWithType: PropertyDisplayAttribute.DefaultValue
-- uid: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue*
-  name: DefaultValue
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_DefaultValue_
-  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.DefaultValue
-  nameWithType: PropertyDisplayAttribute.DefaultValue
-- uid: Unosquare.Swan.PropertyDisplayAttribute.Description
-  name: Description
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Description
-  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.Description
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.Description
-  nameWithType: PropertyDisplayAttribute.Description
-- uid: Unosquare.Swan.PropertyDisplayAttribute.Description*
-  name: Description
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Description_
-  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.Description
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.Description
-  nameWithType: PropertyDisplayAttribute.Description
-- uid: Unosquare.Swan.PropertyDisplayAttribute.GroupName
-  name: GroupName
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_GroupName
-  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.GroupName
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.GroupName
-  nameWithType: PropertyDisplayAttribute.GroupName
-- uid: Unosquare.Swan.PropertyDisplayAttribute.GroupName*
-  name: GroupName
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_GroupName_
-  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.GroupName
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.GroupName
-  nameWithType: PropertyDisplayAttribute.GroupName
-- uid: Unosquare.Swan.PropertyDisplayAttribute.Name
-  name: Name
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Name
-  commentId: P:Unosquare.Swan.PropertyDisplayAttribute.Name
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.Name
-  nameWithType: PropertyDisplayAttribute.Name
-- uid: Unosquare.Swan.PropertyDisplayAttribute.Name*
-  name: Name
-  href: api/Unosquare.Swan.PropertyDisplayAttribute.html#Unosquare_Swan_PropertyDisplayAttribute_Name_
-  commentId: Overload:Unosquare.Swan.PropertyDisplayAttribute.Name
-  fullName: Unosquare.Swan.PropertyDisplayAttribute.Name
-  nameWithType: PropertyDisplayAttribute.Name
 - uid: Unosquare.Swan.Reflection
   name: Unosquare.Swan.Reflection
   href: api/Unosquare.Swan.Reflection.html
@@ -11958,36 +12000,6 @@ references:
   commentId: F:Unosquare.Swan.SmtpStatusCode.UserNotLocalWillForward
   fullName: Unosquare.Swan.SmtpStatusCode.UserNotLocalWillForward
   nameWithType: SmtpStatusCode.UserNotLocalWillForward
-- uid: Unosquare.Swan.StructEndiannessAttribute
-  name: StructEndiannessAttribute
-  href: api/Unosquare.Swan.StructEndiannessAttribute.html
-  commentId: T:Unosquare.Swan.StructEndiannessAttribute
-  fullName: Unosquare.Swan.StructEndiannessAttribute
-  nameWithType: StructEndiannessAttribute
-- uid: Unosquare.Swan.StructEndiannessAttribute.#ctor(Unosquare.Swan.Endianness)
-  name: StructEndiannessAttribute(Endianness)
-  href: api/Unosquare.Swan.StructEndiannessAttribute.html#Unosquare_Swan_StructEndiannessAttribute__ctor_Unosquare_Swan_Endianness_
-  commentId: M:Unosquare.Swan.StructEndiannessAttribute.#ctor(Unosquare.Swan.Endianness)
-  fullName: Unosquare.Swan.StructEndiannessAttribute.StructEndiannessAttribute(Unosquare.Swan.Endianness)
-  nameWithType: StructEndiannessAttribute.StructEndiannessAttribute(Endianness)
-- uid: Unosquare.Swan.StructEndiannessAttribute.#ctor*
-  name: StructEndiannessAttribute
-  href: api/Unosquare.Swan.StructEndiannessAttribute.html#Unosquare_Swan_StructEndiannessAttribute__ctor_
-  commentId: Overload:Unosquare.Swan.StructEndiannessAttribute.#ctor
-  fullName: Unosquare.Swan.StructEndiannessAttribute.StructEndiannessAttribute
-  nameWithType: StructEndiannessAttribute.StructEndiannessAttribute
-- uid: Unosquare.Swan.StructEndiannessAttribute.Endianness
-  name: Endianness
-  href: api/Unosquare.Swan.StructEndiannessAttribute.html#Unosquare_Swan_StructEndiannessAttribute_Endianness
-  commentId: P:Unosquare.Swan.StructEndiannessAttribute.Endianness
-  fullName: Unosquare.Swan.StructEndiannessAttribute.Endianness
-  nameWithType: StructEndiannessAttribute.Endianness
-- uid: Unosquare.Swan.StructEndiannessAttribute.Endianness*
-  name: Endianness
-  href: api/Unosquare.Swan.StructEndiannessAttribute.html#Unosquare_Swan_StructEndiannessAttribute_Endianness_
-  commentId: Overload:Unosquare.Swan.StructEndiannessAttribute.Endianness
-  fullName: Unosquare.Swan.StructEndiannessAttribute.Endianness
-  nameWithType: StructEndiannessAttribute.Endianness
 - uid: Unosquare.Swan.Terminal
   name: Terminal
   href: api/Unosquare.Swan.Terminal.html
