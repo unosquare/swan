@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Attributes;
 
     /// <summary>
     /// Provides methods to parse command line arguments.

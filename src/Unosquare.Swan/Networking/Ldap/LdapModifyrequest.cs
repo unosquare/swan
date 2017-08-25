@@ -3,7 +3,6 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.IO;
-    using System.Text;
 
     /// <summary>
     /// Modification Request

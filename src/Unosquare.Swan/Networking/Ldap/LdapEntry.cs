@@ -5,19 +5,17 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Collections;
     using System.IO;
     using System.Text;
-    
+
     /// <summary>
-    ///     Represents a single entry in a directory, consisting of
-    ///     a distinguished name (DN) and zero or more attributes.
-    ///     An instance of
-    ///     LdapEntry is created in order to add an entry to a directory, and
-    ///     instances of LdapEntry are returned on a search by enumerating an
-    ///     LdapSearchResults.
+    /// Represents a single entry in a directory, consisting of
+    /// a distinguished name (DN) and zero or more attributes.
+    /// An instance of
+    /// LdapEntry is created in order to add an entry to a directory, and
+    /// instances of LdapEntry are returned on a search by enumerating an
+    /// LdapSearchResults.
     /// </summary>
-    /// <seealso cref="LdapAttribute">
-    /// </seealso>
-    /// <seealso cref="LdapAttributeSet">
-    /// </seealso>
+    /// <seealso cref="LdapAttribute"></seealso>
+    /// <seealso cref="LdapAttributeSet"></seealso>
     public class LdapEntry
     {
         /// <summary>
@@ -69,7 +67,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The initial set of attributes assigned to the
         ///     entry.
         /// </param>
-        public LdapEntry(string dn, LdapAttributeSet attrs)
+        public LdapEntry(string dn, LdapAttributeSet attrs = null)
         {
             if ((object)dn == null)
             {

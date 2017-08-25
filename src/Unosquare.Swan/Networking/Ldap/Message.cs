@@ -1483,13 +1483,18 @@ namespace Unosquare.Swan.Networking.Ldap
             private RfcFilter enclosingInstance;
 
             /// <summary>
-            ///     Reads either an operator, or an attribute, whichever is
-            ///     next in the filter string.
-            ///     If the next component is an attribute, it is read and stored in the
-            ///     attr field of this class which may be retrieved with getAttr()
-            ///     and a -1 is returned. Otherwise, the int value of the operator read is
-            ///     returned.
+            /// Reads either an operator, or an attribute, whichever is
+            /// next in the filter string.
+            /// If the next component is an attribute, it is read and stored in the
+            /// attr field of this class which may be retrieved with getAttr()
+            /// and a -1 is returned. Otherwise, the int value of the operator read is
+            /// returned.
             /// </summary>
+            /// <value>
+            /// The op or attribute.
+            /// </value>
+            /// <exception cref="LdapLocalException">
+            /// </exception>
             public virtual int OpOrAttr
             {
                 get
@@ -1589,7 +1594,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if (offset >= filterLength)
                     {
-                        //"Unexpected end of filter",
                         throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                     }
 
@@ -1629,7 +1633,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
 
-            /// <summary> Reads a value from a filter string.</summary>
+            /// <summary>
+            /// Reads a value from a filter string.
+            /// </summary>
+            /// <value>
+            /// The value.
+            /// </value>
+            /// <exception cref="LdapLocalException"></exception>
             public virtual string Value
             {
                 get
