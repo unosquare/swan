@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using Attributes;
 
     /// <summary>
     /// A very simple, light-weight JSON library written by Mario

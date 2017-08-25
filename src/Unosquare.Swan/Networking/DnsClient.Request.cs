@@ -10,6 +10,7 @@
     using System.Runtime.InteropServices;
     using System.Text;
     using Exceptions;
+    using Attributes;
 
     internal partial class DnsClient
     {

@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Attributes;
 
     /// <summary>
     /// Provides methods to parse command line arguments.
@@ -15,32 +16,6 @@
         private const char Dash = '-';
         
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
-
-        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
-        {
-            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
-        }
-       
-        private static void WriteUsage(IEnumerable<PropertyInfo> properties)
-        {
-            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>()).Where(x => x != null);
-
-            foreach (var option in options)
-            {
-                string.Empty.WriteLine();
-                
-                // TODO: If Enum list values
-                var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
-                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
-                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
-                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
-
-                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
-            }
-
-            string.Empty.WriteLine();
-            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
@@ -177,7 +152,34 @@
 
             return false;
         }
-        
+
+        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
+        {
+            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+        }
+
+        private static void WriteUsage(IEnumerable<PropertyInfo> properties)
+        {
+            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>())
+                .Where(x => x != null);
+
+            foreach (var option in options)
+            {
+                string.Empty.WriteLine();
+
+                // TODO: If Enum list values
+                var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
+                var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
+                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
+                var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
+
+                $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
+            }
+
+            string.Empty.WriteLine();
+            "  --help\t\tDisplay this help screen.".WriteLine(ConsoleColor.Cyan);
+        }
+
         private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
             try
@@ -211,8 +213,7 @@
                     {
                         if (primitiveValue)
                         {
-                            object itemvalue;
-                            if (Definitions.BasicTypesInfo[itemType].TryParse(value, out itemvalue))
+                            if (Definitions.BasicTypesInfo[itemType].TryParse(value, out object itemvalue))
                                 arr.SetValue(itemvalue, i++);
                         }
                         else
@@ -225,10 +226,9 @@
 
                     return true;
                 }
-
-                object propertyValue;
+                
                 if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyValueString,
-                    out propertyValue))
+                    out object propertyValue))
                 {
                     targetProperty.SetValue(result, propertyValue);
                     return true;

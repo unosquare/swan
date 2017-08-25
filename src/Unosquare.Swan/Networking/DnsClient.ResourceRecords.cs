@@ -6,6 +6,7 @@
     using System.IO;
     using System.Net;
     using System.Runtime.InteropServices;
+    using Attributes;
 
     internal partial class DnsClient
     {

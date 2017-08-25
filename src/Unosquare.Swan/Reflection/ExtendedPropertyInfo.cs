@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Reflection;
+    using Attributes;
 
     /// <summary>
     /// Represents a Property object from a Object Reflection Property with extended values

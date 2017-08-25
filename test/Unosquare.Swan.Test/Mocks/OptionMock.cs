@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using Swan.Attributes;
+
     public class OptionMock
     {
         [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]

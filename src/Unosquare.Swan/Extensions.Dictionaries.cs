@@ -22,16 +22,16 @@
         }
 
         /// <summary>
-        /// Fors the each.
+        /// Executes the item action for each element in the Dictionary
         /// </summary>
         /// <typeparam name="T">Generic type</typeparam>
         /// <param name="dict">The dictionary.</param>
-        /// <param name="mapAction">The map action.</param>
-        public static void ForEach<T>(this Dictionary<T, T> dict, Action<T, T> mapAction)
+        /// <param name="itemAction">The item action.</param>
+        public static void ForEach<T>(this Dictionary<T, T> dict, Action<T, T> itemAction)
         {
             foreach (var kvp in dict)
             {
-                mapAction(kvp.Key, kvp.Value);
+                itemAction(kvp.Key, kvp.Value);
             }
         }
     }

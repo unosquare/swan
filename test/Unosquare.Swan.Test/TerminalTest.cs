@@ -13,15 +13,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsConsolePresentTest()
         {
-            if (Runtime.OS == OperatingSystem.Windows)
-            {
-                // Funny, the console is not here :P
-                Assert.IsFalse(Terminal.IsConsolePresent);
-            }
-            else
-            {
-                Assert.IsTrue(Terminal.IsConsolePresent);
-            }
+            Assert.IsTrue(Terminal.IsConsolePresent);
         }
 
         [Test]
