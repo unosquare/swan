@@ -1,33 +1,6 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Attributes
 {
     using System;
-
-    /// <summary>
-    /// An attribute used to help conversion structs back and forth into arrays of bytes via
-    /// extension methods included in this library ToStruct and ToBytes.
-    /// </summary>
-    /// <seealso cref="Attribute" />
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct)]
-    public class StructEndiannessAttribute : Attribute
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StructEndiannessAttribute"/> class.
-        /// </summary>
-        /// <param name="endianness">The endianness.</param>
-        public StructEndiannessAttribute(Endianness endianness)
-        {
-            Endianness = endianness;
-        }
-
-        /// <summary>
-        /// Gets the endianness.
-        /// </summary>
-        public Endianness Endianness
-        {
-            get;
-            private set;
-        }
-    }
 
     /// <summary>
     /// Models an option specification.
@@ -90,15 +63,10 @@
         /// </summary>
         public string SetName
         {
-            get
-            {
-                return _setName;
-            }
+            get { return _setName; }
             set
             {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-
-                _setName = value;
+                _setName = value ?? throw new ArgumentNullException(nameof(value));
             }
         }
 
@@ -125,72 +93,11 @@
 
         private ArgumentOptionAttribute(string shortName, string longName)
         {
-            if (shortName == null) throw new ArgumentNullException(nameof(shortName));
-            if (longName == null) throw new ArgumentNullException(nameof(longName));
-
-            ShortName = shortName;
-            LongName = longName;
+            ShortName = shortName ?? throw new ArgumentNullException(nameof(shortName));
+            LongName = longName ?? throw new ArgumentNullException(nameof(longName));
 
             _setName = string.Empty;
             Separator = '\0';
         }
-    }
-
-    /// <summary>
-    /// An attribute used to help setup a property behavior when serialize/deserialize JSON.
-    /// </summary>
-    /// <seealso cref="Attribute" />
-    [AttributeUsage(AttributeTargets.Property)]
-    public sealed class JsonPropertyAttribute : Attribute
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyAttribute" /> class.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <param name="ignored">if set to <c>true</c> [ignored].</param>
-        public JsonPropertyAttribute(string propertyName, bool ignored = false)
-        {
-            PropertyName = propertyName;
-            Ignored = ignored;
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the property.
-        /// </summary>
-        public string PropertyName { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="JsonPropertyAttribute"/> is ignored.
-        /// </summary>
-        public bool Ignored { get; set; }
-    }
-
-    /// <summary>
-    /// An attribute used to include additional information to a Property for serialization.
-    /// Previously we used DisplayAttribute from DataAnnotation
-    /// </summary>
-    /// <seealso cref="System.Attribute" />
-    [AttributeUsage(AttributeTargets.Property)]
-    public sealed class PropertyDisplayAttribute : Attribute
-    {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the group.
-        /// </summary>
-        public string GroupName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default value.
-        /// </summary>
-        public object DefaultValue { get; set; }
     }
 }

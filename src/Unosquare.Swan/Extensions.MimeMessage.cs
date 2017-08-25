@@ -11,16 +11,6 @@ namespace Unosquare.Swan
     /// </summary>
     public partial class Extensions
     {
-        internal static class MimeMessageConstants
-        {
-            public static readonly BindingFlags PrivateInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
-            public static readonly Type MailWriter = typeof(SmtpClient).Assembly.GetType("System.Net.Mail.MailWriter");
-            public static readonly ConstructorInfo MailWriterConstructor = MailWriter.GetConstructor(PrivateInstanceFlags, null, new[] { typeof(Stream) }, null);
-            public static readonly MethodInfo CloseMethod = MailWriter.GetMethod("Close", PrivateInstanceFlags);
-            public static readonly MethodInfo SendMethod = typeof(MailMessage).GetMethod("Send", PrivateInstanceFlags);
-            public static readonly bool IsRunningInDotNetFourPointFive = SendMethod.GetParameters().Length == 3;
-        }
-
         /// <summary>
         /// The raw contents of this MailMessage as a MemoryStream.
         /// </summary>
@@ -46,6 +36,16 @@ namespace Unosquare.Swan
                 null);
             result.Position = 0;
             return result;
+        }
+
+        internal static class MimeMessageConstants
+        {
+            public static readonly BindingFlags PrivateInstanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            public static readonly Type MailWriter = typeof(SmtpClient).Assembly.GetType("System.Net.Mail.MailWriter");
+            public static readonly ConstructorInfo MailWriterConstructor = MailWriter.GetConstructor(PrivateInstanceFlags, null, new[] { typeof(Stream) }, null);
+            public static readonly MethodInfo CloseMethod = MailWriter.GetMethod("Close", PrivateInstanceFlags);
+            public static readonly MethodInfo SendMethod = typeof(MailMessage).GetMethod("Send", PrivateInstanceFlags);
+            public static readonly bool IsRunningInDotNetFourPointFive = SendMethod.GetParameters().Length == 3;
         }
     }
 }

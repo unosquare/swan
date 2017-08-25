@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using Swan.Attributes;
+
     public class ErrorJson
     {
         public string Message { get; set; }
@@ -111,8 +112,6 @@ namespace Unosquare.Swan.Test.Mocks
 
     public class ObjectEnum
     {
-        private MyEnum _value;
-
         public int Id { get; set; }
         public MyEnum MyEnum{ get; set; }
     }
