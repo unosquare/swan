@@ -15,7 +15,6 @@
     public static partial class Extensions
     {
         private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -28,7 +27,7 @@
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             var copyable = GetCopyableProperties(target);
-            return copyable.Any() == true ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target, null);
+            return copyable.Any() ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target, null);
         }
 
         /// <summary>
@@ -295,7 +294,7 @@
         /// <returns>Array of properties</returns>
         public static string[] GetCopyableProperties(this object model)
         {
-            var cachedProperties = TypeCache.Retrieve(model.GetType(), PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
+            var cachedProperties = CopyPropertiesTargets.Value.Retrieve(model.GetType(), PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
 
             return cachedProperties
                 .Select(x => new { x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null })
