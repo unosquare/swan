@@ -7,6 +7,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
+    using Unosquare.Swan.Attributes;
 
     /// <summary>
     /// Extension methods
@@ -18,7 +19,6 @@
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
         /// tries to write a compatible value to a public, instance, writable property in the destination
-        /// This method only supports basic types and it is not multi level
         /// </summary>
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
@@ -26,13 +26,17 @@
         /// <returns>Number of properties that was copied successful</returns>
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
+            var copyable = GetCopyableProperties(target);
+
+            if (copyable.Any())
+                return CopyOnlyPropertiesTo(source, target, copyable);
+
             return CopyPropertiesTo(source, target, null);
         }
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
         /// tries to write a compatible value to a public, instance, writable property in the destination
-        /// This method only supports basic types and it is not multi level
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
@@ -46,7 +50,6 @@
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
         /// tries to write a compatible value to a public, instance, writable property in the destination
-        /// This method only supports basic types and it is not multi level
         /// </summary>
         /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="source">The source.</param>
@@ -60,7 +63,6 @@
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
         /// tries to write a compatible value to a public, instance, writable property in the destination
-        /// This method only supports basic types and it is not multi level
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
@@ -81,6 +83,11 @@
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
         {
             var target = Activator.CreateInstance<T>();
+            var copyable = GetCopyableProperties(target);
+
+            if (copyable.Any())
+                source.CopyOnlyPropertiesTo(target, copyable);
+
             source.CopyPropertiesTo(target, ignoreProperties);
             return target;
         }
@@ -102,8 +109,6 @@
         /// <summary>
         /// Iterates over the keys of the source and tries to write a compatible value to a public, 
         /// instance, writable property in the destination.
-        /// 
-        /// This method only supports basic types and it is not multi level
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
@@ -230,7 +235,7 @@
         /// <summary>
         /// Does the specified action.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Object</typeparam>
         /// <param name="action">The action.</param>
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
@@ -284,6 +289,21 @@
                 ex = ex.InnerException;
                 priorMessage = fullMessage;
             }
+        }
+
+        /// <summary>
+        /// Gets the copyable properties.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>Array of properties</returns>
+        public static string[] GetCopyableProperties(this object model)
+        {
+            return model.GetType()
+                .GetProperties()
+                .Select(x => new { x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null })
+                .Where(x => x.HasAttribute)
+                .Select(x => x.Name)
+                .ToArray();
         }
     }
 }

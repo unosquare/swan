@@ -115,5 +115,21 @@ namespace Unosquare.Swan.Test
             var result = source.CopyOnlyPropertiesToNew<ObjectEnum>();
             Assert.AreEqual(source.MyEnum, result.MyEnum);
         }
+        [Test]
+        public void CopyWithAttr()
+        {
+            var source = ObjectAttr.Get();
+            var target = new ObjectAttr();
+            source.CopyPropertiesTo(target);
+            Assert.AreNotEqual(source, target);
+        }
+
+        [Test]
+        public void CopyWithAttributeToNew()
+        {
+            var source = ObjectAttr.Get();
+            var result = source.CopyOnlyPropertiesToNew<ObjectAttr>();
+            Assert.AreNotEqual(source, result);
+        }
     }
 }
