@@ -948,8 +948,7 @@ any prefix (such as 0x) has to be avoided for this to work properly</p>
   <a id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo*"></a>
   <h4 id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])">CopyOnlyPropertiesTo(Object, Object, String[])</h4>
   <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
-tries to write a compatible value to a public, instance, writable property in the destination
-This method only supports basic types and it is not multi level</p>
+tries to write a compatible value to a public, instance, writable property in the destination</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1007,8 +1006,7 @@ This method only supports basic types and it is not multi level</p>
   <a id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo*"></a>
   <h4 id="Unosquare_Swan_Extensions_CopyOnlyPropertiesTo__1___0_System_Object_" data-uid="Unosquare.Swan.Extensions.CopyOnlyPropertiesTo``1(``0,System.Object)">CopyOnlyPropertiesTo&lt;T&gt;(T, Object)</h4>
   <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
-tries to write a compatible value to a public, instance, writable property in the destination
-This method only supports basic types and it is not multi level</p>
+tries to write a compatible value to a public, instance, writable property in the destination</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1144,7 +1142,6 @@ This method only supports basic types and it is not multi level</p>
   <h4 id="Unosquare_Swan_Extensions_CopyPropertiesTo_System_Collections_Generic_IDictionary_System_String_System_Object__System_Object_System_String___" data-uid="Unosquare.Swan.Extensions.CopyPropertiesTo(System.Collections.Generic.IDictionary{System.String,System.Object},System.Object,System.String[])">CopyPropertiesTo(IDictionary&lt;String, Object&gt;, Object, String[])</h4>
   <div class="markdown level1 summary"><p>Iterates over the keys of the source and tries to write a compatible value to a public, 
 instance, writable property in the destination.</p>
-<p>This method only supports basic types and it is not multi level</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1202,8 +1199,7 @@ instance, writable property in the destination.</p>
   <a id="Unosquare_Swan_Extensions_CopyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyPropertiesTo*"></a>
   <h4 id="Unosquare_Swan_Extensions_CopyPropertiesTo_System_Object_System_Object_System_String___" data-uid="Unosquare.Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[])">CopyPropertiesTo(Object, Object, String[])</h4>
   <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
-tries to write a compatible value to a public, instance, writable property in the destination
-This method only supports basic types and it is not multi level</p>
+tries to write a compatible value to a public, instance, writable property in the destination</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1261,8 +1257,7 @@ This method only supports basic types and it is not multi level</p>
   <a id="Unosquare_Swan_Extensions_CopyPropertiesTo_" data-uid="Unosquare.Swan.Extensions.CopyPropertiesTo*"></a>
   <h4 id="Unosquare_Swan_Extensions_CopyPropertiesTo__1___0_System_Object_" data-uid="Unosquare.Swan.Extensions.CopyPropertiesTo``1(``0,System.Object)">CopyPropertiesTo&lt;T&gt;(T, Object)</h4>
   <div class="markdown level1 summary"><p>Iterates over the public, instance, readable properties of the source and
-tries to write a compatible value to a public, instance, writable property in the destination
-This method only supports basic types and it is not multi level</p>
+tries to write a compatible value to a public, instance, writable property in the destination</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1830,6 +1825,51 @@ representations of the corresponding arguments</p>
       <tr>
         <td><span class="xref">System.Byte</span></td>
         <td><p>Bit value at the given offset</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Extensions_GetCopyableProperties_" data-uid="Unosquare.Swan.Extensions.GetCopyableProperties*"></a>
+  <h4 id="Unosquare_Swan_Extensions_GetCopyableProperties_System_Object_" data-uid="Unosquare.Swan.Extensions.GetCopyableProperties(System.Object)">GetCopyableProperties(Object)</h4>
+  <div class="markdown level1 summary"><p>Gets the copyable properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string[] GetCopyableProperties(this object model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>The model.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><p>Array of properties</p>
 </td>
       </tr>
     </tbody>
@@ -3334,7 +3374,8 @@ specified index.</p>
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td></td>
+        <td><p>Object</p>
+</td>
       </tr>
     </tbody>
   </table>

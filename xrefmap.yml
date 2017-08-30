@@ -4136,6 +4136,18 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.GetBitValueAt
   fullName: Unosquare.Swan.Extensions.GetBitValueAt
   nameWithType: Extensions.GetBitValueAt
+- uid: Unosquare.Swan.Extensions.GetCopyableProperties(System.Object)
+  name: GetCopyableProperties(Object)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetCopyableProperties_System_Object_
+  commentId: M:Unosquare.Swan.Extensions.GetCopyableProperties(System.Object)
+  fullName: Unosquare.Swan.Extensions.GetCopyableProperties(System.Object)
+  nameWithType: Extensions.GetCopyableProperties(Object)
+- uid: Unosquare.Swan.Extensions.GetCopyableProperties*
+  name: GetCopyableProperties
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetCopyableProperties_
+  commentId: Overload:Unosquare.Swan.Extensions.GetCopyableProperties
+  fullName: Unosquare.Swan.Extensions.GetCopyableProperties
+  nameWithType: Extensions.GetCopyableProperties
 - uid: Unosquare.Swan.Extensions.GetCustomAttributes(System.Type,System.Type,System.Boolean)
   name: GetCustomAttributes(Type, Type, Boolean)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetCustomAttributes_System_Type_System_Type_System_Boolean_
