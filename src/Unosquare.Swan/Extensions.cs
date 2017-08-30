@@ -15,6 +15,7 @@
     public static partial class Extensions
     {
         private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
 
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
@@ -27,11 +28,7 @@
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             var copyable = GetCopyableProperties(target);
-
-            if (copyable.Any())
-                return CopyOnlyPropertiesTo(source, target, copyable);
-
-            return CopyPropertiesTo(source, target, null);
+            return copyable.Any() == true ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target, null);
         }
 
         /// <summary>
@@ -235,7 +232,7 @@
         /// <summary>
         /// Does the specified action.
         /// </summary>
-        /// <typeparam name="T">Object</typeparam>
+        /// <typeparam name="T">The type of the source.</typeparam>
         /// <param name="action">The action.</param>
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
@@ -298,8 +295,9 @@
         /// <returns>Array of properties</returns>
         public static string[] GetCopyableProperties(this object model)
         {
-            return model.GetType()
-                .GetProperties()
+            var cachedProperties = TypeCache.Retrieve(model.GetType(), PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
+
+            return cachedProperties
                 .Select(x => new { x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null })
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name)
