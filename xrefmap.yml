@@ -2510,27 +2510,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual(Of T)(T, T)
   nameWithType: ObjectComparer.AreStructsEqual<T>(T, T)
   nameWithType.vb: ObjectComparer.AreStructsEqual(Of T)(T, T)
-- uid: Unosquare.Swan.Components.ObjectCopier
-  name: ObjectCopier
-  href: api/Unosquare.Swan.Components.ObjectCopier.html
-  commentId: T:Unosquare.Swan.Components.ObjectCopier
-  fullName: Unosquare.Swan.Components.ObjectCopier
-  nameWithType: ObjectCopier
-- uid: Unosquare.Swan.Components.ObjectCopier.Copy(System.Object,System.Object,System.String[],System.String[])
-  name: Copy(Object, Object, String[], String[])
-  href: api/Unosquare.Swan.Components.ObjectCopier.html#Unosquare_Swan_Components_ObjectCopier_Copy_System_Object_System_Object_System_String___System_String___
-  commentId: M:Unosquare.Swan.Components.ObjectCopier.Copy(System.Object,System.Object,System.String[],System.String[])
-  name.vb: Copy(Object, Object, String(), String())
-  fullName: Unosquare.Swan.Components.ObjectCopier.Copy(System.Object, System.Object, System.String[], System.String[])
-  fullName.vb: Unosquare.Swan.Components.ObjectCopier.Copy(System.Object, System.Object, System.String(), System.String())
-  nameWithType: ObjectCopier.Copy(Object, Object, String[], String[])
-  nameWithType.vb: ObjectCopier.Copy(Object, Object, String(), String())
-- uid: Unosquare.Swan.Components.ObjectCopier.Copy*
-  name: Copy
-  href: api/Unosquare.Swan.Components.ObjectCopier.html#Unosquare_Swan_Components_ObjectCopier_Copy_
-  commentId: Overload:Unosquare.Swan.Components.ObjectCopier.Copy
-  fullName: Unosquare.Swan.Components.ObjectCopier.Copy
-  nameWithType: ObjectCopier.Copy
 - uid: Unosquare.Swan.Components.ObjectMap`2
   name: ObjectMap<TSource, TDestination>
   href: api/Unosquare.Swan.Components.ObjectMap-2.html
@@ -2645,6 +2624,21 @@ references:
   commentId: T:Unosquare.Swan.Components.ObjectMapper
   fullName: Unosquare.Swan.Components.ObjectMapper
   nameWithType: ObjectMapper
+- uid: Unosquare.Swan.Components.ObjectMapper.Copy(System.Object,System.Object,System.String[],System.String[])
+  name: Copy(Object, Object, String[], String[])
+  href: api/Unosquare.Swan.Components.ObjectMapper.html#Unosquare_Swan_Components_ObjectMapper_Copy_System_Object_System_Object_System_String___System_String___
+  commentId: M:Unosquare.Swan.Components.ObjectMapper.Copy(System.Object,System.Object,System.String[],System.String[])
+  name.vb: Copy(Object, Object, String(), String())
+  fullName: Unosquare.Swan.Components.ObjectMapper.Copy(System.Object, System.Object, System.String[], System.String[])
+  fullName.vb: Unosquare.Swan.Components.ObjectMapper.Copy(System.Object, System.Object, System.String(), System.String())
+  nameWithType: ObjectMapper.Copy(Object, Object, String[], String[])
+  nameWithType.vb: ObjectMapper.Copy(Object, Object, String(), String())
+- uid: Unosquare.Swan.Components.ObjectMapper.Copy*
+  name: Copy
+  href: api/Unosquare.Swan.Components.ObjectMapper.html#Unosquare_Swan_Components_ObjectMapper_Copy_
+  commentId: Overload:Unosquare.Swan.Components.ObjectMapper.Copy
+  fullName: Unosquare.Swan.Components.ObjectMapper.Copy
+  nameWithType: ObjectMapper.Copy
 - uid: Unosquare.Swan.Components.ObjectMapper.CreateMap*
   name: CreateMap
   href: api/Unosquare.Swan.Components.ObjectMapper.html#Unosquare_Swan_Components_ObjectMapper_CreateMap_
