@@ -40,7 +40,7 @@
         /// <returns>Returns the number of properties that were successfully copied</returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
         {
-            return Components.ObjectCopier.Copy(source, target, null, ignoreProperties);
+            return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@
         /// <returns>Returns the number of properties that were successfully copied</returns>
         public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
         {
-            return Components.ObjectCopier.Copy(source, target, propertiesToCopy, null);
+            return Components.ObjectMapper.Copy(source, target, propertiesToCopy, null);
         }
 
         /// <summary>
