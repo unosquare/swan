@@ -147,6 +147,9 @@ namespace Unosquare.Swan.Networking.Ldap
                 case LdapMessage.INTERMEDIATE_RESPONSE:
                     Set(1, new RfcIntermediateResponse(dec, bais, content.Length));
                     break;
+                case LdapMessage.MODIFY_RESPONSE:
+                    Set(1, new RfcModifyResponse(dec, bais, content.Length));
+                    break;
 
                 default:
                     throw new Exception("RfcLdapMessage: Invalid tag: " + protocolOpId.Tag);
