@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class JsonClient
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.23.1.0">
+    <meta name="generator" content="docfx 2.24.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
+    
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -130,7 +131,7 @@ and bearer tokens authentication</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Authenticate(string url, string username, string password, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Authenticate(string url, string username, string password, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -210,7 +211,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(string url, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Get&lt;T&gt;(string url, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -283,7 +284,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;byte[]&gt; GetBinary(string url, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;byte[]&gt; GetBinary(string url, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -356,7 +357,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(string url, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; GetString(string url, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -429,7 +430,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Post(string url, object payload, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Post(string url, object payload, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -492,7 +493,7 @@ with optional authorization token.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Post&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -713,7 +714,7 @@ or an error.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;OkOrError&lt;T, TE&gt;&gt; PostOrError&lt;T, TE&gt;(string url, object payload, int httpStatusError = 500, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;OkOrError&lt;T, TE&gt;&gt; PostOrError&lt;T, TE&gt;(string url, object payload, int httpStatusError = 500, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -802,7 +803,7 @@ or an error.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostString(string url, object payload, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PostString(string url, object payload, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -881,7 +882,7 @@ or an error.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Put(string url, object payload, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IDictionary&lt;string, object&gt;&gt; Put(string url, object payload, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -944,7 +945,7 @@ or an error.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Put&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; Put&lt;T&gt;(string url, object payload, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1022,7 +1023,7 @@ or an error.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PutString(string url, object payload, string authorization = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; PutString(string url, object payload, string authorization = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

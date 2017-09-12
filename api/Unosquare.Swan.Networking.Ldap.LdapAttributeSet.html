@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class LdapAttributeSet
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.23.1.0">
+    <meta name="generator" content="docfx 2.24.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
+    
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -96,6 +97,13 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
     <div class="level1"><span class="xref">System.Collections.ArrayList</span></div>
     <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html">SetSupport</a></div>
     <div class="level3"><span class="xref">LdapAttributeSet</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.Collections.IList</span></div>
+    <div><span class="xref">System.Collections.ICollection</span></div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
+    <div><span class="xref">System.ICloneable</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -808,7 +816,7 @@ specified attribute will be removed.  If the specified object is of type</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool Remove(object object_Renamed)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool Remove(object entry)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -822,8 +830,8 @@ specified attribute will be removed.  If the specified object is of type</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Object</span></td>
-        <td><span class="parametername">object_Renamed</span></td>
-        <td><p>The object renamed.</p>
+        <td><span class="parametername">entry</span></td>
+        <td><p>The entry.</p>
 </td>
       </tr>
     </tbody>
@@ -877,6 +885,19 @@ is not of type <pre><code>LdapAttribute</code></pre> or of type <pre><code>Strin
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">System.Object.ToString()</span></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.Collections.IList</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.ICollection</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
+  </div>
+  <div>
+      <span class="xref">System.ICloneable</span>
+  </div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></div>

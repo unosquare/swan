@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class LdapException
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.23.1.0">
+    <meta name="generator" content="docfx 2.24.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
+    
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -331,9 +332,14 @@ server.
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Exception</span></div>
     <div class="level2"><span class="xref">LdapException</span></div>
-  </div>
       <div class="level3"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a></div>
       <div class="level3"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.Runtime.Serialization.ISerializable</span></div>
+    <div><span class="xref">System.Runtime.InteropServices._Exception</span></div>
+  </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
@@ -2276,21 +2282,17 @@ SSL_PROVIDER_NOT_FOUND = 114</p>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapException_STRONG_AUTH_REQUIRED" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.STRONG_AUTH_REQUIRED">STRONG_AUTH_REQUIRED</h4>
   <div class="markdown level1 summary"><p>Indicates a problem with the level of authentication.
 One of the following has occurred:
-<ul>
-<li>
-    In bind requests, the Ldap server accepts only strong
-    authentication.
-</li>
-<li>
-    In a client request, the client requested an operation such as delete
-    that requires strong authentication.
-</li>
-<li>
-    In an unsolicited notice of disconnection, the Ldap server discovers
-    the security protecting the communication between the client and
-    server has unexpectedly failed or been compromised.
-</li>
-</ul>
+<ul><li>
+In bind requests, the Ldap server accepts only strong
+authentication.
+</li><li>
+In a client request, the client requested an operation such as delete
+that requires strong authentication.
+</li><li>
+In an unsolicited notice of disconnection, the Ldap server discovers
+the security protecting the communication between the client and
+server has unexpectedly failed or been compromised.
+</li></ul>
 STRONG_AUTH_REQUIRED = 8</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -2902,6 +2904,13 @@ the nested exceptions, if any.</p>
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">System.Exception.ToString()</span></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.Runtime.Serialization.ISerializable</span>
+  </div>
+  <div>
+      <span class="xref">System.Runtime.InteropServices._Exception</span>
+  </div>
 </article>
           </div>
           

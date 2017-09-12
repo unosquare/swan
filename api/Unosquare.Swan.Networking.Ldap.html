@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace Unosquare.Swan.Networking.Ldap
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.23.1.0">
+    <meta name="generator" content="docfx 2.24.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
+    
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -84,6 +85,9 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ArrayEnumeration.html">ArrayEnumeration</a></h4>
+      <section><p>asdasdasdsad</p>
+</section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ExceptionMessages.html">ExceptionMessages</a></h4>
       <section><p>This class contains strings that may be associated with Exceptions generated
 by the Ldap API libraries.
@@ -401,6 +405,40 @@ server.
       <section><p>The base class for Ldap request and response messages.
 Subclassed by response messages used in asynchronous operations.</p>
 </section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a></h4>
+      <section><p>A single add, delete, or replace operation to an LdapAttribute.
+An LdapModification contains information on the type of modification
+being performed, the name of the attribute to be replaced, and the new
+value.  Multiple modifications are expressed as an array of modifications,
+i.e., <pre><code>LdapModification[]</code></pre>.
+An LdapModification or an LdapModification array enable you to modify
+an attribute of an Ldap entry. The entire array of modifications must
+be performed by the server as a single atomic operation in the order they
+are listed. No changes are made to the directory unless all the operations
+succeed. If all succeed, a success result is returned to the application.
+It should be noted that if the connection fails during a modification,
+it is indeterminate whether the modification occurred or not.
+There are three types of modification operations: Add, Delete,
+and Replace.
+<strong>Add: </strong>Creates the attribute if it doesn&apos;t exist, and adds
+the specified values. This operation must contain at least one value, and
+all values of the attribute must be unique.
+<strong>Delete: </strong>Deletes specified values from the attribute. If no
+values are specified, or if all existing values of the attribute are
+specified, the attribute is removed. Mandatory attributes cannot be
+removed.
+<strong>Replace: </strong>Creates the attribute if necessary, and replaces
+all existing values of the attribute with the specified values.
+If you wish to keep any existing values of a multi-valued attribute,
+you must include these values in the replace operation.
+A replace operation with no value will remove the entire attribute if it
+exists, and is ignored if the attribute does not exist.
+Additional information on Ldap modifications is available in section 4.6
+of <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a></p>
+</section>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html">LdapModifyRequest</a></h4>
+      <section><p>Modification Request</p>
+</section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a></h4>
       <section><p>Thrown when a server returns a referral and when a referral has not
 been followed.  It contains a list of URL strings corresponding
@@ -453,11 +491,11 @@ The resources are accessed by the String representation of the result code.</p>
 </section>
     <h3 id="interfaces">Interfaces
   </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralHandler.html">LdapReferralHandler</a></h4>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.ILdapReferralHandler.html">ILdapReferralHandler</a></h4>
       <section><p>Shared ancestor to the two types of referral objects - LdapBindHandler and
 LdapAuthHandler.</p>
 </section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcRequest.html">RfcRequest</a></h4>
+      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.IRfcRequest.html">IRfcRequest</a></h4>
       <section><p>This interface represents Protocol Operations that are requests from a
 client.</p>
 </section>

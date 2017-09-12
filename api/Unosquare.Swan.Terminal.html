@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Terminal
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.23.1.0">
+    <meta name="generator" content="docfx 2.24.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
+    
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -783,7 +784,7 @@ Set the timeout to null or TimeSpan.Zero to wait indefinitely.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Flush(TimeSpan? timeout = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Flush(TimeSpan? timeout = default (TimeSpan? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1238,7 +1239,7 @@ so that the console moves the cursor one position up after the text has been wri
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void OverwriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void OverwriteLine(this string text, ConsoleColor? color = default (ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1963,7 +1964,7 @@ This is useful for services and daemons that are running as console applications
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Write(this byte charCode, ConsoleColor? color = null, int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Write(this byte charCode, ConsoleColor? color = default (ConsoleColor? ), int count = 1, bool newLine = false, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2016,7 +2017,7 @@ This is useful for services and daemons that are running as console applications
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Write(this char charCode, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Write(this char charCode, ConsoleColor? color = default (ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2057,7 +2058,7 @@ This is useful for services and daemons that are running as console applications
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Write(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Write(this string text, ConsoleColor? color = default (ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2099,7 +2100,7 @@ to the standard output</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void WriteLine(this string text, ConsoleColor? color = null, TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void WriteLine(this string text, ConsoleColor? color = default (ConsoleColor? ), TerminalWriters writerFlags = TerminalWriters.StandardOutput)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

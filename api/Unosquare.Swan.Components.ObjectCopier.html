@@ -5,12 +5,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface RfcRequest
+    <title>Class ObjectCopier
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface RfcRequest
+    <meta name="title" content="Class ObjectCopier
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.23.1.0">
+    <meta name="generator" content="docfx 2.24.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
+    
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -75,33 +76,61 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.RfcRequest">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.ObjectCopier">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_RfcRequest" data-uid="Unosquare.Swan.Networking.Ldap.RfcRequest" class="text-break">Interface RfcRequest
+  <h1 id="Unosquare_Swan_Components_ObjectCopier" data-uid="Unosquare.Swan.Components.ObjectCopier" class="text-break">Class ObjectCopier
   </h1>
-  <div class="markdown level0 summary"><p>This interface represents Protocol Operations that are requests from a
-client.</p>
+  <div class="markdown level0 summary"><p>Copy from one object to other one</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">ObjectCopier</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_RfcRequest_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Components_ObjectCopier_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface RfcRequest</code></pre>
+    <pre><code class="lang-csharp hljs">public static class ObjectCopier</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_RfcRequest_dupRequest_" data-uid="Unosquare.Swan.Networking.Ldap.RfcRequest.dupRequest*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_RfcRequest_dupRequest_System_String_System_String_System_Boolean_" data-uid="Unosquare.Swan.Networking.Ldap.RfcRequest.dupRequest(System.String,System.String,System.Boolean)">dupRequest(String, String, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Builds a new request using the data from the this object.</p>
+  <a id="Unosquare_Swan_Components_ObjectCopier_Copy_" data-uid="Unosquare.Swan.Components.ObjectCopier.Copy*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectCopier_Copy_System_Object_System_Object_System_String___System_String___" data-uid="Unosquare.Swan.Components.ObjectCopier.Copy(System.Object,System.Object,System.String[],System.String[])">Copy(Object, Object, String[], String[])</h4>
+  <div class="markdown level1 summary"><p>Copies the specified source.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">RfcRequest dupRequest(string base_Renamed, string filter, bool reference)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int Copy(object source, object target, string[] propertiesToCopy = null, string[] ignoreProperties = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -114,21 +143,27 @@ client.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">base_Renamed</span></td>
-        <td><p>The base renamed.</p>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">filter</span></td>
-        <td><p>The filter.</p>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">target</span></td>
+        <td><p>The target.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">reference</span></td>
-        <td><p>if set to <code>true</code> [reference].</p>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">propertiesToCopy</span></td>
+        <td><p>The properties to copy.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">ignoreProperties</span></td>
+        <td><p>The ignore properties.</p>
 </td>
       </tr>
     </tbody>
@@ -143,35 +178,8 @@ client.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.RfcRequest.html">RfcRequest</a></td>
-        <td><p>Rfc request</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_RfcRequest_GetRequestDN_" data-uid="Unosquare.Swan.Networking.Ldap.RfcRequest.GetRequestDN*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_RfcRequest_GetRequestDN" data-uid="Unosquare.Swan.Networking.Ldap.RfcRequest.GetRequestDN">GetRequestDN()</h4>
-  <div class="markdown level1 summary"><p>Builds a new request using the data from the this object.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string GetRequestDN()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>String</p>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Copied properties count</p>
 </td>
       </tr>
     </tbody>
