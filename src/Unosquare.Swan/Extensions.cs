@@ -95,7 +95,7 @@
         /// <param name="source">The source.</param>
         /// <param name="propertiesToCopy">The properties to copy.</param>
         /// <returns>Returns the specified type of properties that were successfully copied</returns>
-        public static T CopyOnlyPropertiesToNew<T>(this object source, string[] propertiesToCopy = null)
+        public static T CopyOnlyPropertiesToNew<T>(this object source, string[] propertiesToCopy)
         {
             var target = Activator.CreateInstance<T>();
             source.CopyOnlyPropertiesTo(target, propertiesToCopy);
