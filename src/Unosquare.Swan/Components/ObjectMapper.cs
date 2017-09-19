@@ -151,7 +151,9 @@
 
             // Targets
             var targetType = target.GetType();
-            var targetProperties = GetTypeProperties(targetType).Where(x => x.CanWrite);
+            var targetProperties = GetTypeProperties(targetType)
+                .Where(x => x.CanWrite)
+                .ToList();
 
             // Filter properties
             var targetPropertyNames = targetProperties
@@ -173,10 +175,8 @@
             foreach (var sourceProperty in filteredSourceProperties)
             {
                 var targetProperty = targetProperties
-                    .FirstOrDefault(s => s.Name.ToLowerInvariant() == sourceProperty.Key);
-
-                if (targetProperty == null) continue;
-
+                    .First(s => s.Name.ToLowerInvariant() == sourceProperty.Key);
+                
                 if (requiredProperties != null && !requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
                     continue;
 

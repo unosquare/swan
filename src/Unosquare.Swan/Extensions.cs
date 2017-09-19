@@ -27,7 +27,7 @@
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             var copyable = GetCopyableProperties(target);
-            return copyable.Any() ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target, null);
+            return copyable.Any() ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@
         /// <param name="target">The destination.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>Returns the number of properties that were successfully copied</returns>
-        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties)
+        public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null)
         {
             return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
         }
@@ -113,7 +113,7 @@
         public static int CopyPropertiesTo(
             this IDictionary<string, object> source, 
             object target,
-            string[] ignoreProperties)
+            string[] ignoreProperties = null)
         {
             return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
         }
@@ -216,6 +216,9 @@
         {
             while (true)
             {
+                if (ex == null)
+                    throw new ArgumentNullException(nameof(ex));
+
                 var fullMessage = string.IsNullOrWhiteSpace(priorMessage) ? ex.Message : priorMessage + "\r\n" + ex.Message;
 
                 if (string.IsNullOrWhiteSpace(ex.InnerException?.Message))
