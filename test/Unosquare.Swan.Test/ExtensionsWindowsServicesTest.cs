@@ -12,6 +12,8 @@ namespace Unosquare.Swan.Test
         [Test]
         public void RunInConsoleModeTest()
         {
+            Assert.Ignore("Rewrite test");
+
             var service = new WinServiceMock();
             
             Task.Factory.StartNew(service.RunInConsoleMode);
