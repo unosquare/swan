@@ -523,7 +523,7 @@
         /// <param name="target">The target.</param>
         /// <param name="start">The start.</param>
         /// <param name="count">The count.</param>
-        /// <returns></returns>
+        /// <returns>The number of bytes read</returns>
         public static int ReadInput(this Stream sourceStream, ref sbyte[] target, int start, int count)
         {
             // Returns 0 bytes if not enough space in target

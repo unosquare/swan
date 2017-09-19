@@ -401,7 +401,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
-        /// <returns></returns>
+        /// <returns>A task from Publish action</returns>
         Task PublishAsync<TMessage>(TMessage message)
             where TMessage : class, IMessageHubMessage;
     }

@@ -278,6 +278,7 @@
         {
             if (str == null)
                 return string.Empty;
+
             endIndex = endIndex.Clamp(startIndex, str.Length - 1);
 
             return startIndex >= endIndex ? string.Empty : str.Substring(startIndex, (endIndex - startIndex) + 1);
@@ -294,7 +295,9 @@
         /// <returns>Retrieves a substring from this instance</returns>
         public static string SliceLength(this string str, int startIndex, int length)
         {
-            if (str == null) return string.Empty;
+            if (str == null)
+                return string.Empty;
+
             startIndex = startIndex.Clamp(0, str.Length - 1);
             length = length.Clamp(0, str.Length - startIndex);
 
@@ -365,7 +368,9 @@
         /// <returns>A 2-tuple whose value is (item1, item2)</returns>
         public static Tuple<int, int> TextPositionAt(this string str, int charIndex)
         {
-            if (str == null) return Tuple.Create(0, 0);
+            if (str == null)
+                return Tuple.Create(0, 0);
+
             charIndex = charIndex.Clamp(0, str.Length - 1);
 
             var lineIndex = 0;
@@ -536,8 +541,9 @@
                         if (valueDictionary.Count > 0)
                         {
                             writeOutput = true;
-                            builder.Append($"{indentStr}[{index}]: object");
-                            builder.AppendLine();
+                            builder
+                                .Append($"{indentStr}[{index}]: object")
+                                .AppendLine();
                         }
                     }
                     else if (valueList != null)
@@ -545,8 +551,9 @@
                         if (valueList.Count > 0)
                         {
                             writeOutput = true;
-                            builder.Append($"{indentStr}[{index}]: array[{valueList.Count}]");
-                            builder.AppendLine();
+                            builder
+                                .Append($"{indentStr}[{index}]: array[{valueList.Count}]")
+                                .AppendLine();
                         }
                     }
                     else
@@ -569,6 +576,7 @@
             {
                 builder.AppendLine();
                 var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
+
                 foreach (var line in stringLines)
                     builder.AppendLine($"{indentStr}{line}");
             }

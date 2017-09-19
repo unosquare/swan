@@ -320,7 +320,7 @@
         /// where the keys are the names of the headings and the values are the names of the instance properties
         /// in the given Type. The result object must be already instantiated.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to map</typeparam>
         /// <param name="map">The map.</param>
         /// <param name="result">The result.</param>
         /// <exception cref="System.ArgumentNullException">map
@@ -351,11 +351,8 @@
                 var values = ReadLine();
 
                 // Extract properties from cache
-                var properties = TypeCache.Retrieve<T>(() => 
-                {
-                    return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType));
-                });
+                var properties = TypeCache.Retrieve<T>(() => typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(x => x.CanWrite && Definitions.BasicTypesInfo.ContainsKey(x.PropertyType)));
 
                 // Assign property values for each heading
                 for (var i = 0; i < _headings.Length; i++)
@@ -381,8 +378,7 @@
                     // Parse and assign the basic type value to the property
                     try
                     {
-                        object propertyValue;
-                        if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyStringValue, out propertyValue))
+                        if (targetProperty.PropertyType.TryParseBasicType(propertyStringValue, out var propertyValue))
                             targetProperty.SetValue(result, propertyValue);
                     }
                     catch
@@ -398,7 +394,7 @@
         /// where the keys are the names of the headings and the values are the names of the instance properties
         /// in the given Type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to map</typeparam>
         /// <param name="map">The map of CSV headings (keys) and Type property names (values).</param>
         /// <returns>The conversion of specific type of object</returns>
         /// <exception cref="System.ArgumentNullException">map</exception>
@@ -416,7 +412,7 @@
         /// Reads a line of CSV text converting it into an object of the given type, and assuming
         /// the property names of the target type match the heading names of the file.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object</typeparam>
         /// <returns>The conversion of specific type of object</returns>
         public T ReadObject<T>()
             where T : new()
@@ -561,7 +557,7 @@
         /// Loads the records from the give file path.
         /// This method uses Windows 1252 encoding
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of IList items to load</typeparam>
         /// <param name="filePath">The file path.</param>
         /// <returns>A generic collection of objects that can be individually accessed by index</returns>
         public static IList<T> LoadRecords<T>(string filePath)
@@ -607,7 +603,7 @@
 
             _hasDisposed = true;
         }
-
+        
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>

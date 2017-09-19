@@ -347,16 +347,16 @@
             private byte flag1;
 
             // Question count: number of questions in the Question section
-            private ushort qdCount;
+            private ushort questionCount;
 
             // Answer record count: number of records in the Answer section
-            private ushort anCount;
+            private ushort answerCount;
 
             // Authority record count: number of records in the Authority section
-            private ushort nsCount;
+            private ushort authorityCount;
 
             // Additional record count: number of records in the Additional section
-            private ushort arCount;
+            private ushort addtionalCount;
 
             public int Id
             {
@@ -366,26 +366,26 @@
 
             public int QuestionCount
             {
-                get { return qdCount; }
-                set { qdCount = (ushort)value; }
+                get { return questionCount; }
+                set { questionCount = (ushort)value; }
             }
 
             public int AnswerRecordCount
             {
-                get { return anCount; }
-                set { anCount = (ushort)value; }
+                get { return answerCount; }
+                set { answerCount = (ushort)value; }
             }
 
             public int AuthorityRecordCount
             {
-                get { return nsCount; }
-                set { nsCount = (ushort)value; }
+                get { return authorityCount; }
+                set { authorityCount = (ushort)value; }
             }
 
             public int AdditionalRecordCount
             {
-                get { return arCount; }
-                set { arCount = (ushort)value; }
+                get { return addtionalCount; }
+                set { addtionalCount = (ushort)value; }
             }
 
             public bool Response
