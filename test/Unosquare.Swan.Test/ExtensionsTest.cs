@@ -27,8 +27,7 @@ namespace Unosquare.Swan.Test
         {
             var source = BasicJson.GetDefault();
             var destination = new BasicJson();
-            string[] ignored = { "NegativeInt", "BoolData" };
-            source.CopyPropertiesTo(destination, ignored);
+            source.CopyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData)});
 
             Assert.AreNotEqual(source.BoolData, destination.BoolData);
             Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
@@ -39,9 +38,8 @@ namespace Unosquare.Swan.Test
         public void OnlyPropertiesTest()
         {
             var source = BasicJson.GetDefault();
-            var destination = new BasicJson();
-            string[] only = { "NegativeInt", "BoolData" };
-            source.CopyOnlyPropertiesTo(destination, only);
+            var destination = new BasicJson {NegativeInt = 800, BoolData = false};
+            source.CopyOnlyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData) });
 
             Assert.AreEqual(source.BoolData, destination.BoolData);
             Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
@@ -53,7 +51,7 @@ namespace Unosquare.Swan.Test
         {
             var source = BasicJson.GetDefault();
             var destination = source.CopyPropertiesToNew<BasicJson>();
-            
+
             Assert.IsNotNull(destination);
             Assert.AreSame(source.GetType(), destination.GetType());
 
@@ -67,8 +65,8 @@ namespace Unosquare.Swan.Test
         public void CopyOnlyPropertiesToNewTest()
         {
             var source = BasicJson.GetDefault();
-            string[] only = { "BoolData", "DecimalData" };
-            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(only);
+            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(new[]
+                {nameof(BasicJson.BoolData), nameof(BasicJson.DecimalData)});
 
             Assert.IsNotNull(destination);
             Assert.AreSame(source.GetType(), destination.GetType());
@@ -88,7 +86,7 @@ namespace Unosquare.Swan.Test
                 action.Retry();
             });
         }
-        
+
         [Test]
         public void FuncRetryTest()
         {
@@ -115,8 +113,26 @@ namespace Unosquare.Swan.Test
                 MyEnum = MyEnum.Two
             };
 
-            var result = source.CopyOnlyPropertiesToNew<ObjectEnum>();
+            var result = source.CopyPropertiesToNew<ObjectEnum>();
             Assert.AreEqual(source.MyEnum, result.MyEnum);
+        }
+
+        [Test]
+        public void CopyWithAttr()
+        {
+            var source = ObjectAttr.Get();
+            var target = new ObjectAttr();
+            source.CopyPropertiesTo(target);
+            Assert.AreEqual(source.Name, target.Name);
+            Assert.AreEqual(source.IsActive, target.IsActive);
+        }
+
+        [Test]
+        public void CopyWithAttributeToNew()
+        {
+            var source = ObjectAttr.Get();
+            var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)});
+            Assert.AreEqual(source.Name, target.Name);
         }
     }
 }
