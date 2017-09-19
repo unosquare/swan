@@ -4997,6 +4997,21 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.Truncate
   fullName: Unosquare.Swan.Extensions.Truncate
   nameWithType: Extensions.Truncate
+- uid: Unosquare.Swan.Extensions.TryParseBasicType(System.Type,System.String,System.Object@)
+  name: TryParseBasicType(Type, String, out Object)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TryParseBasicType_System_Type_System_String_System_Object__
+  commentId: M:Unosquare.Swan.Extensions.TryParseBasicType(System.Type,System.String,System.Object@)
+  name.vb: TryParseBasicType(Type, String, ByRef Object)
+  fullName: Unosquare.Swan.Extensions.TryParseBasicType(System.Type, System.String, out System.Object)
+  fullName.vb: Unosquare.Swan.Extensions.TryParseBasicType(System.Type, System.String, ByRef System.Object)
+  nameWithType: Extensions.TryParseBasicType(Type, String, out Object)
+  nameWithType.vb: Extensions.TryParseBasicType(Type, String, ByRef Object)
+- uid: Unosquare.Swan.Extensions.TryParseBasicType*
+  name: TryParseBasicType
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TryParseBasicType_
+  commentId: Overload:Unosquare.Swan.Extensions.TryParseBasicType
+  fullName: Unosquare.Swan.Extensions.TryParseBasicType
+  nameWithType: Extensions.TryParseBasicType
 - uid: Unosquare.Swan.Extensions.When*
   name: When
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_When_
