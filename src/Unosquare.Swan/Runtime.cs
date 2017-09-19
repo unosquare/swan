@@ -159,6 +159,22 @@
         /// </summary>
         public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value ?? false;
 
+        /// <summary>
+        /// The property type cache
+        /// </summary>
+        /// <value>
+        /// The property type cache.
+        /// </value>
+        public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+
+        /// <summary>
+        /// Gets the field type cache.
+        /// </summary>
+        /// <value>
+        /// The field type cache.
+        /// </value>
+        public static Lazy<FieldTypeCache> FieldTypeCache { get; } = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
+
 #if !NETSTANDARD1_3 && !UWP
         /// <summary>
         /// Gets the assembly that started the application.
@@ -174,16 +190,6 @@
         /// Gets the entry assembly version.
         /// </summary>
         public static Version EntryAssemblyVersion => EntryAssemblyName.Version;
-
-        /// <summary>
-        /// The property type cache
-        /// </summary>
-        /// <value>
-        /// The property type cache.
-        /// </value>
-        public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
-
-        public static Lazy<FieldTypeCache> FieldTypeCache { get; } = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
 
         /// <summary>
         /// Gets the full path to the folder containing the assembly that started the application.
