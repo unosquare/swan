@@ -22,13 +22,9 @@
         {
             SourceType = typeof(TSource);
             DestinationType = typeof(TDestination);
-
-            Map = new Dictionary<PropertyInfo, List<PropertyInfo>>();
-
-            foreach (var property in intersect)
-            {
-                Map.Add(DestinationType.GetProperty(property.Name), new List<PropertyInfo> { SourceType.GetProperty(property.Name) });
-            }
+            Map = intersect.ToDictionary(
+                property => DestinationType.GetProperty(property.Name),
+                property => new List<PropertyInfo> {SourceType.GetProperty(property.Name)});
         }
 
         /// <summary>
@@ -62,8 +58,13 @@
                 Expression<Func<TDestination, TDestinationProperty>> destinationProperty,
                 Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
-            var memberDestinationExpression = destinationProperty?.Body as MemberExpression;
-            var propertyDestinationInfo = memberDestinationExpression?.Member as PropertyInfo;
+            if (destinationProperty == null)
+                throw new ArgumentNullException(nameof(destinationProperty));
+
+            if (sourceProperty == null)
+                throw new ArgumentNullException(nameof(sourceProperty));
+
+            var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
             {
@@ -71,7 +72,7 @@
             }
 
             var sourceMembers = new List<PropertyInfo>();
-            var initialExpression = sourceProperty?.Body as MemberExpression;
+            var initialExpression = sourceProperty.Body as MemberExpression;
 
             while (true)
             {
@@ -93,7 +94,7 @@
 
             return this;
         }
-
+        
         /// <summary>
         /// Removes the map property.
         /// </summary>
@@ -107,8 +108,10 @@
         public ObjectMap<TSource, TDestination> RemoveMapProperty<TDestinationProperty>(
             Expression<Func<TDestination, TDestinationProperty>> destinationProperty)
         {
-            var memberDestinationExpression = destinationProperty?.Body as MemberExpression;
-            var propertyDestinationInfo = memberDestinationExpression?.Member as PropertyInfo;
+            if (destinationProperty == null)
+                throw new ArgumentNullException(nameof(destinationProperty));
+            
+            var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
                 throw new Exception("Invalid destination expression");

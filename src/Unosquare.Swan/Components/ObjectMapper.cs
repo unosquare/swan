@@ -32,11 +32,19 @@
             string[] propertiesToCopy = null,
             string[] ignoreProperties = null)
         {
-            // Sources
-            var sourceType = source.GetType();
-            var sourceProperties = GetTypeProperties(sourceType).Where(x => x.CanRead);
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
 
-            return Copy(target, propertiesToCopy, ignoreProperties, sourceProperties.ToDictionary(x => x.Name.ToLowerInvariant(), x => new Tuple<Type, object>(x.PropertyType, x.GetValue(source))));
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            var sourceProperties = GetTypeProperties(source.GetType()).Where(x => x.CanRead);
+
+            return Copy(
+                target,
+                propertiesToCopy,
+                ignoreProperties,
+                sourceProperties.ToDictionary(x => x.Name.ToLowerInvariant(), x => new TypeValuePair(x.PropertyType, x.GetValue(source))));
         }
 
         /// <summary>
@@ -46,31 +54,37 @@
         /// <param name="target">The target.</param>
         /// <param name="propertiesToCopy">The properties to copy.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns></returns>
+        /// <returns>Copied properties count</returns>
         public static int Copy(
             IDictionary<string, object> source,
             object target,
             string[] propertiesToCopy = null,
             string[] ignoreProperties = null)
         {
-            return Copy(target, propertiesToCopy, ignoreProperties, source.ToDictionary(x => x.Key, x => new Tuple<Type, object>(typeof(object), x.Value)));
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            return Copy(target, propertiesToCopy, ignoreProperties, source.ToDictionary(x => x.Key, x => new TypeValuePair(typeof(object), x.Value)));
         }
 
         /// <summary>
-            /// Creates the map.
-            /// </summary>
-            /// <typeparam name="TSource">The type of the source.</typeparam>
-            /// <typeparam name="TDestination">The type of the destination.</typeparam>
-            /// <returns>
-            /// An object map representation of type of the destination property 
-            /// and type of the source property
-            /// </returns>
-            /// <exception cref="System.InvalidOperationException">
-            /// You can't create an existing map
-            /// or
-            /// Types doesn't match
-            /// </exception>
-            public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
+        /// Creates the map.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the source.</typeparam>
+        /// <typeparam name="TDestination">The type of the destination.</typeparam>
+        /// <returns>
+        /// An object map representation of type of the destination property 
+        /// and type of the source property
+        /// </returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// You can't create an existing map
+        /// or
+        /// Types doesn't match
+        /// </exception>
+        public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
         {
             if (_maps.Any(x => x.SourceType == typeof(TSource) && x.DestinationType == typeof(TDestination)))
             {
@@ -109,8 +123,8 @@
             }
 
             var destination = Activator.CreateInstance<TDestination>();
-            var map =
-                _maps.FirstOrDefault(x => x.SourceType == source.GetType() && x.DestinationType == typeof(TDestination));
+            var map = _maps
+                .FirstOrDefault(x => x.SourceType == source.GetType() && x.DestinationType == typeof(TDestination));
 
             if (map != null)
             {
@@ -142,10 +156,10 @@
         }
 
         private static int Copy(
-            object target, 
-            string[] propertiesToCopy, 
+            object target,
+            string[] propertiesToCopy,
             string[] ignoreProperties,
-            Dictionary<string, Tuple<Type, object>> sourceProperties)
+            Dictionary<string, TypeValuePair> sourceProperties)
         {
             var copiedProperties = 0;
 
@@ -176,7 +190,7 @@
             {
                 var targetProperty = targetProperties
                     .First(s => s.Name.ToLowerInvariant() == sourceProperty.Key);
-                
+
                 if (requiredProperties != null && !requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
                     continue;
 
@@ -186,23 +200,23 @@
                 try
                 {
                     // Direct Copy
-                    if (targetProperty.PropertyType == sourceProperty.Value.Item1)
+                    if (targetProperty.PropertyType == sourceProperty.Value.Type)
                     {
-                        if (sourceProperty.Value.Item1.GetTypeInfo().IsEnum)
+                        if (sourceProperty.Value.Type.GetTypeInfo().IsEnum)
                         {
                             targetProperty.SetValue(target,
-                                Enum.ToObject(targetProperty.PropertyType, sourceProperty.Value.Item2));
+                                Enum.ToObject(targetProperty.PropertyType, sourceProperty.Value.Value));
                             continue;
                         }
 
-                        targetProperty.SetValue(target, sourceProperty.Value.Item2);
+                        targetProperty.SetValue(target, sourceProperty.Value.Value);
                         copiedProperties++;
                         continue;
                     }
 
                     // String to target type conversion
                     if (Definitions.BasicTypesInfo[targetProperty.PropertyType]
-                        .TryParse(sourceProperty.Value.Item2.ToStringInvariant(), out var targetValue))
+                        .TryParse(sourceProperty.Value.Value.ToStringInvariant(), out var targetValue))
                     {
                         targetProperty.SetValue(target, targetValue);
                         copiedProperties++;
@@ -219,6 +233,19 @@
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
             => TypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+
+        internal class TypeValuePair
+        {
+            public TypeValuePair(Type type, object value)
+            {
+                Type = type;
+                Value = value;
+            }
+
+            public Type Type { get; }    
+
+            public object Value { get; }
+        }
 
         internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
         {

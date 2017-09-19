@@ -302,16 +302,13 @@
                     }
 
                     #endregion
-
-                    #region Case 1.1: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
-
+                    
                     else
                     {
+                        // Case 1.1: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
                         PopulateObject(targetType, includeNonPublic, sourceProperties, target);
                     }
-
-                    #endregion
-
+                    
                     return target;
                 }
             }
@@ -321,8 +318,7 @@
             #region Case 2: Source is a List<object>
 
             {
-                var sourceList = source as List<object>;
-                if (sourceList != null)
+                if (source is List<object> sourceList)
                 {
                     var targetArray = target as Array;
                     var targetList = target as IList;

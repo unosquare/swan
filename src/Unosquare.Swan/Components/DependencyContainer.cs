@@ -2328,6 +2328,29 @@ namespace Unosquare.Swan.Components
         }
 #endif
 
+        private static bool IsValidAssignment(Type registerType, Type registerImplementation)
+        {
+            if (!registerType.IsGenericTypeDefinition())
+            {
+                if (!registerType.IsAssignableFrom(registerImplementation))
+                    return false;
+            }
+            else
+            {
+                if (registerType.IsInterface())
+                {
+                    if (registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
+                        return false;
+                }
+                else if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void BuildUpInternal(object input, DependencyContainerResolveOptions resolveOptions)
         {
             var properties = from property in input.GetType().GetProperties()
@@ -2367,29 +2390,6 @@ namespace Unosquare.Swan.Components
                 registrations = registrations.Where(tr => tr.Name != string.Empty);
 
             return registrations.Select(registration => ResolveInternal(registration, DependencyContainerNamedParameterOverloads.Default, DependencyContainerResolveOptions.Default));
-        }
-
-        private static bool IsValidAssignment(Type registerType, Type registerImplementation)
-        {
-            if (!registerType.IsGenericTypeDefinition())
-            {
-                if (!registerType.IsAssignableFrom(registerImplementation))
-                    return false;
-            }
-            else
-            {
-                if (registerType.IsInterface())
-                {
-                    if (registerImplementation.GetInterfaces().All(t => t.Name != registerType.Name))
-                        return false;
-                }
-                else if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
 #endregion
