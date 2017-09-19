@@ -1878,6 +1878,42 @@ references:
   commentId: F:Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionActions.GenericsOnly
   fullName: Unosquare.Swan.Components.DependencyContainerUnregisteredResolutionActions.GenericsOnly
   nameWithType: DependencyContainerUnregisteredResolutionActions.GenericsOnly
+- uid: Unosquare.Swan.Components.EnumHelper
+  name: EnumHelper
+  href: api/Unosquare.Swan.Components.EnumHelper.html
+  commentId: T:Unosquare.Swan.Components.EnumHelper
+  fullName: Unosquare.Swan.Components.EnumHelper
+  nameWithType: EnumHelper
+- uid: Unosquare.Swan.Components.EnumHelper.GetItemsWithIndex*
+  name: GetItemsWithIndex
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetItemsWithIndex_
+  commentId: Overload:Unosquare.Swan.Components.EnumHelper.GetItemsWithIndex
+  fullName: Unosquare.Swan.Components.EnumHelper.GetItemsWithIndex
+  nameWithType: EnumHelper.GetItemsWithIndex
+- uid: Unosquare.Swan.Components.EnumHelper.GetItemsWithIndex``1(System.Boolean)
+  name: GetItemsWithIndex<T>(Boolean)
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetItemsWithIndex__1_System_Boolean_
+  commentId: M:Unosquare.Swan.Components.EnumHelper.GetItemsWithIndex``1(System.Boolean)
+  name.vb: GetItemsWithIndex(Of T)(Boolean)
+  fullName: Unosquare.Swan.Components.EnumHelper.GetItemsWithIndex<T>(System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.EnumHelper.GetItemsWithIndex(Of T)(System.Boolean)
+  nameWithType: EnumHelper.GetItemsWithIndex<T>(Boolean)
+  nameWithType.vb: EnumHelper.GetItemsWithIndex(Of T)(Boolean)
+- uid: Unosquare.Swan.Components.EnumHelper.GetItemsWithValue*
+  name: GetItemsWithValue
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetItemsWithValue_
+  commentId: Overload:Unosquare.Swan.Components.EnumHelper.GetItemsWithValue
+  fullName: Unosquare.Swan.Components.EnumHelper.GetItemsWithValue
+  nameWithType: EnumHelper.GetItemsWithValue
+- uid: Unosquare.Swan.Components.EnumHelper.GetItemsWithValue``1(System.Boolean)
+  name: GetItemsWithValue<T>(Boolean)
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetItemsWithValue__1_System_Boolean_
+  commentId: M:Unosquare.Swan.Components.EnumHelper.GetItemsWithValue``1(System.Boolean)
+  name.vb: GetItemsWithValue(Of T)(Boolean)
+  fullName: Unosquare.Swan.Components.EnumHelper.GetItemsWithValue<T>(System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.EnumHelper.GetItemsWithValue(Of T)(System.Boolean)
+  nameWithType: EnumHelper.GetItemsWithValue<T>(Boolean)
+  nameWithType.vb: EnumHelper.GetItemsWithValue(Of T)(Boolean)
 - uid: Unosquare.Swan.Components.IMessageHub
   name: IMessageHub
   href: api/Unosquare.Swan.Components.IMessageHub.html
@@ -3452,42 +3488,6 @@ references:
   commentId: F:Unosquare.Swan.Endianness.Little
   fullName: Unosquare.Swan.Endianness.Little
   nameWithType: Endianness.Little
-- uid: Unosquare.Swan.EnumHelper
-  name: EnumHelper
-  href: api/Unosquare.Swan.EnumHelper.html
-  commentId: T:Unosquare.Swan.EnumHelper
-  fullName: Unosquare.Swan.EnumHelper
-  nameWithType: EnumHelper
-- uid: Unosquare.Swan.EnumHelper.GetItemsWithIndex*
-  name: GetItemsWithIndex
-  href: api/Unosquare.Swan.EnumHelper.html#Unosquare_Swan_EnumHelper_GetItemsWithIndex_
-  commentId: Overload:Unosquare.Swan.EnumHelper.GetItemsWithIndex
-  fullName: Unosquare.Swan.EnumHelper.GetItemsWithIndex
-  nameWithType: EnumHelper.GetItemsWithIndex
-- uid: Unosquare.Swan.EnumHelper.GetItemsWithIndex``1(System.Boolean)
-  name: GetItemsWithIndex<T>(Boolean)
-  href: api/Unosquare.Swan.EnumHelper.html#Unosquare_Swan_EnumHelper_GetItemsWithIndex__1_System_Boolean_
-  commentId: M:Unosquare.Swan.EnumHelper.GetItemsWithIndex``1(System.Boolean)
-  name.vb: GetItemsWithIndex(Of T)(Boolean)
-  fullName: Unosquare.Swan.EnumHelper.GetItemsWithIndex<T>(System.Boolean)
-  fullName.vb: Unosquare.Swan.EnumHelper.GetItemsWithIndex(Of T)(System.Boolean)
-  nameWithType: EnumHelper.GetItemsWithIndex<T>(Boolean)
-  nameWithType.vb: EnumHelper.GetItemsWithIndex(Of T)(Boolean)
-- uid: Unosquare.Swan.EnumHelper.GetItemsWithValue*
-  name: GetItemsWithValue
-  href: api/Unosquare.Swan.EnumHelper.html#Unosquare_Swan_EnumHelper_GetItemsWithValue_
-  commentId: Overload:Unosquare.Swan.EnumHelper.GetItemsWithValue
-  fullName: Unosquare.Swan.EnumHelper.GetItemsWithValue
-  nameWithType: EnumHelper.GetItemsWithValue
-- uid: Unosquare.Swan.EnumHelper.GetItemsWithValue``1(System.Boolean)
-  name: GetItemsWithValue<T>(Boolean)
-  href: api/Unosquare.Swan.EnumHelper.html#Unosquare_Swan_EnumHelper_GetItemsWithValue__1_System_Boolean_
-  commentId: M:Unosquare.Swan.EnumHelper.GetItemsWithValue``1(System.Boolean)
-  name.vb: GetItemsWithValue(Of T)(Boolean)
-  fullName: Unosquare.Swan.EnumHelper.GetItemsWithValue<T>(System.Boolean)
-  fullName.vb: Unosquare.Swan.EnumHelper.GetItemsWithValue(Of T)(System.Boolean)
-  nameWithType: EnumHelper.GetItemsWithValue<T>(Boolean)
-  nameWithType.vb: EnumHelper.GetItemsWithValue(Of T)(Boolean)
 - uid: Unosquare.Swan.Exceptions
   name: Unosquare.Swan.Exceptions
   href: api/Unosquare.Swan.Exceptions.html
