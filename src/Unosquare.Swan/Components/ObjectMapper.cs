@@ -32,95 +32,45 @@
             string[] propertiesToCopy = null,
             string[] ignoreProperties = null)
         {
-            var copiedProperties = 0;
-
             // Sources
             var sourceType = source.GetType();
             var sourceProperties = GetTypeProperties(sourceType).Where(x => x.CanRead);
 
-            // Targets
-            var targetType = target.GetType();
-            var targetProperties = GetTypeProperties(targetType).Where(x => x.CanWrite);
-
-            // Filter properties
-            var targetPropertyNames = targetProperties
-                .Select(t => t.Name.ToLowerInvariant());
-
-            var filteredSourceProperties = sourceProperties
-                .Where(s => targetPropertyNames.Contains(s.Name.ToLowerInvariant()))
-                .ToArray();
-
-            var requiredProperties = propertiesToCopy?.Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(p => p.ToLowerInvariant())
-                .ToArray();
-
-            var ignoredProperties = ignoreProperties?.Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(p => p.ToLowerInvariant())
-                .ToArray();
-
-            // Copy source properties
-            foreach (var sourceProperty in filteredSourceProperties)
-            {
-                var targetProperty = targetProperties
-                    .FirstOrDefault(s => s.Name.ToLowerInvariant() == sourceProperty.Name.ToLowerInvariant());
-
-                if (targetProperty == null) continue;
-
-                if (requiredProperties != null && !requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                    continue;
-
-                if (ignoredProperties != null && ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                    continue;
-
-                try
-                {
-                    // Direct Copy
-                    if (targetProperty.PropertyType == sourceProperty.PropertyType)
-                    {
-                        if (sourceProperty.PropertyType.GetTypeInfo().IsEnum)
-                        {
-                            targetProperty.SetValue(target, Enum.ToObject(targetProperty.PropertyType, sourceProperty.GetValue(source)));
-                            continue;
-                        }
-
-                        targetProperty.SetValue(target, sourceProperty.GetValue(source));
-                        copiedProperties++;
-                        continue;
-                    }
-
-                    // String to target type conversion
-                    var sourceStringValue = sourceProperty.GetValue(source).ToStringInvariant();
-
-                    if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue, out var targetValue))
-                    {
-                        targetProperty.SetValue(target, targetValue);
-                        copiedProperties++;
-                    }
-                }
-                catch
-                {
-                    // swallow
-                }
-            }
-
-            return copiedProperties;
+            return Copy(target, propertiesToCopy, ignoreProperties, sourceProperties.ToDictionary(x => x.Name.ToLowerInvariant(), x => new Tuple<Type, object>(x.PropertyType, x.GetValue(source))));
         }
 
         /// <summary>
-        /// Creates the map.
+        /// Copies the specified source.
         /// </summary>
-        /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <typeparam name="TDestination">The type of the destination.</typeparam>
-        /// <returns>
-        /// An object map representation of type of the destination property 
-        /// and type of the source property
-        /// </returns>
-        /// <exception cref="System.InvalidOperationException">
-        /// You can't create an existing map
-        /// or
-        /// Types doesn't match
-        /// </exception>
-        public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="propertiesToCopy">The properties to copy.</param>
+        /// <param name="ignoreProperties">The ignore properties.</param>
+        /// <returns></returns>
+        public static int Copy(
+            IDictionary<string, object> source,
+            object target,
+            string[] propertiesToCopy = null,
+            string[] ignoreProperties = null)
+        {
+            return Copy(target, propertiesToCopy, ignoreProperties, source.ToDictionary(x => x.Key, x => new Tuple<Type, object>(typeof(object), x.Value)));
+        }
+
+        /// <summary>
+            /// Creates the map.
+            /// </summary>
+            /// <typeparam name="TSource">The type of the source.</typeparam>
+            /// <typeparam name="TDestination">The type of the destination.</typeparam>
+            /// <returns>
+            /// An object map representation of type of the destination property 
+            /// and type of the source property
+            /// </returns>
+            /// <exception cref="System.InvalidOperationException">
+            /// You can't create an existing map
+            /// or
+            /// Types doesn't match
+            /// </exception>
+            public ObjectMap<TSource, TDestination> CreateMap<TSource, TDestination>()
         {
             if (_maps.Any(x => x.SourceType == typeof(TSource) && x.DestinationType == typeof(TDestination)))
             {
@@ -189,6 +139,82 @@
             }
 
             return destination;
+        }
+
+        private static int Copy(
+            object target, 
+            string[] propertiesToCopy, 
+            string[] ignoreProperties,
+            Dictionary<string, Tuple<Type, object>> sourceProperties)
+        {
+            var copiedProperties = 0;
+
+            // Targets
+            var targetType = target.GetType();
+            var targetProperties = GetTypeProperties(targetType).Where(x => x.CanWrite);
+
+            // Filter properties
+            var targetPropertyNames = targetProperties
+                .Select(t => t.Name.ToLowerInvariant());
+
+            var filteredSourceProperties = sourceProperties
+                .Where(s => targetPropertyNames.Contains(s.Key))
+                .ToArray();
+
+            var requiredProperties = propertiesToCopy?.Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant())
+                .ToArray();
+
+            var ignoredProperties = ignoreProperties?.Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant())
+                .ToArray();
+
+            // Copy source properties
+            foreach (var sourceProperty in filteredSourceProperties)
+            {
+                var targetProperty = targetProperties
+                    .FirstOrDefault(s => s.Name.ToLowerInvariant() == sourceProperty.Key);
+
+                if (targetProperty == null) continue;
+
+                if (requiredProperties != null && !requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
+                    continue;
+
+                if (ignoredProperties != null && ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
+                    continue;
+
+                try
+                {
+                    // Direct Copy
+                    if (targetProperty.PropertyType == sourceProperty.Value.Item1)
+                    {
+                        if (sourceProperty.Value.Item1.GetTypeInfo().IsEnum)
+                        {
+                            targetProperty.SetValue(target,
+                                Enum.ToObject(targetProperty.PropertyType, sourceProperty.Value.Item2));
+                            continue;
+                        }
+
+                        targetProperty.SetValue(target, sourceProperty.Value.Item2);
+                        copiedProperties++;
+                        continue;
+                    }
+
+                    // String to target type conversion
+                    if (Definitions.BasicTypesInfo[targetProperty.PropertyType]
+                        .TryParse(sourceProperty.Value.Item2.ToStringInvariant(), out var targetValue))
+                    {
+                        targetProperty.SetValue(target, targetValue);
+                        copiedProperties++;
+                    }
+                }
+                catch
+                {
+                    // swallow
+                }
+            }
+
+            return copiedProperties;
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)

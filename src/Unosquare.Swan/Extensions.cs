@@ -1,13 +1,13 @@
 ﻿namespace Unosquare.Swan
 {
-    using System.Threading.Tasks;
+    using Attributes;
     using Reflection;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
-    using Unosquare.Swan.Attributes;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Extension methods
@@ -66,7 +66,7 @@
         /// <returns>Returns the number of properties that were successfully copied</returns>
         public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
         {
-            return Components.ObjectMapper.Copy(source, target, propertiesToCopy, null);
+            return Components.ObjectMapper.Copy(source, target, propertiesToCopy);
         }
 
         /// <summary>
@@ -115,68 +115,7 @@
             object target,
             string[] ignoreProperties)
         {
-            var copiedProperties = 0;
-
-            var targetType = target.GetType();
-            var targetProperties = CopyPropertiesTargets.Value.Retrieve(targetType, () =>
-            {
-                return targetType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(x => x.CanWrite && Definitions.AllBasicTypes.Contains(x.PropertyType));
-            });
-
-            var targetPropertyNames = targetProperties.Select(t => t.Name.ToLowerInvariant());
-            var filteredSourceKeys = source
-                .Where(s => targetPropertyNames.Contains(s.Key.ToLowerInvariant()) && s.Value != null)
-                .ToArray();
-
-            var ignoredProperties = ignoreProperties?.Where(p => string.IsNullOrWhiteSpace(p) == false)
-                                        .Select(p => p.ToLowerInvariant())
-                                        .ToArray() ?? new string[] {};
-
-            foreach (var sourceKey in filteredSourceKeys)
-            {
-                var targetProperty =
-                    targetProperties.SingleOrDefault(s => s.Name.ToLowerInvariant() == sourceKey.Key.ToLowerInvariant());
-                if (targetProperty == null) continue;
-
-                if (ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
-                {
-                    continue;
-                }
-
-                try
-                {
-                    if (targetProperty.PropertyType == sourceKey.Value.GetType())
-                    {
-                        targetProperty.SetValue(target, sourceKey.Value);
-                        copiedProperties++;
-                        continue;
-                    }
-
-                    var sourceStringValue = sourceKey.Value.ToStringInvariant();
-
-                    if (targetProperty.PropertyType == typeof(bool))
-                    {
-                        sourceStringValue = sourceStringValue == "1"
-                            ? bool.TrueString.ToLowerInvariant()
-                            : bool.FalseString.ToLowerInvariant();
-                    }
-
-                    object targetValue;
-                    if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(sourceStringValue,
-                        out targetValue))
-                    {
-                        targetProperty.SetValue(target, targetValue);
-                        copiedProperties++;
-                    }
-                }
-                catch
-                {
-                    // swallow
-                }
-            }
-
-            return copiedProperties;
+            return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
         }
 
         /// <summary>
