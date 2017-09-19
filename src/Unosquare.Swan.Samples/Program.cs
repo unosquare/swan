@@ -27,7 +27,7 @@
             //        var cn = new LdapConnection();
 
             //        await cn.Connect("ad.unosquare.com", 389);
-            //        await cn.Bind("uid=nestor.soto,dc=ad,dc=unosquare,dc=com", "asdasdasd");
+            //        await cn.Bind("@unosquare.com", "password");
             //        Console.WriteLine($"Conected: {cn.Connected}");
             //        var lsc = await cn.Search("ou=Disabled Employees,dc=ad,dc=unosquare,dc=com", LdapConnection.SCOPE_SUB);
 
@@ -36,7 +36,7 @@
             //            var entry = lsc.Next();
             //            var ldapAttributes = entry.GetAttributeSet();
 
-            //            Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
+            //            Console.WriteLine($"{ldapAttributes.GetAttribute("mail")?.StringValue ?? string.Empty}");
             //        }
 
             //        //While all the entries are parsed, disconnect   
@@ -47,6 +47,8 @@
             //        ex.Error(nameof(Main), "Error LDAP");
             //    }
             //});
+
+            // Search
             //Task.Factory.StartNew(async () =>
             //{
             //    try
@@ -66,7 +68,7 @@
             //            Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
             //        }
 
-            //        While all the entries are parsed, disconnect
+            //        //While all the entries are parsed, disconnect
             //        cn.Disconnect();
             //    }
             //    catch (Exception ex)
@@ -74,30 +76,32 @@
             //        ex.Error(nameof(Main), "Error LDAP");
             //    }
             //});
-            Task.Factory.StartNew(async () =>
-            {
-                try
-                {
-                    var cn = new LdapConnection();
 
-                    await cn.Connect("ad.unosquare.com", 389);
-                    await cn.Bind("uid=nestor.soto,dc=ad,dc=unosquare,dc=com", "asdasdasd");
-                    Console.WriteLine($"Is conected: {cn.Connected}");
-                    var newPasswd = "pass.word0";
-                    var modList = new ArrayList();
-                    var attribute = new LdapAttribute("userPassword", newPasswd);
-                    modList.Add(new LdapModification(LdapModification.REPLACE, attribute));
-                    LdapModification[] mods = new LdapModification[modList.Count];
-                    //Type mtype = Type.GetType("LdapModification");
-                    mods = (LdapModification[])modList.ToArray(typeof(LdapModification));
-                    await cn.Modify("uid=nestor.soto,dc=ad,dc=unosquare,dc=com", mods);
-                    cn.Disconnect();
-                }
-                catch (Exception ex)
-                {
-                    ex.Error(nameof(Main), "Error LDAP");
-                }
-            });
+            // Modify
+            //Task.Factory.StartNew(async () =>
+            //{
+            //    try
+            //    {
+            //        var cn = new LdapConnection();
+
+            //        await cn.Connect("ad.unosquare.com", 389);
+            //        await cn.Bind("@unosquare.com", "password");
+            //        Console.WriteLine($"Is conected: {cn.Connected}");
+            //        var newProperty = "3321838515";
+            //        var modList = new ArrayList();
+            //        var attribute = new LdapAttribute("mobile", newProperty);
+            //        modList.Add(new LdapModification(LdapModification.REPLACE, attribute));
+            //        LdapModification[] mods = new LdapModification[modList.Count];
+            //        Type mtype = Type.GetType("LdapModification");
+            //        mods = (LdapModification[])modList.ToArray(typeof(LdapModification));
+            //        await cn.Modify("cn=Nestor Soto,ou=Employees,dc=ad,dc=unosquare,dc=com", mods);
+            //        cn.Disconnect();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ex.Error(nameof(Main), "Error LDAP");
+            //    }
+            //});
 #endif
             TestApplicationInfo();
             // TestNetworkUtilities();
