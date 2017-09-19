@@ -20,6 +20,8 @@
     {
         #region Constants 
 
+        private const string AddMethodName = "Add";
+
         private const char OpenObjectChar = '{';
         private const char CloseObjectChar = '}';
 
@@ -56,11 +58,11 @@
         /// <param name="excludedNames">The excluded property names.</param>
         /// <returns>A string that represents the current object</returns>
         public static string Serialize(
-            object obj, 
-            bool format = false, 
-            string typeSpecifier = null, 
+            object obj,
+            bool format = false,
+            string typeSpecifier = null,
             bool includeNonPublic = false,
-            string[] includedNames = null, 
+            string[] includedNames = null,
             string[] excludedNames = null)
         {
             if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
@@ -118,7 +120,7 @@
         /// <returns>The deserialized specified type object</returns>
         public static T Deserialize<T>(string json)
         {
-            return (T)Deserialize(json, typeof(T), false);
+            return (T)Deserialize(json, typeof(T));
         }
 
         /// <summary>
@@ -130,7 +132,7 @@
         /// <returns>The deserialized specified type object</returns>
         public static T Deserialize<T>(string json, bool includeNonPublic)
         {
-            return (T) Deserialize(json, typeof(T), includeNonPublic);
+            return (T)Deserialize(json, typeof(T), includeNonPublic);
         }
 
         /// <summary>
@@ -140,7 +142,7 @@
         /// <param name="resultType">Type of the result.</param>
         /// <param name="includeNonPublic">if set to true, it also uses the non-public constructors and property setters.</param>
         /// <returns>Type of the current conversion from json result</returns>
-        public static object Deserialize(string json, Type resultType, bool includeNonPublic)
+        public static object Deserialize(string json, Type resultType, bool includeNonPublic = false)
         {
             var source = Deserializer.DeserializeInternal(json);
             object nullRef = null;
@@ -157,9 +159,7 @@
         /// <param name="type">The type.</param>
         /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type type)
-        {
-            return PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPropertiesFunc(type));
-        }
+            => PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPropertiesFunc(type));
 
         /// <summary>
         /// Retrieves FieldInfo[] (public) for the given type
@@ -167,9 +167,7 @@
         /// <param name="type">The type.</param>
         /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type type)
-        {
-            return FieldTypeCache.Retrieve(type, FieldTypeCache.GetAllFieldsFunc(type));
-        }
+            => FieldTypeCache.Retrieve(type, FieldTypeCache.GetAllFieldsFunc(type));
 
         /// <summary>
         /// Converts a json deserialized object (simple type, dictionary or list) to a new instance of the specified target type.
@@ -185,42 +183,22 @@
             ref object targetInstance,
             bool includeNonPublic)
         {
-            #region Setup: State and Validation
-
             if (source == null) return targetType.GetDefault();
 
-            const string addMethodName = "Add";
             object target = null;
-            
+
             var sourceType = source.GetType();
 
             if (targetInstance != null) targetType = targetInstance.GetType();
             if (targetType == null || targetType == typeof(object)) targetType = sourceType;
             if (sourceType == targetType) return source;
-            
-            #endregion
-
-            #region Setup: Target Instantiation or Assignment
 
             if (targetInstance == null)
             {
                 // Try to create a default instance
                 try
                 {
-                    // When using arrays, there is no default constructor, attempt to build a compatible array
-                    var sourceObjectList = source as List<object>;
-                    if (sourceObjectList != null && targetType.IsArray)
-                    {
-                        target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
-                    }
-                    else if (source is string && targetType == typeof(byte[]))
-                    {
-                        // do nothing. Simply skip creation
-                    }
-                    else
-                    {
-                        target = Activator.CreateInstance(targetType, includeNonPublic);
-                    }
+                    CreateTarget(source, targetType, includeNonPublic, ref target);
                 }
                 catch
                 {
@@ -232,192 +210,180 @@
                 target = targetInstance;
             }
 
-            #endregion
-
-            #region Case 0: Special Cases Handling (Source and Target are of specific convertible types)
-            
-                #region Case 0.1: Source is string, Target is byte[]
-
-                var sourceString = source as string;
-                if (sourceString != null && targetType == typeof(byte[]))
-                {
-                    try
-                    {
-                        target = Convert.FromBase64String(sourceString);
-                    } // Try conversion from Base 64
-                    catch
-                    {
-                        target = Encoding.UTF8.GetBytes(sourceString);
-                    } // Get the string bytes in UTF8
-
-                    return target;
-                }
-
-                #endregion
-
-            #endregion
-
-            #region Case 1: Source is a Dictionary<string, object>
-
+            // Case 0: Special Cases Handling (Source and Target are of specific convertible types)
+            // Case 0.1: Source is string, Target is byte[]
+            if (source is string sourceString && targetType == typeof(byte[]))
             {
-                var sourceProperties = source as Dictionary<string, object>;
-                if (sourceProperties != null)
-                {
-                    #region Case 1.1: Source is Dictionary, Target is IDictionary
-
-                    var targetDictionary = target as IDictionary;
-                    if (targetDictionary != null)
-                    {
-                        // find the add method of the target dictionary
-                        var addMethod = targetType.GetMethods()
-                            .FirstOrDefault(
-                                m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 2);
-
-                        // skip if we don't have a compatible add method
-                        if (addMethod == null) return target;
-                        var addMethodParameters = addMethod.GetParameters();
-                        if (addMethodParameters[0].ParameterType != typeof(string)) return target;
-
-                        // Retrieve the target entry type
-                        var targetEntryType = addMethodParameters[1].ParameterType;
-
-                        // Add the items to the target dictionary
-                        foreach (var sourceProperty in sourceProperties)
-                        {
-                            try
-                            {
-                                object instance = null;
-                                var targetEntryValue = ConvertFromJsonResult(
-                                    sourceProperty.Value,
-                                    targetEntryType,
-                                    ref instance,
-                                    includeNonPublic);
-                                targetDictionary.Add(sourceProperty.Key, targetEntryValue);
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
-                        }
-                    }
-
-                    #endregion
-                    
-                    else
-                    {
-                        // Case 1.1: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
-                        PopulateObject(targetType, includeNonPublic, sourceProperties, target);
-                    }
-                    
-                    return target;
-                }
+                return GetByteArray(sourceString);
             }
 
-            #endregion
-
-            #region Case 2: Source is a List<object>
-
+            // Case 1: Source is a Dictionary<string, object>
+            if (source is Dictionary<string, object> sourceProperties)
             {
-                if (source is List<object> sourceList)
+                if (target is IDictionary targetDictionary)
                 {
-                    var targetArray = target as Array;
-                    var targetList = target as IList;
-
-                    #region Case 2.1: Source is List, Target is Array
-
-                    if (targetArray != null)
-                    {
-                        for (var i = 0; i < sourceList.Count; i++)
-                        {
-                            try
-                            {
-                                object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(
-                                    sourceList[i],
-                                    targetType.GetElementType(),
-                                    ref nullRef,
-                                    includeNonPublic);
-                                targetArray.SetValue(targetItem, i);
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
-                        }
-                    }
-
-                    #endregion
-
-                    #region Case 2.2: Source is List,  Target is IList
-
-                    else if (targetList != null)
-                    {
-                        // find the add method of the target list
-                        var addMethod = targetType.GetMethods()
-                            .FirstOrDefault(
-                                m => m.Name.Equals(addMethodName) && m.IsPublic && m.GetParameters().Length == 1);
-
-                        if (addMethod == null) return target;
-
-                        foreach (var item in sourceList)
-                        {
-                            try
-                            {
-                                object nullRef = null;
-                                var targetItem = ConvertFromJsonResult(
-                                    item,
-                                    addMethod.GetParameters()[0].ParameterType,
-                                    ref nullRef,
-                                    includeNonPublic);
-                                targetList.Add(targetItem);
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
-                        }
-                    }
-
-                    #endregion
-
-                    return target;
-                }
-            }
-
-            #endregion
-
-            #region Case 3: Source is a simple type; Attempt conversion
-
-            {
-                var sourceStringValue = source.ToStringInvariant();
-
-                if (Definitions.BasicTypesInfo.ContainsKey(targetType))
-                {
-                    // Handle basic types
-                    if (Definitions.BasicTypesInfo[targetType].TryParse(sourceStringValue, out target) == false)
-                        return targetType.GetDefault();
+                    // Case 1.1: Source is Dictionary, Target is IDictionary
+                    PopulateDictionary(targetType, includeNonPublic, sourceProperties, targetDictionary);
                 }
                 else
                 {
-                    // Handle Enumerations
-                    var enumType = Nullable.GetUnderlyingType(targetType);
-                    if (enumType == null && targetType.GetTypeInfo().IsEnum) enumType = targetType;
-                    if (enumType == null) return target;
+                    // Case 1.2: Source is Dictionary, Target is not IDictionary (i.e. it is a complex type)
+                    PopulateObject(targetType, includeNonPublic, sourceProperties, target);
+                }
 
-                    try
+                return target;
+            }
+
+            // Case 2: Source is a List<object>
+            if (source is List<object> sourceList)
+            {
+                var targetArray = target as Array;
+                var targetList = target as IList;
+
+                // Case 2.1: Source is List, Target is Array
+                if (targetArray != null)
+                {
+                    for (var i = 0; i < sourceList.Count; i++)
                     {
-                        target = Enum.Parse(enumType, sourceStringValue);
+                        try
+                        {
+                            object nullRef = null;
+                            var targetItem = ConvertFromJsonResult(
+                                sourceList[i],
+                                targetType.GetElementType(),
+                                ref nullRef,
+                                includeNonPublic);
+                            targetArray.SetValue(targetItem, i);
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
                     }
-                    catch
+                }
+                else if (targetList != null)
+                {
+                    // Case 2.2: Source is List,  Target is IList
+                    // find the add method of the target list
+                    var addMethod = targetType.GetMethods()
+                        .FirstOrDefault(
+                            m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 1);
+
+                    if (addMethod == null) return target;
+
+                    foreach (var item in sourceList)
                     {
-                        // ignored
+                        try
+                        {
+                            object nullRef = null;
+                            var targetItem = ConvertFromJsonResult(
+                                item,
+                                addMethod.GetParameters()[0].ParameterType,
+                                ref nullRef,
+                                includeNonPublic);
+                            targetList.Add(targetItem);
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
                     }
                 }
 
                 return target;
             }
 
-            #endregion
+            // Case 3: Source is a simple type; Attempt conversion
+            var sourceStringValue = source.ToStringInvariant();
+
+            if (Definitions.BasicTypesInfo.ContainsKey(targetType))
+            {
+                // Handle basic types
+                if (!targetType.TryParseBasicType(sourceStringValue, out target))
+                    return targetType.GetDefault();
+            }
+            else
+            {
+                // Handle Enumerations
+                var enumType = Nullable.GetUnderlyingType(targetType);
+                if (enumType == null && targetType.GetTypeInfo().IsEnum) enumType = targetType;
+                if (enumType == null) return target;
+
+                try
+                {
+                    target = Enum.Parse(enumType, sourceStringValue);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+            return target;
+        }
+
+        private static void PopulateDictionary(Type targetType, bool includeNonPublic, Dictionary<string, object> sourceProperties, IDictionary targetDictionary)
+        {
+            // find the add method of the target dictionary
+            var addMethod = targetType.GetMethods()
+                .FirstOrDefault(
+                    m => m.Name.Equals(AddMethodName) && m.IsPublic && m.GetParameters().Length == 2);
+
+            // skip if we don't have a compatible add method
+            if (addMethod == null) return;
+            var addMethodParameters = addMethod.GetParameters();
+            if (addMethodParameters[0].ParameterType != typeof(string)) return;
+
+            // Retrieve the target entry type
+            var targetEntryType = addMethodParameters[1].ParameterType;
+
+            // Add the items to the target dictionary
+            foreach (var sourceProperty in sourceProperties)
+            {
+                try
+                {
+                    object instance = null;
+                    var targetEntryValue = ConvertFromJsonResult(
+                        sourceProperty.Value,
+                        targetEntryType,
+                        ref instance,
+                        includeNonPublic);
+                    targetDictionary.Add(sourceProperty.Key, targetEntryValue);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+        }
+
+        private static byte[] GetByteArray(string sourceString)
+        {
+            try
+            {
+                return Convert.FromBase64String(sourceString);
+            } // Try conversion from Base 64
+            catch
+            {
+                return Encoding.UTF8.GetBytes(sourceString);
+            } // Get the string bytes in UTF8
+        }
+
+        private static void CreateTarget(object source, Type targetType, bool includeNonPublic, ref object target)
+        {
+            // When using arrays, there is no default constructor, attempt to build a compatible array
+            if (source is List<object> sourceObjectList && targetType.IsArray)
+            {
+                target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
+            }
+            else if (source is string && targetType == typeof(byte[]))
+            {
+                // do nothing. Simply skip creation
+            }
+            else
+            {
+                target = Activator.CreateInstance(targetType, includeNonPublic);
+            }
         }
 
         private static void PopulateObject(Type targetType, bool includeNonPublic, Dictionary<string, object> sourceProperties, object target)
@@ -475,7 +441,7 @@
                             (targetProperty as PropertyInfo).PropertyType,
                             ref currentPropertyValue,
                             includeNonPublic);
-                        
+
                         (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic)?.Invoke(target, new[] { targetPropertyValue });
                     }
                 }

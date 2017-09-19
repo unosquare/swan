@@ -209,7 +209,7 @@
                     {
                         if (primitiveValue)
                         {
-                            if (Definitions.BasicTypesInfo[itemType].TryParse(value, out object itemvalue))
+                            if (itemType.TryParseBasicType(value, out var itemvalue))
                                 arr.SetValue(itemvalue, i++);
                         }
                         else
@@ -223,8 +223,8 @@
                     return true;
                 }
                 
-                if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyValueString,
-                    out object propertyValue))
+                if (targetProperty.PropertyType.TryParseBasicType(propertyValueString,
+                    out var propertyValue))
                 {
                     targetProperty.SetValue(result, propertyValue);
                     return true;

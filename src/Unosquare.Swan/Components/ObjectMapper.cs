@@ -230,8 +230,7 @@
                     }
 
                     // String to target type conversion
-                    if (Definitions.BasicTypesInfo[targetProperty.PropertyType]
-                        .TryParse(valueType.Value.ToStringInvariant(), out var targetValue))
+                    if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(), out var targetValue))
                     {
                         targetProperty.SetValue(target, targetValue);
                         copiedProperties++;

@@ -159,8 +159,7 @@
 
             private static string Serialize(object obj, int depth, bool format, SerializerOptions options)
             {
-                var serializer = new Serializer(obj, depth, format, options);
-                return serializer._result;
+                return new Serializer(obj, depth, format, options)._result;
             }
 
             #endregion
@@ -174,14 +173,14 @@
                     return depth == 0 ? EmptyObjectLiteral : NullLiteral;
                 }
 
-                if (obj is string)
+                if (obj is string s)
                 {
-                    return $"{StringQuotedChar}{Escape((string)obj)}{StringQuotedChar}";
+                    return $"{StringQuotedChar}{Escape(s)}{StringQuotedChar}";
                 }
 
-                if (obj is bool)
+                if (obj is bool b)
                 {
-                    return (bool)obj ? TrueLiteral : FalseLiteral;
+                    return b ? TrueLiteral : FalseLiteral;
                 }
 
                 if (obj is Type || obj is Assembly || obj is MethodInfo || obj is PropertyInfo || obj is EventInfo)
@@ -205,9 +204,8 @@
                 }
 
                 var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj));
-                decimal val;
-
-                return decimal.TryParse(escapedValue, out val)
+                
+                return decimal.TryParse(escapedValue, out var val)
                     ? $"{escapedValue}"
                     : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
             }

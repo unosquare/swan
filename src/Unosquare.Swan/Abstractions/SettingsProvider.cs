@@ -116,7 +116,7 @@
                                 continue;
                             }
                             
-                            if (Definitions.BasicTypesInfo[elementType].TryParse(sourceElement.ToString(), out var itemvalue))
+                            if (elementType.TryParseBasicType(sourceElement.ToString(), out var itemvalue))
                                 targetArray.SetValue(itemvalue, i++);
                         }
                         catch
@@ -139,7 +139,7 @@
                     }
                     else
                     {
-                        if (Definitions.BasicTypesInfo[propertyInfo.PropertyType].TryParse(property.Value.ToString(),
+                        if (propertyInfo.PropertyType.TryParseBasicType(property.Value.ToString(),
                             out var propertyValue))
                         {
                             if (propertyValue.Equals(originalValue)) continue;

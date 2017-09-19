@@ -378,7 +378,7 @@
                     // Parse and assign the basic type value to the property
                     try
                     {
-                        if (Definitions.BasicTypesInfo[targetProperty.PropertyType].TryParse(propertyStringValue, out var propertyValue))
+                        if (targetProperty.PropertyType.TryParseBasicType(propertyStringValue, out var propertyValue))
                             targetProperty.SetValue(result, propertyValue);
                     }
                     catch

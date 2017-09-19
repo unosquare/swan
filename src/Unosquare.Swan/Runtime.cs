@@ -4,7 +4,7 @@
     using System;
     using System.IO;
     using System.Threading;
-    using Unosquare.Swan.Reflection;
+    using Reflection;
 #if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
 #endif
@@ -44,19 +44,19 @@
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
             var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute;
-            return attribute == null ? string.Empty : attribute.Company;
+            return attribute?.Company ?? string.Empty;
         });
 
         private static readonly Lazy<string> m_ProductName = new Lazy<string>(() =>
         {
             var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute;
-            return attribute == null ? string.Empty : attribute.Product;
+            return attribute?.Product ?? string.Empty;
         });
 
         private static readonly Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
         {
             var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
-            return attribute == null ? string.Empty : attribute.Trademark;
+            return attribute?.Trademark ?? string.Empty;
         });
 #endif
 
