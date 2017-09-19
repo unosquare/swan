@@ -15,7 +15,6 @@
     /// </summary>
     public class ObjectMapper
     {
-        private static readonly Lazy<PropertyTypeCache> TypeCache = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
         private readonly List<IObjectMap> _maps = new List<IObjectMap>();
 
         /// <summary>
@@ -25,7 +24,14 @@
         /// <param name="target">The target.</param>
         /// <param name="propertiesToCopy">The properties to copy.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>Copied properties count</returns>
+        /// <returns>
+        /// Copied properties count
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// source
+        /// or
+        /// target
+        /// </exception>
         public static int Copy(
             object source,
             object target,
@@ -54,7 +60,14 @@
         /// <param name="target">The target.</param>
         /// <param name="propertiesToCopy">The properties to copy.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>Copied properties count</returns>
+        /// <returns>
+        /// Copied properties count
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// source
+        /// or
+        /// target
+        /// </exception>
         public static int Copy(
             IDictionary<string, object> source,
             object target,
@@ -199,24 +212,26 @@
 
                 try
                 {
+                    var valueType = sourceProperty.Value;
+
                     // Direct Copy
-                    if (targetProperty.PropertyType == sourceProperty.Value.Type)
+                    if (targetProperty.PropertyType == valueType.Type)
                     {
-                        if (sourceProperty.Value.Type.GetTypeInfo().IsEnum)
+                        if (valueType.Type.GetTypeInfo().IsEnum)
                         {
                             targetProperty.SetValue(target,
-                                Enum.ToObject(targetProperty.PropertyType, sourceProperty.Value.Value));
+                                Enum.ToObject(targetProperty.PropertyType, valueType.Value));
                             continue;
                         }
 
-                        targetProperty.SetValue(target, sourceProperty.Value.Value);
+                        targetProperty.SetValue(target, valueType.Value);
                         copiedProperties++;
                         continue;
                     }
 
                     // String to target type conversion
                     if (Definitions.BasicTypesInfo[targetProperty.PropertyType]
-                        .TryParse(sourceProperty.Value.Value.ToStringInvariant(), out var targetValue))
+                        .TryParse(valueType.Value.ToStringInvariant(), out var targetValue))
                     {
                         targetProperty.SetValue(target, targetValue);
                         copiedProperties++;
@@ -232,7 +247,7 @@
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
-            => TypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+            => Runtime.PropertyTypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
 
         internal class TypeValuePair
         {

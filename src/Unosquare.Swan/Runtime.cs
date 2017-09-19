@@ -4,6 +4,7 @@
     using System;
     using System.IO;
     using System.Threading;
+    using Unosquare.Swan.Reflection;
 #if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
 #endif
@@ -173,6 +174,16 @@
         /// Gets the entry assembly version.
         /// </summary>
         public static Version EntryAssemblyVersion => EntryAssemblyName.Version;
+
+        /// <summary>
+        /// The property type cache
+        /// </summary>
+        /// <value>
+        /// The property type cache.
+        /// </value>
+        public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+
+        public static Lazy<FieldTypeCache> FieldTypeCache { get; } = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
 
         /// <summary>
         /// Gets the full path to the folder containing the assembly that started the application.

@@ -17,7 +17,7 @@ namespace Unosquare.Swan.Test
             Task.Factory.StartNew(service.RunInConsoleMode);
             Task.Delay(TimeSpan.FromSeconds(3)).Wait();
             service.Stop();
-            Assert.GreaterOrEqual(3, service.Counter);
+            Assert.GreaterOrEqual(service.Counter, 3);
         }
     }
 }

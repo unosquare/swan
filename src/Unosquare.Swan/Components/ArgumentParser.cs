@@ -15,8 +15,6 @@
     {
         private const char Dash = '-';
         
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
         /// </summary>
@@ -154,9 +152,7 @@
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
-        {
-            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
-        }
+            => Runtime.PropertyTypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
 
         private static void WriteUsage(IEnumerable<PropertyInfo> properties)
         {

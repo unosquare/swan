@@ -13,9 +13,6 @@
     /// </summary>
     public static class ObjectComparer
     {
-        private static readonly PropertyTypeCache PropertyTypeCache = new PropertyTypeCache();
-        private static readonly FieldTypeCache FieldTypeCache = new FieldTypeCache();
-
         /// <summary>
         /// Compare if two variables of the same type are equal.
         /// </summary>
@@ -87,7 +84,7 @@
         /// <param name="targetType">Type of the target.</param>
         /// <returns>Properties for the given type</returns>
         private static PropertyInfo[] RetrieveProperties(Type targetType)
-            => PropertyTypeCache.Retrieve(targetType, PropertyTypeCache.GetAllPropertiesFunc(targetType));
+            => Runtime.PropertyTypeCache.Value.Retrieve(targetType, PropertyTypeCache.GetAllPropertiesFunc(targetType));
 
         /// <summary>
         /// Retrieves FieldInfo[] (public) for the given type
@@ -95,7 +92,7 @@
         /// <param name="targetType">Type of the target.</param>
         /// <returns>Value of a field supported by a given object</returns>
         private static FieldInfo[] RetrieveFields(Type targetType)
-            => FieldTypeCache.Retrieve(targetType, FieldTypeCache.GetAllFieldsFunc(targetType));
+            => Runtime.FieldTypeCache.Value.Retrieve(targetType, FieldTypeCache.GetAllFieldsFunc(targetType));
 
         private static bool AreObjectsEqual(object left, object right, Type targetType)
         {

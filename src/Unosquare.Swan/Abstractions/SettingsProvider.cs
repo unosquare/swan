@@ -115,9 +115,8 @@
                                 targetArray.SetValue(null, i++);
                                 continue;
                             }
-
-                            object itemvalue;
-                            if (Definitions.BasicTypesInfo[elementType].TryParse(sourceElement.ToString(), out itemvalue))
+                            
+                            if (Definitions.BasicTypesInfo[elementType].TryParse(sourceElement.ToString(), out var itemvalue))
                                 targetArray.SetValue(itemvalue, i++);
                         }
                         catch
@@ -140,9 +139,8 @@
                     }
                     else
                     {
-                        object propertyValue;
                         if (Definitions.BasicTypesInfo[propertyInfo.PropertyType].TryParse(property.Value.ToString(),
-                            out propertyValue))
+                            out var propertyValue))
                         {
                             if (propertyValue.Equals(originalValue)) continue;
 

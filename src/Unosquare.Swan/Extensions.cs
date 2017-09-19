@@ -14,8 +14,6 @@
     /// </summary>
     public static partial class Extensions
     {
-        private static readonly Lazy<PropertyTypeCache> CopyPropertiesTargets = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
-
         /// <summary>
         /// Iterates over the public, instance, readable properties of the source and
         /// tries to write a compatible value to a public, instance, writable property in the destination
@@ -27,7 +25,7 @@
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             var copyable = GetCopyableProperties(target);
-            return copyable.Any() ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target);
+            return copyable.Any() ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target, null);
         }
 
         /// <summary>
@@ -111,7 +109,7 @@
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>Number of properties that was copied successful</returns>
         public static int CopyPropertiesTo(
-            this IDictionary<string, object> source, 
+            this IDictionary<string, object> source,
             object target,
             string[] ignoreProperties = null)
         {
@@ -159,12 +157,12 @@
             int retryCount = 3)
         {
             Retry<object>(() =>
-            {
-                action();
-                return null;
-            }, 
-            retryInterval, 
-            retryCount);
+                {
+                    action();
+                    return null;
+                },
+                retryInterval,
+                retryCount);
         }
 
         /// <summary>
@@ -219,7 +217,9 @@
                 if (ex == null)
                     throw new ArgumentNullException(nameof(ex));
 
-                var fullMessage = string.IsNullOrWhiteSpace(priorMessage) ? ex.Message : priorMessage + "\r\n" + ex.Message;
+                var fullMessage = string.IsNullOrWhiteSpace(priorMessage)
+                    ? ex.Message
+                    : priorMessage + "\r\n" + ex.Message;
 
                 if (string.IsNullOrWhiteSpace(ex.InnerException?.Message))
                     return fullMessage;
@@ -236,10 +236,11 @@
         /// <returns>Array of properties</returns>
         public static string[] GetCopyableProperties(this object model)
         {
-            var cachedProperties = CopyPropertiesTargets.Value.Retrieve(model.GetType(), PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
+            var cachedProperties = Runtime.PropertyTypeCache.Value.Retrieve(model.GetType(),
+                PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
 
             return cachedProperties
-                .Select(x => new { x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null })
+                .Select(x => new {x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null})
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name)
                 .ToArray();
