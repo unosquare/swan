@@ -11598,6 +11598,18 @@ references:
   commentId: Overload:Unosquare.Swan.Runtime.EntryAssemblyVersion
   fullName: Unosquare.Swan.Runtime.EntryAssemblyVersion
   nameWithType: Runtime.EntryAssemblyVersion
+- uid: Unosquare.Swan.Runtime.FieldTypeCache
+  name: FieldTypeCache
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_FieldTypeCache
+  commentId: P:Unosquare.Swan.Runtime.FieldTypeCache
+  fullName: Unosquare.Swan.Runtime.FieldTypeCache
+  nameWithType: Runtime.FieldTypeCache
+- uid: Unosquare.Swan.Runtime.FieldTypeCache*
+  name: FieldTypeCache
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_FieldTypeCache_
+  commentId: Overload:Unosquare.Swan.Runtime.FieldTypeCache
+  fullName: Unosquare.Swan.Runtime.FieldTypeCache
+  nameWithType: Runtime.FieldTypeCache
 - uid: Unosquare.Swan.Runtime.GetAssemblies
   name: GetAssemblies()
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_GetAssemblies
@@ -11718,6 +11730,18 @@ references:
   commentId: Overload:Unosquare.Swan.Runtime.ProductTrademark
   fullName: Unosquare.Swan.Runtime.ProductTrademark
   nameWithType: Runtime.ProductTrademark
+- uid: Unosquare.Swan.Runtime.PropertyTypeCache
+  name: PropertyTypeCache
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_PropertyTypeCache
+  commentId: P:Unosquare.Swan.Runtime.PropertyTypeCache
+  fullName: Unosquare.Swan.Runtime.PropertyTypeCache
+  nameWithType: Runtime.PropertyTypeCache
+- uid: Unosquare.Swan.Runtime.PropertyTypeCache*
+  name: PropertyTypeCache
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_PropertyTypeCache_
+  commentId: Overload:Unosquare.Swan.Runtime.PropertyTypeCache
+  fullName: Unosquare.Swan.Runtime.PropertyTypeCache
+  nameWithType: Runtime.PropertyTypeCache
 - uid: Unosquare.Swan.Runtime.WriteWelcomeBanner(System.ConsoleColor)
   name: WriteWelcomeBanner(ConsoleColor)
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_WriteWelcomeBanner_System_ConsoleColor_
