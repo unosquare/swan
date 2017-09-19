@@ -3,18 +3,85 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Reflection;
     using Reflection;
-    
+
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type
-    /// to another
+    /// to another using defined properties map or using the default behaviour
+    /// to copy same named properties from one object to another.
+    /// 
+    /// The extension methods like CopyPropertiesTo use the default behaviour.
     /// </summary>
     public class ObjectMapper
     {
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
         private readonly List<IObjectMap> _maps = new List<IObjectMap>();
+
+        /// <summary>
+        /// Copies the specified source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="propertiesToCopy">The properties to copy.</param>
+        /// <param name="ignoreProperties">The ignore properties.</param>
+        /// <returns>
+        /// Copied properties count
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// source
+        /// or
+        /// target
+        /// </exception>
+        public static int Copy(
+            object source,
+            object target,
+            string[] propertiesToCopy = null,
+            string[] ignoreProperties = null)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            var sourceProperties = GetTypeProperties(source.GetType()).Where(x => x.CanRead);
+
+            return Copy(
+                target,
+                propertiesToCopy,
+                ignoreProperties,
+                sourceProperties.ToDictionary(x => x.Name.ToLowerInvariant(), x => new TypeValuePair(x.PropertyType, x.GetValue(source))));
+        }
+
+        /// <summary>
+        /// Copies the specified source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="propertiesToCopy">The properties to copy.</param>
+        /// <param name="ignoreProperties">The ignore properties.</param>
+        /// <returns>
+        /// Copied properties count
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// source
+        /// or
+        /// target
+        /// </exception>
+        public static int Copy(
+            IDictionary<string, object> source,
+            object target,
+            string[] propertiesToCopy = null,
+            string[] ignoreProperties = null)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            return Copy(target, propertiesToCopy, ignoreProperties, source.ToDictionary(x => x.Key, x => new TypeValuePair(typeof(object), x.Value)));
+        }
 
         /// <summary>
         /// Creates the map.
@@ -64,11 +131,13 @@
         public TDestination Map<TDestination>(object source, bool autoResolve = true)
         {
             if (source == null)
+            {
                 throw new ArgumentNullException(nameof(source));
+            }
 
             var destination = Activator.CreateInstance<TDestination>();
-            var map =
-                _maps.FirstOrDefault(x => x.SourceType == source.GetType() && x.DestinationType == typeof(TDestination));
+            var map = _maps
+                .FirstOrDefault(x => x.SourceType == source.GetType() && x.DestinationType == typeof(TDestination));
 
             if (map != null)
             {
@@ -93,15 +162,103 @@
                 }
 
                 // Missing mapping, try to use default behavior
-                source.CopyPropertiesTo(destination);
+                Copy(source, destination);
             }
 
             return destination;
         }
 
-        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
+        private static int Copy(
+            object target,
+            string[] propertiesToCopy,
+            string[] ignoreProperties,
+            Dictionary<string, TypeValuePair> sourceProperties)
         {
-            return TypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+            var copiedProperties = 0;
+
+            // Targets
+            var targetType = target.GetType();
+            var targetProperties = GetTypeProperties(targetType)
+                .Where(x => x.CanWrite)
+                .ToList();
+
+            // Filter properties
+            var targetPropertyNames = targetProperties
+                .Select(t => t.Name.ToLowerInvariant());
+
+            var filteredSourceProperties = sourceProperties
+                .Where(s => targetPropertyNames.Contains(s.Key))
+                .ToArray();
+
+            var requiredProperties = propertiesToCopy?.Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant())
+                .ToArray();
+
+            var ignoredProperties = ignoreProperties?.Where(p => !string.IsNullOrWhiteSpace(p))
+                .Select(p => p.ToLowerInvariant())
+                .ToArray();
+
+            // Copy source properties
+            foreach (var sourceProperty in filteredSourceProperties)
+            {
+                var targetProperty = targetProperties
+                    .First(s => s.Name.ToLowerInvariant() == sourceProperty.Key);
+
+                if (requiredProperties != null && !requiredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
+                    continue;
+
+                if (ignoredProperties != null && ignoredProperties.Contains(targetProperty.Name.ToLowerInvariant()))
+                    continue;
+
+                try
+                {
+                    var valueType = sourceProperty.Value;
+
+                    // Direct Copy
+                    if (targetProperty.PropertyType == valueType.Type)
+                    {
+                        if (valueType.Type.GetTypeInfo().IsEnum)
+                        {
+                            targetProperty.SetValue(target,
+                                Enum.ToObject(targetProperty.PropertyType, valueType.Value));
+                            continue;
+                        }
+
+                        targetProperty.SetValue(target, valueType.Value);
+                        copiedProperties++;
+                        continue;
+                    }
+
+                    // String to target type conversion
+                    if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(), out var targetValue))
+                    {
+                        targetProperty.SetValue(target, targetValue);
+                        copiedProperties++;
+                    }
+                }
+                catch
+                {
+                    // swallow
+                }
+            }
+
+            return copiedProperties;
+        }
+
+        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
+            => Runtime.PropertyTypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+
+        internal class TypeValuePair
+        {
+            public TypeValuePair(Type type, object value)
+            {
+                Type = type;
+                Value = value;
+            }
+
+            public Type Type { get; }    
+
+            public object Value { get; }
         }
 
         internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
@@ -113,146 +270,7 @@
             }
 
             public int GetHashCode(PropertyInfo obj)
-            {
-                return obj.Name.GetHashCode() + obj.PropertyType.Name.GetHashCode();
-            }
+                => obj.Name.GetHashCode() + obj.PropertyType.Name.GetHashCode();
         }
-    }
-
-    /// <summary>
-    /// Represents an object map
-    /// </summary>
-    /// <typeparam name="TSource">The type of the source.</typeparam>
-    /// <typeparam name="TDestination">The type of the destination.</typeparam>
-    /// <seealso cref="Unosquare.Swan.Components.IObjectMap" />
-    public class ObjectMap<TSource, TDestination> : IObjectMap
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ObjectMap{TSource, TDestination}" /> class.
-        /// </summary>
-        /// <param name="intersect">The intersect.</param>
-        public ObjectMap(IEnumerable<PropertyInfo> intersect)
-        {
-            SourceType = typeof(TSource);
-            DestinationType = typeof(TDestination);
-
-            Map = new Dictionary<PropertyInfo, List<PropertyInfo>>();
-
-            foreach (var property in intersect)
-            {
-                Map.Add(DestinationType.GetProperty(property.Name), new List<PropertyInfo> { SourceType.GetProperty(property.Name) });
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the map.
-        /// </summary>
-        public Dictionary<PropertyInfo, List<PropertyInfo>> Map { get; }
-
-        /// <summary>
-        /// Gets or sets the type of the source.
-        /// </summary>
-        public Type SourceType { get; }
-
-        /// <summary>
-        /// Gets or sets the type of the destination.
-        /// </summary>
-        public Type DestinationType { get; }
-
-        /// <summary>
-        /// Maps the property.
-        /// </summary>
-        /// <typeparam name="TDestinationProperty">The type of the destination property.</typeparam>
-        /// <typeparam name="TSourceProperty">The type of the source property.</typeparam>
-        /// <param name="destinationProperty">The destination property.</param>
-        /// <param name="sourceProperty">The source property.</param>
-        /// <returns>
-        /// An object map representation of type of the destination property 
-        /// and type of the source property
-        /// </returns>
-        public ObjectMap<TSource, TDestination> MapProperty
-            <TDestinationProperty, TSourceProperty>(
-                Expression<Func<TDestination, TDestinationProperty>> destinationProperty,
-                Expression<Func<TSource, TSourceProperty>> sourceProperty)
-        {
-            var memberDestinationExpression = destinationProperty?.Body as MemberExpression;
-            var propertyDestinationInfo = memberDestinationExpression?.Member as PropertyInfo;
-
-            if (propertyDestinationInfo == null)
-            {
-                throw new Exception("Invalid destination expression");
-            }
-
-            var sourceMembers = new List<PropertyInfo>();
-            var initialExpression = sourceProperty?.Body as MemberExpression;
-
-            while (true)
-            {
-                var propertySourceInfo = initialExpression?.Member as PropertyInfo;
-
-                if (propertySourceInfo == null) break;
-                sourceMembers.Add(propertySourceInfo);
-                initialExpression = initialExpression.Expression as MemberExpression;
-            }
-
-            if (sourceMembers.Any() == false)
-            {
-                throw new Exception("Invalid source expression");
-            }
-
-            // reverse order
-            sourceMembers.Reverse();
-            Map[propertyDestinationInfo] = sourceMembers;
-
-            return this;
-        }
-
-        /// <summary>
-        /// Removes the map property.
-        /// </summary>
-        /// <typeparam name="TDestinationProperty">The type of the destination property.</typeparam>
-        /// <param name="destinationProperty">The destination property.</param>
-        /// <returns>
-        /// An object map representation of type of the destination property 
-        /// and type of the source property 
-        /// </returns>
-        /// <exception cref="System.Exception">Invalid destination expression</exception>
-        public ObjectMap<TSource, TDestination> RemoveMapProperty<TDestinationProperty>(
-            Expression<Func<TDestination, TDestinationProperty>> destinationProperty)
-        {
-            var memberDestinationExpression = destinationProperty?.Body as MemberExpression;
-            var propertyDestinationInfo = memberDestinationExpression?.Member as PropertyInfo;
-
-            if (propertyDestinationInfo == null)
-                throw new Exception("Invalid destination expression");
-
-            if (Map.ContainsKey(propertyDestinationInfo))
-            {
-                Map.Remove(propertyDestinationInfo);
-            }
-
-            return this;
-        }
-    }
-
-    /// <summary>
-    /// Interface object map
-    /// </summary>
-    public interface IObjectMap
-    {
-        /// <summary>
-        /// Gets or sets the map.
-        /// </summary>
-        Dictionary<PropertyInfo, List<PropertyInfo>> Map { get; }
-
-        /// <summary>
-        /// Gets or sets the type of the source.
-        /// </summary>
-        Type SourceType { get; }
-
-        /// <summary>
-        /// Gets or sets the type of the destination.
-        /// </summary>
-        Type DestinationType { get; }
     }
 }
