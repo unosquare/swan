@@ -127,42 +127,6 @@
                 .ToArray();
         }
 
-        /// <summary>
-        /// Retrieves the local ip addresses.
-        /// </summary>
-        /// <param name="interfaceType">Type of the interface.</param>
-        /// <param name="skipTypeFilter">if set to <c>true</c> [skip type filter].</param>
-        /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
-        /// <returns>An array of local ip addresses</returns>
-        private static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType, bool skipTypeFilter, bool includeLoopback)
-        {
-            var addressList = new List<IPAddress>();
-            var interfaces = NetworkInterface.GetAllNetworkInterfaces()
-                .Where(ni =>
-#if NET452
-                    ni.IsReceiveOnly == false &&
-#endif
-                    (skipTypeFilter || ni.NetworkInterfaceType == interfaceType) &&
-                    ni.OperationalStatus == OperationalStatus.Up)
-                .ToArray();
-
-            foreach (var networkInterface in interfaces)
-            {
-                var properties = networkInterface.GetIPProperties();
-                if (properties.GatewayAddresses.Any(g => g.Address.AddressFamily == AddressFamily.InterNetwork) == false)
-                    continue;
-
-                addressList.AddRange(properties.UnicastAddresses
-                    .Where(i => i.Address.AddressFamily == AddressFamily.InterNetwork)
-                    .Select(i => i.Address));
-            }
-
-            if (includeLoopback || interfaceType == NetworkInterfaceType.Loopback)
-                addressList.Add(IPAddress.Loopback);
-
-            return addressList.ToArray();
-        }
-
         #endregion
 
         #region DNS and NTP Clients
@@ -261,8 +225,7 @@
         /// <returns>A string that represents the current object</returns>
         public static string GetDnsPointerEntry(IPAddress query)
         {
-            var client = new DnsClient(GetIPv4DnsServers().FirstOrDefault());
-            return client.Reverse(query);
+            return new DnsClient(GetIPv4DnsServers().FirstOrDefault()).Reverse(query);
         }
 
         /// <summary>
@@ -288,8 +251,7 @@
         /// </returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType, IPAddress dnsServer, int port)
         {
-            var client = new DnsClient(dnsServer, port);
-            var response = client.Resolve(query, recordType);
+            var response = new DnsClient(dnsServer, port).Resolve(query, recordType);
             return new DnsQueryResult(response);
         }
 
@@ -428,5 +390,41 @@
         }
 
         #endregion
+
+        /// <summary>
+        /// Retrieves the local ip addresses.
+        /// </summary>
+        /// <param name="interfaceType">Type of the interface.</param>
+        /// <param name="skipTypeFilter">if set to <c>true</c> [skip type filter].</param>
+        /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
+        /// <returns>An array of local ip addresses</returns>
+        private static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType, bool skipTypeFilter, bool includeLoopback)
+        {
+            var addressList = new List<IPAddress>();
+            var interfaces = NetworkInterface.GetAllNetworkInterfaces()
+                .Where(ni =>
+#if NET452
+                    ni.IsReceiveOnly == false &&
+#endif
+                    (skipTypeFilter || ni.NetworkInterfaceType == interfaceType) &&
+                    ni.OperationalStatus == OperationalStatus.Up)
+                .ToArray();
+
+            foreach (var networkInterface in interfaces)
+            {
+                var properties = networkInterface.GetIPProperties();
+                if (properties.GatewayAddresses.Any(g => g.Address.AddressFamily == AddressFamily.InterNetwork) == false)
+                    continue;
+
+                addressList.AddRange(properties.UnicastAddresses
+                    .Where(i => i.Address.AddressFamily == AddressFamily.InterNetwork)
+                    .Select(i => i.Address));
+            }
+
+            if (includeLoopback || interfaceType == NetworkInterfaceType.Loopback)
+                addressList.Add(IPAddress.Loopback);
+
+            return addressList.ToArray();
+        }
     }
 }

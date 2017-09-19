@@ -232,7 +232,17 @@
 
             return type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
-        
-#endregion
+
+        #endregion
+
+        /// <summary>
+        /// Tries to parse using the basic types.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>True if the parse was succesful</returns>
+        public static bool TryParseBasicType(this Type type, string value, out object result)
+            =>Definitions.BasicTypesInfo[type].TryParse(value, out result);
     }
 }

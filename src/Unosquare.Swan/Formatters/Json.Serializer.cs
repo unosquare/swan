@@ -159,8 +159,7 @@
 
             private static string Serialize(object obj, int depth, bool format, SerializerOptions options)
             {
-                var serializer = new Serializer(obj, depth, format, options);
-                return serializer._result;
+                return new Serializer(obj, depth, format, options)._result;
             }
 
             #endregion
@@ -174,14 +173,14 @@
                     return depth == 0 ? EmptyObjectLiteral : NullLiteral;
                 }
 
-                if (obj is string)
+                if (obj is string s)
                 {
-                    return $"{StringQuotedChar}{Escape((string)obj)}{StringQuotedChar}";
+                    return $"{StringQuotedChar}{Escape(s)}{StringQuotedChar}";
                 }
 
-                if (obj is bool)
+                if (obj is bool b)
                 {
-                    return (bool)obj ? TrueLiteral : FalseLiteral;
+                    return b ? TrueLiteral : FalseLiteral;
                 }
 
                 if (obj is Type || obj is Assembly || obj is MethodInfo || obj is PropertyInfo || obj is EventInfo)
@@ -205,9 +204,8 @@
                 }
 
                 var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj));
-                decimal val;
-
-                return decimal.TryParse(escapedValue, out val)
+                
+                return decimal.TryParse(escapedValue, out var val)
                     ? $"{escapedValue}"
                     : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
             }
@@ -393,6 +391,67 @@
             }
 
             /// <summary>
+            /// Escapes the specified string as a JSON string.
+            /// </summary>
+            /// <param name="str">The string to escape.</param>
+            /// <returns>A string that represents the current object</returns>
+            private static string Escape(string str)
+            {
+                if (string.IsNullOrEmpty(str))
+                    return string.Empty;
+
+                var builder = new StringBuilder(str.Length * 2);
+
+                foreach (var currentChar in str)
+                {
+                    switch (currentChar)
+                    {
+                        case '\\':
+                        case '"':
+                        case '/':
+                            builder
+                                .Append('\\')
+                                .Append(currentChar);
+                            break;
+                        case '\b':
+                            builder.Append("\\b");
+                            break;
+                        case '\t':
+                            builder.Append("\\t");
+                            break;
+                        case '\n':
+                            builder.Append("\\n");
+                            break;
+                        case '\f':
+                            builder.Append("\\f");
+                            break;
+                        case '\r':
+                            builder.Append("\\r");
+                            break;
+                        default:
+                            if (currentChar < ' ')
+                            {
+                                var escapeBytes = BitConverter.GetBytes((ushort)currentChar);
+                                if (BitConverter.IsLittleEndian == false)
+                                    Array.Reverse(escapeBytes);
+
+                                builder.Append("\\u"
+                                    + escapeBytes[1].ToString("X").PadLeft(2, '0')
+                                    + escapeBytes[0].ToString("X").PadLeft(2, '0'));
+                            }
+                            else
+                            {
+                                builder.Append(currentChar);
+                            }
+
+                            break;
+                    }
+                }
+
+                return builder.ToString();
+            }
+
+            /// <summary>
             /// Removes the last comma in the current string builder.
             /// </summary>
             private void RemoveLastComma()
@@ -436,66 +495,6 @@
             {
                 if (_format == false) return;
                 _builder.Append(Environment.NewLine);
-            }
-
-            /// <summary>
-            /// Escapes the specified string as a JSON string.
-            /// </summary>
-            /// <param name="str">The string to escape.</param>
-            /// <returns>A string that represents the current object</returns>
-            private static string Escape(string str)
-            {
-                if (string.IsNullOrEmpty(str))
-                    return string.Empty;
-
-                var builder = new StringBuilder(str.Length * 2);
-
-                foreach (var currentChar in str)
-                {
-                    switch (currentChar)
-                    {
-                        case '\\':
-                        case '"':
-                        case '/':
-                            builder.Append('\\');
-                            builder.Append(currentChar);
-                            break;
-                        case '\b':
-                            builder.Append("\\b");
-                            break;
-                        case '\t':
-                            builder.Append("\\t");
-                            break;
-                        case '\n':
-                            builder.Append("\\n");
-                            break;
-                        case '\f':
-                            builder.Append("\\f");
-                            break;
-                        case '\r':
-                            builder.Append("\\r");
-                            break;
-                        default:
-                            if (currentChar < ' ')
-                            {
-                                var escapeBytes = BitConverter.GetBytes((ushort)currentChar);
-                                if (BitConverter.IsLittleEndian == false)
-                                    Array.Reverse(escapeBytes);
-
-                                builder.Append("\\u"
-                                    + escapeBytes[1].ToString("X").PadLeft(2, '0')
-                                    + escapeBytes[0].ToString("X").PadLeft(2, '0'));
-                            }
-                            else
-                            {
-                                builder.Append(currentChar);
-                            }
-
-                            break;
-                    }
-                }
-
-                return builder.ToString();
             }
 
             #endregion

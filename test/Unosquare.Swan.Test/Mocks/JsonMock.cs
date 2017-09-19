@@ -122,4 +122,28 @@
         Two,
         Three
     }
+
+    public class ObjectAttr
+    {
+        public int Id { get; set; }
+
+        [Copyable]
+        public string Name { get; set; }
+
+        [Copyable]
+        public bool IsActive { get; set; }
+
+        public string Owner { get; set; }
+
+        public static ObjectAttr Get()
+        {
+            return new ObjectAttr
+            {
+                Id = 1,
+                IsActive = true,
+                Name = "swan",
+                Owner = "UnoLabs"
+            };
+        }
+    }
 }

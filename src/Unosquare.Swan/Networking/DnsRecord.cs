@@ -9,11 +9,6 @@
     /// </summary>
     public class DnsRecord
     {
-        private DnsRecord()
-        {
-            // placeholder
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsRecord"/> class.
         /// </summary>
@@ -53,13 +48,18 @@
             SoaMinimumTimeToLive = (record as DnsClient.DnsStartOfAuthorityResourceRecord)?.MinimumTimeToLive;
         }
 
+        private DnsRecord()
+        {
+            // placeholder
+        }
+
         /// <summary>
         /// Gets the name.
         /// </summary>
         /// <value>
         /// The name.
         /// </value>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the type.
@@ -67,7 +67,7 @@
         /// <value>
         /// The type.
         /// </value>
-        public DnsRecordType Type { get; private set; }
+        public DnsRecordType Type { get; }
 
         /// <summary>
         /// Gets the class.
@@ -75,7 +75,7 @@
         /// <value>
         /// The class.
         /// </value>
-        public DnsRecordClass Class { get; private set; }
+        public DnsRecordClass Class { get; }
 
         /// <summary>
         /// Gets the time to live.
@@ -83,7 +83,7 @@
         /// <value>
         /// The time to live.
         /// </value>
-        public TimeSpan TimeToLive { get; private set; }
+        public TimeSpan TimeToLive { get; }
 
         /// <summary>
         /// Gets the raw data of the record.
@@ -101,7 +101,7 @@
         /// <value>
         /// The name of the pointer domain.
         /// </value>
-        public string PointerDomainName { get; private set; }
+        public string PointerDomainName { get; }
 
         /// <summary>
         /// Gets the ip address.
@@ -109,7 +109,7 @@
         /// <value>
         /// The ip address.
         /// </value>
-        public IPAddress IPAddress { get; private set; }
+        public IPAddress IPAddress { get; }
 
         /// <summary>
         /// Gets the name of the name server domain.
@@ -117,7 +117,7 @@
         /// <value>
         /// The name of the name server domain.
         /// </value>
-        public string NameServerDomainName { get; private set; }
+        public string NameServerDomainName { get; }
 
         /// <summary>
         /// Gets the name of the canonical domain.
@@ -125,7 +125,7 @@
         /// <value>
         /// The name of the canonical domain.
         /// </value>
-        public string CanonicalDomainName { get; private set; }
+        public string CanonicalDomainName { get; }
 
         /// <summary>
         /// Gets the mail exchanger preference.
@@ -133,7 +133,7 @@
         /// <value>
         /// The mail exchanger preference.
         /// </value>
-        public int? MailExchangerPreference { get; private set; }
+        public int? MailExchangerPreference { get; }
 
         /// <summary>
         /// Gets the name of the mail exchanger domain.
@@ -141,7 +141,7 @@
         /// <value>
         /// The name of the mail exchanger domain.
         /// </value>
-        public string MailExchangerDomainName { get; private set; }
+        public string MailExchangerDomainName { get; }
         
         /// <summary>
         /// Gets the name of the soa master domain.
@@ -149,7 +149,7 @@
         /// <value>
         /// The name of the soa master domain.
         /// </value>
-        public string SoaMasterDomainName { get; private set; }
+        public string SoaMasterDomainName { get; }
 
         /// <summary>
         /// Gets the name of the soa responsible domain.
@@ -157,7 +157,7 @@
         /// <value>
         /// The name of the soa responsible domain.
         /// </value>
-        public string SoaResponsibleDomainName { get; private set; }
+        public string SoaResponsibleDomainName { get; }
 
         /// <summary>
         /// Gets the soa serial number.
@@ -165,7 +165,7 @@
         /// <value>
         /// The soa serial number.
         /// </value>
-        public long? SoaSerialNumber { get; private set; }
+        public long? SoaSerialNumber { get; }
 
         /// <summary>
         /// Gets the soa refresh interval.
@@ -173,7 +173,7 @@
         /// <value>
         /// The soa refresh interval.
         /// </value>
-        public TimeSpan? SoaRefreshInterval { get; private set; }
+        public TimeSpan? SoaRefreshInterval { get; }
 
         /// <summary>
         /// Gets the soa retry interval.
@@ -181,7 +181,7 @@
         /// <value>
         /// The soa retry interval.
         /// </value>
-        public TimeSpan? SoaRetryInterval { get; private set; }
+        public TimeSpan? SoaRetryInterval { get; }
 
         /// <summary>
         /// Gets the soa expire interval.
@@ -189,7 +189,7 @@
         /// <value>
         /// The soa expire interval.
         /// </value>
-        public TimeSpan? SoaExpireInterval { get; private set; }
+        public TimeSpan? SoaExpireInterval { get; }
 
         /// <summary>
         /// Gets the soa minimum time to live.
@@ -197,6 +197,6 @@
         /// <value>
         /// The soa minimum time to live.
         /// </value>
-        public TimeSpan? SoaMinimumTimeToLive { get; private set; }
+        public TimeSpan? SoaMinimumTimeToLive { get; }
     }
 }

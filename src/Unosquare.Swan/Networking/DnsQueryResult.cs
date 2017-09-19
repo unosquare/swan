@@ -11,10 +11,6 @@
         private readonly List<DnsRecord> m_AdditionalRecords = new List<DnsRecord>();
         private readonly List<DnsRecord> m_AuthorityRecords = new List<DnsRecord>();
 
-        private DnsQueryResult()
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsQueryResult"/> class.
         /// </summary>
@@ -48,13 +44,17 @@
             }
         }
 
+        private DnsQueryResult()
+        {
+        }
+
         /// <summary>
         /// Gets the identifier.
         /// </summary>
         /// <value>
         /// The identifier.
         /// </value>
-        public int Id { get; private set; }
+        public int Id { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is authoritative server.
@@ -62,7 +62,7 @@
         /// <value>
         /// <c>true</c> if this instance is authoritative server; otherwise, <c>false</c>.
         /// </value>
-        public bool IsAuthoritativeServer { get; private set; }
+        public bool IsAuthoritativeServer { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is truncated.
@@ -70,7 +70,7 @@
         /// <value>
         /// <c>true</c> if this instance is truncated; otherwise, <c>false</c>.
         /// </value>
-        public bool IsTruncated { get; private set; }
+        public bool IsTruncated { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is recursion available.
@@ -78,7 +78,7 @@
         /// <value>
         /// <c>true</c> if this instance is recursion available; otherwise, <c>false</c>.
         /// </value>
-        public bool IsRecursionAvailable { get; private set; }
+        public bool IsRecursionAvailable { get; }
 
         /// <summary>
         /// Gets the operation code.
@@ -86,7 +86,7 @@
         /// <value>
         /// The operation code.
         /// </value>
-        public DnsOperationCode OperationCode { get; private set; }
+        public DnsOperationCode OperationCode { get; }
 
         /// <summary>
         /// Gets the response code.
@@ -94,7 +94,7 @@
         /// <value>
         /// The response code.
         /// </value>
-        public DnsResponseCode ResponseCode { get; private set; }
+        public DnsResponseCode ResponseCode { get; }
 
         /// <summary>
         /// Gets the answer records.

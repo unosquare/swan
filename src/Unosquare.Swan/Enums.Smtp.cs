@@ -111,9 +111,9 @@
         /// 
         /// </summary>
         UserNotLocalTryAlternatePath = 551,
-        
+
         /// <summary>
-        /// 
+        /// Exceeded Storage Allocation code
         /// </summary>
         ExceededStorageAllocation = 552,
         
