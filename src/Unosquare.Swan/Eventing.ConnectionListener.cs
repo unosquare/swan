@@ -22,7 +22,7 @@
         /// <summary>
         /// Gets the client.
         /// </summary>
-        public TcpClient Client { get; private set; }
+        public TcpClient Client { get; }
     }
 
     /// <summary>
@@ -64,7 +64,7 @@
         /// <summary>
         /// Gets the end point.
         /// </summary>
-        public IPEndPoint EndPoint { get; private set; }
+        public IPEndPoint EndPoint { get; }
     }
 
     /// <summary>
@@ -87,12 +87,12 @@
         /// <summary>
         /// Gets the end point.
         /// </summary>
-        public IPEndPoint EndPoint { get; private set; }
+        public IPEndPoint EndPoint { get; }
 
         /// <summary>
         /// Gets the error.
         /// </summary>
-        public Exception Error { get; private set; }
+        public Exception Error { get; }
     }
 
     /// <summary>
@@ -115,11 +115,11 @@
         /// <summary>
         /// Gets the end point.
         /// </summary>
-        public IPEndPoint EndPoint { get; private set; }
+        public IPEndPoint EndPoint { get; }
 
         /// <summary>
         /// Gets the error.
         /// </summary>
-        public Exception Error { get; private set; }
+        public Exception Error { get; }
     }
 }

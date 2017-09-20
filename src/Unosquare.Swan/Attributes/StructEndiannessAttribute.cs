@@ -22,7 +22,7 @@
         /// <summary>
         /// Gets the endianness.
         /// </summary>
-        public Endianness Endianness { get; private set; }
+        public Endianness Endianness { get; }
     }
 
 }

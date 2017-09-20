@@ -209,8 +209,8 @@
         /// </value>
         public static Encoding OutputEncoding
         {
-            get { return Console.OutputEncoding; }
-            set { Console.OutputEncoding = value; }
+            get => Console.OutputEncoding;
+            set => Console.OutputEncoding = value;
         }
 
         #endregion

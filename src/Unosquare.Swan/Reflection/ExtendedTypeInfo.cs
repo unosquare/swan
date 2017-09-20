@@ -8,7 +8,8 @@
     using System.Reflection;
 
     /// <summary>
-    /// Provides extended information about a type
+    /// Provides extended information about a type.
+    /// 
     /// This class is mainly used to define sets of types within the Constants class
     /// and it is not meant for other than querying the VasicTypesInfo dictionary.
     /// </summary>
@@ -111,13 +112,13 @@
         /// <summary>
         /// Gets a value indicating whether the type or underlying type is numeric.
         /// </summary>
-        public bool IsNumeric { get; private set; }
+        public bool IsNumeric { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type is value type.
         /// Nullable value types have this property set to False
         /// </summary>
-        public bool IsValueType { get; private set; }
+        public bool IsValueType { get; }
 
         /// <summary>
         /// When dealing with nullable value types, this property will
@@ -241,11 +242,12 @@
     }
 
     /// <summary>
-    /// Provides extended information about a type
+    /// Provides extended information about a type.
+    /// 
     /// This class is mainly used to define sets of types within the Constants class
-    /// and it is not meant for other than querying the VasicTypesInfo dictionary.
+    /// and it is not meant for other than querying the BasicTypesInfo dictionary.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of extended type infomation</typeparam>
     public class ExtendedTypeInfo<T> : ExtendedTypeInfo
     {
         /// <summary>
@@ -256,29 +258,7 @@
         {
             // placeholder
         }
-
-        /// <summary>
-        /// Tries to parse the string into an object of the type this instance represents.
-        /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
-        /// for any reason. When possible, this method uses CultureInfo.InvariantCulture and NumberStyles.Any
-        /// </summary>
-        /// <param name="s">The s.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>True if parse was converted successfully; otherwise, false</returns>
-        public bool TryParse(string s, out T result)
-        {
-            result = default(T);
-
-            object innerResult;
-            var success = TryParse(s, out innerResult);
-            if (success && innerResult != null)
-            {
-                result = (T)innerResult;
-            }
-
-            return success;
-        }
-
+        
         /// <summary>
         /// Converts this instance to its string representation,
         /// trying to use the CultureInfo.InvariantCulture

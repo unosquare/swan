@@ -195,9 +195,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     {@link LdapConnection.SendRequest LdapConnection.sendRequest()}
         ///     method to send it to the server.
         /// </summary>
-        /// <param name="stringTag">
-        ///     the String assigned to identify this message.
-        /// </param>
         public virtual string Tag
         {
             get
@@ -210,7 +207,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return Request ? null : RequestingMessage?.stringTag;
             }
 
-            set { stringTag = value; }
+            set => stringTag = value;
         }
 
         /// <summary>

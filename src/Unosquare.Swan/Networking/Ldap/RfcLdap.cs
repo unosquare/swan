@@ -128,7 +128,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override string ToString()
         {
-            return entry == null ? base.ToString() : entry.ToString();
+            return entry?.ToString() ?? base.ToString();
         }
     }
 
@@ -303,15 +303,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcExtendedResponse : Asn1Sequence, IRfcResponse
     {
-        public virtual RfcLdapOID ResponseName
-        {
-            get { return responseNameIndex != 0 ? (RfcLdapOID) Get(responseNameIndex) : null; }
-        }
+        public virtual RfcLdapOID ResponseName => responseNameIndex != 0 ? (RfcLdapOID) Get(responseNameIndex) : null;
 
-        public virtual Asn1OctetString Response
-        {
-            get { return responseIndex != 0 ? (Asn1OctetString) Get(responseIndex) : null; }
-        }
+        public virtual Asn1OctetString Response => responseIndex != 0 ? (Asn1OctetString) Get(responseIndex) : null;
 
         /// <summary> Context-specific TAG for optional responseName.</summary>
         public const int RESPONSE_NAME = 10;
@@ -508,7 +502,6 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         public const int TAG_RESPONSE_NAME = 0;
         public const int TAG_RESPONSE = 1;
-        private int m_referralIndex;
         private readonly int m_responseNameIndex;
         private readonly int m_responseValueIndex;
 

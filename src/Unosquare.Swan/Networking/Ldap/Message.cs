@@ -1047,12 +1047,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attrName">
         ///     Name of the attribute to be asserted
         /// </param>
-        /// <param name="value">
+        /// <param name="valueArray">
         ///     Value of the attribute to be asserted
         ///     @throws LdapLocalException
         ///     Occurs when the filter type is not a valid attribute assertion.
         /// </param>
-        public virtual void AddAttributeValueAssertion(int rfcType, string attrName, sbyte[] value_Renamed)
+        public virtual void AddAttributeValueAssertion(int rfcType, string attrName, sbyte[] valueArray)
         {
             if (filterStack != null && !(filterStack.Count == 0) && filterStack.Peek() is Asn1SequenceOf)
             {
@@ -1066,7 +1066,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     LdapException.FILTER_ERROR);
             }
 
-            Asn1Object current = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, rfcType), new RfcAttributeValueAssertion(new RfcLdapString(attrName), new Asn1OctetString(value_Renamed)), false);
+            Asn1Object current = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, rfcType), new RfcAttributeValueAssertion(new RfcLdapString(attrName), new Asn1OctetString(valueArray)), false);
             AddObject(current);
         }
 
@@ -1183,9 +1183,9 @@ namespace Unosquare.Swan.Networking.Ldap
             while (itr.MoveNext())
             {
                 var filterpart = itr.Current;
-                if (filterpart is int)
+                if (filterpart is int i)
                 {
-                    op = (int) filterpart;
+                    op = i;
                     switch (op)
                     {
                         case AND:
@@ -1675,7 +1675,7 @@ namespace Unosquare.Swan.Networking.Ldap
             private string attr; // Name of the attribute just parsed
             private int offset; // Offset pointer into the filter string
             private readonly int filterLength; // Length of the filter string to parse
-            
+
             /// <summary>
             /// Constructs a FilterTokenizer for a filter.
             /// </summary>

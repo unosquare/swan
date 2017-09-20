@@ -43,7 +43,6 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcLdapMessage : Asn1Sequence
     {
         private readonly Asn1Object op;
-        private LdapMessage requestMessage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
@@ -213,15 +212,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The requesting message.
         /// </value>
-        /// <param name="msg">
-        /// the original request for this response
-        /// </param>
-        public virtual LdapMessage RequestingMessage
-        {
-            get { return requestMessage; }
-
-            set { requestMessage = value; }
-        }
+        public virtual LdapMessage RequestingMessage { get; set; }
 
         /// <summary>
         /// Returns the request associated with this RfcLdapMessage.
@@ -567,10 +558,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decode a search result done from the input stream.
         /// </summary>
         /// <param name="dec">The decimal.</param>
-        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcSearchResultDone(IAsn1Decoder dec, Stream in_Renamed, int len)
-            : base(dec, in_Renamed, len)
+        public RfcSearchResultDone(IAsn1Decoder dec, Stream stream, int len)
+            : base(dec, stream, len)
         {
         }
 

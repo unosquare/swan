@@ -7,7 +7,8 @@
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class ArgumentOptionAttribute : Attribute
+    public sealed class ArgumentOptionAttribute 
+        : Attribute
     {
         private string _setName;
 
@@ -47,6 +48,15 @@
             : this(new string(shortName, 1), string.Empty)
         {
         }
+        
+        private ArgumentOptionAttribute(string shortName, string longName)
+        {
+            ShortName = shortName ?? throw new ArgumentNullException(nameof(shortName));
+            LongName = longName ?? throw new ArgumentNullException(nameof(longName));
+
+            _setName = string.Empty;
+            Separator = '\0';
+        }
 
         /// <summary>
         /// Gets long name of this command line option. This name is usually a single English word.
@@ -63,11 +73,8 @@
         /// </summary>
         public string SetName
         {
-            get { return _setName; }
-            set
-            {
-                _setName = value ?? throw new ArgumentNullException(nameof(value));
-            }
+            get => _setName;
+            set => _setName = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>
@@ -90,14 +97,5 @@
         /// Gets or sets a short description of this command line option. Usually a sentence summary.
         /// </summary>
         public string HelpText { get; set; }
-
-        private ArgumentOptionAttribute(string shortName, string longName)
-        {
-            ShortName = shortName ?? throw new ArgumentNullException(nameof(shortName));
-            LongName = longName ?? throw new ArgumentNullException(nameof(longName));
-
-            _setName = string.Empty;
-            Separator = '\0';
-        }
     }
 }

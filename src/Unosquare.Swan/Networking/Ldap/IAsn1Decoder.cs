@@ -26,11 +26,10 @@ namespace Unosquare.Swan.Networking.Ldap
         Asn1Object Decode(sbyte[] byteArray);
 
         /// <summary>
-        ///     Decode an encoded value into an Asn1Object from an InputStream.
+        /// Decode an encoded value into an Asn1Object from an InputStream.
         /// </summary>
-        /// <param name="in">
-        ///     An input stream containing the encoded ASN.1 data.
-        /// </param>
+        /// <param name="stream">The stream.</param>
+        /// <returns></returns>
         Asn1Object Decode(Stream stream);
 
         /// <summary>

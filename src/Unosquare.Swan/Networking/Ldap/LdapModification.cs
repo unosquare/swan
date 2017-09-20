@@ -36,34 +36,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="LdapAttribute"></seealso>
     public class LdapModification : LdapMessage
     {
-
-        private readonly int op;
-        private readonly LdapAttribute attr;
-
-        /// <summary>
-        /// Returns the attribute to modify, with any existing values.
-        /// </summary>
-        /// <value>
-        /// The attribute.
-        /// </value>
-        public virtual LdapAttribute Attribute
-        {
-            get { return attr; }
-        }
-
-        /// <summary>
-        /// Returns the type of modification specified by this object.
-        /// The type is one of the following:
-        /// <ul><li>LdapModification.ADD</li><li>LdapModification.DELETE</li><li>LdapModification.REPLACE</li></ul>
-        /// </summary>
-        /// <value>
-        /// The op.
-        /// </value>
-        public virtual int Op
-        {
-            get { return op; }
-        }
-
         /// <summary>
         /// Adds the listed values to the given attribute, creating
         /// the attribute if it does not already exist.
@@ -110,9 +82,27 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attr">The attribute to modify.</param>
         public LdapModification(int op, LdapAttribute attr)
         {
-            this.op = op;
-            this.attr = attr;
+            this.Op = op;
+            this.Attribute = attr;
         }
+
+        /// <summary>
+        /// Returns the attribute to modify, with any existing values.
+        /// </summary>
+        /// <value>
+        /// The attribute.
+        /// </value>
+        public virtual LdapAttribute Attribute { get; }
+
+        /// <summary>
+        /// Returns the type of modification specified by this object.
+        /// The type is one of the following:
+        /// <ul><li>LdapModification.ADD</li><li>LdapModification.DELETE</li><li>LdapModification.REPLACE</li></ul>
+        /// </summary>
+        /// <value>
+        /// The op.
+        /// </value>
+        public virtual int Op { get; }
     }
 }
 #endif

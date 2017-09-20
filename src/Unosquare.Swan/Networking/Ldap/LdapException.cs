@@ -1348,7 +1348,9 @@ namespace Unosquare.Swan.Networking.Ldap
                 * ResultCodeMessages.txt
                 */
 
-        /// <summary> Constructs a default exception with no specific error information.</summary>
+        /// <summary>
+        /// Constructs a default exception with no specific error information.
+        /// </summary>
         public LdapException()
         {
         }
@@ -1437,46 +1439,36 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     A throwable which is the underlying cause
         ///     of the LdapException.
         /// </param>
-        public LdapException(string messageOrKey, int resultCode, string serverMsg, Exception rootException)
+        public LdapException(string messageOrKey, int resultCode, string serverMsg, Exception rootException = null)
             : this(messageOrKey, null, resultCode, serverMsg, null, rootException)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapException"/> class.
-        ///     Constructs an exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String and modifying arguments.
-        ///     Additional parameters specify the result code, the server message,
-        ///     and a rootException which is the underlying cause of an error
-        ///     on the client.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        ///     The message in the default locale is built with the supplied arguments,
-        ///     which are saved to be used for building messages for other locales.
+        /// Initializes a new instance of the <see cref="LdapException" /> class.
+        /// Constructs an exception with a detailed message obtained from the
+        /// specified <code>MessageOrKey</code> String and modifying arguments.
+        /// Additional parameters specify the result code, the server message,
+        /// and a rootException which is the underlying cause of an error
+        /// on the client.
+        /// The String is used either as a message key to obtain a localized
+        /// messsage from ExceptionMessages, or if there is no key in the
+        /// resource matching the text, it is used as the detailed message itself.
+        /// The message in the default locale is built with the supplied arguments,
+        /// which are saved to be used for building messages for other locales.
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMsg">
-        ///     Error message specifying additional information
-        ///     from the server
-        /// </param>
-        /// <param name="rootException">
-        ///     A throwable which is the underlying cause
-        ///     of the LdapException.
-        /// </param>
+        /// <param name="messageOrKey">Key to addition result information, a key into
+        /// ExceptionMessages, or the information
+        /// itself if the key doesn't exist.</param>
+        /// <param name="arguments">The modifying arguments to be included in the
+        /// message string.</param>
+        /// <param name="resultCode">The result code returned.</param>
+        /// <param name="serverMsg">Error message specifying additional information
+        /// from the server</param>
+        /// <param name="rootException">A throwable which is the underlying cause
+        /// of the LdapException.</param>
         public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
-            Exception rootException) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
+            Exception rootException = null) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
         {
         }
 
@@ -1587,7 +1579,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     be matched by the server on a search operation.
         /// </param>
         internal LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
-            string matchedDN, Exception rootException)
+            string matchedDN = null, Exception rootException = null)
             : base(ResourcesHandler.GetMessage(messageOrKey, arguments))
         {
             this.messageOrKey = messageOrKey;
@@ -1744,14 +1736,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         ///     Sets a referral that could not be processed
         /// </summary>
-        /// <param name="url">
-        ///     The referral URL that could not be processed.
-        /// </param>
         public virtual string FailedReferral
         {
-            get { return failedReferral; }
+            get => failedReferral;
 
-            set { failedReferral = value; }
+            set => failedReferral = value;
         }
 
         private string failedReferral;
@@ -1894,7 +1883,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="serverMessage">Error message specifying additional information
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapReferralException(string message, int resultCode, string serverMessage, Exception rootException)
+        public LdapReferralException(string message, int resultCode, string serverMessage, Exception rootException = null)
             : base(message, resultCode, serverMessage, rootException)
         {
         }

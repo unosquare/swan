@@ -98,7 +98,6 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             var vals = GetValue();
-            sbyte[] twin = null;
 
             if (vals != null)
             {
@@ -106,7 +105,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 // Yes even though the contructor above allocates a
                 // new Asn1OctetString, vals in that constuctor
                 // is only copied by reference
-                twin = new sbyte[vals.Length];
+                var twin = new sbyte[vals.Length];
                 for (var i = 0; i < vals.Length; i++)
                 {
                     twin[i] = vals[i];
@@ -184,20 +183,20 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary> Sets the protocol version</summary>
         public virtual Asn1Integer Version
         {
-            get { return (Asn1Integer)Get(0); }
-            set { Set(0, value); }
+            get => (Asn1Integer)Get(0);
+            set => Set(0, value);
         }
 
         public virtual RfcLdapDN Name
         {
-            get { return (RfcLdapDN)Get(1); }
-            set { Set(1, value); }
+            get => (RfcLdapDN)Get(1);
+            set => Set(1, value);
         }
 
         public virtual RfcAuthenticationChoice AuthenticationChoice
         {
-            get { return (RfcAuthenticationChoice)Get(2); }
-            set { Set(2, value); }
+            get => (RfcAuthenticationChoice)Get(2);
+            set => Set(2, value);
         }
 
         /// <summary>
@@ -340,8 +339,6 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         private string[] srefs;
-        private static int refNum = 0; // Debug, LdapConnection number
-        private string name; // String name for debug
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapSearchResultReference"/> class.
@@ -389,8 +386,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="BatchSize"></seealso>
         public virtual int BatchSize
         {
-            get { return batchSize; }
-            set { batchSize = value; }
+            get => batchSize;
+            set => batchSize = value;
         }
 
         /// <summary>
@@ -436,8 +433,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </seealso>
         public virtual int Dereference
         {
-            get { return dereference; }
-            set { dereference = value; }
+            get => dereference;
+            set => dereference = value;
         }
 
         /// <summary>
@@ -470,8 +467,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </seealso>
         public virtual int MaxResults
         {
-            get { return maxResults; }
-            set { maxResults = value; }
+            get => maxResults;
+            set => maxResults = value;
         }
 
         /// <summary>
@@ -506,16 +503,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </seealso>
         public virtual int ServerTimeLimit
         {
-            get { return serverTimeLimit; }
-            set { serverTimeLimit = value; }
+            get => serverTimeLimit;
+            set => serverTimeLimit = value;
         }
 
         private int dereference;
         private int serverTimeLimit;
         private int maxResults = 1000;
         private int batchSize = 1;
-        private static int lSConsNum = 0; // Debug, LdapConnection number
-        private string name; // String name for debug
 
         /// <summary>
         ///     Indicates that aliases are never dereferenced.
@@ -596,9 +591,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 Properties = (Hashtable) lp.Clone();
             }
 
-            if (cons is LdapSearchConstraints)
+            if (cons is LdapSearchConstraints scons)
             {
-                var scons = (LdapSearchConstraints) cons;
                 serverTimeLimit = scons.ServerTimeLimit;
                 dereference = scons.Dereference;
                 maxResults = scons.MaxResults;
@@ -965,8 +959,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public static string decode(string urlEncoded)
         {
             var searchStart = 0;
-            int fieldStart;
-            fieldStart = urlEncoded.IndexOf("%", searchStart);
+            var fieldStart = urlEncoded.IndexOf("%", searchStart);
             // Return now if no encoded data
             if (fieldStart < 0)
             {
@@ -1130,14 +1123,7 @@ namespace Unosquare.Swan.Networking.Ldap
             url.Append("?");
             if (scope != DEFAULT_SCOPE)
             {
-                if (scope == LdapConnection.SCOPE_ONE)
-                {
-                    url.Append("one");
-                }
-                else
-                {
-                    url.Append("sub");
-                }
+                url.Append(scope == LdapConnection.SCOPE_ONE ? "one" : "sub");
             }
             if ((object) filter == null && extensions == null)
             {
@@ -1175,7 +1161,6 @@ namespace Unosquare.Swan.Networking.Ldap
         private string[] parseList(string listStr, char delimiter, int listStart, int listEnd)
             // end of list + 1
         {
-            string[] list;
             // Check for and empty string
             if (listEnd - listStart < 1)
             {
@@ -1202,7 +1187,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             // Now fill in the array with the attributes
             itemStart = listStart;
-            list = new string[itemCount];
+            var list = new string[itemCount];
             itemCount = 0;
             while (itemStart > 0)
             {
@@ -1404,7 +1389,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 filterStr = url.Substring(scanStart, extStart - scanStart);
             }
 
-            if (!filterStr.Equals(""))
+            if (!filterStr.Equals(string.Empty))
             {
                 filter = filterStr; // Only modify if not the default filter
             }
@@ -1729,17 +1714,17 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         private class RegisteredControl
         {
-            private RespControlVector enclosingInstance;
-            public RespControlVector Enclosing_Instance => enclosingInstance;
             public readonly string myOID;
             public readonly Type myClass;
 
             public RegisteredControl(RespControlVector enclosingInstance, string oid, Type controlClass)
             {
-                this.enclosingInstance = enclosingInstance;
+                Enclosing_Instance = enclosingInstance;
                 myOID = oid;
                 myClass = controlClass;
             }
+            private RespControlVector Enclosing_Instance { get; }
+
         }
 
         /// <summary>
@@ -1765,7 +1750,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             lock (this)
             {
-                RegisteredControl ctl = null;
+                RegisteredControl ctl;
 
                 // loop through the contents of the vector
                 for (var i = 0; i < Count; i++)

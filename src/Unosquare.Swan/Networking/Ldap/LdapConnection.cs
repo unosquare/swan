@@ -28,7 +28,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public class LdapConnection
     {
-        private CancellationTokenSource cts = new CancellationTokenSource();
+        private readonly CancellationTokenSource cts = new CancellationTokenSource();
 
         internal BindProperties BindProperties { get; set; }
 
@@ -108,10 +108,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="SearchConstraints()"></seealso>
         public virtual LdapConstraints Constraints
         {
-            get
-            {
-                return (LdapConstraints) defSearchCons.Clone();
-            }
+            get => (LdapConstraints) defSearchCons.Clone();
 
             set
             {
@@ -222,14 +219,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         internal virtual Connection Connection => conn;
 
-        private static object nameLock; // protect agentNum
-        private static int lConnNum = 0; // Debug, LdapConnection number
-
         private LdapSearchConstraints defSearchCons;
         private LdapControl[] responseCtls;
         private readonly object responseCtlSemaphore;
         private Connection conn;
-        private string name; // String name for debug
 
         /// <summary>
         ///     Used with search to specify that the scope of entrys to search is to
@@ -340,25 +333,14 @@ namespace Unosquare.Swan.Networking.Ldap
             responseCtlSemaphore = new object();
         }
 
+        internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
+
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         public void Dispose()
         {
             Dispose(true);
-        }
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="isDisposing">
-        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool isDisposing)
-        {
-            if (isDisposing)
-            {
-                Disconnect();
-            }
         }
 
         /// <summary>
@@ -542,7 +524,20 @@ namespace Unosquare.Swan.Networking.Ldap
             cts.Cancel();
             conn.Disconnect();
         }
-        
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="isDisposing">
+        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool isDisposing)
+        {
+            if (isDisposing)
+            {
+                Disconnect();
+            }
+        }
+
         /// <summary>
         /// Requests the LDAP message.
         /// </summary>
@@ -559,8 +554,6 @@ namespace Unosquare.Swan.Networking.Ldap
             while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageID == msg.MessageID) == false)
                 await Task.Delay(100, ct);
         }
-
-        internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
 
         internal void RetrieveMessages()
         {

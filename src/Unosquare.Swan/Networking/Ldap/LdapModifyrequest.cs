@@ -27,10 +27,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The dn.
         /// </value>
-        public virtual string DN
-        {
-            get { return Asn1Object.RequestDN; }
-        }
+        public virtual string DN => Asn1Object.RequestDN;
 
         /// <summary>
         /// Gets the modifications.

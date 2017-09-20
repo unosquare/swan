@@ -9,8 +9,6 @@
     /// <seealso cref="System.Exception" />
     public class DnsQueryException : Exception
     {
-        #region Constructors
-
         internal DnsQueryException()
         {
         }
@@ -42,17 +40,11 @@
             Response = response;
         }
 
-        #endregion
-
-        #region Properties and Methods
+        internal DnsClient.IDnsResponse Response { get; }
 
         private static string Format(DnsClient.IDnsResponse response)
         {
             return $"Invalid response received with code {response.ResponseCode}";
         }
-
-        internal DnsClient.IDnsResponse Response { get; private set; }
-
-        #endregion
     }
 }

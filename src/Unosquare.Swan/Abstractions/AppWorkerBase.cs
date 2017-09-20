@@ -101,10 +101,7 @@
         /// </summary>
         public AppWorkerState State
         {
-            get
-            {
-                return _workerState;
-            }
+            get => _workerState;
 
             private set
             {

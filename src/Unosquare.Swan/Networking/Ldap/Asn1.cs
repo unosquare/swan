@@ -113,8 +113,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         protected internal virtual Asn1Object ChoiceValue
         {
-            get { return _content; }
-            set { _content = value; }
+            get => _content;
+            set => _content = value;
         }
 
         /// <summary>
@@ -677,10 +677,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
 
-            get
-            {
-                return _content;
-            }
+            get => _content;
         }
 
         /// <summary>

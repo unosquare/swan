@@ -1296,37 +1296,13 @@ namespace Unosquare.Swan.Components
             /// </summary>
             public ConstructorInfo Constructor { get; private set; }
 
-            public virtual ObjectFactoryBase SingletonVariant
-            {
-                get
-                {
-                    throw new DependencyContainerRegistrationException(GetType(), "singleton");
-                }
-            }
+            public virtual ObjectFactoryBase SingletonVariant => throw new DependencyContainerRegistrationException(GetType(), "singleton");
 
-            public virtual ObjectFactoryBase MultiInstanceVariant
-            {
-                get
-                {
-                    throw new DependencyContainerRegistrationException(GetType(), "multi-instance");
-                }
-            }
+            public virtual ObjectFactoryBase MultiInstanceVariant => throw new DependencyContainerRegistrationException(GetType(), "multi-instance");
 
-            public virtual ObjectFactoryBase StrongReferenceVariant
-            {
-                get
-                {
-                    throw new DependencyContainerRegistrationException(GetType(), "strong reference");
-                }
-            }
+            public virtual ObjectFactoryBase StrongReferenceVariant => throw new DependencyContainerRegistrationException(GetType(), "strong reference");
 
-            public virtual ObjectFactoryBase WeakReferenceVariant
-            {
-                get
-                {
-                    throw new DependencyContainerRegistrationException(GetType(), "weak reference");
-                }
-            }
+            public virtual ObjectFactoryBase WeakReferenceVariant => throw new DependencyContainerRegistrationException(GetType(), "weak reference");
 
             /// <summary>
             /// Create the type
@@ -1424,10 +1400,7 @@ namespace Unosquare.Swan.Components
 
             public DelegateFactory(Type registerType, Func<DependencyContainer, DependencyContainerNamedParameterOverloads, object> factory)
             {
-                if (factory == null)
-                    throw new ArgumentNullException(nameof(factory));
-
-                _factory = factory;
+                _factory = factory ?? throw new ArgumentNullException(nameof(factory));
 
                 this.registerType = registerType;
             }
@@ -1458,9 +1431,7 @@ namespace Unosquare.Swan.Components
 
             public override object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
             {
-                var factory = _factory.Target as Func<DependencyContainer, DependencyContainerNamedParameterOverloads, object>;
-
-                if (factory == null)
+                if (!(_factory.Target is Func<DependencyContainer, DependencyContainerNamedParameterOverloads, object> factory))
                     throw new DependencyContainerWeakReferenceException(registerType);
 
                 try
@@ -1487,9 +1458,7 @@ namespace Unosquare.Swan.Components
             {
                 get
                 {
-                    var factory = _factory.Target as Func<DependencyContainer, DependencyContainerNamedParameterOverloads, object>;
-
-                    if (factory == null)
+                    if (!(_factory.Target is Func<DependencyContainer, DependencyContainerNamedParameterOverloads, object> factory))
                         throw new DependencyContainerWeakReferenceException(registerType);
 
                     return new DelegateFactory(registerType, factory);
@@ -1690,9 +1659,6 @@ namespace Unosquare.Swan.Components
 
             public CustomObjectLifetimeFactory(Type registerType, Type registerImplementation, ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorMessage)
             {
-                if (lifetimeProvider == null)
-                    throw new ArgumentNullException(nameof(lifetimeProvider));
-
                 if (!IsValidAssignment(registerType, registerImplementation))
                     throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
 
@@ -1701,7 +1667,7 @@ namespace Unosquare.Swan.Components
 
                 this.registerType = registerType;
                 this.registerImplementation = registerImplementation;
-                _LifetimeProvider = lifetimeProvider;
+                _LifetimeProvider = lifetimeProvider ?? throw new ArgumentNullException(nameof(lifetimeProvider));
             }
 
             public override Type CreatesType => registerImplementation;

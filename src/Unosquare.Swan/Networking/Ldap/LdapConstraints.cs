@@ -54,9 +54,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
         public virtual int HopLimit
         {
-            get { return hopLimit; }
+            get => hopLimit;
 
-            set { hopLimit = value; }
+            set => hopLimit = value;
         }
 
         /// <summary>
@@ -74,9 +74,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         internal virtual Hashtable Properties
         {
-            get { return properties; }
+            get => properties;
 
-            set { properties = (Hashtable) value.Clone(); }
+            set => properties = (Hashtable) value.Clone();
         }
 
         /// <summary>
@@ -92,9 +92,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual bool ReferralFollowing
         {
-            get { return doReferrals; }
+            get => doReferrals;
 
-            set { doReferrals = value; }
+            set => doReferrals = value;
         }
 
         /// <summary>
@@ -112,15 +112,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The time limit.
         /// </value>
         /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
-        /// <param name="msLimit">
-        /// The maximum milliseconds to wait.
-        /// </param>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
         public virtual int TimeLimit
         {
-            get { return msLimit; }
+            get => msLimit;
 
-            set { msLimit = value; }
+            set => msLimit = value;
         }
 
         private int msLimit;
@@ -128,8 +124,6 @@ namespace Unosquare.Swan.Networking.Ldap
         private bool doReferrals;
         private ILdapReferralHandler refHandler;
         private LdapControl[] controls;
-        private static int lConsNum = 0; // Debug, LdapConstraints num
-        private string name; // String name for debug
         private Hashtable properties; // Properties
 
         /// <summary>
@@ -172,7 +166,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The implementation of these interfaces determines how
         /// authentication is performed when following referrals.
         /// It is ignored for asynchronous operations.</param>
-        /// <param name="hop_limit">The maximum number of referrals to follow in a
+        /// <param name="hopLimit">The maximum number of referrals to follow in a
         /// sequence during automatic referral following.
         /// The default value is 10. A value of 0 means no limit.
         /// The operation will be abandoned and terminated by the
@@ -184,15 +178,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
         /// <seealso cref="LdapException.REFERRAL"></seealso>
         /// <seealso cref="LdapReferralException"></seealso>
-        /// <seealso cref="LdapBindHandler"></seealso>
-        /// <seealso cref="LdapAuthHandler"></seealso>
-        public LdapConstraints(int msLimit, bool doReferrals, ILdapReferralHandler handler, int hop_limit)
+        public LdapConstraints(int msLimit, bool doReferrals, ILdapReferralHandler handler, int hopLimit)
         {
             this.msLimit = msLimit;
             this.doReferrals = doReferrals;
             refHandler = handler;
-            hopLimit = hop_limit;
-            // Get a unique constraints name for debug
+            this.hopLimit = hopLimit;
         }
 
         /// <summary>
@@ -201,7 +192,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// The controls to be sent to the server, or null if none.
         /// </returns>
-        /// <seealso cref="Controls"></seealso>
         public virtual LdapControl[] GetControls()
         {
             return controls;
@@ -245,6 +235,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 controls = null;
                 return;
             }
+
             controls = new LdapControl[1];
             controls[0] = (LdapControl) control.Clone();
         }
@@ -295,8 +286,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="handler">An object that implements LdapBindHandler or
         /// LdapAuthHandler</param>
-        /// <seealso cref="LdapAuthHandler"></seealso>
-        /// <seealso cref="LdapBindHandler"></seealso>
         public virtual void SetReferralHandler(ILdapReferralHandler handler)
         {
             refHandler = handler;

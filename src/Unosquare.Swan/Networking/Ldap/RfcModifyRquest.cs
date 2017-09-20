@@ -36,10 +36,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        public virtual Asn1SequenceOf Modifications
-        {
-            get { return (Asn1SequenceOf)GetRenamed(1); }
-        }
+        public virtual Asn1SequenceOf Modifications => (Asn1SequenceOf)GetRenamed(1);
 
         public IRfcRequest DupRequest(string requestBase, string filter, bool reference)
         {
@@ -65,10 +62,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// decoding it from an InputStream
         /// </summary>
         /// <param name="dec">The decimal.</param>
-        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="stream">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcModifyResponse(IAsn1Decoder dec, Stream in_Renamed, int len) 
-            : base(dec, in_Renamed, len)
+        public RfcModifyResponse(IAsn1Decoder dec, Stream stream, int len) 
+            : base(dec, stream, len)
         {
         }
 
@@ -78,7 +75,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="resultCode">the result code of the operation</param>
         /// <param name="matchedDN">the matched DN returned from the server</param>
         /// <param name="errorMessage">the diagnostic message returned from the server</param>
-        /// <param name="referral">the referral(s) returned by the server</param>
         public RfcModifyResponse(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage)
             : base(resultCode, matchedDN, errorMessage)
         {

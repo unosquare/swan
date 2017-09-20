@@ -30,44 +30,16 @@ namespace Unosquare.Swan.Networking.Ldap
         protected internal LdapAttributeSet attrs;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapEntry"/> class.
-        /// Constructs an empty entry.
+        /// Initializes a new instance of the <see cref="LdapEntry" /> class.
+        /// Constructs a new entry with the specified distinguished name and set
+        /// of attributes.
         /// </summary>
-        public LdapEntry()
-            : this(null, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapEntry"/> class.
-        ///     Constructs a new entry with the specified distinguished name and with
-        ///     an empty attribute set.
-        /// </summary>
-        /// <param name="dn">
-        ///     The distinguished name of the entry. The
-        ///     value is not validated. An invalid distinguished
-        ///     name will cause operations using this entry to fail.
-        /// </param>
-        public LdapEntry(string dn)
-            : this(dn, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapEntry"/> class.
-        ///     Constructs a new entry with the specified distinguished name and set
-        ///     of attributes.
-        /// </summary>
-        /// <param name="dn">
-        ///     The distinguished name of the new entry. The
-        ///     value is not validated. An invalid distinguished
-        ///     name will cause operations using this entry to fail.
-        /// </param>
-        /// <param name="attrs">
-        ///     The initial set of attributes assigned to the
-        ///     entry.
-        /// </param>
-        public LdapEntry(string dn, LdapAttributeSet attrs = null)
+        /// <param name="dn">The distinguished name of the new entry. The
+        /// value is not validated. An invalid distinguished
+        /// name will cause operations using this entry to fail.</param>
+        /// <param name="attrs">The initial set of attributes assigned to the
+        /// entry.</param>
+        public LdapEntry(string dn = null, LdapAttributeSet attrs = null)
         {
             if ((object)dn == null)
             {
@@ -281,10 +253,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The byte values.
         /// </value>
-        public virtual IEnumerator ByteValues
-        {
-            get { return new ArrayEnumeration(ByteValueArray); }
-        }
+        public virtual IEnumerator ByteValues => new ArrayEnumeration(ByteValueArray);
 
         /// <summary>
         ///     Returns the language subtype of the attribute, if any.
@@ -299,14 +268,13 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if (subTypes != null)
+                if (subTypes == null) return null;
+
+                for (var i = 0; i < subTypes.Length; i++)
                 {
-                    for (var i = 0; i < subTypes.Length; i++)
+                    if (subTypes[i].StartsWith("lang-"))
                     {
-                        if (subTypes[i].StartsWith("lang-"))
-                        {
-                            return subTypes[i];
-                        }
+                        return subTypes[i];
                     }
                 }
 
@@ -361,13 +329,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="ArgumentException">LdapAttribute class cannot be null</exception>
         public LdapAttribute(LdapAttribute attr)
         {
-            if (attr == null)
-            {
-                throw new ArgumentException("LdapAttribute class cannot be null");
-            }
-
             // Do a deep copy of the LdapAttribute template
-            name = attr.name;
+            name = attr?.name ?? throw new ArgumentException("LdapAttribute class cannot be null");
             baseName = attr.baseName;
             if (attr.subTypes != null)
             {
@@ -1335,15 +1298,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override bool Remove(object entry)
         {
-            string attributeName;
-            if (entry is string)
-            {
-                attributeName = (string)entry;
-            }
-            else
-            {
-                attributeName = ((LdapAttribute)entry).Name;
-            }
+            var attributeName = entry is string s ? s : ((LdapAttribute) entry).Name;
 
             if ((object)attributeName == null)
             {
@@ -1433,10 +1388,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Obtiene el elemento actual de la colección.
         /// </summary>
-        public virtual object Current
-        {
-            get { return tempAuxObj; }
-        }
+        public virtual object Current => tempAuxObj;
 
         /// <summary>
         /// Desplaza el enumerador al siguiente elemento de la colección.
@@ -1480,9 +1432,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public bool HasMoreElements()
         {
-            if (eArray == null)
-                return false;
-            return index < eArray.Length;
+            return index < eArray?.Length;
         }
 
         /// <summary>
