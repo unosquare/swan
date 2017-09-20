@@ -251,7 +251,15 @@ It is ignored for asynchronous operations.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>The hop limit.</p>
+        <td><p>The hop limit.
+The maximum number of referrals to follow in a
+sequence during automatic referral following.
+The default value is 10. A value of 0 means no limit.
+The operation will be abandoned and terminated by the
+API with a result code of
+LdapException.REFERRAL_LIMIT_EXCEEDED if the
+number of referrals in a sequence exceeds the limit.
+It is ignored for asynchronous operations.</p>
 </td>
       </tr>
     </tbody>
@@ -284,7 +292,9 @@ It is ignored for asynchronous operations.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if [referral following]; otherwise, <code>false</code>.</p>
+        <td><p>True to follow referrals automatically.
+False to throw an LdapReferralException if
+the server returns a referral.</p>
 </td>
       </tr>
     </tbody>

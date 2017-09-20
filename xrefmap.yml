@@ -9260,24 +9260,12 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString()
   nameWithType: LdapException.resultCodeToString()
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Globalization.CultureInfo)
-  name: resultCodeToString(CultureInfo)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_resultCodeToString_System_Globalization_CultureInfo_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Globalization.CultureInfo)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Globalization.CultureInfo)
-  nameWithType: LdapException.resultCodeToString(CultureInfo)
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32)
   name: resultCodeToString(Int32)
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_resultCodeToString_System_Int32_
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32)
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32)
   nameWithType: LdapException.resultCodeToString(Int32)
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32,System.Globalization.CultureInfo)
-  name: resultCodeToString(Int32, CultureInfo)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_resultCodeToString_System_Int32_System_Globalization_CultureInfo_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32,System.Globalization.CultureInfo)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32, System.Globalization.CultureInfo)
-  nameWithType: LdapException.resultCodeToString(Int32, CultureInfo)
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString*
   name: resultCodeToString
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_resultCodeToString_
@@ -10337,15 +10325,6 @@ references:
   fullName.vb: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String, System.Object())
   nameWithType: ResourcesHandler.GetMessage(String, Object[])
   nameWithType.vb: ResourcesHandler.GetMessage(String, Object())
-- uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String,System.Object[],System.Globalization.CultureInfo)
-  name: GetMessage(String, Object[], CultureInfo)
-  href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_System_String_System_Object___System_Globalization_CultureInfo_
-  commentId: M:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String,System.Object[],System.Globalization.CultureInfo)
-  name.vb: GetMessage(String, Object(), CultureInfo)
-  fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String, System.Object[], System.Globalization.CultureInfo)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String, System.Object(), System.Globalization.CultureInfo)
-  nameWithType: ResourcesHandler.GetMessage(String, Object[], CultureInfo)
-  nameWithType.vb: ResourcesHandler.GetMessage(String, Object(), CultureInfo)
 - uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage*
   name: GetMessage
   href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_
@@ -10358,12 +10337,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32)
   fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32)
   nameWithType: ResourcesHandler.GetResultString(Int32)
-- uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32,System.Globalization.CultureInfo)
-  name: GetResultString(Int32, CultureInfo)
-  href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_System_Int32_System_Globalization_CultureInfo_
-  commentId: M:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32,System.Globalization.CultureInfo)
-  fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32, System.Globalization.CultureInfo)
-  nameWithType: ResourcesHandler.GetResultString(Int32, CultureInfo)
 - uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString*
   name: GetResultString
   href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_
@@ -10376,12 +10349,12 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.RespControlVector
   fullName: Unosquare.Swan.Networking.Ldap.RespControlVector
   nameWithType: RespControlVector
-- uid: Unosquare.Swan.Networking.Ldap.RespControlVector.#ctor(System.Int32,System.Int32)
-  name: RespControlVector(Int32, Int32)
-  href: api/Unosquare.Swan.Networking.Ldap.RespControlVector.html#Unosquare_Swan_Networking_Ldap_RespControlVector__ctor_System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.Ldap.RespControlVector.#ctor(System.Int32,System.Int32)
-  fullName: Unosquare.Swan.Networking.Ldap.RespControlVector.RespControlVector(System.Int32, System.Int32)
-  nameWithType: RespControlVector.RespControlVector(Int32, Int32)
+- uid: Unosquare.Swan.Networking.Ldap.RespControlVector.#ctor(System.Int32)
+  name: RespControlVector(Int32)
+  href: api/Unosquare.Swan.Networking.Ldap.RespControlVector.html#Unosquare_Swan_Networking_Ldap_RespControlVector__ctor_System_Int32_
+  commentId: M:Unosquare.Swan.Networking.Ldap.RespControlVector.#ctor(System.Int32)
+  fullName: Unosquare.Swan.Networking.Ldap.RespControlVector.RespControlVector(System.Int32)
+  nameWithType: RespControlVector.RespControlVector(Int32)
 - uid: Unosquare.Swan.Networking.Ldap.RespControlVector.#ctor*
   name: RespControlVector
   href: api/Unosquare.Swan.Networking.Ldap.RespControlVector.html#Unosquare_Swan_Networking_Ldap_RespControlVector__ctor_

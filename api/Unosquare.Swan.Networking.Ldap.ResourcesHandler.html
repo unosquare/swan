@@ -126,11 +126,7 @@ ResultCodeMessages resources.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_System_String_System_Object___" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String,System.Object[])">GetMessage(String, Object[])</h4>
-  <div class="markdown level1 summary"><p>Returns a string using the MessageOrKey as a key into
-ExceptionMessages or, if the Key does not exist, returns the
-string messageOrKey.  In addition it formats the arguments into the message
-according to MessageFormat.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -149,14 +145,12 @@ according to MessageFormat.</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">messageOrKey</span></td>
-        <td><p>Key string for the resource.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Object</span>[]</td>
         <td><span class="parametername">arguments</span></td>
-        <td><p>The arguments.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -171,72 +165,7 @@ according to MessageFormat.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>the text for the message specified by the MessageKey or the Key
-if it there is no message for that key.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_System_String_System_Object___System_Globalization_CultureInfo_" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String,System.Object[],System.Globalization.CultureInfo)">GetMessage(String, Object[], CultureInfo)</h4>
-  <div class="markdown level1 summary"><p>Returns the message stored in the ExceptionMessages resource for the
-specified locale using messageOrKey and argments passed into the
-constructor.  If no string exists in the resource then this returns
-the string stored in message.  (This method is identical to
-getLdapErrorMessage(Locale locale).)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetMessage(string messageOrKey, object[] arguments, CultureInfo locale)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">messageOrKey</span></td>
-        <td><p>Key string for the resource.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Object</span>[]</td>
-        <td><span class="parametername">arguments</span></td>
-        <td><p>The arguments.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td><span class="parametername">locale</span></td>
-        <td><p>The Locale that should be used to pull message
-strings out of ExceptionMessages.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>the text for the message specified by the MessageKey or the Key
-if it there is no message for that key.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -244,8 +173,8 @@ if it there is no message for that key.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32)">GetResultString(Int32)</h4>
-  <div class="markdown level1 summary"><p>Returns a string representing the Ldap result code from the
-default ResultCodeMessages resource.</p>
+  <div class="markdown level1 summary"><p>Returns a string representing the Ldap result code.  The message
+is obtained from the locale specific ResultCodeMessage resource.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -266,59 +195,6 @@ default ResultCodeMessages resource.</p>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">code</span></td>
         <td><p>the result code</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>the String representing the result code.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_System_Int32_System_Globalization_CultureInfo_" data-uid="Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32,System.Globalization.CultureInfo)">GetResultString(Int32, CultureInfo)</h4>
-  <div class="markdown level1 summary"><p>Returns a string representing the Ldap result code.  The message
-is obtained from the locale specific ResultCodeMessage resource.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetResultString(int code, CultureInfo locale)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">code</span></td>
-        <td><p>the result code</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Globalization.CultureInfo</span></td>
-        <td><span class="parametername">locale</span></td>
-        <td><p>The Locale that should be used to pull message
-strings out of ResultMessages.</p>
 </td>
       </tr>
     </tbody>
