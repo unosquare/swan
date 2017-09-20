@@ -103,8 +103,8 @@
             //    }
             //});
 #endif
-            TestApplicationInfo();
-            // TestNetworkUtilities();
+            //TestApplicationInfo();
+             TestNetworkUtilities();
             //TestContainerAndMessageHub();
             //TestJson();
             //TestExceptionLogging();

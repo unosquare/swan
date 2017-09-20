@@ -442,7 +442,7 @@
             // Query/Response Flag
             private byte Qr
             {
-                get => Flag0.GetBitValueAt(7, 1);
+                get => Flag0.GetBitValueAt(7);
                 set => Flag0 = Flag0.SetBitValueAt(7, 1, value);
             }
 
@@ -456,28 +456,28 @@
             // Authorative Answer Flag
             private byte Aa
             {
-                get => Flag0.GetBitValueAt(2, 1);
+                get => Flag0.GetBitValueAt(2);
                 set => Flag0 = Flag0.SetBitValueAt(2, 1, value);
             }
 
             // Truncation Flag
             private byte Tc
             {
-                get => Flag0.GetBitValueAt(1, 1);
+                get => Flag0.GetBitValueAt(1);
                 set => Flag0 = Flag0.SetBitValueAt(1, 1, value);
             }
 
             // Recursion Desired
             private byte Rd
             {
-                get => Flag0.GetBitValueAt(0, 1);
+                get => Flag0.GetBitValueAt(0);
                 set => Flag0 = Flag0.SetBitValueAt(0, 1, value);
             }
 
             // Recursion Available
             private byte Ra
             {
-                get => Flag1.GetBitValueAt(7, 1);
+                get => Flag1.GetBitValueAt(7);
                 set => Flag1 = Flag1.SetBitValueAt(7, 1, value);
             }
 
@@ -512,6 +512,21 @@
         {
             private readonly string[] labels;
 
+            public DnsDomain(string domain) 
+                : this(domain.Split('.'))
+            {
+            }
+
+            public DnsDomain(string[] labels)
+            {
+                this.labels = labels;
+            }
+
+            public int Size
+            {
+                get { return labels.Sum(l => l.Length) + labels.Length + 1; }
+            }
+
             public static DnsDomain FromString(string domain)
             {
                 return new DnsDomain(domain);
@@ -524,7 +539,7 @@
 
             public static DnsDomain FromArray(byte[] message, int offset, out int endOffset)
             {
-                IList<byte[]> labels = new List<byte[]>();
+                var labels = new List<byte[]>();
                 var endOffsetAssigned = false;
                 endOffset = 0;
                 byte lengthOrPointer;
@@ -569,9 +584,7 @@
             }
 
             public static DnsDomain PointerName(IPAddress ip)
-            {
-                return new DnsDomain(FormatReverseIP(ip));
-            }
+                => new DnsDomain(FormatReverseIP(ip));
 
             private static string FormatReverseIP(IPAddress ip)
             {
@@ -595,21 +608,6 @@
                 return string.Join(".", nibbles.Reverse().Select(b => b.ToString("x"))) + ".ip6.arpa";
             }
 
-            public DnsDomain(string domain) 
-                : this(domain.Split('.'))
-            {
-            }
-
-            public DnsDomain(string[] labels)
-            {
-                this.labels = labels;
-            }
-
-            public int Size
-            {
-                get { return labels.Sum(l => l.Length) + labels.Length + 1; }
-            }
-
             public byte[] ToArray()
             {
                 var result = new byte[Size];
@@ -631,19 +629,13 @@
             }
 
             public override string ToString()
-            {
-                return string.Join(".", labels);
-            }
+                => string.Join(".", labels);
 
-            public int CompareTo(DnsDomain other)
-            {
-                return string.Compare(ToString(), other.ToString(), StringComparison.Ordinal);
-            }
+            public int CompareTo(DnsDomain other) 
+                => string.Compare(ToString(), other.ToString(), StringComparison.Ordinal);
 
             public override bool Equals(object obj)
-            {
-                return obj is DnsDomain && CompareTo((DnsDomain) obj) == 0;
-            }
+                => obj is DnsDomain && CompareTo((DnsDomain) obj) == 0;
 
             public override int GetHashCode() => ToString().GetHashCode();
         }

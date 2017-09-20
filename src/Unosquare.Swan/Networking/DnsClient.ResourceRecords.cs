@@ -44,56 +44,6 @@
 
         public class DnsResourceRecord : IDnsResourceRecord
         {
-            public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
-            {
-                return GetAllFromArray(message, offset, count, out offset);
-            }
-
-            public static IList<DnsResourceRecord> GetAllFromArray(
-                byte[] message, 
-                int offset, 
-                int count,
-                out int endOffset)
-            {
-                IList<DnsResourceRecord> records = new List<DnsResourceRecord>(count);
-
-                for (var i = 0; i < count; i++)
-                {
-                    records.Add(FromArray(message, offset, out offset));
-                }
-
-                endOffset = offset;
-                return records;
-            }
-
-            public static DnsResourceRecord FromArray(byte[] message, int offset)
-            {
-                return FromArray(message, offset, out offset);
-            }
-
-            public static DnsResourceRecord FromArray(byte[] message, int offset, out int endOffset)
-            {
-                var domain = DnsDomain.FromArray(message, offset, out offset);
-                var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
-
-                var data = new byte[tail.DataLength];
-
-                offset += Tail.SIZE;
-                Array.Copy(message, offset, data, 0, data.Length);
-
-                endOffset = offset + data.Length;
-
-                return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
-            }
-
-            public static DnsResourceRecord FromQuestion(
-                DnsQuestion question, 
-                byte[] data,
-                TimeSpan ttl = default(TimeSpan))
-            {
-                return new DnsResourceRecord(question.Name, data, question.Type, question.Class, ttl);
-            }
-
             public DnsResourceRecord(
                 DnsDomain domain, 
                 byte[] data, 
@@ -121,6 +71,54 @@
             public byte[] Data { get; }
 
             public int Size => Name.Size + Tail.SIZE + Data.Length;
+
+            public static IList<DnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
+            {
+                return GetAllFromArray(message, offset, count, out offset);
+            }
+
+            public static IList<DnsResourceRecord> GetAllFromArray(
+                byte[] message,
+                int offset,
+                int count,
+                out int endOffset)
+            {
+                IList<DnsResourceRecord> records = new List<DnsResourceRecord>(count);
+
+                for (var i = 0; i < count; i++)
+                {
+                    records.Add(FromArray(message, offset, out offset));
+                }
+
+                endOffset = offset;
+                return records;
+            }
+
+            public static DnsResourceRecord FromArray(byte[] message, int offset)
+                => FromArray(message, offset, out offset);
+
+            public static DnsResourceRecord FromArray(byte[] message, int offset, out int endOffset)
+            {
+                var domain = DnsDomain.FromArray(message, offset, out offset);
+                var tail = message.ToStruct<Tail>(offset, Tail.SIZE);
+
+                var data = new byte[tail.DataLength];
+
+                offset += Tail.SIZE;
+                Array.Copy(message, offset, data, 0, data.Length);
+
+                endOffset = offset + data.Length;
+
+                return new DnsResourceRecord(domain, data, tail.Type, tail.Class, tail.TimeToLive);
+            }
+
+            public static DnsResourceRecord FromQuestion(
+                DnsQuestion question,
+                byte[] data,
+                TimeSpan ttl = default(TimeSpan))
+            {
+                return new DnsResourceRecord(question.Name, data, question.Type, question.Class, ttl);
+            }
 
             public byte[] ToArray()
             {
@@ -200,7 +198,7 @@
                 PointerDomainName = pointer;
             }
 
-            public DnsDomain PointerDomainName { get; private set; }
+            public DnsDomain PointerDomainName { get; }
 
             protected override string[] IncludedProperties
             {
@@ -234,7 +232,7 @@
                 IPAddress = ip;
             }
 
-            public IPAddress IPAddress { get; private set; }
+            public IPAddress IPAddress { get; }
 
             protected override string[] IncludedProperties
             {
@@ -260,7 +258,7 @@
                 NSDomainName = nsDomain;
             }
 
-            public DnsDomain NSDomainName { get; private set; }
+            public DnsDomain NSDomainName { get; }
 
             protected override string[] IncludedProperties
             {
@@ -286,7 +284,7 @@
                 CanonicalDomainName = cname;
             }
 
-            public DnsDomain CanonicalDomainName { get; private set; }
+            public DnsDomain CanonicalDomainName { get; }
 
             protected override string[] IncludedProperties
             {
@@ -352,9 +350,9 @@
                 ExchangeDomainName = exchange;
             }
 
-            public int Preference { get; private set; }
+            public int Preference { get; }
 
-            public DnsDomain ExchangeDomainName { get; private set; }
+            public DnsDomain ExchangeDomainName { get; }
 
             protected override string[] IncludedProperties
             {
@@ -454,19 +452,19 @@
             {
             }
 
-            public DnsDomain MasterDomainName { get; private set; }
+            public DnsDomain MasterDomainName { get; }
 
-            public DnsDomain ResponsibleDomainName { get; private set; }
+            public DnsDomain ResponsibleDomainName { get; }
 
-            public long SerialNumber { get; private set; }
+            public long SerialNumber { get; }
 
-            public TimeSpan RefreshInterval { get; private set; }
+            public TimeSpan RefreshInterval { get; }
 
-            public TimeSpan RetryInterval { get; private set; }
+            public TimeSpan RetryInterval { get; }
 
-            public TimeSpan ExpireInterval { get; private set; }
+            public TimeSpan ExpireInterval { get; }
 
-            public TimeSpan MinimumTimeToLive { get; private set; }
+            public TimeSpan MinimumTimeToLive { get; }
 
             protected override string[] IncludedProperties
             {
@@ -545,7 +543,7 @@
                 return result;
             }
 
-            public static IDnsResourceRecord FromArray(byte[] message, int offset, out int endOffest)
+            private static IDnsResourceRecord FromArray(byte[] message, int offset, out int endOffest)
             {
                 var record = DnsResourceRecord.FromArray(message, offset, out endOffest);
                 var dataOffset = endOffest - record.DataLength;
