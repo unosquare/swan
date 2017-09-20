@@ -398,8 +398,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                     try
                     {
-                        object ctl = null;
-                        ctl = ctlConstructor.Invoke(args);
+                        var ctl = ctlConstructor.Invoke(args);
                         return (LdapControl)ctl;
                     }
                     catch (UnauthorizedAccessException)

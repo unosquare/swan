@@ -174,7 +174,7 @@
                     try
                     {
                         outputMessage =
-                            $"{outputMessage}{Environment.NewLine}{eventArgs.Exception.Stringify().Indent(4)}";
+                            $"{outputMessage}{Environment.NewLine}{eventArgs.Exception.Stringify().Indent()}";
                     }
                     catch
                     {

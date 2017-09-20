@@ -62,7 +62,7 @@ namespace Unosquare.Swan.Components
         /// The attempt unnamed resolution
         /// </summary>
         AttemptUnnamedResolution,
-        
+
         /// <summary>
         /// The fail
         /// </summary>
@@ -78,12 +78,12 @@ namespace Unosquare.Swan.Components
         /// The register single
         /// </summary>
         RegisterSingle,
-        
+
         /// <summary>
         /// The register multiple
         /// </summary>
         RegisterMultiple,
-        
+
         /// <summary>
         /// The fail
         /// </summary>
@@ -188,7 +188,7 @@ namespace Unosquare.Swan.Components
     public sealed class DependencyContainer : IDisposable
     {
         #region "Fluent" API
-        
+
         /// <summary>
         /// Registration options for "fluent" API
         /// </summary>
@@ -1252,7 +1252,7 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Object Factories
-        
+
         /// <summary>
         /// Provides custom lifetime management for ASP.Net per-request lifetimes etc.
         /// </summary>
@@ -1802,7 +1802,7 @@ namespace Unosquare.Swan.Components
             /// <returns>
             /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
             /// </returns>
-            public override int GetHashCode() =>_hashCode;
+            public override int GetHashCode() => _hashCode;
         }
 
         private readonly DependencyContainer _parent;
@@ -1814,7 +1814,7 @@ namespace Unosquare.Swan.Components
             = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
 #endif
         #endregion
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
         /// </summary>
@@ -1893,7 +1893,7 @@ namespace Unosquare.Swan.Components
             }
         }
 
-        #if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3 && !UWP
         private static bool IsIgnoredAssembly(Assembly assembly)
         {
             // TODO - find a better way to remove "system" assemblies from the auto registration
@@ -1911,15 +1911,15 @@ namespace Unosquare.Swan.Components
 
             return ignoreChecks.Any(check => check(assembly));
         }
-        #endif
+#endif
 
         private static bool IsIgnoredType(Type type, Func<Type, bool> registrationPredicate)
         {
             // TODO - find a better way to remove "system" types from the auto registration
             var ignoreChecks = new List<Func<Type, bool>>()
             {
-                t => t.FullName.StartsWith("System.", StringComparison.Ordinal),
-                t => t.FullName.StartsWith("Microsoft.", StringComparison.Ordinal),
+                t => t.FullName?.StartsWith("System.", StringComparison.Ordinal) ?? false,
+                t => t.FullName?.StartsWith("Microsoft.", StringComparison.Ordinal)?? false,
                 t => t.IsPrimitive(),
                 t => t.IsGenericTypeDefinition(),
                 t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) && !(t.IsInterface() || t.IsAbstract())
@@ -1992,7 +1992,7 @@ namespace Unosquare.Swan.Components
 
                 return CanConstruct(factory.Constructor, parameters, options);
             }
-            
+
             // Fail if requesting named resolution and settings set to fail if unresolved
             // Or bubble up if we have a parent
             if (!string.IsNullOrEmpty(name) && options.NamedResolutionFailureAction == DependencyContainerNamedResolutionFailureActions.Fail)
@@ -2123,7 +2123,7 @@ namespace Unosquare.Swan.Components
                     }
                 }
             }
-            
+
             // Attempt unregistered construction if possible and requested
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
@@ -2134,7 +2134,7 @@ namespace Unosquare.Swan.Components
             // Unable to resolve - throw
             throw new DependencyContainerResolutionException(registration.Type);
         }
-        
+
         private bool CanConstruct(ConstructorInfo ctor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
             if (parameters == null)
@@ -2343,9 +2343,9 @@ namespace Unosquare.Swan.Components
             return registrations.Select(registration => ResolveInternal(registration, DependencyContainerNamedParameterOverloads.Default, DependencyContainerResolveOptions.Default));
         }
 
-#endregion
+        #endregion
 
-#region IDisposable Members
+        #region IDisposable Members
 
         private bool _disposed;
 
@@ -2366,6 +2366,6 @@ namespace Unosquare.Swan.Components
             GC.SuppressFinalize(this);
         }
 
-#endregion
+        #endregion
     }
 }

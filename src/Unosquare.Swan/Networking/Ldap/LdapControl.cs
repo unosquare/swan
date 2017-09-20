@@ -164,7 +164,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         static LdapControl()
         {
-            registeredControls = new RespControlVector(5, 5);
+            registeredControls = new RespControlVector(5);
         }
     }
 
@@ -445,22 +445,8 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     exceed the maximum.
         /// </summary>
         /// <returns>
-        ///     The value for the maximum number of results to return.
-        /// </returns>
-        /// <seealso cref="MaxResults">
-        /// </seealso>
-        /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED">
-        /// </seealso>
-        /// <summary>
-        ///     Sets the maximum number of search results to be returned from a
-        ///     search operation. The value 0 means no limit.  The default is 1000.
-        ///     The search operation will be terminated with an
-        ///     LdapException.SIZE_LIMIT_EXCEEDED if the number of results
-        ///     exceed the maximum.
-        /// </summary>
-        /// <param name="maxResults">
         ///     Maximum number of search results to return.
-        /// </param>
+        /// </returns>
         /// <seealso cref="MaxResults">
         /// </seealso>
         /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED">
@@ -482,21 +468,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The maximum number of seconds the server waits for search'
         ///     results.
         /// </returns>
-        /// <seealso cref="ServerTimeLimit">
-        /// </seealso>
-        /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED">
-        /// </seealso>
-        /// <summary>
-        ///     Sets the maximum number of seconds that the server is to wait when
-        ///     returning search results.
-        ///     The search operation will be terminated with an
-        ///     LdapException.TIME_LIMIT_EXCEEDED if the operation exceeds the time
-        ///     limit.
-        ///     The parameter is only recognized on search operations.
-        /// </summary>
-        /// <param name="seconds">
-        ///     The number of seconds to wait for search results.
-        /// </param>
         /// <seealso cref="ServerTimeLimit">
         /// </seealso>
         /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED">
@@ -1441,7 +1412,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                string[] referrals = null;
+                string[] referrals;
                 var ref_Renamed = ((IRfcResponse) message.Response).GetReferral();
 
                 if (ref_Renamed == null)
@@ -1701,8 +1672,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="RespControlVector"/> class.
         /// </summary>
         /// <param name="cap">The cap.</param>
-        /// <param name="incr">The incr.</param>
-        public RespControlVector(int cap, int incr) 
+        public RespControlVector(int cap) 
             : base(cap)
         {
         }

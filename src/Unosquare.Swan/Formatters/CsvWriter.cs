@@ -215,8 +215,7 @@
             lock (_syncLock)
             {
                 { // Handling as Dynamic Object
-                    var typedItem = item as IDictionary<string, object>;
-                    if (typedItem != null)
+                    if (item is IDictionary<string, object> typedItem)
                     {
                         WriteDynamicObjectValues(typedItem);
                         return;
@@ -224,8 +223,7 @@
                 }
 
                 { // Handling as Dictionary
-                    var typedItem = item as IDictionary;
-                    if (typedItem != null)
+                    if (item is IDictionary typedItem)
                     {
                         WriteDictionaryValues(typedItem);
                         return;
@@ -233,8 +231,7 @@
                 }
 
                 { // Handling as array
-                    var typedItem = item as ICollection;
-                    if (typedItem != null)
+                    if (item is ICollection typedItem)
                     {
                         WriteCollectionValues(typedItem);
                         return;

@@ -66,7 +66,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private void Tokenize()
         {
             var tempstr = source;
-            var toks = string.Empty;
+            string toks;
             if (tempstr.IndexOfAny(delimiters.ToCharArray()) < 0 && tempstr.Length > 0)
             {
                 elements.Add(tempstr);
@@ -94,14 +94,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     elements.Add(toks);
                     elements.Add(tempstr.Substring(toks.Length, 1));
 
-                    if (tempstr.Length > toks.Length + 1)
-                    {
-                        tempstr = tempstr.Substring(toks.Length + 1);
-                    }
-                    else
-                    {
-                        tempstr = "";
-                    }
+                    tempstr = tempstr.Length > toks.Length + 1 ? tempstr.Substring(toks.Length + 1) : string.Empty;
                 }
             }
 
@@ -1462,11 +1455,6 @@ namespace Unosquare.Swan.Networking.Ldap
             public bool MoveNext()
             {
                 return hasMore;
-            }
-
-            public void Remove()
-            {
-                throw new NotSupportedException("Remove is not supported on a filter iterator");
             }
         }
 

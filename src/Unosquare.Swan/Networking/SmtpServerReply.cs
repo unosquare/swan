@@ -36,8 +36,7 @@
             if (responseCode >= 500) ReplyCodeSeverity = SmtpReplyCodeSeverities.PermanentNegative;
             if (responseCode >= 600) ReplyCodeSeverity = SmtpReplyCodeSeverities.Unknown;
 
-            var middleDigit = 0;
-            if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out middleDigit))
+            if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out var middleDigit))
             {
                 if (middleDigit >= 0 && middleDigit <= 5)
                     ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;

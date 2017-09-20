@@ -265,7 +265,7 @@
         public static bool IsEqualTo(this byte[] buffer, params byte[] sequence)
         {
             if (ReferenceEquals(buffer, sequence)) return true;
-            return buffer.Length == sequence.Length && buffer.GetIndexOf(sequence, 0) == 0;
+            return buffer.Length == sequence.Length && buffer.GetIndexOf(sequence) == 0;
         }
 
         /// <summary>

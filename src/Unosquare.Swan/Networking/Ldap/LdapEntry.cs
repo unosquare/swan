@@ -952,14 +952,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (values != null)
                 {
                     result.Append(", ");
-                    if (values.Length == 1)
-                    {
-                        result.Append("value='");
-                    }
-                    else
-                    {
-                        result.Append("values='");
-                    }
+                    result.Append(values.Length == 1 ? "value='" : "values='");
 
                     for (var i = 0; i < values.Length; i++)
                     {

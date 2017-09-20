@@ -39,9 +39,7 @@
             public byte[] ToArray() => record.ToArray();
 
             public override string ToString()
-            {
-                return Json.SerializeOnly(this, true, IncludedProperties);
-            }
+                => Json.SerializeOnly(this, true, IncludedProperties);
         }
 
         public class DnsResourceRecord : IDnsResourceRecord
@@ -164,26 +162,26 @@
 
                 public DnsRecordType Type
                 {
-                    get { return (DnsRecordType) type; }
-                    set { type = (ushort) value; }
+                    get => (DnsRecordType) type;
+                    set => type = (ushort) value;
                 }
 
                 public DnsRecordClass Class
                 {
-                    get { return (DnsRecordClass) klass; }
-                    set { klass = (ushort) value; }
+                    get => (DnsRecordClass) klass;
+                    set => klass = (ushort) value;
                 }
 
                 public TimeSpan TimeToLive
                 {
-                    get { return TimeSpan.FromSeconds(ttl); }
-                    set { ttl = (uint) value.TotalSeconds; }
+                    get => TimeSpan.FromSeconds(ttl);
+                    set => ttl = (uint) value.TotalSeconds;
                 }
 
                 public int DataLength
                 {
-                    get { return dataLength; }
-                    set { dataLength = (ushort) value; }
+                    get => dataLength;
+                    set => dataLength = (ushort) value;
                 }
             }
         }
@@ -498,43 +496,38 @@
 
                 public long SerialNumber
                 {
-                    get { return serialNumber; }
-                    set { serialNumber = (uint) value; }
+                    get => serialNumber;
+                    set => serialNumber = (uint) value;
                 }
 
                 public TimeSpan RefreshInterval
                 {
-                    get { return TimeSpan.FromSeconds(refreshInterval); }
-                    set { refreshInterval = (uint) value.TotalSeconds; }
+                    get => TimeSpan.FromSeconds(refreshInterval);
+                    set => refreshInterval = (uint) value.TotalSeconds;
                 }
 
                 public TimeSpan RetryInterval
                 {
-                    get { return TimeSpan.FromSeconds(retryInterval); }
-                    set { retryInterval = (uint) value.TotalSeconds; }
+                    get => TimeSpan.FromSeconds(retryInterval);
+                    set => retryInterval = (uint) value.TotalSeconds;
                 }
 
                 public TimeSpan ExpireInterval
                 {
-                    get { return TimeSpan.FromSeconds(expireInterval); }
-                    set { expireInterval = (uint) value.TotalSeconds; }
+                    get => TimeSpan.FromSeconds(expireInterval);
+                    set => expireInterval = (uint) value.TotalSeconds;
                 }
 
                 public TimeSpan MinimumTimeToLive
                 {
-                    get { return TimeSpan.FromSeconds(ttl); }
-                    set { ttl = (uint) value.TotalSeconds; }
+                    get => TimeSpan.FromSeconds(ttl);
+                    set => ttl = (uint) value.TotalSeconds;
                 }
             }
         }
 
         private static class DnsResourceRecordFactory
         {
-            public static IList<IDnsResourceRecord> GetAllFromArray(byte[] message, int offset, int count)
-            {
-                return GetAllFromArray(message, offset, count, out offset);
-            }
-
             public static IList<IDnsResourceRecord> GetAllFromArray(
                 byte[] message, 
                 int offset, 
@@ -550,11 +543,6 @@
 
                 endOffset = offset;
                 return result;
-            }
-
-            public static IDnsResourceRecord FromArray(byte[] message, int offset)
-            {
-                return FromArray(message, offset, out offset);
             }
 
             public static IDnsResourceRecord FromArray(byte[] message, int offset, out int endOffest)

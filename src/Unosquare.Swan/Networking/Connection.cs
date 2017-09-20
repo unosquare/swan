@@ -255,14 +255,8 @@ namespace Unosquare.Swan.Networking
 #if !NET452
             ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
 #else
-            int availableWorkerThreads;
-            int availableCompletionPortThreads;
-
-            int maxWorkerThreads;
-            int maxCompletionPortThreads;
-
-            ThreadPool.GetAvailableThreads(out availableWorkerThreads, out availableCompletionPortThreads);
-            ThreadPool.GetMaxThreads(out maxWorkerThreads, out maxCompletionPortThreads);
+            ThreadPool.GetAvailableThreads(out var availableWorkerThreads, out _);
+            ThreadPool.GetMaxThreads(out var maxWorkerThreads, out var maxCompletionPortThreads);
 
             var activeThreadPoolTreads = maxWorkerThreads - availableWorkerThreads;
 

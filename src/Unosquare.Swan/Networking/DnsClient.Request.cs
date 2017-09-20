@@ -38,20 +38,20 @@
 
             public int Id
             {
-                get { return _request.Id; }
-                set { _request.Id = value; }
+                get => _request.Id;
+                set => _request.Id = value;
             }
 
             public DnsOperationCode OperationCode
             {
-                get { return _request.OperationCode; }
-                set { _request.OperationCode = value; }
+                get => _request.OperationCode;
+                set => _request.OperationCode = value;
             }
 
             public bool RecursionDesired
             {
-                get { return _request.RecursionDesired; }
-                set { _request.RecursionDesired = value; }
+                get => _request.RecursionDesired;
+                set => _request.RecursionDesired = value;
             }
 
             public IList<DnsQuestion> Questions => _request.Questions;
@@ -162,20 +162,20 @@
 
             public int Id
             {
-                get { return header.Id; }
-                set { header.Id = value; }
+                get => header.Id;
+                set => header.Id = value;
             }
 
             public DnsOperationCode OperationCode
             {
-                get { return header.OperationCode; }
-                set { header.OperationCode = value; }
+                get => header.OperationCode;
+                set => header.OperationCode = value;
             }
 
             public bool RecursionDesired
             {
-                get { return header.RecursionDesired; }
-                set { header.RecursionDesired = value; }
+                get => header.RecursionDesired;
+                set => header.RecursionDesired = value;
             }
 
             public byte[] ToArray()
@@ -360,74 +360,74 @@
 
             public int Id
             {
-                get { return id; }
-                set { id = (ushort)value; }
+                get => id;
+                set => id = (ushort)value;
             }
 
             public int QuestionCount
             {
-                get { return questionCount; }
-                set { questionCount = (ushort)value; }
+                get => questionCount;
+                set => questionCount = (ushort)value;
             }
 
             public int AnswerRecordCount
             {
-                get { return answerCount; }
-                set { answerCount = (ushort)value; }
+                get => answerCount;
+                set => answerCount = (ushort)value;
             }
 
             public int AuthorityRecordCount
             {
-                get { return authorityCount; }
-                set { authorityCount = (ushort)value; }
+                get => authorityCount;
+                set => authorityCount = (ushort)value;
             }
 
             public int AdditionalRecordCount
             {
-                get { return addtionalCount; }
-                set { addtionalCount = (ushort)value; }
+                get => addtionalCount;
+                set => addtionalCount = (ushort)value;
             }
 
             public bool Response
             {
-                get { return Qr == 1; }
-                set { Qr = Convert.ToByte(value); }
+                get => Qr == 1;
+                set => Qr = Convert.ToByte(value);
             }
 
             public DnsOperationCode OperationCode
             {
-                get { return (DnsOperationCode)Opcode; }
-                set { Opcode = (byte)value; }
+                get => (DnsOperationCode)Opcode;
+                set => Opcode = (byte)value;
             }
 
             public bool AuthorativeServer
             {
-                get { return Aa == 1; }
-                set { Aa = Convert.ToByte(value); }
+                get => Aa == 1;
+                set => Aa = Convert.ToByte(value);
             }
 
             public bool Truncated
             {
-                get { return Tc == 1; }
-                set { Tc = Convert.ToByte(value); }
+                get => Tc == 1;
+                set => Tc = Convert.ToByte(value);
             }
 
             public bool RecursionDesired
             {
-                get { return Rd == 1; }
-                set { Rd = Convert.ToByte(value); }
+                get => Rd == 1;
+                set => Rd = Convert.ToByte(value);
             }
 
             public bool RecursionAvailable
             {
-                get { return Ra == 1; }
-                set { Ra = Convert.ToByte(value); }
+                get => Ra == 1;
+                set => Ra = Convert.ToByte(value);
             }
 
             public DnsResponseCode ResponseCode
             {
-                get { return (DnsResponseCode)RCode; }
-                set { RCode = (byte)value; }
+                get => (DnsResponseCode)RCode;
+                set => RCode = (byte)value;
             }
 
             public int Size => SIZE;
@@ -442,43 +442,43 @@
             // Query/Response Flag
             private byte Qr
             {
-                get { return Flag0.GetBitValueAt(7, 1); }
-                set { Flag0 = Flag0.SetBitValueAt(7, 1, value); }
+                get => Flag0.GetBitValueAt(7, 1);
+                set => Flag0 = Flag0.SetBitValueAt(7, 1, value);
             }
 
             // Operation Code
             private byte Opcode
             {
-                get { return Flag0.GetBitValueAt(3, 4); }
-                set { Flag0 = Flag0.SetBitValueAt(3, 4, value); }
+                get => Flag0.GetBitValueAt(3, 4);
+                set => Flag0 = Flag0.SetBitValueAt(3, 4, value);
             }
 
             // Authorative Answer Flag
             private byte Aa
             {
-                get { return Flag0.GetBitValueAt(2, 1); }
-                set { Flag0 = Flag0.SetBitValueAt(2, 1, value); }
+                get => Flag0.GetBitValueAt(2, 1);
+                set => Flag0 = Flag0.SetBitValueAt(2, 1, value);
             }
 
             // Truncation Flag
             private byte Tc
             {
-                get { return Flag0.GetBitValueAt(1, 1); }
-                set { Flag0 = Flag0.SetBitValueAt(1, 1, value); }
+                get => Flag0.GetBitValueAt(1, 1);
+                set => Flag0 = Flag0.SetBitValueAt(1, 1, value);
             }
 
             // Recursion Desired
             private byte Rd
             {
-                get { return Flag0.GetBitValueAt(0, 1); }
-                set { Flag0 = Flag0.SetBitValueAt(0, 1, value); }
+                get => Flag0.GetBitValueAt(0, 1);
+                set => Flag0 = Flag0.SetBitValueAt(0, 1, value);
             }
 
             // Recursion Available
             private byte Ra
             {
-                get { return Flag1.GetBitValueAt(7, 1); }
-                set { Flag1 = Flag1.SetBitValueAt(7, 1, value); }
+                get => Flag1.GetBitValueAt(7, 1);
+                set => Flag1 = Flag1.SetBitValueAt(7, 1, value);
             }
 
             // Zero (Reserved)
@@ -491,20 +491,20 @@
             // Response Code
             private byte RCode
             {
-                get { return Flag1.GetBitValueAt(0, 4); }
-                set { Flag1 = Flag1.SetBitValueAt(0, 4, value); }
+                get => Flag1.GetBitValueAt(0, 4);
+                set => Flag1 = Flag1.SetBitValueAt(0, 4, value);
             }
 
             private byte Flag0
             {
-                get { return flag0; }
-                set { flag0 = value; }
+                get => flag0;
+                set => flag0 = value;
             }
 
             private byte Flag1
             {
-                get { return flag1; }
-                set { flag1 = value; }
+                get => flag1;
+                set => flag1 = value;
             }
         }
 
@@ -711,9 +711,7 @@
             }
 
             public override string ToString()
-            {
-                return Json.SerializeOnly(this, true, nameof(Name), nameof(Type), nameof(Class));
-            }
+                => Json.SerializeOnly(this, true, nameof(Name), nameof(Type), nameof(Class));
 
             [StructEndianness(Endianness.Big)]
             [StructLayout(LayoutKind.Sequential, Pack = 2)]
@@ -726,14 +724,14 @@
 
                 public DnsRecordType Type
                 {
-                    get { return (DnsRecordType)type; }
-                    set { type = (ushort)value; }
+                    get => (DnsRecordType)type;
+                    set => type = (ushort)value;
                 }
 
                 public DnsRecordClass Class
                 {
-                    get { return (DnsRecordClass)klass; }
-                    set { klass = (ushort)value; }
+                    get => (DnsRecordClass)klass;
+                    set => klass = (ushort)value;
                 }
             }
         }

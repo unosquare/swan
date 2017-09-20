@@ -38,10 +38,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <value>
         /// The hop limit.
-        /// </value>
-        /// <seealso cref="HopLimit"></seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
-        /// <param name="hop_limit">
         /// The maximum number of referrals to follow in a
         /// sequence during automatic referral following.
         /// The default value is 10. A value of 0 means no limit.
@@ -50,7 +46,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// LdapException.REFERRAL_LIMIT_EXCEEDED if the
         /// number of referrals in a sequence exceeds the limit.
         /// It is ignored for asynchronous operations.
-        /// </param>
+        /// </value>
+        /// <seealso cref="HopLimit"></seealso>
+        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
         /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
         public virtual int HopLimit
         {
@@ -69,9 +67,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         /// <seealso cref="object"></seealso>
         /// <seealso cref="LdapConnection.GetProperty"></seealso>
-        /// <param name="props">
-        /// the properties represented by the Hashtable object to set.
-        /// </param>
         internal virtual Hashtable Properties
         {
             get => properties;
@@ -83,13 +78,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Specified whether or not referrals are followed automatically.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [referral following]; otherwise, <c>false</c>.
-        /// </value>
-        /// <param name="doReferrals">
         /// True to follow referrals automatically.
         /// False to throw an LdapReferralException if
         /// the server returns a referral.
-        /// </param>
+        /// </value>
         public virtual bool ReferralFollowing
         {
             get => doReferrals;

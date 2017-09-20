@@ -61,10 +61,10 @@
             var leftEnumerable = left.Cast<object>().ToArray();
             var rightEnumerable = right.Cast<object>().ToArray();
 
-            if (leftEnumerable.Count() != rightEnumerable.Count())
+            if (leftEnumerable.Length != rightEnumerable.Length)
                 return false;
 
-            for (var i = 0; i < leftEnumerable.Count(); i++)
+            for (var i = 0; i < leftEnumerable.Length; i++)
             {
                 var leftEl = leftEnumerable[i];
                 var rightEl = rightEnumerable[i];

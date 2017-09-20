@@ -382,24 +382,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The default Locale
         /// </summary>
         private static CultureInfo defaultLocale;
-
-        /// <summary>
-        /// Returns a string using the MessageOrKey as a key into
-        /// ExceptionMessages or, if the Key does not exist, returns the
-        /// string messageOrKey.  In addition it formats the arguments into the message
-        /// according to MessageFormat.
-        /// </summary>
-        /// <param name="messageOrKey">Key string for the resource.</param>
-        /// <param name="arguments">The arguments.</param>
-        /// <returns>
-        /// the text for the message specified by the MessageKey or the Key
-        /// if it there is no message for that key.
-        /// </returns>
-        public static string GetMessage(string messageOrKey, object[] arguments)
-        {
-            return GetMessage(messageOrKey, arguments, null);
-        }
-
+        
         /// <summary>
         /// Returns the message stored in the ExceptionMessages resource for the
         /// specified locale using messageOrKey and argments passed into the
@@ -409,20 +392,16 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="messageOrKey">Key string for the resource.</param>
         /// <param name="arguments">The arguments.</param>
-        /// <param name="locale">The Locale that should be used to pull message
         /// strings out of ExceptionMessages.</param>
         /// <returns>
         /// the text for the message specified by the MessageKey or the Key
         /// if it there is no message for that key.
         /// </returns>
-        public static string GetMessage(string messageOrKey, object[] arguments, CultureInfo locale)
+        public static string GetMessage(string messageOrKey, object[] arguments)
         {
             if (defaultLocale == null)
                 defaultLocale = CultureInfo.CurrentUICulture;
-
-            if (locale == null)
-                locale = defaultLocale;
-
+            
             if (messageOrKey == null)
             {
                 messageOrKey = "";
@@ -437,24 +416,10 @@ namespace Unosquare.Swan.Networking.Ldap
                 strB.AppendFormat(pattern, arguments);
                 pattern = strB.ToString();
             }
+
             return pattern;
         }
-
-        /// <summary>
-        ///     Returns a string representing the Ldap result code from the
-        ///     default ResultCodeMessages resource.
-        /// </summary>
-        /// <param name="code">
-        ///     the result code
-        /// </param>
-        /// <returns>
-        ///     the String representing the result code.
-        /// </returns>
-        public static string GetResultString(int code)
-        {
-            return GetResultString(code, null);
-        }
-
+        
         /// <summary>
         ///     Returns a string representing the Ldap result code.  The message
         ///     is obtained from the locale specific ResultCodeMessage resource.
@@ -469,7 +434,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the String representing the result code.
         /// </returns>
-        public static string GetResultString(int code, CultureInfo locale)
+        public static string GetResultString(int code)
         {
             string result;
             try
@@ -478,7 +443,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             catch (ArgumentNullException)
             {
-                result = GetMessage(ExceptionMessages.UNKNOWN_RESULT, new object[] {code}, locale);
+                result = GetMessage(ExceptionMessages.UNKNOWN_RESULT, new object[] {code});
             }
 
             return result;
@@ -1617,45 +1582,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return ResourcesHandler.GetResultString(code);
         }
-
-        /// <summary>
-        ///     Returns a string representing the result code in the
-        ///     specified locale.
-        /// </summary>
-        /// <param name="locale">
-        ///     The locale in which to render the error message.
-        /// </param>
-        /// <returns>
-        ///     A message corresponding to the result code in the
-        ///     specified locale, or null if the message is not available
-        ///     for the requested locale.
-        /// </returns>
-        public virtual string resultCodeToString(CultureInfo locale)
-        {
-            return ResourcesHandler.GetResultString(resultCode, locale);
-        }
-
-        /// <summary>
-        ///     Returns a string representing the specified error code in the
-        ///     specified locale.
-        /// </summary>
-        /// <param name="code">
-        ///     The result code for which a message is to be
-        ///     returned.
-        /// </param>
-        /// <param name="locale">
-        ///     The locale in which to render the message.
-        /// </param>
-        /// <returns>
-        ///     A message corresponding to the result code in the
-        ///     specified locale, or null if the message is not available
-        ///     for the requested locale.
-        /// </returns>
-        public static string resultCodeToString(int code, CultureInfo locale)
-        {
-            return ResourcesHandler.GetResultString(code, locale);
-        }
-
+        
         /// <summary>
         ///     returns a string of information about the exception and the
         ///     the nested exceptions, if any.
