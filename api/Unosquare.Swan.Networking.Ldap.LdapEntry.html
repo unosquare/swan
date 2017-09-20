@@ -129,51 +129,6 @@ LdapSearchResults.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapEntry__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapEntry__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor">LdapEntry()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a> class.
-Constructs an empty entry.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapEntry()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapEntry__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapEntry__ctor_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor(System.String)">LdapEntry(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a> class.
-Constructs a new entry with the specified distinguished name and with
-an empty attribute set.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapEntry(string dn)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">dn</span></td>
-        <td><p>The distinguished name of the entry. The
-value is not validated. An invalid distinguished
-name will cause operations using this entry to fail.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapEntry__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapEntry__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapAttributeSet_" data-uid="Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapAttributeSet)">LdapEntry(String, LdapAttributeSet)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a> class.
 Constructs a new entry with the specified distinguished name and set
@@ -182,7 +137,7 @@ of attributes.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapEntry(string dn, LdapAttributeSet attrs = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapEntry(string dn = null, LdapAttributeSet attrs = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

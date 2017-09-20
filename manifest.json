@@ -30,7 +30,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.AppWorkerBase.html",
-          "hash": "GHTk6b+PgXlFaguwQBf2xA=="
+          "hash": "2SW1KZEpApLvgfkrmTIIJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html",
+          "hash": "K/HXIeiTBWvtT/OTuq0XhA=="
         }
       },
       "is_incremental": false,
@@ -66,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.html",
-          "hash": "KSxC3DFnkrcRuDXQkyoGZw=="
+          "hash": "GeIf4tIdHbq3YFDSdrMXnA=="
         }
       },
       "is_incremental": false,
@@ -79,18 +91,6 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.AppWorkerState.html",
           "hash": "zjRoAdTfopn+s4cD7rJtYA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.AppWorkerStateChangedEventArgs.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html",
-          "hash": "LZ54+y5uB47pbWRQVNOSTQ=="
         }
       },
       "is_incremental": false,
@@ -1158,7 +1158,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html",
-          "hash": "8xFBfVbWX/A9gLLFrIc8MQ=="
+          "hash": "lJ80ZVotvfei5ya+tJkN+A=="
         }
       },
       "is_incremental": false,
@@ -1182,7 +1182,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapEntry.html",
-          "hash": "JKCodOwO8E+LB+M0EPG9QQ=="
+          "hash": "RMMX5nGivHBAMYq1tHZRbQ=="
         }
       },
       "is_incremental": false,
@@ -1194,7 +1194,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapException.html",
-          "hash": "s13gCMrAJdy2VK+2LHuQCA=="
+          "hash": "lo9S4Y9n4BJuk06ZoBHxog=="
         }
       },
       "is_incremental": false,
@@ -1254,7 +1254,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html",
-          "hash": "VOBJZMhobiaE9ptKcPfWYA=="
+          "hash": "ealWShqOlyLOD1ljcqDz8A=="
         }
       },
       "is_incremental": false,
@@ -1494,7 +1494,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.ExtendedTypeInfo-1.html",
-          "hash": "P7GIPouzszzlf9OUh5tFKw=="
+          "hash": "znlpdf/iUyc7iDEWhbWsZg=="
         }
       },
       "is_incremental": false,
@@ -1506,7 +1506,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.ExtendedTypeInfo.html",
-          "hash": "SGY1+5pqFfYWphXM97pqyA=="
+          "hash": "ZYSg7/i43sGw/JXewakQFw=="
         }
       },
       "is_incremental": false,
@@ -1554,7 +1554,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.html",
-          "hash": "2KJHD9QLSjidOd9BRFx27w=="
+          "hash": "upwK8OibEOTSmDEH83KtsQ=="
         }
       },
       "is_incremental": false,
@@ -1662,7 +1662,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "9q3Csk4htYpa3frquOaR3A=="
+          "hash": "7abryRp91vVN8rz7fx+7Vw=="
         }
       },
       "is_incremental": false,
@@ -1674,7 +1674,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "ne6owYhiiQErnMLtJSmAoQ=="
+          "hash": "H5QWBOZbd9iZwSvr1MEhaQ=="
         }
       },
       "is_incremental": false,
@@ -1701,9 +1701,9 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
+        "RestApiDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
@@ -1719,9 +1719,9 @@
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "RestApiDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

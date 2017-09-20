@@ -145,6 +145,48 @@ references:
   commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop
   fullName: Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop
   nameWithType: AppWorkerBase.WorkerThreadLoop
+- uid: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs
+  name: AppWorkerStateChangedEventArgs
+  href: api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html
+  commentId: T:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs
+  fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs
+  nameWithType: AppWorkerStateChangedEventArgs
+- uid: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.#ctor(Unosquare.Swan.AppWorkerState,Unosquare.Swan.AppWorkerState)
+  name: AppWorkerStateChangedEventArgs(AppWorkerState, AppWorkerState)
+  href: api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs__ctor_Unosquare_Swan_AppWorkerState_Unosquare_Swan_AppWorkerState_
+  commentId: M:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.#ctor(Unosquare.Swan.AppWorkerState,Unosquare.Swan.AppWorkerState)
+  fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs(Unosquare.Swan.AppWorkerState, Unosquare.Swan.AppWorkerState)
+  nameWithType: AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs(AppWorkerState, AppWorkerState)
+- uid: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.#ctor*
+  name: AppWorkerStateChangedEventArgs
+  href: api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs__ctor_
+  commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.#ctor
+  fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs
+  nameWithType: AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs
+- uid: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState
+  name: NewState
+  href: api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_NewState
+  commentId: P:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState
+  fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState
+  nameWithType: AppWorkerStateChangedEventArgs.NewState
+- uid: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState*
+  name: NewState
+  href: api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_NewState_
+  commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState
+  fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState
+  nameWithType: AppWorkerStateChangedEventArgs.NewState
+- uid: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState
+  name: OldState
+  href: api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_OldState
+  commentId: P:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState
+  fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState
+  nameWithType: AppWorkerStateChangedEventArgs.OldState
+- uid: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState*
+  name: OldState
+  href: api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_OldState_
+  commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState
+  fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState
+  nameWithType: AppWorkerStateChangedEventArgs.OldState
 - uid: Unosquare.Swan.Abstractions.SettingsProvider`1
   name: SettingsProvider<T>
   href: api/Unosquare.Swan.Abstractions.SettingsProvider-1.html
@@ -342,48 +384,6 @@ references:
   commentId: F:Unosquare.Swan.AppWorkerState.Stopped
   fullName: Unosquare.Swan.AppWorkerState.Stopped
   nameWithType: AppWorkerState.Stopped
-- uid: Unosquare.Swan.AppWorkerStateChangedEventArgs
-  name: AppWorkerStateChangedEventArgs
-  href: api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html
-  commentId: T:Unosquare.Swan.AppWorkerStateChangedEventArgs
-  fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs
-  nameWithType: AppWorkerStateChangedEventArgs
-- uid: Unosquare.Swan.AppWorkerStateChangedEventArgs.#ctor(Unosquare.Swan.AppWorkerState,Unosquare.Swan.AppWorkerState)
-  name: AppWorkerStateChangedEventArgs(AppWorkerState, AppWorkerState)
-  href: api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_AppWorkerStateChangedEventArgs__ctor_Unosquare_Swan_AppWorkerState_Unosquare_Swan_AppWorkerState_
-  commentId: M:Unosquare.Swan.AppWorkerStateChangedEventArgs.#ctor(Unosquare.Swan.AppWorkerState,Unosquare.Swan.AppWorkerState)
-  fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs(Unosquare.Swan.AppWorkerState, Unosquare.Swan.AppWorkerState)
-  nameWithType: AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs(AppWorkerState, AppWorkerState)
-- uid: Unosquare.Swan.AppWorkerStateChangedEventArgs.#ctor*
-  name: AppWorkerStateChangedEventArgs
-  href: api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_AppWorkerStateChangedEventArgs__ctor_
-  commentId: Overload:Unosquare.Swan.AppWorkerStateChangedEventArgs.#ctor
-  fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs
-  nameWithType: AppWorkerStateChangedEventArgs.AppWorkerStateChangedEventArgs
-- uid: Unosquare.Swan.AppWorkerStateChangedEventArgs.NewState
-  name: NewState
-  href: api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_AppWorkerStateChangedEventArgs_NewState
-  commentId: P:Unosquare.Swan.AppWorkerStateChangedEventArgs.NewState
-  fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs.NewState
-  nameWithType: AppWorkerStateChangedEventArgs.NewState
-- uid: Unosquare.Swan.AppWorkerStateChangedEventArgs.NewState*
-  name: NewState
-  href: api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_AppWorkerStateChangedEventArgs_NewState_
-  commentId: Overload:Unosquare.Swan.AppWorkerStateChangedEventArgs.NewState
-  fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs.NewState
-  nameWithType: AppWorkerStateChangedEventArgs.NewState
-- uid: Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState
-  name: OldState
-  href: api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_AppWorkerStateChangedEventArgs_OldState
-  commentId: P:Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState
-  fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState
-  nameWithType: AppWorkerStateChangedEventArgs.OldState
-- uid: Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState*
-  name: OldState
-  href: api/Unosquare.Swan.AppWorkerStateChangedEventArgs.html#Unosquare_Swan_AppWorkerStateChangedEventArgs_OldState_
-  commentId: Overload:Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState
-  fullName: Unosquare.Swan.AppWorkerStateChangedEventArgs.OldState
-  nameWithType: AppWorkerStateChangedEventArgs.OldState
 - uid: Unosquare.Swan.Attributes
   name: Unosquare.Swan.Attributes
   href: api/Unosquare.Swan.Attributes.html
@@ -8777,18 +8777,6 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapEntry
   fullName: Unosquare.Swan.Networking.Ldap.LdapEntry
   nameWithType: LdapEntry
-- uid: Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor
-  name: LdapEntry()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapEntry.html#Unosquare_Swan_Networking_Ldap_LdapEntry__ctor
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapEntry.LdapEntry()
-  nameWithType: LdapEntry.LdapEntry()
-- uid: Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor(System.String)
-  name: LdapEntry(String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapEntry.html#Unosquare_Swan_Networking_Ldap_LdapEntry__ctor_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor(System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapEntry.LdapEntry(System.String)
-  nameWithType: LdapEntry.LdapEntry(String)
 - uid: Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapAttributeSet)
   name: LdapEntry(String, LdapAttributeSet)
   href: api/Unosquare.Swan.Networking.Ldap.LdapEntry.html#Unosquare_Swan_Networking_Ldap_LdapEntry__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapAttributeSet_
@@ -11618,23 +11606,6 @@ references:
   fullName.vb: Unosquare.Swan.Reflection.ExtendedTypeInfo(Of T).ToStringInvariant
   nameWithType: ExtendedTypeInfo<T>.ToStringInvariant
   nameWithType.vb: ExtendedTypeInfo(Of T).ToStringInvariant
-- uid: Unosquare.Swan.Reflection.ExtendedTypeInfo`1.TryParse(System.String,`0@)
-  name: TryParse(String, out T)
-  href: api/Unosquare.Swan.Reflection.ExtendedTypeInfo-1.html#Unosquare_Swan_Reflection_ExtendedTypeInfo_1_TryParse_System_String__0__
-  commentId: M:Unosquare.Swan.Reflection.ExtendedTypeInfo`1.TryParse(System.String,`0@)
-  name.vb: TryParse(String, ByRef T)
-  fullName: Unosquare.Swan.Reflection.ExtendedTypeInfo<T>.TryParse(System.String, out T)
-  fullName.vb: Unosquare.Swan.Reflection.ExtendedTypeInfo(Of T).TryParse(System.String, ByRef T)
-  nameWithType: ExtendedTypeInfo<T>.TryParse(String, out T)
-  nameWithType.vb: ExtendedTypeInfo(Of T).TryParse(String, ByRef T)
-- uid: Unosquare.Swan.Reflection.ExtendedTypeInfo`1.TryParse*
-  name: TryParse
-  href: api/Unosquare.Swan.Reflection.ExtendedTypeInfo-1.html#Unosquare_Swan_Reflection_ExtendedTypeInfo_1_TryParse_
-  commentId: Overload:Unosquare.Swan.Reflection.ExtendedTypeInfo`1.TryParse
-  fullName: Unosquare.Swan.Reflection.ExtendedTypeInfo<T>.TryParse
-  fullName.vb: Unosquare.Swan.Reflection.ExtendedTypeInfo(Of T).TryParse
-  nameWithType: ExtendedTypeInfo<T>.TryParse
-  nameWithType.vb: ExtendedTypeInfo(Of T).TryParse
 - uid: Unosquare.Swan.Reflection.FieldTypeCache
   name: FieldTypeCache
   href: api/Unosquare.Swan.Reflection.FieldTypeCache.html
