@@ -57,8 +57,8 @@ namespace Unosquare.Swan.Networking.Ldap
 
                     var opArray = opSeq.ToArray();
                     var asn1op = (Asn1Enumerated)opArray[0];
-                    // get the operation
 
+                    // get the operation
                     var op = asn1op.IntValue();
                     var attrSeq = (Asn1Sequence)opArray[1];
                     var attrArray = attrSeq.ToArray();

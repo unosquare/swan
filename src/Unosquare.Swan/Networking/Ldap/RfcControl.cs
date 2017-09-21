@@ -84,6 +84,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     // Get the second element
                     var obj = Get(1);
+
                     // Is this a control value
                     if (obj is Asn1OctetString)
                     {
@@ -191,7 +192,8 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials) : base(2)
+        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials) 
+            : base(2)
         {
             Add(mechanism);
             if (credentials != null)

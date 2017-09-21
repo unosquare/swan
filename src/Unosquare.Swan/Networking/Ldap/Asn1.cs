@@ -616,7 +616,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="identifier">The identifier.</param>
         /// <param name="objectRenamed">The object renamed.</param>
-        public Asn1Tagged(Asn1Identifier identifier, Asn1Object objectRenamed) : this(identifier, objectRenamed, true)
+        public Asn1Tagged(Asn1Identifier identifier, Asn1Object objectRenamed) 
+            : this(identifier, objectRenamed, true)
         {
         }
 

@@ -89,10 +89,13 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             attr.AddValue(((Asn1OctetString) setArray[j]).ByteValue());
                         }
+
                         attrs.Add(attr);
                     }
+
                     entry = new LdapEntry(((RfcSearchResultEntry) message.Response).ObjectName.StringValue(), attrs);
                 }
+
                 return entry;
             }
         }

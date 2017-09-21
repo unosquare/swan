@@ -128,8 +128,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public class ExceptionMessages // : System.Resources.ResourceManager
     {
-        //static strings to aide lookup and guarantee accuracy:
-        //DO NOT include these strings in other Locales
+        // static strings to aide lookup and guarantee accuracy:
+        // DO NOT include these strings in other Locales
         public const string TOSTRING = "TOSTRING";
 
         public const string SERVER_MSG = "SERVER_MSG";
@@ -404,7 +404,7 @@ namespace Unosquare.Swan.Networking.Ldap
             
             if (messageOrKey == null)
             {
-                messageOrKey = "";
+                messageOrKey = string.Empty;
             }
 
             var pattern = ExceptionMessages.GetErrorMessage(messageOrKey);
@@ -721,6 +721,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     return null;
                 }
+
                 return serverMessage;
             }
         }
@@ -766,14 +767,19 @@ namespace Unosquare.Swan.Networking.Ldap
 
         // The Result Code
         private readonly int resultCode;
+
         // The localized message
         private string messageOrKey;
+
         // The arguments associated with the localized message
         private object[] arguments;
+
         // The Matched DN
         private readonly string matchedDN;
+
         // The Root Cause
         private readonly Exception rootException;
+
         // A message from the server
         private readonly string serverMessage;
 
@@ -1432,8 +1438,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// from the server</param>
         /// <param name="rootException">A throwable which is the underlying cause
         /// of the LdapException.</param>
-        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
-            Exception rootException = null) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
+        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg, Exception rootException = null) 
+            : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
         {
         }
 
@@ -1543,8 +1549,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The maximal subset of a specified DN which could
         ///     be matched by the server on a search operation.
         /// </param>
-        internal LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
-            string matchedDN = null, Exception rootException = null)
+        internal LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg, string matchedDN = null, Exception rootException = null)
             : base(ResourcesHandler.GetMessage(messageOrKey, arguments))
         {
             this.messageOrKey = messageOrKey;
@@ -1828,8 +1833,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="serverMessage">Error message specifying additional information
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage,
-            Exception rootException)
+        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException)
             : base(message, arguments, resultCode, serverMessage, rootException)
         {
         }

@@ -101,7 +101,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (vals != null)
             {
-                //is this necessary?
+                // is this necessary?
                 // Yes even though the contructor above allocates a
                 // new Asn1OctetString, vals in that constuctor
                 // is only copied by reference
@@ -334,6 +334,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     srefs[i] = ((Asn1OctetString)references[i]).StringValue();
                 }
+
                 return srefs;
             }
         }
@@ -931,11 +932,14 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var searchStart = 0;
             var fieldStart = urlEncoded.IndexOf("%", searchStart);
+
             // Return now if no encoded data
+
             if (fieldStart < 0)
             {
                 return urlEncoded;
             }
+
             // Decode the %HH value and copy to new string buffer
             var fieldEnd = 0; // end of previous field
             var dataLen = urlEncoded.Length;
@@ -947,9 +951,12 @@ namespace Unosquare.Swan.Networking.Ldap
                     throw new UriFormatException(
                         "LdapUrl.decode: must be two hex characters following escape character '%'");
                 }
+
                 if (fieldStart < 0)
                     fieldStart = dataLen;
+
                 // Copy to string buffer from end of last field to start of next
+
                 decoded.Append(urlEncoded.Substring(fieldEnd, fieldStart - fieldEnd));
                 fieldStart += 1;
                 if (fieldStart >= dataLen)
@@ -970,6 +977,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     break;
                 fieldStart = urlEncoded.IndexOf("%", searchStart);
             }
+
             return decoded.ToString();
         }
 
@@ -1076,7 +1084,7 @@ namespace Unosquare.Swan.Networking.Ldap
             url.Append("?");
             if (attrs != null)
             {
-                //should we check also for attrs != "*"
+                // should we check also for attrs != "*"
                 for (var i = 0; i < attrs.Length; i++)
                 {
                     url.Append(attrs[i]);
@@ -1086,20 +1094,24 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
                 }
             }
+
             if (scope == DEFAULT_SCOPE && (object) filter == null && extensions == null)
             {
                 return url.ToString();
             }
+
             // scope
             url.Append("?");
             if (scope != DEFAULT_SCOPE)
             {
                 url.Append(scope == LdapConnection.SCOPE_ONE ? "one" : "sub");
             }
+
             if ((object) filter == null && extensions == null)
             {
                 return url.ToString();
             }
+
             // filter
             if ((object) filter == null)
             {
@@ -1109,10 +1121,12 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 url.Append("?" + Filter);
             }
+
             if (extensions == null)
             {
                 return url.ToString();
             }
+
             // extensions
             url.Append("?");
             if (extensions != null)
@@ -1126,10 +1140,12 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
                 }
             }
+
             return url.ToString();
         }
 
         private string[] parseList(string listStr, char delimiter, int listStart, int listEnd)
+
             // end of list + 1
         {
             // Check for and empty string
@@ -1137,6 +1153,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 return null;
             }
+
             // First count how many items are specified
             var itemStart = listStart;
             int itemEnd;
@@ -1197,11 +1214,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 scanStart += 1;
                 scanEnd -= 1;
             }
+
             // Determine the URL scheme and set appropriate default port
             if (url.Substring(scanStart, scanStart + 4 - scanStart).ToUpper().Equals("URL:".ToUpper()))
             {
                 scanStart += 4;
             }
+
             if (url.Substring(scanStart, scanStart + 7 - scanStart).ToUpper().Equals("ldap://".ToUpper()))
             {
                 scanStart += 7;
@@ -1254,6 +1273,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     throw new UriFormatException("LdapUrl: \"]\" is missing on IPV6 host name");
                 }
+
                 // Get host w/o the [ & ]
                 host = url.Substring(scanStart + 1, hostEnd - (scanStart + 1));
                 portStart = url.IndexOf(":", hostEnd);
@@ -1303,6 +1323,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Wierd novell syntax can have nothing beyond the dn
             if (scanStart >= scanEnd || attrsStart < 0 || novell)
                 return;
+
             // Parse out the attributes
             var scopeStart = url.IndexOf('?', scanStart);
             if (scopeStart < 0)
@@ -1311,6 +1332,7 @@ namespace Unosquare.Swan.Networking.Ldap
             scanStart = scopeStart + 1;
             if (scanStart >= scanEnd)
                 return;
+
             // Parse out the scope
             var filterStart = url.IndexOf('?', scanStart);
             string scopeStr;
@@ -1322,7 +1344,8 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 scopeStr = url.Substring(scanStart, filterStart - scanStart);
             }
-            if (scopeStr.ToUpper().Equals("".ToUpper()))
+
+            if (scopeStr.ToUpper().Equals(string.Empty.ToUpper()))
             {
                 scope = LdapConnection.SCOPE_BASE;
             }
@@ -1346,6 +1369,7 @@ namespace Unosquare.Swan.Networking.Ldap
             scanStart = filterStart + 1;
             if (scanStart >= scanEnd || filterStart < 0)
                 return;
+
             // Parse out the filter
             scanStart = filterStart + 1;
             string filterStr;
@@ -1496,8 +1520,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         break;
                     case LdapException.REFERRAL:
                         var refs = Referrals;
-                        ex = new LdapReferralException("Automatic referral following not enabled",
-                            LdapException.REFERRAL, ErrorMessage);
+                        ex = new LdapReferralException("Automatic referral following not enabled", LdapException.REFERRAL, ErrorMessage);
                         ((LdapReferralException) ex).SetReferrals(refs);
                         break;
                     default:
@@ -1610,8 +1633,7 @@ namespace Unosquare.Swan.Networking.Ldap
             switch (type)
             {
                 case SEARCH_RESULT:
-                    ret = new RfcSearchResultDone(new Asn1Enumerated(resultCode), new RfcLdapDN(matchedDN),
-                        new RfcLdapString(serverMessage), null);
+                    ret = new RfcSearchResultDone(new Asn1Enumerated(resultCode), new RfcLdapDN(matchedDN), new RfcLdapString(serverMessage), null);
                     break;
                 case BIND_RESPONSE:
                     ret = null; // Not yet implemented
@@ -1628,6 +1650,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 default:
                     throw new Exception("Type " + type + " Not Supported");
             }
+
             return ret;
         }
 
@@ -1693,6 +1716,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 myOID = oid;
                 myClass = controlClass;
             }
+
             private RespControlVector Enclosing_Instance { get; }
 
         }

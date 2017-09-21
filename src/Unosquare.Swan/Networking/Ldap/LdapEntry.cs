@@ -409,6 +409,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
+
             try
             {
                 var encoder = Encoding.UTF8;
@@ -528,6 +529,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
+
             Add(attrBytes);
         }
 
@@ -571,6 +573,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
+
             Add(Convert.FromBase64String(attrString.ToString(start, end)).ToSByteArray());
         }
 
@@ -590,6 +593,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
+
             Add(Convert.FromBase64CharArray(attrChars, 0, attrChars.Length).ToSByteArray());
         }
 
@@ -643,21 +647,20 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     An array subtypes or null if the attribute has none.
         /// </returns>
-        public virtual string[] GetSubtypes() =>  subTypes;
+        public virtual string[] GetSubtypes() => subTypes;
 
         /// <summary>
-        ///     Extracts the subtypes from the specified attribute name.
-        ///     For example, if the attribute name is cn;lang-ja;phonetic,
-        ///     this method returns an array containing lang-ja and phonetic.
+        /// Extracts the subtypes from the specified attribute name.
+        /// For example, if the attribute name is cn;lang-ja;phonetic,
+        /// this method returns an array containing lang-ja and phonetic.
         /// </summary>
-        /// <param name="attrName">
-        ///     Name of the attribute from which to extract
-        ///     the subtypes.
-        /// </param>
+        /// <param name="attrName">Name of the attribute from which to extract
+        /// the subtypes.</param>
         /// <returns>
-        ///     An array subtypes or null if the attribute has none.
-        ///     @throws IllegalArgumentException if attrName is null
+        /// An array subtypes or null if the attribute has none.
+        /// @throws IllegalArgumentException if attrName is null
         /// </returns>
+        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
         public static string[] GetSubtypes(string attrName)
         {
             if ((object)attrName == null)
@@ -746,6 +749,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         throw new ArgumentException("subtype " + "at array index " + i + " cannot be null");
                     }
+
                     if (subTypes[j].ToUpper().Equals(subtypes[i].ToUpper()))
                     {
                         goto gotSubType;
@@ -756,6 +760,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 gotSubType:
                 ;
             }
+
             return true;
         }
 
@@ -816,6 +821,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         values = null;
                         return;
                     }
+
                     if (values.Length == 1)
                     {
                         values = null;
@@ -828,13 +834,16 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             Array.Copy(values, 0, tmp, 0, i);
                         }
+
                         if (moved != 0)
                         {
                             Array.Copy(values, i + 1, tmp, i, moved);
                         }
+
                         values = tmp;
                         tmp = null;
                     }
+
                     break;
                 }
             }
@@ -919,13 +928,16 @@ namespace Unosquare.Swan.Networking.Ldap
             // If same object, they compare true
             if (e1 == e2)
                 return true;
+
             // If either but not both are null, they compare false
             if (e1 == null || e2 == null)
                 return false;
+
             // If arrays have different length, they compare false
             var length = e1.Length;
             if (e2.Length != length)
                 return false;
+
             // If any of the bytes are different, they compare false
             for (var i = 0; i < length; i++)
             {
@@ -942,7 +954,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// a string representation of this LdapAttribute
         /// </returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">NullReferenceException</exception>
         public override string ToString()
         {
             var result = new StringBuilder("LdapAttribute: ");
@@ -960,10 +972,12 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             result.Append("','");
                         }
+
                         if (((sbyte[])values[i]).Length == 0)
                         {
                             continue;
                         }
+
                         var encoder = Encoding.UTF8;
                         var dchar = encoder.GetChars(((sbyte[])values[i]).ToByteArray());
                         var sval = new string(dchar);
@@ -1396,6 +1410,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 tempAuxObj = NextElement();
             }
+
             return result;
         }
 

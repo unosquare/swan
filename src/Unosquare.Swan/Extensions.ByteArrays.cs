@@ -543,6 +543,7 @@
                 startIndex += n;
                 bytesToRead -= n;
             }
+
             // Returns -1 if EOF
             if (bytesRead == 0)
                 return -1;

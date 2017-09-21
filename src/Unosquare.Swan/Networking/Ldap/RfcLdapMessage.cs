@@ -174,8 +174,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dn">The dn.</param>
         /// <param name="filter">The filter.</param>
         /// <param name="reference">if set to <c>true</c> [reference].</param>
-        internal RfcLdapMessage(Asn1Object[] origContent, IRfcRequest origRequest, string dn, string filter,
-            bool reference)
+        internal RfcLdapMessage(Asn1Object[] origContent, IRfcRequest origRequest, string dn, string filter, bool reference)
             : base(origContent, origContent.Length)
         {
             Set(0, new RfcMessageID()); // MessageID has static counter
@@ -286,7 +285,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dec">The decimal.</param>
         /// <param name="in_Renamed">The in renamed.</param>
         /// <param name="len">The length.</param>
-        public RfcControls(IAsn1Decoder dec, Stream in_Renamed, int len) : base(dec, in_Renamed, len)
+        public RfcControls(IAsn1Decoder dec, Stream in_Renamed, int len) 
+            : base(dec, in_Renamed, len)
         {
             // Convert each SEQUENCE element to a Control
             for (var i = 0; i < Size(); i++)
@@ -573,8 +573,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="matchedDN">the matched DN returned from the server</param>
         /// <param name="errorMessage">the diagnostic message returned from the server</param>
         /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage,
-            Asn1SequenceOf referral)
+        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
             : base(resultCode, matchedDN, errorMessage, referral)
         {
         }
@@ -688,7 +687,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Creates a MessageID with a specified int value.
         /// </summary>
         /// <param name="i">The i.</param>
-        protected internal RfcMessageID(int i) : base(i)
+        protected internal RfcMessageID(int i) 
+            : base(i)
         {
         }
 

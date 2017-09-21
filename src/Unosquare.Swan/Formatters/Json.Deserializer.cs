@@ -306,6 +306,7 @@
 
                 return builder.ToString();
             }
+
             private static int GetFieldNameCount(string json, int i)
             {
                 var charCount = 0;

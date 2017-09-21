@@ -231,9 +231,16 @@ namespace Unosquare.Swan.Networking.Ldap
             LdapControl[] cont)
             : base(
                 SEARCH_REQUEST,
-                new RfcSearchRequest(new RfcLdapDN(ldapBase), new Asn1Enumerated(scope), new Asn1Enumerated(dereference),
-                    new Asn1Integer(maxResults), new Asn1Integer(serverTimeLimit), new Asn1Boolean(typesOnly),
-                    new RfcFilter(filter), new RfcAttributeDescriptionList(attrs)), cont)
+                new RfcSearchRequest(
+                    new RfcLdapDN(ldapBase),
+                    new Asn1Enumerated(scope),
+                    new Asn1Enumerated(dereference),
+                    new Asn1Integer(maxResults),
+                    new Asn1Integer(serverTimeLimit),
+                    new Asn1Boolean(typesOnly),
+                    new RfcFilter(filter),
+                    new RfcAttributeDescriptionList(attrs)),
+                cont)
         {
         }
 
