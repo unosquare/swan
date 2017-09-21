@@ -380,38 +380,6 @@ Constructs a default exception with no specific error information.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String)">LdapReferralException(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
-Constructs a default exception with a specified string as additional
-information.
-This form is used for lower-level errors.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The additional error information.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Exception)">LdapReferralException(String, Exception)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
 Constructs a default exception with a specified string as additional
@@ -423,7 +391,7 @@ followed.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, Exception rootException)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, Exception rootException = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -445,50 +413,6 @@ followed.</p>
         <td><span class="xref">System.Exception</span></td>
         <td><span class="parametername">rootException</span></td>
         <td><p>An exception which caused referral following to fail.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Int32_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Int32,System.String)">LdapReferralException(String, Int32, String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
-Constructs an exception with a specified error string, result code, and
-an error message from the server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, int resultCode, string serverMessage)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The additional error information.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">resultCode</span></td>
-        <td><p>The result code returned.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">serverMessage</span></td>
-        <td><p>Error message specifying additional information
-from the server.</p>
 </td>
       </tr>
     </tbody>
@@ -547,45 +471,6 @@ from the server.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Object___" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[])">LdapReferralException(String, Object[])</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
-Constructs a default exception with a specified string as additional
-information.
-This form is used for lower-level errors.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, object[] arguments)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The additional error information.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Object</span>[]</td>
-        <td><span class="parametername">arguments</span></td>
-        <td><p>The modifying arguments to be included in the
-message string.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Object___System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],System.Exception)">LdapReferralException(String, Object[], Exception)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
 Constructs a default exception with a specified string as additional
@@ -597,7 +482,7 @@ followed.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, object[] arguments, Exception rootException)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, object[] arguments, Exception rootException = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -633,57 +518,6 @@ message string.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Object___System_Int32_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],System.Int32,System.String)">LdapReferralException(String, Object[], Int32, String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
-Constructs an exception with a specified error string, result code, and
-an error message from the server.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The additional error information.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Object</span>[]</td>
-        <td><span class="parametername">arguments</span></td>
-        <td><p>The modifying arguments to be included in the
-message string.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">resultCode</span></td>
-        <td><p>The result code returned.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">serverMessage</span></td>
-        <td><p>Error message specifying additional information
-from the server.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Object___System_Int32_System_String_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],System.Int32,System.String,System.Exception)">LdapReferralException(String, Object[], Int32, String, Exception)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
 Constructs an exception with a specified error string, result code,
@@ -693,7 +527,7 @@ a failure to follow a referral.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -763,7 +597,8 @@ from the server.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The failed referral.</p>
+</td>
       </tr>
     </tbody>
   </table>

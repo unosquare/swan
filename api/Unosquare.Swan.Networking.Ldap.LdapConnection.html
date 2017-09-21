@@ -93,8 +93,8 @@ construction and can only be connected to one server at one
 port. Multiple threads may share this single connection, typically
 by cloning the connection object, one for each thread. An
 application may have more than one LdapConnection object, connected
-to the same or different directory servers.
-Base on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a></p>
+to the same or different directory servers.</p>
+<p>Base on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a></p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -152,7 +152,7 @@ LdapConnection.connect method.</p>
   </h3>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ALL_USER_ATTRS" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ALL_USER_ATTRS">ALL_USER_ATTRS</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_AllUserAttrs" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AllUserAttrs">AllUserAttrs</h4>
   <div class="markdown level1 summary"><p>Used with search instead of an attribute list to indicate that all
 attributes are to be returned.
 ALL_USER_ATTRS = &quot;*&quot;</p>
@@ -160,7 +160,7 @@ ALL_USER_ATTRS = &quot;*&quot;</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string ALL_USER_ATTRS = &quot;*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string AllUserAttrs = &quot;*&quot;</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -179,7 +179,7 @@ ALL_USER_ATTRS = &quot;*&quot;</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DEFAULT_PORT" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DEFAULT_PORT">DEFAULT_PORT</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DefaultPort" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DefaultPort">DefaultPort</h4>
   <div class="markdown level1 summary"><p>The default port number for Ldap servers.
 You can use this identifier to specify the port when establishing
 a clear text connection to a server.  This the default port.
@@ -188,7 +188,7 @@ DEFAULT_PORT = 389</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int DEFAULT_PORT = 389</code></pre>
+    <pre><code class="lang-csharp hljs">public const int DefaultPort = 389</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -207,7 +207,7 @@ DEFAULT_PORT = 389</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DEFAULT_SSL_PORT" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DEFAULT_SSL_PORT">DEFAULT_SSL_PORT</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_DefaultSslPort" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.DefaultSslPort">DefaultSslPort</h4>
   <div class="markdown level1 summary"><p>The default SSL port number for Ldap servers.
 DEFAULT_SSL_PORT = 636
 You can use this identifier to specify the port when establishing
@@ -216,7 +216,7 @@ a an SSL connection to a server..</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int DEFAULT_SSL_PORT = 636</code></pre>
+    <pre><code class="lang-csharp hljs">public const int DefaultSslPort = 636</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -235,7 +235,7 @@ a an SSL connection to a server..</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_PROPERTY_PROTOCOL" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_PROPERTY_PROTOCOL">Ldap_PROPERTY_PROTOCOL</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapPropertyProtocol" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapPropertyProtocol">LdapPropertyProtocol</h4>
   <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
 Ldap_PROPERTY_PROTOCOL = &quot;version.protocol&quot;
 You can use this string to request the version of the
@@ -244,7 +244,7 @@ Ldap protocol.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string Ldap_PROPERTY_PROTOCOL = &quot;version.protocol&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string LdapPropertyProtocol = &quot;version.protocol&quot;</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -263,7 +263,7 @@ Ldap protocol.</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_PROPERTY_SDK" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_PROPERTY_SDK">Ldap_PROPERTY_SDK</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapPropertySdk" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapPropertySdk">LdapPropertySdk</h4>
   <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
 Ldap_PROPERTY_SDK = &quot;version.sdk&quot;
 You can use this string to request the version of the SDK.</p>
@@ -271,7 +271,7 @@ You can use this string to request the version of the SDK.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string Ldap_PROPERTY_SDK = &quot;version.sdk&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string LdapPropertySdk = &quot;version.sdk&quot;</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -290,7 +290,7 @@ You can use this string to request the version of the SDK.</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_PROPERTY_SECURITY" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_PROPERTY_SECURITY">Ldap_PROPERTY_SECURITY</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapPropertySecurity" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapPropertySecurity">LdapPropertySecurity</h4>
   <div class="markdown level1 summary"><p>A string that can be passed in to the getProperty method.
 Ldap_PROPERTY_SECURITY = &quot;version.security&quot;
 You can use this string to request the type of security
@@ -299,7 +299,7 @@ being used.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string Ldap_PROPERTY_SECURITY = &quot;version.security&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string LdapPropertySecurity = &quot;version.security&quot;</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -318,7 +318,7 @@ being used.</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Ldap_V3" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Ldap_V3">Ldap_V3</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_LdapV3" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.LdapV3">LdapV3</h4>
   <div class="markdown level1 summary"><p>Specifies the Ldapv3 protocol version when performing a bind operation.
 Specifies Ldap version V3 of the protocol, and is specified
 when performing bind operations.
@@ -330,7 +330,7 @@ Ldap_V3 = 3</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int Ldap_V3 = 3</code></pre>
+    <pre><code class="lang-csharp hljs">public const int LdapV3 = 3</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -349,7 +349,7 @@ Ldap_V3 = 3</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_NO_ATTRS" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.NO_ATTRS">NO_ATTRS</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_NoAttrs" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.NoAttrs">NoAttrs</h4>
   <div class="markdown level1 summary"><p>Used with search instead of an attribute list to indicate that no
 attributes are to be returned.
 NO_ATTRS = &quot;1.1&quot;</p>
@@ -357,7 +357,7 @@ NO_ATTRS = &quot;1.1&quot;</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string NO_ATTRS = &quot;1.1&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string NoAttrs = &quot;1.1&quot;</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -376,7 +376,7 @@ NO_ATTRS = &quot;1.1&quot;</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_BASE" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SCOPE_BASE">SCOPE_BASE</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ScopeBase" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeBase">ScopeBase</h4>
   <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
 search only the base obect.
 SCOPE_BASE = 0</p>
@@ -384,7 +384,7 @@ SCOPE_BASE = 0</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int SCOPE_BASE = 0</code></pre>
+    <pre><code class="lang-csharp hljs">public const int ScopeBase = 0</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -403,7 +403,7 @@ SCOPE_BASE = 0</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_ONE" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SCOPE_ONE">SCOPE_ONE</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ScopeOne" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeOne">ScopeOne</h4>
   <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
 search only the immediate subordinates of the base obect.
 SCOPE_ONE = 1</p>
@@ -411,7 +411,7 @@ SCOPE_ONE = 1</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int SCOPE_ONE = 1</code></pre>
+    <pre><code class="lang-csharp hljs">public const int ScopeOne = 1</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -430,7 +430,7 @@ SCOPE_ONE = 1</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SCOPE_SUB" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SCOPE_SUB">SCOPE_SUB</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ScopeSub" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeSub">ScopeSub</h4>
   <div class="markdown level1 summary"><p>Used with search to specify that the scope of entrys to search is to
 search the base object and all entries within its subtree.
 SCOPE_ONE = 2</p>
@@ -438,7 +438,7 @@ SCOPE_ONE = 2</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int SCOPE_SUB = 2</code></pre>
+    <pre><code class="lang-csharp hljs">public const int ScopeSub = 2</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -457,7 +457,7 @@ SCOPE_ONE = 2</p>
   </table>
   
   
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_SERVER_SHUTDOWN_OID" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.SERVER_SHUTDOWN_OID">SERVER_SHUTDOWN_OID</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_ServerShutdownOid" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.ServerShutdownOid">ServerShutdownOid</h4>
   <div class="markdown level1 summary"><p>A string that corresponds to the server shutdown notification OID.
 This notification may be used by the server to advise the client that
 the server is about to close the connection due to an error
@@ -467,7 +467,7 @@ SERVER_SHUTDOWN_OID = &quot;1.3.6.1.4.1.1466.20036&quot;</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string SERVER_SHUTDOWN_OID = &quot;1.3.6.1.4.1.1466.20036&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string ServerShutdownOid = &quot;1.3.6.1.4.1.1466.20036&quot;</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -488,8 +488,8 @@ SERVER_SHUTDOWN_OID = &quot;1.3.6.1.4.1.1466.20036&quot;</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationDN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationDN*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationDN" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationDN">AuthenticationDN</h4>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationDn_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationDn*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationDn" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationDn">AuthenticationDn</h4>
   <div class="markdown level1 summary"><p>Returns the distinguished name (DN) used for as the bind name during
 the last successful bind operation.  <pre><code>null</code></pre> is returned
 if no authentication has been performed or if the bind resulted in
@@ -498,7 +498,7 @@ an anonymous connection.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string AuthenticationDN { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual string AuthenticationDn { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
