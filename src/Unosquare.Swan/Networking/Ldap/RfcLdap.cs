@@ -313,7 +313,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
 
-        public RfcLdapString GetErrorMessage() =>  new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral()
         {

@@ -109,10 +109,8 @@ namespace Unosquare.Swan.Networking.Ldap
         public object DecodeBoolean(Stream stream, int len)
         {
             var lber = new sbyte[len];
-
-            var i = stream.ReadInput(ref lber, 0, lber.Length);
-
-            if (i != len)
+            
+            if (stream.ReadInput(ref lber, 0, lber.Length) != len)
                 throw new EndOfStreamException("LBER: BOOLEAN: decode error: EOF");
 
             return lber[0] != 0x00;
@@ -173,8 +171,7 @@ namespace Unosquare.Swan.Networking.Ldap
             while (totalLen < len)
             {
                 // Make sure we have read all the data
-                var inLen = stream.ReadInput(ref octets, totalLen, len - totalLen);
-                totalLen += inLen;
+                totalLen += stream.ReadInput(ref octets, totalLen, len - totalLen);
             }
 
             return octets;

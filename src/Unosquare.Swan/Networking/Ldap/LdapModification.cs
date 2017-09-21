@@ -1,6 +1,39 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
+
+    /// <summary>
+    /// Ldap Modification Operators
+    /// </summary>
+    public enum LdapModificationOp
+    {
+        /// <summary>
+        /// Adds the listed values to the given attribute, creating
+        /// the attribute if it does not already exist.
+        /// ADD = 0
+        /// </summary>
+        Add = 0,
+
+        /// <summary>
+        /// Deletes the listed values from the given attribute,
+        /// removing the entire attribute (1) if no values are listed or
+        /// (2) if all current values of the attribute are listed for
+        /// deletion.
+        /// DELETE = 1
+        /// </summary>
+        Delete = 1,
+
+        /// <summary>
+        /// Replaces all existing values of the given attribute
+        /// with the new values listed, creating the attribute if it
+        /// does not already exist.
+        /// A replace with no value deletes the entire attribute if it
+        /// exists, and is ignored if the attribute does not exist.
+        /// REPLACE = 2
+        /// </summary>
+        Replace = 2
+    }
+
     /// <summary>
     /// A single add, delete, or replace operation to an LdapAttribute.
     /// An LdapModification contains information on the type of modification
@@ -34,34 +67,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapConnection.Modify"></seealso>
     /// <seealso cref="LdapAttribute"></seealso>
-    public class LdapModification : LdapMessage
+    public sealed class LdapModification : LdapMessage
     {
-        /// <summary>
-        /// Adds the listed values to the given attribute, creating
-        /// the attribute if it does not already exist.
-        /// ADD = 0
-        /// </summary>
-        public const int ADD = 0;
-
-        /// <summary>
-        /// Deletes the listed values from the given attribute,
-        /// removing the entire attribute (1) if no values are listed or
-        /// (2) if all current values of the attribute are listed for
-        /// deletion.
-        /// DELETE = 1
-        /// </summary>
-        public const int DELETE = 1;
-
-        /// <summary>
-        /// Replaces all existing values of the given attribute
-        /// with the new values listed, creating the attribute if it
-        /// does not already exist.
-        /// A replace with no value deletes the entire attribute if it
-        /// exists, and is ignored if the attribute does not exist.
-        /// REPLACE = 2
-        /// </summary>
-        public const int REPLACE = 2;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapModification" /> class.
         /// Specifies a modification to be made to an attribute.
@@ -80,7 +87,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// attribute
         /// </li></ul></param>
         /// <param name="attr">The attribute to modify.</param>
-        public LdapModification(int op, LdapAttribute attr)
+        public LdapModification(LdapModificationOp op, LdapAttribute attr)
         {
             Op = op;
             Attribute = attr;
@@ -92,7 +99,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The attribute.
         /// </value>
-        public virtual LdapAttribute Attribute { get; }
+        public LdapAttribute Attribute { get; }
 
         /// <summary>
         /// Returns the type of modification specified by this object.
@@ -102,7 +109,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The op.
         /// </value>
-        public virtual int Op { get; }
+        public LdapModificationOp Op { get; }
     }
 }
 #endif

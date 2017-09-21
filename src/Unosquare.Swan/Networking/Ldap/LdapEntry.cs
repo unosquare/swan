@@ -73,10 +73,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The attribute set of the entry.
         /// </returns>
-        public virtual LdapAttributeSet GetAttributeSet()
-        {
-            return Attrs;
-        }
+        public virtual LdapAttributeSet GetAttributeSet() => Attrs;
 
         /// <summary>
         ///     Returns an attribute set from the entry, consisting of only those
@@ -100,26 +97,17 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     match the specified subtypes or an empty set if no attributes
         ///     match.
         /// </returns>
-        public virtual LdapAttributeSet GetAttributeSet(string subtype)
-        {
-            return Attrs.GetSubset(subtype);
-        }
+        public virtual LdapAttributeSet GetAttributeSet(string subtype) => Attrs.GetSubset(subtype);
     }
-    
+
     /// <summary>
-    ///     The name and values of one attribute of a directory entry.
-    ///     LdapAttribute objects are used when searching for, adding,
-    ///     modifying, and deleting attributes from the directory.
-    ///     LdapAttributes are often used in conjunction with an
-    ///     {@link LdapAttributeSet} when retrieving or adding multiple
-    ///     attributes to an entry.
+    /// The name and values of one attribute of a directory entry.
+    /// LdapAttribute objects are used when searching for, adding,
+    /// modifying, and deleting attributes from the directory.
+    /// LdapAttributes are often used in conjunction with an
+    /// {@link LdapAttributeSet} when retrieving or adding multiple
+    /// attributes to an entry.
     /// </summary>
-    /// <seealso cref="LdapEntry">
-    /// </seealso>
-    /// <seealso cref="LdapAttributeSet">
-    /// </seealso>
-    /// <seealso cref="LdapModification">
-    /// </seealso>
     public class LdapAttribute
     {
         private readonly string name; // full attribute name
@@ -195,16 +183,14 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
-        ///     Constructs an attribute with a single string value.
+        /// Initializes a new instance of the <see cref="LdapAttribute" /> class.
+        /// Constructs an attribute with a single string value.
         /// </summary>
-        /// <param name="attrName">
-        ///     Name of the attribute.
-        /// </param>
-        /// <param name="attrString">
-        ///     Value of the attribute as a string.
-        ///     @throws IllegalArgumentException if attrName or attrString is null
-        /// </param>
+        /// <param name="attrName">Name of the attribute.</param>
+        /// <param name="attrString">Value of the attribute as a string.
+        /// @throws IllegalArgumentException if attrName or attrString is null</param>
+        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        /// <exception cref="Exception"></exception>
         public LdapAttribute(string attrName, string attrString)
             : this(attrName)
         {
@@ -251,7 +237,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         throw new ArgumentException($"Attribute value  at array index {i} cannot be null");
                     }
-                    
+
                     var sbytes = Encoding.UTF8.GetSBytes(attrStrings[i]);
                     Add(sbytes);
                 }
@@ -348,8 +334,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     try
                     {
-                        var dchar = Encoding.UTF8.GetChars(((sbyte[])values[0]).ToByteArray());
-                        return new string(dchar);
+                        return Encoding.UTF8.GetString(((sbyte[])values[0]).ToByteArray());
                     }
                     catch (IOException use)
                     {
@@ -659,7 +644,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (subtype == null)
             {
-                throw new ArgumentException("subtype cannot be null");
+                throw new ArgumentNullException(nameof(subtype));
             }
 
             return subTypes != null && subTypes.Any(t => t.ToUpper().Equals(subtype.ToUpper()));
@@ -757,7 +742,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             for (var i = 0; i < values.Length; i++)
             {
-                if (!Equals(attrBytes, (sbyte[]) values[i])) continue;
+                if (!Equals(attrBytes, (sbyte[])values[i])) continue;
 
                 if (i == 0 && values.Length == 1)
                 {
@@ -833,12 +818,9 @@ namespace Unosquare.Swan.Networking.Ldap
             else
             {
                 // Duplicate attribute values not allowed
-                foreach (var t in values)
+                if (values.Any(t => Equals(bytes, (sbyte[])t)))
                 {
-                    if (Equals(bytes, (sbyte[])t))
-                    {
-                        return; // Duplicate, don't add
-                    }
+                    return; // Duplicate, don't add
                 }
 
                 var tmp = new object[values.Length + 1];
@@ -916,7 +898,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             continue;
                         }
-                        
+
                         var dchar = Encoding.UTF8.GetChars(((sbyte[])values[i]).ToByteArray());
                         var sval = new string(dchar);
                         if (sval.Length == 0)
@@ -1301,20 +1283,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Establece el enumerador en su posición inicial (antes del primer elemento de la colección).
         /// </summary>
-        public virtual void Reset()
-        {
-            tempAuxObj = null;
-        }
+        public virtual void Reset() => tempAuxObj = null;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="ArrayEnumeration" /> class.
         /// Constructor to create the Enumeration
         /// </summary>
         /// <param name="eArray">the array to use for the Enumeration</param>
-        public ArrayEnumeration(object[] eArray)
-        {
-            this.eArray = eArray;
-        }
+        public ArrayEnumeration(object[] eArray) => this.eArray = eArray;
 
         /// <summary>
         /// Determines whether [has more elements].
@@ -1322,10 +1298,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///   <c>true</c> if [has more elements]; otherwise, <c>false</c>.
         /// </returns>
-        public bool HasMoreElements()
-        {
-            return index < eArray?.Length;
-        }
+        public bool HasMoreElements() => index < eArray?.Length;
 
         /// <summary>
         /// Nexts the element.

@@ -20,21 +20,12 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int Tag = 0x11;
 
         /// <summary>
-        ///     ID is added for Optimization.
-        ///     Id needs only be one Value for every instance,
-        ///     thus we create it only once.
+        /// ID is added for Optimization.
+        /// Id needs only be one Value for every instance,
+        /// thus we create it only once.
         /// </summary>
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, Tag);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1SetOf"/> class.
-        /// Constructs an Asn1SetOf object with no actual Asn1Objects in it. Assumes a default size of 5 elements.
-        /// </summary>
-        public Asn1SetOf()
-            : base(Id)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1SetOf"/> class.
         ///     Constructs an Asn1SetOf object with the specified
@@ -44,26 +35,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="size">
         ///     Specifies the initial size of the collection.
         /// </param>
-        public Asn1SetOf(int size)
+        public Asn1SetOf(int size = 10)
             : base(Id, size)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1SetOf"/> class.
-        /// A copy constructor that creates an Asn1SetOf from an instance of Asn1Set.
-        /// Since SET and SET_OF have the same identifier, the decoder
-        /// will always return a SET object when it detects that identifier.
-        /// In order to take advantage of the Asn1SetOf type, we need to be
-        /// able to construct this object when knowingly receiving an
-        /// Asn1Set.
-        /// </summary>
-        /// <param name="set">The set.</param>
-        public Asn1SetOf(Asn1Set set)
-            : base(Id, set.ToArray(), set.Size())
-        {
-        }
-
+        
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -74,9 +50,10 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     The Asn1Choice object represents the choice of any Asn1Object. All
-    ///     Asn1Object methods are delegated to the object this Asn1Choice contains.
+    /// The Asn1Choice object represents the choice of any Asn1Object. All
+    /// Asn1Object methods are delegated to the object this Asn1Choice contains.
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
     internal class Asn1Choice 
         : Asn1Object
     {
@@ -347,17 +324,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// a reference to the duplicate.
         /// </summary>
         /// <returns>Cloned object</returns>
-        public object Clone()
-        {
-            try
-            {
-                return MemberwiseClone();
-            }
-            catch (Exception ce)
-            {
-                throw new Exception("Internal error, cannot create clone", ce);
-            }
-        }
+        public object Clone() => MemberwiseClone();
 
         /// <summary>
         /// In the case that we have a tag number that is greater than 30, we need
@@ -558,18 +525,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <returns>String</returns>
         /// <exception cref="Exception">IO Exception</exception>
-        public string StringValue()
-        {
-            try
-            {
-                var dchar = Encoding.UTF8.GetChars(_content.ToByteArray());
-                return new string(dchar);
-            }
-            catch (IOException uee)
-            {
-                throw new Exception(uee.ToString());
-            }
-        }
+        public string StringValue() => Encoding.UTF8.GetString(_content.ToByteArray());
 
         /// <summary>
         /// Return a String representation of this Asn1Object.
@@ -602,12 +558,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="identifier">The identifier.</param>
         /// <param name="obj">The object renamed.</param>
-        /// <param name="isExplicit">if set to <c>true</c> [explicit renamed].</param>
-        public Asn1Tagged(Asn1Identifier identifier, Asn1Object obj, bool isExplicit = true)
+        /// <param name="isExplicit">if set to <c>true</c> [explicit].</param>
+        public Asn1Tagged(Asn1Identifier identifier, Asn1Object obj = null, bool isExplicit = true)
             : base(identifier)
         {
             _content = obj;
             _isExplicit = isExplicit;
+
             if (!isExplicit)
             {
                 // replace object's id with new tag.
@@ -759,17 +716,14 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Replaces the Asn1Object in the specified index position of
-        ///     this Asn1Structured object.
+        /// Replaces the Asn1Object in the specified index position of
+        /// this Asn1Structured object.
         /// </summary>
-        /// <param name="index">
-        ///     The index into the Asn1Structured object where
-        ///     this new ANS1Object will be placed.
-        /// </param>
-        /// <param name="value">
-        ///     The Asn1Object to set in this Asn1Structured
-        ///     object.
-        /// </param>
+        /// <param name="index">The index into the Asn1Structured object where
+        /// this new ANS1Object will be placed.</param>
+        /// <param name="value">The Asn1Object to set in this Asn1Structured
+        /// object.</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public void Set(int index, Asn1Object value)
         {
             if (index >= _contentIndex || index < 0)
@@ -805,19 +759,17 @@ namespace Unosquare.Swan.Networking.Ldap
         public int Size() => _contentIndex;
 
         /// <summary>
-        ///     Creates a String representation of this Asn1Structured.
-        ///     object.
+        /// Creates a String representation of this Asn1Structured.
+        /// object.
         /// </summary>
-        /// <param name="type">
-        ///     the Type to put in the String representing this structured object
-        /// </param>
+        /// <param name="type">the Type to put in the String representing this structured object</param>
         /// <returns>
-        ///     the String representation of this object.
+        /// the String representation of this object.
         /// </returns>
         public string ToString(string type)
         {
-            var sb = new StringBuilder();
-            sb.Append(type);
+            var sb = new StringBuilder().Append(type);
+
             for (var i = 0; i < _contentIndex; i++)
             {
                 sb.Append(_content[i]);
@@ -1095,7 +1047,8 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     This class inherits from the Asn1Structured class which
     ///     provides functionality to hold multiple Asn1 components.
     /// </summary>
-    internal class Asn1Sequence : Asn1Structured
+    internal class Asn1Sequence 
+        : Asn1Structured
     {
         /// <summary> ASN.1 SEQUENCE tag definition.</summary>
         public const int Tag = 0x10;
@@ -1116,7 +1069,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="size">
         ///     Specifies the initial size of the collection.
         /// </param>
-        public Asn1Sequence(int size = 10)
+        public Asn1Sequence(int size)
             : base(Id, size)
         {
         }

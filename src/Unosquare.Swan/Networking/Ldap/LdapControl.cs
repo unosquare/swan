@@ -1204,8 +1204,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             // Parse out the scope
             var filterStart = url.IndexOf('?', scanStart);
-            string scopeStr;
-            scopeStr = filterStart < 0 ? url.Substring(scanStart, scanEnd - scanStart) : url.Substring(scanStart, filterStart - scanStart);
+            var scopeStr = filterStart < 0 ? url.Substring(scanStart, scanEnd - scanStart) : url.Substring(scanStart, filterStart - scanStart);
 
             if (scopeStr.ToUpper().Equals(string.Empty.ToUpper()))
             {

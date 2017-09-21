@@ -134,13 +134,13 @@ namespace Unosquare.Swan.Networking
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous of send email operation</returns>
         public async Task SendMailAsync(
-            SmtpSessionState sessionState, 
+            SmtpSessionState sessionState,
             string sessionId = null,
             CancellationToken ct = default(CancellationToken))
         {
             $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info(
                 typeof(SmtpClient));
-            await SendMailAsync(new[] {sessionState}, sessionId, ct);
+            await SendMailAsync(new[] { sessionState }, sessionId, ct);
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Unosquare.Swan.Networking
         /// <exception cref="System.Security.SecurityException">Could not upgrade the channel to SSL.</exception>
         /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
         public async Task SendMailAsync(
-            IEnumerable<SmtpSessionState> sessionStates, 
+            IEnumerable<SmtpSessionState> sessionStates,
             string sessionId = null,
             CancellationToken ct = default(CancellationToken))
         {
@@ -172,20 +172,18 @@ namespace Unosquare.Swan.Networking
                         // Read the greeting message
                         replyText = await connection.ReadLineAsync(ct);
 
+                        // EHLO 1
+                        requestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
+                        $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
+
+                        await connection.WriteLineAsync(requestText, ct);
+                        do
                         {
-                            // EHLO 1
-                            requestText = $"{SmtpCommandNames.EHLO} {ClientHostname}";
-                            $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);
-
-                            await connection.WriteLineAsync(requestText, ct);
-                            do
-                            {
-                                replyText = await connection.ReadLineAsync(ct);
-                            } 
-                            while (replyText.StartsWith("250 ") == false);
-
-                            ValidateReply(replyText, sessionId);
+                            replyText = await connection.ReadLineAsync(ct);
                         }
+                        while (replyText.StartsWith("250 ") == false);
+
+                        ValidateReply(replyText, sessionId);
 
                         // STARTTLS
                         if (EnableSsl)

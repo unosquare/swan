@@ -47,40 +47,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The search filter.
         /// </value>
         public virtual IEnumerator SearchFilter => RfcFilter.GetFilterIterator();
-        
-        /// <summary> Search Filter Identifier for an AND component.</summary>
-        public const int AND = 0;
-
-        /// <summary> Search Filter Identifier for an OR component.</summary>
-        public const int OR = 1;
-
-        /// <summary> Search Filter Identifier for a NOT component.</summary>
-        public const int NOT = 2;
-
-        /// <summary> Search Filter Identifier for an EQUALITY_MATCH component.</summary>
-        public const int EQUALITY_MATCH = 3;
-
-        /// <summary> Search Filter Identifier for a SUBSTRINGS component.</summary>
-        public const int SUBSTRINGS = 4;
-
-        /// <summary> Search Filter Identifier for a GREATER_OR_EQUAL component.</summary>
-        public const int GREATER_OR_EQUAL = 5;
-
-        /// <summary> Search Filter Identifier for a LESS_OR_EQUAL component.</summary>
-        public const int LESS_OR_EQUAL = 6;
-
-        /// <summary> Search Filter Identifier for a PRESENT component.</summary>
-        public const int PRESENT = 7;
-
-        /// <summary> Search Filter Identifier for an APPROX_MATCH component.</summary>
-        public const int APPROX_MATCH = 8;
-
-        /// <summary> Search Filter Identifier for an EXTENSIBLE_MATCH component.</summary>
-        public const int EXTENSIBLE_MATCH = 9;
 
         /// <summary>
-        ///     Search Filter Identifier for an INITIAL component of a SUBSTRING.
-        ///     Note: An initial SUBSTRING is represented as "value*".
+        /// Search Filter Identifier for an INITIAL component of a SUBSTRING.
+        /// Note: An initial SUBSTRING is represented as "value*".
         /// </summary>
         public const int INITIAL = 0;
 

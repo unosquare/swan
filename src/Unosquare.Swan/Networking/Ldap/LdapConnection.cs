@@ -124,7 +124,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public const string ServerShutdownOid = "1.3.6.1.4.1.1466.20036";
 
         /// <summary> The OID string that identifies a StartTLS request and response.</summary>
-        private const string StartTlsOid = "1.3.6.1.4.1.1466.20037";
+        public const string StartTlsOid = "1.3.6.1.4.1.1466.20037";
 
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
 
@@ -166,33 +166,28 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual string AuthenticationDn => BindProperties == null ? null : (BindProperties.Anonymous ? null : BindProperties.AuthenticationDN);
 
         /// <summary>
-        ///     Returns the method used to authenticate the connection. The return
-        ///     value is one of the following:
-        ///     <ul>
-        ///         <li>"none" indicates the connection is not authenticated.</li>
-        ///         <li>
-        ///             "simple" indicates simple authentication was used or that a null
-        ///             or empty authentication DN was specified.
-        ///         </li>
-        ///         <li>"sasl" indicates that a SASL mechanism was used to authenticate</li>
-        ///     </ul>
+        /// Returns the method used to authenticate the connection. The return
+        /// value is one of the following:
+        /// <ul><li>"none" indicates the connection is not authenticated.</li><li>
+        /// "simple" indicates simple authentication was used or that a null
+        /// or empty authentication DN was specified.
+        /// </li><li>"sasl" indicates that a SASL mechanism was used to authenticate</li></ul>
         /// </summary>
-        /// <returns>
-        ///     The method used to authenticate the connection.
-        /// </returns>
+        /// <value>
+        /// The authentication method.
+        /// </value>
         public virtual string AuthenticationMethod
             => BindProperties == null ? "simple" : BindProperties.AuthenticationMethod;
 
         /// <summary>
-        ///     Returns the properties if any specified on binding with a
-        ///     SASL mechanism.
-        ///     Null is returned if no authentication has been performed
-        ///     or no authentication Map is present.
+        /// Returns the properties if any specified on binding with a
+        /// SASL mechanism.
+        /// Null is returned if no authentication has been performed
+        /// or no authentication Map is present.
         /// </summary>
-        /// <returns>
-        ///     The bind properties Map Object used for SASL bind or null if
-        ///     the connection is not present or not authenticated.
-        /// </returns>
+        /// <value>
+        /// The sasl bind properties.
+        /// </value>
         public virtual IDictionary SaslBindProperties => BindProperties?.SaslBindProperties;
 
         /// <summary>
@@ -366,10 +361,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 return "2.2.1";
             if (name.ToUpper().Equals(LdapPropertyProtocol.ToUpper()))
                 return 3;
-            if (name.ToUpper().Equals(LdapPropertySecurity.ToUpper()))
-                return "simple";
 
-            return null;
+            return name.ToUpper().Equals(LdapPropertySecurity.ToUpper()) ? "simple" : null;
         }
 
         /// <summary>
@@ -395,9 +388,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cons">Constraints specific to the operation.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual Task Bind(string dn, string passwd, LdapConstraints cons = null)
-        {
-            return Bind(LdapV3, dn, passwd, cons);
-        }
+            => Bind(LdapV3, dn, passwd, cons);
 
         /// <summary>
         /// Synchronously authenticates to the Ldap server (that the object is
@@ -642,7 +633,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cons">The cons.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null)
+        public Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null)
         {
             if (cons == null)
                 cons = _defSearchCons;
@@ -654,9 +645,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var msg = new LdapModifyRequest(dn, mods, cons.GetControls());
 
-            await RequestLdapMessage(msg);
-
-            // Should return something?
+            return RequestLdapMessage(msg);
         }
     }
 }

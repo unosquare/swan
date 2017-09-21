@@ -213,11 +213,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControls"/> class.
+        /// Initializes a new instance of the <see cref="RfcControls" /> class.
         /// Constructs a Controls object by decoding it from an InputStream.
         /// </summary>
         /// <param name="dec">The decimal.</param>
-        /// <param name="in_Renamed">The in renamed.</param>
+        /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
         public RfcControls(IAsn1Decoder dec, Stream stream, int len) 
             : base(dec, stream, len)
@@ -431,7 +431,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the server error message
         /// </returns>
-        public RfcLdapString GetErrorMessage() =>  new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
 
         /// <summary>
         ///     Returns the referral(s) from the server

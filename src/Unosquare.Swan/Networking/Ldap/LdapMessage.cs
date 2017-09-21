@@ -199,7 +199,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if ((object)stringTag != null)
+                if (stringTag != null)
                 {
                     return stringTag;
                 }
@@ -341,10 +341,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// from a command.
         /// </summary>
         /// <param name="message">A response message.</param>
-        internal LdapMessage(RfcLdapMessage message)
-        {
-            this.message = message;
-        }
+        internal LdapMessage(RfcLdapMessage message) => this.message = message;
         
         /// <summary>
         /// Instantiates an LdapControl.  We search through our list of
@@ -377,8 +374,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                     try
                     {
-                        var ctl = ctlConstructor.Invoke(args);
-                        return (LdapControl)ctl;
+                        return (LdapControl)ctlConstructor.Invoke(args);
                     }
                     catch (UnauthorizedAccessException)
                     {

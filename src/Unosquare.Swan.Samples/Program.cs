@@ -80,10 +80,8 @@
                     var newProperty = "33366669999";
                     var modList = new ArrayList();
                     var attribute = new LdapAttribute("mobile", newProperty);
-                    modList.Add(new LdapModification(LdapModification.REPLACE, attribute));
-                    LdapModification[] mods = new LdapModification[modList.Count];
-                    Type mtype = Type.GetType("LdapModification");
-                    mods = (LdapModification[])modList.ToArray(typeof(LdapModification));
+                    modList.Add(new LdapModification(LdapModificationOp.Replace, attribute));
+                    var mods = (LdapModification[])modList.ToArray(typeof(LdapModification));
                     await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com", mods);
                     cn.Disconnect();
                 }

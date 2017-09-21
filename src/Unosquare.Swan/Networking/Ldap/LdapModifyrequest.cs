@@ -45,6 +45,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var seqof = req.Modifications;
                 var mods = seqof.ToArray();
                 var modifications = new LdapModification[mods.Length];
+
                 for (var m = 0; m < mods.Length; m++)
                 {
                     var opSeq = (Asn1Sequence)mods[m];
@@ -72,7 +73,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         attr.AddValue(t.ByteValue());
                     }
 
-                    modifications[m] = new LdapModification(op, attr);
+                    modifications[m] = new LdapModification((LdapModificationOp) op, attr);
                 }
 
                 return modifications;
@@ -106,7 +107,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
 
                 var rfcMod = new Asn1Sequence(2);
-                rfcMod.Add(new Asn1Enumerated(t.Op));
+                rfcMod.Add(new Asn1Enumerated((int) t.Op));
                 rfcMod.Add(new RfcAttributeTypeAndValues(new RfcAttributeDescription(attr.Name), vals));
 
                 rfcMods.Add(rfcMod);
@@ -138,13 +139,13 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="RfcAttributeDescription"/> class.
+            /// Initializes a new instance of the <see cref="RfcAttributeDescription" /> class.
             /// </summary>
             /// <param name="dec">The decimal.</param>
-            /// <param name="inRenamed">The in renamed.</param>
+            /// <param name="stream">The stream.</param>
             /// <param name="len">The length.</param>
-            public RfcAttributeDescription(IAsn1Decoder dec, Stream inRenamed, int len)
-                : base(dec, inRenamed, len)
+            public RfcAttributeDescription(IAsn1Decoder dec, Stream stream, int len)
+                : base(dec, stream, len)
             {
             }
         }

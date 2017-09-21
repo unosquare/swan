@@ -1,10 +1,7 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
-    using System;
-    using System.Collections;
     using System.IO;
-    using System.Text;
 
     /// <summary>
     /// Represents an Ldap Control.
@@ -16,15 +13,15 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre>
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    internal class RfcControl : Asn1Sequence
+    internal sealed class RfcControl : Asn1Sequence
     {
-        public virtual Asn1OctetString ControlType => (Asn1OctetString)Get(0);
+        public Asn1OctetString ControlType => (Asn1OctetString)Get(0);
 
         /// <summary>
         ///     Returns criticality.
         ///     If no value present, return the default value of FALSE.
         /// </summary>
-        public virtual Asn1Boolean Criticality
+        public Asn1Boolean Criticality
         {
             get
             {
@@ -49,7 +46,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Called to set/replace the ControlValue.  Will normally be called by
         ///     the child classes after the parent has been instantiated.
         /// </summary>
-        public virtual Asn1OctetString ControlValue
+        public Asn1OctetString ControlValue
         {
             get
             {
@@ -73,6 +70,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 if (value == null)
                     return;
+
                 if (Size() == 3)
                 {
                     // We already have a control value, replace it
@@ -149,8 +147,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcControl(Asn1Sequence seqObj)
             : base(3)
         {
-            var len = seqObj.Size();
-            for (var i = 0; i < len; i++)
+            for (var i = 0; i < seqObj.Size(); i++)
                 Add(seqObj.Get(i));
         }
     }
@@ -178,12 +175,12 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcSaslCredentials : Asn1Sequence
     {
-        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials = null) 
+        public RfcSaslCredentials(string mechanism, sbyte[] credentials = null) 
             : base(2)
         {
-            Add(mechanism);
+            Add(new RfcLdapString(mechanism));
             if (credentials != null)
-                Add(credentials);
+                Add(new Asn1OctetString(credentials));
         }
     }
 
@@ -204,10 +201,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         public RfcAuthenticationChoice(string mechanism, sbyte[] credentials)
-            : base(
-                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3),
-                    new RfcSaslCredentials(new RfcLdapString(mechanism),
-                        credentials != null ? new Asn1OctetString(credentials) : null), false))
+            : base(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3), new RfcSaslCredentials(mechanism, credentials), false))
         {
             // implicit tagging
         }

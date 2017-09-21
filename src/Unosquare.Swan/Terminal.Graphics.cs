@@ -27,13 +27,13 @@
 
             public static void TopRight() => ((byte)191).Write(BorderColor);
 
-            public static void BottomLeft() =>((byte)192).Write(BorderColor);
+            public static void BottomLeft() => ((byte)192).Write(BorderColor);
 
-            public static void BottomTee() =>((byte)193).Write(BorderColor);
+            public static void BottomTee() => ((byte)193).Write(BorderColor);
 
             public static void TopTee() => ((byte)194).Write(BorderColor);
 
-            public static void LeftTee() =>((byte)195).Write(BorderColor);
+            public static void LeftTee() => ((byte)195).Write(BorderColor);
 
             public static void Horizontal(int length) => ((byte)196).Write(BorderColor, length);
 
