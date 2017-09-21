@@ -18,17 +18,17 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcRequest" />
-    internal class RfcModifyRquest 
+    internal class RfcModifyRequest 
         : Asn1Sequence, IRfcRequest
     {
-        public RfcModifyRquest(RfcLdapDN objectRenamed, Asn1SequenceOf modification)
+        public RfcModifyRequest(RfcLdapDN objectRenamed, Asn1SequenceOf modification)
             : base(2)
         {
             Add(objectRenamed);
             Add(modification);
         }
 
-        internal RfcModifyRquest(Asn1Object[] origiRequest, string baseRenamed)
+        internal RfcModifyRequest(Asn1Object[] origiRequest, string baseRenamed)
             : base(origiRequest, origiRequest.Length)
         {
             if (baseRenamed != null)
@@ -76,9 +76,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <returns></returns>
         public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_RESPONSE);
-        }
+            => new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_RESPONSE);
     }
 }
 #endif

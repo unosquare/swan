@@ -1,4 +1,6 @@
-﻿#if !UWP
+﻿using System.Linq;
+
+#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
@@ -120,6 +122,146 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     public class LdapAttribute
     {
+        private readonly string name; // full attribute name
+        private readonly string baseName; // cn of cn;lang-ja;phonetic
+        private readonly string[] subTypes; // lang-ja of cn;lang-ja
+        private object[] values; // Array of byte[] attribute values
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute" /> class.
+        /// Constructs an attribute with copies of all values of the input
+        /// attribute.
+        /// </summary>
+        /// <param name="attr">An LdapAttribute to use as a template.
+        /// @throws IllegalArgumentException if attr is null</param>
+        /// <exception cref="ArgumentException">LdapAttribute class cannot be null</exception>
+        public LdapAttribute(LdapAttribute attr)
+        {
+            // Do a deep copy of the LdapAttribute template
+            name = attr?.name ?? throw new ArgumentException("LdapAttribute class cannot be null");
+            baseName = attr.baseName;
+            if (attr.subTypes != null)
+            {
+                subTypes = new string[attr.subTypes.Length];
+                Array.Copy(attr.subTypes, 0, subTypes, 0, subTypes.Length);
+            }
+
+            // OK to just copy attributes, as the app only sees a deep copy of them
+            if (attr.values != null)
+            {
+                values = new object[attr.values.Length];
+                Array.Copy(attr.values, 0, values, 0, values.Length);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
+        /// Constructs an attribute with no values.
+        /// </summary>
+        /// <param name="attrName">Name of the attribute.
+        /// @throws IllegalArgumentException if attrName is null</param>
+        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
+        public LdapAttribute(string attrName)
+        {
+            name = attrName ?? throw new ArgumentException("Attribute name cannot be null");
+            baseName = GetBaseName(attrName);
+            subTypes = GetSubtypes(attrName);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
+        ///     Constructs an attribute with a byte-formatted value.
+        /// </summary>
+        /// <param name="attrName">
+        ///     Name of the attribute.
+        /// </param>
+        /// <param name="attrBytes">
+        ///     Value of the attribute as raw bytes.
+        ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
+        ///     @throws IllegalArgumentException if attrName or attrBytes is null
+        /// </param>
+        public LdapAttribute(string attrName, sbyte[] attrBytes)
+            : this(attrName)
+        {
+            if (attrBytes == null)
+            {
+                throw new ArgumentException("Attribute value cannot be null");
+            }
+
+            // Make our own copy of the byte array to prevent app from changing it
+            var tmp = new sbyte[attrBytes.Length];
+            Array.Copy(attrBytes, 0, tmp, 0, attrBytes.Length);
+            Add(tmp);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
+        ///     Constructs an attribute with a single string value.
+        /// </summary>
+        /// <param name="attrName">
+        ///     Name of the attribute.
+        /// </param>
+        /// <param name="attrString">
+        ///     Value of the attribute as a string.
+        ///     @throws IllegalArgumentException if attrName or attrString is null
+        /// </param>
+        public LdapAttribute(string attrName, string attrString)
+            : this(attrName)
+        {
+            if (attrString == null)
+            {
+                throw new ArgumentException("Attribute value cannot be null");
+            }
+
+            try
+            {
+                Add(Encoding.UTF8.GetSBytes(attrString));
+            }
+            catch (IOException e)
+            {
+                throw new Exception(e.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
+        ///     Constructs an attribute with an array of string values.
+        /// </summary>
+        /// <param name="attrName">
+        ///     Name of the attribute.
+        /// </param>
+        /// <param name="attrStrings">
+        ///     Array of values as strings.
+        ///     @throws IllegalArgumentException if attrName, attrStrings, or a member
+        ///     of attrStrings is null
+        /// </param>
+        public LdapAttribute(string attrName, string[] attrStrings)
+            : this(attrName)
+        {
+            if (attrStrings == null)
+            {
+                throw new ArgumentException("Attribute values array cannot be null");
+            }
+
+            for (int i = 0, u = attrStrings.Length; i < u; i++)
+            {
+                try
+                {
+                    if (attrStrings[i] == null)
+                    {
+                        throw new ArgumentException($"Attribute value  at array index {i} cannot be null");
+                    }
+                    
+                    var sbytes = Encoding.UTF8.GetSBytes(attrStrings[i]);
+                    Add(sbytes);
+                }
+                catch (IOException e)
+                {
+                    throw new Exception(e.ToString());
+                }
+            }
+        }
+
         /// <summary>
         ///     Returns the values of the attribute as an array of bytes.
         /// </summary>
@@ -202,14 +344,12 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                string rval = null;
-
                 if (values != null)
                 {
                     try
                     {
                         var dchar = Encoding.UTF8.GetChars(((sbyte[])values[0]).ToByteArray());
-                        rval = new string(dchar);
+                        return new string(dchar);
                     }
                     catch (IOException use)
                     {
@@ -217,7 +357,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
                 }
 
-                return rval;
+                return null;
             }
         }
 
@@ -233,13 +373,11 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                sbyte[] bva = null;
-                if (values != null)
-                {
-                    // Deep copy so app can't change the value
-                    bva = new sbyte[((sbyte[])values[0]).Length];
-                    Array.Copy((Array)values[0], 0, bva, 0, bva.Length);
-                }
+                if (values == null) return null;
+
+                // Deep copy so app can't change the value
+                var bva = new sbyte[((sbyte[])values[0]).Length];
+                Array.Copy((Array)values[0], 0, bva, 0, bva.Length);
 
                 return bva;
             }
@@ -262,23 +400,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The language subtype of the attribute or null if the attribute
         ///     has none.
         /// </returns>
-        public virtual string LangSubtype
-        {
-            get
-            {
-                if (subTypes == null) return null;
-
-                for (var i = 0; i < subTypes.Length; i++)
-                {
-                    if (subTypes[i].StartsWith("lang-"))
-                    {
-                        return subTypes[i];
-                    }
-                }
-
-                return null;
-            }
-        }
+        public virtual string LangSubtype => subTypes?.FirstOrDefault(t => t.StartsWith("lang-"));
 
         /// <summary>
         ///     Returns the name of the attribute.
@@ -300,161 +422,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 values = null;
                 try
                 {
-                    var ibytes = Encoding.UTF8.GetBytes(value);
-                    var sbytes = ibytes.ToSByteArray();
-                    Add(sbytes);
+                    Add(Encoding.UTF8.GetSBytes(value));
                 }
                 catch (IOException ue)
                 {
                     throw new Exception(ue.ToString());
-                }
-            }
-        }
-
-        private readonly string name; // full attribute name
-        private readonly string baseName; // cn of cn;lang-ja;phonetic
-        private readonly string[] subTypes; // lang-ja of cn;lang-ja
-        private object[] values; // Array of byte[] attribute values
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAttribute" /> class.
-        /// Constructs an attribute with copies of all values of the input
-        /// attribute.
-        /// </summary>
-        /// <param name="attr">An LdapAttribute to use as a template.
-        /// @throws IllegalArgumentException if attr is null</param>
-        /// <exception cref="ArgumentException">LdapAttribute class cannot be null</exception>
-        public LdapAttribute(LdapAttribute attr)
-        {
-            // Do a deep copy of the LdapAttribute template
-            name = attr?.name ?? throw new ArgumentException("LdapAttribute class cannot be null");
-            baseName = attr.baseName;
-            if (attr.subTypes != null)
-            {
-                subTypes = new string[attr.subTypes.Length];
-                Array.Copy(attr.subTypes, 0, subTypes, 0, subTypes.Length);
-            }
-
-            // OK to just copy attributes, as the app only sees a deep copy of them
-            if (attr.values != null)
-            {
-                values = new object[attr.values.Length];
-                Array.Copy(attr.values, 0, values, 0, values.Length);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
-        /// Constructs an attribute with no values.
-        /// </summary>
-        /// <param name="attrName">Name of the attribute.
-        /// @throws IllegalArgumentException if attrName is null</param>
-        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
-        public LdapAttribute(string attrName)
-        {
-            if (attrName == null)
-            {
-                throw new ArgumentException("Attribute name cannot be null");
-            }
-
-            name = attrName;
-            baseName = GetBaseName(attrName);
-            subTypes = GetSubtypes(attrName);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
-        ///     Constructs an attribute with a byte-formatted value.
-        /// </summary>
-        /// <param name="attrName">
-        ///     Name of the attribute.
-        /// </param>
-        /// <param name="attrBytes">
-        ///     Value of the attribute as raw bytes.
-        ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
-        ///     @throws IllegalArgumentException if attrName or attrBytes is null
-        /// </param>
-        public LdapAttribute(string attrName, sbyte[] attrBytes)
-            : this(attrName)
-        {
-            if (attrBytes == null)
-            {
-                throw new ArgumentException("Attribute value cannot be null");
-            }
-
-            // Make our own copy of the byte array to prevent app from changing it
-            var tmp = new sbyte[attrBytes.Length];
-            Array.Copy(attrBytes, 0, tmp, 0, attrBytes.Length);
-            Add(tmp);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
-        ///     Constructs an attribute with a single string value.
-        /// </summary>
-        /// <param name="attrName">
-        ///     Name of the attribute.
-        /// </param>
-        /// <param name="attrString">
-        ///     Value of the attribute as a string.
-        ///     @throws IllegalArgumentException if attrName or attrString is null
-        /// </param>
-        public LdapAttribute(string attrName, string attrString)
-            : this(attrName)
-        {
-            if (attrString == null)
-            {
-                throw new ArgumentException("Attribute value cannot be null");
-            }
-
-            try
-            {
-                var ibytes = Encoding.UTF8.GetBytes(attrString);
-                var sbytes = ibytes.ToSByteArray();
-                Add(sbytes);
-            }
-            catch (IOException e)
-            {
-                throw new Exception(e.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
-        ///     Constructs an attribute with an array of string values.
-        /// </summary>
-        /// <param name="attrName">
-        ///     Name of the attribute.
-        /// </param>
-        /// <param name="attrStrings">
-        ///     Array of values as strings.
-        ///     @throws IllegalArgumentException if attrName, attrStrings, or a member
-        ///     of attrStrings is null
-        /// </param>
-        public LdapAttribute(string attrName, string[] attrStrings)
-            : this(attrName)
-        {
-            if (attrStrings == null)
-            {
-                throw new ArgumentException("Attribute values array cannot be null");
-            }
-
-            for (int i = 0, u = attrStrings.Length; i < u; i++)
-            {
-                try
-                {
-                    if (attrStrings[i] == null)
-                    {
-                        throw new ArgumentException("Attribute value " + "at array index " + i + " cannot be null");
-                    }
-                    
-                    var ibytes = Encoding.UTF8.GetBytes(attrStrings[i]);
-                    var sbytes = ibytes.ToSByteArray();
-                    Add(sbytes);
-                }
-                catch (IOException e)
-                {
-                    throw new Exception(e.ToString());
                 }
             }
         }
@@ -499,9 +471,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             try
             {
-                var ibytes = Encoding.UTF8.GetBytes(attrString);
-                var sbytes = ibytes.ToSByteArray();
-                Add(sbytes);
+                Add(Encoding.UTF8.GetSBytes(attrString));
             }
             catch (IOException ue)
             {
@@ -599,10 +569,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The base name of the attribute.
         /// </returns>
-        public virtual string GetBaseName()
-        {
-            return baseName;
-        }
+        public virtual string GetBaseName() => baseName;
 
         /// <summary>
         ///     Returns the base name of the specified attribute name.
@@ -625,12 +592,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             var idx = attrName.IndexOf(';');
-            if (idx == -1)
-            {
-                return attrName;
-            }
-
-            return attrName.Substring(0, idx - 0);
+            return idx == -1 ? attrName : attrName.Substring(0, idx - 0);
         }
 
         /// <summary>
@@ -700,16 +662,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new ArgumentException("subtype cannot be null");
             }
 
-            if (subTypes != null)
-            {
-                for (var i = 0; i < subTypes.Length; i++)
-                {
-                    if (subTypes[i].ToUpper().Equals(subtype.ToUpper()))
-                        return true;
-                }
-            }
-
-            return false;
+            return subTypes != null && subTypes.Any(t => t.ToUpper().Equals(subtype.ToUpper()));
         }
 
         /// <summary>
@@ -737,14 +690,14 @@ namespace Unosquare.Swan.Networking.Ldap
 
             for (var i = 0; i < subtypes.Length; i++)
             {
-                for (var j = 0; j < subTypes.Length; j++)
+                foreach (var sub in subTypes)
                 {
-                    if (subTypes[j] == null)
+                    if (sub == null)
                     {
                         throw new ArgumentException("subtype " + "at array index " + i + " cannot be null");
                     }
 
-                    if (subTypes[j].ToUpper().Equals(subtypes[i].ToUpper()))
+                    if (sub.ToUpper().Equals(subtypes[i].ToUpper()))
                     {
                         goto gotSubType;
                     }
@@ -776,9 +729,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             try
             {
-                var ibytes = Encoding.UTF8.GetBytes(attrString);
-                var sbytes = ibytes.ToSByteArray();
-                RemoveValue(sbytes);
+                RemoveValue(Encoding.UTF8.GetSBytes(attrString));
             }
             catch (IOException uee)
             {
@@ -806,39 +757,37 @@ namespace Unosquare.Swan.Networking.Ldap
 
             for (var i = 0; i < values.Length; i++)
             {
-                if (Equals(attrBytes, (sbyte[])values[i]))
+                if (!Equals(attrBytes, (sbyte[]) values[i])) continue;
+
+                if (i == 0 && values.Length == 1)
                 {
-                    if (i == 0 && values.Length == 1)
-                    {
-                        // Optimize if first element of a single valued attr
-                        values = null;
-                        return;
-                    }
-
-                    if (values.Length == 1)
-                    {
-                        values = null;
-                    }
-                    else
-                    {
-                        var moved = values.Length - i - 1;
-                        var tmp = new object[values.Length - 1];
-                        if (i != 0)
-                        {
-                            Array.Copy(values, 0, tmp, 0, i);
-                        }
-
-                        if (moved != 0)
-                        {
-                            Array.Copy(values, i + 1, tmp, i, moved);
-                        }
-
-                        values = tmp;
-                        tmp = null;
-                    }
-
-                    break;
+                    // Optimize if first element of a single valued attr
+                    values = null;
+                    return;
                 }
+
+                if (values.Length == 1)
+                {
+                    values = null;
+                }
+                else
+                {
+                    var moved = values.Length - i - 1;
+                    var tmp = new object[values.Length - 1];
+                    if (i != 0)
+                    {
+                        Array.Copy(values, 0, tmp, 0, i);
+                    }
+
+                    if (moved != 0)
+                    {
+                        Array.Copy(values, i + 1, tmp, i, moved);
+                    }
+
+                    values = tmp;
+                }
+
+                break;
             }
         }
 
@@ -864,9 +813,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     specified object.
         /// </returns>
         public virtual int CompareTo(object attribute)
-        {
-            return name.CompareTo(((LdapAttribute)attribute).name);
-        }
+            => name.CompareTo(((LdapAttribute)attribute).name);
 
         /// <summary>
         ///     Adds an object to <code>this</code> object's list of attribute values
@@ -886,9 +833,9 @@ namespace Unosquare.Swan.Networking.Ldap
             else
             {
                 // Duplicate attribute values not allowed
-                for (var i = 0; i < values.Length; i++)
+                foreach (var t in values)
                 {
-                    if (Equals(bytes, (sbyte[])values[i]))
+                    if (Equals(bytes, (sbyte[])t))
                     {
                         return; // Duplicate, don't add
                     }
@@ -898,7 +845,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 Array.Copy(values, 0, tmp, 0, values.Length);
                 tmp[values.Length] = bytes;
                 values = tmp;
-                tmp = null;
             }
         }
 
@@ -1014,30 +960,21 @@ namespace Unosquare.Swan.Networking.Ldap
     public class LdapAttributeSet : SetSupport
     {
         /// <summary>
-        ///     Returns the number of attributes in this set.
-        /// </summary>
-        /// <returns>
-        ///     number of attributes in this set.
-        /// </returns>
-        public override int Count => map.Count;
-
-        /// <summary>
         ///     This is the underlying data structure for this set.
         ///     HashSet is similar to the functionality of this set.  The difference
         ///     is we use the name of an attribute as keys in the Map and LdapAttributes
         ///     as the values.  We also do not declare the map as transient, making the
         ///     map serializable.
         /// </summary>
-        private readonly Hashtable map;
+        private readonly Hashtable map = new Hashtable();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAttributeSet"/> class.
-        /// Constructs an empty set of attributes.
+        ///     Returns the number of attributes in this set.
         /// </summary>
-        public LdapAttributeSet()
-        {
-            map = new Hashtable();
-        }
+        /// <returns>
+        ///     number of attributes in this set.
+        /// </returns>
+        public override int Count => map.Count;
 
         /// <summary>
         ///     Returns a deep copy of this attribute set.
@@ -1089,9 +1026,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     if there is no exact match.
         /// </returns>
         public virtual LdapAttribute GetAttribute(string attrName)
-        {
-            return (LdapAttribute)map[attrName.ToUpper()];
-        }
+            => (LdapAttribute)map[attrName.ToUpper()];
 
         /// <summary>
         ///     Returns a single best-match attribute, or <code>null</code> if no match is
@@ -1156,10 +1091,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     if no match is found in the entry.
         /// </returns>
         public virtual LdapAttribute GetAttribute(string attrName, string lang)
-        {
-            var key = attrName + ";" + lang;
-            return (LdapAttribute)map[key.ToUpper()];
-        }
+            => (LdapAttribute)map[(attrName + ";" + lang).ToUpper()];
 
         /// <summary>
         ///     Creates a new attribute set containing only the attributes that have
@@ -1226,9 +1158,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// iterator over the attributes in this set
         /// </returns>
         public override IEnumerator GetEnumerator()
-        {
-            return map.Values.GetEnumerator();
-        }
+            => map.Values.GetEnumerator();
 
         /// <summary>
         ///     Returns <code>true</code> if this set contains no elements
@@ -1237,9 +1167,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     <code>true</code> if this set contains no elements
         /// </returns>
         public override bool IsEmpty()
-        {
-            return map.Count == 0;
-        }
+            => map.Count == 0;
 
         /// <summary>
         ///     Returns <code>true</code> if this set contains an attribute of the same name
@@ -1254,10 +1182,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     is not of type LdapAttribute.
         /// </returns>
         public override bool Contains(object attr)
-        {
-            var attribute = (LdapAttribute)attr;
-            return map.ContainsKey(attribute.Name.ToUpper());
-        }
+            => map.ContainsKey(((LdapAttribute)attr).Name.ToUpper());
 
         /// <summary>
         ///     Adds the specified attribute to this set if it is not already present.
@@ -1312,41 +1237,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Removes all of the elements from this set.
         /// </summary>
-        public override void Clear()
-        {
-            map.Clear();
-        }
-
-        /// <summary>
-        ///     Adds all <code>LdapAttribute</code> objects in the specified collection to
-        ///     this collection.
-        /// </summary>
-        /// <param name="c">
-        ///     Collection of <code>LdapAttribute</code> objects.
-        ///     @throws ClassCastException occurs when an element in the
-        ///     collection is not of type <code>LdapAttribute</code>.
-        /// </param>
-        /// <returns>
-        ///     true if this set changed as a result of the call.
-        /// </returns>
-        public override bool AddAll(ICollection c)
-        {
-            var setChanged = false;
-            var i = c.GetEnumerator();
-
-            while (i.MoveNext())
-            {
-                // we must enforce that everything in c is an LdapAttribute
-                // add will return true if the attribute was added
-                if (Add(i.Current))
-                {
-                    setChanged = true;
-                }
-            }
-
-            return setChanged;
-        }
-
+        public override void Clear() => map.Clear();
+        
         /// <summary>
         ///     Returns a string representation of this LdapAttributeSet
         /// </summary>

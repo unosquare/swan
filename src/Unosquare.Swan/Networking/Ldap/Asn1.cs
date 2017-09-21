@@ -515,7 +515,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             try
             {
-                _content = Encoding.UTF8.GetBytes(content).ToSByteArray();
+                _content = Encoding.UTF8.GetSBytes(content);
             }
             catch (IOException uee)
             {

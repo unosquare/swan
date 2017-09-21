@@ -99,23 +99,14 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="controlType">Type of the control.</param>
-        public RfcControl(RfcLdapOID controlType)
-            : this(controlType, new Asn1Boolean(false), null)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcControl"/> class.
         /// </summary>
         /// <param name="controlType">Type of the control.</param>
         /// <param name="criticality">The criticality.</param>
-        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality)
-            : this(controlType, criticality, null)
+        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality = null)
+            : this(controlType, criticality ?? new Asn1Boolean(false), null)
         {
         }
 
@@ -187,12 +178,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcSaslCredentials : Asn1Sequence
     {
-        public RfcSaslCredentials(RfcLdapString mechanism)
-            : this(mechanism, null)
-        {
-        }
-
-        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials) 
+        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials = null) 
             : base(2)
         {
             Add(mechanism);

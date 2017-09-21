@@ -82,8 +82,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="attr">The attribute to modify.</param>
         public LdapModification(int op, LdapAttribute attr)
         {
-            this.Op = op;
-            this.Attribute = attr;
+            Op = op;
+            Attribute = attr;
         }
 
         /// <summary>

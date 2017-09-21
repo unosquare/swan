@@ -287,7 +287,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the Authentication DN for a bind request
         /// </returns>
-        public virtual string AuthenticationDN => Asn1Object.RequestDN;
+        public virtual string AuthenticationDN => Asn1Object.RequestDn;
 
         /// <summary>
         /// Return an Asn1 representation of this add request.
@@ -1314,7 +1314,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             {
                                 var origMsg = Asn1Object.RequestingMessage.Asn1Object;
                                 string dn;
-                                if ((dn = origMsg.RequestDN) != null)
+                                if ((dn = origMsg.RequestDn) != null)
                                 {
                                     urlRef.SetDN(dn);
                                     aRef = urlRef.ToString();

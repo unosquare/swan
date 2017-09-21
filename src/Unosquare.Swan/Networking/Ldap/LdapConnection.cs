@@ -429,7 +429,7 @@ namespace Unosquare.Swan.Networking.Ldap
             sbyte[] pw = null;
             if (string.IsNullOrWhiteSpace(passwd) == false)
             {
-                pw = Encoding.UTF8.GetBytes(passwd).ToSByteArray();
+                pw = Encoding.UTF8.GetSBytes(passwd);
             }
 
             return Bind(version, dn, pw, cons);

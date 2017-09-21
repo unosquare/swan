@@ -17,7 +17,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="modifications">The modifications.</param>
         /// <param name="control">The control.</param>
         public LdapModifyRequest(string dn, LdapModification[] modifications, LdapControl[] control)
-            : base(MODIFY_REQUEST, new RfcModifyRquest(new RfcLdapDN(dn), EncodeModifications(modifications)), control)
+            : base(MODIFY_REQUEST, new RfcModifyRequest(new RfcLdapDN(dn), EncodeModifications(modifications)), control)
         {
         }
 
@@ -27,7 +27,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The dn.
         /// </value>
-        public virtual string DN => Asn1Object.RequestDN;
+        public virtual string DN => Asn1Object.RequestDn;
 
         /// <summary>
         /// Gets the modifications.
@@ -40,7 +40,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                var req = (RfcModifyRquest)Asn1Object.GetRequest();
+                var req = (RfcModifyRequest)Asn1Object.GetRequest();
 
                 var seqof = req.Modifications;
                 var mods = seqof.ToArray();
@@ -54,7 +54,6 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
 
                     // Contains operation and sequence for the attribute
-
                     var opArray = opSeq.ToArray();
                     var asn1op = (Asn1Enumerated)opArray[0];
 
@@ -68,10 +67,9 @@ namespace Unosquare.Swan.Networking.Ldap
                     var valueArray = avalue.ToArray();
                     var attr = new LdapAttribute(name);
 
-                    for (var v = 0; v < valueArray.Length; v++)
+                    foreach (RfcAttributeValue t in valueArray)
                     {
-                        var rfcV = (RfcAttributeValue)valueArray[v];
-                        attr.AddValue(rfcV.ByteValue());
+                        attr.AddValue(t.ByteValue());
                     }
 
                     modifications[m] = new LdapModification(op, attr);
@@ -92,9 +90,10 @@ namespace Unosquare.Swan.Networking.Ldap
         private static Asn1SequenceOf EncodeModifications(LdapModification[] mods)
         {
             var rfcMods = new Asn1SequenceOf(mods.Length);
-            for (var i = 0; i < mods.Length; i++)
+
+            foreach (var t in mods)
             {
-                var attr = mods[i].Attribute;
+                var attr = t.Attribute;
 
                 var vals = new Asn1SetOf(attr.Size());
                 if (attr.Size() > 0)
@@ -107,7 +106,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
 
                 var rfcMod = new Asn1Sequence(2);
-                rfcMod.Add(new Asn1Enumerated(mods[i].Op));
+                rfcMod.Add(new Asn1Enumerated(t.Op));
                 rfcMod.Add(new RfcAttributeTypeAndValues(new RfcAttributeDescription(attr.Name), vals));
 
                 rfcMods.Add(rfcMod);

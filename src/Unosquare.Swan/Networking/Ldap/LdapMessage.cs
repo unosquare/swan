@@ -325,9 +325,9 @@ namespace Unosquare.Swan.Networking.Ldap
                 // Move LdapControls into an RFC 2251 Controls object.
                 asn1Ctrls = new RfcControls();
 
-                for (var i = 0; i < controls.Length; i++)
+                foreach (var t in controls)
                 {
-                    asn1Ctrls.add(controls[i].Asn1Object);
+                    asn1Ctrls.Add(t.Asn1Object);
                 }
             }
 
@@ -511,10 +511,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// True if the collection is empty, false otherwise.
         /// </returns>
-        public virtual bool IsEmpty()
-        {
-            return Count == 0;
-        }
+        public virtual bool IsEmpty() => Count == 0;
 
         /// <summary>
         /// Removes an element from the set.

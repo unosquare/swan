@@ -128,9 +128,9 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var output = new MemoryStream();
             
-            for (var i = 0; i < arrayValue.Length; i++)
+            foreach (var obj in arrayValue)
             {
-                arrayValue[i].Encode(this, output);
+                obj.Encode(this, output);
             }
             
             EncodeLength((int)output.Length, stream);
