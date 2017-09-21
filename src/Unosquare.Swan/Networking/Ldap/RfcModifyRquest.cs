@@ -1,8 +1,8 @@
 ﻿#if !UWP
-using System.IO;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System.IO;
+
     /// <summary>
     /// Represents an Ldap Modify Request.
     /// <pre>
@@ -37,12 +37,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         public virtual Asn1SequenceOf Modifications => (Asn1SequenceOf)GetRenamed(1);
-
-        public IRfcRequest DupRequest(string requestBase, string filter, bool reference)
-        {
-            return new RfcModifyRquest(ToArray(), requestBase);
-        }
-
+        
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_REQUEST);

@@ -251,20 +251,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Asn1 Identifier
         /// </returns>
-        public override Asn1Identifier GetIdentifier()
-        {
-            return ID;
-        }
-
-        public IRfcRequest DupRequest(string base_Renamed, string filter, bool request)
-        {
-            return new RfcBindRequest(ToArray(), base_Renamed);
-        }
-
-        public string GetRequestDN()
-        {
-            return ((RfcLdapDN)Get(1)).StringValue();
-        }
+        public override Asn1Identifier GetIdentifier() => ID;
+        
+        public string GetRequestDN() => ((RfcLdapDN)Get(1)).StringValue();
     }
 
     /// <summary>

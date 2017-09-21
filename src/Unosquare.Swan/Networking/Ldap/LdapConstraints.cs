@@ -8,8 +8,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// Shared ancestor to the two types of referral objects - LdapBindHandler and
     /// LdapAuthHandler.
     /// </summary>
-    /// <seealso cref="LdapBindHandler"></seealso>
-    /// <seealso cref="LdapAuthHandler"></seealso>
     public interface ILdapReferralHandler
     {
     }
@@ -24,99 +22,12 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     public class LdapConstraints
     {
-        static LdapConstraints()
-        {
-            new object();
-        }
-
-        /// <summary>
-        /// Returns the maximum number of referrals to follow during automatic
-        /// referral following.  The operation will be abandoned and terminated by
-        /// the API with a result code of LdapException.REFERRAL_LIMIT_EXCEEDED
-        /// if the number of referrals in a sequence exceeds the limit.
-        /// It is ignored for asynchronous operations.
-        /// </summary>
-        /// <value>
-        /// The hop limit.
-        /// The maximum number of referrals to follow in a
-        /// sequence during automatic referral following.
-        /// The default value is 10. A value of 0 means no limit.
-        /// The operation will be abandoned and terminated by the
-        /// API with a result code of
-        /// LdapException.REFERRAL_LIMIT_EXCEEDED if the
-        /// number of referrals in a sequence exceeds the limit.
-        /// It is ignored for asynchronous operations.
-        /// </value>
-        /// <seealso cref="HopLimit"></seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
-        public virtual int HopLimit
-        {
-            get => hopLimit;
-
-            set => hopLimit = value;
-        }
-
-        /// <summary>
-        /// Gets all the properties of the constraints object which has been
-        /// assigned with {@link #setProperty(String, Object)}.
-        /// A value of <code>null</code> is returned if no properties are defined.
-        /// </summary>
-        /// <value>
-        /// The properties.
-        /// </value>
-        /// <seealso cref="object"></seealso>
-        /// <seealso cref="LdapConnection.GetProperty"></seealso>
-        internal virtual Hashtable Properties
-        {
-            get => properties;
-
-            set => properties = (Hashtable) value.Clone();
-        }
-
-        /// <summary>
-        /// Specified whether or not referrals are followed automatically.
-        /// </summary>
-        /// <value>
-        /// True to follow referrals automatically.
-        /// False to throw an LdapReferralException if
-        /// the server returns a referral.
-        /// </value>
-        public virtual bool ReferralFollowing
-        {
-            get => doReferrals;
-
-            set => doReferrals = value;
-        }
-
-        /// <summary>
-        /// Returns the maximum number of milliseconds to wait for any operation
-        /// under these constraints.
-        /// If the value is 0, there is no maximum time limit on waiting
-        /// for operation results. The actual granularity of the timeout depends
-        /// platform.  This limit is enforced the the API on an
-        /// operation, not by the server.
-        /// The operation will be abandoned and terminated by the
-        /// API with a result code of LdapException.Ldap_TIMEOUT if the
-        /// operation exceeds the time limit.
-        /// </summary>
-        /// <value>
-        /// The time limit.
-        /// </value>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
-        public virtual int TimeLimit
-        {
-            get => msLimit;
-
-            set => msLimit = value;
-        }
-
-        private int msLimit;
-        private int hopLimit = 10;
-        private bool doReferrals;
-        private ILdapReferralHandler refHandler;
-        private LdapControl[] controls;
-        private Hashtable properties; // Properties
+        private int _msLimit;
+        private int _hopLimit = 10;
+        private bool _doReferrals;
+        private ILdapReferralHandler _refHandler;
+        private LdapControl[] _controls;
+        private Hashtable _properties; // Properties
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapConstraints"/> class.
@@ -172,10 +83,92 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapReferralException"></seealso>
         public LdapConstraints(int msLimit, bool doReferrals, ILdapReferralHandler handler, int hopLimit)
         {
-            this.msLimit = msLimit;
-            this.doReferrals = doReferrals;
-            refHandler = handler;
-            this.hopLimit = hopLimit;
+            _msLimit = msLimit;
+            _doReferrals = doReferrals;
+            _refHandler = handler;
+            _hopLimit = hopLimit;
+        }
+
+        /// <summary>
+        /// Returns the maximum number of referrals to follow during automatic
+        /// referral following.  The operation will be abandoned and terminated by
+        /// the API with a result code of LdapException.REFERRAL_LIMIT_EXCEEDED
+        /// if the number of referrals in a sequence exceeds the limit.
+        /// It is ignored for asynchronous operations.
+        /// </summary>
+        /// <value>
+        /// The hop limit.
+        /// The maximum number of referrals to follow in a
+        /// sequence during automatic referral following.
+        /// The default value is 10. A value of 0 means no limit.
+        /// The operation will be abandoned and terminated by the
+        /// API with a result code of
+        /// LdapException.REFERRAL_LIMIT_EXCEEDED if the
+        /// number of referrals in a sequence exceeds the limit.
+        /// It is ignored for asynchronous operations.
+        /// </value>
+        /// <seealso cref="HopLimit"></seealso>
+        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
+        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
+        public virtual int HopLimit
+        {
+            get => _hopLimit;
+
+            set => _hopLimit = value;
+        }
+
+        /// <summary>
+        /// Specified whether or not referrals are followed automatically.
+        /// </summary>
+        /// <value>
+        /// True to follow referrals automatically.
+        /// False to throw an LdapReferralException if
+        /// the server returns a referral.
+        /// </value>
+        public virtual bool ReferralFollowing
+        {
+            get => _doReferrals;
+
+            set => _doReferrals = value;
+        }
+
+        /// <summary>
+        /// Returns the maximum number of milliseconds to wait for any operation
+        /// under these constraints.
+        /// If the value is 0, there is no maximum time limit on waiting
+        /// for operation results. The actual granularity of the timeout depends
+        /// platform.  This limit is enforced the the API on an
+        /// operation, not by the server.
+        /// The operation will be abandoned and terminated by the
+        /// API with a result code of LdapException.Ldap_TIMEOUT if the
+        /// operation exceeds the time limit.
+        /// </summary>
+        /// <value>
+        /// The time limit.
+        /// </value>
+        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
+        public virtual int TimeLimit
+        {
+            get => _msLimit;
+
+            set => _msLimit = value;
+        }
+
+        /// <summary>
+        /// Gets all the properties of the constraints object which has been
+        /// assigned with {@link #setProperty(String, Object)}.
+        /// A value of <code>null</code> is returned if no properties are defined.
+        /// </summary>
+        /// <value>
+        /// The properties.
+        /// </value>
+        /// <seealso cref="object"></seealso>
+        /// <seealso cref="LdapConnection.GetProperty"></seealso>
+        internal virtual Hashtable Properties
+        {
+            get => _properties;
+
+            set => _properties = (Hashtable)value.Clone();
         }
 
         /// <summary>
@@ -184,10 +177,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// The controls to be sent to the server, or null if none.
         /// </returns>
-        public virtual LdapControl[] GetControls()
-        {
-            return controls;
-        }
+        public virtual LdapControl[] GetControls() => _controls;
 
         /// <summary>
         /// Gets a property of the constraints object which has been
@@ -200,20 +190,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         /// <seealso cref="object"></seealso>
         /// <seealso cref="LdapConnection.GetProperty(string)"></seealso>
-        public virtual object GetProperty(string name)
-        {
-            return properties?[name];
-        }
-
-        /// <summary>
-        /// Returns an object that can process authentication for automatic
-        /// referral handling.
-        /// It may be null.
-        /// </summary>
-        /// <returns>
-        /// An LdapReferralHandler object that can process authentication.
-        /// </returns>
-        internal virtual ILdapReferralHandler GetReferralHandler() => refHandler;
+        public virtual object GetProperty(string name) =>  _properties?[name];
 
         /// <summary>
         /// Sets a single control to be sent to the server.
@@ -224,12 +201,12 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (control == null)
             {
-                controls = null;
+                _controls = null;
                 return;
             }
 
-            controls = new LdapControl[1];
-            controls[0] = (LdapControl) control.Clone();
+            _controls = new LdapControl[1];
+            _controls[0] = (LdapControl) control.Clone();
         }
 
         /// <summary>
@@ -241,14 +218,15 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (controls == null || controls.Length == 0)
             {
-                this.controls = null;
+                _controls = null;
                 return;
             }
 
-            this.controls = new LdapControl[controls.Length];
+            _controls = new LdapControl[controls.Length];
+
             for (var i = 0; i < controls.Length; i++)
             {
-                this.controls[i] = (LdapControl) controls[i].Clone();
+                _controls[i] = (LdapControl) controls[i].Clone();
             }
         }
 
@@ -259,16 +237,16 @@ namespace Unosquare.Swan.Networking.Ldap
         /// dynamic and proprietary extensions to operation modifiers.
         /// </summary>
         /// <param name="name">Name of the property to set.</param>
-        /// <param name="value_Renamed">The value renamed.</param>
+        /// <param name="propertyValue">The property value.</param>
         /// <seealso cref="LdapConnection.GetProperty"></seealso>
-        public virtual void SetProperty(string name, object value_Renamed)
+        public virtual void SetProperty(string name, object propertyValue)
         {
-            if (properties == null)
+            if (_properties == null)
             {
-                properties = new Hashtable();
+                _properties = new Hashtable();
             }
 
-            properties[name] = value_Renamed;
+            _properties[name] = propertyValue;
         }
 
         /// <summary>
@@ -278,10 +256,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="handler">An object that implements LdapBindHandler or
         /// LdapAuthHandler</param>
-        public virtual void SetReferralHandler(ILdapReferralHandler handler)
-        {
-            refHandler = handler;
-        }
+        public virtual void SetReferralHandler(ILdapReferralHandler handler) => _refHandler = handler;
 
         /// <summary>
         ///     Clones an LdapConstraints object.
@@ -294,15 +269,15 @@ namespace Unosquare.Swan.Networking.Ldap
             try
             {
                 var newObj = MemberwiseClone();
-                if (controls != null)
+                if (_controls != null)
                 {
-                    ((LdapConstraints)newObj).controls = new LdapControl[controls.Length];
-                    controls.CopyTo(((LdapConstraints)newObj).controls, 0);
+                    ((LdapConstraints)newObj)._controls = new LdapControl[_controls.Length];
+                    _controls.CopyTo(((LdapConstraints)newObj)._controls, 0);
                 }
 
-                if (properties != null)
+                if (_properties != null)
                 {
-                    ((LdapConstraints)newObj).properties = (Hashtable)properties.Clone();
+                    ((LdapConstraints)newObj)._properties = (Hashtable)_properties.Clone();
                 }
 
                 return newObj;
@@ -312,6 +287,16 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception("Internal error, cannot create clone", ce);
             }
         }
+
+        /// <summary>
+        /// Returns an object that can process authentication for automatic
+        /// referral handling.
+        /// It may be null.
+        /// </summary>
+        /// <returns>
+        /// An LdapReferralHandler object that can process authentication.
+        /// </returns>
+        internal virtual ILdapReferralHandler GetReferralHandler() => _refHandler;
     }
 }
 

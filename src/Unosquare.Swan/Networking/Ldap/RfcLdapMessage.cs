@@ -164,27 +164,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Set(2, new RfcControls(dec, bais, content.Length));
             }
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
-        /// Create an RfcLdapMessage by copying the content array
-        /// </summary>
-        /// <param name="origContent">the array list to copy</param>
-        /// <param name="origRequest">The original request.</param>
-        /// <param name="dn">The dn.</param>
-        /// <param name="filter">The filter.</param>
-        /// <param name="reference">if set to <c>true</c> [reference].</param>
-        internal RfcLdapMessage(Asn1Object[] origContent, IRfcRequest origRequest, string dn, string filter, bool reference)
-            : base(origContent, origContent.Length)
-        {
-            Set(0, new RfcMessageID()); // MessageID has static counter
-
-            var req = (IRfcRequest)origContent[1];
-            var newreq = req.DupRequest(dn, filter, reference);
-            op = (Asn1Object)newreq;
-            Set(1, (Asn1Object)newreq);
-        }
-
+        
         /// <summary> Returns this RfcLdapMessage's messageID as an int.</summary>
         public virtual int MessageID => ((Asn1Integer)Get(0)).IntValue();
 
@@ -227,32 +207,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///   <c>true</c> if this instance is request; otherwise, <c>false</c>.
         /// </returns>
         public virtual bool IsRequest() => Get(1) is IRfcRequest;
-
-        /// <summary>
-        ///     Duplicate this message, replacing base dn, filter, and scope if supplied
-        /// </summary>
-        /// <param name="dn">
-        ///     the base dn
-        /// </param>
-        /// <param name="filter">
-        ///     the filter
-        /// </param>
-        /// <param name="reference">
-        ///     true if a search reference
-        /// </param>
-        /// <returns>
-        ///     the object representing the new message
-        /// </returns>
-        public object DupMessage(string dn, string filter, bool reference)
-        {
-            if (op == null)
-            {
-                throw new LdapException("DUP_ERROR", LdapException.LOCAL_ERROR, null);
-            }
-
-            var newMsg = new RfcLdapMessage(ToArray(), (IRfcRequest)Get(1), dn, filter, reference);
-            return newMsg;
-        }
     }
 
     /// <summary>
@@ -366,17 +320,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public interface IRfcRequest
     {
-        /// <summary>
-        /// Builds a new request using the data from the this object.
-        /// </summary>
-        /// <param name="requestBase">The request base.</param>
-        /// <param name="filter">The filter.</param>
-        /// <param name="reference">if set to <c>true</c> [reference].</param>
-        /// <returns>
-        /// Rfc request
-        /// </returns>
-        IRfcRequest DupRequest(string requestBase, string filter, bool reference);
-
         /// <summary>
         /// Builds a new request using the data from the this object.
         /// </summary>

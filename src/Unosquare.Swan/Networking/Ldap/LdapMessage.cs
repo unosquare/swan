@@ -345,28 +345,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             this.message = message;
         }
-
-        /// <summary>
-        ///     Returns a mutated clone of this LdapMessage,
-        ///     replacing base dn, filter.
-        /// </summary>
-        /// <param name="dn">
-        ///     the base dn
-        /// </param>
-        /// <param name="filter">
-        ///     the filter
-        /// </param>
-        /// <param name="reference">
-        ///     true if a search reference
-        /// </param>
-        /// <returns>
-        ///     the object representing the new message
-        /// </returns>
-        internal LdapMessage Clone(string dn, string filter, bool reference)
-        {
-            return new LdapMessage((RfcLdapMessage)message.DupMessage(dn, filter, reference));
-        }
-
+        
         /// <summary>
         /// Instantiates an LdapControl.  We search through our list of
         /// registered controls.  If we find a matchiing OID we instantiate

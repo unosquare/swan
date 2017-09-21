@@ -793,8 +793,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Adds a new Asn1Object to the end of this Asn1Structured
         /// object.
         /// </summary>
-        /// <param name="valueRenamed">The value renamed.</param>
-        public void Add(Asn1Object valueRenamed)
+        /// <param name="obj">The object.</param>
+        public void Add(Asn1Object obj)
         {
             if (_contentIndex == _content.Length)
             {
@@ -805,7 +805,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 _content = newArray;
             }
 
-            _content[_contentIndex++] = valueRenamed;
+            _content[_contentIndex++] = obj;
         }
 
         /// <summary>

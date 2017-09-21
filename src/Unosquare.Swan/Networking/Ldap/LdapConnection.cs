@@ -338,10 +338,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+        public void Dispose() => Dispose(true);
 
         /// <summary>
         /// Returns a property of a connection object.

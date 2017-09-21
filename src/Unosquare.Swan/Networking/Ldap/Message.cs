@@ -18,55 +18,38 @@ namespace Unosquare.Swan.Networking.Ldap
         private string source;
         
         // The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character
-        private string delimiters = " \t\n\r";
-        private readonly bool returnDelims;
+        private readonly string delimiters = " \t\n\r";
+        private readonly bool _returnDelims;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tokenizer"/> class.
+        /// Initializes a new instance of the <see cref="Tokenizer" /> class.
         /// Initializes a new class instance with a specified string to process
-        /// </summary>
-        /// <param name="source">String to tokenize</param>
-        public Tokenizer(string source)
-        {
-            elements = new ArrayList();
-            elements.AddRange(source.Split(delimiters.ToCharArray()));
-            RemoveEmptyStrings();
-            this.source = source;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Tokenizer"/> class.
-        ///     Initializes a new class instance with a specified string to process
-        ///     and the specified token delimiters to use
+        /// and the specified token delimiters to use
         /// </summary>
         /// <param name="source">String to tokenize</param>
         /// <param name="delimiters">String containing the delimiters</param>
-        public Tokenizer(string source, string delimiters)
+        /// <param name="retDel">if set to <c>true</c> [ret delete].</param>
+        public Tokenizer(string source, string delimiters, bool retDel = false)
         {
             elements = new ArrayList();
-            this.delimiters = delimiters;
-            elements.AddRange(source.Split(this.delimiters.ToCharArray()));
-            RemoveEmptyStrings();
+            this.delimiters = delimiters ?? this.delimiters;
             this.source = source;
-        }
-
-        public Tokenizer(string source, string delimiters, bool retDel)
-        {
-            elements = new ArrayList();
-            this.delimiters = delimiters;
-            this.source = source;
-            returnDelims = retDel;
-            if (returnDelims)
+            _returnDelims = retDel;
+            if (_returnDelims)
                 Tokenize();
             else
                 elements.AddRange(source.Split(this.delimiters.ToCharArray()));
             RemoveEmptyStrings();
         }
 
+        /// <summary>
+        ///     Current token count for the source string
+        /// </summary>
+        public int Count => elements.Count;
+
         private void Tokenize()
         {
             var tempstr = source;
-            string toks;
             if (tempstr.IndexOfAny(delimiters.ToCharArray()) < 0 && tempstr.Length > 0)
             {
                 elements.Add(tempstr);
@@ -86,11 +69,13 @@ namespace Unosquare.Swan.Networking.Ldap
                         tempstr = tempstr.Substring(1);
                     }
                     else
+                    {
                         tempstr = string.Empty;
+                    }
                 }
                 else
                 {
-                    toks = tempstr.Substring(0, tempstr.IndexOfAny(delimiters.ToCharArray()));
+                    var toks = tempstr.Substring(0, tempstr.IndexOfAny(delimiters.ToCharArray()));
                     elements.Add(toks);
                     elements.Add(tempstr.Substring(toks.Length, 1));
 
@@ -105,18 +90,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Current token count for the source string
-        /// </summary>
-        public int Count => elements.Count;
-
-        /// <summary>
         ///     Determines if there are more tokens to return from the source string
         /// </summary>
         /// <returns>True or false, depending if there are more tokens</returns>
-        public bool HasMoreTokens()
-        {
-            return elements.Count > 0;
-        }
+        public bool HasMoreTokens() => elements.Count > 0;
 
         /// <summary>
         ///     Returns the next token from the token list
@@ -124,9 +101,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>The string value of the token</returns>
         public string NextToken()
         {
-            string result;
             if (source == string.Empty) throw new Exception();
-            if (returnDelims)
+
+            string result;
+            if (_returnDelims)
             {
                 RemoveEmptyStrings();
                 result = (string) elements[0];
@@ -143,19 +121,7 @@ namespace Unosquare.Swan.Networking.Ldap
             source = source.TrimStart(delimiters.ToCharArray());
             return result;
         }
-
-        /// <summary>
-        ///     Returns the next token from the source string, using the provided
-        ///     token delimiters
-        /// </summary>
-        /// <param name="delimiters">String containing the delimiters to use</param>
-        /// <returns>The string value of the token</returns>
-        public string NextToken(string delimiters)
-        {
-            this.delimiters = delimiters;
-            return NextToken();
-        }
-
+        
         /// <summary>
         ///     Removes all empty strings from the token list
         /// </summary>
@@ -190,7 +156,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="matchValue">The assertion value.</param>
         public RfcMatchingRuleAssertion(Asn1OctetString matchValue) 
-            : this(null, null, matchValue, null)
+            : this(null, null, matchValue)
         {
         }
 
@@ -203,13 +169,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="type">Optional attribute description.</param>
         /// <param name="matchValue">The assertion value.</param>
         /// <param name="dnAttributes">Asn1Boolean value. (default false)</param>
-        public RfcMatchingRuleAssertion(RfcLdapString matchingRule, RfcLdapString type, Asn1OctetString matchValue, Asn1Boolean dnAttributes) 
+        public RfcMatchingRuleAssertion(RfcLdapString matchingRule, RfcLdapString type, Asn1OctetString matchValue, Asn1Boolean dnAttributes = null) 
             : base(4)
         {
             if (matchingRule != null)
                 Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 1), matchingRule, false));
             if (type != null)
                 Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 2), type, false));
+
             Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 3), matchValue, false));
 
             // if dnAttributes if false, that is the default value and we must not
@@ -247,12 +214,11 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcAttributeDescriptionList(string[] attrs)
             : base(attrs?.Length ?? 0)
         {
-            if (attrs != null)
+            if (attrs == null) return;
+
+            foreach (var attr in attrs)
             {
-                for (var i = 0; i < attrs.Length; i++)
-                {
-                    Add(new RfcLdapString(attrs[i]));
-                }
+                Add(new RfcLdapString(attr));
             }
         }
     }
@@ -306,16 +272,16 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs a new Search Request copying from an existing request.
         /// </summary>
         /// <param name="origRequest">The original request.</param>
-        /// <param name="base_Renamed">The base renamed.</param>
+        /// <param name="stringBase">The base renamed.</param>
         /// <param name="filter">The filter.</param>
         /// <param name="request">if set to <c>true</c> [request].</param>
-        internal RfcSearchRequest(Asn1Object[] origRequest, string base_Renamed, string filter, bool request)
+        internal RfcSearchRequest(Asn1Object[] origRequest, string stringBase, string filter, bool request)
             : base(origRequest, origRequest.Length)
         {
             // Replace the base if specified, otherwise keep original base
-            if ((object) base_Renamed != null)
+            if ((object) stringBase != null)
             {
-                Set(0, new RfcLdapDN(base_Renamed));
+                Set(0, new RfcLdapDN(stringBase));
             }
 
             // If this is a reencode of a search continuation reference
@@ -347,12 +313,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_REQUEST);
         }
-
-        public IRfcRequest DupRequest(string base_Renamed, string filter, bool request)
-        {
-            return new RfcSearchRequest(ToArray(), base_Renamed, filter, request);
-        }
-
+        
         public string GetRequestDN()
         {
             return ((RfcLdapDN) Get(0)).StringValue();
@@ -450,7 +411,10 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcFilter : Asn1Choice
     {
         // Public variables for Filter
-        /// <summary> Identifier for AND component.</summary>
+
+        /// <summary>
+        /// Identifier for AND component.
+        /// </summary>
         public const int AND = LdapSearchRequest.AND;
 
         /// <summary> Identifier for OR component.</summary>
@@ -602,17 +566,17 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             ft = new FilterTokenizer(this, filterExpr);
-            return parseFilter();
+            return ParseFilter();
         }
 
         /// <summary>
         /// Parses an RFC 2254 filter
         /// </summary>
         /// <returns></returns>
-        private Asn1Tagged parseFilter()
+        private Asn1Tagged ParseFilter()
         {
             ft.getLeftParen();
-            var filter = parseFilterComp();
+            var filter = ParseFilterComp();
             ft.GetRightParen();
             return filter;
         }
@@ -621,7 +585,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// RFC 2254 filter helper method. Will Parse a filter component.
         /// </summary>
         /// <returns></returns>
-        private Asn1Tagged parseFilterComp()
+        private Asn1Tagged ParseFilterComp()
         {
             Asn1Tagged tag = null;
             var filterComp = ft.OpOrAttr;
@@ -632,7 +596,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, filterComp), ParseFilterList(), false);
                     break;
                 case NOT:
-                    tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, filterComp), parseFilter(), true);
+                    tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, filterComp), ParseFilter(), true);
                     break;
                 default:
                     var filterType = ft.FilterType;
@@ -749,11 +713,11 @@ namespace Unosquare.Swan.Networking.Ldap
         private Asn1SetOf ParseFilterList()
         {
             var set_Renamed = new Asn1SetOf();
-            set_Renamed.Add(parseFilter()); // must have at least 1 filter
+            set_Renamed.Add(ParseFilter()); // must have at least 1 filter
             while (ft.PeekChar() == '(')
             {
                 // check for more filters
-                set_Renamed.Add(parseFilter());
+                set_Renamed.Add(ParseFilter());
             }
 
             return set_Renamed;
@@ -1171,10 +1135,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Iterator over filter segments
         /// </returns>
-        public virtual IEnumerator GetFilterIterator()
-        {
-            return new FilterIterator(this, (Asn1Tagged) ChoiceValue);
-        }
+        public virtual IEnumerator GetFilterIterator() => new FilterIterator(this, (Asn1Tagged) ChoiceValue);
 
         /// <summary>
         /// Creates and returns a String representation of this filter.
@@ -1336,16 +1297,27 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         private sealed class FilterIterator : IEnumerator
         {
-            public void Reset()
-            {
-            }
+            private readonly Asn1Tagged root;
 
-            private void InitBlock(RfcFilter enclosingInstance)
+            /// <summary>
+            /// indicates if the identifier for a component has been returned yet
+            /// </summary>
+            private bool TagReturned;
+
+            /// <summary>
+            /// indexes the several parts a component may have
+            /// </summary>
+            private int Index = -1;
+
+            private bool hasMore = true;
+
+            private readonly RfcFilter enclosingInstance;
+
+            public FilterIterator(RfcFilter enclosingInstance, Asn1Tagged root)
             {
                 this.enclosingInstance = enclosingInstance;
+                this.root = root;
             }
-
-            private RfcFilter enclosingInstance;
 
             /// <summary>
             ///     Returns filter identifiers and components of a filter.
@@ -1464,32 +1436,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
 
-            public RfcFilter Enclosing_Instance => enclosingInstance;
-
-            internal readonly Asn1Tagged root;
-
-            /// <summary>
-            /// indicates if the identifier for a component has been returned yet
-            /// </summary>
-            internal bool TagReturned;
-
-            /// <summary>
-            /// indexes the several parts a component may have
-            /// </summary>
-            internal int Index = -1;
-
-            private bool hasMore = true;
-
-            public FilterIterator(RfcFilter enclosingInstance, Asn1Tagged root)
+            public void Reset()
             {
-                InitBlock(enclosingInstance);
-                this.root = root;
             }
-
-            public bool MoveNext()
-            {
-                return hasMore;
-            }
+            
+            public bool MoveNext() => hasMore;
         }
 
         /// <summary>
@@ -1559,7 +1510,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         }
 
                         // get first component of 'item' (attr or :dn or :matchingrule)
-                        var delims = "=~<>()";
+                        const string delims = "=~<>()";
                         var sb = new StringBuilder();
                         while (delims.IndexOf(filter[offset]) == -1 &&
                                filter.Substring(offset).StartsWith(":=") == false)
@@ -1740,13 +1691,11 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 if (offset >= filterLength)
                 {
-                    //"Unexpected end of filter",
                     throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapException.FILTER_ERROR);
                 }
 
                 if (filter[offset++] != ')')
-                {
-                    //"Missing right paren",
+                {¿
                     throw new LdapLocalException(ExceptionMessages.EXPECTING_RIGHT_PAREN, new object[] {filter[offset - 1]}, LdapException.FILTER_ERROR);
                 }
             }
@@ -1774,6 +1723,26 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary> Encapsulates an Ldap Bind properties</summary>
     internal class BindProperties
     {
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindProperties" /> class.
+        /// </summary>
+        /// <param name="version">The version.</param>
+        /// <param name="dn">The dn.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="anonymous">if set to <c>true</c> [anonymous].</param>
+        /// <param name="bindProperties">The bind properties.</param>
+        /// <param name="bindCallbackHandler">The bind callback handler.</param>
+        public BindProperties(int version, string dn, string method, bool anonymous, Hashtable bindProperties, object bindCallbackHandler)
+        {
+            ProtocolVersion = version;
+            AuthenticationDN = dn;
+            AuthenticationMethod = method;
+            Anonymous = anonymous;
+            SaslBindProperties = bindProperties;
+            SaslCallbackHandler = bindCallbackHandler;
+        }
+
         /// <summary> gets the protocol version</summary>
         public virtual int ProtocolVersion { get; } = 3;
 
@@ -1816,25 +1785,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     true if the bind properties specify an anonymous bind
         /// </returns>
         public virtual bool Anonymous { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BindProperties" /> class.
-        /// </summary>
-        /// <param name="version">The version.</param>
-        /// <param name="dn">The dn.</param>
-        /// <param name="method">The method.</param>
-        /// <param name="anonymous">if set to <c>true</c> [anonymous].</param>
-        /// <param name="bindProperties">The bind properties.</param>
-        /// <param name="bindCallbackHandler">The bind callback handler.</param>
-        public BindProperties(int version, string dn, string method, bool anonymous, Hashtable bindProperties, object bindCallbackHandler)
-        {
-            ProtocolVersion = version;
-            AuthenticationDN = dn;
-            AuthenticationMethod = method;
-            Anonymous = anonymous;
-            SaslBindProperties = bindProperties;
-            SaslCallbackHandler = bindCallbackHandler;
-        }
     }
 }
 
