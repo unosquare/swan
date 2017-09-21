@@ -13,7 +13,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// high overhead involved in using certain elements of the BER, the
     /// following additional restrictions are placed on BER-encodings of Ldap
     /// protocol elements:
-    /// <li>(1) Only the definite form of length encoding will be used.</li><li>(2) OCTET STRING values will be encoded in the primitive form only.</li><li>
+    /// <li>(1) Only the definite form of length encoding will be used.</li>
+    /// <li>(2) OCTET STRING values will be encoded in the primitive form only.</li><li>
     /// (3) If the value of a BOOLEAN type is true, the encoding MUST have
     /// its contents octets set to hex "FF".
     /// </li><li>
@@ -30,7 +31,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
     /// <seealso cref="IAsn1Decoder" />
-    internal class LBERDecoder : IAsn1Decoder
+    internal class LBERDecoder 
+        : IAsn1Decoder
     {
         public LBERDecoder()
         {
@@ -42,42 +44,7 @@ namespace Unosquare.Swan.Networking.Ldap
         // instead just reset is called CANNOT be static for multiple connections
         private readonly Asn1Identifier asn1ID;
         private readonly Asn1Length asn1Len;
-
-        /// <summary>
-        /// Decode an LBER encoded value into an Asn1Type from a byte array.
-        /// </summary>
-        /// <param name="inArray">The in array.</param>
-        /// <returns>
-        /// Decoded Asn1Object
-        /// </returns>
-        public virtual Asn1Object Decode(sbyte[] inArray)
-        {
-            var stream = new MemoryStream(inArray.ToByteArray());
-            try
-            {
-                return Decode(stream);
-            }
-            catch (IOException)
-            {
-                // Ignore
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Decode an LBER encoded value into an Asn1Type from an InputStream.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <returns>
-        /// Decoded Asn1Object
-        /// </returns>
-        public virtual Asn1Object Decode(Stream stream)
-        {
-            var len = new int[1];
-            return Decode(stream, len);
-        }
-
+        
         /// <summary>
         /// Decode an LBER encoded value into an Asn1Object from an InputStream.
         /// This method also returns the total length of this encoded
@@ -104,25 +71,25 @@ namespace Unosquare.Swan.Networking.Ldap
 
             switch (asn1ID.Tag)
             {
-                case Asn1Sequence.TAG:
+                case Asn1Sequence.Tag:
                     return new Asn1Sequence(this, stream, length);
 
-                case Asn1Set.TAG:
+                case Asn1Set.Tag:
                     return new Asn1Set(this, stream, length);
 
-                case Asn1Boolean.TAG:
+                case Asn1Boolean.Tag:
                     return new Asn1Boolean(this, stream, length);
 
-                case Asn1Integer.TAG:
+                case Asn1Integer.Tag:
                     return new Asn1Integer(this, stream, length);
 
-                case Asn1OctetString.TAG:
+                case Asn1OctetString.Tag:
                     return new Asn1OctetString(this, stream, length);
 
-                case Asn1Enumerated.TAG:
+                case Asn1Enumerated.Tag:
                     return new Asn1Enumerated(this, stream, length);
 
-                case Asn1Null.TAG:
+                case Asn1Null.Tag:
                     return new Asn1Null(); // has no content to decode.
 
                 default:
@@ -229,14 +196,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 var ret = stream.ReadByte(); // blocks
                 if (ret == -1)
                     throw new EndOfStreamException("LBER: CHARACTER STRING: decode error: EOF");
+
                 octets[i] = (sbyte)ret;
             }
-
-            var encoder = Encoding.UTF8;
-            var dchar = encoder.GetChars(octets.ToByteArray());
-            var rval = new string(dchar);
-
-            return rval;
+            
+            return Encoding.UTF8.GetString(octets.ToByteArray());
         }
     }
 }

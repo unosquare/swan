@@ -18,7 +18,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcRequest" />
-    internal class RfcModifyRquest : Asn1Sequence, IRfcRequest
+    internal class RfcModifyRquest 
+        : Asn1Sequence, IRfcRequest
     {
         public RfcModifyRquest(RfcLdapDN objectRenamed, Asn1SequenceOf modification)
             : base(2)
@@ -30,23 +31,18 @@ namespace Unosquare.Swan.Networking.Ldap
         internal RfcModifyRquest(Asn1Object[] origiRequest, string baseRenamed)
             : base(origiRequest, origiRequest.Length)
         {
-            if ((object)baseRenamed != null)
+            if (baseRenamed != null)
             {
-                SetRenamed(0, new RfcLdapDN(baseRenamed));
+                Set(0, new RfcLdapDN(baseRenamed));
             }
         }
 
-        public virtual Asn1SequenceOf Modifications => (Asn1SequenceOf)GetRenamed(1);
+        public virtual Asn1SequenceOf Modifications => (Asn1SequenceOf)Get(1);
         
         public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_REQUEST);
-        }
+            => new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_REQUEST);
 
-        public string GetRequestDN()
-        {
-            return ((RfcLdapDN)GetRenamed(0)).StringValue();
-        }
+        public string GetRequestDN() => ((RfcLdapDN)Get(0)).StringValue();
     }
 
     internal class RfcModifyResponse : RfcLdapResult

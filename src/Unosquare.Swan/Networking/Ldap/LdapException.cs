@@ -19,46 +19,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapLocalException()
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
-        /// Constructs a local exception with a detailed message obtained from the
-        /// specified <code>MessageOrKey</code> String and the result code.
-        /// The String is used either as a message key to obtain a localized
-        /// messsage from ExceptionMessages, or if there is no key in the
-        /// resource matching the text, it is used as the detailed message itself.
-        /// </summary>
-        /// <param name="messageOrKey">Key to addition result information, a key into
-        /// ExceptionMessages, or the information
-        /// itself if the key doesn't exist.</param>
-        /// <param name="resultCode">The result code returned.</param>
-        public LdapLocalException(string messageOrKey, int resultCode)
-            : base(messageOrKey, resultCode, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
-        /// Constructs a local exception with a detailed message obtained from the
-        /// specified <code>MessageOrKey</code> String and modifying arguments.
-        /// Additional parameters specify the result code.
-        /// The String is used either as a message key to obtain a localized
-        /// message from ExceptionMessages, or if there is no key in the
-        /// resource matching the text, it is used as the detailed message itself.
-        /// The message in the default locale is built with the supplied arguments,
-        /// which are saved to be used for building messages for other locales.
-        /// </summary>
-        /// <param name="messageOrKey">Key to addition result information, a key into
-        /// ExceptionMessages, or the information
-        /// itself if the key doesn't exist.</param>
-        /// <param name="arguments">The modifying arguments to be included in the
-        /// message string.</param>
-        /// <param name="resultCode">The result code returned.</param>
-        public LdapLocalException(string messageOrKey, object[] arguments, int resultCode)
-            : base(messageOrKey, arguments, resultCode, null)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
         /// Constructs a local exception with a detailed message obtained from the
@@ -75,8 +36,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="resultCode">The result code returned.</param>
         /// <param name="rootException">A throwable which is the underlying cause
         /// of the LdapException.</param>
-        public LdapLocalException(string messageOrKey, int resultCode, Exception rootException)
-            : base(messageOrKey, resultCode, null, rootException)
+        public LdapLocalException(string messageOrKey, int resultCode, Exception rootException = null)
+            : base(messageOrKey, resultCode, rootException: rootException)
         {
         }
 
@@ -101,8 +62,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="resultCode">The result code returned.</param>
         /// <param name="rootException">A throwable which is the underlying cause
         /// of the LdapException.</param>
-        public LdapLocalException(string messageOrKey, object[] arguments, int resultCode, Exception rootException)
-            : base(messageOrKey, arguments, resultCode, null, rootException)
+        public LdapLocalException(string messageOrKey, object[] arguments, int resultCode, Exception rootException = null)
+            : base(messageOrKey, arguments, resultCode, rootException: rootException)
         {
         }
 
@@ -113,11 +74,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-        {
-            // Format the basic exception information
-            return GetExceptionString("LdapLocalException");
-        }
+        public override string ToString() => GetExceptionString("LdapLocalException");
     }
 
     /// <summary>
@@ -717,7 +674,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if ((object) serverMessage != null && serverMessage.Length == 0)
+                if (serverMessage != null && serverMessage.Length == 0)
                 {
                     return null;
                 }
@@ -1314,104 +1271,34 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         public const int SSL_PROVIDER_NOT_FOUND = 114;
 
-        /*
-                * Note: Error strings have been pulled out into
-                * ResultCodeMessages.txt
-                */
-
         /// <summary>
         /// Constructs a default exception with no specific error information.
         /// </summary>
         public LdapException()
         {
         }
-
+        
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapException"/> class.
-        ///     Constructs an exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String, the result code,
-        ///     and a server meessage.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
+        /// Initializes a new instance of the <see cref="LdapException" /> class.
+        /// Constructs an exception with a detailed message obtained from the
+        /// specified <code>MessageOrKey</code> String.
+        /// Additional parameters specify the result code, the message returned
+        /// from the server, and a matchedDN returned from the server.
+        /// The String is used either as a message key to obtain a localized
+        /// messsage from ExceptionMessages, or if there is no key in the
+        /// resource matching the text, it is used as the detailed message itself.
         /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMsg">
-        ///     Error message specifying additional information
-        ///     from the server
-        /// </param>
-        public LdapException(string messageOrKey, int resultCode, string serverMsg)
-            : this(messageOrKey, null, resultCode, serverMsg, null, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapException"/> class.
-        ///     Constructs an exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String and modifying arguments.
-        ///     Additional parameters specify the result code and server message.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        ///     The message in the default locale is built with the supplied arguments,
-        ///     which are saved to be used for building messages for other locales.
-        /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="serverMsg">
-        ///     Error message specifying additional information
-        ///     from the server
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg)
-            : this(messageOrKey, arguments, resultCode, serverMsg, null, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapException"/> class.
-        ///     Constructs an exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String.
-        ///     Additional parameters specify the result code, the server message, and a
-        ///     rootException which is the underlying cause of an error on the client.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMsg">
-        ///     Error message specifying additional information
-        ///     from the server
-        /// </param>
-        /// <param name="rootException">
-        ///     A throwable which is the underlying cause
-        ///     of the LdapException.
-        /// </param>
-        public LdapException(string messageOrKey, int resultCode, string serverMsg, Exception rootException = null)
-            : this(messageOrKey, null, resultCode, serverMsg, null, rootException)
+        /// <param name="messageOrKey">Key to addition result information, a key into
+        /// ExceptionMessages, or the information
+        /// itself if the key doesn't exist.</param>
+        /// <param name="resultCode">The result code returned.</param>
+        /// <param name="serverMsg">Error message specifying additional information
+        /// from the server</param>
+        /// <param name="matchedDN">The maximal subset of a specified DN which could
+        /// be matched by the server on a search operation.</param>
+        /// <param name="rootException">The root exception.</param>
+        public LdapException(string messageOrKey, int resultCode, string serverMsg = null, string matchedDN = null, Exception rootException = null)
+            : this(messageOrKey, null, resultCode, serverMsg, matchedDN, rootException)
         {
         }
 
@@ -1419,8 +1306,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="LdapException" /> class.
         /// Constructs an exception with a detailed message obtained from the
         /// specified <code>MessageOrKey</code> String and modifying arguments.
-        /// Additional parameters specify the result code, the server message,
-        /// and a rootException which is the underlying cause of an error
+        /// Additional parameters specify the result code, a message returned
+        /// from the server, a matchedDN returned from
+        /// the server, and a rootException which is the underlying cause of an error
         /// on the client.
         /// The String is used either as a message key to obtain a localized
         /// messsage from ExceptionMessages, or if there is no key in the
@@ -1436,120 +1324,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="resultCode">The result code returned.</param>
         /// <param name="serverMsg">Error message specifying additional information
         /// from the server</param>
+        /// <param name="matchedDN">The maximal subset of a specified DN which could
+        /// be matched by the server on a search operation.</param>
         /// <param name="rootException">A throwable which is the underlying cause
         /// of the LdapException.</param>
-        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg, Exception rootException = null) 
-            : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapException"/> class.
-        ///     Constructs an exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String.
-        ///     Additional parameters specify the result code, the message returned
-        ///     from the server, and a matchedDN returned from the server.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMsg">
-        ///     Error message specifying additional information
-        ///     from the server
-        /// </param>
-        /// <param name="matchedDN">
-        ///     The maximal subset of a specified DN which could
-        ///     be matched by the server on a search operation.
-        /// </param>
-        public LdapException(string messageOrKey, int resultCode, string serverMsg, string matchedDN)
-            : this(messageOrKey, null, resultCode, serverMsg, matchedDN, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapException"/> class.
-        ///     Constructs an exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String and modifying arguments.
-        ///     Additional parameters specify the result code, a message returned from
-        ///     the server, and a matchedDN returned from the server.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        ///     The message in the default locale is built with the supplied arguments,
-        ///     which are saved to be used for building messages for other locales.
-        /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMsg">
-        ///     Error message specifying additional information
-        ///     from the server
-        /// </param>
-        /// <param name="matchedDN">
-        ///     The maximal subset of a specified DN which could
-        ///     be matched by the server on a search operation.
-        /// </param>
-        public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg, string matchedDN)
-            : this(messageOrKey, arguments, resultCode, serverMsg, matchedDN, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapException"/> class.
-        ///     Constructs an exception with a detailed message obtained from the
-        ///     specified <code>MessageOrKey</code> String and modifying arguments.
-        ///     Additional parameters specify the result code, a message returned
-        ///     from the server, a matchedDN returned from
-        ///     the server, and a rootException which is the underlying cause of an error
-        ///     on the client.
-        ///     The String is used either as a message key to obtain a localized
-        ///     messsage from ExceptionMessages, or if there is no key in the
-        ///     resource matching the text, it is used as the detailed message itself.
-        ///     The message in the default locale is built with the supplied arguments,
-        ///     which are saved to be used for building messages for other locales.
-        /// </summary>
-        /// <param name="messageOrKey">
-        ///     Key to addition result information, a key into
-        ///     ExceptionMessages, or the information
-        ///     itself if the key doesn't exist.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMsg">
-        ///     Error message specifying additional information
-        ///     from the server
-        /// </param>
-        /// <param name="rootException">
-        ///     A throwable which is the underlying cause
-        ///     of the LdapException.
-        /// </param>
-        /// <param name="matchedDN">
-        ///     The maximal subset of a specified DN which could
-        ///     be matched by the server on a search operation.
-        /// </param>
-        internal LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg, string matchedDN = null, Exception rootException = null)
+        internal LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg = null, string matchedDN = null, Exception rootException = null)
             : base(ResourcesHandler.GetMessage(messageOrKey, arguments))
         {
             this.messageOrKey = messageOrKey;
@@ -1568,9 +1347,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The message for the result code in the LdapException object.
         /// </returns>
         public virtual string resultCodeToString()
-        {
-            return ResourcesHandler.GetResultString(resultCode);
-        }
+            => ResourcesHandler.GetResultString(resultCode);
 
         /// <summary>
         ///     Returns a string representing the specified result code in the default
@@ -1584,18 +1361,14 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     or null if the message is not available for the default locale.
         /// </returns>
         public static string resultCodeToString(int code)
-        {
-            return ResourcesHandler.GetResultString(code);
-        }
+            => ResourcesHandler.GetResultString(code);
         
         /// <summary>
         ///     returns a string of information about the exception and the
         ///     the nested exceptions, if any.
         /// </summary>
         public override string ToString()
-        {
-            return GetExceptionString("LdapException");
-        }
+            => GetExceptionString("LdapException");
 
         /// <summary>
         ///     builds a string of information about the exception and the
@@ -1607,9 +1380,7 @@ namespace Unosquare.Swan.Networking.Ldap
         internal virtual string GetExceptionString(string exception)
         {
             string tmsg;
-
-            // Format the basic exception information
-
+            
             // Craft a string from the resouce file
             var msg = ResourcesHandler.GetMessage("TOSTRING",
                 new object[] {exception, base.Message, resultCode, resultCodeToString()});
@@ -1621,7 +1392,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             // Add server message
-            if ((object) serverMessage != null && serverMessage.Length != 0)
+            if (!string.IsNullOrEmpty(serverMessage))
             {
                 tmsg = ResourcesHandler.GetMessage("SERVER_MSG", new object[] {exception, serverMessage});
 
@@ -1635,7 +1406,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             // Add Matched DN message
-            if ((object) matchedDN != null)
+            if (matchedDN != null)
             {
                 tmsg = ResourcesHandler.GetMessage("MATCHED_DN", new object[] {exception, matchedDN});
 
@@ -1665,16 +1436,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public class LdapReferralException : LdapException
     {
-        /// <summary>
-        ///     Sets a referral that could not be processed
-        /// </summary>
-        public virtual string FailedReferral
-        {
-            get => failedReferral;
-
-            set => failedReferral = value;
-        }
-
         private string failedReferral;
         private string[] referrals;
 
@@ -1685,39 +1446,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapReferralException()
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
-        ///     Constructs a default exception with a specified string as additional
-        ///     information.
-        ///     This form is used for lower-level errors.
-        /// </summary>
-        /// <param name="message">
-        ///     The additional error information.
-        /// </param>
-        public LdapReferralException(string message)
-            : base(message, REFERRAL, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
-        ///     Constructs a default exception with a specified string as additional
-        ///     information.
-        ///     This form is used for lower-level errors.
-        /// </summary>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="message">
-        ///     The additional error information.
-        /// </param>
-        public LdapReferralException(string message, object[] arguments)
-            : base(message, arguments, REFERRAL, null)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs a default exception with a specified string as additional
@@ -1732,8 +1461,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="rootException">
         ///     An exception which caused referral following to fail.
         /// </param>
-        public LdapReferralException(string message, Exception rootException)
-            : base(message, REFERRAL, null, rootException)
+        public LdapReferralException(string message, Exception rootException = null)
+            : base(message, REFERRAL, rootException: rootException)
         {
         }
 
@@ -1755,55 +1484,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="rootException">
         ///     An exception which caused referral following to fail.
         /// </param>
-        public LdapReferralException(string message, object[] arguments, Exception rootException)
-            : base(message, arguments, REFERRAL, null, rootException)
+        public LdapReferralException(string message, object[] arguments, Exception rootException = null)
+            : base(message, arguments, REFERRAL, rootException: rootException)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
-        ///     Constructs an exception with a specified error string, result code, and
-        ///     an error message from the server.
-        /// </summary>
-        /// <param name="message">
-        ///     The additional error information.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMessage">
-        ///     Error message specifying additional information
-        ///     from the server.
-        /// </param>
-        public LdapReferralException(string message, int resultCode, string serverMessage)
-            : base(message, resultCode, serverMessage)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
-        ///     Constructs an exception with a specified error string, result code, and
-        ///     an error message from the server.
-        /// </summary>
-        /// <param name="message">
-        ///     The additional error information.
-        /// </param>
-        /// <param name="arguments">
-        ///     The modifying arguments to be included in the
-        ///     message string.
-        /// </param>
-        /// <param name="resultCode">
-        ///     The result code returned.
-        /// </param>
-        /// <param name="serverMessage">
-        ///     Error message specifying additional information
-        ///     from the server.
-        /// </param>
-        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage)
-            : base(message, arguments, resultCode, serverMessage)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapReferralException" /> class.
         /// Constructs an exception with a specified error string, result code,
@@ -1816,7 +1501,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
         public LdapReferralException(string message, int resultCode, string serverMessage, Exception rootException = null)
-            : base(message, resultCode, serverMessage, rootException)
+            : base(message, resultCode, serverMessage, rootException: rootException)
         {
         }
 
@@ -1833,9 +1518,22 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="serverMessage">Error message specifying additional information
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException)
-            : base(message, arguments, resultCode, serverMessage, rootException)
+        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException = null)
+            : base(message, arguments, resultCode, serverMessage, rootException: rootException)
         {
+        }
+
+        /// <summary>
+        /// Sets a referral that could not be processed
+        /// </summary>
+        /// <value>
+        /// The failed referral.
+        /// </value>
+        public virtual string FailedReferral
+        {
+            get => failedReferral;
+
+            set => failedReferral = value;
         }
 
         /// <summary>
@@ -1857,9 +1555,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     single response.
         /// </param>
         internal virtual void SetReferrals(string[] urls)
-        {
-            referrals = urls;
-        }
+            => referrals = urls;
 
         /// <summary>
         /// returns a string of information about the exception and the
@@ -1876,7 +1572,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var msg = GetExceptionString("LdapReferralException");
 
             // Add failed referral information
-            if ((object) failedReferral != null)
+            if (failedReferral != null)
             {
                 tmsg = ResourcesHandler.GetMessage("FAILED_REFERRAL",
                     new object[] {"LdapReferralException", failedReferral});

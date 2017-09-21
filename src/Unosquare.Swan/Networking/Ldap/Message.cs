@@ -279,7 +279,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(origRequest, origRequest.Length)
         {
             // Replace the base if specified, otherwise keep original base
-            if ((object) stringBase != null)
+            if (stringBase != null)
             {
                 Set(0, new RfcLdapDN(stringBase));
             }
@@ -290,14 +290,14 @@ namespace Unosquare.Swan.Networking.Ldap
             if (request)
             {
                 var scope = ((Asn1Enumerated) origRequest[1]).IntValue();
-                if (scope == LdapConnection.SCOPE_ONE)
+                if (scope == LdapConnection.ScopeOne)
                 {
-                    Set(1, new Asn1Enumerated(LdapConnection.SCOPE_BASE));
+                    Set(1, new Asn1Enumerated(LdapConnection.ScopeBase));
                 }
             }
 
             // Replace the filter if specified, otherwise keep original filter
-            if ((object) filter != null)
+            if (filter != null)
             {
                 Set(6, new RfcFilter(filter));
             }
@@ -488,7 +488,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </exception>
         private Asn1Tagged Parse(string filterExpr)
         {
-            if ((object) filterExpr == null || filterExpr.Equals(string.Empty))
+            if (filterExpr == null || filterExpr.Equals(string.Empty))
             {
                 filterExpr = new StringBuilder("(objectclass=*)").ToString();
             }
@@ -606,13 +606,16 @@ namespace Unosquare.Swan.Networking.Ldap
                         case GREATER_OR_EQUAL:
                         case LESS_OR_EQUAL:
                         case APPROX_MATCH:
-                            tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, filterType), new RfcAttributeValueAssertion(new RfcLdapString(ft.Attr), new Asn1OctetString(UnescapeString(value_Renamed))), false);
+                            tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, filterType),
+                                new RfcAttributeValueAssertion(new RfcLdapString(ft.Attr),
+                                    new Asn1OctetString(UnescapeString(value_Renamed))), false);
                             break;
                         case EQUALITY_MATCH:
                             if (value_Renamed.Equals("*"))
                             {
                                 // present
-                                tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, PRESENT), new RfcLdapString(ft.Attr), false);
+                                tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, PRESENT),
+                                    new RfcLdapString(ft.Attr), false);
                             }
                             else if (value_Renamed.IndexOf('*') != -1)
                             {
@@ -633,7 +636,8 @@ namespace Unosquare.Swan.Networking.Ldap
                                         {
                                             // '**'
                                             seq.Add(
-                                                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, ANY), new RfcLdapString(UnescapeString(string.Empty)), false));
+                                                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, ANY),
+                                                    new RfcLdapString(UnescapeString(string.Empty)), false));
                                         }
                                     }
                                     else
@@ -644,31 +648,37 @@ namespace Unosquare.Swan.Networking.Ldap
                                             // initial
                                             seq.Add(
                                                 new Asn1Tagged(
-                                                    new Asn1Identifier(Asn1Identifier.CONTEXT, false, INITIAL), new RfcLdapString(UnescapeString(subTok)), false));
+                                                    new Asn1Identifier(Asn1Identifier.CONTEXT, false, INITIAL),
+                                                    new RfcLdapString(UnescapeString(subTok)), false));
                                         }
                                         else if (cnt < tokCnt)
                                         {
                                             // any
                                             seq.Add(
-                                                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, ANY), new RfcLdapString(UnescapeString(subTok)), false));
+                                                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, ANY),
+                                                    new RfcLdapString(UnescapeString(subTok)), false));
                                         }
                                         else
                                         {
                                             // final
                                             seq.Add(
                                                 new Asn1Tagged(
-                                                    new Asn1Identifier(Asn1Identifier.CONTEXT, false, FINAL), new RfcLdapString(UnescapeString(subTok)), false));
+                                                    new Asn1Identifier(Asn1Identifier.CONTEXT, false, FINAL),
+                                                    new RfcLdapString(UnescapeString(subTok)), false));
                                         }
                                     }
 
                                     lastTok = subTok;
                                 }
 
-                                tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, SUBSTRINGS), new RfcSubstringFilter(new RfcLdapString(ft.Attr), seq), false);
+                                tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, SUBSTRINGS),
+                                    new RfcSubstringFilter(new RfcLdapString(ft.Attr), seq), false);
                             }
                             else
                             {
-                                tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, EQUALITY_MATCH), new RfcAttributeValueAssertion(new RfcLdapString(ft.Attr), new Asn1OctetString(UnescapeString(value_Renamed))), false);
+                                tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, EQUALITY_MATCH),
+                                    new RfcAttributeValueAssertion(new RfcLdapString(ft.Attr),
+                                        new Asn1OctetString(UnescapeString(value_Renamed))), false);
                             }
 
                             break;
@@ -696,7 +706,12 @@ namespace Unosquare.Swan.Networking.Ldap
                                 first = false;
                             }
 
-                            tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, EXTENSIBLE_MATCH), new RfcMatchingRuleAssertion((object) matchingRule == null ? null : new RfcLdapString(matchingRule),(object) type == null ? null : new RfcLdapString(type),new Asn1OctetString(UnescapeString(value_Renamed)),dnAttributes == false ? null : new Asn1Boolean(true)), false);
+                            tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, EXTENSIBLE_MATCH),
+                                new RfcMatchingRuleAssertion(
+                                    matchingRule == null ? null : new RfcLdapString(matchingRule),
+                                    type == null ? null : new RfcLdapString(type),
+                                    new Asn1OctetString(UnescapeString(value_Renamed)),
+                                    dnAttributes == false ? null : new Asn1Boolean(true)), false);
                             break;
                     }
 

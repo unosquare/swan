@@ -19,20 +19,6 @@ namespace Unosquare.Swan.Networking.Ldap
     internal interface IAsn1Decoder
     {
         /// <summary>
-        /// Decode an encoded value into an Asn1Object from a byte array.
-        /// </summary>
-        /// <param name="byteArray">A byte array that points to the encoded Asn1 data</param>
-        /// <returns></returns>
-        Asn1Object Decode(sbyte[] byteArray);
-
-        /// <summary>
-        /// Decode an encoded value into an Asn1Object from an InputStream.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <returns></returns>
-        Asn1Object Decode(Stream stream);
-
-        /// <summary>
         /// Decode an encoded value into an Asn1Object from an InputStream.
         /// </summary>
         /// <param name="stream">The stream.</param>

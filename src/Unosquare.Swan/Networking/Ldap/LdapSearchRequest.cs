@@ -21,11 +21,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     scope of a search request
         /// </returns>
-        /// <seealso cref="LdapConnection.SCOPE_BASE">
+        /// <seealso cref="LdapConnection.ScopeBase">
         /// </seealso>
-        /// <seealso cref="LdapConnection.SCOPE_ONE">
+        /// <seealso cref="LdapConnection.ScopeOne">
         /// </seealso>
-        /// <seealso cref="LdapConnection.SCOPE_SUB">
+        /// <seealso cref="LdapConnection.ScopeSub">
         /// </seealso>
         public virtual int Scope => ((Asn1Enumerated)((RfcSearchRequest)Asn1Object.Get(1)).Get(1)).IntValue();
 

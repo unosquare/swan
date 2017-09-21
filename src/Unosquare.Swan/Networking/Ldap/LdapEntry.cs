@@ -24,10 +24,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The distinguished name of the entry.
         /// </returns>
-        public virtual string DN => dn;
+        public virtual string DN => Dn;
 
-        protected internal string dn;
-        protected internal LdapAttributeSet attrs;
+        protected internal string Dn;
+        protected internal LdapAttributeSet Attrs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapEntry" /> class.
@@ -41,13 +41,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// entry.</param>
         public LdapEntry(string dn = null, LdapAttributeSet attrs = null)
         {
-            if ((object)dn == null)
+            if (dn == null)
             {
                 dn = string.Empty;
             }
             
-            this.dn = dn;
-            this.attrs = attrs ?? new LdapAttributeSet();
+            Dn = dn;
+            Attrs = attrs ?? new LdapAttributeSet();
         }
 
         /// <summary>
@@ -59,10 +59,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     An array of LdapAttribute objects.
         /// </returns>
-        public virtual LdapAttribute GetAttribute(string attrName)
-        {
-            return attrs.GetAttribute(attrName);
-        }
+        public virtual LdapAttribute GetAttribute(string attrName) 
+            => Attrs.GetAttribute(attrName);
 
         /// <summary>
         ///     Returns the attribute set of the entry.
@@ -75,7 +73,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual LdapAttributeSet GetAttributeSet()
         {
-            return attrs;
+            return Attrs;
         }
 
         /// <summary>
@@ -102,7 +100,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual LdapAttributeSet GetAttributeSet(string subtype)
         {
-            return attrs.GetSubset(subtype);
+            return Attrs.GetSubset(subtype);
         }
     }
     
@@ -302,8 +300,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 values = null;
                 try
                 {
-                    var encoder = Encoding.UTF8;
-                    var ibytes = encoder.GetBytes(value);
+                    var ibytes = Encoding.UTF8.GetBytes(value);
                     var sbytes = ibytes.ToSByteArray();
                     Add(sbytes);
                 }
@@ -355,7 +352,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
         public LdapAttribute(string attrName)
         {
-            if ((object)attrName == null)
+            if (attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -405,15 +402,14 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapAttribute(string attrName, string attrString)
             : this(attrName)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
 
             try
             {
-                var encoder = Encoding.UTF8;
-                var ibytes = encoder.GetBytes(attrString);
+                var ibytes = Encoding.UTF8.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
                 Add(sbytes);
             }
@@ -447,13 +443,12 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 try
                 {
-                    if ((object)attrStrings[i] == null)
+                    if (attrStrings[i] == null)
                     {
                         throw new ArgumentException("Attribute value " + "at array index " + i + " cannot be null");
                     }
-
-                    var encoder = Encoding.UTF8;
-                    var ibytes = encoder.GetBytes(attrStrings[i]);
+                    
+                    var ibytes = Encoding.UTF8.GetBytes(attrStrings[i]);
                     var sbytes = ibytes.ToSByteArray();
                     Add(sbytes);
                 }
@@ -497,15 +492,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual void AddValue(string attrString)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
 
             try
             {
-                var encoder = Encoding.UTF8;
-                var ibytes = encoder.GetBytes(attrString);
+                var ibytes = Encoding.UTF8.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
                 Add(sbytes);
             }
@@ -544,7 +538,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual void AddBase64Value(string attrString)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
@@ -625,7 +619,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public static string GetBaseName(string attrName)
         {
-            if ((object)attrName == null)
+            if (attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -663,7 +657,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
         public static string[] GetSubtypes(string attrName)
         {
-            if ((object)attrName == null)
+            if (attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -701,7 +695,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public virtual bool HasSubtype(string subtype)
         {
-            if ((object)subtype == null)
+            if (subtype == null)
             {
                 throw new ArgumentException("subtype cannot be null");
             }
@@ -745,7 +739,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 for (var j = 0; j < subTypes.Length; j++)
                 {
-                    if ((object)subTypes[j] == null)
+                    if (subTypes[j] == null)
                     {
                         throw new ArgumentException("subtype " + "at array index " + i + " cannot be null");
                     }
@@ -775,15 +769,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public virtual void RemoveValue(string attrString)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
 
             try
             {
-                var encoder = Encoding.UTF8;
-                var ibytes = encoder.GetBytes(attrString);
+                var ibytes = Encoding.UTF8.GetBytes(attrString);
                 var sbytes = ibytes.ToSByteArray();
                 RemoveValue(sbytes);
             }
@@ -977,9 +970,8 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             continue;
                         }
-
-                        var encoder = Encoding.UTF8;
-                        var dchar = encoder.GetChars(((sbyte[])values[i]).ToByteArray());
+                        
+                        var dchar = Encoding.UTF8.GetChars(((sbyte[])values[i]).ToByteArray());
                         var sval = new string(dchar);
                         if (sval.Length == 0)
                         {
@@ -1307,7 +1299,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var attributeName = entry is string s ? s : ((LdapAttribute) entry).Name;
 
-            if ((object)attributeName == null)
+            if (attributeName == null)
             {
                 return false;
             }
