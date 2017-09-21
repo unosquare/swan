@@ -1695,7 +1695,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
 
                 if (filter[offset++] != ')')
-                {¿
+                {
                     throw new LdapLocalException(ExceptionMessages.EXPECTING_RIGHT_PAREN, new object[] {filter[offset - 1]}, LdapException.FILTER_ERROR);
                 }
             }

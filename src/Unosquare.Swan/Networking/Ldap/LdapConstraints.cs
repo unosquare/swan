@@ -190,7 +190,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         /// <seealso cref="object"></seealso>
         /// <seealso cref="LdapConnection.GetProperty(string)"></seealso>
-        public virtual object GetProperty(string name) =>  _properties?[name];
+        public virtual object GetProperty(string name) => _properties?[name];
 
         /// <summary>
         /// Sets a single control to be sent to the server.

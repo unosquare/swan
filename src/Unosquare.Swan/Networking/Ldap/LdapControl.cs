@@ -260,7 +260,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// Represents a simple bind request.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
-    /// <seealso cref="LdapConnection.SendRequest"></seealso>
     public class LdapBindRequest : LdapMessage
     {
         /// <summary>
@@ -609,7 +608,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// ThE object may be an implemention of either the
         /// the LdapBindHandler or LdapAuthHandler interface.
         /// It is ignored for asynchronous operations.</param>
-        /// <param name="hop_limit">The maximum number of referrals to follow in a
+        /// <param name="hopLimit">The maximum number of referrals to follow in a
         /// sequence during automatic referral following.
         /// The default value is 10. A value of 0 means no limit.
         /// It is ignored for asynchronous operations.
@@ -620,8 +619,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <seealso cref="LdapException.REFERRAL"></seealso>
         /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED"></seealso>
         /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED"></seealso>
-        public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hop_limit) 
-            : base(msLimit, doReferrals, handler, hop_limit)
+        public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hopLimit) 
+            : base(msLimit, doReferrals, handler, hopLimit)
         {
             InitBlock();
             this.serverTimeLimit = serverTimeLimit;
@@ -638,35 +637,6 @@ namespace Unosquare.Swan.Networking.Ldap
     public class ReferralInfo
     {
         /// <summary>
-        ///     Returns the referral URL
-        /// </summary>
-        /// <returns>
-        ///     the Referral URL
-        /// </returns>
-        public virtual LdapUrl ReferralUrl => referralUrl;
-
-        /// <summary>
-        ///     Returns the referral Connection
-        /// </summary>
-        /// <returns>
-        ///     the Referral Connection
-        /// </returns>
-        public virtual LdapConnection ReferralConnection => conn;
-
-        /// <summary>
-        ///     Returns the referral list
-        /// </summary>
-        /// <returns>
-        ///     the Referral list
-        /// </returns>
-        public virtual string[] ReferralList => referralList;
-
-        // private DirectoryEntry conn;
-        private readonly LdapConnection conn;
-        private readonly LdapUrl referralUrl;
-        private readonly string[] referralList;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ReferralInfo"/> class.
         /// Construct the ReferralInfo class
         /// </summary>
@@ -675,10 +645,34 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="refUrl">The URL string associated with this connection</param>
         public ReferralInfo(LdapConnection lc, string[] refList, LdapUrl refUrl)
         {
-            conn = lc;
-            referralUrl = refUrl;
-            referralList = refList;
+            ReferralConnection = lc;
+            ReferralUrl = refUrl;
+            ReferralList = refList;
         }
+
+        /// <summary>
+        ///     Returns the referral URL
+        /// </summary>
+        /// <returns>
+        ///     the Referral URL
+        /// </returns>
+        public virtual LdapUrl ReferralUrl { get; }
+
+        /// <summary>
+        ///     Returns the referral Connection
+        /// </summary>
+        /// <returns>
+        ///     the Referral Connection
+        /// </returns>
+        public virtual LdapConnection ReferralConnection { get; }
+
+        /// <summary>
+        ///     Returns the referral list
+        /// </summary>
+        /// <returns>
+        ///     the Referral list
+        /// </returns>
+        public virtual string[] ReferralList { get; }
     }
 
     /// <summary>
