@@ -179,7 +179,7 @@ specification operational constraints in that object.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hop_limit)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hopLimit)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -271,7 +271,7 @@ It is ignored for asynchronous operations.</p>
       </tr>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">hop_limit</span></td>
+        <td><span class="parametername">hopLimit</span></td>
         <td><p>The maximum number of referrals to follow in a
 sequence during automatic referral following.
 The default value is 10. A value of 0 means no limit.

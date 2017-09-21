@@ -7649,18 +7649,6 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.IRfcRequest
   fullName: Unosquare.Swan.Networking.Ldap.IRfcRequest
   nameWithType: IRfcRequest
-- uid: Unosquare.Swan.Networking.Ldap.IRfcRequest.DupRequest(System.String,System.String,System.Boolean)
-  name: DupRequest(String, String, Boolean)
-  href: api/Unosquare.Swan.Networking.Ldap.IRfcRequest.html#Unosquare_Swan_Networking_Ldap_IRfcRequest_DupRequest_System_String_System_String_System_Boolean_
-  commentId: M:Unosquare.Swan.Networking.Ldap.IRfcRequest.DupRequest(System.String,System.String,System.Boolean)
-  fullName: Unosquare.Swan.Networking.Ldap.IRfcRequest.DupRequest(System.String, System.String, System.Boolean)
-  nameWithType: IRfcRequest.DupRequest(String, String, Boolean)
-- uid: Unosquare.Swan.Networking.Ldap.IRfcRequest.DupRequest*
-  name: DupRequest
-  href: api/Unosquare.Swan.Networking.Ldap.IRfcRequest.html#Unosquare_Swan_Networking_Ldap_IRfcRequest_DupRequest_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.IRfcRequest.DupRequest
-  fullName: Unosquare.Swan.Networking.Ldap.IRfcRequest.DupRequest
-  nameWithType: IRfcRequest.DupRequest
 - uid: Unosquare.Swan.Networking.Ldap.IRfcRequest.GetRequestDN
   name: GetRequestDN()
   href: api/Unosquare.Swan.Networking.Ldap.IRfcRequest.html#Unosquare_Swan_Networking_Ldap_IRfcRequest_GetRequestDN
