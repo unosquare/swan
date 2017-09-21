@@ -108,6 +108,9 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_AddAll_System_Collections_ICollection_">SetSupport.AddAll(ICollection)</a>
+    </div>
+    <div>
       <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ContainsAll_System_Collections_ICollection_">SetSupport.ContainsAll(ICollection)</a>
     </div>
     <div>
@@ -270,20 +273,6 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class LdapAttributeSet : SetSupport, IList, ICollection, IEnumerable, ICloneable</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.#ctor">LdapAttributeSet()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html">LdapAttributeSet</a> class.
-Constructs an empty set of attributes.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapAttributeSet()</code></pre>
-  </div>
   <h3 id="properties">Properties
   </h3>
   
@@ -368,56 +357,6 @@ is not of type <pre><code>LdapAttribute</code></pre>.</p>
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_Add_System_Object_">SetSupport.Add(Object)</a></div>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_AddAll_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.AddAll*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_AddAll_System_Collections_ICollection_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.AddAll(System.Collections.ICollection)">AddAll(ICollection)</h4>
-  <div class="markdown level1 summary"><p>Adds all <pre><code>LdapAttribute</code></pre> objects in the specified collection to
-this collection.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool AddAll(ICollection c)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.ICollection</span></td>
-        <td><span class="parametername">c</span></td>
-        <td><p>Collection of <pre><code>LdapAttribute</code></pre> objects.
-@throws ClassCastException occurs when an element in the
-collection is not of type <pre><code>LdapAttribute</code></pre>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p>true if this set changed as a result of the call.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_AddAll_System_Collections_ICollection_">SetSupport.AddAll(ICollection)</a></div>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear*"></a>
