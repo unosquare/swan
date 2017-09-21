@@ -484,6 +484,31 @@ SERVER_SHUTDOWN_OID = &quot;1.3.6.1.4.1.1466.20036&quot;</p>
       </tr>
     </tbody>
   </table>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_StartTlsOid" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.StartTlsOid">StartTlsOid</h4>
+  <div class="markdown level1 summary"><p>The OID string that identifies a StartTLS request and response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string StartTlsOid = &quot;1.3.6.1.4.1.1466.20037&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
   </h3>
   
@@ -522,14 +547,10 @@ an anonymous connection.</p>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_AuthenticationMethod" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationMethod">AuthenticationMethod</h4>
   <div class="markdown level1 summary"><p>Returns the method used to authenticate the connection. The return
 value is one of the following:
-<ul>
-<li>&quot;none&quot; indicates the connection is not authenticated.</li>
-<li>
-    &quot;simple&quot; indicates simple authentication was used or that a null
-    or empty authentication DN was specified.
-</li>
-<li>&quot;sasl&quot; indicates that a SASL mechanism was used to authenticate</li>
-</ul></p>
+<ul><li>&quot;none&quot; indicates the connection is not authenticated.</li><li>
+&quot;simple&quot; indicates simple authentication was used or that a null
+or empty authentication DN was specified.
+</li><li>&quot;sasl&quot; indicates that a SASL mechanism was used to authenticate</li></ul></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -547,7 +568,7 @@ value is one of the following:
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>The method used to authenticate the connection.</p>
+        <td><p>The authentication method.</p>
 </td>
       </tr>
     </tbody>
@@ -736,8 +757,7 @@ or no authentication Map is present.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.IDictionary</span></td>
-        <td><p>The bind properties Map Object used for SASL bind or null if
-the connection is not present or not authenticated.</p>
+        <td><p>The sasl bind properties.</p>
 </td>
       </tr>
     </tbody>

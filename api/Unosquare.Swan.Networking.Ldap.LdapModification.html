@@ -200,21 +200,21 @@ of <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a></p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapModification_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapModification : LdapMessage</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapModification : LdapMessage</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_System_Int32_Unosquare_Swan_Networking_Ldap_LdapAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(System.Int32,Unosquare.Swan.Networking.Ldap.LdapAttribute)">LdapModification(Int32, LdapAttribute)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification__ctor_Unosquare_Swan_Networking_Ldap_LdapModificationOp_Unosquare_Swan_Networking_Ldap_LdapAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(Unosquare.Swan.Networking.Ldap.LdapModificationOp,Unosquare.Swan.Networking.Ldap.LdapAttribute)">LdapModification(LdapModificationOp, LdapAttribute)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a> class.
 Specifies a modification to be made to an attribute.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapModification(int op, LdapAttribute attr)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapModification(LdapModificationOp op, LdapAttribute attr)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -227,7 +227,7 @@ Specifies a modification to be made to an attribute.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModificationOp.html">LdapModificationOp</a></td>
         <td><span class="parametername">op</span></td>
         <td><p>The type of modification to make, which can be
 one of the following:
@@ -252,94 +252,6 @@ attribute
       </tr>
     </tbody>
   </table>
-  <h3 id="fields">Fields
-  </h3>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_ADD" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.ADD">ADD</h4>
-  <div class="markdown level1 summary"><p>Adds the listed values to the given attribute, creating
-the attribute if it does not already exist.
-ADD = 0</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int ADD = 0</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_DELETE" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.DELETE">DELETE</h4>
-  <div class="markdown level1 summary"><p>Deletes the listed values from the given attribute,
-removing the entire attribute (1) if no values are listed or
-(2) if all current values of the attribute are listed for
-deletion.
-DELETE = 1</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int DELETE = 1</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapModification_REPLACE" data-uid="Unosquare.Swan.Networking.Ldap.LdapModification.REPLACE">REPLACE</h4>
-  <div class="markdown level1 summary"><p>Replaces all existing values of the given attribute
-with the new values listed, creating the attribute if it
-does not already exist.
-A replace with no value deletes the entire attribute if it
-exists, and is ignored if the attribute does not exist.
-REPLACE = 2</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const int REPLACE = 2</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="properties">Properties
   </h3>
   
@@ -351,7 +263,7 @@ REPLACE = 2</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapAttribute Attribute { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttribute Attribute { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -380,7 +292,7 @@ The type is one of the following:
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int Op { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapModificationOp Op { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -392,7 +304,7 @@ The type is one of the following:
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModificationOp.html">LdapModificationOp</a></td>
         <td><p>The op.</p>
 </td>
       </tr>
