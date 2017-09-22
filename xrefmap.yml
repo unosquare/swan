@@ -7373,6 +7373,21 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetErrorMessage
   fullName: Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetErrorMessage
   nameWithType: ExceptionMessages.GetErrorMessage
+- uid: Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetMessage(System.String,System.Object[])
+  name: GetMessage(String, Object[])
+  href: api/Unosquare.Swan.Networking.Ldap.ExceptionMessages.html#Unosquare_Swan_Networking_Ldap_ExceptionMessages_GetMessage_System_String_System_Object___
+  commentId: M:Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetMessage(System.String,System.Object[])
+  name.vb: GetMessage(String, Object())
+  fullName: Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetMessage(System.String, System.Object[])
+  fullName.vb: Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetMessage(System.String, System.Object())
+  nameWithType: ExceptionMessages.GetMessage(String, Object[])
+  nameWithType.vb: ExceptionMessages.GetMessage(String, Object())
+- uid: Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetMessage*
+  name: GetMessage
+  href: api/Unosquare.Swan.Networking.Ldap.ExceptionMessages.html#Unosquare_Swan_Networking_Ldap_ExceptionMessages_GetMessage_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetMessage
+  fullName: Unosquare.Swan.Networking.Ldap.ExceptionMessages.GetMessage
+  nameWithType: ExceptionMessages.GetMessage
 - uid: Unosquare.Swan.Networking.Ldap.ExceptionMessages.IMPROPER_REFERRAL
   name: IMPROPER_REFERRAL
   href: api/Unosquare.Swan.Networking.Ldap.ExceptionMessages.html#Unosquare_Swan_Networking_Ldap_ExceptionMessages_IMPROPER_REFERRAL
@@ -10277,27 +10292,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.ReferralInfo.ReferralUrl
   fullName: Unosquare.Swan.Networking.Ldap.ReferralInfo.ReferralUrl
   nameWithType: ReferralInfo.ReferralUrl
-- uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler
-  name: ResourcesHandler
-  href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.ResourcesHandler
-  fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler
-  nameWithType: ResourcesHandler
-- uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String,System.Object[])
-  name: GetMessage(String, Object[])
-  href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_System_String_System_Object___
-  commentId: M:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String,System.Object[])
-  name.vb: GetMessage(String, Object())
-  fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String, System.Object[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage(System.String, System.Object())
-  nameWithType: ResourcesHandler.GetMessage(String, Object[])
-  nameWithType.vb: ResourcesHandler.GetMessage(String, Object())
-- uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage*
-  name: GetMessage
-  href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetMessage_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage
-  fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage
-  nameWithType: ResourcesHandler.GetMessage
 - uid: Unosquare.Swan.Networking.Ldap.RespControlVector
   name: RespControlVector
   href: api/Unosquare.Swan.Networking.Ldap.RespControlVector.html
