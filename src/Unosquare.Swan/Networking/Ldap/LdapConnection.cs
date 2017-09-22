@@ -466,7 +466,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var msg = new LdapBindRequest(version, dn, passwd, (cons ?? _defSearchCons).GetControls());
 
-            BindProperties = new BindProperties(version, dn, "simple", anonymous, null, null);
+            BindProperties = new BindProperties(version, dn, "simple", anonymous);
 
             return RequestLdapMessage(msg);
         }

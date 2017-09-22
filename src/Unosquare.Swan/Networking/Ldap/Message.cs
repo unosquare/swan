@@ -343,7 +343,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     the assertion value.
         /// </returns>
         public virtual sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
-
     }
 
     /// <summary>
@@ -429,7 +428,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary> Encapsulates an Ldap Bind properties</summary>
     internal class BindProperties
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BindProperties" /> class.
         /// </summary>
@@ -439,8 +437,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="anonymous">if set to <c>true</c> [anonymous].</param>
         /// <param name="bindProperties">The bind properties.</param>
         /// <param name="bindCallbackHandler">The bind callback handler.</param>
-        public BindProperties(int version, string dn, string method, bool anonymous, Hashtable bindProperties,
-            object bindCallbackHandler)
+        public BindProperties(int version, string dn, string method, bool anonymous, 
+            Hashtable bindProperties = null,
+            object bindCallbackHandler = null)
         {
             ProtocolVersion = version;
             AuthenticationDN = dn;

@@ -939,7 +939,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </seealso>
     /// <seealso cref="LdapEntry">
     /// </seealso>
-    public class LdapAttributeSet : SetSupport
+    public class LdapAttributeSet : ArrayList
     {
         /// <summary>
         ///     This is the underlying data structure for this set.
@@ -1139,7 +1139,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// iterator over the attributes in this set
         /// </returns>
-        public override IEnumerator GetEnumerator()
+        public IEnumerator GetEnumerator()
             => map.Values.GetEnumerator();
 
         /// <summary>
@@ -1148,7 +1148,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     <code>true</code> if this set contains no elements
         /// </returns>
-        public override bool IsEmpty()
+        public bool IsEmpty()
             => map.Count == 0;
 
         /// <summary>
@@ -1179,7 +1179,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     @throws ClassCastException occurs the specified Object
         ///     is not of type <code>LdapAttribute</code>.
         /// </returns>
-        public override bool Add(object attr)
+        public bool Add(object attr)
         {
             var attribute = (LdapAttribute)attr;
             var name = attribute.Name.ToUpper();
@@ -1202,7 +1202,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// @throws ClassCastException occurs the specified Object
         /// is not of type <code>LdapAttribute</code> or of type <code>String</code>.
         /// </returns>
-        public override bool Remove(object entry)
+        public bool Remove(object entry)
         {
             var attributeName = entry is string s ? s : ((LdapAttribute) entry).Name;
 

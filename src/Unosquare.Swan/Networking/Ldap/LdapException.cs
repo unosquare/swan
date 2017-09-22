@@ -260,7 +260,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="messageOrKey">Key string for the resource.</param>
         /// <param name="arguments">The arguments.</param>
-        /// strings out of ExceptionMessages.</param>
         /// <returns>
         /// the text for the message specified by the MessageKey or the Key
         /// if it there is no message for that key.
