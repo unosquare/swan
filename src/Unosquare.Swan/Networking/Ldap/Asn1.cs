@@ -66,7 +66,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="content">The Asn1Object that this Asn1Choice will
         /// encode.  Since all Asn1 objects are derived from Asn1Object
         /// any basic type can be passed in.</param>
-        public Asn1Choice(Asn1Object content)
+        public Asn1Choice(Asn1Object content = null)
         {
             _content = content;
         }
@@ -185,8 +185,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private int _encodedLength;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class.
-        ///     Constructs an Asn1Identifier using the classtype, form and tag.
+        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class using the classtype, form and tag.
         /// </summary>
         /// <param name="tagClass">
         ///     As defined above.
@@ -202,6 +201,16 @@ namespace Unosquare.Swan.Networking.Ldap
             _tagClass = tagClass;
             _constructed = constructed;
             _tag = tag;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        public Asn1Identifier(LdapOperation tag)
+            : this(APPLICATION, true, (int) tag)
+        {
+            
         }
 
         /// <summary>
@@ -554,7 +563,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private Asn1Object _content;
 
         /// <summary>
-        /// Constructs an Asn1Tagged object.
+        /// Initializes a new instance of the <see cref="Asn1Tagged"/> class.
         /// </summary>
         /// <param name="identifier">The identifier.</param>
         /// <param name="obj">The object renamed.</param>
@@ -573,8 +582,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Tagged"/> class.
-        /// Constructs an Asn1Tagged object by decoding data from an
+        /// Initializes a new instance of the <see cref="Asn1Tagged"/> class by decoding data from an
         /// input stream.
         /// </summary>
         /// <param name="dec">The decoder object to use when decoding the

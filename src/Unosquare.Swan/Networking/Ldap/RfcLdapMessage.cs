@@ -101,32 +101,32 @@ namespace Unosquare.Swan.Networking.Ldap
             var content = ((Asn1OctetString)protocolOp.TaggedValue).ByteValue();
             var bais = new MemoryStream(content.ToByteArray());
 
-            switch (protocolOpId.Tag)
+            switch ((LdapOperation) protocolOpId.Tag)
             {
-                case LdapMessage.SEARCH_RESPONSE:
+                case LdapOperation.SearchResponse:
                     Set(1, new RfcSearchResultEntry(dec, bais, content.Length));
                     break;
 
-                case LdapMessage.SEARCH_RESULT:
+                case LdapOperation.SearchResult:
                     Set(1, new RfcSearchResultDone(dec, bais, content.Length));
                     break;
 
-                case LdapMessage.SEARCH_RESULT_REFERENCE:
+                case LdapOperation.SearchResultReference:
                     Set(1, new RfcSearchResultReference(dec, bais, content.Length));
                     break;
 
-                case LdapMessage.BIND_RESPONSE:
+                case LdapOperation.BindResponse:
                     Set(1, new RfcBindResponse(dec, bais, content.Length));
                     break;
 
-                case LdapMessage.EXTENDED_RESPONSE:
+                case LdapOperation.ExtendedResponse:
                     Set(1, new RfcExtendedResponse(dec, bais, content.Length));
                     break;
 
-                case LdapMessage.INTERMEDIATE_RESPONSE:
+                case LdapOperation.IntermediateResponse:
                     Set(1, new RfcIntermediateResponse(dec, bais, content.Length));
                     break;
-                case LdapMessage.MODIFY_RESPONSE:
+                case LdapOperation.ModifyResponse:
                     Set(1, new RfcModifyResponse(dec, bais, content.Length));
                     break;
 
@@ -149,7 +149,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual int MessageID => ((Asn1Integer)Get(0)).IntValue();
 
         /// <summary> Returns this RfcLdapMessage's message type</summary>
-        public virtual int Type => Get(1).GetIdentifier().Tag;
+        public virtual LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
 
         /// <summary>
         ///     Returns the response associated with this RfcLdapMessage.
@@ -481,8 +481,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Asn1 Identifier
         /// </returns>
-        public override Asn1Identifier GetIdentifier()
-            => new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESULT);
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchResult);
     }
 
     /// <summary>
@@ -525,8 +524,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Asn1 Identifier
         /// </returns>
-        public override Asn1Identifier GetIdentifier()
-            => new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESPONSE);
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchResponse);
     }
 
     /// <summary>
@@ -544,23 +542,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcMessageID : Asn1Integer
     {
-        /// <summary>
-        ///     Increments the message number atomically
-        /// </summary>
-        /// <returns>
-        ///     the new message number
-        /// </returns>
-        private static int MessageID
-        {
-            get
-            {
-                lock (lock_Renamed)
-                {
-                    return messageID < int.MaxValue ? ++messageID : (messageID = 1);
-                }
-            }
-        }
-
         private static int messageID;
         private static readonly object lock_Renamed;
 
@@ -588,6 +569,22 @@ namespace Unosquare.Swan.Networking.Ldap
         static RfcMessageID()
         {
             lock_Renamed = new object();
+        }
+        /// <summary>
+        ///     Increments the message number atomically
+        /// </summary>
+        /// <returns>
+        ///     the new message number
+        /// </returns>
+        private static int MessageID
+        {
+            get
+            {
+                lock (lock_Renamed)
+                {
+                    return messageID < int.MaxValue ? ++messageID : (messageID = 1);
+                }
+            }
         }
     }
 }

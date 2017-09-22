@@ -19,7 +19,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapLocalException()
         {
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
         /// Constructs a local exception with a detailed message obtained from the
@@ -36,7 +36,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="resultCode">The result code returned.</param>
         /// <param name="rootException">A throwable which is the underlying cause
         /// of the LdapException.</param>
-        public LdapLocalException(string messageOrKey, int resultCode, Exception rootException = null)
+        public LdapLocalException(string messageOrKey, LdapStatusCode resultCode, Exception rootException = null)
             : base(messageOrKey, resultCode, rootException: rootException)
         {
         }
@@ -62,7 +62,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="resultCode">The result code returned.</param>
         /// <param name="rootException">A throwable which is the underlying cause
         /// of the LdapException.</param>
-        public LdapLocalException(string messageOrKey, object[] arguments, int resultCode, Exception rootException = null)
+        public LdapLocalException(string messageOrKey, object[] arguments, LdapStatusCode resultCode,
+            Exception rootException = null)
             : base(messageOrKey, arguments, resultCode, rootException: rootException)
         {
         }
@@ -231,102 +232,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="code">The code.</param>
         /// <returns></returns>
         public static string GetErrorMessage(string code)
-        {
-            if (MessageMap.ContainsKey(code))
-                return MessageMap[code];
-            return code;
-        }
+            => MessageMap.ContainsKey(code) ? MessageMap[code] : code;
     }
 
-    // End ExceptionMessages
-
     /// <summary>
-    ///     This class contains strings corresponding to Ldap Result Codes.
-    ///     The resources are accessed by the String representation of the result code.
-    /// </summary>
-    public class ResultCodeMessages // : System.Resources.ResourceManager
-    {
-        internal static readonly Dictionary<string, string> ErrorCodes = new Dictionary<string, string>
-        {
-            {"0", "Success"},
-            {"1", "Operations Error"},
-            {"2", "Protocol Error"},
-            {"3", "Timelimit Exceeded"},
-            {"4", "Sizelimit Exceeded"},
-            {"5", "Compare False"},
-            {"6", "Compare True"},
-            {"7", "Authentication Method Not Supported"},
-            {"8", "Strong Authentication Required"},
-            {"9", "Partial Results"},
-            {"10", "Referral"},
-            {"11", "Administrative Limit Exceeded"},
-            {"12", "Unavailable Critical Extension"},
-            {"13", "Confidentiality Required"},
-            {"14", "SASL Bind In Progress"},
-            {"16", "No Such Attribute"},
-            {"17", "Undefined Attribute Type"},
-            {"18", "Inappropriate Matching"},
-            {"19", "Constraint Violation"},
-            {"20", "Attribute Or Value Exists"},
-            {"21", "Invalid Attribute Syntax"},
-            {"32", "No Such Object"},
-            {"33", "Alias Problem"},
-            {"34", "Invalid DN Syntax"},
-            {"35", "Is Leaf"},
-            {"36", "Alias Dereferencing Problem"},
-            {"48", "Inappropriate Authentication"},
-            {"49", "Invalid Credentials"},
-            {"50", "Insufficient Access Rights"},
-            {"51", "Busy"},
-            {"52", "Unavailable"},
-            {"53", "Unwilling To Perform"},
-            {"54", "Loop Detect"},
-            {"64", "Naming Violation"},
-            {"65", "Object Class Violation"},
-            {"66", "Not Allowed On Non-leaf"},
-            {"67", "Not Allowed On RDN"},
-            {"68", "Entry Already Exists"},
-            {"69", "Object Class Modifications Prohibited"},
-            {"71", "Affects Multiple DSAs"},
-            {"80", "Other"},
-            {"81", "Server Down"},
-            {"82", "Local Error"},
-            {"83", "Encoding Error"},
-            {"84", "Decoding Error"},
-            {"85", "Ldap Timeout"},
-            {"86", "Authentication Unknown"},
-            {"87", "Filter Error"},
-            {"88", "User Cancelled"},
-            {"89", "Parameter Error"},
-            {"90", "No Memory"},
-            {"91", "Connect Error"},
-            {"92", "Ldap Not Supported"},
-            {"93", "Control Not Found"},
-            {"94", "No Results Returned"},
-            {"95", "More Results To Return"},
-            {"96", "Client Loop"},
-            {"97", "Referral Limit Exceeded"},
-            {"112", "TLS not supported"},
-            {"113", "SSL handshake failed"},
-            {"114", "SSL Provider not found"}
-        };
-
-        /// <summary>
-        /// Gets the result code.
-        /// </summary>
-        /// <param name="code">The code.</param>
-        /// <returns>String code</returns>
-        public static string GetResultCode(string code)
-        {
-            return ErrorCodes[code];
-        }
-    }
-
-    // End ResultCodeMessages
-
-    /// <summary>
-    ///     A utility class to get strings from the ExceptionMessages and
-    ///     ResultCodeMessages resources.
+    /// A utility class to get strings from the ExceptionMessages and
+    /// ResultCodeMessages resources.
     /// </summary>
     public class ResourcesHandler
     {
@@ -339,7 +250,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The default Locale
         /// </summary>
         private static CultureInfo defaultLocale;
-        
+
         /// <summary>
         /// Returns the message stored in the ExceptionMessages resource for the
         /// specified locale using messageOrKey and argments passed into the
@@ -358,7 +269,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (defaultLocale == null)
                 defaultLocale = CultureInfo.CurrentUICulture;
-            
+
             if (messageOrKey == null)
             {
                 messageOrKey = string.Empty;
@@ -375,35 +286,6 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             return pattern;
-        }
-        
-        /// <summary>
-        ///     Returns a string representing the Ldap result code.  The message
-        ///     is obtained from the locale specific ResultCodeMessage resource.
-        /// </summary>
-        /// <param name="code">
-        ///     the result code
-        /// </param>
-        /// <param name="locale">
-        ///     The Locale that should be used to pull message
-        ///     strings out of ResultMessages.
-        /// </param>
-        /// <returns>
-        ///     the String representing the result code.
-        /// </returns>
-        public static string GetResultString(int code)
-        {
-            string result;
-            try
-            {
-                result = ResultCodeMessages.GetResultCode(Convert.ToString(code));
-            }
-            catch (ArgumentNullException)
-            {
-                result = GetMessage(ExceptionMessages.UNKNOWN_RESULT, new object[] {code});
-            }
-
-            return result;
         }
 
         static ResourcesHandler()
@@ -698,38 +580,29 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     code will be one of those defined for the class. Otherwise, a local error
         ///     code is returned.
         /// </summary>
-        public virtual int ResultCode => resultCode;
+        public virtual LdapStatusCode ResultCode => resultCode;
 
         /// <summary>
-        ///     Returns the part of a submitted distinguished name which could be
-        ///     matched by the server.
-        ///     If the exception was caused by a local error, such as no server
-        ///     available, the return value is null. If the exception resulted from
-        ///     an operation being executed on a server, the value is an empty string
-        ///     except when the result of the operation was one of the following:
-        ///     <ul>
-        ///         <li>NO_SUCH_OBJECT</li>
-        ///         <li>ALIAS_PROBLEM</li>
-        ///         <li>INVALID_DN_SYNTAX</li>
-        ///         <li>ALIAS_DEREFERENCING_PROBLEM</li>
-        ///     </ul>
+        /// Returns the part of a submitted distinguished name which could be
+        /// matched by the server.
+        /// If the exception was caused by a local error, such as no server
+        /// available, the return value is null. If the exception resulted from
+        /// an operation being executed on a server, the value is an empty string
+        /// except when the result of the operation was one of the following:
+        /// <ul><li>NO_SUCH_OBJECT</li><li>ALIAS_PROBLEM</li><li>INVALID_DN_SYNTAX</li><li>ALIAS_DEREFERENCING_PROBLEM</li></ul>
         /// </summary>
-        /// <returns>
-        ///     The part of a submitted distinguished name which could be
-        ///     matched by the server or null if the error is a local error.
-        /// </returns>
+        /// <value>
+        /// The matched dn.
+        /// </value>
         public virtual string MatchedDN => matchedDN;
 
-        public override string Message => resultCodeToString();
+        /// <summary>
+        /// Gets a message that describes the current exception.
+        /// </summary>
+        public override string Message => resultCode.ToString().Humanize();
 
         // The Result Code
-        private readonly int resultCode;
-
-        // The localized message
-        private string messageOrKey;
-
-        // The arguments associated with the localized message
-        private object[] arguments;
+        private readonly LdapStatusCode resultCode;
 
         // The Matched DN
         private readonly string matchedDN;
@@ -741,543 +614,12 @@ namespace Unosquare.Swan.Networking.Ldap
         private readonly string serverMessage;
 
         /// <summary>
-        ///     Indicates the requested client operation completed successfully.
-        ///     SUCCESS = 0<p />
-        /// </summary>
-        public const int SUCCESS = 0;
-
-        /// <summary>
-        ///     Indicates an internal error.
-        ///     The server is unable to respond with a more specific error and is
-        ///     also unable to properly respond to a request. It does not indicate
-        ///     that the client has sent an erroneous message.
-        ///     OPERATIONS_ERROR = 1
-        /// </summary>
-        public const int OPERATIONS_ERROR = 1;
-
-        /// <summary>
-        ///     Indicates that the server has received an invalid or malformed request
-        ///     from the client.
-        ///     PROTOCOL_ERROR = 2
-        /// </summary>
-        public const int PROTOCOL_ERROR = 2;
-
-        /// <summary>
-        ///     Indicates that the operation's time limit specified by either the
-        ///     client or the server has been exceeded.
-        ///     On search operations, incomplete results are returned.
-        ///     TIME_LIMIT_EXCEEDED = 3
-        /// </summary>
-        public const int TIME_LIMIT_EXCEEDED = 3;
-
-        /// <summary>
-        ///     Indicates that in a search operation, the size limit specified by
-        ///     the client or the server has been exceeded. Incomplete results are
-        ///     returned.
-        ///     SIZE_LIMIT_EXCEEDED = 4
-        /// </summary>
-        public const int SIZE_LIMIT_EXCEEDED = 4;
-
-        /// <summary>
-        ///     Does not indicate an error condition. Indicates that the results of
-        ///     a compare operation are false.
-        ///     COMPARE_FALSE = 5
-        /// </summary>
-        public const int COMPARE_FALSE = 5;
-
-        /// <summary>
-        ///     Does not indicate an error condition. Indicates that the results of a
-        ///     compare operation are true.
-        ///     COMPARE_TRUE = 6
-        /// </summary>
-        public const int COMPARE_TRUE = 6;
-
-        /// <summary>
-        ///     Indicates that during a bind operation the client requested an
-        ///     authentication method not supported by the Ldap server.
-        ///     AUTH_METHOD_NOT_SUPPORTED = 7
-        /// </summary>
-        public const int AUTH_METHOD_NOT_SUPPORTED = 7;
-
-        /// <summary>
-        /// Indicates a problem with the level of authentication.
-        /// One of the following has occurred:
-        /// <ul><li>
-        /// In bind requests, the Ldap server accepts only strong
-        /// authentication.
-        /// </li><li>
-        /// In a client request, the client requested an operation such as delete
-        /// that requires strong authentication.
-        /// </li><li>
-        /// In an unsolicited notice of disconnection, the Ldap server discovers
-        /// the security protecting the communication between the client and
-        /// server has unexpectedly failed or been compromised.
-        /// </li></ul>
-        /// STRONG_AUTH_REQUIRED = 8
-        /// </summary>
-        public const int STRONG_AUTH_REQUIRED = 8;
-
-        /// <summary>
-        ///     Returned by some Ldap servers to Ldapv2 clients to indicate that a referral
-        ///     has been returned in the error string.
-        ///     Ldap_PARTIAL_RESULTS = 9
-        /// </summary>
-        public const int Ldap_PARTIAL_RESULTS = 9;
-
-        /// <summary>
-        ///     Does not indicate an error condition. In Ldapv3, indicates that the server
-        ///     does not hold the target entry of the request, but that the servers in the
-        ///     referral field may.
-        ///     REFERRAL = 10
-        /// </summary>
-        public const int REFERRAL = 10;
-
-        /// <summary>
-        ///     Indicates that an Ldap server limit set by an administrative authority
-        ///     has been exceeded.
-        ///     ADMIN_LIMIT_EXCEEDED = 11
-        /// </summary>
-        public const int ADMIN_LIMIT_EXCEEDED = 11;
-
-        /// <summary>
-        ///     Indicates that the Ldap server was unable to satisfy a request because
-        ///     one or more critical extensions were not available.
-        ///     Either the server does not support the control or the control is not
-        ///     appropriate for the operation type.
-        ///     UNAVAILABLE_CRITICAL_EXTENSION = 12
-        /// </summary>
-        public const int UNAVAILABLE_CRITICAL_EXTENSION = 12;
-
-        /// <summary>
-        ///     Indicates that the session is not protected by a protocol such as
-        ///     Transport Layer Security (TLS), which provides session confidentiality.
-        ///     CONFIDENTIALITY_REQUIRED = 13
-        /// </summary>
-        public const int CONFIDENTIALITY_REQUIRED = 13;
-
-        /// <summary>
-        ///     Does not indicate an error condition, but indicates that the server is
-        ///     ready for the next step in the process. The client must send the server
-        ///     the same SASL mechanism to continue the process.
-        ///     SASL_BIND_IN_PROGRESS = 14
-        /// </summary>
-        public const int SASL_BIND_IN_PROGRESS = 14;
-
-        /// <summary>
-        ///     Indicates that the attribute specified in the modify or compare
-        ///     operation does not exist in the entry.
-        ///     NO_SUCH_ATTRIBUTE = 16
-        /// </summary>
-        public const int NO_SUCH_ATTRIBUTE = 16;
-
-        /// <summary>
-        ///     Indicates that the attribute specified in the modify or add operation
-        ///     does not exist in the Ldap server's schema.
-        ///     UNDEFINED_ATTRIBUTE_TYPE = 17
-        /// </summary>
-        public const int UNDEFINED_ATTRIBUTE_TYPE = 17;
-
-        /// <summary>
-        ///     Indicates that the matching rule specified in the search filter does
-        ///     not match a rule defined for the attribute's syntax.
-        ///     INAPPROPRIATE_MATCHING = 18
-        /// </summary>
-        public const int INAPPROPRIATE_MATCHING = 18;
-
-        /// <summary>
-        ///     Indicates that the attribute value specified in a modify, add, or
-        ///     modify DN operation violates constraints placed on the attribute. The
-        ///     constraint can be one of size or content (for example, string only,
-        ///     no binary data).
-        ///     CONSTRAINT_VIOLATION = 19
-        /// </summary>
-        public const int CONSTRAINT_VIOLATION = 19;
-
-        /// <summary>
-        ///     Indicates that the attribute value specified in a modify or add
-        ///     operation already exists as a value for that attribute.
-        ///     ATTRIBUTE_OR_VALUE_EXISTS = 20
-        /// </summary>
-        public const int ATTRIBUTE_OR_VALUE_EXISTS = 20;
-
-        /// <summary>
-        ///     Indicates that the attribute value specified in an add, compare, or
-        ///     modify operation is an unrecognized or invalid syntax for the attribute.
-        ///     INVALID_ATTRIBUTE_SYNTAX = 21
-        /// </summary>
-        public const int INVALID_ATTRIBUTE_SYNTAX = 21;
-
-        /// <summary>
-        ///     Indicates the target object cannot be found.
-        ///     This code is not returned on the following operations:
-        ///     <ul>
-        ///         <li>
-        ///             Search operations that find the search base but cannot find any
-        ///             entries that match the search filter.
-        ///         </li>
-        ///         <li>Bind operations.</li>
-        ///     </ul>
-        ///     NO_SUCH_OBJECT = 32
-        /// </summary>
-        public const int NO_SUCH_OBJECT = 32;
-
-        /// <summary>
-        ///     Indicates that an error occurred when an alias was dereferenced.
-        ///     ALIAS_PROBLEM = 33
-        /// </summary>
-        public const int ALIAS_PROBLEM = 33;
-
-        /// <summary>
-        ///     Indicates that the syntax of the DN is incorrect.
-        ///     If the DN syntax is correct, but the Ldap server's structure
-        ///     rules do not permit the operation, the server returns
-        ///     Ldap_UNWILLING_TO_PERFORM.
-        ///     INVALID_DN_SYNTAX = 34
-        /// </summary>
-        public const int INVALID_DN_SYNTAX = 34;
-
-        /// <summary>
-        ///     Indicates that the specified operation cannot be performed on a
-        ///     leaf entry.
-        ///     This code is not currently in the Ldap specifications, but is
-        ///     reserved for this constant.
-        ///     IS_LEAF = 35
-        /// </summary>
-        public const int IS_LEAF = 35;
-
-        /// <summary>
-        ///     Indicates that during a search operation, either the client does not
-        ///     have access rights to read the aliased object's name or dereferencing
-        ///     is not allowed.
-        ///     ALIAS_DEREFERENCING_PROBLEM = 36
-        /// </summary>
-        public const int ALIAS_DEREFERENCING_PROBLEM = 36;
-
-        /// <summary>
-        ///     Indicates that during a bind operation, the client is attempting to use
-        ///     an authentication method that the client cannot use correctly.
-        ///     For example, either of the following cause this error:
-        ///     <ul>
-        ///         <li>
-        ///             The client returns simple credentials when strong credentials are
-        ///             required.
-        ///         </li>
-        ///         <li>
-        ///             The client returns a DN and a password for a simple bind when the
-        ///             entry does not have a password defined.
-        ///         </li>
-        ///     </ul>
-        ///     INAPPROPRIATE_AUTHENTICATION = 48
-        /// </summary>
-        public const int INAPPROPRIATE_AUTHENTICATION = 48;
-
-        /// <summary>
-        ///     Indicates that invalid information was passed during a bind operation.
-        ///     One of the following occurred:
-        ///     <ul>
-        ///         <li> The client passed either an incorrect DN or password.</li>
-        ///         <li>
-        ///             The password is incorrect because it has expired, intruder detection
-        ///             has locked the account, or some other similar reason.
-        ///         </li>
-        ///     </ul>
-        ///     INVALID_CREDENTIALS = 49
-        /// </summary>
-        public const int INVALID_CREDENTIALS = 49;
-
-        /// <summary>
-        ///     Indicates that the caller does not have sufficient rights to perform
-        ///     the requested operation.
-        ///     INSUFFICIENT_ACCESS_RIGHTS = 50
-        /// </summary>
-        public const int INSUFFICIENT_ACCESS_RIGHTS = 50;
-
-        /// <summary>
-        ///     Indicates that the Ldap server is too busy to process the client request
-        ///     at this time, but if the client waits and resubmits the request, the
-        ///     server may be able to process it then.
-        ///     BUSY = 51
-        /// </summary>
-        public const int BUSY = 51;
-
-        /// <summary>
-        ///     Indicates that the Ldap server cannot process the client's bind
-        ///     request, usually because it is shutting down.
-        ///     UNAVAILABLE = 52
-        /// </summary>
-        public const int UNAVAILABLE = 52;
-
-        /// <summary>
-        ///     Indicates that the Ldap server cannot process the request because of
-        ///     server-defined restrictions.
-        ///     This error is returned for the following reasons:
-        ///     <ul>
-        ///         <li>The add entry request violates the server's structure rules.</li>
-        ///         <li>
-        ///             The modify attribute request specifies attributes that users
-        ///             cannot modify.
-        ///         </li>
-        ///     </ul>
-        ///     UNWILLING_TO_PERFORM = 53
-        /// </summary>
-        public const int UNWILLING_TO_PERFORM = 53;
-
-        /// <summary>
-        ///     Indicates that the client discovered an alias or referral loop,
-        ///     and is thus unable to complete this request.
-        ///     LOOP_DETECT = 54
-        /// </summary>
-        public const int LOOP_DETECT = 54;
-
-        /// <summary>
-        ///     Indicates that the add or modify DN operation violates the schema's
-        ///     structure rules.
-        ///     For example,
-        ///     <ul>
-        ///         <li>The request places the entry subordinate to an alias.</li>
-        ///         <li>
-        ///             The request places the entry subordinate to a container that
-        ///             is forbidden by the containment rules.
-        ///         </li>
-        ///         <li>The RDN for the entry uses a forbidden attribute type.</li>
-        ///     </ul>
-        ///     NAMING_VIOLATION = 64
-        /// </summary>
-        public const int NAMING_VIOLATION = 64;
-
-        /// <summary>
-        ///     Indicates that the add, modify, or modify DN operation violates the
-        ///     object class rules for the entry.
-        ///     For example, the following types of request return this error:
-        ///     <ul>
-        ///         <li>
-        ///             The add or modify operation tries to add an entry without a value
-        ///             for a required attribute.
-        ///         </li>
-        ///         <li>
-        ///             The add or modify operation tries to add an entry with a value for
-        ///             an attribute which the class definition does not contain.
-        ///         </li>
-        ///         <li>
-        ///             The modify operation tries to remove a required attribute without
-        ///             removing the auxiliary class that defines the attribute as required.
-        ///         </li>
-        ///     </ul>
-        ///     OBJECT_CLASS_VIOLATION = 65
-        /// </summary>
-        public const int OBJECT_CLASS_VIOLATION = 65;
-
-        /// <summary>
-        ///     Indicates that the requested operation is permitted only on leaf entries.
-        ///     For example, the following types of requests return this error:
-        ///     <ul>
-        ///         <li>The client requests a delete operation on a parent entry.</li>
-        ///         <li> The client request a modify DN operation on a parent entry.</li>
-        ///     </ul>
-        ///     NOT_ALLOWED_ON_NONLEAF = 66
-        /// </summary>
-        public const int NOT_ALLOWED_ON_NONLEAF = 66;
-
-        /// <summary>
-        ///     Indicates that the modify operation attempted to remove an attribute
-        ///     value that forms the entry's relative distinguished name.
-        ///     NOT_ALLOWED_ON_RDN = 67
-        /// </summary>
-        public const int NOT_ALLOWED_ON_RDN = 67;
-
-        /// <summary>
-        ///     Indicates that the add operation attempted to add an entry that already
-        ///     exists, or that the modify operation attempted to rename an entry to the
-        ///     name of an entry that already exists.
-        ///     ENTRY_ALREADY_EXISTS = 68
-        /// </summary>
-        public const int ENTRY_ALREADY_EXISTS = 68;
-
-        /// <summary>
-        ///     Indicates that the modify operation attempted to modify the structure
-        ///     rules of an object class.
-        ///     OBJECT_CLASS_MODS_PROHIBITED = 69
-        /// </summary>
-        public const int OBJECT_CLASS_MODS_PROHIBITED = 69;
-
-        /// <summary>
-        ///     Indicates that the modify DN operation moves the entry from one Ldap
-        ///     server to another and thus requires more than one Ldap server.
-        ///     AFFECTS_MULTIPLE_DSAS = 71
-        /// </summary>
-        public const int AFFECTS_MULTIPLE_DSAS = 71;
-
-        /// <summary>
-        ///     Indicates an unknown error condition.
-        ///     OTHER = 80
-        /// </summary>
-        public const int OTHER = 80;
-
-        /////////////////////////////////////////////////////////////////////////////
-        // Local Errors, resulting from actions other than an operation on a server
-        /////////////////////////////////////////////////////////////////////////////
-
-        /// <summary>
-        ///     Indicates that the Ldap libraries cannot establish an initial connection
-        ///     with the Ldap server. Either the Ldap server is down or the specified
-        ///     host name or port number is incorrect.
-        ///     SERVER_DOWN = 81
-        /// </summary>
-        public const int SERVER_DOWN = 81;
-
-        /// <summary>
-        ///     Indicates that the Ldap client has an error. This is usually a failed
-        ///     dynamic memory allocation error.
-        ///     LOCAL_ERROR = 82
-        /// </summary>
-        public const int LOCAL_ERROR = 82;
-
-        /// <summary>
-        ///     Indicates that the Ldap client encountered errors when encoding an
-        ///     Ldap request intended for the Ldap server.
-        ///     ENCODING_ERROR = 83
-        /// </summary>
-        public const int ENCODING_ERROR = 83;
-
-        /// <summary>
-        ///     Indicates that the Ldap client encountered errors when decoding an
-        ///     Ldap response from the Ldap server.
-        ///     DECODING_ERROR = 84
-        /// </summary>
-        public const int DECODING_ERROR = 84;
-
-        /// <summary>
-        ///     Indicates that the time limit of the Ldap client was exceeded while
-        ///     waiting for a result.
-        ///     Ldap_TIMEOUT = 85
-        /// </summary>
-        public const int Ldap_TIMEOUT = 85;
-
-        /// <summary>
-        ///     Indicates that a bind method was called with an unknown
-        ///     authentication method.
-        ///     AUTH_UNKNOWN = 86
-        /// </summary>
-        public const int AUTH_UNKNOWN = 86;
-
-        /// <summary>
-        ///     Indicates that the search method was called with an invalid
-        ///     search filter.
-        ///     FILTER_ERROR = 87
-        /// </summary>
-        public const int FILTER_ERROR = 87;
-
-        /// <summary>
-        ///     Indicates that the user cancelled the Ldap operation.
-        ///     USER_CANCELLED = 88
-        /// </summary>
-        public const int USER_CANCELLED = 88;
-
-        /// <summary>
-        ///     Indicates that a dynamic memory allocation method failed when calling
-        ///     an Ldap method.
-        ///     NO_MEMORY = 90
-        /// </summary>
-        public const int NO_MEMORY = 90;
-
-        /// <summary>
-        ///     Indicates that the Ldap client has lost either its connection or
-        ///     cannot establish a connection to the Ldap server.
-        ///     CONNECT_ERROR = 91
-        /// </summary>
-        public const int CONNECT_ERROR = 91;
-
-        /// <summary>
-        ///     Indicates that the requested functionality is not supported by the
-        ///     client. For example, if the Ldap client is established as an Ldapv2
-        ///     client, the libraries set this error code when the client requests
-        ///     Ldapv3 functionality.
-        ///     Ldap_NOT_SUPPORTED = 92
-        /// </summary>
-        public const int Ldap_NOT_SUPPORTED = 92;
-
-        /// <summary>
-        ///     Indicates that the client requested a control that the libraries
-        ///     cannot find in the list of supported controls sent by the Ldap server.
-        ///     CONTROL_NOT_FOUND = 93
-        /// </summary>
-        public const int CONTROL_NOT_FOUND = 93;
-
-        /// <summary>
-        ///     Indicates that the Ldap server sent no results.
-        ///     NO_RESULTS_RETURNED = 94
-        /// </summary>
-        public const int NO_RESULTS_RETURNED = 94;
-
-        /// <summary>
-        ///     Indicates that more results are chained in the result message.
-        ///     MORE_RESULTS_TO_RETURN = 95
-        /// </summary>
-        public const int MORE_RESULTS_TO_RETURN = 95;
-
-        /// <summary>
-        ///     Indicates the Ldap libraries detected a loop. Usually this happens
-        ///     when following referrals.
-        ///     CLIENT_LOOP = 96
-        /// </summary>
-        public const int CLIENT_LOOP = 96;
-
-        /// <summary>
-        ///     Indicates that the referral exceeds the hop limit. The default hop
-        ///     limit is ten.
-        ///     The hop limit determines how many servers the client can hop through
-        ///     to retrieve data. For example, suppose the following conditions:
-        ///     <ul>
-        ///         <li>Suppose the hop limit is two.</li>
-        ///         <li>
-        ///             If the referral is to server D which can be contacted only through
-        ///             server B (1 hop) which contacts server C (2 hops) which contacts
-        ///             server D (3 hops).
-        ///         </li>
-        ///     </ul>
-        ///     With these conditions, the hop limit is exceeded and the Ldap
-        ///     libraries set this code.
-        ///     REFERRAL_LIMIT_EXCEEDED = 97
-        /// </summary>
-        public const int REFERRAL_LIMIT_EXCEEDED = 97;
-
-        /// <summary>
-        ///     Indicates that the server response to a request is invalid.
-        ///     INVALID_RESPONSE = 100
-        /// </summary>
-        public const int INVALID_RESPONSE = 100;
-
-        /// <summary>
-        ///     Indicates that the server response to a request is ambiguous.
-        ///     AMBIGUOUS_RESPONSE = 101
-        /// </summary>
-        public const int AMBIGUOUS_RESPONSE = 101;
-
-        /// <summary>
-        ///     Indicates that TLS is not supported on the server.
-        ///     TLS_NOT_SUPPORTED = 112
-        /// </summary>
-        public const int TLS_NOT_SUPPORTED = 112;
-
-        /// <summary>
-        ///     Indicates that SSL Handshake could not succeed.
-        ///     SSL_HANDSHAKE_FAILED = 113
-        /// </summary>
-        public const int SSL_HANDSHAKE_FAILED = 113;
-
-        /// <summary>
-        ///     Indicates that SSL Provider could not be found.
-        ///     SSL_PROVIDER_NOT_FOUND = 114
-        /// </summary>
-        public const int SSL_PROVIDER_NOT_FOUND = 114;
-
-        /// <summary>
         /// Constructs a default exception with no specific error information.
         /// </summary>
         public LdapException()
         {
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapException" /> class.
         /// Constructs an exception with a detailed message obtained from the
@@ -1297,7 +639,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="matchedDN">The maximal subset of a specified DN which could
         /// be matched by the server on a search operation.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapException(string messageOrKey, int resultCode, string serverMsg = null, string matchedDN = null, Exception rootException = null)
+        public LdapException(string messageOrKey, LdapStatusCode resultCode, string serverMsg = null,
+            string matchedDN = null, Exception rootException = null)
             : this(messageOrKey, null, resultCode, serverMsg, matchedDN, rootException)
         {
         }
@@ -1328,41 +671,16 @@ namespace Unosquare.Swan.Networking.Ldap
         /// be matched by the server on a search operation.</param>
         /// <param name="rootException">A throwable which is the underlying cause
         /// of the LdapException.</param>
-        internal LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg = null, string matchedDN = null, Exception rootException = null)
+        internal LdapException(string messageOrKey, object[] arguments, LdapStatusCode resultCode,
+            string serverMsg = null, string matchedDN = null, Exception rootException = null)
             : base(ResourcesHandler.GetMessage(messageOrKey, arguments))
         {
-            this.messageOrKey = messageOrKey;
-            this.arguments = arguments;
             this.resultCode = resultCode;
             this.rootException = rootException;
             this.matchedDN = matchedDN;
             serverMessage = serverMsg;
         }
 
-        /// <summary>
-        ///     Returns a string representing the result code in the default
-        ///     locale.
-        /// </summary>
-        /// <returns>
-        ///     The message for the result code in the LdapException object.
-        /// </returns>
-        public virtual string resultCodeToString()
-            => ResourcesHandler.GetResultString(resultCode);
-
-        /// <summary>
-        ///     Returns a string representing the specified result code in the default
-        ///     locale.
-        /// </summary>
-        /// <param name="code">
-        ///     The result code for which a message is to be returned.
-        /// </param>
-        /// <returns>
-        ///     The message corresponding to the specified result code, or
-        ///     or null if the message is not available for the default locale.
-        /// </returns>
-        public static string resultCodeToString(int code)
-            => ResourcesHandler.GetResultString(code);
-        
         /// <summary>
         ///     returns a string of information about the exception and the
         ///     the nested exceptions, if any.
@@ -1380,15 +698,15 @@ namespace Unosquare.Swan.Networking.Ldap
         internal virtual string GetExceptionString(string exception)
         {
             string tmsg;
-            
+
             // Craft a string from the resouce file
             var msg = ResourcesHandler.GetMessage("TOSTRING",
-                new object[] {exception, base.Message, resultCode, resultCodeToString()});
+                new object[] {exception, base.Message, resultCode, resultCode.ToString().Humanize()});
 
             // If found no string from resource file, use a default string
             if (msg.ToUpper().Equals("TOSTRING".ToUpper()))
             {
-                msg = exception + ": (" + resultCode + ") " + resultCodeToString();
+                msg = exception + ": (" + resultCode + ") " + resultCode.ToString().Humanize();
             }
 
             // Add server message
@@ -1446,7 +764,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapReferralException()
         {
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
         ///     Constructs a default exception with a specified string as additional
@@ -1462,7 +780,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     An exception which caused referral following to fail.
         /// </param>
         public LdapReferralException(string message, Exception rootException = null)
-            : base(message, REFERRAL, rootException: rootException)
+            : base(message, LdapStatusCode.Referral, rootException: rootException)
         {
         }
 
@@ -1485,10 +803,10 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     An exception which caused referral following to fail.
         /// </param>
         public LdapReferralException(string message, object[] arguments, Exception rootException = null)
-            : base(message, arguments, REFERRAL, rootException: rootException)
+            : base(message, arguments, LdapStatusCode.Referral, rootException: rootException)
         {
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapReferralException" /> class.
         /// Constructs an exception with a specified error string, result code,
@@ -1500,7 +818,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="serverMessage">Error message specifying additional information
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapReferralException(string message, int resultCode, string serverMessage, Exception rootException = null)
+        public LdapReferralException(string message, LdapStatusCode resultCode, string serverMessage,
+            Exception rootException = null)
             : base(message, resultCode, serverMessage, rootException: rootException)
         {
         }
@@ -1518,7 +837,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="serverMessage">Error message specifying additional information
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage, Exception rootException = null)
+        public LdapReferralException(string message, object[] arguments, LdapStatusCode resultCode,
+            string serverMessage, Exception rootException = null)
             : base(message, arguments, resultCode, serverMessage, rootException: rootException)
         {
         }
@@ -1589,15 +909,15 @@ namespace Unosquare.Swan.Networking.Ldap
             // Add referral information, display all the referrals in the list
             if (referrals != null)
             {
-                for (var i = 0; i < referrals.Length; i++)
+                foreach (var referral in referrals)
                 {
                     tmsg = ResourcesHandler.GetMessage("REFERRAL_ITEM",
-                        new object[] {"LdapReferralException", referrals[i]});
+                        new object[] {"LdapReferralException", referral});
 
                     // If found no string from resource file, use a default string
                     if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                     {
-                        tmsg = "LdapReferralException: Referral: " + referrals[i];
+                        tmsg = "LdapReferralException: Referral: " + referral;
                     }
 
                     msg = msg + '\n' + tmsg;

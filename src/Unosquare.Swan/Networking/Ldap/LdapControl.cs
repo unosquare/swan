@@ -202,7 +202,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// ID needs only be one Value for every instance,
         /// thus we create it only once.
         /// </summary>
-        private static readonly Asn1Identifier ID = new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.BIND_REQUEST);
+        private static readonly Asn1Identifier ID = new Asn1Identifier(LdapOperation.BindRequest);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcBindRequest"/> class.
@@ -277,7 +277,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cont">Any controls that apply to the simple bind request,
         /// or null if none.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd, LdapControl[] cont)
-            : base(BIND_REQUEST, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 0), new Asn1OctetString(passwd), false))), cont)
+            : base(LdapOperation.BindRequest, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 0), new Asn1OctetString(passwd), false))), cont)
         {
         }
 
@@ -1342,7 +1342,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The result code.
         /// </returns>
-        public virtual int ResultCode
+        public virtual LdapStatusCode ResultCode
         {
             get
             {
@@ -1352,8 +1352,9 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
 
                 if ((IRfcResponse) message.Response is RfcIntermediateResponse)
-                    return 0;
-                return ((IRfcResponse) message.Response).GetResultCode().IntValue();
+                    return LdapStatusCode.Success;
+
+                return (LdapStatusCode) ((IRfcResponse) message.Response).GetResultCode().IntValue();
             }
         }
 
@@ -1368,17 +1369,17 @@ namespace Unosquare.Swan.Networking.Ldap
                 LdapException ex = null;
                 switch (ResultCode)
                 {
-                    case LdapException.SUCCESS:
-                    case LdapException.COMPARE_TRUE:
-                    case LdapException.COMPARE_FALSE:
+                    case LdapStatusCode.Success:
+                    case LdapStatusCode.CompareTrue:
+                    case LdapStatusCode.CompareFalse:
                         break;
-                    case LdapException.REFERRAL:
+                    case LdapStatusCode.Referral:
                         var refs = Referrals;
-                        ex = new LdapReferralException("Automatic referral following not enabled", LdapException.REFERRAL, ErrorMessage);
+                        ex = new LdapReferralException("Automatic referral following not enabled", LdapStatusCode.Referral, ErrorMessage);
                         ((LdapReferralException) ex).SetReferrals(refs);
                         break;
                     default:
-                        ex = new LdapException(LdapException.resultCodeToString(ResultCode), ResultCode, ErrorMessage, MatchedDN);
+                        ex = new LdapException(ResultCode.ToString().Humanize(), ResultCode, ErrorMessage, MatchedDN);
                         break;
                 }
 
@@ -1442,21 +1443,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(message)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
-        /// Creates a SUCCESS response LdapMessage. Typically the response
-        /// comes from a source other than a BER encoded Ldap message,
-        /// such as from DSML.  Other values which are allowed in a response
-        /// are set to their empty values.
-        /// </summary>
-        /// <param name="type">The message type as defined in LdapMessage.</param>
-        /// <seealso cref="LdapMessage"></seealso>
-        public LdapResponse(int type) 
-            : this(type, LdapException.SUCCESS)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapResponse"/> class.
         /// Creates a response LdapMessage from parameters. Typically the data
@@ -1472,49 +1459,18 @@ namespace Unosquare.Swan.Networking.Ldap
         /// an empty string or <code>null</code> if none.</param>
         /// <seealso cref="LdapMessage"></seealso>
         /// <seealso cref="LdapException"></seealso>
-        public LdapResponse(int type, int resultCode, string matchedDN = null, string serverMessage = null)
+        public LdapResponse(LdapOperation type, LdapStatusCode resultCode, string matchedDN = null, string serverMessage = null)
             : base(new RfcLdapMessage(RfcResultFactory(type, resultCode, matchedDN, serverMessage)))
         {
         }
 
-        private static Asn1Sequence RfcResultFactory(int type, int resultCode, string matchedDN, string serverMessage)
-        {
-            Asn1Sequence ret;
-            if (matchedDN == null)
-                matchedDN = string.Empty;
-            if (serverMessage == null)
-                serverMessage = string.Empty;
-            switch (type)
-            {
-                case SEARCH_RESULT:
-                    ret = new RfcSearchResultDone(new Asn1Enumerated(resultCode), new RfcLdapDN(matchedDN), new RfcLdapString(serverMessage), null);
-                    break;
-                case BIND_RESPONSE:
-                    ret = null; // Not yet implemented
-                    break;
-                case SEARCH_RESPONSE:
-                    ret = null; // Not yet implemented
-                    break;
-                case SEARCH_RESULT_REFERENCE:
-                    ret = null; // Not yet implemented
-                    break;
-                case EXTENDED_RESPONSE:
-                    ret = null; // Not yet implemented
-                    break;
-                default:
-                    throw new Exception("Type " + type + " Not Supported");
-            }
-
-            return ret;
-        }
-
         /// <summary>
-        ///     Checks the resultCode and throws the appropriate exception.
+        ///     Indicates if this response is an embedded exception response
         /// </summary>
-        /// <exception>
-        ///     LdapException A general exception which includes an error
-        ///     message and an Ldap error code.
-        /// </exception>
+        /// <returns>
+        ///     true if contains an embedded Ldapexception
+        /// </returns>
+        internal virtual bool HasException() => exception != null;
         internal virtual void ChkResultCode()
         {
             if (exception != null)
@@ -1528,14 +1484,26 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw ex;
             }
         }
-        
-        /// <summary>
-        ///     Indicates if this response is an embedded exception response
-        /// </summary>
-        /// <returns>
-        ///     true if contains an embedded Ldapexception
-        /// </returns>
-        internal virtual bool HasException() =>exception != null;
+
+        private static Asn1Sequence RfcResultFactory(LdapOperation type, LdapStatusCode resultCode, string matchedDN, string serverMessage)
+        {
+            Asn1Sequence ret;
+            if (matchedDN == null)
+                matchedDN = string.Empty;
+            if (serverMessage == null)
+                serverMessage = string.Empty;
+
+            switch (type)
+            {
+                case LdapOperation.SearchResult:
+                    ret = new RfcSearchResultDone(new Asn1Enumerated((int) resultCode), new RfcLdapDN(matchedDN), new RfcLdapString(serverMessage), null);
+                    break;
+                default:
+                    throw new Exception("Type " + type + " Not Supported");
+            }
+
+            return ret;
+        }
     }
 
     /// <summary>
@@ -1566,12 +1534,12 @@ namespace Unosquare.Swan.Networking.Ldap
 
             public RegisteredControl(RespControlVector enclosingInstance, string oid, Type controlClass)
             {
-                Enclosing_Instance = enclosingInstance;
+                EnclosingInstance = enclosingInstance;
                 myOID = oid;
                 myClass = controlClass;
             }
 
-            private RespControlVector Enclosing_Instance { get; }
+            private RespControlVector EnclosingInstance { get; }
 
         }
 
@@ -1616,8 +1584,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         return ctl.myClass;
                     }
                 }
-
-                /* The requested control does not have a registered response class */
+                
                 return null;
             }
         }

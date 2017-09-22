@@ -201,10 +201,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Asn1 Identifier
         /// </returns>
-        public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESULT_REFERENCE);
-        }
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchResultReference);
     }
 
     /// <summary> Represnts an Ldap String.</summary>
@@ -326,10 +323,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Asn1 Identifier
         /// </returns>
-        public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.EXTENDED_RESPONSE);
-        }
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.ExtendedResponse);
     }
 
     /// <summary>
@@ -416,10 +410,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Asn1 Identifier
         /// </returns>
-        public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.BIND_RESPONSE);
-        }
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.BindResponse);
     }
 
     /// <summary>
@@ -468,25 +459,13 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        public Asn1Enumerated GetResultCode()
-        {
-            return Size() > 3 ? (Asn1Enumerated) Get(0) : null;
-        }
+        public Asn1Enumerated GetResultCode() => Size() > 3 ? (Asn1Enumerated) Get(0) : null;
 
-        public RfcLdapDN GetMatchedDN()
-        {
-            return Size() > 3 ? new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue()) : null;
-        }
+        public RfcLdapDN GetMatchedDN() => Size() > 3 ? new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue()) : null;
 
-        public RfcLdapString GetErrorMessage()
-        {
-            return Size() > 3 ? new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue()) : null;
-        }
+        public RfcLdapString GetErrorMessage() => Size() > 3 ? new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue()) : null;
 
-        public Asn1SequenceOf GetReferral()
-        {
-            return Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
-        }
+        public Asn1SequenceOf GetReferral() => Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
 
         public RfcLdapOID GetResponseName()
         {
@@ -510,10 +489,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Asn1 Identifier
         /// </returns>
-        public override Asn1Identifier GetIdentifier()
-        {
-            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.INTERMEDIATE_RESPONSE);
-        }
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.IntermediateResponse);
     }
 }
 #endif

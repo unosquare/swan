@@ -17,7 +17,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="modifications">The modifications.</param>
         /// <param name="control">The control.</param>
         public LdapModifyRequest(string dn, LdapModification[] modifications, LdapControl[] control)
-            : base(MODIFY_REQUEST, new RfcModifyRequest(new RfcLdapDN(dn), EncodeModifications(modifications)), control)
+            : base(LdapOperation.ModifyRequest, new RfcModifyRequest(new RfcLdapDN(dn), EncodeModifications(modifications)), control)
         {
         }
 
@@ -152,13 +152,13 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal class RfcAttributeValue : Asn1OctetString
         {
-            public RfcAttributeValue(string valueRenamed)
-                : base(valueRenamed)
+            public RfcAttributeValue(string value)
+                : base(value)
             {
             }
 
-            public RfcAttributeValue(sbyte[] valueRenamed)
-                : base(valueRenamed)
+            public RfcAttributeValue(sbyte[] value)
+                : base(value)
             {
             }
         }

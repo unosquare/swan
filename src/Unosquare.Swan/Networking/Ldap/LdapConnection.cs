@@ -580,7 +580,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (sr.HasMore())
                 {
                     // "Read response is ambiguous, multiple entries returned"
-                    throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapException.AMBIGUOUS_RESPONSE);
+                    throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapStatusCode.AmbiguousResponse);
                 }
             }
 

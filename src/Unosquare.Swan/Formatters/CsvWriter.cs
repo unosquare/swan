@@ -250,7 +250,7 @@
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to write</typeparam>
         /// <param name="item">The item.</param>
         public void WriteObject<T>(T item) => WriteObject(item as object);
 
@@ -259,7 +259,7 @@
         /// WriteObject method. For more info check out the description of the WriteObject
         /// method.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to write</typeparam>
         /// <param name="items">The items.</param>
         public void WriteObjects<T>(IEnumerable<T> items)
         {

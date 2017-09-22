@@ -21,10 +21,10 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcModifyRequest 
         : Asn1Sequence, IRfcRequest
     {
-        public RfcModifyRequest(RfcLdapDN objectRenamed, Asn1SequenceOf modification)
+        public RfcModifyRequest(RfcLdapDN obj, Asn1SequenceOf modification)
             : base(2)
         {
-            Add(objectRenamed);
+            Add(obj);
             Add(modification);
         }
 
@@ -39,8 +39,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public virtual Asn1SequenceOf Modifications => (Asn1SequenceOf)Get(1);
         
-        public override Asn1Identifier GetIdentifier()
-            => new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_REQUEST);
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.ModifyRequest);
 
         public string GetRequestDN() => ((RfcLdapDN)Get(0)).StringValue();
     }
@@ -75,8 +74,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Override getIdentifier to return an application-wide id.
         /// </summary>
         /// <returns></returns>
-        public override Asn1Identifier GetIdentifier()
-            => new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_RESPONSE);
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.ModifyResponse);
     }
 }
 #endif

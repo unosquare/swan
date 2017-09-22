@@ -91,9 +91,9 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             switch (item.Type)
             {
-                case LdapMessage.SEARCH_RESPONSE:
+                case LdapOperation.SearchResponse:
                     return new LdapSearchResult(item);
-                case LdapMessage.SEARCH_RESULT_REFERENCE:
+                case LdapOperation.SearchResultReference:
                     return new LdapSearchResultReference(item);
                 default:
                     return new LdapResponse(item);

@@ -73,11 +73,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The type.
         /// </value>
-        public virtual int Type
+        public virtual LdapOperation Type
         {
             get
             {
-                if (messageType == -1)
+                if (messageType == LdapOperation.Unknown)
                 {
                     messageType = message.Type;
                 }
@@ -105,55 +105,55 @@ namespace Unosquare.Swan.Networking.Ldap
                 string name;
                 switch (Type)
                 {
-                    case SEARCH_RESPONSE:
+                    case LdapOperation.SearchResponse:
                         name = "LdapSearchResponse";
                         break;
 
-                    case SEARCH_RESULT:
+                    case LdapOperation.SearchResult:
                         name = "LdapSearchResult";
                         break;
 
-                    case SEARCH_REQUEST:
+                    case LdapOperation.SearchRequest:
                         name = "LdapSearchRequest";
                         break;
 
-                    case BIND_REQUEST:
+                    case LdapOperation.BindRequest:
                         name = "LdapBindRequest";
                         break;
 
-                    case BIND_RESPONSE:
+                    case LdapOperation.BindResponse:
                         name = "LdapBindResponse";
                         break;
 
-                    case UNBIND_REQUEST:
+                    case LdapOperation.UnbindRequest:
                         name = "LdapUnbindRequest";
                         break;
 
-                    case ABANDON_REQUEST:
+                    case LdapOperation.AbandonRequest:
                         name = "LdapAbandonRequest";
                         break;
 
-                    case SEARCH_RESULT_REFERENCE:
+                    case LdapOperation.SearchResultReference:
                         name = "LdapSearchResultReference";
                         break;
 
-                    case EXTENDED_REQUEST:
+                    case LdapOperation.ExtendedRequest:
                         name = "LdapExtendedRequest";
                         break;
 
-                    case EXTENDED_RESPONSE:
+                    case LdapOperation.ExtendedResponse:
                         name = "LdapExtendedResponse";
                         break;
 
-                    case INTERMEDIATE_RESPONSE:
+                    case LdapOperation.IntermediateResponse:
                         name = "LdapIntermediateResponse";
                         break;
 
-                    case MODIFY_REQUEST:
+                    case LdapOperation.ModifyRequest:
                         name = "LdapModifyRequest";
                         break;
 
-                    case MODIFY_RESPONSE:
+                    case LdapOperation.ModifyResponse:
                         name = "LdapModifyResponse";
                         break;
 
@@ -210,90 +210,12 @@ namespace Unosquare.Swan.Networking.Ldap
             set => stringTag = value;
         }
 
-        /// <summary>
-        ///     A bind request operation.
-        ///     BIND_REQUEST = 0
-        /// </summary>
-        public const int BIND_REQUEST = 0;
-
-        /// <summary>
-        ///     A bind response operation.
-        ///     BIND_RESPONSE = 1
-        /// </summary>
-        public const int BIND_RESPONSE = 1;
-
-        /// <summary>
-        ///     An unbind request operation.
-        ///     UNBIND_REQUEST = 2
-        /// </summary>
-        public const int UNBIND_REQUEST = 2;
-
-        /// <summary>
-        ///     A search request operation.
-        ///     SEARCH_REQUEST = 3
-        /// </summary>
-        public const int SEARCH_REQUEST = 3;
-
-        /// <summary>
-        ///     A search response containing data.
-        ///     SEARCH_RESPONSE = 4
-        /// </summary>
-        public const int SEARCH_RESPONSE = 4;
-
-        /// <summary>
-        ///     A search result message - contains search status.
-        ///     SEARCH_RESULT = 5
-        /// </summary>
-        public const int SEARCH_RESULT = 5;
-        
-        /// <summary>
-        ///     A modify request operation.
-        ///     MODIFY_REQUEST = 6
-        /// </summary>
-        public const int MODIFY_REQUEST = 6;
-
-        /// <summary>
-        ///     A modify response operation.
-        ///     MODIFY_RESPONSE = 7
-        /// </summary>
-        public const int MODIFY_RESPONSE = 7;
-
-        /// <summary>
-        ///     An abandon request operation.
-        ///     ABANDON_REQUEST = 16
-        /// </summary>
-        public const int ABANDON_REQUEST = 16;
-
-        /// <summary>
-        ///     A search result reference operation.
-        ///     SEARCH_RESULT_REFERENCE = 19
-        /// </summary>
-        public const int SEARCH_RESULT_REFERENCE = 19;
-
-        /// <summary>
-        ///     An extended request operation.
-        ///     EXTENDED_REQUEST = 23
-        /// </summary>
-        public const int EXTENDED_REQUEST = 23;
-
-        /// <summary>
-        ///     An extended response operation.
-        ///     EXTENDED_RESONSE = 24
-        /// </summary>
-        public const int EXTENDED_RESPONSE = 24;
-
-        /// <summary>
-        ///     An intermediate response operation.
-        ///     INTERMEDIATE_RESONSE = 25
-        /// </summary>
-        public const int INTERMEDIATE_RESPONSE = 25;
-
         /// <summary> A request or response message for an asynchronous Ldap operation.</summary>
         internal RfcLdapMessage message;
 
         private int imsgNum = -1; // This instance LdapMessage number
 
-        private int messageType = -1;
+        private LdapOperation messageType = LdapOperation.Unknown;
 
         private string stringTag;
 
@@ -314,7 +236,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="op">The operation type of message.</param>
         /// <param name="controls">The controls to use with the operation.</param>
         /// <seealso cref="Type"></seealso>
-        internal LdapMessage(int type, IRfcRequest op, LdapControl[] controls)
+        internal LdapMessage(LdapOperation type, IRfcRequest op, LdapControl[] controls)
         {
             // Get a unique number for this request message
             messageType = type;
