@@ -151,10 +151,10 @@
                 IList<IDnsResourceRecord> additional)
             {
                 this.header = header;
-                this.Questions = questions;
-                this.AnswerRecords = answers;
-                this.AuthorityRecords = authority;
-                this.AdditionalRecords = additional;
+                Questions = questions;
+                AnswerRecords = answers;
+                AuthorityRecords = authority;
+                AdditionalRecords = additional;
             }
 
             public DnsResponse()
@@ -196,38 +196,38 @@
 
             public int Id
             {
-                get { return header.Id; }
-                set { header.Id = value; }
+                get => header.Id;
+                set => header.Id = value;
             }
 
             public bool IsRecursionAvailable
             {
-                get { return header.RecursionAvailable; }
-                set { header.RecursionAvailable = value; }
+                get => header.RecursionAvailable;
+                set => header.RecursionAvailable = value;
             }
 
             public bool IsAuthorativeServer
             {
-                get { return header.AuthorativeServer; }
-                set { header.AuthorativeServer = value; }
+                get => header.AuthorativeServer;
+                set => header.AuthorativeServer = value;
             }
 
             public bool IsTruncated
             {
-                get { return header.Truncated; }
-                set { header.Truncated = value; }
+                get => header.Truncated;
+                set => header.Truncated = value;
             }
 
             public DnsOperationCode OperationCode
             {
-                get { return header.OperationCode; }
-                set { header.OperationCode = value; }
+                get => header.OperationCode;
+                set => header.OperationCode = value;
             }
 
             public DnsResponseCode ResponseCode
             {
-                get { return header.ResponseCode; }
-                set { header.ResponseCode = value; }
+                get => header.ResponseCode;
+                set => header.ResponseCode = value;
             }
 
             public int Size

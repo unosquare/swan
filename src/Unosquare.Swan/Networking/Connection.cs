@@ -76,7 +76,7 @@ namespace Unosquare.Swan.Networking
         /// Gets the unique identifier of this connection.
         /// This field is filled out upon instantiation of this class
         /// </summary>
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
 
         /// <summary>
         /// Gets or sets the network stream.
@@ -107,12 +107,12 @@ namespace Unosquare.Swan.Networking
         /// <summary>
         /// Gets the remote end point of this TCP connection.
         /// </summary>
-        public IPEndPoint RemoteEndPoint { get; private set; }
+        public IPEndPoint RemoteEndPoint { get; }
 
         /// <summary>
         /// Gets the local end point of this TCP connection.
         /// </summary>
-        public IPEndPoint LocalEndPoint { get; private set; }
+        public IPEndPoint LocalEndPoint { get; }
 
         /// <summary>
         /// Gets the remote client of this TCP connection.
@@ -255,14 +255,8 @@ namespace Unosquare.Swan.Networking
 #if !NET452
             ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
 #else
-            int availableWorkerThreads;
-            int availableCompletionPortThreads;
-
-            int maxWorkerThreads;
-            int maxCompletionPortThreads;
-
-            ThreadPool.GetAvailableThreads(out availableWorkerThreads, out availableCompletionPortThreads);
-            ThreadPool.GetMaxThreads(out maxWorkerThreads, out maxCompletionPortThreads);
+            ThreadPool.GetAvailableThreads(out var availableWorkerThreads, out _);
+            ThreadPool.GetMaxThreads(out var maxWorkerThreads, out var maxCompletionPortThreads);
 
             var activeThreadPoolTreads = maxWorkerThreads - availableWorkerThreads;
 

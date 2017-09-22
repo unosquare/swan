@@ -65,7 +65,7 @@
         /// <summary>
         /// Gets a unique identifier that gets automatically assigned upon instantiation of this class.
         /// </summary>
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
 
         #endregion
 

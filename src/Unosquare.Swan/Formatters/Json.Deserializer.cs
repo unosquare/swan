@@ -222,6 +222,91 @@
                 }
             }
 
+            /// <summary>
+            /// Deserializes specified JSON string
+            /// </summary>
+            /// <param name="json">The json.</param>
+            /// <returns>Type of the current deserializes specified JSON string</returns>
+            public static object DeserializeInternal(string json)
+            {
+                var deserializer = new Deserializer(json, 0);
+                return deserializer._result;
+            }
+
+            private static FormatException CreateParserException(string json, int charIndex, ReadState state, string expected)
+            {
+                var textPosition = json.TextPositionAt(charIndex);
+                return new FormatException($"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {state}): Expected {expected} but got '{json[charIndex]}'.");
+            }
+
+            private static string Unescape(string str)
+            {
+                // check if we need to unescape at all
+                if (str.IndexOf(StringEscapeChar) < 0)
+                    return str;
+
+                var builder = new StringBuilder(str.Length);
+                for (var i = 0; i < str.Length; i++)
+                {
+                    if (str[i] != StringEscapeChar)
+                    {
+                        builder.Append(str[i]);
+                        continue;
+                    }
+
+                    if (i + 1 > str.Length - 1)
+                        break;
+
+                    // escape sequence begins here
+                    switch (str[i + 1])
+                    {
+                        case 'u':
+                            {
+                                var startIndex = i + 2;
+                                var endIndex = i + 5;
+                                if (endIndex > str.Length - 1)
+                                {
+                                    builder.Append(str[i + 1]);
+                                    i += 1;
+                                    break;
+                                }
+
+                                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
+                                builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
+                                i += 5;
+                                break;
+                            }
+
+                        case 'b':
+                            builder.Append('\b');
+                            i += 1;
+                            break;
+                        case 't':
+                            builder.Append('\t');
+                            i += 1;
+                            break;
+                        case 'n':
+                            builder.Append('\n');
+                            i += 1;
+                            break;
+                        case 'f':
+                            builder.Append('\f');
+                            i += 1;
+                            break;
+                        case 'r':
+                            builder.Append('\r');
+                            i += 1;
+                            break;
+                        default:
+                            builder.Append(str[i + 1]);
+                            i += 1;
+                            break;
+                    }
+                }
+
+                return builder.ToString();
+            }
+
             private static int GetFieldNameCount(string json, int i)
             {
                 var charCount = 0;
@@ -264,9 +349,8 @@
 
                 // Extract and set the value
                 var stringValue = json.SliceLength(i, charCount);
-                decimal value;
 
-                if (decimal.TryParse(stringValue, out value) == false)
+                if (decimal.TryParse(stringValue, out var value) == false)
                     throw CreateParserException(json, i, State, "[number]");
 
                 if (CurrentFieldName != null)
@@ -343,91 +427,6 @@
 
                 i += charCount + 1;
                 return i;
-            }
-
-            private static FormatException CreateParserException(string json, int charIndex, ReadState state, string expected)
-            {
-                var textPosition = json.TextPositionAt(charIndex);
-                return new FormatException($"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {state}): Expected {expected} but got '{json[charIndex]}'.");
-            }
-
-            private static string Unescape(string str)
-            {
-                // check if we need to unescape at all
-                if (str.IndexOf(StringEscapeChar) < 0)
-                    return str;
-
-                var builder = new StringBuilder(str.Length);
-                for (var i = 0; i < str.Length; i++)
-                {
-                    if (str[i] != StringEscapeChar)
-                    {
-                        builder.Append(str[i]);
-                        continue;
-                    }
-                        
-                    if (i + 1 > str.Length - 1)
-                        break;
-
-                    // escape sequence begins here
-                    switch (str[i + 1])
-                    {
-                        case 'u':
-                            {
-                                var startIndex = i + 2;
-                                var endIndex = i + 5;
-                                if (endIndex > str.Length - 1)
-                                {
-                                    builder.Append(str[i + 1]);
-                                    i += 1;
-                                    break;
-                                }
-
-                                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
-                                builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
-                                i += 5;
-                                break;
-                            }
-
-                        case 'b':
-                            builder.Append('\b');
-                            i += 1;
-                            break;
-                        case 't':
-                            builder.Append('\t');
-                            i += 1;
-                            break;
-                        case 'n':
-                            builder.Append('\n');
-                            i += 1;
-                            break;
-                        case 'f':
-                            builder.Append('\f');
-                            i += 1;
-                            break;
-                        case 'r':
-                            builder.Append('\r');
-                            i += 1;
-                            break;
-                        default:
-                            builder.Append(str[i + 1]);
-                            i += 1;
-                            break;
-                    }
-                }
-
-                return builder.ToString();
-            }
-
-            /// <summary>
-            /// Deserializes specified JSON string
-            /// </summary>
-            /// <param name="json">The json.</param>
-            /// <returns>Type of the current deserializes specified JSON string</returns>
-            public static object DeserializeInternal(string json)
-            {
-                var deserializer = new Deserializer(json, 0);
-                return deserializer._result;
             }
         }
     }

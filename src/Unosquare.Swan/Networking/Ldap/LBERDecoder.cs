@@ -13,7 +13,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// high overhead involved in using certain elements of the BER, the
     /// following additional restrictions are placed on BER-encodings of Ldap
     /// protocol elements:
-    /// <li>(1) Only the definite form of length encoding will be used.</li><li>(2) OCTET STRING values will be encoded in the primitive form only.</li><li>
+    /// <li>(1) Only the definite form of length encoding will be used.</li>
+    /// <li>(2) OCTET STRING values will be encoded in the primitive form only.</li><li>
     /// (3) If the value of a BOOLEAN type is true, the encoding MUST have
     /// its contents octets set to hex "FF".
     /// </li><li>
@@ -29,8 +30,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Decoder" />
-    internal class LBERDecoder : Asn1Decoder
+    /// <seealso cref="IAsn1Decoder" />
+    internal class LBERDecoder 
+        : IAsn1Decoder
     {
         public LBERDecoder()
         {
@@ -42,41 +44,7 @@ namespace Unosquare.Swan.Networking.Ldap
         // instead just reset is called CANNOT be static for multiple connections
         private readonly Asn1Identifier asn1ID;
         private readonly Asn1Length asn1Len;
-
-        /// <summary>
-        /// Decode an LBER encoded value into an Asn1Type from a byte array.
-        /// </summary>
-        /// <param name="value_Renamed">The value renamed.</param>
-        /// <returns>Decoded Asn1Object</returns>
-        public virtual Asn1Object decode(sbyte[] value_Renamed)
-        {
-            Asn1Object asn1 = null;
-
-            var stream = new MemoryStream(value_Renamed.ToByteArray());
-            try
-            {
-                asn1 = decode(stream);
-            }
-            catch (IOException)
-            {
-                // Ignore
-            }
-            return asn1;
-        }
-
-        /// <summary>
-        /// Decode an LBER encoded value into an Asn1Type from an InputStream.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <returns>
-        /// Decoded Asn1Object
-        /// </returns>
-        public virtual Asn1Object decode(Stream stream)
-        {
-            var len = new int[1];
-            return decode(stream, len);
-        }
-
+        
         /// <summary>
         /// Decode an LBER encoded value into an Asn1Object from an InputStream.
         /// This method also returns the total length of this encoded
@@ -90,7 +58,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded Asn1Obect
         /// </returns>
         /// <exception cref="EndOfStreamException">Unknown tag</exception>
-        public virtual Asn1Object decode(Stream stream, int[] len)
+        public virtual Asn1Object Decode(Stream stream, int[] len)
         {
             asn1ID.Reset(stream);
             asn1Len.Reset(stream);
@@ -98,38 +66,35 @@ namespace Unosquare.Swan.Networking.Ldap
             var length = asn1Len.Length;
             len[0] = asn1ID.EncodedLength + asn1Len.EncodedLength + length;
 
-            if (asn1ID.Universal)
+            if (asn1ID.Universal == false)
+                return new Asn1Tagged(this, stream, length, (Asn1Identifier) asn1ID.Clone());
+
+            switch (asn1ID.Tag)
             {
-                switch (asn1ID.Tag)
-                {
-                    case Asn1Sequence.TAG:
-                        return new Asn1Sequence(this, stream, length);
+                case Asn1Sequence.Tag:
+                    return new Asn1Sequence(this, stream, length);
 
-                    case Asn1Set.TAG:
-                        return new Asn1Set(this, stream, length);
+                case Asn1Set.Tag:
+                    return new Asn1Set(this, stream, length);
 
-                    case Asn1Boolean.TAG:
-                        return new Asn1Boolean(this, stream, length);
+                case Asn1Boolean.Tag:
+                    return new Asn1Boolean(this, stream, length);
 
-                    case Asn1Integer.TAG:
-                        return new Asn1Integer(this, stream, length);
+                case Asn1Integer.Tag:
+                    return new Asn1Integer(this, stream, length);
 
-                    case Asn1OctetString.TAG:
-                        return new Asn1OctetString(this, stream, length);
+                case Asn1OctetString.Tag:
+                    return new Asn1OctetString(this, stream, length);
 
-                    case Asn1Enumerated.TAG:
-                        return new Asn1Enumerated(this, stream, length);
+                case Asn1Enumerated.Tag:
+                    return new Asn1Enumerated(this, stream, length);
 
-                    case Asn1Null.TAG:
-                        return new Asn1Null(); // has no content to decode.
+                case Asn1Null.Tag:
+                    return new Asn1Null(); // has no content to decode.
 
-                    default:
-                        throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
-                }
+                default:
+                    throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
             }
-
-            // APPLICATION or CONTEXT-SPECIFIC tag
-            return new Asn1Tagged(this, stream, length, (Asn1Identifier)asn1ID.Clone());
         }
 
         /// <summary>
@@ -141,13 +106,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded boolean object
         /// </returns>
         /// <exception cref="EndOfStreamException">LBER: BOOLEAN: decode error: EOF</exception>
-        public object decodeBoolean(Stream stream, int len)
+        public object DecodeBoolean(Stream stream, int len)
         {
             var lber = new sbyte[len];
-
-            var i = stream.ReadInput(ref lber, 0, lber.Length);
-
-            if (i != len)
+            
+            if (stream.ReadInput(ref lber, 0, lber.Length) != len)
                 throw new EndOfStreamException("LBER: BOOLEAN: decode error: EOF");
 
             return lber[0] != 0x00;
@@ -167,7 +130,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or
         /// LBER: NUMERIC: decode error: EOF
         /// </exception>
-        public object decodeNumeric(Stream stream, int len)
+        public object DecodeNumeric(Stream stream, int len)
         {
             long l = 0;
             var r = stream.ReadByte();
@@ -190,6 +153,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     throw new EndOfStreamException("LBER: NUMERIC: decode error: EOF");
                 l = (l << 8) | r;
             }
+
             return l;
         }
 
@@ -199,7 +163,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream</param>
         /// <param name="len">Length in bytes</param>
         /// <returns>Decoded octet </returns>
-        public object decodeOctetString(Stream stream, int len)
+        public object DecodeOctetString(Stream stream, int len)
         {
             var octets = new sbyte[len];
             var totalLen = 0;
@@ -207,8 +171,7 @@ namespace Unosquare.Swan.Networking.Ldap
             while (totalLen < len)
             {
                 // Make sure we have read all the data
-                var inLen = stream.ReadInput(ref octets, totalLen, len - totalLen);
-                totalLen += inLen;
+                totalLen += stream.ReadInput(ref octets, totalLen, len - totalLen);
             }
 
             return octets;
@@ -221,7 +184,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="len">Length in bytes</param>
         /// <returns>Decoded character string</returns>
         /// <exception cref="EndOfStreamException">LBER: CHARACTER STRING: decode error: EOF</exception>
-        public object decodeCharacterString(Stream stream, int len)
+        public object DecodeCharacterString(Stream stream, int len)
         {
             var octets = new sbyte[len];
 
@@ -230,14 +193,11 @@ namespace Unosquare.Swan.Networking.Ldap
                 var ret = stream.ReadByte(); // blocks
                 if (ret == -1)
                     throw new EndOfStreamException("LBER: CHARACTER STRING: decode error: EOF");
+
                 octets[i] = (sbyte)ret;
             }
-
-            var encoder = Encoding.UTF8;
-            var dchar = encoder.GetChars(octets.ToByteArray());
-            var rval = new string(dchar);
-
-            return rval;
+            
+            return Encoding.UTF8.GetString(octets.ToByteArray());
         }
     }
 }

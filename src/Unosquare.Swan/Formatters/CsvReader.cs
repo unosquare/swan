@@ -147,10 +147,7 @@
         /// </summary>
         public char EscapeCharacter
         {
-            get
-            {
-                return _escapeCharacter;
-            }
+            get => _escapeCharacter;
             set
             {
                 lock (_syncLock)
@@ -166,10 +163,7 @@
         /// </summary>
         public char SeparatorCharacter
         {
-            get
-            {
-                return _separatorCharacter;
-            }
+            get => _separatorCharacter;
             set
             {
                 lock (_syncLock)

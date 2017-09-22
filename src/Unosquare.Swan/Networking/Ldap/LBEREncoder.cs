@@ -1,8 +1,8 @@
 ﻿#if !UWP
-using System.IO;
-
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System.IO;
+
     /// <summary>
     /// This class provides LBER encoding routines for ASN.1 Types. LBER is a
     /// subset of BER as described in the following taken from 5.1 of RFC 2251:
@@ -28,24 +28,28 @@ namespace Unosquare.Swan.Networking.Ldap
     /// [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     /// Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Encoder" />
-    internal class LBEREncoder : Asn1Encoder
+    /// <seealso cref="IAsn1Encoder" />
+    internal class LBEREncoder : IAsn1Encoder
     {
         /// <summary>
         /// This method returns the literal value received
         /// </summary>
         /// <param name="literal">The literal.</param>
-        /// <returns></returns>
+        /// <returns>The literal value</returns>
         public static long Identity(long literal)
         {
             return literal;
         }
-        
-        /// <summary> BER Encode an Asn1Boolean directly into the specified output stream.</summary>
-        public virtual void encode(Asn1Boolean b, Stream stream)
+
+        /// <summary>
+        /// BER Encode an Asn1Boolean directly into the specified output stream.
+        /// </summary>
+        /// <param name="b">The Asn1Boolean object to encode</param>
+        /// <param name="stream">The stream.</param>
+        public virtual void Encode(Asn1Boolean b, Stream stream)
         {
             /* Encode the id */
-            encode(b.GetIdentifier(), stream);
+            Encode(b.GetIdentifier(), stream);
 
             /* Encode the length */
             stream.WriteByte(0x01);
@@ -62,25 +66,28 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="n">The Asn1Numeric object to encode</param>
         /// <param name="stream">The stram</param>
-        public void encode(Asn1Numeric n, Stream stream)
+        public void Encode(Asn1Numeric n, Stream stream)
         {
             var octets = new sbyte[8];
             sbyte len;
-            var value_Renamed = n.LongValue();
-            long endValue = value_Renamed < 0 ? -1 : 0;
+            var longValue = n.LongValue();
+            long endValue = longValue < 0 ? -1 : 0;
             var endSign = endValue & 0x80;
 
-            for (len = 0; len == 0 || value_Renamed != endValue || (octets[len - 1] & 0x80) != endSign; len++)
+            for (len = 0; len == 0 || longValue != endValue || (octets[len - 1] & 0x80) != endSign; len++)
             {
-                octets[len] = (sbyte)(value_Renamed & 0xFF);
-                value_Renamed >>= 8;
+                octets[len] = (sbyte)(longValue & 0xFF);
+                longValue >>= 8;
             }
 
-            encode(n.GetIdentifier(), stream);
+            Encode(n.GetIdentifier(), stream);
             stream.WriteByte((byte)len); // Length
+
             for (var i = len - 1; i >= 0; i--)
+            {
                 // Content
-                stream.WriteByte((byte)octets[i]);
+                stream.WriteByte((byte) octets[i]);
+            }
         }
 
         /// <summary>
@@ -88,9 +95,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="n">The Asn1Null object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void encode(Asn1Null n, Stream stream)
+        public void Encode(Asn1Null n, Stream stream)
         {
-            encode(n.GetIdentifier(), stream);
+            Encode(n.GetIdentifier(), stream);
             stream.WriteByte(0x00); // Length (with no Content)
         }
 
@@ -99,12 +106,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="os">The Asn1OctetString object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void encode(Asn1OctetString os, Stream stream)
+        public void Encode(Asn1OctetString os, Stream stream)
         {
-            encode(os.GetIdentifier(), stream);
+            Encode(os.GetIdentifier(), stream);
             EncodeLength(os.ByteValue().Length, stream);
-            var temp_sbyteArray = os.ByteValue();
-            stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
+            var tempSbyteArray = os.ByteValue();
+            stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
         }
 
         /// <summary>
@@ -113,23 +120,23 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="c">The Asn1Structured object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void encode(Asn1Structured c, Stream stream)
+        public void Encode(Asn1Structured c, Stream stream)
         {
-            encode(c.GetIdentifier(), stream);
+            Encode(c.GetIdentifier(), stream);
 
-            var value_Renamed = c.ToArray();
+            var arrayValue = c.ToArray();
 
             var output = new MemoryStream();
             
-            for (var i = 0; i < value_Renamed.Length; i++)
+            foreach (var obj in arrayValue)
             {
-                value_Renamed[i].Encode(this, output);
+                obj.Encode(this, output);
             }
             
             EncodeLength((int)output.Length, stream);
             
-            var temp_sbyteArray = output.ToArray().ToSByteArray();
-            stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
+            var tempSbyteArray = output.ToArray().ToSByteArray();
+            stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
         }
 
         /// <summary>
@@ -137,23 +144,23 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="t">The Asn1Tagged object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void encode(Asn1Tagged t, Stream stream)
+        public void Encode(Asn1Tagged t, Stream stream)
         {
             if (t.Explicit)
             {
-                encode(t.GetIdentifier(), stream);
+                Encode(t.GetIdentifier(), stream);
 
                 /* determine the encoded length of the base type. */
                 var encodedContent = new MemoryStream();
-                t.taggedValue().Encode(this, encodedContent);
+                t.TaggedValue.Encode(this, encodedContent);
 
                 EncodeLength((int)encodedContent.Length, stream);
-                var temp_sbyteArray = encodedContent.ToArray().ToSByteArray();
-                stream.Write(temp_sbyteArray.ToByteArray(), 0, temp_sbyteArray.Length);
+                var tempSbyteArray = encodedContent.ToArray().ToSByteArray();
+                stream.Write(tempSbyteArray.ToByteArray(), 0, tempSbyteArray.Length);
             }
             else
             {
-                t.taggedValue().Encode(this, stream);
+                t.TaggedValue.Encode(this, stream);
             }
         }
 
@@ -162,7 +169,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="id">The Asn1Identifier object to encode</param>
         /// <param name="stream">The stream.</param>
-        public void encode(Asn1Identifier id, Stream stream)
+        public void Encode(Asn1Identifier id, Stream stream)
         {
             var c = id.Asn1Class;
             var t = id.Tag;
@@ -184,7 +191,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="length">The length.</param>
         /// <param name="stream">The stream.</param>
-        private void EncodeLength(int length, Stream stream)
+        private static void EncodeLength(int length, Stream stream)
         {
             if (length < 0x80)
             {
@@ -210,21 +217,24 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Encodes the provided tag into the outputstream.
         /// </summary>
-        /// <param name="value_Renamed">The value renamed.</param>
+        /// <param name="val">The value.</param>
         /// <param name="stream">The stream.</param>
-        private void EncodeTagInteger(int value_Renamed, Stream stream)
+        private static void EncodeTagInteger(int val, Stream stream)
         {
             var octets = new sbyte[5];
             int n;
-            for (n = 0; value_Renamed != 0; n++)
+
+            for (n = 0; val != 0; n++)
             {
-                octets[n] = (sbyte)(value_Renamed & 0x7F);
-                value_Renamed = value_Renamed >> 7;
+                octets[n] = (sbyte)(val & 0x7F);
+                val = val >> 7;
             }
+
             for (var i = n - 1; i > 0; i--)
             {
                 stream.WriteByte((byte)(octets[i] | 0x80));
             }
+
             stream.WriteByte((byte)octets[0]);
         }
     }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using Unosquare.Swan.Networking.Ldap;
 
@@ -36,20 +32,18 @@ namespace Unosquare.Swan.Test
 
             await cn.Connect("ldap.forumsys.com", 389);
             await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-            var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
+            var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
 
-            if (lsc.hasMore())
+            if (lsc.HasMore())
             {
-                var entry = lsc.next();
+                var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
-                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? null;
-                obj.Info(nameof(LdapTest));
+                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
                 Assert.IsTrue(obj != null);
             }
 
-            lsc.Count.ToString().Info(nameof(LdapTest));
             Assert.AreNotEqual(lsc.Count, 0);
-            Assert.IsTrue(lsc.hasMore());
+            Assert.IsTrue(lsc.HasMore());
         }
 
         [Test]
@@ -59,7 +53,7 @@ namespace Unosquare.Swan.Test
             await cn.Connect("ldap.forumsys.com", 389);
             await cn.Bind("uid=riemann,dc=example,dc=com", "password");
             Assert.IsTrue(cn.Connected);
-            "Disconnecting...".Info(nameof(LdapTest));
+
             cn.Disconnect();
             Assert.IsFalse(cn.Connected);
         }

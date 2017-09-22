@@ -7,11 +7,6 @@
     /// </summary>
     public class SmtpSessionState
     {
-        /// <summary>
-        /// The internally accessible list of recipients
-        /// </summary>
-        private readonly List<string> m_Recipients = new List<string>();
-
         #region Constructors
 
         /// <summary>
@@ -61,7 +56,7 @@
         /// <summary>
         /// Gets the recipients.
         /// </summary>
-        public List<string> Recipients => m_Recipients;
+        public List<string> Recipients { get; } = new List<string>();
 
         /// <summary>
         /// Gets or sets the extended data supporting any additional field for storage by a responder implementation.

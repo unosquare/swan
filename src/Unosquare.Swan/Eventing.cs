@@ -158,7 +158,7 @@
         /// <summary>
         /// Gets the error.
         /// </summary>
-        public Exception Error { get; private set; }
+        public Exception Error { get; }
     }
 
     /// <summary>
@@ -167,21 +167,6 @@
     /// <seealso cref="System.EventArgs" />
     public class ConnectionDataReceivedEventArgs : EventArgs
     {
-        /// <summary>
-        /// Gets the buffer.
-        /// </summary>
-        public byte[] Buffer { get; }
-
-        /// <summary>
-        /// Gets the cause as to why this event was thrown
-        /// </summary>
-        public ConnectionDataReceivedTrigger Trigger { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether the receive buffer has more bytes available
-        /// </summary>
-        public bool HasMoreAvailable { get; private set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectionDataReceivedEventArgs"/> class.
         /// </summary>
@@ -196,53 +181,36 @@
         }
 
         /// <summary>
+        /// Gets the buffer.
+        /// </summary>
+        public byte[] Buffer { get; }
+
+        /// <summary>
+        /// Gets the cause as to why this event was thrown
+        /// </summary>
+        public ConnectionDataReceivedTrigger Trigger { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the receive buffer has more bytes available
+        /// </summary>
+        public bool HasMoreAvailable { get; }
+
+        /// <summary>
         /// Gets the string from the given buffer.
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
         /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
         public static string GetStringFromBuffer(byte[] buffer, Encoding encoding)
-        {
-            return encoding.GetString(buffer).TrimEnd('\r', '\n');
-        }
+            => encoding.GetString(buffer).TrimEnd('\r', '\n');
 
         /// <summary>
         /// Gets the string from buffer.
         /// </summary>
         /// <param name="encoding">The encoding.</param>
         /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
-        public string GetStringFromBuffer(Encoding encoding) => GetStringFromBuffer(Buffer, encoding);
-    }
-
-    #endregion
-
-    #region AppWorker
-
-    /// <summary>
-    /// Represents event arguments whenever the state of an application service changes
-    /// </summary>
-    public class AppWorkerStateChangedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AppWorkerStateChangedEventArgs" /> class.
-        /// </summary>
-        /// <param name="oldState">The old state.</param>
-        /// <param name="newState">The new state.</param>
-        public AppWorkerStateChangedEventArgs(AppWorkerState oldState, AppWorkerState newState)
-        {
-            OldState = oldState;
-            NewState = newState;
-        }
-
-        /// <summary>
-        /// Gets the state to which the application service changed.
-        /// </summary>
-        public AppWorkerState NewState { get; private set; }
-
-        /// <summary>
-        /// Gets the old state.
-        /// </summary>
-        public AppWorkerState OldState { get; private set; }
+        public string GetStringFromBuffer(Encoding encoding) 
+            => GetStringFromBuffer(Buffer, encoding);
     }
 
     #endregion

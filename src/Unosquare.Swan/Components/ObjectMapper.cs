@@ -265,6 +265,12 @@
         {
             public bool Equals(PropertyInfo x, PropertyInfo y)
             {
+                if (x == null)
+                    throw new ArgumentNullException(nameof(x));
+
+                if (y == null)
+                    throw new ArgumentNullException(nameof(y));
+
                 // TODO: Include mapping matcher and types proximity
                 return x.Name == y.Name && x.PropertyType == y.PropertyType;
             }

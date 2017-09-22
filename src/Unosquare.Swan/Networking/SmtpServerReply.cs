@@ -36,8 +36,7 @@
             if (responseCode >= 500) ReplyCodeSeverity = SmtpReplyCodeSeverities.PermanentNegative;
             if (responseCode >= 600) ReplyCodeSeverity = SmtpReplyCodeSeverities.Unknown;
 
-            var middleDigit = 0;
-            if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out middleDigit))
+            if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out var middleDigit))
             {
                 if (middleDigit >= 0 && middleDigit <= 5)
                     ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;
@@ -81,12 +80,12 @@
         /// <summary>
         /// Gets the response severity.
         /// </summary>
-        public SmtpReplyCodeSeverities ReplyCodeSeverity { get; private set; }
+        public SmtpReplyCodeSeverities ReplyCodeSeverity { get; }
 
         /// <summary>
         /// Gets the response category.
         /// </summary>
-        public SmtpReplyCodeCategories ReplyCodeCategory { get; private set; }
+        public SmtpReplyCodeCategories ReplyCodeCategory { get; }
 
         /// <summary>
         /// Gets the numeric response code.
@@ -153,10 +152,9 @@
             var lines = text.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             if (lines.Length == 0) return new SmtpServerReply();
 
-            var lastLineParts = lines.Last().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-            int responseCode;
+            var lastLineParts = lines.Last().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             var enhancedStatusCode = string.Empty;
-            int.TryParse(lastLineParts[0], out responseCode);
+            int.TryParse(lastLineParts[0], out var responseCode);
             if (lastLineParts.Length > 1)
             {
                 if (lastLineParts[1].Split('.').Length == 3)

@@ -265,7 +265,7 @@
         public static bool IsEqualTo(this byte[] buffer, params byte[] sequence)
         {
             if (ReferenceEquals(buffer, sequence)) return true;
-            return buffer.Length == sequence.Length && buffer.GetIndexOf(sequence, 0) == 0;
+            return buffer.Length == sequence.Length && buffer.GetIndexOf(sequence) == 0;
         }
 
         /// <summary>
@@ -515,6 +515,9 @@
             return sbyteArray;
         }
 
+        public static sbyte[] GetSBytes(this Encoding encoding, string s)
+            => encoding.GetBytes(s).ToSByteArray();
+
         /// <summary>
         /// Reads a number of characters from the current source Stream and writes the data to the target array at the
         /// specified index.
@@ -543,6 +546,7 @@
                 startIndex += n;
                 bytesToRead -= n;
             }
+
             // Returns -1 if EOF
             if (bytesRead == 0)
                 return -1;

@@ -6,16 +6,26 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Linq;
 
     /// <summary>
-    ///     An LdapSearchResults object is returned from a synchronous search
-    ///     operation. It provides access to all results received during the
-    ///     operation (entries and exceptions).
+    /// An LdapSearchResults object is returned from a synchronous search
+    /// operation. It provides access to all results received during the
+    /// operation (entries and exceptions).
     /// </summary>
-    /// <seealso cref="LdapConnection.Search">
-    /// </seealso>
+    /// <seealso cref="LdapConnection.Search"></seealso>
     public class LdapSearchResults
     {
-        private LdapConnection conn; // LdapConnection which started search
-        private int _messageId;
+        private readonly LdapConnection _conn; // LdapConnection which started search
+        private readonly int _messageId;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapSearchResults"/> class.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <param name="messageId">The message identifier.</param>
+        internal LdapSearchResults(LdapConnection connection, int messageId)
+        {
+            _conn = connection;
+            _messageId = messageId;
+        }
 
         /// <summary>
         ///     Returns a count of the items in the search result.
@@ -29,19 +39,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The number of items received but not retrieved by the application
         /// </returns>
-        public virtual int Count => new List<RfcLdapMessage>(conn.Messages)
+        public virtual int Count => new List<RfcLdapMessage>(_conn.Messages)
             .Count(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapSearchResults"/> class.
-        /// </summary>
-        /// <param name="connection">The connection.</param>
-        /// <param name="messageId">The message identifier.</param>
-        internal LdapSearchResults(LdapConnection connection, int messageId)
-        {
-            conn = connection;
-            _messageId = messageId;
-        }
 
         /// <summary>
         ///     Reports if there are more search results.
@@ -49,7 +48,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     true if there are more search results.
         /// </returns>
-        public virtual bool hasMore() => new List<RfcLdapMessage>(conn.Messages)
+        public virtual bool HasMore() => new List<RfcLdapMessage>(_conn.Messages)
             .Any(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
@@ -69,14 +68,14 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     LdapReferralException A referral was received and not
         ///     followed.
         /// </exception>
-        public virtual LdapEntry next()
+        public virtual LdapEntry Next()
         {
-            var list = new List<RfcLdapMessage>(conn.Messages)
+            var list = new List<RfcLdapMessage>(_conn.Messages)
                 .Where(x => x.MessageID == _messageId);
 
             foreach (var item in list)
             {
-                conn.Messages.Remove(item);
+                _conn.Messages.Remove(item);
                 var response = GetResponse(item);
 
                 if (response is LdapSearchResult)
@@ -85,16 +84,16 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
 
-            throw new ArgumentOutOfRangeException("LdapSearchResults.next() no more results");
+            throw new ArgumentOutOfRangeException(nameof(Next), "No more results");
         }
         
-        private LdapMessage GetResponse(RfcLdapMessage item)
+        private static LdapMessage GetResponse(RfcLdapMessage item)
         {
             switch (item.Type)
             {
-                case LdapMessage.SEARCH_RESPONSE:
+                case LdapOperation.SearchResponse:
                     return new LdapSearchResult(item);
-                case LdapMessage.SEARCH_RESULT_REFERENCE:
+                case LdapOperation.SearchResultReference:
                     return new LdapSearchResultReference(item);
                 default:
                     return new LdapResponse(item);

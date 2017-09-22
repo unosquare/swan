@@ -118,7 +118,6 @@ namespace Unosquare.Swan.Reflection
 
             return assemblies.ToDictionary(x => new AssemblyInfo(x.Key), x => x.Value);
         }
-#endif
 
         private static Assembly SafeLoadAssemblyByName(string assemblyName)
         {
@@ -131,6 +130,7 @@ namespace Unosquare.Swan.Reflection
                 return null;
             }
         }
+#endif
     }
 }
 #endif

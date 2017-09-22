@@ -215,8 +215,7 @@
             lock (_syncLock)
             {
                 { // Handling as Dynamic Object
-                    var typedItem = item as IDictionary<string, object>;
-                    if (typedItem != null)
+                    if (item is IDictionary<string, object> typedItem)
                     {
                         WriteDynamicObjectValues(typedItem);
                         return;
@@ -224,8 +223,7 @@
                 }
 
                 { // Handling as Dictionary
-                    var typedItem = item as IDictionary;
-                    if (typedItem != null)
+                    if (item is IDictionary typedItem)
                     {
                         WriteDictionaryValues(typedItem);
                         return;
@@ -233,8 +231,7 @@
                 }
 
                 { // Handling as array
-                    var typedItem = item as ICollection;
-                    if (typedItem != null)
+                    if (item is ICollection typedItem)
                     {
                         WriteCollectionValues(typedItem);
                         return;
@@ -253,7 +250,7 @@
         /// If you do not like the way the output is handled, you can simply write an extension
         /// method of this class and use the WriteLine method instead.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to write</typeparam>
         /// <param name="item">The item.</param>
         public void WriteObject<T>(T item) => WriteObject(item as object);
 
@@ -262,7 +259,7 @@
         /// WriteObject method. For more info check out the description of the WriteObject
         /// method.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to write</typeparam>
         /// <param name="items">The items.</param>
         public void WriteObjects<T>(IEnumerable<T> items)
         {

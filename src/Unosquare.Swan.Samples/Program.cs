@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Collections;
 
     public partial class Program
     {
@@ -19,36 +20,11 @@
         {
             Runtime.WriteWelcomeBanner(ConsoleColor.Green);
 #if !NET46
-            Task.Factory.StartNew(async () =>
-            {
-                try
-                {
-                    var cn = new LdapConnection();
-
-                    await cn.Connect("ldap.forumsys.com", 389);
-                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-
-                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.SCOPE_SUB);
-
-                    while (lsc.hasMore())
-                    {
-                        var entry = lsc.next();
-                        var ldapAttributes = entry.GetAttributeSet();
-
-                        Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
-                    }
-
-                    //While all the entries are parsed, disconnect   
-                    cn.Disconnect();
-                }
-                catch (Exception ex)
-                {
-                    ex.Error(nameof(Main), "Error LDAP");
-                }
-            });
+            TestLdapModify();
+            TestLdapSearch();
 #endif
-            TestApplicationInfo();
-            // TestNetworkUtilities();
+            //TestApplicationInfo();
+            TestNetworkUtilities();
             //TestContainerAndMessageHub();
             //TestJson();
             //TestExceptionLogging();
@@ -57,6 +33,63 @@
             // TestCsvFormatters();
             //Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
+        }
+
+        static void TestLdapSearch()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                try
+                {
+                    var cn = new LdapConnection();
+
+                    await cn.Connect("ldap.forumsys.com", 389);
+                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
+
+                    while (lsc.HasMore())
+                    {
+                        var entry = lsc.Next();
+                        var ldapAttributes = entry.GetAttributeSet();
+
+
+                        Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
+                    }
+
+                    //While all the entries are parsed, disconnect
+                    cn.Disconnect();
+                }
+                catch (Exception ex)
+                {
+                    ex.Error(nameof(Main), "Error LDAP");
+                }
+            });
+        }
+
+        static void TestLdapModify()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                try
+                {
+                    var cn = new LdapConnection();
+
+                    await cn.Connect("ad.unosquare.com", 389);
+                    await cn.Bind("@unosquare.com", "password");
+                    Console.WriteLine($"Is conected: {cn.Connected}");
+                    var newProperty = "33366669999";
+                    var modList = new ArrayList();
+                    var attribute = new LdapAttribute("mobile", newProperty);
+                    modList.Add(new LdapModification(LdapModificationOp.Replace, attribute));
+                    var mods = (LdapModification[])modList.ToArray(typeof(LdapModification));
+                    await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com", mods);
+                    cn.Disconnect();
+                }
+                catch (Exception ex)
+                {
+                    ex.Error(nameof(Main), "Error LDAP");
+                }
+            });
         }
 
         static void TestExceptionLogging()

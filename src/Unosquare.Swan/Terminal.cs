@@ -209,8 +209,8 @@
         /// </value>
         public static Encoding OutputEncoding
         {
-            get { return Console.OutputEncoding; }
-            set { Console.OutputEncoding = value; }
+            get => Console.OutputEncoding;
+            set => Console.OutputEncoding = value;
         }
 
         #endregion
@@ -324,8 +324,7 @@
 
                     while (OutputQueue.Count > 0)
                     {
-                        OutputContext context;
-                        if (OutputQueue.TryDequeue(out context) == false) continue;
+                        if (OutputQueue.TryDequeue(out var context) == false) continue;
 
                         // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
                         if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)

@@ -241,7 +241,7 @@
                 packet[pos++] = Convert.ToByte(mib[i]);
 
             packet[pos++] = 0x05; // Null object value
-            packet[pos++] = 0x00; // Null
+            packet[pos] = 0x00; // Null
 
             // Send packet to destination
             SendPacket(host, packet, snmplen);

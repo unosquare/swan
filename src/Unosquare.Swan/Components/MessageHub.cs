@@ -112,11 +112,8 @@ namespace Unosquare.Swan.Components
         public MessageHubCancellableGenericMessage(object sender, TContent content, Action cancelAction)
             : base(sender)
         {
-            if (cancelAction == null)
-                throw new ArgumentNullException(nameof(cancelAction));
-
             Content = content;
-            Cancel = cancelAction;
+            Cancel = cancelAction ?? throw new ArgumentNullException(nameof(cancelAction));
         }
     }
 
@@ -158,9 +155,7 @@ namespace Unosquare.Swan.Components
         {
             if (_hub.IsAlive)
             {
-                var hub = _hub.Target as IMessageHub;
-
-                if (hub != null)
+                if (_hub.Target is IMessageHub hub)
                 {
                     var unsubscribeMethod = typeof(IMessageHub).GetMethod("Unsubscribe",
                         new[] {typeof(MessageHubSubscriptionToken)});
@@ -466,11 +461,6 @@ namespace Unosquare.Swan.Components
                 Action<TMessage> deliveryAction, 
                 Func<TMessage, bool> messageFilter)
             {
-                if (subscriptionToken == null)
-                {
-                    throw new ArgumentNullException(nameof(subscriptionToken));
-                }
-
                 if (deliveryAction == null)
                 {
                     throw new ArgumentNullException(nameof(deliveryAction));
@@ -481,7 +471,7 @@ namespace Unosquare.Swan.Components
                     throw new ArgumentNullException(nameof(messageFilter));
                 }
 
-                SubscriptionToken = subscriptionToken;
+                SubscriptionToken = subscriptionToken ?? throw new ArgumentNullException(nameof(subscriptionToken));
                 _deliveryAction = new WeakReference(deliveryAction);
                 _messageFilter = new WeakReference(messageFilter);
             }
@@ -533,24 +523,9 @@ namespace Unosquare.Swan.Components
                 Action<TMessage> deliveryAction,
                 Func<TMessage, bool> messageFilter)
             {
-                if (subscriptionToken == null)
-                {
-                    throw new ArgumentNullException(nameof(subscriptionToken));
-                }
-
-                if (deliveryAction == null)
-                {
-                    throw new ArgumentNullException(nameof(deliveryAction));
-                }
-
-                if (messageFilter == null)
-                {
-                    throw new ArgumentNullException(nameof(messageFilter));
-                }
-
-                SubscriptionToken = subscriptionToken;
-                _deliveryAction = deliveryAction;
-                _messageFilter = messageFilter;
+                SubscriptionToken = subscriptionToken ?? throw new ArgumentNullException(nameof(subscriptionToken));
+                _deliveryAction = deliveryAction ?? throw new ArgumentNullException(nameof(deliveryAction));
+                _messageFilter = messageFilter ?? throw new ArgumentNullException(nameof(messageFilter));
             }
         }
 
@@ -807,9 +782,7 @@ namespace Unosquare.Swan.Components
 
             lock (_subscriptionsPadlock)
             {
-                List<SubscriptionItem> currentSubscriptions;
-
-                if (!_subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
+                if (!_subscriptions.TryGetValue(typeof(TMessage), out var currentSubscriptions))
                 {
                     currentSubscriptions = new List<SubscriptionItem>();
                     _subscriptions[typeof(TMessage)] = currentSubscriptions;
@@ -847,8 +820,7 @@ namespace Unosquare.Swan.Components
 
             lock (_subscriptionsPadlock)
             {
-                List<SubscriptionItem> currentSubscriptions;
-                if (!_subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
+                if (!_subscriptions.TryGetValue(typeof(TMessage), out var currentSubscriptions))
                     return;
 
                 var currentlySubscribed =
@@ -868,8 +840,7 @@ namespace Unosquare.Swan.Components
             List<SubscriptionItem> currentlySubscribed;
             lock (_subscriptionsPadlock)
             {
-                List<SubscriptionItem> currentSubscriptions;
-                if (!_subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
+                if (!_subscriptions.TryGetValue(typeof(TMessage), out var currentSubscriptions))
                     return;
 
                 currentlySubscribed = (from sub in currentSubscriptions

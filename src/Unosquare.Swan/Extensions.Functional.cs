@@ -20,8 +20,8 @@
         public static IQueryable<T> When<T>(
             this IQueryable<T> @this,
             Func<bool> condition,
-            Func<IQueryable<T>, IQueryable<T>> @fn) =>
-            condition() ? @fn(@this) : @this;
+            Func<IQueryable<T>, IQueryable<T>> fn) =>
+            condition() ? fn(@this) : @this;
 
         /// <summary>
         /// Whens the specified condition.
@@ -34,8 +34,8 @@
         public static IEnumerable<T> When<T>(
             this IEnumerable<T> @this,
             Func<bool> condition,
-            Func<IEnumerable<T>, IEnumerable<T>> @fn) =>
-            condition() ? @fn(@this) : @this;
+            Func<IEnumerable<T>, IEnumerable<T>> fn) =>
+            condition() ? fn(@this) : @this;
 
         /// <summary>
         /// Adds the value when the condition is true.
