@@ -272,5 +272,4 @@ namespace Unosquare.Swan.Networking.Ldap
         public override string ToString() => Name + "(" + MessageID + "): " + message;
     }
 }
-
 #endif

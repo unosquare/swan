@@ -4,8 +4,6 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.Text;
 
     /// <summary>
     /// Represents an Ldap exception that is not a result of a server response.
@@ -14,7 +12,7 @@ namespace Unosquare.Swan.Networking.Ldap
     public class LdapLocalException : LdapException
     {
         /// <summary>
-        /// Constructs a default exception with no specific error information.
+        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
         /// </summary>
         public LdapLocalException()
         {
@@ -84,7 +82,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     Two entries are made for each message, a String identifier, and the
     ///     actual error string.  Parameters are identified as {0}, {1}, etc.
     /// </summary>
-    public class ExceptionMessages // : System.Resources.ResourceManager
+    public class ExceptionMessages
     {
         // static strings to aide lookup and guarantee accuracy:
         // DO NOT include these strings in other Locales
@@ -233,23 +231,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns></returns>
         public static string GetErrorMessage(string code)
             => MessageMap.ContainsKey(code) ? MessageMap[code] : code;
-    }
-
-    /// <summary>
-    /// A utility class to get strings from the ExceptionMessages and
-    /// ResultCodeMessages resources.
-    /// </summary>
-    public class ResourcesHandler
-    {
-        // Cannot create an instance of this class
-        private ResourcesHandler()
-        {
-        }
-
-        /// <summary>
-        /// The default Locale
-        /// </summary>
-        private static CultureInfo defaultLocale;
 
         /// <summary>
         /// Returns the message stored in the ExceptionMessages resource for the
@@ -266,30 +247,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public static string GetMessage(string messageOrKey, object[] arguments)
         {
-            if (defaultLocale == null)
-                defaultLocale = CultureInfo.CurrentUICulture;
-
-            if (messageOrKey == null)
-            {
-                messageOrKey = string.Empty;
-            }
-
-            var pattern = ExceptionMessages.GetErrorMessage(messageOrKey);
+            var pattern = GetErrorMessage(messageOrKey ?? string.Empty);
 
             // Format the message if arguments were passed
-            if (arguments != null)
-            {
-                var strB = new StringBuilder();
-                strB.AppendFormat(pattern, arguments);
-                pattern = strB.ToString();
-            }
-
-            return pattern;
-        }
-
-        static ResourcesHandler()
-        {
-            defaultLocale = CultureInfo.CurrentUICulture;
+            return arguments != null ? string.Format(pattern, arguments) : pattern;
         }
     }
 
@@ -672,7 +633,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// of the LdapException.</param>
         internal LdapException(string messageOrKey, object[] arguments, LdapStatusCode resultCode,
             string serverMsg = null, string matchedDN = null, Exception rootException = null)
-            : base(ResourcesHandler.GetMessage(messageOrKey, arguments))
+            : base(ExceptionMessages.GetMessage(messageOrKey, arguments))
         {
             this.resultCode = resultCode;
             this.rootException = rootException;
@@ -699,7 +660,7 @@ namespace Unosquare.Swan.Networking.Ldap
             string tmsg;
 
             // Craft a string from the resouce file
-            var msg = ResourcesHandler.GetMessage("TOSTRING",
+            var msg = ExceptionMessages.GetMessage("TOSTRING",
                 new object[] {exception, base.Message, resultCode, resultCode.ToString().Humanize()});
 
             // If found no string from resource file, use a default string
@@ -711,7 +672,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Add server message
             if (!string.IsNullOrEmpty(serverMessage))
             {
-                tmsg = ResourcesHandler.GetMessage("SERVER_MSG", new object[] {exception, serverMessage});
+                tmsg = ExceptionMessages.GetMessage("SERVER_MSG", new object[] {exception, serverMessage});
 
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
@@ -725,7 +686,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Add Matched DN message
             if (matchedDN != null)
             {
-                tmsg = ResourcesHandler.GetMessage("MATCHED_DN", new object[] {exception, matchedDN});
+                tmsg = ExceptionMessages.GetMessage("MATCHED_DN", new object[] {exception, matchedDN});
 
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("MATCHED_DN".ToUpper()))
@@ -893,13 +854,13 @@ namespace Unosquare.Swan.Networking.Ldap
             // Add failed referral information
             if (failedReferral != null)
             {
-                tmsg = ResourcesHandler.GetMessage("FAILED_REFERRAL",
+                tmsg = ExceptionMessages.GetMessage("FAILED_REFERRAL",
                     new object[] {"LdapReferralException", failedReferral});
 
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                 {
-                    tmsg = "LdapReferralException: Failed Referral: " + failedReferral;
+                    tmsg = $"LdapReferralException: Failed Referral: {failedReferral}";
                 }
 
                 msg = msg + '\n' + tmsg;
@@ -910,13 +871,13 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 foreach (var referral in referrals)
                 {
-                    tmsg = ResourcesHandler.GetMessage("REFERRAL_ITEM",
+                    tmsg = ExceptionMessages.GetMessage("REFERRAL_ITEM",
                         new object[] {"LdapReferralException", referral});
 
                     // If found no string from resource file, use a default string
                     if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                     {
-                        tmsg = "LdapReferralException: Referral: " + referral;
+                        tmsg = $"LdapReferralException: Referral: {referral}";
                     }
 
                     msg = msg + '\n' + tmsg;

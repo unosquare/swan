@@ -234,20 +234,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Override add() of Asn1SequenceOf to only accept a Control type.
         /// </summary>
         /// <param name="control">The control.</param>
-        public void Add(RfcControl control)
-        {
-            base.Add(control);
-        }
+        public void Add(RfcControl control) => base.Add(control);
 
         /// <summary>
         /// Override set() of Asn1SequenceOf to only accept a Control type.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="control">The control.</param>
-        public void Set(int index, RfcControl control)
-        {
-            base.Set(index, control);
-        }
+        public void Set(int index, RfcControl control) => base.Set(index, control);
 
         /// <summary>
         /// Override getIdentifier to return a context specific id.
