@@ -4271,6 +4271,18 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.GetValueOrDefault(Of T)(System.Collections.Generic.Dictionary(Of T, T), T, T)
   nameWithType: Extensions.GetValueOrDefault<T>(Dictionary<T, T>, T, T)
   nameWithType.vb: Extensions.GetValueOrDefault(Of T)(Dictionary(Of T, T), T, T)
+- uid: Unosquare.Swan.Extensions.Hex2Int(System.Char)
+  name: Hex2Int(Char)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Hex2Int_System_Char_
+  commentId: M:Unosquare.Swan.Extensions.Hex2Int(System.Char)
+  fullName: Unosquare.Swan.Extensions.Hex2Int(System.Char)
+  nameWithType: Extensions.Hex2Int(Char)
+- uid: Unosquare.Swan.Extensions.Hex2Int*
+  name: Hex2Int
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Hex2Int_
+  commentId: Overload:Unosquare.Swan.Extensions.Hex2Int
+  fullName: Unosquare.Swan.Extensions.Hex2Int
+  nameWithType: Extensions.Hex2Int
 - uid: Unosquare.Swan.Extensions.Humanize(System.String)
   name: Humanize(String)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Humanize_System_String_
@@ -8903,72 +8915,18 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapException()
   nameWithType: LdapException.LdapException()
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,System.Int32,System.String,System.String,System.Exception)
-  name: LdapException(String, Int32, String, String, Exception)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException__ctor_System_String_System_Int32_System_String_System_String_System_Exception_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,System.Int32,System.String,System.String,System.Exception)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapException(System.String, System.Int32, System.String, System.String, System.Exception)
-  nameWithType: LdapException.LdapException(String, Int32, String, String, Exception)
+- uid: Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)
+  name: LdapException(String, LdapStatusCode, String, String, Exception)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapException(System.String, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.String, System.Exception)
+  nameWithType: LdapException.LdapException(String, LdapStatusCode, String, String, Exception)
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.#ctor*
   name: LdapException
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException__ctor_
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapException
   nameWithType: LdapException.LdapException
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ADMIN_LIMIT_EXCEEDED
-  name: ADMIN_LIMIT_EXCEEDED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ADMIN_LIMIT_EXCEEDED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.ADMIN_LIMIT_EXCEEDED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ADMIN_LIMIT_EXCEEDED
-  nameWithType: LdapException.ADMIN_LIMIT_EXCEEDED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.AFFECTS_MULTIPLE_DSAS
-  name: AFFECTS_MULTIPLE_DSAS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_AFFECTS_MULTIPLE_DSAS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.AFFECTS_MULTIPLE_DSAS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.AFFECTS_MULTIPLE_DSAS
-  nameWithType: LdapException.AFFECTS_MULTIPLE_DSAS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ALIAS_DEREFERENCING_PROBLEM
-  name: ALIAS_DEREFERENCING_PROBLEM
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ALIAS_DEREFERENCING_PROBLEM
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.ALIAS_DEREFERENCING_PROBLEM
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ALIAS_DEREFERENCING_PROBLEM
-  nameWithType: LdapException.ALIAS_DEREFERENCING_PROBLEM
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ALIAS_PROBLEM
-  name: ALIAS_PROBLEM
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ALIAS_PROBLEM
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.ALIAS_PROBLEM
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ALIAS_PROBLEM
-  nameWithType: LdapException.ALIAS_PROBLEM
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.AMBIGUOUS_RESPONSE
-  name: AMBIGUOUS_RESPONSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_AMBIGUOUS_RESPONSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.AMBIGUOUS_RESPONSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.AMBIGUOUS_RESPONSE
-  nameWithType: LdapException.AMBIGUOUS_RESPONSE
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ATTRIBUTE_OR_VALUE_EXISTS
-  name: ATTRIBUTE_OR_VALUE_EXISTS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ATTRIBUTE_OR_VALUE_EXISTS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.ATTRIBUTE_OR_VALUE_EXISTS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ATTRIBUTE_OR_VALUE_EXISTS
-  nameWithType: LdapException.ATTRIBUTE_OR_VALUE_EXISTS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.AUTH_METHOD_NOT_SUPPORTED
-  name: AUTH_METHOD_NOT_SUPPORTED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_AUTH_METHOD_NOT_SUPPORTED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.AUTH_METHOD_NOT_SUPPORTED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.AUTH_METHOD_NOT_SUPPORTED
-  nameWithType: LdapException.AUTH_METHOD_NOT_SUPPORTED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.AUTH_UNKNOWN
-  name: AUTH_UNKNOWN
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_AUTH_UNKNOWN
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.AUTH_UNKNOWN
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.AUTH_UNKNOWN
-  nameWithType: LdapException.AUTH_UNKNOWN
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.BUSY
-  name: BUSY
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_BUSY
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.BUSY
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.BUSY
-  nameWithType: LdapException.BUSY
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.Cause
   name: Cause
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Cause
@@ -8981,138 +8939,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.Cause
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.Cause
   nameWithType: LdapException.Cause
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.CLIENT_LOOP
-  name: CLIENT_LOOP
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_CLIENT_LOOP
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.CLIENT_LOOP
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.CLIENT_LOOP
-  nameWithType: LdapException.CLIENT_LOOP
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.COMPARE_FALSE
-  name: COMPARE_FALSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_COMPARE_FALSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.COMPARE_FALSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.COMPARE_FALSE
-  nameWithType: LdapException.COMPARE_FALSE
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.COMPARE_TRUE
-  name: COMPARE_TRUE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_COMPARE_TRUE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.COMPARE_TRUE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.COMPARE_TRUE
-  nameWithType: LdapException.COMPARE_TRUE
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.CONFIDENTIALITY_REQUIRED
-  name: CONFIDENTIALITY_REQUIRED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_CONFIDENTIALITY_REQUIRED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.CONFIDENTIALITY_REQUIRED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.CONFIDENTIALITY_REQUIRED
-  nameWithType: LdapException.CONFIDENTIALITY_REQUIRED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.CONNECT_ERROR
-  name: CONNECT_ERROR
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_CONNECT_ERROR
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.CONNECT_ERROR
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.CONNECT_ERROR
-  nameWithType: LdapException.CONNECT_ERROR
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.CONSTRAINT_VIOLATION
-  name: CONSTRAINT_VIOLATION
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_CONSTRAINT_VIOLATION
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.CONSTRAINT_VIOLATION
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.CONSTRAINT_VIOLATION
-  nameWithType: LdapException.CONSTRAINT_VIOLATION
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.CONTROL_NOT_FOUND
-  name: CONTROL_NOT_FOUND
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_CONTROL_NOT_FOUND
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.CONTROL_NOT_FOUND
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.CONTROL_NOT_FOUND
-  nameWithType: LdapException.CONTROL_NOT_FOUND
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.DECODING_ERROR
-  name: DECODING_ERROR
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_DECODING_ERROR
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.DECODING_ERROR
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.DECODING_ERROR
-  nameWithType: LdapException.DECODING_ERROR
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ENCODING_ERROR
-  name: ENCODING_ERROR
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ENCODING_ERROR
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.ENCODING_ERROR
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ENCODING_ERROR
-  nameWithType: LdapException.ENCODING_ERROR
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ENTRY_ALREADY_EXISTS
-  name: ENTRY_ALREADY_EXISTS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ENTRY_ALREADY_EXISTS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.ENTRY_ALREADY_EXISTS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ENTRY_ALREADY_EXISTS
-  nameWithType: LdapException.ENTRY_ALREADY_EXISTS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.FILTER_ERROR
-  name: FILTER_ERROR
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_FILTER_ERROR
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.FILTER_ERROR
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.FILTER_ERROR
-  nameWithType: LdapException.FILTER_ERROR
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.INAPPROPRIATE_AUTHENTICATION
-  name: INAPPROPRIATE_AUTHENTICATION
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_INAPPROPRIATE_AUTHENTICATION
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.INAPPROPRIATE_AUTHENTICATION
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.INAPPROPRIATE_AUTHENTICATION
-  nameWithType: LdapException.INAPPROPRIATE_AUTHENTICATION
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.INAPPROPRIATE_MATCHING
-  name: INAPPROPRIATE_MATCHING
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_INAPPROPRIATE_MATCHING
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.INAPPROPRIATE_MATCHING
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.INAPPROPRIATE_MATCHING
-  nameWithType: LdapException.INAPPROPRIATE_MATCHING
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.INSUFFICIENT_ACCESS_RIGHTS
-  name: INSUFFICIENT_ACCESS_RIGHTS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_INSUFFICIENT_ACCESS_RIGHTS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.INSUFFICIENT_ACCESS_RIGHTS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.INSUFFICIENT_ACCESS_RIGHTS
-  nameWithType: LdapException.INSUFFICIENT_ACCESS_RIGHTS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_ATTRIBUTE_SYNTAX
-  name: INVALID_ATTRIBUTE_SYNTAX
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_INVALID_ATTRIBUTE_SYNTAX
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.INVALID_ATTRIBUTE_SYNTAX
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_ATTRIBUTE_SYNTAX
-  nameWithType: LdapException.INVALID_ATTRIBUTE_SYNTAX
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_CREDENTIALS
-  name: INVALID_CREDENTIALS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_INVALID_CREDENTIALS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.INVALID_CREDENTIALS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_CREDENTIALS
-  nameWithType: LdapException.INVALID_CREDENTIALS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_DN_SYNTAX
-  name: INVALID_DN_SYNTAX
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_INVALID_DN_SYNTAX
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.INVALID_DN_SYNTAX
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_DN_SYNTAX
-  nameWithType: LdapException.INVALID_DN_SYNTAX
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_RESPONSE
-  name: INVALID_RESPONSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_INVALID_RESPONSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.INVALID_RESPONSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.INVALID_RESPONSE
-  nameWithType: LdapException.INVALID_RESPONSE
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.IS_LEAF
-  name: IS_LEAF
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_IS_LEAF
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.IS_LEAF
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.IS_LEAF
-  nameWithType: LdapException.IS_LEAF
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.Ldap_NOT_SUPPORTED
-  name: Ldap_NOT_SUPPORTED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Ldap_NOT_SUPPORTED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.Ldap_NOT_SUPPORTED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.Ldap_NOT_SUPPORTED
-  nameWithType: LdapException.Ldap_NOT_SUPPORTED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.Ldap_PARTIAL_RESULTS
-  name: Ldap_PARTIAL_RESULTS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Ldap_PARTIAL_RESULTS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.Ldap_PARTIAL_RESULTS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.Ldap_PARTIAL_RESULTS
-  nameWithType: LdapException.Ldap_PARTIAL_RESULTS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.Ldap_TIMEOUT
-  name: Ldap_TIMEOUT
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Ldap_TIMEOUT
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.Ldap_TIMEOUT
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.Ldap_TIMEOUT
-  nameWithType: LdapException.Ldap_TIMEOUT
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
   name: LdapErrorMessage
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_LdapErrorMessage
@@ -9125,18 +8951,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
   nameWithType: LdapException.LdapErrorMessage
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.LOCAL_ERROR
-  name: LOCAL_ERROR
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_LOCAL_ERROR
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.LOCAL_ERROR
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LOCAL_ERROR
-  nameWithType: LdapException.LOCAL_ERROR
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.LOOP_DETECT
-  name: LOOP_DETECT
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_LOOP_DETECT
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.LOOP_DETECT
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LOOP_DETECT
-  nameWithType: LdapException.LOOP_DETECT
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN
   name: MatchedDN
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_MatchedDN
@@ -9161,96 +8975,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.Message
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.Message
   nameWithType: LdapException.Message
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.MORE_RESULTS_TO_RETURN
-  name: MORE_RESULTS_TO_RETURN
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_MORE_RESULTS_TO_RETURN
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.MORE_RESULTS_TO_RETURN
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.MORE_RESULTS_TO_RETURN
-  nameWithType: LdapException.MORE_RESULTS_TO_RETURN
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.NAMING_VIOLATION
-  name: NAMING_VIOLATION
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_NAMING_VIOLATION
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.NAMING_VIOLATION
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.NAMING_VIOLATION
-  nameWithType: LdapException.NAMING_VIOLATION
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.NO_MEMORY
-  name: NO_MEMORY
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_NO_MEMORY
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.NO_MEMORY
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.NO_MEMORY
-  nameWithType: LdapException.NO_MEMORY
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.NO_RESULTS_RETURNED
-  name: NO_RESULTS_RETURNED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_NO_RESULTS_RETURNED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.NO_RESULTS_RETURNED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.NO_RESULTS_RETURNED
-  nameWithType: LdapException.NO_RESULTS_RETURNED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.NO_SUCH_ATTRIBUTE
-  name: NO_SUCH_ATTRIBUTE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_NO_SUCH_ATTRIBUTE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.NO_SUCH_ATTRIBUTE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.NO_SUCH_ATTRIBUTE
-  nameWithType: LdapException.NO_SUCH_ATTRIBUTE
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.NO_SUCH_OBJECT
-  name: NO_SUCH_OBJECT
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_NO_SUCH_OBJECT
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.NO_SUCH_OBJECT
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.NO_SUCH_OBJECT
-  nameWithType: LdapException.NO_SUCH_OBJECT
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.NOT_ALLOWED_ON_NONLEAF
-  name: NOT_ALLOWED_ON_NONLEAF
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_NOT_ALLOWED_ON_NONLEAF
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.NOT_ALLOWED_ON_NONLEAF
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.NOT_ALLOWED_ON_NONLEAF
-  nameWithType: LdapException.NOT_ALLOWED_ON_NONLEAF
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.NOT_ALLOWED_ON_RDN
-  name: NOT_ALLOWED_ON_RDN
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_NOT_ALLOWED_ON_RDN
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.NOT_ALLOWED_ON_RDN
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.NOT_ALLOWED_ON_RDN
-  nameWithType: LdapException.NOT_ALLOWED_ON_RDN
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.OBJECT_CLASS_MODS_PROHIBITED
-  name: OBJECT_CLASS_MODS_PROHIBITED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_OBJECT_CLASS_MODS_PROHIBITED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.OBJECT_CLASS_MODS_PROHIBITED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.OBJECT_CLASS_MODS_PROHIBITED
-  nameWithType: LdapException.OBJECT_CLASS_MODS_PROHIBITED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.OBJECT_CLASS_VIOLATION
-  name: OBJECT_CLASS_VIOLATION
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_OBJECT_CLASS_VIOLATION
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.OBJECT_CLASS_VIOLATION
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.OBJECT_CLASS_VIOLATION
-  nameWithType: LdapException.OBJECT_CLASS_VIOLATION
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.OPERATIONS_ERROR
-  name: OPERATIONS_ERROR
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_OPERATIONS_ERROR
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.OPERATIONS_ERROR
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.OPERATIONS_ERROR
-  nameWithType: LdapException.OPERATIONS_ERROR
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.OTHER
-  name: OTHER
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_OTHER
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.OTHER
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.OTHER
-  nameWithType: LdapException.OTHER
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.PROTOCOL_ERROR
-  name: PROTOCOL_ERROR
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_PROTOCOL_ERROR
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.PROTOCOL_ERROR
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.PROTOCOL_ERROR
-  nameWithType: LdapException.PROTOCOL_ERROR
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.REFERRAL
-  name: REFERRAL
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_REFERRAL
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.REFERRAL
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.REFERRAL
-  nameWithType: LdapException.REFERRAL
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.REFERRAL_LIMIT_EXCEEDED
-  name: REFERRAL_LIMIT_EXCEEDED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_REFERRAL_LIMIT_EXCEEDED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.REFERRAL_LIMIT_EXCEEDED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.REFERRAL_LIMIT_EXCEEDED
-  nameWithType: LdapException.REFERRAL_LIMIT_EXCEEDED
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
   name: ResultCode
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ResultCode
@@ -9263,78 +8987,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
   nameWithType: LdapException.ResultCode
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString
-  name: resultCodeToString()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_resultCodeToString
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString()
-  nameWithType: LdapException.resultCodeToString()
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32)
-  name: resultCodeToString(Int32)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_resultCodeToString_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString(System.Int32)
-  nameWithType: LdapException.resultCodeToString(Int32)
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString*
-  name: resultCodeToString
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_resultCodeToString_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.resultCodeToString
-  nameWithType: LdapException.resultCodeToString
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.SASL_BIND_IN_PROGRESS
-  name: SASL_BIND_IN_PROGRESS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_SASL_BIND_IN_PROGRESS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.SASL_BIND_IN_PROGRESS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.SASL_BIND_IN_PROGRESS
-  nameWithType: LdapException.SASL_BIND_IN_PROGRESS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.SERVER_DOWN
-  name: SERVER_DOWN
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_SERVER_DOWN
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.SERVER_DOWN
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.SERVER_DOWN
-  nameWithType: LdapException.SERVER_DOWN
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.SIZE_LIMIT_EXCEEDED
-  name: SIZE_LIMIT_EXCEEDED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_SIZE_LIMIT_EXCEEDED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.SIZE_LIMIT_EXCEEDED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.SIZE_LIMIT_EXCEEDED
-  nameWithType: LdapException.SIZE_LIMIT_EXCEEDED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.SSL_HANDSHAKE_FAILED
-  name: SSL_HANDSHAKE_FAILED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_SSL_HANDSHAKE_FAILED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.SSL_HANDSHAKE_FAILED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.SSL_HANDSHAKE_FAILED
-  nameWithType: LdapException.SSL_HANDSHAKE_FAILED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.SSL_PROVIDER_NOT_FOUND
-  name: SSL_PROVIDER_NOT_FOUND
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_SSL_PROVIDER_NOT_FOUND
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.SSL_PROVIDER_NOT_FOUND
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.SSL_PROVIDER_NOT_FOUND
-  nameWithType: LdapException.SSL_PROVIDER_NOT_FOUND
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.STRONG_AUTH_REQUIRED
-  name: STRONG_AUTH_REQUIRED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_STRONG_AUTH_REQUIRED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.STRONG_AUTH_REQUIRED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.STRONG_AUTH_REQUIRED
-  nameWithType: LdapException.STRONG_AUTH_REQUIRED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.SUCCESS
-  name: SUCCESS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_SUCCESS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.SUCCESS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.SUCCESS
-  nameWithType: LdapException.SUCCESS
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.TIME_LIMIT_EXCEEDED
-  name: TIME_LIMIT_EXCEEDED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_TIME_LIMIT_EXCEEDED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.TIME_LIMIT_EXCEEDED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.TIME_LIMIT_EXCEEDED
-  nameWithType: LdapException.TIME_LIMIT_EXCEEDED
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.TLS_NOT_SUPPORTED
-  name: TLS_NOT_SUPPORTED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_TLS_NOT_SUPPORTED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.TLS_NOT_SUPPORTED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.TLS_NOT_SUPPORTED
-  nameWithType: LdapException.TLS_NOT_SUPPORTED
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.ToString
   name: ToString()
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ToString
@@ -9347,36 +8999,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.ToString
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.ToString
   nameWithType: LdapException.ToString
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.UNAVAILABLE
-  name: UNAVAILABLE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_UNAVAILABLE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.UNAVAILABLE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.UNAVAILABLE
-  nameWithType: LdapException.UNAVAILABLE
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.UNAVAILABLE_CRITICAL_EXTENSION
-  name: UNAVAILABLE_CRITICAL_EXTENSION
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_UNAVAILABLE_CRITICAL_EXTENSION
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.UNAVAILABLE_CRITICAL_EXTENSION
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.UNAVAILABLE_CRITICAL_EXTENSION
-  nameWithType: LdapException.UNAVAILABLE_CRITICAL_EXTENSION
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.UNDEFINED_ATTRIBUTE_TYPE
-  name: UNDEFINED_ATTRIBUTE_TYPE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_UNDEFINED_ATTRIBUTE_TYPE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.UNDEFINED_ATTRIBUTE_TYPE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.UNDEFINED_ATTRIBUTE_TYPE
-  nameWithType: LdapException.UNDEFINED_ATTRIBUTE_TYPE
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.UNWILLING_TO_PERFORM
-  name: UNWILLING_TO_PERFORM
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_UNWILLING_TO_PERFORM
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.UNWILLING_TO_PERFORM
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.UNWILLING_TO_PERFORM
-  nameWithType: LdapException.UNWILLING_TO_PERFORM
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.USER_CANCELLED
-  name: USER_CANCELLED
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_USER_CANCELLED
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapException.USER_CANCELLED
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.USER_CANCELLED
-  nameWithType: LdapException.USER_CANCELLED
 - uid: Unosquare.Swan.Networking.Ldap.LdapLocalException
   name: LdapLocalException
   href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html
@@ -9389,21 +9011,21 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException()
   nameWithType: LdapLocalException.LdapLocalException()
-- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Int32,System.Exception)
-  name: LdapLocalException(String, Int32, Exception)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_System_Int32_System_Exception_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Int32,System.Exception)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException(System.String, System.Int32, System.Exception)
-  nameWithType: LdapLocalException.LdapLocalException(String, Int32, Exception)
-- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Object[],System.Int32,System.Exception)
-  name: LdapLocalException(String, Object[], Int32, Exception)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_System_Object___System_Int32_System_Exception_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Object[],System.Int32,System.Exception)
-  name.vb: LdapLocalException(String, Object(), Int32, Exception)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException(System.String, System.Object[], System.Int32, System.Exception)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException(System.String, System.Object(), System.Int32, System.Exception)
-  nameWithType: LdapLocalException.LdapLocalException(String, Object[], Int32, Exception)
-  nameWithType.vb: LdapLocalException.LdapLocalException(String, Object(), Int32, Exception)
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Object[],Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)
+  name: LdapLocalException(String, Object[], LdapStatusCode, Exception)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_System_Object___Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Object[],Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)
+  name.vb: LdapLocalException(String, Object(), LdapStatusCode, Exception)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException(System.String, System.Object[], Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.Exception)
+  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException(System.String, System.Object(), Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.Exception)
+  nameWithType: LdapLocalException.LdapLocalException(String, Object[], LdapStatusCode, Exception)
+  nameWithType.vb: LdapLocalException.LdapLocalException(String, Object(), LdapStatusCode, Exception)
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)
+  name: LdapLocalException(String, LdapStatusCode, Exception)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException(System.String, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.Exception)
+  nameWithType: LdapLocalException.LdapLocalException(String, LdapStatusCode, Exception)
 - uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*
   name: LdapLocalException
   href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_
@@ -9428,24 +9050,6 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapMessage
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage
   nameWithType: LdapMessage
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.ABANDON_REQUEST
-  name: ABANDON_REQUEST
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_ABANDON_REQUEST
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.ABANDON_REQUEST
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.ABANDON_REQUEST
-  nameWithType: LdapMessage.ABANDON_REQUEST
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.BIND_REQUEST
-  name: BIND_REQUEST
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_BIND_REQUEST
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.BIND_REQUEST
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.BIND_REQUEST
-  nameWithType: LdapMessage.BIND_REQUEST
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.BIND_RESPONSE
-  name: BIND_RESPONSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_BIND_RESPONSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.BIND_RESPONSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.BIND_RESPONSE
-  nameWithType: LdapMessage.BIND_RESPONSE
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   name: Controls
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Controls
@@ -9458,24 +9062,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   nameWithType: LdapMessage.Controls
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.EXTENDED_REQUEST
-  name: EXTENDED_REQUEST
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_EXTENDED_REQUEST
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.EXTENDED_REQUEST
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.EXTENDED_REQUEST
-  nameWithType: LdapMessage.EXTENDED_REQUEST
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.EXTENDED_RESPONSE
-  name: EXTENDED_RESPONSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_EXTENDED_RESPONSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.EXTENDED_RESPONSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.EXTENDED_RESPONSE
-  nameWithType: LdapMessage.EXTENDED_RESPONSE
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.INTERMEDIATE_RESPONSE
-  name: INTERMEDIATE_RESPONSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_INTERMEDIATE_RESPONSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.INTERMEDIATE_RESPONSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.INTERMEDIATE_RESPONSE
-  nameWithType: LdapMessage.INTERMEDIATE_RESPONSE
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
   name: MessageID
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID
@@ -9488,18 +9074,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
   nameWithType: LdapMessage.MessageID
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MODIFY_REQUEST
-  name: MODIFY_REQUEST
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MODIFY_REQUEST
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.MODIFY_REQUEST
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MODIFY_REQUEST
-  nameWithType: LdapMessage.MODIFY_REQUEST
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MODIFY_RESPONSE
-  name: MODIFY_RESPONSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MODIFY_RESPONSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.MODIFY_RESPONSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MODIFY_RESPONSE
-  nameWithType: LdapMessage.MODIFY_RESPONSE
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Request
   name: Request
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request
@@ -9512,30 +9086,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.Request
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Request
   nameWithType: LdapMessage.Request
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_REQUEST
-  name: SEARCH_REQUEST
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_REQUEST
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_REQUEST
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_REQUEST
-  nameWithType: LdapMessage.SEARCH_REQUEST
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESPONSE
-  name: SEARCH_RESPONSE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESPONSE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESPONSE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESPONSE
-  nameWithType: LdapMessage.SEARCH_RESPONSE
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESULT
-  name: SEARCH_RESULT
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESULT
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESULT
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESULT
-  nameWithType: LdapMessage.SEARCH_RESULT
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESULT_REFERENCE
-  name: SEARCH_RESULT_REFERENCE
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_SEARCH_RESULT_REFERENCE
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESULT_REFERENCE
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.SEARCH_RESULT_REFERENCE
-  nameWithType: LdapMessage.SEARCH_RESULT_REFERENCE
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Tag
   name: Tag
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Tag
@@ -9572,12 +9122,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.Type
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Type
   nameWithType: LdapMessage.Type
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.UNBIND_REQUEST
-  name: UNBIND_REQUEST
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_UNBIND_REQUEST
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapMessage.UNBIND_REQUEST
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.UNBIND_REQUEST
-  nameWithType: LdapMessage.UNBIND_REQUEST
 - uid: Unosquare.Swan.Networking.Ldap.LdapModification
   name: LdapModification
   href: api/Unosquare.Swan.Networking.Ldap.LdapModification.html
@@ -9701,6 +9245,96 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapModifyRequest.ToString
   fullName: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.ToString
   nameWithType: LdapModifyRequest.ToString
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation
+  name: LdapOperation
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html
+  commentId: T:Unosquare.Swan.Networking.Ldap.LdapOperation
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation
+  nameWithType: LdapOperation
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.AbandonRequest
+  name: AbandonRequest
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_AbandonRequest
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.AbandonRequest
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.AbandonRequest
+  nameWithType: LdapOperation.AbandonRequest
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.BindRequest
+  name: BindRequest
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_BindRequest
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.BindRequest
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.BindRequest
+  nameWithType: LdapOperation.BindRequest
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.BindResponse
+  name: BindResponse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_BindResponse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.BindResponse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.BindResponse
+  nameWithType: LdapOperation.BindResponse
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.ExtendedRequest
+  name: ExtendedRequest
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_ExtendedRequest
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.ExtendedRequest
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.ExtendedRequest
+  nameWithType: LdapOperation.ExtendedRequest
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.ExtendedResponse
+  name: ExtendedResponse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_ExtendedResponse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.ExtendedResponse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.ExtendedResponse
+  nameWithType: LdapOperation.ExtendedResponse
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.IntermediateResponse
+  name: IntermediateResponse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_IntermediateResponse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.IntermediateResponse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.IntermediateResponse
+  nameWithType: LdapOperation.IntermediateResponse
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.ModifyRequest
+  name: ModifyRequest
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_ModifyRequest
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.ModifyRequest
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.ModifyRequest
+  nameWithType: LdapOperation.ModifyRequest
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.ModifyResponse
+  name: ModifyResponse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_ModifyResponse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.ModifyResponse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.ModifyResponse
+  nameWithType: LdapOperation.ModifyResponse
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchRequest
+  name: SearchRequest
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_SearchRequest
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.SearchRequest
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchRequest
+  nameWithType: LdapOperation.SearchRequest
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResponse
+  name: SearchResponse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_SearchResponse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResponse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResponse
+  nameWithType: LdapOperation.SearchResponse
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResult
+  name: SearchResult
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_SearchResult
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResult
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResult
+  nameWithType: LdapOperation.SearchResult
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResultReference
+  name: SearchResultReference
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_SearchResultReference
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResultReference
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.SearchResultReference
+  nameWithType: LdapOperation.SearchResultReference
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.UnbindRequest
+  name: UnbindRequest
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_UnbindRequest
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.UnbindRequest
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.UnbindRequest
+  nameWithType: LdapOperation.UnbindRequest
+- uid: Unosquare.Swan.Networking.Ldap.LdapOperation.Unknown
+  name: Unknown
+  href: api/Unosquare.Swan.Networking.Ldap.LdapOperation.html#Unosquare_Swan_Networking_Ldap_LdapOperation_Unknown
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapOperation.Unknown
+  fullName: Unosquare.Swan.Networking.Ldap.LdapOperation.Unknown
+  nameWithType: LdapOperation.Unknown
 - uid: Unosquare.Swan.Networking.Ldap.LdapReferralException
   name: LdapReferralException
   href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html
@@ -9719,12 +9353,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Exception)
   fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, System.Exception)
   nameWithType: LdapReferralException.LdapReferralException(String, Exception)
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Int32,System.String,System.Exception)
-  name: LdapReferralException(String, Int32, String, Exception)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Int32_System_String_System_Exception_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Int32,System.String,System.Exception)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, System.Int32, System.String, System.Exception)
-  nameWithType: LdapReferralException.LdapReferralException(String, Int32, String, Exception)
 - uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],System.Exception)
   name: LdapReferralException(String, Object[], Exception)
   href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Object___System_Exception_
@@ -9734,15 +9362,21 @@ references:
   fullName.vb: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, System.Object(), System.Exception)
   nameWithType: LdapReferralException.LdapReferralException(String, Object[], Exception)
   nameWithType.vb: LdapReferralException.LdapReferralException(String, Object(), Exception)
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],System.Int32,System.String,System.Exception)
-  name: LdapReferralException(String, Object[], Int32, String, Exception)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Object___System_Int32_System_String_System_Exception_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],System.Int32,System.String,System.Exception)
-  name.vb: LdapReferralException(String, Object(), Int32, String, Exception)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, System.Object[], System.Int32, System.String, System.Exception)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, System.Object(), System.Int32, System.String, System.Exception)
-  nameWithType: LdapReferralException.LdapReferralException(String, Object[], Int32, String, Exception)
-  nameWithType.vb: LdapReferralException.LdapReferralException(String, Object(), Int32, String, Exception)
+- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.Exception)
+  name: LdapReferralException(String, Object[], LdapStatusCode, String, Exception)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_System_Object___Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,System.Object[],Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.Exception)
+  name.vb: LdapReferralException(String, Object(), LdapStatusCode, String, Exception)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, System.Object[], Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.Exception)
+  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, System.Object(), Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.Exception)
+  nameWithType: LdapReferralException.LdapReferralException(String, Object[], LdapStatusCode, String, Exception)
+  nameWithType.vb: LdapReferralException.LdapReferralException(String, Object(), LdapStatusCode, String, Exception)
+- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.Exception)
+  name: LdapReferralException(String, LdapStatusCode, String, Exception)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.Exception)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.Exception)
+  nameWithType: LdapReferralException.LdapReferralException(String, LdapStatusCode, String, Exception)
 - uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*
   name: LdapReferralException
   href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_
@@ -9791,24 +9425,18 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapResponse
   fullName: Unosquare.Swan.Networking.Ldap.LdapResponse
   nameWithType: LdapResponse
-- uid: Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32)
-  name: LdapResponse(Int32)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapResponse.html#Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapResponse.LdapResponse(System.Int32)
-  nameWithType: LdapResponse.LdapResponse(Int32)
-- uid: Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32,System.Int32,System.String,System.String)
-  name: LdapResponse(Int32, Int32, String, String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapResponse.html#Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_System_Int32_System_Int32_System_String_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(System.Int32,System.Int32,System.String,System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapResponse.LdapResponse(System.Int32, System.Int32, System.String, System.String)
-  nameWithType: LdapResponse.LdapResponse(Int32, Int32, String, String)
 - uid: Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapException,Unosquare.Swan.Networking.Ldap.ReferralInfo)
   name: LdapResponse(LdapException, ReferralInfo)
   href: api/Unosquare.Swan.Networking.Ldap.LdapResponse.html#Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapException_Unosquare_Swan_Networking_Ldap_ReferralInfo_
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapException,Unosquare.Swan.Networking.Ldap.ReferralInfo)
   fullName: Unosquare.Swan.Networking.Ldap.LdapResponse.LdapResponse(Unosquare.Swan.Networking.Ldap.LdapException, Unosquare.Swan.Networking.Ldap.ReferralInfo)
   nameWithType: LdapResponse.LdapResponse(LdapException, ReferralInfo)
+- uid: Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapOperation,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String)
+  name: LdapResponse(LdapOperation, LdapStatusCode, String, String)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapResponse.html#Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapOperation_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapOperation,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapResponse.LdapResponse(Unosquare.Swan.Networking.Ldap.LdapOperation, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.String)
+  nameWithType: LdapResponse.LdapResponse(LdapOperation, LdapStatusCode, String, String)
 - uid: Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*
   name: LdapResponse
   href: api/Unosquare.Swan.Networking.Ldap.LdapResponse.html#Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_
@@ -10037,6 +9665,384 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchResults.Next
   fullName: Unosquare.Swan.Networking.Ldap.LdapSearchResults.Next
   nameWithType: LdapSearchResults.Next
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode
+  name: LdapStatusCode
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html
+  commentId: T:Unosquare.Swan.Networking.Ldap.LdapStatusCode
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode
+  nameWithType: LdapStatusCode
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AdminLimitExceeded
+  name: AdminLimitExceeded
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AdminLimitExceeded
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AdminLimitExceeded
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AdminLimitExceeded
+  nameWithType: LdapStatusCode.AdminLimitExceeded
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AffectsMultipleDsas
+  name: AffectsMultipleDsas
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AffectsMultipleDsas
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AffectsMultipleDsas
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AffectsMultipleDsas
+  nameWithType: LdapStatusCode.AffectsMultipleDsas
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AliasDereferencingProblem
+  name: AliasDereferencingProblem
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AliasDereferencingProblem
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AliasDereferencingProblem
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AliasDereferencingProblem
+  nameWithType: LdapStatusCode.AliasDereferencingProblem
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AliasProblem
+  name: AliasProblem
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AliasProblem
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AliasProblem
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AliasProblem
+  nameWithType: LdapStatusCode.AliasProblem
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AmbiguousResponse
+  name: AmbiguousResponse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AmbiguousResponse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AmbiguousResponse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AmbiguousResponse
+  nameWithType: LdapStatusCode.AmbiguousResponse
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AttributeOrValueExists
+  name: AttributeOrValueExists
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AttributeOrValueExists
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AttributeOrValueExists
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AttributeOrValueExists
+  nameWithType: LdapStatusCode.AttributeOrValueExists
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AuthMethodNotSupported
+  name: AuthMethodNotSupported
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AuthMethodNotSupported
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AuthMethodNotSupported
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AuthMethodNotSupported
+  nameWithType: LdapStatusCode.AuthMethodNotSupported
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AuthUnknown
+  name: AuthUnknown
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_AuthUnknown
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.AuthUnknown
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.AuthUnknown
+  nameWithType: LdapStatusCode.AuthUnknown
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Busy
+  name: Busy
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_Busy
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.Busy
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Busy
+  nameWithType: LdapStatusCode.Busy
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ClientLoop
+  name: ClientLoop
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ClientLoop
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ClientLoop
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ClientLoop
+  nameWithType: LdapStatusCode.ClientLoop
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.CompareFalse
+  name: CompareFalse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_CompareFalse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.CompareFalse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.CompareFalse
+  nameWithType: LdapStatusCode.CompareFalse
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.CompareTrue
+  name: CompareTrue
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_CompareTrue
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.CompareTrue
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.CompareTrue
+  nameWithType: LdapStatusCode.CompareTrue
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConfidentialityRequired
+  name: ConfidentialityRequired
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ConfidentialityRequired
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConfidentialityRequired
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConfidentialityRequired
+  nameWithType: LdapStatusCode.ConfidentialityRequired
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConnectError
+  name: ConnectError
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ConnectError
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConnectError
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConnectError
+  nameWithType: LdapStatusCode.ConnectError
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConstraintViolation
+  name: ConstraintViolation
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ConstraintViolation
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConstraintViolation
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ConstraintViolation
+  nameWithType: LdapStatusCode.ConstraintViolation
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ControlNotFound
+  name: ControlNotFound
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ControlNotFound
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ControlNotFound
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ControlNotFound
+  nameWithType: LdapStatusCode.ControlNotFound
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.DecodingError
+  name: DecodingError
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_DecodingError
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.DecodingError
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.DecodingError
+  nameWithType: LdapStatusCode.DecodingError
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.EncodingError
+  name: EncodingError
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_EncodingError
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.EncodingError
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.EncodingError
+  nameWithType: LdapStatusCode.EncodingError
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.EntryAlreadyExists
+  name: EntryAlreadyExists
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_EntryAlreadyExists
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.EntryAlreadyExists
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.EntryAlreadyExists
+  nameWithType: LdapStatusCode.EntryAlreadyExists
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.FilterError
+  name: FilterError
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_FilterError
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.FilterError
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.FilterError
+  nameWithType: LdapStatusCode.FilterError
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InappropriateAuthentication
+  name: InappropriateAuthentication
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_InappropriateAuthentication
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.InappropriateAuthentication
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InappropriateAuthentication
+  nameWithType: LdapStatusCode.InappropriateAuthentication
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InappropriateMatching
+  name: InappropriateMatching
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_InappropriateMatching
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.InappropriateMatching
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InappropriateMatching
+  nameWithType: LdapStatusCode.InappropriateMatching
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InsufficientAccessRights
+  name: InsufficientAccessRights
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_InsufficientAccessRights
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.InsufficientAccessRights
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InsufficientAccessRights
+  nameWithType: LdapStatusCode.InsufficientAccessRights
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidAttributeSyntax
+  name: InvalidAttributeSyntax
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidAttributeSyntax
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidAttributeSyntax
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidAttributeSyntax
+  nameWithType: LdapStatusCode.InvalidAttributeSyntax
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidCredentials
+  name: InvalidCredentials
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidCredentials
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidCredentials
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidCredentials
+  nameWithType: LdapStatusCode.InvalidCredentials
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidDnSyntax
+  name: InvalidDnSyntax
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidDnSyntax
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidDnSyntax
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidDnSyntax
+  nameWithType: LdapStatusCode.InvalidDnSyntax
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidResponse
+  name: InvalidResponse
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidResponse
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidResponse
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.InvalidResponse
+  nameWithType: LdapStatusCode.InvalidResponse
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.IsLeaf
+  name: IsLeaf
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_IsLeaf
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.IsLeaf
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.IsLeaf
+  nameWithType: LdapStatusCode.IsLeaf
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapNotSupported
+  name: LdapNotSupported
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_LdapNotSupported
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapNotSupported
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapNotSupported
+  nameWithType: LdapStatusCode.LdapNotSupported
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapPartialResults
+  name: LdapPartialResults
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_LdapPartialResults
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapPartialResults
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapPartialResults
+  nameWithType: LdapStatusCode.LdapPartialResults
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapTimeout
+  name: LdapTimeout
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_LdapTimeout
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapTimeout
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LdapTimeout
+  nameWithType: LdapStatusCode.LdapTimeout
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LocalError
+  name: LocalError
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_LocalError
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.LocalError
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LocalError
+  nameWithType: LdapStatusCode.LocalError
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LoopDetect
+  name: LoopDetect
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_LoopDetect
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.LoopDetect
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.LoopDetect
+  nameWithType: LdapStatusCode.LoopDetect
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.MoreResultsToReturn
+  name: MoreResultsToReturn
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_MoreResultsToReturn
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.MoreResultsToReturn
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.MoreResultsToReturn
+  nameWithType: LdapStatusCode.MoreResultsToReturn
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NamingViolation
+  name: NamingViolation
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_NamingViolation
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.NamingViolation
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NamingViolation
+  nameWithType: LdapStatusCode.NamingViolation
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoMemory
+  name: NoMemory
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoMemory
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoMemory
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoMemory
+  nameWithType: LdapStatusCode.NoMemory
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoResultsReturned
+  name: NoResultsReturned
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoResultsReturned
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoResultsReturned
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoResultsReturned
+  nameWithType: LdapStatusCode.NoResultsReturned
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoSuchAttribute
+  name: NoSuchAttribute
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoSuchAttribute
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoSuchAttribute
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoSuchAttribute
+  nameWithType: LdapStatusCode.NoSuchAttribute
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoSuchObject
+  name: NoSuchObject
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoSuchObject
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoSuchObject
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NoSuchObject
+  nameWithType: LdapStatusCode.NoSuchObject
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NotAllowedOnNonleaf
+  name: NotAllowedOnNonleaf
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_NotAllowedOnNonleaf
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.NotAllowedOnNonleaf
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NotAllowedOnNonleaf
+  nameWithType: LdapStatusCode.NotAllowedOnNonleaf
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NotAllowedOnRdn
+  name: NotAllowedOnRdn
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_NotAllowedOnRdn
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.NotAllowedOnRdn
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.NotAllowedOnRdn
+  nameWithType: LdapStatusCode.NotAllowedOnRdn
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ObjectClassModsProhibited
+  name: ObjectClassModsProhibited
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ObjectClassModsProhibited
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ObjectClassModsProhibited
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ObjectClassModsProhibited
+  nameWithType: LdapStatusCode.ObjectClassModsProhibited
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ObjectClassViolation
+  name: ObjectClassViolation
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ObjectClassViolation
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ObjectClassViolation
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ObjectClassViolation
+  nameWithType: LdapStatusCode.ObjectClassViolation
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.OperationsError
+  name: OperationsError
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_OperationsError
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.OperationsError
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.OperationsError
+  nameWithType: LdapStatusCode.OperationsError
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Other
+  name: Other
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_Other
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.Other
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Other
+  nameWithType: LdapStatusCode.Other
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ProtocolError
+  name: ProtocolError
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ProtocolError
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ProtocolError
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ProtocolError
+  nameWithType: LdapStatusCode.ProtocolError
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Referral
+  name: Referral
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_Referral
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.Referral
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Referral
+  nameWithType: LdapStatusCode.Referral
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ReferralLimitExceeded
+  name: ReferralLimitExceeded
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ReferralLimitExceeded
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ReferralLimitExceeded
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ReferralLimitExceeded
+  nameWithType: LdapStatusCode.ReferralLimitExceeded
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SaslBindInProgress
+  name: SaslBindInProgress
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_SaslBindInProgress
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.SaslBindInProgress
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SaslBindInProgress
+  nameWithType: LdapStatusCode.SaslBindInProgress
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ServerDown
+  name: ServerDown
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_ServerDown
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.ServerDown
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.ServerDown
+  nameWithType: LdapStatusCode.ServerDown
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SizeLimitExceeded
+  name: SizeLimitExceeded
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_SizeLimitExceeded
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.SizeLimitExceeded
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SizeLimitExceeded
+  nameWithType: LdapStatusCode.SizeLimitExceeded
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SslHandshakeFailed
+  name: SslHandshakeFailed
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_SslHandshakeFailed
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.SslHandshakeFailed
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SslHandshakeFailed
+  nameWithType: LdapStatusCode.SslHandshakeFailed
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SslProviderNotFound
+  name: SslProviderNotFound
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_SslProviderNotFound
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.SslProviderNotFound
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.SslProviderNotFound
+  nameWithType: LdapStatusCode.SslProviderNotFound
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.StrongAuthRequired
+  name: StrongAuthRequired
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_StrongAuthRequired
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.StrongAuthRequired
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.StrongAuthRequired
+  nameWithType: LdapStatusCode.StrongAuthRequired
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Success
+  name: Success
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_Success
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.Success
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Success
+  nameWithType: LdapStatusCode.Success
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.TimeLimitExceeded
+  name: TimeLimitExceeded
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_TimeLimitExceeded
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.TimeLimitExceeded
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.TimeLimitExceeded
+  nameWithType: LdapStatusCode.TimeLimitExceeded
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.TlsNotSupported
+  name: TlsNotSupported
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_TlsNotSupported
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.TlsNotSupported
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.TlsNotSupported
+  nameWithType: LdapStatusCode.TlsNotSupported
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Unavailable
+  name: Unavailable
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_Unavailable
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.Unavailable
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.Unavailable
+  nameWithType: LdapStatusCode.Unavailable
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UnavailableCriticalExtension
+  name: UnavailableCriticalExtension
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_UnavailableCriticalExtension
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.UnavailableCriticalExtension
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UnavailableCriticalExtension
+  nameWithType: LdapStatusCode.UnavailableCriticalExtension
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UndefinedAttributeType
+  name: UndefinedAttributeType
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_UndefinedAttributeType
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.UndefinedAttributeType
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UndefinedAttributeType
+  nameWithType: LdapStatusCode.UndefinedAttributeType
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UnwillingToPerform
+  name: UnwillingToPerform
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_UnwillingToPerform
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.UnwillingToPerform
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UnwillingToPerform
+  nameWithType: LdapStatusCode.UnwillingToPerform
+- uid: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UserCancelled
+  name: UserCancelled
+  href: api/Unosquare.Swan.Networking.Ldap.LdapStatusCode.html#Unosquare_Swan_Networking_Ldap_LdapStatusCode_UserCancelled
+  commentId: F:Unosquare.Swan.Networking.Ldap.LdapStatusCode.UserCancelled
+  fullName: Unosquare.Swan.Networking.Ldap.LdapStatusCode.UserCancelled
+  nameWithType: LdapStatusCode.UserCancelled
 - uid: Unosquare.Swan.Networking.Ldap.LdapUrl
   name: LdapUrl
   href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html
@@ -10292,18 +10298,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage
   fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetMessage
   nameWithType: ResourcesHandler.GetMessage
-- uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32)
-  name: GetResultString(Int32)
-  href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32)
-  fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString(System.Int32)
-  nameWithType: ResourcesHandler.GetResultString(Int32)
-- uid: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString*
-  name: GetResultString
-  href: api/Unosquare.Swan.Networking.Ldap.ResourcesHandler.html#Unosquare_Swan_Networking_Ldap_ResourcesHandler_GetResultString_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString
-  fullName: Unosquare.Swan.Networking.Ldap.ResourcesHandler.GetResultString
-  nameWithType: ResourcesHandler.GetResultString
 - uid: Unosquare.Swan.Networking.Ldap.RespControlVector
   name: RespControlVector
   href: api/Unosquare.Swan.Networking.Ldap.RespControlVector.html
@@ -10346,24 +10340,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.RespControlVector.RegisterResponseControl
   fullName: Unosquare.Swan.Networking.Ldap.RespControlVector.RegisterResponseControl
   nameWithType: RespControlVector.RegisterResponseControl
-- uid: Unosquare.Swan.Networking.Ldap.ResultCodeMessages
-  name: ResultCodeMessages
-  href: api/Unosquare.Swan.Networking.Ldap.ResultCodeMessages.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.ResultCodeMessages
-  fullName: Unosquare.Swan.Networking.Ldap.ResultCodeMessages
-  nameWithType: ResultCodeMessages
-- uid: Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode(System.String)
-  name: GetResultCode(String)
-  href: api/Unosquare.Swan.Networking.Ldap.ResultCodeMessages.html#Unosquare_Swan_Networking_Ldap_ResultCodeMessages_GetResultCode_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode(System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode(System.String)
-  nameWithType: ResultCodeMessages.GetResultCode(String)
-- uid: Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode*
-  name: GetResultCode
-  href: api/Unosquare.Swan.Networking.Ldap.ResultCodeMessages.html#Unosquare_Swan_Networking_Ldap_ResultCodeMessages_GetResultCode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode
-  fullName: Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode
-  nameWithType: ResultCodeMessages.GetResultCode
 - uid: Unosquare.Swan.Networking.Ldap.SetSupport
   name: SetSupport
   href: api/Unosquare.Swan.Networking.Ldap.SetSupport.html
@@ -10499,6 +10475,30 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.SetSupport.ToArray
   fullName: Unosquare.Swan.Networking.Ldap.SetSupport.ToArray
   nameWithType: SetSupport.ToArray
+- uid: Unosquare.Swan.Networking.Ldap.SubstringOp
+  name: SubstringOp
+  href: api/Unosquare.Swan.Networking.Ldap.SubstringOp.html
+  commentId: T:Unosquare.Swan.Networking.Ldap.SubstringOp
+  fullName: Unosquare.Swan.Networking.Ldap.SubstringOp
+  nameWithType: SubstringOp
+- uid: Unosquare.Swan.Networking.Ldap.SubstringOp.Any
+  name: Any
+  href: api/Unosquare.Swan.Networking.Ldap.SubstringOp.html#Unosquare_Swan_Networking_Ldap_SubstringOp_Any
+  commentId: F:Unosquare.Swan.Networking.Ldap.SubstringOp.Any
+  fullName: Unosquare.Swan.Networking.Ldap.SubstringOp.Any
+  nameWithType: SubstringOp.Any
+- uid: Unosquare.Swan.Networking.Ldap.SubstringOp.Final
+  name: Final
+  href: api/Unosquare.Swan.Networking.Ldap.SubstringOp.html#Unosquare_Swan_Networking_Ldap_SubstringOp_Final
+  commentId: F:Unosquare.Swan.Networking.Ldap.SubstringOp.Final
+  fullName: Unosquare.Swan.Networking.Ldap.SubstringOp.Final
+  nameWithType: SubstringOp.Final
+- uid: Unosquare.Swan.Networking.Ldap.SubstringOp.Initial
+  name: Initial
+  href: api/Unosquare.Swan.Networking.Ldap.SubstringOp.html#Unosquare_Swan_Networking_Ldap_SubstringOp_Initial
+  commentId: F:Unosquare.Swan.Networking.Ldap.SubstringOp.Initial
+  fullName: Unosquare.Swan.Networking.Ldap.SubstringOp.Initial
+  nameWithType: SubstringOp.Initial
 - uid: Unosquare.Swan.Networking.SmtpClient
   name: SmtpClient
   href: api/Unosquare.Swan.Networking.SmtpClient.html

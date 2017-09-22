@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ResultCodeMessages
+    <title>Enum LdapOperation
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ResultCodeMessages
+    <meta name="title" content="Enum LdapOperation
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.24.0.0">
     
@@ -76,97 +76,115 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.ResultCodeMessages">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapOperation">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_ResultCodeMessages" data-uid="Unosquare.Swan.Networking.Ldap.ResultCodeMessages" class="text-break">Class ResultCodeMessages
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapOperation" data-uid="Unosquare.Swan.Networking.Ldap.LdapOperation" class="text-break">Enum LdapOperation
   </h1>
-  <div class="markdown level0 summary"><p>This class contains strings corresponding to Ldap Result Codes.
-The resources are accessed by the String representation of the result code.</p>
+  <div class="markdown level0 summary"><p>LDAP Operation</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">ResultCodeMessages</span></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_ResultCodeMessages_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapOperation_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ResultCodeMessages</code></pre>
+    <pre><code class="lang-csharp hljs">public enum LdapOperation</code></pre>
   </div>
-  <h3 id="methods">Methods
+  <h3 id="fields">Fields
   </h3>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_ResultCodeMessages_GetResultCode_" data-uid="Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_ResultCodeMessages_GetResultCode_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.ResultCodeMessages.GetResultCode(System.String)">GetResultCode(String)</h4>
-  <div class="markdown level1 summary"><p>Gets the result code.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetResultCode(string code)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">code</span></td>
-        <td><p>The code.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
     <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>String code</p>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_AbandonRequest">AbandonRequest</td>
+        <td><p>An abandon request operation.
+ABANDON_REQUEST = 16</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_BindRequest">BindRequest</td>
+        <td><p>A bind request operation.
+BIND_REQUEST = 0</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_BindResponse">BindResponse</td>
+        <td><p>A bind response operation.
+BIND_RESPONSE = 1</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_ExtendedRequest">ExtendedRequest</td>
+        <td><p>An extended request operation.
+EXTENDED_REQUEST = 23</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_ExtendedResponse">ExtendedResponse</td>
+        <td><p>An extended response operation.
+EXTENDED_RESONSE = 24</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_IntermediateResponse">IntermediateResponse</td>
+        <td><p>An intermediate response operation.
+INTERMEDIATE_RESONSE = 25</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_ModifyRequest">ModifyRequest</td>
+        <td><p>A modify request operation.
+MODIFY_REQUEST = 6</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_ModifyResponse">ModifyResponse</td>
+        <td><p>A modify response operation.
+MODIFY_RESPONSE = 7</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_SearchRequest">SearchRequest</td>
+        <td><p>A search request operation.
+SEARCH_REQUEST = 3</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_SearchResponse">SearchResponse</td>
+        <td><p>A search response containing data.
+SEARCH_RESPONSE = 4</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_SearchResult">SearchResult</td>
+        <td><p>A search result message - contains search status.
+SEARCH_RESULT = 5</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_SearchResultReference">SearchResultReference</td>
+        <td><p>A search result reference operation.
+SEARCH_RESULT_REFERENCE = 19</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_UnbindRequest">UnbindRequest</td>
+        <td><p>An unbind request operation.
+UNBIND_REQUEST = 2</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapOperation_Unknown">Unknown</td>
+        <td><p>The unknown</p>
 </td>
       </tr>
     </tbody>
-  </table>
+  </thead></thead></table>
 </article>
           </div>
           

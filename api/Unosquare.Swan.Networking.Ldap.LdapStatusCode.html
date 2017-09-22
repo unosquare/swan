@@ -1,0 +1,667 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Enum LdapStatusCode
+   | Unosquare SWAN </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Enum LdapStatusCode
+   | Unosquare SWAN ">
+    <meta name="generator" content="docfx 2.24.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapStatusCode">
+  
+  
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapStatusCode" data-uid="Unosquare.Swan.Networking.Ldap.LdapStatusCode" class="text-break">Enum LdapStatusCode
+  </h1>
+  <div class="markdown level0 summary"><p>LDAP Connection Sttus Code</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum LdapStatusCode</code></pre>
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    <tbody>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AdminLimitExceeded">AdminLimitExceeded</td>
+        <td><p>Indicates that an Ldap server limit set by an administrative authority
+has been exceeded.
+ADMIN_LIMIT_EXCEEDED = 11</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AffectsMultipleDsas">AffectsMultipleDsas</td>
+        <td><p>Indicates that the modify DN operation moves the entry from one Ldap
+server to another and thus requires more than one Ldap server.
+AFFECTS_MULTIPLE_DSAS = 71</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AliasDereferencingProblem">AliasDereferencingProblem</td>
+        <td><p>Indicates that during a search operation, either the client does not
+have access rights to read the aliased object&apos;s name or dereferencing
+is not allowed.
+ALIAS_DEREFERENCING_PROBLEM = 36</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AliasProblem">AliasProblem</td>
+        <td><p>Indicates that an error occurred when an alias was dereferenced.
+ALIAS_PROBLEM = 33</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AmbiguousResponse">AmbiguousResponse</td>
+        <td><p>Indicates that the server response to a request is ambiguous.
+AMBIGUOUS_RESPONSE = 101</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AttributeOrValueExists">AttributeOrValueExists</td>
+        <td><p>Indicates that the attribute value specified in a modify or add
+operation already exists as a value for that attribute.
+ATTRIBUTE_OR_VALUE_EXISTS = 20</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AuthMethodNotSupported">AuthMethodNotSupported</td>
+        <td><p>Indicates that during a bind operation the client requested an
+authentication method not supported by the Ldap server.
+AUTH_METHOD_NOT_SUPPORTED = 7</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_AuthUnknown">AuthUnknown</td>
+        <td><p>Indicates that a bind method was called with an unknown
+authentication method.
+AUTH_UNKNOWN = 86</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_Busy">Busy</td>
+        <td><p>Indicates that the Ldap server is too busy to process the client request
+at this time, but if the client waits and resubmits the request, the
+server may be able to process it then.
+BUSY = 51</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ClientLoop">ClientLoop</td>
+        <td><p>Indicates the Ldap libraries detected a loop. Usually this happens
+when following referrals.
+CLIENT_LOOP = 96</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_CompareFalse">CompareFalse</td>
+        <td><p>Does not indicate an error condition. Indicates that the results of
+a compare operation are false.
+COMPARE_FALSE = 5</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_CompareTrue">CompareTrue</td>
+        <td><p>Does not indicate an error condition. Indicates that the results of a
+compare operation are true.
+COMPARE_TRUE = 6</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ConfidentialityRequired">ConfidentialityRequired</td>
+        <td><p>Indicates that the session is not protected by a protocol such as
+Transport Layer Security (TLS), which provides session confidentiality.
+CONFIDENTIALITY_REQUIRED = 13</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ConnectError">ConnectError</td>
+        <td><p>Indicates that the Ldap client has lost either its connection or
+cannot establish a connection to the Ldap server.
+CONNECT_ERROR = 91</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ConstraintViolation">ConstraintViolation</td>
+        <td><p>Indicates that the attribute value specified in a modify, add, or
+modify DN operation violates constraints placed on the attribute. The
+constraint can be one of size or content (for example, string only,
+no binary data).
+CONSTRAINT_VIOLATION = 19</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ControlNotFound">ControlNotFound</td>
+        <td><p>Indicates that the client requested a control that the libraries
+cannot find in the list of supported controls sent by the Ldap server.
+CONTROL_NOT_FOUND = 93</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_DecodingError">DecodingError</td>
+        <td><p>Indicates that the Ldap client encountered errors when decoding an
+Ldap response from the Ldap server.
+DECODING_ERROR = 84</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_EncodingError">EncodingError</td>
+        <td><p>Indicates that the Ldap client encountered errors when encoding an
+Ldap request intended for the Ldap server.
+ENCODING_ERROR = 83</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_EntryAlreadyExists">EntryAlreadyExists</td>
+        <td><p>Indicates that the add operation attempted to add an entry that already
+exists, or that the modify operation attempted to rename an entry to the
+name of an entry that already exists.
+ENTRY_ALREADY_EXISTS = 68</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_FilterError">FilterError</td>
+        <td><p>Indicates that the search method was called with an invalid
+search filter.
+FILTER_ERROR = 87</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_InappropriateAuthentication">InappropriateAuthentication</td>
+        <td><p>Indicates that during a bind operation, the client is attempting to use
+an authentication method that the client cannot use correctly.
+For example, either of the following cause this error:
+<ul>
+<li>
+    The client returns simple credentials when strong credentials are
+    required.
+</li>
+<li>
+    The client returns a DN and a password for a simple bind when the
+    entry does not have a password defined.
+</li>
+</ul>
+INAPPROPRIATE_AUTHENTICATION = 48</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_InappropriateMatching">InappropriateMatching</td>
+        <td><p>Indicates that the matching rule specified in the search filter does
+not match a rule defined for the attribute&apos;s syntax.
+INAPPROPRIATE_MATCHING = 18</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_InsufficientAccessRights">InsufficientAccessRights</td>
+        <td><p>Indicates that the caller does not have sufficient rights to perform
+the requested operation.
+INSUFFICIENT_ACCESS_RIGHTS = 50</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidAttributeSyntax">InvalidAttributeSyntax</td>
+        <td><p>Indicates that the attribute value specified in an add, compare, or
+modify operation is an unrecognized or invalid syntax for the attribute.
+INVALID_ATTRIBUTE_SYNTAX = 21</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidCredentials">InvalidCredentials</td>
+        <td><p>Indicates that invalid information was passed during a bind operation.
+One of the following occurred:
+<ul>
+<li> The client passed either an incorrect DN or password.</li>
+<li>
+    The password is incorrect because it has expired, intruder detection
+    has locked the account, or some other similar reason.
+</li>
+</ul>
+INVALID_CREDENTIALS = 49</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidDnSyntax">InvalidDnSyntax</td>
+        <td><p>Indicates that the syntax of the DN is incorrect.
+If the DN syntax is correct, but the Ldap server&apos;s structure
+rules do not permit the operation, the server returns
+Ldap_UNWILLING_TO_PERFORM.
+INVALID_DN_SYNTAX = 34</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_InvalidResponse">InvalidResponse</td>
+        <td><p>Indicates that the server response to a request is invalid.
+INVALID_RESPONSE = 100</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_IsLeaf">IsLeaf</td>
+        <td><p>Indicates that the specified operation cannot be performed on a
+leaf entry.
+This code is not currently in the Ldap specifications, but is
+reserved for this constant.
+IS_LEAF = 35</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_LdapNotSupported">LdapNotSupported</td>
+        <td><p>Indicates that the requested functionality is not supported by the
+client. For example, if the Ldap client is established as an Ldapv2
+client, the libraries set this error code when the client requests
+Ldapv3 functionality.
+Ldap_NOT_SUPPORTED = 92</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_LdapPartialResults">LdapPartialResults</td>
+        <td><p>Returned by some Ldap servers to Ldapv2 clients to indicate that a referral
+has been returned in the error string.
+Ldap_PARTIAL_RESULTS = 9</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_LdapTimeout">LdapTimeout</td>
+        <td><p>Indicates that the time limit of the Ldap client was exceeded while
+waiting for a result.
+Ldap_TIMEOUT = 85</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_LocalError">LocalError</td>
+        <td><p>Indicates that the Ldap client has an error. This is usually a failed
+dynamic memory allocation error.
+LOCAL_ERROR = 82</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_LoopDetect">LoopDetect</td>
+        <td><p>Indicates that the client discovered an alias or referral loop,
+and is thus unable to complete this request.
+LOOP_DETECT = 54</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_MoreResultsToReturn">MoreResultsToReturn</td>
+        <td><p>Indicates that more results are chained in the result message.
+MORE_RESULTS_TO_RETURN = 95</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_NamingViolation">NamingViolation</td>
+        <td><p>Indicates that the add or modify DN operation violates the schema&apos;s
+structure rules.
+For example,
+<ul>
+<li>The request places the entry subordinate to an alias.</li>
+<li>
+    The request places the entry subordinate to a container that
+    is forbidden by the containment rules.
+</li>
+<li>The RDN for the entry uses a forbidden attribute type.</li>
+</ul>
+NAMING_VIOLATION = 64</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoMemory">NoMemory</td>
+        <td><p>Indicates that a dynamic memory allocation method failed when calling
+an Ldap method.
+NO_MEMORY = 90</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoResultsReturned">NoResultsReturned</td>
+        <td><p>Indicates that the Ldap server sent no results.
+NO_RESULTS_RETURNED = 94</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoSuchAttribute">NoSuchAttribute</td>
+        <td><p>Indicates that the attribute specified in the modify or compare
+operation does not exist in the entry.
+NO_SUCH_ATTRIBUTE = 16</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_NoSuchObject">NoSuchObject</td>
+        <td><p>Indicates the target object cannot be found.
+This code is not returned on the following operations:
+<ul>
+<li>
+    Search operations that find the search base but cannot find any
+    entries that match the search filter.
+</li>
+<li>Bind operations.</li>
+</ul>
+NO_SUCH_OBJECT = 32</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_NotAllowedOnNonleaf">NotAllowedOnNonleaf</td>
+        <td><p>Indicates that the requested operation is permitted only on leaf entries.
+For example, the following types of requests return this error:
+<ul>
+<li>The client requests a delete operation on a parent entry.</li>
+<li> The client request a modify DN operation on a parent entry.</li>
+</ul>
+NOT_ALLOWED_ON_NONLEAF = 66</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_NotAllowedOnRdn">NotAllowedOnRdn</td>
+        <td><p>Indicates that the modify operation attempted to remove an attribute
+value that forms the entry&apos;s relative distinguished name.
+NOT_ALLOWED_ON_RDN = 67</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ObjectClassModsProhibited">ObjectClassModsProhibited</td>
+        <td><p>Indicates that the modify operation attempted to modify the structure
+rules of an object class.
+OBJECT_CLASS_MODS_PROHIBITED = 69</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ObjectClassViolation">ObjectClassViolation</td>
+        <td><p>Indicates that the add, modify, or modify DN operation violates the
+object class rules for the entry.
+For example, the following types of request return this error:
+<ul>
+<li>
+    The add or modify operation tries to add an entry without a value
+    for a required attribute.
+</li>
+<li>
+    The add or modify operation tries to add an entry with a value for
+    an attribute which the class definition does not contain.
+</li>
+<li>
+    The modify operation tries to remove a required attribute without
+    removing the auxiliary class that defines the attribute as required.
+</li>
+</ul>
+OBJECT_CLASS_VIOLATION = 65</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_OperationsError">OperationsError</td>
+        <td><p>Indicates an internal error.
+The server is unable to respond with a more specific error and is
+also unable to properly respond to a request. It does not indicate
+that the client has sent an erroneous message.
+OPERATIONS_ERROR = 1</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_Other">Other</td>
+        <td><p>Indicates an unknown error condition.
+OTHER = 80</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ProtocolError">ProtocolError</td>
+        <td><p>Indicates that the server has received an invalid or malformed request
+from the client.
+PROTOCOL_ERROR = 2</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_Referral">Referral</td>
+        <td><p>Does not indicate an error condition. In Ldapv3, indicates that the server
+does not hold the target entry of the request, but that the servers in the
+referral field may.
+REFERRAL = 10</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ReferralLimitExceeded">ReferralLimitExceeded</td>
+        <td><p>Indicates that the referral exceeds the hop limit. The default hop
+limit is ten.
+The hop limit determines how many servers the client can hop through
+to retrieve data. For example, suppose the following conditions:
+<ul>
+<li>Suppose the hop limit is two.</li>
+<li>
+    If the referral is to server D which can be contacted only through
+    server B (1 hop) which contacts server C (2 hops) which contacts
+    server D (3 hops).
+</li>
+</ul>
+With these conditions, the hop limit is exceeded and the Ldap
+libraries set this code.
+REFERRAL_LIMIT_EXCEEDED = 97</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_SaslBindInProgress">SaslBindInProgress</td>
+        <td><p>Does not indicate an error condition, but indicates that the server is
+ready for the next step in the process. The client must send the server
+the same SASL mechanism to continue the process.
+SASL_BIND_IN_PROGRESS = 14</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_ServerDown">ServerDown</td>
+        <td><p>Indicates that the Ldap libraries cannot establish an initial connection
+with the Ldap server. Either the Ldap server is down or the specified
+host name or port number is incorrect.
+SERVER_DOWN = 81</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_SizeLimitExceeded">SizeLimitExceeded</td>
+        <td><p>Indicates that in a search operation, the size limit specified by
+the client or the server has been exceeded. Incomplete results are
+returned.
+SIZE_LIMIT_EXCEEDED = 4</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_SslHandshakeFailed">SslHandshakeFailed</td>
+        <td><p>Indicates that SSL Handshake could not succeed.
+SSL_HANDSHAKE_FAILED = 113</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_SslProviderNotFound">SslProviderNotFound</td>
+        <td><p>Indicates that SSL Provider could not be found.
+SSL_PROVIDER_NOT_FOUND = 114</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_StrongAuthRequired">StrongAuthRequired</td>
+        <td><p>Indicates a problem with the level of authentication.
+One of the following has occurred:
+<ul><li>
+In bind requests, the Ldap server accepts only strong
+authentication.
+</li><li>
+In a client request, the client requested an operation such as delete
+that requires strong authentication.
+</li><li>
+In an unsolicited notice of disconnection, the Ldap server discovers
+the security protecting the communication between the client and
+server has unexpectedly failed or been compromised.
+</li></ul>
+STRONG_AUTH_REQUIRED = 8</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_Success">Success</td>
+        <td><p>Indicates the requested client operation completed successfully.
+SUCCESS = 0<p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_TimeLimitExceeded">TimeLimitExceeded</td>
+        <td><p>Indicates that the operation&apos;s time limit specified by either the
+client or the server has been exceeded.
+On search operations, incomplete results are returned.
+TIME_LIMIT_EXCEEDED = 3</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_TlsNotSupported">TlsNotSupported</td>
+        <td><p>Indicates that TLS is not supported on the server.
+TLS_NOT_SUPPORTED = 112</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_Unavailable">Unavailable</td>
+        <td><p>Indicates that the Ldap server cannot process the client&apos;s bind
+request, usually because it is shutting down.
+UNAVAILABLE = 52</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_UnavailableCriticalExtension">UnavailableCriticalExtension</td>
+        <td><p>Indicates that the Ldap server was unable to satisfy a request because
+one or more critical extensions were not available.
+Either the server does not support the control or the control is not
+appropriate for the operation type.
+UNAVAILABLE_CRITICAL_EXTENSION = 12</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_UndefinedAttributeType">UndefinedAttributeType</td>
+        <td><p>Indicates that the attribute specified in the modify or add operation
+does not exist in the Ldap server&apos;s schema.
+UNDEFINED_ATTRIBUTE_TYPE = 17</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_UnwillingToPerform">UnwillingToPerform</td>
+        <td><p>Indicates that the Ldap server cannot process the request because of
+server-defined restrictions.
+This error is returned for the following reasons:
+<ul>
+<li>The add entry request violates the server&apos;s structure rules.</li>
+<li>
+    The modify attribute request specifies attributes that users
+    cannot modify.
+</li>
+</ul>
+UNWILLING_TO_PERFORM = 53</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unosquare_Swan_Networking_Ldap_LdapStatusCode_UserCancelled">UserCancelled</td>
+        <td><p>Indicates that the user cancelled the Ldap operation.
+USER_CANCELLED = 88</p>
+</td>
+      </tr>
+    </tbody>
+  </thead></thead></table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
