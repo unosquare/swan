@@ -95,8 +95,7 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Collections.ArrayList</span></div>
-    <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html">SetSupport</a></div>
-    <div class="level3"><span class="xref">LdapAttributeSet</span></div>
+    <div class="level2"><span class="xref">LdapAttributeSet</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -107,24 +106,6 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_AddAll_System_Collections_ICollection_">SetSupport.AddAll(ICollection)</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ContainsAll_System_Collections_ICollection_">SetSupport.ContainsAll(ICollection)</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RemoveAll_System_Collections_ICollection_">SetSupport.RemoveAll(ICollection)</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_RetainAll_System_Collections_ICollection_">SetSupport.RetainAll(ICollection)</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ToArray">SetSupport.ToArray()</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_ToArray_System_Object___">SetSupport.ToArray(Object[])</a>
-    </div>
     <div>
       <span class="xref">System.Collections.ArrayList.Adapter(System.Collections.IList)</span>
     </div>
@@ -225,6 +206,9 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
       <span class="xref">System.Collections.ArrayList.Synchronized(System.Collections.ArrayList)</span>
     </div>
     <div>
+      <span class="xref">System.Collections.ArrayList.ToArray()</span>
+    </div>
+    <div>
       <span class="xref">System.Collections.ArrayList.ToArray(System.Type)</span>
     </div>
     <div>
@@ -271,7 +255,7 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapAttributeSet : SetSupport, IList, ICollection, IEnumerable, ICloneable</code></pre>
+    <pre><code class="lang-csharp hljs">public class LdapAttributeSet : ArrayList, IList, ICollection, IEnumerable, ICloneable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -317,7 +301,7 @@ specified attribute will not be added.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool Add(object attr)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Add(object attr)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -355,8 +339,6 @@ is not of type <pre><code>LdapAttribute</code></pre>.</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_Add_System_Object_">SetSupport.Add(Object)</a></div>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear*"></a>
@@ -620,7 +602,7 @@ returned from this iterator are not in any particular order.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override IEnumerator GetEnumerator()</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerator GetEnumerator()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -638,8 +620,6 @@ returned from this iterator are not in any particular order.</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">System.Collections.ArrayList.GetEnumerator()</span></div>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetSubset_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset*"></a>
@@ -722,7 +702,7 @@ specified subtype.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool IsEmpty()</code></pre>
+    <pre><code class="lang-csharp hljs">public bool IsEmpty()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -740,8 +720,6 @@ specified subtype.</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_IsEmpty">SetSupport.IsEmpty()</a></div>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove*"></a>
@@ -755,7 +733,7 @@ specified attribute will be removed.  If the specified object is of type</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool Remove(object entry)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Remove(object entry)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -793,8 +771,6 @@ is not of type <pre><code>LdapAttribute</code></pre> or of type <pre><code>Strin
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.SetSupport.html#Unosquare_Swan_Networking_Ldap_SetSupport_Remove_System_Object_">SetSupport.Remove(Object)</a></div>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.ToString*"></a>
