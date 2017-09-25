@@ -152,7 +152,7 @@ an LdapSearchConstraints object to the search operation.</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapSearchConstraints : LdapConstraints</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapSearchConstraints : LdapConstraints</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -461,7 +461,7 @@ indicates block until all results are received.  Default:</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int BatchSize { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int BatchSize { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -495,7 +495,7 @@ Returns one of the following:
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int Dereference { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int Dereference { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -526,7 +526,7 @@ exceed the maximum.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int MaxResults { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int MaxResults { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -557,7 +557,7 @@ limit.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int ServerTimeLimit { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int ServerTimeLimit { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
