@@ -8,7 +8,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// Modification Request
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
-    public class LdapModifyRequest : LdapMessage
+    public sealed class LdapModifyRequest : LdapMessage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapModifyRequest"/> class.
@@ -27,7 +27,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The dn.
         /// </value>
-        public virtual string DN => Asn1Object.RequestDn;
+        public string DN => Asn1Object.RequestDn;
 
         /// <summary>
         /// Gets the modifications.
@@ -36,7 +36,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The modifications.
         /// </value>
         /// <exception cref="Exception">Modification Exception</exception>
-        public virtual LdapModification[] Modifications
+        public LdapModification[] Modifications
         {
             get
             {
@@ -55,12 +55,11 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
 
                     // Contains operation and sequence for the attribute
-                    var opArray = opSeq.ToArray();
-                    var asn1op = (Asn1Enumerated)opArray[0];
-
+                    var operators = opSeq.ToArray();
+                    
                     // get the operation
-                    var op = asn1op.IntValue();
-                    var attrSeq = (Asn1Sequence)opArray[1];
+                    var op = ((Asn1Enumerated)operators[0]).IntValue();
+                    var attrSeq = (Asn1Sequence)operators[1];
                     var attrArray = attrSeq.ToArray();
                     var aname = (RfcAttributeDescription)attrArray[0];
                     var name = aname.StringValue();

@@ -40,7 +40,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// isn't arbitrarily run up.)
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    internal class RfcLdapMessage : Asn1Sequence
+    internal sealed class RfcLdapMessage : Asn1Sequence
     {
         private readonly Asn1Object _op;
         
@@ -146,10 +146,10 @@ namespace Unosquare.Swan.Networking.Ldap
         }
         
         /// <summary> Returns this RfcLdapMessage's messageID as an int.</summary>
-        public virtual int MessageID => ((Asn1Integer)Get(0)).IntValue();
+        public int MessageID => ((Asn1Integer)Get(0)).IntValue();
 
         /// <summary> Returns this RfcLdapMessage's message type</summary>
-        public virtual LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
+        public LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
 
         /// <summary>
         /// Returns the response associated with this RfcLdapMessage.
@@ -160,13 +160,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The response.
         /// </value>
-        public virtual Asn1Object Response => Get(1);
+        public Asn1Object Response => Get(1);
 
         /// <summary> Returns the optional Controls for this RfcLdapMessage.</summary>
-        public virtual RfcControls Controls => Size() > 2 ? (RfcControls)Get(2) : null;
+        public RfcControls Controls => Size() > 2 ? (RfcControls)Get(2) : null;
 
         /// <summary> Returns the dn of the request, may be null</summary>
-        public virtual string RequestDn => ((IRfcRequest)_op).GetRequestDN();
+        public string RequestDn => ((IRfcRequest)_op).GetRequestDN();
 
         /// <summary>
         /// returns the original request in this message
@@ -174,7 +174,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The requesting message.
         /// </value>
-        public virtual LdapMessage RequestingMessage { get; set; }
+        public LdapMessage RequestingMessage { get; set; }
 
         /// <summary>
         /// Returns the request associated with this RfcLdapMessage.
@@ -189,7 +189,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///   <c>true</c> if this instance is request; otherwise, <c>false</c>.
         /// </returns>
-        public virtual bool IsRequest() => Get(1) is IRfcRequest;
+        public bool IsRequest() => Get(1) is IRfcRequest;
     }
 
     /// <summary>
@@ -489,7 +489,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         attributes      PartialAttributeList }
     ///     </pre>
     /// </summary>
-    internal class RfcSearchResultEntry : Asn1Sequence
+    internal sealed class RfcSearchResultEntry : Asn1Sequence
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcSearchResultEntry" /> class.
@@ -510,10 +510,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The name of the object.
         /// </value>
-        public virtual Asn1OctetString ObjectName => (Asn1OctetString)Get(0);
+        public Asn1OctetString ObjectName => (Asn1OctetString)Get(0);
 
         /// <summary> </summary>
-        public virtual Asn1Sequence Attributes => (Asn1Sequence)Get(1);
+        public Asn1Sequence Attributes => (Asn1Sequence)Get(1);
 
         /// <summary>
         /// Override getIdentifier to return an application-wide id.
@@ -539,8 +539,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Integer" />
     internal class RfcMessageID : Asn1Integer
     {
-        private static int messageID;
-        private static readonly object lockObj = new object();
+        private static int _messageId;
+        private static readonly object LockObj = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcMessageID"/> class.
@@ -574,9 +574,9 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                lock (lockObj)
+                lock (LockObj)
                 {
-                    return messageID < int.MaxValue ? ++messageID : (messageID = 1);
+                    return _messageId < int.MaxValue ? ++_messageId : (_messageId = 1);
                 }
             }
         }

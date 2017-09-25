@@ -543,7 +543,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <returns>String</returns>
         /// <exception cref="Exception">IO Exception</exception>
-        public string StringValue() => Encoding.UTF8.GetString(_content.ToByteArray());
+        public string StringValue() => Encoding.UTF8.GetString(_content);
 
         /// <summary>
         /// Return a String representation of this Asn1Object.

@@ -3,9 +3,7 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.Collections;
     using System.IO;
-    using System.Text;
 
     /// <summary>
     ///     An implementation of LdapAuthHandler must be able to provide an
@@ -13,10 +11,6 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     encapsulates information that is used by the client for authentication
     ///     when following referrals automatically.
     /// </summary>
-    /// <seealso cref="LdapAuthHandler">
-    /// </seealso>
-    /// <seealso cref="LdapBindHandler">
-    /// </seealso>
     internal class LdapAuthProvider
     {
         /// <summary>
@@ -243,20 +237,18 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an Ldap Extended Response.
-    ///     <pre>
-    ///         ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
-    ///         COMPONENTS OF LdapResult,
-    ///         responseName     [10] LdapOID OPTIONAL,
-    ///         response         [11] OCTET STRING OPTIONAL }
-    ///     </pre>
+    /// Represents an Ldap Extended Response.
+    /// <pre>
+    /// ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
+    /// COMPONENTS OF LdapResult,
+    /// responseName     [10] LdapOID OPTIONAL,
+    /// response         [11] OCTET STRING OPTIONAL }
+    /// </pre>
     /// </summary>
-    internal class RfcExtendedResponse : Asn1Sequence, IRfcResponse
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />
+    internal sealed class RfcExtendedResponse : Asn1Sequence, IRfcResponse
     {
-        public virtual RfcLdapOID ResponseName => responseNameIndex != 0 ? (RfcLdapOID) Get(responseNameIndex) : null;
-
-        public virtual Asn1OctetString Response => responseIndex != 0 ? (Asn1OctetString) Get(responseIndex) : null;
-
         /// <summary> Context-specific TAG for optional responseName.</summary>
         public const int RESPONSE_NAME = 10;
 
@@ -305,6 +297,10 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
+        public RfcLdapOID ResponseName => responseNameIndex != 0 ? (RfcLdapOID)Get(responseNameIndex) : null;
+
+        public Asn1OctetString Response => responseIndex != 0 ? (Asn1OctetString)Get(responseIndex) : null;
+
         // Accessors
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
 
@@ -313,9 +309,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral()
-        {
-            return referralIndex != 0 ? (Asn1SequenceOf) Get(referralIndex) : null;
-        }
+            => referralIndex != 0 ? (Asn1SequenceOf) Get(referralIndex) : null;
 
         /// <summary>
         /// Override getIdentifier to return an application-wide id.

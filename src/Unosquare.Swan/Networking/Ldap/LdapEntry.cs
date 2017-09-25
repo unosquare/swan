@@ -237,9 +237,8 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         throw new ArgumentException($"Attribute value  at array index {i} cannot be null");
                     }
-
-                    var sbytes = Encoding.UTF8.GetSBytes(attrStrings[i]);
-                    Add(sbytes);
+                    
+                    Add(Encoding.UTF8.GetSBytes(attrStrings[i]));
                 }
                 catch (IOException e)
                 {
@@ -297,8 +296,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     try
                     {
-                        var dchar = Encoding.UTF8.GetChars(((sbyte[])values[j]).ToByteArray());
-                        sva[j] = new string(dchar);
+                        sva[j] = Encoding.UTF8.GetString(((sbyte[])values[j]));
                     }
                     catch (IOException uee)
                     {
@@ -334,7 +332,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     try
                     {
-                        return Encoding.UTF8.GetString(((sbyte[])values[0]).ToByteArray());
+                        return Encoding.UTF8.GetString((sbyte[])values[0]);
                     }
                     catch (IOException use)
                     {
@@ -879,6 +877,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public override string ToString()
         {
             var result = new StringBuilder("LdapAttribute: ");
+
             try
             {
                 result.Append("{type='" + name + "'");
@@ -898,9 +897,8 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             continue;
                         }
-
-                        var dchar = Encoding.UTF8.GetChars(((sbyte[])values[i]).ToByteArray());
-                        var sval = new string(dchar);
+                        
+                        var sval = Encoding.UTF8.GetString((sbyte[])values[i]);
                         if (sval.Length == 0)
                         {
                             // didn't decode well, must be binary
