@@ -81,7 +81,7 @@
   
   <h1 id="Unosquare_Swan_Networking_Ldap_RespControlVector" data-uid="Unosquare.Swan.Networking.Ldap.RespControlVector" class="text-break">Class RespControlVector
   </h1>
-  <div class="markdown level0 summary"><p>The <pre><code>MessageVector</code></pre> class implements extends the
+  <div class="markdown level0 summary"><p>The RespControlVector class implements extends the
 existing Vector class so that it can be used to maintain a
 list of currently registered control responses.</p>
 </div>
@@ -274,7 +274,7 @@ list of currently registered control responses.</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_RespControlVector_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RespControlVector : ArrayList, IList, ICollection, IEnumerable, ICloneable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class RespControlVector : ArrayList, IList, ICollection, IEnumerable, ICloneable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -415,6 +415,10 @@ list of currently registered control responses.</p>
   </div>
   <div>
       <span class="xref">System.ICloneable</span>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">System.Collections.ArrayList</span></div>
   </div>
 </article>
           </div>

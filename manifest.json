@@ -822,7 +822,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Exceptions.JsonRequestException.html",
-          "hash": "wCNXkAtsj8px5cQjgm/w8Q=="
+          "hash": "nOhpH3Sp2y/35PR/kbMWQA=="
         }
       },
       "is_incremental": false,
@@ -842,23 +842,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.SmtpException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Exceptions.SmtpException.html",
-          "hash": "ZJn096VnJa48GG1FW/aW+w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Exceptions.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Exceptions.html",
-          "hash": "jcUwNRiTGArGZpKafd5PaQ=="
+          "hash": "rmUALNYfZ9i3h+Z1vyoQ/Q=="
         }
       },
       "is_incremental": false,
@@ -1314,7 +1302,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html",
-          "hash": "yB+korL+mWRjCjiFdAvPRA=="
+          "hash": "/2x4l9FRhYPsH6wSPFGtOw=="
         }
       },
       "is_incremental": false,
@@ -1386,7 +1374,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.RespControlVector.html",
-          "hash": "GR8VcbfovGGM3pHsOVh67w=="
+          "hash": "UTDTlwW2clctZUsRmArRzA=="
         }
       },
       "is_incremental": false,
@@ -1410,7 +1398,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.html",
-          "hash": "SAMNckHegbtVan8YIt6PFg=="
+          "hash": "rrUB6kwkTkpGBvMg2RAU+w=="
         }
       },
       "is_incremental": false,
@@ -1422,7 +1410,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.SmtpClient.html",
-          "hash": "7ZZErWcToHWRrW/GVJ42NQ=="
+          "hash": "WSybCkTSZt/EI1nQEmYbAw=="
         }
       },
       "is_incremental": false,
@@ -1590,7 +1578,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Runtime.html",
-          "hash": "OooFtAsVyP5/2DQkOoxSBw=="
+          "hash": "eT6O5i3kghslB1N3RhcDkg=="
         }
       },
       "is_incremental": false,
@@ -1698,7 +1686,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Wl8tNwvsuj3GOJ4+hm9a/w=="
+          "hash": "P9nWpf2GFqrHhFNaIDhD+A=="
         }
       },
       "is_incremental": false,
@@ -1725,6 +1713,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
@@ -1736,11 +1729,6 @@
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "RestApiDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {

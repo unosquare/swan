@@ -3728,30 +3728,6 @@ references:
   commentId: Overload:Unosquare.Swan.Exceptions.MessageHubSubscriptionException.#ctor
   fullName: Unosquare.Swan.Exceptions.MessageHubSubscriptionException.MessageHubSubscriptionException
   nameWithType: MessageHubSubscriptionException.MessageHubSubscriptionException
-- uid: Unosquare.Swan.Exceptions.SmtpException
-  name: SmtpException
-  href: api/Unosquare.Swan.Exceptions.SmtpException.html
-  commentId: T:Unosquare.Swan.Exceptions.SmtpException
-  fullName: Unosquare.Swan.Exceptions.SmtpException
-  nameWithType: SmtpException
-- uid: Unosquare.Swan.Exceptions.SmtpException.#ctor(System.String)
-  name: SmtpException(String)
-  href: api/Unosquare.Swan.Exceptions.SmtpException.html#Unosquare_Swan_Exceptions_SmtpException__ctor_System_String_
-  commentId: M:Unosquare.Swan.Exceptions.SmtpException.#ctor(System.String)
-  fullName: Unosquare.Swan.Exceptions.SmtpException.SmtpException(System.String)
-  nameWithType: SmtpException.SmtpException(String)
-- uid: Unosquare.Swan.Exceptions.SmtpException.#ctor(Unosquare.Swan.SmtpStatusCode,System.String)
-  name: SmtpException(SmtpStatusCode, String)
-  href: api/Unosquare.Swan.Exceptions.SmtpException.html#Unosquare_Swan_Exceptions_SmtpException__ctor_Unosquare_Swan_SmtpStatusCode_System_String_
-  commentId: M:Unosquare.Swan.Exceptions.SmtpException.#ctor(Unosquare.Swan.SmtpStatusCode,System.String)
-  fullName: Unosquare.Swan.Exceptions.SmtpException.SmtpException(Unosquare.Swan.SmtpStatusCode, System.String)
-  nameWithType: SmtpException.SmtpException(SmtpStatusCode, String)
-- uid: Unosquare.Swan.Exceptions.SmtpException.#ctor*
-  name: SmtpException
-  href: api/Unosquare.Swan.Exceptions.SmtpException.html#Unosquare_Swan_Exceptions_SmtpException__ctor_
-  commentId: Overload:Unosquare.Swan.Exceptions.SmtpException.#ctor
-  fullName: Unosquare.Swan.Exceptions.SmtpException.SmtpException
-  nameWithType: SmtpException.SmtpException
 - uid: Unosquare.Swan.Extensions
   name: Extensions
   href: api/Unosquare.Swan.Extensions.html
@@ -11638,6 +11614,18 @@ references:
   commentId: Overload:Unosquare.Swan.Runtime.GetAssemblies
   fullName: Unosquare.Swan.Runtime.GetAssemblies
   nameWithType: Runtime.GetAssemblies
+- uid: Unosquare.Swan.Runtime.GetDesktopFilePath(System.String)
+  name: GetDesktopFilePath(String)
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_GetDesktopFilePath_System_String_
+  commentId: M:Unosquare.Swan.Runtime.GetDesktopFilePath(System.String)
+  fullName: Unosquare.Swan.Runtime.GetDesktopFilePath(System.String)
+  nameWithType: Runtime.GetDesktopFilePath(String)
+- uid: Unosquare.Swan.Runtime.GetDesktopFilePath*
+  name: GetDesktopFilePath
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_GetDesktopFilePath_
+  commentId: Overload:Unosquare.Swan.Runtime.GetDesktopFilePath
+  fullName: Unosquare.Swan.Runtime.GetDesktopFilePath
+  nameWithType: Runtime.GetDesktopFilePath
 - uid: Unosquare.Swan.Runtime.IsTheOnlyInstance
   name: IsTheOnlyInstance
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_IsTheOnlyInstance

@@ -87,10 +87,23 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">Runtime</span></div>
+    <div class="level1"><span class="xref">System.MarshalByRefObject</span></div>
+    <div class="level2"><span class="xref">Runtime</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.MarshalByRefObject.MemberwiseClone(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">System.MarshalByRefObject.GetLifetimeService()</span>
+    </div>
+    <div>
+      <span class="xref">System.MarshalByRefObject.InitializeLifetimeService()</span>
+    </div>
+    <div>
+      <span class="xref">System.MarshalByRefObject.CreateObjRef(System.Type)</span>
+    </div>
     <div>
       <span class="xref">System.Object.ToString()</span>
     </div>
@@ -117,7 +130,7 @@
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Runtime_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Runtime</code></pre>
+    <pre><code class="lang-csharp hljs">public class Runtime : MarshalByRefObject</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -617,6 +630,51 @@ The implementation is based on TinyIoC Messenger</p>
       <tr>
         <td><span class="xref">System.Reflection.Assembly</span>[]</td>
         <td><p>An array of assemblies</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Runtime_GetDesktopFilePath_" data-uid="Unosquare.Swan.Runtime.GetDesktopFilePath*"></a>
+  <h4 id="Unosquare_Swan_Runtime_GetDesktopFilePath_System_String_" data-uid="Unosquare.Swan.Runtime.GetDesktopFilePath(System.String)">GetDesktopFilePath(String)</h4>
+  <div class="markdown level1 summary"><p>Build a full path pointing to the current user&apos;s desktop with the given filename</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetDesktopFilePath(string filename)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filename</span></td>
+        <td><p>The filename.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The fully qualified location of path, such as &quot;C:\MyFile.txt&quot;</p>
 </td>
       </tr>
     </tbody>
