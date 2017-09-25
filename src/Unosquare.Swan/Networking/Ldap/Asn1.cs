@@ -210,7 +210,16 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1Identifier(LdapOperation tag)
             : this(APPLICATION, true, (int) tag)
         {
-            
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class.
+        /// </summary>
+        /// <param name="contextTag">The context tag.</param>
+        /// <param name="constructed">if set to <c>true</c> [constructed].</param>
+        public Asn1Identifier(int contextTag, bool constructed = false)
+            : this(CONTEXT, constructed, contextTag)
+        {
         }
 
         /// <summary>

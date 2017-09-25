@@ -277,7 +277,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cont">Any controls that apply to the simple bind request,
         /// or null if none.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd, LdapControl[] cont)
-            : base(LdapOperation.BindRequest, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 0), new Asn1OctetString(passwd), false))), cont)
+            : base(LdapOperation.BindRequest, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd), false))), cont)
         {
         }
 
@@ -411,7 +411,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Constructs an LdapSearchConstraints object initialized with values
+        /// Initializes a new instance of the <see cref="LdapSearchConstraints"/> class  with values
         /// from an existing constraints object (LdapConstraints
         /// or LdapSearchConstraints).
         /// </summary>
@@ -498,10 +498,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The operation will be abandoned and terminated by the
         /// API with an LdapException.REFERRAL_LIMIT_EXCEEDED if the
         /// number of referrals in a sequence exceeds the limit.</param>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
-        /// <seealso cref="LdapException.REFERRAL"></seealso>
-        /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED"></seealso>
-        /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED"></seealso>
         public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hopLimit) 
             : base(msLimit, doReferrals, handler, hopLimit)
         {
@@ -557,8 +553,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Maximum number of search results to return.
         /// </returns>
-        /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED">
-        /// </seealso>
         public virtual int MaxResults
         {
             get => maxResults;
@@ -576,8 +570,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The maximum number of seconds the server waits for search'
         ///     results.
         /// </returns>
-        /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED">
-        /// </seealso>
         public virtual int ServerTimeLimit
         {
             get => serverTimeLimit;
@@ -1507,21 +1499,13 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     The <code>MessageVector</code> class implements extends the
-    ///     existing Vector class so that it can be used to maintain a
-    ///     list of currently registered control responses.
+    /// The RespControlVector class implements extends the
+    /// existing Vector class so that it can be used to maintain a
+    /// list of currently registered control responses.
     /// </summary>
-    public class RespControlVector : ArrayList
+    /// <seealso cref="System.Collections.ArrayList" />
+    public sealed class RespControlVector : ArrayList
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RespControlVector"/> class.
-        /// </summary>
-        /// <param name="cap">The cap.</param>
-        public RespControlVector(int cap) 
-            : base(cap)
-        {
-        }
-
         /// <summary>
         ///     Inner class defined to create a temporary object to encapsulate
         ///     all registration information about a response control.  This class
@@ -1529,18 +1513,28 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         private class RegisteredControl
         {
-            public readonly string myOID;
-            public readonly Type myClass;
-
             public RegisteredControl(RespControlVector enclosingInstance, string oid, Type controlClass)
             {
                 EnclosingInstance = enclosingInstance;
-                myOID = oid;
-                myClass = controlClass;
+                MyOid = oid;
+                MyClass = controlClass;
             }
+
+            internal Type MyClass { get; }
+
+            internal string MyOid { get; }
 
             private RespControlVector EnclosingInstance { get; }
 
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RespControlVector"/> class.
+        /// </summary>
+        /// <param name="cap">The cap.</param>
+        public RespControlVector(int cap) 
+            : base(cap)
+        {
         }
 
         /// <summary>
@@ -1578,10 +1572,10 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
 
                     /* Does the stored OID match with whate we are looking for */
-                    if (ctl.myOID.CompareTo(searchOID) == 0)
+                    if (ctl.MyOid.CompareTo(searchOID) == 0)
                     {
                         /* Return the class name if we have match */
-                        return ctl.myClass;
+                        return ctl.MyClass;
                     }
                 }
                 

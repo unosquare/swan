@@ -42,7 +42,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcLdapMessage : Asn1Sequence
     {
-        private readonly Asn1Object op;
+        private readonly Asn1Object _op;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
@@ -53,7 +53,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcLdapMessage(IRfcRequest op, RfcControls controls)
             : base(3)
         {
-            this.op = (Asn1Object)op;
+            _op = (Asn1Object)op;
 
             Add(new RfcMessageID()); // MessageID has static counter
             Add((Asn1Object)op);
@@ -72,7 +72,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcLdapMessage(Asn1Sequence op, RfcControls controls = null)
             : base(3)
         {
-            this.op = op;
+            _op = op;
 
             Add(new RfcMessageID()); // MessageID has static counter
             Add(op);
@@ -152,18 +152,21 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
 
         /// <summary>
-        ///     Returns the response associated with this RfcLdapMessage.
-        ///     Can be one of RfcLdapResult, RfcBindResponse, RfcExtendedResponse
-        ///     all which extend RfcResponse. It can also be
-        ///     RfcSearchResultEntry, or RfcSearchResultReference
+        /// Returns the response associated with this RfcLdapMessage.
+        /// Can be one of RfcLdapResult, RfcBindResponse, RfcExtendedResponse
+        /// all which extend RfcResponse. It can also be
+        /// RfcSearchResultEntry, or RfcSearchResultReference
         /// </summary>
+        /// <value>
+        /// The response.
+        /// </value>
         public virtual Asn1Object Response => Get(1);
 
         /// <summary> Returns the optional Controls for this RfcLdapMessage.</summary>
         public virtual RfcControls Controls => Size() > 2 ? (RfcControls)Get(2) : null;
 
         /// <summary> Returns the dn of the request, may be null</summary>
-        public virtual string RequestDn => ((IRfcRequest)op).GetRequestDN();
+        public virtual string RequestDn => ((IRfcRequest)_op).GetRequestDN();
 
         /// <summary>
         /// returns the original request in this message
@@ -250,7 +253,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Asn1 Identifier
         /// </returns>
         public override Asn1Identifier GetIdentifier()
-            => new Asn1Identifier(Asn1Identifier.CONTEXT, true, CONTROLS);
+            => new Asn1Identifier(CONTROLS, true);
     }
 
     /// <summary>
@@ -522,22 +525,22 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an Ldap Message ID.
-    ///     <pre>
-    ///         MessageID ::= INTEGER (0 .. maxInt)
-    ///         maxInt INTEGER ::= 2147483647 -- (2^^31 - 1) --
-    ///         Note: The creation of a MessageID should be hidden within the creation of
-    ///         an RfcLdapMessage. The MessageID needs to be in sequence, and has an
-    ///         upper and lower limit. There is never a case when a user should be
-    ///         able to specify the MessageID for an RfcLdapMessage. The MessageID()
-    ///         class should be package protected. (So the MessageID value isn't
-    ///         arbitrarily run up.)
-    ///     </pre>
-    /// </summary>
+    /// Represents an Ldap Message ID.
+    /// <pre>
+    /// MessageID ::= INTEGER (0 .. maxInt)
+    /// maxInt INTEGER ::= 2147483647 -- (2^^31 - 1) --
+    /// Note: The creation of a MessageID should be hidden within the creation of
+    /// an RfcLdapMessage. The MessageID needs to be in sequence, and has an
+    /// upper and lower limit. There is never a case when a user should be
+    /// able to specify the MessageID for an RfcLdapMessage. The MessageID()
+    /// class should be package protected. (So the MessageID value isn't
+    /// arbitrarily run up.)
+    /// </pre></summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Integer" />
     internal class RfcMessageID : Asn1Integer
     {
         private static int messageID;
-        private static readonly object lock_Renamed;
+        private static readonly object lockObj = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcMessageID"/> class.
@@ -552,18 +555,15 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Creates a MessageID with a specified int value.
+        /// Initializes a new instance of the <see cref="RfcMessageID"/> class
+        /// with a specified int value.
         /// </summary>
         /// <param name="i">The i.</param>
-        protected internal RfcMessageID(int i) 
+        protected internal RfcMessageID(int i)
             : base(i)
         {
         }
 
-        static RfcMessageID()
-        {
-            lock_Renamed = new object();
-        }
         /// <summary>
         ///     Increments the message number atomically
         /// </summary>
@@ -574,7 +574,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                lock (lock_Renamed)
+                lock (lockObj)
                 {
                     return messageID < int.MaxValue ? ++messageID : (messageID = 1);
                 }

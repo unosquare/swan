@@ -201,7 +201,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         public RfcAuthenticationChoice(string mechanism, sbyte[] credentials)
-            : base(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3), new RfcSaslCredentials(mechanism, credentials), false))
+            : base(new Asn1Tagged(new Asn1Identifier(3, true), new RfcSaslCredentials(mechanism, credentials), false))
         {
             // implicit tagging
         }

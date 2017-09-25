@@ -10,7 +10,7 @@ namespace Unosquare.Swan.Networking
     using System.Text;
     using System.Threading.Tasks;
     using System.Collections.Generic;
-#if NET452
+#if !NETSTANDARD1_3 && !UWP
     using System.Net.Mail;
 #else
     using Exceptions;

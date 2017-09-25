@@ -168,21 +168,24 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="type">Optional attribute description.</param>
         /// <param name="matchValue">The assertion value.</param>
         /// <param name="dnAttributes">Asn1Boolean value. (default false)</param>
-        public RfcMatchingRuleAssertion(RfcLdapString matchingRule, RfcLdapString type, Asn1OctetString matchValue,
+        public RfcMatchingRuleAssertion(
+            RfcLdapString matchingRule, 
+            RfcLdapString type, 
+            Asn1OctetString matchValue,
             Asn1Boolean dnAttributes = null)
             : base(4)
         {
             if (matchingRule != null)
-                Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 1), matchingRule, false));
+                Add(new Asn1Tagged(new Asn1Identifier(1), matchingRule, false));
             if (type != null)
-                Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 2), type, false));
+                Add(new Asn1Tagged(new Asn1Identifier(2), type, false));
 
-            Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 3), matchValue, false));
+            Add(new Asn1Tagged(new Asn1Identifier(3), matchValue, false));
 
             // if dnAttributes if false, that is the default value and we must not
             // encode it. (See RFC 2251 5.1 number 4)
             if (dnAttributes != null && dnAttributes.BooleanValue())
-                Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 4), dnAttributes, false));
+                Add(new Asn1Tagged(new Asn1Identifier(4), dnAttributes, false));
         }
     }
 

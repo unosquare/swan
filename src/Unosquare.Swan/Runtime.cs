@@ -10,12 +10,13 @@
 #endif
 #if !UWP
     using System.Diagnostics;
+
 #endif
 
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
     /// </summary>
-#if NET452
+#if !NETSTANDARD1_3 && !UWP
     public class Runtime : MarshalByRefObject
 #else
     public static class Runtime
@@ -24,43 +25,50 @@
         #region Property Backing
 
 #if NET452
-        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
+        private static readonly Lazy<Assembly> m_EntryAssembly =
+            new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 #endif
 
-#if NETSTANDARD1_6
+#if NETSTANDARD2_0
         private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
 
 #if !NETSTANDARD1_3 && !UWP
-        private static readonly Lazy<AssemblyName> m_EntryAssemblyName = new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
+        private static readonly Lazy<AssemblyName> m_EntryAssemblyName =
+            new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
 #endif
 
 #if !UWP
         private static readonly Lazy<Process> m_Process = new Lazy<Process>(Process.GetCurrentProcess);
 #endif
-        private static readonly Lazy<bool?> m_IsUsingMonoRuntime = new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
+        private static readonly Lazy<bool?> m_IsUsingMonoRuntime =
+            new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
 
 #if !NETSTANDARD1_3 && !UWP
         private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
         {
-            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute;
+            var attribute =
+                EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute;
             return attribute?.Company ?? string.Empty;
         });
 
         private static readonly Lazy<string> m_ProductName = new Lazy<string>(() =>
         {
-            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute;
+            var attribute =
+                EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute;
             return attribute?.Product ?? string.Empty;
         });
 
         private static readonly Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
         {
-            var attribute = EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
+            var attribute =
+                EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
             return attribute?.Trademark ?? string.Empty;
         });
 #endif
 
-        private static readonly Lazy<ArgumentParser> _argumentParser = new Lazy<ArgumentParser>(() => new ArgumentParser());
+        private static readonly Lazy<ArgumentParser> _argumentParser =
+            new Lazy<ArgumentParser>(() => new ArgumentParser());
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
 
@@ -100,9 +108,7 @@
                     }
                     else
                     {
-                        m_OS = File.Exists(@"/proc/sys/kernel/ostype") ?
-                            OperatingSystem.Unix :
-                            OperatingSystem.Osx;
+                        m_OS = File.Exists(@"/proc/sys/kernel/ostype") ? OperatingSystem.Unix : OperatingSystem.Osx;
                     }
                 }
 
@@ -137,7 +143,8 @@
                         {
                             // If exception occurred, there is no such mutex.
                             var appMutex = new Mutex(true, ApplicationMutexName);
-                            $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(typeof(Runtime));
+                            $"Application Mutex created {appMutex} named '{ApplicationMutexName}'".Debug(
+                                typeof(Runtime));
 
                             // Only one instance.
                             return true;
@@ -165,7 +172,8 @@
         /// <value>
         /// The property type cache.
         /// </value>
-        public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+        public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } =
+            new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
 
         /// <summary>
         /// Gets the field type cache.
@@ -173,7 +181,8 @@
         /// <value>
         /// The field type cache.
         /// </value>
-        public static Lazy<FieldTypeCache> FieldTypeCache { get; } = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
+        public static Lazy<FieldTypeCache> FieldTypeCache { get; } =
+            new Lazy<FieldTypeCache>(() => new FieldTypeCache());
 
 #if !NETSTANDARD1_3 && !UWP
         /// <summary>
@@ -230,7 +239,8 @@
 #if !NETSTANDARD1_3 && !UWP
                 var localAppDataPath =
 #if NET452
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), EntryAssemblyName.Name);
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        EntryAssemblyName.Name);
 #else
                     Path.GetDirectoryName(EntryAssembly.Location);
 #endif
@@ -290,13 +300,8 @@
         /// Gets all the loaded assemblies in the current application domain.
         /// </summary>
         /// <returns>An array of assemblies</returns>
-        public static Assembly[] GetAssemblies()
-        {
-            return Reflection.AppDomain.CurrentDomain.GetAssemblies();
-        } 
-#endif
+        public static Assembly[] GetAssemblies() => AppDomain.CurrentDomain.GetAssemblies();
 
-#if NET452
         /// <summary>
         /// Build a full path pointing to the current user's desktop with the given filename
         /// </summary>
@@ -304,8 +309,8 @@
         /// <returns>The fully qualified location of path, such as "C:\MyFile.txt"</returns>
         public static string GetDesktopFilePath(string filename)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            var pathWithFilename = Path.Combine(path, filename);
+            var pathWithFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                filename);
             return Path.GetFullPath(pathWithFilename);
         }
 #endif

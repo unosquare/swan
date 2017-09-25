@@ -4,16 +4,16 @@ notifications:
 matrix:
   include:
     - os: linux
-      dotnet: 1.0.1
+      dotnet: 2.0.0
       mono: latest
       dist: trusty
       sudo: false
     - os: osx
       mono: none
-      dotnet: 1.0.1
+      dotnet: 2.0.0
 install:
   - npm install maildev
   - dotnet restore
 script:
   - node ./mail.js &
-  - dotnet test ./test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -f netcoreapp1.1
+  - dotnet test ./test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -f netcoreapp2.0

@@ -35,7 +35,7 @@
         public CircularBuffer(int bufferLength)
         {
 #if !NET452
-            if (Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
                 throw new InvalidOperationException("CircularBuffer component is only available in Windows");
 #endif
 

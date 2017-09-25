@@ -1,4 +1,4 @@
-﻿#if !NET452
+﻿#if NETSTANDARD1_3 || UWP
 namespace Unosquare.Swan.Exceptions
 {
     /// <summary>

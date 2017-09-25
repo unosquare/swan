@@ -20,7 +20,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void TestConnectGmailSmtpException()
         {
-#if NET452
+#if !NETSTANDARD1_3 && !UWP
             Assert.ThrowsAsync<System.Net.Mail.SmtpException>
 #else
             Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>

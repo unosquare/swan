@@ -4,7 +4,7 @@
     <Description>Some usage samples of the Swan library</Description>
     <Copyright>Copyright (c) 2016 - Unosquare</Copyright>
     <AssemblyTitle>Unosquare SWAN Samples</AssemblyTitle>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFrameworks>net452;netcoreapp2.0</TargetFrameworks>
     <AssemblyName>Unosquare.Swan.Samples</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Unosquare.Swan.Samples</PackageId>
