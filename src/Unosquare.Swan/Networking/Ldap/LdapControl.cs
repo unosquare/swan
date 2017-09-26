@@ -258,7 +258,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// Represents a simple bind request.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
-    public class LdapBindRequest : LdapMessage
+    public sealed class LdapBindRequest : LdapMessage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapBindRequest"/> class.
@@ -277,7 +277,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cont">Any controls that apply to the simple bind request,
         /// or null if none.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd, LdapControl[] cont)
-            : base(LdapOperation.BindRequest, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, false, 0), new Asn1OctetString(passwd), false))), cont)
+            : base(LdapOperation.BindRequest, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd), false))), cont)
         {
         }
 
@@ -287,7 +287,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the Authentication DN for a bind request
         /// </returns>
-        public virtual string AuthenticationDN => Asn1Object.RequestDn;
+        public string AuthenticationDN => Asn1Object.RequestDn;
 
         /// <summary>
         /// Return an Asn1 representation of this add request.
@@ -302,7 +302,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     ///     Encapsulates a continuation reference from an asynchronous search operation.
     /// </summary>
-    public class LdapSearchResultReference : LdapMessage
+    public sealed class LdapSearchResultReference : LdapMessage
     {
         private string[] srefs;
 
@@ -322,7 +322,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The referrals.
         /// </value>
-        public virtual string[] Referrals
+        public string[] Referrals
         {
             get
             {
@@ -348,13 +348,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapConstraints" />
     /// <seealso cref="LdapConstraints"></seealso>
     /// <seealso cref="LdapConnection.Constraints"></seealso>
-    public class LdapSearchConstraints : LdapConstraints
+    public sealed class LdapSearchConstraints : LdapConstraints
     {
-        private int dereference;
-        private int serverTimeLimit;
-        private int maxResults = 1000;
-        private int batchSize = 1;
-
         /// <summary>
         ///     Indicates that aliases are never dereferenced.
         ///     DEREF_NEVER = 0
@@ -407,11 +402,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         public LdapSearchConstraints()
         {
-            InitBlock();
         }
 
         /// <summary>
-        /// Constructs an LdapSearchConstraints object initialized with values
+        /// Initializes a new instance of the <see cref="LdapSearchConstraints"/> class  with values
         /// from an existing constraints object (LdapConstraints
         /// or LdapSearchConstraints).
         /// </summary>
@@ -419,7 +413,6 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapSearchConstraints(LdapConstraints cons)
             : base(cons.TimeLimit, cons.ReferralFollowing, cons.GetReferralHandler(), cons.HopLimit)
         {
-            InitBlock();
             var lsc = cons.GetControls();
             if (lsc != null)
             {
@@ -436,10 +429,10 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (cons is LdapSearchConstraints scons)
             {
-                serverTimeLimit = scons.ServerTimeLimit;
-                dereference = scons.Dereference;
-                maxResults = scons.MaxResults;
-                batchSize = scons.BatchSize;
+                ServerTimeLimit = scons.ServerTimeLimit;
+                Dereference = scons.Dereference;
+                MaxResults = scons.MaxResults;
+                BatchSize = scons.BatchSize;
             }
         }
 
@@ -498,18 +491,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The operation will be abandoned and terminated by the
         /// API with an LdapException.REFERRAL_LIMIT_EXCEEDED if the
         /// number of referrals in a sequence exceeds the limit.</param>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
-        /// <seealso cref="LdapException.REFERRAL"></seealso>
-        /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED"></seealso>
-        /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED"></seealso>
         public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hopLimit) 
             : base(msLimit, doReferrals, handler, hopLimit)
         {
-            InitBlock();
-            this.serverTimeLimit = serverTimeLimit;
-            this.dereference = dereference;
-            this.maxResults = maxResults;
-            this.batchSize = batchSize;
+            ServerTimeLimit = serverTimeLimit;
+            Dereference = dereference;
+            MaxResults = maxResults;
+            BatchSize = batchSize;
         }
 
         /// <summary>
@@ -522,11 +510,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The size of the batch.
         /// </value>
-        public virtual int BatchSize
-        {
-            get => batchSize;
-            set => batchSize = value;
-        }
+        public int BatchSize { get; set; } = 1;
 
         /// <summary>
         ///     Specifies when aliases should be dereferenced.
@@ -541,11 +525,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The setting for dereferencing aliases.
         /// </returns>
-        public virtual int Dereference
-        {
-            get => dereference;
-            set => dereference = value;
-        }
+        public int Dereference { get; set; } = DEREF_NEVER;
 
         /// <summary>
         ///     Returns the maximum number of search results to be returned for
@@ -557,13 +537,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Maximum number of search results to return.
         /// </returns>
-        /// <seealso cref="LdapException.SIZE_LIMIT_EXCEEDED">
-        /// </seealso>
-        public virtual int MaxResults
-        {
-            get => maxResults;
-            set => maxResults = value;
-        }
+        public int MaxResults { get; set; } = 1000;
 
         /// <summary>
         ///     Returns the maximum number of seconds that the server waits when
@@ -576,25 +550,14 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The maximum number of seconds the server waits for search'
         ///     results.
         /// </returns>
-        /// <seealso cref="LdapException.TIME_LIMIT_EXCEEDED">
-        /// </seealso>
-        public virtual int ServerTimeLimit
-        {
-            get => serverTimeLimit;
-            set => serverTimeLimit = value;
-        }
-
-        private void InitBlock()
-        {
-            dereference = DEREF_NEVER;
-        }
+        public int ServerTimeLimit { get; set; }
     }
 
     /// <summary>
     ///     This class encapsulates the combination of LdapReferral URL and
     ///     the connection opened to service this URL
     /// </summary>
-    public class ReferralInfo
+    public sealed class ReferralInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferralInfo"/> class.
@@ -616,7 +579,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the Referral URL
         /// </returns>
-        public virtual LdapUrl ReferralUrl { get; }
+        public LdapUrl ReferralUrl { get; }
 
         /// <summary>
         ///     Returns the referral Connection
@@ -624,7 +587,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the Referral Connection
         /// </returns>
-        public virtual LdapConnection ReferralConnection { get; }
+        public LdapConnection ReferralConnection { get; }
 
         /// <summary>
         ///     Returns the referral list
@@ -632,7 +595,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the Referral list
         /// </returns>
-        public virtual string[] ReferralList { get; }
+        public string[] ReferralList { get; }
     }
 
     /// <summary>
@@ -641,25 +604,12 @@ namespace Unosquare.Swan.Networking.Ldap
     /// search results.
     /// </summary>
     /// <seealso cref="LdapConnection.Search"></seealso>
-    public class LdapUrl
+    public sealed class LdapUrl
     {
-        private void InitBlock()
-        {
-            scope = DEFAULT_SCOPE;
-        }
-
-        private static readonly int DEFAULT_SCOPE = LdapConnection.ScopeBase;
-
         // Broken out parts of the URL
-        private bool secure; // URL scheme ldap/ldaps
         private readonly bool ipV6 = false; // TCP/IP V6
-        private string host; // Host
-        private int port; // Port
-        private string dn; // Base DN
-        private string[] attrs; // Attributes
-        private string filter; // Filter
-        private int scope; // Scope
-        private string[] extensions; // Extensions
+        private int _port; // Port
+        private string _dn; // Base DN
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapUrl"/> class.
@@ -670,7 +620,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// sn?sub?(objectclass=inetOrgPerson)".</param>
         public LdapUrl(string url)
         {
-            InitBlock();
             ParseUrl(url);
         }
 
@@ -687,10 +636,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dn">Distinguished name of the base object of the search.</param>
         public LdapUrl(string host, int port, string dn)
         {
-            InitBlock();
-            this.host = host;
-            this.port = port;
-            this.dn = dn;
+            Host = host;
+            _port = port;
+            _dn = dn;
         }
         
         /// <summary>
@@ -722,16 +670,15 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="secure">If true creates an Ldap URL of the ldaps type</param>
         public LdapUrl(string host, int port, string dn, string[] attrNames, int scope, string filter, string[] extensions, bool secure = false)
         {
-            InitBlock();
-            this.host = host;
-            this.port = port;
-            this.dn = dn;
-            attrs = attrNames;
-            this.scope = scope;
-            this.filter = filter;
-            this.extensions = new string[extensions.Length];
-            extensions.CopyTo(this.extensions, 0);
-            this.secure = secure;
+            Host = host;
+            _port = port;
+            _dn = dn;
+            AttributeArray = attrNames;
+            Scope = scope;
+            Filter = filter;
+            Extensions = new string[extensions.Length];
+            extensions.CopyTo(Extensions, 0);
+            Secure = secure;
         }
 
         /// <summary>
@@ -740,7 +687,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The attribute array.
         /// </value>
-        public virtual string[] AttributeArray => attrs;
+        public string[] AttributeArray { get; private set; }
 
         /// <summary>
         ///     Returns an enumerator for the attribute names specified in the URL.
@@ -757,7 +704,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     string array of extensions.
         /// </returns>
-        public virtual string[] Extensions => extensions;
+        public string[] Extensions { get; private set; }
 
         /// <summary>
         ///     Returns the search filter or <code>null</code> if none was specified.
@@ -765,7 +712,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The search filter.
         /// </returns>
-        public virtual string Filter => filter;
+        public string Filter { get; private set; }
 
         /// <summary>
         ///     Returns the name of the Ldap server in the URL.
@@ -773,7 +720,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The host name specified in the URL.
         /// </returns>
-        public virtual string Host => host;
+        public string Host { get; private set; }
 
         /// <summary>
         ///     Returns the port number of the Ldap server in the URL.
@@ -781,7 +728,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The port number in the URL.
         /// </returns>
-        public virtual int Port => port == 0 ? LdapConnection.DefaultPort : port;
+        public int Port => _port == 0 ? LdapConnection.DefaultPort : _port;
 
         /// <summary>
         ///     Returns the depth of search. It returns one of the following from
@@ -790,7 +737,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The search scope.
         /// </returns>
-        public virtual int Scope => scope;
+        public int Scope { get; private set; } = LdapConnection.ScopeBase;
 
         /// <summary>
         ///     Returns true if the URL is of the type ldaps (Ldap over SSL, a predecessor
@@ -799,7 +746,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     whether this is a secure Ldap url or not.
         /// </returns>
-        public virtual bool Secure => secure;
+        public bool Secure { get; private set; }
 
         /// <summary>
         ///     Returns a clone of this URL object.
@@ -928,10 +875,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The base distinguished name specified in the URL, or null if none.
         /// </returns>
-        public virtual string GetDN() => dn;
+        public string GetDN() => _dn;
 
         /// <summary> Sets the base distinguished name encapsulated in the URL.</summary>
-        internal virtual void SetDN(string dn) => this.dn = dn;
+        internal void SetDN(string dn) => _dn = dn;
 
         /// <summary>
         /// Returns a valid string representation of this Ldap URL.
@@ -944,81 +891,81 @@ namespace Unosquare.Swan.Networking.Ldap
             var url = new StringBuilder(256);
 
             // Scheme
-            url.Append(secure ? "ldaps://" : "ldap://");
+            url.Append(Secure ? "ldaps://" : "ldap://");
 
             // Host:port/dn
-            url.Append(ipV6 ? $"[{host}]" : host);
+            url.Append(ipV6 ? $"[{Host}]" : Host);
 
             // Port not specified
-            if (port != 0)
+            if (_port != 0)
             {
-                url.Append(":" + port);
+                url.Append(":" + _port);
             }
 
-            if (dn == null && attrs == null && scope == DEFAULT_SCOPE && filter == null && extensions == null)
+            if (_dn == null && AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null && Extensions == null)
             {
                 return url.ToString();
             }
 
             url.Append("/");
-            if (dn != null)
+            if (_dn != null)
             {
-                url.Append(dn);
+                url.Append(_dn);
             }
 
-            if (attrs == null && scope == DEFAULT_SCOPE && filter == null && extensions == null)
+            if (AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null && Extensions == null)
             {
                 return url.ToString();
             }
 
             // attributes
             url.Append("?");
-            if (attrs != null)
+            if (AttributeArray != null)
             {
                 // should we check also for attrs != "*"
-                for (var i = 0; i < attrs.Length; i++)
+                for (var i = 0; i < AttributeArray.Length; i++)
                 {
-                    url.Append(attrs[i]);
-                    if (i < attrs.Length - 1)
+                    url.Append(AttributeArray[i]);
+                    if (i < AttributeArray.Length - 1)
                     {
                         url.Append(",");
                     }
                 }
             }
 
-            if (scope == DEFAULT_SCOPE && filter == null && extensions == null)
+            if (Scope == LdapConnection.ScopeBase && Filter == null && Extensions == null)
             {
                 return url.ToString();
             }
 
             // scope
             url.Append("?");
-            if (scope != DEFAULT_SCOPE)
+            if (Scope != LdapConnection.ScopeBase)
             {
-                url.Append(scope == LdapConnection.ScopeOne ? "one" : "sub");
+                url.Append(Scope == LdapConnection.ScopeOne ? "one" : "sub");
             }
 
-            if (filter == null && extensions == null)
+            if (Filter == null && Extensions == null)
             {
                 return url.ToString();
             }
 
             // filter
-            url.Append(filter == null ? "?" : $"?{Filter}");
+            url.Append(Filter == null ? "?" : $"?{Filter}");
 
-            if (extensions == null)
+            if (Extensions == null)
             {
                 return url.ToString();
             }
 
             // extensions
             url.Append("?");
-            if (extensions != null)
+            if (Extensions != null)
             {
-                for (var i = 0; i < extensions.Length; i++)
+                for (var i = 0; i < Extensions.Length; i++)
                 {
-                    url.Append(extensions[i]);
-                    if (i < extensions.Length - 1)
+                    url.Append(Extensions[i]);
+                    if (i < Extensions.Length - 1)
                     {
                         url.Append(",");
                     }
@@ -1100,13 +1047,13 @@ namespace Unosquare.Swan.Networking.Ldap
             if (url.Substring(scanStart, scanStart + 7 - scanStart).ToUpper().Equals("ldap://".ToUpper()))
             {
                 scanStart += 7;
-                port = LdapConnection.DefaultPort;
+                _port = LdapConnection.DefaultPort;
             }
             else if (url.Substring(scanStart, scanStart + 8 - scanStart).ToUpper().Equals("ldaps://".ToUpper()))
             {
-                secure = true;
+                Secure = true;
                 scanStart += 8;
-                port = LdapConnection.DefaultSslPort;
+                _port = LdapConnection.DefaultSslPort;
             }
             else
             {
@@ -1151,12 +1098,12 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
 
                 // Get host w/o the [ & ]
-                host = url.Substring(scanStart + 1, hostEnd - (scanStart + 1));
+                Host = url.Substring(scanStart + 1, hostEnd - (scanStart + 1));
                 portStart = url.IndexOf(":", hostEnd);
                 if (portStart < hostPortEnd && portStart != -1)
                 {
                     // port is specified
-                    port = int.Parse(url.Substring(portStart + 1, hostPortEnd - (portStart + 1)));
+                    _port = int.Parse(url.Substring(portStart + 1, hostPortEnd - (portStart + 1)));
                 }
             }
             else
@@ -1167,13 +1114,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (portStart < 0 || portStart > hostPortEnd)
                 {
                     // no port is specified, we keep the default
-                    host = url.Substring(scanStart, hostPortEnd - scanStart);
+                    Host = url.Substring(scanStart, hostPortEnd - scanStart);
                 }
                 else
                 {
                     // port specified in URL
-                    host = url.Substring(scanStart, portStart - scanStart);
-                    port = int.Parse(url.Substring(portStart + 1, hostPortEnd - (portStart + 1)));
+                    Host = url.Substring(scanStart, portStart - scanStart);
+                    _port = int.Parse(url.Substring(portStart + 1, hostPortEnd - (portStart + 1)));
                 }
             }
 
@@ -1185,7 +1132,7 @@ namespace Unosquare.Swan.Networking.Ldap
             scanStart = dnStart + 1;
             var attrsStart = url.IndexOf('?', scanStart);
 
-            dn = attrsStart < 0 ? url.Substring(scanStart, scanEnd - scanStart) : url.Substring(scanStart, attrsStart - scanStart);
+            _dn = attrsStart < 0 ? url.Substring(scanStart, scanEnd - scanStart) : url.Substring(scanStart, attrsStart - scanStart);
 
             scanStart = attrsStart + 1;
 
@@ -1197,7 +1144,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var scopeStart = url.IndexOf('?', scanStart);
             if (scopeStart < 0)
                 scopeStart = scanEnd - 1;
-            attrs = ParseList(url, ',', attrsStart + 1, scopeStart);
+            AttributeArray = ParseList(url, ',', attrsStart + 1, scopeStart);
             scanStart = scopeStart + 1;
             if (scanStart >= scanEnd)
                 return;
@@ -1208,19 +1155,19 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (scopeStr.ToUpper().Equals(string.Empty.ToUpper()))
             {
-                scope = LdapConnection.ScopeBase;
+                Scope = LdapConnection.ScopeBase;
             }
             else if (scopeStr.ToUpper().Equals("base".ToUpper()))
             {
-                scope = LdapConnection.ScopeBase;
+                Scope = LdapConnection.ScopeBase;
             }
             else if (scopeStr.ToUpper().Equals("one".ToUpper()))
             {
-                scope = LdapConnection.ScopeOne;
+                Scope = LdapConnection.ScopeOne;
             }
             else if (scopeStr.ToUpper().Equals("sub".ToUpper()))
             {
-                scope = LdapConnection.ScopeSub;
+                Scope = LdapConnection.ScopeSub;
             }
             else
             {
@@ -1239,7 +1186,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (!filterStr.Equals(string.Empty))
             {
-                filter = filterStr; // Only modify if not the default filter
+                Filter = filterStr; // Only modify if not the default filter
             }
 
             scanStart = extStart + 1;
@@ -1251,7 +1198,7 @@ namespace Unosquare.Swan.Networking.Ldap
             if (end > 0)
                 throw new UriFormatException("LdapUrl: URL has too many ? fields");
 
-            extensions = ParseList(url, ',', scanStart, scanEnd);
+            Extensions = ParseList(url, ',', scanStart, scanEnd);
         }
     }
 
@@ -1261,15 +1208,66 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapConnection.Search">
     /// </seealso>
-    public class LdapResponse : LdapMessage
+    public sealed class LdapResponse : LdapMessage
     {
+        private readonly LdapException exception;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
+        /// Creates an LdapResponse using an LdapException.
+        /// Used to wake up the user following an abandon.
+        /// Note: The abandon doesn't have to be user initiated
+        /// but may be the result of error conditions.
+        /// Referral information is available if this connection created solely
+        /// to follow a referral.
+        /// </summary>
+        /// <param name="ex">The exception</param>
+        /// <param name="activeReferral">The referral actually used to create the
+        /// connection</param>
+        public LdapResponse(LdapException ex, ReferralInfo activeReferral)
+        {
+            exception = ex;
+            ActiveReferral = activeReferral;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
+        /// Creates a response LdapMessage when receiving an asynchronous
+        /// response from a server.
+        /// </summary>
+        /// <param name="message">The RfcLdapMessage from a server.</param>
+        internal LdapResponse(RfcLdapMessage message) 
+            : base(message)
+        {
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
+        /// Creates a response LdapMessage from parameters. Typically the data
+        /// comes from a source other than a BER encoded Ldap message,
+        /// such as from DSML.
+        /// </summary>
+        /// <param name="type">The message type as defined in LdapMessage.</param>
+        /// <param name="resultCode">The result code as defined in LdapException.</param>
+        /// <param name="matchedDN">The name of the lowest entry that was matched
+        /// for some error result codes, an empty string
+        /// or <code>null</code> if none.</param>
+        /// <param name="serverMessage">A diagnostic message returned by the server,
+        /// an empty string or <code>null</code> if none.</param>
+        /// <seealso cref="LdapMessage"></seealso>
+        /// <seealso cref="LdapException"></seealso>
+        public LdapResponse(LdapOperation type, LdapStatusCode resultCode, string matchedDN = null, string serverMessage = null)
+            : base(new RfcLdapMessage(RfcResultFactory(type, resultCode, matchedDN, serverMessage)))
+        {
+        }
+
         /// <summary>
         ///     Returns any error message in the response.
         /// </summary>
         /// <returns>
         ///     Any error message in the response.
         /// </returns>
-        public virtual string ErrorMessage => exception != null ? exception.LdapErrorMessage : ((IRfcResponse) message.Response).GetErrorMessage().StringValue();
+        public string ErrorMessage => exception != null ? exception.LdapErrorMessage : ((IRfcResponse)message.Response).GetErrorMessage().StringValue();
 
         /// <summary>
         ///     Returns the partially matched DN field from the server response,
@@ -1278,7 +1276,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The partially matched DN field, if the response contains one.
         /// </returns>
-        public virtual string MatchedDN => exception != null ? exception.MatchedDN : ((IRfcResponse) message.Response).GetMatchedDN().StringValue();
+        public string MatchedDN => exception != null ? exception.MatchedDN : ((IRfcResponse)message.Response).GetMatchedDN().StringValue();
 
         /// <summary>
         ///     Returns all referrals in a server response, if the response contains any.
@@ -1286,12 +1284,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     All the referrals in the server response.
         /// </returns>
-        public virtual string[] Referrals
+        public string[] Referrals
         {
             get
             {
                 string[] referrals;
-                var reference = ((IRfcResponse) message.Response).GetReferral();
+                var reference = ((IRfcResponse)message.Response).GetReferral();
 
                 if (reference == null)
                 {
@@ -1304,7 +1302,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     referrals = new string[size];
                     for (var i = 0; i < size; i++)
                     {
-                        var aRef = ((Asn1OctetString) reference.Get(i)).StringValue();
+                        var aRef = ((Asn1OctetString)reference.Get(i)).StringValue();
                         try
                         {
                             // get the referral URL
@@ -1342,7 +1340,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The result code.
         /// </returns>
-        public virtual LdapStatusCode ResultCode
+        public LdapStatusCode ResultCode
         {
             get
             {
@@ -1351,10 +1349,10 @@ namespace Unosquare.Swan.Networking.Ldap
                     return exception.ResultCode;
                 }
 
-                if ((IRfcResponse) message.Response is RfcIntermediateResponse)
+                if ((IRfcResponse)message.Response is RfcIntermediateResponse)
                     return LdapStatusCode.Success;
 
-                return (LdapStatusCode) ((IRfcResponse) message.Response).GetResultCode().IntValue();
+                return (LdapStatusCode)((IRfcResponse)message.Response).GetResultCode().IntValue();
             }
         }
 
@@ -1362,7 +1360,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Checks the resultCode and generates the appropriate exception or
         ///     null if success.
         /// </summary>
-        internal virtual LdapException ResultException
+        internal LdapException ResultException
         {
             get
             {
@@ -1376,7 +1374,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     case LdapStatusCode.Referral:
                         var refs = Referrals;
                         ex = new LdapReferralException("Automatic referral following not enabled", LdapStatusCode.Referral, ErrorMessage);
-                        ((LdapReferralException) ex).SetReferrals(refs);
+                        ((LdapReferralException)ex).SetReferrals(refs);
                         break;
                     default:
                         ex = new LdapException(ResultCode.ToString().Humanize(), ResultCode, ErrorMessage, MatchedDN);
@@ -1401,77 +1399,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     an embedded exception if any
         /// </returns>
-        internal virtual LdapException Exception => exception;
-
-        /// <summary>
-        ///     Indicates the referral instance being followed if the
-        ///     connection created to follow referrals.
-        /// </summary>
-        /// <returns>
-        ///     the referral being followed
-        /// </returns>
-        internal virtual ReferralInfo ActiveReferral => activeReferral;
-
-        private readonly LdapException exception;
-        private readonly ReferralInfo activeReferral;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
-        /// Creates an LdapResponse using an LdapException.
-        /// Used to wake up the user following an abandon.
-        /// Note: The abandon doesn't have to be user initiated
-        /// but may be the result of error conditions.
-        /// Referral information is available if this connection created solely
-        /// to follow a referral.
-        /// </summary>
-        /// <param name="ex">The exception</param>
-        /// <param name="activeReferral">The referral actually used to create the
-        /// connection</param>
-        public LdapResponse(LdapException ex, ReferralInfo activeReferral)
-        {
-            exception = ex;
-            this.activeReferral = activeReferral;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
-        /// Creates a response LdapMessage when receiving an asynchronous
-        /// response from a server.
-        /// </summary>
-        /// <param name="message">The RfcLdapMessage from a server.</param>
-        internal LdapResponse(RfcLdapMessage message) 
-            : base(message)
-        {
-        }
+        internal LdapException Exception => exception;
         
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
-        /// Creates a response LdapMessage from parameters. Typically the data
-        /// comes from a source other than a BER encoded Ldap message,
-        /// such as from DSML.
-        /// </summary>
-        /// <param name="type">The message type as defined in LdapMessage.</param>
-        /// <param name="resultCode">The result code as defined in LdapException.</param>
-        /// <param name="matchedDN">The name of the lowest entry that was matched
-        /// for some error result codes, an empty string
-        /// or <code>null</code> if none.</param>
-        /// <param name="serverMessage">A diagnostic message returned by the server,
-        /// an empty string or <code>null</code> if none.</param>
-        /// <seealso cref="LdapMessage"></seealso>
-        /// <seealso cref="LdapException"></seealso>
-        public LdapResponse(LdapOperation type, LdapStatusCode resultCode, string matchedDN = null, string serverMessage = null)
-            : base(new RfcLdapMessage(RfcResultFactory(type, resultCode, matchedDN, serverMessage)))
-        {
-        }
+        internal ReferralInfo ActiveReferral { get; }
+        
+        internal bool HasException() => exception != null;
 
-        /// <summary>
-        ///     Indicates if this response is an embedded exception response
-        /// </summary>
-        /// <returns>
-        ///     true if contains an embedded Ldapexception
-        /// </returns>
-        internal virtual bool HasException() => exception != null;
-        internal virtual void ChkResultCode()
+        internal void ChkResultCode()
         {
             if (exception != null)
             {
@@ -1507,21 +1441,13 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     The <code>MessageVector</code> class implements extends the
-    ///     existing Vector class so that it can be used to maintain a
-    ///     list of currently registered control responses.
+    /// The RespControlVector class implements extends the
+    /// existing Vector class so that it can be used to maintain a
+    /// list of currently registered control responses.
     /// </summary>
-    public class RespControlVector : ArrayList
+    /// <seealso cref="System.Collections.ArrayList" />
+    public sealed class RespControlVector : ArrayList
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RespControlVector"/> class.
-        /// </summary>
-        /// <param name="cap">The cap.</param>
-        public RespControlVector(int cap) 
-            : base(cap)
-        {
-        }
-
         /// <summary>
         ///     Inner class defined to create a temporary object to encapsulate
         ///     all registration information about a response control.  This class
@@ -1529,18 +1455,28 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         private class RegisteredControl
         {
-            public readonly string myOID;
-            public readonly Type myClass;
-
             public RegisteredControl(RespControlVector enclosingInstance, string oid, Type controlClass)
             {
                 EnclosingInstance = enclosingInstance;
-                myOID = oid;
-                myClass = controlClass;
+                MyOid = oid;
+                MyClass = controlClass;
             }
+
+            internal Type MyClass { get; }
+
+            internal string MyOid { get; }
 
             private RespControlVector EnclosingInstance { get; }
 
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RespControlVector"/> class.
+        /// </summary>
+        /// <param name="cap">The cap.</param>
+        public RespControlVector(int cap) 
+            : base(cap)
+        {
         }
 
         /// <summary>
@@ -1578,10 +1514,10 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
 
                     /* Does the stored OID match with whate we are looking for */
-                    if (ctl.myOID.CompareTo(searchOID) == 0)
+                    if (ctl.MyOid.CompareTo(searchOID) == 0)
                     {
                         /* Return the class name if we have match */
-                        return ctl.myClass;
+                        return ctl.MyClass;
                     }
                 }
                 

@@ -197,7 +197,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 octets[i] = (sbyte)ret;
             }
             
-            return Encoding.UTF8.GetString(octets.ToByteArray());
+            return Encoding.UTF8.GetString(octets);
         }
     }
 }

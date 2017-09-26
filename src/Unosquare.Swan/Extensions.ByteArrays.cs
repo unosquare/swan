@@ -515,8 +515,23 @@
             return sbyteArray;
         }
 
+        /// <summary>
+        /// Gets the sbytes from a string.
+        /// </summary>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="s">The s.</param>
+        /// <returns>The sbyte array</returns>
         public static sbyte[] GetSBytes(this Encoding encoding, string s)
             => encoding.GetBytes(s).ToSByteArray();
+
+        /// <summary>
+        /// Gets the string from a sbyte array.
+        /// </summary>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="data">The data.</param>
+        /// <returns>The string</returns>
+        public static string GetString(this Encoding encoding, sbyte[] data)
+            => encoding.GetString(data.ToByteArray());
 
         /// <summary>
         /// Reads a number of characters from the current source Stream and writes the data to the target array at the

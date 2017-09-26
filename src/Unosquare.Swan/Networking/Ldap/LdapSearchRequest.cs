@@ -6,8 +6,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// Represents an Ldap Search request.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
-    internal class LdapSearchRequest : LdapMessage
+    /// <seealso cref="LdapMessage" />
+    internal sealed class LdapSearchRequest : LdapMessage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapSearchRequest"/> class.
@@ -96,7 +96,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The search filter.
         /// </value>
-        public virtual IEnumerator SearchFilter => RfcFilter.GetFilterIterator();
+        public IEnumerator SearchFilter => RfcFilter.GetFilterIterator();
 
         /// <summary>
         ///     Retrieves the Base DN for a search request.
@@ -104,7 +104,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the base DN for a search request
         /// </returns>
-        public virtual string DN => Asn1Object.RequestDn;
+        public string DN => Asn1Object.RequestDn;
 
         /// <summary>
         /// Retrieves the scope of a search request.
@@ -112,7 +112,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The scope.
         /// </value>
-        public virtual int Scope => ((Asn1Enumerated)((RfcSearchRequest)Asn1Object.Get(1)).Get(1)).IntValue();
+        public int Scope => ((Asn1Enumerated)((RfcSearchRequest)Asn1Object.Get(1)).Get(1)).IntValue();
 
         /// <summary>
         /// Retrieves the behaviour of dereferencing aliases on a search request.
@@ -120,7 +120,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The dereference.
         /// </value>
-        public virtual int Dereference => ((Asn1Enumerated)((RfcSearchRequest)Asn1Object.Get(1)).Get(2)).IntValue();
+        public int Dereference => ((Asn1Enumerated)((RfcSearchRequest)Asn1Object.Get(1)).Get(2)).IntValue();
 
         /// <summary>
         /// Retrieves the maximum number of entries to be returned on a search.
@@ -128,7 +128,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The maximum results.
         /// </value>
-        public virtual int MaxResults => ((Asn1Integer)((RfcSearchRequest)Asn1Object.Get(1)).Get(3)).IntValue();
+        public int MaxResults => ((Asn1Integer)((RfcSearchRequest)Asn1Object.Get(1)).Get(3)).IntValue();
 
         /// <summary>
         /// Retrieves the server time limit for a search request.
@@ -136,7 +136,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The server time limit.
         /// </value>
-        public virtual int ServerTimeLimit => ((Asn1Integer)((RfcSearchRequest)Asn1Object.Get(1)).Get(4)).IntValue();
+        public int ServerTimeLimit => ((Asn1Integer)((RfcSearchRequest)Asn1Object.Get(1)).Get(4)).IntValue();
 
         /// <summary>
         /// Retrieves whether attribute values or only attribute types(names) should
@@ -145,7 +145,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         ///   <c>true</c> if [types only]; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool TypesOnly => ((Asn1Boolean)((RfcSearchRequest)Asn1Object.Get(1)).Get(5)).BooleanValue();
+        public bool TypesOnly => ((Asn1Boolean)((RfcSearchRequest)Asn1Object.Get(1)).Get(5)).BooleanValue();
 
         /// <summary>
         /// Retrieves an array of attribute names to request for in a search.
@@ -153,7 +153,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The attributes.
         /// </value>
-        public virtual string[] Attributes
+        public string[] Attributes
         {
             get
             {
@@ -174,7 +174,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The string filter.
         /// </value>
-        public virtual string StringFilter => RfcFilter.FilterToString();
+        public string StringFilter => RfcFilter.FilterToString();
 
         /// <summary>
         /// Retrieves an SearchFilter object representing a filter for a search request

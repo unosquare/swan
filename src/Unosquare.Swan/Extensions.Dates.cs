@@ -15,9 +15,7 @@
         /// <param name="date">The date.</param>
         /// <returns>The concatenation of date.Year, date.Month and date.Day</returns>
         public static string ToSortableDate(this DateTime date)
-        {
-            return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}";
-        }
+            => $"{date.Year:0000}-{date.Month:00}-{date.Day:00}";
 
         /// <summary>
         /// Converts the date to a YYYY-MM-DD HH:II:SS string
@@ -25,9 +23,7 @@
         /// <param name="date">The date.</param>
         /// <returns>The concatenation of date.Year, date.Month, date.Day, date.Hour, date.Minute and date.Second</returns>
         public static string ToSortableDateTime(this DateTime date)
-        {
-            return $"{date.Year:0000}-{date.Month:00}-{date.Day:00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
-        }
+            => $"{date.Year:0000}-{date.Month:00}-{date.Day:00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
 
         /// <summary>
         /// Parses a YYYY-MM-DD and optionally it time part, HH:II:SS into a DateTime
@@ -94,9 +90,7 @@
         /// A sequence of integral numbers within a specified date's range
         /// </returns>
         public static IEnumerable<DateTime> DateRange(this DateTime startDate, DateTime endDate)
-        {
-            return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
-        }
+            => Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
 
         /// <summary>
         /// Rounds up a date to match a timespan.
@@ -107,9 +101,7 @@
         /// A new instance of the DateTime structure to the specified datetime and timespan ticks
         /// </returns>
         public static DateTime RoundUp(this DateTime dt, TimeSpan d)
-        {
-            return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
-        }
+            => new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
 
         /// <summary>
         /// Get this datetime as a Unix epoch timestamp (seconds since Jan 1, 1970, midnight UTC).
@@ -118,7 +110,7 @@
         /// <returns>Seconds since Unix epoch.</returns>
         public static long ToUnixEpochDate(this DateTime date)
         {
-#if NETSTANDARD1_6
+#if NETSTANDARD2_0
             return new DateTimeOffset(date).ToUniversalTime().ToUnixTimeSeconds();
 #else
             var epochTicks = new DateTime(1970, 1, 1).Ticks;

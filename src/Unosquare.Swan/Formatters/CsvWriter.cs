@@ -383,8 +383,7 @@
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            var dictionary = item as IDictionary<string, object>;
-            if (dictionary == null)
+            if (!(item is IDictionary<string, object> dictionary))
                 throw new ArgumentException("Unable to cast dynamic object to a suitable dictionary", nameof(item));
 
             WriteHeadings(dictionary);

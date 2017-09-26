@@ -2,7 +2,6 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.Collections;
     using System.Reflection;
 
     /// <summary>

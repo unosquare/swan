@@ -77,9 +77,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// LdapException.REFERRAL_LIMIT_EXCEEDED if the
         /// number of referrals in a sequence exceeds the limit.
         /// It is ignored for asynchronous operations.</param>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
-        /// <seealso cref="LdapException.REFERRAL"></seealso>
         /// <seealso cref="LdapReferralException"></seealso>
         public LdapConstraints(int msLimit, bool doReferrals, ILdapReferralHandler handler, int hopLimit)
         {
@@ -107,9 +104,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// number of referrals in a sequence exceeds the limit.
         /// It is ignored for asynchronous operations.
         /// </value>
-        /// <seealso cref="HopLimit"></seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
-        /// <seealso cref="LdapException.REFERRAL_LIMIT_EXCEEDED"></seealso>
         public virtual int HopLimit
         {
             get => _hopLimit;
