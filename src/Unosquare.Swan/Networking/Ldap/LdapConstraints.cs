@@ -156,8 +156,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The properties.
         /// </value>
-        /// <seealso cref="object"></seealso>
-        /// <seealso cref="LdapConnection.GetProperty"></seealso>
         internal virtual Hashtable Properties
         {
             get => _properties;

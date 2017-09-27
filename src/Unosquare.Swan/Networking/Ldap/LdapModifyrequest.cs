@@ -98,10 +98,9 @@ namespace Unosquare.Swan.Networking.Ldap
                 var vals = new Asn1SetOf(attr.Size());
                 if (attr.Size() > 0)
                 {
-                    var attrEnum = attr.ByteValues;
-                    while (attrEnum.MoveNext())
+                    foreach (var val in attr.ByteValueArray)
                     {
-                        vals.Add(new RfcAttributeValue((sbyte[])attrEnum.Current));
+                        vals.Add(new RfcAttributeValue(val));
                     }
                 }
 

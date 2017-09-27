@@ -178,30 +178,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         public virtual string AuthenticationMethod
             => BindProperties == null ? "simple" : BindProperties.AuthenticationMethod;
-
-        /// <summary>
-        /// Returns the properties if any specified on binding with a
-        /// SASL mechanism.
-        /// Null is returned if no authentication has been performed
-        /// or no authentication Map is present.
-        /// </summary>
-        /// <value>
-        /// The sasl bind properties.
-        /// </value>
-        public virtual IDictionary SaslBindProperties => BindProperties?.SaslBindProperties;
-
-        /// <summary>
-        ///     Returns the call back handler if any specified on binding with a
-        ///     SASL mechanism.
-        ///     Null is returned if no authentication has been performed
-        ///     or no authentication call back handler is present.
-        /// </summary>
-        /// <returns>
-        ///     The call back handler used for SASL bind or null if the
-        ///     object is not present or not authenticated.
-        /// </returns>
-        public virtual object SaslBindCallbackHandler => BindProperties?.SaslCallbackHandler;
-
+        
         /// <summary>
         /// Returns a copy of the set of constraints associated with this
         /// connection. These constraints apply to all operations performed

@@ -1,8 +1,7 @@
-﻿using System.Linq;
-
-#if !UWP
+﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
+    using System.Linq;
     using System;
     using System.Collections;
     using System.IO;
@@ -296,7 +295,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     try
                     {
-                        sva[j] = Encoding.UTF8.GetString(((sbyte[])values[j]));
+                        sva[j] = Encoding.UTF8.GetString((sbyte[])values[j]);
                     }
                     catch (IOException uee)
                     {
@@ -365,15 +364,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 return bva;
             }
         }
-
-        /// <summary>
-        /// Gets the byte values.
-        /// </summary>
-        /// <value>
-        /// The byte values.
-        /// </value>
-        public virtual IEnumerator ByteValues => new ArrayEnumeration(ByteValueArray);
-
+        
         /// <summary>
         ///     Returns the language subtype of the attribute, if any.
         ///     For example, if the attribute name is cn;lang-ja;phonetic,
@@ -412,6 +403,26 @@ namespace Unosquare.Swan.Networking.Ldap
                     throw new Exception(ue.ToString());
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns the base name of the specified attribute name.
+        /// For example, if the attribute name is cn;lang-ja;phonetic,
+        /// this method returns cn.
+        /// </summary>
+        /// <param name="attrName">Name of the attribute from which to extract the
+        /// base name.</param>
+        /// <returns> The base name of the attribute. </returns>
+        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
+        public static string GetBaseName(string attrName)
+        {
+            if (attrName == null)
+            {
+                throw new ArgumentException("Attribute name cannot be null");
+            }
+
+            var idx = attrName.IndexOf(';');
+            return idx == -1 ? attrName : attrName.Substring(0, idx - 0);
         }
 
         /// <summary>
@@ -553,30 +564,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The base name of the attribute.
         /// </returns>
         public virtual string GetBaseName() => baseName;
-
-        /// <summary>
-        ///     Returns the base name of the specified attribute name.
-        ///     For example, if the attribute name is cn;lang-ja;phonetic,
-        ///     this method returns cn.
-        /// </summary>
-        /// <param name="attrName">
-        ///     Name of the attribute from which to extract the
-        ///     base name.
-        /// </param>
-        /// <returns>
-        ///     The base name of the attribute.
-        ///     @throws IllegalArgumentException if attrName is null
-        /// </returns>
-        public static string GetBaseName(string attrName)
-        {
-            if (attrName == null)
-            {
-                throw new ArgumentException("Attribute name cannot be null");
-            }
-
-            var idx = attrName.IndexOf(';');
-            return idx == -1 ? attrName : attrName.Substring(0, idx - 0);
-        }
 
         /// <summary>
         ///     Extracts the subtypes from the attribute name.
@@ -1243,74 +1230,6 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             return retValue.ToString();
-        }
-    }
-
-    /// <summary>
-    /// asdasdasdsad
-    /// </summary>
-    /// <seealso cref="System.Collections.IEnumerator" />
-    public class ArrayEnumeration : IEnumerator
-    {
-        private object tempAuxObj;
-        private readonly object[] eArray;
-        private int index;
-
-        /// <summary>
-        /// Obtiene el elemento actual de la colección.
-        /// </summary>
-        public virtual object Current => tempAuxObj;
-
-        /// <summary>
-        /// Desplaza el enumerador al siguiente elemento de la colección.
-        /// </summary>
-        /// <returns>
-        /// Es true si el enumerador avanzó con éxito hasta el siguiente elemento; es false si el enumerador alcanzó el final de la colección.
-        /// </returns>
-        public virtual bool MoveNext()
-        {
-            var result = HasMoreElements();
-            if (result)
-            {
-                tempAuxObj = NextElement();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Establece el enumerador en su posición inicial (antes del primer elemento de la colección).
-        /// </summary>
-        public virtual void Reset() => tempAuxObj = null;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ArrayEnumeration" /> class.
-        /// Constructor to create the Enumeration
-        /// </summary>
-        /// <param name="eArray">the array to use for the Enumeration</param>
-        public ArrayEnumeration(object[] eArray) => this.eArray = eArray;
-
-        /// <summary>
-        /// Determines whether [has more elements].
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if [has more elements]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool HasMoreElements() => index < eArray?.Length;
-
-        /// <summary>
-        /// Nexts the element.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public object NextElement()
-        {
-            if (eArray == null || index >= eArray.Length)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            return eArray[index++];
         }
     }
 }

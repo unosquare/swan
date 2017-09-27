@@ -930,9 +930,8 @@ namespace Unosquare.Swan.Networking.Ldap
                             _hasMore = false;
                             toReturn = ((RfcLdapString)asn1).StringValue();
                         }
-                        else if (asn1 is RfcSubstringFilter)
+                        else if (asn1 is RfcSubstringFilter sub)
                         {
-                            var sub = (RfcSubstringFilter)asn1;
                             if (_index == -1)
                             {
                                 // return attribute name

@@ -351,7 +351,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// Substring Operators
     /// </summary>
-    public enum SubstringOp
+    internal enum SubstringOp
     {
         /// <summary>
         /// Search Filter Identifier for an INITIAL component of a SUBSTRING.
@@ -375,7 +375,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// Filtering Operators
     /// </summary>
-    public enum FilterOp
+    internal enum FilterOp
     {
         /// <summary>
         /// Identifier for AND component.
@@ -438,62 +438,25 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dn">The dn.</param>
         /// <param name="method">The method.</param>
         /// <param name="anonymous">if set to <c>true</c> [anonymous].</param>
-        /// <param name="bindProperties">The bind properties.</param>
-        /// <param name="bindCallbackHandler">The bind callback handler.</param>
-        public BindProperties(int version, string dn, string method, bool anonymous, 
-            Hashtable bindProperties = null,
-            object bindCallbackHandler = null)
+        public BindProperties(
+            int version, 
+            string dn, 
+            string method, 
+            bool anonymous)
         {
             ProtocolVersion = version;
             AuthenticationDN = dn;
             AuthenticationMethod = method;
             Anonymous = anonymous;
-            SaslBindProperties = bindProperties;
-            SaslCallbackHandler = bindCallbackHandler;
         }
-
-        /// <summary> gets the protocol version</summary>
-        public virtual int ProtocolVersion { get; } = 3;
-
-        /// <summary>
-        ///     Gets the authentication dn
-        /// </summary>
-        /// <returns>
-        ///     the authentication dn for this connection
-        /// </returns>
-        public virtual string AuthenticationDN { get; }
-
-        /// <summary>
-        ///     Gets the authentication method
-        /// </summary>
-        /// <returns>
-        ///     the authentication method for this connection
-        /// </returns>
-        public virtual string AuthenticationMethod { get; }
-
-        /// <summary>
-        ///     Gets the SASL Bind properties
-        /// </summary>
-        /// <returns>
-        ///     the sasl bind properties for this connection
-        /// </returns>
-        public virtual Hashtable SaslBindProperties { get; }
-
-        /// <summary>
-        ///     Gets the SASL callback handler
-        /// </summary>
-        /// <returns>
-        ///     the sasl callback handler for this connection
-        /// </returns>
-        public virtual object SaslCallbackHandler { get; }
-
-        /// <summary>
-        ///     Indicates whether or not the bind properties specify an anonymous bind
-        /// </summary>
-        /// <returns>
-        ///     true if the bind properties specify an anonymous bind
-        /// </returns>
-        public virtual bool Anonymous { get; }
+        
+        public int ProtocolVersion { get; } = 3;
+        
+        public string AuthenticationDN { get; }
+        
+        public string AuthenticationMethod { get; }
+        
+        public bool Anonymous { get; }
     }
 }
 

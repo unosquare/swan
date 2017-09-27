@@ -1446,7 +1446,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// list of currently registered control responses.
     /// </summary>
     /// <seealso cref="System.Collections.ArrayList" />
-    public sealed class RespControlVector : ArrayList
+    internal sealed class RespControlVector : ArrayList
     {
         /// <summary>
         ///     Inner class defined to create a temporary object to encapsulate
