@@ -65,6 +65,15 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        ///     Indicates whether the message is a request or a response
+        /// </summary>
+        /// <returns>
+        ///     true if the message is a request, false if it is a response,
+        ///     a search result, or a search result reference.
+        /// </returns>
+        public virtual bool Request => message.IsRequest();
+
+        /// <summary>
         /// Returns the Ldap operation type of the message.
         /// The type is one of the following:
         /// <ul><li>BIND_REQUEST            = 0;</li><li>BIND_RESPONSE           = 1;</li><li>UNBIND_REQUEST          = 2;</li><li>SEARCH_REQUEST          = 3;</li><li>SEARCH_RESPONSE         = 4;</li><li>SEARCH_RESULT           = 5;</li><li>MODIFY_REQUEST          = 6;</li><li>MODIFY_RESPONSE         = 7;</li><li>ADD_REQUEST             = 8;</li><li>ADD_RESPONSE            = 9;</li><li>DEL_REQUEST             = 10;</li><li>DEL_RESPONSE            = 11;</li><li>MODIFY_RDN_REQUEST      = 12;</li><li>MODIFY_RDN_RESPONSE     = 13;</li><li>COMPARE_REQUEST         = 14;</li><li>COMPARE_RESPONSE        = 15;</li><li>ABANDON_REQUEST         = 16;</li><li>SEARCH_RESULT_REFERENCE = 19;</li><li>EXTENDED_REQUEST        = 23;</li><li>EXTENDED_RESPONSE       = 24;</li><li>INTERMEDIATE_RESPONSE   = 25;</li></ul>
@@ -72,7 +81,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The type.
         /// </value>
-        public virtual LdapOperation Type
+        internal LdapOperation Type
         {
             get
             {
@@ -84,15 +93,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 return messageType;
             }
         }
-
-        /// <summary>
-        ///     Indicates whether the message is a request or a response
-        /// </summary>
-        /// <returns>
-        ///     true if the message is a request, false if it is a response,
-        ///     a search result, or a search result reference.
-        /// </returns>
-        public virtual bool Request => message.IsRequest();
 
         /// <summary> Returns the RFC 2251 LdapMessage composed in this object.</summary>
         internal virtual RfcLdapMessage Asn1Object => message;

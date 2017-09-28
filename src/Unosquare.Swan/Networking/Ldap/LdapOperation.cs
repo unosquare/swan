@@ -4,7 +4,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// LDAP Operation
     /// </summary>
-    public enum LdapOperation
+    internal enum LdapOperation
     {
         /// <summary>
         /// The unknown

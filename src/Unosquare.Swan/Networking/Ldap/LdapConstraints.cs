@@ -150,7 +150,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Gets all the properties of the constraints object which has been
-        /// assigned with {@link #setProperty(String, Object)}.
+        /// assigned with {setProperty(String, Object)}.
         /// A value of <code>null</code> is returned if no properties are defined.
         /// </summary>
         /// <value>
@@ -173,7 +173,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Gets a property of the constraints object which has been
-        /// assigned with {@link #setProperty(String, Object)}.
+        /// assigned with {setProperty(String, Object)}.
         /// </summary>
         /// <param name="name">Name of the property to be returned.</param>
         /// <returns>

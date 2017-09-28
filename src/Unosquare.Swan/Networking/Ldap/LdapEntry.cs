@@ -772,7 +772,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         ///     Compares this object with the specified object for order.
         ///     Ordering is determined by comparing attribute names (see
-        ///     {@link #getName() }) using the method compareTo() of the String class.
+        ///     {getName() }) using the method compareTo() of the String class.
         /// </summary>
         /// <param name="attribute">
         ///     The LdapAttribute to be compared to this object.

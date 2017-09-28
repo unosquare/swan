@@ -13,11 +13,11 @@ namespace Unosquare.Swan.Networking.Ldap
     /// programatically by adding filter components one at a time.  Existing filter
     /// components can be iterated though.
     /// Each filter component has an integer identifier defined in this class.
-    /// The following are basic filter components: {@link #EQUALITY_MATCH},
-    /// {@link #GREATER_OR_EQUAL}, {@link #LESS_OR_EQUAL}, {@link #SUBSTRINGS},
-    /// {@link #PRESENT}, {@link #APPROX_MATCH}, {@link #EXTENSIBLE_MATCH}.
+    /// The following are basic filter components: {EQUALITY_MATCH},
+    /// {GREATER_OR_EQUAL}, {LESS_OR_EQUAL}, {SUBSTRINGS},
+    /// {PRESENT}, {APPROX_MATCH}, {EXTENSIBLE_MATCH}.
     /// More filters can be nested together into more complex filters with the
-    /// following filter components: {@link #AND}, {@link #OR}, {@link #NOT}
+    /// following filter components: {AND}, {OR}, {NOT}
     /// Substrings can have three components:
     /// <pre>
     /// Filter ::= CHOICE {
@@ -117,13 +117,13 @@ namespace Unosquare.Swan.Networking.Ldap
             // missing opening parenthesis ?
             if (ch != '(')
             {
-                throw new LdapLocalException(ExceptionMessages.MISSING_LEFT_PAREN, LdapStatusCode.FilterError);
+                throw new LdapLocalException(LdapException.MissingLeftParen, LdapStatusCode.FilterError);
             }
 
             // missing closing parenthesis ?
             if (filterExpr[len - 1] != ')')
             {
-                throw new LdapLocalException(ExceptionMessages.MISSING_RIGHT_PAREN, LdapStatusCode.FilterError);
+                throw new LdapLocalException(LdapException.MissingRightParen, LdapStatusCode.FilterError);
             }
 
             // unmatched parentheses ?
@@ -143,12 +143,12 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (parenCount > 0)
             {
-                throw new LdapLocalException(ExceptionMessages.MISSING_RIGHT_PAREN, LdapStatusCode.FilterError);
+                throw new LdapLocalException(LdapException.MissingRightParen, LdapStatusCode.FilterError);
             }
 
             if (parenCount < 0)
             {
-                throw new LdapLocalException(ExceptionMessages.MISSING_LEFT_PAREN, LdapStatusCode.FilterError);
+                throw new LdapLocalException(LdapException.MissingLeftParen, LdapStatusCode.FilterError);
             }
 
             _ft = new FilterTokenizer(this, filterExpr);
@@ -158,7 +158,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Parses an RFC 2254 filter
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The ASN1 Tagged</returns>
         private Asn1Tagged ParseFilter()
         {
             _ft.GetLeftParen();
@@ -170,11 +170,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// RFC 2254 filter helper method. Will Parse a filter component.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The ASN1 Tagged</returns>
         private Asn1Tagged ParseFilterComp()
         {
             Asn1Tagged tag = null;
             var filterComp = (FilterOp)_ft.OpOrAttr;
+
             switch (filterComp)
             {
                 case FilterOp.And:
@@ -382,8 +383,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if ((ival = ch.Hex2Int()) < 0)
                     {
-                        // Invalid escape value(not a hex character)
-                        throw new LdapLocalException(ExceptionMessages.INVALID_ESCAPE, ch, LdapStatusCode.FilterError);
+                        throw new LdapLocalException($"Invalid value in escape sequence \"{ch}\"", LdapStatusCode.FilterError);
                     }
 
                     // V3 escaped: \\**
@@ -449,8 +449,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                 }
                             }
 
-                            throw new LdapLocalException(ExceptionMessages.INVALID_CHAR_IN_FILTER,
-                                new object[] { ch, escString }, LdapStatusCode.FilterError);
+                            throw new LdapLocalException($"The invalid character \"{ch}\" needs to be escaped as \"{escString}\"", LdapStatusCode.FilterError);
                         }
                     }
                     catch (IOException ue)
@@ -463,7 +462,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Verify that any escape sequence completed
             if (escStart || escape)
             {
-                throw new LdapLocalException(ExceptionMessages.SHORT_ESCAPE, LdapStatusCode.FilterError);
+                throw new LdapLocalException("Incomplete escape sequence", LdapStatusCode.FilterError);
             }
 
             var toReturn = new sbyte[octs];
@@ -527,7 +526,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Creates and addes a substrings filter component.
         /// startSubstrings must be immediatly followed by at least one
-        /// {@link #addSubstring} method and one {@link #endSubstrings} method
+        /// {addSubstring} method and one {endSubstrings} method
         /// @throws Novell.Directory.Ldap.LdapLocalException
         /// Occurs when this component is created out of sequence.
         /// </summary>
@@ -594,8 +593,10 @@ namespace Unosquare.Swan.Networking.Ldap
                     _finalFound = true;
                 }
 
-                substringSeq.Add(new Asn1Tagged(new Asn1Identifier((int)type),
-                    new RfcLdapString(values), false));
+                substringSeq.Add(
+                    new Asn1Tagged(new Asn1Identifier((int)type),
+                    new RfcLdapString(values), 
+                    false));
             }
             catch (InvalidCastException e)
             {
@@ -1066,7 +1067,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if (_offset >= _filterLength)
                     {
-                        throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapStatusCode.FilterError);
+                        throw new LdapLocalException(LdapException.UnexpectedEnd, LdapStatusCode.FilterError);
                     }
 
                     int ret;
@@ -1091,14 +1092,12 @@ namespace Unosquare.Swan.Networking.Ldap
                     {
                         if (_filter.Substring(_offset).StartsWith(":="))
                         {
-                            throw new LdapLocalException(ExceptionMessages.NO_MATCHING_RULE,
-                                LdapStatusCode.FilterError);
+                            throw new LdapLocalException("Missing matching rule", LdapStatusCode.FilterError);
                         }
 
                         if (_filter.Substring(_offset).StartsWith("::=") || _filter.Substring(_offset).StartsWith(":::="))
                         {
-                            throw new LdapLocalException(ExceptionMessages.NO_DN_NOR_MATCHING_RULE,
-                                LdapStatusCode.FilterError);
+                            throw new LdapLocalException("DN and matching rule not specified", LdapStatusCode.FilterError);
                         }
 
                         // get first component of 'item' (attr or :dn or :matchingrule)
@@ -1115,8 +1114,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         // is there an attribute name specified in the filter ?
                         if (_attr.Length == 0 || _attr[0] == ';')
                         {
-                            throw new LdapLocalException(ExceptionMessages.NO_ATTRIBUTE_NAME,
-                                LdapStatusCode.FilterError);
+                            throw new LdapLocalException("Missing attribute description", LdapStatusCode.FilterError);
                         }
 
                         int index;
@@ -1129,11 +1127,10 @@ namespace Unosquare.Swan.Networking.Ldap
                             {
                                 if (atIndex == '\\')
                                 {
-                                    throw new LdapLocalException(ExceptionMessages.INVALID_ESC_IN_DESCR,
-                                        LdapStatusCode.FilterError);
+                                    throw new LdapLocalException("Escape sequence not allowed in attribute description",LdapStatusCode.FilterError);
                                 }
 
-                                throw new LdapLocalException(ExceptionMessages.INVALID_CHAR_IN_DESCR, atIndex, LdapStatusCode.FilterError);
+                                throw new LdapLocalException($"Invalid character \"{atIndex}\" in attribute description", LdapStatusCode.FilterError);
                             }
                         }
 
@@ -1141,7 +1138,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         index = _attr.IndexOf(';');
                         if (index != -1 && index == _attr.Length - 1)
                         {
-                            throw new LdapLocalException(ExceptionMessages.NO_OPTION, LdapStatusCode.FilterError);
+                            throw new LdapLocalException("Semicolon present, but no option specified", LdapStatusCode.FilterError);
                         }
 
                         ret = -1;
@@ -1166,7 +1163,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if (_offset >= _filterLength)
                     {
-                        throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapStatusCode.FilterError);
+                        throw new LdapLocalException(LdapException.UnexpectedEnd, LdapStatusCode.FilterError);
                     }
 
                     if (_filter.Substring(_offset).StartsWith(">="))
@@ -1199,8 +1196,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         return FilterOp.EqualityMatch;
                     }
 
-                    throw new LdapLocalException(ExceptionMessages.INVALID_FILTER_COMPARISON,
-                        LdapStatusCode.FilterError);
+                    throw new LdapLocalException("Invalid comparison operator", LdapStatusCode.FilterError);
                 }
             }
 
@@ -1217,7 +1213,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if (_offset >= _filterLength)
                     {
-                        throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapStatusCode.FilterError);
+                        throw new LdapLocalException(LdapException.UnexpectedEnd, LdapStatusCode.FilterError);
                     }
 
                     var idx = _filter.IndexOf(')', _offset);
@@ -1252,12 +1248,12 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 if (_offset >= _filterLength)
                 {
-                    throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapStatusCode.FilterError);
+                    throw new LdapLocalException(LdapException.UnexpectedEnd, LdapStatusCode.FilterError);
                 }
 
                 if (_filter[_offset++] != '(')
                 {
-                    throw new LdapLocalException(ExceptionMessages.EXPECTING_LEFT_PAREN, _filter[_offset -= 1], LdapStatusCode.FilterError);
+                    throw new LdapLocalException(string.Format(LdapException.ExpectingLeftParen, _filter[_offset -= 1]), LdapStatusCode.FilterError);
                 }
             }
 
@@ -1269,12 +1265,12 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 if (_offset >= _filterLength)
                 {
-                    throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapStatusCode.FilterError);
+                    throw new LdapLocalException(LdapException.UnexpectedEnd, LdapStatusCode.FilterError);
                 }
 
                 if (_filter[_offset++] != ')')
                 {
-                    throw new LdapLocalException(ExceptionMessages.EXPECTING_RIGHT_PAREN, _filter[_offset - 1],  LdapStatusCode.FilterError);
+                    throw new LdapLocalException(string.Format(LdapException.ExpectingRightParen, _filter[_offset - 1]),  LdapStatusCode.FilterError);
                 }
             }
 
@@ -1289,7 +1285,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 if (_offset >= _filterLength)
                 {
-                    throw new LdapLocalException(ExceptionMessages.UNEXPECTED_END, LdapStatusCode.FilterError);
+                    throw new LdapLocalException(LdapException.UnexpectedEnd, LdapStatusCode.FilterError);
                 }
 
                 return _filter[_offset];

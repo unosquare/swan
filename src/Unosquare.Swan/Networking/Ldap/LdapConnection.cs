@@ -486,18 +486,99 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        /// Synchronously reads the entry for the specified distinguished name (DN),
+        /// using the specified constraints, and retrieves only the specified
+        /// attributes from the entry.
         /// </summary>
-        /// <param name="isDisposing">
-        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool isDisposing)
+        /// <param name="dn">The distinguished name of the entry to retrieve.</param>
+        /// <param name="attrs">The names of the attributes to retrieve.</param>
+        /// <param name="cons">The constraints specific to the operation.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// the LdapEntry read from the server
+        /// </returns>
+        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapLocalException">Read response is ambiguous, multiple entries returned</exception>
+        public async Task<LdapEntry> Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null, CancellationToken ct = default(CancellationToken))
         {
-            if (isDisposing)
+            var sr = await Search(dn, ScopeBase, null, attrs, false, cons ?? _defSearchCons, ct);
+            LdapEntry ret = null;
+
+            if (sr.HasMore())
             {
-                Disconnect();
+                ret = sr.Next();
+                if (sr.HasMore())
+                {
+                    throw new LdapLocalException("Read response is ambiguous, multiple entries returned", LdapStatusCode.AmbiguousResponse);
+                }
             }
+
+            return ret;
         }
 
+        /// <summary>
+        /// Performs the search specified by the parameters,
+        /// also allowing specification of constraints for the search (such
+        /// as the maximum number of entries to find or the maximum time to
+        /// wait for search results).
+        /// </summary>
+        /// <param name="base">The base distinguished name to search from.</param>
+        /// <param name="scope">The scope of the entries to search. The following
+        /// are the valid options:
+        /// <ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
+        /// SCOPE_SUB - searches the base DN and all entries
+        /// within its subtree
+        /// </li></ul></param>
+        /// <param name="filter">The search filter specifying the search criteria.</param>
+        /// <param name="attrs">The names of attributes to retrieve.</param>
+        /// <param name="typesOnly">If true, returns the names but not the values of
+        /// the attributes found.  If false, returns the
+        /// names and values for attributes found.</param>
+        /// <param name="cons">The constraints specific to the search.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// A <see cref="Task" /> representing the asynchronous operation.
+        /// </returns>
+        public async Task<LdapSearchResults> Search(
+            string @base, 
+            int scope, 
+            string filter = "objectClass=*", 
+            string[] attrs = null,
+            bool typesOnly = false, 
+            LdapSearchConstraints cons = null,
+            CancellationToken ct = default(CancellationToken))
+        {
+            if (cons == null)
+                cons = _defSearchCons;
+
+            var msg = new LdapSearchRequest(@base, scope, filter, attrs, cons.Dereference, cons.MaxResults, cons.ServerTimeLimit, typesOnly, cons.GetControls());
+
+            await RequestLdapMessage(msg, ct);
+            
+            return new LdapSearchResults(this, msg.MessageID);
+        }
+
+        /// <summary>
+        /// Modifies the specified dn.
+        /// </summary>
+        /// <param name="dn">The dn.</param>
+        /// <param name="mods">The mods.</param>
+        /// <param name="cons">The cons.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">dn</exception>
+        public Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null, CancellationToken ct = default(CancellationToken))
+        {
+            if (dn == null)
+            {
+                throw new ArgumentNullException(nameof(dn));
+            }
+
+            if (cons == null)
+                cons = _defSearchCons;
+            
+            return RequestLdapMessage(new LdapModifyRequest(dn, mods, cons.GetControls()), ct);
+        }
+        
         /// <summary>
         /// Requests the LDAP message.
         /// </summary>
@@ -536,93 +617,16 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Synchronously reads the entry for the specified distinguished name (DN),
-        /// using the specified constraints, and retrieves only the specified
-        /// attributes from the entry.
+        /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="dn">The distinguished name of the entry to retrieve.</param>
-        /// <param name="attrs">The names of the attributes to retrieve.</param>
-        /// <param name="cons">The constraints specific to the operation.</param>
-        /// <returns>
-        /// the LdapEntry read from the server
-        /// </returns>
-        public async Task<LdapEntry> Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null)
+        /// <param name="isDisposing">
+        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool isDisposing)
         {
-            var sr = await Search(dn, ScopeBase, null, attrs, false, cons ?? _defSearchCons);
-            LdapEntry ret = null;
-
-            if (sr.HasMore())
+            if (isDisposing)
             {
-                ret = sr.Next();
-                if (sr.HasMore())
-                {
-                    // "Read response is ambiguous, multiple entries returned"
-                    throw new LdapLocalException(ExceptionMessages.READ_MULTIPLE, LdapStatusCode.AmbiguousResponse);
-                }
+                Disconnect();
             }
-
-            return ret;
-        }
-
-        /// <summary>
-        /// Performs the search specified by the parameters,
-        /// also allowing specification of constraints for the search (such
-        /// as the maximum number of entries to find or the maximum time to
-        /// wait for search results).
-        /// </summary>
-        /// <param name="base">The base distinguished name to search from.</param>
-        /// <param name="scope">The scope of the entries to search. The following
-        /// are the valid options:
-        /// <ul><li>SCOPE_BASE - searches only the base DN</li><li>SCOPE_ONE - searches only entries under the base DN</li><li>
-        /// SCOPE_SUB - searches the base DN and all entries
-        /// within its subtree
-        /// </li></ul></param>
-        /// <param name="filter">The search filter specifying the search criteria.</param>
-        /// <param name="attrs">The names of attributes to retrieve.</param>
-        /// <param name="typesOnly">If true, returns the names but not the values of
-        /// the attributes found.  If false, returns the
-        /// names and values for attributes found.</param>
-        /// <param name="cons">The constraints specific to the search.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<LdapSearchResults> Search(
-            string @base, 
-            int scope, 
-            string filter = "objectClass=*", 
-            string[] attrs = null,
-            bool typesOnly = false, 
-            LdapSearchConstraints cons = null)
-        {
-            if (cons == null)
-                cons = _defSearchCons;
-
-            var msg = new LdapSearchRequest(@base, scope, filter, attrs, cons.Dereference, cons.MaxResults, cons.ServerTimeLimit, typesOnly, cons.GetControls());
-
-            await RequestLdapMessage(msg);
-            
-            return new LdapSearchResults(this, msg.MessageID);
-        }
-
-        /// <summary>
-        /// Modifies the specified dn.
-        /// </summary>
-        /// <param name="dn">The dn.</param>
-        /// <param name="mods">The mods.</param>
-        /// <param name="cons">The cons.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null)
-        {
-            if (cons == null)
-                cons = _defSearchCons;
-
-            if (dn == null)
-            {
-                throw new ArgumentException(ExceptionMessages.DN_PARAM_ERROR);
-            }
-
-            var msg = new LdapModifyRequest(dn, mods, cons.GetControls());
-
-            return RequestLdapMessage(msg);
         }
     }
 }

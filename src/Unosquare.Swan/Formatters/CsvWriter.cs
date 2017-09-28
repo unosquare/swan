@@ -325,7 +325,7 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <param name="type">The type.</param>
+        /// <param name="type">The type of object to extract heads.</param>
         /// <exception cref="System.ArgumentNullException">type</exception>
         public void WriteHeadings(Type type)
         {
@@ -339,7 +339,7 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to extract heads</typeparam>
         public void WriteHeadings<T>()
         {
             WriteHeadings(typeof(T));

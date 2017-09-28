@@ -300,9 +300,10 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Encapsulates a continuation reference from an asynchronous search operation.
+    /// Encapsulates a continuation reference from an asynchronous search operation.
     /// </summary>
-    public sealed class LdapSearchResultReference : LdapMessage
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
+    internal sealed class LdapSearchResultReference : LdapMessage
     {
         private string[] srefs;
 
@@ -552,52 +553,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public int ServerTimeLimit { get; set; }
     }
-
-    /// <summary>
-    ///     This class encapsulates the combination of LdapReferral URL and
-    ///     the connection opened to service this URL
-    /// </summary>
-    public sealed class ReferralInfo
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReferralInfo"/> class.
-        /// Construct the ReferralInfo class
-        /// </summary>
-        /// <param name="lc">The DirectoryEntry opened to process this referral</param>
-        /// <param name="refList">The reference list.</param>
-        /// <param name="refUrl">The URL string associated with this connection</param>
-        public ReferralInfo(LdapConnection lc, string[] refList, LdapUrl refUrl)
-        {
-            ReferralConnection = lc;
-            ReferralUrl = refUrl;
-            ReferralList = refList;
-        }
-
-        /// <summary>
-        ///     Returns the referral URL
-        /// </summary>
-        /// <returns>
-        ///     the Referral URL
-        /// </returns>
-        public LdapUrl ReferralUrl { get; }
-
-        /// <summary>
-        ///     Returns the referral Connection
-        /// </summary>
-        /// <returns>
-        ///     the Referral Connection
-        /// </returns>
-        public LdapConnection ReferralConnection { get; }
-
-        /// <summary>
-        ///     Returns the referral list
-        /// </summary>
-        /// <returns>
-        ///     the Referral list
-        /// </returns>
-        public string[] ReferralList { get; }
-    }
-
+    
     /// <summary>
     /// Encapsulates parameters of an Ldap URL query as defined in RFC2255.
     /// An LdapUrl object can be passed to LdapConnection.search to retrieve
@@ -877,7 +833,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public string GetDN() => _dn;
 
-        /// <summary> Sets the base distinguished name encapsulated in the URL.</summary>
+        /// <summary>
+        /// Sets the base distinguished name encapsulated in the URL.
+        /// </summary>
+        /// <param name="dn">The dn.</param>
         internal void SetDN(string dn) => _dn = dn;
 
         /// <summary>
@@ -1211,25 +1170,7 @@ namespace Unosquare.Swan.Networking.Ldap
     public sealed class LdapResponse : LdapMessage
     {
         private readonly LdapException exception;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
-        /// Creates an LdapResponse using an LdapException.
-        /// Used to wake up the user following an abandon.
-        /// Note: The abandon doesn't have to be user initiated
-        /// but may be the result of error conditions.
-        /// Referral information is available if this connection created solely
-        /// to follow a referral.
-        /// </summary>
-        /// <param name="ex">The exception</param>
-        /// <param name="activeReferral">The referral actually used to create the
-        /// connection</param>
-        public LdapResponse(LdapException ex, ReferralInfo activeReferral)
-        {
-            exception = ex;
-            ActiveReferral = activeReferral;
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapResponse"/> class.
         /// Creates a response LdapMessage when receiving an asynchronous
@@ -1241,26 +1182,6 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
         
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapResponse"/> class.
-        /// Creates a response LdapMessage from parameters. Typically the data
-        /// comes from a source other than a BER encoded Ldap message,
-        /// such as from DSML.
-        /// </summary>
-        /// <param name="type">The message type as defined in LdapMessage.</param>
-        /// <param name="resultCode">The result code as defined in LdapException.</param>
-        /// <param name="matchedDN">The name of the lowest entry that was matched
-        /// for some error result codes, an empty string
-        /// or <code>null</code> if none.</param>
-        /// <param name="serverMessage">A diagnostic message returned by the server,
-        /// an empty string or <code>null</code> if none.</param>
-        /// <seealso cref="LdapMessage"></seealso>
-        /// <seealso cref="LdapException"></seealso>
-        public LdapResponse(LdapOperation type, LdapStatusCode resultCode, string matchedDN = null, string serverMessage = null)
-            : base(new RfcLdapMessage(RfcResultFactory(type, resultCode, matchedDN, serverMessage)))
-        {
-        }
-
         /// <summary>
         ///     Returns any error message in the response.
         /// </summary>
@@ -1400,8 +1321,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     an embedded exception if any
         /// </returns>
         internal LdapException Exception => exception;
-        
-        internal ReferralInfo ActiveReferral { get; }
         
         internal bool HasException() => exception != null;
 
