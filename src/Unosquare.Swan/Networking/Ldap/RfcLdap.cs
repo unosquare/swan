@@ -68,27 +68,26 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if (entry == null)
+                if (entry != null) return entry;
+
+                var attrs = new LdapAttributeSet();
+                var attrList = ((RfcSearchResultEntry) Message.Response).Attributes;
+                var seqArray = attrList.ToArray();
+
+                foreach (Asn1Sequence seq in seqArray)
                 {
-                    var attrs = new LdapAttributeSet();
-                    var attrList = ((RfcSearchResultEntry) message.Response).Attributes;
-                    var seqArray = attrList.ToArray();
+                    var attr = new LdapAttribute(((Asn1OctetString) seq.Get(0)).StringValue());
+                    var set = (Asn1Set) seq.Get(1);
 
-                    foreach (Asn1Sequence seq in seqArray)
+                    foreach (var t in set.ToArray())
                     {
-                        var attr = new LdapAttribute(((Asn1OctetString) seq.Get(0)).StringValue());
-                        var set = (Asn1Set) seq.Get(1);
-
-                        foreach (var t in set.ToArray())
-                        {
-                            attr.AddValue(((Asn1OctetString) t).ByteValue());
-                        }
-
-                        attrs.Add(attr);
+                        attr.AddValue(((Asn1OctetString) t).ByteValue());
                     }
 
-                    entry = new LdapEntry(((RfcSearchResultEntry) message.Response).ObjectName.StringValue(), attrs);
+                    attrs.Add(attr);
                 }
+
+                entry = new LdapEntry(((RfcSearchResultEntry) Message.Response).ObjectName.StringValue(), attrs);
 
                 return entry;
             }
@@ -408,20 +407,21 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an LDAP Intermediate Response.
-    ///     IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
-    ///     COMPONENTS OF LDAPResult, note: only present on incorrectly
-    ///     encoded response from
-    ///     pre Falcon-sp1 server
-    ///     responseName     [10] LDAPOID OPTIONAL,
-    ///     responseValue    [11] OCTET STRING OPTIONAL }
+    /// Represents an LDAP Intermediate Response.
+    /// IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
+    /// COMPONENTS OF LDAPResult, note: only present on incorrectly
+    /// encoded response from pre Falcon-sp1 server
+    /// responseName     [10] LDAPOID OPTIONAL,
+    /// responseValue    [11] OCTET STRING OPTIONAL }
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />
     internal class RfcIntermediateResponse : Asn1Sequence, IRfcResponse
     {
-        public const int TAG_RESPONSE_NAME = 0;
-        public const int TAG_RESPONSE = 1;
-        private readonly int m_responseNameIndex;
-        private readonly int m_responseValueIndex;
+        public const int TagResponseName = 0;
+        public const int TagResponse = 1;
+        private readonly int _mResponseNameIndex;
+        private readonly int _mResponseValueIndex;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcIntermediateResponse"/> class.
@@ -432,7 +432,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcIntermediateResponse(IAsn1Decoder dec, Stream stream, int len)
             : base(dec, stream, len)
         {
-            m_responseNameIndex = m_responseValueIndex = 0;
+            _mResponseNameIndex = _mResponseValueIndex = 0;
             var i = Size() >= 3 ? 3 : 0;
 
             for (; i < Size(); i++)
@@ -441,13 +441,13 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 switch (obj.GetIdentifier().Tag)
                 {
-                    case TAG_RESPONSE_NAME:
+                    case TagResponseName:
                         Set(i, new RfcLdapOID(((Asn1OctetString) obj.TaggedValue).ByteValue()));
-                        m_responseNameIndex = i;
+                        _mResponseNameIndex = i;
                         break;
-                    case TAG_RESPONSE:
+                    case TagResponse:
                         Set(i, obj.TaggedValue);
-                        m_responseValueIndex = i;
+                        _mResponseValueIndex = i;
                         break;
                 }
             }
@@ -463,15 +463,15 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public RfcLdapOID GetResponseName()
         {
-            return m_responseNameIndex >= 0
-                ? (RfcLdapOID) Get(m_responseNameIndex)
+            return _mResponseNameIndex >= 0
+                ? (RfcLdapOID) Get(_mResponseNameIndex)
                 : null;
         }
 
         public Asn1OctetString GetResponse()
         {
-            return m_responseValueIndex != 0
-                ? (Asn1OctetString) Get(m_responseValueIndex)
+            return _mResponseValueIndex != 0
+                ? (Asn1OctetString) Get(_mResponseValueIndex)
                 : null;
         }
 

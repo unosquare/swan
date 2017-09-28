@@ -3,15 +3,7 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections;
-
-    /// <summary>
-    /// Shared ancestor to the two types of referral objects - LdapBindHandler and
-    /// LdapAuthHandler.
-    /// </summary>
-    public interface ILdapReferralHandler
-    {
-    }
-
+    
     /// <summary>
     ///     Defines options controlling Ldap operations on the directory.
     ///     An LdapConstraints object is always associated with an LdapConnection
@@ -25,7 +17,6 @@ namespace Unosquare.Swan.Networking.Ldap
         private int _msLimit;
         private int _hopLimit = 10;
         private bool _doReferrals;
-        private ILdapReferralHandler _refHandler;
         private LdapControl[] _controls;
         private Hashtable _properties; // Properties
 
@@ -40,7 +31,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapConstraints"/> class.
+        /// Initializes a new instance of the <see cref="LdapConstraints" /> class.
         /// Constructs a new LdapConstraints object specifying constraints that
         /// control wait time, and referral handling.
         /// </summary>
@@ -59,16 +50,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The way referrals are followed automatically is
         /// determined by the setting of the handler parameter.
         /// It is ignored for asynchronous operations.</param>
-        /// <param name="handler">The custom authentication handler called when
-        /// LdapConnection needs to authenticate, typically on
-        /// following a referral.  A null may be specified to
-        /// indicate default authentication processing, i.e.
-        /// referrals are followed with anonymous authentication.
-        /// The handler object may be an implemention of either the
-        /// LdapBindHandler or LdapAuthHandler interface.
-        /// The implementation of these interfaces determines how
-        /// authentication is performed when following referrals.
-        /// It is ignored for asynchronous operations.</param>
         /// <param name="hopLimit">The maximum number of referrals to follow in a
         /// sequence during automatic referral following.
         /// The default value is 10. A value of 0 means no limit.
@@ -78,11 +59,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// number of referrals in a sequence exceeds the limit.
         /// It is ignored for asynchronous operations.</param>
         /// <seealso cref="LdapReferralException"></seealso>
-        public LdapConstraints(int msLimit, bool doReferrals, ILdapReferralHandler handler, int hopLimit)
+        public LdapConstraints(int msLimit, bool doReferrals, int hopLimit)
         {
             _msLimit = msLimit;
             _doReferrals = doReferrals;
-            _refHandler = handler;
             _hopLimit = hopLimit;
         }
 
@@ -240,16 +220,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             _properties[name] = propertyValue;
         }
-
-        /// <summary>
-        /// Specifies the object that will process authentication requests
-        /// during automatic referral following.
-        /// The default is null.
-        /// </summary>
-        /// <param name="handler">An object that implements LdapBindHandler or
-        /// LdapAuthHandler</param>
-        public virtual void SetReferralHandler(ILdapReferralHandler handler) => _refHandler = handler;
-
+        
         /// <summary>
         ///     Clones an LdapConstraints object.
         /// </summary>
@@ -279,16 +250,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new Exception("Internal error, cannot create clone", ce);
             }
         }
-
-        /// <summary>
-        /// Returns an object that can process authentication for automatic
-        /// referral handling.
-        /// It may be null.
-        /// </summary>
-        /// <returns>
-        /// An LdapReferralHandler object that can process authentication.
-        /// </returns>
-        internal virtual ILdapReferralHandler GetReferralHandler() => _refHandler;
     }
 }
 

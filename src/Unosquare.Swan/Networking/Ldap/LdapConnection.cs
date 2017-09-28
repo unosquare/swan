@@ -209,7 +209,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 var newCons = (LdapSearchConstraints)_defSearchCons.Clone();
                 newCons.HopLimit = value.HopLimit;
                 newCons.TimeLimit = value.TimeLimit;
-                newCons.SetReferralHandler(value.GetReferralHandler());
                 newCons.ReferralFollowing = value.ReferralFollowing;
                 var lsc = value.GetControls();
                 if (lsc != null)

@@ -327,7 +327,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                var references = ((RfcSearchResultReference)message.Response).ToArray();
+                var references = ((RfcSearchResultReference)Message.Response).ToArray();
                 srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
@@ -412,14 +412,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="cons">The cons.</param>
         public LdapSearchConstraints(LdapConstraints cons)
-            : base(cons.TimeLimit, cons.ReferralFollowing, cons.GetReferralHandler(), cons.HopLimit)
+            : base(cons.TimeLimit, cons.ReferralFollowing, cons.HopLimit)
         {
             var lsc = cons.GetControls();
             if (lsc != null)
             {
-                var generated_var = new LdapControl[lsc.Length];
-                lsc.CopyTo(generated_var, 0);
-                SetControls(generated_var);
+                var ldapControl = new LdapControl[lsc.Length];
+                lsc.CopyTo(ldapControl, 0);
+                SetControls(ldapControl);
             }
 
             var lp = cons.Properties;
@@ -436,71 +436,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 BatchSize = scons.BatchSize;
             }
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapSearchConstraints"/> class.
-        /// Constructs a new LdapSearchConstraints object and allows the
-        /// specification operational constraints in that object.
-        /// </summary>
-        /// <param name="msLimit">The maximum time in milliseconds to wait for results.
-        /// The default is 0, which means that there is no
-        /// maximum time limit. This limit is enforced for an
-        /// operation by the API, not by the server.
-        /// The operation will be abandoned and terminated by the
-        /// API with an LdapException.Ldap_TIMEOUT if the
-        /// operation exceeds the time limit.</param>
-        /// <param name="serverTimeLimit">The maximum time in seconds that the server
-        /// should spend returning search results. This is a
-        /// server-enforced limit.  The default of 0 means
-        /// no time limit.
-        /// The operation will be terminated by the server with an
-        /// LdapException.TIME_LIMIT_EXCEEDED if the search
-        /// operation exceeds the time limit.</param>
-        /// <param name="dereference">Specifies when aliases should be dereferenced.
-        /// Must be either DEREF_NEVER, DEREF_FINDING,
-        /// DEREF_SEARCHING, or DEREF_ALWAYS from this class.
-        /// Default: DEREF_NEVER</param>
-        /// <param name="maxResults">The maximum number of search results to return
-        /// for a search request.
-        /// The search operation will be terminated by the server
-        /// with an LdapException.SIZE_LIMIT_EXCEEDED if the
-        /// number of results exceed the maximum.
-        /// Default: 1000</param>
-        /// <param name="doReferrals">Determines whether to automatically follow
-        /// referrals or not. Specify true to follow
-        /// referrals automatically, and false to throw
-        /// an LdapException.REFERRAL if the server responds
-        /// with a referral.
-        /// It is ignored for asynchronous operations.
-        /// Default: false</param>
-        /// <param name="batchSize">The number of results to return in a batch. Specifying
-        /// 0 means to block until all results are received.
-        /// Specifying 1 means to return results one result at a
-        /// time.  Default: 1</param>
-        /// <param name="handler">The custom authentication handler called when
-        /// LdapConnection needs to authenticate, typically on
-        /// following a referral.  A null may be specified to
-        /// indicate default authentication processing, i.e.
-        /// referrals are followed with anonymous authentication.
-        /// ThE object may be an implemention of either the
-        /// the LdapBindHandler or LdapAuthHandler interface.
-        /// It is ignored for asynchronous operations.</param>
-        /// <param name="hopLimit">The maximum number of referrals to follow in a
-        /// sequence during automatic referral following.
-        /// The default value is 10. A value of 0 means no limit.
-        /// It is ignored for asynchronous operations.
-        /// The operation will be abandoned and terminated by the
-        /// API with an LdapException.REFERRAL_LIMIT_EXCEEDED if the
-        /// number of referrals in a sequence exceeds the limit.</param>
-        public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults, bool doReferrals, int batchSize, ILdapReferralHandler handler, int hopLimit) 
-            : base(msLimit, doReferrals, handler, hopLimit)
-        {
-            ServerTimeLimit = serverTimeLimit;
-            Dereference = dereference;
-            MaxResults = maxResults;
-            BatchSize = batchSize;
-        }
-
+        
         /// <summary>
         /// Returns the number of results to block on during receipt of search
         /// results.
@@ -1188,7 +1124,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Any error message in the response.
         /// </returns>
-        public string ErrorMessage => exception != null ? exception.LdapErrorMessage : ((IRfcResponse)message.Response).GetErrorMessage().StringValue();
+        public string ErrorMessage => exception != null ? exception.LdapErrorMessage : ((IRfcResponse)Message.Response).GetErrorMessage().StringValue();
 
         /// <summary>
         ///     Returns the partially matched DN field from the server response,
@@ -1197,7 +1133,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The partially matched DN field, if the response contains one.
         /// </returns>
-        public string MatchedDN => exception != null ? exception.MatchedDN : ((IRfcResponse)message.Response).GetMatchedDN().StringValue();
+        public string MatchedDN => exception != null ? exception.MatchedDN : ((IRfcResponse)Message.Response).GetMatchedDN().StringValue();
 
         /// <summary>
         ///     Returns all referrals in a server response, if the response contains any.
@@ -1210,7 +1146,7 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 string[] referrals;
-                var reference = ((IRfcResponse)message.Response).GetReferral();
+                var reference = ((IRfcResponse)Message.Response).GetReferral();
 
                 if (reference == null)
                 {
@@ -1270,10 +1206,10 @@ namespace Unosquare.Swan.Networking.Ldap
                     return exception.ResultCode;
                 }
 
-                if ((IRfcResponse)message.Response is RfcIntermediateResponse)
+                if ((IRfcResponse)Message.Response is RfcIntermediateResponse)
                     return LdapStatusCode.Success;
 
-                return (LdapStatusCode)((IRfcResponse)message.Response).GetResultCode().IntValue();
+                return (LdapStatusCode)((IRfcResponse)Message.Response).GetResultCode().IntValue();
             }
         }
 

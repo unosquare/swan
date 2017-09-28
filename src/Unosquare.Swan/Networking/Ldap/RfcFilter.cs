@@ -600,8 +600,10 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             catch (InvalidCastException e)
             {
-                throw new LdapLocalException("A call to addSubstring occured without calling startSubstring",
-                    LdapStatusCode.FilterError, e);
+                throw new LdapLocalException(
+                    "A call to addSubstring occured without calling startSubstring",
+                    LdapStatusCode.FilterError, 
+                    e);
             }
         }
 

@@ -493,7 +493,7 @@
         /// Converts an array of sbytes to an array of bytes
         /// </summary>
         /// <param name="sbyteArray">The sbyte array.</param>
-        /// <returns></returns>
+        /// <returns>The byte array from conversion</returns>
         public static byte[] ToByteArray(this sbyte[] sbyteArray)
         {
             var byteArray = new byte[sbyteArray.Length];
@@ -506,7 +506,7 @@
         /// Receives a byte array and returns it transformed in an sbyte array
         /// </summary>
         /// <param name="byteArray">The byte array.</param>
-        /// <returns></returns>
+        /// <returns>The sbyte array from conversion</returns>
         public static sbyte[] ToSByteArray(this byte[] byteArray)
         {
             var sbyteArray = new sbyte[byteArray.Length];
@@ -520,7 +520,7 @@
         /// </summary>
         /// <param name="encoding">The encoding.</param>
         /// <param name="s">The s.</param>
-        /// <returns>The sbyte array</returns>
+        /// <returns>The sbyte array from string</returns>
         public static sbyte[] GetSBytes(this Encoding encoding, string s)
             => encoding.GetBytes(s).ToSByteArray();
 

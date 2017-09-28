@@ -340,10 +340,7 @@
         /// Writes the headings.
         /// </summary>
         /// <typeparam name="T">The type of object to extract heads</typeparam>
-        public void WriteHeadings<T>()
-        {
-            WriteHeadings(typeof(T));
-        }
+        public void WriteHeadings<T>() => WriteHeadings(typeof(T));
 
         /// <summary>
         /// Writes the headings.

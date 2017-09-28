@@ -293,7 +293,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This interface represents Protocol Operations that are requests from a
     /// client.
     /// </summary>
-    public interface IRfcRequest
+    internal interface IRfcRequest
     {
         /// <summary>
         /// Builds a new request using the data from the this object.

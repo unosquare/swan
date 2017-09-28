@@ -10,8 +10,62 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public class LdapMessage
     {
+        internal RfcLdapMessage Message;
+
+        private int imsgNum = -1; // This instance LdapMessage number
+
+        private LdapOperation _messageType = LdapOperation.Unknown;
+
+        private string _stringTag;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
+        /// Dummy constuctor
+        /// </summary>
+        internal LdapMessage()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
+        /// Creates an LdapMessage when sending a protocol operation and sends
+        /// some optional controls with the message.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="op">The operation type of message.</param>
+        /// <param name="controls">The controls to use with the operation.</param>
+        /// <seealso cref="Type"></seealso>
+        internal LdapMessage(LdapOperation type, IRfcRequest op, LdapControl[] controls)
+        {
+            // Get a unique number for this request message
+            _messageType = type;
+            RfcControls asn1Ctrls = null;
+
+            if (controls != null)
+            {
+                // Move LdapControls into an RFC 2251 Controls object.
+                asn1Ctrls = new RfcControls();
+
+                foreach (var t in controls)
+                {
+                    asn1Ctrls.Add(t.Asn1Object);
+                }
+            }
+
+            // create RFC 2251 LdapMessage
+            Message = new RfcLdapMessage(op, asn1Ctrls);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
+        /// Creates an Rfc 2251 LdapMessage when the libraries receive a response
+        /// from a command.
+        /// </summary>
+        /// <param name="message">A response message.</param>
+        internal LdapMessage(RfcLdapMessage message) => Message = message;
+
         /// <summary> Returns the LdapMessage request associated with this response</summary>
-        internal virtual LdapMessage RequestingMessage => message.RequestingMessage;
+        internal virtual LdapMessage RequestingMessage => Message.RequestingMessage;
 
         /// <summary>
         /// Returns any controls in the message.
@@ -23,7 +77,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                var asn1Ctrls = message.Controls;
+                var asn1Ctrls = Message.Controls;
 
                 // convert from RFC 2251 Controls to LDAPControl[].
                 if (asn1Ctrls == null) return null;
@@ -57,7 +111,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 if (imsgNum == -1)
                 {
-                    imsgNum = message.MessageID;
+                    imsgNum = Message.MessageID;
                 }
 
                 return imsgNum;
@@ -71,7 +125,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     true if the message is a request, false if it is a response,
         ///     a search result, or a search result reference.
         /// </returns>
-        public virtual bool Request => message.IsRequest();
+        public virtual bool Request => Message.IsRequest();
 
         /// <summary>
         /// Returns the Ldap operation type of the message.
@@ -85,17 +139,17 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if (messageType == LdapOperation.Unknown)
+                if (_messageType == LdapOperation.Unknown)
                 {
-                    messageType = message.Type;
+                    _messageType = Message.Type;
                 }
 
-                return messageType;
+                return _messageType;
             }
         }
 
         /// <summary> Returns the RFC 2251 LdapMessage composed in this object.</summary>
-        internal virtual RfcLdapMessage Asn1Object => message;
+        internal virtual RfcLdapMessage Asn1Object => Message;
 
         private string Name => Type.ToString();
 
@@ -133,72 +187,25 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if (stringTag != null)
+                if (_stringTag != null)
                 {
-                    return stringTag;
+                    return _stringTag;
                 }
 
-                return Request ? null : RequestingMessage?.stringTag;
+                return Request ? null : RequestingMessage?._stringTag;
             }
 
-            set => stringTag = value;
-        }
-
-        /// <summary> A request or response message for an asynchronous Ldap operation.</summary>
-        internal RfcLdapMessage message;
-
-        private int imsgNum = -1; // This instance LdapMessage number
-
-        private LdapOperation messageType = LdapOperation.Unknown;
-
-        private string stringTag;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
-        /// Dummy constuctor
-        /// </summary>
-        internal LdapMessage()
-        {
+            set => _stringTag = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
-        /// Creates an LdapMessage when sending a protocol operation and sends
-        /// some optional controls with the message.
+        /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="op">The operation type of message.</param>
-        /// <param name="controls">The controls to use with the operation.</param>
-        /// <seealso cref="Type"></seealso>
-        internal LdapMessage(LdapOperation type, IRfcRequest op, LdapControl[] controls)
-        {
-            // Get a unique number for this request message
-            messageType = type;
-            RfcControls asn1Ctrls = null;
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => Name + "(" + MessageID + "): " + Message;
 
-            if (controls != null)
-            {
-                // Move LdapControls into an RFC 2251 Controls object.
-                asn1Ctrls = new RfcControls();
-
-                foreach (var t in controls)
-                {
-                    asn1Ctrls.Add(t.Asn1Object);
-                }
-            }
-
-            // create RFC 2251 LdapMessage
-            message = new RfcLdapMessage(op, asn1Ctrls);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
-        /// Creates an Rfc 2251 LdapMessage when the libraries receive a response
-        /// from a command.
-        /// </summary>
-        /// <param name="message">A response message.</param>
-        internal LdapMessage(RfcLdapMessage message) => this.message = message;
-        
         /// <summary>
         /// Instantiates an LdapControl.  We search through our list of
         /// registered controls.  If we find a matchiing OID we instantiate
@@ -261,14 +268,6 @@ namespace Unosquare.Swan.Networking.Ldap
             // for this oid.  Return a default LDAPControl object.
             return new LdapControl(oid, critical, values);
         }
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString() => Name + "(" + MessageID + "): " + message;
     }
 }
 #endif
