@@ -97,9 +97,6 @@ in response to an asynchronous request.</p>
       <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID">LdapMessage.MessageID</a>
     </div>
     <div>
-      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Type">LdapMessage.Type</a>
-    </div>
-    <div>
       <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request">LdapMessage.Request</a>
     </div>
     <div>
@@ -132,108 +129,6 @@ in response to an asynchronous request.</p>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class LdapResponse : LdapMessage</code></pre>
-  </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapException_Unosquare_Swan_Networking_Ldap_ReferralInfo_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapException,Unosquare.Swan.Networking.Ldap.ReferralInfo)">LdapResponse(LdapException, ReferralInfo)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a> class.
-Creates an LdapResponse using an LdapException.
-Used to wake up the user following an abandon.
-Note: The abandon doesn&apos;t have to be user initiated
-but may be the result of error conditions.
-Referral information is available if this connection created solely
-to follow a referral.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapResponse(LdapException ex, ReferralInfo activeReferral)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></td>
-        <td><span class="parametername">ex</span></td>
-        <td><p>The exception</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.ReferralInfo.html">ReferralInfo</a></td>
-        <td><span class="parametername">activeReferral</span></td>
-        <td><p>The referral actually used to create the
-connection</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapOperation_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapResponse.#ctor(Unosquare.Swan.Networking.Ldap.LdapOperation,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String)">LdapResponse(LdapOperation, LdapStatusCode, String, String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a> class.
-Creates a response LdapMessage from parameters. Typically the data
-comes from a source other than a BER encoded Ldap message,
-such as from DSML.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapResponse(LdapOperation type, LdapStatusCode resultCode, string matchedDN = null, string serverMessage = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapOperation.html">LdapOperation</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The message type as defined in LdapMessage.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></td>
-        <td><span class="parametername">resultCode</span></td>
-        <td><p>The result code as defined in LdapException.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">matchedDN</span></td>
-        <td><p>The name of the lowest entry that was matched
-for some error result codes, an empty string
-or <pre><code>null</code></pre> if none.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">serverMessage</span></td>
-        <td><p>A diagnostic message returned by the server,
-an empty string or <pre><code>null</code></pre> if none.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapResponse__ctor_Unosquare_Swan_Networking_Ldap_LdapOperation_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String__seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></div>
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></div>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -378,7 +273,7 @@ For a list of result codes, see the LdapException class.</p>
   </table>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_System_Threading_CancellationToken_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints, CancellationToken)</a></div>
   </div>
 </article>
           </div>

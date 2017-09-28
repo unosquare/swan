@@ -93,7 +93,6 @@ Subclassed by response messages used in asynchronous operations.</p>
       <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a></div>
       <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html">LdapModifyRequest</a></div>
       <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchResultReference.html">LdapSearchResultReference</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -235,35 +234,6 @@ the tag associated with the corresponding server request is used.</p>
         <td><span class="xref">System.String</span></td>
         <td><p>the identifier associated with this message or <pre><code>null</code></pre>
 if none.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_Type_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Type*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_Type" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Type">Type</h4>
-  <div class="markdown level1 summary"><p>Returns the Ldap operation type of the message.
-The type is one of the following:
-<ul><li>BIND_REQUEST            = 0;</li><li>BIND_RESPONSE           = 1;</li><li>UNBIND_REQUEST          = 2;</li><li>SEARCH_REQUEST          = 3;</li><li>SEARCH_RESPONSE         = 4;</li><li>SEARCH_RESULT           = 5;</li><li>MODIFY_REQUEST          = 6;</li><li>MODIFY_RESPONSE         = 7;</li><li>ADD_REQUEST             = 8;</li><li>ADD_RESPONSE            = 9;</li><li>DEL_REQUEST             = 10;</li><li>DEL_RESPONSE            = 11;</li><li>MODIFY_RDN_REQUEST      = 12;</li><li>MODIFY_RDN_RESPONSE     = 13;</li><li>COMPARE_REQUEST         = 14;</li><li>COMPARE_RESPONSE        = 15;</li><li>ABANDON_REQUEST         = 16;</li><li>SEARCH_RESULT_REFERENCE = 19;</li><li>EXTENDED_REQUEST        = 23;</li><li>EXTENDED_RESPONSE       = 24;</li><li>INTERMEDIATE_RESPONSE   = 25;</li></ul></p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapOperation Type { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapOperation.html">LdapOperation</a></td>
-        <td><p>The type.</p>
 </td>
       </tr>
     </tbody>

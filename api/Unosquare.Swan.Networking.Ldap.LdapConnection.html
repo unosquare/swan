@@ -1146,13 +1146,13 @@ or null if the property is not defined.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Modify*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_System_String_Unosquare_Swan_Networking_Ldap_LdapModification___Unosquare_Swan_Networking_Ldap_LdapConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String,Unosquare.Swan.Networking.Ldap.LdapModification[],Unosquare.Swan.Networking.Ldap.LdapConstraints)">Modify(String, LdapModification[], LdapConstraints)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_System_String_Unosquare_Swan_Networking_Ldap_LdapModification___Unosquare_Swan_Networking_Ldap_LdapConstraints_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String,Unosquare.Swan.Networking.Ldap.LdapModification[],Unosquare.Swan.Networking.Ldap.LdapConstraints,System.Threading.CancellationToken)">Modify(String, LdapModification[], LdapConstraints, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Modifies the specified dn.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1182,6 +1182,12 @@ or null if the property is not defined.</p>
         <td><p>The cons.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1209,15 +1215,16 @@ or null if the property is not defined.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.ArgumentException</span></td>
-        <td></td>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>dn</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Read_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Read*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Read_System_String_System_String___Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String,System.String[],Unosquare.Swan.Networking.Ldap.LdapSearchConstraints)">Read(String, String[], LdapSearchConstraints)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Read_System_String_System_String___Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String,System.String[],Unosquare.Swan.Networking.Ldap.LdapSearchConstraints,System.Threading.CancellationToken)">Read(String, String[], LdapSearchConstraints, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Synchronously reads the entry for the specified distinguished name (DN),
 using the specified constraints, and retrieves only the specified
 attributes from the entry.</p>
@@ -1225,7 +1232,7 @@ attributes from the entry.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LdapEntry&gt; Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LdapEntry&gt; Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1255,6 +1262,12 @@ attributes from the entry.</p>
         <td><p>The constraints specific to the operation.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1273,10 +1286,26 @@ attributes from the entry.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a></td>
+        <td><p>Read response is ambiguous, multiple entries returned</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,Unosquare.Swan.Networking.Ldap.LdapSearchConstraints)">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_System_Threading_CancellationToken_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,Unosquare.Swan.Networking.Ldap.LdapSearchConstraints,System.Threading.CancellationToken)">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Performs the search specified by the parameters,
 also allowing specification of constraints for the search (such
 as the maximum number of entries to find or the maximum time to
@@ -1285,7 +1314,7 @@ wait for search results).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LdapSearchResults&gt; Search(string base, int scope, string filter = &quot;objectClass=*&quot;, string[] attrs = null, bool typesOnly = false, LdapSearchConstraints cons = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LdapSearchResults&gt; Search(string base, int scope, string filter = &quot;objectClass=*&quot;, string[] attrs = null, bool typesOnly = false, LdapSearchConstraints cons = null, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1338,6 +1367,12 @@ names and values for attributes found.</p>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html">LdapSearchConstraints</a></td>
         <td><span class="parametername">cons</span></td>
         <td><p>The constraints specific to the search.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>

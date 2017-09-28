@@ -184,114 +184,6 @@
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_System_Object_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Object,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)">LdapLocalException(String, Object, LdapStatusCode, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapLocalException(string messageOrKey, object argument, LdapStatusCode resultCode, Exception rootException = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">messageOrKey</span></td>
-        <td><p>The message or key.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><span class="parametername">argument</span></td>
-        <td><p>The argument.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></td>
-        <td><span class="parametername">resultCode</span></td>
-        <td><p>The result code.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">rootException</span></td>
-        <td><p>The root exception.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_System_Object___Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,System.Object[],Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)">LdapLocalException(String, Object[], LdapStatusCode, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a> class.
-Constructs a local exception with a detailed message obtained from the
-specified <pre><code>MessageOrKey</code></pre> String and modifying arguments.
-Additional parameters specify the result code
-and a rootException which is the underlying cause of an error
-on the client.
-The String is used either as a message key to obtain a localized
-messsage from ExceptionMessages, or if there is no key in the
-resource matching the text, it is used as the detailed message itself.
-The message in the default locale is built with the supplied arguments,
-which are saved to be used for building messages for other locales.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapLocalException(string messageOrKey, object[] arguments, LdapStatusCode resultCode, Exception rootException = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">messageOrKey</span></td>
-        <td><p>Key to addition result information, a key into
-ExceptionMessages, or the information
-itself if the key doesn&apos;t exist.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Object</span>[]</td>
-        <td><span class="parametername">arguments</span></td>
-        <td><p>The modifying arguments to be included in the
-message string.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></td>
-        <td><span class="parametername">resultCode</span></td>
-        <td><p>The result code returned.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">rootException</span></td>
-        <td><p>A throwable which is the underlying cause
-of the LdapException.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)">LdapLocalException(String, LdapStatusCode, Exception)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a> class.
 Constructs a local exception with a detailed message obtained from the
@@ -305,7 +197,7 @@ resource matching the text, it is used as the detailed message itself.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapLocalException(string messageOrKey, LdapStatusCode resultCode, Exception rootException = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapLocalException(string message, LdapStatusCode resultCode, Exception rootException = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -319,10 +211,8 @@ resource matching the text, it is used as the detailed message itself.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">messageOrKey</span></td>
-        <td><p>Key to addition result information, a key into
-ExceptionMessages, or the information
-itself if the key doesn&apos;t exist.</p>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
 </td>
       </tr>
       <tr>
