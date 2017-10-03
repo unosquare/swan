@@ -35,6 +35,11 @@
         }
     }
 
+    public class BasicJsonWithNewProperty : BasicJson
+    {
+        public new int StringNull { get; set; }
+    }
+
     public class DateBasicJson : BasicJson
     {
         public DateTime Date { get; set; }

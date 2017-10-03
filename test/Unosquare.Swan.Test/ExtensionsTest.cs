@@ -76,6 +76,22 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
+        public void CopyPropertiesToWithNewPropertyTest()
+        {
+            var source = BasicJson.GetDefault();
+            source.StringNull = "1";
+
+            var destination = new BasicJsonWithNewProperty();
+
+            source.CopyPropertiesTo(destination);
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.DecimalData, destination.DecimalData);
+            Assert.AreEqual(source.StringData, destination.StringData);
+            Assert.AreEqual(source.StringNull, destination.StringNull.ToString());
+        }
+
+        [Test]
         public void ActionRetryTest()
         {
             Assert.Throws<AggregateException>(() =>

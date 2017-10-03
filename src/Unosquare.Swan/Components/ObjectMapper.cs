@@ -44,13 +44,21 @@
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            var sourceProperties = GetTypeProperties(source.GetType()).Where(x => x.CanRead);
+            // select distinct properties because they can be duplicated by inheritance
+            var sourceProperties = GetTypeProperties(source.GetType())
+                .Where(x => x.CanRead)
+                .ToArray();
 
             return Copy(
                 target,
                 propertiesToCopy,
                 ignoreProperties,
-                sourceProperties.ToDictionary(x => x.Name.ToLowerInvariant(), x => new TypeValuePair(x.PropertyType, x.GetValue(source))));
+                sourceProperties
+                .Select(x => x.Name)
+                .Distinct()
+                .ToDictionary(
+                    x => x.ToLowerInvariant(), 
+                    x => new TypeValuePair(sourceProperties.First(y => y.Name ==x).PropertyType, sourceProperties.First(y => y.Name == x).GetValue(source))));
         }
 
         /// <summary>
@@ -143,12 +151,7 @@
             {
                 foreach (var property in map.Map)
                 {
-                    var finalSource = source;
-
-                    foreach (var sourceProperty in property.Value)
-                    {
-                        finalSource = sourceProperty.GetValue(finalSource);
-                    }
+                    var finalSource = property.Value.Aggregate(source, (current, sourceProperty) => sourceProperty.GetValue(current));
 
                     property.Key.SetValue(destination, finalSource);
                 }
@@ -170,8 +173,8 @@
 
         private static int Copy(
             object target,
-            string[] propertiesToCopy,
-            string[] ignoreProperties,
+            IEnumerable<string> propertiesToCopy,
+            IEnumerable<string> ignoreProperties,
             Dictionary<string, TypeValuePair> sourceProperties)
         {
             var copiedProperties = 0;
