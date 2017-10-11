@@ -130,7 +130,7 @@ to the same or different directory servers.</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class LdapConnection</code></pre>
+    <pre><code class="lang-csharp hljs">public class LdapConnection</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -523,7 +523,7 @@ an anonymous connection.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string AuthenticationDn { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual string AuthenticationDn { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -555,7 +555,7 @@ or empty authentication DN was specified.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string AuthenticationMethod { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual string AuthenticationMethod { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -583,7 +583,7 @@ at this time.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Connected { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual bool Connected { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -613,7 +613,7 @@ specified when calling an operation method).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapConstraints Constraints { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual LdapConstraints Constraints { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -646,7 +646,7 @@ specified when calling an operation method).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ProtocolVersion { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual int ProtocolVersion { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -677,7 +677,7 @@ requests, the response controls are available in LdapMessage.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapControl[] ResponseControls { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual LdapControl[] ResponseControls { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -713,7 +713,7 @@ constraints is specified when calling the search operation method).</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapSearchConstraints SearchConstraints { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual LdapSearchConstraints SearchConstraints { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -752,7 +752,7 @@ had already authenticated, the old authentication is discarded.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Bind(int version, string dn, sbyte[] passwd, LdapConstraints cons = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task Bind(int version, string dn, sbyte[] passwd, LdapConstraints cons = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -827,7 +827,7 @@ has already authenticated, the old authentication is discarded.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Bind(int version, string dn, string passwd, LdapConstraints cons = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task Bind(int version, string dn, string passwd, LdapConstraints cons = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -906,7 +906,7 @@ connection.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Bind(string dn, string passwd, LdapConstraints cons = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task Bind(string dn, string passwd, LdapConstraints cons = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -968,7 +968,7 @@ keeps no long lived instances of these objects.</p>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Connect*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_System_String_System_Int32_System_Boolean_RemoteCertificateValidationCallback_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String,System.Int32,System.Boolean,RemoteCertificateValidationCallback)">Connect(String, Int32, Boolean, RemoteCertificateValidationCallback)</h4>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_System_String_System_Int32_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String,System.Int32)">Connect(String, Int32)</h4>
   <div class="markdown level1 summary"><p>Connects to the specified host and port.
 If this LdapConnection object represents an open connection, the
 connection is closed first before the new connection is opened.
@@ -978,7 +978,7 @@ conducted as an anonymous client.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Connect(string host, int port, bool secure = false, RemoteCertificateValidationCallback callback = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task Connect(string host, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1002,18 +1002,6 @@ of a host running an Ldap server.</p>
         <td><span class="parametername">port</span></td>
         <td><p>The TCP or UDP port number to connect to or contact.
 The default Ldap port is 389.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">secure</span></td>
-        <td><p>if set to <code>true</code> [secure].</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">RemoteCertificateValidationCallback</span></td>
-        <td><span class="parametername">callback</span></td>
-        <td><p>The callback.</p>
 </td>
       </tr>
     </tbody>
@@ -1047,7 +1035,7 @@ unbind request to the server, and then closes the socket.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Disconnect()</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void Disconnect()</code></pre>
   </div>
   
   
@@ -1069,7 +1057,7 @@ unbind request to the server, and then closes the socket.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void Dispose(bool isDisposing)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool isDisposing)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1098,7 +1086,7 @@ unbind request to the server, and then closes the socket.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public object GetProperty(string name)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual object GetProperty(string name)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1150,6 +1138,11 @@ or null if the property is not defined.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_GetProperty_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_GetProperty_System_String_">GetProperty</a>(<span class="xref">System.String</span>)</div>
+      <div><span class="xref">System.Object</span></div>
+  </div>
   
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Modify*"></a>

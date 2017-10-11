@@ -7751,12 +7751,12 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind
   nameWithType: LdapConnection.Bind
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String,System.Int32,System.Boolean,RemoteCertificateValidationCallback)
-  name: Connect(String, Int32, Boolean, RemoteCertificateValidationCallback)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_System_String_System_Int32_System_Boolean_RemoteCertificateValidationCallback_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String,System.Int32,System.Boolean,RemoteCertificateValidationCallback)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String, System.Int32, System.Boolean, RemoteCertificateValidationCallback)
-  nameWithType: LdapConnection.Connect(String, Int32, Boolean, RemoteCertificateValidationCallback)
+- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String,System.Int32)
+  name: Connect(String, Int32)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String,System.Int32)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Connect(System.String, System.Int32)
+  nameWithType: LdapConnection.Connect(String, Int32)
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Connect*
   name: Connect
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Connect_
