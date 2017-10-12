@@ -234,8 +234,6 @@
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            lock (_syncLock)
-            {
                 { // Handling as Dynamic Object
                     if (item is IDictionary<string, object> typedItem)
                     {
@@ -260,17 +258,9 @@
                     }
                 }
 
-                {
-                    if (item is string[] typedItem)
-                    {
-                        WriteLine(typedItem);
-                    }
-                }
-
                 { // Handling as a regular type
                     WriteObjectValues(item);
                 }
-            }
         }
 
         /// <summary>
