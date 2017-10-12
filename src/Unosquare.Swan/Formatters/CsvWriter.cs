@@ -148,50 +148,18 @@
             lock (_syncLock)
             {
                 var length = items.Length;
-                var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
-                var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
-
-                // Declare state variables here to avoid recreation, allocation and
-                // reassignment in every loop
-                bool needsEnclosing;
                 object value;
                 string textValue;
-                byte[] output;
-
+                var list = new List<string>();
                 for (var i = 0; i < length; i++)
                 {
                     // convert the value as a string value
                     value = items[i];
                     textValue = value == null ? string.Empty : value.ToStringInvariant();
-
-                    // Determine if we need the string to be enclosed 
-                    // (it either contains an escape, new line, or separator char)
-                    needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                        || textValue.IndexOf(EscapeCharacter) >= 0
-                        || textValue.IndexOf('\r') >= 0
-                        || textValue.IndexOf('\n') >= 0;
-
-                    // Escape the escape characters by repeating them twice for every instance
-                    textValue = textValue.Replace($"{EscapeCharacter}",
-                        $"{EscapeCharacter}{EscapeCharacter}");
-
-                    // Enclose the text value if we need to
-                    if (needsEnclosing)
-                        textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
-
-                    // Get the bytes to write to the stream and write them
-                    output = _encoding.GetBytes(textValue);
-                    _outputStream.Write(output, 0, output.Length);
-
-                    // only write a separator if we are moving in between values.
-                    // the last value should not be written.
-                    if (i < length - 1)
-                        _outputStream.Write(separatorBytes, 0, separatorBytes.Length);
+                    list.Add(textValue);
                 }
 
-                // output the newline sequence
-                _outputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
-                _mCount += 1;
+                WriteLine(list.ToArray());
             }
         }
 
@@ -292,6 +260,13 @@
                     }
                 }
 
+                {
+                    if (item is string[] typedItem)
+                    {
+                        WriteLine(typedItem);
+                    }
+                }
+
                 { // Handling as a regular type
                     WriteObjectValues(item);
                 }
@@ -319,16 +294,8 @@
         {
             lock (_syncLock)
             {
-                if (typeof(T) != typeof(string[]))
-                {
-                    foreach (var item in items)
-                        WriteObject(item);
-                }
-                else
-                {
-                    foreach (var item in items)
-                        WriteLine(item);
-                }
+                foreach (var item in items)
+                    WriteObject(item);
             }
         }
 
@@ -546,7 +513,7 @@
         {
             lock (_syncLock)
             {
-                return TypeCache.Retrieve(type, () => 
+                return TypeCache.Retrieve(type, () =>
                     {
                         return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                             .Where(p => p.CanRead)
@@ -619,7 +586,7 @@
                 _isDisposing = true;
             }
         }
-        
+
         #endregion
 
     }

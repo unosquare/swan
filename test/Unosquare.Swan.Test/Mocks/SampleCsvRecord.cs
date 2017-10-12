@@ -115,16 +115,12 @@ namespace Unosquare.Swan.Test.Mocks
 
         public static List<string[]> SampleStringList()
         {
-            var list = new List<string[]>();
-            string[] headers = new string[] { "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score", "ValidationResult" };
-            string[] content = new string[] { "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532", "true" };
-            string[] content1 = new string[] { "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532", "true" };
-            string[] content2 = new string[] { "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532", "true" };
-            list.Add(headers);
-            list.Add(content2);
-            list.Add(content1);
-            list.Add(content);
-
+            var list = new List<string[]>
+            {
+                new string[] { "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score", "ValidationResult" },
+                new string[] { "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532", "true" },
+                new string[] { "10/10/2017", "123456", "10/10/2017", "some description", "123456", "true", "Simio Perez", "532", "true" }
+            };
             return list;
         }
     }

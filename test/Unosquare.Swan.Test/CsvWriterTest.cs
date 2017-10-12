@@ -169,10 +169,9 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
         public void WriteStringsTest()
         {
             int rows = 0;
-            var tempFile = Path.GetTempFileName();
             var strings = SampleCsvRecord.SampleStringList();
 
-            using (var stream = File.OpenWrite(tempFile))
+            using (var stream = new MemoryStream())
             {
                 if (stream.Length > 0)
                     stream.SetLength(0);
