@@ -539,9 +539,7 @@
 
                 using (var writer = new CsvWriter(stream))
                 {
-                    if (typeof(T) != typeof(string[]))
-                        writer.WriteHeadings<T>();
-
+                    writer.WriteHeadings<T>();
                     writer.WriteObjects(items);
                     return (int)writer.Count;
                 }
