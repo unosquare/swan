@@ -145,22 +145,19 @@
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
         {
-            lock (_syncLock)
+            var length = items.Length;
+            object value;
+            string textValue;
+            var list = new List<string>();
+            for (var i = 0; i < length; i++)
             {
-                var length = items.Length;
-                object value;
-                string textValue;
-                var list = new List<string>();
-                for (var i = 0; i < length; i++)
-                {
-                    // convert the value as a string value
-                    value = items[i];
-                    textValue = value == null ? string.Empty : value.ToStringInvariant();
-                    list.Add(textValue);
-                }
-
-                WriteLine(list.ToArray());
+                // convert the value as a string value
+                value = items[i];
+                textValue = value == null ? string.Empty : value.ToStringInvariant();
+                list.Add(textValue);
             }
+
+            WriteLine(list.ToArray());
         }
 
         /// <summary>
@@ -234,6 +231,8 @@
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
+            lock (_syncLock)
+            {
                 { // Handling as Dynamic Object
                     if (item is IDictionary<string, object> typedItem)
                     {
@@ -261,6 +260,7 @@
                 { // Handling as a regular type
                     WriteObjectValues(item);
                 }
+            }
         }
 
         /// <summary>
