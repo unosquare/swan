@@ -478,53 +478,6 @@ disposing of this writer, and uses the given text encoding for output</p>
   
   
   <a id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords*"></a>
-  <h4 id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords_System_Collections_Generic_IEnumerable_System_String____System_String_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords(System.Collections.Generic.IEnumerable{System.String[]},System.String)">SaveRecords(IEnumerable&lt;String[]&gt;, String)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int SaveRecords(IEnumerable&lt;string[]&gt; items, string filePath)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>[]&gt;</td>
-        <td><span class="parametername">items</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">filePath</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords*"></a>
   <h4 id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords__1_System_Collections_Generic_IEnumerable___0__System_String_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords``1(System.Collections.Generic.IEnumerable{``0},System.String)">SaveRecords&lt;T&gt;(IEnumerable&lt;T&gt;, String)</h4>
   <div class="markdown level1 summary"><p>Saves the items to a CSV file.
 If the file exits, it overwrites it. If it does not, it creates it.
@@ -756,7 +709,7 @@ It uses the Windows 1252 text encoding for output</p>
   
   
   <a id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine*"></a>
-  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_String___System_Object___" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.String[],System.Object[])">WriteLine(String[], Object[])</h4>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_Object___" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Object[])">WriteLine(Object[])</h4>
   <div class="markdown level1 summary"><p>Writes a line of CSV text. Items are converted to strings.
 If items are found to be null, empty strings are written out.
 If items are not string, the ToStringInvariant() method is called on them</p>
@@ -764,7 +717,7 @@ If items are not string, the ToStringInvariant() method is called on them</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void WriteLine(string[] strItems = null, params object[] items)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WriteLine(params object[] items)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -776,12 +729,6 @@ If items are not string, the ToStringInvariant() method is called on them</p>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><span class="xref">System.String</span>[]</td>
-        <td><span class="parametername">strItems</span></td>
-        <td><p>The strItems.</p>
-</td>
-      </tr>
       <tr>
         <td><span class="xref">System.Object</span>[]</td>
         <td><span class="parametername">items</span></td>
@@ -930,33 +877,6 @@ method.</p>
         <td><span class="parametername">T</span></td>
         <td><p>The type of object to write</p>
 </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Formatters_CsvWriter_WriteStrings_" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteStrings*"></a>
-  <h4 id="Unosquare_Swan_Formatters_CsvWriter_WriteStrings_System_Collections_Generic_IEnumerable_System_String____" data-uid="Unosquare.Swan.Formatters.CsvWriter.WriteStrings(System.Collections.Generic.IEnumerable{System.String[]})">WriteStrings(IEnumerable&lt;String[]&gt;)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void WriteStrings(IEnumerable&lt;string[]&gt; items)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>[]&gt;</td>
-        <td><span class="parametername">items</span></td>
-        <td></td>
       </tr>
     </tbody>
   </table>
