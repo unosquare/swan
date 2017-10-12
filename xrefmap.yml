@@ -5444,6 +5444,15 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.Object())
   nameWithType: CsvWriter.WriteLine(Object[])
   nameWithType.vb: CsvWriter.WriteLine(Object())
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.String[])
+  name: WriteLine(String[])
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_System_String___
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.String[])
+  name.vb: WriteLine(String())
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.String[])
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteLine(System.String())
+  nameWithType: CsvWriter.WriteLine(String[])
+  nameWithType.vb: CsvWriter.WriteLine(String())
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteLine*
   name: WriteLine
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteLine_
