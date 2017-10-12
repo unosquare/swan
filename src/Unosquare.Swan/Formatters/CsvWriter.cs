@@ -144,21 +144,7 @@
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
-        {
-            var length = items.Length;
-            object value;
-            string textValue;
-            var list = new List<string>();
-            for (var i = 0; i < length; i++)
-            {
-                // convert the value as a string value
-                value = items[i];
-                textValue = value == null ? string.Empty : value.ToStringInvariant();
-                list.Add(textValue);
-            }
-
-            WriteLine(list.ToArray());
-        }
+            => WriteLine(items.Select(x=> x == null ? string.Empty : x.ToStringInvariant()).ToArray());
 
         /// <summary>
         /// Writes a line of CSV text.
