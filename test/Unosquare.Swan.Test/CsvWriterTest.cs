@@ -164,5 +164,27 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
             Assert.AreEqual(headers.Length, loadedRecords.Count());     
        }
+
+        [Test]
+        public void WriteStringsTest()
+        {
+            int rows = 0;
+            var tempFile = Path.GetTempFileName();
+            var strings = SampleCsvRecord.SampleStringList();
+
+            using (var stream = File.OpenWrite(tempFile))
+            {
+                if (stream.Length > 0)
+                    stream.SetLength(0);
+
+                using (var writer = new CsvWriter(stream))
+                {
+                    writer.WriteObjects(strings);
+                    rows = (int)writer.Count;
+                }
+
+                Assert.AreEqual(rows, strings.Count);
+            }
+        }
     }
 }

@@ -195,6 +195,60 @@
             }
         }
 
+        /// <summary>
+        /// Writes a line of CSV text.
+        /// If items are found to be null, empty strings are written out.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        public void WriteLine(params string[] items)
+        {
+            lock (_syncLock)
+            {
+                var length = items.Length;
+                var separatorBytes = _encoding.GetBytes(new[] { SeparatorCharacter });
+                var endOfLineBytes = _encoding.GetBytes(NewLineSequence);
+
+                // Declare state variables here to avoid recreation, allocation and
+                // reassignment in every loop
+                bool needsEnclosing;
+                string textValue;
+                byte[] output;
+
+                for (var i = 0; i < length; i++)
+                {
+                    textValue = items[i];
+
+                    // Determine if we need the string to be enclosed 
+                    // (it either contains an escape, new line, or separator char)
+                    needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
+                        || textValue.IndexOf(EscapeCharacter) >= 0
+                        || textValue.IndexOf('\r') >= 0
+                        || textValue.IndexOf('\n') >= 0;
+
+                    // Escape the escape characters by repeating them twice for every instance
+                    textValue = textValue.Replace($"{EscapeCharacter}",
+                        $"{EscapeCharacter}{EscapeCharacter}");
+
+                    // Enclose the text value if we need to
+                    if (needsEnclosing)
+                        textValue = string.Format($"{EscapeCharacter}{textValue}{EscapeCharacter}", textValue);
+
+                    // Get the bytes to write to the stream and write them
+                    output = _encoding.GetBytes(textValue);
+                    _outputStream.Write(output, 0, output.Length);
+
+                    // only write a separator if we are moving in between values.
+                    // the last value should not be written.
+                    if (i < length - 1)
+                        _outputStream.Write(separatorBytes, 0, separatorBytes.Length);
+                }
+
+                // output the newline sequence
+                _outputStream.Write(endOfLineBytes, 0, endOfLineBytes.Length);
+                _mCount += 1;
+            }
+        }
+
         #endregion
 
         #region Write Object Method
@@ -265,8 +319,16 @@
         {
             lock (_syncLock)
             {
-                foreach (var item in items)
-                    WriteObject(item);
+                if (typeof(T) != typeof(string[]))
+                {
+                    foreach (var item in items)
+                        WriteObject(item);
+                }
+                else
+                {
+                    foreach (var item in items)
+                        WriteLine(item);
+                }
             }
         }
 
@@ -520,7 +582,9 @@
 
                 using (var writer = new CsvWriter(stream))
                 {
-                    writer.WriteHeadings<T>();
+                    if (typeof(T) != typeof(string[]))
+                        writer.WriteHeadings<T>();
+
                     writer.WriteObjects(items);
                     return (int)writer.Count;
                 }
