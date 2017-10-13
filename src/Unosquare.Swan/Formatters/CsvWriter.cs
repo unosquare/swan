@@ -144,6 +144,14 @@
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
+            => WriteLine(items.Select(x=> x == null ? string.Empty : x.ToStringInvariant()).ToArray());
+
+        /// <summary>
+        /// Writes a line of CSV text.
+        /// If items are found to be null, empty strings are written out.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        public void WriteLine(params string[] items)
         {
             lock (_syncLock)
             {
@@ -154,15 +162,12 @@
                 // Declare state variables here to avoid recreation, allocation and
                 // reassignment in every loop
                 bool needsEnclosing;
-                object value;
                 string textValue;
                 byte[] output;
 
                 for (var i = 0; i < length; i++)
                 {
-                    // convert the value as a string value
-                    value = items[i];
-                    textValue = value == null ? string.Empty : value.ToStringInvariant();
+                    textValue = items[i];
 
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, new line, or separator char)
@@ -484,7 +489,7 @@
         {
             lock (_syncLock)
             {
-                return TypeCache.Retrieve(type, () => 
+                return TypeCache.Retrieve(type, () =>
                     {
                         return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                             .Where(p => p.CanRead)
@@ -555,7 +560,7 @@
                 _isDisposing = true;
             }
         }
-        
+
         #endregion
 
     }
