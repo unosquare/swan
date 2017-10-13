@@ -14,11 +14,7 @@
     /// <seealso cref="Unosquare.Swan.Components.IObjectMap" />
     public class ObjectMap<TSource, TDestination> : IObjectMap
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ObjectMap{TSource, TDestination}" /> class.
-        /// </summary>
-        /// <param name="intersect">The intersect.</param>
-        public ObjectMap(IEnumerable<PropertyInfo> intersect)
+        internal ObjectMap(IEnumerable<PropertyInfo> intersect)
         {
             SourceType = typeof(TSource);
             DestinationType = typeof(TDestination);
@@ -58,12 +54,6 @@
                 Expression<Func<TDestination, TDestinationProperty>> destinationProperty,
                 Expression<Func<TSource, TSourceProperty>> sourceProperty)
         {
-            if (destinationProperty == null)
-                throw new ArgumentNullException(nameof(destinationProperty));
-
-            if (sourceProperty == null)
-                throw new ArgumentNullException(nameof(sourceProperty));
-
             var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
@@ -108,9 +98,6 @@
         public ObjectMap<TSource, TDestination> RemoveMapProperty<TDestinationProperty>(
             Expression<Func<TDestination, TDestinationProperty>> destinationProperty)
         {
-            if (destinationProperty == null)
-                throw new ArgumentNullException(nameof(destinationProperty));
-            
             var propertyDestinationInfo = (destinationProperty.Body as MemberExpression)?.Member as PropertyInfo;
 
             if (propertyDestinationInfo == null)
