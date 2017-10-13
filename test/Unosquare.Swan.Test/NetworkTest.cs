@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -54,6 +55,15 @@ namespace Unosquare.Swan.Test
         {
             Assert.AreEqual(3232235777, _privateIP.ToUInt32());
             Assert.AreEqual(3355508993, _publicIP.ToUInt32());
+        }
+        
+        [Test]
+        public void ToUInt32ExceptionTest() {
+            var _privateIP2 = IPAddress.Parse("2001:0db8:85a3:0000:1319:8a2e:0370:7344");
+
+            Assert.Throws<ArgumentException>(() => {
+                _privateIP2.ToUInt32();
+            });
         }
 
         [Test]
