@@ -135,5 +135,28 @@ namespace Unosquare.Swan.Test
                 mapper.Map<UserDto>(_sourceUser, false);
             });            
         }
+
+        //[Test]
+        //public void MapPropertyDestinationPropertyNull()
+        //{
+        //    Assert.Throws<ArgumentNullException>(() =>
+        //    {
+        //        var mapper = new ObjectMapper();
+        //        mapper.CreateMap<User, UserDto>().MapProperty(t => t.Name == null, s => s.Role.Name);
+        //    });
+        //}
+
+        /*Line 103, RemoveMapProperty method from the ObjectMap*/
+        [Test]
+        public void RemoveMapPropertyPropertyDestinationInfoNull()
+        {
+            var mapper = new ObjectMapper();
+            var destination = mapper.Map<UserDto>(_sourceUser);
+
+            Assert.Throws<Exception>(() =>
+            {
+                mapper.CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null);
+            });
+        }
     }
 }
