@@ -92,8 +92,7 @@ namespace Unosquare.Swan.Test
         {
             one, two, three
         }
-
-        /*Line 65, AreEnumsEqual() method from the ObjectComparer class*/
+        
         [Test]
         public void AreEnumsEqualLengthTest()
         {
@@ -112,8 +111,7 @@ namespace Unosquare.Swan.Test
 
             Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
         }
-
-        /*Line 97, AreObjectsEquals() method from the ObjectComparer class*/
+        
         [Test]
         public void AreObjectsEqualsFalse()
         {
