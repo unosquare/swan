@@ -82,5 +82,20 @@ namespace Unosquare.Swan.Test
 
             Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
         }
+
+        /*ObjectComparar class, line 65*/
+        [Test]
+        public void AreEnumsEqualLengthTest()
+        {
+            var leftEnum = new List<string>();
+            var rightEnum = new List<string>();
+
+            leftEnum.Add("hola");
+            leftEnum.Add("mundo");
+
+            rightEnum.Add("Juan Pablo");
+
+            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftEnum.AsEnumerable(), rightEnum.AsEnumerable()));
+        }
     }
 }
