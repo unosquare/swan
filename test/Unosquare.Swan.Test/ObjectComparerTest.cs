@@ -83,19 +83,57 @@ namespace Unosquare.Swan.Test
             Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
         }
 
-        /*ObjectComparar class, line 65*/
+        public enum aux1
+        {
+            one, two, three
+        }
+
+        public enum aux2
+        {
+            one, two, three
+        }
+
+        /*Line 65, AreEnumsEqual() method from the ObjectComparer class*/
         [Test]
         public void AreEnumsEqualLengthTest()
         {
-            var leftEnum = new List<string>();
-            var rightEnum = new List<string>();
+            List<string> leftListEnum = new List<string>()
+            {
+                "ArCiGo",
+                "ElCiGo",
+                "WizardexC137",
+                "DCOW"
+            };
 
-            leftEnum.Add("hola");
-            leftEnum.Add("mundo");
+            List<string> rightListEnum = new List<string>()
+            {
+                "Kadosh"
+            };
 
-            rightEnum.Add("Juan Pablo");
+            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
+        }
 
-            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftEnum.AsEnumerable(), rightEnum.AsEnumerable()));
+        /*Line 97, AreObjectsEquals() method from the ObjectComparer class*/
+        [Test]
+        public void AreObjectsEqualsFalse()
+        {
+            List<object> leftObject = new List<object>()
+            {
+                "ArCiGo",
+                "ElCiGo",
+                "ArCiNa"
+            };
+
+            List<object> rightObject = new List<object>()
+            {
+                "Elsa",
+                "Mariana",
+                "Alejandro",
+                "Nestor",
+                "Grecia"
+            };
+
+            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftObject, rightObject));
         }
     }
 }
