@@ -133,5 +133,15 @@ namespace Unosquare.Swan.Test
 
             Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftObject, rightObject));
         }
+
+
+        [Test]
+        public void AreEqualAreStructsEqual()
+        {
+            var leftStruct = new SampleStruct();
+            var rightStruct = new SampleStruct();
+
+            Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+        }
     }
 }
