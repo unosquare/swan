@@ -136,7 +136,7 @@ namespace Unosquare.Swan.Test
             });            
         }
         
-        /*Line 103, RemoveMapProperty method from the ObjectMap*/
+        /*Line 103, RemoveMapProperty method from the ObjectMap class*/
         [Test]
         public void RemoveMapPropertyPropertyDestinationInfoNull()
         {
