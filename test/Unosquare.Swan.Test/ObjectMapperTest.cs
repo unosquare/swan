@@ -137,7 +137,7 @@ namespace Unosquare.Swan.Test
         }
         
         [Test]
-        public void RemoveMapPropertyPropertyDestinationInfoNull()
+        public void RemoveMapProperty_PropertyDestinationInfoNull_ReturnsInvalidDestinationExpression()
         {
             var mapper = new ObjectMapper();
             var destination = mapper.Map<UserDto>(_sourceUser);
