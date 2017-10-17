@@ -130,5 +130,22 @@ namespace Unosquare.Swan.Test
 
             Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
         }
+
+        [Test]
+        public void AreStructsEqual_WithDifferentProperties_ReturnsFalse()
+        {
+            var leftStruct = new SampleStructDifferent1();
+            var rightStruct = new SampleStructDifferent1();
+
+            leftStruct.StudentId = 1;
+            leftStruct.Average = 98.10;
+            leftStruct.Notes = "Good";
+
+            rightStruct.StudentId = 2;
+            rightStruct.Average = 76.89;
+            rightStruct.Notes = "Ehmm, it could be better";
+
+            Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+        }
     }
 }
