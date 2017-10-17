@@ -2555,23 +2555,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination)
   nameWithType: ObjectMap<TSource, TDestination>
   nameWithType.vb: ObjectMap(Of TSource, TDestination)
-- uid: Unosquare.Swan.Components.ObjectMap`2.#ctor(System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo})
-  name: ObjectMap(IEnumerable<PropertyInfo>)
-  href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2__ctor_System_Collections_Generic_IEnumerable_System_Reflection_PropertyInfo__
-  commentId: M:Unosquare.Swan.Components.ObjectMap`2.#ctor(System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo})
-  name.vb: ObjectMap(IEnumerable(Of PropertyInfo))
-  fullName: Unosquare.Swan.Components.ObjectMap<TSource, TDestination>.ObjectMap(System.Collections.Generic.IEnumerable<System.Reflection.PropertyInfo>)
-  fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination).ObjectMap(System.Collections.Generic.IEnumerable(Of System.Reflection.PropertyInfo))
-  nameWithType: ObjectMap<TSource, TDestination>.ObjectMap(IEnumerable<PropertyInfo>)
-  nameWithType.vb: ObjectMap(Of TSource, TDestination).ObjectMap(IEnumerable(Of PropertyInfo))
-- uid: Unosquare.Swan.Components.ObjectMap`2.#ctor*
-  name: ObjectMap
-  href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2__ctor_
-  commentId: Overload:Unosquare.Swan.Components.ObjectMap`2.#ctor
-  fullName: Unosquare.Swan.Components.ObjectMap<TSource, TDestination>.ObjectMap
-  fullName.vb: Unosquare.Swan.Components.ObjectMap(Of TSource, TDestination).ObjectMap
-  nameWithType: ObjectMap<TSource, TDestination>.ObjectMap
-  nameWithType.vb: ObjectMap(Of TSource, TDestination).ObjectMap
 - uid: Unosquare.Swan.Components.ObjectMap`2.DestinationType
   name: DestinationType
   href: api/Unosquare.Swan.Components.ObjectMap-2.html#Unosquare_Swan_Components_ObjectMap_2_DestinationType
