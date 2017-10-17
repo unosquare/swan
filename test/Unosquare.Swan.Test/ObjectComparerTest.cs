@@ -34,22 +34,40 @@ namespace Unosquare.Swan.Test
             [Test]
             public void WithDifferentObjects_ReturnsFalse()
             {
-                List<object> leftListObject = new List<object>
+                //List<object> leftListObject = new List<object>
+                //{
+                //    "ArCiGo",
+                //    "ElCiGo",
+                //    true
+                //};
+
+                //List<object> rightListObject = new List<object>
+                //{
+                //    "Néstor",
+                //    "Florencia",
+                //    1,
+                //    false
+                //};
+
+                List<string> leftListObject = new List<string>
                 {
                     "ArCiGo",
                     "ElCiGo",
-                    true
                 };
 
-                List<object> rightListObject = new List<object>
+                List<string> rightListObject = new List<string>
                 {
                     "Néstor",
                     "Florencia",
-                    1,
-                    false
+                    "Héctor"
                 };
 
                 Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftListObject, rightListObject));
+            }
+
+            [Test]
+            public void WithDifferentObjects_ReturnsFalse_Sample()
+            {
             }
         }
         
