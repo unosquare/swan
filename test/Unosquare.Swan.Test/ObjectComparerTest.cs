@@ -1,8 +1,6 @@
-﻿using System;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using NUnit.Framework;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
@@ -82,19 +80,9 @@ namespace Unosquare.Swan.Test
 
             Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
         }
-
-        public enum aux1
-        {
-            one, two, three
-        }
-
-        public enum aux2
-        {
-            one, two, three
-        }
-        
+                
         [Test]
-        public void AreEnumsEqualLengthTest()
+        public void AreEnumsEquals_WithDifferentLengths_ReturnsFalse()
         {
             List<string> leftListEnum = new List<string>()
             {
@@ -113,7 +101,7 @@ namespace Unosquare.Swan.Test
         }
         
         [Test]
-        public void AreObjectsEqualsFalse()
+        public void AreObjectsEquals_WithDifferentObjects_ReturnsFalse()
         {
             List<object> leftObject = new List<object>()
             {
@@ -131,12 +119,11 @@ namespace Unosquare.Swan.Test
                 "Grecia"
             };
 
-            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftObject, rightObject));
+            Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftObject, rightObject));
         }
-
-
+        
         [Test]
-        public void AreEqualAreStructsEqual()
+        public void AreEqual_WithEqualStructs_ReturnsTrue()
         {
             var leftStruct = new SampleStruct();
             var rightStruct = new SampleStruct();
