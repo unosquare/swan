@@ -150,5 +150,29 @@ namespace Unosquare.Swan.Test
                 Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
             }
         }
+
+        [TestFixture]
+        public class AreStructsEqualsInProps : ObjectComparerTest
+        {
+            [Test]
+            public void CompareStructsSameProps_ReturnsTrue()
+            {
+                var leftStruct = new SampleStructDifferent1()
+                {
+                    StudentId = 1,
+                    Average = 98.10,
+                    Notes = "Good"
+                };
+
+                var rightStruct = new SampleStructDifferent1()
+                {
+                    StudentId = 1,
+                    Average = 98.10,
+                    Notes = "Good"
+                };
+
+                Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+            }
+        }
     }
 }
