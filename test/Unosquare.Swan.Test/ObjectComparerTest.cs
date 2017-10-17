@@ -57,16 +57,25 @@ namespace Unosquare.Swan.Test
         public class AreStructsEqual : ObjectComparerTest
         {
             [Test]
-            public void CompareEqualStructs_ReturnsTrue()
+            public void EqualStructs_ReturnsTrue()
             {
-                var leftStruct = new SampleStruct();
-                var rightStruct = new SampleStruct();
+                var leftStruct = new SampleStruct()
+                {
+                    Name = "Alexey Turpalov",
+                    Value = 1
+                };
+
+                var rightStruct = new SampleStruct()
+                {
+                    Name = "Alexey Turpalov",
+                    Value = 1
+                };
 
                 Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
             }
 
             [Test]
-            public void CompareDifferentStructs_ReturnsFalse()
+            public void DifferentStructs_ReturnsFalse()
             {
                 var leftStruct = new SampleStruct()
                 {
@@ -88,7 +97,7 @@ namespace Unosquare.Swan.Test
         public class AreArraysEqual : ObjectComparerTest
         {
             [Test]
-            public void CompareEqualArrays_ReturnsTrue()
+            public void EqualArrays_ReturnsTrue()
             {
                 var leftArray = new[] { 1, 2, 3, 4, 5 };
                 var rightArray = new[] { 1, 2, 3, 4, 5 };
@@ -97,7 +106,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void CompareDifferentArrays_ReturnsFalse()
+            public void DifferentArrays_ReturnsFalse()
             {
                 var leftArray = new[] { 1, 2, 3 };
                 var rightArray = new[] { 7, 1, 9 };
@@ -110,7 +119,7 @@ namespace Unosquare.Swan.Test
         public class AreArrayObjectsEqual : ObjectComparerTest
         {
             [Test]
-            public void CompareEqualObjectsWithArrayProperties_ReturnsTrue()
+            public void EqualObjectsWithArrayProperties_ReturnsTrue()
             {
                 var leftObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
                 var rightObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
@@ -119,7 +128,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void CompareEqualArraysWithObjects()
+            public void EqualArraysWithObjects_ReturnsTrue()
             {
                 var leftArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
                 var rightArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
@@ -132,7 +141,7 @@ namespace Unosquare.Swan.Test
         public class AreEnumsEquals : ObjectComparerTest
         {
             [Test]
-            public void CompareEnumsWithDifferentLengths_ReturnsFalse()
+            public void EnumsWithDifferentLengths_ReturnsFalse()
             {
                 List<string> leftListEnum = new List<string>
                 {
@@ -155,7 +164,7 @@ namespace Unosquare.Swan.Test
         public class AreStructsEqualsInProps : ObjectComparerTest
         {
             [Test]
-            public void CompareStructsSameProps_ReturnsTrue()
+            public void StructsSameProps_ReturnsTrue()
             {
                 var leftStruct = new SampleStructDifferent1()
                 {
@@ -172,6 +181,26 @@ namespace Unosquare.Swan.Test
                 };
 
                 Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+            }
+
+            [Test]
+            public void StructsDifferentProps_ReturnsFalse()
+            {
+                var leftStruct = new SampleStructDifferent1()
+                {
+                    StudentId = 1,
+                    Average = 98.10,
+                    Notes = "Good"
+                };
+
+                var rightStruct = new SampleStructDifferent1()
+                {
+                    StudentId = 2,
+                    Average = 79.78,
+                    Notes = "Ehmm, it could be better"
+                };
+
+                Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
             }
         }
     }
