@@ -9,160 +9,146 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class ObjectComparerTest
     {
-        [Test]
-        public void CompareEqualsObjectsTest()
+
+        [TestFixture]
+        public class AreObjectsEqual : ObjectComparerTest
         {
-            var left = DateBasicJson.GetDateDefault();
-            var right = DateBasicJson.GetDateDefault();
-
-            Assert.IsTrue(ObjectComparer.AreObjectsEqual(left, right));
-        }
-
-        [Test]
-        public void CompareDifferentObjectsTest()
-        {
-            var left = BasicJson.GetDefault();
-            var right = new BasicJson();
-
-            Assert.IsFalse(ObjectComparer.AreObjectsEqual(left, right));
-        }
-
-        [Test]
-        public void CompareEqualsStructsTest()
-        {
-            var left = new SampleStruct();
-            var right = new SampleStruct();
-
-            Assert.IsTrue(ObjectComparer.AreStructsEqual(left, right));
-        }
-
-        [Test]
-        public void CompareDifferentStructsTest()
-        {
-            var left = new SampleStruct() { Name = "PEPE", Value = 1 };
-            var right = new SampleStruct() { Name = "PEPE", Value = 2  };
-
-            Assert.IsFalse(ObjectComparer.AreStructsEqual(left, right));
-        }
-
-        [Test]
-        public void CompareEqualsArrayTest()
-        {
-            var first = new[] { 1, 2, 3 };
-            var second = new[] { 1, 2, 3 };
-
-            Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
-        }
-
-        [Test]
-        public void CompareDifferentsArrayTest()
-        {
-            var first = new[] { 1, 2, 3 };
-            var second = new[] { 1, 2, 4 };
-
-            Assert.IsFalse(ObjectComparer.AreEnumsEqual(first, second));
-        }
-
-        [Test]
-        public void CompareEqualObjectsWithArrayProperty()
-        {
-            var first = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
-            var second = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
-
-            Assert.IsTrue(ObjectComparer.AreEqual(first, second));
-        }
-
-        [Test]
-        public void CompareEqualArrayWithObjects()
-        {
-            var first = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
-            var second = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
-
-            Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
-        }
-                
-        [Test]
-        public void AreEnumsEquals_WithDifferentLengths_ReturnsFalse()
-        {
-            List<string> leftListEnum = new List<string>()
+            [Test]
+            public void CompareEqualsObjects_ReturnsTrue()
             {
-                "ArCiGo",
-                "ElCiGo",
-                "WizardexC137",
-                "DCOW"
-            };
+                var left = DateBasicJson.GetDateDefault();
+                var right = DateBasicJson.GetDateDefault();
 
-            List<string> rightListEnum = new List<string>()
+                Assert.IsTrue(ObjectComparer.AreObjectsEqual(left, right));
+            }
+
+            [Test]
+            public void CompareDifferentObjects_ReturnsFalse()
             {
-                "Kadosh"
-            };
+                var left = BasicJson.GetDefault();
+                var right = new BasicJson();
 
-            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
+                Assert.IsFalse(ObjectComparer.AreObjectsEqual(left, right));
+            }
+
+            [Test]
+            public void WithDifferentObjects_ReturnsFalse()
+            {
+                List<object> leftListObject = new List<object>
+                {
+                    "ArCiGo",
+                    "ElCiGo",
+                    true
+                };
+
+                List<object> rightListObject = new List<object>
+                {
+                    "Néstor",
+                    "Florencia",
+                    1,
+                    false
+                };
+
+                Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftListObject, rightListObject));
+            }
         }
         
-        [Test]
-        public void AreObjectsEquals_WithDifferentObjects_ReturnsFalse()
+        [TestFixture]
+        public class AreStructsEqual : ObjectComparerTest
         {
-            List<object> leftObject = new List<object>()
+            [Test]
+            public void CompareEqualStructs_ReturnsTrue()
             {
-                "ArCiGo",
-                "ElCiGo",
-                "ArCiNa"
-            };
+                var leftStruct = new SampleStruct();
+                var rightStruct = new SampleStruct();
 
-            List<object> rightObject = new List<object>()
+                Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+            }
+
+            [Test]
+            public void CompareDifferentStructs_ReturnsFalse()
             {
-                "Elsa",
-                "Mariana",
-                "Alejandro",
-                "Nestor",
-                "Grecia"
-            };
+                var leftStruct = new SampleStruct()
+                {
+                    Name = "ArCiGo",
+                    Value = 1
+                };
 
-            Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftObject, rightObject));
-        }
-        
-        [Test]
-        public void AreEqual_WithEqualStructs_ReturnsTrue()
-        {
-            var leftStruct = new SampleStruct();
-            var rightStruct = new SampleStruct();
+                var rightStruct = new SampleStruct()
+                {
+                    Name = "Kadosh",
+                    Value = 2
+                };
 
-            Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+                Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+            }
         }
 
-        [Test]
-        public void AreStructsEqual_WithSameProperties_ReturnsTrue()
+        [TestFixture]
+        public class AreArraysEqual : ObjectComparerTest
         {
-            var leftStruct = new SampleStructDifferent1();
-            var rightStruct = new SampleStructDifferent1();
+            [Test]
+            public void CompareEqualArrays_ReturnsTrue()
+            {
+                var leftArray = new[] { 1, 2, 3, 4, 5 };
+                var rightArray = new[] { 1, 2, 3, 4, 5 };
 
-            leftStruct.StudentId = 1;
-            leftStruct.Average = 100;
-            leftStruct.Notes = "Good";
+                Assert.IsTrue(ObjectComparer.AreEnumsEqual(leftArray, rightArray));
+            }
 
-            rightStruct.StudentId = 1;
-            rightStruct.Average = 100;
-            rightStruct.Notes = "Good";
+            [Test]
+            public void CompareDifferentArrays_ReturnsFalse()
+            {
+                var leftArray = new[] { 1, 2, 3 };
+                var rightArray = new[] { 7, 1, 9 };
 
-            Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+                Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftArray, rightArray));
+            }
         }
 
-        [Test]
-        public void AreStructsEqual_WithDifferentProperties_ReturnsFalse()
+        [TestFixture]
+        public class AreArrayObjectsEqual : ObjectComparerTest
         {
-            var leftStruct = new SampleStructDifferent1();
-            var rightStruct = new SampleStructDifferent1();
+            [Test]
+            public void CompareEqualObjectsWithArrayProperties_ReturnsTrue()
+            {
+                var leftObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+                var rightObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
 
-            leftStruct.StudentId = 1;
-            leftStruct.Average = 98.10;
-            leftStruct.Notes = "Good";
+                Assert.IsTrue(ObjectComparer.AreEqual(leftObject, rightObject));
+            }
 
-            rightStruct.StudentId = 2;
-            rightStruct.Average = 76.89;
-            rightStruct.Notes = "Ehmm, it could be better";
+            [Test]
+            public void CompareEqualArraysWithObjects()
+            {
+                var leftArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
+                var rightArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
 
-            Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+                Assert.IsTrue(ObjectComparer.AreEnumsEqual(leftArrayObject, rightArrayObject));
+            }
+        }
+
+        [TestFixture]
+        public class AreEnumsEquals : ObjectComparerTest
+        {
+            [Test]
+            public void CompareEnumsWithDifferentLengths_ReturnsFalse()
+            {
+                List<string> leftListEnum = new List<string>
+                {
+                    "ArCiGo",
+                    "ElCiGo",
+                    "WizardexC137",
+                    "DCOW"
+                };
+
+                List<string> rightListEnum = new List<string>
+                {
+                    "Kadosh"
+                };
+
+                Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
+            }
         }
     }
 }
