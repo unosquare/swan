@@ -593,6 +593,14 @@ namespace Unosquare.Swan.Networking.Ldap
 
             while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageID == msg.MessageID) == false)
                 await Task.Delay(100, ct);
+
+            var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageID == msg.MessageID);
+
+            if (first != null)
+            {
+                var response = new LdapResponse(first);
+                response.ChkResultCode();
+            }
         }
 
         internal void RetrieveMessages()

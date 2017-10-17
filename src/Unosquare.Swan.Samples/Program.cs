@@ -76,13 +76,8 @@
 
                     await cn.Connect("ad.unosquare.com", 389);
                     await cn.Bind("@unosquare.com", "password");
-                    Console.WriteLine($"Is conected: {cn.Connected}");
-                    var newProperty = "33366669999";
-                    var modList = new ArrayList();
-                    var attribute = new LdapAttribute("mobile", newProperty);
-                    modList.Add(new LdapModification(LdapModificationOp.Replace, attribute));
-                    var mods = (LdapModification[])modList.ToArray(typeof(LdapModification));
-                    await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com", mods);
+                    await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com",
+                        new LdapModification[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mobile", "33366669999")) });
                     cn.Disconnect();
                 }
                 catch (Exception ex)
