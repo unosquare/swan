@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using Unosquare.Swan.Networking.Ldap;
+using System;
 
 namespace Unosquare.Swan.Test
 {
@@ -56,6 +57,40 @@ namespace Unosquare.Swan.Test
 
             cn.Disconnect();
             Assert.IsFalse(cn.Connected);
+        }
+
+        [Test]
+        public async Task CheckResults()
+        {
+            try
+            {
+                var cn = new LdapConnection();
+
+                await cn.Connect("ad.unosquare.com", 389);
+                await cn.Bind("someuser@unosquare.com", "password");
+                cn.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Invalid Credentials");
+            }
+        }
+
+        [Test]
+        public async Task ConnectionErrors()
+        {
+            try
+            {
+                var cn = new LdapConnection();
+
+                await cn.Connect("ad.unosquare", 389);
+                await cn.Bind("someuser@unosquare.com", "password");
+                cn.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Host desconocido");
+            }
         }
     }
 }
