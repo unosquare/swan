@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security;
 using System.Threading.Tasks;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Modules;
@@ -34,20 +35,20 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task AuthenticationTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
-                var responseObj = new Dictionary<string, object> {{AuthorizationToken, "123"}};
+                var responseObj = new Dictionary<string, object> { { AuthorizationToken, "123" } };
 
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    if (ctx.RequestFormDataDictionary().ContainsKey("grant_type"))
+                    if(ctx.RequestFormDataDictionary().ContainsKey("grant_type"))
                     {
                         ctx.JsonResponse(responseObj);
                     }
 
                     return true;
                 }));
-                
+
                 webserver.RunAsync();
 
                 var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
@@ -61,7 +62,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 const string status = "OK";
 
@@ -88,11 +89,11 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization)}});
+                    ctx.JsonResponse(new Dictionary<string, string> { { Authorization, ctx.RequestHeader(Authorization) } });
 
                     return true;
                 }));
@@ -111,7 +112,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task GetWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 var ctxHeaders = new List<string>();
 
@@ -156,7 +157,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PutTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 const string status = "OK";
 
@@ -183,11 +184,11 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PutWithAuthenticationTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization)}});
+                    ctx.JsonResponse(new Dictionary<string, string> { { Authorization, ctx.RequestHeader(Authorization) } });
 
                     return true;
                 }));
@@ -206,7 +207,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostFileStringTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 var buffer = new byte[20];
                 new Random().NextBytes(buffer);
@@ -231,7 +232,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostFileTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 var buffer = new byte[20];
                 new Random().NextBytes(buffer);
@@ -258,20 +259,20 @@ namespace Unosquare.Swan.Test
         [Test]
         public async Task PostOrErrorTest()
         {
-            using (var webserver = new WebServer(_defaultPort))
+            using(var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
                     var obj = ctx.ParseJson<BasicJson>();
 
-                    if (obj.IntData == 1)
+                    if(obj.IntData == 1)
                     {
                         ctx.JsonResponse(obj);
                     }
                     else
                     {
                         ctx.Response.StatusCode = 500;
-                        ctx.JsonResponse(new ErrorJson {Message = "ERROR"});
+                        ctx.JsonResponse(new ErrorJson { Message = "ERROR" });
                     }
 
                     return true;
@@ -280,7 +281,7 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson {IntData = 1});
+                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson { IntData = 1 });
 
                 Assert.IsNotNull(data);
                 Assert.IsTrue(data.IsOk);
@@ -288,12 +289,17 @@ namespace Unosquare.Swan.Test
                 Assert.AreEqual(1, data.Ok.IntData);
 
                 var dataError = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp,
-                    new BasicJson {IntData = 2});
+                    new BasicJson { IntData = 2 });
 
                 Assert.IsNotNull(dataError);
                 Assert.IsFalse(dataError.IsOk);
                 Assert.IsNotNull(dataError.Error);
                 Assert.AreEqual("ERROR", dataError.Error.Message);
+
+                var dataDefault = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp,
+                    new BasicJson { IntData = 4678 }, 404);
+                Assert.IsNotNull(dataDefault);
+                Assert.IsFalse(dataDefault.IsOk);
             }
         }
 
@@ -302,7 +308,7 @@ namespace Unosquare.Swan.Test
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                using (var webserver = new WebServer(_defaultPort))
+                using(var webserver = new WebServer(_defaultPort))
                 {
                     webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
 
@@ -312,8 +318,42 @@ namespace Unosquare.Swan.Test
                     await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
                 }
             });
-            
+
             Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+        }
+
+        [Test]
+        public void PutString_ExceptionTest()
+        {
+            var exception = Assert.ThrowsAsync<JsonRequestException>(async () => {
+                using(var webserver = new WebServer(_defaultPort))
+                {
+
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+                    webserver.RunAsync();
+
+                    await Task.Delay(100);
+                    await JsonClient.Put<BasicJson>(_defaultHttp, BasicJson.GetDefault());
+                }
+            });
+
+            Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+        }
+
+        [Test]
+        public void AuthenticateSecurityExceptionTest()
+        {
+            var exception = Assert.ThrowsAsync<SecurityException>(async () => {
+                using(var webserver = new WebServer(_defaultPort))
+                {
+
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+                    webserver.RunAsync();
+
+                    await Task.Delay(100);
+                    var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
+                }
+            });
         }
     }
 }
