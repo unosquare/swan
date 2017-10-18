@@ -14,7 +14,7 @@ namespace Unosquare.Swan.Test
         public class AreObjectsEqual : ObjectComparerTest
         {
             [Test]
-            public void CompareEqualsObjects_ReturnsTrue()
+            public void EqualsObjects_ReturnsTrue()
             {
                 var left = DateBasicJson.GetDateDefault();
                 var right = DateBasicJson.GetDateDefault();
@@ -23,7 +23,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void CompareDifferentObjects_ReturnsFalse()
+            public void DifferentObjects_ReturnsFalse()
             {
                 var left = BasicJson.GetDefault();
                 var right = new BasicJson();
@@ -32,37 +32,25 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void WithDifferentObjects_ReturnsFalse()
+            public void ObjectsWithDifferentAttributes_ReturnsFalse()
             {
-                //List<object> leftListObject = new List<object>
-                //{
-                //    "ArCiGo",
-                //    "ElCiGo",
-                //    true
-                //};
-
-                //List<object> rightListObject = new List<object>
-                //{
-                //    "Néstor",
-                //    "Florencia",
-                //    1,
-                //    false
-                //};
-
-                List<string> leftListObject = new List<string>
+                var leftObj = new ObjectAttr()
                 {
-                    "ArCiGo",
-                    "ElCiGo",
+                    Id = 1,
+                    IsActive = false,
+                    Name = "florencia",
+                    Owner = "unosquare"
                 };
 
-                List<string> rightListObject = new List<string>
+                var rightObj = new ObjectAttr()
                 {
-                    "Néstor",
-                    "Florencia",
-                    "Héctor"
+                    Id = 1,
+                    IsActive = true,
+                    Name = "florencia",
+                    Owner = "wizeline"
                 };
 
-                Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftListObject, rightListObject));
+                Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftObj, rightObj));
             }
 
             [Test]
