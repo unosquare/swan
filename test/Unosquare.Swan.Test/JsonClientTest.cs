@@ -339,14 +339,13 @@ namespace Unosquare.Swan.Test
 
             Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
         }
-
+        
         [Test]
         public void AuthenticateSecurityExceptionTest()
         {
             var exception = Assert.ThrowsAsync<SecurityException>(async () => {
                 using(var webserver = new WebServer(_defaultPort))
                 {
-
                     webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
                     webserver.RunAsync();
 

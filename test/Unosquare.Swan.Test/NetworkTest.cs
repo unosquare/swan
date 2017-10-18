@@ -19,7 +19,7 @@ namespace Unosquare.Swan.Test
         public class QueryDns : NetworkTest
         {
             [Test]
-            public void InvalidDnsAsParam_DnsQueryExceptionThrown()
+            public void InvalidDnsAsParam_ThrowsDnsQueryException()
             {
                 if(Runtime.OS == OperatingSystem.Osx)
                     Assert.Inconclusive("OSX is returning time out");
@@ -123,7 +123,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void WithIPv6Address_ArgumentExceptionThrown()
+            public void WithIPv6Address_ThrowsArgumentException()
             {
                 var privateIP = IPAddress.Parse("2001:0db8:85a3:0000:1319:8a2e:0370:7344");
 
@@ -159,7 +159,6 @@ namespace Unosquare.Swan.Test
                 
                 Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
             }
-
         }
 
         public class GetPublicIPAddress : NetworkTest
@@ -182,8 +181,29 @@ namespace Unosquare.Swan.Test
                 
                 Assert.That(publicIPAddress, Is.EqualTo(DateTime.Now).Within(301).Minutes);
             }
+        }
 
-            
+        public class GetNetworkTimeUtcAsync : NetworkTest
+        {
+            [Test]
+            public void WithNtpServerName_ReturnsDateTime()
+            {
+                string ntpServerName = "pool.ntp.org";
+                var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerName);
+                
+                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+            }
+
+            [Test]
+            public void WithIPAddress_ReturnsDateTime()
+            {
+                IPAddress ntpServerAddress = IPAddress.Parse("62.116.162.126");
+                var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerAddress);
+                
+                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+            }
+
+
         }
 
     }
