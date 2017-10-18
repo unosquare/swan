@@ -7,10 +7,8 @@ matrix:
   include:
     - os: linux
       dist: trusty
+      sudo: false
     - os: osx
-before_install:
-  - sudo rm -vf /etc/apt/sources.list.d/*riak*
-  - sudo apt-get update
 install:
   - npm install maildev
   - dotnet restore
