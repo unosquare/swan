@@ -36,6 +36,7 @@ namespace Unosquare.Swan.Test
             {
                 var leftArray = new object[] { new string[] { "Israel", "Néstor" } };
                 var rightArray = new object[] { new string[] { "Scarlett", "Krystel" } };
+                //var rightArray = new object[] { new string[] { } };
 
                 Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftArray, rightArray));
             }
@@ -195,7 +196,23 @@ namespace Unosquare.Swan.Test
         [TestFixture]
         public class AreEqual : ObjectComparerTest
         {
-            
+            [Test]
+            public void StructsEquals_ReturnsTrue()
+            {
+                var leftStruct = new SampleStruct()
+                {
+                    Name = "ArCiGo",
+                    Value = 1
+                };
+
+                var rightStruct = new SampleStruct()
+                {
+                    Name = "ArCiGo",
+                    Value = 1
+                };
+
+                Assert.IsTrue(ObjectComparer.AreEqual(leftStruct, rightStruct));
+            }
         }
     }
 }
