@@ -23,7 +23,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void Exception()
+            public void BindException()
             {
                 Assert.ThrowsAsync<LdapException>(async () =>
                 {
@@ -48,7 +48,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void Exceptions()
+            public void ConnectionException()
             {
                 Assert.ThrowsAsync<SocketException>(async () =>
                 {
@@ -117,7 +117,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void Exceptions()
+            public void SearchException()
             {
                 Assert.ThrowsAsync<LdapException>(async () =>
                 {
