@@ -32,7 +32,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void ObjectsWithDifferentAttributes_ReturnsFalse()
+            public void ObjectsWithDifferentProperties_ReturnsFalse()
             {
                 var leftObj = new ObjectAttr()
                 {
