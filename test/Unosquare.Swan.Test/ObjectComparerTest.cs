@@ -14,7 +14,7 @@ namespace Unosquare.Swan.Test
         public class AreObjectsEqual : ObjectComparerTest
         {
             [Test]
-            public void EqualsObjects_ReturnsTrue()
+            public void EqualObjects_ReturnsTrue()
             {
                 var left = DateBasicJson.GetDateDefault();
                 var right = DateBasicJson.GetDateDefault();
