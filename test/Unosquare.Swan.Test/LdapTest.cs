@@ -14,7 +14,7 @@ namespace Unosquare.Swan.Test
         public class Bind : LdapTest
         {
             [Test]
-            public async Task SuccessfulBind()
+            public async Task UseValidCredentials()
             {
                 var cn = new LdapConnection();
                 await cn.Connect(ldapServer, 389);
@@ -23,7 +23,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void BindException()
+            public void UseInvalidCredentials()
             {
                 Assert.ThrowsAsync<LdapException>(async () =>
                 {
@@ -36,10 +36,10 @@ namespace Unosquare.Swan.Test
         }
 
         [TestFixture]
-        public class Connection : LdapTest
+        public class Connect : LdapTest
         {
             [Test]
-            public async Task Connect()
+            public async Task UseValidHostPort()
             {
                 var cn = new LdapConnection();
                 await cn.Connect(ldapServer, 389);
@@ -48,12 +48,24 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void ConnectionException()
+            public void UseInvalidHost()
             {
                 Assert.ThrowsAsync<SocketException>(async () =>
                 {
                     var cn = new LdapConnection();
                     await cn.Connect("ldap.forumsys", 389);
+                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+                    cn.Disconnect();
+                });
+            }
+
+            [Test]
+            public void UseInvalidPort()
+            {
+                Assert.ThrowsAsync<SocketException>(async () =>
+                {
+                    var cn = new LdapConnection();
+                    await cn.Connect("ldap.forumsys", 388);
                     await cn.Bind("uid=riemann,dc=example,dc=com", "password");
                     cn.Disconnect();
                 });
@@ -117,7 +129,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void SearchException()
+            public void UsingInvalidDN()
             {
                 Assert.ThrowsAsync<LdapException>(async () =>
                 {
