@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unosquare.Swan.Components;
@@ -34,8 +35,8 @@ namespace Unosquare.Swan.Test
             [Test]
             public void ObjectsWithDifferentProps_ReturnsFalse()
             {
-                var leftArray = new object[] { new string[] { "Israel", "Néstor" }, 1, true };
-                var rightArray = new object[] { new string[] { "Scarlett", "Krystel" } };
+                var leftArray = new { Numero = new Array[1, 2, 3], Letra = "A" };
+                var rightArray = new { Numero = new Array[1, 5, 3], Letra = "A" };
 
                 Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftArray, rightArray));
             }
