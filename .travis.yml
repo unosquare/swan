@@ -1,16 +1,16 @@
 language: csharp
 notifications:
   slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve
+mono: none
+dotnet: 2.0.0
 matrix:
   include:
     - os: linux
-      dotnet: 2.0.0
-      mono: latest
       dist: trusty
-      sudo: false
     - os: osx
-      mono: none
-      dotnet: 2.0.0
+before_install:
+  - sudo rm -vf /etc/apt/sources.list.d/*riak*
+  - sudo apt-get update
 install:
   - npm install maildev
   - dotnet restore
