@@ -24,7 +24,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void InvalidCredentials_LdapExceptionThrown()
+            public void InvalidCredentials_ThrowsLdapException()
             {
                 Assert.ThrowsAsync<LdapException>(async () =>
                 {
@@ -49,7 +49,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void InvalidHost_SocketExceptionThrown()
+            public void InvalidHost_ThrowsSocketException()
             {
                 Assert.ThrowsAsync<SocketException>(async () =>
                 {
@@ -61,7 +61,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void InvalidPort_SocketExceptionThrown()
+            public void InvalidPort_ThrowsSocketException()
             {
                 Assert.ThrowsAsync<SocketException>(async () =>
                 {
@@ -130,7 +130,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void UsingInvalidDN_LdapExceptionThrown()
+            public void UsingInvalidDN_ThrowsLdapException()
             {
                 Assert.ThrowsAsync<LdapException>(async () =>
                 {
