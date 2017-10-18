@@ -115,6 +115,13 @@
         public string Name;
     }
 
+    public struct SampleStructDifferent1
+    {
+        public int StudentId { get; set; }
+        public double Average { get; set; }
+        public string Notes { get; set; }
+    }
+
     public class ObjectEnum
     {
         public int Id { get; set; }

@@ -15,85 +15,102 @@ namespace Unosquare.Swan.Test
         private readonly IPAddress _privateIP = IPAddress.Parse("192.168.1.1");
         private readonly IPAddress _publicIP = IPAddress.Parse("200.1.1.1");
 
-        [Test]
-        public void SimpleResolveIPAddressTest()
+        public class QueryDns : NetworkTest
         {
-            if (Runtime.OS == OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
-            var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
-            Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
-
-            var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
-            Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
-                "GoogleDnsFqdn with trailing period resolution is not null");
-
-            var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-            Assert.IsNotNull(targetIP, "Google address is IPv4");
-
-            var googleDnsPtrRecord = Network.GetDnsPointerEntry(targetIP);
-            Assert.IsNotNull(googleDnsPtrRecord, "Google address DNS Pointer");
-
-            var resolvedPtrRecord = Network.GetDnsHostEntry(googleDnsPtrRecord);
-            Assert.IsNotNull(resolvedPtrRecord);
-
-            var resolvedIP = resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-            Assert.IsNotNull(resolvedIP, "Google resolution is IPv4");
-
-            Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
-        }
-
-        [Test]
-        public void IsPrivateAddressTest()
-        {
-            Assert.IsTrue(_privateIP.IsPrivateAddress());
-            Assert.IsFalse(_publicIP.IsPrivateAddress());
-        }
-
-        [Test]
-        public void IPAddressToUint32Test()
-        {
-            Assert.AreEqual(3232235777, _privateIP.ToUInt32());
-            Assert.AreEqual(3355508993, _publicIP.ToUInt32());
-        }
-        
-        [Test]
-        public void ToUInt32ExceptionTest() {
-            var _privateIP2 = IPAddress.Parse("2001:0db8:85a3:0000:1319:8a2e:0370:7344");
-
-            Assert.Throws<ArgumentException>(() => {
-                _privateIP2.ToUInt32();
-            });
-        }
-
-        [Test]
-        public void QueryDnsTest()
-        {
-            if (Runtime.OS != OperatingSystem.Windows)
+            [Test]
+            public void InvalidDnsAsParam_DnsQueryExceptionThrown()
             {
-                Assert.Ignore("Ignored");
+                if(Runtime.OS == OperatingSystem.Osx)
+                    Assert.Inconclusive("OSX is returning time out");
+
+                Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
             }
-            else
+
+            [Test]
+            public void ValidDnsAsParam_ReturnsQueryDns()
             {
-                var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
+                if(Runtime.OS != OperatingSystem.Windows)
+                {
+                    Assert.Ignore("Ignored");
+                }
+                else
+                {
+                    var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
 
-                Assert.IsNotNull(mxRecord);
-                Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
+                    Assert.IsNotNull(mxRecord);
+                    Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
 
-                var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
+                    var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
 
-                Assert.IsNotNull(txtRecords);
-                Assert.IsTrue(txtRecords.AnswerRecords.Any());
+                    Assert.IsNotNull(txtRecords);
+                    Assert.IsTrue(txtRecords.AnswerRecords.Any());
+                }
+            }
+
+        }
+
+        public class GetDnsHostEntry : NetworkTest
+        {
+            [Test]
+            public void WithValidDns_ReturnsDnsEntry()
+            {
+                if(Runtime.OS == OperatingSystem.Osx)
+                    Assert.Inconclusive("OSX is returning time out");
+
+                var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
+                Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
+
+                var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
+                Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
+                    "GoogleDnsFqdn with trailing period resolution is not null");
+
+                var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                Assert.IsNotNull(targetIP, "Google address is IPv4");
+
+                var googleDnsPtrRecord = Network.GetDnsPointerEntry(targetIP);
+                Assert.IsNotNull(googleDnsPtrRecord, "Google address DNS Pointer");
+
+                var resolvedPtrRecord = Network.GetDnsHostEntry(googleDnsPtrRecord);
+                Assert.IsNotNull(resolvedPtrRecord);
+
+                var resolvedIP = resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                Assert.IsNotNull(resolvedIP, "Google resolution is IPv4");
+
+                Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
             }
         }
 
-        [Test]
-        public void QueryDnsErrorTest()
+        public class IsPrivateAddress : NetworkTest
         {
-            if (Runtime.OS == OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
-            Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+            [Test]
+            public void WithValidAddress_ReturnsAddressAsBit()
+            {
+                Assert.IsTrue(_privateIP.IsPrivateAddress());
+                Assert.IsFalse(_publicIP.IsPrivateAddress());
+            }
         }
+
+        public class ToUInt32 : NetworkTest
+        {
+            [Test]
+            public void WithValidAddress_ReturnsAddressAsInt()
+            {
+                Assert.AreEqual(3232235777, _privateIP.ToUInt32());
+                Assert.AreEqual(3355508993, _publicIP.ToUInt32());
+            }
+
+            [Test]
+            public void WithIPv6Address_ArgumentExceptionThrown()
+            {
+                var privateIP = IPAddress.Parse("2001:0db8:85a3:0000:1319:8a2e:0370:7344");
+
+                Assert.Throws<ArgumentException>(() =>
+                {
+                    privateIP.ToUInt32();
+                });
+            }
+        }
+
+
     }
 }
