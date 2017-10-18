@@ -32,30 +32,12 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void ObjectsWithDifferentProperties_ReturnsFalse()
+            public void ObjectsWithDifferentProps_ReturnsFalse()
             {
-                var leftObj = new ObjectAttr()
-                {
-                    Id = 1,
-                    IsActive = false,
-                    Name = "florencia",
-                    Owner = "unosquare"
-                };
+                var leftArray = new object[] { new string[] { "Israel", "Néstor" } };
+                var rightArray = new object[] { new string[] { "Scarlett", "Krystel" } };
 
-                var rightObj = new ObjectAttr()
-                {
-                    Id = 1,
-                    IsActive = true,
-                    Name = "florencia",
-                    Owner = "wizeline"
-                };
-
-                Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftObj, rightObj));
-            }
-
-            [Test]
-            public void WithDifferentObjects_ReturnsFalse_Sample()
-            {
+                Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftArray, rightArray));
             }
         }
         
@@ -208,6 +190,12 @@ namespace Unosquare.Swan.Test
 
                 Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
             }
+        }
+
+        [TestFixture]
+        public class AreEqual : ObjectComparerTest
+        {
+            
         }
     }
 }
