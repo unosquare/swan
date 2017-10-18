@@ -34,9 +34,8 @@ namespace Unosquare.Swan.Test
             [Test]
             public void ObjectsWithDifferentProps_ReturnsFalse()
             {
-                var leftArray = new object[] { new string[] { "Israel", "Néstor" } };
+                var leftArray = new object[] { new string[] { "Israel", "Néstor" }, 1, true };
                 var rightArray = new object[] { new string[] { "Scarlett", "Krystel" } };
-                //var rightArray = new object[] { new string[] { } };
 
                 Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftArray, rightArray));
             }
