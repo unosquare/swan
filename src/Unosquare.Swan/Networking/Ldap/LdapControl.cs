@@ -1206,6 +1206,9 @@ namespace Unosquare.Swan.Networking.Ldap
                     return exception.ResultCode;
                 }
 
+                if (Message.Response is RfcSearchResultEntry)
+                    return LdapStatusCode.Success;
+
                 if ((IRfcResponse)Message.Response is RfcIntermediateResponse)
                     return LdapStatusCode.Success;
 
