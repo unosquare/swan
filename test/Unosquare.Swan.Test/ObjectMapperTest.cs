@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
@@ -111,7 +112,7 @@ namespace Unosquare.Swan.Test
         {
             var mapper = new ObjectMapper();
 
-            Assert.Throws<InvalidOperationException>(() => {                
+            Assert.Throws<InvalidOperationException>(() => {
                 mapper.CreateMap<User, AdminDto>();
             });
         }
@@ -133,7 +134,28 @@ namespace Unosquare.Swan.Test
 
             Assert.Throws<InvalidOperationException>(() => {
                 mapper.Map<UserDto>(_sourceUser, false);
-            });            
+            });
+        }
+
+        [Test]
+        public void RemoveMapProperty_PropertyDestinationInfoNull_ReturnsInvalidDestinationExpression()
+        {
+            var mapper = new ObjectMapper();
+            var destination = mapper.Map<UserDto>(_sourceUser);
+
+            Assert.Throws<Exception>(() =>
+            {
+                mapper.CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null);
+            });
+        }
+
+        [Test]
+        public void Copy_SourceNull_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectMapper.Copy((object) null, new UserDto(), null, null);
+            });
         }
     }
 }
