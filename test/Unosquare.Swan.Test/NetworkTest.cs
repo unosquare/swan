@@ -138,27 +138,11 @@ namespace Unosquare.Swan.Test
         public class GetIPv4Addresses : NetworkTest
         {
             [Test]
-            public void Wireless80211AsParam_ReturnsIPv4Address()
-            {
-                var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Wireless80211);
-
-                Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
-            }
-
-            [Test]
             public void LoopbackAsParam_ReturnsIPv4Address()
             {
                 var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Loopback);
 
                 Assert.AreEqual(networkType[0].ToString(), "127.0.0.1");
-            }
-
-            [Test]
-            public void WithNoParam_ReturnsIPv4Address()
-            {
-                var networkType = Network.GetIPv4Addresses();
-
-                Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
             }
         }
 
