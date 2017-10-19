@@ -1,8 +1,6 @@
-﻿using System;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using NUnit.Framework;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
@@ -81,6 +79,56 @@ namespace Unosquare.Swan.Test
             var second = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
 
             Assert.IsTrue(ObjectComparer.AreEnumsEqual(first, second));
+        }
+                
+        [Test]
+        public void AreEnumsEquals_WithDifferentLengths_ReturnsFalse()
+        {
+            List<string> leftListEnum = new List<string>()
+            {
+                "ArCiGo",
+                "ElCiGo",
+                "WizardexC137",
+                "DCOW"
+            };
+
+            List<string> rightListEnum = new List<string>()
+            {
+                "Kadosh"
+            };
+
+            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
+        }
+        
+        [Test]
+        public void AreObjectsEquals_WithDifferentObjects_ReturnsFalse()
+        {
+            List<object> leftObject = new List<object>()
+            {
+                "ArCiGo",
+                "ElCiGo",
+                "ArCiNa"
+            };
+
+            List<object> rightObject = new List<object>()
+            {
+                "Elsa",
+                "Mariana",
+                "Alejandro",
+                "Nestor",
+                "Grecia"
+            };
+
+            Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftObject, rightObject));
+        }
+        
+        [Test]
+        public void AreEqual_WithEqualStructs_ReturnsTrue()
+        {
+            var leftStruct = new SampleStruct();
+            var rightStruct = new SampleStruct();
+
+            Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
         }
     }
 }
