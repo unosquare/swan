@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading;
+using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
+using Unosquare.Swan.Networking.Ldap;
 
 namespace Unosquare.Swan.Test
 {
@@ -27,41 +29,40 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void InvalidDnsAsParam_DnsQueryExceptionThrown()
+            public void ValidDnsAndMXAsDnsRecordType_ReturnsQueryDns()
             {
-                if (Runtime.OS == OperatingSystem.Osx)
-                    Assert.Inconclusive("OSX is returning time out");
+                if(Runtime.OS != OperatingSystem.Windows)
+                {
+                    Assert.Ignore("Ignored");
+                }
+                else
+                {
+                    var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
 
-                Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
+                    Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
+                }
             }
 
             [Test]
-            public void ValidDnsAndMXAsDnsRecordType_ReturnsQueryDns()
+            public void ValidDnsAndTXTAsDnsRecordType_ReturnsQueryDns()
             {
-                if (Runtime.OS == OperatingSystem.Osx)
-                    Assert.Inconclusive("OSX is returning time out");
-
-                var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
-
-                Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
-            }
-
-            [TestCase(DnsRecordType.TXT)]
-            [TestCase(DnsRecordType.CNAME)]
-            [TestCase(DnsRecordType.NS)]
-            public void ValidDnsAsDnsRecordType_ReturnsQueryDns(DnsRecordType dnsRecordType)
-            {
-                if (Runtime.OS != OperatingSystem.Windows)
+                if(Runtime.OS != OperatingSystem.Windows)
+                {
                     Assert.Ignore("Ignored");
+                }
+                else
+                {
+                    var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
 
-                var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
-
-                Assert.IsTrue(records.AnswerRecords.Any());
+                    Assert.IsTrue(txtRecords.AnswerRecords.Any());
+                }
             }
+
         }
 
         public class GetDnsHostEntry : NetworkTest
         {
+
             [Test]
             public void WithValidDns_ReturnsDnsEntry()
             {
@@ -69,15 +70,15 @@ namespace Unosquare.Swan.Test
                     Assert.Inconclusive("OSX is returning time out");
 
                 var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
-                
+
                 var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                
+
                 var googleDnsPtrRecord = Network.GetDnsPointerEntry(targetIP);
-                
+
                 var resolvedPtrRecord = Network.GetDnsHostEntry(googleDnsPtrRecord);
-                
+
                 var resolvedIP = resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                
+
                 Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
             }
 
@@ -133,7 +134,7 @@ namespace Unosquare.Swan.Test
                 });
             }
         }
-        
+
         public class GetIPv4Addresses : NetworkTest
         {
             [Test]
@@ -156,7 +157,7 @@ namespace Unosquare.Swan.Test
             public void WithNoParam_ReturnsIPv4Address()
             {
                 var networkType = Network.GetIPv4Addresses();
-                
+
                 Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
             }
         }
@@ -179,9 +180,37 @@ namespace Unosquare.Swan.Test
             {
                 var publicIPAddress = Network.GetNetworkTimeUtc();
 
-                Assert.IsTrue(false, "Ip:" + publicIPAddress + " comparacion: " + DateTime.Now);
-                
-                Assert.That(publicIPAddress, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+                Assert.That(publicIPAddress, Is.EqualTo(DateTime.Now).Within(302).Minutes);
+            }
+
+            [Test]
+            public void WithInvalidNtpServerName_ThrowsDnsQueryException()
+            {
+                Assert.Throws<DnsQueryException>(() => Network.GetNetworkTimeUtc("www"));
+            }
+        }
+
+        public class GetDnsHostEntryAsync : NetworkTest
+        {
+            [Test]
+            public void WithValidFqdn_ReturnsDnsHost()
+            {
+                string fqdn = "pool.ntp.org";
+
+                var DnsHost = Network.GetDnsHostEntryAsync(fqdn, default(CancellationToken));
+
+                Assert.AreEqual(DnsHost.Result[0].GetType().ToString(), "System.Net.IPAddress");
+            }
+
+            [Test]
+            public void WithValidFqdnAndIPAddress_ReturnsDnsHost()
+            {
+                string fqdn = "pool.ntp.org";
+                IPAddress iPAddress = IPAddress.Parse("172.16.16.1");
+
+                var DnsHost = Network.GetDnsHostEntryAsync(fqdn, iPAddress, Definitions.DnsDefaultPort, default(CancellationToken));
+
+                Assert.AreEqual(DnsHost.Result[0].GetType().ToString(), "System.Net.IPAddress");
             }
         }
 
@@ -190,31 +219,35 @@ namespace Unosquare.Swan.Test
             [Test]
             public void WithNtpServerName_ReturnsDateTime()
             {
-                var publicIPAddress = Network.GetNetworkTimeUtcAsync("pool.ntp.org");
+                string ntpServerName = "pool.ntp.org";
+                var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerName);
 
-                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(302).Minutes);
             }
 
             [Test]
             public void WithIPAddress_ReturnsDateTime()
             {
-                var ntpServerAddress = IPAddress.Parse("62.116.162.126");
+                IPAddress ntpServerAddress = IPAddress.Parse("62.116.162.126");
                 var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerAddress);
 
-                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(302).Minutes);
             }
         }
 
-        public class GetDnsHostEntryAsync : NetworkTest
+        public class DomainName : NetworkTest
         {
             [Test]
-            public void WithValidFqdn_ReturnsSomething()
+            public void WithNoParams_ReturnsDomainName()
             {
-                var dsad = Network.GetDnsHostEntryAsync("pool.ntp.org", default(CancellationToken));
-                
-                Assert.AreEqual(dsad.Result[0].ToString(), "192.36.143.130");
-                Assert.AreEqual(dsad.Result[1].ToString(), "189.211.180.131");
+                var DomainName = Network.DomainName;
+                Console.WriteLine("DomainName " + DomainName);
+
+                Assert.AreEqual(DomainName, "ad.unosquare.com");
             }
         }
+        
+
+
     }
 }
