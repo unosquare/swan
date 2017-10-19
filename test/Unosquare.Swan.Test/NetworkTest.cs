@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
 using Unosquare.Swan.Networking.Ldap;
@@ -27,7 +28,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void ValidDnsAsParam_ReturnsQueryDns()
+            public void ValidDnsAndMXAsDnsRecordType_ReturnsQueryDns()
             {
                 if(Runtime.OS != OperatingSystem.Windows)
                 {
@@ -37,12 +38,21 @@ namespace Unosquare.Swan.Test
                 {
                     var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
 
-                    Assert.IsNotNull(mxRecord);
                     Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
+                }
+            }
 
+            [Test]
+            public void ValidDnsAndTXTAsDnsRecordType_ReturnsQueryDns()
+            {
+                if(Runtime.OS != OperatingSystem.Windows)
+                {
+                    Assert.Ignore("Ignored");
+                }
+                else
+                {
                     var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
 
-                    Assert.IsNotNull(txtRecords);
                     Assert.IsTrue(txtRecords.AnswerRecords.Any());
                 }
             }
@@ -51,6 +61,7 @@ namespace Unosquare.Swan.Test
 
         public class GetDnsHostEntry : NetworkTest
         {
+
             [Test]
             public void WithValidDns_ReturnsDnsEntry()
             {
@@ -59,10 +70,6 @@ namespace Unosquare.Swan.Test
 
                 var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
                 Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
-
-                var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
-                Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
-                    "GoogleDnsFqdn with trailing period resolution is not null");
 
                 var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
                 Assert.IsNotNull(targetIP, "Google address is IPv4");
@@ -78,14 +85,30 @@ namespace Unosquare.Swan.Test
 
                 Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
             }
+
+            [Test]
+            public void WithValidDnsAndFinalDot_ReturnsDnsEntry()
+            {
+                if(Runtime.OS == OperatingSystem.Osx)
+                    Assert.Inconclusive("OSX is returning time out");
+
+                var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
+                Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
+                    "GoogleDnsFqdn with trailing period resolution is not null");
+            }
         }
 
         public class IsPrivateAddress : NetworkTest
         {
             [Test]
-            public void WithValidAddress_ReturnsAddressAsBit()
+            public void PrivateIPWithValidAddress_ReturnsAddressAsBit()
             {
                 Assert.IsTrue(_privateIP.IsPrivateAddress());
+            }
+
+            [Test]
+            public void PublicIPWithValidAddress_ReturnsAddressAsBit()
+            {
                 Assert.IsFalse(_publicIP.IsPrivateAddress());
             }
         }
@@ -93,9 +116,14 @@ namespace Unosquare.Swan.Test
         public class ToUInt32 : NetworkTest
         {
             [Test]
-            public void WithValidAddress_ReturnsAddressAsInt()
+            public void PrivateIPWithValidAddress_ReturnsAddressAsInt()
             {
                 Assert.AreEqual(3232235777, _privateIP.ToUInt32());
+            }
+
+            [Test]
+            public void PublicIPWithValidAddress_ReturnsAddressAsInt()
+            {
                 Assert.AreEqual(3355508993, _publicIP.ToUInt32());
             }
 
@@ -112,5 +140,24 @@ namespace Unosquare.Swan.Test
         }
 
 
+        public class GetIPv4Addresses : NetworkTest
+        {
+            [Test]
+            public void Wireless80211AsParam_ReturnsIPAddress()
+            {
+                var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Wireless80211);
+
+                Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
+            }
+
+            [Test]
+            public void LoopbackAsParam_ReturnsIPAddress()
+            {
+                var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Loopback);
+
+                Assert.AreEqual(networkType[0].ToString(), "127.0.0.1");
+            }
+
+        }
     }
 }

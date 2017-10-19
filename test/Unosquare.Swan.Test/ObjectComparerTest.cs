@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unosquare.Swan.Components;
@@ -14,7 +15,7 @@ namespace Unosquare.Swan.Test
         public class AreObjectsEqual : ObjectComparerTest
         {
             [Test]
-            public void CompareEqualsObjects_ReturnsTrue()
+            public void EqualObjects_ReturnsTrue()
             {
                 var left = DateBasicJson.GetDateDefault();
                 var right = DateBasicJson.GetDateDefault();
@@ -23,7 +24,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void CompareDifferentObjects_ReturnsFalse()
+            public void DifferentObjects_ReturnsFalse()
             {
                 var left = BasicJson.GetDefault();
                 var right = new BasicJson();
@@ -32,42 +33,12 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void WithDifferentObjects_ReturnsFalse()
+            public void ObjectsWithDifferentProps_ReturnsFalse()
             {
-                //List<object> leftListObject = new List<object>
-                //{
-                //    "ArCiGo",
-                //    "ElCiGo",
-                //    true
-                //};
+                var leftArray = new { Numero = new Array[1, 2, 3], Letra = "A" };
+                var rightArray = new { Numero = new Array[1, 5, 3], Letra = "A" };
 
-                //List<object> rightListObject = new List<object>
-                //{
-                //    "Néstor",
-                //    "Florencia",
-                //    1,
-                //    false
-                //};
-
-                List<string> leftListObject = new List<string>
-                {
-                    "ArCiGo",
-                    "ElCiGo",
-                };
-
-                List<string> rightListObject = new List<string>
-                {
-                    "Néstor",
-                    "Florencia",
-                    "Héctor"
-                };
-
-                Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftListObject, rightListObject));
-            }
-
-            [Test]
-            public void WithDifferentObjects_ReturnsFalse_Sample()
-            {
+                Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftArray, rightArray));
             }
         }
         
@@ -219,6 +190,28 @@ namespace Unosquare.Swan.Test
                 };
 
                 Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+            }
+        }
+
+        [TestFixture]
+        public class AreEqual : ObjectComparerTest
+        {
+            [Test]
+            public void StructsEquals_ReturnsTrue()
+            {
+                var leftStruct = new SampleStruct()
+                {
+                    Name = "ArCiGo",
+                    Value = 1
+                };
+
+                var rightStruct = new SampleStruct()
+                {
+                    Name = "ArCiGo",
+                    Value = 1
+                };
+
+                Assert.IsTrue(ObjectComparer.AreEqual(leftStruct, rightStruct));
             }
         }
     }
