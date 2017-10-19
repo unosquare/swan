@@ -58,6 +58,9 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
+
             lock (_syncLock)
             {
                 if (Contains(type)) return _cache[type];
