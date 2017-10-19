@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
 using Unosquare.Swan.Networking.Ldap;
@@ -19,7 +20,7 @@ namespace Unosquare.Swan.Test
         public class QueryDns : NetworkTest
         {
             [Test]
-            public void InvalidDnsAsParam_DnsQueryExceptionThrown()
+            public void InvalidDnsAsParam_ThrowsDnsQueryException()
             {
                 if(Runtime.OS == OperatingSystem.Osx)
                     Assert.Inconclusive("OSX is returning time out");
@@ -69,20 +70,15 @@ namespace Unosquare.Swan.Test
                     Assert.Inconclusive("OSX is returning time out");
 
                 var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
-                Assert.IsNotNull(googleDnsIPAddresses, "GoogleDnsFqdn resolution is not null");
-
+                
                 var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                Assert.IsNotNull(targetIP, "Google address is IPv4");
-
+                
                 var googleDnsPtrRecord = Network.GetDnsPointerEntry(targetIP);
-                Assert.IsNotNull(googleDnsPtrRecord, "Google address DNS Pointer");
-
+                
                 var resolvedPtrRecord = Network.GetDnsHostEntry(googleDnsPtrRecord);
-                Assert.IsNotNull(resolvedPtrRecord);
-
+                
                 var resolvedIP = resolvedPtrRecord.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                Assert.IsNotNull(resolvedIP, "Google resolution is IPv4");
-
+                
                 Assert.IsTrue(resolvedIP.ToString().Equals(targetIP.ToString()));
             }
 
@@ -101,13 +97,13 @@ namespace Unosquare.Swan.Test
         public class IsPrivateAddress : NetworkTest
         {
             [Test]
-            public void PrivateIPWithValidAddress_ReturnsAddressAsBit()
+            public void PrivateIPWithValidAddress_ReturnsTrue()
             {
                 Assert.IsTrue(_privateIP.IsPrivateAddress());
             }
 
             [Test]
-            public void PublicIPWithValidAddress_ReturnsAddressAsBit()
+            public void PublicIPWithValidAddress_ReturnsFalse()
             {
                 Assert.IsFalse(_publicIP.IsPrivateAddress());
             }
@@ -128,7 +124,7 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void WithIPv6Address_ArgumentExceptionThrown()
+            public void WithIPv6Address_ThrowsArgumentException()
             {
                 var privateIP = IPAddress.Parse("2001:0db8:85a3:0000:1319:8a2e:0370:7344");
 
@@ -138,12 +134,11 @@ namespace Unosquare.Swan.Test
                 });
             }
         }
-
-
+        
         public class GetIPv4Addresses : NetworkTest
         {
             [Test]
-            public void Wireless80211AsParam_ReturnsIPAddress()
+            public void Wireless80211AsParam_ReturnsIPv4Address()
             {
                 var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Wireless80211);
 
@@ -151,13 +146,80 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void LoopbackAsParam_ReturnsIPAddress()
+            public void LoopbackAsParam_ReturnsIPv4Address()
             {
                 var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Loopback);
 
                 Assert.AreEqual(networkType[0].ToString(), "127.0.0.1");
             }
 
+            [Test]
+            public void WithNoParam_ReturnsIPv4Address()
+            {
+                var networkType = Network.GetIPv4Addresses();
+                
+                Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
+            }
         }
+
+        public class GetPublicIPAddress : NetworkTest
+        {
+            [Test]
+            public void WithNoParam_ReturnsIPAddress()
+            {
+                var publicIPAddress = Network.GetPublicIPAddress();
+
+                Assert.AreEqual(publicIPAddress.ToString(), "187.188.190.146");
+            }
+        }
+
+        public class GetNetworkTimeUtc : NetworkTest
+        {
+            [Test]
+            public void WithNoParam_ReturnsDateTime()
+            {
+                var publicIPAddress = Network.GetNetworkTimeUtc();
+
+                Assert.IsTrue(false, "Ip:" + publicIPAddress + " comparacion: " + DateTime.Now);
+                
+                Assert.That(publicIPAddress, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+            }
+        }
+
+        public class GetNetworkTimeUtcAsync : NetworkTest
+        {
+            [Test]
+            public void WithNtpServerName_ReturnsDateTime()
+            {
+                string ntpServerName = "pool.ntp.org";
+                var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerName);
+
+                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+            }
+
+            [Test]
+            public void WithIPAddress_ReturnsDateTime()
+            {
+                IPAddress ntpServerAddress = IPAddress.Parse("62.116.162.126");
+                var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerAddress);
+
+                Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
+            }
+        }
+
+        public class GetDnsHostEntryAsync : NetworkTest
+        {
+            [Test]
+            public void WithValidFqdn_ReturnsSomething()
+            {
+                string fqdn = "pool.ntp.org";
+                var dsad = Network.GetDnsHostEntryAsync(fqdn, default(CancellationToken));
+                
+                Assert.AreEqual(dsad.Result[0].ToString(), "192.36.143.130");
+                Assert.AreEqual(dsad.Result[1].ToString(), "189.211.180.131");
+            }
+        }
+
+
     }
 }
