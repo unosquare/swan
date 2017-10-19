@@ -111,7 +111,7 @@ namespace Unosquare.Swan.Test
         {
             var mapper = new ObjectMapper();
 
-            Assert.Throws<InvalidOperationException>(() => {                
+            Assert.Throws<InvalidOperationException>(() => {
                 mapper.CreateMap<User, AdminDto>();
             });
         }
@@ -133,9 +133,9 @@ namespace Unosquare.Swan.Test
 
             Assert.Throws<InvalidOperationException>(() => {
                 mapper.Map<UserDto>(_sourceUser, false);
-            });            
+            });
         }
-        
+
         [Test]
         public void RemoveMapProperty_PropertyDestinationInfoNull_ReturnsInvalidDestinationExpression()
         {
@@ -145,6 +145,15 @@ namespace Unosquare.Swan.Test
             Assert.Throws<Exception>(() =>
             {
                 mapper.CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null);
+            });
+        }
+
+        [Test]
+        public void Copy_SourceNullTargetNull_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectMapper.Copy(null, null, null, null);
             });
         }
     }
