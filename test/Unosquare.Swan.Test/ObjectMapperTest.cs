@@ -179,5 +179,19 @@ namespace Unosquare.Swan.Test
                 ObjectMapper.Copy(null, target, null, null);
             });
         }
+
+        [Test]
+        public void Copy_TargetDictionaryNull_ThrowsArgumentNullException()
+        {
+            var source = new Dictionary<string, object>();
+            source.Add("Mario", 1);
+            source.Add("Carmela", 2);
+            source.Add("Fernanda", 3);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectMapper.Copy(source, null, null, null);
+            });
+        }
     }
 }
