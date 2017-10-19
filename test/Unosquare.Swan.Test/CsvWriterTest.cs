@@ -18,80 +18,91 @@ namespace Unosquare.Swan.Test
 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
-        [Test]
-        public void ConstructorTest()
+        [TestFixture]
+        public class Constructor : CsvWriterTest
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            [Test]
+            public void WithMemoryStreamAndEncoding_Valid()
             {
-                var reader = new CsvWriter(stream, Encoding.ASCII);
+                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+                {
+                    var reader = new CsvWriter(stream, Encoding.ASCII);
+                    Assert.IsNotNull(reader);
+                }
+            }
+
+            [Test]
+            public void WithMemoryStream_Valid()
+            {
+                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+                {
+                    var reader = new CsvWriter(stream);
+                    Assert.IsNotNull(reader);
+                }
+            }
+
+            [Test]
+            public void WithTempFile_Valid()
+            {
+                var tempFile = Path.GetTempFileName();
+                var reader = new CsvWriter(tempFile);
+
+                Assert.IsNotNull(reader);
+            }
+
+            [Test]
+            public void WithTempFileAndEncoding_Valid()
+            {
+                var tempFile = Path.GetTempFileName();
+                var reader = new CsvWriter(tempFile, Encoding.ASCII);
+
                 Assert.IsNotNull(reader);
             }
         }
-
-        [Test]
-        public void ConstructorEncodingNullTest()
+        
+        [TestFixture]
+        public class SaveRecords : CsvWriterTest
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            [Test]
+            public void WithObjectList_Valid()
             {
-                var reader = new CsvWriter(stream);
-                Assert.IsNotNull(reader);
-            }
-        }
+                var tempFile = Path.GetTempFileName();
+                var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
 
-        [Test]
-        public void ConstructorTempFileTest()
-        {
-            var tempFile = Path.GetTempFileName();
-            var reader = new CsvWriter(tempFile);
-
-            Assert.IsNotNull(reader);
-        }
-
-        [Test]
-        public void ConstructorTempFileEncodingTest()
-        {
-            var tempFile = Path.GetTempFileName();
-            var reader = new CsvWriter(tempFile, Encoding.ASCII);
-
-            Assert.IsNotNull(reader);
-        }
-
-        [Test]
-        public void WriteObjectTest()
-        {
-            var tempFile = Path.GetTempFileName();
-            var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-
-            CsvWriter.SaveRecords(generatedRecords, tempFile);
-            CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
-
-            generatedRecords.Add(null);
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
                 CsvWriter.SaveRecords(generatedRecords, tempFile);
-            });
+
+                var valuesInFile = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+                Assert.AreEqual(generatedRecords.Count, valuesInFile.Count, "Same length");
+                Assert.AreEqual(generatedRecords[0].Name, valuesInFile[0].Name, "Same first name");
+            }
+
+
+            [Test]
+            public void WithNullList_Invalid()
+            {
+                var tempFile = Path.GetTempFileName();
+                var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+                generatedRecords.Add(null);
+
+                Assert.Throws<ArgumentNullException>(() =>
+                {
+                    CsvWriter.SaveRecords(generatedRecords, tempFile);
+                });
+            }
         }
 
-        [Test]
-        public void WriteObjectDynamicObjectTest()
+        [TestFixture]
+        public class WriteObject : CsvWriterTest
         {
-            var tempFile = Path.GetTempFileName();
-            var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-
-            CsvWriter.SaveRecords(generatedRecords, tempFile);
-            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
-
-            dynamic item = SampleCsvRecord.GetItem();
-
-            generatedRecords.Add(item);
-
-            CsvWriter.SaveRecords(generatedRecords, tempFile);
-            var newloadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
-
-            Assert.AreNotEqual(loadedRecords, newloadedRecords);
+            // TODO: Continue
         }
 
+        [TestFixture]
+        public class WriteHeadings : CsvWriterTest
+        {
+            // TODO: Continue
+        }
+        
         [Test]
         public void WriteObjectDictionaryTest()
         {
@@ -119,26 +130,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
                 Assert.AreNotEqual(0, reader.Count);
             }
         }
-
-        [Test]
-        public void WriteObjectTTest()
-        {
-            var tempFile = Path.GetTempFileName();
-            var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-
-            CsvWriter.SaveRecords(generatedRecords, tempFile);
-
-            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
-
-            var item = SampleCsvRecord.GetItem();
-            generatedRecords.Add(item);
-
-            CsvWriter.SaveRecords(generatedRecords, tempFile);
-            var newloadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
-
-            Assert.AreNotEqual(loadedRecords, newloadedRecords);
-        }
-
+        
         [Test]
         public void WriteHeadingsTest()
         {
@@ -172,9 +164,6 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 
             using (var stream = new MemoryStream())
             {
-                if (stream.Length > 0)
-                    stream.SetLength(0);
-
                 using (var writer = new CsvWriter(stream))
                 {
                     writer.WriteObjects(strings);
