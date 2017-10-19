@@ -272,17 +272,26 @@ namespace Unosquare.Swan.Test
                 
                 Assert.AreEqual(DnsPointer.Result.ToString(), GoogleDnsFqdn);
             }
+            
         }
 
         public class QueryDnsAsync : NetworkTest
         {
             [Test]
-            public void ValidDnsAsParam_ReturnsQueryDns()
+            public void ValidDnsAsDnsServer_ReturnsQueryDns()
             {
                 IPAddress dnsServer = IPAddress.Parse("172.16.16.1");
 
                 var DnsPointer = Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, dnsServer, Definitions.DnsDefaultPort);
                 
+                Assert.AreEqual(DnsResponseCode.NoError, DnsPointer.Result.ResponseCode);
+            }
+
+            [Test]
+            public void ValidDnsAsParam_ReturnsQueryDns()
+            {
+                var DnsPointer = Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX);
+
                 Assert.AreEqual(DnsResponseCode.NoError, DnsPointer.Result.ResponseCode);
             }
 
