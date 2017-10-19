@@ -4,9 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading;
-using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
-using Unosquare.Swan.Networking.Ldap;
 
 namespace Unosquare.Swan.Test
 {
@@ -29,40 +27,41 @@ namespace Unosquare.Swan.Test
             }
 
             [Test]
-            public void ValidDnsAndMXAsDnsRecordType_ReturnsQueryDns()
+            public void InvalidDnsAsParam_DnsQueryExceptionThrown()
             {
-                if(Runtime.OS != OperatingSystem.Windows)
-                {
-                    Assert.Ignore("Ignored");
-                }
-                else
-                {
-                    var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
+                if (Runtime.OS == OperatingSystem.Osx)
+                    Assert.Inconclusive("OSX is returning time out");
 
-                    Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
-                }
+                Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
             }
 
             [Test]
-            public void ValidDnsAndTXTAsDnsRecordType_ReturnsQueryDns()
+            public void ValidDnsAndMXAsDnsRecordType_ReturnsQueryDns()
             {
-                if(Runtime.OS != OperatingSystem.Windows)
-                {
-                    Assert.Ignore("Ignored");
-                }
-                else
-                {
-                    var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
+                if (Runtime.OS == OperatingSystem.Osx)
+                    Assert.Inconclusive("OSX is returning time out");
 
-                    Assert.IsTrue(txtRecords.AnswerRecords.Any());
-                }
+                var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
+
+                Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
             }
 
+            [TestCase(DnsRecordType.TXT)]
+            [TestCase(DnsRecordType.CNAME)]
+            [TestCase(DnsRecordType.NS)]
+            public void ValidDnsAsDnsRecordType_ReturnsQueryDns(DnsRecordType dnsRecordType)
+            {
+                if (Runtime.OS != OperatingSystem.Windows)
+                    Assert.Ignore("Ignored");
+
+                var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+
+                Assert.IsTrue(records.AnswerRecords.Any());
+            }
         }
 
         public class GetDnsHostEntry : NetworkTest
         {
-
             [Test]
             public void WithValidDns_ReturnsDnsEntry()
             {
@@ -191,8 +190,7 @@ namespace Unosquare.Swan.Test
             [Test]
             public void WithNtpServerName_ReturnsDateTime()
             {
-                string ntpServerName = "pool.ntp.org";
-                var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerName);
+                var publicIPAddress = Network.GetNetworkTimeUtcAsync("pool.ntp.org");
 
                 Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
             }
@@ -200,7 +198,7 @@ namespace Unosquare.Swan.Test
             [Test]
             public void WithIPAddress_ReturnsDateTime()
             {
-                IPAddress ntpServerAddress = IPAddress.Parse("62.116.162.126");
+                var ntpServerAddress = IPAddress.Parse("62.116.162.126");
                 var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerAddress);
 
                 Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
@@ -212,14 +210,11 @@ namespace Unosquare.Swan.Test
             [Test]
             public void WithValidFqdn_ReturnsSomething()
             {
-                string fqdn = "pool.ntp.org";
-                var dsad = Network.GetDnsHostEntryAsync(fqdn, default(CancellationToken));
+                var dsad = Network.GetDnsHostEntryAsync("pool.ntp.org", default(CancellationToken));
                 
                 Assert.AreEqual(dsad.Result[0].ToString(), "192.36.143.130");
                 Assert.AreEqual(dsad.Result[1].ToString(), "189.211.180.131");
             }
         }
-
-
     }
 }
