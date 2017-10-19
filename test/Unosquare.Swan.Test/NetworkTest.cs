@@ -38,7 +38,7 @@ namespace Unosquare.Swan.Test
                 else
                 {
                     var mxRecord = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.MX);
-                    
+
                     Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode);
                 }
             }
@@ -72,7 +72,7 @@ namespace Unosquare.Swan.Test
                 var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
 
                 var targetIP = googleDnsIPAddresses.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                
+
                 var googleDnsPtrRecord = Network.GetDnsPointerEntry(targetIP);
 
                 var resolvedPtrRecord = Network.GetDnsHostEntry(googleDnsPtrRecord);
@@ -138,11 +138,27 @@ namespace Unosquare.Swan.Test
         public class GetIPv4Addresses : NetworkTest
         {
             [Test]
+            public void Wireless80211AsParam_ReturnsIPv4Address()
+            {
+                var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Wireless80211);
+
+                Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
+            }
+
+            [Test]
             public void LoopbackAsParam_ReturnsIPv4Address()
             {
                 var networkType = Network.GetIPv4Addresses(NetworkInterfaceType.Loopback);
 
                 Assert.AreEqual(networkType[0].ToString(), "127.0.0.1");
+            }
+
+            [Test]
+            public void WithNoParam_ReturnsIPv4Address()
+            {
+                var networkType = Network.GetIPv4Addresses();
+
+                Assert.AreEqual(networkType[0].ToString(), "172.16.16.145");
             }
         }
 
@@ -152,10 +168,7 @@ namespace Unosquare.Swan.Test
             public void WithNoParam_ReturnsIPAddress()
             {
                 var publicIPAddress = Network.GetPublicIPAddress();
-                Console.WriteLine(publicIPAddress.GetType().ToString());
 
-                //Assert.IsNull(publicIPAddress);
-                //Assert.AreEqual(publicIPAddress.ToString(), "187.188.190.146");
                 Assert.AreEqual(publicIPAddress.GetType().ToString(), "System.Net.IPAddress");
             }
         }
@@ -184,20 +197,20 @@ namespace Unosquare.Swan.Test
             {
                 string fqdn = "pool.ntp.org";
 
-                var DnsHost = Network.GetDnsHostEntryAsync(fqdn, default(CancellationToken));
+                var dnsHost = Network.GetDnsHostEntryAsync(fqdn, default(CancellationToken));
 
-                Assert.AreEqual(DnsHost.Result[0].GetType().ToString(), "System.Net.IPAddress");
+                Assert.AreEqual(dnsHost.Result[0].GetType().ToString(), "System.Net.IPAddress");
             }
 
             [Test]
             public void WithValidFqdnAndIPAddress_ReturnsDnsHost()
             {
                 string fqdn = "pool.ntp.org";
-                IPAddress iPAddress = IPAddress.Parse("172.16.16.1");
+                IPAddress ipAddress = IPAddress.Parse("172.16.16.1");
 
-                var DnsHost = Network.GetDnsHostEntryAsync(fqdn, iPAddress, Definitions.DnsDefaultPort, default(CancellationToken));
+                var dnsHost = Network.GetDnsHostEntryAsync(fqdn, ipAddress, Definitions.DnsDefaultPort, default(CancellationToken));
 
-                Assert.AreEqual(DnsHost.Result[0].GetType().ToString(), "System.Net.IPAddress");
+                Assert.AreEqual(dnsHost.Result[0].GetType().ToString(), "System.Net.IPAddress");
             }
         }
 
@@ -222,29 +235,41 @@ namespace Unosquare.Swan.Test
             }
         }
 
+        public class DomainName : NetworkTest
+        {
+            [Test]
+            public void WithNoParams_ReturnsDomainName()
+            {
+                var domainName = Network.DomainName;
+                Console.WriteLine("DomainName " + domainName);
+
+                Assert.AreEqual(domainName, "ad.unosquare.com");
+            }
+        }
+
         public class GetDnsPointerEntryAsync : NetworkTest
         {
             [Test]
             public void WithValidFqdnAndIPAddress_ReturnsDnsHost()
             {
                 IPAddress dnsServer = IPAddress.Parse("172.16.16.1");
-                IPAddress iPAddress = IPAddress.Parse("8.8.8.8");
+                IPAddress ipAddress = IPAddress.Parse("8.8.8.8");
 
-                var DnsPointer = Network.GetDnsPointerEntryAsync(iPAddress, dnsServer, Definitions.DnsDefaultPort, default(CancellationToken));
-                
-                Assert.AreEqual(DnsPointer.Result.ToString(), GoogleDnsFqdn);
+                var dnsPointer = Network.GetDnsPointerEntryAsync(ipAddress, dnsServer, Definitions.DnsDefaultPort, default(CancellationToken));
+
+                Assert.AreEqual(dnsPointer.Result.ToString(), GoogleDnsFqdn);
             }
 
             [Test]
             public void WithValidIPAddress_ReturnsDnsHost()
             {
-                IPAddress iPAddress = IPAddress.Parse("8.8.8.8");
+                IPAddress ipAddress = IPAddress.Parse("8.8.8.8");
 
-                var DnsPointer = Network.GetDnsPointerEntryAsync(iPAddress);
-                
-                Assert.AreEqual(DnsPointer.Result.ToString(), GoogleDnsFqdn);
+                var dnsPointer = Network.GetDnsPointerEntryAsync(ipAddress);
+
+                Assert.AreEqual(dnsPointer.Result.ToString(), GoogleDnsFqdn);
             }
-            
+
         }
 
         public class QueryDnsAsync : NetworkTest
@@ -254,21 +279,20 @@ namespace Unosquare.Swan.Test
             {
                 IPAddress dnsServer = IPAddress.Parse("172.16.16.1");
 
-                var DnsPointer = Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, dnsServer, Definitions.DnsDefaultPort);
-                
-                Assert.AreEqual(DnsResponseCode.NoError, DnsPointer.Result.ResponseCode);
+                var dnsPointer = Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, dnsServer, Definitions.DnsDefaultPort);
+
+                Assert.AreEqual(DnsResponseCode.NoError, dnsPointer.Result.ResponseCode);
             }
 
             [Test]
             public void ValidDnsAsParam_ReturnsQueryDns()
             {
-                var DnsPointer = Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX);
+                var dnsPointer = Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX);
 
-                Assert.AreEqual(DnsResponseCode.NoError, DnsPointer.Result.ResponseCode);
+                Assert.AreEqual(DnsResponseCode.NoError, dnsPointer.Result.ResponseCode);
             }
 
         }
-
 
     }
 }
