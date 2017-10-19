@@ -350,6 +350,7 @@ namespace Unosquare.Swan.Test
                     webserver.RunAsync();
 
                     await Task.Delay(100);
+
                     var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
                 }
             });

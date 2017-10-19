@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
 using Unosquare.Swan.Networking.Ldap;
@@ -178,6 +179,8 @@ namespace Unosquare.Swan.Test
             public void WithNoParam_ReturnsDateTime()
             {
                 var publicIPAddress = Network.GetNetworkTimeUtc();
+
+                Assert.IsTrue(false, "Ip:" + publicIPAddress + " comparacion: " + DateTime.Now);
                 
                 Assert.That(publicIPAddress, Is.EqualTo(DateTime.Now).Within(301).Minutes);
             }
@@ -190,7 +193,7 @@ namespace Unosquare.Swan.Test
             {
                 string ntpServerName = "pool.ntp.org";
                 var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerName);
-                
+
                 Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
             }
 
@@ -199,12 +202,24 @@ namespace Unosquare.Swan.Test
             {
                 IPAddress ntpServerAddress = IPAddress.Parse("62.116.162.126");
                 var publicIPAddress = Network.GetNetworkTimeUtcAsync(ntpServerAddress);
-                
+
                 Assert.That(publicIPAddress.Result, Is.EqualTo(DateTime.Now).Within(301).Minutes);
             }
-
-
         }
+
+        public class GetDnsHostEntryAsync : NetworkTest
+        {
+            [Test]
+            public void WithValidFqdn_ReturnsSomething()
+            {
+                string fqdn = "pool.ntp.org";
+                var dsad = Network.GetDnsHostEntryAsync(fqdn, default(CancellationToken));
+                
+                Assert.AreEqual(dsad.Result[0].ToString(), "192.36.143.130");
+                Assert.AreEqual(dsad.Result[1].ToString(), "189.211.180.131");
+            }
+        }
+
 
     }
 }
