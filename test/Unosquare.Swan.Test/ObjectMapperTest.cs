@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
@@ -151,25 +152,13 @@ namespace Unosquare.Swan.Test
         [Test]
         public void Copy_SourceNull_ThrowsArgumentNullException()
         {
-            var destinatonSource = new UserDto();
-
+            var source = new object();
+            source = null;
+            var target = new UserDto();
+            
             Assert.Throws<ArgumentNullException>(() =>
             {
-                ObjectMapper.Copy(null, destinatonSource, null, null);
-            });
-        }
-
-        [Test]
-        public void Copy_TargetNull_ThrowsArgumentNullException()
-        {
-            var fromSource = new User
-            {
-                Name = "Unosquare"
-            };
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectMapper.Copy(fromSource, null, null, null);
+                ObjectMapper.Copy(source, target, null, null);
             });
         }
     }
