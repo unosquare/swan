@@ -149,11 +149,27 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void Copy_SourceNullTargetNull_ThrowsArgumentNullException()
+        public void Copy_SourceNull_ThrowsArgumentNullException()
         {
+            var destinatonSource = new UserDto();
+
             Assert.Throws<ArgumentNullException>(() =>
             {
-                ObjectMapper.Copy(null, null, null, null);
+                ObjectMapper.Copy(null, destinatonSource, null, null);
+            });
+        }
+
+        [Test]
+        public void Copy_TargetNull_ThrowsArgumentNullException()
+        {
+            var fromSource = new User
+            {
+                Name = "Unosquare"
+            };
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectMapper.Copy(fromSource, null, null, null);
             });
         }
     }
