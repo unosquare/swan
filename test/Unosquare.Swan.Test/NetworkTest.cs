@@ -222,18 +222,6 @@ namespace Unosquare.Swan.Test
             }
         }
 
-        public class DomainName : NetworkTest
-        {
-            [Test]
-            public void WithNoParams_ReturnsDomainName()
-            {
-                var DomainName = Network.DomainName;
-                Console.WriteLine("DomainName " + DomainName);
-
-                Assert.AreEqual(DomainName, "ad.unosquare.com");
-            }
-        }
-
         public class GetDnsPointerEntryAsync : NetworkTest
         {
             [Test]
