@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class DependencyContainerRegistrationTypeException
+    <title>Class LdapLocalException
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class DependencyContainerRegistrationTypeException
+    <meta name="title" content="Class LdapLocalException
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.25.2.0">
     
@@ -76,19 +76,20 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException">
   
   
-  <h1 id="Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException" data-uid="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException" class="text-break">Class DependencyContainerRegistrationTypeException
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapLocalException" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException" class="text-break">Class LdapLocalException
   </h1>
-  <div class="markdown level0 summary"><p>Registration Type Exception</p>
+  <div class="markdown level0 summary"><p>Represents an Ldap exception that is not a result of a server response.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Exception</span></div>
-    <div class="level2"><span class="xref">DependencyContainerRegistrationTypeException</span></div>
+    <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></div>
+    <div class="level3"><span class="xref">LdapLocalException</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -98,19 +99,28 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Exception.GetBaseException()</span>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_LdapErrorMessage">LdapException.LdapErrorMessage</a>
     </div>
     <div>
-      <span class="xref">System.Exception.ToString()</span>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Cause">LdapException.Cause</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ResultCode">LdapException.ResultCode</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_MatchedDN">LdapException.MatchedDN</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Message">LdapException.Message</a>
+    </div>
+    <div>
+      <span class="xref">System.Exception.GetBaseException()</span>
     </div>
     <div>
       <span class="xref">System.Exception.GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)</span>
     </div>
     <div>
       <span class="xref">System.Exception.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Exception.Message</span>
     </div>
     <div>
       <span class="xref">System.Exception.Data</span>
@@ -152,24 +162,42 @@
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Exceptions.html">Unosquare.Swan.Exceptions</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapLocalException_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DependencyContainerRegistrationTypeException : Exception, ISerializable, _Exception</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapLocalException : LdapException, ISerializable, _Exception</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_" data-uid="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_System_Type_System_String_" data-uid="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor(System.Type,System.String)">DependencyContainerRegistrationTypeException(Type, String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.html">DependencyContainerRegistrationTypeException</a> class.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor">LdapLocalException()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainerRegistrationTypeException(Type type, string factory)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapLocalException()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)">LdapLocalException(String, LdapStatusCode, Exception)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a> class.
+Constructs a local exception with a detailed message obtained from the
+specified <pre><code>MessageOrKey</code></pre> String.
+Additional parameters specify the result code and a rootException which
+is the underlying cause of an error on the client.
+The String is used either as a message key to obtain a localized
+message from ExceptionMessages, or if there is no key in the
+resource matching the text, it is used as the detailed message itself.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapLocalException(string message, LdapStatusCode resultCode, Exception rootException = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -182,60 +210,58 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Type</span></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
-</td>
-      </tr>
-      <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">factory</span></td>
-        <td><p>The factory.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_" data-uid="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_System_Type_System_String_System_Exception_" data-uid="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor(System.Type,System.String,System.Exception)">DependencyContainerRegistrationTypeException(Type, String, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.html">DependencyContainerRegistrationTypeException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainerRegistrationTypeException(Type type, string factory, Exception innerException)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Type</span></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type.</p>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">factory</span></td>
-        <td><p>The factory.</p>
+        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></td>
+        <td><span class="parametername">resultCode</span></td>
+        <td><p>The result code returned.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">innerException</span></td>
-        <td><p>The inner exception.</p>
+        <td><span class="parametername">rootException</span></td>
+        <td><p>A throwable which is the underlying cause
+of the LdapException.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string of information about the exception and the
+the nested exceptions, if any.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A <span class="xref">System.String</span> that represents this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ToString">LdapException.ToString()</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <span class="xref">System.Runtime.Serialization.ISerializable</span>
@@ -245,7 +271,7 @@
   </div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><span class="xref">System.Exception</span></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></div>
   </div>
 </article>
           </div>

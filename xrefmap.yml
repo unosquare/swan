@@ -1062,6 +1062,48 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainer.GetChildContainer
   fullName: Unosquare.Swan.Components.DependencyContainer.GetChildContainer
   nameWithType: DependencyContainer.GetChildContainer
+- uid: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider
+  name: DependencyContainer.ITinyIoCObjectLifetimeProvider
+  href: api/Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html
+  commentId: T:Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider
+  fullName: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider
+  nameWithType: DependencyContainer.ITinyIoCObjectLifetimeProvider
+- uid: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject
+  name: GetObject()
+  href: api/Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html#Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_GetObject
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject
+  fullName: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject()
+  nameWithType: DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject()
+- uid: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject*
+  name: GetObject
+  href: api/Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html#Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_GetObject_
+  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject
+  fullName: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject
+  nameWithType: DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject
+- uid: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject
+  name: ReleaseObject()
+  href: api/Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html#Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_ReleaseObject
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject
+  fullName: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject()
+  nameWithType: DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject()
+- uid: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject*
+  name: ReleaseObject
+  href: api/Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html#Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_ReleaseObject_
+  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject
+  fullName: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject
+  nameWithType: DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject
+- uid: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject(System.Object)
+  name: SetObject(Object)
+  href: api/Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html#Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_SetObject_System_Object_
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject(System.Object)
+  fullName: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject(System.Object)
+  nameWithType: DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject(Object)
+- uid: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject*
+  name: SetObject
+  href: api/Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html#Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_SetObject_
+  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject
+  fullName: Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject
+  nameWithType: DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject
 - uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions
   name: DependencyContainer.MultiRegisterOptions
   href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html
@@ -1107,6 +1149,18 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton
   fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.AsSingleton
   nameWithType: DependencyContainer.MultiRegisterOptions.AsSingleton
+- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager(Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions,Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider,System.String)
+  name: ToCustomLifetimeManager(DependencyContainer.MultiRegisterOptions, DependencyContainer.ITinyIoCObjectLifetimeProvider, String)
+  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions_ToCustomLifetimeManager_Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions_Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_System_String_
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager(Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions,Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider,System.String)
+  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager(Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions, Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider, System.String)
+  nameWithType: DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager(DependencyContainer.MultiRegisterOptions, DependencyContainer.ITinyIoCObjectLifetimeProvider, String)
+- uid: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager*
+  name: ToCustomLifetimeManager
+  href: api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_MultiRegisterOptions_ToCustomLifetimeManager_
+  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager
+  fullName: Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager
+  nameWithType: DependencyContainer.MultiRegisterOptions.ToCustomLifetimeManager
 - uid: Unosquare.Swan.Components.DependencyContainer.Register(System.Type,System.Func{Unosquare.Swan.Components.DependencyContainer,Unosquare.Swan.Components.DependencyContainerNamedParameterOverloads,System.Object},System.String)
   name: Register(Type, Func<DependencyContainer, DependencyContainerNamedParameterOverloads, Object>, String)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_Register_System_Type_System_Func_Unosquare_Swan_Components_DependencyContainer_Unosquare_Swan_Components_DependencyContainerNamedParameterOverloads_System_Object__System_String_
@@ -1257,6 +1311,33 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton
   fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.AsSingleton
   nameWithType: DependencyContainer.RegisterOptions.AsSingleton
+- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager(Unosquare.Swan.Components.DependencyContainer.RegisterOptions,Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider,System.String)
+  name: ToCustomLifetimeManager(DependencyContainer.RegisterOptions, DependencyContainer.ITinyIoCObjectLifetimeProvider, String)
+  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_ToCustomLifetimeManager_Unosquare_Swan_Components_DependencyContainer_RegisterOptions_Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_System_String_
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager(Unosquare.Swan.Components.DependencyContainer.RegisterOptions,Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider,System.String)
+  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager(Unosquare.Swan.Components.DependencyContainer.RegisterOptions, Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider, System.String)
+  nameWithType: DependencyContainer.RegisterOptions.ToCustomLifetimeManager(DependencyContainer.RegisterOptions, DependencyContainer.ITinyIoCObjectLifetimeProvider, String)
+- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager*
+  name: ToCustomLifetimeManager
+  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_ToCustomLifetimeManager_
+  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager
+  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager
+  nameWithType: DependencyContainer.RegisterOptions.ToCustomLifetimeManager
+- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor*
+  name: UsingConstructor
+  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_UsingConstructor_
+  commentId: Overload:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor
+  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor
+  nameWithType: DependencyContainer.RegisterOptions.UsingConstructor
+- uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor``1(Expression{System.Func{``0}})
+  name: UsingConstructor<RegisterType>(Expression<Func<RegisterType>>)
+  href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_UsingConstructor__1_Expression_System_Func___0___
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor``1(Expression{System.Func{``0}})
+  name.vb: UsingConstructor(Of RegisterType)(Expression(Of Func(Of RegisterType)))
+  fullName: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor<RegisterType>(Expression<System.Func<RegisterType>>)
+  fullName.vb: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor(Of RegisterType)(Expression(Of System.Func(Of RegisterType)))
+  nameWithType: DependencyContainer.RegisterOptions.UsingConstructor<RegisterType>(Expression<Func<RegisterType>>)
+  nameWithType.vb: DependencyContainer.RegisterOptions.UsingConstructor(Of RegisterType)(Expression(Of Func(Of RegisterType)))
 - uid: Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference
   name: WithStrongReference()
   href: api/Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html#Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithStrongReference
@@ -3411,12 +3492,57 @@ references:
   fullName.vb: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(System.Type, System.Collections.Generic.IEnumerable(Of System.Type))
   nameWithType: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(Type, IEnumerable<Type>)
   nameWithType.vb: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(Type, IEnumerable(Of Type))
+- uid: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Exception)
+  name: DependencyContainerAutoRegistrationException(Type, IEnumerable<Type>, Exception)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerAutoRegistrationException__ctor_System_Type_System_Collections_Generic_IEnumerable_System_Type__System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Exception)
+  name.vb: DependencyContainerAutoRegistrationException(Type, IEnumerable(Of Type), Exception)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(System.Type, System.Collections.Generic.IEnumerable<System.Type>, System.Exception)
+  fullName.vb: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(System.Type, System.Collections.Generic.IEnumerable(Of System.Type), System.Exception)
+  nameWithType: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(Type, IEnumerable<Type>, Exception)
+  nameWithType.vb: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(Type, IEnumerable(Of Type), Exception)
 - uid: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor*
   name: DependencyContainerAutoRegistrationException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerAutoRegistrationException__ctor_
   commentId: Overload:Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor
   fullName: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException
   nameWithType: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException
+- uid: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException
+  name: DependencyContainerConstructorResolutionException
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.html
+  commentId: T:Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException
+  nameWithType: DependencyContainerConstructorResolutionException
+- uid: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.String)
+  name: DependencyContainerConstructorResolutionException(String)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.html#Unosquare_Swan_Exceptions_DependencyContainerConstructorResolutionException__ctor_System_String_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.String)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(System.String)
+  nameWithType: DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(String)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.String,System.Exception)
+  name: DependencyContainerConstructorResolutionException(String, Exception)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.html#Unosquare_Swan_Exceptions_DependencyContainerConstructorResolutionException__ctor_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.String,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(System.String, System.Exception)
+  nameWithType: DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(String, Exception)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.Type)
+  name: DependencyContainerConstructorResolutionException(Type)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.html#Unosquare_Swan_Exceptions_DependencyContainerConstructorResolutionException__ctor_System_Type_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.Type)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(System.Type)
+  nameWithType: DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(Type)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.Type,System.Exception)
+  name: DependencyContainerConstructorResolutionException(Type, Exception)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.html#Unosquare_Swan_Exceptions_DependencyContainerConstructorResolutionException__ctor_System_Type_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor(System.Type,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(System.Type, System.Exception)
+  nameWithType: DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException(Type, Exception)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor*
+  name: DependencyContainerConstructorResolutionException
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.html#Unosquare_Swan_Exceptions_DependencyContainerConstructorResolutionException__ctor_
+  commentId: Overload:Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.#ctor
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException
+  nameWithType: DependencyContainerConstructorResolutionException.DependencyContainerConstructorResolutionException
 - uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException
   name: DependencyContainerRegistrationException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html
@@ -3429,6 +3555,24 @@ references:
   commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.String)
   fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.String)
   nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, String)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.String,System.Exception)
+  name: DependencyContainerRegistrationException(Type, String, Exception)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_System_Type_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.String,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.String, System.Exception)
+  nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, String, Exception)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.Type)
+  name: DependencyContainerRegistrationException(Type, Type)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_System_Type_System_Type_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.Type)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.Type)
+  nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, Type)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.Type,System.Exception)
+  name: DependencyContainerRegistrationException(Type, Type, Exception)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_System_Type_System_Type_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.Type,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.Type, System.Exception)
+  nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, Type, Exception)
 - uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor*
   name: DependencyContainerRegistrationException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_
@@ -3447,6 +3591,12 @@ references:
   commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor(System.Type,System.String)
   fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException(System.Type, System.String)
   nameWithType: DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException(Type, String)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor(System.Type,System.String,System.Exception)
+  name: DependencyContainerRegistrationTypeException(Type, String, Exception)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_System_Type_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor(System.Type,System.String,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException(System.Type, System.String, System.Exception)
+  nameWithType: DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException(Type, String, Exception)
 - uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor*
   name: DependencyContainerRegistrationTypeException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_
@@ -3489,6 +3639,12 @@ references:
   commentId: M:Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.#ctor(System.Type)
   fullName: Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.DependencyContainerWeakReferenceException(System.Type)
   nameWithType: DependencyContainerWeakReferenceException.DependencyContainerWeakReferenceException(Type)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.#ctor(System.Type,System.Exception)
+  name: DependencyContainerWeakReferenceException(Type, Exception)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.html#Unosquare_Swan_Exceptions_DependencyContainerWeakReferenceException__ctor_System_Type_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.#ctor(System.Type,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.DependencyContainerWeakReferenceException(System.Type, System.Exception)
+  nameWithType: DependencyContainerWeakReferenceException.DependencyContainerWeakReferenceException(Type, Exception)
 - uid: Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.#ctor*
   name: DependencyContainerWeakReferenceException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerWeakReferenceException.html#Unosquare_Swan_Exceptions_DependencyContainerWeakReferenceException__ctor_
@@ -3531,6 +3687,30 @@ references:
   commentId: Overload:Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
   fullName: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
   nameWithType: JsonRequestException.HttpErrorCode
+- uid: Unosquare.Swan.Exceptions.MessageHubSubscriptionException
+  name: MessageHubSubscriptionException
+  href: api/Unosquare.Swan.Exceptions.MessageHubSubscriptionException.html
+  commentId: T:Unosquare.Swan.Exceptions.MessageHubSubscriptionException
+  fullName: Unosquare.Swan.Exceptions.MessageHubSubscriptionException
+  nameWithType: MessageHubSubscriptionException
+- uid: Unosquare.Swan.Exceptions.MessageHubSubscriptionException.#ctor(System.Type,System.String)
+  name: MessageHubSubscriptionException(Type, String)
+  href: api/Unosquare.Swan.Exceptions.MessageHubSubscriptionException.html#Unosquare_Swan_Exceptions_MessageHubSubscriptionException__ctor_System_Type_System_String_
+  commentId: M:Unosquare.Swan.Exceptions.MessageHubSubscriptionException.#ctor(System.Type,System.String)
+  fullName: Unosquare.Swan.Exceptions.MessageHubSubscriptionException.MessageHubSubscriptionException(System.Type, System.String)
+  nameWithType: MessageHubSubscriptionException.MessageHubSubscriptionException(Type, String)
+- uid: Unosquare.Swan.Exceptions.MessageHubSubscriptionException.#ctor(System.Type,System.String,System.Exception)
+  name: MessageHubSubscriptionException(Type, String, Exception)
+  href: api/Unosquare.Swan.Exceptions.MessageHubSubscriptionException.html#Unosquare_Swan_Exceptions_MessageHubSubscriptionException__ctor_System_Type_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.MessageHubSubscriptionException.#ctor(System.Type,System.String,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.MessageHubSubscriptionException.MessageHubSubscriptionException(System.Type, System.String, System.Exception)
+  nameWithType: MessageHubSubscriptionException.MessageHubSubscriptionException(Type, String, Exception)
+- uid: Unosquare.Swan.Exceptions.MessageHubSubscriptionException.#ctor*
+  name: MessageHubSubscriptionException
+  href: api/Unosquare.Swan.Exceptions.MessageHubSubscriptionException.html#Unosquare_Swan_Exceptions_MessageHubSubscriptionException__ctor_
+  commentId: Overload:Unosquare.Swan.Exceptions.MessageHubSubscriptionException.#ctor
+  fullName: Unosquare.Swan.Exceptions.MessageHubSubscriptionException.MessageHubSubscriptionException
+  nameWithType: MessageHubSubscriptionException.MessageHubSubscriptionException
 - uid: Unosquare.Swan.Extensions
   name: Extensions
   href: api/Unosquare.Swan.Extensions.html
@@ -8187,6 +8367,42 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.ToString
   fullName: Unosquare.Swan.Networking.Ldap.LdapException.ToString
   nameWithType: LdapException.ToString
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException
+  name: LdapLocalException
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html
+  commentId: T:Unosquare.Swan.Networking.Ldap.LdapLocalException
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException
+  nameWithType: LdapLocalException
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor
+  name: LdapLocalException()
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException()
+  nameWithType: LdapLocalException.LdapLocalException()
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)
+  name: LdapLocalException(String, LdapStatusCode, Exception)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException(System.String, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.Exception)
+  nameWithType: LdapLocalException.LdapLocalException(String, LdapStatusCode, Exception)
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*
+  name: LdapLocalException
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.LdapLocalException
+  nameWithType: LdapLocalException.LdapLocalException
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString
+  name: ToString()
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException_ToString
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString()
+  nameWithType: LdapLocalException.ToString()
+- uid: Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString*
+  name: ToString
+  href: api/Unosquare.Swan.Networking.Ldap.LdapLocalException.html#Unosquare_Swan_Networking_Ldap_LdapLocalException_ToString_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString
+  fullName: Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString
+  nameWithType: LdapLocalException.ToString
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage
   name: LdapMessage
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html
