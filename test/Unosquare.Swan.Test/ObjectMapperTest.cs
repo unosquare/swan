@@ -197,15 +197,17 @@ namespace Unosquare.Swan.Test
         [Test]
         public void Copy_SourceAndTargetNotNull_ReturnsCopy()
         {
-            var source = new Dictionary<string, object>();
-            source.Add("Name", "Armando");
-            source.Add("Email", "3ncifuentesg@gmail.com");
-            source.Add("Role", "Intern tester");
+            var source = new Dictionary<string, object>
+            {
+                { "Name", "Armando" },
+                { "Email", "armando.cifuentes@unosquare.com" },
+                { "Role", "Intern tester" }
+            };
 
             var target = new UserDto();
 
-            string[] propertiesToCopy = new string[] { "Name", "Email" };
-            string[] ignoreProperties = new string[] { "Role" };
+            var propertiesToCopy = new string[] { "Name", "Email" };
+            var ignoreProperties = new string[] { "Role" };
             
             var result = ObjectMapper.Copy(source, target, propertiesToCopy, ignoreProperties);
 
