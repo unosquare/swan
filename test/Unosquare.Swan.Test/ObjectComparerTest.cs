@@ -155,16 +155,18 @@ namespace Unosquare.Swan.Test
             [Test]
             public void StructsSameProps_ReturnsTrue()
             {
-                var leftStruct = new SampleStruct
+                var leftStruct = new SampleStructDifferent1()
                 {
-                    Value = 1,
-                    Name = "Good"
+                    StudentId = 1,
+                    Average = 98.10,
+                    Notes = "Good"
                 };
 
-                var rightStruct = new SampleStruct
+                var rightStruct = new SampleStructDifferent1()
                 {
-                    Value = 1,
-                    Name = "Good"
+                    StudentId = 1,
+                    Average = 98.10,
+                    Notes = "Good"
                 };
 
                 Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
@@ -173,16 +175,18 @@ namespace Unosquare.Swan.Test
             [Test]
             public void StructsDifferentProps_ReturnsFalse()
             {
-                var leftStruct = new SampleStruct
+                var leftStruct = new SampleStructDifferent1()
                 {
-                    Value = 1,
-                    Name = "Good"
+                    StudentId = 1,
+                    Average = 98.10,
+                    Notes = "Good"
                 };
 
-                var rightStruct = new SampleStruct
+                var rightStruct = new SampleStructDifferent1()
                 {
-                    Value = 1,
-                    Name = "Bad"
+                    StudentId = 2,
+                    Average = 79.78,
+                    Notes = "Ehmm, it could be better"
                 };
 
                 Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
