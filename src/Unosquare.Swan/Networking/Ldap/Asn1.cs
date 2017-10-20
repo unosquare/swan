@@ -25,7 +25,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// thus we create it only once.
         /// </summary>
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, Tag);
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1SetOf"/> class.
         ///     Constructs an Asn1SetOf object with the specified
@@ -39,7 +39,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(Id, size)
         {
         }
-        
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -54,7 +54,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// Asn1Object methods are delegated to the object this Asn1Choice contains.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1Choice 
+    internal class Asn1Choice
         : Asn1Object
     {
         private Asn1Object _content;
@@ -70,7 +70,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             _content = content;
         }
-        
+
         /// <summary>
         /// Sets the CHOICE value stored in this Asn1Choice.
         /// </summary>
@@ -91,7 +91,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="enc">Encoder object to use when encoding self.</param>
         /// <param name="stream">The stream.</param>
         public override void Encode(IAsn1Encoder enc, Stream stream) => _content.Encode(enc, stream);
-        
+
         /// <summary>
         /// This method will return the Asn1Identifier of the
         /// encoded Asn1Object.We  override the parent method
@@ -208,7 +208,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="tag">The tag.</param>
         public Asn1Identifier(LdapOperation tag)
-            : this(APPLICATION, true, (int) tag)
+            : this(APPLICATION, true, (int)tag)
         {
         }
 
@@ -420,21 +420,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// Byte array
         /// </returns>
-        /// <exception cref="Exception">IOException while encoding to byte array: " + e</exception>
         public sbyte[] GetEncoding(IAsn1Encoder enc)
         {
             using (var stream = new MemoryStream())
             {
-                try
-                {
-                    Encode(enc, stream);
-                }
-                catch (IOException e)
-                {
-                    // Should never happen - the current Asn1Object does not have
-                    // a encode method. 
-                    throw new Exception("IOException while encoding to byte array: " + e);
-                }
+                Encode(enc, stream);
 
                 return stream.ToArray().ToSByteArray();
             }
@@ -459,7 +449,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class encapsulates the OCTET STRING type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1OctetString 
+    internal class Asn1OctetString
         : Asn1Object
     {
         /// <summary> ASN.1 OCTET STRING tag definition.</summary>
@@ -481,7 +471,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="content">A byte array representing the string that
         /// will be contained in the this Asn1OctetString object</param>
-        public Asn1OctetString(sbyte[] content) 
+        public Asn1OctetString(sbyte[] content)
             : base(Id)
         {
             _content = content;
@@ -495,17 +485,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="content">A string value that will be contained
         /// in the this Asn1OctetString object</param>
         /// <exception cref="Exception"></exception>
-        public Asn1OctetString(string content) 
+        public Asn1OctetString(string content)
             : base(Id)
         {
-            try
-            {
-                _content = Encoding.UTF8.GetSBytes(content);
-            }
-            catch (IOException uee)
-            {
-                throw new Exception(uee.ToString());
-            }
+            _content = Encoding.UTF8.GetSBytes(content);
         }
 
         /// <summary>
@@ -518,7 +501,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public Asn1OctetString(IAsn1Decoder dec, Stream stream, int len) 
+        public Asn1OctetString(IAsn1Decoder dec, Stream stream, int len)
             : base(Id)
         {
             _content = len > 0 ? (sbyte[])dec.DecodeOctetString(stream, len) : new sbyte[0];
@@ -647,7 +630,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="enc">Encoder object to use when encoding self.</param>
         /// <param name="stream">The stream.</param>
         public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
-        
+
         /// <summary>
         /// Return a String representation of this Asn1Object.
         /// </summary>
@@ -666,13 +649,13 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         private Asn1Object[] _content;
         private int _contentIndex;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Structured" /> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="size">The size.</param>
-        protected internal Asn1Structured(Asn1Identifier id, int size = 10) 
+        protected internal Asn1Structured(Asn1Identifier id, int size = 10)
             : base(id)
         {
             _content = new Asn1Object[size];
@@ -684,7 +667,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="id">The identifier.</param>
         /// <param name="newContent">The new content.</param>
         /// <param name="size">The size.</param>
-        protected internal Asn1Structured(Asn1Identifier id, Asn1Object[] newContent, int size) 
+        protected internal Asn1Structured(Asn1Identifier id, Asn1Object[] newContent, int size)
             : base(id)
         {
             _content = newContent;
@@ -798,7 +781,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             return base.ToString() + sb;
         }
-        
+
         /// <summary>
         /// Decode an Asn1Structured type from an InputStream.
         /// </summary>
@@ -821,7 +804,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class encapsulates the ASN.1 BOOLEAN type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1Boolean 
+    internal class Asn1Boolean
         : Asn1Object
     {
         /// <summary> ASN.1 BOOLEAN tag definition.</summary>
@@ -835,7 +818,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// thus we create it only once.
         /// </summary>
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, false, Tag);
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Boolean"/> class.
         /// Call this constructor to construct an Asn1Boolean
@@ -864,7 +847,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             _content = (bool)dec.DecodeBoolean(stream, len);
         }
-        
+
         /// <summary>
         /// Encode the current instance into the
         /// specified output stream using the specified encoder object.
@@ -892,7 +875,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class represents the ASN.1 NULL type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1Null 
+    internal class Asn1Null
         : Asn1Object
     {
         /// <summary> ASN.1 NULL tag definition.</summary>
@@ -904,7 +887,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     thus we create it only once.
         /// </summary>
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, false, Tag);
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Null"/> class.
         /// Call this constructor to construct a new Asn1Null
@@ -938,7 +921,7 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         private readonly long _content;
 
-        internal Asn1Numeric(Asn1Identifier id, int numericValue) 
+        internal Asn1Numeric(Asn1Identifier id, int numericValue)
             : base(id)
         {
             _content = numericValue;
@@ -1064,7 +1047,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///     This class inherits from the Asn1Structured class which
     ///     provides functionality to hold multiple Asn1 components.
     /// </summary>
-    internal class Asn1Sequence 
+    internal class Asn1Sequence
         : Asn1Structured
     {
         /// <summary> ASN.1 SEQUENCE tag definition.</summary>
@@ -1075,7 +1058,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     id needs only be one Value for every instance Thus we create it only once.
         /// </summary>
         private static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, Tag);
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Sequence"/> class.
         ///     Constructs an Asn1Sequence object with the specified
@@ -1113,7 +1096,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public Asn1Sequence(IAsn1Decoder dec, Stream stream, int len) 
+        public Asn1Sequence(IAsn1Decoder dec, Stream stream, int len)
             : base(Id)
         {
             DecodeStructured(dec, stream, len);
@@ -1134,7 +1117,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// which already provides functionality to hold multiple Asn1 components.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Structured" />
-    internal class Asn1Set 
+    internal class Asn1Set
         : Asn1Structured
     {
         /// <summary> ASN.1 SET tag definition.</summary>
@@ -1152,7 +1135,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1Set object with no actual
         /// Asn1Objects in it. Assumes a default size of 5 elements.
         /// </summary>
-        public Asn1Set() 
+        public Asn1Set()
             : base(Id)
         {
         }
@@ -1164,7 +1147,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// are no actual Asn1Objects in this SequenceOf object.
         /// </summary>
         /// <param name="size">Specifies the initial size of the collection.</param>
-        public Asn1Set(int size) 
+        public Asn1Set(int size)
             : base(Id, size)
         {
         }
@@ -1179,12 +1162,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public Asn1Set(IAsn1Decoder dec, Stream stream, int len) 
+        public Asn1Set(IAsn1Decoder dec, Stream stream, int len)
             : base(Id)
         {
             DecodeStructured(dec, stream, len);
         }
-        
+
         /// <summary>
         /// Returns a String representation of this Asn1Set.
         /// </summary>
@@ -1198,7 +1181,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class encapsulates the ASN.1 INTEGER type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Numeric" />
-    internal class Asn1Integer 
+    internal class Asn1Integer
         : Asn1Numeric
     {
         /// <summary> ASN.1 INTEGER tag definition.</summary>
@@ -1218,7 +1201,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="content">The integer value to be contained in the
         /// this Asn1Integer object</param>
-        public Asn1Integer(int content) 
+        public Asn1Integer(int content)
             : base(Id, content)
         {
         }
@@ -1230,7 +1213,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="content">The long value to be contained in the
         /// this Asn1Integer object</param>
-        public Asn1Integer(long content) 
+        public Asn1Integer(long content)
             : base(Id, content)
         {
         }
@@ -1292,7 +1275,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="content">The integer value to be contained in the
         /// this Asn1Enumerated object</param>
-        public Asn1Enumerated(int content) 
+        public Asn1Enumerated(int content)
             : base(Id, content)
         {
         }
@@ -1367,7 +1350,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an Asn1SequenceOf object with no actual
         /// Asn1Objects in it. Assumes a default size of 5 elements.
         /// </summary>
-        public Asn1SequenceOf() 
+        public Asn1SequenceOf()
             : base(Id)
         {
         }
@@ -1379,7 +1362,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// are no actual Asn1Objects in this SequenceOf object.
         /// </summary>
         /// <param name="size">Specifies the initial size of the collection.</param>
-        public Asn1SequenceOf(int size) 
+        public Asn1SequenceOf(int size)
             : base(Id, size)
         {
         }
@@ -1395,7 +1378,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Asn1Sequence.
         /// </summary>
         /// <param name="sequence">The sequence.</param>
-        public Asn1SequenceOf(Asn1Sequence sequence) 
+        public Asn1SequenceOf(Asn1Sequence sequence)
             : base(Id, sequence.ToArray(), sequence.Size())
         {
         }
@@ -1410,7 +1393,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// in his/her own decoder object</param>
         /// <param name="stream">The stream.</param>
         /// <param name="len">The length.</param>
-        public Asn1SequenceOf(IAsn1Decoder dec, Stream stream, int len) 
+        public Asn1SequenceOf(IAsn1Decoder dec, Stream stream, int len)
             : base(Id)
         {
             DecodeStructured(dec, stream, len);

@@ -94,16 +94,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public object Clone()
         {
-            LdapControl cont;
-            try
-            {
-                cont = (LdapControl)MemberwiseClone();
-            }
-            catch (Exception ce)
-            {
-                throw new Exception("Internal error, cannot create clone", ce);
-            }
-
+            var cont = (LdapControl)MemberwiseClone();
             var vals = GetValue();
 
             if (vals != null)
@@ -131,17 +122,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The control-specific data of the object as a byte array,
         ///     or null if the control has no data.
         /// </returns>
-        public virtual sbyte[] GetValue()
-        {
-            sbyte[] result = null;
-            var val = _control.ControlValue;
-            if (val != null)
-            {
-                result = val.ByteValue();
-            }
-
-            return result;
-        }
+        public virtual sbyte[] GetValue() => _control.ControlValue?.ByteValue();
 
         /// <summary>
         /// Sets the control-specific data of the object.  This method is for
@@ -398,8 +379,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int DEREF_ALWAYS = 3;
 
         /// <summary>
-        /// Constructs an LdapSearchConstraints object with a default set
-        /// of search constraints.
+        /// Initializes a new instance of the <see cref="LdapSearchConstraints"/> class.
         /// </summary>
         public LdapSearchConstraints()
         {
@@ -646,17 +626,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     clone of this URL object.
         /// </returns>
-        public object Clone()
-        {
-            try
-            {
-                return MemberwiseClone();
-            }
-            catch (Exception ce)
-            {
-                throw new Exception("Internal error, cannot create clone", ce);
-            }
-        }
+        public object Clone() =>  MemberwiseClone();
 
         /// <summary>
         /// Decodes a URL-encoded string.
@@ -1276,26 +1246,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw ex;
             }
         }
-
-        private static Asn1Sequence RfcResultFactory(LdapOperation type, LdapStatusCode resultCode, string matchedDN, string serverMessage)
-        {
-            Asn1Sequence ret;
-            if (matchedDN == null)
-                matchedDN = string.Empty;
-            if (serverMessage == null)
-                serverMessage = string.Empty;
-
-            switch (type)
-            {
-                case LdapOperation.SearchResult:
-                    ret = new RfcSearchResultDone(new Asn1Enumerated((int) resultCode), new RfcLdapDN(matchedDN), new RfcLdapString(serverMessage), null);
-                    break;
-                default:
-                    throw new Exception("Type " + type + " Not Supported");
-            }
-
-            return ret;
-        }
     }
 
     /// <summary>
@@ -1365,16 +1315,16 @@ namespace Unosquare.Swan.Networking.Ldap
                 // loop through the contents of the vector
                 for (var i = 0; i < Count; i++)
                 {
-                    /* Get next registered control */
+                    // Get next registered control
                     if ((ctl = (RegisteredControl) ToArray()[i]) == null)
                     {
                         throw new FieldAccessException();
                     }
 
-                    /* Does the stored OID match with whate we are looking for */
+                    // Does the stored OID match with whate we are looking for
                     if (ctl.MyOid.CompareTo(searchOID) == 0)
                     {
-                        /* Return the class name if we have match */
+                        // Return the class name if we have match
                         return ctl.MyClass;
                     }
                 }

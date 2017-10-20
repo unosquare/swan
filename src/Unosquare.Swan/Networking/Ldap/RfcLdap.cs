@@ -71,23 +71,23 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (entry != null) return entry;
 
                 var attrs = new LdapAttributeSet();
-                var attrList = ((RfcSearchResultEntry) Message.Response).Attributes;
+                var attrList = ((RfcSearchResultEntry)Message.Response).Attributes;
                 var seqArray = attrList.ToArray();
 
                 foreach (Asn1Sequence seq in seqArray)
                 {
-                    var attr = new LdapAttribute(((Asn1OctetString) seq.Get(0)).StringValue());
-                    var set = (Asn1Set) seq.Get(1);
+                    var attr = new LdapAttribute(((Asn1OctetString)seq.Get(0)).StringValue());
+                    var set = (Asn1Set)seq.Get(1);
 
                     foreach (var t in set.ToArray())
                     {
-                        attr.AddValue(((Asn1OctetString) t).ByteValue());
+                        attr.AddValue(((Asn1OctetString)t).ByteValue());
                     }
 
                     attrs.Add(attr);
                 }
 
-                entry = new LdapEntry(((RfcSearchResultEntry) Message.Response).ObjectName.StringValue(), attrs);
+                entry = new LdapEntry(((RfcSearchResultEntry)Message.Response).ObjectName.StringValue(), attrs);
 
                 return entry;
             }
@@ -154,16 +154,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public object Clone()
         {
-            try
-            {
-                var newObj = MemberwiseClone();
-                Array.Copy(Value, 0, ((LdapExtendedOperation) newObj).Value, 0, Value.Length);
-                return newObj;
-            }
-            catch (Exception ce)
-            {
-                throw new Exception("Internal error, cannot create clone", ce);
-            }
+            var newObj = MemberwiseClone();
+            Array.Copy(Value, 0, ((LdapExtendedOperation)newObj).Value, 0, Value.Length);
+            return newObj;
         }
     }
 
@@ -273,18 +266,18 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 for (var i = 3; i < Size(); i++)
                 {
-                    var obj = (Asn1Tagged) Get(i);
+                    var obj = (Asn1Tagged)Get(i);
                     var id = obj.GetIdentifier();
                     switch (id.Tag)
                     {
                         case RfcLdapResult.REFERRAL:
-                            var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
+                            var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
                             var bais = new MemoryStream(content.ToByteArray());
                             Set(i, new Asn1SequenceOf(dec, bais, content.Length));
                             referralIndex = i;
                             break;
                         case RESPONSE_NAME:
-                            Set(i, new RfcLdapOID(((Asn1OctetString) obj.TaggedValue).ByteValue()));
+                            Set(i, new RfcLdapOID(((Asn1OctetString)obj.TaggedValue).ByteValue()));
                             responseNameIndex = i;
                             break;
                         case RESPONSE:
@@ -301,14 +294,14 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1OctetString Response => responseIndex != 0 ? (Asn1OctetString)Get(responseIndex) : null;
 
         // Accessors
-        public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
+        public Asn1Enumerated GetResultCode() => (Asn1Enumerated)Get(0);
 
-        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
+        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
 
-        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral()
-            => referralIndex != 0 ? (Asn1SequenceOf) Get(referralIndex) : null;
+            => referralIndex != 0 ? (Asn1SequenceOf)Get(referralIndex) : null;
 
         /// <summary>
         /// Override getIdentifier to return an application-wide id.
@@ -338,13 +331,13 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 if (Size() == 5)
-                    return (Asn1OctetString) ((Asn1Tagged) Get(4)).TaggedValue;
+                    return (Asn1OctetString)((Asn1Tagged)Get(4)).TaggedValue;
 
                 if (Size() == 4)
                 {
                     // could be referral or serverSaslCreds
                     if (Get(3) is Asn1Tagged)
-                        return (Asn1OctetString) ((Asn1Tagged)Get(3)).TaggedValue;
+                        return (Asn1OctetString)((Asn1Tagged)Get(3)).TaggedValue;
                 }
 
                 return null;
@@ -368,11 +361,11 @@ namespace Unosquare.Swan.Networking.Ldap
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
             {
-                var obj = (Asn1Tagged) Get(3);
-                
+                var obj = (Asn1Tagged)Get(3);
+
                 if (obj.GetIdentifier().Tag == RfcLdapResult.REFERRAL)
                 {
-                    var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
+                    var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
                     var bais = new MemoryStream(content.ToByteArray());
                     Set(3, new Asn1SequenceOf(dec, bais, content.Length));
                 }
@@ -380,11 +373,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         // Accessors
-        public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
+        public Asn1Enumerated GetResultCode() => (Asn1Enumerated)Get(0);
 
-        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
+        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
 
-        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral()
         {
@@ -437,12 +430,12 @@ namespace Unosquare.Swan.Networking.Ldap
 
             for (; i < Size(); i++)
             {
-                var obj = (Asn1Tagged) Get(i);
+                var obj = (Asn1Tagged)Get(i);
 
                 switch (obj.GetIdentifier().Tag)
                 {
                     case TagResponseName:
-                        Set(i, new RfcLdapOID(((Asn1OctetString) obj.TaggedValue).ByteValue()));
+                        Set(i, new RfcLdapOID(((Asn1OctetString)obj.TaggedValue).ByteValue()));
                         _mResponseNameIndex = i;
                         break;
                     case TagResponse:
@@ -453,25 +446,25 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        public Asn1Enumerated GetResultCode() => Size() > 3 ? (Asn1Enumerated) Get(0) : null;
+        public Asn1Enumerated GetResultCode() => Size() > 3 ? (Asn1Enumerated)Get(0) : null;
 
-        public RfcLdapDN GetMatchedDN() => Size() > 3 ? new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue()) : null;
+        public RfcLdapDN GetMatchedDN() => Size() > 3 ? new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue()) : null;
 
-        public RfcLdapString GetErrorMessage() => Size() > 3 ? new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue()) : null;
+        public RfcLdapString GetErrorMessage() => Size() > 3 ? new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue()) : null;
 
-        public Asn1SequenceOf GetReferral() => Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
+        public Asn1SequenceOf GetReferral() => Size() > 3 ? (Asn1SequenceOf)Get(3) : null;
 
         public RfcLdapOID GetResponseName()
         {
             return _mResponseNameIndex >= 0
-                ? (RfcLdapOID) Get(_mResponseNameIndex)
+                ? (RfcLdapOID)Get(_mResponseNameIndex)
                 : null;
         }
 
         public Asn1OctetString GetResponse()
         {
             return _mResponseValueIndex != 0
-                ? (Asn1OctetString) Get(_mResponseValueIndex)
+                ? (Asn1OctetString)Get(_mResponseValueIndex)
                 : null;
         }
 

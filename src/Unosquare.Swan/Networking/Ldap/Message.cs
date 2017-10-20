@@ -128,11 +128,10 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             for (var index = 0; index < elements.Count; index++)
             {
-                if ((string) elements[index] == string.Empty)
-                {
-                    elements.RemoveAt(index);
-                    index--;
-                }
+                if ((string) elements[index] != string.Empty) continue;
+
+                elements.RemoveAt(index);
+                index--;
             }
         }
     }
