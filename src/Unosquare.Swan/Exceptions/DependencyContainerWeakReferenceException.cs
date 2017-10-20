@@ -18,15 +18,5 @@
             : base(string.Format(ErrorText, type.FullName))
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyContainerWeakReferenceException"/> class.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public DependencyContainerWeakReferenceException(Type type, Exception innerException)
-            : base(string.Format(ErrorText, type.FullName), innerException)
-        {
-        }
     }
 }

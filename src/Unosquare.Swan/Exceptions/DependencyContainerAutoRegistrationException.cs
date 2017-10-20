@@ -21,21 +21,7 @@
             : base(string.Format(ErrorText, registerType, GetTypesString(types)))
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyContainerAutoRegistrationException"/> class.
-        /// </summary>
-        /// <param name="registerType">Type of the register.</param>
-        /// <param name="types">The types.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public DependencyContainerAutoRegistrationException(
-            Type registerType, 
-            IEnumerable<Type> types,
-            Exception innerException)
-            : base(string.Format(ErrorText, registerType, GetTypesString(types)), innerException)
-        {
-        }
-
+        
         /// <summary>
         /// Gets the types string.
         /// </summary>

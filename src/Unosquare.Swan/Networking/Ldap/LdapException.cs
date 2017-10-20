@@ -1,53 +1,8 @@
 ﻿#if !UWP
-
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-
-    /// <summary>
-    /// Represents an Ldap exception that is not a result of a server response.
-    /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapException" />
-    public sealed class LdapLocalException 
-        : LdapException
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapLocalException"/> class.
-        /// </summary>
-        public LdapLocalException()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapLocalException" /> class.
-        /// Constructs a local exception with a detailed message obtained from the
-        /// specified <code>MessageOrKey</code> String.
-        /// Additional parameters specify the result code and a rootException which
-        /// is the underlying cause of an error on the client.
-        /// The String is used either as a message key to obtain a localized
-        /// message from ExceptionMessages, or if there is no key in the
-        /// resource matching the text, it is used as the detailed message itself.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="resultCode">The result code returned.</param>
-        /// <param name="rootException">A throwable which is the underlying cause
-        /// of the LdapException.</param>
-        public LdapLocalException(string message, LdapStatusCode resultCode, Exception rootException = null)
-            : base(message, resultCode, rootException: rootException)
-        {
-        }
-        
-        /// <summary>
-        /// Returns a string of information about the exception and the
-        /// the nested exceptions, if any.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString() => GetExceptionString(nameof(LdapLocalException));
-    }
     
     /// <summary>
     /// Thrown to indicate that an Ldap exception has occurred. This is a general
@@ -128,8 +83,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="matchedDN">The maximal subset of a specified DN which could
         /// be matched by the server on a search operation.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapException(string message, LdapStatusCode resultCode, string serverMsg = null,
-            string matchedDN = null, Exception rootException = null)
+        public LdapException(
+            string message, 
+            LdapStatusCode resultCode, 
+            string serverMsg = null,
+            string matchedDN = null, 
+            Exception rootException = null)
             : base(message)
         {
             this.resultCode = resultCode;
@@ -146,18 +105,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The error message or null if the message was not set.
         /// </returns>
-        public virtual string LdapErrorMessage
-        {
-            get
-            {
-                if (serverMessage != null && serverMessage.Length == 0)
-                {
-                    return null;
-                }
-
-                return serverMessage;
-            }
-        }
+        public virtual string LdapErrorMessage => serverMessage != null && serverMessage.Length == 0 ? null : serverMessage;
 
         /// <summary>
         ///     Returns the lower level Exception which caused the failure, if any.
@@ -245,7 +193,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapException" />
     public sealed class LdapReferralException : LdapException
     {
-        private string[] referrals;
+        private string[] _referrals;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapReferralException"/> class.
@@ -266,7 +214,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="serverMessage">Error message specifying additional information
         /// from the server.</param>
         /// <param name="rootException">The root exception.</param>
-        public LdapReferralException(string message, LdapStatusCode resultCode, string serverMessage,
+        public LdapReferralException(
+            string message, 
+            LdapStatusCode resultCode, 
+            string serverMessage,
             Exception rootException = null)
             : base(message, resultCode, serverMessage, rootException: rootException)
         {
@@ -299,9 +250,9 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             // Add referral information, display all the referrals in the list
-            if (referrals != null)
+            if (_referrals != null)
             {
-                msg = referrals.Aggregate(msg, (current, referral) => current + $"\nServer Message: {referral}");
+                msg = _referrals.Aggregate(msg, (current, referral) => current + $"\nServer Message: {referral}");
             }
 
             return msg;
@@ -315,7 +266,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     single response.
         /// </param>
         internal void SetReferrals(string[] urls)
-            => referrals = urls;
+            => _referrals = urls;
 
     }
 }
