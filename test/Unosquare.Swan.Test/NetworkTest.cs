@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Unosquare.Swan.Exceptions;
 using Unosquare.Swan.Networking.Ldap;
 
-namespace Unosquare.Swan.Test.Network
+namespace Unosquare.Swan.Test.NetworkTests
 {
 
     public abstract class NetworkTest
