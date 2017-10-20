@@ -122,7 +122,7 @@ LdapSearchResults.</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapEntry_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapEntry</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapEntry</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -227,7 +227,7 @@ entry.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string DN { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string DN { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -240,7 +240,7 @@ entry.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>The distinguished name of the entry.</p>
+        <td><p>The dn.</p>
 </td>
       </tr>
     </tbody>
@@ -256,7 +256,7 @@ entry.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapAttribute GetAttribute(string attrName)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttribute GetAttribute(string attrName)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -304,7 +304,7 @@ empty if there are no attributes in the entry.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapAttributeSet GetAttributeSet()</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttributeSet GetAttributeSet()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -339,7 +339,7 @@ empty if there are no matching attributes in the entry.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapAttributeSet GetAttributeSet(string subtype)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttributeSet GetAttributeSet(string subtype)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

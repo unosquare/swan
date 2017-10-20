@@ -85,7 +85,7 @@
 LdapAttribute objects are used when searching for, adding,
 modifying, and deleting attributes from the directory.
 LdapAttributes are often used in conjunction with an
-{@link LdapAttributeSet} when retrieving or adding multiple
+LdapAttributeSet when retrieving or adding multiple
 attributes to an entry.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -119,7 +119,7 @@ attributes to an entry.</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapAttribute</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapAttribute</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -166,44 +166,6 @@ Constructs an attribute with no values.</p>
       <tr>
         <td><span class="xref">System.ArgumentException</span></td>
         <td><p>Attribute name cannot be null</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_System_String_System_SByte___" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor(System.String,System.SByte[])">LdapAttribute(String, SByte[])</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a> class.
-Constructs an attribute with a byte-formatted value.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapAttribute(string attrName, sbyte[] attrBytes)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">attrName</span></td>
-        <td><p>Name of the attribute.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.SByte</span>[]</td>
-        <td><span class="parametername">attrBytes</span></td>
-        <td><p>Value of the attribute as raw bytes.
-Note: If attrBytes represents a string it should be UTF-8 encoded.
-@throws IllegalArgumentException if attrName or attrBytes is null</p>
 </td>
       </tr>
     </tbody>
@@ -259,96 +221,6 @@ Constructs an attribute with a single string value.</p>
         <td><p>Attribute value cannot be null</p>
 </td>
       </tr>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_System_String_System_String___" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor(System.String,System.String[])">LdapAttribute(String, String[])</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a> class.
-Constructs an attribute with an array of string values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapAttribute(string attrName, string[] attrStrings)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">attrName</span></td>
-        <td><p>Name of the attribute.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span>[]</td>
-        <td><span class="parametername">attrStrings</span></td>
-        <td><p>Array of values as strings.
-@throws IllegalArgumentException if attrName, attrStrings, or a member
-of attrStrings is null</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_Unosquare_Swan_Networking_Ldap_LdapAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor(Unosquare.Swan.Networking.Ldap.LdapAttribute)">LdapAttribute(LdapAttribute)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a> class.
-Constructs an attribute with copies of all values of the input
-attribute.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapAttribute(LdapAttribute attr)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
-        <td><span class="parametername">attr</span></td>
-        <td><p>An LdapAttribute to use as a template.
-@throws IllegalArgumentException if attr is null</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.ArgumentException</span></td>
-        <td><p>LdapAttribute class cannot be null</p>
-</td>
-      </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
@@ -362,7 +234,7 @@ attribute.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual sbyte[] ByteValue { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public sbyte[] ByteValue { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -391,7 +263,7 @@ attribute.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual sbyte[][] ByteValueArray { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public sbyte[][] ByteValueArray { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -421,7 +293,7 @@ this method returns the string, lang-ja.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string LangSubtype { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string LangSubtype { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -449,7 +321,7 @@ has none.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string Name { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -476,7 +348,7 @@ has none.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string StringValue { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string StringValue { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -512,7 +384,7 @@ If the attribute has no values <pre><code>null</code></pre> is returned</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string[] StringValueArray { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string[] StringValueArray { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -531,34 +403,6 @@ no values</p>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute_Value_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.Value*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute_Value" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.Value">Value</h4>
-  <div class="markdown level1 summary"><p>Replaces all values with the specified value. This protected method is
-used by sub-classes of LdapSchemaElement because the value cannot be set
-with a contructor.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual string Value { set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   
@@ -572,7 +416,7 @@ data encoded as a base64 value must be UTF-8 characters.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void AddBase64Value(char[] attrChars)</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddBase64Value(char[] attrChars)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -588,8 +432,7 @@ data encoded as a base64 value must be UTF-8 characters.</p>
         <td><span class="xref">System.Char</span>[]</td>
         <td><span class="parametername">attrChars</span></td>
         <td><p>The base64 value of the attribute as an array of
-characters.
-@throws IllegalArgumentException if attrString is null</p>
+characters.</p>
 </td>
       </tr>
     </tbody>
@@ -605,7 +448,7 @@ data encoded as a base64 value must be UTF-8 characters.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void AddBase64Value(string attrString)</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddBase64Value(string attrString)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -620,8 +463,7 @@ data encoded as a base64 value must be UTF-8 characters.</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">attrString</span></td>
-        <td><p>The base64 value of the attribute as a String.
-@throws IllegalArgumentException if attrString is null</p>
+        <td><p>The base64 value of the attribute as a String.</p>
 </td>
       </tr>
     </tbody>
@@ -637,7 +479,7 @@ data encoded as a base64 value must be UTF-8 characters.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void AddBase64Value(StringBuilder attrString, int start, int end)</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddBase64Value(StringBuilder attrString, int start, int end)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -679,7 +521,7 @@ data encoded as a base64 value must be UTF-8 characters.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void AddValue(sbyte[] attrBytes)</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddValue(sbyte[] attrBytes)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -695,8 +537,7 @@ data encoded as a base64 value must be UTF-8 characters.</p>
         <td><span class="xref">System.SByte</span>[]</td>
         <td><span class="parametername">attrBytes</span></td>
         <td><p>Value of the attribute as raw bytes.
-Note: If attrBytes represents a string it should be UTF-8 encoded.
-@throws IllegalArgumentException if attrBytes is null</p>
+Note: If attrBytes represents a string it should be UTF-8 encoded.</p>
 </td>
       </tr>
     </tbody>
@@ -710,7 +551,7 @@ Note: If attrBytes represents a string it should be UTF-8 encoded.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void AddValue(string attrString)</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddValue(string attrString)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -725,8 +566,7 @@ Note: If attrBytes represents a string it should be UTF-8 encoded.
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">attrString</span></td>
-        <td><p>Value of the attribute as a String.
-@throws IllegalArgumentException if attrString is null</p>
+        <td><p>Value of the attribute as a String.</p>
 </td>
       </tr>
     </tbody>
@@ -769,7 +609,7 @@ Ordering is determined by comparing attribute names (see
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int CompareTo(object attribute)</code></pre>
+    <pre><code class="lang-csharp hljs">public int CompareTo(object attribute)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -818,7 +658,7 @@ this method returns cn.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string GetBaseName()</code></pre>
+    <pre><code class="lang-csharp hljs">public string GetBaseName()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -911,7 +751,7 @@ this method returns an array containing lang-ja and phonetic.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string[] GetSubtypes()</code></pre>
+    <pre><code class="lang-csharp hljs">public string[] GetSubtypes()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1005,7 +845,7 @@ attribute name is cn;lang-en, this method returns true.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool HasSubtype(string subtype)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool HasSubtype(string subtype)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1056,7 +896,7 @@ this method returns false.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool HasSubtypes(string[] subtypes)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool HasSubtypes(string[] subtypes)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1104,7 +944,7 @@ is null.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void RemoveValue(sbyte[] attrBytes)</code></pre>
+    <pre><code class="lang-csharp hljs">public void RemoveValue(sbyte[] attrBytes)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1138,7 +978,7 @@ no effect.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void RemoveValue(string attrString)</code></pre>
+    <pre><code class="lang-csharp hljs">public void RemoveValue(string attrString)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1170,7 +1010,7 @@ no effect.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int Size()</code></pre>
+    <pre><code class="lang-csharp hljs">public int Size()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
