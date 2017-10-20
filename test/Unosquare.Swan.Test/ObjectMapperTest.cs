@@ -193,5 +193,24 @@ namespace Unosquare.Swan.Test
                 ObjectMapper.Copy(source, null, null, null);
             });
         }
+
+        [Test]
+        public void Copy_SourceAndTargetNotNull_ReturnsCopy()
+        {
+            var source = new Dictionary<string, object>();
+            source.Add("Name", "Armando");
+            source.Add("Email", "3ncifuentesg@gmail.com");
+            source.Add("Role", "Intern tester");
+
+            var target = new UserDto();
+
+            string[] propertiesToCopy = new string[] { "Name", "Email" };
+            string[] ignoreProperties = new string[] { "Role" };
+            
+            var result = ObjectMapper.Copy(source, target, propertiesToCopy, ignoreProperties);
+
+            Assert.AreEqual(source["Name"].ToString(), target.Name);
+            Assert.AreEqual(source["Email"].ToString(), target.Email);
+        }
     }
 }
