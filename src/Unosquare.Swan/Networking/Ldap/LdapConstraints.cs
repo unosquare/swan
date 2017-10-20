@@ -3,7 +3,7 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections;
-    
+
     /// <summary>
     ///     Defines options controlling Ldap operations on the directory.
     ///     An LdapConstraints object is always associated with an LdapConnection
@@ -120,7 +120,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The time limit.
         /// </value>
-        /// <seealso cref="LdapException.Ldap_TIMEOUT"></seealso>
         public virtual int TimeLimit
         {
             get => _msLimit;
@@ -140,7 +139,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get => _properties;
 
-            set => _properties = (Hashtable)value.Clone();
+            set => _properties = (Hashtable) value.Clone();
         }
 
         /// <summary>
@@ -220,7 +219,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             _properties[name] = propertyValue;
         }
-        
+
         /// <summary>
         ///     Clones an LdapConstraints object.
         /// </summary>
@@ -229,26 +228,19 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public object Clone()
         {
-            try
+            var newObj = MemberwiseClone();
+            if (_controls != null)
             {
-                var newObj = MemberwiseClone();
-                if (_controls != null)
-                {
-                    ((LdapConstraints)newObj)._controls = new LdapControl[_controls.Length];
-                    _controls.CopyTo(((LdapConstraints)newObj)._controls, 0);
-                }
-
-                if (_properties != null)
-                {
-                    ((LdapConstraints)newObj)._properties = (Hashtable)_properties.Clone();
-                }
-
-                return newObj;
+                ((LdapConstraints) newObj)._controls = new LdapControl[_controls.Length];
+                _controls.CopyTo(((LdapConstraints) newObj)._controls, 0);
             }
-            catch (Exception ce)
+
+            if (_properties != null)
             {
-                throw new Exception("Internal error, cannot create clone", ce);
+                ((LdapConstraints) newObj)._properties = (Hashtable) _properties.Clone();
             }
+
+            return newObj;
         }
     }
 }

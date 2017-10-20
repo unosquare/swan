@@ -405,56 +405,49 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
                 else
                 {
-                    try
+                    // place the character into octets.
+                    if ((ch >= 0x01 && ch <= 0x27) || (ch >= 0x2B && ch <= 0x5B) || ch >= 0x5D)
                     {
-                        // place the character into octets.
-                        if ((ch >= 0x01 && ch <= 0x27) || (ch >= 0x2B && ch <= 0x5B) || ch >= 0x5D)
+                        // found valid char
+                        if (ch <= 0x7f)
                         {
-                            // found valid char
-                            if (ch <= 0x7f)
-                            {
-                                // char = %x01-27 / %x2b-5b / %x5d-7f
-                                octets[octs++] = (sbyte)ch;
-                            }
-                            else
-                            {
-                                // char > 0x7f, could be encoded in 2 or 3 bytes
-                                ca[0] = ch;
-                                utf8Bytes = Encoding.UTF8.GetSBytes(new string(ca));
-
-                                // copy utf8 encoded character into octets
-                                Array.Copy(utf8Bytes, 0, octets, octs, utf8Bytes.Length);
-                                octs = octs + utf8Bytes.Length;
-                            }
-
-                            escape = false;
+                            // char = %x01-27 / %x2b-5b / %x5d-7f
+                            octets[octs++] = (sbyte)ch;
                         }
                         else
                         {
-                            // found invalid character
-                            var escString = string.Empty;
+                            // char > 0x7f, could be encoded in 2 or 3 bytes
                             ca[0] = ch;
-
                             utf8Bytes = Encoding.UTF8.GetSBytes(new string(ca));
 
-                            foreach (var u in utf8Bytes)
-                            {
-                                if (u >= 0 && u < 0x10)
-                                {
-                                    escString = escString + "\\0" + Convert.ToString(u & 0xff, 16);
-                                }
-                                else
-                                {
-                                    escString = escString + "\\" + Convert.ToString(u & 0xff, 16);
-                                }
-                            }
-
-                            throw new LdapException($"The invalid character \"{ch}\" needs to be escaped as \"{escString}\"", LdapStatusCode.FilterError);
+                            // copy utf8 encoded character into octets
+                            Array.Copy(utf8Bytes, 0, octets, octs, utf8Bytes.Length);
+                            octs = octs + utf8Bytes.Length;
                         }
+
+                        escape = false;
                     }
-                    catch (IOException ue)
+                    else
                     {
-                        throw new Exception("UTF-8 String encoding not supported by JVM", ue);
+                        // found invalid character
+                        var escString = string.Empty;
+                        ca[0] = ch;
+
+                        utf8Bytes = Encoding.UTF8.GetSBytes(new string(ca));
+
+                        foreach (var u in utf8Bytes)
+                        {
+                            if (u >= 0 && u < 0x10)
+                            {
+                                escString = escString + "\\0" + Convert.ToString(u & 0xff, 16);
+                            }
+                            else
+                            {
+                                escString = escString + "\\" + Convert.ToString(u & 0xff, 16);
+                            }
+                        }
+
+                        throw new LdapException($"The invalid character \"{ch}\" needs to be escaped as \"{escString}\"", LdapStatusCode.FilterError);
                     }
                 }
             }
@@ -595,7 +588,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 substringSeq.Add(
                     new Asn1Tagged(new Asn1Identifier((int)type),
-                    new RfcLdapString(values), 
+                    new RfcLdapString(values),
                     false));
             }
             catch (InvalidCastException)
@@ -874,7 +867,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             filter.Append(')');
         }
-        
+
         /// <summary>
         ///     This inner class wrappers the Search Filter with an iterator.
         ///     This iterator will give access to all the individual components
@@ -962,7 +955,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                 _hasMore = false;
                             }
                         }
-                        else if (asn1 is RfcAttributeValueAssertion assertion) 
+                        else if (asn1 is RfcAttributeValueAssertion assertion)
                         {
                             // components: =,>=,<=,~=
                             if (_index == -1)
@@ -977,7 +970,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                 _hasMore = false;
                             }
                         }
-                        else if (asn1 is RfcMatchingRuleAssertion exMatch) 
+                        else if (asn1 is RfcMatchingRuleAssertion exMatch)
                         {
                             // Extensible match
                             if (_index == -1)
@@ -993,7 +986,7 @@ namespace Unosquare.Swan.Networking.Ldap
                                 _hasMore = false;
                             }
                         }
-                        else if (asn1 is Asn1SetOf setRenamed) 
+                        else if (asn1 is Asn1SetOf setRenamed)
                         {
                             // AND and OR nested components
                             if (_index == -1)
@@ -1128,7 +1121,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             {
                                 if (atIndex == '\\')
                                 {
-                                    throw new LdapException("Escape sequence not allowed in attribute description",LdapStatusCode.FilterError);
+                                    throw new LdapException("Escape sequence not allowed in attribute description", LdapStatusCode.FilterError);
                                 }
 
                                 throw new LdapException($"Invalid character \"{atIndex}\" in attribute description", LdapStatusCode.FilterError);
@@ -1271,7 +1264,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 if (_filter[_offset++] != ')')
                 {
-                    throw new LdapException(string.Format(LdapException.ExpectingRightParen, _filter[_offset - 1]),  LdapStatusCode.FilterError);
+                    throw new LdapException(string.Format(LdapException.ExpectingRightParen, _filter[_offset - 1]), LdapStatusCode.FilterError);
                 }
             }
 
