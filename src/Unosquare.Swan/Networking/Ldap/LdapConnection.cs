@@ -2,7 +2,6 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Sockets;
@@ -30,37 +29,37 @@ namespace Unosquare.Swan.Networking.Ldap
     public class LdapConnection
     {
         /// <summary>
-        ///     Used with search to specify that the scope of entrys to search is to
-        ///     search only the base obect.
-        ///     SCOPE_BASE = 0
+        /// Used with search to specify that the scope of entrys to search is to
+        /// search only the base obect.
+        /// SCOPE_BASE = 0
         /// </summary>
         public const int ScopeBase = 0;
 
         /// <summary>
-        ///     Used with search to specify that the scope of entrys to search is to
-        ///     search only the immediate subordinates of the base obect.
-        ///     SCOPE_ONE = 1
+        /// Used with search to specify that the scope of entrys to search is to
+        /// search only the immediate subordinates of the base obect.
+        /// SCOPE_ONE = 1
         /// </summary>
         public const int ScopeOne = 1;
 
         /// <summary>
-        ///     Used with search to specify that the scope of entrys to search is to
-        ///     search the base object and all entries within its subtree.
-        ///     SCOPE_ONE = 2
+        /// Used with search to specify that the scope of entrys to search is to
+        /// search the base object and all entries within its subtree.
+        /// SCOPE_ONE = 2
         /// </summary>
         public const int ScopeSub = 2;
 
         /// <summary>
-        ///     Used with search instead of an attribute list to indicate that no
-        ///     attributes are to be returned.
-        ///     NO_ATTRS = "1.1"
+        /// Used with search instead of an attribute list to indicate that no
+        /// attributes are to be returned.
+        /// NO_ATTRS = "1.1"
         /// </summary>
         public const string NoAttrs = "1.1";
 
         /// <summary>
-        ///     Used with search instead of an attribute list to indicate that all
-        ///     attributes are to be returned.
-        ///     ALL_USER_ATTRS = "*"
+        /// Used with search instead of an attribute list to indicate that all
+        /// attributes are to be returned.
+        /// ALL_USER_ATTRS = "*"
         /// </summary>
         public const string AllUserAttrs = "*";
 
@@ -507,7 +506,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 ret = sr.Next();
                 if (sr.HasMore())
                 {
-                    throw new LdapLocalException("Read response is ambiguous, multiple entries returned", LdapStatusCode.AmbiguousResponse);
+                    throw new LdapException("Read response is ambiguous, multiple entries returned", LdapStatusCode.AmbiguousResponse);
                 }
             }
 

@@ -19,16 +19,5 @@
             : base(string.Format(RegisterErrorText, type.FullName, factory))
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyContainerRegistrationTypeException"/> class.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="factory">The factory.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public DependencyContainerRegistrationTypeException(Type type, string factory, Exception innerException)
-            : base(string.Format(RegisterErrorText, type.FullName, factory), innerException)
-        {
-        }
     }
 }

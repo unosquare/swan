@@ -267,64 +267,6 @@ namespace Unosquare.Swan.Components
 
                 return _container.AddUpdateRegistration(_registration, currentFactory.StrongReferenceVariant);
             }
-
-            /// <summary>
-            /// Sets the constructor to use
-            /// </summary>
-            /// <typeparam name="RegisterType">The type of the register type.</typeparam>
-            /// <param name="constructor">The constructor.</param>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerConstructorResolutionException">Constructor resolution exception</exception>
-            public RegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
-            {
-                var lambda = constructor as LambdaExpression;
-                if (lambda == null)
-                    throw new DependencyContainerConstructorResolutionException(typeof(RegisterType));
-
-                var newExpression = lambda.Body as NewExpression;
-                if (newExpression == null)
-                    throw new DependencyContainerConstructorResolutionException(typeof(RegisterType));
-
-                var constructorInfo = newExpression.Constructor;
-                if (constructorInfo == null)
-                    throw new DependencyContainerConstructorResolutionException(typeof(RegisterType));
-
-                var currentFactory = _container.GetCurrentFactory(_registration);
-                if (currentFactory == null)
-                    throw new DependencyContainerConstructorResolutionException(typeof(RegisterType));
-
-                currentFactory.SetConstructor(constructorInfo);
-
-                return this;
-            }
-
-            /// <summary>
-            /// Switches to a custom lifetime manager factory if possible.
-            /// 
-            /// Usually used for RegisterOptions "To*" extension methods such as the ASP.Net per-request one.
-            /// </summary>
-            /// <param name="instance">RegisterOptions instance</param>
-            /// <param name="lifetimeProvider">Custom lifetime manager</param>
-            /// <param name="errorString">Error string to display if switch fails</param>
-            /// <returns>RegisterOptions</returns>
-            public static RegisterOptions ToCustomLifetimeManager(RegisterOptions instance, ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
-            {
-                if (instance == null)
-                    throw new ArgumentNullException(nameof(instance), "instance is null.");
-
-                if (lifetimeProvider == null)
-                    throw new ArgumentNullException(nameof(lifetimeProvider), "lifetimeProvider is null.");
-
-                if (string.IsNullOrEmpty(errorString))
-                    throw new ArgumentException("errorString is null or empty.", nameof(errorString));
-
-                var currentFactory = instance._container.GetCurrentFactory(instance._registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(instance._registration.Type, errorString);
-
-                return instance._container.AddUpdateRegistration(instance._registration, currentFactory.GetCustomObjectLifetimeVariant(lifetimeProvider, errorString));
-            }
         }
 
         /// <summary>
@@ -342,35 +284,7 @@ namespace Unosquare.Swan.Components
             {
                 _registerOptions = registerOptions;
             }
-
-            /// <summary>
-            /// Switches to a custom lifetime manager factory if possible.
-            /// 
-            /// Usually used for RegisterOptions "To*" extension methods such as the ASP.Net per-request one.
-            /// </summary>
-            /// <param name="instance">MultiRegisterOptions instance</param>
-            /// <param name="lifetimeProvider">Custom lifetime manager</param>
-            /// <param name="errorString">Error string to display if switch fails</param>
-            /// <returns>MultiRegisterOptions</returns>
-            public static MultiRegisterOptions ToCustomLifetimeManager(
-                MultiRegisterOptions instance,
-                ITinyIoCObjectLifetimeProvider lifetimeProvider,
-                string errorString)
-            {
-                if (instance == null)
-                    throw new ArgumentNullException(nameof(instance), "instance is null.");
-
-                if (lifetimeProvider == null)
-                    throw new ArgumentNullException(nameof(lifetimeProvider), "lifetimeProvider is null.");
-
-                if (string.IsNullOrEmpty(errorString))
-                    throw new ArgumentException("errorString is null or empty.", nameof(errorString));
-
-                instance._registerOptions = instance.ExecuteOnAllRegisterOptions(ro => RegisterOptions.ToCustomLifetimeManager(ro, lifetimeProvider, errorString));
-
-                return instance;
-            }
-
+            
             /// <summary>
             /// Make registration a singleton (single instance) if possible
             /// </summary>
@@ -602,19 +516,17 @@ namespace Unosquare.Swan.Components
             if (implementationTypes == null)
                 throw new ArgumentNullException(nameof(implementationTypes), "types is null.");
 
-            foreach (var type in implementationTypes)
+            foreach (var type in implementationTypes.Where(type => !registrationType.IsAssignableFrom(type)))
             {
-                if (!registrationType.IsAssignableFrom(type))
-                    throw new ArgumentException($"types: The type {registrationType.FullName} is not assignable from {type.FullName}");
+                throw new ArgumentException($"types: The type {registrationType.FullName} is not assignable from {type.FullName}");
             }
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
             {
-                var queryForDuplicatedTypes = from i in implementationTypes
-                                              group i by i
-                                                  into j
-                                              where j.Count() > 1
-                                              select j.Key.FullName;
+                var queryForDuplicatedTypes = implementationTypes
+                    .GroupBy(i => i)
+                    .Where(j => j.Count() > 1)
+                    .Select(j => j.Key.FullName);
 
                 var fullNamesOfDuplicatedTypes = string.Join(",\n", queryForDuplicatedTypes.ToArray());
 
@@ -1252,30 +1164,7 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Object Factories
-
-        /// <summary>
-        /// Provides custom lifetime management for ASP.Net per-request lifetimes etc.
-        /// </summary>
-        public interface ITinyIoCObjectLifetimeProvider
-        {
-            /// <summary>
-            /// Gets the stored object if it exists, or null if not
-            /// </summary>
-            /// <returns>Object instance or null</returns>
-            object GetObject();
-
-            /// <summary>
-            /// Store the object
-            /// </summary>
-            /// <param name="value">Object to store</param>
-            void SetObject(object value);
-
-            /// <summary>
-            /// Release the object
-            /// </summary>
-            void ReleaseObject();
-        }
-
+        
         private abstract class ObjectFactoryBase
         {
             /// <summary>
@@ -1313,17 +1202,7 @@ namespace Unosquare.Swan.Components
             /// <param name="options">The options.</param>
             /// <returns> Instance of type </returns>
             public abstract object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options);
-
-            public virtual ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
-            {
-                throw new DependencyContainerRegistrationException(GetType(), errorString);
-            }
-
-            public virtual void SetConstructor(ConstructorInfo constructor)
-            {
-                Constructor = constructor;
-            }
-
+            
             public virtual ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
             {
                 return this;
@@ -1364,12 +1243,7 @@ namespace Unosquare.Swan.Components
             }
 
             public override ObjectFactoryBase SingletonVariant => new SingletonFactory(registerType, registerImplementation);
-
-            public override ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
-            {
-                return new CustomObjectLifetimeFactory(registerType, registerImplementation, lifetimeProvider, errorString);
-            }
-
+            
             public override ObjectFactoryBase MultiInstanceVariant => this;
         }
 
@@ -1408,11 +1282,6 @@ namespace Unosquare.Swan.Components
             public override ObjectFactoryBase WeakReferenceVariant => new WeakDelegateFactory(registerType, _factory);
 
             public override ObjectFactoryBase StrongReferenceVariant => this;
-
-            public override void SetConstructor(ConstructorInfo constructor)
-            {
-                throw new DependencyContainerConstructorResolutionException("Constructor selection is not possible for delegate factory registrations");
-            }
         }
 
         /// <summary>
@@ -1466,11 +1335,6 @@ namespace Unosquare.Swan.Components
             }
 
             public override ObjectFactoryBase WeakReferenceVariant => this;
-
-            public override void SetConstructor(ConstructorInfo constructor)
-            {
-                throw new DependencyContainerConstructorResolutionException("Constructor selection is not possible for delegate factory registrations");
-            }
         }
 
         /// <summary>
@@ -1506,12 +1370,7 @@ namespace Unosquare.Swan.Components
             public override ObjectFactoryBase WeakReferenceVariant => new WeakInstanceFactory(registerType, registerImplementation, _instance);
 
             public override ObjectFactoryBase StrongReferenceVariant => this;
-
-            public override void SetConstructor(ConstructorInfo constructor)
-            {
-                throw new DependencyContainerConstructorResolutionException("Constructor selection is not possible for instance factory registrations");
-            }
-
+            
             public void Dispose()
             {
                 var disposable = _instance as IDisposable;
@@ -1570,11 +1429,6 @@ namespace Unosquare.Swan.Components
                 }
             }
 
-            public override void SetConstructor(ConstructorInfo constructor)
-            {
-                throw new DependencyContainerConstructorResolutionException("Constructor selection is not possible for instance factory registrations");
-            }
-
             public void Dispose()
             {
                 var disposable = _instance.Target as IDisposable;
@@ -1622,12 +1476,7 @@ namespace Unosquare.Swan.Components
             }
 
             public override ObjectFactoryBase SingletonVariant => this;
-
-            public override ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
-            {
-                return new CustomObjectLifetimeFactory(_registerType, _registerImplementation, lifetimeProvider, errorString);
-            }
-
+            
             public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(_registerType, _registerImplementation);
 
             public override ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
@@ -1647,87 +1496,6 @@ namespace Unosquare.Swan.Components
             }
         }
 
-        /// <summary>
-        /// A factory that offloads lifetime to an external lifetime provider
-        /// </summary>
-        private class CustomObjectLifetimeFactory : ObjectFactoryBase, IDisposable
-        {
-            private readonly object SingletonLock = new object();
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            private readonly ITinyIoCObjectLifetimeProvider _LifetimeProvider;
-
-            public CustomObjectLifetimeFactory(Type registerType, Type registerImplementation, ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorMessage)
-            {
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "SingletonFactory");
-
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, errorMessage);
-
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
-                _LifetimeProvider = lifetimeProvider ?? throw new ArgumentNullException(nameof(lifetimeProvider));
-            }
-
-            public override Type CreatesType => registerImplementation;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
-            {
-                object current;
-
-                lock (SingletonLock)
-                {
-                    current = _LifetimeProvider.GetObject();
-
-                    if (current == null)
-                    {
-                        current = container.ConstructType(registerImplementation, Constructor, options);
-                        _LifetimeProvider.SetObject(current);
-                    }
-                }
-
-                return current;
-            }
-
-            public override ObjectFactoryBase SingletonVariant
-            {
-                get
-                {
-                    _LifetimeProvider.ReleaseObject();
-                    return new SingletonFactory(registerType, registerImplementation);
-                }
-            }
-
-            public override ObjectFactoryBase MultiInstanceVariant
-            {
-                get
-                {
-                    _LifetimeProvider.ReleaseObject();
-                    return new MultiInstanceFactory(registerType, registerImplementation);
-                }
-            }
-
-            public override ObjectFactoryBase GetCustomObjectLifetimeVariant(ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)
-            {
-                _LifetimeProvider.ReleaseObject();
-                return new CustomObjectLifetimeFactory(registerType, registerImplementation, lifetimeProvider, errorString);
-            }
-
-            public override ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
-            {
-                // We make sure that the singleton is constructed before the child container takes the factory.
-                // Otherwise the results would vary depending on whether or not the parent container had resolved
-                // the type before the child container does.
-                GetObject(type, parent, DependencyContainerNamedParameterOverloads.Default, DependencyContainerResolveOptions.Default);
-                return this;
-            }
-
-            public void Dispose()
-            {
-                _LifetimeProvider.ReleaseObject();
-            }
-        }
         #endregion
 
         #region Singleton Container
@@ -2044,7 +1812,7 @@ namespace Unosquare.Swan.Components
 
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
             if (genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
-                type.GetGenericArguments()[1] == typeof(IDictionary<String, object>))
+                type.GetGenericArguments()[1] == typeof(IDictionary<string, object>))
                 return true;
 
             return false;
