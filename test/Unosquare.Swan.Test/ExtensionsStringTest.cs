@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.IO;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.ExtensionsStringTest
@@ -19,6 +20,16 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
 
         public class ComputeMD5
         {
+            [TestCase(5000)]
+            [TestCase(1234)]
+            public void WithValidStream_ReturnsMD5(int stream)
+            {
+                var input = new MemoryStream(new byte[stream]);
+
+                Assert.IsNotNull(input.ComputeMD5().ToDashedHex());
+                
+            }
+            
             [Test]
             public void WithValidString_ReturnsMD5()
             {
@@ -184,7 +195,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             public void WithValidParam_ReturnsFormatedBytes()
             {
                 const ulong input = 2048;
-                Assert.AreNotEqual("2 KB", input.FormatBytes(), $"Testing with {input}");
+                Assert.AreEqual("2 KB", input.FormatBytes(), $"Testing with {input}");
             }
         }
 
