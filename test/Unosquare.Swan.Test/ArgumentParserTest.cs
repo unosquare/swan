@@ -52,7 +52,7 @@ namespace Unosquare.Swan.Test
             var options = new OptionMock();
             Assert.AreEqual(ConsoleColor.Black, options.BgColor);
 
-            var newColor = ConsoleColor.White;
+            const ConsoleColor newColor = ConsoleColor.White;
 
             var dumpArgs = new[] { "-n", "babu", "--color", newColor.ToString().ToLowerInvariant() };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);

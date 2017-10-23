@@ -156,14 +156,14 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void StructsSameProps_ReturnsTrue()
         {
-            var leftStruct = new SampleStructDifferent1()
+            var leftStruct = new SampleStructWithProps()
             {
                 StudentId = 1,
                 Average = 98.10,
                 Notes = "Good"
             };
 
-            var rightStruct = new SampleStructDifferent1()
+            var rightStruct = new SampleStructWithProps()
             {
                 StudentId = 1,
                 Average = 98.10,
@@ -176,14 +176,14 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void StructsDifferentProps_ReturnsFalse()
         {
-            var leftStruct = new SampleStructDifferent1()
+            var leftStruct = new SampleStructWithProps()
             {
                 StudentId = 1,
                 Average = 98.10,
                 Notes = "Good"
             };
 
-            var rightStruct = new SampleStructDifferent1()
+            var rightStruct = new SampleStructWithProps()
             {
                 StudentId = 2,
                 Average = 79.78,

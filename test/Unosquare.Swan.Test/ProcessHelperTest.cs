@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Unosquare.Swan.Components;
 
@@ -28,7 +27,7 @@ namespace Unosquare.Swan.Test
             {
                 if (output == null) output = Encoding.GetEncoding(0).GetString(data);
 
-            }, null, true, default(CancellationToken));
+            }, null);
 
             Assert.IsTrue(result == okCode);
             Assert.IsNotNull(output);
@@ -49,8 +48,7 @@ namespace Unosquare.Swan.Test
                 var result = await ProcessRunner.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
                 {
                     if (output == null) output = Encoding.GetEncoding(0).GetString(data);
-
-                }, true, default(CancellationToken));
+                });
 
                 Assert.IsTrue(result == errorCode);
                 Assert.IsNotNull(output);

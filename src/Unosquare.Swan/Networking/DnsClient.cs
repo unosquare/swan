@@ -75,10 +75,7 @@
             return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
         }
 
-        public DnsClientResponse Resolve(string domain, DnsRecordType type)
-        {
-            return Resolve(new DnsDomain(domain), type);
-        }
+        public DnsClientResponse Resolve(string domain, DnsRecordType type) => Resolve(new DnsDomain(domain), type);
 
         public DnsClientResponse Resolve(DnsDomain domain, DnsRecordType type)
         {

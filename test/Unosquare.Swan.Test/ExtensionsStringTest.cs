@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Unosquare.Swan.Test.Mocks;
 
@@ -87,7 +89,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
                 var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
 
                 Assert.Greater(7, objectInfoLines.Length);
-                Assert.AreNotEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
+                Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
                 Assert.AreEqual("StringData      : string", objectInfoLines[1]);
                 Assert.AreEqual("IntData         : 1", objectInfoLines[2]);
             }
@@ -95,22 +97,32 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             [Test]
             public void WithEmptyJsonAsParam_ReturnsStringifiedJson()
             {
-                var EmptyJson = new BasicJson { };
-                var objectInfoLines = EmptyJson.Stringify().ToLines();
+                var emptyJson = new BasicJson { };
+                var objectInfoLines = emptyJson.Stringify().ToLines();
                 
                 Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
             }
 
             [Test]
-            public void WithNullAsParam_ReturnsStringifiedJson()
+            public void WithListOfArraysAsParam_ReturnsStringifiedArray()
             {
-                object NullObject = null;
-                var objectInfoLines = NullObject.Stringify().ToLines();
-
-                Assert.AreEqual("(null)", objectInfoLines[0]);
+                int[] arrayint = new int[] { 1234, 4321 };
+                
+                List<int[]> arrayList = new List<int[]>
+                {
+                    arrayint,
+                    arrayint
+                };
+                
+                var objectInfoLines = arrayList.Stringify().ToLines();
+                
+                Assert.AreEqual("[0]: array[2]", objectInfoLines[0]);
+                Assert.AreEqual("    [0]: 1234", objectInfoLines[1]);
+                Assert.AreEqual("    [1]: 4321", objectInfoLines[2]);
             }
 
         }
+        
 
         public class ToStringInvariant
         {
