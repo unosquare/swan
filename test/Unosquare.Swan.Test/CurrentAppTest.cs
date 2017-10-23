@@ -67,7 +67,6 @@ namespace Unosquare.Swan.Test
         public void GetEntryAssemblyDirectoryTest()
         {
             Assert.IsNotNull(Runtime.EntryAssemblyDirectory);
-            // TODO: What else?
         }
     }
 }
