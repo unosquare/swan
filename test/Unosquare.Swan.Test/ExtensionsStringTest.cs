@@ -106,12 +106,12 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             [Test]
             public void WithListOfArraysAsParam_ReturnsStringifiedArray()
             {
-                int[] arrayint = new int[] { 1234, 4321 };
+                int[] arrayInt = new int[] { 1234, 4321};
                 
                 List<int[]> arrayList = new List<int[]>
                 {
-                    arrayint,
-                    arrayint
+                    arrayInt,
+                    arrayInt
                 };
                 
                 var objectInfoLines = arrayList.Stringify().ToLines();
@@ -121,9 +121,40 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
                 Assert.AreEqual("    [1]: 4321", objectInfoLines[2]);
             }
 
+            [Test]
+            public void WithDictionaryOfArraysAsParam_ReturnsStringifiedArray()
+            {
+                string[] arrayString = new string[] { "Orgrimmar", "Thuder Bluff", "Undercity", "Silvermoon" };
+
+                Dictionary<string, string[][]> wordDictionary = new Dictionary<string, string[][]>();
+                wordDictionary.Add("Horde Capitals", new string[][] { arrayString , arrayString });
+                
+                var objectInfoLines = wordDictionary.Stringify().ToLines();
+                
+                Assert.AreEqual("Horde Capitals  : array[2]", objectInfoLines[0]);
+                Assert.AreEqual("        [0]: Orgrimmar", objectInfoLines[2]);
+                Assert.AreEqual("        [1]: Thuder Bluff", objectInfoLines[3]);
+            }
+
+            [Test]
+            public void WithDictionaryOfDictionariesAsParam_ReturnsStringifiedArray()
+            {
+                var persons = new Dictionary<string, Dictionary<string, string>>
+                {
+                    { "Tyrande", new Dictionary<string, string> { { "Race", "Night Elf" }, { "Affiliation", "Alliance\r" } } },
+                    { "Jaina", new Dictionary<string, string> { { "Race", "Human" }, { "Affiliation", null } } },
+                    { "Liadrin", new Dictionary<string, string> { { "Race", "Blood Elf" }, { "Affiliation", "Horde\r" } } }
+                };
+                
+                var objectInfoLines = persons.Stringify().ToLines();
+                
+                Assert.AreEqual("Tyrande         : object", objectInfoLines[0]);
+                Assert.AreEqual("Jaina           : object", objectInfoLines[4]);
+                Assert.AreEqual("Liadrin         : object", objectInfoLines[6]);
+            }
+
         }
         
-
         public class ToStringInvariant
         {
             [TestCase("", null)]
