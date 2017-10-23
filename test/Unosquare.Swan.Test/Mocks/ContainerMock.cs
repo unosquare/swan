@@ -19,10 +19,7 @@ namespace Unosquare.Swan.Test.Mocks
         public string Name => nameof(Fish);
 
         [AttributeMock("This is an Attribute")]
-        public virtual string GetFeeding()
-        {
-            return "Worms";
-        }
+        public virtual string GetFeeding() => "Worms";
     }
 
     public interface ICar
@@ -62,6 +59,7 @@ namespace Unosquare.Swan.Test.Mocks
         {
             Name = name;
         }
+
         public string Name { get; }
     }
 

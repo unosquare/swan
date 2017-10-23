@@ -65,8 +65,7 @@ namespace Unosquare.Swan.Test
         {
             Assert.Throws<ArgumentNullException>(() => _bytes.Split(2, null));
         }
-
-
+        
         [Test]
         public void TestGetIndexOf()
         {

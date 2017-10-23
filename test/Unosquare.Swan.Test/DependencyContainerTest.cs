@@ -64,17 +64,15 @@ namespace Unosquare.Swan.Test
 
             Assert.Throws<DependencyContainerResolutionException>(() => Runtime.Container.Resolve<IAnimal>());
         }
-
-
+        
         [Test]
         public void TryResolveTest()
         {
             var container = new DependencyContainer();
 
             container.Register<IAnimal, Fish>();
-            IAnimal instance;
 
-            Assert.IsTrue(container.TryResolve(out instance));
+            Assert.IsTrue(container.TryResolve(out IAnimal instance));
             Assert.AreEqual((new Fish()).Name, instance.Name);
         }
 

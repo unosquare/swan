@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Unosquare.Swan;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test

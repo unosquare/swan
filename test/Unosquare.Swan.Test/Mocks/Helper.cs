@@ -12,7 +12,6 @@ namespace Unosquare.Swan.Test.Mocks
         /// <param name="sizeInMb">The size in mb.</param>
         internal static void CreateTempBinaryFile(string fileName, int sizeInMb)
         {
-            // Note: block size must be a factor of 1MB to avoid rounding errors :)
             const int blockSize = 1024 * 8;
             const int blocksPerMb = (1024 * 1024) / blockSize;
             var data = new byte[blockSize];
@@ -20,7 +19,6 @@ namespace Unosquare.Swan.Test.Mocks
             var rng = new Random();
             using (var stream = File.OpenWrite(fileName))
             {
-                // There 
                 for (var i = 0; i < sizeInMb * blocksPerMb; i++)
                 {
                     rng.NextBytes(data);
