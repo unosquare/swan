@@ -20,33 +20,33 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
 
         public class ComputeMD5
         {
-            [TestCase(5000)]
-            [TestCase(1234)]
-            public void WithValidStream_ReturnsMD5(int stream)
+            [TestCase("6B-F9-5A-48-F3-66-BD-F8-AF-3A-19-8C-7B-72-3C-77", 5000)]
+            [TestCase("9B-4C-8A-5E-36-D3-BE-7E-2C-4B-1D-75-DE-D8-C8-A1", 1234)]
+            [TestCase("45-9B-B4-0F-7B-36-1B-90-41-4A-72-D4-0B-5A-0E-D5", 53454)]
+            public void WithValidStream_ReturnsMD5(string expected, int stream)
             {
                 var input = new MemoryStream(new byte[stream]);
-
-                Assert.IsNotNull(input.ComputeMD5().ToDashedHex());
                 
+                Assert.AreEqual(expected, input.ComputeMD5().ToDashedHex());
             }
-            
-            [Test]
-            public void WithValidString_ReturnsMD5()
-            {
-                const string input = "HOLA";
 
-                Assert.AreEqual("C6-F0-09-88-43-0D-BC-8E-83-A7-BC-7A-B5-25-63-46", input.ComputeMD5().ToDashedHex(), "Get MD5");
+            [TestCase("50-82-83-2F-01-E0-EB-94-30-C9-DB-6E-AE-FE-BC-72", "Illidan")]
+            [TestCase("8A-B3-AF-D6-A4-82-35-06-10-78-20-FA-EB-85-5E-B4", "Arthas")]
+            [TestCase("8C-1D-5F-69-43-84-06-3D-F2-E0-66-4F-54-9C-4B-93", "Grommash")]
+            public void WithValidString_ReturnsMD5(string expected, string input)
+            {
+                Assert.AreEqual(expected, input.ComputeMD5().ToDashedHex(), "Get MD5");
             }
         }
 
         public class ComputeSha1
         {
-            [Test]
-            public void WithValidString_ReturnsSha1()
+            [TestCase("06636F8D82BDEB41C444F82D2EBCF431FC31FE12", "Suramar")]
+            [TestCase("0E3EB0AF296788BC24DD29BC3C767EE6A829D473", "Stormwind")]
+            [TestCase("D4570F48B4B7B720B55499B5D01A0215A6A60FB2", "Darnassus")]
+            public void WithValidString_ReturnsSha1(string expected, string input)
             {
-                const string input = "HOLA";
-
-                Assert.AreEqual("261C5AD45770CC14875C8F46EAA3ECA42568104A", input.ComputeSha1().ToUpperHex(), "Get Sha1");
+                Assert.AreEqual(expected, input.ComputeSha1().ToUpperHex(), "Get Sha1");
             }
         }
 
@@ -63,12 +63,12 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
 
         public class ComputeSha512
         {
-            [Test]
-            public void WithValidString_ReturnsSha512()
+            [TestCase("uG16jy5/N+hPwel+4xRVtOfyCZ56K9Ds0SF4GE9oQgYRBGzTeAD+h94cIgc6ROyNjbK6wBFVhgqqjDDh01f4rg==", "Eastern Kingdoms")]
+            [TestCase("rDh3voP2/h+S/mDAjnsf8MFRM+Hst6mTxB+rxehSA2KW5fUR2hSBNO9AGGifOzUuWPrO0OOpE0nskGPUw2q+iQ==", "Northrend")]
+            [TestCase("f1WQUrni0kEMcQ0u8tYkvC17zWphJYzQqdWHsrXRuUBoSG+MUrLx3urczB+zkJ9OFbCqUyjCV6NqMEViv7drqg==", "Pandaria")]
+            public void WithValidString_ReturnsSha512(string expected, string input)
             {
-                const string input = "HOLA";
-
-                Assert.AreEqual("XPWJJ7QTeLzAdrJrO4UKZuvOw6znT2uUnaVAVyHdOUiKI49a//eTtRJQOLsd1xhMHBHEf0hE0cy7MQycdYk7ZQ==", input.ComputeSha512().ToBase64(), "Get Sha512");
+                Assert.AreEqual(expected, input.ComputeSha512().ToBase64(), "Get Sha512");
             }
         }
 
@@ -87,10 +87,29 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
                 var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
 
                 Assert.Greater(7, objectInfoLines.Length);
-                Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
+                Assert.AreNotEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
                 Assert.AreEqual("StringData      : string", objectInfoLines[1]);
                 Assert.AreEqual("IntData         : 1", objectInfoLines[2]);
             }
+
+            [Test]
+            public void WithEmptyJsonAsParam_ReturnsStringifiedJson()
+            {
+                var EmptyJson = new BasicJson { };
+                var objectInfoLines = EmptyJson.Stringify().ToLines();
+                
+                Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
+            }
+
+            [Test]
+            public void WithNullAsParam_ReturnsStringifiedJson()
+            {
+                object NullObject = null;
+                var objectInfoLines = NullObject.Stringify().ToLines();
+
+                Assert.AreEqual("(null)", objectInfoLines[0]);
+            }
+
         }
 
         public class ToStringInvariant
@@ -101,6 +120,13 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             public void WithObjectAsParam_ReturnsAString(string expected, object input)
             {
                 Assert.AreEqual(expected, input.ToStringInvariant(), $"Testing with {input}");
+            }
+            
+            [TestCase("Test", "Test")]
+            [TestCase("Unosquare.Swan.Test.Mocks.Monkey", typeof(Monkey))]
+            public void WithGenericAsParam_ReturnsAString<T>(string expected, T input)
+            {
+                Assert.AreEqual(expected, input.ToStringInvariant() , $"Testing with {input}");
             }
         }
 
@@ -191,11 +217,26 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
 
         public class FormatBytes
         {
-            [Test]
-            public void WithValidParam_ReturnsFormatedBytes()
+            [TestCase("2 KB", 2048)]
+            [TestCase("97.66 KB", 100000)]
+            [TestCase("3.38 MB", 3546346)]
+            [TestCase("4.94 TB", 5432675475323)]
+            public void WithUlongAsParam_ReturnsFormatedBytes(string expected, long input)
             {
-                const ulong input = 2048;
-                Assert.AreEqual("2 KB", input.FormatBytes(), $"Testing with {input}");
+                ulong inputByte = Convert.ToUInt64(input);
+                
+                Assert.AreEqual(expected, inputByte.FormatBytes(), $"Testing with {input}");
+            }
+            
+            [TestCase("3 KB", 3072)]
+            [TestCase("52.2 KB", 53453)]
+            [TestCase("639.32 KB", 654664)]
+            [TestCase("80.72 MB", 84645653)]
+            public void WithLongParam_ReturnsFormatedBytes(string expected, long input)
+            {
+                //long inputByte = Convert.ToUInt64(input);
+
+                Assert.AreEqual(expected, input.FormatBytes(), $"Testing with {input}");
             }
         }
 
@@ -219,5 +260,16 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             }
         }
 
+        public class Hex2Int
+        {
+            [TestCase(10, 'A')]
+            [TestCase(15, 'F')]
+            [TestCase(3, '3')]
+            public void WithValidChar_ReturnsAsInt(int expected, char input)
+            {
+                Assert.AreEqual(expected, input.Hex2Int(), $"Testing with {input}");
+            }
+        }
+        
     }
 }
