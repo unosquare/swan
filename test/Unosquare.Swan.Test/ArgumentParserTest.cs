@@ -52,7 +52,7 @@ namespace Unosquare.Swan.Test
             var options = new OptionMock();
             Assert.AreEqual(ConsoleColor.Black, options.BgColor);
 
-            var newColor = ConsoleColor.White;
+            const ConsoleColor newColor = ConsoleColor.White;
 
             var dumpArgs = new[] { "-n", "babu", "--color", newColor.ToString().ToLowerInvariant() };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
@@ -88,6 +88,19 @@ namespace Unosquare.Swan.Test
                 var parser = new ArgumentParser();
                 var options = new OptionMock();
                 parser.ParseArguments(null, options);
+            });
+        }
+
+        [Test]
+        public void ParseArguments_TypeInvalid_ThrowsInvalidOperationException()
+        {
+            var parser = new ArgumentParser();
+            string[] arrayNames = new string[] { "Alejandro", "Mariana", "Federico", "Víctor" };
+            int x = 0;
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                parser.ParseArguments<int>(arrayNames.AsEnumerable(), x);
             });
         }
     }

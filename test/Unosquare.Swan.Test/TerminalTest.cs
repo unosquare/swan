@@ -57,7 +57,6 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(nameof(LoggingTest), messages.First(x => x.Source == nameof(TerminalTest)).Message);
 
             messages.Clear();
-            //nameof(LogMessageType.Info).Info(properties: new Dictionary<string, object> { { "Test", new { } } });
             nameof(LogMessageType.Info).Info("Test", 1);
             Task.Delay(150).Wait();
 

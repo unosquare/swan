@@ -13,7 +13,7 @@ namespace Unosquare.Swan.Test
     {
         private readonly string[] _headers = {"Company", "OpenPositions", "MainTechnology", "Revenue"};
 
-        private string _data = @"Company,OpenPositions,MainTechnology,Revenue
+        private readonly string _data = @"Company,OpenPositions,MainTechnology,Revenue
 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
 

@@ -154,7 +154,7 @@ Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
             }
             var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
 
-            Assert.AreEqual(headers.Length, loadedRecords.Count());
+            Assert.AreEqual(headers.Length, loadedRecords.Count);
         }
 
         [Test]
