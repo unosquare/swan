@@ -90,5 +90,18 @@ namespace Unosquare.Swan.Test
                 parser.ParseArguments(null, options);
             });
         }
+
+        [Test]
+        public void ParseArguments_TypeInvalid_ThrowsInvalidOperationException()
+        {
+            var parser = new ArgumentParser();
+            string[] arrayNames = new string[] { "Alejandro", "Mariana", "Federico", "Víctor" };
+            int x = 0;
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                parser.ParseArguments<int>(arrayNames.AsEnumerable(), x);
+            });
+        }
     }
 }
