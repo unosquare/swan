@@ -14,6 +14,8 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
             Name = "Geo",
             Role = new Role { Name = "Admin" }
         };
+
+        protected Dictionary<string, object> source;
     }
 
     [TestFixture]
@@ -211,12 +213,12 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
         [Test]
         public void TargetDictionaryNull_ThrowsArgumentNullException()
         {
-            var source = new Dictionary<string, object>
-                {
-                    { "Mario", 1 },
-                    { "Arturo", 2 },
-                    { "Fernanda", 3 }
-                };
+            source = new Dictionary<string, object>
+            {
+                { "Mario", 1 },
+                { "Arturo", 2 },
+                { "Fernanda", 3 }
+            };
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -227,12 +229,12 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
         [Test]
         public void SourceAndTargetNotNull_ReturnsCopy()
         {
-            var source = new Dictionary<string, object>
-                {
-                    { "Name", "Armando" },
-                    { "Email", "armando.cifuentes@unosquare.com" },
-                    { "Role", "Intern tester" }
-                };
+            source = new Dictionary<string, object>
+            {
+                { "Name", "Armando" },
+                { "Email", "armando.cifuentes@unosquare.com" },
+                { "Role", "Intern tester" }
+            };
 
             var target = new UserDto();
 
