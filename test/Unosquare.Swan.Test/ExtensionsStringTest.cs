@@ -7,13 +7,13 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.ExtensionsStringTest
 {
-    public class ExtensionsStringTest
+    public abstract class ExtensionsStringTest
     {
         
     }
 
     [TestFixture]
-    public abstract class Humanize : ExtensionsStringTest
+    public class Humanize : ExtensionsStringTest
     {
         [TestCase("Camel Case", "CamelCase")]
         [TestCase("Snake Case", "Snake_Case")]
@@ -110,7 +110,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
 
             Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.EmptyJson", objectInfoLines[0]);
         }
-
+        
         [Test]
         public void WithListOfArraysAsParam_ReturnsStringifiedArray()
         {
@@ -161,9 +161,9 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             Assert.AreEqual("Jaina           : object", objectInfoLines[5]);
             Assert.AreEqual("Liadrin         : object", objectInfoLines[10]);
         }
-
+        
     }
-
+    
     [TestFixture]
     public class ToStringInvariant : ExtensionsStringTest
     {
