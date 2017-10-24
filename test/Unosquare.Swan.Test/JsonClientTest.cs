@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Security;
+using System.Threading;
 using System.Threading.Tasks;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Modules;
@@ -315,7 +316,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
 
                 webserver.RunAsync();
                 await Task.Delay(100);
-                Console.WriteLine(nameof(WithValidParams_ReturnsTrue));
+                
                 var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, "Paco De Lucia");
 
                 Assert.IsNotNull(data);
@@ -324,36 +325,6 @@ namespace Unosquare.Swan.Test.JsonClientTest
         }
     }
     
-    [TestFixture]
-    public class Get : JsonClientTest
-    {
-        [Test]
-        public async Task WithInvalidParams_ThrowsHttpRequestException()
-        {
-            await Task.Delay(10);
-            
-            Assert.ThrowsAsync<HttpRequestException>(async () =>
-            {
-                await JsonClient.Get<BasicJson>(_defaultHttp);
-            });
-        }
-    }
-
-    [TestFixture]
-    public class GetBinary : JsonClientTest
-    {
-        [Test]
-        public async Task WithInvalidParams_ThrowsHttpRequestException()
-        {
-            await Task.Delay(10);
-
-            Assert.ThrowsAsync<HttpRequestException>(async () =>
-            {
-                var data = await JsonClient.GetBinary(_defaultHttp);
-            });
-        }
-    }
-
     [TestFixture]
     public class PostOrError : JsonClientTest
     {
@@ -393,5 +364,94 @@ namespace Unosquare.Swan.Test.JsonClientTest
                 
             }
         }
+    }
+
+    [TestFixture]
+    public class GetBinary : JsonClientTest
+    {
+        [Test]
+        public async Task WithInvalidParams_ThrowsHttpRequestException()
+        {
+            await Task.Delay(10);
+
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            {
+                var data = await JsonClient.GetBinary(_defaultHttp);
+            });
+        }
+
+        [Test]
+        public async Task WithValidParams_ReturnsTrue()
+        {
+            using(var webserver = new WebServer(_defaultPort))
+            {
+                var ctxHeaders = new List<string>();
+
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+                {
+                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
+
+                    return true;
+                }));
+
+                webserver.RunAsync();
+                await Task.Delay(100);
+                
+                await JsonClient.GetBinary(_defaultHttp);
+                
+                Assert.IsTrue(ctxHeaders.Any());
+            }
+        }
+        
+        [Test]
+        public async Task WithInvalidUrl_ThrowsJsonRequestException()
+        {
+            await Task.Delay(10);
+
+            Assert.ThrowsAsync<JsonRequestException>(async () =>
+            {
+                var data = await JsonClient.GetBinary("https://accesscore.azurewebsites.net/api/token");
+            });
+        }
+
+    }
+    
+    [TestFixture]
+    public class Get : JsonClientTest
+    {
+        [Test]
+        public async Task WithInvalidParams_ThrowsHttpRequestException()
+        {
+            await Task.Delay(10);
+
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            {
+                await JsonClient.Get<BasicJson>(_defaultHttp);
+            });
+        }
+
+        [Test]
+        public async Task WithValidParams_ReturnsTrue()
+        {
+            using(var webserver = new WebServer(_defaultPort))
+            {
+                var ctxHeaders = new List<string>();
+
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+                {
+                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
+
+                    return true;
+                }));
+
+                webserver.RunAsync();
+                await Task.Delay(100);
+                
+                var arc = await JsonClient.Get<BasicJson>(_defaultHttp);
+
+                Assert.IsTrue(ctxHeaders.Any());
+            }
+        }
+
     }
 }
