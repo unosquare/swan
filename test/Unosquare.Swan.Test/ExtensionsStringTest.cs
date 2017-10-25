@@ -7,13 +7,8 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.ExtensionsStringTest
 {
-    public abstract class ExtensionsStringTest
-    {
-        
-    }
-
     [TestFixture]
-    public class Humanize : ExtensionsStringTest
+    public class Humanize
     {
         [TestCase("Camel Case", "CamelCase")]
         [TestCase("Snake Case", "Snake_Case")]
@@ -24,7 +19,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class ComputeMD5 : ExtensionsStringTest
+    public class ComputeMD5
     {
         [TestCase("6B-F9-5A-48-F3-66-BD-F8-AF-3A-19-8C-7B-72-3C-77", 5000)]
         [TestCase("9B-4C-8A-5E-36-D3-BE-7E-2C-4B-1D-75-DE-D8-C8-A1", 1234)]
@@ -46,7 +41,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class ComputeSha1 : ExtensionsStringTest
+    public class ComputeSha1
     {
         [TestCase("06636F8D82BDEB41C444F82D2EBCF431FC31FE12", "Suramar")]
         [TestCase("0E3EB0AF296788BC24DD29BC3C767EE6A829D473", "Stormwind")]
@@ -58,7 +53,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class ComputeSha256 : ExtensionsStringTest
+    public class ComputeSha256
     {
         [Test]
         public void WithValidString_ReturnsSha256()
@@ -70,7 +65,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class ComputeSha512 : ExtensionsStringTest
+    public class ComputeSha512
     {
         [TestCase("uG16jy5/N+hPwel+4xRVtOfyCZ56K9Ds0SF4GE9oQgYRBGzTeAD+h94cIgc6ROyNjbK6wBFVhgqqjDDh01f4rg==", "Eastern Kingdoms")]
         [TestCase("rDh3voP2/h+S/mDAjnsf8MFRM+Hst6mTxB+rxehSA2KW5fUR2hSBNO9AGGifOzUuWPrO0OOpE0nskGPUw2q+iQ==", "Northrend")]
@@ -82,7 +77,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class Stringify : ExtensionsStringTest
+    public class Stringify
     {
         [TestCase("string", "string")]
         [TestCase("(null)", null)]
@@ -155,7 +150,6 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
                 };
 
             var objectInfoLines = persons.Stringify().ToLines();
-            Console.WriteLine(objectInfoLines.Stringify());
 
             Assert.AreEqual("Tyrande         : object", objectInfoLines[0]);
             Assert.AreEqual("Jaina           : object", objectInfoLines[5]);
@@ -165,7 +159,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
     
     [TestFixture]
-    public class ToStringInvariant : ExtensionsStringTest
+    public class ToStringInvariant
     {
         [TestCase("", null)]
         [TestCase("Test", "Test")]
@@ -184,7 +178,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class RemoveControlCharsExcept : ExtensionsStringTest
+    public class RemoveControlCharsExcept
     {
         [TestCase("Test", "Test", null)]
         [TestCase("Test", "\0Test\0", null)]
@@ -197,7 +191,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class RemoveControlChars : ExtensionsStringTest
+    public class RemoveControlChars
     {
         [Test]
         public void WithValidString_ReturnsStringWithoutControlCharacters()
@@ -208,7 +202,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class Slice : ExtensionsStringTest
+    public class Slice
     {
         [TestCase("", null, 0, 0)]
         [TestCase("Swan", "ThisIsASwanTest", 7, 10)]
@@ -220,7 +214,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class SliceLength : ExtensionsStringTest
+    public class SliceLength
     {
         [TestCase("", null, 0, 0)]
         [TestCase("Swan", "ThisIsASwanTest", 7, 4)]
@@ -232,7 +226,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class Indent : ExtensionsStringTest
+    public class Indent
     {
         [TestCase("", null, 0)]
         [TestCase("     Test", "Test", 5)]
@@ -244,7 +238,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class TextPositionAt : ExtensionsStringTest
+    public class TextPositionAt
     {
         [TestCase(0, 0, null, 0)]
         [TestCase(1, 7, "ThisIsASwanTest", 6)]
@@ -258,7 +252,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class ToSafeFilename : ExtensionsStringTest
+    public class ToSafeFilename
     {
         [TestCase("FileName", ":File|Name*")]
         [TestCase("LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongF", "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
@@ -276,7 +270,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class FormatBytes : ExtensionsStringTest
+    public class FormatBytes
     {
         [TestCase("2 KB", 2048)]
         [TestCase("97.66 KB", 100000)]
@@ -302,7 +296,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class Truncate : ExtensionsStringTest
+    public class Truncate
     {
         [TestCase("ThisIs", "ThisIsASwanTest", 6)]
         [TestCase("ThisIsASwanTest", "ThisIsASwanTest", 60)]
@@ -313,7 +307,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class Contains : ExtensionsStringTest
+    public class Contains
     {
         [Test]
         public void WithValidString_ReturnsTrue()
@@ -324,7 +318,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class Hex2Int : ExtensionsStringTest
+    public class Hex2Int
     {
         [TestCase(10, 'A')]
         [TestCase(15, 'F')]
