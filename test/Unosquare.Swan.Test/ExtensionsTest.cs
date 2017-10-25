@@ -7,6 +7,26 @@ using Unosquare.Swan.Test.Mocks;
 namespace Unosquare.Swan.Test
 {
     [TestFixture]
+    public class Benchmark
+    {
+        [Test]
+        public void WithAction_ReturnsTimeSpan()
+        {
+            var total = 0;
+            var action = new Action(() =>
+            {
+                if(total < 2)
+                    throw new Exception();
+                
+            });
+            
+            var result = action.Benchmark();
+
+            Assert.IsNotNull(result);
+        }
+    }
+
+    [TestFixture]
     public class Retry
     {
         [Test]
@@ -27,7 +47,7 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void WithNewAction_ThrowsAggregateException()
+        public void WithInvalidAction_ThrowsAggregateException()
         {
             Assert.Throws<AggregateException>(() =>
             {
@@ -36,6 +56,26 @@ namespace Unosquare.Swan.Test
 
                 action.Retry();
             });
+        }
+
+        [Test]
+        public void WithValidAction_DoesNotThrowException()
+        {
+            var total = 0;
+
+            Assert.DoesNotThrow(() =>
+            {
+                var action = new Action(() =>
+                {
+                    if(total++ < 2)
+                        throw new Exception();
+
+                });
+
+                action.Retry();
+                
+            });
+
         }
     }
 
