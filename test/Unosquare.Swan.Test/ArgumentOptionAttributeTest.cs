@@ -21,5 +21,13 @@ namespace Unosquare.Swan.Test.ArgumentOptionAttributeTests
 
             Assert.IsNotNull(argOptAttr);
         }
+
+        [Test]
+        public void InitializedWithACharacter_Valid()
+        {
+            argOptAttr = new ArgumentOptionAttribute('U');
+
+            Assert.IsNotNull(argOptAttr);
+        }
     }
 }
