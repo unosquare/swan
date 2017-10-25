@@ -7,13 +7,8 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.ObjectComparerTests
 {
-    public abstract class ObjectComparerTest
-    {
-
-    }
-
     [TestFixture]
-    public class AreObjectsEqual : ObjectComparerTest
+    public class AreObjectsEqual
     {
         [Test]
         public void EqualObjects_ReturnsTrue()
@@ -44,7 +39,7 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
     }
 
     [TestFixture]
-    public class AreStructsEqual : ObjectComparerTest
+    public class AreStructsEqual
     {
         [Test]
         public void EqualStructs_ReturnsTrue()
@@ -84,7 +79,7 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
     }
 
     [TestFixture]
-    public class AreArraysEqual : ObjectComparerTest
+    public class AreArraysEqual
     {
         [Test]
         public void EqualArrays_ReturnsTrue()
@@ -106,7 +101,7 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
     }
 
     [TestFixture]
-    public class AreArrayObjectsEqual : ObjectComparerTest
+    public class AreArrayObjectsEqual
     {
         [Test]
         public void EqualObjectsWithArrayProperties_ReturnsTrue()
@@ -128,7 +123,7 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
     }
 
     [TestFixture]
-    public class AreEnumsEquals : ObjectComparerTest
+    public class AreEnumsEquals
     {
         [Test]
         public void EnumsWithDifferentLengths_ReturnsFalse()
@@ -151,7 +146,7 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
     }
 
     [TestFixture]
-    public class AreStructsEqualsInProps : ObjectComparerTest
+    public class AreStructsEqualsInProps
     {
         [Test]
         public void StructsSameProps_ReturnsTrue()
@@ -195,7 +190,7 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
     }
 
     [TestFixture]
-    public class AreEqual : ObjectComparerTest
+    public class AreEqual
     {
         [Test]
         public void StructsEquals_ReturnsTrue()
