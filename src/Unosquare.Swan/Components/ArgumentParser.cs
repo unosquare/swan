@@ -14,7 +14,7 @@
     public class ArgumentParser
     {
         private const char Dash = '-';
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentParser"/> class.
         /// </summary>
@@ -109,7 +109,7 @@
             {
                 unknownList.Add(propertyName);
             }
-            
+
             foreach (var targetProperty in properties.Except(updatedList))
             {
                 var defaultValue = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>()?.DefaultValue;
@@ -136,8 +136,8 @@
             if ((Settings.IgnoreUnknownArguments || !unknownList.Any()) && !requiredList.Any()) return true;
 
 #if !NETSTANDARD1_3 && !UWP
-                if (Settings.WriteBanner)
-                    Runtime.WriteWelcomeBanner();
+            if (Settings.WriteBanner)
+                Runtime.WriteWelcomeBanner();
 #endif
 
             WriteUsage(properties);
@@ -166,7 +166,9 @@
                 // TODO: If Enum list values
                 var shortName = string.IsNullOrWhiteSpace(option.ShortName) ? string.Empty : $"-{option.ShortName}";
                 var longName = string.IsNullOrWhiteSpace(option.LongName) ? string.Empty : $"--{option.LongName}";
-                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName) ? string.Empty : ", ";
+                var comma = string.IsNullOrWhiteSpace(shortName) || string.IsNullOrWhiteSpace(longName)
+                    ? string.Empty
+                    : ", ";
                 var defaultValue = option.DefaultValue == null ? string.Empty : $"(Default: {option.DefaultValue}) ";
 
                 $"  {shortName}{comma}{longName}\t\t{defaultValue}{option.HelpText}".WriteLine(ConsoleColor.Cyan);
@@ -178,71 +180,68 @@
 
         private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
-            try
+            var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
+
+            if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
             {
-                var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
+                var parsedValue = Enum.Parse(
+                    targetProperty.PropertyType,
+                    propertyValueString,
+                    Settings.CaseInsensitiveEnumValues);
+                targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
 
-                if (optionAttr == null)
-                    return false;
-
-                if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
-                {
-                    var parsedValue = Enum.Parse(
-                        targetProperty.PropertyType, 
-                        propertyValueString,
-                        Settings.CaseInsensitiveEnumValues);
-                    targetProperty.SetValue(result, Enum.ToObject(targetProperty.PropertyType, parsedValue));
-
-                    return true;
-                }
-
-                if (targetProperty.PropertyType.IsCollection())
-                {
-                    var itemType = targetProperty.PropertyType.GetElementType();
-                    var primitiveValue = Definitions.AllBasicTypes.Contains(itemType);
-                    var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
-
-                    var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
-
-                    var i = 0;
-                    foreach (var value in propertyArrayValue)
-                    {
-                        if (primitiveValue)
-                        {
-                            if (itemType.TryParseBasicType(value, out var itemvalue))
-                                arr.SetValue(itemvalue, i++);
-                        }
-                        else
-                        {
-                            arr.SetValue(value, i++);
-                        }
-                    }
-
-                    targetProperty.SetValue(result, arr);
-
-                    return true;
-                }
-                
-                if (targetProperty.PropertyType.TryParseBasicType(propertyValueString,
-                    out var propertyValue))
-                {
-                    targetProperty.SetValue(result, propertyValue);
-                    return true;
-                }
+                return true;
             }
-            catch
+
+            if (targetProperty.PropertyType.IsCollection())
             {
-                // ignored
+                var itemType = targetProperty.PropertyType.GetElementType();
+
+                if (itemType == null)
+                {
+                    throw new InvalidOperationException(
+                        $"The option collection {optionAttr.ShortName ?? optionAttr.LongName} should be an array");
+                }
+
+                var primitiveValue = Definitions.AllBasicTypes.Contains(itemType);
+                var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
+
+                var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
+
+                var i = 0;
+                foreach (var value in propertyArrayValue)
+                {
+                    if (primitiveValue)
+                    {
+                        if (itemType.TryParseBasicType(value, out var itemvalue))
+                            arr.SetValue(itemvalue, i++);
+                    }
+                    else
+                    {
+                        arr.SetValue(value, i++);
+                    }
+                }
+
+                targetProperty.SetValue(result, arr);
+
+                return true;
+            }
+
+            if (targetProperty.PropertyType.TryParseBasicType(propertyValueString,
+                out var propertyValue))
+            {
+                targetProperty.SetValue(result, propertyValue);
+                return true;
             }
 
             return false;
         }
 
         private PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)
-        {
-            return properties.FirstOrDefault(p =>
-                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName, propertyName, Settings.NameComparer) ||
-                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName, propertyName, Settings.NameComparer));
-        }
+            => properties.FirstOrDefault(p =>
+                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName, propertyName,
+                    Settings.NameComparer) ||
+                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName, propertyName,
+                    Settings.NameComparer));
     }
 }
