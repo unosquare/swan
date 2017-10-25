@@ -18,5 +18,12 @@ namespace Unosquare.Swan.Test
             var aux = Extensions.IsBetween(5, 0, 7);
             Assert.IsTrue(aux);
         }
+
+        [Test]
+        public void IsBetween_ValidData_ReturnsFalse()
+        {
+            var aux = Extensions.IsBetween(9, 0, 7);
+            Assert.IsFalse(aux);
+        }
     }
 }
