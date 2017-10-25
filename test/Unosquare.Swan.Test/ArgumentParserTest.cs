@@ -15,7 +15,7 @@ namespace Unosquare.Swan.Test
             var options = new OptionMock();
             Assert.IsFalse(options.Verbose);
 
-            var dumpArgs = new[] { "-n", "babu", "--verbose" };
+            var dumpArgs = new[] {"-n", "babu", "--verbose"};
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -25,11 +25,40 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
+        public void InvalidDataConversion()
+        {
+            var options = new OptionIntRequiredMock();
+            var result = Runtime.ArgumentParser.ParseArguments(new[] { "-n", "babu" }, options);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void ObjectCollection()
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                var options = new OptionObjectCollectionMock();
+                Runtime.ArgumentParser.ParseArguments(new[] {"--options", "1", null, "0"}, options);
+            });
+        }
+
+        [Test]
+        public void ObjectArray()
+        {
+            var options = new OptionObjectArrayMock();
+            var result = Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1,null,0" }, options);
+
+            Assert.IsTrue(result);
+            Assert.AreEqual(3, options.Options.Length);
+        }
+
+        [Test]
         public void CaseSensitiveArgsTest()
         {
             var options = new OptionMock();
-            var dumpArgs = new[] { "-N", "babu", "-V" };
-            var parser = new ArgumentParser(new ArgumentParserSettings { CaseSensitive = true });
+            var dumpArgs = new[] {"-N", "babu", "-V"};
+            var parser = new ArgumentParser(new ArgumentParserSettings {CaseSensitive = true});
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Parsing is not valid");
@@ -39,8 +68,8 @@ namespace Unosquare.Swan.Test
         public void UnknwownArgsTest()
         {
             var options = new OptionMock();
-            var dumpArgs = new[] { "-XOR" };
-            var parser = new ArgumentParser(new ArgumentParserSettings { IgnoreUnknownArguments = false });
+            var dumpArgs = new[] {"-XOR"};
+            var parser = new ArgumentParser(new ArgumentParserSettings {IgnoreUnknownArguments = false});
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Argument is unknown");
@@ -54,7 +83,7 @@ namespace Unosquare.Swan.Test
 
             const ConsoleColor newColor = ConsoleColor.White;
 
-            var dumpArgs = new[] { "-n", "babu", "--color", newColor.ToString().ToLowerInvariant() };
+            var dumpArgs = new[] {"-n", "babu", "--color", newColor.ToString().ToLowerInvariant()};
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -66,9 +95,9 @@ namespace Unosquare.Swan.Test
         {
             var options = new OptionMock();
             Assert.IsNull(options.Options);
-            var collection = new[] { "ok","xor","zzz" };
+            var collection = new[] {"ok", "xor", "zzz"};
 
-            var dumpArgs = new[] { "-n", "babu", "--options", string.Join(",", collection) };
+            var dumpArgs = new[] {"-n", "babu", "--options", string.Join(",", collection)};
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -94,13 +123,10 @@ namespace Unosquare.Swan.Test
         [Test]
         public void ParseArguments_TypeInvalid_ThrowsInvalidOperationException()
         {
-            var parser = new ArgumentParser();
-            string[] arrayNames = new string[] { "Alejandro", "Mariana", "Federico", "Víctor" };
-            int x = 0;
-
             Assert.Throws<InvalidOperationException>(() =>
             {
-                parser.ParseArguments<int>(arrayNames.AsEnumerable(), x);
+                var parser = new ArgumentParser();
+                parser.ParseArguments(new[] {"Alejandro", "Mariana", "Federico", "Víctor"}, 1);
             });
         }
     }
