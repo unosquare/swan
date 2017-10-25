@@ -1,17 +1,13 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
 {
-    public abstract class ExtensionsTest
-    {
-        
-    }
-
     [TestFixture]
-    public class Retry : ExtensionsTest
+    public class Retry
     {
         [Test]
         public void WithNewFunction_RetryAction()
@@ -27,7 +23,7 @@ namespace Unosquare.Swan.Test
             });
             
             var result = action.Retry();
-            Assert.AreNotEqual(3, result);
+            Assert.AreEqual(3, result);
         }
 
         [Test]
@@ -44,7 +40,7 @@ namespace Unosquare.Swan.Test
     }
 
     [TestFixture]
-    public class CopyPropertiesTo : ExtensionsTest
+    public class CopyPropertiesTo
     {
         [Test]
         public void WithValidObjectAttr_CopyPropertiesToTarget()
@@ -57,7 +53,25 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(source.Name, target.Name);
             Assert.AreEqual(source.IsActive, target.IsActive);
         }
-        
+
+        [Test]
+        public void WithValidDictionary_CopyPropertiesToTarget()
+        {
+            IDictionary<string, object> source = new Dictionary<string, object>
+            {
+                { "Name", "Thrall" },
+                { "Email", "Warchief.Thrall@horde.com" },
+                { "Role", "Warchief" }
+            };
+            
+            var target = new UserDto();
+            
+            source.CopyPropertiesTo(target, null);
+            
+            Assert.AreEqual(source["Name"].ToString(), target.Name);
+            Assert.AreEqual(source["Email"].ToString(), target.Email);
+        }
+
         [Test]
         public void WithValidBasicJson_CopyPropertiesToTarget()
         {
@@ -103,7 +117,7 @@ namespace Unosquare.Swan.Test
     }
 
     [TestFixture]
-    public class CopyOnlyPropertiesTo : ExtensionsTest
+    public class CopyOnlyPropertiesTo
     {
         [Test]
         public void WithValidBasicJson_CopyOnlyPropertiesToTarget()
@@ -116,10 +130,22 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
             Assert.AreNotEqual(source.StringData, destination.StringData);
         }
+
+        [Test]
+        public void WithValidObjectAttr_CopyOnlyPropertiesToTarget()
+        {
+            var source = ObjectAttr.Get();
+            var target = new ObjectAttr();
+
+            source.CopyOnlyPropertiesTo(target);
+
+            Assert.AreEqual(source.Name, target.Name);
+            Assert.AreEqual(source.IsActive, target.IsActive);
+        }
     }
 
     [TestFixture]
-    public class CopyPropertiesToNew : ExtensionsTest
+    public class CopyPropertiesToNew
     {
         [Test]
         public void WithValidParams_CopyPropertiesToNewObject()
@@ -150,7 +176,7 @@ namespace Unosquare.Swan.Test
     }
 
     [TestFixture]
-    public class CopyOnlyPropertiesToNew : ExtensionsTest
+    public class CopyOnlyPropertiesToNew
     {
         [Test]
         public void WithValidParams_CopyOnlyPropertiesToNewObject()
