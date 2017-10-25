@@ -202,24 +202,15 @@
                     throw new InvalidOperationException(
                         $"The option collection {optionAttr.ShortName ?? optionAttr.LongName} should be an array");
                 }
-
-                var primitiveValue = Definitions.AllBasicTypes.Contains(itemType);
+                
                 var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
-
                 var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
 
                 var i = 0;
                 foreach (var value in propertyArrayValue)
                 {
-                    if (primitiveValue)
-                    {
-                        if (itemType.TryParseBasicType(value, out var itemvalue))
-                            arr.SetValue(itemvalue, i++);
-                    }
-                    else
-                    {
-                        arr.SetValue(value, i++);
-                    }
+                    if (itemType.TryParseBasicType(value, out var itemvalue))
+                        arr.SetValue(itemvalue, i++);
                 }
 
                 targetProperty.SetValue(result, arr);
