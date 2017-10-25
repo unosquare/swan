@@ -37,5 +37,13 @@ namespace Unosquare.Swan.Test.ArgumentOptionAttributeTests
 
             Assert.IsNotNull(argOptAttr);
         }
+
+        [Test]
+        public void InitializedWithACharacterAndString_Valid()
+        {
+            argOptAttr = new ArgumentOptionAttribute('U', "UnoSquare");
+
+            Assert.IsNotNull(argOptAttr);
+        }
     }
 }
