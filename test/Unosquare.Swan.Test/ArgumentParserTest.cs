@@ -6,10 +6,8 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.ArgumentParserTests
 {
-    public abstract class ArgumentParserTest { }
-    
     [TestFixture]
-    public class ParseArguments : ArgumentParserTest
+    public class ParseArguments
     {
         [Test]
         public void BasicArguments_ReturnsEquals()
