@@ -4,18 +4,20 @@ using System.Linq;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
-namespace Unosquare.Swan.Test
+namespace Unosquare.Swan.Test.ArgumentParserTests
 {
+    public abstract class ArgumentParserTest { }
+    
     [TestFixture]
-    public class ArgumentParserTest
+    public class ParseArguments : ArgumentParserTest
     {
         [Test]
-        public void BasicArgsTest()
+        public void BasicArguments_ReturnsEquals()
         {
             var options = new OptionMock();
             Assert.IsFalse(options.Verbose);
 
-            var dumpArgs = new[] {"-n", "babu", "--verbose"};
+            var dumpArgs = new[] { "-n", "babu", "--verbose" };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -25,7 +27,7 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void InvalidDataConversion()
+        public void InvalidDataConversion_ReturnsFalse()
         {
             var options = new OptionIntRequiredMock();
             var result = Runtime.ArgumentParser.ParseArguments(new[] { "-n", "babu" }, options);
@@ -34,17 +36,17 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void ObjectCollection()
+        public void ObjectCollection_ThrowsInvalidOperationException()
         {
             Assert.Throws<InvalidOperationException>(() =>
             {
                 var options = new OptionObjectCollectionMock();
-                Runtime.ArgumentParser.ParseArguments(new[] {"--options", "1", null, "0"}, options);
+                Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1", null, "0" }, options);
             });
         }
 
         [Test]
-        public void ObjectArray()
+        public void ObjectArray_ReturnsTrue()
         {
             var options = new OptionObjectArrayMock();
             var result = Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1,null,0" }, options);
@@ -54,36 +56,36 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void CaseSensitiveArgsTest()
+        public void CaseSensitiveArguments_ReturnsFalse()
         {
             var options = new OptionMock();
-            var dumpArgs = new[] {"-N", "babu", "-V"};
-            var parser = new ArgumentParser(new ArgumentParserSettings {CaseSensitive = true});
+            var dumpArgs = new[] { "-N", "babu", "-V" };
+            var parser = new ArgumentParser(new ArgumentParserSettings { CaseSensitive = true });
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Parsing is not valid");
         }
 
         [Test]
-        public void UnknwownArgsTest()
+        public void UnknwownArguments_ReturnsFalse()
         {
             var options = new OptionMock();
-            var dumpArgs = new[] {"-XOR"};
-            var parser = new ArgumentParser(new ArgumentParserSettings {IgnoreUnknownArguments = false});
+            var dumpArgs = new[] { "-XOR" };
+            var parser = new ArgumentParser(new ArgumentParserSettings { IgnoreUnknownArguments = false });
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Argument is unknown");
         }
 
         [Test]
-        public void EnumArgTest()
+        public void EnumArguments_ReturnsTrue()
         {
             var options = new OptionMock();
             Assert.AreEqual(ConsoleColor.Black, options.BgColor);
 
             const ConsoleColor newColor = ConsoleColor.White;
 
-            var dumpArgs = new[] {"-n", "babu", "--color", newColor.ToString().ToLowerInvariant()};
+            var dumpArgs = new[] { "-n", "babu", "--color", newColor.ToString().ToLowerInvariant() };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -91,13 +93,13 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void ListArgTest()
+        public void ListArguments_ReturnsTrue()
         {
             var options = new OptionMock();
             Assert.IsNull(options.Options);
-            var collection = new[] {"ok", "xor", "zzz"};
+            var collection = new[] { "ok", "xor", "zzz" };
 
-            var dumpArgs = new[] {"-n", "babu", "--options", string.Join(",", collection)};
+            var dumpArgs = new[] { "-n", "babu", "--options", string.Join(",", collection) };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -110,7 +112,7 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void ThrowErrorTest()
+        public void UnavailableArguments_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -121,17 +123,17 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void ParseArguments_TypeInvalid_ThrowsInvalidOperationException()
+        public void TypeInvalid_ThrowsInvalidOperationException()
         {
             Assert.Throws<InvalidOperationException>(() =>
             {
                 var parser = new ArgumentParser();
-                parser.ParseArguments(new[] {"Alejandro", "Mariana", "Federico", "Víctor"}, 1);
+                parser.ParseArguments(new[] { "Alejandro", "Mariana", "Federico", "Víctor" }, 1);
             });
         }
 
         [Test]
-        public void ParseArguments_PropertiesEmpty_ThrowsInvalidOperationException()
+        public void PropertiesEmpty_ThrowsInvalidOperationException()
         {
             var options = new OptionMockEmpty();
             var collection = new[] { "v", "n", "color" };
