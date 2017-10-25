@@ -129,5 +129,18 @@ namespace Unosquare.Swan.Test
                 parser.ParseArguments(new[] {"Alejandro", "Mariana", "Federico", "Víctor"}, 1);
             });
         }
+
+        [Test]
+        public void ParseArguments_PropertiesEmpty_ThrowsInvalidOperationException()
+        {
+            var options = new OptionMockEmpty();
+            var collection = new[] { "v", "n", "color" };
+            var dumpArgs = new[] { "--options", string.Join(",", collection) };
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
+            });
+        }
     }
 }
