@@ -37,4 +37,9 @@
         [ArgumentOption('o', "options", Separator = ',', HelpText = "Specify additional options.")]
         public int?[] Options { get; set; }
     }
+
+    public class OptionMockEmpty
+    {
+
+    }
 }
