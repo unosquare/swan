@@ -181,7 +181,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
     internal class RfcControls : Asn1SequenceOf
     {
-        /// <summary> Controls context specific tag</summary>
         public const int CONTROLS = 0;
 
         /// <summary>
@@ -344,24 +343,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary> Context-specific TAG for optional Referral.</summary>
         public const int REFERRAL = 3;
         
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
-        /// Constructs an RfcLdapResult from parameters
-        /// </summary>
-        /// <param name="resultCode">the result code of the operation</param>
-        /// <param name="matchedDN">the matched DN returned from the server</param>
-        /// <param name="errorMessage">the diagnostic message returned from the server</param>
-        /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral = null)
-            : base(4)
-        {
-            Add(resultCode);
-            Add(matchedDN);
-            Add(errorMessage);
-            if (referral != null)
-                Add(referral);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
         /// Constructs an RfcLdapResult from the inputstream
