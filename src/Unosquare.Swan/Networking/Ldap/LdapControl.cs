@@ -36,8 +36,8 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             _control = values == null
-                ? new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical))
-                : new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
+                ? new RfcControl(new Asn1OctetString(oid), new Asn1Boolean(critical))
+                : new RfcControl(new Asn1OctetString(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     twin[i] = vals[i];
                 }
 
-                cont._control = new RfcControl(new RfcLdapOID(ID), new Asn1Boolean(Critical),
+                cont._control = new RfcControl(new Asn1OctetString(ID), new Asn1Boolean(Critical),
                     new Asn1OctetString(twin));
             }
 

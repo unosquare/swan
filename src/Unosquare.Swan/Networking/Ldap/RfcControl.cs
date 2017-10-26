@@ -103,7 +103,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="controlType">Type of the control.</param>
         /// <param name="criticality">The criticality.</param>
-        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality = null)
+        public RfcControl(Asn1OctetString controlType, Asn1Boolean criticality = null)
             : this(controlType, criticality ?? new Asn1Boolean(false), null)
         {
         }
@@ -117,7 +117,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="controlType">Type of the control.</param>
         /// <param name="criticality">The criticality.</param>
         /// <param name="controlValue">The control value.</param>
-        public RfcControl(RfcLdapOID controlType, Asn1Boolean criticality, Asn1OctetString controlValue)
+        public RfcControl(Asn1OctetString controlType, Asn1Boolean criticality, Asn1OctetString controlValue)
             : base(3)
         {
             Add(controlType);
@@ -138,20 +138,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 Add(seqObj.Get(i));
         }
     }
-
-    internal class RfcLdapOID : Asn1OctetString
-    {
-        public RfcLdapOID(string s)
-            : base(s)
-        {
-        }
-
-        public RfcLdapOID(sbyte[] s)
-            : base(s)
-        {
-        }
-    }
-
+    
     /// <summary>
     /// Represents Ldap Sasl Credentials.
     /// <pre>
