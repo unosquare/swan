@@ -45,5 +45,14 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
                 var date = Extensions.ToDateTime("");
             });
         }
+
+        [Test]
+        public void ToDateTime_WithWhiteSpaceValue_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var date = Extensions.ToDateTime(" ");
+            });
+        }
     }
 }
