@@ -65,26 +65,6 @@ namespace Unosquare.Swan.Networking.Ldap
         
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
-        /// Create an RfcLdapMessage response from input parameters.
-        /// </summary>
-        /// <param name="op">The op.</param>
-        /// <param name="controls">The controls.</param>
-        public RfcLdapMessage(Asn1Sequence op, RfcControls controls = null)
-            : base(3)
-        {
-            _op = op;
-
-            Add(new RfcMessageID()); // MessageID has static counter
-            Add(op);
-
-            if (controls != null)
-            {
-                Add(controls);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Will decode an RfcLdapMessage directly from an InputStream.
         /// </summary>
         /// <param name="dec">The decimal.</param>
@@ -458,20 +438,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(dec, stream, len)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcSearchResultDone"/> class.
-        /// Constructs an RfcSearchResultDone from parameters.
-        /// </summary>
-        /// <param name="resultCode">the result code of the operation</param>
-        /// <param name="matchedDN">the matched DN returned from the server</param>
-        /// <param name="errorMessage">the diagnostic message returned from the server</param>
-        /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
-            : base(resultCode, matchedDN, errorMessage, referral)
-        {
-        }
-
+        
         /// <summary>
         /// Override getIdentifier to return an application-wide id.
         /// </summary>
@@ -553,17 +520,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(MessageID)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcMessageID"/> class
-        /// with a specified int value.
-        /// </summary>
-        /// <param name="i">The i.</param>
-        protected internal RfcMessageID(int i)
-            : base(i)
-        {
-        }
-
+        
         /// <summary>
         ///     Increments the message number atomically
         /// </summary>

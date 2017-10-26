@@ -13,13 +13,7 @@
         {
             private readonly DnsResponse response;
             private readonly byte[] message;
-
-            public static DnsClientResponse FromArray(DnsClientRequest request, byte[] message)
-            {
-                var response = DnsResponse.FromArray(message);
-                return new DnsClientResponse(request, response, message);
-            }
-
+            
             internal DnsClientResponse(DnsClientRequest request, DnsResponse response, byte[] message)
             {
                 Request = request;
@@ -27,20 +21,8 @@
                 this.message = message;
                 this.response = response;
             }
-
-            internal DnsClientResponse(DnsClientRequest request, DnsResponse response)
-            {
-                Request = request;
-
-                message = response.ToArray();
-                this.response = response;
-            }
-
-            public DnsClientRequest Request
-            {
-                get;
-                private set;
-            }
+            
+            public DnsClientRequest Request { get; }
 
             public int Id
             {
@@ -104,19 +86,7 @@
             private static readonly Random RANDOM = new Random();
 
             private DnsHeader header;
-
-            public static DnsResponse FromRequest(IDnsRequest request)
-            {
-                var response = new DnsResponse {Id = request.Id};
-                
-                foreach (DnsQuestion question in request.Questions)
-                {
-                    response.Questions.Add(question);
-                }
-
-                return response;
-            }
-
+            
             public static DnsResponse FromArray(byte[] message)
             {
                 var header = DnsHeader.FromArray(message);
@@ -156,36 +126,7 @@
                 AuthorityRecords = authority;
                 AdditionalRecords = additional;
             }
-
-            public DnsResponse()
-            {
-                header = new DnsHeader();
-                Questions = new List<DnsQuestion>();
-                AnswerRecords = new List<IDnsResourceRecord>();
-                AuthorityRecords = new List<IDnsResourceRecord>();
-                AdditionalRecords = new List<IDnsResourceRecord>();
-
-                header.Response = true;
-                header.Id = RANDOM.Next(UInt16.MaxValue);
-            }
-
-            public DnsResponse(IDnsResponse response)
-            {
-                header = new DnsHeader();
-                Questions = new List<DnsQuestion>(response.Questions);
-                AnswerRecords = new List<IDnsResourceRecord>(response.AnswerRecords);
-                AuthorityRecords = new List<IDnsResourceRecord>(response.AuthorityRecords);
-                AdditionalRecords = new List<IDnsResourceRecord>(response.AdditionalRecords);
-
-                header.Response = true;
-
-                Id = response.Id;
-                IsRecursionAvailable = response.IsRecursionAvailable;
-                IsAuthorativeServer = response.IsAuthorativeServer;
-                OperationCode = response.OperationCode;
-                ResponseCode = response.ResponseCode;
-            }
-
+            
             public IList<DnsQuestion> Questions { get; }
 
             public IList<IDnsResourceRecord> AnswerRecords { get; }
