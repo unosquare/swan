@@ -33,7 +33,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             
             var result = action.Benchmark();
 
-            Assert.IsNull(result);
+            Assert.IsNotNull(result);
         }
     }
 
