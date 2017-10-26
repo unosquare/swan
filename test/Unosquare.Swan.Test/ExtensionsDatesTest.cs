@@ -3,13 +3,8 @@ using NUnit.Framework;
 
 namespace Unosquare.Swan.Test.ExtensionsDatesTests
 {
-    public abstract class ExtensionsDatesTest
-    {
-
-    }
-
     [TestFixture]
-    public class ToSortableDate : ExtensionsDatesTest
+    public class ToSortableDate
     {
         [TestCase("2016-01-01", "00:00:00", 2016, 1, 1, 0, 0, 0)]
         [TestCase("2016-10-10", "10:10:10", 2016, 10, 10, 10, 10, 10)]
@@ -25,7 +20,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
     }
 
     [TestFixture]
-    public class ToDateTime : ExtensionsDatesTest
+    public class ToDateTime
     {
         [TestCase(null)]
         [TestCase("")]
@@ -34,7 +29,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Extensions.ToDateTime(date);
+                date.ToDateTime();
             });
         }        
         
@@ -44,7 +39,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                Extensions.ToDateTime(date);
+                date.ToDateTime();
             });
         }
     }
