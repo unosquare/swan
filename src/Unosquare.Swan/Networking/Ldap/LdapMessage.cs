@@ -18,10 +18,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
         private string _stringTag;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapMessage"/> class.
-        /// Dummy constuctor
-        /// </summary>
         internal LdapMessage()
         {
         }

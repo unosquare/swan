@@ -4,52 +4,7 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.IO;
-
-    /// <summary>
-    ///     An implementation of LdapAuthHandler must be able to provide an
-    ///     LdapAuthProvider object at the time of a referral.  The class
-    ///     encapsulates information that is used by the client for authentication
-    ///     when following referrals automatically.
-    /// </summary>
-    internal class LdapAuthProvider
-    {
-        /// <summary>
-        ///     Returns the distinguished name to be used for authentication on
-        ///     automatic referral following.
-        /// </summary>
-        /// <returns>
-        ///     The distinguished name from the object.
-        /// </returns>
-        public virtual string DN { get; }
-
-        /// <summary>
-        ///     Returns the password to be used for authentication on automatic
-        ///     referral following.
-        /// </summary>
-        /// <returns>
-        ///     The byte[] value (UTF-8) of the password from the object.
-        /// </returns>
-        public virtual sbyte[] Password { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapAuthProvider"/> class.
-        ///     Constructs information that is used by the client for authentication
-        ///     when following referrals automatically.
-        /// </summary>
-        /// <param name="dn">
-        ///     The distinguished name to use when authenticating to
-        ///     a server.
-        /// </param>
-        /// <param name="password">
-        ///     The password to use when authenticating to a server.
-        /// </param>
-        public LdapAuthProvider(string dn, sbyte[] password)
-        {
-            DN = dn;
-            Password = password;
-        }
-    }
-
+    
     /// <summary>
     ///     Encapsulates a single search result that is in response to an asynchronous
     ///     search operation.
@@ -94,16 +49,7 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         private LdapEntry entry;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
-        /// Constructs an LdapSearchResult object from an LdapEntry.
-        /// </summary>
-        /// <param name="entry">the LdapEntry represented by this search result.</param>
-        /// <exception cref="ArgumentException">Argument \"entry\" cannot be null</exception>
-        public LdapSearchResult(LdapEntry entry)
-            => this.entry = entry ?? throw new ArgumentNullException(nameof(entry));
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
         /// Constructs an LdapSearchResult object.
@@ -122,44 +68,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override string ToString() => entry?.ToString() ?? base.ToString();
     }
-
-    /// <summary>
-    ///     Encapsulates an ID which uniquely identifies a particular extended
-    ///     operation, known to a particular server, and the data associated
-    ///     with that extended operation.
-    /// </summary>
-    internal class LdapExtendedOperation
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapExtendedOperation"/> class.
-        /// Constructs a new object with the specified object ID and data.
-        /// </summary>
-        /// <param name="oid">The unique identifier of the operation.</param>
-        /// <param name="vals">The operation-specific data of the operation.</param>
-        public LdapExtendedOperation(string oid, sbyte[] vals)
-        {
-            Id = oid;
-            Value = vals;
-        }
-
-        public string Id { get; set; }
-
-        public sbyte[] Value { get; set; }
-
-        /// <summary>
-        ///     Returns a clone of this object.
-        /// </summary>
-        /// <returns>
-        ///     clone of this object.
-        /// </returns>
-        public object Clone()
-        {
-            var newObj = MemberwiseClone();
-            Array.Copy(Value, 0, ((LdapExtendedOperation)newObj).Value, 0, Value.Length);
-            return newObj;
-        }
-    }
-
+    
     /// <summary>
     ///     Represents an Ldap Search Result Reference.
     ///     <pre>
@@ -322,28 +231,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcBindResponse : Asn1Sequence, IRfcResponse
     {
-        /// <summary>
-        ///     Returns the OPTIONAL serverSaslCreds of a BindResponse if it exists
-        ///     otherwise null.
-        /// </summary>
-        public virtual Asn1OctetString ServerSaslCreds
-        {
-            get
-            {
-                if (Size() == 5)
-                    return (Asn1OctetString)((Asn1Tagged)Get(4)).TaggedValue;
-
-                if (Size() == 4)
-                {
-                    // could be referral or serverSaslCreds
-                    if (Get(3) is Asn1Tagged)
-                        return (Asn1OctetString)((Asn1Tagged)Get(3)).TaggedValue;
-                }
-
-                return null;
-            }
-        }
-
         // Constructors for BindResponse
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcBindResponse"/> class.
