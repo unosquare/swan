@@ -46,4 +46,21 @@ namespace Unosquare.Swan.Test.ArgumentOptionAttributeTests
             Assert.IsNotNull(argOptAttr);
         }
     }
+
+    [TestFixture]
+    public class SetName : ArgumentOptionAttributeTest
+    {
+        public void WithValue_ReturnsData()
+        {
+            Assert.IsNotNull(argOptAttr.SetName = "UnoSquare");
+        }
+
+        public void WithoutValue_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Assert.IsNull(argOptAttr.SetName = null);
+            });
+        }
+    }
 }
