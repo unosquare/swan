@@ -18,6 +18,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         protected readonly IPAddress PrivateIP = IPAddress.Parse("192.168.1.1");
         protected readonly IPAddress PublicIP = IPAddress.Parse("200.1.1.1");
         protected readonly IPAddress GoogleDns = IPAddress.Parse("8.8.8.8");
+        protected readonly IPAddress NullIP = null;
     }
 
     [TestFixture]
@@ -64,6 +65,18 @@ namespace Unosquare.Swan.Test.NetworkTests
                 Assert.IsTrue(txtRecords.AnswerRecords.Any());
             }
         }
+
+        [Test]
+        public void WithNullFqdn_ReturnsQueryDns()
+        {
+            if(Runtime.OS != OperatingSystem.Windows)
+                Assert.Ignore("Ignored");
+            
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Network.QueryDns(null, DnsRecordType.TXT);
+            });
+        }
     }
 
     [TestFixture]
@@ -104,6 +117,18 @@ namespace Unosquare.Swan.Test.NetworkTests
             Assert.IsNotNull(googleDnsIPAddressesWithFinalDot,
                 "GoogleDnsFqdn with trailing period resolution is not null");
         }
+
+        [Test]
+        public void WithNullFqdn_ThrowsArgumentNullException()
+        {
+            if(Runtime.OS == OperatingSystem.Osx)
+                Assert.Inconclusive("OSX is returning time out");
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Network.GetDnsHostEntry(null);
+            });
+        }
     }
 
     [TestFixture]
@@ -120,6 +145,14 @@ namespace Unosquare.Swan.Test.NetworkTests
         {
             Assert.IsFalse(PublicIP.IsPrivateAddress());
         }
+
+        [Test]
+        public void WithNullAddress_ReturnsFalse()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                NullIP.IsPrivateAddress()
+            );
+        }
     }
 
     [TestFixture]
@@ -135,6 +168,14 @@ namespace Unosquare.Swan.Test.NetworkTests
         public void PublicIPWithValidAddress_ReturnsAddressAsInt()
         {
             Assert.AreEqual(3355508993, PublicIP.ToUInt32());
+        }
+
+        [Test]
+        public void WithNullAddress_ReturnsFalse()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                NullIP.ToUInt32()
+            );
         }
 
         [Test]
@@ -205,6 +246,14 @@ namespace Unosquare.Swan.Test.NetworkTests
         public void WithInvalidNtpServerName_ThrowsDnsQueryException()
         {
             Assert.Throws<DnsQueryException>(() => Network.GetNetworkTimeUtc("www"));
+        }
+
+        [Test]
+        public void WithNullNtpServerName_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                Network.GetNetworkTimeUtc(NullIP)
+            );
         }
     }
 
