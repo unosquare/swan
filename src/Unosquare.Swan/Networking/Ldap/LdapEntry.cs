@@ -4,7 +4,6 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Linq;
     using System;
     using System.Collections;
-    using System.IO;
     using System.Text;
 
     /// <summary>
@@ -118,8 +117,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="LdapAttribute"/> class.
         /// Constructs an attribute with no values.
         /// </summary>
-        /// <param name="attrName">Name of the attribute.
-        /// @throws IllegalArgumentException if attrName is null</param>
+        /// <param name="attrName">Name of the attribute.</param>
         /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
         public LdapAttribute(string attrName)
         {
@@ -133,17 +131,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Constructs an attribute with a single string value.
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
-        /// <param name="attrString">Value of the attribute as a string.
-        /// @throws IllegalArgumentException if attrName or attrString is null</param>
+        /// <param name="attrString">Value of the attribute as a string.</param>
         /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
         public LdapAttribute(string attrName, string attrString)
             : this(attrName)
         {
-            if (attrString == null)
-            {
-                throw new ArgumentNullException(nameof(attrString));
-            }
-
             Add(Encoding.UTF8.GetSBytes(attrString));
         }
 
