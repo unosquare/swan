@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a Ok value or Error value
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of OK value</typeparam>
     /// <typeparam name="TError">The type of the error.</typeparam>
     public class OkOrError<T, TError>
     {

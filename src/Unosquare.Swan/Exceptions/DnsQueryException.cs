@@ -9,10 +9,6 @@
     /// <seealso cref="System.Exception" />
     public class DnsQueryException : Exception
     {
-        internal DnsQueryException()
-        {
-        }
-
         internal DnsQueryException(string message)
             : base(message)
         {
@@ -26,12 +22,6 @@
         internal DnsQueryException(DnsClient.IDnsResponse response)
             : this(response, Format(response))
         {
-        }
-
-        internal DnsQueryException(DnsClient.IDnsResponse response, Exception e)
-            : base(Format(response), e)
-        {
-            Response = response;
         }
 
         internal DnsQueryException(DnsClient.IDnsResponse response, string message)
