@@ -23,17 +23,17 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Gets the exit code.
         /// </summary>
-        public int ExitCode { get; protected set; }
+        public int ExitCode { get; }
 
         /// <summary>
         /// Gets the text of the standard output.
         /// </summary>
-        public string StandardOutput { get; protected set; }
+        public string StandardOutput { get; }
 
         /// <summary>
         /// Gets the text of the standard error.
         /// </summary>
-        public string StandardError { get; protected set; }
+        public string StandardError { get; }
     }
 }
 #endif

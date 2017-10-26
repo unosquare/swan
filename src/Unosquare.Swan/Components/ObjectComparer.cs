@@ -54,10 +54,23 @@
         /// <typeparam name="T">The type of enums to compare</typeparam>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>True if two specified types are equal; otherwise, false</returns>
+        /// <returns>
+        /// True if two specified types are equal; otherwise, false
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// left
+        /// or
+        /// right
+        /// </exception>
         public static bool AreEnumsEqual<T>(T left, T right) 
             where T : IEnumerable
         {
+            if (left == null)
+                throw new ArgumentNullException(nameof(left));
+
+            if (right == null)
+                throw new ArgumentNullException(nameof(right));
+
             var leftEnumerable = left.Cast<object>().ToArray();
             var rightEnumerable = right.Cast<object>().ToArray();
 
@@ -96,6 +109,9 @@
 
         private static bool AreObjectsEqual(object left, object right, Type targetType)
         {
+            if (targetType == null)
+                throw new ArgumentNullException(nameof(targetType));
+
             var properties = RetrieveProperties(targetType).ToArray();
 
             foreach (var propertyTarget in properties)
@@ -122,6 +138,9 @@
 
         private static bool AreStructsEqual(object left, object right, Type targetType)
         {
+            if (targetType == null)
+                throw new ArgumentNullException(nameof(targetType));
+
             var fields = new List<MemberInfo>(RetrieveFields(targetType))
                 .Union(RetrieveProperties(targetType));
 
@@ -147,6 +166,9 @@
 
         private static bool AreEqual(object left, object right, Type targetType)
         {
+            if (targetType == null)
+                throw new ArgumentNullException(nameof(targetType));
+
             if (Definitions.BasicTypesInfo.ContainsKey(targetType))
                 return Equals(left, right);
 
