@@ -209,10 +209,7 @@
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-        {
-            return LocalEndPoint.ToString();
-        }
+        public override string ToString() => LocalEndPoint.ToString();
 
         #endregion
 

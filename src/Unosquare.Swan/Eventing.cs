@@ -152,7 +152,7 @@
         /// <param name="ex">The ex.</param>
         public ConnectionFailureEventArgs(Exception ex)
         {
-            Error = ex ?? throw new ArgumentNullException(nameof(ex));
+            Error = ex;
         }
 
         /// <summary>

@@ -28,15 +28,28 @@ namespace Unosquare.Swan.Test
             container.Unregister<IAnimal>();
             Assert.Throws<DependencyContainerResolutionException>(() => container.Resolve<IAnimal>());
         }
-
-        // Autoregister is not working when you run NUNit at NETCORE, because the deps are not loaded. Probably an issue.
-#if NET452
+        
+#if !NETSTANDARD1_3 && !UWP
         [Test]
-        public void AutoregisterTest()
+        public void AutoregisterTest_ThrowResolutionException()
         {
-            Runtime.Container.AutoRegister();
-            Assert.IsTrue(Runtime.Container.CanResolve<ICar>());
-            Assert.AreEqual((new TheOnlyCar()).Name, Runtime.Container.Resolve<ICar>().Name);
+            Assert.Throws<DependencyContainerResolutionException>(() =>
+            {
+                var container = new DependencyContainer();
+                container.AutoRegister();
+                Assert.IsTrue(container.CanResolve<ICar>());
+                Assert.AreEqual((new TheOnlyCar()).Name, Runtime.Container.Resolve<ICar>().Name);
+            });
+        }
+
+        [Test]
+        public void AutoregisterTest_ThrowAutoRegistrationException()
+        {
+            Assert.Throws<DependencyContainerAutoRegistrationException>(() =>
+            {
+                var container = new DependencyContainer();
+                container.AutoRegister(DependencyContainerDuplicateImplementationActions.Fail);
+            });
         }
 #endif
 

@@ -44,7 +44,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="controlType">Type of the control.</param>
         /// <param name="criticality">The criticality.</param>
         /// <param name="controlValue">The control value.</param>
-        public RfcControl(Asn1OctetString controlType, Asn1Boolean criticality = null, Asn1OctetString controlValue = null)
+        public RfcControl(string controlType, Asn1Boolean criticality = null, Asn1OctetString controlValue = null)
             : base(3)
         {
             Add(controlType);
@@ -139,7 +139,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcSaslCredentials(string mechanism, sbyte[] credentials = null) 
             : base(2)
         {
-            Add(new Asn1OctetString(mechanism));
+            Add(mechanism);
             if (credentials != null)
                 Add(new Asn1OctetString(credentials));
         }

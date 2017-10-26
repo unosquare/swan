@@ -13,7 +13,7 @@
         {
             private readonly DnsResponse response;
             private readonly byte[] message;
-            
+
             internal DnsClientResponse(DnsClientRequest request, DnsResponse response, byte[] message)
             {
                 Request = request;
@@ -21,7 +21,7 @@
                 this.message = message;
                 this.response = response;
             }
-            
+
             public DnsClientRequest Request { get; }
 
             public int Id
@@ -32,9 +32,11 @@
 
             public IList<IDnsResourceRecord> AnswerRecords => response.AnswerRecords;
 
-            public IList<IDnsResourceRecord> AuthorityRecords => new ReadOnlyCollection<IDnsResourceRecord>(response.AuthorityRecords);
+            public IList<IDnsResourceRecord> AuthorityRecords =>
+                new ReadOnlyCollection<IDnsResourceRecord>(response.AuthorityRecords);
 
-            public IList<IDnsResourceRecord> AdditionalRecords => new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords);
+            public IList<IDnsResourceRecord> AdditionalRecords =>
+                new ReadOnlyCollection<IDnsResourceRecord>(response.AdditionalRecords);
 
             public bool IsRecursionAvailable
             {
@@ -80,13 +82,11 @@
                 return response.ToString();
             }
         }
-        
+
         public class DnsResponse : IDnsResponse
         {
-            private static readonly Random RANDOM = new Random();
-
             private DnsHeader header;
-            
+
             public static DnsResponse FromArray(byte[] message)
             {
                 var header = DnsHeader.FromArray(message);
@@ -110,14 +110,15 @@
                     DnsQuestion.GetAllFromArray(message, offset, header.QuestionCount, out offset),
                     DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AnswerRecordCount, out offset),
                     DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AuthorityRecordCount, out offset),
-                    DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AdditionalRecordCount, out offset));
+                    DnsResourceRecordFactory.GetAllFromArray(message, offset, header.AdditionalRecordCount,
+                        out offset));
             }
 
             public DnsResponse(
-                DnsHeader header, 
-                IList<DnsQuestion> questions, 
+                DnsHeader header,
+                IList<DnsQuestion> questions,
                 IList<IDnsResourceRecord> answers,
-                IList<IDnsResourceRecord> authority, 
+                IList<IDnsResourceRecord> authority,
                 IList<IDnsResourceRecord> additional)
             {
                 this.header = header;
@@ -126,7 +127,7 @@
                 AuthorityRecords = authority;
                 AdditionalRecords = additional;
             }
-            
+
             public IList<DnsQuestion> Questions { get; }
 
             public IList<IDnsResourceRecord> AnswerRecords { get; }
@@ -176,10 +177,10 @@
                 get
                 {
                     return header.Size +
-                        Questions.Sum(q => q.Size) +
-                        AnswerRecords.Sum(a => a.Size) +
-                        AuthorityRecords.Sum(a => a.Size) +
-                        AdditionalRecords.Sum(a => a.Size);
+                           Questions.Sum(q => q.Size) +
+                           AnswerRecords.Sum(a => a.Size) +
+                           AuthorityRecords.Sum(a => a.Size) +
+                           AdditionalRecords.Sum(a => a.Size);
                 }
             }
 
@@ -203,11 +204,11 @@
                 UpdateHeader();
 
                 return Json.SerializeOnly(
-                    this, 
+                    this,
                     true,
-                    nameof(Questions), 
-                    nameof(AnswerRecords), 
-                    nameof(AuthorityRecords), 
+                    nameof(Questions),
+                    nameof(AnswerRecords),
+                    nameof(AuthorityRecords),
                     nameof(AdditionalRecords));
             }
 

@@ -190,14 +190,6 @@
 
         public class DnsIPAddressResourceRecord : DnsResourceRecordBase
         {
-            private static IDnsResourceRecord Create(DnsDomain domain, IPAddress ip, TimeSpan ttl)
-            {
-                var data = ip.GetAddressBytes();
-                var type = data.Length == 4 ? DnsRecordType.A : DnsRecordType.AAAA;
-
-                return new DnsResourceRecord(domain, data, type, DnsRecordClass.IN, ttl);
-            }
-
             public DnsIPAddressResourceRecord(IDnsResourceRecord record)
                 : base(record)
             {
@@ -246,39 +238,16 @@
 
             public DnsDomain CanonicalDomainName { get; }
 
-            protected override string[] IncludedProperties
+            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
             {
-                get
-                {
-                    var temp = new List<string>(base.IncludedProperties)
-                    {
-                        nameof(CanonicalDomainName)
-                    };
-                    return temp.ToArray();
-                }
-            }
+                nameof(CanonicalDomainName)
+            }.ToArray();
         }
 
         public class DnsMailExchangeResourceRecord : DnsResourceRecordBase
         {
             private const int PreferenceSize = 2;
-
-            private static IDnsResourceRecord Create(DnsDomain domain, int preference, DnsDomain exchange, TimeSpan ttl)
-            {
-                var pref = BitConverter.GetBytes((ushort) preference);
-                var data = new byte[pref.Length + exchange.Size];
-
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(pref);
-                }
-
-                pref.CopyTo(data, 0);
-                exchange.ToArray().CopyTo(data, pref.Length);
-
-                return new DnsResourceRecord(domain, data, DnsRecordType.MX, DnsRecordClass.IN, ttl);
-            }
-
+            
             public DnsMailExchangeResourceRecord(
                 IDnsResourceRecord record,
                 byte[] message,

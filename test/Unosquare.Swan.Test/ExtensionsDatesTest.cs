@@ -3,15 +3,9 @@ using NUnit.Framework;
 
 namespace Unosquare.Swan.Test.ExtensionsDatesTests
 {
-    public abstract class ExtensionsDatesTest
-    {
-
-    }
-
     [TestFixture]
-    public class ToSortableDate : ExtensionsDatesTest
+    public class ToSortableDate
     {
-        [Test]
         [TestCase("2016-01-01", "00:00:00", 2016, 1, 1, 0, 0, 0)]
         [TestCase("2016-10-10", "10:10:10", 2016, 10, 10, 10, 10, 10)]
         public void ExtensionsDates_ReturnsEquals(string expectedDate, string expectedTime, int year, int month, int day, int hour,
@@ -26,55 +20,27 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
     }
 
     [TestFixture]
-    public class ToDateTime : ExtensionsDatesTest
+    public class ToDateTime
     {
-        [Test]
         [TestCase(null)]
-        public void WithNullValue_ThrowsArgumentNullException(string date)
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Extensions.ToDateTime(date);
-            });
-        }
-
-        [Test]
         [TestCase("")]
-        public void WithEmptyValue_ThrowsArgumentNullException(string date)
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Extensions.ToDateTime(date);
-            });
-        }
-
-        [Test]
         [TestCase(" ")]
-        public void WithWhiteSpaceValue_ThrowsArgumentNullException(string date)
+        public void InvalidArguments_ThrowsArgumentNullException(string date)
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Extensions.ToDateTime(date);
+                date.ToDateTime();
             });
-        }
-
-        [Test]
+        }        
+        
         [TestCase("2017 10 26")]
-        public void DateTimePartsWithDifferentLength_ThrowsException(string date)
-        {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                Extensions.ToDateTime(date);
-            });
-        }
-
-        [Test]
         [TestCase("2017-10")]
-        public void DatePartsDifferentLengthToThree_ThrowsException(string date)
+        [TestCase("2017-10-26 15:35")]
+        public void DatesNotParsable_ThrowsException(string date)
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                Extensions.ToDateTime(date);
+                date.ToDateTime();
             });
         }
     }

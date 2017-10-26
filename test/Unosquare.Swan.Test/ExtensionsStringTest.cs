@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Unosquare.Swan.Test.Mocks;
@@ -118,9 +117,9 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithListOfArraysAsParam_ReturnsStringifiedArray()
         {
-            int[] arrayInt = new int[] { 1234, 4321 };
+            var arrayInt = new[] { 1234, 4321 };
 
-            List<int[]> arrayList = new List<int[]>
+            var arrayList = new List<int[]>
                 {
                     arrayInt,
                     arrayInt
@@ -136,10 +135,10 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithDictionaryOfArraysAsParam_ReturnsStringifiedArray()
         {
-            string[] arrayString = new string[] { "Orgrimmar", "Thuder Bluff", "Undercity", "Silvermoon", null };
+            string[] arrayString = { "Orgrimmar", "Thuder Bluff", "Undercity", "Silvermoon", null };
 
-            Dictionary<string, string[][]> wordDictionary = new Dictionary<string, string[][]>();
-            wordDictionary.Add("Horde Capitals", new string[][] { arrayString, arrayString });
+            var wordDictionary =
+                new Dictionary<string, string[][]> {{"Horde Capitals", new[] {arrayString, arrayString}}};
 
             var objectInfoLines = wordDictionary.Stringify().ToLines();
 
@@ -191,8 +190,8 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     {
         [TestCase("Test", "Test", null)]
         [TestCase("Test", "\0Test\0", null)]
-        [TestCase("\0Test", "\0Test", new char[] { '\0' })]
-        [TestCase("\0Test", "\0Test\t", new char[] { '\0' })]
+        [TestCase("\0Test", "\0Test", new[] { '\0' })]
+        [TestCase("\0Test", "\0Test\t", new[] { '\0' })]
         public void WithValidString_ReturnsStringWithoutControlCharacters(string expected, string input, char[] excludeChars)
         {
             Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");
@@ -308,7 +307,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [TestCase("4.94 TB", 5432675475323)]
         public void WithUlongAsParam_ReturnsFormatedBytes(string expected, long input)
         {
-            ulong inputByte = Convert.ToUInt64(input);
+            var inputByte = Convert.ToUInt64(input);
 
             Assert.AreEqual(expected, inputByte.FormatBytes(), $"Testing with {input}");
         }
@@ -343,7 +342,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithValidString_ReturnsTrue()
         {
-            var input = "Hello World";
+            const string input = "Hello World";
             Assert.IsTrue(input.Contains('l'));
         }
     }

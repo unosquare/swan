@@ -59,7 +59,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void InvalidHost_ThrowsSocketException()
         {
-            Assert.ThrowsAsync<SocketException>(async () =>
+            Assert.CatchAsync<SocketException>(async () =>
             {
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 389);
@@ -71,7 +71,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void InvalidPort_ThrowsSocketException()
         {
-            Assert.ThrowsAsync<SocketException>(async () =>
+            Assert.CatchAsync<SocketException>(async () =>
             {
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 388);
@@ -104,7 +104,7 @@ namespace Unosquare.Swan.Test
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
                 var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsTrue(obj != null);
+                Assert.IsNotNull(obj);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -124,7 +124,7 @@ namespace Unosquare.Swan.Test
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
                 var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsTrue(obj != null);
+                Assert.IsNotNull(obj);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -137,7 +137,7 @@ namespace Unosquare.Swan.Test
             Assert.ThrowsAsync<LdapException>(async () =>
             {
                 var cn = await GetDefaultConnection();
-                var lsc = await cn.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
+                await cn.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
                 cn.Disconnect();
             });
         }
