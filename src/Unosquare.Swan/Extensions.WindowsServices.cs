@@ -17,6 +17,9 @@ namespace Unosquare.Swan
         /// <param name="serviceToRun">The service to run.</param>
         public static void RunInConsoleMode(this ServiceBase serviceToRun)
         {
+            if (serviceToRun == null)
+                throw new ArgumentNullException(nameof(serviceToRun));
+
             RunInConsoleMode(new ServiceBase[] { serviceToRun });
         }
 
@@ -26,6 +29,9 @@ namespace Unosquare.Swan
         /// <param name="servicesToRun">The services to run.</param>
         public static void RunInConsoleMode(this ServiceBase[] servicesToRun)
         {
+            if (servicesToRun == null)
+                throw new ArgumentNullException(nameof(servicesToRun));
+
             const string onStartMethodName = "OnStart";
             const string onStopMethodName = "OnStop";
 

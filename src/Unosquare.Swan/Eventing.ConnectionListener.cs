@@ -11,12 +11,13 @@
     public class ConnectionAcceptedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectionAcceptedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="ConnectionAcceptedEventArgs" /> class.
         /// </summary>
         /// <param name="client">The client.</param>
+        /// <exception cref="ArgumentNullException">client</exception>
         public ConnectionAcceptedEventArgs(TcpClient client)
         {
-            Client = client;
+            Client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         /// <summary>
@@ -53,12 +54,13 @@
     public class ConnectionListenerStartedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectionListenerStartedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="ConnectionListenerStartedEventArgs" /> class.
         /// </summary>
         /// <param name="listenerEndPoint">The listener end point.</param>
+        /// <exception cref="ArgumentNullException">listenerEndPoint</exception>
         public ConnectionListenerStartedEventArgs(IPEndPoint listenerEndPoint)
         {
-            EndPoint = listenerEndPoint;
+            EndPoint = listenerEndPoint ?? throw new ArgumentNullException(nameof(listenerEndPoint));
         }
 
         /// <summary>
@@ -74,14 +76,19 @@
     public class ConnectionListenerFailedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectionListenerFailedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="ConnectionListenerFailedEventArgs" /> class.
         /// </summary>
         /// <param name="listenerEndPoint">The listener end point.</param>
         /// <param name="ex">The ex.</param>
+        /// <exception cref="ArgumentNullException">
+        /// listenerEndPoint
+        /// or
+        /// ex
+        /// </exception>
         public ConnectionListenerFailedEventArgs(IPEndPoint listenerEndPoint, Exception ex)
         {
-            EndPoint = listenerEndPoint;
-            Error = ex;
+            EndPoint = listenerEndPoint ?? throw new ArgumentNullException(nameof(listenerEndPoint));
+            Error = ex ?? throw new ArgumentNullException(nameof(ex));
         }
 
         /// <summary>
@@ -102,14 +109,19 @@
     public class ConnectionListenerStoppedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectionListenerStoppedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="ConnectionListenerStoppedEventArgs" /> class.
         /// </summary>
         /// <param name="listenerEndPoint">The listener end point.</param>
         /// <param name="ex">The ex.</param>
+        /// <exception cref="ArgumentNullException">
+        /// listenerEndPoint
+        /// or
+        /// ex
+        /// </exception>
         public ConnectionListenerStoppedEventArgs(IPEndPoint listenerEndPoint, Exception ex = null)
         {
-            EndPoint = listenerEndPoint;
-            Error = ex;
+            EndPoint = listenerEndPoint ?? throw new ArgumentNullException(nameof(listenerEndPoint));
+            Error = ex ?? throw new ArgumentNullException(nameof(ex));
         }
 
         /// <summary>

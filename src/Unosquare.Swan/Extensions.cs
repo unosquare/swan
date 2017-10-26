@@ -35,7 +35,9 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>Returns the number of properties that were successfully copied</returns>
+        /// <returns>
+        /// Number of properties that were successfully copied
+        /// </returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null)
         {
             return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
@@ -61,7 +63,9 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
         /// <param name="propertiesToCopy">Properties to copy.</param>
-        /// <returns>Returns the number of properties that were successfully copied</returns>
+        /// <returns>
+        /// Number of properties that were successfully copied
+        /// </returns>
         public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
         {
             return Components.ObjectMapper.Copy(source, target, propertiesToCopy);
@@ -74,7 +78,7 @@
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
-        /// Returns the specified type of properties that were successfully copied
+        /// The specified type with properties copied
         /// </returns>
         /// <exception cref="ArgumentNullException">source</exception>
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)

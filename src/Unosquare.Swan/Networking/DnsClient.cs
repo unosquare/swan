@@ -40,6 +40,9 @@
 
         public IList<IPAddress> Lookup(string domain, DnsRecordType type = DnsRecordType.A)
         {
+            if (string.IsNullOrWhiteSpace(domain))
+                throw new ArgumentNullException(nameof(domain));
+
             if (type != DnsRecordType.A && type != DnsRecordType.AAAA)
             {
                 throw new ArgumentException("Invalid record type " + type);
@@ -64,6 +67,9 @@
 
         public string Reverse(IPAddress ip)
         {
+            if (ip == null)
+                throw new ArgumentNullException(nameof(ip));
+
             var response = Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
             var ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
 
