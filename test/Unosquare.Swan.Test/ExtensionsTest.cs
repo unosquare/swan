@@ -204,9 +204,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             Assert.AreEqual(source["Email"].ToString(), target.Email);
         }
     }
-
     
-
     [TestFixture]
     public class CopyPropertiesToNew
     {
@@ -215,7 +213,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         {
             var source = ObjectAttr.Get();
             
-            var destination = source.CopyPropertiesToNew<ObjectAttr>(null);
+            var destination = source.CopyPropertiesToNew<ObjectAttr>();
             
             Assert.IsNotNull(destination);
             Assert.AreSame(source.GetType(), destination.GetType());
@@ -257,11 +255,8 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         {
             ObjectEnum source = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                source.CopyPropertiesToNew<ObjectEnum>()
-            );
+            Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesToNew<ObjectEnum>());
         }
-
     }
 
     [TestFixture]

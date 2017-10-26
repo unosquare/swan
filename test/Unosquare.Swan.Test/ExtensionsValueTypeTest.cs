@@ -15,22 +15,22 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsBetween_ValidData_ReturnsTrue()
         {
-            var aux = Extensions.IsBetween(5, 0, 7);
+            var aux = 5.IsBetween(0, 7);
             Assert.IsTrue(aux);
         }
 
         [Test]
         public void IsBetween_ValidData_ReturnsFalse()
         {
-            var aux = Extensions.IsBetween(9, 0, 7);
+            var aux = 9.IsBetween(0, 7);
             Assert.IsFalse(aux);
         }
 
         [Test]
         public void ToStruct_ArrayOfBytes_ReturnsStruct()
         {
-            byte[] smallArray = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
-            var result = Extensions.ToStruct<int>(smallArray);
+            var smallArray = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
+            var result = smallArray.ToStruct<int>();
 
             Assert.AreEqual(538976288, result);
         }
