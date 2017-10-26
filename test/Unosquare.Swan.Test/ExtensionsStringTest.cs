@@ -38,6 +38,15 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         {
             Assert.AreEqual(expected, input.ComputeMD5().ToDashedHex(), "Get MD5");
         }
+        
+        public void WithNull_ReturnsMD5()
+        {
+            MemoryStream input = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                input.ComputeMD5()
+            );
+        }
     }
 
     [TestFixture]
@@ -188,6 +197,15 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         {
             Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");
         }
+
+        public void WithNullString_ThrowsArgumentNullException()
+        {
+            string input = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                input.RemoveControlCharsExcept(null)
+            );
+        }
     }
 
     [TestFixture]
@@ -267,6 +285,18 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
                 Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
             }
         }
+
+        public void WithNullString_ThrowsArgumentNullException()
+        {
+            string input = null;
+
+            if(Runtime.OS != OperatingSystem.Windows)
+                Assert.Ignore("Ignored");
+
+            Assert.Throws<ArgumentNullException>(() =>
+                input.ToSafeFilename()
+            );
+        }
     }
 
     [TestFixture]
@@ -300,6 +330,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     {
         [TestCase("ThisIs", "ThisIsASwanTest", 6)]
         [TestCase("ThisIsASwanTest", "ThisIsASwanTest", 60)]
+        [TestCase(null, null, 60)]
         public void WithValidString_ReturnsTruncatedString(string expected, string input, int maximumLength)
         {
             Assert.AreEqual(expected, input.Truncate(maximumLength), $"Testing with {input}");

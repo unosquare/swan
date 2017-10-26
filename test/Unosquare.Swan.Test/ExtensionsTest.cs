@@ -35,6 +35,16 @@ namespace Unosquare.Swan.Test.ExtensionsTest
 
             Assert.IsNotNull(result);
         }
+
+        [Test]
+        public void WithNullAction_ThrowsArgumentNullException()
+        {
+            Action action = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                action.Benchmark()
+            );
+        }
     }
 
     [TestFixture]
@@ -84,7 +94,26 @@ namespace Unosquare.Swan.Test.ExtensionsTest
 
                 action.Retry();
             });
+        }
 
+        [Test]
+        public void WithNullAction_ThrowsArgumentNullException()
+        {
+            Action action = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                action.Retry()
+            );
+        }
+
+        [Test]
+        public void WithNullFunction_ThrowsArgumentNullException()
+        {
+            Func<int> action = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                action.Retry()
+            );
         }
     }
 
@@ -115,6 +144,17 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             Assert.AreEqual(source.DecimalData, destination.DecimalData);
             Assert.AreEqual(source.StringData, destination.StringData);
             Assert.AreEqual(source.StringNull, destination.StringNull);
+        }
+
+        [Test]
+        public void WithNullObjectAttr_CopyPropertiesToTarget()
+        {
+            var source = ObjectAttr.Get();
+            ObjectAttr target = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                source.CopyPropertiesTo(target)
+            );
         }
 
         [Test]
@@ -211,7 +251,17 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             Assert.AreEqual(source.StringData, destination.StringData);
             Assert.AreEqual(source.StringNull, destination.StringNull);
         }
-        
+
+        [Test]
+        public void WithNullSource_ThrowsArgumentNullException()
+        {
+            ObjectEnum source = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                source.CopyPropertiesToNew<ObjectEnum>()
+            );
+        }
+
     }
 
     [TestFixture]
@@ -267,6 +317,16 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             var source = ObjectAttr.Get();
             var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] { nameof(ObjectAttr.Name) });
             Assert.AreEqual(source.Name, target.Name);
+        }
+
+        [Test]
+        public void WithNullSource_ThrowsArgumentNullException()
+        {
+            ObjectAttr source = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] { nameof(ObjectAttr.Name) })
+            );
         }
 
         [Test]
