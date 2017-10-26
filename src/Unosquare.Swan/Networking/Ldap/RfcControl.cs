@@ -1,8 +1,6 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
-    using System.IO;
-
     /// <summary>
     /// Represents an Ldap Control.
     /// <pre>
@@ -29,12 +27,41 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     // MAY be a criticality
                     var obj = Get(1);
-                    if (obj is Asn1Boolean)
-                        return (Asn1Boolean)obj;
+                    if (obj is Asn1Boolean boolean)
+                        return boolean;
                 }
 
                 return new Asn1Boolean(false);
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RfcControl"/> class.
+        /// Note: criticality is only added if true, as per RFC 2251 sec 5.1 part
+        /// (4): If a value of a type is its default value, it MUST be
+        /// absent.
+        /// </summary>
+        /// <param name="controlType">Type of the control.</param>
+        /// <param name="criticality">The criticality.</param>
+        /// <param name="controlValue">The control value.</param>
+        public RfcControl(Asn1OctetString controlType, Asn1Boolean criticality = null, Asn1OctetString controlValue = null)
+            : base(3)
+        {
+            Add(controlType);
+            Add(criticality ?? new Asn1Boolean(false));
+            if (controlValue != null)
+                Add(controlValue);
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RfcControl"/> class.
+        /// </summary>
+        /// <param name="seqObj">The seq object.</param>
+        public RfcControl(Asn1Sequence seqObj)
+            : base(3)
+        {
+            for (var i = 0; i < seqObj.Size(); i++)
+                Add(seqObj.Get(i));
         }
 
         /// <summary>
@@ -60,8 +87,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     // MAY be a control value
                     var obj = Get(1);
-                    if (obj is Asn1OctetString)
-                        return (Asn1OctetString)obj;
+                    if (obj is Asn1OctetString s)
+                        return s;
                 }
 
                 return null;
@@ -97,48 +124,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
             }
         }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="controlType">Type of the control.</param>
-        /// <param name="criticality">The criticality.</param>
-        public RfcControl(Asn1OctetString controlType, Asn1Boolean criticality = null)
-            : this(controlType, criticality ?? new Asn1Boolean(false), null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// Note: criticality is only added if true, as per RFC 2251 sec 5.1 part
-        /// (4): If a value of a type is its default value, it MUST be
-        /// absent.
-        /// </summary>
-        /// <param name="controlType">Type of the control.</param>
-        /// <param name="criticality">The criticality.</param>
-        /// <param name="controlValue">The control value.</param>
-        public RfcControl(Asn1OctetString controlType, Asn1Boolean criticality, Asn1OctetString controlValue)
-            : base(3)
-        {
-            Add(controlType);
-            if (criticality.BooleanValue())
-                Add(criticality);
-            if (controlValue != null)
-                Add(controlValue);
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="seqObj">The seq object.</param>
-        public RfcControl(Asn1Sequence seqObj)
-            : base(3)
-        {
-            for (var i = 0; i < seqObj.Size(); i++)
-                Add(seqObj.Get(i));
-        }
     }
-    
+
     /// <summary>
     /// Represents Ldap Sasl Credentials.
     /// <pre>
@@ -180,6 +167,5 @@ namespace Unosquare.Swan.Networking.Ldap
             // implicit tagging
         }
     }
-
 }
 #endif

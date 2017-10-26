@@ -430,7 +430,7 @@ namespace Unosquare.Swan.Networking.Ldap
             Anonymous = anonymous;
         }
         
-        public int ProtocolVersion { get; } = 3;
+        public int ProtocolVersion { get; }
         
         public string AuthenticationDN { get; }
         
