@@ -84,9 +84,15 @@
         /// Updates settings from list.
         /// </summary>
         /// <param name="propertyList">The list.</param>
-        /// <returns>A list of settings of type ref="ExtendedPropertyInfo"</returns>
+        /// <returns>
+        /// A list of settings of type ref="ExtendedPropertyInfo"
+        /// </returns>
+        /// <exception cref="ArgumentNullException">propertyList</exception>
         public List<string> RefreshFromList(List<ExtendedPropertyInfo<T>> propertyList)
         {
+            if (propertyList == null)
+                throw new ArgumentNullException(nameof(propertyList));
+
             var changedSettings = new List<string>();
 
             foreach (var property in propertyList)
@@ -102,7 +108,7 @@
                     if (property.Value is IEnumerable == false)
                         continue;
 
-                    var sourceArray = ((IEnumerable) property.Value).Cast<object>().ToArray();
+                    var sourceArray = ((IEnumerable)property.Value).Cast<object>().ToArray();
                     var targetArray = Array.CreateInstance(elementType, sourceArray.Length);
 
                     var i = 0;
@@ -115,7 +121,7 @@
                                 targetArray.SetValue(null, i++);
                                 continue;
                             }
-                            
+
                             if (elementType.TryParseBasicType(sourceElement.ToString(), out var itemvalue))
                                 targetArray.SetValue(itemvalue, i++);
                         }

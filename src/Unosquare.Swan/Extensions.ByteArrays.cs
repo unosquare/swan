@@ -19,9 +19,15 @@
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <param name="addPrefix">if set to <c>true</c> add the 0x prefix tot he output.</param>
-        /// <returns>The specified string instance; no actual conversion is performed</returns>
+        /// <returns>
+        /// The specified string instance; no actual conversion is performed
+        /// </returns>
+        /// <exception cref="ArgumentNullException">bytes</exception>
         public static string ToLowerHex(this byte[] bytes, bool addPrefix = false)
         {
+            if (bytes == null)
+                throw new ArgumentNullException(nameof(bytes));
+
             var sb = new StringBuilder(bytes.Length * 2);
             foreach (var item in bytes)
                 sb.Append(item.ToString("x2", CultureInfo.InvariantCulture));
@@ -34,9 +40,15 @@
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <param name="addPrefix">if set to <c>true</c> [add prefix].</param>
-        /// <returns>The specified string instance; no actual conversion is performed</returns>
+        /// <returns>
+        /// The specified string instance; no actual conversion is performed
+        /// </returns>
+        /// <exception cref="ArgumentNullException">bytes</exception>
         public static string ToUpperHex(this byte[] bytes, bool addPrefix = false)
         {
+            if (bytes == null)
+                throw new ArgumentNullException(nameof(bytes));
+
             var sb = new StringBuilder(bytes.Length * 2);
             foreach (var item in bytes)
                 sb.Append(item.ToString("X2", CultureInfo.InvariantCulture));
@@ -50,7 +62,7 @@
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <returns>
-        /// A string of hexadecimal pairs separated by hyphens, where each pair represents 
+        /// A string of hexadecimal pairs separated by hyphens, where each pair represents
         /// the corresponding element in value; for example, "7F-2C-4A-00"
         /// </returns>
         public static string ToDashedHex(this byte[] bytes) => BitConverter.ToString(bytes);
@@ -64,13 +76,19 @@
 
         /// <summary>
         /// Converts a set of hexadecimal characters (uppercase or lowercase)
-        /// to a byte array. String length must be a multiple of 2 and 
+        /// to a byte array. String length must be a multiple of 2 and
         /// any prefix (such as 0x) has to be avoided for this to work properly
         /// </summary>
         /// <param name="hex">The hexadecimal.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>
+        /// A byte array containing the results of encoding the specified set of characters
+        /// </returns>
+        /// <exception cref="ArgumentNullException">hex</exception>
         public static byte[] ConvertHexadecimalToBytes(this string hex)
         {
+            if (string.IsNullOrWhiteSpace(hex))
+                throw new ArgumentNullException(nameof(hex));
+
             return Enumerable
                 .Range(0, hex.Length / 2)
                 .Select(x => Convert.ToByte(hex.Substring(x * 2, 2), 16))
@@ -138,8 +156,12 @@
         /// </exception>
         public static List<byte[]> Split(this byte[] buffer, int offset, params byte[] sequence)
         {
-            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
-            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
+            if (sequence == null)
+                throw new ArgumentNullException(nameof(sequence));
+
             offset = offset.Clamp(0, buffer.Length - 1);
 
             var result = new List<byte[]>();
@@ -187,11 +209,18 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>A new trimmed byte array</returns>
+        /// <returns>
+        /// A new trimmed byte array
+        /// </returns>
+        /// <exception cref="ArgumentNullException">buffer</exception>
         public static byte[] TrimStart(this byte[] buffer, params byte[] sequence)
         {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             if (buffer.StartsWith(sequence) == false)
                 return buffer.DeepClone();
+
             var result = new byte[buffer.Length - sequence.Length];
             Array.Copy(buffer, sequence.Length, result, 0, result.Length);
             return result;
@@ -202,10 +231,18 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>
+        /// A byte array containing the results of encoding the specified set of characters
+        /// </returns>
+        /// <exception cref="ArgumentNullException">buffer</exception>
         public static byte[] TrimEnd(this byte[] buffer, params byte[] sequence)
         {
-            if (buffer.EndsWith(sequence) == false) return buffer.DeepClone();
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
+            if (buffer.EndsWith(sequence) == false)
+                return buffer.DeepClone();
+
             var result = new byte[buffer.Length - sequence.Length];
             Array.Copy(buffer, 0, result, 0, result.Length);
             return result;
@@ -229,9 +266,15 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>True if the specified buffer is ends; otherwise, false.</returns>
+        /// <returns>
+        /// True if the specified buffer is ends; otherwise, false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">buffer</exception>
         public static bool EndsWith(this byte[] buffer, params byte[] sequence)
         {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             var startIndex = buffer.Length - sequence.Length;
             return buffer.GetIndexOf(sequence, startIndex) == startIndex;
         }
@@ -262,9 +305,15 @@
         /// <returns>
         ///   <c>true</c> if [is equal to] [the specified sequence]; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">buffer</exception>
         public static bool IsEqualTo(this byte[] buffer, params byte[] sequence)
         {
-            if (ReferenceEquals(buffer, sequence)) return true;
+            if (ReferenceEquals(buffer, sequence))
+                return true;
+
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             return buffer.Length == sequence.Length && buffer.GetIndexOf(sequence) == 0;
         }
 
@@ -283,10 +332,15 @@
         /// </exception>
         public static int GetIndexOf(this byte[] buffer, byte[] sequence, int offset = 0)
         {
-            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
-            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
-            if (sequence.Length == 0) return -1;
-            if (sequence.Length > buffer.Length) return -1;
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+            if (sequence == null)
+                throw new ArgumentNullException(nameof(sequence));
+            if (sequence.Length == 0)
+                return -1;
+            if (sequence.Length > buffer.Length)
+                return -1;
+
             if (offset < 0) offset = 0;
 
             var matchedCount = 0;
@@ -309,9 +363,22 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>The same MemoryStream instance</returns>
+        /// <returns>
+        /// The same MemoryStream instance
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// stream
+        /// or
+        /// buffer
+        /// </exception>
         public static MemoryStream Append(this MemoryStream stream, byte[] buffer)
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             stream.Write(buffer, 0, buffer.Length);
             return stream;
         }
@@ -321,9 +388,15 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>Block of bytes to the current stream using data read from a buffer</returns>
+        /// <returns>
+        /// Block of bytes to the current stream using data read from a buffer
+        /// </returns>
+        /// <exception cref="ArgumentNullException">buffer</exception>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte> buffer)
         {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             return Append(stream, buffer.ToArray());
         }
 
@@ -332,9 +405,15 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="buffers">The buffers.</param>
-        /// <returns>Block of bytes to the current stream using data read from a buffer</returns>
+        /// <returns>
+        /// Block of bytes to the current stream using data read from a buffer
+        /// </returns>
+        /// <exception cref="ArgumentNullException">buffers</exception>
         public static MemoryStream Append(this MemoryStream stream, IEnumerable<byte[]> buffers)
         {
+            if (buffers == null)
+                throw new ArgumentNullException(nameof(buffers));
+
             foreach (var buffer in buffers)
                 Append(stream, buffer);
 
@@ -428,9 +507,15 @@
         /// <param name="length">The length.</param>
         /// <param name="bufferLength">Length of the buffer.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>
+        /// A byte array containing the results of encoding the specified set of characters
+        /// </returns>
+        /// <exception cref="ArgumentNullException">stream</exception>
         public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken ct = default(CancellationToken))
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
             using (var dest = new MemoryStream())
             {
                 try
@@ -464,9 +549,15 @@
         /// <param name="stream">The stream.</param>
         /// <param name="length">The length.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
+        /// <returns>
+        /// A byte array containing the results of encoding the specified set of characters
+        /// </returns>
+        /// <exception cref="ArgumentNullException">stream</exception>
         public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken ct = default(CancellationToken))
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
             var buff = new byte[length];
             var offset = 0;
             try
@@ -493,9 +584,15 @@
         /// Converts an array of sbytes to an array of bytes
         /// </summary>
         /// <param name="sbyteArray">The sbyte array.</param>
-        /// <returns>The byte array from conversion</returns>
+        /// <returns>
+        /// The byte array from conversion
+        /// </returns>
+        /// <exception cref="ArgumentNullException">sbyteArray</exception>
         public static byte[] ToByteArray(this sbyte[] sbyteArray)
         {
+            if (sbyteArray == null)
+                throw new ArgumentNullException(nameof(sbyteArray));
+
             var byteArray = new byte[sbyteArray.Length];
             for (var index = 0; index < sbyteArray.Length; index++)
                 byteArray[index] = (byte)sbyteArray[index];
@@ -506,9 +603,15 @@
         /// Receives a byte array and returns it transformed in an sbyte array
         /// </summary>
         /// <param name="byteArray">The byte array.</param>
-        /// <returns>The sbyte array from conversion</returns>
+        /// <returns>
+        /// The sbyte array from conversion
+        /// </returns>
+        /// <exception cref="ArgumentNullException">byteArray</exception>
         public static sbyte[] ToSByteArray(this byte[] byteArray)
         {
+            if (byteArray == null)
+                throw new ArgumentNullException(nameof(byteArray));
+
             var sbyteArray = new sbyte[byteArray.Length];
             for (var index = 0; index < byteArray.Length; index++)
                 sbyteArray[index] = (sbyte)byteArray[index];
@@ -541,9 +644,22 @@
         /// <param name="target">The target.</param>
         /// <param name="start">The start.</param>
         /// <param name="count">The count.</param>
-        /// <returns>The number of bytes read</returns>
+        /// <returns>
+        /// The number of bytes read
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// sourceStream
+        /// or
+        /// target
+        /// </exception>
         public static int ReadInput(this Stream sourceStream, ref sbyte[] target, int start, int count)
         {
+            if (sourceStream == null)
+                throw new ArgumentNullException(nameof(sourceStream));
+
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
             // Returns 0 bytes if not enough space in target
             if (target.Length == 0)
                 return 0;

@@ -19,7 +19,7 @@
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
+        private static readonly string[] ByteSuffixes = {"B", "KB", "MB", "GB", "TB"};
 
         private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
         private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
@@ -49,7 +49,8 @@
             };
         });
 
-        private static readonly Lazy<string[]> InvalidFilenameChars = new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());
+        private static readonly Lazy<string[]> InvalidFilenameChars =
+            new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());
 
         #endregion
 
@@ -59,9 +60,15 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>The computed hash code</returns>
+        /// <returns>
+        /// The computed hash code
+        /// </returns>
+        /// <exception cref="ArgumentNullException">stream</exception>
         public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
 #if NET452
             var md5 = MD5.Create();
             const int bufferSize = 4096;
@@ -206,9 +213,15 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="excludeChars">When specified, these characters will not be removed.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>
+        /// A string that represents the current object
+        /// </returns>
+        /// <exception cref="ArgumentNullException">input</exception>
         public static string RemoveControlCharsExcept(this string input, params char[] excludeChars)
         {
+            if (input == null)
+                throw new ArgumentNullException(nameof(input));
+
             if (excludeChars == null)
                 excludeChars = new char[] { };
 
@@ -222,10 +235,8 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>A string that represents the current object</returns>
-        public static string RemoveControlChars(this string input)
-        {
-            return input.RemoveControlCharsExcept(null);
-        }
+        /// <exception cref="ArgumentNullException">input</exception>
+        public static string RemoveControlChars(this string input) => input.RemoveControlCharsExcept(null);
 
         /// <summary>
         /// Outputs JSON string representing this object
@@ -255,9 +266,7 @@
                 var jsonText = Json.Serialize(obj, false, "$type");
                 var jsonData = Json.Deserialize(jsonText);
 
-                if (jsonData == null) return string.Empty;
-                var readableData = HumanizeJson(jsonData, 0);
-                return readableData;
+                return HumanizeJson(jsonData, 0);
             }
             catch
             {
@@ -396,9 +405,15 @@
         /// Makes the file name system safe.
         /// </summary>
         /// <param name="s">The s.</param>
-        /// <returns>Returns a section of a string</returns>
+        /// <returns>
+        /// A string with a safe file name
+        /// </returns>
+        /// <exception cref="ArgumentNullException">s</exception>
         public static string ToSafeFilename(this string s)
         {
+            if (s == null)
+                throw new ArgumentNullException(nameof(s));
+
             foreach (var c in InvalidFilenameChars.Value)
                 s = s.Replace(c, string.Empty);
 
@@ -412,7 +427,7 @@
         /// <returns>
         /// The string representation of the current Byte object, formatted as specified by the format parameter
         /// </returns>
-        public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
+        public static string FormatBytes(this long bytes) => ((ulong) bytes).FormatBytes();
 
         /// <summary>
         /// Formats a long into the closest bytes string.
@@ -446,6 +461,9 @@
         /// </returns>
         public static string Truncate(this string value, int maximumLength)
         {
+            if (value == null)
+                return null;
+
             return value.Length > maximumLength ? value.Substring(0, maximumLength) : value;
         }
 
@@ -465,7 +483,7 @@
         /// </param>
         public static bool Contains(this string value, params char[] chars)
         {
-            return chars?.Length == 0 || !string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1;
+            return chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
         }
 
         /// <summary>
@@ -589,13 +607,16 @@
 
             var stringValue = jsonResult.ToString();
 
-            if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 || stringValue.IndexOf('\n') >= 0)
+            if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 ||
+                stringValue.IndexOf('\n') >= 0)
             {
                 builder.AppendLine();
                 var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
 
                 foreach (var line in stringLines)
+                {
                     builder.AppendLine($"{indentStr}{line}");
+                }
             }
             else
             {

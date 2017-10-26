@@ -1,6 +1,7 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Components
 {
+    using System;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -139,17 +140,21 @@ namespace Unosquare.Swan.Components
         /// <returns>
         /// Text of the standard output and standard error streams along with the exit code
         /// </returns>
+        /// <exception cref="ArgumentNullException">filename</exception>
         public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
         {
+            if (filename == null)
+                throw new ArgumentNullException(nameof(filename));
+
             var standardOutputBuilder = new StringBuilder();
             var standardErrorBuilder = new StringBuilder();
 
             var processReturn = await RunProcessAsync(
-                                filename, 
+                                filename,
                                 arguments,
                                 (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
                                 (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
-                                true, 
+                                true,
                                 ct);
 
             return new ProcessResult(processReturn, standardOutputBuilder.ToString(), standardErrorBuilder.ToString());
@@ -171,6 +176,9 @@ namespace Unosquare.Swan.Components
         /// <returns>Value type will be -1 for forceful termination of the process</returns>
         public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default(CancellationToken))
         {
+            if (filename == null)
+                throw new ArgumentNullException(nameof(filename));
+
             return Task.Factory.StartNew(() =>
             {
                 // Setup the process and its corresponding start info

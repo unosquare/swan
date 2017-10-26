@@ -35,7 +35,9 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>Returns the number of properties that were successfully copied</returns>
+        /// <returns>
+        /// Number of properties that were successfully copied
+        /// </returns>
         public static int CopyPropertiesTo(this object source, object target, string[] ignoreProperties = null)
         {
             return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
@@ -61,7 +63,9 @@
         /// <param name="source">The source.</param>
         /// <param name="target">The destination.</param>
         /// <param name="propertiesToCopy">Properties to copy.</param>
-        /// <returns>Returns the number of properties that were successfully copied</returns>
+        /// <returns>
+        /// Number of properties that were successfully copied
+        /// </returns>
         public static int CopyOnlyPropertiesTo(this object source, object target, string[] propertiesToCopy)
         {
             return Components.ObjectMapper.Copy(source, target, propertiesToCopy);
@@ -73,9 +77,15 @@
         /// <typeparam name="T">Object Type</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
-        /// <returns>Returns the specified type of properties that were successfully copied</returns>
+        /// <returns>
+        /// The specified type with properties copied
+        /// </returns>
+        /// <exception cref="ArgumentNullException">source</exception>
         public static T CopyPropertiesToNew<T>(this object source, string[] ignoreProperties = null)
         {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
             var target = Activator.CreateInstance<T>();
             var copyable = GetCopyableProperties(target);
 
@@ -92,9 +102,15 @@
         /// <typeparam name="T">Object Type</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="propertiesToCopy">The properties to copy.</param>
-        /// <returns>Returns the specified type of properties that were successfully copied</returns>
+        /// <returns>
+        /// The specified type with properties copied
+        /// </returns>
+        /// <exception cref="ArgumentNullException">source</exception>
         public static T CopyOnlyPropertiesToNew<T>(this object source, string[] propertiesToCopy)
         {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
             var target = Activator.CreateInstance<T>();
             source.CopyOnlyPropertiesTo(target, propertiesToCopy);
             return target;
@@ -124,8 +140,12 @@
         /// <returns>
         /// A  time interval that represents a specified time, where the specification is in units of ticks
         /// </returns>
+        /// <exception cref="ArgumentNullException">target</exception>
         public static TimeSpan Benchmark(this Action target)
         {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
             var sw = new Stopwatch();
 
             try
@@ -156,6 +176,9 @@
             TimeSpan retryInterval = default(TimeSpan),
             int retryCount = 3)
         {
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+
             Retry<object>(() =>
                 {
                     action();
@@ -172,15 +195,19 @@
         /// <param name="action">The action.</param>
         /// <param name="retryInterval">The retry interval.</param>
         /// <param name="retryCount">The retry count.</param>
-        /// <returns>The return value of the method that this delegate encapsulates</returns>
-        /// <exception cref="AggregateException">
-        ///     Represents one or many errors that occur during application execution
-        /// </exception>
+        /// <returns>
+        /// The return value of the method that this delegate encapsulates
+        /// </returns>
+        /// <exception cref="ArgumentNullException">action</exception>
+        /// <exception cref="AggregateException">Represents one or many errors that occur during application execution</exception>
         public static T Retry<T>(
             this Func<T> action,
             TimeSpan retryInterval = default(TimeSpan),
             int retryCount = 3)
         {
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+            
             if (retryInterval == default(TimeSpan))
                 retryInterval = TimeSpan.FromSeconds(1);
 
@@ -233,9 +260,15 @@
         /// Gets the copyable properties.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>Array of properties</returns>
+        /// <returns>
+        /// Array of properties
+        /// </returns>
+        /// <exception cref="ArgumentNullException">model</exception>
         public static string[] GetCopyableProperties(this object model)
         {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
             var cachedProperties = Runtime.PropertyTypeCache.Value.Retrieve(model.GetType(),
                 PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
 

@@ -30,7 +30,7 @@
         /// <param name="parseSettings">The parse settings.</param>
         public ArgumentParser(ArgumentParserSettings parseSettings)
         {
-            Settings = parseSettings;
+            Settings = parseSettings ?? throw new ArgumentNullException(nameof(parseSettings));
         }
 
         /// <summary>
@@ -56,6 +56,9 @@
         {
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
+
+            if (instance == null)
+                throw new ArgumentNullException(nameof(instance));
 
             var properties = GetTypeProperties(typeof(T)).ToArray();
 

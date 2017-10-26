@@ -306,9 +306,15 @@
         /// Build a full path pointing to the current user's desktop with the given filename
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <returns>The fully qualified location of path, such as "C:\MyFile.txt"</returns>
+        /// <returns>
+        /// The fully qualified location of path, such as "C:\MyFile.txt"
+        /// </returns>
+        /// <exception cref="ArgumentNullException">filename</exception>
         public static string GetDesktopFilePath(string filename)
         {
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentNullException(nameof(filename));
+
             var pathWithFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                 filename);
             return Path.GetFullPath(pathWithFilename);

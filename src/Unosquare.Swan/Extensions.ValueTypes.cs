@@ -62,10 +62,16 @@
         /// <param name="data">The data.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
-        /// <returns>A managed object containing the data pointed to by the ptr parameter</returns>
+        /// <returns>
+        /// A managed object containing the data pointed to by the ptr parameter
+        /// </returns>
+        /// <exception cref="ArgumentNullException">data</exception>
         public static T ToStruct<T>(this byte[] data, int offset, int length) 
             where T : struct
         {
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
             var buffer = new byte[length];
             Array.Copy(data, offset, buffer, 0, buffer.Length);
             var handle = GCHandle.Alloc(GetStructBytes<T>(buffer), GCHandleType.Pinned);
@@ -121,6 +127,9 @@
 
         private static byte[] GetStructBytes<T>(byte[] data)
         {
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
 #if !NETSTANDARD1_3 && !UWP
             var fields = typeof(T).GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 #else

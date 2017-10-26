@@ -20,8 +20,12 @@
         /// <returns>
         /// Array of Type objects representing the types specified by an assembly
         /// </returns>
+        /// <exception cref="ArgumentNullException">assembly</exception>
         public static Type[] GetAllTypes(this Assembly assembly)
         {
+            if (assembly == null)
+                throw new ArgumentNullException(nameof(assembly));
+
             Type[] assemblyTypes;
 
             try
@@ -52,9 +56,15 @@
         /// The closest programmatic equivalent of default(T)
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>Default value of this type</returns>
+        /// <returns>
+        /// Default value of this type
+        /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static object GetDefault(this Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             return type.IsValueType() ? Activator.CreateInstance(type) : null;
         }
 
@@ -65,10 +75,14 @@
         /// <returns>
         ///   <c>true</c> if the specified source type is collection; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">sourceType</exception>
         public static bool IsCollection(this Type sourceType)
         {
+            if (sourceType == null)
+                throw new ArgumentNullException(nameof(sourceType));
+
             return sourceType != typeof(string) &&
-                             typeof(IEnumerable).IsAssignableFrom(sourceType);
+                   typeof(IEnumerable).IsAssignableFrom(sourceType);
         }
 
         /// <summary>
@@ -86,15 +100,29 @@
         /// The exception that is thrown when binding to a member results in more than one member matching the 
         /// binding criteria. This class cannot be inherited
         /// </exception>
-        public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
+        public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName,
+            Type[] genericTypes, Type[] parameterTypes)
         {
+            if (sourceType == null)
+                throw new ArgumentNullException(nameof(sourceType));
+
+            if (methodName == null)
+                throw new ArgumentNullException(nameof(methodName));
+
+            if (genericTypes == null)
+                throw new ArgumentNullException(nameof(genericTypes));
+
+            if (parameterTypes == null)
+                throw new ArgumentNullException(nameof(parameterTypes));
+
             var methods =
                 sourceType.GetMethods(bindingFlags).Where(
-                    mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
-                        mi => mi.ContainsGenericParameters).Where(mi => mi.GetGenericArguments().Length == genericTypes.Length).
-                    Where(mi => mi.GetParameters().Length == parameterTypes.Length).Select(
+                        mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
+                        mi => mi.ContainsGenericParameters)
+                    .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
+                    .Where(mi => mi.GetParameters().Length == parameterTypes.Length).Select(
                         mi => mi.MakeGenericMethod(genericTypes)).Where(
-                            mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes)).ToList();
+                        mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes)).ToList();
 
             if (methods.Count > 1)
             {
@@ -225,8 +253,12 @@
         /// <returns>
         ///   <c>true</c> if [is i enumerable request] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">type</exception>
         public static bool IsIEnumerable(this Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             if (!type.IsGenericType())
                 return false;
 
@@ -241,8 +273,10 @@
         /// <param name="type">The type.</param>
         /// <param name="value">The value.</param>
         /// <param name="result">The result.</param>
-        /// <returns>True if the parse was succesful</returns>
+        /// <returns>
+        ///  <c>true</c> if parsing was successful; otherwise, <c>false</c>.
+        /// </returns>
         public static bool TryParseBasicType(this Type type, string value, out object result)
-            =>Definitions.BasicTypesInfo[type].TryParse(value, out result);
+            => Definitions.BasicTypesInfo[type].TryParse(value, out result);
     }
 }

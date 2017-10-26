@@ -18,6 +18,9 @@ namespace Unosquare.Swan
         /// <returns>A MemoryStream with the raw contents of this MailMessage.</returns>
         public static MemoryStream ToMimeMessage(this MailMessage self)
         {
+            if (self == null)
+                throw new ArgumentNullException(nameof(self));
+            
             var result = new MemoryStream();
             var mailWriter = MimeMessageConstants.MailWriterConstructor.Invoke(new object[] { result });
             MimeMessageConstants.SendMethod.Invoke(
