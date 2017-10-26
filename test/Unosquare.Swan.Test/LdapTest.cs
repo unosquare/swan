@@ -104,7 +104,7 @@ namespace Unosquare.Swan.Test
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
                 var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsTrue(obj != null);
+                Assert.IsNotNull(obj);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -124,7 +124,7 @@ namespace Unosquare.Swan.Test
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
                 var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsTrue(obj != null);
+                Assert.IsNotNull(obj);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -137,7 +137,7 @@ namespace Unosquare.Swan.Test
             Assert.ThrowsAsync<LdapException>(async () =>
             {
                 var cn = await GetDefaultConnection();
-                var lsc = await cn.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
+                await cn.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
                 cn.Disconnect();
             });
         }
