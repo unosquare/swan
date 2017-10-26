@@ -135,7 +135,11 @@
         /// <typeparam name="TDestination">The type of the destination.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="autoResolve">if set to <c>true</c> [automatic resolve].</param>
-        /// <returns>A new instance of the map</returns>
+        /// <returns>
+        /// A new instance of the map
+        /// </returns>
+        /// <exception cref="ArgumentNullException">source</exception>
+        /// <exception cref="InvalidOperationException">You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}</exception>
         public TDestination Map<TDestination>(object source, bool autoResolve = true)
         {
             if (source == null)
