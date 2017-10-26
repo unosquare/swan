@@ -2072,14 +2072,13 @@ namespace Unosquare.Swan.Components
 
         private void BuildUpInternal(object input, DependencyContainerResolveOptions resolveOptions)
         {
-            var properties = from property in input.GetType().GetProperties()
-                             where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType()
-                             select property;
+            var properties = input.GetType()
+                .GetProperties()
+                .Where(property => (property.GetGetMethod() != null) && (property.GetSetMethod() != null) &&
+                                   !property.PropertyType.IsValueType());
 
-            foreach (var property in properties)
+            foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
             {
-                if (property.GetValue(input, null) != null) continue;
-
                 try
                 {
                     property.SetValue(input, ResolveInternal(new TypeRegistration(property.PropertyType), DependencyContainerNamedParameterOverloads.Default, resolveOptions), null);
@@ -2125,9 +2124,9 @@ namespace Unosquare.Swan.Components
             if (_disposed) return;
 
             _disposed = true;
-            foreach (var item in _registeredTypes.Values)
+
+            foreach (var disposable in _registeredTypes.Values.Select(item => item as IDisposable))
             {
-                var disposable = item as IDisposable;
                 disposable?.Dispose();
             }
 

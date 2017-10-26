@@ -13,7 +13,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// sent to the server along with operation requests.
     /// </summary>
     /// <seealso cref="LdapConnection.ResponseControls"></seealso>
-    /// <seealso cref="LdapConstraints.GetControls"></seealso>
     public class LdapControl
     {
         private RfcControl _control; // An RFC 2251 Control
@@ -35,9 +34,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new ArgumentException("An OID must be specified");
             }
 
-            _control = values == null
-                ? new RfcControl(new Asn1OctetString(oid), new Asn1Boolean(critical))
-                : new RfcControl(new Asn1OctetString(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
+            _control = new RfcControl(oid, new Asn1Boolean(critical),
+                values == null ? null : new Asn1OctetString(values));
         }
 
         /// <summary>
@@ -91,8 +89,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     twin[i] = vals[i];
                 }
 
-                cont._control = new RfcControl(new Asn1OctetString(ID), new Asn1Boolean(Critical),
-                    new Asn1OctetString(twin));
+                cont._control = new RfcControl(ID, new Asn1Boolean(Critical), new Asn1OctetString(twin));
             }
 
             return cont;
@@ -173,7 +170,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="version">The version.</param>
         /// <param name="name">The name.</param>
         /// <param name="auth">The authentication.</param>
-        public RfcBindRequest(Asn1Integer version, Asn1OctetString name, RfcAuthenticationChoice auth)
+        public RfcBindRequest(Asn1Integer version, string name, RfcAuthenticationChoice auth)
             : base(3)
         {
             Add(version);
@@ -215,11 +212,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.</param>
-        /// <param name="cont">Any controls that apply to the simple bind request,
-        /// or null if none.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd)
             : base(LdapOperation.BindRequest,
-                new RfcBindRequest(new Asn1Integer(version), new Asn1OctetString(dn),
+                new RfcBindRequest(
+                    new Asn1Integer(version), 
+                    dn,
                     new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd),
                         false))), 
                 null)

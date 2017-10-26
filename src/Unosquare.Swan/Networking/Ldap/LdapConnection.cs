@@ -232,42 +232,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         public void Dispose() => Dispose(true);
-
-        /// <summary>
-        /// Returns a property of a connection object.
-        /// </summary>
-        /// <param name="name">Name of the property to be returned.
-        /// The following read-only properties are available
-        /// for any given connection:
-        /// <ul><li>
-        /// Ldap_PROPERTY_SDK returns the version of this SDK,
-        /// as a Float data type.
-        /// </li><li>
-        /// Ldap_PROPERTY_PROTOCOL returns the highest supported version of
-        /// the Ldap protocol, as a Float data type.
-        /// </li><li>
-        /// Ldap_PROPERTY_SECURITY returns a comma-separated list of the
-        /// types of authentication supported, as a
-        /// string.
-        /// </li></ul>
-        /// A deep copy of the property is provided where applicable; a
-        /// client does not need to clone the object received.</param>
-        /// <returns>
-        /// The object associated with the requested property,
-        /// or null if the property is not defined.
-        /// </returns>
-        /// <seealso cref="LdapConstraints.GetProperty"></seealso>
-        /// <seealso cref="object"></seealso>
-        public virtual object GetProperty(string name)
-        {
-            if (name.ToUpper().Equals(LdapPropertySdk.ToUpper()))
-                return "2.2.1";
-            if (name.ToUpper().Equals(LdapPropertyProtocol.ToUpper()))
-                return 3;
-
-            return name.ToUpper().Equals(LdapPropertySecurity.ToUpper()) ? "simple" : null;
-        }
-
+        
         /// <summary>
         /// Starts Transport Layer Security (TLS) protocol on this connection
         /// to enable session privacy.
@@ -347,7 +312,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.</param>
-        /// <param name="cons">Constraints specific to the operation.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public virtual Task Bind(int version, string dn, sbyte[] passwd)
         {
@@ -419,7 +383,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// the LdapEntry read from the server
         /// </returns>
-        /// <exception cref="LdapLocalException">Read response is ambiguous, multiple entries returned</exception>
+        /// <exception cref="LdapException">Read response is ambiguous, multiple entries returned</exception>
         public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default(CancellationToken))
         {
             var sr = await Search(dn, ScopeBase, null, attrs, false, ct);
@@ -480,7 +444,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="dn">The dn.</param>
         /// <param name="mods">The mods.</param>
-        /// <param name="cons">The cons.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">dn</exception>

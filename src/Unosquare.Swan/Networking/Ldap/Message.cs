@@ -201,7 +201,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             foreach (var attr in attrs)
             {
-                Add(new Asn1OctetString(attr));
+                Add(attr);
             }
         }
     }
@@ -242,7 +242,7 @@ namespace Unosquare.Swan.Networking.Ldap
             string[] attributes)
             : base(8)
         {
-            Add(new Asn1OctetString(basePath));
+            Add(basePath);
             Add(new Asn1Enumerated(scope));
             Add(new Asn1Enumerated(derefAliases));
             Add(new Asn1Integer(sizeLimit));
@@ -280,7 +280,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcSubstringFilter : Asn1Sequence
     {
-        public RfcSubstringFilter(Asn1OctetString type, Asn1SequenceOf substrings)
+        public RfcSubstringFilter(string type, Asn1SequenceOf substrings)
             : base(2)
         {
             Add(type);
@@ -304,7 +304,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="ad">The assertion description</param>
         /// <param name="av">The assertion value</param>
-        public RfcAttributeValueAssertion(Asn1OctetString ad, Asn1OctetString av)
+        public RfcAttributeValueAssertion(string ad, Asn1OctetString av)
             : base(2)
         {
             Add(ad);

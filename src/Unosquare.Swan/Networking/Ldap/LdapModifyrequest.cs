@@ -105,7 +105,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 var rfcMod = new Asn1Sequence(2);
                 rfcMod.Add(new Asn1Enumerated((int) t.Op));
-                rfcMod.Add(new RfcAttributeTypeAndValues(new Asn1OctetString(attr.Name), vals));
+                rfcMod.Add(new RfcAttributeTypeAndValues(attr.Name, vals));
 
                 rfcMods.Add(rfcMod);
             }
@@ -120,7 +120,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// </summary>
             /// <param name="type">The type.</param>
             /// <param name="vals">The vals.</param>
-            public RfcAttributeTypeAndValues(Asn1OctetString type, Asn1SetOf vals)
+            public RfcAttributeTypeAndValues(string type, Asn1SetOf vals)
                 : base(2)
             {
                 Add(type);

@@ -4,48 +4,12 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.IO;
 
     /// <summary>
-    ///     Encapsulates a single search result that is in response to an asynchronous
-    ///     search operation.
+    /// Encapsulates a single search result that is in response to an asynchronous
+    /// search operation.
     /// </summary>
-    /// <seealso cref="LdapConnection.Search">
-    /// </seealso>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
     internal class LdapSearchResult : LdapMessage
     {
-        /// <summary>
-        /// Returns the entry of a server's search response.
-        /// </summary>
-        /// <value>
-        /// The entry.
-        /// </value>
-        public virtual LdapEntry Entry
-        {
-            get
-            {
-                if (entry != null) return entry;
-
-                var attrs = new LdapAttributeSet();
-                var attrList = ((RfcSearchResultEntry) Message.Response).Attributes;
-                var seqArray = attrList.ToArray();
-
-                foreach (Asn1Sequence seq in seqArray)
-                {
-                    var attr = new LdapAttribute(((Asn1OctetString) seq.Get(0)).StringValue());
-                    var set = (Asn1Set) seq.Get(1);
-
-                    foreach (var t in set.ToArray())
-                    {
-                        attr.AddValue(((Asn1OctetString) t).ByteValue());
-                    }
-
-                    attrs.Add(attr);
-                }
-
-                entry = new LdapEntry(((RfcSearchResultEntry) Message.Response).ObjectName.StringValue(), attrs);
-
-                return entry;
-            }
-        }
-
         private LdapEntry entry;
 
         /// <summary>
@@ -59,11 +23,40 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Return a String representation of this object.
+        /// Returns the entry of a server's search response.
         /// </summary>
-        /// <returns>
-        ///     a String representing this object.
-        /// </returns>
+        /// <value>
+        /// The entry.
+        /// </value>
+        public virtual LdapEntry Entry
+        {
+            get
+            {
+                if (entry != null) return entry;
+
+                var attrs = new LdapAttributeSet();
+                var attrList = ((RfcSearchResultEntry)Message.Response).Attributes;
+                var seqArray = attrList.ToArray();
+
+                foreach (Asn1Sequence seq in seqArray)
+                {
+                    var attr = new LdapAttribute(((Asn1OctetString)seq.Get(0)).StringValue());
+                    var set = (Asn1Set)seq.Get(1);
+
+                    foreach (var t in set.ToArray())
+                    {
+                        attr.AddValue(((Asn1OctetString)t).ByteValue());
+                    }
+
+                    attrs.Add(attr);
+                }
+
+                entry = new LdapEntry(((RfcSearchResultEntry)Message.Response).ObjectName.StringValue(), attrs);
+
+                return entry;
+            }
+        }
+        
         public override string ToString() => entry?.ToString() ?? base.ToString();
     }
 

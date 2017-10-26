@@ -578,10 +578,8 @@
                 var result = new byte[Size];
                 var offset = 0;
 
-                foreach (var label in labels)
+                foreach (var l in labels.Select(label => Encoding.ASCII.GetBytes(label)))
                 {
-                    var l = Encoding.ASCII.GetBytes(label);
-
                     result[offset++] = (byte)l.Length;
                     l.CopyTo(result, offset);
 
