@@ -29,47 +29,52 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
     public class ToDateTime : ExtensionsDatesTest
     {
         [Test]
-        public void WithNullValue_ThrowsArgumentNullException()
+        [TestCase(null)]
+        public void WithNullValue_ThrowsArgumentNullException(string date)
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var date = Extensions.ToDateTime(null);
+                Extensions.ToDateTime(date);
             });
         }
 
         [Test]
-        public void WithEmptyValue_ThrowsArgumentNullException()
+        [TestCase("")]
+        public void WithEmptyValue_ThrowsArgumentNullException(string date)
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var date = Extensions.ToDateTime("");
+                Extensions.ToDateTime(date);
             });
         }
 
         [Test]
-        public void WithWhiteSpaceValue_ThrowsArgumentNullException()
+        [TestCase(" ")]
+        public void WithWhiteSpaceValue_ThrowsArgumentNullException(string date)
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var date = Extensions.ToDateTime(" ");
+                Extensions.ToDateTime(date);
             });
         }
 
         [Test]
-        public void DateTimePartsWithDifferentLength_ThrowsException()
+        [TestCase("2017 10 26")]
+        public void DateTimePartsWithDifferentLength_ThrowsException(string date)
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var date = Extensions.ToDateTime("2017 10 26");
+                Extensions.ToDateTime(date);
             });
         }
 
         [Test]
-        public void DatePartsDifferentLengthToThree_ThrowsException()
+        [TestCase("2017-10")]
+        public void DatePartsDifferentLengthToThree_ThrowsException(string date)
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var date = Extensions.ToDateTime("2017-10");
+                Extensions.ToDateTime(date);
             });
         }
     }
