@@ -696,6 +696,11 @@ namespace Unosquare.Swan.Networking.Ldap
             return cloneArray;
         }
 
+        public void Add(string s)
+        {
+            Add(new Asn1OctetString(s));
+        }
+
         /// <summary>
         /// Adds a new Asn1Object to the end of this Asn1Structured
         /// object.

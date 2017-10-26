@@ -154,7 +154,7 @@
         /// </summary>
         /// <returns> Default value of this type</returns>
         public object GetDefault() => Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
-
+        
         /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
         /// Returns false when no suitable TryParse methods exists for the type or when parsing fails

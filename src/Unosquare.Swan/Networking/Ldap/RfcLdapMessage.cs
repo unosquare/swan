@@ -354,16 +354,15 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(dec, stream, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
-            if (Size() > 3)
+            if (Size() <= 3) return;
+
+            var obj = (Asn1Tagged)Get(3);
+            var id = obj.GetIdentifier();
+            if (id.Tag == REFERRAL)
             {
-                var obj = (Asn1Tagged)Get(3);
-                var id = obj.GetIdentifier();
-                if (id.Tag == REFERRAL)
-                {
-                    var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
-                    var bais = new MemoryStream(content.ToByteArray());
-                    Set(3, new Asn1SequenceOf(dec, bais, content.Length));
-                }
+                var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
+                var bais = new MemoryStream(content.ToByteArray());
+                Set(3, new Asn1SequenceOf(dec, bais, content.Length));
             }
         }
 

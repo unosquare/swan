@@ -186,7 +186,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         case FilterOp.LessOrEqual:
                         case FilterOp.ApproxMatch:
                             tag = new Asn1Tagged(new Asn1Identifier((int)filterType, true),
-                                new RfcAttributeValueAssertion(new Asn1OctetString(_ft.Attr), new Asn1OctetString(UnescapeString(valueRenamed))),
+                                new RfcAttributeValueAssertion(_ft.Attr, new Asn1OctetString(UnescapeString(valueRenamed))),
                                 false);
                             break;
                         case FilterOp.EqualityMatch:
@@ -260,15 +260,14 @@ namespace Unosquare.Swan.Networking.Ldap
 
                                 tag = new Asn1Tagged(
                                     new Asn1Identifier((int)FilterOp.Substrings, true),
-                                    new RfcSubstringFilter(new Asn1OctetString(_ft.Attr), seq),
+                                    new RfcSubstringFilter(_ft.Attr, seq),
                                     false);
                             }
                             else
                             {
                                 tag = new Asn1Tagged(
                                     new Asn1Identifier((int)FilterOp.EqualityMatch, true),
-                                    new RfcAttributeValueAssertion(new Asn1OctetString(_ft.Attr),
-                                        new Asn1OctetString(UnescapeString(valueRenamed))),
+                                    new RfcAttributeValueAssertion(_ft.Attr, new Asn1OctetString(UnescapeString(valueRenamed))),
                                     false);
                             }
 
@@ -358,7 +357,6 @@ namespace Unosquare.Swan.Networking.Ldap
             var escStart = false;
 
             int ival, length = value.Length;
-            sbyte[] utf8Bytes;
             char ch; // Character we are adding to the octet string
             var ca = new char[1]; // used while converting multibyte UTF-8 char
             var temp = (char)0; // holds the value of the escaped sequence
@@ -406,7 +404,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         {
                             // char > 0x7f, could be encoded in 2 or 3 bytes
                             ca[0] = ch;
-                            utf8Bytes = Encoding.UTF8.GetSBytes(new string(ca));
+                            var utf8Bytes = Encoding.UTF8.GetSBytes(new string(ca));
 
                             // copy utf8 encoded character into octets
                             Array.Copy(utf8Bytes, 0, octets, octs, utf8Bytes.Length);
@@ -420,10 +418,8 @@ namespace Unosquare.Swan.Networking.Ldap
                         // found invalid character
                         var escString = string.Empty;
                         ca[0] = ch;
-
-                        utf8Bytes = Encoding.UTF8.GetSBytes(new string(ca));
-
-                        foreach (var u in utf8Bytes)
+                        
+                        foreach (var u in Encoding.UTF8.GetSBytes(new string(ca)))
                         {
                             if (u >= 0 && u < 0x10)
                             {
@@ -518,7 +514,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var seq = new Asn1SequenceOf(5);
             Asn1Object current =
                 new Asn1Tagged(new Asn1Identifier((int)FilterOp.Substrings, true),
-                    new RfcSubstringFilter(new Asn1OctetString(attrName), seq),
+                    new RfcSubstringFilter(attrName, seq),
                     false);
             AddObject(current);
             _filterStack.Push(seq);
@@ -640,7 +636,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             Asn1Object current = new Asn1Tagged(
                 new Asn1Identifier((int)rfcType, true),
-                new RfcAttributeValueAssertion(new Asn1OctetString(attrName), new Asn1OctetString(valueArray)),
+                new RfcAttributeValueAssertion(attrName, new Asn1OctetString(valueArray)),
                 false);
             AddObject(current);
         }
@@ -817,7 +813,6 @@ namespace Unosquare.Swan.Networking.Ldap
                             {
                                 filter.Append((string)itr.Current);
                                 filter.Append('=');
-                                var noStarLast = false;
 
                                 while (itr.MoveNext())
                                 {
@@ -826,18 +821,12 @@ namespace Unosquare.Swan.Networking.Ldap
                                         case SubstringOp.Initial:
                                             filter.Append(itr.Current as string);
                                             filter.Append('*');
-                                            noStarLast = false;
                                             break;
                                         case SubstringOp.Any:
-                                            if (noStarLast)
-                                                filter.Append('*');
                                             filter.Append(itr.Current as string);
                                             filter.Append('*');
-                                            noStarLast = false;
                                             break;
                                         case SubstringOp.Final:
-                                            if (noStarLast)
-                                                filter.Append('*');
                                             filter.Append((string)itr.Current);
                                             break;
                                     }
@@ -907,11 +896,11 @@ namespace Unosquare.Swan.Networking.Ldap
                     else
                     {
                         var asn1 = _root.TaggedValue;
-                        if (asn1 is Asn1OctetString)
+                        if (asn1 is Asn1OctetString s)
                         {
                             // one value to iterate
                             _hasMore = false;
-                            toReturn = ((Asn1OctetString)asn1).StringValue();
+                            toReturn = s.StringValue();
                         }
                         else if (asn1 is RfcSubstringFilter sub)
                         {
