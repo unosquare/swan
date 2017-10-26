@@ -59,7 +59,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void InvalidHost_ThrowsSocketException()
         {
-            Assert.ThrowsAsync<SocketException>(async () =>
+            Assert.CatchAsync<SocketException>(async () =>
             {
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 389);
@@ -71,7 +71,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void InvalidPort_ThrowsSocketException()
         {
-            Assert.ThrowsAsync<SocketException>(async () =>
+            Assert.CatchAsync<SocketException>(async () =>
             {
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 388);
