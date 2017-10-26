@@ -160,7 +160,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var values = new string[attrs.Size()];
                 for (var i = 0; i < values.Length; i++)
                 {
-                    values[i] = ((RfcLdapString)attrs.Get(i)).StringValue();
+                    values[i] = ((Asn1OctetString)attrs.Get(i)).StringValue();
                 }
 
                 return values;

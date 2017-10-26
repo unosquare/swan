@@ -16,7 +16,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="modifications">The modifications.</param>
         /// <param name="control">The control.</param>
         public LdapModifyRequest(string dn, LdapModification[] modifications, LdapControl[] control)
-            : base(LdapOperation.ModifyRequest, new RfcModifyRequest(new RfcLdapDN(dn), EncodeModifications(modifications)), control)
+            : base(LdapOperation.ModifyRequest, new RfcModifyRequest(new Asn1OctetString(dn), EncodeModifications(modifications)), control)
         {
         }
 
@@ -60,7 +60,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     var op = ((Asn1Enumerated)operators[0]).IntValue();
                     var attrSeq = (Asn1Sequence)operators[1];
                     var attrArray = attrSeq.ToArray();
-                    var aname = (RfcLdapString)attrArray[0];
+                    var aname = (Asn1OctetString)attrArray[0];
                     var name = aname.StringValue();
                     var avalue = (Asn1SetOf)attrArray[1];
                     var valueArray = avalue.ToArray();
@@ -105,7 +105,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 var rfcMod = new Asn1Sequence(2);
                 rfcMod.Add(new Asn1Enumerated((int) t.Op));
-                rfcMod.Add(new RfcAttributeTypeAndValues(new RfcLdapString(attr.Name), vals));
+                rfcMod.Add(new RfcAttributeTypeAndValues(new Asn1OctetString(attr.Name), vals));
 
                 rfcMods.Add(rfcMod);
             }
@@ -120,7 +120,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// </summary>
             /// <param name="type">The type.</param>
             /// <param name="vals">The vals.</param>
-            public RfcAttributeTypeAndValues(RfcLdapString type, Asn1SetOf vals)
+            public RfcAttributeTypeAndValues(Asn1OctetString type, Asn1SetOf vals)
                 : base(2)
             {
                 Add(type);
