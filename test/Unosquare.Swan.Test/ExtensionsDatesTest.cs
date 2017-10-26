@@ -29,7 +29,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
     public class ToDateTime : ExtensionsDatesTest
     {
         [Test]
-        public void ToDateTime_WithNullValue_ThrowsArgumentNullException()
+        public void WithNullValue_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -38,7 +38,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
         }
 
         [Test]
-        public void ToDateTime_WithEmptyValue_ThrowsArgumentNullException()
+        public void WithEmptyValue_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -47,11 +47,20 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
         }
 
         [Test]
-        public void ToDateTime_WithWhiteSpaceValue_ThrowsArgumentNullException()
+        public void WithWhiteSpaceValue_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
                 var date = Extensions.ToDateTime(" ");
+            });
+        }
+
+        [Test]
+        public void DateTimePartsWithDifferentLength_ThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var date = Extensions.ToDateTime("2017 10 26");
             });
         }
     }
