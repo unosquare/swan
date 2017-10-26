@@ -7413,15 +7413,15 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapBindRequest
   fullName: Unosquare.Swan.Networking.Ldap.LdapBindRequest
   nameWithType: LdapBindRequest
-- uid: Unosquare.Swan.Networking.Ldap.LdapBindRequest.#ctor(System.Int32,System.String,System.SByte[],Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name: LdapBindRequest(Int32, String, SByte[], LdapControl[])
-  href: api/Unosquare.Swan.Networking.Ldap.LdapBindRequest.html#Unosquare_Swan_Networking_Ldap_LdapBindRequest__ctor_System_Int32_System_String_System_SByte___Unosquare_Swan_Networking_Ldap_LdapControl___
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapBindRequest.#ctor(System.Int32,System.String,System.SByte[],Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name.vb: LdapBindRequest(Int32, String, SByte(), LdapControl())
-  fullName: Unosquare.Swan.Networking.Ldap.LdapBindRequest.LdapBindRequest(System.Int32, System.String, System.SByte[], Unosquare.Swan.Networking.Ldap.LdapControl[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapBindRequest.LdapBindRequest(System.Int32, System.String, System.SByte(), Unosquare.Swan.Networking.Ldap.LdapControl())
-  nameWithType: LdapBindRequest.LdapBindRequest(Int32, String, SByte[], LdapControl[])
-  nameWithType.vb: LdapBindRequest.LdapBindRequest(Int32, String, SByte(), LdapControl())
+- uid: Unosquare.Swan.Networking.Ldap.LdapBindRequest.#ctor(System.Int32,System.String,System.SByte[])
+  name: LdapBindRequest(Int32, String, SByte[])
+  href: api/Unosquare.Swan.Networking.Ldap.LdapBindRequest.html#Unosquare_Swan_Networking_Ldap_LdapBindRequest__ctor_System_Int32_System_String_System_SByte___
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapBindRequest.#ctor(System.Int32,System.String,System.SByte[])
+  name.vb: LdapBindRequest(Int32, String, SByte())
+  fullName: Unosquare.Swan.Networking.Ldap.LdapBindRequest.LdapBindRequest(System.Int32, System.String, System.SByte[])
+  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapBindRequest.LdapBindRequest(System.Int32, System.String, System.SByte())
+  nameWithType: LdapBindRequest.LdapBindRequest(Int32, String, SByte[])
+  nameWithType.vb: LdapBindRequest.LdapBindRequest(Int32, String, SByte())
 - uid: Unosquare.Swan.Networking.Ldap.LdapBindRequest.#ctor*
   name: LdapBindRequest
   href: api/Unosquare.Swan.Networking.Ldap.LdapBindRequest.html#Unosquare_Swan_Networking_Ldap_LdapBindRequest__ctor_
@@ -7458,18 +7458,6 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapConnection
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection
   nameWithType: LdapConnection
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.#ctor
-  name: LdapConnection()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection__ctor
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.LdapConnection()
-  nameWithType: LdapConnection.LdapConnection()
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.#ctor*
-  name: LdapConnection
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection__ctor_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.LdapConnection
-  nameWithType: LdapConnection.LdapConnection
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.AllUserAttrs
   name: AllUserAttrs
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_AllUserAttrs
@@ -7500,27 +7488,27 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationMethod
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationMethod
   nameWithType: LdapConnection.AuthenticationMethod
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.SByte[],Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  name: Bind(Int32, String, SByte[], LdapConstraints)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_SByte___Unosquare_Swan_Networking_Ldap_LdapConstraints_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.SByte[],Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  name.vb: Bind(Int32, String, SByte(), LdapConstraints)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.SByte[], Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.SByte(), Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  nameWithType: LdapConnection.Bind(Int32, String, SByte[], LdapConstraints)
-  nameWithType.vb: LdapConnection.Bind(Int32, String, SByte(), LdapConstraints)
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.String,Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  name: Bind(Int32, String, String, LdapConstraints)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_String_Unosquare_Swan_Networking_Ldap_LdapConstraints_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.String,Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.String, Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  nameWithType: LdapConnection.Bind(Int32, String, String, LdapConstraints)
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String,System.String,Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  name: Bind(String, String, LdapConstraints)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_String_System_String_Unosquare_Swan_Networking_Ldap_LdapConstraints_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String,System.String,Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String, System.String, Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  nameWithType: LdapConnection.Bind(String, String, LdapConstraints)
+- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.SByte[])
+  name: Bind(Int32, String, SByte[])
+  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_SByte___
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.SByte[])
+  name.vb: Bind(Int32, String, SByte())
+  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.SByte[])
+  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.SByte())
+  nameWithType: LdapConnection.Bind(Int32, String, SByte[])
+  nameWithType.vb: LdapConnection.Bind(Int32, String, SByte())
+- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.String)
+  name: Bind(Int32, String, String)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_String_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.String)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.String)
+  nameWithType: LdapConnection.Bind(Int32, String, String)
+- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String,System.String)
+  name: Bind(String, String)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_String_System_String_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String,System.String)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String, System.String)
+  nameWithType: LdapConnection.Bind(String, String)
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind*
   name: Bind
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_
@@ -7551,18 +7539,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.Connected
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Connected
   nameWithType: LdapConnection.Connected
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints
-  name: Constraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Constraints
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints
-  nameWithType: LdapConnection.Constraints
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints*
-  name: Constraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Constraints_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Constraints
-  nameWithType: LdapConnection.Constraints
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.DefaultPort
   name: DefaultPort
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_DefaultPort
@@ -7641,15 +7617,15 @@ references:
   commentId: F:Unosquare.Swan.Networking.Ldap.LdapConnection.LdapV3
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.LdapV3
   nameWithType: LdapConnection.LdapV3
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String,Unosquare.Swan.Networking.Ldap.LdapModification[],Unosquare.Swan.Networking.Ldap.LdapConstraints,System.Threading.CancellationToken)
-  name: Modify(String, LdapModification[], LdapConstraints, CancellationToken)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_System_String_Unosquare_Swan_Networking_Ldap_LdapModification___Unosquare_Swan_Networking_Ldap_LdapConstraints_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String,Unosquare.Swan.Networking.Ldap.LdapModification[],Unosquare.Swan.Networking.Ldap.LdapConstraints,System.Threading.CancellationToken)
-  name.vb: Modify(String, LdapModification(), LdapConstraints, CancellationToken)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String, Unosquare.Swan.Networking.Ldap.LdapModification[], Unosquare.Swan.Networking.Ldap.LdapConstraints, System.Threading.CancellationToken)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String, Unosquare.Swan.Networking.Ldap.LdapModification(), Unosquare.Swan.Networking.Ldap.LdapConstraints, System.Threading.CancellationToken)
-  nameWithType: LdapConnection.Modify(String, LdapModification[], LdapConstraints, CancellationToken)
-  nameWithType.vb: LdapConnection.Modify(String, LdapModification(), LdapConstraints, CancellationToken)
+- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String,Unosquare.Swan.Networking.Ldap.LdapModification[],System.Threading.CancellationToken)
+  name: Modify(String, LdapModification[], CancellationToken)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_System_String_Unosquare_Swan_Networking_Ldap_LdapModification___System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String,Unosquare.Swan.Networking.Ldap.LdapModification[],System.Threading.CancellationToken)
+  name.vb: Modify(String, LdapModification(), CancellationToken)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String, Unosquare.Swan.Networking.Ldap.LdapModification[], System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Modify(System.String, Unosquare.Swan.Networking.Ldap.LdapModification(), System.Threading.CancellationToken)
+  nameWithType: LdapConnection.Modify(String, LdapModification[], CancellationToken)
+  nameWithType.vb: LdapConnection.Modify(String, LdapModification(), CancellationToken)
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Modify*
   name: Modify
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Modify_
@@ -7674,15 +7650,15 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.ProtocolVersion
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.ProtocolVersion
   nameWithType: LdapConnection.ProtocolVersion
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String,System.String[],Unosquare.Swan.Networking.Ldap.LdapSearchConstraints,System.Threading.CancellationToken)
-  name: Read(String, String[], LdapSearchConstraints, CancellationToken)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Read_System_String_System_String___Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String,System.String[],Unosquare.Swan.Networking.Ldap.LdapSearchConstraints,System.Threading.CancellationToken)
-  name.vb: Read(String, String(), LdapSearchConstraints, CancellationToken)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String, System.String[], Unosquare.Swan.Networking.Ldap.LdapSearchConstraints, System.Threading.CancellationToken)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String, System.String(), Unosquare.Swan.Networking.Ldap.LdapSearchConstraints, System.Threading.CancellationToken)
-  nameWithType: LdapConnection.Read(String, String[], LdapSearchConstraints, CancellationToken)
-  nameWithType.vb: LdapConnection.Read(String, String(), LdapSearchConstraints, CancellationToken)
+- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String,System.String[],System.Threading.CancellationToken)
+  name: Read(String, String[], CancellationToken)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Read_System_String_System_String___System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String,System.String[],System.Threading.CancellationToken)
+  name.vb: Read(String, String(), CancellationToken)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String, System.String[], System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Read(System.String, System.String(), System.Threading.CancellationToken)
+  nameWithType: LdapConnection.Read(String, String[], CancellationToken)
+  nameWithType.vb: LdapConnection.Read(String, String(), CancellationToken)
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Read*
   name: Read
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Read_
@@ -7719,33 +7695,21 @@ references:
   commentId: F:Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeSub
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.ScopeSub
   nameWithType: LdapConnection.ScopeSub
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,Unosquare.Swan.Networking.Ldap.LdapSearchConstraints,System.Threading.CancellationToken)
-  name: Search(String, Int32, String, String[], Boolean, LdapSearchConstraints, CancellationToken)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,Unosquare.Swan.Networking.Ldap.LdapSearchConstraints,System.Threading.CancellationToken)
-  name.vb: Search(String, Int32, String, String(), Boolean, LdapSearchConstraints, CancellationToken)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String, System.Int32, System.String, System.String[], System.Boolean, Unosquare.Swan.Networking.Ldap.LdapSearchConstraints, System.Threading.CancellationToken)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String, System.Int32, System.String, System.String(), System.Boolean, Unosquare.Swan.Networking.Ldap.LdapSearchConstraints, System.Threading.CancellationToken)
-  nameWithType: LdapConnection.Search(String, Int32, String, String[], Boolean, LdapSearchConstraints, CancellationToken)
-  nameWithType.vb: LdapConnection.Search(String, Int32, String, String(), Boolean, LdapSearchConstraints, CancellationToken)
+- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,System.Threading.CancellationToken)
+  name: Search(String, Int32, String, String[], Boolean, CancellationToken)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String,System.Int32,System.String,System.String[],System.Boolean,System.Threading.CancellationToken)
+  name.vb: Search(String, Int32, String, String(), Boolean, CancellationToken)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String, System.Int32, System.String, System.String[], System.Boolean, System.Threading.CancellationToken)
+  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Search(System.String, System.Int32, System.String, System.String(), System.Boolean, System.Threading.CancellationToken)
+  nameWithType: LdapConnection.Search(String, Int32, String, String[], Boolean, CancellationToken)
+  nameWithType.vb: LdapConnection.Search(String, Int32, String, String(), Boolean, CancellationToken)
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Search*
   name: Search
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.Search
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Search
   nameWithType: LdapConnection.Search
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints
-  name: SearchConstraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_SearchConstraints
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints
-  nameWithType: LdapConnection.SearchConstraints
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints*
-  name: SearchConstraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_SearchConstraints_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.SearchConstraints
-  nameWithType: LdapConnection.SearchConstraints
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.ServerShutdownOid
   name: ServerShutdownOid
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_ServerShutdownOid
@@ -7758,135 +7722,6 @@ references:
   commentId: F:Unosquare.Swan.Networking.Ldap.LdapConnection.StartTlsOid
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.StartTlsOid
   nameWithType: LdapConnection.StartTlsOid
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints
-  name: LdapConstraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.LdapConstraints
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints
-  nameWithType: LdapConstraints
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor
-  name: LdapConstraints()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.LdapConstraints()
-  nameWithType: LdapConstraints.LdapConstraints()
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor(System.Int32,System.Boolean,System.Int32)
-  name: LdapConstraints(Int32, Boolean, Int32)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor_System_Int32_System_Boolean_System_Int32_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor(System.Int32,System.Boolean,System.Int32)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.LdapConstraints(System.Int32, System.Boolean, System.Int32)
-  nameWithType: LdapConstraints.LdapConstraints(Int32, Boolean, Int32)
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor*
-  name: LdapConstraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints__ctor_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.LdapConstraints
-  nameWithType: LdapConstraints.LdapConstraints
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.Clone
-  name: Clone()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_Clone
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.Clone
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.Clone()
-  nameWithType: LdapConstraints.Clone()
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.Clone*
-  name: Clone
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_Clone_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.Clone
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.Clone
-  nameWithType: LdapConstraints.Clone
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetControls
-  name: GetControls()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_GetControls
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.GetControls
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetControls()
-  nameWithType: LdapConstraints.GetControls()
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetControls*
-  name: GetControls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_GetControls_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.GetControls
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetControls
-  nameWithType: LdapConstraints.GetControls
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetProperty(System.String)
-  name: GetProperty(String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_GetProperty_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.GetProperty(System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetProperty(System.String)
-  nameWithType: LdapConstraints.GetProperty(String)
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetProperty*
-  name: GetProperty
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_GetProperty_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.GetProperty
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.GetProperty
-  nameWithType: LdapConstraints.GetProperty
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.HopLimit
-  name: HopLimit
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_HopLimit
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapConstraints.HopLimit
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.HopLimit
-  nameWithType: LdapConstraints.HopLimit
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.HopLimit*
-  name: HopLimit
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_HopLimit_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.HopLimit
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.HopLimit
-  nameWithType: LdapConstraints.HopLimit
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.ReferralFollowing
-  name: ReferralFollowing
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_ReferralFollowing
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapConstraints.ReferralFollowing
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.ReferralFollowing
-  nameWithType: LdapConstraints.ReferralFollowing
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.ReferralFollowing*
-  name: ReferralFollowing
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_ReferralFollowing_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.ReferralFollowing
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.ReferralFollowing
-  nameWithType: LdapConstraints.ReferralFollowing
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls(Unosquare.Swan.Networking.Ldap.LdapControl)
-  name: SetControls(LdapControl)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_SetControls_Unosquare_Swan_Networking_Ldap_LdapControl_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls(Unosquare.Swan.Networking.Ldap.LdapControl)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls(Unosquare.Swan.Networking.Ldap.LdapControl)
-  nameWithType: LdapConstraints.SetControls(LdapControl)
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls(Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name: SetControls(LdapControl[])
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_SetControls_Unosquare_Swan_Networking_Ldap_LdapControl___
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls(Unosquare.Swan.Networking.Ldap.LdapControl[])
-  name.vb: SetControls(LdapControl())
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls(Unosquare.Swan.Networking.Ldap.LdapControl[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls(Unosquare.Swan.Networking.Ldap.LdapControl())
-  nameWithType: LdapConstraints.SetControls(LdapControl[])
-  nameWithType.vb: LdapConstraints.SetControls(LdapControl())
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls*
-  name: SetControls
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_SetControls_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetControls
-  nameWithType: LdapConstraints.SetControls
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetProperty(System.String,System.Object)
-  name: SetProperty(String, Object)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_SetProperty_System_String_System_Object_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConstraints.SetProperty(System.String,System.Object)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetProperty(System.String, System.Object)
-  nameWithType: LdapConstraints.SetProperty(String, Object)
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetProperty*
-  name: SetProperty
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_SetProperty_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.SetProperty
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.SetProperty
-  nameWithType: LdapConstraints.SetProperty
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.TimeLimit
-  name: TimeLimit
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_TimeLimit
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapConstraints.TimeLimit
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.TimeLimit
-  nameWithType: LdapConstraints.TimeLimit
-- uid: Unosquare.Swan.Networking.Ldap.LdapConstraints.TimeLimit*
-  name: TimeLimit
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConstraints.html#Unosquare_Swan_Networking_Ldap_LdapConstraints_TimeLimit_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConstraints.TimeLimit
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConstraints.TimeLimit
-  nameWithType: LdapConstraints.TimeLimit
 - uid: Unosquare.Swan.Networking.Ldap.LdapControl
   name: LdapControl
   href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html
@@ -8061,12 +7896,6 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapException
   fullName: Unosquare.Swan.Networking.Ldap.LdapException
   nameWithType: LdapException
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.#ctor
-  name: LdapException()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException__ctor
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapException()
-  nameWithType: LdapException.LdapException()
 - uid: Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)
   name: LdapException(String, LdapStatusCode, String, String, Exception)
   href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_
@@ -8448,102 +8277,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapResponse.ResultCode
   fullName: Unosquare.Swan.Networking.Ldap.LdapResponse.ResultCode
   nameWithType: LdapResponse.ResultCode
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints
-  name: LdapSearchConstraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints
-  nameWithType: LdapSearchConstraints
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.#ctor
-  name: LdapSearchConstraints()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints__ctor
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.LdapSearchConstraints()
-  nameWithType: LdapSearchConstraints.LdapSearchConstraints()
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.#ctor(Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  name: LdapSearchConstraints(LdapConstraints)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints__ctor_Unosquare_Swan_Networking_Ldap_LdapConstraints_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.#ctor(Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.LdapSearchConstraints(Unosquare.Swan.Networking.Ldap.LdapConstraints)
-  nameWithType: LdapSearchConstraints.LdapSearchConstraints(LdapConstraints)
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.#ctor*
-  name: LdapSearchConstraints
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints__ctor_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.LdapSearchConstraints
-  nameWithType: LdapSearchConstraints.LdapSearchConstraints
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.BatchSize
-  name: BatchSize
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_BatchSize
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.BatchSize
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.BatchSize
-  nameWithType: LdapSearchConstraints.BatchSize
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.BatchSize*
-  name: BatchSize
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_BatchSize_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.BatchSize
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.BatchSize
-  nameWithType: LdapSearchConstraints.BatchSize
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_ALWAYS
-  name: DEREF_ALWAYS
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_ALWAYS
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_ALWAYS
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_ALWAYS
-  nameWithType: LdapSearchConstraints.DEREF_ALWAYS
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_FINDING
-  name: DEREF_FINDING
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_FINDING
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_FINDING
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_FINDING
-  nameWithType: LdapSearchConstraints.DEREF_FINDING
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_NEVER
-  name: DEREF_NEVER
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_NEVER
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_NEVER
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_NEVER
-  nameWithType: LdapSearchConstraints.DEREF_NEVER
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_SEARCHING
-  name: DEREF_SEARCHING
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_DEREF_SEARCHING
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_SEARCHING
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.DEREF_SEARCHING
-  nameWithType: LdapSearchConstraints.DEREF_SEARCHING
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.Dereference
-  name: Dereference
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_Dereference
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.Dereference
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.Dereference
-  nameWithType: LdapSearchConstraints.Dereference
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.Dereference*
-  name: Dereference
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_Dereference_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.Dereference
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.Dereference
-  nameWithType: LdapSearchConstraints.Dereference
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.MaxResults
-  name: MaxResults
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_MaxResults
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.MaxResults
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.MaxResults
-  nameWithType: LdapSearchConstraints.MaxResults
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.MaxResults*
-  name: MaxResults
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_MaxResults_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.MaxResults
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.MaxResults
-  nameWithType: LdapSearchConstraints.MaxResults
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.ServerTimeLimit
-  name: ServerTimeLimit
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_ServerTimeLimit
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.ServerTimeLimit
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.ServerTimeLimit
-  nameWithType: LdapSearchConstraints.ServerTimeLimit
-- uid: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.ServerTimeLimit*
-  name: ServerTimeLimit
-  href: api/Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.html#Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_ServerTimeLimit_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.ServerTimeLimit
-  fullName: Unosquare.Swan.Networking.Ldap.LdapSearchConstraints.ServerTimeLimit
-  nameWithType: LdapSearchConstraints.ServerTimeLimit
 - uid: Unosquare.Swan.Networking.Ldap.LdapSearchResults
   name: LdapSearchResults
   href: api/Unosquare.Swan.Networking.Ldap.LdapSearchResults.html
@@ -8976,21 +8709,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor(System.String)
   fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.LdapUrl(System.String)
   nameWithType: LdapUrl.LdapUrl(String)
-- uid: Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor(System.String,System.Int32,System.String)
-  name: LdapUrl(String, Int32, String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl__ctor_System_String_System_Int32_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor(System.String,System.Int32,System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.LdapUrl(System.String, System.Int32, System.String)
-  nameWithType: LdapUrl.LdapUrl(String, Int32, String)
-- uid: Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor(System.String,System.Int32,System.String,System.String[],System.Int32,System.String,System.String[],System.Boolean)
-  name: LdapUrl(String, Int32, String, String[], Int32, String, String[], Boolean)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl__ctor_System_String_System_Int32_System_String_System_String___System_Int32_System_String_System_String___System_Boolean_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor(System.String,System.Int32,System.String,System.String[],System.Int32,System.String,System.String[],System.Boolean)
-  name.vb: LdapUrl(String, Int32, String, String(), Int32, String, String(), Boolean)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.LdapUrl(System.String, System.Int32, System.String, System.String[], System.Int32, System.String, System.String[], System.Boolean)
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapUrl.LdapUrl(System.String, System.Int32, System.String, System.String(), System.Int32, System.String, System.String(), System.Boolean)
-  nameWithType: LdapUrl.LdapUrl(String, Int32, String, String[], Int32, String, String[], Boolean)
-  nameWithType.vb: LdapUrl.LdapUrl(String, Int32, String, String(), Int32, String, String(), Boolean)
 - uid: Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor*
   name: LdapUrl
   href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl__ctor_
@@ -9021,30 +8739,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapUrl.Clone
   fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.Clone
   nameWithType: LdapUrl.Clone
-- uid: Unosquare.Swan.Networking.Ldap.LdapUrl.Decode(System.String)
-  name: Decode(String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl_Decode_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapUrl.Decode(System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.Decode(System.String)
-  nameWithType: LdapUrl.Decode(String)
-- uid: Unosquare.Swan.Networking.Ldap.LdapUrl.Decode*
-  name: Decode
-  href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl_Decode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapUrl.Decode
-  fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.Decode
-  nameWithType: LdapUrl.Decode
-- uid: Unosquare.Swan.Networking.Ldap.LdapUrl.Encode(System.String)
-  name: Encode(String)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl_Encode_System_String_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapUrl.Encode(System.String)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.Encode(System.String)
-  nameWithType: LdapUrl.Encode(String)
-- uid: Unosquare.Swan.Networking.Ldap.LdapUrl.Encode*
-  name: Encode
-  href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl_Encode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapUrl.Encode
-  fullName: Unosquare.Swan.Networking.Ldap.LdapUrl.Encode
-  nameWithType: LdapUrl.Encode
 - uid: Unosquare.Swan.Networking.Ldap.LdapUrl.Extensions
   name: Extensions
   href: api/Unosquare.Swan.Networking.Ldap.LdapUrl.html#Unosquare_Swan_Networking_Ldap_LdapUrl_Extensions
