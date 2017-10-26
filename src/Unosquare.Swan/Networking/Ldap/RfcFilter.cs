@@ -4,7 +4,6 @@ namespace Unosquare.Swan.Networking.Ldap
 
     using System;
     using System.Collections;
-    using System.IO;
     using System.Text;
 
     /// <summary>
@@ -34,7 +33,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre>
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Choice" />
-    internal class RfcFilter : Asn1Choice
+    internal sealed class RfcFilter : Asn1Choice
     {
         // Private variables for Filter
         private FilterTokenizer _ft;
@@ -52,17 +51,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             ChoiceValue = Parse(filter);
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcFilter"/> class.
-        /// 
-        /// Constructs a Filter object that will be built up piece by piece.
-        /// </summary>
-        public RfcFilter()
-        {
-            _filterStack = new Stack();
-        }
-
+        
         // Helper methods for RFC 2254 Search Filter parsing.
 
         /// <summary>
@@ -524,7 +513,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Occurs when this component is created out of sequence.
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
-        public virtual void StartSubstrings(string attrName)
+        public void StartSubstrings(string attrName)
         {
             _finalFound = false;
             var seq = new Asn1SequenceOf(5);
@@ -557,7 +546,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or
         /// A call to addSubstring occured " + "without calling startSubstring
         /// </exception>
-        public virtual void AddSubstring(SubstringOp type, sbyte[] values)
+        public void AddSubstring(SubstringOp type, sbyte[] values)
         {
             try
             {
@@ -602,7 +591,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     @throws LdapException Occurs when this is called out of sequence,
         ///     or the substrings filter is empty.
         /// </summary>
-        public virtual void EndSubstrings()
+        public void EndSubstrings()
         {
             try
             {
@@ -634,7 +623,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or
         /// Invalid filter type for AttributeValueAssertion
         /// </exception>
-        public virtual void AddAttributeValueAssertion(FilterOp rfcType, string attrName, sbyte[] valueArray)
+        public void AddAttributeValueAssertion(FilterOp rfcType, string attrName, sbyte[] valueArray)
         {
             if (_filterStack != null && _filterStack.Count != 0 && _filterStack.Peek() is Asn1SequenceOf)
             {
@@ -665,7 +654,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     @throws LdapException
         ///     Occurs if addPresent is called out of sequence.
         /// </param>
-        public virtual void AddPresent(string attrName)
+        public void AddPresent(string attrName)
         {
             Asn1Object current = new Asn1Tagged(
                 new Asn1Identifier((int)FilterOp.Present),
@@ -685,7 +674,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     [AND | OR | NOT]
         ///     @throws Novell.Directory.Ldap.LdapException
         /// </param>
-        public virtual void StartNestedFilter(FilterOp rfcType)
+        public void StartNestedFilter(FilterOp rfcType)
         {
             Asn1Object current;
 
@@ -712,7 +701,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     @throws Novell.Directory.Ldap.LdapException  Occurs when the specified
         ///     type differs from the current filter component.
         /// </param>
-        public virtual void EndNestedFilter(FilterOp rfcType)
+        public void EndNestedFilter(FilterOp rfcType)
         {
             if (rfcType == FilterOp.Not)
             {
@@ -723,7 +712,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var topOfStackType = ((Asn1Object)_filterStack.Peek()).GetIdentifier().Tag;
             if (topOfStackType != (int)rfcType)
             {
-                throw new LdapException("Missmatched ending of nested filter", LdapStatusCode.FilterError);
+                throw new LdapException("Mismatched ending of nested filter", LdapStatusCode.FilterError);
             }
 
             _filterStack.Pop();
@@ -739,13 +728,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Iterator over filter segments
         /// </returns>
-        public virtual IEnumerator GetFilterIterator() => new FilterIterator(this, (Asn1Tagged)ChoiceValue);
+        public IEnumerator GetFilterIterator() => new FilterIterator(this, (Asn1Tagged)ChoiceValue);
 
         /// <summary>
         /// Creates and returns a String representation of this filter.
         /// </summary>
         /// <returns>Filtered string.</returns>
-        public virtual string FilterToString()
+        public string FilterToString()
         {
             var filter = new StringBuilder();
             StringFilter(GetFilterIterator(), filter);

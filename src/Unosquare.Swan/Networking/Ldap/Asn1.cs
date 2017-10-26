@@ -958,16 +958,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1Length()
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Length" /> class. Constructs an Asn1Length
-        /// </summary>
-        /// <param name="length">The length.</param>
-        public Asn1Length(int length)
-        {
-            _length = length;
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Length"/> class.
         /// Constructs an Asn1Length object by decoding data from an
@@ -1073,19 +1064,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(Id, size)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Sequence" /> class.
-        /// Constructs an Asn1Sequence object with an array representing an
-        /// Asn1 sequence.
-        /// </summary>
-        /// <param name="newContent">the array containing the Asn1 data for the sequence</param>
-        /// <param name="size">Specifies the number of items in the array</param>
-        public Asn1Sequence(Asn1Object[] newContent, int size)
-            : base(Id, newContent, size)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Sequence" /> class.
         /// Constructs an Asn1Sequence object by decoding data from an
@@ -1101,13 +1080,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             DecodeStructured(dec, stream, len);
         }
-
-        /// <summary>
-        /// Return a String representation of this Asn1Sequence.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        
         public override string ToString() => ToString("SEQUENCE: { ");
     }
 
@@ -1129,29 +1102,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     thus we create it only once.
         /// </summary>
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, Tag);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Set" /> class.
-        /// Constructs an Asn1Set object with no actual
-        /// Asn1Objects in it. Assumes a default size of 5 elements.
-        /// </summary>
-        public Asn1Set()
-            : base(Id)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Set" /> class.
-        /// Constructs an Asn1Set object with the specified
-        /// number of placeholders for Asn1Objects. However there
-        /// are no actual Asn1Objects in this SequenceOf object.
-        /// </summary>
-        /// <param name="size">Specifies the initial size of the collection.</param>
-        public Asn1Set(int size)
-            : base(Id, size)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Set" /> class.
         /// Constructs an Asn1Set object by decoding data from an
@@ -1205,19 +1156,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(Id, content)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Integer" /> class.
-        /// Call this constructor to construct an Asn1Integer
-        /// object from a long value.
-        /// </summary>
-        /// <param name="content">The long value to be contained in the
-        /// this Asn1Integer object</param>
-        public Asn1Integer(long content)
-            : base(Id, content)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Integer" /> class.
         /// Constructs an Asn1Integer object by decoding data from an
@@ -1279,19 +1218,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(Id, content)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Enumerated" /> class.
-        /// Call this constructor to construct an Asn1Enumerated
-        /// object from a long value.
-        /// </summary>
-        /// <param name="content">The long value to be contained in the
-        /// this Asn1Enumerated object</param>
-        public Asn1Enumerated(long content)
-            : base(Id, content)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Enumerated"/> class.
         /// Constructs an Asn1Enumerated object by decoding data from an
@@ -1344,17 +1271,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     thus we create it only once.
         /// </summary>
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, Tag);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1SequenceOf" /> class.
-        /// Constructs an Asn1SequenceOf object with no actual
-        /// Asn1Objects in it. Assumes a default size of 5 elements.
-        /// </summary>
-        public Asn1SequenceOf()
-            : base(Id)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1SequenceOf"/> class.
         /// Constructs an Asn1SequenceOf object with the specified
@@ -1366,23 +1283,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(Id, size)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1SequenceOf" /> class.
-        /// A copy constructor which creates an Asn1SequenceOf from an
-        /// instance of Asn1Sequence.
-        /// Since SEQUENCE and SEQUENCE_OF have the same identifier, the decoder
-        /// will always return a SEQUENCE object when it detects that identifier.
-        /// In order to take advantage of the Asn1SequenceOf type, we need to be
-        /// able to construct this object when knowingly receiving an
-        /// Asn1Sequence.
-        /// </summary>
-        /// <param name="sequence">The sequence.</param>
-        public Asn1SequenceOf(Asn1Sequence sequence)
-            : base(Id, sequence.ToArray(), sequence.Size())
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1SequenceOf"/> class.
         /// Constructs an Asn1SequenceOf object by decoding data from an

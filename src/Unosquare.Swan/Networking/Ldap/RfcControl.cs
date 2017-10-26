@@ -126,20 +126,7 @@ namespace Unosquare.Swan.Networking.Ldap
             if (controlValue != null)
                 Add(controlValue);
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="dec">The decoder object to use when decoding the
-        /// input stream.  Sometimes a developer might want to pass
-        /// in his/her own decoder object</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">The length.</param>
-        public RfcControl(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcControl"/> class.
         /// </summary>

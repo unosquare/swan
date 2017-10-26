@@ -150,16 +150,6 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcMatchingRuleAssertion"/> class.
-        /// Creates a MatchingRuleAssertion with the only required parameter.
-        /// </summary>
-        /// <param name="matchValue">The assertion value.</param>
-        public RfcMatchingRuleAssertion(Asn1OctetString matchValue)
-            : this(null, null, matchValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcMatchingRuleAssertion"/> class.
         /// Creates a MatchingRuleAssertion.
         /// The value null may be passed for an optional value that is not used.
         /// </summary>
@@ -198,15 +188,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
     internal class RfcAttributeDescriptionList : Asn1SequenceOf
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcAttributeDescriptionList"/> class.
-        /// </summary>
-        /// <param name="size">Specifies the initial size of the collection.</param>
-        public RfcAttributeDescriptionList(int size)
-            : base(size)
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcAttributeDescriptionList" /> class.
         /// Convenience constructor. This constructor will construct an
