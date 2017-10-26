@@ -223,10 +223,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue());
 
-        public Asn1SequenceOf GetReferral()
-        {
-            return Size() > 3 && Get(3) is Asn1SequenceOf ? (Asn1SequenceOf) Get(3) : null;
-        }
+        public Asn1SequenceOf GetReferral() => Size() > 3 && Get(3) is Asn1SequenceOf ? (Asn1SequenceOf) Get(3) : null;
 
         /// <summary>
         /// Override getIdentifier to return an application-wide id.

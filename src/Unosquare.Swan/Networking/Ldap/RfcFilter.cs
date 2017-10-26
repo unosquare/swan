@@ -62,7 +62,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </exception>
         private Asn1Tagged Parse(string filterExpr)
         {
-            if (filterExpr == null || filterExpr.Equals(string.Empty))
+            if (string.IsNullOrWhiteSpace(filterExpr))
             {
                 filterExpr = new StringBuilder("(objectclass=*)").ToString();
             }
