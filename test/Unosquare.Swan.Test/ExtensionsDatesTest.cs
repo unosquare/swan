@@ -63,5 +63,14 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
                 var date = Extensions.ToDateTime("2017 10 26");
             });
         }
+
+        [Test]
+        public void DatePartsDifferentLengthToThree_ThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var date = Extensions.ToDateTime("2017-10");
+            });
+        }
     }
 }
