@@ -31,16 +31,19 @@ namespace Unosquare.Swan.Test
         
 #if !NETSTANDARD1_3 && !UWP
         [Test]
-        public void AutoregisterTest()
+        public void AutoregisterTest_ThrowResolutionException()
         {
-            var container = new DependencyContainer();
-            container.AutoRegister();
-            Assert.IsTrue(container.CanResolve<ICar>());
-            Assert.AreEqual((new TheOnlyCar()).Name, Runtime.Container.Resolve<ICar>().Name);
+            Assert.Throws<DependencyContainerResolutionException>(() =>
+            {
+                var container = new DependencyContainer();
+                container.AutoRegister();
+                Assert.IsTrue(container.CanResolve<ICar>());
+                Assert.AreEqual((new TheOnlyCar()).Name, Runtime.Container.Resolve<ICar>().Name);
+            });
         }
 
         [Test]
-        public void AutoregisterTest_ThrowException()
+        public void AutoregisterTest_ThrowAutoRegistrationException()
         {
             Assert.Throws<DependencyContainerAutoRegistrationException>(() =>
             {
