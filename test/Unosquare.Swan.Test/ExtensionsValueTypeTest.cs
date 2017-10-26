@@ -25,5 +25,14 @@ namespace Unosquare.Swan.Test
             var aux = Extensions.IsBetween(9, 0, 7);
             Assert.IsFalse(aux);
         }
+
+        [Test]
+        public void ToStruct_ArrayOfBytes_ReturnsStruct()
+        {
+            byte[] smallArray = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
+            var result = Extensions.ToStruct<int>(smallArray);
+
+            Assert.AreEqual(538976288, result);
+        }
     }
 }
