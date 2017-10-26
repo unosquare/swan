@@ -19,7 +19,7 @@
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
+        private static readonly string[] ByteSuffixes = {"B", "KB", "MB", "GB", "TB"};
 
         private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
         private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
@@ -49,7 +49,8 @@
             };
         });
 
-        private static readonly Lazy<string[]> InvalidFilenameChars = new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());
+        private static readonly Lazy<string[]> InvalidFilenameChars =
+            new Lazy<string[]>(() => Path.GetInvalidFileNameChars().Select(c => c.ToString()).ToArray());
 
         #endregion
 
@@ -222,10 +223,7 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>A string that represents the current object</returns>
-        public static string RemoveControlChars(this string input)
-        {
-            return input.RemoveControlCharsExcept(null);
-        }
+        public static string RemoveControlChars(this string input) => input.RemoveControlCharsExcept(null);
 
         /// <summary>
         /// Outputs JSON string representing this object
@@ -255,9 +253,7 @@
                 var jsonText = Json.Serialize(obj, false, "$type");
                 var jsonData = Json.Deserialize(jsonText);
 
-                if (jsonData == null) return string.Empty;
-                var readableData = HumanizeJson(jsonData, 0);
-                return readableData;
+                return HumanizeJson(jsonData, 0);
             }
             catch
             {
@@ -412,7 +408,7 @@
         /// <returns>
         /// The string representation of the current Byte object, formatted as specified by the format parameter
         /// </returns>
-        public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
+        public static string FormatBytes(this long bytes) => ((ulong) bytes).FormatBytes();
 
         /// <summary>
         /// Formats a long into the closest bytes string.
@@ -465,7 +461,7 @@
         /// </param>
         public static bool Contains(this string value, params char[] chars)
         {
-            return chars?.Length == 0 || !string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1;
+            return chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
         }
 
         /// <summary>
@@ -589,13 +585,16 @@
 
             var stringValue = jsonResult.ToString();
 
-            if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 || stringValue.IndexOf('\n') >= 0)
+            if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 ||
+                stringValue.IndexOf('\n') >= 0)
             {
                 builder.AppendLine();
                 var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
 
                 foreach (var line in stringLines)
+                {
                     builder.AppendLine($"{indentStr}{line}");
+                }
             }
             else
             {
