@@ -152,6 +152,139 @@ sn?sub?(objectclass=inetOrgPerson)&quot;.</p>
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapUrl__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapUrl__ctor_System_String_System_Int32_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor(System.String,System.Int32,System.String)">LdapUrl(String, Int32, String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapUrl.html">LdapUrl</a> class.
+Constructs a URL object with the specified host, port, and DN.
+This form is used to create URL references to a particular object
+in the directory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapUrl(string host, int port, string dn)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">host</span></td>
+        <td><p>Host identifier of Ldap server, or null for
+&quot;localhost&quot;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The port number for Ldap server (use
+LdapConnection.DEFAULT_PORT for default port).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">dn</span></td>
+        <td><p>Distinguished name of the base object of the search.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapUrl__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapUrl__ctor_System_String_System_Int32_System_String_System_String___System_Int32_System_String_System_String___System_Boolean_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.#ctor(System.String,System.Int32,System.String,System.String[],System.Int32,System.String,System.String[],System.Boolean)">LdapUrl(String, Int32, String, String[], Int32, String, String[], Boolean)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapUrl.html">LdapUrl</a> class.
+Constructs an Ldap URL with all fields explicitly assigned, including
+isSecure, to specify an Ldap search operation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LdapUrl(string host, int port, string dn, string[] attrNames, int scope, string filter, string[] extensions, bool secure = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">host</span></td>
+        <td><p>Host identifier of Ldap server, or null for
+&quot;localhost&quot;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The port number for Ldap server (use
+LdapConnection.DEFAULT_PORT for default port).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">dn</span></td>
+        <td><p>Distinguished name of the base object of the search.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">attrNames</span></td>
+        <td><p>Names or OIDs of attributes to retrieve.  Passing a
+null array signifies that all user attributes are to be
+retrieved. Passing a value of &quot;*&quot; allows you to specify
+that all user attributes as well as any specified
+operational attributes are to be retrieved.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">scope</span></td>
+        <td><p>Depth of search (in DN namespace). Use one of
+SCOPE_BASE, SCOPE_ONE, SCOPE_SUB from LdapConnection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>The search filter specifying the search criteria.
+from LdapConnection: SCOPE_BASE, SCOPE_ONE, SCOPE_SUB.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">extensions</span></td>
+        <td><p>Extensions provide a mechanism to extend the
+functionality of Ldap URLs. Currently no
+Ldap URL extensions are defined. Each extension
+specification is a type=value expression, and  may
+be <pre><code>null</code></pre> or empty.  The =value part may be
+omitted. The expression may be prefixed with &apos;!&apos; if it
+is mandatory for the evaluation of the URL.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">secure</span></td>
+        <td><p>If true creates an Ldap URL of the ldaps type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
   </h3>
   
@@ -376,6 +509,100 @@ to startTls)</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Networking_Ldap_LdapUrl_Decode_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.Decode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapUrl_Decode_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.Decode(System.String)">Decode(String)</h4>
+  <div class="markdown level1 summary"><p>Decodes a URL-encoded string.
+Any occurences of %HH are decoded to the hex value represented.
+However, this method does NOT decode &quot;+&quot; into &quot; &quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Decode(string urlEncoded)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">urlEncoded</span></td>
+        <td><p>String to decode.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The decoded string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Networking_Ldap_LdapUrl_Encode_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.Encode*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapUrl_Encode_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.Encode(System.String)">Encode(String)</h4>
+  <div class="markdown level1 summary"><p>Encodes an arbitrary string using the URL encoding rules.
+Any illegal characters are encoded as %HH.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Encode(string toEncode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">toEncode</span></td>
+        <td><p>The string to encode.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The URL-encoded string.
+Comment: An illegal character consists of any non graphical US-ASCII character, Unsafe, or reserved characters.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Networking_Ldap_LdapUrl_GetDN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.GetDN*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapUrl_GetDN" data-uid="Unosquare.Swan.Networking.Ldap.LdapUrl.GetDN">GetDN()</h4>
   <div class="markdown level1 summary"><p>Returns the base distinguished name encapsulated in the URL.</p>
@@ -432,7 +659,7 @@ to startTls)</p>
   <div><span class="xref">System.Object.ToString()</span></div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
-      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_System_Threading_CancellationToken_">Search(String, Int32, String, String[], Boolean, CancellationToken)</a></div>
+      <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Search_System_String_System_Int32_System_String_System_String___System_Boolean_Unosquare_Swan_Networking_Ldap_LdapSearchConstraints_System_Threading_CancellationToken_">Search(String, Int32, String, String[], Boolean, LdapSearchConstraints, CancellationToken)</a></div>
   </div>
 </article>
           </div>

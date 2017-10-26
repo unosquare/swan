@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LdapReferralException
+    <title>Class LdapLocalException
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LdapReferralException
+    <meta name="title" content="Class LdapLocalException
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.26.3.0">
     
@@ -76,15 +76,12 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_LdapReferralException" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException" class="text-break">Class LdapReferralException
+  <h1 id="Unosquare_Swan_Networking_Ldap_LdapLocalException" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException" class="text-break">Class LdapLocalException
   </h1>
-  <div class="markdown level0 summary"><p>Thrown when a server returns a referral and when a referral has not
-been followed.  It contains a list of URL strings corresponding
-to the referrals or search continuation references received on an Ldap
-operation.</p>
+  <div class="markdown level0 summary"><p>Represents an Ldap exception that is not a result of a server response.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -92,7 +89,7 @@ operation.</p>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Exception</span></div>
     <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></div>
-    <div class="level3"><span class="xref">LdapReferralException</span></div>
+    <div class="level3"><span class="xref">LdapLocalException</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -167,37 +164,40 @@ operation.</p>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapReferralException_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapLocalException_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class LdapReferralException : LdapException, ISerializable, _Exception</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapLocalException : LdapException, ISerializable, _Exception</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor">LdapReferralException()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
-Constructs a default exception with no specific error information.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor">LdapLocalException()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException()</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapLocalException()</code></pre>
   </div>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.Exception)">LdapReferralException(String, LdapStatusCode, String, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a> class.
-Constructs an exception with a specified error string, result code,
-an error message from the server, and an exception that indicates
-a failure to follow a referral.</p>
+  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.Exception)">LdapLocalException(String, LdapStatusCode, Exception)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapLocalException.html">LdapLocalException</a> class.
+Constructs a local exception with a detailed message obtained from the
+specified <pre><code>MessageOrKey</code></pre> String.
+Additional parameters specify the result code and a rootException which
+is the underlying cause of an error on the client.
+The String is used either as a message key to obtain a localized
+message from ExceptionMessages, or if there is no key in the
+resource matching the text, it is used as the detailed message itself.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LdapReferralException(string message, LdapStatusCode resultCode, string serverMessage, Exception rootException = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapLocalException(string message, LdapStatusCode resultCode, Exception rootException = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -212,7 +212,7 @@ a failure to follow a referral.</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">message</span></td>
-        <td><p>The additional error information.</p>
+        <td><p>The message.</p>
 </td>
       </tr>
       <tr>
@@ -222,45 +222,10 @@ a failure to follow a referral.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">serverMessage</span></td>
-        <td><p>Error message specifying additional information
-from the server.</p>
-</td>
-      </tr>
-      <tr>
         <td><span class="xref">System.Exception</span></td>
         <td><span class="parametername">rootException</span></td>
-        <td><p>The root exception.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException_FailedReferral_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException_FailedReferral" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral">FailedReferral</h4>
-  <div class="markdown level1 summary"><p>Sets a referral that could not be processed</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string FailedReferral { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>The failed referral.</p>
+        <td><p>A throwable which is the underlying cause
+of the LdapException.</p>
 </td>
       </tr>
     </tbody>
@@ -269,9 +234,9 @@ from the server.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapReferralException_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapReferralException_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString">ToString()</h4>
-  <div class="markdown level1 summary"><p>returns a string of information about the exception and the
+  <a id="Unosquare_Swan_Networking_Ldap_LdapLocalException_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString*"></a>
+  <h4 id="Unosquare_Swan_Networking_Ldap_LdapLocalException_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapLocalException.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string of information about the exception and the
 the nested exceptions, if any.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
