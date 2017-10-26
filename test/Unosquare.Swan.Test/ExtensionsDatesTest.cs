@@ -44,4 +44,20 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
             });
         }
     }
+
+    [TestFixture]
+    public class DateRange
+    {
+        [Test]
+        public void GivingTwoDates_ReturnsEqualSequenceRangeOfDates()
+        {
+            var startDate = new DateTime(2017, 10, 26);
+            var endDate = new DateTime(2018, 07, 25);
+
+            var rangeExpected = Extensions.DateRange(startDate, endDate);
+            var rangeActual = Extensions.DateRange(startDate, endDate);
+
+            CollectionAssert.AreEqual(rangeExpected, rangeActual);
+        }
+    }
 }
