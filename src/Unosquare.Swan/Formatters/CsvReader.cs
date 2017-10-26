@@ -331,12 +331,12 @@
                     if (map == null)
                         throw new ArgumentNullException(nameof(map));
 
-                    if (_headings == null)
-                        throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
-
                     if (_reader.EndOfStream)
                         throw new EndOfStreamException("Cannot read past the end of the stream");
 
+                    if (_headings == null)
+                        throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
+                    
                     if (result == null)
                         throw new ArgumentNullException(nameof(result));
                 }
