@@ -44,12 +44,30 @@
         /// <param name="this">The this.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The IList</returns>
+        /// <returns>
+        /// The IList
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// this
+        /// or
+        /// condition
+        /// or
+        /// value
+        /// </exception>
         public static IList<T> AddWhen<T>(
             this IList<T> @this,
             Func<bool> condition,
             Func<T> value)
         {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            if (condition == null)
+                throw new ArgumentNullException(nameof(condition));
+
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             if (condition())
                 @this.Add(value());
 
@@ -63,12 +81,18 @@
         /// <param name="this">The this.</param>
         /// <param name="condition">if set to <c>true</c> [condition].</param>
         /// <param name="value">The value.</param>
-        /// <returns>The IList</returns>
+        /// <returns>
+        /// The IList
+        /// </returns>
+        /// <exception cref="ArgumentNullException">this</exception>
         public static IList<T> AddWhen<T>(
             this IList<T> @this,
             bool condition,
             T value)
         {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
             if (condition)
                 @this.Add(value);
 
@@ -82,12 +106,30 @@
         /// <param name="this">The this.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The List</returns>
+        /// <returns>
+        /// The List
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// this
+        /// or
+        /// condition
+        /// or
+        /// value
+        /// </exception>
         public static List<T> AddRangeWhen<T>(
             this List<T> @this,
             Func<bool> condition,
             Func<IEnumerable<T>> value)
         {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            if (condition == null)
+                throw new ArgumentNullException(nameof(condition));
+
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             if (condition())
                 @this.AddRange(value());
 

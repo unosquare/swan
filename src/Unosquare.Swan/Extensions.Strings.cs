@@ -60,9 +60,15 @@
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
-        /// <returns>The computed hash code</returns>
+        /// <returns>
+        /// The computed hash code
+        /// </returns>
+        /// <exception cref="ArgumentNullException">stream</exception>
         public static byte[] ComputeMD5(this Stream stream, bool createHasher = false)
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
 #if NET452
             var md5 = MD5.Create();
             const int bufferSize = 4096;
@@ -207,9 +213,15 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="excludeChars">When specified, these characters will not be removed.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>
+        /// A string that represents the current object
+        /// </returns>
+        /// <exception cref="ArgumentNullException">input</exception>
         public static string RemoveControlCharsExcept(this string input, params char[] excludeChars)
         {
+            if (input == null)
+                throw new ArgumentNullException(nameof(input));
+
             if (excludeChars == null)
                 excludeChars = new char[] { };
 
@@ -223,6 +235,7 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>A string that represents the current object</returns>
+        /// <exception cref="ArgumentNullException">input</exception>
         public static string RemoveControlChars(this string input) => input.RemoveControlCharsExcept(null);
 
         /// <summary>
@@ -392,9 +405,15 @@
         /// Makes the file name system safe.
         /// </summary>
         /// <param name="s">The s.</param>
-        /// <returns>Returns a section of a string</returns>
+        /// <returns>
+        /// A string with a safe file name
+        /// </returns>
+        /// <exception cref="ArgumentNullException">s</exception>
         public static string ToSafeFilename(this string s)
         {
+            if (s == null)
+                throw new ArgumentNullException(nameof(s));
+
             foreach (var c in InvalidFilenameChars.Value)
                 s = s.Replace(c, string.Empty);
 
@@ -442,6 +461,9 @@
         /// </returns>
         public static string Truncate(this string value, int maximumLength)
         {
+            if (value == null)
+                return null;
+
             return value.Length > maximumLength ? value.Substring(0, maximumLength) : value;
         }
 
