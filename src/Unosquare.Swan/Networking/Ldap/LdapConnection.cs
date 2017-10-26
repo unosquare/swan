@@ -126,24 +126,12 @@ namespace Unosquare.Swan.Networking.Ldap
         public const string StartTlsOid = "1.3.6.1.4.1.1466.20037";
 
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
-
-        private LdapSearchConstraints _defSearchCons;
+        
         private LdapControl[] _responseCtls;
-        private readonly object _responseCtlSemaphore;
+        private readonly object _responseCtlSemaphore = new object();
         private Connection _conn;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapConnection"/> class.
-        /// Constructs a new LdapConnection object, which will use the supplied
-        /// class factory to construct a socket connection during
-        /// LdapConnection.connect method.
-        /// </summary>
-        public LdapConnection()
-        {
-            _defSearchCons = new LdapSearchConstraints();
-            _responseCtlSemaphore = new object();
-        }
-
+        /// <
         /// <summary>
         /// Returns the protocol version uses to authenticate.
         /// 0 is returned if no authentication has been performed.
@@ -178,66 +166,6 @@ namespace Unosquare.Swan.Networking.Ldap
         public virtual string AuthenticationMethod
             => BindProperties == null ? "simple" : BindProperties.AuthenticationMethod;
         
-        /// <summary>
-        /// Returns a copy of the set of constraints associated with this
-        /// connection. These constraints apply to all operations performed
-        /// through this connection (unless a different set of constraints is
-        /// specified when calling an operation method).
-        /// </summary>
-        /// <value>
-        /// The constraints.
-        /// </value>
-        /// 
-        /// <seealso cref="Constraints()"></seealso>
-        /// <seealso cref="SearchConstraints()"></seealso>
-        public virtual LdapConstraints Constraints
-        {
-            get => (LdapConstraints)_defSearchCons.Clone();
-
-            set
-            {
-                // Set all constraints, replace the object with a new one
-                if (value is LdapSearchConstraints)
-                {
-                    _defSearchCons = (LdapSearchConstraints)value.Clone();
-                    return;
-                }
-
-                // We set the constraints this way, so a thread doesn't get an
-                // consistent view of the referrals.
-                var newCons = (LdapSearchConstraints)_defSearchCons.Clone();
-                newCons.HopLimit = value.HopLimit;
-                newCons.TimeLimit = value.TimeLimit;
-                newCons.ReferralFollowing = value.ReferralFollowing;
-                var lsc = value.GetControls();
-                if (lsc != null)
-                {
-                    newCons.SetControls(lsc);
-                }
-
-                var lp = newCons.Properties;
-                if (lp != null)
-                {
-                    newCons.Properties = lp;
-                }
-
-                _defSearchCons = newCons;
-            }
-        }
-
-        /// <summary>
-        /// Returns a copy of the set of search constraints associated with this
-        /// connection. These constraints apply to search operations performed
-        /// through this connection (unless a different set of
-        /// constraints is specified when calling the search operation method).
-        /// </summary>
-        /// <value>
-        /// The search constraints.
-        /// </value>
-        /// <seealso cref="Constraints"></seealso>
-        /// <seealso cref="LdapSearchConstraints"></seealso>
-        public virtual LdapSearchConstraints SearchConstraints => (LdapSearchConstraints)_defSearchCons.Clone();
-
         /// <summary>
         ///     Indicates whether the connection represented by this object is open
         ///     at this time.
@@ -360,10 +288,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// objects, and may expose a security risk, especially
         /// in objects that are serialized.  The LdapConnection
         /// keeps no long lived instances of these objects.</param>
-        /// <param name="cons">Constraints specific to the operation.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task Bind(string dn, string passwd, LdapConstraints cons = null)
-            => Bind(LdapV3, dn, passwd, cons);
+        /// <returns>
+        /// A <see cref="Task" /> representing the asynchronous operation.
+        /// </returns>
+        public virtual Task Bind(string dn, string passwd)
+            => Bind(LdapV3, dn, passwd);
 
         /// <summary>
         /// Synchronously authenticates to the Ldap server (that the object is
@@ -388,9 +317,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// objects, and may expose a security risk, especially
         /// in objects that are serialized.  The LdapConnection
         /// keeps no long lived instances of these objects.</param>
-        /// <param name="cons">The constraints specific to the operation.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task Bind(int version, string dn, string passwd, LdapConstraints cons = null)
+        public virtual Task Bind(int version, string dn, string passwd)
         {
             sbyte[] pw = null;
             if (string.IsNullOrWhiteSpace(passwd) == false)
@@ -398,7 +326,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 pw = Encoding.UTF8.GetSBytes(passwd);
             }
 
-            return Bind(version, dn, pw, cons);
+            return Bind(version, dn, pw);
         }
 
         /// <summary>
@@ -421,11 +349,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// name and passwd as password.</param>
         /// <param name="cons">Constraints specific to the operation.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task Bind(int version, string dn, sbyte[] passwd, LdapConstraints cons = null)
+        public virtual Task Bind(int version, string dn, sbyte[] passwd)
         {
-            if (cons == null)
-                cons = _defSearchCons;
-
             dn = string.IsNullOrEmpty(dn) ? string.Empty : dn.Trim();
 
             if (passwd == null)
@@ -439,7 +364,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 dn = string.Empty; // set to null if anonymous
             }
 
-            var msg = new LdapBindRequest(version, dn, passwd, (cons ?? _defSearchCons).GetControls());
+            var msg = new LdapBindRequest(version, dn, passwd);
 
             BindProperties = new BindProperties(version, dn, "simple", anonymous);
 
@@ -490,15 +415,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="dn">The distinguished name of the entry to retrieve.</param>
         /// <param name="attrs">The names of the attributes to retrieve.</param>
-        /// <param name="cons">The constraints specific to the operation.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
         /// the LdapEntry read from the server
         /// </returns>
-        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapLocalException">Read response is ambiguous, multiple entries returned</exception>
-        public async Task<LdapEntry> Read(string dn, string[] attrs = null, LdapSearchConstraints cons = null, CancellationToken ct = default(CancellationToken))
+        /// <exception cref="LdapLocalException">Read response is ambiguous, multiple entries returned</exception>
+        public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default(CancellationToken))
         {
-            var sr = await Search(dn, ScopeBase, null, attrs, false, cons ?? _defSearchCons, ct);
+            var sr = await Search(dn, ScopeBase, null, attrs, false, ct);
             LdapEntry ret = null;
 
             if (sr.HasMore())
@@ -531,7 +455,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="typesOnly">If true, returns the names but not the values of
         /// the attributes found.  If false, returns the
         /// names and values for attributes found.</param>
-        /// <param name="cons">The constraints specific to the search.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>
         /// A <see cref="Task" /> representing the asynchronous operation.
@@ -542,13 +465,10 @@ namespace Unosquare.Swan.Networking.Ldap
             string filter = "objectClass=*", 
             string[] attrs = null,
             bool typesOnly = false, 
-            LdapSearchConstraints cons = null,
             CancellationToken ct = default(CancellationToken))
         {
-            if (cons == null)
-                cons = _defSearchCons;
-
-            var msg = new LdapSearchRequest(@base, scope, filter, attrs, cons.Dereference, cons.MaxResults, cons.ServerTimeLimit, typesOnly, cons.GetControls());
+            // TODO: Add Search options
+            var msg = new LdapSearchRequest(@base, scope, filter, attrs, 0, 1000, 0, typesOnly, null);
 
             await RequestLdapMessage(msg, ct);
             
@@ -564,17 +484,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">dn</exception>
-        public Task Modify(string dn, LdapModification[] mods, LdapConstraints cons = null, CancellationToken ct = default(CancellationToken))
+        public Task Modify(string dn, LdapModification[] mods, CancellationToken ct = default(CancellationToken))
         {
             if (dn == null)
             {
                 throw new ArgumentNullException(nameof(dn));
             }
-
-            if (cons == null)
-                cons = _defSearchCons;
             
-            return RequestLdapMessage(new LdapModifyRequest(dn, mods, cons.GetControls()), ct);
+            return RequestLdapMessage(new LdapModifyRequest(dn, mods, null), ct);
         }
         
         /// <summary>

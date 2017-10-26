@@ -41,7 +41,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cont">Any controls that apply to the search request.
         /// or null if none.</param>
         /// <seealso cref="LdapConnection.Search"></seealso>
-        /// <seealso cref="LdapSearchConstraints"></seealso>
         public LdapSearchRequest(
             string ldapBase,
             int scope,
