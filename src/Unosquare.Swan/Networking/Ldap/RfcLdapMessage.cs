@@ -253,13 +253,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Gets the matched dn.
         /// </summary>
         /// <returns>RfcLdapDN</returns>
-        RfcLdapDN GetMatchedDN();
+        Asn1OctetString GetMatchedDN();
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         /// <returns>RfcLdapString</returns>
-        RfcLdapString GetErrorMessage();
+        Asn1OctetString GetErrorMessage();
 
         /// <summary>
         /// Gets the referral.
@@ -381,7 +381,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the matched DN
         /// </returns>
-        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
+        public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString)Get(1)).ByteValue());
 
         /// <summary>
         ///     Returns the error message from the server
@@ -389,7 +389,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the server error message
         /// </returns>
-        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+        public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString)Get(2)).ByteValue());
 
         /// <summary>
         ///     Returns the referral(s) from the server

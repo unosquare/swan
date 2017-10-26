@@ -96,45 +96,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchResultReference);
     }
-
-    /// <summary> Represnts an Ldap String.</summary>
-    internal class RfcLdapString : Asn1OctetString
-    {
-        public RfcLdapString(string s)
-            : base(s)
-        {
-        }
-
-        public RfcLdapString(sbyte[] ba)
-            : base(ba)
-        {
-        }
-
-        public RfcLdapString(IAsn1Decoder dec, Stream stream, int len)
-            : base(dec, stream, len)
-        {
-        }
-    }
-
-    /// <summary>
-    ///     Represents an Ldap DN.
-    ///     <pre>
-    ///         LdapDN ::= LdapString
-    ///     </pre>
-    /// </summary>
-    internal class RfcLdapDN : RfcLdapString
-    {
-        public RfcLdapDN(string s)
-            : base(s)
-        {
-        }
-
-        public RfcLdapDN(sbyte[] s)
-            : base(s)
-        {
-        }
-    }
-
+    
     /// <summary>
     /// Represents an Ldap Extended Response.
     /// <pre>
@@ -200,9 +162,9 @@ namespace Unosquare.Swan.Networking.Ldap
         // Accessors
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
 
-        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
+        public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString) Get(1)).ByteValue());
 
-        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+        public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral()
             => referralIndex != 0 ? (Asn1SequenceOf) Get(referralIndex) : null;
@@ -257,9 +219,9 @@ namespace Unosquare.Swan.Networking.Ldap
         // Accessors
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
 
-        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue());
+        public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString) Get(1)).ByteValue());
 
-        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue());
+        public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral()
         {
@@ -319,10 +281,10 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public Asn1Enumerated GetResultCode() => Size() > 3 ? (Asn1Enumerated) Get(0) : null;
 
-        public RfcLdapDN GetMatchedDN() => Size() > 3 ? new RfcLdapDN(((Asn1OctetString) Get(1)).ByteValue()) : null;
+        public Asn1OctetString GetMatchedDN() => Size() > 3 ? new Asn1OctetString(((Asn1OctetString) Get(1)).ByteValue()) : null;
 
-        public RfcLdapString GetErrorMessage() =>
-            Size() > 3 ? new RfcLdapString(((Asn1OctetString) Get(2)).ByteValue()) : null;
+        public Asn1OctetString GetErrorMessage() =>
+            Size() > 3 ? new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue()) : null;
 
         public Asn1SequenceOf GetReferral() => Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
 

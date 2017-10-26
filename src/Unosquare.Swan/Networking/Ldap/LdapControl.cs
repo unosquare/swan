@@ -148,9 +148,9 @@ namespace Unosquare.Swan.Networking.Ldap
             set => Set(0, value);
         }
 
-        public virtual RfcLdapDN Name
+        public virtual Asn1OctetString Name
         {
-            get => (RfcLdapDN) Get(1);
+            get => (Asn1OctetString) Get(1);
             set => Set(1, value);
         }
 
@@ -173,7 +173,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="version">The version.</param>
         /// <param name="name">The name.</param>
         /// <param name="auth">The authentication.</param>
-        public RfcBindRequest(Asn1Integer version, RfcLdapDN name, RfcAuthenticationChoice auth)
+        public RfcBindRequest(Asn1Integer version, Asn1OctetString name, RfcAuthenticationChoice auth)
             : base(3)
         {
             Add(version);
@@ -192,7 +192,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override Asn1Identifier GetIdentifier() => ID;
 
-        public string GetRequestDN() => ((RfcLdapDN) Get(1)).StringValue();
+        public string GetRequestDN() => ((Asn1OctetString) Get(1)).StringValue();
     }
 
     /// <summary>
@@ -219,7 +219,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// or null if none.</param>
         public LdapBindRequest(int version, string dn, sbyte[] passwd)
             : base(LdapOperation.BindRequest,
-                new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn),
+                new RfcBindRequest(new Asn1Integer(version), new Asn1OctetString(dn),
                     new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd),
                         false))), 
                 null)

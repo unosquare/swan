@@ -152,7 +152,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcSaslCredentials(string mechanism, sbyte[] credentials = null) 
             : base(2)
         {
-            Add(new RfcLdapString(mechanism));
+            Add(new Asn1OctetString(mechanism));
             if (credentials != null)
                 Add(new Asn1OctetString(credentials));
         }

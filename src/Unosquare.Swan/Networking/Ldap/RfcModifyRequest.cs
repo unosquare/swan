@@ -21,7 +21,7 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcModifyRequest 
         : Asn1Sequence, IRfcRequest
     {
-        public RfcModifyRequest(RfcLdapDN obj, Asn1SequenceOf modification)
+        public RfcModifyRequest(Asn1OctetString obj, Asn1SequenceOf modification)
             : base(2)
         {
             Add(obj);
@@ -32,7 +32,7 @@ namespace Unosquare.Swan.Networking.Ldap
         
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.ModifyRequest);
 
-        public string GetRequestDN() => ((RfcLdapDN)Get(0)).StringValue();
+        public string GetRequestDN() => ((Asn1OctetString)Get(0)).StringValue();
     }
 
     internal class RfcModifyResponse : RfcLdapResult
