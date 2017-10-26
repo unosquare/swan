@@ -35,6 +35,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
         
         [TestCase("2017 10 26")]
         [TestCase("2017-10")]
+        [TestCase("2017-10-26 15:35")]
         public void DatesNotParsable_ThrowsException(string date)
         {
             Assert.Throws<ArgumentException>(() =>
