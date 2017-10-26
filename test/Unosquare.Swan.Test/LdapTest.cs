@@ -101,7 +101,7 @@ namespace Unosquare.Swan.Test
                     var entry = lsc.Next();
                     var ldapAttributes = entry.GetAttributeSet();
                     var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                    Assert.IsTrue(obj != null);
+                    Assert.IsNotNull(obj);
                 }
 
                 Assert.AreNotEqual(lsc.Count, 0);
@@ -122,7 +122,7 @@ namespace Unosquare.Swan.Test
                     var entry = lsc.Next();
                     var ldapAttributes = entry.GetAttributeSet();
                     var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                    Assert.IsTrue(obj != null);
+                    Assert.IsNotNull(obj);
                 }
 
                 Assert.AreNotEqual(lsc.Count, 0);
