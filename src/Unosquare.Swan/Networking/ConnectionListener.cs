@@ -78,7 +78,7 @@
         public ConnectionListener(IPEndPoint listenEndPoint)
         {
             Id = Guid.NewGuid();
-            LocalEndPoint = listenEndPoint;
+            LocalEndPoint = listenEndPoint ?? throw new ArgumentNullException(nameof(listenEndPoint));
         }
 
         /// <summary>

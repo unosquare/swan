@@ -25,17 +25,7 @@
                 _request = request == null ? new DnsRequest() : new DnsRequest(request);
                 _resolver = resolver ?? new DnsUdpRequestResolver();
             }
-
-            public DnsClientRequest(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
-                : this(new IPEndPoint(ip, port), request, resolver)
-            {
-            }
-
-            public DnsClientRequest(string ip, int port = Definitions.DnsDefaultPort, IDnsRequest request = null, IDnsRequestResolver resolver = null) 
-                : this(IPAddress.Parse(ip), port, request, resolver)
-            {
-            }
-
+            
             public int Id
             {
                 get => _request.Id;
@@ -109,27 +99,7 @@
 
             private readonly IList<DnsQuestion> questions;
             private DnsHeader header;
-
-            public static DnsRequest FromArray(byte[] message)
-            {
-                var header = DnsHeader.FromArray(message);
-
-                if (header.Response || header.QuestionCount == 0 ||
-                        header.AdditionalRecordCount + header.AnswerRecordCount + header.AuthorityRecordCount > 0 ||
-                        header.ResponseCode != DnsResponseCode.NoError)
-                {
-                    throw new ArgumentException("Invalid request message");
-                }
-
-                return new DnsRequest(header, DnsQuestion.GetAllFromArray(message, header.Size, header.QuestionCount));
-            }
-
-            public DnsRequest(DnsHeader header, IList<DnsQuestion> questions)
-            {
-                this.header = header;
-                this.questions = questions;
-            }
-
+            
             public DnsRequest()
             {
                 questions = new List<DnsQuestion>();
@@ -526,12 +496,7 @@
             {
                 get { return labels.Sum(l => l.Length) + labels.Length + 1; }
             }
-
-            public static DnsDomain FromString(string domain)
-            {
-                return new DnsDomain(domain);
-            }
-
+            
             public static DnsDomain FromArray(byte[] message, int offset)
             {
                 return FromArray(message, offset, out offset);
@@ -659,12 +624,7 @@
                 endOffset = offset;
                 return questions;
             }
-
-            public static DnsQuestion FromArray(byte[] message, int offset)
-            {
-                return FromArray(message, offset, out offset);
-            }
-
+            
             public static DnsQuestion FromArray(byte[] message, int offset, out int endOffset)
             {
                 var domain = DnsDomain.FromArray(message, offset, out offset);

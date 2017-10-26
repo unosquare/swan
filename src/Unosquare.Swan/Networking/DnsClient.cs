@@ -21,18 +21,7 @@
             : this(new IPEndPoint(ip, port), resolver)
         {
         }
-
-        public DnsClient(string ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
-            : this(IPAddress.Parse(ip), port, resolver)
-        {
-        }
-
-        public DnsClientRequest FromArray(byte[] message)
-        {
-            var request = DnsRequest.FromArray(message);
-            return new DnsClientRequest(dns, request, resolver);
-        }
-
+        
         public DnsClientRequest Create(IDnsRequest request = null)
         {
             return new DnsClientRequest(dns, request, resolver);
@@ -62,9 +51,7 @@
 
             return ips;
         }
-
-        public string Reverse(string ip) => Reverse(IPAddress.Parse(ip));
-
+        
         public string Reverse(IPAddress ip)
         {
             if (ip == null)
