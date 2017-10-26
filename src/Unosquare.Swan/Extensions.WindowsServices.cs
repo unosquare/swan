@@ -1,6 +1,7 @@
 ﻿#if NET452
 namespace Unosquare.Swan
 {
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;

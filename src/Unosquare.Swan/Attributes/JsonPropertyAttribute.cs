@@ -16,18 +16,18 @@
         /// <param name="ignored">if set to <c>true</c> [ignored].</param>
         public JsonPropertyAttribute(string propertyName, bool ignored = false)
         {
-            PropertyName = propertyName;
+            PropertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
             Ignored = ignored;
         }
 
         /// <summary>
         /// Gets or sets the name of the property.
         /// </summary>
-        public string PropertyName { get; set; }
+        public string PropertyName { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="JsonPropertyAttribute"/> is ignored.
         /// </summary>
-        public bool Ignored { get; set; }
+        public bool Ignored { get; }
     }
 }
