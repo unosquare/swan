@@ -21,7 +21,7 @@
         Unix,
         
         /// <summary>
-        /// Mac OSX
+        /// macOS (OSX)
         /// </summary>
         Osx
     }

@@ -55,7 +55,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
             var startDate = new DateTime(2017, 1, 1);
             var endDate = new DateTime(2017, 1, 3);
 
-            var rangeActual = Extensions.DateRange(startDate, endDate);
+            var rangeActual = startDate.DateRange(endDate);
 
             var rangeExpected  = new List<DateTime>
             {
@@ -78,7 +78,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
             var timeSpan = new TimeSpan(4, 4, 10, 23);
             var expectedTicksIntoDateTime = new DateTime(636449107780000000);
 
-            Assert.AreEqual(expectedTicksIntoDateTime, Extensions.RoundUp(datetime, timeSpan));
+            Assert.AreEqual(expectedTicksIntoDateTime, datetime.RoundUp(timeSpan));
         }
     }
 
@@ -91,7 +91,7 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
             var date = new DateTime(2017, 10, 27);
             var expectedTicks = 1509062400;
 
-            Assert.AreEqual(expectedTicks, Extensions.ToUnixEpochDate(date));
+            Assert.AreEqual(expectedTicks, date.ToUnixEpochDate());
         }
     }    
 }

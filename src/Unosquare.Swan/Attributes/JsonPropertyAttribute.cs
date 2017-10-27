@@ -23,11 +23,17 @@
         /// <summary>
         /// Gets or sets the name of the property.
         /// </summary>
+        /// <value>
+        /// The name of the property.
+        /// </value>
         public string PropertyName { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="JsonPropertyAttribute"/> is ignored.
+        /// Gets or sets a value indicating whether this <see cref="JsonPropertyAttribute" /> is ignored.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if ignored; otherwise, <c>false</c>.
+        /// </value>
         public bool Ignored { get; }
     }
 }
