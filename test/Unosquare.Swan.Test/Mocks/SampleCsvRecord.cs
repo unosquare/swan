@@ -40,6 +40,8 @@ namespace Unosquare.Swan.Test.Mocks
             + "SWAN also provides helpful extension methods for string manipulation").Split(new[] {" "},
             StringSplitOptions.None);
 
+        private static readonly string[] RandomNames = {"Alpha", "Beta", "Gamma", "Delta"};
+        
         public static List<SampleCsvRecord> CreateSampleSet(int size)
         {
             var result = new List<SampleCsvRecord>();
@@ -63,7 +65,7 @@ namespace Unosquare.Swan.Test.Mocks
                     Description = descriptionSb.ToString(),
                     Id = i,
                     IsValidated = random.NextDouble() > 0.5d,
-                    Name = RandomWords[random.Next(0, RandomWords.Length - 1)],
+                    Name = RandomNames[random.Next(0, RandomNames.Length - 1)],
                     Score = Convert.ToSingle(random.NextDouble() * random.Next(10, 1000)),
                     ValidationResult = random.NextDouble() > 0.5d
                 };
