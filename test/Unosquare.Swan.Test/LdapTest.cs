@@ -142,5 +142,23 @@ namespace Unosquare.Swan.Test
                 });
             }
         }
+
+        public class ModifyTest : LdapTest
+        {
+            [Test]
+            public void ChangeUserProperty()
+            {
+                Assert.ThrowsAsync<LdapException>(async () => {
+
+                    var cn = new LdapConnection();
+                    await cn.Connect(ldapServer, 389);
+                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+                    await cn.Modify("uid=euclid,dc=example,dc=com",
+                        new LdapModification[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
+
+                    cn.Disconnect();
+                });
+            }
+        }
     }
 }
