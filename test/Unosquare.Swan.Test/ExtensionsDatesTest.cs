@@ -71,10 +71,10 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
     [TestFixture]
     public class ToUnixEpochDate
     {
-        [TestCase(2017, 10, 27)]
-        public void GivingADate_ConvertItIntoTicks(int year, int month, int day)
+        [Test]
+        public void GivingADate_ConvertItIntoTicks()
         {
-            var date = new DateTime(year, month, day);
+            var date = new DateTime(2017, 10, 27);
             var expectedTicks = 1509062400;
 
             Assert.AreEqual(expectedTicks, Extensions.ToUnixEpochDate(date));
