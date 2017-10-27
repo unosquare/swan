@@ -121,7 +121,7 @@
         public ConnectionListenerStoppedEventArgs(IPEndPoint listenerEndPoint, Exception ex = null)
         {
             EndPoint = listenerEndPoint ?? throw new ArgumentNullException(nameof(listenerEndPoint));
-            Error = ex ?? throw new ArgumentNullException(nameof(ex));
+            Error = ex;
         }
 
         /// <summary>

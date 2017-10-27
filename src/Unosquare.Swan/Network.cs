@@ -400,7 +400,7 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The UTC time by querying from an NTP server of the result produced by this Task</returns>
         public static Task<DateTime> GetNetworkTimeUtcAsync(
-            string ntpServerName,
+            string ntpServerName = "pool.ntp.org",
             int port = Definitions.NtpDefaultPort,
             CancellationToken ct = default(CancellationToken))
         {

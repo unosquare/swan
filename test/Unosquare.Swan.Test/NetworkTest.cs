@@ -235,14 +235,6 @@ namespace Unosquare.Swan.Test.NetworkTests
     public class GetNetworkTimeUtc : NetworkTest
     {
         [Test]
-        public void WithNoParam_ReturnsDateTime()
-        {
-            var publicIPAddress = Network.GetNetworkTimeUtc();
-
-            Assert.That(publicIPAddress, Is.EqualTo(DateTime.UtcNow).Within(1).Minutes);
-        }
-
-        [Test]
         public void WithInvalidNtpServerName_ThrowsDnsQueryException()
         {
             Assert.Throws<DnsQueryException>(() => Network.GetNetworkTimeUtc("www"));
@@ -261,9 +253,9 @@ namespace Unosquare.Swan.Test.NetworkTests
     public class GetNetworkTimeUtcAsync : NetworkTest
     {
         [Test]
-        public async Task WithNtpServerName_ReturnsDateTime()
+        public async Task WitDefaulthNtpServerName_ReturnsDateTime()
         {
-            var publicIPAddress = await Network.GetNetworkTimeUtcAsync(Fqdn);
+            var publicIPAddress = await Network.GetNetworkTimeUtcAsync();
 
             Assert.That(publicIPAddress, Is.EqualTo(DateTime.UtcNow).Within(1).Minutes);
         }
