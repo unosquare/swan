@@ -234,7 +234,7 @@ on a CONNECT_ERROR failure.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Exception Cause { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Exception Cause { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -247,7 +247,8 @@ on a CONNECT_ERROR failure.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Exception</span></td>
-        <td></td>
+        <td><p>The cause.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -262,7 +263,7 @@ this method returns null.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string LdapErrorMessage { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string LdapErrorMessage { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -295,7 +296,7 @@ except when the result of the operation was one of the following:
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string MatchedDN { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string MatchedDN { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -355,7 +356,7 @@ code is returned.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapStatusCode ResultCode { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapStatusCode ResultCode { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -368,7 +369,8 @@ code is returned.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapStatusCode.html">LdapStatusCode</a></td>
-        <td></td>
+        <td><p>The result code.</p>
+</td>
       </tr>
     </tbody>
   </table>

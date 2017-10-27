@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum SmtpCommandNames
+    <title>Class SmtpDefinitions
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum SmtpCommandNames
+    <meta name="title" content="Class SmtpDefinitions
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.26.3.0">
     
@@ -76,117 +76,76 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.SmtpCommandNames">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.SmtpDefinitions">
   
   
-  <h1 id="Unosquare_Swan_SmtpCommandNames" data-uid="Unosquare.Swan.SmtpCommandNames" class="text-break">Enum SmtpCommandNames
+  <h1 id="Unosquare_Swan_Networking_SmtpDefinitions" data-uid="Unosquare.Swan.Networking.SmtpDefinitions" class="text-break">Class SmtpDefinitions
   </h1>
-  <div class="markdown level0 summary"><p>Enumerates all of the well-known SMTP command names.</p>
+  <div class="markdown level0 summary"><p>Contains useful constants and definitions</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">SmtpDefinitions</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.html">Unosquare.Swan.Networking</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_SmtpCommandNames_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Networking_SmtpDefinitions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SmtpCommandNames</code></pre>
+    <pre><code class="lang-csharp hljs">public static class SmtpDefinitions</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
+  
+  
+  <h4 id="Unosquare_Swan_Networking_SmtpDefinitions_SmtpDataCommandTerminator" data-uid="Unosquare.Swan.Networking.SmtpDefinitions.SmtpDataCommandTerminator">SmtpDataCommandTerminator</h4>
+  <div class="markdown level1 summary"><p>The string sequence that delimits the end of the DATA command</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string SmtpDataCommandTerminator = &quot;\r\n.\r\n&quot;</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Type</th>
         <th>Description</th>
       </tr>
-    <thead>
+    </thead>
     <tbody>
       <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_AUTH">AUTH</td>
-        <td><p>The authentication command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_DATA">DATA</td>
-        <td><p>The data command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_EHLO">EHLO</td>
-        <td><p>The ehlo command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_EXPN">EXPN</td>
-        <td><p>The expn command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_HELO">HELO</td>
-        <td><p>The helo command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_HELP">HELP</td>
-        <td><p>The help command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_MAIL">MAIL</td>
-        <td><p>The mail command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_NOOP">NOOP</td>
-        <td><p>The noop command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_QUIT">QUIT</td>
-        <td><p>The quit command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_RCPT">RCPT</td>
-        <td><p>The RCPT command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_RSET">RSET</td>
-        <td><p>The rset command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_SAML">SAML</td>
-        <td><p>The saml command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_SEND">SEND</td>
-        <td><p>The send command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_SOML">SOML</td>
-        <td><p>The soml command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_STARTTLS">STARTTLS</td>
-        <td><p>The starttls command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_Unknown">Unknown</td>
-        <td><p>An unknown command</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_SmtpCommandNames_VRFY">VRFY</td>
-        <td><p>The vrfy command</p>
-</td>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
       </tr>
     </tbody>
-  </thead></thead></table>
+  </table>
 </article>
           </div>
           
