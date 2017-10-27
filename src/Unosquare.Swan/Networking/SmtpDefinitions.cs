@@ -1,9 +1,9 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Networking
 {
     /// <summary>
     /// Contains useful constants and definitions
     /// </summary>
-    public partial class Definitions
+    public static class SmtpDefinitions
     {
         /// <summary>
         /// The string sequence that delimits the end of the DATA command

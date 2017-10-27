@@ -3,8 +3,8 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Threading;
 using System.Threading.Tasks;
+using Unosquare.Swan.Networking;
 using Unosquare.Swan.Exceptions;
 
 namespace Unosquare.Swan.Test.NetworkTests
@@ -277,7 +277,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public async Task WithValidFqdn_ReturnsDnsHost()
         {
-            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, default(CancellationToken));
+            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn);
 
             Assert.IsNotEmpty(dnsHost.ToString());
         }
@@ -285,8 +285,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public async Task WithValidFqdnAndIPAddress_ReturnsDnsHost()
         {
-            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, GoogleDns, Definitions.DnsDefaultPort,
-                default(CancellationToken));
+            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, GoogleDns, Definitions.DnsDefaultPort);
 
             Assert.IsNotEmpty(dnsHost.ToString());
         }

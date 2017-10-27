@@ -68,55 +68,82 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         public event EventHandler ClientDisconnected = (s, e) => { };
 
-#endregion
+        #endregion
 
-#region Properties
+        #region Properties
 
         /// <summary>
         /// Gets the unique identifier of this connection.
         /// This field is filled out upon instantiation of this class
         /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         public Guid Id { get; }
 
         /// <summary>
         /// Gets or sets the network stream.
         /// </summary>
+        /// <value>
+        /// The network stream.
+        /// </value>
         private NetworkStream NetworkStream { get; set; }
 
         /// <summary>
         /// Gets or sets the SSL stream.
         /// </summary>
+        /// <value>
+        /// The secure stream.
+        /// </value>
         private SslStream SecureStream { get; set; }
 
         /// <summary>
-        /// Gets the active stream. Returns an SSL stream if the connection is secure, otherwise returns 
+        /// Gets the active stream. Returns an SSL stream if the connection is secure, otherwise returns
         /// the underlying NetworkStream
         /// </summary>
+        /// <value>
+        /// The active stream.
+        /// </value>
         public Stream ActiveStream => SecureStream ?? NetworkStream as Stream;
 
         /// <summary>
         /// Gets a value indicating whether the current connection stream is an SSL stream.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is active stream secure; otherwise, <c>false</c>.
+        /// </value>
         public bool IsActiveStreamSecure => SecureStream != null;
 
         /// <summary>
         /// Gets the text encoding for send and receive operations.
         /// </summary>
+        /// <value>
+        /// The text encoding.
+        /// </value>
         public Encoding TextEncoding { get; }
 
         /// <summary>
         /// Gets the remote end point of this TCP connection.
         /// </summary>
+        /// <value>
+        /// The remote end point.
+        /// </value>
         public IPEndPoint RemoteEndPoint { get; }
 
         /// <summary>
         /// Gets the local end point of this TCP connection.
         /// </summary>
+        /// <value>
+        /// The local end point.
+        /// </value>
         public IPEndPoint LocalEndPoint { get; }
 
         /// <summary>
         /// Gets the remote client of this TCP connection.
         /// </summary>
+        /// <value>
+        /// The remote client.
+        /// </value>
         public TcpClient RemoteClient { get; private set; }
 
         /// <summary>
@@ -124,6 +151,9 @@ namespace Unosquare.Swan.Networking
         /// a Data reception event will be fired whenever the amount of bytes
         /// determined by this property has been received. Useful for fixed-length message protocols.
         /// </summary>
+        /// <value>
+        /// The size of the protocol block.
+        /// </value>
         public int ProtocolBlockSize { get; }
 
         /// <summary>
@@ -133,11 +163,17 @@ namespace Unosquare.Swan.Networking
         /// Therefore, even if continuous reading was not disabled in the constructor, this property
         /// might return false.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is continuous reading enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool IsContinuousReadingEnabled => ContinuousReadingThread != null;
 
         /// <summary>
         /// Gets the start time at which the connection was started in UTC.
         /// </summary>
+        /// <value>
+        /// The connection start time UTC.
+        /// </value>
         public DateTime ConnectionStartTimeUtc { get; }
 
         /// <summary>
@@ -148,11 +184,17 @@ namespace Unosquare.Swan.Networking
         /// <summary>
         /// Gets the duration of the connection.
         /// </summary>
+        /// <value>
+        /// The duration of the connection.
+        /// </value>
         public TimeSpan ConnectionDuration => DateTime.UtcNow.Subtract(ConnectionStartTimeUtc);
 
         /// <summary>
         /// Gets the last time data was received at in UTC.
         /// </summary>
+        /// <value>
+        /// The data received last time UTC.
+        /// </value>
         public DateTime DataReceivedLastTimeUtc { get; private set; }
 
         /// <summary>
@@ -163,11 +205,17 @@ namespace Unosquare.Swan.Networking
         /// <summary>
         /// Gets the last time at which data was sent in UTC.
         /// </summary>
+        /// <value>
+        /// The data sent last time UTC.
+        /// </value>
         public DateTime DataSentLastTimeUtc { get; private set; }
 
         /// <summary>
         /// Gets how long has elapsed since data was last sent
         /// </summary>
+        /// <value>
+        /// The duration of the data sent idle.
+        /// </value>
         public TimeSpan DataSentIdleDuration => DateTime.UtcNow.Subtract(DataSentLastTimeUtc);
 
         /// <summary>
@@ -175,6 +223,9 @@ namespace Unosquare.Swan.Networking
         /// Remarks: This property polls the socket internally and checks if it is available to read data from it.
         /// If disconnect has been called, then this property will return false.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+        /// </value>
         public bool IsConnected
         {
             get

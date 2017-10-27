@@ -23,9 +23,6 @@ namespace Unosquare.Swan.Exceptions
         internal const string ExpectingRightParen = "Expecting right parenthesis, found \"{0}\"";
         internal const string ExpectingLeftParen = "Expecting left parenthesis, found \"{0}\"";
 
-        private readonly LdapStatusCode _resultCode;
-        private readonly string _matchedDn;
-        private readonly Exception _rootException;
         private readonly string _serverMessage;
         private string[] _referrals;
 
@@ -54,9 +51,9 @@ namespace Unosquare.Swan.Exceptions
             Exception rootException = null)
             : base(message)
         {
-            _resultCode = resultCode;
-            _rootException = rootException;
-            _matchedDn = matchedDN;
+            ResultCode = resultCode;
+            Cause = rootException;
+            MatchedDN = matchedDN;
             _serverMessage = serverMsg;
         }
 
@@ -68,25 +65,31 @@ namespace Unosquare.Swan.Exceptions
         /// <returns>
         ///     The error message or null if the message was not set.
         /// </returns>
-        public virtual string LdapErrorMessage =>
+        public string LdapErrorMessage =>
             _serverMessage != null && _serverMessage.Length == 0 ? null : _serverMessage;
 
         /// <summary>
-        ///     Returns the lower level Exception which caused the failure, if any.
-        ///     For example, an IOException with additional information may be returned
-        ///     on a CONNECT_ERROR failure.
+        /// Returns the lower level Exception which caused the failure, if any.
+        /// For example, an IOException with additional information may be returned
+        /// on a CONNECT_ERROR failure.
         /// </summary>
-        public virtual Exception Cause => _rootException;
+        /// <value>
+        /// The cause.
+        /// </value>
+        public Exception Cause { get; }
 
         /// <summary>
-        ///     Returns the result code from the exception.
-        ///     The codes are defined as <code>public final static int</code> members
-        ///     of the Ldap Exception class. If the exception is a
-        ///     result of error information returned from a directory operation, the
-        ///     code will be one of those defined for the class. Otherwise, a local error
-        ///     code is returned.
+        /// Returns the result code from the exception.
+        /// The codes are defined as <code>public final static int</code> members
+        /// of the Ldap Exception class. If the exception is a
+        /// result of error information returned from a directory operation, the
+        /// code will be one of those defined for the class. Otherwise, a local error
+        /// code is returned.
         /// </summary>
-        public virtual LdapStatusCode ResultCode => _resultCode;
+        /// <value>
+        /// The result code.
+        /// </value>
+        public LdapStatusCode ResultCode { get; }
 
         /// <summary>
         /// Returns the part of a submitted distinguished name which could be
@@ -100,12 +103,12 @@ namespace Unosquare.Swan.Exceptions
         /// <value>
         /// The matched dn.
         /// </value>
-        public virtual string MatchedDN => _matchedDn;
+        public string MatchedDN { get; }
 
         /// <summary>
         /// Gets a message that describes the current exception.
         /// </summary>
-        public override string Message => _resultCode.ToString().Humanize();
+        public override string Message => ResultCode.ToString().Humanize();
 
         /// <summary>
         /// Returns a string of information about the exception and the
@@ -117,7 +120,7 @@ namespace Unosquare.Swan.Exceptions
         public override string ToString()
         {
             // Craft a string from the resouce file
-            var msg = $"{nameof(LdapException)}: {base.Message} ({_resultCode}) {_resultCode.ToString().Humanize()}";
+            var msg = $"{nameof(LdapException)}: {base.Message} ({ResultCode}) {ResultCode.ToString().Humanize()}";
 
             // Add server message
             if (!string.IsNullOrEmpty(_serverMessage))
@@ -126,14 +129,14 @@ namespace Unosquare.Swan.Exceptions
             }
 
             // Add Matched DN message
-            if (_matchedDn != null)
+            if (MatchedDN != null)
             {
-                msg += $"\r\nMatched DN: {_matchedDn}";
+                msg += $"\r\nMatched DN: {MatchedDN}";
             }
 
-            if (_rootException != null)
+            if (Cause != null)
             {
-                msg += $"\r\n{_rootException}";
+                msg += $"\r\n{Cause}";
             }
 
             // Add referral information, display all the referrals in the list
