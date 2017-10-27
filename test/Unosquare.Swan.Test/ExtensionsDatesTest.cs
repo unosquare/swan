@@ -67,4 +67,17 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
             CollectionAssert.AreEqual(rangeExpected, rangeActual);
         }
     }
+
+    [TestFixture]
+    public class ToUnixEpochDate
+    {
+        [TestCase(2017, 10, 27)]
+        public void GivingADate_ConvertItIntoTicks(int year, int month, int day)
+        {
+            var date = new DateTime(year, month, day);
+            var expectedTicks = 1509062400;
+
+            Assert.AreEqual(expectedTicks, Extensions.ToUnixEpochDate(date));
+        }
+    }
 }
