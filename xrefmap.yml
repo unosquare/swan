@@ -642,6 +642,435 @@ references:
   commentId: Overload:Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
   fullName: Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
   nameWithType: StructEndiannessAttribute.Endianness
+- uid: Unosquare.Swan.ByteArrayExtensions
+  name: ByteArrayExtensions
+  href: api/Unosquare.Swan.ByteArrayExtensions.html
+  commentId: T:Unosquare.Swan.ByteArrayExtensions
+  fullName: Unosquare.Swan.ByteArrayExtensions
+  nameWithType: ByteArrayExtensions
+- uid: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream,System.Byte[])
+  name: Append(MemoryStream, Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Append_System_IO_MemoryStream_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream,System.Byte[])
+  name.vb: Append(MemoryStream, Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream, System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream, System.Byte())
+  nameWithType: ByteArrayExtensions.Append(MemoryStream, Byte[])
+  nameWithType.vb: ByteArrayExtensions.Append(MemoryStream, Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte[]})
+  name: Append(MemoryStream, IEnumerable<Byte[]>)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Append_System_IO_MemoryStream_System_Collections_Generic_IEnumerable_System_Byte____
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte[]})
+  name.vb: Append(MemoryStream, IEnumerable(Of Byte()))
+  fullName: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable<System.Byte[]>)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable(Of System.Byte()))
+  nameWithType: ByteArrayExtensions.Append(MemoryStream, IEnumerable<Byte[]>)
+  nameWithType.vb: ByteArrayExtensions.Append(MemoryStream, IEnumerable(Of Byte()))
+- uid: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte})
+  name: Append(MemoryStream, IEnumerable<Byte>)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Append_System_IO_MemoryStream_System_Collections_Generic_IEnumerable_System_Byte__
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte})
+  name.vb: Append(MemoryStream, IEnumerable(Of Byte))
+  fullName: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable<System.Byte>)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable(Of System.Byte))
+  nameWithType: ByteArrayExtensions.Append(MemoryStream, IEnumerable<Byte>)
+  nameWithType.vb: ByteArrayExtensions.Append(MemoryStream, IEnumerable(Of Byte))
+- uid: Unosquare.Swan.ByteArrayExtensions.Append*
+  name: Append
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Append_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.Append
+  fullName: Unosquare.Swan.ByteArrayExtensions.Append
+  nameWithType: ByteArrayExtensions.Append
+- uid: Unosquare.Swan.ByteArrayExtensions.Contains(System.Byte[],System.Byte[])
+  name: Contains(Byte[], Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Contains_System_Byte___System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.Contains(System.Byte[],System.Byte[])
+  name.vb: Contains(Byte(), Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.Contains(System.Byte[], System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Contains(System.Byte(), System.Byte())
+  nameWithType: ByteArrayExtensions.Contains(Byte[], Byte[])
+  nameWithType.vb: ByteArrayExtensions.Contains(Byte(), Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.Contains*
+  name: Contains
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Contains_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.Contains
+  fullName: Unosquare.Swan.ByteArrayExtensions.Contains
+  nameWithType: ByteArrayExtensions.Contains
+- uid: Unosquare.Swan.ByteArrayExtensions.ConvertHexadecimalToBytes(System.String)
+  name: ConvertHexadecimalToBytes(String)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ConvertHexadecimalToBytes_System_String_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ConvertHexadecimalToBytes(System.String)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ConvertHexadecimalToBytes(System.String)
+  nameWithType: ByteArrayExtensions.ConvertHexadecimalToBytes(String)
+- uid: Unosquare.Swan.ByteArrayExtensions.ConvertHexadecimalToBytes*
+  name: ConvertHexadecimalToBytes
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ConvertHexadecimalToBytes_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ConvertHexadecimalToBytes
+  fullName: Unosquare.Swan.ByteArrayExtensions.ConvertHexadecimalToBytes
+  nameWithType: ByteArrayExtensions.ConvertHexadecimalToBytes
+- uid: Unosquare.Swan.ByteArrayExtensions.DeepClone(System.Byte[])
+  name: DeepClone(Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_DeepClone_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.DeepClone(System.Byte[])
+  name.vb: DeepClone(Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.DeepClone(System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.DeepClone(System.Byte())
+  nameWithType: ByteArrayExtensions.DeepClone(Byte[])
+  nameWithType.vb: ByteArrayExtensions.DeepClone(Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.DeepClone*
+  name: DeepClone
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_DeepClone_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.DeepClone
+  fullName: Unosquare.Swan.ByteArrayExtensions.DeepClone
+  nameWithType: ByteArrayExtensions.DeepClone
+- uid: Unosquare.Swan.ByteArrayExtensions.EndsWith(System.Byte[],System.Byte[])
+  name: EndsWith(Byte[], Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_EndsWith_System_Byte___System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.EndsWith(System.Byte[],System.Byte[])
+  name.vb: EndsWith(Byte(), Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.EndsWith(System.Byte[], System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.EndsWith(System.Byte(), System.Byte())
+  nameWithType: ByteArrayExtensions.EndsWith(Byte[], Byte[])
+  nameWithType.vb: ByteArrayExtensions.EndsWith(Byte(), Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.EndsWith*
+  name: EndsWith
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_EndsWith_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.EndsWith
+  fullName: Unosquare.Swan.ByteArrayExtensions.EndsWith
+  nameWithType: ByteArrayExtensions.EndsWith
+- uid: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)
+  name: GetBitValueAt(Byte, Byte, Byte)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_System_Byte_System_Byte_System_Byte_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt(System.Byte, System.Byte, System.Byte)
+  nameWithType: ByteArrayExtensions.GetBitValueAt(Byte, Byte, Byte)
+- uid: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt*
+  name: GetBitValueAt
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetBitValueAt_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.GetBitValueAt
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetBitValueAt
+  nameWithType: ByteArrayExtensions.GetBitValueAt
+- uid: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)
+  name: GetIndexOf(Byte[], Byte[], Int32)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetIndexOf_System_Byte___System_Byte___System_Int32_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)
+  name.vb: GetIndexOf(Byte(), Byte(), Int32)
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte[], System.Byte[], System.Int32)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.GetIndexOf(System.Byte(), System.Byte(), System.Int32)
+  nameWithType: ByteArrayExtensions.GetIndexOf(Byte[], Byte[], Int32)
+  nameWithType.vb: ByteArrayExtensions.GetIndexOf(Byte(), Byte(), Int32)
+- uid: Unosquare.Swan.ByteArrayExtensions.GetIndexOf*
+  name: GetIndexOf
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetIndexOf_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.GetIndexOf
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetIndexOf
+  nameWithType: ByteArrayExtensions.GetIndexOf
+- uid: Unosquare.Swan.ByteArrayExtensions.GetSBytes(System.Text.Encoding,System.String)
+  name: GetSBytes(Encoding, String)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetSBytes_System_Text_Encoding_System_String_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetSBytes(System.Text.Encoding,System.String)
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetSBytes(System.Text.Encoding, System.String)
+  nameWithType: ByteArrayExtensions.GetSBytes(Encoding, String)
+- uid: Unosquare.Swan.ByteArrayExtensions.GetSBytes*
+  name: GetSBytes
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetSBytes_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.GetSBytes
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetSBytes
+  nameWithType: ByteArrayExtensions.GetSBytes
+- uid: Unosquare.Swan.ByteArrayExtensions.GetString(System.Text.Encoding,System.SByte[])
+  name: GetString(Encoding, SByte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetString_System_Text_Encoding_System_SByte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.GetString(System.Text.Encoding,System.SByte[])
+  name.vb: GetString(Encoding, SByte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetString(System.Text.Encoding, System.SByte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.GetString(System.Text.Encoding, System.SByte())
+  nameWithType: ByteArrayExtensions.GetString(Encoding, SByte[])
+  nameWithType.vb: ByteArrayExtensions.GetString(Encoding, SByte())
+- uid: Unosquare.Swan.ByteArrayExtensions.GetString*
+  name: GetString
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_GetString_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.GetString
+  fullName: Unosquare.Swan.ByteArrayExtensions.GetString
+  nameWithType: ByteArrayExtensions.GetString
+- uid: Unosquare.Swan.ByteArrayExtensions.IsEqualTo(System.Byte[],System.Byte[])
+  name: IsEqualTo(Byte[], Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_IsEqualTo_System_Byte___System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.IsEqualTo(System.Byte[],System.Byte[])
+  name.vb: IsEqualTo(Byte(), Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.IsEqualTo(System.Byte[], System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.IsEqualTo(System.Byte(), System.Byte())
+  nameWithType: ByteArrayExtensions.IsEqualTo(Byte[], Byte[])
+  nameWithType.vb: ByteArrayExtensions.IsEqualTo(Byte(), Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.IsEqualTo*
+  name: IsEqualTo
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_IsEqualTo_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.IsEqualTo
+  fullName: Unosquare.Swan.ByteArrayExtensions.IsEqualTo
+  nameWithType: ByteArrayExtensions.IsEqualTo
+- uid: Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken)
+  name: ReadBytesAsync(Stream, Int32, CancellationToken)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadBytesAsync_System_IO_Stream_System_Int32_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync(System.IO.Stream, System.Int32, System.Threading.CancellationToken)
+  nameWithType: ByteArrayExtensions.ReadBytesAsync(Stream, Int32, CancellationToken)
+- uid: Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync(System.IO.Stream,System.Int64,System.Int32,System.Threading.CancellationToken)
+  name: ReadBytesAsync(Stream, Int64, Int32, CancellationToken)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadBytesAsync_System_IO_Stream_System_Int64_System_Int32_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync(System.IO.Stream,System.Int64,System.Int32,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync(System.IO.Stream, System.Int64, System.Int32, System.Threading.CancellationToken)
+  nameWithType: ByteArrayExtensions.ReadBytesAsync(Stream, Int64, Int32, CancellationToken)
+- uid: Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync*
+  name: ReadBytesAsync
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadBytesAsync_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync
+  fullName: Unosquare.Swan.ByteArrayExtensions.ReadBytesAsync
+  nameWithType: ByteArrayExtensions.ReadBytesAsync
+- uid: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)
+  name: ReadInput(Stream, ref SByte[], Int32, Int32)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadInput_System_IO_Stream_System_SByte____System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)
+  name.vb: ReadInput(Stream, ByRef SByte(), Int32, Int32)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream, ref System.SByte[], System.Int32, System.Int32)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ReadInput(System.IO.Stream, ByRef System.SByte(), System.Int32, System.Int32)
+  nameWithType: ByteArrayExtensions.ReadInput(Stream, ref SByte[], Int32, Int32)
+  nameWithType.vb: ByteArrayExtensions.ReadInput(Stream, ByRef SByte(), Int32, Int32)
+- uid: Unosquare.Swan.ByteArrayExtensions.ReadInput*
+  name: ReadInput
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ReadInput_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ReadInput
+  fullName: Unosquare.Swan.ByteArrayExtensions.ReadInput
+  nameWithType: ByteArrayExtensions.ReadInput
+- uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte)
+  name: SetBitValueAt(Byte, Byte, Byte)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte)
+  fullName: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte, System.Byte, System.Byte)
+  nameWithType: ByteArrayExtensions.SetBitValueAt(Byte, Byte, Byte)
+- uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte,System.Byte)
+  name: SetBitValueAt(Byte, Byte, Byte, Byte)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_System_Byte_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte,System.Byte,System.Byte,System.Byte)
+  fullName: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt(System.Byte, System.Byte, System.Byte, System.Byte)
+  nameWithType: ByteArrayExtensions.SetBitValueAt(Byte, Byte, Byte, Byte)
+- uid: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt*
+  name: SetBitValueAt
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SetBitValueAt_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.SetBitValueAt
+  fullName: Unosquare.Swan.ByteArrayExtensions.SetBitValueAt
+  nameWithType: ByteArrayExtensions.SetBitValueAt
+- uid: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32,System.Byte[])
+  name: Split(Byte[], Int32, Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Split_System_Byte___System_Int32_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[],System.Int32,System.Byte[])
+  name.vb: Split(Byte(), Int32, Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte[], System.Int32, System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Split(System.Byte(), System.Int32, System.Byte())
+  nameWithType: ByteArrayExtensions.Split(Byte[], Int32, Byte[])
+  nameWithType.vb: ByteArrayExtensions.Split(Byte(), Int32, Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.Split*
+  name: Split
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Split_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.Split
+  fullName: Unosquare.Swan.ByteArrayExtensions.Split
+  nameWithType: ByteArrayExtensions.Split
+- uid: Unosquare.Swan.ByteArrayExtensions.StartsWith(System.Byte[],System.Byte[])
+  name: StartsWith(Byte[], Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_StartsWith_System_Byte___System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.StartsWith(System.Byte[],System.Byte[])
+  name.vb: StartsWith(Byte(), Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.StartsWith(System.Byte[], System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.StartsWith(System.Byte(), System.Byte())
+  nameWithType: ByteArrayExtensions.StartsWith(Byte[], Byte[])
+  nameWithType.vb: ByteArrayExtensions.StartsWith(Byte(), Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.StartsWith*
+  name: StartsWith
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_StartsWith_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.StartsWith
+  fullName: Unosquare.Swan.ByteArrayExtensions.StartsWith
+  nameWithType: ByteArrayExtensions.StartsWith
+- uid: Unosquare.Swan.ByteArrayExtensions.SubArray*
+  name: SubArray
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SubArray_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.SubArray
+  fullName: Unosquare.Swan.ByteArrayExtensions.SubArray
+  nameWithType: ByteArrayExtensions.SubArray
+- uid: Unosquare.Swan.ByteArrayExtensions.SubArray``1(``0[],System.Int32,System.Int32)
+  name: SubArray<T>(T[], Int32, Int32)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SubArray__1___0___System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.SubArray``1(``0[],System.Int32,System.Int32)
+  name.vb: SubArray(Of T)(T(), Int32, Int32)
+  fullName: Unosquare.Swan.ByteArrayExtensions.SubArray<T>(T[], System.Int32, System.Int32)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.SubArray(Of T)(T(), System.Int32, System.Int32)
+  nameWithType: ByteArrayExtensions.SubArray<T>(T[], Int32, Int32)
+  nameWithType.vb: ByteArrayExtensions.SubArray(Of T)(T(), Int32, Int32)
+- uid: Unosquare.Swan.ByteArrayExtensions.SubArray``1(``0[],System.Int64,System.Int64)
+  name: SubArray<T>(T[], Int64, Int64)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_SubArray__1___0___System_Int64_System_Int64_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.SubArray``1(``0[],System.Int64,System.Int64)
+  name.vb: SubArray(Of T)(T(), Int64, Int64)
+  fullName: Unosquare.Swan.ByteArrayExtensions.SubArray<T>(T[], System.Int64, System.Int64)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.SubArray(Of T)(T(), System.Int64, System.Int64)
+  nameWithType: ByteArrayExtensions.SubArray<T>(T[], Int64, Int64)
+  nameWithType.vb: ByteArrayExtensions.SubArray(Of T)(T(), Int64, Int64)
+- uid: Unosquare.Swan.ByteArrayExtensions.ToBase64(System.Byte[])
+  name: ToBase64(Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToBase64_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToBase64(System.Byte[])
+  name.vb: ToBase64(Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToBase64(System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToBase64(System.Byte())
+  nameWithType: ByteArrayExtensions.ToBase64(Byte[])
+  nameWithType.vb: ByteArrayExtensions.ToBase64(Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.ToBase64*
+  name: ToBase64
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToBase64_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ToBase64
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToBase64
+  nameWithType: ByteArrayExtensions.ToBase64
+- uid: Unosquare.Swan.ByteArrayExtensions.ToByteArray(System.SByte[])
+  name: ToByteArray(SByte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToByteArray_System_SByte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToByteArray(System.SByte[])
+  name.vb: ToByteArray(SByte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToByteArray(System.SByte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToByteArray(System.SByte())
+  nameWithType: ByteArrayExtensions.ToByteArray(SByte[])
+  nameWithType.vb: ByteArrayExtensions.ToByteArray(SByte())
+- uid: Unosquare.Swan.ByteArrayExtensions.ToByteArray*
+  name: ToByteArray
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToByteArray_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ToByteArray
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToByteArray
+  nameWithType: ByteArrayExtensions.ToByteArray
+- uid: Unosquare.Swan.ByteArrayExtensions.ToDashedHex(System.Byte[])
+  name: ToDashedHex(Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToDashedHex_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToDashedHex(System.Byte[])
+  name.vb: ToDashedHex(Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToDashedHex(System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToDashedHex(System.Byte())
+  nameWithType: ByteArrayExtensions.ToDashedHex(Byte[])
+  nameWithType.vb: ByteArrayExtensions.ToDashedHex(Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.ToDashedHex*
+  name: ToDashedHex
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToDashedHex_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ToDashedHex
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToDashedHex
+  nameWithType: ByteArrayExtensions.ToDashedHex
+- uid: Unosquare.Swan.ByteArrayExtensions.ToLowerHex(System.Byte[],System.Boolean)
+  name: ToLowerHex(Byte[], Boolean)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToLowerHex_System_Byte___System_Boolean_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToLowerHex(System.Byte[],System.Boolean)
+  name.vb: ToLowerHex(Byte(), Boolean)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToLowerHex(System.Byte[], System.Boolean)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToLowerHex(System.Byte(), System.Boolean)
+  nameWithType: ByteArrayExtensions.ToLowerHex(Byte[], Boolean)
+  nameWithType.vb: ByteArrayExtensions.ToLowerHex(Byte(), Boolean)
+- uid: Unosquare.Swan.ByteArrayExtensions.ToLowerHex*
+  name: ToLowerHex
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToLowerHex_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ToLowerHex
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToLowerHex
+  nameWithType: ByteArrayExtensions.ToLowerHex
+- uid: Unosquare.Swan.ByteArrayExtensions.ToSByteArray(System.Byte[])
+  name: ToSByteArray(Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToSByteArray_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToSByteArray(System.Byte[])
+  name.vb: ToSByteArray(Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToSByteArray(System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToSByteArray(System.Byte())
+  nameWithType: ByteArrayExtensions.ToSByteArray(Byte[])
+  nameWithType.vb: ByteArrayExtensions.ToSByteArray(Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.ToSByteArray*
+  name: ToSByteArray
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToSByteArray_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ToSByteArray
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToSByteArray
+  nameWithType: ByteArrayExtensions.ToSByteArray
+- uid: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[])
+  name: ToText(Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[])
+  name.vb: ToText(Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte())
+  nameWithType: ByteArrayExtensions.ToText(Byte[])
+  nameWithType.vb: ByteArrayExtensions.ToText(Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[],System.Text.Encoding)
+  name: ToText(Byte[], Encoding)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_System_Byte___System_Text_Encoding_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[],System.Text.Encoding)
+  name.vb: ToText(Byte(), Encoding)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte[], System.Text.Encoding)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToText(System.Byte(), System.Text.Encoding)
+  nameWithType: ByteArrayExtensions.ToText(Byte[], Encoding)
+  nameWithType.vb: ByteArrayExtensions.ToText(Byte(), Encoding)
+- uid: Unosquare.Swan.ByteArrayExtensions.ToText*
+  name: ToText
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToText_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ToText
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToText
+  nameWithType: ByteArrayExtensions.ToText
+- uid: Unosquare.Swan.ByteArrayExtensions.ToUpperHex(System.Byte[],System.Boolean)
+  name: ToUpperHex(Byte[], Boolean)
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToUpperHex_System_Byte___System_Boolean_
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.ToUpperHex(System.Byte[],System.Boolean)
+  name.vb: ToUpperHex(Byte(), Boolean)
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToUpperHex(System.Byte[], System.Boolean)
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.ToUpperHex(System.Byte(), System.Boolean)
+  nameWithType: ByteArrayExtensions.ToUpperHex(Byte[], Boolean)
+  nameWithType.vb: ByteArrayExtensions.ToUpperHex(Byte(), Boolean)
+- uid: Unosquare.Swan.ByteArrayExtensions.ToUpperHex*
+  name: ToUpperHex
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_ToUpperHex_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.ToUpperHex
+  fullName: Unosquare.Swan.ByteArrayExtensions.ToUpperHex
+  nameWithType: ByteArrayExtensions.ToUpperHex
+- uid: Unosquare.Swan.ByteArrayExtensions.Trim(System.Byte[],System.Byte[])
+  name: Trim(Byte[], Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Trim_System_Byte___System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.Trim(System.Byte[],System.Byte[])
+  name.vb: Trim(Byte(), Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.Trim(System.Byte[], System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.Trim(System.Byte(), System.Byte())
+  nameWithType: ByteArrayExtensions.Trim(Byte[], Byte[])
+  nameWithType.vb: ByteArrayExtensions.Trim(Byte(), Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.Trim*
+  name: Trim
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_Trim_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.Trim
+  fullName: Unosquare.Swan.ByteArrayExtensions.Trim
+  nameWithType: ByteArrayExtensions.Trim
+- uid: Unosquare.Swan.ByteArrayExtensions.TrimEnd(System.Byte[],System.Byte[])
+  name: TrimEnd(Byte[], Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_TrimEnd_System_Byte___System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.TrimEnd(System.Byte[],System.Byte[])
+  name.vb: TrimEnd(Byte(), Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.TrimEnd(System.Byte[], System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.TrimEnd(System.Byte(), System.Byte())
+  nameWithType: ByteArrayExtensions.TrimEnd(Byte[], Byte[])
+  nameWithType.vb: ByteArrayExtensions.TrimEnd(Byte(), Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.TrimEnd*
+  name: TrimEnd
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_TrimEnd_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.TrimEnd
+  fullName: Unosquare.Swan.ByteArrayExtensions.TrimEnd
+  nameWithType: ByteArrayExtensions.TrimEnd
+- uid: Unosquare.Swan.ByteArrayExtensions.TrimStart(System.Byte[],System.Byte[])
+  name: TrimStart(Byte[], Byte[])
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_TrimStart_System_Byte___System_Byte___
+  commentId: M:Unosquare.Swan.ByteArrayExtensions.TrimStart(System.Byte[],System.Byte[])
+  name.vb: TrimStart(Byte(), Byte())
+  fullName: Unosquare.Swan.ByteArrayExtensions.TrimStart(System.Byte[], System.Byte[])
+  fullName.vb: Unosquare.Swan.ByteArrayExtensions.TrimStart(System.Byte(), System.Byte())
+  nameWithType: ByteArrayExtensions.TrimStart(Byte[], Byte[])
+  nameWithType.vb: ByteArrayExtensions.TrimStart(Byte(), Byte())
+- uid: Unosquare.Swan.ByteArrayExtensions.TrimStart*
+  name: TrimStart
+  href: api/Unosquare.Swan.ByteArrayExtensions.html#Unosquare_Swan_ByteArrayExtensions_TrimStart_
+  commentId: Overload:Unosquare.Swan.ByteArrayExtensions.TrimStart
+  fullName: Unosquare.Swan.ByteArrayExtensions.TrimStart
+  nameWithType: ByteArrayExtensions.TrimStart
 - uid: Unosquare.Swan.Components
   name: Unosquare.Swan.Components
   href: api/Unosquare.Swan.Components.html
@@ -3030,6 +3459,84 @@ references:
   commentId: Overload:Unosquare.Swan.ConnectionListenerStoppedEventArgs.Error
   fullName: Unosquare.Swan.ConnectionListenerStoppedEventArgs.Error
   nameWithType: ConnectionListenerStoppedEventArgs.Error
+- uid: Unosquare.Swan.DateExtensions
+  name: DateExtensions
+  href: api/Unosquare.Swan.DateExtensions.html
+  commentId: T:Unosquare.Swan.DateExtensions
+  fullName: Unosquare.Swan.DateExtensions
+  nameWithType: DateExtensions
+- uid: Unosquare.Swan.DateExtensions.DateRange(System.DateTime,System.DateTime)
+  name: DateRange(DateTime, DateTime)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_DateRange_System_DateTime_System_DateTime_
+  commentId: M:Unosquare.Swan.DateExtensions.DateRange(System.DateTime,System.DateTime)
+  fullName: Unosquare.Swan.DateExtensions.DateRange(System.DateTime, System.DateTime)
+  nameWithType: DateExtensions.DateRange(DateTime, DateTime)
+- uid: Unosquare.Swan.DateExtensions.DateRange*
+  name: DateRange
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_DateRange_
+  commentId: Overload:Unosquare.Swan.DateExtensions.DateRange
+  fullName: Unosquare.Swan.DateExtensions.DateRange
+  nameWithType: DateExtensions.DateRange
+- uid: Unosquare.Swan.DateExtensions.RoundUp(System.DateTime,System.TimeSpan)
+  name: RoundUp(DateTime, TimeSpan)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_RoundUp_System_DateTime_System_TimeSpan_
+  commentId: M:Unosquare.Swan.DateExtensions.RoundUp(System.DateTime,System.TimeSpan)
+  fullName: Unosquare.Swan.DateExtensions.RoundUp(System.DateTime, System.TimeSpan)
+  nameWithType: DateExtensions.RoundUp(DateTime, TimeSpan)
+- uid: Unosquare.Swan.DateExtensions.RoundUp*
+  name: RoundUp
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_RoundUp_
+  commentId: Overload:Unosquare.Swan.DateExtensions.RoundUp
+  fullName: Unosquare.Swan.DateExtensions.RoundUp
+  nameWithType: DateExtensions.RoundUp
+- uid: Unosquare.Swan.DateExtensions.ToDateTime(System.String)
+  name: ToDateTime(String)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToDateTime_System_String_
+  commentId: M:Unosquare.Swan.DateExtensions.ToDateTime(System.String)
+  fullName: Unosquare.Swan.DateExtensions.ToDateTime(System.String)
+  nameWithType: DateExtensions.ToDateTime(String)
+- uid: Unosquare.Swan.DateExtensions.ToDateTime*
+  name: ToDateTime
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToDateTime_
+  commentId: Overload:Unosquare.Swan.DateExtensions.ToDateTime
+  fullName: Unosquare.Swan.DateExtensions.ToDateTime
+  nameWithType: DateExtensions.ToDateTime
+- uid: Unosquare.Swan.DateExtensions.ToSortableDate(System.DateTime)
+  name: ToSortableDate(DateTime)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToSortableDate_System_DateTime_
+  commentId: M:Unosquare.Swan.DateExtensions.ToSortableDate(System.DateTime)
+  fullName: Unosquare.Swan.DateExtensions.ToSortableDate(System.DateTime)
+  nameWithType: DateExtensions.ToSortableDate(DateTime)
+- uid: Unosquare.Swan.DateExtensions.ToSortableDate*
+  name: ToSortableDate
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToSortableDate_
+  commentId: Overload:Unosquare.Swan.DateExtensions.ToSortableDate
+  fullName: Unosquare.Swan.DateExtensions.ToSortableDate
+  nameWithType: DateExtensions.ToSortableDate
+- uid: Unosquare.Swan.DateExtensions.ToSortableDateTime(System.DateTime)
+  name: ToSortableDateTime(DateTime)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToSortableDateTime_System_DateTime_
+  commentId: M:Unosquare.Swan.DateExtensions.ToSortableDateTime(System.DateTime)
+  fullName: Unosquare.Swan.DateExtensions.ToSortableDateTime(System.DateTime)
+  nameWithType: DateExtensions.ToSortableDateTime(DateTime)
+- uid: Unosquare.Swan.DateExtensions.ToSortableDateTime*
+  name: ToSortableDateTime
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToSortableDateTime_
+  commentId: Overload:Unosquare.Swan.DateExtensions.ToSortableDateTime
+  fullName: Unosquare.Swan.DateExtensions.ToSortableDateTime
+  nameWithType: DateExtensions.ToSortableDateTime
+- uid: Unosquare.Swan.DateExtensions.ToUnixEpochDate(System.DateTime)
+  name: ToUnixEpochDate(DateTime)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToUnixEpochDate_System_DateTime_
+  commentId: M:Unosquare.Swan.DateExtensions.ToUnixEpochDate(System.DateTime)
+  fullName: Unosquare.Swan.DateExtensions.ToUnixEpochDate(System.DateTime)
+  nameWithType: DateExtensions.ToUnixEpochDate(DateTime)
+- uid: Unosquare.Swan.DateExtensions.ToUnixEpochDate*
+  name: ToUnixEpochDate
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_ToUnixEpochDate_
+  commentId: Overload:Unosquare.Swan.DateExtensions.ToUnixEpochDate
+  fullName: Unosquare.Swan.DateExtensions.ToUnixEpochDate
+  nameWithType: DateExtensions.ToUnixEpochDate
 - uid: Unosquare.Swan.Definitions
   name: Definitions
   href: api/Unosquare.Swan.Definitions.html
@@ -3156,18 +3663,6 @@ references:
   commentId: F:Unosquare.Swan.Definitions.SmtpDataCommandTerminator
   fullName: Unosquare.Swan.Definitions.SmtpDataCommandTerminator
   nameWithType: Definitions.SmtpDataCommandTerminator
-- uid: Unosquare.Swan.Definitions.SmtpGroupableCommandNames
-  name: SmtpGroupableCommandNames
-  href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_SmtpGroupableCommandNames
-  commentId: F:Unosquare.Swan.Definitions.SmtpGroupableCommandNames
-  fullName: Unosquare.Swan.Definitions.SmtpGroupableCommandNames
-  nameWithType: Definitions.SmtpGroupableCommandNames
-- uid: Unosquare.Swan.Definitions.SmtpStatelessCommandNames
-  name: SmtpStatelessCommandNames
-  href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_SmtpStatelessCommandNames
-  commentId: F:Unosquare.Swan.Definitions.SmtpStatelessCommandNames
-  fullName: Unosquare.Swan.Definitions.SmtpStatelessCommandNames
-  nameWithType: Definitions.SmtpStatelessCommandNames
 - uid: Unosquare.Swan.Definitions.Windows1252Encoding
   name: Windows1252Encoding
   href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_Windows1252Encoding
@@ -3636,63 +4131,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.AddWhen(Of T)(System.Collections.Generic.IList(Of T), System.Func(Of System.Boolean), System.Func(Of T))
   nameWithType: Extensions.AddWhen<T>(IList<T>, Func<Boolean>, Func<T>)
   nameWithType.vb: Extensions.AddWhen(Of T)(IList(Of T), Func(Of Boolean), Func(Of T))
-- uid: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream,System.Byte[])
-  name: Append(MemoryStream, Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Append_System_IO_MemoryStream_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.Append(System.IO.MemoryStream,System.Byte[])
-  name.vb: Append(MemoryStream, Byte())
-  fullName: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream, System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream, System.Byte())
-  nameWithType: Extensions.Append(MemoryStream, Byte[])
-  nameWithType.vb: Extensions.Append(MemoryStream, Byte())
-- uid: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte[]})
-  name: Append(MemoryStream, IEnumerable<Byte[]>)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Append_System_IO_MemoryStream_System_Collections_Generic_IEnumerable_System_Byte____
-  commentId: M:Unosquare.Swan.Extensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte[]})
-  name.vb: Append(MemoryStream, IEnumerable(Of Byte()))
-  fullName: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable<System.Byte[]>)
-  fullName.vb: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable(Of System.Byte()))
-  nameWithType: Extensions.Append(MemoryStream, IEnumerable<Byte[]>)
-  nameWithType.vb: Extensions.Append(MemoryStream, IEnumerable(Of Byte()))
-- uid: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte})
-  name: Append(MemoryStream, IEnumerable<Byte>)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Append_System_IO_MemoryStream_System_Collections_Generic_IEnumerable_System_Byte__
-  commentId: M:Unosquare.Swan.Extensions.Append(System.IO.MemoryStream,System.Collections.Generic.IEnumerable{System.Byte})
-  name.vb: Append(MemoryStream, IEnumerable(Of Byte))
-  fullName: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable<System.Byte>)
-  fullName.vb: Unosquare.Swan.Extensions.Append(System.IO.MemoryStream, System.Collections.Generic.IEnumerable(Of System.Byte))
-  nameWithType: Extensions.Append(MemoryStream, IEnumerable<Byte>)
-  nameWithType.vb: Extensions.Append(MemoryStream, IEnumerable(Of Byte))
-- uid: Unosquare.Swan.Extensions.Append*
-  name: Append
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Append_
-  commentId: Overload:Unosquare.Swan.Extensions.Append
-  fullName: Unosquare.Swan.Extensions.Append
-  nameWithType: Extensions.Append
-- uid: Unosquare.Swan.Extensions.Assembly(System.Type)
-  name: Assembly(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Assembly_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.Assembly(System.Type)
-  fullName: Unosquare.Swan.Extensions.Assembly(System.Type)
-  nameWithType: Extensions.Assembly(Type)
-- uid: Unosquare.Swan.Extensions.Assembly*
-  name: Assembly
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Assembly_
-  commentId: Overload:Unosquare.Swan.Extensions.Assembly
-  fullName: Unosquare.Swan.Extensions.Assembly
-  nameWithType: Extensions.Assembly
-- uid: Unosquare.Swan.Extensions.BaseType(System.Type)
-  name: BaseType(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_BaseType_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.BaseType(System.Type)
-  fullName: Unosquare.Swan.Extensions.BaseType(System.Type)
-  nameWithType: Extensions.BaseType(Type)
-- uid: Unosquare.Swan.Extensions.BaseType*
-  name: BaseType
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_BaseType_
-  commentId: Overload:Unosquare.Swan.Extensions.BaseType
-  fullName: Unosquare.Swan.Extensions.BaseType
-  nameWithType: Extensions.BaseType
 - uid: Unosquare.Swan.Extensions.Benchmark(System.Action)
   name: Benchmark(Action)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Benchmark_System_Action_
@@ -3705,120 +4143,6 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.Benchmark
   fullName: Unosquare.Swan.Extensions.Benchmark
   nameWithType: Extensions.Benchmark
-- uid: Unosquare.Swan.Extensions.Clamp*
-  name: Clamp
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Clamp_
-  commentId: Overload:Unosquare.Swan.Extensions.Clamp
-  fullName: Unosquare.Swan.Extensions.Clamp
-  nameWithType: Extensions.Clamp
-- uid: Unosquare.Swan.Extensions.Clamp``1(``0,``0,``0)
-  name: Clamp<T>(T, T, T)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Clamp__1___0___0___0_
-  commentId: M:Unosquare.Swan.Extensions.Clamp``1(``0,``0,``0)
-  name.vb: Clamp(Of T)(T, T, T)
-  fullName: Unosquare.Swan.Extensions.Clamp<T>(T, T, T)
-  fullName.vb: Unosquare.Swan.Extensions.Clamp(Of T)(T, T, T)
-  nameWithType: Extensions.Clamp<T>(T, T, T)
-  nameWithType.vb: Extensions.Clamp(Of T)(T, T, T)
-- uid: Unosquare.Swan.Extensions.ComputeMD5(System.Byte[],System.Boolean)
-  name: ComputeMD5(Byte[], Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_Byte___System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.Byte[],System.Boolean)
-  name.vb: ComputeMD5(Byte(), Boolean)
-  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.Byte[], System.Boolean)
-  fullName.vb: Unosquare.Swan.Extensions.ComputeMD5(System.Byte(), System.Boolean)
-  nameWithType: Extensions.ComputeMD5(Byte[], Boolean)
-  nameWithType.vb: Extensions.ComputeMD5(Byte(), Boolean)
-- uid: Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream,System.Boolean)
-  name: ComputeMD5(Stream, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_IO_Stream_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.IO.Stream, System.Boolean)
-  nameWithType: Extensions.ComputeMD5(Stream, Boolean)
-- uid: Unosquare.Swan.Extensions.ComputeMD5(System.String,System.Boolean)
-  name: ComputeMD5(String, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_System_String_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ComputeMD5(System.String,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.ComputeMD5(System.String, System.Boolean)
-  nameWithType: Extensions.ComputeMD5(String, Boolean)
-- uid: Unosquare.Swan.Extensions.ComputeMD5*
-  name: ComputeMD5
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeMD5_
-  commentId: Overload:Unosquare.Swan.Extensions.ComputeMD5
-  fullName: Unosquare.Swan.Extensions.ComputeMD5
-  nameWithType: Extensions.ComputeMD5
-- uid: Unosquare.Swan.Extensions.ComputeSha1(System.String,System.Boolean)
-  name: ComputeSha1(String, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha1_System_String_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ComputeSha1(System.String,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.ComputeSha1(System.String, System.Boolean)
-  nameWithType: Extensions.ComputeSha1(String, Boolean)
-- uid: Unosquare.Swan.Extensions.ComputeSha1*
-  name: ComputeSha1
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha1_
-  commentId: Overload:Unosquare.Swan.Extensions.ComputeSha1
-  fullName: Unosquare.Swan.Extensions.ComputeSha1
-  nameWithType: Extensions.ComputeSha1
-- uid: Unosquare.Swan.Extensions.ComputeSha256(System.String,System.Boolean)
-  name: ComputeSha256(String, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha256_System_String_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ComputeSha256(System.String,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.ComputeSha256(System.String, System.Boolean)
-  nameWithType: Extensions.ComputeSha256(String, Boolean)
-- uid: Unosquare.Swan.Extensions.ComputeSha256*
-  name: ComputeSha256
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha256_
-  commentId: Overload:Unosquare.Swan.Extensions.ComputeSha256
-  fullName: Unosquare.Swan.Extensions.ComputeSha256
-  nameWithType: Extensions.ComputeSha256
-- uid: Unosquare.Swan.Extensions.ComputeSha512(System.String,System.Boolean)
-  name: ComputeSha512(String, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha512_System_String_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ComputeSha512(System.String,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.ComputeSha512(System.String, System.Boolean)
-  nameWithType: Extensions.ComputeSha512(String, Boolean)
-- uid: Unosquare.Swan.Extensions.ComputeSha512*
-  name: ComputeSha512
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ComputeSha512_
-  commentId: Overload:Unosquare.Swan.Extensions.ComputeSha512
-  fullName: Unosquare.Swan.Extensions.ComputeSha512
-  nameWithType: Extensions.ComputeSha512
-- uid: Unosquare.Swan.Extensions.Contains(System.Byte[],System.Byte[])
-  name: Contains(Byte[], Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Contains_System_Byte___System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.Contains(System.Byte[],System.Byte[])
-  name.vb: Contains(Byte(), Byte())
-  fullName: Unosquare.Swan.Extensions.Contains(System.Byte[], System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.Contains(System.Byte(), System.Byte())
-  nameWithType: Extensions.Contains(Byte[], Byte[])
-  nameWithType.vb: Extensions.Contains(Byte(), Byte())
-- uid: Unosquare.Swan.Extensions.Contains(System.String,System.Char[])
-  name: Contains(String, Char[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Contains_System_String_System_Char___
-  commentId: M:Unosquare.Swan.Extensions.Contains(System.String,System.Char[])
-  name.vb: Contains(String, Char())
-  fullName: Unosquare.Swan.Extensions.Contains(System.String, System.Char[])
-  fullName.vb: Unosquare.Swan.Extensions.Contains(System.String, System.Char())
-  nameWithType: Extensions.Contains(String, Char[])
-  nameWithType.vb: Extensions.Contains(String, Char())
-- uid: Unosquare.Swan.Extensions.Contains*
-  name: Contains
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Contains_
-  commentId: Overload:Unosquare.Swan.Extensions.Contains
-  fullName: Unosquare.Swan.Extensions.Contains
-  nameWithType: Extensions.Contains
-- uid: Unosquare.Swan.Extensions.ConvertHexadecimalToBytes(System.String)
-  name: ConvertHexadecimalToBytes(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ConvertHexadecimalToBytes_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ConvertHexadecimalToBytes(System.String)
-  fullName: Unosquare.Swan.Extensions.ConvertHexadecimalToBytes(System.String)
-  nameWithType: Extensions.ConvertHexadecimalToBytes(String)
-- uid: Unosquare.Swan.Extensions.ConvertHexadecimalToBytes*
-  name: ConvertHexadecimalToBytes
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ConvertHexadecimalToBytes_
-  commentId: Overload:Unosquare.Swan.Extensions.ConvertHexadecimalToBytes
-  fullName: Unosquare.Swan.Extensions.ConvertHexadecimalToBytes
-  nameWithType: Extensions.ConvertHexadecimalToBytes
 - uid: Unosquare.Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])
   name: CopyOnlyPropertiesTo(Object, Object, String[])
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___
@@ -3906,48 +4230,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.CopyPropertiesToNew(Of T)(System.Object, System.String())
   nameWithType: Extensions.CopyPropertiesToNew<T>(Object, String[])
   nameWithType.vb: Extensions.CopyPropertiesToNew(Of T)(Object, String())
-- uid: Unosquare.Swan.Extensions.DateRange(System.DateTime,System.DateTime)
-  name: DateRange(DateTime, DateTime)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DateRange_System_DateTime_System_DateTime_
-  commentId: M:Unosquare.Swan.Extensions.DateRange(System.DateTime,System.DateTime)
-  fullName: Unosquare.Swan.Extensions.DateRange(System.DateTime, System.DateTime)
-  nameWithType: Extensions.DateRange(DateTime, DateTime)
-- uid: Unosquare.Swan.Extensions.DateRange*
-  name: DateRange
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DateRange_
-  commentId: Overload:Unosquare.Swan.Extensions.DateRange
-  fullName: Unosquare.Swan.Extensions.DateRange
-  nameWithType: Extensions.DateRange
-- uid: Unosquare.Swan.Extensions.DeepClone(System.Byte[])
-  name: DeepClone(Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DeepClone_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.DeepClone(System.Byte[])
-  name.vb: DeepClone(Byte())
-  fullName: Unosquare.Swan.Extensions.DeepClone(System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.DeepClone(System.Byte())
-  nameWithType: Extensions.DeepClone(Byte[])
-  nameWithType.vb: Extensions.DeepClone(Byte())
-- uid: Unosquare.Swan.Extensions.DeepClone*
-  name: DeepClone
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DeepClone_
-  commentId: Overload:Unosquare.Swan.Extensions.DeepClone
-  fullName: Unosquare.Swan.Extensions.DeepClone
-  nameWithType: Extensions.DeepClone
-- uid: Unosquare.Swan.Extensions.EndsWith(System.Byte[],System.Byte[])
-  name: EndsWith(Byte[], Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_EndsWith_System_Byte___System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.EndsWith(System.Byte[],System.Byte[])
-  name.vb: EndsWith(Byte(), Byte())
-  fullName: Unosquare.Swan.Extensions.EndsWith(System.Byte[], System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.EndsWith(System.Byte(), System.Byte())
-  nameWithType: Extensions.EndsWith(Byte[], Byte[])
-  nameWithType.vb: Extensions.EndsWith(Byte(), Byte())
-- uid: Unosquare.Swan.Extensions.EndsWith*
-  name: EndsWith
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_EndsWith_
-  commentId: Overload:Unosquare.Swan.Extensions.EndsWith
-  fullName: Unosquare.Swan.Extensions.EndsWith
-  nameWithType: Extensions.EndsWith
 - uid: Unosquare.Swan.Extensions.ExceptionMessage(System.Exception,System.String)
   name: ExceptionMessage(Exception, String)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ExceptionMessage_System_Exception_System_String_
@@ -3975,48 +4257,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.ForEach(Of T)(System.Collections.Generic.Dictionary(Of T, T), System.Action(Of T, T))
   nameWithType: Extensions.ForEach<T>(Dictionary<T, T>, Action<T, T>)
   nameWithType.vb: Extensions.ForEach(Of T)(Dictionary(Of T, T), Action(Of T, T))
-- uid: Unosquare.Swan.Extensions.FormatBytes(System.Int64)
-  name: FormatBytes(Int64)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_FormatBytes_System_Int64_
-  commentId: M:Unosquare.Swan.Extensions.FormatBytes(System.Int64)
-  fullName: Unosquare.Swan.Extensions.FormatBytes(System.Int64)
-  nameWithType: Extensions.FormatBytes(Int64)
-- uid: Unosquare.Swan.Extensions.FormatBytes(System.UInt64)
-  name: FormatBytes(UInt64)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_FormatBytes_System_UInt64_
-  commentId: M:Unosquare.Swan.Extensions.FormatBytes(System.UInt64)
-  fullName: Unosquare.Swan.Extensions.FormatBytes(System.UInt64)
-  nameWithType: Extensions.FormatBytes(UInt64)
-- uid: Unosquare.Swan.Extensions.FormatBytes*
-  name: FormatBytes
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_FormatBytes_
-  commentId: Overload:Unosquare.Swan.Extensions.FormatBytes
-  fullName: Unosquare.Swan.Extensions.FormatBytes
-  nameWithType: Extensions.FormatBytes
-- uid: Unosquare.Swan.Extensions.GetAllTypes(System.Reflection.Assembly)
-  name: GetAllTypes(Assembly)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetAllTypes_System_Reflection_Assembly_
-  commentId: M:Unosquare.Swan.Extensions.GetAllTypes(System.Reflection.Assembly)
-  fullName: Unosquare.Swan.Extensions.GetAllTypes(System.Reflection.Assembly)
-  nameWithType: Extensions.GetAllTypes(Assembly)
-- uid: Unosquare.Swan.Extensions.GetAllTypes*
-  name: GetAllTypes
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetAllTypes_
-  commentId: Overload:Unosquare.Swan.Extensions.GetAllTypes
-  fullName: Unosquare.Swan.Extensions.GetAllTypes
-  nameWithType: Extensions.GetAllTypes
-- uid: Unosquare.Swan.Extensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)
-  name: GetBitValueAt(Byte, Byte, Byte)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetBitValueAt_System_Byte_System_Byte_System_Byte_
-  commentId: M:Unosquare.Swan.Extensions.GetBitValueAt(System.Byte,System.Byte,System.Byte)
-  fullName: Unosquare.Swan.Extensions.GetBitValueAt(System.Byte, System.Byte, System.Byte)
-  nameWithType: Extensions.GetBitValueAt(Byte, Byte, Byte)
-- uid: Unosquare.Swan.Extensions.GetBitValueAt*
-  name: GetBitValueAt
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetBitValueAt_
-  commentId: Overload:Unosquare.Swan.Extensions.GetBitValueAt
-  fullName: Unosquare.Swan.Extensions.GetBitValueAt
-  nameWithType: Extensions.GetBitValueAt
 - uid: Unosquare.Swan.Extensions.GetCopyableProperties(System.Object)
   name: GetCopyableProperties(Object)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetCopyableProperties_System_Object_
@@ -4029,87 +4269,6 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.GetCopyableProperties
   fullName: Unosquare.Swan.Extensions.GetCopyableProperties
   nameWithType: Extensions.GetCopyableProperties
-- uid: Unosquare.Swan.Extensions.GetCustomAttributes(System.Type,System.Type,System.Boolean)
-  name: GetCustomAttributes(Type, Type, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetCustomAttributes_System_Type_System_Type_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.GetCustomAttributes(System.Type,System.Type,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.GetCustomAttributes(System.Type, System.Type, System.Boolean)
-  nameWithType: Extensions.GetCustomAttributes(Type, Type, Boolean)
-- uid: Unosquare.Swan.Extensions.GetCustomAttributes*
-  name: GetCustomAttributes
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetCustomAttributes_
-  commentId: Overload:Unosquare.Swan.Extensions.GetCustomAttributes
-  fullName: Unosquare.Swan.Extensions.GetCustomAttributes
-  nameWithType: Extensions.GetCustomAttributes
-- uid: Unosquare.Swan.Extensions.GetDefault(System.Type)
-  name: GetDefault(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetDefault_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.GetDefault(System.Type)
-  fullName: Unosquare.Swan.Extensions.GetDefault(System.Type)
-  nameWithType: Extensions.GetDefault(Type)
-- uid: Unosquare.Swan.Extensions.GetDefault*
-  name: GetDefault
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetDefault_
-  commentId: Overload:Unosquare.Swan.Extensions.GetDefault
-  fullName: Unosquare.Swan.Extensions.GetDefault
-  nameWithType: Extensions.GetDefault
-- uid: Unosquare.Swan.Extensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)
-  name: GetIndexOf(Byte[], Byte[], Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetIndexOf_System_Byte___System_Byte___System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.GetIndexOf(System.Byte[],System.Byte[],System.Int32)
-  name.vb: GetIndexOf(Byte(), Byte(), Int32)
-  fullName: Unosquare.Swan.Extensions.GetIndexOf(System.Byte[], System.Byte[], System.Int32)
-  fullName.vb: Unosquare.Swan.Extensions.GetIndexOf(System.Byte(), System.Byte(), System.Int32)
-  nameWithType: Extensions.GetIndexOf(Byte[], Byte[], Int32)
-  nameWithType.vb: Extensions.GetIndexOf(Byte(), Byte(), Int32)
-- uid: Unosquare.Swan.Extensions.GetIndexOf*
-  name: GetIndexOf
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetIndexOf_
-  commentId: Overload:Unosquare.Swan.Extensions.GetIndexOf
-  fullName: Unosquare.Swan.Extensions.GetIndexOf
-  nameWithType: Extensions.GetIndexOf
-- uid: Unosquare.Swan.Extensions.GetMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
-  name: GetMethod(Type, BindingFlags, String, Type[], Type[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetMethod_System_Type_System_Reflection_BindingFlags_System_String_System_Type___System_Type___
-  commentId: M:Unosquare.Swan.Extensions.GetMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
-  name.vb: GetMethod(Type, BindingFlags, String, Type(), Type())
-  fullName: Unosquare.Swan.Extensions.GetMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type[], System.Type[])
-  fullName.vb: Unosquare.Swan.Extensions.GetMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type(), System.Type())
-  nameWithType: Extensions.GetMethod(Type, BindingFlags, String, Type[], Type[])
-  nameWithType.vb: Extensions.GetMethod(Type, BindingFlags, String, Type(), Type())
-- uid: Unosquare.Swan.Extensions.GetMethod*
-  name: GetMethod
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetMethod_
-  commentId: Overload:Unosquare.Swan.Extensions.GetMethod
-  fullName: Unosquare.Swan.Extensions.GetMethod
-  nameWithType: Extensions.GetMethod
-- uid: Unosquare.Swan.Extensions.GetSBytes(System.Text.Encoding,System.String)
-  name: GetSBytes(Encoding, String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetSBytes_System_Text_Encoding_System_String_
-  commentId: M:Unosquare.Swan.Extensions.GetSBytes(System.Text.Encoding,System.String)
-  fullName: Unosquare.Swan.Extensions.GetSBytes(System.Text.Encoding, System.String)
-  nameWithType: Extensions.GetSBytes(Encoding, String)
-- uid: Unosquare.Swan.Extensions.GetSBytes*
-  name: GetSBytes
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetSBytes_
-  commentId: Overload:Unosquare.Swan.Extensions.GetSBytes
-  fullName: Unosquare.Swan.Extensions.GetSBytes
-  nameWithType: Extensions.GetSBytes
-- uid: Unosquare.Swan.Extensions.GetString(System.Text.Encoding,System.SByte[])
-  name: GetString(Encoding, SByte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetString_System_Text_Encoding_System_SByte___
-  commentId: M:Unosquare.Swan.Extensions.GetString(System.Text.Encoding,System.SByte[])
-  name.vb: GetString(Encoding, SByte())
-  fullName: Unosquare.Swan.Extensions.GetString(System.Text.Encoding, System.SByte[])
-  fullName.vb: Unosquare.Swan.Extensions.GetString(System.Text.Encoding, System.SByte())
-  nameWithType: Extensions.GetString(Encoding, SByte[])
-  nameWithType.vb: Extensions.GetString(Encoding, SByte())
-- uid: Unosquare.Swan.Extensions.GetString*
-  name: GetString
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetString_
-  commentId: Overload:Unosquare.Swan.Extensions.GetString
-  fullName: Unosquare.Swan.Extensions.GetString
-  nameWithType: Extensions.GetString
 - uid: Unosquare.Swan.Extensions.GetValueOrDefault*
   name: GetValueOrDefault
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetValueOrDefault_
@@ -4125,192 +4284,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.GetValueOrDefault(Of T)(System.Collections.Generic.Dictionary(Of T, T), T, T)
   nameWithType: Extensions.GetValueOrDefault<T>(Dictionary<T, T>, T, T)
   nameWithType.vb: Extensions.GetValueOrDefault(Of T)(Dictionary(Of T, T), T, T)
-- uid: Unosquare.Swan.Extensions.Hex2Int(System.Char)
-  name: Hex2Int(Char)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Hex2Int_System_Char_
-  commentId: M:Unosquare.Swan.Extensions.Hex2Int(System.Char)
-  fullName: Unosquare.Swan.Extensions.Hex2Int(System.Char)
-  nameWithType: Extensions.Hex2Int(Char)
-- uid: Unosquare.Swan.Extensions.Hex2Int*
-  name: Hex2Int
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Hex2Int_
-  commentId: Overload:Unosquare.Swan.Extensions.Hex2Int
-  fullName: Unosquare.Swan.Extensions.Hex2Int
-  nameWithType: Extensions.Hex2Int
-- uid: Unosquare.Swan.Extensions.Humanize(System.String)
-  name: Humanize(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Humanize_System_String_
-  commentId: M:Unosquare.Swan.Extensions.Humanize(System.String)
-  fullName: Unosquare.Swan.Extensions.Humanize(System.String)
-  nameWithType: Extensions.Humanize(String)
-- uid: Unosquare.Swan.Extensions.Humanize*
-  name: Humanize
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Humanize_
-  commentId: Overload:Unosquare.Swan.Extensions.Humanize
-  fullName: Unosquare.Swan.Extensions.Humanize
-  nameWithType: Extensions.Humanize
-- uid: Unosquare.Swan.Extensions.Indent(System.String,System.Int32)
-  name: Indent(String, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Indent_System_String_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.Indent(System.String,System.Int32)
-  fullName: Unosquare.Swan.Extensions.Indent(System.String, System.Int32)
-  nameWithType: Extensions.Indent(String, Int32)
-- uid: Unosquare.Swan.Extensions.Indent*
-  name: Indent
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Indent_
-  commentId: Overload:Unosquare.Swan.Extensions.Indent
-  fullName: Unosquare.Swan.Extensions.Indent
-  nameWithType: Extensions.Indent
-- uid: Unosquare.Swan.Extensions.IsAbstract(System.Type)
-  name: IsAbstract(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsAbstract_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsAbstract(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsAbstract(System.Type)
-  nameWithType: Extensions.IsAbstract(Type)
-- uid: Unosquare.Swan.Extensions.IsAbstract*
-  name: IsAbstract
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsAbstract_
-  commentId: Overload:Unosquare.Swan.Extensions.IsAbstract
-  fullName: Unosquare.Swan.Extensions.IsAbstract
-  nameWithType: Extensions.IsAbstract
-- uid: Unosquare.Swan.Extensions.IsBetween*
-  name: IsBetween
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsBetween_
-  commentId: Overload:Unosquare.Swan.Extensions.IsBetween
-  fullName: Unosquare.Swan.Extensions.IsBetween
-  nameWithType: Extensions.IsBetween
-- uid: Unosquare.Swan.Extensions.IsBetween``1(``0,``0,``0)
-  name: IsBetween<T>(T, T, T)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsBetween__1___0___0___0_
-  commentId: M:Unosquare.Swan.Extensions.IsBetween``1(``0,``0,``0)
-  name.vb: IsBetween(Of T)(T, T, T)
-  fullName: Unosquare.Swan.Extensions.IsBetween<T>(T, T, T)
-  fullName.vb: Unosquare.Swan.Extensions.IsBetween(Of T)(T, T, T)
-  nameWithType: Extensions.IsBetween<T>(T, T, T)
-  nameWithType.vb: Extensions.IsBetween(Of T)(T, T, T)
-- uid: Unosquare.Swan.Extensions.IsClass(System.Type)
-  name: IsClass(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsClass_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsClass(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsClass(System.Type)
-  nameWithType: Extensions.IsClass(Type)
-- uid: Unosquare.Swan.Extensions.IsClass*
-  name: IsClass
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsClass_
-  commentId: Overload:Unosquare.Swan.Extensions.IsClass
-  fullName: Unosquare.Swan.Extensions.IsClass
-  nameWithType: Extensions.IsClass
-- uid: Unosquare.Swan.Extensions.IsCollection(System.Type)
-  name: IsCollection(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsCollection_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsCollection(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsCollection(System.Type)
-  nameWithType: Extensions.IsCollection(Type)
-- uid: Unosquare.Swan.Extensions.IsCollection*
-  name: IsCollection
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsCollection_
-  commentId: Overload:Unosquare.Swan.Extensions.IsCollection
-  fullName: Unosquare.Swan.Extensions.IsCollection
-  nameWithType: Extensions.IsCollection
-- uid: Unosquare.Swan.Extensions.IsDefined(System.Type,System.Type,System.Boolean)
-  name: IsDefined(Type, Type, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsDefined_System_Type_System_Type_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.IsDefined(System.Type,System.Type,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.IsDefined(System.Type, System.Type, System.Boolean)
-  nameWithType: Extensions.IsDefined(Type, Type, Boolean)
-- uid: Unosquare.Swan.Extensions.IsDefined*
-  name: IsDefined
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsDefined_
-  commentId: Overload:Unosquare.Swan.Extensions.IsDefined
-  fullName: Unosquare.Swan.Extensions.IsDefined
-  nameWithType: Extensions.IsDefined
-- uid: Unosquare.Swan.Extensions.IsEqualTo(System.Byte[],System.Byte[])
-  name: IsEqualTo(Byte[], Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsEqualTo_System_Byte___System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.IsEqualTo(System.Byte[],System.Byte[])
-  name.vb: IsEqualTo(Byte(), Byte())
-  fullName: Unosquare.Swan.Extensions.IsEqualTo(System.Byte[], System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.IsEqualTo(System.Byte(), System.Byte())
-  nameWithType: Extensions.IsEqualTo(Byte[], Byte[])
-  nameWithType.vb: Extensions.IsEqualTo(Byte(), Byte())
-- uid: Unosquare.Swan.Extensions.IsEqualTo*
-  name: IsEqualTo
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsEqualTo_
-  commentId: Overload:Unosquare.Swan.Extensions.IsEqualTo
-  fullName: Unosquare.Swan.Extensions.IsEqualTo
-  nameWithType: Extensions.IsEqualTo
-- uid: Unosquare.Swan.Extensions.IsGenericParameter(System.Type)
-  name: IsGenericParameter(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsGenericParameter_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsGenericParameter(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsGenericParameter(System.Type)
-  nameWithType: Extensions.IsGenericParameter(Type)
-- uid: Unosquare.Swan.Extensions.IsGenericParameter*
-  name: IsGenericParameter
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsGenericParameter_
-  commentId: Overload:Unosquare.Swan.Extensions.IsGenericParameter
-  fullName: Unosquare.Swan.Extensions.IsGenericParameter
-  nameWithType: Extensions.IsGenericParameter
-- uid: Unosquare.Swan.Extensions.IsGenericType(System.Type)
-  name: IsGenericType(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsGenericType_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsGenericType(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsGenericType(System.Type)
-  nameWithType: Extensions.IsGenericType(Type)
-- uid: Unosquare.Swan.Extensions.IsGenericType*
-  name: IsGenericType
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsGenericType_
-  commentId: Overload:Unosquare.Swan.Extensions.IsGenericType
-  fullName: Unosquare.Swan.Extensions.IsGenericType
-  nameWithType: Extensions.IsGenericType
-- uid: Unosquare.Swan.Extensions.IsGenericTypeDefinition(System.Type)
-  name: IsGenericTypeDefinition(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsGenericTypeDefinition_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsGenericTypeDefinition(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsGenericTypeDefinition(System.Type)
-  nameWithType: Extensions.IsGenericTypeDefinition(Type)
-- uid: Unosquare.Swan.Extensions.IsGenericTypeDefinition*
-  name: IsGenericTypeDefinition
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsGenericTypeDefinition_
-  commentId: Overload:Unosquare.Swan.Extensions.IsGenericTypeDefinition
-  fullName: Unosquare.Swan.Extensions.IsGenericTypeDefinition
-  nameWithType: Extensions.IsGenericTypeDefinition
-- uid: Unosquare.Swan.Extensions.IsIEnumerable(System.Type)
-  name: IsIEnumerable(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsIEnumerable_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsIEnumerable(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsIEnumerable(System.Type)
-  nameWithType: Extensions.IsIEnumerable(Type)
-- uid: Unosquare.Swan.Extensions.IsIEnumerable*
-  name: IsIEnumerable
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsIEnumerable_
-  commentId: Overload:Unosquare.Swan.Extensions.IsIEnumerable
-  fullName: Unosquare.Swan.Extensions.IsIEnumerable
-  nameWithType: Extensions.IsIEnumerable
-- uid: Unosquare.Swan.Extensions.IsInterface(System.Type)
-  name: IsInterface(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsInterface_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsInterface(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsInterface(System.Type)
-  nameWithType: Extensions.IsInterface(Type)
-- uid: Unosquare.Swan.Extensions.IsInterface*
-  name: IsInterface
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsInterface_
-  commentId: Overload:Unosquare.Swan.Extensions.IsInterface
-  fullName: Unosquare.Swan.Extensions.IsInterface
-  nameWithType: Extensions.IsInterface
-- uid: Unosquare.Swan.Extensions.IsPrimitive(System.Type)
-  name: IsPrimitive(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsPrimitive_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsPrimitive(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsPrimitive(System.Type)
-  nameWithType: Extensions.IsPrimitive(Type)
-- uid: Unosquare.Swan.Extensions.IsPrimitive*
-  name: IsPrimitive
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsPrimitive_
-  commentId: Overload:Unosquare.Swan.Extensions.IsPrimitive
-  fullName: Unosquare.Swan.Extensions.IsPrimitive
-  nameWithType: Extensions.IsPrimitive
 - uid: Unosquare.Swan.Extensions.IsPrivateAddress(IPAddress)
   name: IsPrivateAddress(IPAddress)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsPrivateAddress_IPAddress_
@@ -4323,78 +4296,6 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.IsPrivateAddress
   fullName: Unosquare.Swan.Extensions.IsPrivateAddress
   nameWithType: Extensions.IsPrivateAddress
-- uid: Unosquare.Swan.Extensions.IsValueType(System.Type)
-  name: IsValueType(Type)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsValueType_System_Type_
-  commentId: M:Unosquare.Swan.Extensions.IsValueType(System.Type)
-  fullName: Unosquare.Swan.Extensions.IsValueType(System.Type)
-  nameWithType: Extensions.IsValueType(Type)
-- uid: Unosquare.Swan.Extensions.IsValueType*
-  name: IsValueType
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsValueType_
-  commentId: Overload:Unosquare.Swan.Extensions.IsValueType
-  fullName: Unosquare.Swan.Extensions.IsValueType
-  nameWithType: Extensions.IsValueType
-- uid: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken)
-  name: ReadBytesAsync(Stream, Int32, CancellationToken)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadBytesAsync_System_IO_Stream_System_Int32_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream, System.Int32, System.Threading.CancellationToken)
-  nameWithType: Extensions.ReadBytesAsync(Stream, Int32, CancellationToken)
-- uid: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int64,System.Int32,System.Threading.CancellationToken)
-  name: ReadBytesAsync(Stream, Int64, Int32, CancellationToken)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadBytesAsync_System_IO_Stream_System_Int64_System_Int32_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream,System.Int64,System.Int32,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Extensions.ReadBytesAsync(System.IO.Stream, System.Int64, System.Int32, System.Threading.CancellationToken)
-  nameWithType: Extensions.ReadBytesAsync(Stream, Int64, Int32, CancellationToken)
-- uid: Unosquare.Swan.Extensions.ReadBytesAsync*
-  name: ReadBytesAsync
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadBytesAsync_
-  commentId: Overload:Unosquare.Swan.Extensions.ReadBytesAsync
-  fullName: Unosquare.Swan.Extensions.ReadBytesAsync
-  nameWithType: Extensions.ReadBytesAsync
-- uid: Unosquare.Swan.Extensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)
-  name: ReadInput(Stream, ref SByte[], Int32, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadInput_System_IO_Stream_System_SByte____System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)
-  name.vb: ReadInput(Stream, ByRef SByte(), Int32, Int32)
-  fullName: Unosquare.Swan.Extensions.ReadInput(System.IO.Stream, ref System.SByte[], System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.Extensions.ReadInput(System.IO.Stream, ByRef System.SByte(), System.Int32, System.Int32)
-  nameWithType: Extensions.ReadInput(Stream, ref SByte[], Int32, Int32)
-  nameWithType.vb: Extensions.ReadInput(Stream, ByRef SByte(), Int32, Int32)
-- uid: Unosquare.Swan.Extensions.ReadInput*
-  name: ReadInput
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ReadInput_
-  commentId: Overload:Unosquare.Swan.Extensions.ReadInput
-  fullName: Unosquare.Swan.Extensions.ReadInput
-  nameWithType: Extensions.ReadInput
-- uid: Unosquare.Swan.Extensions.RemoveControlChars(System.String)
-  name: RemoveControlChars(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_RemoveControlChars_System_String_
-  commentId: M:Unosquare.Swan.Extensions.RemoveControlChars(System.String)
-  fullName: Unosquare.Swan.Extensions.RemoveControlChars(System.String)
-  nameWithType: Extensions.RemoveControlChars(String)
-- uid: Unosquare.Swan.Extensions.RemoveControlChars*
-  name: RemoveControlChars
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_RemoveControlChars_
-  commentId: Overload:Unosquare.Swan.Extensions.RemoveControlChars
-  fullName: Unosquare.Swan.Extensions.RemoveControlChars
-  nameWithType: Extensions.RemoveControlChars
-- uid: Unosquare.Swan.Extensions.RemoveControlCharsExcept(System.String,System.Char[])
-  name: RemoveControlCharsExcept(String, Char[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_RemoveControlCharsExcept_System_String_System_Char___
-  commentId: M:Unosquare.Swan.Extensions.RemoveControlCharsExcept(System.String,System.Char[])
-  name.vb: RemoveControlCharsExcept(String, Char())
-  fullName: Unosquare.Swan.Extensions.RemoveControlCharsExcept(System.String, System.Char[])
-  fullName.vb: Unosquare.Swan.Extensions.RemoveControlCharsExcept(System.String, System.Char())
-  nameWithType: Extensions.RemoveControlCharsExcept(String, Char[])
-  nameWithType.vb: Extensions.RemoveControlCharsExcept(String, Char())
-- uid: Unosquare.Swan.Extensions.RemoveControlCharsExcept*
-  name: RemoveControlCharsExcept
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_RemoveControlCharsExcept_
-  commentId: Overload:Unosquare.Swan.Extensions.RemoveControlCharsExcept
-  fullName: Unosquare.Swan.Extensions.RemoveControlCharsExcept
-  nameWithType: Extensions.RemoveControlCharsExcept
 - uid: Unosquare.Swan.Extensions.Retry(System.Action,System.TimeSpan,System.Int32)
   name: Retry(Action, TimeSpan, Int32)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Retry_System_Action_System_TimeSpan_System_Int32_
@@ -4416,369 +4317,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.Retry(Of T)(System.Func(Of T), System.TimeSpan, System.Int32)
   nameWithType: Extensions.Retry<T>(Func<T>, TimeSpan, Int32)
   nameWithType.vb: Extensions.Retry(Of T)(Func(Of T), TimeSpan, Int32)
-- uid: Unosquare.Swan.Extensions.RoundUp(System.DateTime,System.TimeSpan)
-  name: RoundUp(DateTime, TimeSpan)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_RoundUp_System_DateTime_System_TimeSpan_
-  commentId: M:Unosquare.Swan.Extensions.RoundUp(System.DateTime,System.TimeSpan)
-  fullName: Unosquare.Swan.Extensions.RoundUp(System.DateTime, System.TimeSpan)
-  nameWithType: Extensions.RoundUp(DateTime, TimeSpan)
-- uid: Unosquare.Swan.Extensions.RoundUp*
-  name: RoundUp
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_RoundUp_
-  commentId: Overload:Unosquare.Swan.Extensions.RoundUp
-  fullName: Unosquare.Swan.Extensions.RoundUp
-  nameWithType: Extensions.RoundUp
-- uid: Unosquare.Swan.Extensions.SetBitValueAt(System.Byte,System.Byte,System.Byte)
-  name: SetBitValueAt(Byte, Byte, Byte)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_
-  commentId: M:Unosquare.Swan.Extensions.SetBitValueAt(System.Byte,System.Byte,System.Byte)
-  fullName: Unosquare.Swan.Extensions.SetBitValueAt(System.Byte, System.Byte, System.Byte)
-  nameWithType: Extensions.SetBitValueAt(Byte, Byte, Byte)
-- uid: Unosquare.Swan.Extensions.SetBitValueAt(System.Byte,System.Byte,System.Byte,System.Byte)
-  name: SetBitValueAt(Byte, Byte, Byte, Byte)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SetBitValueAt_System_Byte_System_Byte_System_Byte_System_Byte_
-  commentId: M:Unosquare.Swan.Extensions.SetBitValueAt(System.Byte,System.Byte,System.Byte,System.Byte)
-  fullName: Unosquare.Swan.Extensions.SetBitValueAt(System.Byte, System.Byte, System.Byte, System.Byte)
-  nameWithType: Extensions.SetBitValueAt(Byte, Byte, Byte, Byte)
-- uid: Unosquare.Swan.Extensions.SetBitValueAt*
-  name: SetBitValueAt
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SetBitValueAt_
-  commentId: Overload:Unosquare.Swan.Extensions.SetBitValueAt
-  fullName: Unosquare.Swan.Extensions.SetBitValueAt
-  nameWithType: Extensions.SetBitValueAt
-- uid: Unosquare.Swan.Extensions.Slice(System.String,System.Int32,System.Int32)
-  name: Slice(String, Int32, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Slice_System_String_System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.Slice(System.String,System.Int32,System.Int32)
-  fullName: Unosquare.Swan.Extensions.Slice(System.String, System.Int32, System.Int32)
-  nameWithType: Extensions.Slice(String, Int32, Int32)
-- uid: Unosquare.Swan.Extensions.Slice*
-  name: Slice
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Slice_
-  commentId: Overload:Unosquare.Swan.Extensions.Slice
-  fullName: Unosquare.Swan.Extensions.Slice
-  nameWithType: Extensions.Slice
-- uid: Unosquare.Swan.Extensions.SliceLength(System.String,System.Int32,System.Int32)
-  name: SliceLength(String, Int32, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SliceLength_System_String_System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.SliceLength(System.String,System.Int32,System.Int32)
-  fullName: Unosquare.Swan.Extensions.SliceLength(System.String, System.Int32, System.Int32)
-  nameWithType: Extensions.SliceLength(String, Int32, Int32)
-- uid: Unosquare.Swan.Extensions.SliceLength*
-  name: SliceLength
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SliceLength_
-  commentId: Overload:Unosquare.Swan.Extensions.SliceLength
-  fullName: Unosquare.Swan.Extensions.SliceLength
-  nameWithType: Extensions.SliceLength
-- uid: Unosquare.Swan.Extensions.Split(System.Byte[],System.Int32,System.Byte[])
-  name: Split(Byte[], Int32, Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Split_System_Byte___System_Int32_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.Split(System.Byte[],System.Int32,System.Byte[])
-  name.vb: Split(Byte(), Int32, Byte())
-  fullName: Unosquare.Swan.Extensions.Split(System.Byte[], System.Int32, System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.Split(System.Byte(), System.Int32, System.Byte())
-  nameWithType: Extensions.Split(Byte[], Int32, Byte[])
-  nameWithType.vb: Extensions.Split(Byte(), Int32, Byte())
-- uid: Unosquare.Swan.Extensions.Split*
-  name: Split
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Split_
-  commentId: Overload:Unosquare.Swan.Extensions.Split
-  fullName: Unosquare.Swan.Extensions.Split
-  nameWithType: Extensions.Split
-- uid: Unosquare.Swan.Extensions.StartsWith(System.Byte[],System.Byte[])
-  name: StartsWith(Byte[], Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_StartsWith_System_Byte___System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.StartsWith(System.Byte[],System.Byte[])
-  name.vb: StartsWith(Byte(), Byte())
-  fullName: Unosquare.Swan.Extensions.StartsWith(System.Byte[], System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.StartsWith(System.Byte(), System.Byte())
-  nameWithType: Extensions.StartsWith(Byte[], Byte[])
-  nameWithType.vb: Extensions.StartsWith(Byte(), Byte())
-- uid: Unosquare.Swan.Extensions.StartsWith*
-  name: StartsWith
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_StartsWith_
-  commentId: Overload:Unosquare.Swan.Extensions.StartsWith
-  fullName: Unosquare.Swan.Extensions.StartsWith
-  nameWithType: Extensions.StartsWith
-- uid: Unosquare.Swan.Extensions.Stringify(System.Object)
-  name: Stringify(Object)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Stringify_System_Object_
-  commentId: M:Unosquare.Swan.Extensions.Stringify(System.Object)
-  fullName: Unosquare.Swan.Extensions.Stringify(System.Object)
-  nameWithType: Extensions.Stringify(Object)
-- uid: Unosquare.Swan.Extensions.Stringify*
-  name: Stringify
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Stringify_
-  commentId: Overload:Unosquare.Swan.Extensions.Stringify
-  fullName: Unosquare.Swan.Extensions.Stringify
-  nameWithType: Extensions.Stringify
-- uid: Unosquare.Swan.Extensions.SubArray*
-  name: SubArray
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SubArray_
-  commentId: Overload:Unosquare.Swan.Extensions.SubArray
-  fullName: Unosquare.Swan.Extensions.SubArray
-  nameWithType: Extensions.SubArray
-- uid: Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int32,System.Int32)
-  name: SubArray<T>(T[], Int32, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SubArray__1___0___System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int32,System.Int32)
-  name.vb: SubArray(Of T)(T(), Int32, Int32)
-  fullName: Unosquare.Swan.Extensions.SubArray<T>(T[], System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.Extensions.SubArray(Of T)(T(), System.Int32, System.Int32)
-  nameWithType: Extensions.SubArray<T>(T[], Int32, Int32)
-  nameWithType.vb: Extensions.SubArray(Of T)(T(), Int32, Int32)
-- uid: Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int64,System.Int64)
-  name: SubArray<T>(T[], Int64, Int64)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_SubArray__1___0___System_Int64_System_Int64_
-  commentId: M:Unosquare.Swan.Extensions.SubArray``1(``0[],System.Int64,System.Int64)
-  name.vb: SubArray(Of T)(T(), Int64, Int64)
-  fullName: Unosquare.Swan.Extensions.SubArray<T>(T[], System.Int64, System.Int64)
-  fullName.vb: Unosquare.Swan.Extensions.SubArray(Of T)(T(), System.Int64, System.Int64)
-  nameWithType: Extensions.SubArray<T>(T[], Int64, Int64)
-  nameWithType.vb: Extensions.SubArray(Of T)(T(), Int64, Int64)
-- uid: Unosquare.Swan.Extensions.TextPositionAt(System.String,System.Int32)
-  name: TextPositionAt(String, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TextPositionAt_System_String_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.TextPositionAt(System.String,System.Int32)
-  fullName: Unosquare.Swan.Extensions.TextPositionAt(System.String, System.Int32)
-  nameWithType: Extensions.TextPositionAt(String, Int32)
-- uid: Unosquare.Swan.Extensions.TextPositionAt*
-  name: TextPositionAt
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TextPositionAt_
-  commentId: Overload:Unosquare.Swan.Extensions.TextPositionAt
-  fullName: Unosquare.Swan.Extensions.TextPositionAt
-  nameWithType: Extensions.TextPositionAt
-- uid: Unosquare.Swan.Extensions.ToBase64(System.Byte[])
-  name: ToBase64(Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToBase64_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.ToBase64(System.Byte[])
-  name.vb: ToBase64(Byte())
-  fullName: Unosquare.Swan.Extensions.ToBase64(System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.ToBase64(System.Byte())
-  nameWithType: Extensions.ToBase64(Byte[])
-  nameWithType.vb: Extensions.ToBase64(Byte())
-- uid: Unosquare.Swan.Extensions.ToBase64*
-  name: ToBase64
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToBase64_
-  commentId: Overload:Unosquare.Swan.Extensions.ToBase64
-  fullName: Unosquare.Swan.Extensions.ToBase64
-  nameWithType: Extensions.ToBase64
-- uid: Unosquare.Swan.Extensions.ToByteArray(System.SByte[])
-  name: ToByteArray(SByte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToByteArray_System_SByte___
-  commentId: M:Unosquare.Swan.Extensions.ToByteArray(System.SByte[])
-  name.vb: ToByteArray(SByte())
-  fullName: Unosquare.Swan.Extensions.ToByteArray(System.SByte[])
-  fullName.vb: Unosquare.Swan.Extensions.ToByteArray(System.SByte())
-  nameWithType: Extensions.ToByteArray(SByte[])
-  nameWithType.vb: Extensions.ToByteArray(SByte())
-- uid: Unosquare.Swan.Extensions.ToByteArray*
-  name: ToByteArray
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToByteArray_
-  commentId: Overload:Unosquare.Swan.Extensions.ToByteArray
-  fullName: Unosquare.Swan.Extensions.ToByteArray
-  nameWithType: Extensions.ToByteArray
-- uid: Unosquare.Swan.Extensions.ToBytes*
-  name: ToBytes
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToBytes_
-  commentId: Overload:Unosquare.Swan.Extensions.ToBytes
-  fullName: Unosquare.Swan.Extensions.ToBytes
-  nameWithType: Extensions.ToBytes
-- uid: Unosquare.Swan.Extensions.ToBytes``1(``0)
-  name: ToBytes<T>(T)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToBytes__1___0_
-  commentId: M:Unosquare.Swan.Extensions.ToBytes``1(``0)
-  name.vb: ToBytes(Of T)(T)
-  fullName: Unosquare.Swan.Extensions.ToBytes<T>(T)
-  fullName.vb: Unosquare.Swan.Extensions.ToBytes(Of T)(T)
-  nameWithType: Extensions.ToBytes<T>(T)
-  nameWithType.vb: Extensions.ToBytes(Of T)(T)
-- uid: Unosquare.Swan.Extensions.ToDashedHex(System.Byte[])
-  name: ToDashedHex(Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToDashedHex_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.ToDashedHex(System.Byte[])
-  name.vb: ToDashedHex(Byte())
-  fullName: Unosquare.Swan.Extensions.ToDashedHex(System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.ToDashedHex(System.Byte())
-  nameWithType: Extensions.ToDashedHex(Byte[])
-  nameWithType.vb: Extensions.ToDashedHex(Byte())
-- uid: Unosquare.Swan.Extensions.ToDashedHex*
-  name: ToDashedHex
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToDashedHex_
-  commentId: Overload:Unosquare.Swan.Extensions.ToDashedHex
-  fullName: Unosquare.Swan.Extensions.ToDashedHex
-  nameWithType: Extensions.ToDashedHex
-- uid: Unosquare.Swan.Extensions.ToDateTime(System.String)
-  name: ToDateTime(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToDateTime_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ToDateTime(System.String)
-  fullName: Unosquare.Swan.Extensions.ToDateTime(System.String)
-  nameWithType: Extensions.ToDateTime(String)
-- uid: Unosquare.Swan.Extensions.ToDateTime*
-  name: ToDateTime
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToDateTime_
-  commentId: Overload:Unosquare.Swan.Extensions.ToDateTime
-  fullName: Unosquare.Swan.Extensions.ToDateTime
-  nameWithType: Extensions.ToDateTime
-- uid: Unosquare.Swan.Extensions.ToJson(System.Object,System.Boolean)
-  name: ToJson(Object, Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToJson_System_Object_System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ToJson(System.Object,System.Boolean)
-  fullName: Unosquare.Swan.Extensions.ToJson(System.Object, System.Boolean)
-  nameWithType: Extensions.ToJson(Object, Boolean)
-- uid: Unosquare.Swan.Extensions.ToJson*
-  name: ToJson
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToJson_
-  commentId: Overload:Unosquare.Swan.Extensions.ToJson
-  fullName: Unosquare.Swan.Extensions.ToJson
-  nameWithType: Extensions.ToJson
-- uid: Unosquare.Swan.Extensions.ToLines(System.String)
-  name: ToLines(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToLines_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ToLines(System.String)
-  fullName: Unosquare.Swan.Extensions.ToLines(System.String)
-  nameWithType: Extensions.ToLines(String)
-- uid: Unosquare.Swan.Extensions.ToLines*
-  name: ToLines
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToLines_
-  commentId: Overload:Unosquare.Swan.Extensions.ToLines
-  fullName: Unosquare.Swan.Extensions.ToLines
-  nameWithType: Extensions.ToLines
-- uid: Unosquare.Swan.Extensions.ToLowerHex(System.Byte[],System.Boolean)
-  name: ToLowerHex(Byte[], Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToLowerHex_System_Byte___System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ToLowerHex(System.Byte[],System.Boolean)
-  name.vb: ToLowerHex(Byte(), Boolean)
-  fullName: Unosquare.Swan.Extensions.ToLowerHex(System.Byte[], System.Boolean)
-  fullName.vb: Unosquare.Swan.Extensions.ToLowerHex(System.Byte(), System.Boolean)
-  nameWithType: Extensions.ToLowerHex(Byte[], Boolean)
-  nameWithType.vb: Extensions.ToLowerHex(Byte(), Boolean)
-- uid: Unosquare.Swan.Extensions.ToLowerHex*
-  name: ToLowerHex
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToLowerHex_
-  commentId: Overload:Unosquare.Swan.Extensions.ToLowerHex
-  fullName: Unosquare.Swan.Extensions.ToLowerHex
-  nameWithType: Extensions.ToLowerHex
-- uid: Unosquare.Swan.Extensions.ToSafeFilename(System.String)
-  name: ToSafeFilename(String)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSafeFilename_System_String_
-  commentId: M:Unosquare.Swan.Extensions.ToSafeFilename(System.String)
-  fullName: Unosquare.Swan.Extensions.ToSafeFilename(System.String)
-  nameWithType: Extensions.ToSafeFilename(String)
-- uid: Unosquare.Swan.Extensions.ToSafeFilename*
-  name: ToSafeFilename
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSafeFilename_
-  commentId: Overload:Unosquare.Swan.Extensions.ToSafeFilename
-  fullName: Unosquare.Swan.Extensions.ToSafeFilename
-  nameWithType: Extensions.ToSafeFilename
-- uid: Unosquare.Swan.Extensions.ToSByteArray(System.Byte[])
-  name: ToSByteArray(Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSByteArray_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.ToSByteArray(System.Byte[])
-  name.vb: ToSByteArray(Byte())
-  fullName: Unosquare.Swan.Extensions.ToSByteArray(System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.ToSByteArray(System.Byte())
-  nameWithType: Extensions.ToSByteArray(Byte[])
-  nameWithType.vb: Extensions.ToSByteArray(Byte())
-- uid: Unosquare.Swan.Extensions.ToSByteArray*
-  name: ToSByteArray
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSByteArray_
-  commentId: Overload:Unosquare.Swan.Extensions.ToSByteArray
-  fullName: Unosquare.Swan.Extensions.ToSByteArray
-  nameWithType: Extensions.ToSByteArray
-- uid: Unosquare.Swan.Extensions.ToSortableDate(System.DateTime)
-  name: ToSortableDate(DateTime)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSortableDate_System_DateTime_
-  commentId: M:Unosquare.Swan.Extensions.ToSortableDate(System.DateTime)
-  fullName: Unosquare.Swan.Extensions.ToSortableDate(System.DateTime)
-  nameWithType: Extensions.ToSortableDate(DateTime)
-- uid: Unosquare.Swan.Extensions.ToSortableDate*
-  name: ToSortableDate
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSortableDate_
-  commentId: Overload:Unosquare.Swan.Extensions.ToSortableDate
-  fullName: Unosquare.Swan.Extensions.ToSortableDate
-  nameWithType: Extensions.ToSortableDate
-- uid: Unosquare.Swan.Extensions.ToSortableDateTime(System.DateTime)
-  name: ToSortableDateTime(DateTime)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSortableDateTime_System_DateTime_
-  commentId: M:Unosquare.Swan.Extensions.ToSortableDateTime(System.DateTime)
-  fullName: Unosquare.Swan.Extensions.ToSortableDateTime(System.DateTime)
-  nameWithType: Extensions.ToSortableDateTime(DateTime)
-- uid: Unosquare.Swan.Extensions.ToSortableDateTime*
-  name: ToSortableDateTime
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToSortableDateTime_
-  commentId: Overload:Unosquare.Swan.Extensions.ToSortableDateTime
-  fullName: Unosquare.Swan.Extensions.ToSortableDateTime
-  nameWithType: Extensions.ToSortableDateTime
-- uid: Unosquare.Swan.Extensions.ToStringInvariant(System.Object)
-  name: ToStringInvariant(Object)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToStringInvariant_System_Object_
-  commentId: M:Unosquare.Swan.Extensions.ToStringInvariant(System.Object)
-  fullName: Unosquare.Swan.Extensions.ToStringInvariant(System.Object)
-  nameWithType: Extensions.ToStringInvariant(Object)
-- uid: Unosquare.Swan.Extensions.ToStringInvariant*
-  name: ToStringInvariant
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToStringInvariant_
-  commentId: Overload:Unosquare.Swan.Extensions.ToStringInvariant
-  fullName: Unosquare.Swan.Extensions.ToStringInvariant
-  nameWithType: Extensions.ToStringInvariant
-- uid: Unosquare.Swan.Extensions.ToStringInvariant``1(``0)
-  name: ToStringInvariant<T>(T)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToStringInvariant__1___0_
-  commentId: M:Unosquare.Swan.Extensions.ToStringInvariant``1(``0)
-  name.vb: ToStringInvariant(Of T)(T)
-  fullName: Unosquare.Swan.Extensions.ToStringInvariant<T>(T)
-  fullName.vb: Unosquare.Swan.Extensions.ToStringInvariant(Of T)(T)
-  nameWithType: Extensions.ToStringInvariant<T>(T)
-  nameWithType.vb: Extensions.ToStringInvariant(Of T)(T)
-- uid: Unosquare.Swan.Extensions.ToStruct*
-  name: ToStruct
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToStruct_
-  commentId: Overload:Unosquare.Swan.Extensions.ToStruct
-  fullName: Unosquare.Swan.Extensions.ToStruct
-  nameWithType: Extensions.ToStruct
-- uid: Unosquare.Swan.Extensions.ToStruct``1(System.Byte[])
-  name: ToStruct<T>(Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToStruct__1_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.ToStruct``1(System.Byte[])
-  name.vb: ToStruct(Of T)(Byte())
-  fullName: Unosquare.Swan.Extensions.ToStruct<T>(System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.ToStruct(Of T)(System.Byte())
-  nameWithType: Extensions.ToStruct<T>(Byte[])
-  nameWithType.vb: Extensions.ToStruct(Of T)(Byte())
-- uid: Unosquare.Swan.Extensions.ToStruct``1(System.Byte[],System.Int32,System.Int32)
-  name: ToStruct<T>(Byte[], Int32, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToStruct__1_System_Byte___System_Int32_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.ToStruct``1(System.Byte[],System.Int32,System.Int32)
-  name.vb: ToStruct(Of T)(Byte(), Int32, Int32)
-  fullName: Unosquare.Swan.Extensions.ToStruct<T>(System.Byte[], System.Int32, System.Int32)
-  fullName.vb: Unosquare.Swan.Extensions.ToStruct(Of T)(System.Byte(), System.Int32, System.Int32)
-  nameWithType: Extensions.ToStruct<T>(Byte[], Int32, Int32)
-  nameWithType.vb: Extensions.ToStruct(Of T)(Byte(), Int32, Int32)
-- uid: Unosquare.Swan.Extensions.ToText(System.Byte[])
-  name: ToText(Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToText_System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.ToText(System.Byte[])
-  name.vb: ToText(Byte())
-  fullName: Unosquare.Swan.Extensions.ToText(System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.ToText(System.Byte())
-  nameWithType: Extensions.ToText(Byte[])
-  nameWithType.vb: Extensions.ToText(Byte())
-- uid: Unosquare.Swan.Extensions.ToText(System.Byte[],System.Text.Encoding)
-  name: ToText(Byte[], Encoding)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToText_System_Byte___System_Text_Encoding_
-  commentId: M:Unosquare.Swan.Extensions.ToText(System.Byte[],System.Text.Encoding)
-  name.vb: ToText(Byte(), Encoding)
-  fullName: Unosquare.Swan.Extensions.ToText(System.Byte[], System.Text.Encoding)
-  fullName.vb: Unosquare.Swan.Extensions.ToText(System.Byte(), System.Text.Encoding)
-  nameWithType: Extensions.ToText(Byte[], Encoding)
-  nameWithType.vb: Extensions.ToText(Byte(), Encoding)
-- uid: Unosquare.Swan.Extensions.ToText*
-  name: ToText
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToText_
-  commentId: Overload:Unosquare.Swan.Extensions.ToText
-  fullName: Unosquare.Swan.Extensions.ToText
-  nameWithType: Extensions.ToText
 - uid: Unosquare.Swan.Extensions.ToUInt32(IPAddress)
   name: ToUInt32(IPAddress)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUInt32_IPAddress_
@@ -4791,105 +4329,6 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.ToUInt32
   fullName: Unosquare.Swan.Extensions.ToUInt32
   nameWithType: Extensions.ToUInt32
-- uid: Unosquare.Swan.Extensions.ToUnixEpochDate(System.DateTime)
-  name: ToUnixEpochDate(DateTime)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUnixEpochDate_System_DateTime_
-  commentId: M:Unosquare.Swan.Extensions.ToUnixEpochDate(System.DateTime)
-  fullName: Unosquare.Swan.Extensions.ToUnixEpochDate(System.DateTime)
-  nameWithType: Extensions.ToUnixEpochDate(DateTime)
-- uid: Unosquare.Swan.Extensions.ToUnixEpochDate*
-  name: ToUnixEpochDate
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUnixEpochDate_
-  commentId: Overload:Unosquare.Swan.Extensions.ToUnixEpochDate
-  fullName: Unosquare.Swan.Extensions.ToUnixEpochDate
-  nameWithType: Extensions.ToUnixEpochDate
-- uid: Unosquare.Swan.Extensions.ToUpperHex(System.Byte[],System.Boolean)
-  name: ToUpperHex(Byte[], Boolean)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUpperHex_System_Byte___System_Boolean_
-  commentId: M:Unosquare.Swan.Extensions.ToUpperHex(System.Byte[],System.Boolean)
-  name.vb: ToUpperHex(Byte(), Boolean)
-  fullName: Unosquare.Swan.Extensions.ToUpperHex(System.Byte[], System.Boolean)
-  fullName.vb: Unosquare.Swan.Extensions.ToUpperHex(System.Byte(), System.Boolean)
-  nameWithType: Extensions.ToUpperHex(Byte[], Boolean)
-  nameWithType.vb: Extensions.ToUpperHex(Byte(), Boolean)
-- uid: Unosquare.Swan.Extensions.ToUpperHex*
-  name: ToUpperHex
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUpperHex_
-  commentId: Overload:Unosquare.Swan.Extensions.ToUpperHex
-  fullName: Unosquare.Swan.Extensions.ToUpperHex
-  nameWithType: Extensions.ToUpperHex
-- uid: Unosquare.Swan.Extensions.Trim(System.Byte[],System.Byte[])
-  name: Trim(Byte[], Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Trim_System_Byte___System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.Trim(System.Byte[],System.Byte[])
-  name.vb: Trim(Byte(), Byte())
-  fullName: Unosquare.Swan.Extensions.Trim(System.Byte[], System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.Trim(System.Byte(), System.Byte())
-  nameWithType: Extensions.Trim(Byte[], Byte[])
-  nameWithType.vb: Extensions.Trim(Byte(), Byte())
-- uid: Unosquare.Swan.Extensions.Trim*
-  name: Trim
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Trim_
-  commentId: Overload:Unosquare.Swan.Extensions.Trim
-  fullName: Unosquare.Swan.Extensions.Trim
-  nameWithType: Extensions.Trim
-- uid: Unosquare.Swan.Extensions.TrimEnd(System.Byte[],System.Byte[])
-  name: TrimEnd(Byte[], Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TrimEnd_System_Byte___System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.TrimEnd(System.Byte[],System.Byte[])
-  name.vb: TrimEnd(Byte(), Byte())
-  fullName: Unosquare.Swan.Extensions.TrimEnd(System.Byte[], System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.TrimEnd(System.Byte(), System.Byte())
-  nameWithType: Extensions.TrimEnd(Byte[], Byte[])
-  nameWithType.vb: Extensions.TrimEnd(Byte(), Byte())
-- uid: Unosquare.Swan.Extensions.TrimEnd*
-  name: TrimEnd
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TrimEnd_
-  commentId: Overload:Unosquare.Swan.Extensions.TrimEnd
-  fullName: Unosquare.Swan.Extensions.TrimEnd
-  nameWithType: Extensions.TrimEnd
-- uid: Unosquare.Swan.Extensions.TrimStart(System.Byte[],System.Byte[])
-  name: TrimStart(Byte[], Byte[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TrimStart_System_Byte___System_Byte___
-  commentId: M:Unosquare.Swan.Extensions.TrimStart(System.Byte[],System.Byte[])
-  name.vb: TrimStart(Byte(), Byte())
-  fullName: Unosquare.Swan.Extensions.TrimStart(System.Byte[], System.Byte[])
-  fullName.vb: Unosquare.Swan.Extensions.TrimStart(System.Byte(), System.Byte())
-  nameWithType: Extensions.TrimStart(Byte[], Byte[])
-  nameWithType.vb: Extensions.TrimStart(Byte(), Byte())
-- uid: Unosquare.Swan.Extensions.TrimStart*
-  name: TrimStart
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TrimStart_
-  commentId: Overload:Unosquare.Swan.Extensions.TrimStart
-  fullName: Unosquare.Swan.Extensions.TrimStart
-  nameWithType: Extensions.TrimStart
-- uid: Unosquare.Swan.Extensions.Truncate(System.String,System.Int32)
-  name: Truncate(String, Int32)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Truncate_System_String_System_Int32_
-  commentId: M:Unosquare.Swan.Extensions.Truncate(System.String,System.Int32)
-  fullName: Unosquare.Swan.Extensions.Truncate(System.String, System.Int32)
-  nameWithType: Extensions.Truncate(String, Int32)
-- uid: Unosquare.Swan.Extensions.Truncate*
-  name: Truncate
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Truncate_
-  commentId: Overload:Unosquare.Swan.Extensions.Truncate
-  fullName: Unosquare.Swan.Extensions.Truncate
-  nameWithType: Extensions.Truncate
-- uid: Unosquare.Swan.Extensions.TryParseBasicType(System.Type,System.String,System.Object@)
-  name: TryParseBasicType(Type, String, out Object)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TryParseBasicType_System_Type_System_String_System_Object__
-  commentId: M:Unosquare.Swan.Extensions.TryParseBasicType(System.Type,System.String,System.Object@)
-  name.vb: TryParseBasicType(Type, String, ByRef Object)
-  fullName: Unosquare.Swan.Extensions.TryParseBasicType(System.Type, System.String, out System.Object)
-  fullName.vb: Unosquare.Swan.Extensions.TryParseBasicType(System.Type, System.String, ByRef System.Object)
-  nameWithType: Extensions.TryParseBasicType(Type, String, out Object)
-  nameWithType.vb: Extensions.TryParseBasicType(Type, String, ByRef Object)
-- uid: Unosquare.Swan.Extensions.TryParseBasicType*
-  name: TryParseBasicType
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_TryParseBasicType_
-  commentId: Overload:Unosquare.Swan.Extensions.TryParseBasicType
-  fullName: Unosquare.Swan.Extensions.TryParseBasicType
-  nameWithType: Extensions.TryParseBasicType
 - uid: Unosquare.Swan.Extensions.When*
   name: When
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_When_
@@ -9902,6 +9341,234 @@ references:
   fullName.vb: Unosquare.Swan.Reflection.TypeCache(Of T).Retrieve(Of TOut)(System.Func(Of System.Collections.Generic.IEnumerable(Of T)))
   nameWithType: TypeCache<T>.Retrieve<TOut>(Func<IEnumerable<T>>)
   nameWithType.vb: TypeCache(Of T).Retrieve(Of TOut)(Func(Of IEnumerable(Of T)))
+- uid: Unosquare.Swan.ReflectionExtensions
+  name: ReflectionExtensions
+  href: api/Unosquare.Swan.ReflectionExtensions.html
+  commentId: T:Unosquare.Swan.ReflectionExtensions
+  fullName: Unosquare.Swan.ReflectionExtensions
+  nameWithType: ReflectionExtensions
+- uid: Unosquare.Swan.ReflectionExtensions.Assembly(System.Type)
+  name: Assembly(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_Assembly_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.Assembly(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.Assembly(System.Type)
+  nameWithType: ReflectionExtensions.Assembly(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.Assembly*
+  name: Assembly
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_Assembly_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.Assembly
+  fullName: Unosquare.Swan.ReflectionExtensions.Assembly
+  nameWithType: ReflectionExtensions.Assembly
+- uid: Unosquare.Swan.ReflectionExtensions.BaseType(System.Type)
+  name: BaseType(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_BaseType_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.BaseType(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.BaseType(System.Type)
+  nameWithType: ReflectionExtensions.BaseType(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.BaseType*
+  name: BaseType
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_BaseType_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.BaseType
+  fullName: Unosquare.Swan.ReflectionExtensions.BaseType
+  nameWithType: ReflectionExtensions.BaseType
+- uid: Unosquare.Swan.ReflectionExtensions.GetAllTypes(System.Reflection.Assembly)
+  name: GetAllTypes(Assembly)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetAllTypes_System_Reflection_Assembly_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.GetAllTypes(System.Reflection.Assembly)
+  fullName: Unosquare.Swan.ReflectionExtensions.GetAllTypes(System.Reflection.Assembly)
+  nameWithType: ReflectionExtensions.GetAllTypes(Assembly)
+- uid: Unosquare.Swan.ReflectionExtensions.GetAllTypes*
+  name: GetAllTypes
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetAllTypes_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetAllTypes
+  fullName: Unosquare.Swan.ReflectionExtensions.GetAllTypes
+  nameWithType: ReflectionExtensions.GetAllTypes
+- uid: Unosquare.Swan.ReflectionExtensions.GetCustomAttributes(System.Type,System.Type,System.Boolean)
+  name: GetCustomAttributes(Type, Type, Boolean)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetCustomAttributes_System_Type_System_Type_System_Boolean_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.GetCustomAttributes(System.Type,System.Type,System.Boolean)
+  fullName: Unosquare.Swan.ReflectionExtensions.GetCustomAttributes(System.Type, System.Type, System.Boolean)
+  nameWithType: ReflectionExtensions.GetCustomAttributes(Type, Type, Boolean)
+- uid: Unosquare.Swan.ReflectionExtensions.GetCustomAttributes*
+  name: GetCustomAttributes
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetCustomAttributes_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetCustomAttributes
+  fullName: Unosquare.Swan.ReflectionExtensions.GetCustomAttributes
+  nameWithType: ReflectionExtensions.GetCustomAttributes
+- uid: Unosquare.Swan.ReflectionExtensions.GetDefault(System.Type)
+  name: GetDefault(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetDefault_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.GetDefault(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.GetDefault(System.Type)
+  nameWithType: ReflectionExtensions.GetDefault(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.GetDefault*
+  name: GetDefault
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetDefault_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetDefault
+  fullName: Unosquare.Swan.ReflectionExtensions.GetDefault
+  nameWithType: ReflectionExtensions.GetDefault
+- uid: Unosquare.Swan.ReflectionExtensions.GetMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
+  name: GetMethod(Type, BindingFlags, String, Type[], Type[])
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetMethod_System_Type_System_Reflection_BindingFlags_System_String_System_Type___System_Type___
+  commentId: M:Unosquare.Swan.ReflectionExtensions.GetMethod(System.Type,System.Reflection.BindingFlags,System.String,System.Type[],System.Type[])
+  name.vb: GetMethod(Type, BindingFlags, String, Type(), Type())
+  fullName: Unosquare.Swan.ReflectionExtensions.GetMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type[], System.Type[])
+  fullName.vb: Unosquare.Swan.ReflectionExtensions.GetMethod(System.Type, System.Reflection.BindingFlags, System.String, System.Type(), System.Type())
+  nameWithType: ReflectionExtensions.GetMethod(Type, BindingFlags, String, Type[], Type[])
+  nameWithType.vb: ReflectionExtensions.GetMethod(Type, BindingFlags, String, Type(), Type())
+- uid: Unosquare.Swan.ReflectionExtensions.GetMethod*
+  name: GetMethod
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetMethod_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetMethod
+  fullName: Unosquare.Swan.ReflectionExtensions.GetMethod
+  nameWithType: ReflectionExtensions.GetMethod
+- uid: Unosquare.Swan.ReflectionExtensions.IsAbstract(System.Type)
+  name: IsAbstract(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsAbstract_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsAbstract(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsAbstract(System.Type)
+  nameWithType: ReflectionExtensions.IsAbstract(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsAbstract*
+  name: IsAbstract
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsAbstract_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsAbstract
+  fullName: Unosquare.Swan.ReflectionExtensions.IsAbstract
+  nameWithType: ReflectionExtensions.IsAbstract
+- uid: Unosquare.Swan.ReflectionExtensions.IsClass(System.Type)
+  name: IsClass(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsClass_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsClass(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsClass(System.Type)
+  nameWithType: ReflectionExtensions.IsClass(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsClass*
+  name: IsClass
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsClass_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsClass
+  fullName: Unosquare.Swan.ReflectionExtensions.IsClass
+  nameWithType: ReflectionExtensions.IsClass
+- uid: Unosquare.Swan.ReflectionExtensions.IsCollection(System.Type)
+  name: IsCollection(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsCollection_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsCollection(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsCollection(System.Type)
+  nameWithType: ReflectionExtensions.IsCollection(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsCollection*
+  name: IsCollection
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsCollection_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsCollection
+  fullName: Unosquare.Swan.ReflectionExtensions.IsCollection
+  nameWithType: ReflectionExtensions.IsCollection
+- uid: Unosquare.Swan.ReflectionExtensions.IsDefined(System.Type,System.Type,System.Boolean)
+  name: IsDefined(Type, Type, Boolean)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsDefined_System_Type_System_Type_System_Boolean_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsDefined(System.Type,System.Type,System.Boolean)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsDefined(System.Type, System.Type, System.Boolean)
+  nameWithType: ReflectionExtensions.IsDefined(Type, Type, Boolean)
+- uid: Unosquare.Swan.ReflectionExtensions.IsDefined*
+  name: IsDefined
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsDefined_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsDefined
+  fullName: Unosquare.Swan.ReflectionExtensions.IsDefined
+  nameWithType: ReflectionExtensions.IsDefined
+- uid: Unosquare.Swan.ReflectionExtensions.IsGenericParameter(System.Type)
+  name: IsGenericParameter(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsGenericParameter_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsGenericParameter(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsGenericParameter(System.Type)
+  nameWithType: ReflectionExtensions.IsGenericParameter(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsGenericParameter*
+  name: IsGenericParameter
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsGenericParameter_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsGenericParameter
+  fullName: Unosquare.Swan.ReflectionExtensions.IsGenericParameter
+  nameWithType: ReflectionExtensions.IsGenericParameter
+- uid: Unosquare.Swan.ReflectionExtensions.IsGenericType(System.Type)
+  name: IsGenericType(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsGenericType_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsGenericType(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsGenericType(System.Type)
+  nameWithType: ReflectionExtensions.IsGenericType(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsGenericType*
+  name: IsGenericType
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsGenericType_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsGenericType
+  fullName: Unosquare.Swan.ReflectionExtensions.IsGenericType
+  nameWithType: ReflectionExtensions.IsGenericType
+- uid: Unosquare.Swan.ReflectionExtensions.IsGenericTypeDefinition(System.Type)
+  name: IsGenericTypeDefinition(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsGenericTypeDefinition_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsGenericTypeDefinition(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsGenericTypeDefinition(System.Type)
+  nameWithType: ReflectionExtensions.IsGenericTypeDefinition(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsGenericTypeDefinition*
+  name: IsGenericTypeDefinition
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsGenericTypeDefinition_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsGenericTypeDefinition
+  fullName: Unosquare.Swan.ReflectionExtensions.IsGenericTypeDefinition
+  nameWithType: ReflectionExtensions.IsGenericTypeDefinition
+- uid: Unosquare.Swan.ReflectionExtensions.IsIEnumerable(System.Type)
+  name: IsIEnumerable(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsIEnumerable_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsIEnumerable(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsIEnumerable(System.Type)
+  nameWithType: ReflectionExtensions.IsIEnumerable(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsIEnumerable*
+  name: IsIEnumerable
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsIEnumerable_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsIEnumerable
+  fullName: Unosquare.Swan.ReflectionExtensions.IsIEnumerable
+  nameWithType: ReflectionExtensions.IsIEnumerable
+- uid: Unosquare.Swan.ReflectionExtensions.IsInterface(System.Type)
+  name: IsInterface(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsInterface_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsInterface(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsInterface(System.Type)
+  nameWithType: ReflectionExtensions.IsInterface(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsInterface*
+  name: IsInterface
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsInterface_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsInterface
+  fullName: Unosquare.Swan.ReflectionExtensions.IsInterface
+  nameWithType: ReflectionExtensions.IsInterface
+- uid: Unosquare.Swan.ReflectionExtensions.IsPrimitive(System.Type)
+  name: IsPrimitive(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsPrimitive_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsPrimitive(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsPrimitive(System.Type)
+  nameWithType: ReflectionExtensions.IsPrimitive(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsPrimitive*
+  name: IsPrimitive
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsPrimitive_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsPrimitive
+  fullName: Unosquare.Swan.ReflectionExtensions.IsPrimitive
+  nameWithType: ReflectionExtensions.IsPrimitive
+- uid: Unosquare.Swan.ReflectionExtensions.IsValueType(System.Type)
+  name: IsValueType(Type)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsValueType_System_Type_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.IsValueType(System.Type)
+  fullName: Unosquare.Swan.ReflectionExtensions.IsValueType(System.Type)
+  nameWithType: ReflectionExtensions.IsValueType(Type)
+- uid: Unosquare.Swan.ReflectionExtensions.IsValueType*
+  name: IsValueType
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsValueType_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.IsValueType
+  fullName: Unosquare.Swan.ReflectionExtensions.IsValueType
+  nameWithType: ReflectionExtensions.IsValueType
+- uid: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type,System.String,System.Object@)
+  name: TryParseBasicType(Type, String, out Object)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TryParseBasicType_System_Type_System_String_System_Object__
+  commentId: M:Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type,System.String,System.Object@)
+  name.vb: TryParseBasicType(Type, String, ByRef Object)
+  fullName: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type, System.String, out System.Object)
+  fullName.vb: Unosquare.Swan.ReflectionExtensions.TryParseBasicType(System.Type, System.String, ByRef System.Object)
+  nameWithType: ReflectionExtensions.TryParseBasicType(Type, String, out Object)
+  nameWithType.vb: ReflectionExtensions.TryParseBasicType(Type, String, ByRef Object)
+- uid: Unosquare.Swan.ReflectionExtensions.TryParseBasicType*
+  name: TryParseBasicType
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_TryParseBasicType_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.TryParseBasicType
+  fullName: Unosquare.Swan.ReflectionExtensions.TryParseBasicType
+  nameWithType: ReflectionExtensions.TryParseBasicType
 - uid: Unosquare.Swan.Runtime
   name: Runtime
   href: api/Unosquare.Swan.Runtime.html
@@ -10508,6 +10175,288 @@ references:
   commentId: F:Unosquare.Swan.SmtpStatusCode.UserNotLocalWillForward
   fullName: Unosquare.Swan.SmtpStatusCode.UserNotLocalWillForward
   nameWithType: SmtpStatusCode.UserNotLocalWillForward
+- uid: Unosquare.Swan.StringExtensions
+  name: StringExtensions
+  href: api/Unosquare.Swan.StringExtensions.html
+  commentId: T:Unosquare.Swan.StringExtensions
+  fullName: Unosquare.Swan.StringExtensions
+  nameWithType: StringExtensions
+- uid: Unosquare.Swan.StringExtensions.ComputeMD5(System.Byte[],System.Boolean)
+  name: ComputeMD5(Byte[], Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeMD5_System_Byte___System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.ComputeMD5(System.Byte[],System.Boolean)
+  name.vb: ComputeMD5(Byte(), Boolean)
+  fullName: Unosquare.Swan.StringExtensions.ComputeMD5(System.Byte[], System.Boolean)
+  fullName.vb: Unosquare.Swan.StringExtensions.ComputeMD5(System.Byte(), System.Boolean)
+  nameWithType: StringExtensions.ComputeMD5(Byte[], Boolean)
+  nameWithType.vb: StringExtensions.ComputeMD5(Byte(), Boolean)
+- uid: Unosquare.Swan.StringExtensions.ComputeMD5(System.IO.Stream,System.Boolean)
+  name: ComputeMD5(Stream, Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeMD5_System_IO_Stream_System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.ComputeMD5(System.IO.Stream,System.Boolean)
+  fullName: Unosquare.Swan.StringExtensions.ComputeMD5(System.IO.Stream, System.Boolean)
+  nameWithType: StringExtensions.ComputeMD5(Stream, Boolean)
+- uid: Unosquare.Swan.StringExtensions.ComputeMD5(System.String,System.Boolean)
+  name: ComputeMD5(String, Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeMD5_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.ComputeMD5(System.String,System.Boolean)
+  fullName: Unosquare.Swan.StringExtensions.ComputeMD5(System.String, System.Boolean)
+  nameWithType: StringExtensions.ComputeMD5(String, Boolean)
+- uid: Unosquare.Swan.StringExtensions.ComputeMD5*
+  name: ComputeMD5
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeMD5_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ComputeMD5
+  fullName: Unosquare.Swan.StringExtensions.ComputeMD5
+  nameWithType: StringExtensions.ComputeMD5
+- uid: Unosquare.Swan.StringExtensions.ComputeSha1(System.String,System.Boolean)
+  name: ComputeSha1(String, Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeSha1_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.ComputeSha1(System.String,System.Boolean)
+  fullName: Unosquare.Swan.StringExtensions.ComputeSha1(System.String, System.Boolean)
+  nameWithType: StringExtensions.ComputeSha1(String, Boolean)
+- uid: Unosquare.Swan.StringExtensions.ComputeSha1*
+  name: ComputeSha1
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeSha1_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ComputeSha1
+  fullName: Unosquare.Swan.StringExtensions.ComputeSha1
+  nameWithType: StringExtensions.ComputeSha1
+- uid: Unosquare.Swan.StringExtensions.ComputeSha256(System.String,System.Boolean)
+  name: ComputeSha256(String, Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeSha256_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.ComputeSha256(System.String,System.Boolean)
+  fullName: Unosquare.Swan.StringExtensions.ComputeSha256(System.String, System.Boolean)
+  nameWithType: StringExtensions.ComputeSha256(String, Boolean)
+- uid: Unosquare.Swan.StringExtensions.ComputeSha256*
+  name: ComputeSha256
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeSha256_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ComputeSha256
+  fullName: Unosquare.Swan.StringExtensions.ComputeSha256
+  nameWithType: StringExtensions.ComputeSha256
+- uid: Unosquare.Swan.StringExtensions.ComputeSha512(System.String,System.Boolean)
+  name: ComputeSha512(String, Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeSha512_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.ComputeSha512(System.String,System.Boolean)
+  fullName: Unosquare.Swan.StringExtensions.ComputeSha512(System.String, System.Boolean)
+  nameWithType: StringExtensions.ComputeSha512(String, Boolean)
+- uid: Unosquare.Swan.StringExtensions.ComputeSha512*
+  name: ComputeSha512
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ComputeSha512_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ComputeSha512
+  fullName: Unosquare.Swan.StringExtensions.ComputeSha512
+  nameWithType: StringExtensions.ComputeSha512
+- uid: Unosquare.Swan.StringExtensions.Contains(System.String,System.Char[])
+  name: Contains(String, Char[])
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Contains_System_String_System_Char___
+  commentId: M:Unosquare.Swan.StringExtensions.Contains(System.String,System.Char[])
+  name.vb: Contains(String, Char())
+  fullName: Unosquare.Swan.StringExtensions.Contains(System.String, System.Char[])
+  fullName.vb: Unosquare.Swan.StringExtensions.Contains(System.String, System.Char())
+  nameWithType: StringExtensions.Contains(String, Char[])
+  nameWithType.vb: StringExtensions.Contains(String, Char())
+- uid: Unosquare.Swan.StringExtensions.Contains*
+  name: Contains
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Contains_
+  commentId: Overload:Unosquare.Swan.StringExtensions.Contains
+  fullName: Unosquare.Swan.StringExtensions.Contains
+  nameWithType: StringExtensions.Contains
+- uid: Unosquare.Swan.StringExtensions.FormatBytes(System.Int64)
+  name: FormatBytes(Int64)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_FormatBytes_System_Int64_
+  commentId: M:Unosquare.Swan.StringExtensions.FormatBytes(System.Int64)
+  fullName: Unosquare.Swan.StringExtensions.FormatBytes(System.Int64)
+  nameWithType: StringExtensions.FormatBytes(Int64)
+- uid: Unosquare.Swan.StringExtensions.FormatBytes(System.UInt64)
+  name: FormatBytes(UInt64)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_FormatBytes_System_UInt64_
+  commentId: M:Unosquare.Swan.StringExtensions.FormatBytes(System.UInt64)
+  fullName: Unosquare.Swan.StringExtensions.FormatBytes(System.UInt64)
+  nameWithType: StringExtensions.FormatBytes(UInt64)
+- uid: Unosquare.Swan.StringExtensions.FormatBytes*
+  name: FormatBytes
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_FormatBytes_
+  commentId: Overload:Unosquare.Swan.StringExtensions.FormatBytes
+  fullName: Unosquare.Swan.StringExtensions.FormatBytes
+  nameWithType: StringExtensions.FormatBytes
+- uid: Unosquare.Swan.StringExtensions.Hex2Int(System.Char)
+  name: Hex2Int(Char)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Hex2Int_System_Char_
+  commentId: M:Unosquare.Swan.StringExtensions.Hex2Int(System.Char)
+  fullName: Unosquare.Swan.StringExtensions.Hex2Int(System.Char)
+  nameWithType: StringExtensions.Hex2Int(Char)
+- uid: Unosquare.Swan.StringExtensions.Hex2Int*
+  name: Hex2Int
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Hex2Int_
+  commentId: Overload:Unosquare.Swan.StringExtensions.Hex2Int
+  fullName: Unosquare.Swan.StringExtensions.Hex2Int
+  nameWithType: StringExtensions.Hex2Int
+- uid: Unosquare.Swan.StringExtensions.Humanize(System.String)
+  name: Humanize(String)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Humanize_System_String_
+  commentId: M:Unosquare.Swan.StringExtensions.Humanize(System.String)
+  fullName: Unosquare.Swan.StringExtensions.Humanize(System.String)
+  nameWithType: StringExtensions.Humanize(String)
+- uid: Unosquare.Swan.StringExtensions.Humanize*
+  name: Humanize
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Humanize_
+  commentId: Overload:Unosquare.Swan.StringExtensions.Humanize
+  fullName: Unosquare.Swan.StringExtensions.Humanize
+  nameWithType: StringExtensions.Humanize
+- uid: Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32)
+  name: Indent(String, Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Indent_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.Indent(System.String,System.Int32)
+  fullName: Unosquare.Swan.StringExtensions.Indent(System.String, System.Int32)
+  nameWithType: StringExtensions.Indent(String, Int32)
+- uid: Unosquare.Swan.StringExtensions.Indent*
+  name: Indent
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Indent_
+  commentId: Overload:Unosquare.Swan.StringExtensions.Indent
+  fullName: Unosquare.Swan.StringExtensions.Indent
+  nameWithType: StringExtensions.Indent
+- uid: Unosquare.Swan.StringExtensions.RemoveControlChars(System.String)
+  name: RemoveControlChars(String)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_RemoveControlChars_System_String_
+  commentId: M:Unosquare.Swan.StringExtensions.RemoveControlChars(System.String)
+  fullName: Unosquare.Swan.StringExtensions.RemoveControlChars(System.String)
+  nameWithType: StringExtensions.RemoveControlChars(String)
+- uid: Unosquare.Swan.StringExtensions.RemoveControlChars*
+  name: RemoveControlChars
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_RemoveControlChars_
+  commentId: Overload:Unosquare.Swan.StringExtensions.RemoveControlChars
+  fullName: Unosquare.Swan.StringExtensions.RemoveControlChars
+  nameWithType: StringExtensions.RemoveControlChars
+- uid: Unosquare.Swan.StringExtensions.RemoveControlCharsExcept(System.String,System.Char[])
+  name: RemoveControlCharsExcept(String, Char[])
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_RemoveControlCharsExcept_System_String_System_Char___
+  commentId: M:Unosquare.Swan.StringExtensions.RemoveControlCharsExcept(System.String,System.Char[])
+  name.vb: RemoveControlCharsExcept(String, Char())
+  fullName: Unosquare.Swan.StringExtensions.RemoveControlCharsExcept(System.String, System.Char[])
+  fullName.vb: Unosquare.Swan.StringExtensions.RemoveControlCharsExcept(System.String, System.Char())
+  nameWithType: StringExtensions.RemoveControlCharsExcept(String, Char[])
+  nameWithType.vb: StringExtensions.RemoveControlCharsExcept(String, Char())
+- uid: Unosquare.Swan.StringExtensions.RemoveControlCharsExcept*
+  name: RemoveControlCharsExcept
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_RemoveControlCharsExcept_
+  commentId: Overload:Unosquare.Swan.StringExtensions.RemoveControlCharsExcept
+  fullName: Unosquare.Swan.StringExtensions.RemoveControlCharsExcept
+  nameWithType: StringExtensions.RemoveControlCharsExcept
+- uid: Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32,System.Int32)
+  name: Slice(String, Int32, Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Slice_System_String_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32,System.Int32)
+  fullName: Unosquare.Swan.StringExtensions.Slice(System.String, System.Int32, System.Int32)
+  nameWithType: StringExtensions.Slice(String, Int32, Int32)
+- uid: Unosquare.Swan.StringExtensions.Slice*
+  name: Slice
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Slice_
+  commentId: Overload:Unosquare.Swan.StringExtensions.Slice
+  fullName: Unosquare.Swan.StringExtensions.Slice
+  nameWithType: StringExtensions.Slice
+- uid: Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32,System.Int32)
+  name: SliceLength(String, Int32, Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_SliceLength_System_String_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.SliceLength(System.String,System.Int32,System.Int32)
+  fullName: Unosquare.Swan.StringExtensions.SliceLength(System.String, System.Int32, System.Int32)
+  nameWithType: StringExtensions.SliceLength(String, Int32, Int32)
+- uid: Unosquare.Swan.StringExtensions.SliceLength*
+  name: SliceLength
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_SliceLength_
+  commentId: Overload:Unosquare.Swan.StringExtensions.SliceLength
+  fullName: Unosquare.Swan.StringExtensions.SliceLength
+  nameWithType: StringExtensions.SliceLength
+- uid: Unosquare.Swan.StringExtensions.Stringify(System.Object)
+  name: Stringify(Object)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Stringify_System_Object_
+  commentId: M:Unosquare.Swan.StringExtensions.Stringify(System.Object)
+  fullName: Unosquare.Swan.StringExtensions.Stringify(System.Object)
+  nameWithType: StringExtensions.Stringify(Object)
+- uid: Unosquare.Swan.StringExtensions.Stringify*
+  name: Stringify
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Stringify_
+  commentId: Overload:Unosquare.Swan.StringExtensions.Stringify
+  fullName: Unosquare.Swan.StringExtensions.Stringify
+  nameWithType: StringExtensions.Stringify
+- uid: Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32)
+  name: TextPositionAt(String, Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_TextPositionAt_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.TextPositionAt(System.String,System.Int32)
+  fullName: Unosquare.Swan.StringExtensions.TextPositionAt(System.String, System.Int32)
+  nameWithType: StringExtensions.TextPositionAt(String, Int32)
+- uid: Unosquare.Swan.StringExtensions.TextPositionAt*
+  name: TextPositionAt
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_TextPositionAt_
+  commentId: Overload:Unosquare.Swan.StringExtensions.TextPositionAt
+  fullName: Unosquare.Swan.StringExtensions.TextPositionAt
+  nameWithType: StringExtensions.TextPositionAt
+- uid: Unosquare.Swan.StringExtensions.ToJson(System.Object,System.Boolean)
+  name: ToJson(Object, Boolean)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToJson_System_Object_System_Boolean_
+  commentId: M:Unosquare.Swan.StringExtensions.ToJson(System.Object,System.Boolean)
+  fullName: Unosquare.Swan.StringExtensions.ToJson(System.Object, System.Boolean)
+  nameWithType: StringExtensions.ToJson(Object, Boolean)
+- uid: Unosquare.Swan.StringExtensions.ToJson*
+  name: ToJson
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToJson_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ToJson
+  fullName: Unosquare.Swan.StringExtensions.ToJson
+  nameWithType: StringExtensions.ToJson
+- uid: Unosquare.Swan.StringExtensions.ToLines(System.String)
+  name: ToLines(String)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToLines_System_String_
+  commentId: M:Unosquare.Swan.StringExtensions.ToLines(System.String)
+  fullName: Unosquare.Swan.StringExtensions.ToLines(System.String)
+  nameWithType: StringExtensions.ToLines(String)
+- uid: Unosquare.Swan.StringExtensions.ToLines*
+  name: ToLines
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToLines_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ToLines
+  fullName: Unosquare.Swan.StringExtensions.ToLines
+  nameWithType: StringExtensions.ToLines
+- uid: Unosquare.Swan.StringExtensions.ToSafeFilename(System.String)
+  name: ToSafeFilename(String)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToSafeFilename_System_String_
+  commentId: M:Unosquare.Swan.StringExtensions.ToSafeFilename(System.String)
+  fullName: Unosquare.Swan.StringExtensions.ToSafeFilename(System.String)
+  nameWithType: StringExtensions.ToSafeFilename(String)
+- uid: Unosquare.Swan.StringExtensions.ToSafeFilename*
+  name: ToSafeFilename
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToSafeFilename_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ToSafeFilename
+  fullName: Unosquare.Swan.StringExtensions.ToSafeFilename
+  nameWithType: StringExtensions.ToSafeFilename
+- uid: Unosquare.Swan.StringExtensions.ToStringInvariant(System.Object)
+  name: ToStringInvariant(Object)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToStringInvariant_System_Object_
+  commentId: M:Unosquare.Swan.StringExtensions.ToStringInvariant(System.Object)
+  fullName: Unosquare.Swan.StringExtensions.ToStringInvariant(System.Object)
+  nameWithType: StringExtensions.ToStringInvariant(Object)
+- uid: Unosquare.Swan.StringExtensions.ToStringInvariant*
+  name: ToStringInvariant
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToStringInvariant_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ToStringInvariant
+  fullName: Unosquare.Swan.StringExtensions.ToStringInvariant
+  nameWithType: StringExtensions.ToStringInvariant
+- uid: Unosquare.Swan.StringExtensions.ToStringInvariant``1(``0)
+  name: ToStringInvariant<T>(T)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ToStringInvariant__1___0_
+  commentId: M:Unosquare.Swan.StringExtensions.ToStringInvariant``1(``0)
+  name.vb: ToStringInvariant(Of T)(T)
+  fullName: Unosquare.Swan.StringExtensions.ToStringInvariant<T>(T)
+  fullName.vb: Unosquare.Swan.StringExtensions.ToStringInvariant(Of T)(T)
+  nameWithType: StringExtensions.ToStringInvariant<T>(T)
+  nameWithType.vb: StringExtensions.ToStringInvariant(Of T)(T)
+- uid: Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32)
+  name: Truncate(String, Int32)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32)
+  fullName: Unosquare.Swan.StringExtensions.Truncate(System.String, System.Int32)
+  nameWithType: StringExtensions.Truncate(String, Int32)
+- uid: Unosquare.Swan.StringExtensions.Truncate*
+  name: Truncate
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_
+  commentId: Overload:Unosquare.Swan.StringExtensions.Truncate
+  fullName: Unosquare.Swan.StringExtensions.Truncate
+  nameWithType: StringExtensions.Truncate
 - uid: Unosquare.Swan.Terminal
   name: Terminal
   href: api/Unosquare.Swan.Terminal.html
@@ -11183,3 +11132,78 @@ references:
   commentId: F:Unosquare.Swan.TerminalWriters.StandardOutput
   fullName: Unosquare.Swan.TerminalWriters.StandardOutput
   nameWithType: TerminalWriters.StandardOutput
+- uid: Unosquare.Swan.ValueTypeExtensions
+  name: ValueTypeExtensions
+  href: api/Unosquare.Swan.ValueTypeExtensions.html
+  commentId: T:Unosquare.Swan.ValueTypeExtensions
+  fullName: Unosquare.Swan.ValueTypeExtensions
+  nameWithType: ValueTypeExtensions
+- uid: Unosquare.Swan.ValueTypeExtensions.Clamp*
+  name: Clamp
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_Clamp_
+  commentId: Overload:Unosquare.Swan.ValueTypeExtensions.Clamp
+  fullName: Unosquare.Swan.ValueTypeExtensions.Clamp
+  nameWithType: ValueTypeExtensions.Clamp
+- uid: Unosquare.Swan.ValueTypeExtensions.Clamp``1(``0,``0,``0)
+  name: Clamp<T>(T, T, T)
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_Clamp__1___0___0___0_
+  commentId: M:Unosquare.Swan.ValueTypeExtensions.Clamp``1(``0,``0,``0)
+  name.vb: Clamp(Of T)(T, T, T)
+  fullName: Unosquare.Swan.ValueTypeExtensions.Clamp<T>(T, T, T)
+  fullName.vb: Unosquare.Swan.ValueTypeExtensions.Clamp(Of T)(T, T, T)
+  nameWithType: ValueTypeExtensions.Clamp<T>(T, T, T)
+  nameWithType.vb: ValueTypeExtensions.Clamp(Of T)(T, T, T)
+- uid: Unosquare.Swan.ValueTypeExtensions.IsBetween*
+  name: IsBetween
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_IsBetween_
+  commentId: Overload:Unosquare.Swan.ValueTypeExtensions.IsBetween
+  fullName: Unosquare.Swan.ValueTypeExtensions.IsBetween
+  nameWithType: ValueTypeExtensions.IsBetween
+- uid: Unosquare.Swan.ValueTypeExtensions.IsBetween``1(``0,``0,``0)
+  name: IsBetween<T>(T, T, T)
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_IsBetween__1___0___0___0_
+  commentId: M:Unosquare.Swan.ValueTypeExtensions.IsBetween``1(``0,``0,``0)
+  name.vb: IsBetween(Of T)(T, T, T)
+  fullName: Unosquare.Swan.ValueTypeExtensions.IsBetween<T>(T, T, T)
+  fullName.vb: Unosquare.Swan.ValueTypeExtensions.IsBetween(Of T)(T, T, T)
+  nameWithType: ValueTypeExtensions.IsBetween<T>(T, T, T)
+  nameWithType.vb: ValueTypeExtensions.IsBetween(Of T)(T, T, T)
+- uid: Unosquare.Swan.ValueTypeExtensions.ToBytes*
+  name: ToBytes
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_ToBytes_
+  commentId: Overload:Unosquare.Swan.ValueTypeExtensions.ToBytes
+  fullName: Unosquare.Swan.ValueTypeExtensions.ToBytes
+  nameWithType: ValueTypeExtensions.ToBytes
+- uid: Unosquare.Swan.ValueTypeExtensions.ToBytes``1(``0)
+  name: ToBytes<T>(T)
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_ToBytes__1___0_
+  commentId: M:Unosquare.Swan.ValueTypeExtensions.ToBytes``1(``0)
+  name.vb: ToBytes(Of T)(T)
+  fullName: Unosquare.Swan.ValueTypeExtensions.ToBytes<T>(T)
+  fullName.vb: Unosquare.Swan.ValueTypeExtensions.ToBytes(Of T)(T)
+  nameWithType: ValueTypeExtensions.ToBytes<T>(T)
+  nameWithType.vb: ValueTypeExtensions.ToBytes(Of T)(T)
+- uid: Unosquare.Swan.ValueTypeExtensions.ToStruct*
+  name: ToStruct
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_ToStruct_
+  commentId: Overload:Unosquare.Swan.ValueTypeExtensions.ToStruct
+  fullName: Unosquare.Swan.ValueTypeExtensions.ToStruct
+  nameWithType: ValueTypeExtensions.ToStruct
+- uid: Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[])
+  name: ToStruct<T>(Byte[])
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_ToStruct__1_System_Byte___
+  commentId: M:Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[])
+  name.vb: ToStruct(Of T)(Byte())
+  fullName: Unosquare.Swan.ValueTypeExtensions.ToStruct<T>(System.Byte[])
+  fullName.vb: Unosquare.Swan.ValueTypeExtensions.ToStruct(Of T)(System.Byte())
+  nameWithType: ValueTypeExtensions.ToStruct<T>(Byte[])
+  nameWithType.vb: ValueTypeExtensions.ToStruct(Of T)(Byte())
+- uid: Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[],System.Int32,System.Int32)
+  name: ToStruct<T>(Byte[], Int32, Int32)
+  href: api/Unosquare.Swan.ValueTypeExtensions.html#Unosquare_Swan_ValueTypeExtensions_ToStruct__1_System_Byte___System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.ValueTypeExtensions.ToStruct``1(System.Byte[],System.Int32,System.Int32)
+  name.vb: ToStruct(Of T)(Byte(), Int32, Int32)
+  fullName: Unosquare.Swan.ValueTypeExtensions.ToStruct<T>(System.Byte[], System.Int32, System.Int32)
+  fullName.vb: Unosquare.Swan.ValueTypeExtensions.ToStruct(Of T)(System.Byte(), System.Int32, System.Int32)
+  nameWithType: ValueTypeExtensions.ToStruct<T>(Byte[], Int32, Int32)
+  nameWithType.vb: ValueTypeExtensions.ToStruct(Of T)(Byte(), Int32, Int32)
