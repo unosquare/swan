@@ -134,7 +134,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// credentials             OCTET STRING OPTIONAL }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    internal class RfcSaslCredentials : Asn1Sequence
+    internal sealed class RfcSaslCredentials : Asn1Sequence
     {
         public RfcSaslCredentials(string mechanism, sbyte[] credentials = null) 
             : base(2)
@@ -154,7 +154,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// sasl                    [3] SaslCredentials }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Choice" />
-    internal class RfcAuthenticationChoice : Asn1Choice
+    internal sealed class RfcAuthenticationChoice : Asn1Choice
     {
         public RfcAuthenticationChoice(Asn1Tagged choice)
             : base(choice)

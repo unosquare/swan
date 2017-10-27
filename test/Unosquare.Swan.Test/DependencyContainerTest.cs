@@ -45,7 +45,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void AutoregisterTest_ThrowAutoRegistrationException()
         {
-            Assert.Throws<DependencyContainerAutoRegistrationException>(() =>
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
             {
                 var container = new DependencyContainer();
                 container.AutoRegister(DependencyContainerDuplicateImplementationActions.Fail);

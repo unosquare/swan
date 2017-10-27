@@ -2,6 +2,7 @@
 using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Unosquare.Swan.Exceptions;
 using Unosquare.Swan.Networking.Ldap;
 
 namespace Unosquare.Swan.Test

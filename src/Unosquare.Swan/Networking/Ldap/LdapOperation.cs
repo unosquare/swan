@@ -87,8 +87,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     An intermediate response operation.
         ///     INTERMEDIATE_RESONSE = 25
         /// </summary>
-        IntermediateResponse = 25,
-
+        IntermediateResponse = 25
     }
 }
 #endif

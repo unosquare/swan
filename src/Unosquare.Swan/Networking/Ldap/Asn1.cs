@@ -153,7 +153,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// 1 1 1 1 0 (0-30) single octet tag
     /// 1 1 1 1 1 (&gt; 30) multiple octet tag, more octets follow
     /// </pre></summary>
-    internal class Asn1Identifier
+    internal sealed class Asn1Identifier
     {
         /// <summary>
         /// Universal tag class.
@@ -179,11 +179,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         public const int PRIVATE = 3;
 
-        private int _tagClass;
-        private bool _constructed;
-        private int _tag;
-        private int _encodedLength;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Identifier"/> class using the classtype, form and tag.
         /// </summary>
@@ -198,9 +193,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         public Asn1Identifier(int tagClass, bool constructed, int tag)
         {
-            _tagClass = tagClass;
-            _constructed = constructed;
-            _tag = tag;
+            Asn1Class = tagClass;
+            Constructed = constructed;
+            Tag = tag;
         }
 
         /// <summary>
@@ -231,18 +226,18 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1Identifier(Stream stream)
         {
             var r = stream.ReadByte();
-            _encodedLength++;
+            EncodedLength++;
             if (r < 0)
                 throw new EndOfStreamException("BERDecoder: decode: EOF in Identifier");
 
-            _tagClass = r >> 6;
-            _constructed = (r & 0x20) != 0;
-            _tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
+            Asn1Class = r >> 6;
+            Constructed = (r & 0x20) != 0;
+            Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
 
-            if (_tag == 0x1F)
+            if (Tag == 0x1F)
             {
                 // if true, its a multiple octet identifier.
-                _tag = DecodeTagNumber(stream);
+                Tag = DecodeTagNumber(stream);
             }
         }
 
@@ -264,7 +259,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </seealso>
         /// <seealso cref="PRIVATE">
         /// </seealso>
-        public virtual int Asn1Class => _tagClass;
+        public int Asn1Class { get; private set; }
 
         /// <summary>
         ///     Return a boolean indicating if the constructed bit is set.
@@ -272,13 +267,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     true if constructed and false if primitive.
         /// </returns>
-        public virtual bool Constructed => _constructed;
+        public bool Constructed { get; private set; }
 
         /// <summary> Returns the TAG of this Asn1Identifier.</summary>
-        public virtual int Tag => _tag;
+        public int Tag { get; private set; }
 
         /// <summary> Returns the encoded length of this Asn1Identifier.</summary>
-        public virtual int EncodedLength => _encodedLength;
+        public int EncodedLength { get; private set; }
 
         /// <summary>
         ///     Returns a boolean value indicating whether or not this Asn1Identifier
@@ -286,7 +281,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <seealso cref="UNIVERSAL">
         /// </seealso>
-        public virtual bool Universal => _tagClass == UNIVERSAL;
+        public bool Universal => Asn1Class == UNIVERSAL;
 
         /// <summary>
         ///     Returns a boolean value indicating whether or not this Asn1Identifier
@@ -294,7 +289,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <seealso cref="APPLICATION">
         /// </seealso>
-        public virtual bool Application => _tagClass == APPLICATION;
+        public bool Application => Asn1Class == APPLICATION;
 
         /// <summary>
         /// Returns a boolean value indicating whether or not this Asn1Identifier
@@ -304,14 +299,14 @@ namespace Unosquare.Swan.Networking.Ldap
         ///   <c>true</c> if context; otherwise, <c>false</c>.
         /// </value>
         /// <seealso cref="CONTEXT"></seealso>
-        public virtual bool Context => _tagClass == CONTEXT;
+        public bool Context => Asn1Class == CONTEXT;
 
         /// <summary>
         ///     Returns a boolean value indicating whether or not this Asn1Identifier
         ///     has a TAG CLASS of PRIVATE.
         /// </summary>
         /// <seealso cref="PRIVATE"></seealso>
-        public virtual bool Private => _tagClass == PRIVATE;
+        public bool Private => Asn1Class == PRIVATE;
 
         /// <summary>
         /// Decode an Asn1Identifier directly from an InputStream and
@@ -320,20 +315,20 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         public void Reset(Stream stream)
         {
-            _encodedLength = 0;
+            EncodedLength = 0;
             var r = stream.ReadByte();
-            _encodedLength++;
+            EncodedLength++;
             if (r < 0)
                 throw new EndOfStreamException("BERDecoder: decode: EOF in Identifier");
 
-            _tagClass = r >> 6;
-            _constructed = (r & 0x20) != 0;
-            _tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
+            Asn1Class = r >> 6;
+            Constructed = (r & 0x20) != 0;
+            Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
 
-            if (_tag == 0x1F)
+            if (Tag == 0x1F)
             {
                 // if true, its a multiple octet identifier.
-                _tag = DecodeTagNumber(stream);
+                Tag = DecodeTagNumber(stream);
             }
         }
 
@@ -356,7 +351,7 @@ namespace Unosquare.Swan.Networking.Ldap
             while (true)
             {
                 var r = stream.ReadByte();
-                _encodedLength++;
+                EncodedLength++;
                 if (r < 0)
                     throw new EndOfStreamException("BERDecoder: decode: EOF in tag number");
 
@@ -449,7 +444,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class encapsulates the OCTET STRING type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1OctetString
+    internal sealed class Asn1OctetString
         : Asn1Object
     {
         /// <summary> ASN.1 OCTET STRING tag definition.</summary>
@@ -462,7 +457,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Id needs only be one Value for every instance,
         /// thus we create it only once.
         /// </summary>
-        protected internal static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, false, Tag);
+        private static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.UNIVERSAL, false, Tag);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1OctetString" /> class.
@@ -484,7 +479,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="content">A string value that will be contained
         /// in the this Asn1OctetString object</param>
-        /// <exception cref="Exception"></exception>
         public Asn1OctetString(string content)
             : base(Id)
         {
@@ -549,9 +543,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// usual after the Asn1Tagged identifier has been encoded.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1Tagged : Asn1Object
+    internal sealed class Asn1Tagged : Asn1Object
     {
-        private readonly bool _isExplicit;
         private Asn1Object _content;
 
         /// <summary>
@@ -564,13 +557,20 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(identifier)
         {
             _content = obj;
-            _isExplicit = isExplicit;
+            Explicit = isExplicit;
 
             if (!isExplicit)
             {
                 // replace object's id with new tag.
                 _content?.SetIdentifier(identifier);
             }
+        }
+
+        public Asn1Tagged(Asn1Identifier identifier, sbyte[] vals)
+            : base(identifier)
+        {
+            _content = new Asn1OctetString(vals);
+            Explicit = false;
         }
 
         /// <summary>
@@ -599,14 +599,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The tagged value.
         /// </value>
-        public virtual Asn1Object TaggedValue
+        public Asn1Object TaggedValue
         {
             get => _content;
 
             set
             {
                 _content = value;
-                if (!_isExplicit)
+                if (!Explicit)
                 {
                     // replace object's id with new tag.
                     value?.SetIdentifier(GetIdentifier());
@@ -621,7 +621,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         ///   <c>true</c> if explicit; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool Explicit => _isExplicit;
+        public bool Explicit { get; }
 
         /// <summary>
         /// Call this method to encode the current instance into the
@@ -637,7 +637,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => _isExplicit ? base.ToString() + _content : _content.ToString();
+        public override string ToString() => Explicit ? base.ToString() + _content : _content.ToString();
     }
 
     /// <summary>
@@ -809,7 +809,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class encapsulates the ASN.1 BOOLEAN type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1Boolean
+    internal sealed class Asn1Boolean
         : Asn1Object
     {
         /// <summary> ASN.1 BOOLEAN tag definition.</summary>
@@ -880,7 +880,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class represents the ASN.1 NULL type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
-    internal class Asn1Null
+    internal sealed class Asn1Null
         : Asn1Object
     {
         /// <summary> ASN.1 NULL tag definition.</summary>
@@ -953,11 +953,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class provides a means to manipulate ASN.1 Length's. It will
     /// be used by Asn1Encoder's and Asn1Decoder's by composition.
     /// </summary>
-    internal class Asn1Length
+    internal sealed class Asn1Length
     {
-        private int _length;
-        private int _encodedLength;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1Length"/> class. Constructs an empty Asn1Length.  Values are added by calling reset</summary>
         public Asn1Length()
@@ -973,34 +970,32 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1Length(Stream stream)
         {
             var r = stream.ReadByte();
-            _encodedLength++;
+            EncodedLength++;
             if (r == 0x80)
             {
-                _length = -1;
+                Length = -1;
             }
             else if (r < 0x80)
             {
-                _length = r;
+                Length = r;
             }
             else
             {
-                _length = 0;
+                Length = 0;
                 for (r = r & 0x7F; r > 0; r--)
                 {
                     var part = stream.ReadByte();
-                    _encodedLength++;
+                    EncodedLength++;
                     if (part < 0)
                         throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
-                    _length = (_length << 8) + part;
+                    Length = (Length << 8) + part;
                 }
             }
         }
+        
+        public int Length { get; private set; }
 
-        /// <summary> Returns the length of this Asn1Length.</summary>
-        public virtual int Length => _length;
-
-        /// <summary> Returns the encoded length of this Asn1Length.</summary>
-        public virtual int EncodedLength => _encodedLength;
+        public int EncodedLength { get; private set; }
 
         /// <summary>
         /// Resets an Asn1Length object by decoding data from an
@@ -1010,39 +1005,40 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         public void Reset(Stream stream)
         {
-            _encodedLength = 0;
+            EncodedLength = 0;
             var r = stream.ReadByte();
-            _encodedLength++;
+            EncodedLength++;
 
             if (r == 0x80)
             {
-                _length = -1;
+                Length = -1;
             }
             else if (r < 0x80)
             {
-                _length = r;
+                Length = r;
             }
             else
             {
-                _length = 0;
+                Length = 0;
                 for (r = r & 0x7F; r > 0; r--)
                 {
                     var part = stream.ReadByte();
-                    _encodedLength++;
+                    EncodedLength++;
                     if (part < 0)
                         throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
-                    _length = (_length << 8) + part;
+                    Length = (Length << 8) + part;
                 }
             }
         }
     }
 
     /// <summary>
-    ///     The Asn1Sequence class can hold an ordered collection of components with
-    ///     distinct type.
-    ///     This class inherits from the Asn1Structured class which
-    ///     provides functionality to hold multiple Asn1 components.
+    /// The Asn1Sequence class can hold an ordered collection of components with
+    /// distinct type.
+    /// This class inherits from the Asn1Structured class which
+    /// provides functionality to hold multiple Asn1 components.
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Structured" />
     internal class Asn1Sequence
         : Asn1Structured
     {
@@ -1095,7 +1091,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// which already provides functionality to hold multiple Asn1 components.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Structured" />
-    internal class Asn1Set
+    internal sealed class Asn1Set
         : Asn1Structured
     {
         /// <summary> ASN.1 SET tag definition.</summary>
@@ -1198,7 +1194,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// This class encapsulates the ASN.1 ENUMERATED type.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Numeric" />
-    internal class Asn1Enumerated : Asn1Numeric
+    internal sealed class Asn1Enumerated : Asn1Numeric
     {
         /// <summary>
         /// ASN.1 tag definition for ENUMERATED

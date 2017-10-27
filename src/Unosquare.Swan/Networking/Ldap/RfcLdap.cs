@@ -8,7 +8,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// search operation.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
-    internal class LdapSearchResult : LdapMessage
+    internal sealed class LdapSearchResult : LdapMessage
     {
         private LdapEntry entry;
 
@@ -28,7 +28,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The entry.
         /// </value>
-        public virtual LdapEntry Entry
+        public LdapEntry Entry
         {
             get
             {
@@ -61,11 +61,12 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an Ldap Search Result Reference.
-    ///     <pre>
-    ///         SearchResultReference ::= [APPLICATION 19] SEQUENCE OF LdapURL
-    ///     </pre>
+    /// Represents an Ldap Search Result Reference.
+    /// <pre>
+    /// SearchResultReference ::= [APPLICATION 19] SEQUENCE OF LdapURL
+    /// </pre>
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
     internal class RfcSearchResultReference : Asn1SequenceOf
     {
         /// <summary>
@@ -151,8 +152,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1OctetString ResponseName => responseNameIndex != 0 ? (Asn1OctetString) Get(responseNameIndex) : null;
 
         public Asn1OctetString Response => responseIndex != 0 ? (Asn1OctetString) Get(responseIndex) : null;
-
-        // Accessors
+        
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
 
         public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString) Get(1)).ByteValue());
