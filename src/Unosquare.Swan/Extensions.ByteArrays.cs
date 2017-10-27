@@ -10,9 +10,9 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Extension methods
+    /// Provides various extension methods for byte arrays and streams
     /// </summary>
-    public partial class Extensions
+    public static class ByteArrayExtensions
     {
         /// <summary>
         /// Converts an array of bytes to its lower-case, hexadecimal representation

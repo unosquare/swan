@@ -5,9 +5,9 @@
     using System.Linq;
 
     /// <summary>
-    /// Extension methods
+    /// Provides various extension methods for dates
     /// </summary>
-    public partial class Extensions
+    public static class DateExtensions
     {
         /// <summary>
         /// Converts the date to a YYYY-MM-DD string
