@@ -37,11 +37,12 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         {
             Assert.AreEqual(expected, input.ComputeMD5().ToDashedHex(), "Get MD5");
         }
-        
+
+        [Test]
         public void WithNull_ReturnsMD5()
         {
             MemoryStream input = null;
-
+            
             Assert.Throws<ArgumentNullException>(() =>
                 input.ComputeMD5()
             );

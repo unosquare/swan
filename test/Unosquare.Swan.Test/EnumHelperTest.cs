@@ -34,6 +34,14 @@ namespace Unosquare.Swan.Test.EnumHelperTest
             Assert.AreEqual(arc[1].ToString(), "(1, Two)");
             Assert.AreEqual(arc[2].ToString(), "(2, Three)");
         }
+
+        [Test]
+        public void WithInvalidType_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+                EnumHelper.GetItemsWithIndex<String>()
+            );
+        }
     }
 
     [TestFixture]
@@ -48,6 +56,14 @@ namespace Unosquare.Swan.Test.EnumHelperTest
             Assert.AreEqual(arc[1].ToString(), "(2, Suramar)");
             Assert.AreEqual(arc[2].ToString(), "(3, Orgrimmar)");
             Assert.AreEqual(arc[3].ToString(), "(4, Dalaran)");
+        }
+
+        [Test]
+        public void WithInvalidType_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+                EnumHelper.GetItemsWithValue<String>()
+            );
         }
 
     }
