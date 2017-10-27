@@ -246,6 +246,141 @@
   </table>
   
   
+  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_ToCustomLifetimeManager_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_ToCustomLifetimeManager_Unosquare_Swan_Components_DependencyContainer_RegisterOptions_Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_System_String_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.ToCustomLifetimeManager(Unosquare.Swan.Components.DependencyContainer.RegisterOptions,Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider,System.String)">ToCustomLifetimeManager(DependencyContainer.RegisterOptions, DependencyContainer.ITinyIoCObjectLifetimeProvider, String)</h4>
+  <div class="markdown level1 summary"><p>Switches to a custom lifetime manager factory if possible.</p>
+<p>Usually used for RegisterOptions &quot;To*&quot; extension methods such as the ASP.Net per-request one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DependencyContainer.RegisterOptions ToCustomLifetimeManager(DependencyContainer.RegisterOptions instance, DependencyContainer.ITinyIoCObjectLifetimeProvider lifetimeProvider, string errorString)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>RegisterOptions instance</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.html">DependencyContainer.ITinyIoCObjectLifetimeProvider</a></td>
+        <td><span class="parametername">lifetimeProvider</span></td>
+        <td><p>Custom lifetime manager</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">errorString</span></td>
+        <td><p>Error string to display if switch fails</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><p>RegisterOptions</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_UsingConstructor_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_UsingConstructor__1_Expression_System_Func___0___" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.UsingConstructor``1(Expression{System.Func{``0}})">UsingConstructor&lt;RegisterType&gt;(Expression&lt;Func&lt;RegisterType&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Sets the constructor to use</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions UsingConstructor&lt;RegisterType&gt;(Expression&lt;Func&lt;RegisterType&gt;&gt; constructor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">System.Func</span>&lt;RegisterType&gt;&gt;</td>
+        <td><span class="parametername">constructor</span></td>
+        <td><p>The constructor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.html">DependencyContainer.RegisterOptions</a></td>
+        <td><p>A registration options  for fluent API</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">RegisterType</span></td>
+        <td><p>The type of the register type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.DependencyContainerConstructorResolutionException.html">DependencyContainerConstructorResolutionException</a></td>
+        <td><p>Constructor resolution exception</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithStrongReference_" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_RegisterOptions_WithStrongReference" data-uid="Unosquare.Swan.Components.DependencyContainer.RegisterOptions.WithStrongReference">WithStrongReference()</h4>
   <div class="markdown level1 summary"><p>Make registration hold a strong reference if possible</p>

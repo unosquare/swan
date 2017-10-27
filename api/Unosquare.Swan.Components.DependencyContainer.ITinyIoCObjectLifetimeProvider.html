@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ConnectionAcceptedEventArgs
+    <title>Interface DependencyContainer.ITinyIoCObjectLifetimeProvider
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ConnectionAcceptedEventArgs
+    <meta name="title" content="Interface DependencyContainer.ITinyIoCObjectLifetimeProvider
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.26.3.0">
     
@@ -76,66 +76,70 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.ConnectionAcceptedEventArgs">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider">
   
   
-  <h1 id="Unosquare_Swan_ConnectionAcceptedEventArgs" data-uid="Unosquare.Swan.ConnectionAcceptedEventArgs" class="text-break">Class ConnectionAcceptedEventArgs
+  <h1 id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider" class="text-break">Interface DependencyContainer.ITinyIoCObjectLifetimeProvider
   </h1>
-  <div class="markdown level0 summary"><p>The event arguments for when connections are accepted</p>
+  <div class="markdown level0 summary"><p>Provides custom lifetime management for ASP.Net per-request lifetimes etc.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">System.EventArgs</span></div>
-    <div class="level2"><span class="xref">ConnectionAcceptedEventArgs</span></div>
-      <div class="level3"><a class="xref" href="Unosquare.Swan.ConnectionAcceptingEventArgs.html">ConnectionAcceptingEventArgs</a></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.EventArgs.Empty</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_ConnectionAcceptedEventArgs_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ConnectionAcceptedEventArgs : EventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ITinyIoCObjectLifetimeProvider</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_ConnectionAcceptedEventArgs__ctor_" data-uid="Unosquare.Swan.ConnectionAcceptedEventArgs.#ctor*"></a>
-  <h4 id="Unosquare_Swan_ConnectionAcceptedEventArgs__ctor_TcpClient_" data-uid="Unosquare.Swan.ConnectionAcceptedEventArgs.#ctor(TcpClient)">ConnectionAcceptedEventArgs(TcpClient)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.ConnectionAcceptedEventArgs.html">ConnectionAcceptedEventArgs</a> class.</p>
+  <a id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_GetObject_" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_GetObject" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.GetObject">GetObject()</h4>
+  <div class="markdown level1 summary"><p>Gets the stored object if it exists, or null if not</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConnectionAcceptedEventArgs(TcpClient client)</code></pre>
+    <pre><code class="lang-csharp hljs">object GetObject()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>Object instance or null</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_ReleaseObject_" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_ReleaseObject" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.ReleaseObject">ReleaseObject()</h4>
+  <div class="markdown level1 summary"><p>Release the object</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ReleaseObject()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_SetObject_" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_ITinyIoCObjectLifetimeProvider_SetObject_System_Object_" data-uid="Unosquare.Swan.Components.DependencyContainer.ITinyIoCObjectLifetimeProvider.SetObject(System.Object)">SetObject(Object)</h4>
+  <div class="markdown level1 summary"><p>Store the object</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetObject(object value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -148,45 +152,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TcpClient</span></td>
-        <td><span class="parametername">client</span></td>
-        <td><p>The client.</p>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Object to store</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_ConnectionAcceptedEventArgs_Client_" data-uid="Unosquare.Swan.ConnectionAcceptedEventArgs.Client*"></a>
-  <h4 id="Unosquare_Swan_ConnectionAcceptedEventArgs_Client" data-uid="Unosquare.Swan.ConnectionAcceptedEventArgs.Client">Client</h4>
-  <div class="markdown level1 summary"><p>Gets the client.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TcpClient Client { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TcpClient</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="seealso">See Also</h3>
-  <div class="seealso">
-      <div><span class="xref">System.EventArgs</span></div>
-  </div>
 </article>
           </div>
           
