@@ -161,5 +161,23 @@ namespace Unosquare.Swan.Test
                 lsc.Next();
             });
         }
+
+        public class ModifyTest : LdapTest
+        {
+            [Test]
+            public void ChangeUserProperty()
+            {
+                var ex = Assert.ThrowsAsync<LdapException>(async () => {
+
+                var cn = await GetDefaultConnection();
+                    await cn.Modify("uid=euclid,dc=example,dc=com",
+                        new LdapModification[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
+
+                    cn.Disconnect();
+                });
+
+                Assert.AreEqual(ex.ResultCode, LdapStatusCode.InsufficientAccessRights);
+            }
+        }
     }
 }
