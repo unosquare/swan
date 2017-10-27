@@ -46,7 +46,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="b">The Asn1Boolean object to encode</param>
         /// <param name="stream">The stream.</param>
-        public virtual void Encode(Asn1Boolean b, Stream stream)
+        public void Encode(Asn1Boolean b, Stream stream)
         {
             /* Encode the id */
             Encode(b.GetIdentifier(), stream);

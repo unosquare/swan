@@ -61,16 +61,26 @@
         /// <summary>
         /// Gets long name of this command line option. This name is usually a single English word.
         /// </summary>
+        /// <value>
+        /// The long name.
+        /// </value>
         public string LongName { get; }
 
         /// <summary>
         /// Gets a short name of this command line option, made of one character.
         /// </summary>
+        /// <value>
+        /// The short name.
+        /// </value>
         public string ShortName { get; }
 
         /// <summary>
         /// Gets or sets the option's mutually exclusive set name.
         /// </summary>
+        /// <value>
+        /// The name of the set.
+        /// </value>
+        /// <exception cref="ArgumentNullException">value</exception>
         public string SetName
         {
             get => _setName;
@@ -86,16 +96,25 @@
         /// <summary>
         /// Gets or sets mapped property default value.
         /// </summary>
+        /// <value>
+        /// The default value.
+        /// </value>
         public object DefaultValue { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a command line option is required.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if required; otherwise, <c>false</c>.
+        /// </value>
         public bool Required { get; set; }
 
         /// <summary>
         /// Gets or sets a short description of this command line option. Usually a sentence summary.
         /// </summary>
+        /// <value>
+        /// The help text.
+        /// </value>
         public string HelpText { get; set; }
     }
 }

@@ -84,13 +84,43 @@
         }
 
         /// <summary>
-        /// Retrieves the local IP addresses.
+        /// Retrieves the local ip addresses.
         /// </summary>
         /// <param name="interfaceType">Type of the interface.</param>
+        /// <param name="skipTypeFilter">if set to <c>true</c> [skip type filter].</param>
+        /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
         /// <returns>An array of local ip addresses</returns>
-        public static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType)
+        public static IPAddress[] GetIPv4Addresses(
+            NetworkInterfaceType interfaceType,
+            bool skipTypeFilter = false,
+            bool includeLoopback = false)
         {
-            return GetIPv4Addresses(interfaceType, false, false);
+            var addressList = new List<IPAddress>();
+            var interfaces = NetworkInterface.GetAllNetworkInterfaces()
+                .Where(ni =>
+#if NET452
+                    ni.IsReceiveOnly == false &&
+#endif
+                    (skipTypeFilter || ni.NetworkInterfaceType == interfaceType) &&
+                    ni.OperationalStatus == OperationalStatus.Up)
+                .ToArray();
+
+            foreach (var networkInterface in interfaces)
+            {
+                var properties = networkInterface.GetIPProperties();
+                if (properties.GatewayAddresses.Any(g => g.Address.AddressFamily == AddressFamily.InterNetwork) ==
+                    false)
+                    continue;
+
+                addressList.AddRange(properties.UnicastAddresses
+                    .Where(i => i.Address.AddressFamily == AddressFamily.InterNetwork)
+                    .Select(i => i.Address));
+            }
+
+            if (includeLoopback || interfaceType == NetworkInterfaceType.Loopback)
+                addressList.Add(IPAddress.Loopback);
+
+            return addressList.ToArray();
         }
 
         /// <summary>
@@ -149,7 +179,8 @@
         /// <param name="fqdn">The FQDN.</param>
         /// <param name="ct">The ct.</param>
         /// <returns>An array of local ip addresses of the result produced by this task</returns>
-        public static Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn, CancellationToken ct)
+        public static Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn,
+            CancellationToken ct = default(CancellationToken))
         {
             return Task.Factory.StartNew(() => GetDnsHostEntry(fqdn), ct);
         }
@@ -194,8 +225,11 @@
         /// <param name="port">The port.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>An array of local ip addresses of the result produced by this task</returns>
-        public static Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port,
-            CancellationToken ct)
+        public static Task<IPAddress[]> GetDnsHostEntryAsync(
+            string fqdn,
+            IPAddress dnsServer,
+            int port,
+            CancellationToken ct = default(CancellationToken))
         {
             return Task.Factory.StartNew(() => GetDnsHostEntry(fqdn, dnsServer, port), ct);
         }
@@ -408,43 +442,5 @@
         }
 
         #endregion
-
-        /// <summary>
-        /// Retrieves the local ip addresses.
-        /// </summary>
-        /// <param name="interfaceType">Type of the interface.</param>
-        /// <param name="skipTypeFilter">if set to <c>true</c> [skip type filter].</param>
-        /// <param name="includeLoopback">if set to <c>true</c> [include loopback].</param>
-        /// <returns>An array of local ip addresses</returns>
-        private static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType, bool skipTypeFilter,
-            bool includeLoopback)
-        {
-            var addressList = new List<IPAddress>();
-            var interfaces = NetworkInterface.GetAllNetworkInterfaces()
-                .Where(ni =>
-#if NET452
-                    ni.IsReceiveOnly == false &&
-#endif
-                    (skipTypeFilter || ni.NetworkInterfaceType == interfaceType) &&
-                    ni.OperationalStatus == OperationalStatus.Up)
-                .ToArray();
-
-            foreach (var networkInterface in interfaces)
-            {
-                var properties = networkInterface.GetIPProperties();
-                if (properties.GatewayAddresses.Any(g => g.Address.AddressFamily == AddressFamily.InterNetwork) ==
-                    false)
-                    continue;
-
-                addressList.AddRange(properties.UnicastAddresses
-                    .Where(i => i.Address.AddressFamily == AddressFamily.InterNetwork)
-                    .Select(i => i.Address));
-            }
-
-            if (includeLoopback || interfaceType == NetworkInterfaceType.Loopback)
-                addressList.Add(IPAddress.Loopback);
-
-            return addressList.ToArray();
-        }
     }
 }

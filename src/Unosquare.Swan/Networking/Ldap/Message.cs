@@ -296,7 +296,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         assertionValue  AssertionValue }
     ///     </pre>
     /// </summary>
-    internal class RfcAttributeValueAssertion : Asn1Sequence
+    internal sealed class RfcAttributeValueAssertion : Asn1Sequence
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcAttributeValueAssertion" /> class.
@@ -304,11 +304,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="ad">The assertion description</param>
         /// <param name="av">The assertion value</param>
-        public RfcAttributeValueAssertion(string ad, Asn1OctetString av)
+        public RfcAttributeValueAssertion(string ad, sbyte[] av)
             : base(2)
         {
             Add(ad);
-            Add(av);
+            Add(new Asn1OctetString(av));
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the attribute description
         /// </returns>
-        public virtual string AttributeDescription => ((Asn1OctetString) Get(0)).StringValue();
+        public string AttributeDescription => ((Asn1OctetString) Get(0)).StringValue();
 
         /// <summary>
         ///     Returns the assertion value.
@@ -325,7 +325,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the assertion value.
         /// </returns>
-        public virtual sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
+        public sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
     }
 
     /// <summary>

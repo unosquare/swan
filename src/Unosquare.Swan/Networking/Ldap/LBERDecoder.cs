@@ -58,7 +58,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Decoded Asn1Obect
         /// </returns>
         /// <exception cref="EndOfStreamException">Unknown tag</exception>
-        public virtual Asn1Object Decode(Stream stream, int[] len)
+        public Asn1Object Decode(Stream stream, int[] len)
         {
             asn1ID.Reset(stream);
             asn1Len.Reset(stream);

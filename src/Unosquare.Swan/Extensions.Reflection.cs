@@ -7,9 +7,9 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Extension methods
+    /// Provides various extension methods for Reflection and Types
     /// </summary>
-    public partial class Extensions
+    public static class ReflectionExtensions
     {
         #region Assembly Extensions
 

@@ -4,6 +4,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System;
     using System.Collections;
     using System.Text;
+    using Exceptions;
 
     /// <summary>
     /// Encapsulates optional additional parameters or constraints to be applied to
@@ -13,10 +14,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// sent to the server along with operation requests.
     /// </summary>
     /// <seealso cref="LdapConnection.ResponseControls"></seealso>
-    public class LdapControl
+    public sealed class LdapControl
     {
-        private RfcControl _control; // An RFC 2251 Control
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapControl"/> class.
         /// Constructs a new LdapControl object using the specified values.
@@ -34,7 +33,9 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new ArgumentException("An OID must be specified");
             }
 
-            _control = new RfcControl(oid, new Asn1Boolean(critical),
+            Asn1Object = new RfcControl(
+                oid, 
+                new Asn1Boolean(critical),
                 values == null ? null : new Asn1OctetString(values));
         }
 
@@ -44,7 +45,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The object ID of the control.
         /// </returns>
-        public virtual string ID => _control.ControlType.StringValue();
+        public string ID => Asn1Object.ControlType.StringValue();
 
         /// <summary>
         ///     Returns whether the control is critical for the operation.
@@ -54,7 +55,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     operation to be executed, and false if the control is not required for
         ///     the operation.
         /// </returns>
-        public virtual bool Critical => _control.Criticality.BooleanValue();
+        public bool Critical => Asn1Object.Criticality.BooleanValue();
 
         internal static RespControlVector RegisteredControls { get; } = new RespControlVector(5);
 
@@ -64,7 +65,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     An ASN.1 RFC 2251 Control.
         /// </returns>
-        internal virtual RfcControl Asn1Object => _control;
+        internal RfcControl Asn1Object { get; private set; }
 
         /// <summary>
         ///     Returns a copy of the current LdapControl object.
@@ -89,7 +90,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     twin[i] = vals[i];
                 }
 
-                cont._control = new RfcControl(ID, new Asn1Boolean(Critical), new Asn1OctetString(twin));
+                cont.Asn1Object = new RfcControl(ID, new Asn1Boolean(Critical), new Asn1OctetString(twin));
             }
 
             return cont;
@@ -102,16 +103,16 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The control-specific data of the object as a byte array,
         ///     or null if the control has no data.
         /// </returns>
-        public virtual sbyte[] GetValue() => _control.ControlValue?.ByteValue();
+        public sbyte[] GetValue() => Asn1Object.ControlValue?.ByteValue();
 
         /// <summary>
         /// Sets the control-specific data of the object.  This method is for
         /// use by an extension of LdapControl.
         /// </summary>
         /// <param name="controlValue">The control value.</param>
-        protected internal virtual void SetValue(sbyte[] controlValue)
+        internal void SetValue(sbyte[] controlValue)
         {
-            _control.ControlValue = new Asn1OctetString(controlValue);
+            Asn1Object.ControlValue = new Asn1OctetString(controlValue);
         }
 
         /// <summary>
@@ -136,27 +137,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     /// <seealso cref="IRfcRequest" />
-    internal class RfcBindRequest
+    internal sealed class RfcBindRequest
         : Asn1Sequence, IRfcRequest
     {
-        public virtual Asn1Integer Version
-        {
-            get => (Asn1Integer) Get(0);
-            set => Set(0, value);
-        }
-
-        public virtual Asn1OctetString Name
-        {
-            get => (Asn1OctetString) Get(1);
-            set => Set(1, value);
-        }
-
-        public virtual RfcAuthenticationChoice AuthenticationChoice
-        {
-            get => (RfcAuthenticationChoice) Get(2);
-            set => Set(2, value);
-        }
-
         /// <summary>
         /// ID is added for Optimization.
         /// ID needs only be one Value for every instance,
@@ -176,6 +159,23 @@ namespace Unosquare.Swan.Networking.Ldap
             Add(version);
             Add(name);
             Add(auth);
+        }
+        public Asn1Integer Version
+        {
+            get => (Asn1Integer)Get(0);
+            set => Set(0, value);
+        }
+
+        public Asn1OctetString Name
+        {
+            get => (Asn1OctetString)Get(1);
+            set => Set(1, value);
+        }
+
+        public RfcAuthenticationChoice AuthenticationChoice
+        {
+            get => (RfcAuthenticationChoice)Get(2);
+            set => Set(2, value);
         }
 
         /// <summary>
@@ -865,9 +865,11 @@ namespace Unosquare.Swan.Networking.Ldap
                         break;
                     case LdapStatusCode.Referral:
                         var refs = Referrals;
-                        ex = new LdapReferralException("Automatic referral following not enabled",
-                            LdapStatusCode.Referral, ErrorMessage);
-                        ((LdapReferralException) ex).SetReferrals(refs);
+                        ex = new LdapException(
+                            "Automatic referral following not enabled",
+                            LdapStatusCode.Referral, 
+                            ErrorMessage);
+                        ((LdapException) ex).SetReferrals(refs);
                         break;
                     default:
                         ex = new LdapException(ResultCode.ToString().Humanize(), ResultCode, ErrorMessage, MatchedDN);
