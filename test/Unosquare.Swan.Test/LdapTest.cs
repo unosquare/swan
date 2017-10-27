@@ -148,7 +148,7 @@ namespace Unosquare.Swan.Test
             [Test]
             public void ChangeUserProperty()
             {
-                Assert.ThrowsAsync<LdapException>(async () => {
+                var ex = Assert.ThrowsAsync<LdapException>(async () => {
 
                     var cn = new LdapConnection();
                     await cn.Connect(ldapServer, 389);
@@ -158,6 +158,8 @@ namespace Unosquare.Swan.Test
 
                     cn.Disconnect();
                 });
+
+                Assert.AreEqual(ex.ResultCode, LdapStatusCode.InsufficientAccessRights);
             }
         }
     }
