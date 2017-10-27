@@ -19,9 +19,17 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
     {
         [TestCase("0x15cd5b07", true)]
         [TestCase("15cd5b07", false)]
-        public void ToLowerHexTest(string expected, bool prefix)
+        public void WithValidBytes_ReturnsString(string expected, bool prefix)
         {
             Assert.AreEqual(expected, _bytes.ToLowerHex(prefix), "Get ToLowerHex value");
+        }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.ToLowerHex()
+            );
         }
     }
 
@@ -33,6 +41,14 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public void WithValidBytes_ReturnsString(string expected, bool prefix)
         {
             Assert.AreEqual(expected, _bytes.ToUpperHex(prefix), $"Get ToUpperHex value");
+        }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.ToUpperHex()
+            );
         }
     }
 
@@ -64,6 +80,16 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         {
             const string hex = "15CD5B07";
             Assert.AreEqual(_bytes, hex.ConvertHexadecimalToBytes(), $"Get ConvertHexadecimalToBytes value");
+        }
+
+        [Test]
+        public void WithNullHex_ThrowsArgumentNullException()
+        {
+            const string hex = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                hex.ConvertHexadecimalToBytes()
+            );
         }
     }
 
@@ -112,7 +138,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
     public class GetIndexOf : ExtensionsByteArraysTest
     {
         [Test]
-        public void WithValidBytes_ReturnsIndexOf()
+        public void WithValidBytes_ReturnsNegativeOne()
         {
             Assert.AreEqual(-1, _bytes.GetIndexOf(new byte[0]), "Get index of empty array is -1");
         }
@@ -124,6 +150,30 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
                 _bytes.GetIndexOf(null)
             );
         }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.GetIndexOf(null)
+            );
+        }
+
+        [Test]
+        public void WithSequenceLongerThanBuffer_ReturnsNegativeOne()
+        {
+            byte[] bytes = BitConverter.GetBytes(4815162342);
+            
+            Assert.AreEqual(-1, _bytes.GetIndexOf(bytes), "Get index of empty array is -1");
+        }
+
+        [Test]
+        public void WithNegativeOffset_ReturnsNegativeOne()
+        {
+            byte[] bytes = BitConverter.GetBytes(4815162342);
+
+            Assert.AreEqual(-1, bytes.GetIndexOf(_bytes,-1), "Get index of empty array is -1");
+        }
     }
 
     [TestFixture]
@@ -133,6 +183,12 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public void WithValidBytes_ReturnsArray()
         {
             Assert.AreEqual(_bytes, _bytes.DeepClone(), "Get DeepClone value");
+        }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.IsNull(_nullBytes.DeepClone());
         }
     }
 
@@ -154,6 +210,14 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         {
             Assert.AreEqual(new byte[] { 205, 91, 7 }, _bytes.TrimStart(21), "Get TrimStart value");
         }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.TrimStart(21)
+            );
+        }
     }
 
     [TestFixture]
@@ -163,6 +227,14 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public void WithValidBytes_ReturnsTrimEndValue()
         {
             Assert.AreEqual(new byte[] { 21, 205, 91 }, _bytes.TrimEnd(7), "Get TrimEnd value");
+        }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.TrimEnd(7)
+            );
         }
     }
 
@@ -174,6 +246,14 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public void WithValidBytes_ReturnsEndsWithValue(bool expected, byte input)
         {
             Assert.AreEqual(expected, _bytes.EndsWith(input), "Get EndsWith value");
+        }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.EndsWith(7)
+            );
         }
     }
 
@@ -208,6 +288,14 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             Assert.IsTrue(_bytes.IsEqualTo(_bytes), "Get IsEqualToTest value");
             Assert.IsTrue(_bytes.IsEqualTo(BitConverter.GetBytes(Value)), "Get IsEqualToTest value");
         }
+
+        [Test]
+        public void WithNullBytes_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.IsEqualTo(BitConverter.GetBytes(Value))
+            );
+        }
     }
 
     [TestFixture]
@@ -230,6 +318,67 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             {
                 stream.Append(_bytes);
                 Assert.AreEqual(_bytes.Length, stream.Length, "Get Append value");
+            }
+        }
+
+        [Test]
+        public void WithNullBuffer_ThrowsArgumentNullException()
+        {
+            using(var stream = new MemoryStream(10))
+            {
+                Assert.Throws<ArgumentNullException>(() =>
+                    stream.Append(_nullBytes)
+                );
+            }
+        }
+
+        [Test]
+        public void WithNullStream_ThrowsArgumentNullException()
+        {
+            using(MemoryStream stream = null)
+            {
+                Assert.Throws<ArgumentNullException>(() =>
+                    stream.Append(_nullBytes)
+                );
+            }
+        }
+
+        [Test]
+        public void WithValidIEnumerable_AppendBytes()
+        {
+            IEnumerable<byte> enumerableByte = BitConverter.GetBytes(Value);
+
+            using(var stream = new MemoryStream(10))
+            {
+                stream.Append(enumerableByte);
+
+                Assert.AreEqual(4, stream.Length, "Get Append value");
+            }
+        }
+
+        [Test]
+        public void WithNullIEnumerable_AppendBytes()
+        {
+            IEnumerable<byte> enumerableByte = null;
+            
+            using(var stream = new MemoryStream(10))
+            {
+                Assert.Throws<ArgumentNullException>(() =>
+                    stream.Append(enumerableByte)
+                );
+            }
+        }
+
+        [Test]
+        public void WithValidIEnumerableArray_AppendBytes()
+        {
+            IEnumerable<byte[]> enumerableByte = null;
+
+            using(var stream = new MemoryStream(10))
+            {
+                Assert.Throws<ArgumentNullException>(() =>
+                    stream.Append(enumerableByte)
+                );
             }
         }
     }
@@ -281,7 +430,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             currentAssembly.Position = 0;
             var bufferAsync = await currentAssembly.ReadBytesAsync(100, 100);
 
-            Assert.AreNotEqual(buffer, bufferAsync);
+            Assert.AreEqual(buffer, bufferAsync);
         }
 
         [Test]
