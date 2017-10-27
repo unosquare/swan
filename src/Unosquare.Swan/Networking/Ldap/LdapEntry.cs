@@ -41,12 +41,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// entry.</param>
         public LdapEntry(string dn = null, LdapAttributeSet attrs = null)
         {
-            if (dn == null)
-            {
-                dn = string.Empty;
-            }
-
-            Dn = dn;
+            Dn = dn ?? string.Empty;
             Attrs = attrs ?? new LdapAttributeSet();
         }
 
@@ -108,7 +103,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     public sealed class LdapAttribute
     {
-        private readonly string _name; // full attribute name
         private readonly string _baseName; // cn of cn;lang-ja;phonetic
         private readonly string[] _subTypes; // lang-ja of cn;lang-ja
         private object[] _values; // Array of byte[] attribute values
@@ -121,7 +115,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
         public LdapAttribute(string attrName)
         {
-            _name = attrName ?? throw new ArgumentNullException(nameof(attrName));
+            Name = attrName ?? throw new ArgumentNullException(nameof(attrName));
             _baseName = GetBaseName(attrName);
             _subTypes = GetSubtypes(attrName);
         }
@@ -244,12 +238,12 @@ namespace Unosquare.Swan.Networking.Ldap
         public string LangSubtype => _subTypes?.FirstOrDefault(t => t.StartsWith("lang-"));
 
         /// <summary>
-        ///     Returns the name of the attribute.
+        /// Returns the name of the attribute.
         /// </summary>
-        /// <returns>
-        ///     The name of the attribute.
-        /// </returns>
-        public string Name => _name;
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; }
 
         /// <summary>
         ///     Replaces all values with the specified value. This protected method is
@@ -367,7 +361,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         /// <param name="end">
         ///     The end index of base encoded part, exclusive.
-        ///     @throws IllegalArgumentException if attrString is null
         /// </param>
         public void AddBase64Value(StringBuilder attrString, int start, int end)
         {
@@ -427,7 +420,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// the subtypes.</param>
         /// <returns>
         /// An array subtypes or null if the attribute has none.
-        /// @throws IllegalArgumentException if attrName is null
         /// </returns>
         /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
         public static string[] GetSubtypes(string attrName)
@@ -466,7 +458,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     True, if the attribute has the specified subtype;
         ///     false, if it doesn't.
-        ///     @throws IllegalArgumentException if subtype is null
         /// </returns>
         public bool HasSubtype(string subtype)
         {
@@ -491,8 +482,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     True, if the attribute has all the specified subtypes;
         ///     false, if it doesn't have all the subtypes.
-        ///     @throws IllegalArgumentException if subtypes is null or if array member
-        ///     is null.
         /// </returns>
         public bool HasSubtypes(string[] subtypes)
         {
@@ -531,7 +520,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Value of the attribute as a string.
         ///     Note: Removing a value which is not present in the attribute has
         ///     no effect.
-        ///     @throws IllegalArgumentException if attrString is null
         /// </param>
         public void RemoveValue(string attrString)
         {
@@ -552,7 +540,6 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     Example: <code>String.getBytes("UTF-8");</code>
         ///     Note: Removing a value which is not present in the attribute has
         ///     no effect.
-        ///     @throws IllegalArgumentException if attrBytes is null
         /// </param>
         public void RemoveValue(sbyte[] attrBytes)
         {
@@ -619,7 +606,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     specified object.
         /// </returns>
         public int CompareTo(object attribute)
-            => _name.CompareTo(((LdapAttribute)attribute)._name);
+            => Name.CompareTo(((LdapAttribute)attribute).Name);
 
         /// <summary>
         ///     Adds an object to <code>this</code> object's list of attribute values
@@ -701,7 +688,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var result = new StringBuilder("LdapAttribute: ");
 
-            result.Append("{type='" + _name + "'");
+            result.Append("{type='" + Name + "'");
 
             if (_values != null)
             {
@@ -741,20 +728,16 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     A set of {@link LdapAttribute} objects.
-    ///     An <code>LdapAttributeSet</code> is a collection of <code>LdapAttribute</code>
-    ///     classes as returned from an <code>LdapEntry</code> on a search or read
-    ///     operation. <code>LdapAttributeSet</code> may be also used to contruct an entry
-    ///     to be added to a directory.  If the <code>add()</code> or <code>addAll()</code>
-    ///     methods are called and one or more of the objects to be added is not
-    ///     an <code>LdapAttribute, ClassCastException</code> is thrown (as discussed in the
-    ///     documentation for <code>java.util.Collection</code>).
+    /// A set of LdapAttribute objects.
+    /// An <code>LdapAttributeSet</code> is a collection of <code>LdapAttribute</code>
+    /// classes as returned from an <code>LdapEntry</code> on a search or read
+    /// operation. <code>LdapAttributeSet</code> may be also used to contruct an entry
+    /// to be added to a directory.  
     /// </summary>
-    /// <seealso cref="LdapAttribute">
-    /// </seealso>
-    /// <seealso cref="LdapEntry">
-    /// </seealso>
-    public class LdapAttributeSet : ArrayList
+    /// <seealso cref="System.Collections.ArrayList" />
+    /// <seealso cref="LdapAttribute"></seealso>
+    /// <seealso cref="LdapEntry"></seealso>
+    public sealed class LdapAttributeSet : ArrayList
     {
         /// <summary>
         ///     This is the underlying data structure for this set.
@@ -815,7 +798,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The attribute matching the specified attrName, or <code>null</code>
         ///     if there is no exact match.
         /// </returns>
-        public virtual LdapAttribute GetAttribute(string attrName)
+        public LdapAttribute GetAttribute(string attrName)
             => (LdapAttribute)_map[attrName.ToUpper()];
 
         /// <summary>
@@ -880,7 +863,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     A single best-match <code>LdapAttribute</code>, or <code>null</code>
         ///     if no match is found in the entry.
         /// </returns>
-        public virtual LdapAttribute GetAttribute(string attrName, string lang)
+        public LdapAttribute GetAttribute(string attrName, string lang)
             => (LdapAttribute)_map[(attrName + ";" + lang).ToUpper()];
 
         /// <summary>
@@ -920,7 +903,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     An attribute set containing the attributes that match the
         ///     specified subtype.
         /// </returns>
-        public virtual LdapAttributeSet GetSubset(string subtype)
+        public LdapAttributeSet GetSubset(string subtype)
         {
             // Create a new tempAttributeSet
             var tempAttributeSet = new LdapAttributeSet();
@@ -947,8 +930,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// iterator over the attributes in this set
         /// </returns>
-        public IEnumerator GetEnumerator()
-            => _map.Values.GetEnumerator();
+        public IEnumerator GetEnumerator() => _map.Values.GetEnumerator();
 
         /// <summary>
         ///     Returns <code>true</code> if this set contains no elements
@@ -956,8 +938,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     <code>true</code> if this set contains no elements
         /// </returns>
-        public bool IsEmpty()
-            => _map.Count == 0;
+        public bool IsEmpty() => _map.Count == 0;
 
         /// <summary>
         ///     Returns <code>true</code> if this set contains an attribute of the same name
@@ -968,8 +949,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         /// <returns>
         ///     true if this set contains the specified attribute
-        ///     @throws ClassCastException occurs the specified Object
-        ///     is not of type LdapAttribute.
         /// </returns>
         public override bool Contains(object attr)
             => _map.ContainsKey(((LdapAttribute)attr).Name.ToUpper());
@@ -984,8 +963,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </param>
         /// <returns>
         ///     true if the attribute was added.
-        ///     @throws ClassCastException occurs the specified Object
-        ///     is not of type <code>LdapAttribute</code>.
         /// </returns>
         public bool Add(object attr)
         {
@@ -1008,8 +985,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="entry">The entry.</param>
         /// <returns>
         /// true if the object was removed.
-        /// @throws ClassCastException occurs the specified Object
-        /// is not of type <code>LdapAttribute</code> or of type <code>String</code>.
         /// </returns>
         public bool Remove(object entry)
         {

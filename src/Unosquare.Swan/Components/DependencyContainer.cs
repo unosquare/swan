@@ -1221,10 +1221,10 @@ namespace Unosquare.Swan.Components
             public MultiInstanceFactory(Type registerType, Type registerImplementation)
             {
                 if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "MultiInstanceFactory");
+                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory", true);
 
                 if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "MultiInstanceFactory");
+                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory", true);
 
                 this.registerType = registerType;
                 this.registerImplementation = registerImplementation;
@@ -1351,7 +1351,7 @@ namespace Unosquare.Swan.Components
             public InstanceFactory(Type registerType, Type registerImplementation, object instance)
             {
                 if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "InstanceFactory");
+                    throw new DependencyContainerRegistrationException(registerImplementation, "InstanceFactory", true);
 
                 this.registerType = registerType;
                 this.registerImplementation = registerImplementation;
@@ -1393,7 +1393,7 @@ namespace Unosquare.Swan.Components
             public WeakInstanceFactory(Type registerType, Type registerImplementation, object instance)
             {
                 if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, "WeakInstanceFactory");
+                    throw new DependencyContainerRegistrationException(registerImplementation, "WeakInstanceFactory", true);
 
                 this.registerType = registerType;
                 this.registerImplementation = registerImplementation;
@@ -1450,10 +1450,10 @@ namespace Unosquare.Swan.Components
             public SingletonFactory(Type registerType, Type registerImplementation)
             {
                 if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, nameof(SingletonFactory));
+                    throw new DependencyContainerRegistrationException(registerImplementation, nameof(SingletonFactory), true);
 
                 if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationTypeException(registerImplementation, nameof(SingletonFactory));
+                    throw new DependencyContainerRegistrationException(registerImplementation, nameof(SingletonFactory), true);
 
                 _registerType = registerType;
                 _registerImplementation = registerImplementation;
@@ -1637,7 +1637,7 @@ namespace Unosquare.Swan.Components
                     if (implementations.Skip(1).Any())
                     {
                         if (duplicateAction == DependencyContainerDuplicateImplementationActions.Fail)
-                            throw new DependencyContainerAutoRegistrationException(type, implementations);
+                            throw new DependencyContainerRegistrationException(type, implementations);
 
                         if (duplicateAction == DependencyContainerDuplicateImplementationActions.RegisterMultiple)
                         {

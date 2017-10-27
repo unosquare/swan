@@ -4,6 +4,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System;
     using System.Collections;
     using System.Text;
+    using Exceptions;
 
     /// <summary>
     /// Represents an Ldap Filter.
@@ -50,7 +51,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             ChoiceValue = Parse(filter);
         }
-        
+
         // Helper methods for RFC 2254 Search Filter parsing.
 
         /// <summary>
@@ -162,18 +163,18 @@ namespace Unosquare.Swan.Networking.Ldap
         private Asn1Tagged ParseFilterComp()
         {
             Asn1Tagged tag = null;
-            var filterComp = (FilterOp)_ft.OpOrAttr;
+            var filterComp = (FilterOp) _ft.OpOrAttr;
 
             switch (filterComp)
             {
                 case FilterOp.And:
                 case FilterOp.Or:
-                    tag = new Asn1Tagged(new Asn1Identifier((int)filterComp, true),
+                    tag = new Asn1Tagged(new Asn1Identifier((int) filterComp, true),
                         ParseFilterList(),
                         false);
                     break;
                 case FilterOp.Not:
-                    tag = new Asn1Tagged(new Asn1Identifier((int)filterComp, true),
+                    tag = new Asn1Tagged(new Asn1Identifier((int) filterComp, true),
                         ParseFilter());
                     break;
                 default:
@@ -185,8 +186,8 @@ namespace Unosquare.Swan.Networking.Ldap
                         case FilterOp.GreaterOrEqual:
                         case FilterOp.LessOrEqual:
                         case FilterOp.ApproxMatch:
-                            tag = new Asn1Tagged(new Asn1Identifier((int)filterType, true),
-                                new RfcAttributeValueAssertion(_ft.Attr, new Asn1OctetString(UnescapeString(valueRenamed))),
+                            tag = new Asn1Tagged(new Asn1Identifier((int) filterType, true),
+                                new RfcAttributeValueAssertion(_ft.Attr, UnescapeString(valueRenamed)),
                                 false);
                             break;
                         case FilterOp.EqualityMatch:
@@ -194,7 +195,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             {
                                 // present
                                 tag = new Asn1Tagged(
-                                    new Asn1Identifier((int)FilterOp.Present),
+                                    new Asn1Identifier((int) FilterOp.Present),
                                     new Asn1OctetString(_ft.Attr),
                                     false);
                             }
@@ -216,11 +217,9 @@ namespace Unosquare.Swan.Networking.Ldap
                                         if (lastTok.Equals(subTok))
                                         {
                                             // '**'
-                                            seq.Add(
-                                                new Asn1Tagged(
-                                                    new Asn1Identifier((int)SubstringOp.Any),
-                                                    new Asn1OctetString(UnescapeString(string.Empty)),
-                                                    false));
+                                            seq.Add(new Asn1Tagged(
+                                                new Asn1Identifier((int) SubstringOp.Any),
+                                                UnescapeString(string.Empty)));
                                         }
                                     }
                                     else
@@ -229,29 +228,23 @@ namespace Unosquare.Swan.Networking.Ldap
                                         if (cnt == 1)
                                         {
                                             // initial
-                                            seq.Add(
-                                                new Asn1Tagged(
-                                                    new Asn1Identifier((int)SubstringOp.Initial),
-                                                    new Asn1OctetString(UnescapeString(subTok)),
-                                                    false));
+                                            seq.Add(new Asn1Tagged(
+                                                new Asn1Identifier((int) SubstringOp.Initial),
+                                                UnescapeString(subTok)));
                                         }
                                         else if (cnt < tokCnt)
                                         {
                                             // any
-                                            seq.Add(
-                                                new Asn1Tagged(
-                                                    new Asn1Identifier((int)SubstringOp.Any),
-                                                    new Asn1OctetString(UnescapeString(subTok)),
-                                                    false));
+                                            seq.Add(new Asn1Tagged(
+                                                new Asn1Identifier((int) SubstringOp.Any),
+                                                UnescapeString(subTok)));
                                         }
                                         else
                                         {
                                             // final
-                                            seq.Add(
-                                                new Asn1Tagged(
-                                                    new Asn1Identifier((int)SubstringOp.Final),
-                                                    new Asn1OctetString(UnescapeString(subTok)),
-                                                    false));
+                                            seq.Add(new Asn1Tagged(
+                                                new Asn1Identifier((int) SubstringOp.Final),
+                                                UnescapeString(subTok)));
                                         }
                                     }
 
@@ -259,15 +252,15 @@ namespace Unosquare.Swan.Networking.Ldap
                                 }
 
                                 tag = new Asn1Tagged(
-                                    new Asn1Identifier((int)FilterOp.Substrings, true),
+                                    new Asn1Identifier((int) FilterOp.Substrings, true),
                                     new RfcSubstringFilter(_ft.Attr, seq),
                                     false);
                             }
                             else
                             {
                                 tag = new Asn1Tagged(
-                                    new Asn1Identifier((int)FilterOp.EqualityMatch, true),
-                                    new RfcAttributeValueAssertion(_ft.Attr, new Asn1OctetString(UnescapeString(valueRenamed))),
+                                    new Asn1Identifier((int) FilterOp.EqualityMatch, true),
+                                    new RfcAttributeValueAssertion(_ft.Attr, UnescapeString(valueRenamed)),
                                     false);
                             }
 
@@ -297,7 +290,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             }
 
                             tag = new Asn1Tagged(
-                                new Asn1Identifier((int)FilterOp.ExtensibleMatch, true),
+                                new Asn1Identifier((int) FilterOp.ExtensibleMatch, true),
                                 new RfcMatchingRuleAssertion(
                                     matchingRule == null ? null : new Asn1OctetString(matchingRule),
                                     type == null ? null : new Asn1OctetString(type),
@@ -341,7 +334,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         /// <exception cref="LdapException">Invalid Escape</exception>
         /// <exception cref="Exception">UTF-8 String encoding not supported by JVM</exception>
-        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapException">The exception.</exception>
+        /// <exception cref="LdapException">The exception.</exception>
         private sbyte[] UnescapeString(string value)
         {
             // give octets enough space to grow
@@ -359,7 +352,7 @@ namespace Unosquare.Swan.Networking.Ldap
             int ival, length = value.Length;
             char ch; // Character we are adding to the octet string
             var ca = new char[1]; // used while converting multibyte UTF-8 char
-            var temp = (char)0; // holds the value of the escaped sequence
+            var temp = (char) 0; // holds the value of the escaped sequence
             // loop through each character of the string and copy them into octets
             // converting escaped sequences when needed
             for (str = 0, octs = 0; str < length; str++)
@@ -369,19 +362,20 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if ((ival = ch.Hex2Int()) < 0)
                     {
-                        throw new LdapException($"Invalid value in escape sequence \"{ch}\"", LdapStatusCode.FilterError);
+                        throw new LdapException($"Invalid value in escape sequence \"{ch}\"",
+                            LdapStatusCode.FilterError);
                     }
 
                     // V3 escaped: \\**
                     if (escStart)
                     {
-                        temp = (char)(ival << 4); // high bits of escaped char
+                        temp = (char) (ival << 4); // high bits of escaped char
                         escStart = false;
                     }
                     else
                     {
-                        temp |= (char)ival; // all bits of escaped char
-                        octets[octs++] = (sbyte)temp;
+                        temp |= (char) ival; // all bits of escaped char
+                        octets[octs++] = (sbyte) temp;
                         escStart = escape = false;
                     }
                 }
@@ -398,7 +392,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         if (ch <= 0x7f)
                         {
                             // char = %x01-27 / %x2b-5b / %x5d-7f
-                            octets[octs++] = (sbyte)ch;
+                            octets[octs++] = (sbyte) ch;
                         }
                         else
                         {
@@ -418,7 +412,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         // found invalid character
                         var escString = string.Empty;
                         ca[0] = ch;
-                        
+
                         foreach (var u in Encoding.UTF8.GetSBytes(new string(ca)))
                         {
                             if (u >= 0 && u < 0x10)
@@ -431,7 +425,9 @@ namespace Unosquare.Swan.Networking.Ldap
                             }
                         }
 
-                        throw new LdapException($"The invalid character \"{ch}\" needs to be escaped as \"{escString}\"", LdapStatusCode.FilterError);
+                        throw new LdapException(
+                            $"The invalid character \"{ch}\" needs to be escaped as \"{escString}\"",
+                            LdapStatusCode.FilterError);
                     }
                 }
             }
@@ -470,7 +466,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
             else
             {
-                var topOfStack = (Asn1Tagged)_filterStack.Peek();
+                var topOfStack = (Asn1Tagged) _filterStack.Peek();
                 var value = topOfStack.TaggedValue;
 
                 if (value == null)
@@ -480,20 +476,20 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
                 else if (value is Asn1SetOf)
                 {
-                    ((Asn1SetOf)value).Add(current);
+                    ((Asn1SetOf) value).Add(current);
                 }
                 else if (value is Asn1Set)
                 {
-                    ((Asn1Set)value).Add(current);
+                    ((Asn1Set) value).Add(current);
                 }
-                else if (value.GetIdentifier().Tag == (int)FilterOp.Not)
+                else if (value.GetIdentifier().Tag == (int) FilterOp.Not)
                 {
                     throw new LdapException("Attemp to create more than one 'not' sub-filter",
                         LdapStatusCode.FilterError);
                 }
             }
 
-            var type = (FilterOp)current.GetIdentifier().Tag;
+            var type = (FilterOp) current.GetIdentifier().Tag;
             if (type == FilterOp.And || type == FilterOp.Or || type == FilterOp.Not)
             {
                 _filterStack.Push(current);
@@ -504,8 +500,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Creates and addes a substrings filter component.
         /// startSubstrings must be immediatly followed by at least one
         /// {addSubstring} method and one {endSubstrings} method
-        /// @throws Novell.Directory.Ldap.LdapException
-        /// Occurs when this component is created out of sequence.
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
         public void StartSubstrings(string attrName)
@@ -513,7 +507,7 @@ namespace Unosquare.Swan.Networking.Ldap
             _finalFound = false;
             var seq = new Asn1SequenceOf(5);
             Asn1Object current =
-                new Asn1Tagged(new Asn1Identifier((int)FilterOp.Substrings, true),
+                new Asn1Tagged(new Asn1Identifier((int) FilterOp.Substrings, true),
                     new RfcSubstringFilter(attrName, seq),
                     false);
             AddObject(current);
@@ -532,7 +526,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="type">Substring type: INITIAL | ANY | FINAL]</param>
         /// <param name="values">The value renamed.</param>
-        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapException">
+        /// <exception cref="LdapException">
         /// Attempt to add an invalid " + "substring type
         /// or
         /// Attempt to add an initial " + "substring match after the first substring
@@ -545,7 +539,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             try
             {
-                var substringSeq = (Asn1SequenceOf)_filterStack.Peek();
+                var substringSeq = (Asn1SequenceOf) _filterStack.Peek();
                 if (type != SubstringOp.Initial && type != SubstringOp.Any && type != SubstringOp.Final)
                 {
                     throw new LdapException("Attempt to add an invalid substring type",
@@ -570,28 +564,29 @@ namespace Unosquare.Swan.Networking.Ldap
                     _finalFound = true;
                 }
 
-                substringSeq.Add(
-                    new Asn1Tagged(new Asn1Identifier((int)type),
-                    new Asn1OctetString(values),
-                    false));
+                substringSeq.Add(new Asn1Tagged(new Asn1Identifier((int) type), values));
             }
             catch (InvalidCastException)
             {
-                throw new LdapException("A call to addSubstring occured without calling startSubstring", LdapStatusCode.FilterError);
+                throw new LdapException("A call to addSubstring occured without calling startSubstring",
+                    LdapStatusCode.FilterError);
             }
         }
 
         /// <summary>
-        ///     Completes a SubString filter component.
-        ///     @throws LdapException Occurs when this is called out of sequence,
-        ///     or the substrings filter is empty.
+        /// Completes a SubString filter component.
         /// </summary>
+        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapException">
+        /// Empty substring filter
+        /// or
+        /// Missmatched ending of substrings
+        /// </exception>
         public void EndSubstrings()
         {
             try
             {
                 _finalFound = false;
-                var substringSeq = (Asn1SequenceOf)_filterStack.Peek();
+                var substringSeq = (Asn1SequenceOf) _filterStack.Peek();
 
                 if (substringSeq.Size() == 0)
                 {
@@ -635,8 +630,8 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             Asn1Object current = new Asn1Tagged(
-                new Asn1Identifier((int)rfcType, true),
-                new RfcAttributeValueAssertion(attrName, new Asn1OctetString(valueArray)),
+                new Asn1Identifier((int) rfcType, true),
+                new RfcAttributeValueAssertion(attrName, valueArray),
                 false);
             AddObject(current);
         }
@@ -646,15 +641,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="attrName">
         ///     Name of the attribute to check for presence.
-        ///     @throws LdapException
-        ///     Occurs if addPresent is called out of sequence.
         /// </param>
         public void AddPresent(string attrName)
         {
             Asn1Object current = new Asn1Tagged(
-                new Asn1Identifier((int)FilterOp.Present),
-                    new Asn1OctetString(attrName),
-                    false);
+                new Asn1Identifier((int) FilterOp.Present),
+                new Asn1OctetString(attrName),
+                false);
             AddObject(current);
         }
 
@@ -667,7 +660,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="rfcType">
         ///     Filter type:
         ///     [AND | OR | NOT]
-        ///     @throws Novell.Directory.Ldap.LdapException
         /// </param>
         public void StartNestedFilter(FilterOp rfcType)
         {
@@ -675,11 +667,11 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (rfcType == FilterOp.And || rfcType == FilterOp.Or)
             {
-                current = new Asn1Tagged(new Asn1Identifier((int)rfcType, true), new Asn1SetOf(), false);
+                current = new Asn1Tagged(new Asn1Identifier((int) rfcType, true), new Asn1SetOf(), false);
             }
             else if (rfcType == FilterOp.Not)
             {
-                current = new Asn1Tagged(new Asn1Identifier((int)rfcType, true));
+                current = new Asn1Tagged(new Asn1Identifier((int) rfcType, true));
             }
             else
             {
@@ -693,8 +685,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary> Completes a nested filter and checks for the valid filter type.</summary>
         /// <param name="rfcType">
         ///     Type of filter to complete.
-        ///     @throws Novell.Directory.Ldap.LdapException  Occurs when the specified
-        ///     type differs from the current filter component.
         /// </param>
         public void EndNestedFilter(FilterOp rfcType)
         {
@@ -704,8 +694,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 _filterStack.Pop();
             }
 
-            var topOfStackType = ((Asn1Object)_filterStack.Peek()).GetIdentifier().Tag;
-            if (topOfStackType != (int)rfcType)
+            var topOfStackType = ((Asn1Object) _filterStack.Peek()).GetIdentifier().Tag;
+            if (topOfStackType != (int) rfcType)
             {
                 throw new LdapException("Mismatched ending of nested filter", LdapStatusCode.FilterError);
             }
@@ -723,7 +713,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Iterator over filter segments
         /// </returns>
-        public IEnumerator GetFilterIterator() => new FilterIterator(this, (Asn1Tagged)ChoiceValue);
+        public IEnumerator GetFilterIterator() => new FilterIterator(this, (Asn1Tagged) ChoiceValue);
 
         /// <summary>
         /// Creates and returns a String representation of this filter.
@@ -755,7 +745,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var filterpart = itr.Current;
                 if (filterpart is int i)
                 {
-                    var op = (FilterOp)i;
+                    var op = (FilterOp) i;
                     switch (op)
                     {
                         case FilterOp.And:
@@ -768,77 +758,77 @@ namespace Unosquare.Swan.Networking.Ldap
                             filter.Append('!');
                             break;
                         case FilterOp.EqualityMatch:
-                            {
-                                filter.Append((string)itr.Current);
-                                filter.Append('=');
-                                filter.Append(Encoding.UTF8.GetString((sbyte[])itr.Current));
-                                break;
-                            }
+                        {
+                            filter.Append((string) itr.Current);
+                            filter.Append('=');
+                            filter.Append(Encoding.UTF8.GetString((sbyte[]) itr.Current));
+                            break;
+                        }
 
                         case FilterOp.GreaterOrEqual:
-                            {
-                                filter
-                                    .Append((string)itr.Current)
-                                    .Append(">=")
-                                    .Append(Encoding.UTF8.GetString((sbyte[])itr.Current));
-                                break;
-                            }
+                        {
+                            filter
+                                .Append((string) itr.Current)
+                                .Append(">=")
+                                .Append(Encoding.UTF8.GetString((sbyte[]) itr.Current));
+                            break;
+                        }
 
                         case FilterOp.LessOrEqual:
-                            {
-                                filter.Append((string)itr.Current);
-                                filter.Append("<=");
-                                filter.Append(Encoding.UTF8.GetString((sbyte[])itr.Current));
-                                break;
-                            }
+                        {
+                            filter.Append((string) itr.Current);
+                            filter.Append("<=");
+                            filter.Append(Encoding.UTF8.GetString((sbyte[]) itr.Current));
+                            break;
+                        }
 
                         case FilterOp.Present:
-                            filter.Append((string)itr.Current);
+                            filter.Append((string) itr.Current);
                             filter.Append("=*");
                             break;
                         case FilterOp.ApproxMatch:
-                            filter.Append((string)itr.Current);
+                            filter.Append((string) itr.Current);
                             filter.Append("~=");
-                            filter.Append(Encoding.UTF8.GetString((sbyte[])itr.Current));
+                            filter.Append(Encoding.UTF8.GetString((sbyte[]) itr.Current));
                             break;
                         case FilterOp.ExtensibleMatch:
-                            var oid = (string)itr.Current;
-                            filter.Append((string)itr.Current);
+                            var oid = (string) itr.Current;
+                            filter.Append((string) itr.Current);
                             filter.Append(':');
                             filter.Append(oid);
                             filter.Append(":=");
-                            filter.Append((string)itr.Current);
+                            filter.Append((string) itr.Current);
                             break;
                         case FilterOp.Substrings:
+                        {
+                            filter.Append((string) itr.Current);
+                            filter.Append('=');
+
+                            while (itr.MoveNext())
                             {
-                                filter.Append((string)itr.Current);
-                                filter.Append('=');
-
-                                while (itr.MoveNext())
+                                switch ((SubstringOp) (int) itr.Current)
                                 {
-                                    switch ((SubstringOp)(int)itr.Current)
-                                    {
-                                        case SubstringOp.Initial:
-                                            filter.Append(itr.Current as string);
-                                            filter.Append('*');
-                                            break;
-                                        case SubstringOp.Any:
-                                            filter.Append(itr.Current as string);
-                                            filter.Append('*');
-                                            break;
-                                        case SubstringOp.Final:
-                                            filter.Append((string)itr.Current);
-                                            break;
-                                    }
+                                    case SubstringOp.Initial:
+                                        filter.Append(itr.Current as string);
+                                        filter.Append('*');
+                                        break;
+                                    case SubstringOp.Any:
+                                        filter.Append(itr.Current as string);
+                                        filter.Append('*');
+                                        break;
+                                    case SubstringOp.Final:
+                                        filter.Append((string) itr.Current);
+                                        break;
                                 }
-
-                                break;
                             }
+
+                            break;
+                        }
                     }
                 }
                 else if (filterpart is IEnumerator)
                 {
-                    StringFilter((IEnumerator)filterpart, filter);
+                    StringFilter((IEnumerator) filterpart, filter);
                 }
             }
 
@@ -908,26 +898,26 @@ namespace Unosquare.Swan.Networking.Ldap
                             {
                                 // return attribute name
                                 _index = 0;
-                                var attr = (Asn1OctetString)sub.Get(0);
+                                var attr = (Asn1OctetString) sub.Get(0);
                                 toReturn = attr.StringValue();
                             }
                             else if (_index % 2 == 0)
                             {
                                 // return substring identifier
-                                var substrs = (Asn1SequenceOf)sub.Get(1);
-                                toReturn = ((Asn1Tagged)substrs.Get(_index / 2)).GetIdentifier().Tag;
+                                var substrs = (Asn1SequenceOf) sub.Get(1);
+                                toReturn = ((Asn1Tagged) substrs.Get(_index / 2)).GetIdentifier().Tag;
                                 _index++;
                             }
                             else
                             {
                                 // return substring value
-                                var substrs = (Asn1SequenceOf)sub.Get(1);
-                                var tag = (Asn1Tagged)substrs.Get(_index / 2);
-                                toReturn = ((Asn1OctetString)tag.TaggedValue).StringValue();
+                                var substrs = (Asn1SequenceOf) sub.Get(1);
+                                var tag = (Asn1Tagged) substrs.Get(_index / 2);
+                                toReturn = ((Asn1OctetString) tag.TaggedValue).StringValue();
                                 _index++;
                             }
 
-                            if (_index / 2 >= ((Asn1SequenceOf)sub.Get(1)).Size())
+                            if (_index / 2 >= ((Asn1SequenceOf) sub.Get(1)).Size())
                             {
                                 _hasMore = false;
                             }
@@ -956,7 +946,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             }
 
                             toReturn =
-                                ((Asn1OctetString)((Asn1Tagged)exMatch.Get(_index++)).TaggedValue)
+                                ((Asn1OctetString) ((Asn1Tagged) exMatch.Get(_index++)).TaggedValue)
                                 .StringValue();
                             if (_index > 2)
                             {
@@ -972,7 +962,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             }
 
                             toReturn = new FilterIterator(_enclosingInstance,
-                                (Asn1Tagged)setRenamed.Get(_index++));
+                                (Asn1Tagged) setRenamed.Get(_index++));
                             if (_index >= setRenamed.Size())
                             {
                                 _hasMore = false;
@@ -981,7 +971,7 @@ namespace Unosquare.Swan.Networking.Ldap
                         else if (asn1 is Asn1Tagged)
                         {
                             // NOT nested component.
-                            toReturn = new FilterIterator(_enclosingInstance, (Asn1Tagged)asn1);
+                            toReturn = new FilterIterator(_enclosingInstance, (Asn1Tagged) asn1);
                             _hasMore = false;
                         }
                     }
@@ -1004,7 +994,6 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             private readonly string _filter; // The filter string to parse
             private readonly int _filterLength; // Length of the filter string to parse
-            private string _attr; // Name of the attribute just parsed
             private int _offset; // Offset pointer into the filter string
 
             /// <summary>
@@ -1032,7 +1021,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// The op or attribute.
             /// </value>
             /// <exception cref="LdapException">Unexpect end</exception>
-            public virtual int OpOrAttr
+            public int OpOrAttr
             {
                 get
                 {
@@ -1047,17 +1036,17 @@ namespace Unosquare.Swan.Networking.Ldap
                     if (testChar == '&')
                     {
                         _offset++;
-                        ret = (int)FilterOp.And;
+                        ret = (int) FilterOp.And;
                     }
                     else if (testChar == '|')
                     {
                         _offset++;
-                        ret = (int)FilterOp.Or;
+                        ret = (int) FilterOp.Or;
                     }
                     else if (testChar == '!')
                     {
                         _offset++;
-                        ret = (int)FilterOp.Not;
+                        ret = (int) FilterOp.Not;
                     }
                     else
                     {
@@ -1066,7 +1055,8 @@ namespace Unosquare.Swan.Networking.Ldap
                             throw new LdapException("Missing matching rule", LdapStatusCode.FilterError);
                         }
 
-                        if (_filter.Substring(_offset).StartsWith("::=") || _filter.Substring(_offset).StartsWith(":::="))
+                        if (_filter.Substring(_offset).StartsWith("::=") ||
+                            _filter.Substring(_offset).StartsWith(":::="))
                         {
                             throw new LdapException("DN and matching rule not specified", LdapStatusCode.FilterError);
                         }
@@ -1080,36 +1070,39 @@ namespace Unosquare.Swan.Networking.Ldap
                             sb.Append(_filter[_offset++]);
                         }
 
-                        _attr = sb.ToString().Trim();
+                        Attr = sb.ToString().Trim();
 
                         // is there an attribute name specified in the filter ?
-                        if (_attr.Length == 0 || _attr[0] == ';')
+                        if (Attr.Length == 0 || Attr[0] == ';')
                         {
                             throw new LdapException("Missing attribute description", LdapStatusCode.FilterError);
                         }
 
                         int index;
-                        for (index = 0; index < _attr.Length; index++)
+                        for (index = 0; index < Attr.Length; index++)
                         {
-                            var atIndex = _attr[index];
+                            var atIndex = Attr[index];
                             if (
                                 !(char.IsLetterOrDigit(atIndex) || atIndex == '-' || atIndex == '.' || atIndex == ';' ||
                                   atIndex == ':'))
                             {
                                 if (atIndex == '\\')
                                 {
-                                    throw new LdapException("Escape sequence not allowed in attribute description", LdapStatusCode.FilterError);
+                                    throw new LdapException("Escape sequence not allowed in attribute description",
+                                        LdapStatusCode.FilterError);
                                 }
 
-                                throw new LdapException($"Invalid character \"{atIndex}\" in attribute description", LdapStatusCode.FilterError);
+                                throw new LdapException($"Invalid character \"{atIndex}\" in attribute description",
+                                    LdapStatusCode.FilterError);
                             }
                         }
 
                         // is there an option specified in the filter ?
-                        index = _attr.IndexOf(';');
-                        if (index != -1 && index == _attr.Length - 1)
+                        index = Attr.IndexOf(';');
+                        if (index != -1 && index == Attr.Length - 1)
                         {
-                            throw new LdapException("Semicolon present, but no option specified", LdapStatusCode.FilterError);
+                            throw new LdapException("Semicolon present, but no option specified",
+                                LdapStatusCode.FilterError);
                         }
 
                         ret = -1;
@@ -1128,7 +1121,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// </value>
             /// <exception cref="LdapException">
             /// </exception>
-            public virtual FilterOp FilterType
+            public FilterOp FilterType
             {
                 get
                 {
@@ -1178,7 +1171,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// The value.
             /// </value>
             /// <exception cref="LdapException"></exception>
-            public virtual string Value
+            public string Value
             {
                 get
                 {
@@ -1205,7 +1198,7 @@ namespace Unosquare.Swan.Networking.Ldap
             /// <value>
             /// The attribute.
             /// </value>
-            public virtual string Attr => _attr;
+            public string Attr { get; private set; }
 
             public RfcFilter EnclosingInstance { get; }
 
@@ -1224,7 +1217,8 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 if (_filter[_offset++] != '(')
                 {
-                    throw new LdapException(string.Format(LdapException.ExpectingLeftParen, _filter[_offset -= 1]), LdapStatusCode.FilterError);
+                    throw new LdapException(string.Format(LdapException.ExpectingLeftParen, _filter[_offset -= 1]),
+                        LdapStatusCode.FilterError);
                 }
             }
 
@@ -1241,7 +1235,8 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 if (_filter[_offset++] != ')')
                 {
-                    throw new LdapException(string.Format(LdapException.ExpectingRightParen, _filter[_offset - 1]), LdapStatusCode.FilterError);
+                    throw new LdapException(string.Format(LdapException.ExpectingRightParen, _filter[_offset - 1]),
+                        LdapStatusCode.FilterError);
                 }
             }
 
@@ -1263,6 +1258,5 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
     }
-
 }
 #endif

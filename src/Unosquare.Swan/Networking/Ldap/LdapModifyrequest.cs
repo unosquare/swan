@@ -16,7 +16,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="modifications">The modifications.</param>
         /// <param name="control">The control.</param>
         public LdapModifyRequest(string dn, LdapModification[] modifications, LdapControl[] control)
-            : base(LdapOperation.ModifyRequest, new RfcModifyRequest(new Asn1OctetString(dn), EncodeModifications(modifications)), control)
+            : base(LdapOperation.ModifyRequest, new RfcModifyRequest(dn, EncodeModifications(modifications)), control)
         {
         }
 

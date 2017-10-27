@@ -97,7 +97,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="message">The message.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <returns>A task that represents the asynchronous of send email operation</returns>
-        public async Task SendMailAsync(MailMessage message, string sessionId = null)
+        public Task SendMailAsync(MailMessage message, string sessionId = null)
         {
             var state = new SmtpSessionState
             {
@@ -120,7 +120,7 @@ namespace Unosquare.Swan.Networking
 
             state.DataBuffer.AddRange(message.ToMimeMessage().ToArray());
 
-            await SendMailAsync(state, sessionId);
+            return SendMailAsync(state, sessionId);
         }
 #endif
 
@@ -133,14 +133,14 @@ namespace Unosquare.Swan.Networking
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous of send email operation</returns>
-        public async Task SendMailAsync(
+        public Task SendMailAsync(
             SmtpSessionState sessionState,
             string sessionId = null,
             CancellationToken ct = default(CancellationToken))
         {
             $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info(
                 typeof(SmtpClient));
-            await SendMailAsync(new[] { sessionState }, sessionId, ct);
+            return SendMailAsync(new[] { sessionState }, sessionId, ct);
         }
 
         /// <summary>

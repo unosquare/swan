@@ -8,6 +8,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Exceptions;
 
     /// <summary>
     /// The central class that encapsulates the connection
@@ -139,7 +140,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The protocol version.
         /// </value>
-        public virtual int ProtocolVersion => BindProperties?.ProtocolVersion ?? LdapV3;
+        public int ProtocolVersion => BindProperties?.ProtocolVersion ?? LdapV3;
 
         /// <summary>
         /// Returns the distinguished name (DN) used for as the bind name during
@@ -150,7 +151,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The authentication dn.
         /// </value>
-        public virtual string AuthenticationDn => BindProperties == null ? null : (BindProperties.Anonymous ? null : BindProperties.AuthenticationDN);
+        public string AuthenticationDn => BindProperties == null ? null : (BindProperties.Anonymous ? null : BindProperties.AuthenticationDN);
 
         /// <summary>
         /// Returns the method used to authenticate the connection. The return
@@ -163,8 +164,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <value>
         /// The authentication method.
         /// </value>
-        public virtual string AuthenticationMethod
-            => BindProperties == null ? "simple" : BindProperties.AuthenticationMethod;
+        public string AuthenticationMethod => BindProperties == null ? "simple" : BindProperties.AuthenticationMethod;
         
         /// <summary>
         ///     Indicates whether the connection represented by this object is open
@@ -173,7 +173,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     True if connection is open; false if the connection is closed.
         /// </returns>
-        public virtual bool Connected => _conn?.IsConnected == true;
+        public bool Connected => _conn?.IsConnected == true;
 
         /// <summary>
         ///     Returns the Server Controls associated with the most recent response
@@ -189,7 +189,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         /// <seealso cref="LdapMessage.Controls">
         /// </seealso>
-        public virtual LdapControl[] ResponseControls
+        public LdapControl[] ResponseControls
         {
             get
             {
@@ -224,7 +224,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal BindProperties BindProperties { get; set; }
         
-        internal virtual Connection Connection => _conn;
+        internal Connection Connection => _conn;
 
         internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
 
@@ -232,13 +232,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         public void Dispose() => Dispose(true);
-        
+
         /// <summary>
-        /// Starts Transport Layer Security (TLS) protocol on this connection
-        /// to enable session privacy.
-        /// This affects the LdapConnection object and all cloned objects. A
-        /// socket factory that implements LdapTLSSocketFactory must be set on the
-        /// connection.
+        /// Synchronously authenticates to the Ldap server (that the object is
+        /// currently connected to) using the specified name, password, Ldap version,
+        /// and constraints.
+        /// If the object has been disconnected from an Ldap server,
+        /// this method attempts to reconnect to the server. If the object
+        /// has already authenticated, the old authentication is discarded.
         /// </summary>
         /// <param name="dn">If non-null and non-empty, specifies that the
         /// connection and all operations through it should
@@ -256,8 +257,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
-        public virtual Task Bind(string dn, string passwd)
-            => Bind(LdapV3, dn, passwd);
+        public Task Bind(string dn, string passwd) => Bind(LdapV3, dn, passwd);
 
         /// <summary>
         /// Synchronously authenticates to the Ldap server (that the object is
@@ -283,7 +283,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// in objects that are serialized.  The LdapConnection
         /// keeps no long lived instances of these objects.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task Bind(int version, string dn, string passwd)
+        public Task Bind(int version, string dn, string passwd)
         {
             sbyte[] pw = null;
             if (string.IsNullOrWhiteSpace(passwd) == false)
@@ -313,7 +313,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual Task Bind(int version, string dn, sbyte[] passwd)
+        public Task Bind(int version, string dn, sbyte[] passwd)
         {
             dn = string.IsNullOrEmpty(dn) ? string.Empty : dn.Trim();
 
@@ -347,7 +347,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="port">The TCP or UDP port number to connect to or contact.
         /// The default Ldap port is 389.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public virtual async Task Connect(string host, int port)
+        public async Task Connect(string host, int port)
         {
             var tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(host, port);
@@ -365,7 +365,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The disconnect method abandons any outstanding requests, issues an
         /// unbind request to the server, and then closes the socket.
         /// </summary>
-        public virtual void Disconnect()
+        public void Disconnect()
         {
             // disconnect from API call
             _cts.Cancel();
@@ -507,7 +507,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="isDisposing">
         ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool isDisposing)
+        protected void Dispose(bool isDisposing)
         {
             if (isDisposing)
             {

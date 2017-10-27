@@ -66,6 +66,5 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>Decoded char string</returns>
         object DecodeCharacterString(Stream stream, int len);
     }
-
 }
 #endif
