@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Unosquare.Swan.Test.ExtensionsDatesTests
 {
@@ -42,6 +43,28 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
             {
                 date.ToDateTime();
             });
+        }
+    }
+
+    [TestFixture]
+    public class DateRange
+    {
+        [Test]
+        public void GivingTwoDates_ReturnsEqualSequenceRangeOfDates()
+        {
+            var startDate = new DateTime(2017, 1, 1);
+            var endDate = new DateTime(2017, 1, 3);
+
+            var rangeActual = Extensions.DateRange(startDate, endDate);
+
+            var rangeExpected  = new List<DateTime>
+            {
+                new DateTime(2017, 1, 1, 0, 0, 0),
+                new DateTime(2017, 1, 2, 0, 0, 0),
+                new DateTime(2017, 1, 3, 0, 0, 0),
+            };
+
+            CollectionAssert.AreEqual(rangeExpected, rangeActual);
         }
     }
 }
