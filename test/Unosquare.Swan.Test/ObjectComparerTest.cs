@@ -160,6 +160,23 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
                 ObjectComparer.AreEnumsEqual(left, right);
             });
         }
+
+        [Test]
+        public void RightEnumNull_ThrowsArgumentNullException()
+        {
+            var left = new List<string>
+            {
+                "UnoSquare"
+            };
+
+            var right = new List<string>();
+            right = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectComparer.AreEnumsEqual(left, right);
+            });
+        }
     }
 
     [TestFixture]
