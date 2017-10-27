@@ -140,5 +140,17 @@ namespace Unosquare.Swan.Test.ArgumentParserTests
             Assert.Throws<InvalidOperationException>(
                 () => { Runtime.ArgumentParser.ParseArguments(dumpArgs, options); });
         }
+
+        [Test]
+        public void InstanceNull_ThrowsArgumentNullException()
+        {
+            var options = new OptionMock();
+            var dumpArgs = new[] { "-N", "babu", "-V" };
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.ArgumentParser.ParseArguments(dumpArgs, options = null);
+            });
+        }
     }
 }
