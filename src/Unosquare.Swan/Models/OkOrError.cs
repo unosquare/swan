@@ -15,11 +15,17 @@
         /// <summary>
         /// Gets or sets the ok.
         /// </summary>
+        /// <value>
+        /// The ok.
+        /// </value>
         public T Ok { get; set; } = default(T);
 
         /// <summary>
         /// Gets or sets the error.
         /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
         public TError Error { get; set; } = default(TError);
     }
 }

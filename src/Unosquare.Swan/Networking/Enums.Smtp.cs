@@ -1,6 +1,6 @@
-﻿namespace Unosquare.Swan
+﻿namespace Unosquare.Swan.Networking
 {
-#if !NET452
+#if NETSTANDARD1_3 || UWP
 
     /// <summary>
     /// Defines the different SMTP status codes
