@@ -249,12 +249,12 @@
         {
             lock (_syncLock)
             {
-                if (_count != 0)
-                    throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
-
                 if (_headings != null)
                     throw new InvalidOperationException($"The {nameof(ReadHeadings)} method had already been called.");
 
+                if (_count != 0)
+                    throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
+                
                 _headings = ReadLine();
                 _defaultMap = new Dictionary<string, string>();
                 foreach (var heading in _headings)
