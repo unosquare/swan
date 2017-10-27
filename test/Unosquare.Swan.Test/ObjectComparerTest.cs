@@ -143,6 +143,23 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
 
             Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
         }
+
+        [Test]
+        public void LeftEnumNull_ThrowsArgumentNullException()
+        {
+            var left = new List<string>();
+            left = null;
+
+            var right = new List<string>
+            {
+                "UnoSquare"
+            };
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectComparer.AreEnumsEqual(left, right);
+            });
+        }
     }
 
     [TestFixture]
