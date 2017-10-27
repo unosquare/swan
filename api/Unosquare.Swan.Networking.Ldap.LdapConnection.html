@@ -507,7 +507,7 @@ an anonymous connection.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string AuthenticationDn { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string AuthenticationDn { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -539,7 +539,7 @@ or empty authentication DN was specified.
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string AuthenticationMethod { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string AuthenticationMethod { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -567,7 +567,7 @@ at this time.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool Connected { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Connected { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -593,7 +593,7 @@ at this time.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int ProtocolVersion { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int ProtocolVersion { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -623,7 +623,7 @@ requests, the response controls are available in LdapMessage.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapControl[] ResponseControls { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapControl[] ResponseControls { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -663,7 +663,7 @@ had already authenticated, the old authentication is discarded.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task Bind(int version, string dn, sbyte[] passwd)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Bind(int version, string dn, sbyte[] passwd)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -732,7 +732,7 @@ has already authenticated, the old authentication is discarded.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task Bind(int version, string dn, string passwd)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Bind(int version, string dn, string passwd)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -796,16 +796,17 @@ keeps no long lived instances of these objects.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.String,System.String)">Bind(String, String)</h4>
-  <div class="markdown level1 summary"><p>Starts Transport Layer Security (TLS) protocol on this connection
-to enable session privacy.
-This affects the LdapConnection object and all cloned objects. A
-socket factory that implements LdapTLSSocketFactory must be set on the
-connection.</p>
+  <div class="markdown level1 summary"><p>Synchronously authenticates to the Ldap server (that the object is
+currently connected to) using the specified name, password, Ldap version,
+and constraints.
+If the object has been disconnected from an Ldap server,
+this method attempts to reconnect to the server. If the object
+has already authenticated, the old authentication is discarded.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task Bind(string dn, string passwd)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Bind(string dn, string passwd)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -871,7 +872,7 @@ conducted as an anonymous client.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task Connect(string host, int port)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Connect(string host, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -928,7 +929,7 @@ unbind request to the server, and then closes the socket.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Disconnect()</code></pre>
+    <pre><code class="lang-csharp hljs">public void Disconnect()</code></pre>
   </div>
   
   
@@ -950,7 +951,7 @@ unbind request to the server, and then closes the socket.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool isDisposing)</code></pre>
+    <pre><code class="lang-csharp hljs">protected void Dispose(bool isDisposing)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1111,7 +1112,7 @@ attributes from the entry.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Exceptions.LdapException.html">LdapException</a></td>
         <td><p>Read response is ambiguous, multiple entries returned</p>
 </td>
       </tr>

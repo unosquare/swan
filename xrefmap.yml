@@ -3396,63 +3396,33 @@ references:
   commentId: N:Unosquare.Swan.Exceptions
   fullName: Unosquare.Swan.Exceptions
   nameWithType: Unosquare.Swan.Exceptions
-- uid: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException
-  name: DependencyContainerAutoRegistrationException
-  href: api/Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.html
-  commentId: T:Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException
-  fullName: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException
-  nameWithType: DependencyContainerAutoRegistrationException
-- uid: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type})
-  name: DependencyContainerAutoRegistrationException(Type, IEnumerable<Type>)
-  href: api/Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerAutoRegistrationException__ctor_System_Type_System_Collections_Generic_IEnumerable_System_Type__
-  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type})
-  name.vb: DependencyContainerAutoRegistrationException(Type, IEnumerable(Of Type))
-  fullName: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(System.Type, System.Collections.Generic.IEnumerable<System.Type>)
-  fullName.vb: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(System.Type, System.Collections.Generic.IEnumerable(Of System.Type))
-  nameWithType: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(Type, IEnumerable<Type>)
-  nameWithType.vb: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException(Type, IEnumerable(Of Type))
-- uid: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor*
-  name: DependencyContainerAutoRegistrationException
-  href: api/Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerAutoRegistrationException__ctor_
-  commentId: Overload:Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.#ctor
-  fullName: Unosquare.Swan.Exceptions.DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException
-  nameWithType: DependencyContainerAutoRegistrationException.DependencyContainerAutoRegistrationException
 - uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException
   name: DependencyContainerRegistrationException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html
   commentId: T:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException
   fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException
   nameWithType: DependencyContainerRegistrationException
-- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.String)
-  name: DependencyContainerRegistrationException(Type, String)
-  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_System_Type_System_String_
-  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.String)
-  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.String)
-  nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, String)
+- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type})
+  name: DependencyContainerRegistrationException(Type, IEnumerable<Type>)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_System_Type_System_Collections_Generic_IEnumerable_System_Type__
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type})
+  name.vb: DependencyContainerRegistrationException(Type, IEnumerable(Of Type))
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.Collections.Generic.IEnumerable<System.Type>)
+  fullName.vb: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.Collections.Generic.IEnumerable(Of System.Type))
+  nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, IEnumerable<Type>)
+  nameWithType.vb: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, IEnumerable(Of Type))
+- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.String,System.Boolean)
+  name: DependencyContainerRegistrationException(Type, String, Boolean)
+  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_System_Type_System_String_System_Boolean_
+  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor(System.Type,System.String,System.Boolean)
+  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException(System.Type, System.String, System.Boolean)
+  nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException(Type, String, Boolean)
 - uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor*
   name: DependencyContainerRegistrationException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationException__ctor_
   commentId: Overload:Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.#ctor
   fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationException.DependencyContainerRegistrationException
   nameWithType: DependencyContainerRegistrationException.DependencyContainerRegistrationException
-- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException
-  name: DependencyContainerRegistrationTypeException
-  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.html
-  commentId: T:Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException
-  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException
-  nameWithType: DependencyContainerRegistrationTypeException
-- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor(System.Type,System.String)
-  name: DependencyContainerRegistrationTypeException(Type, String)
-  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_System_Type_System_String_
-  commentId: M:Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor(System.Type,System.String)
-  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException(System.Type, System.String)
-  nameWithType: DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException(Type, String)
-- uid: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor*
-  name: DependencyContainerRegistrationTypeException
-  href: api/Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.html#Unosquare_Swan_Exceptions_DependencyContainerRegistrationTypeException__ctor_
-  commentId: Overload:Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.#ctor
-  fullName: Unosquare.Swan.Exceptions.DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException
-  nameWithType: DependencyContainerRegistrationTypeException.DependencyContainerRegistrationTypeException
 - uid: Unosquare.Swan.Exceptions.DependencyContainerResolutionException
   name: DependencyContainerResolutionException
   href: api/Unosquare.Swan.Exceptions.DependencyContainerResolutionException.html
@@ -3531,6 +3501,96 @@ references:
   commentId: Overload:Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
   fullName: Unosquare.Swan.Exceptions.JsonRequestException.HttpErrorCode
   nameWithType: JsonRequestException.HttpErrorCode
+- uid: Unosquare.Swan.Exceptions.LdapException
+  name: LdapException
+  href: api/Unosquare.Swan.Exceptions.LdapException.html
+  commentId: T:Unosquare.Swan.Exceptions.LdapException
+  fullName: Unosquare.Swan.Exceptions.LdapException
+  nameWithType: LdapException
+- uid: Unosquare.Swan.Exceptions.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)
+  name: LdapException(String, LdapStatusCode, String, String, Exception)
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_
+  commentId: M:Unosquare.Swan.Exceptions.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)
+  fullName: Unosquare.Swan.Exceptions.LdapException.LdapException(System.String, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.String, System.Exception)
+  nameWithType: LdapException.LdapException(String, LdapStatusCode, String, String, Exception)
+- uid: Unosquare.Swan.Exceptions.LdapException.#ctor*
+  name: LdapException
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException__ctor_
+  commentId: Overload:Unosquare.Swan.Exceptions.LdapException.#ctor
+  fullName: Unosquare.Swan.Exceptions.LdapException.LdapException
+  nameWithType: LdapException.LdapException
+- uid: Unosquare.Swan.Exceptions.LdapException.Cause
+  name: Cause
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_Cause
+  commentId: P:Unosquare.Swan.Exceptions.LdapException.Cause
+  fullName: Unosquare.Swan.Exceptions.LdapException.Cause
+  nameWithType: LdapException.Cause
+- uid: Unosquare.Swan.Exceptions.LdapException.Cause*
+  name: Cause
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_Cause_
+  commentId: Overload:Unosquare.Swan.Exceptions.LdapException.Cause
+  fullName: Unosquare.Swan.Exceptions.LdapException.Cause
+  nameWithType: LdapException.Cause
+- uid: Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage
+  name: LdapErrorMessage
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_LdapErrorMessage
+  commentId: P:Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage
+  fullName: Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage
+  nameWithType: LdapException.LdapErrorMessage
+- uid: Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage*
+  name: LdapErrorMessage
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_LdapErrorMessage_
+  commentId: Overload:Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage
+  fullName: Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage
+  nameWithType: LdapException.LdapErrorMessage
+- uid: Unosquare.Swan.Exceptions.LdapException.MatchedDN
+  name: MatchedDN
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_MatchedDN
+  commentId: P:Unosquare.Swan.Exceptions.LdapException.MatchedDN
+  fullName: Unosquare.Swan.Exceptions.LdapException.MatchedDN
+  nameWithType: LdapException.MatchedDN
+- uid: Unosquare.Swan.Exceptions.LdapException.MatchedDN*
+  name: MatchedDN
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_MatchedDN_
+  commentId: Overload:Unosquare.Swan.Exceptions.LdapException.MatchedDN
+  fullName: Unosquare.Swan.Exceptions.LdapException.MatchedDN
+  nameWithType: LdapException.MatchedDN
+- uid: Unosquare.Swan.Exceptions.LdapException.Message
+  name: Message
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_Message
+  commentId: P:Unosquare.Swan.Exceptions.LdapException.Message
+  fullName: Unosquare.Swan.Exceptions.LdapException.Message
+  nameWithType: LdapException.Message
+- uid: Unosquare.Swan.Exceptions.LdapException.Message*
+  name: Message
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_Message_
+  commentId: Overload:Unosquare.Swan.Exceptions.LdapException.Message
+  fullName: Unosquare.Swan.Exceptions.LdapException.Message
+  nameWithType: LdapException.Message
+- uid: Unosquare.Swan.Exceptions.LdapException.ResultCode
+  name: ResultCode
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_ResultCode
+  commentId: P:Unosquare.Swan.Exceptions.LdapException.ResultCode
+  fullName: Unosquare.Swan.Exceptions.LdapException.ResultCode
+  nameWithType: LdapException.ResultCode
+- uid: Unosquare.Swan.Exceptions.LdapException.ResultCode*
+  name: ResultCode
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_ResultCode_
+  commentId: Overload:Unosquare.Swan.Exceptions.LdapException.ResultCode
+  fullName: Unosquare.Swan.Exceptions.LdapException.ResultCode
+  nameWithType: LdapException.ResultCode
+- uid: Unosquare.Swan.Exceptions.LdapException.ToString
+  name: ToString()
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_ToString
+  commentId: M:Unosquare.Swan.Exceptions.LdapException.ToString
+  fullName: Unosquare.Swan.Exceptions.LdapException.ToString()
+  nameWithType: LdapException.ToString()
+- uid: Unosquare.Swan.Exceptions.LdapException.ToString*
+  name: ToString
+  href: api/Unosquare.Swan.Exceptions.LdapException.html#Unosquare_Swan_Exceptions_LdapException_ToString_
+  commentId: Overload:Unosquare.Swan.Exceptions.LdapException.ToString
+  fullName: Unosquare.Swan.Exceptions.LdapException.ToString
+  nameWithType: LdapException.ToString
 - uid: Unosquare.Swan.Extensions
   name: Extensions
   href: api/Unosquare.Swan.Extensions.html
@@ -5748,12 +5808,12 @@ references:
   commentId: Overload:Unosquare.Swan.Network.GetDnsPointerEntryAsync
   fullName: Unosquare.Swan.Network.GetDnsPointerEntryAsync
   nameWithType: Network.GetDnsPointerEntryAsync
-- uid: Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType)
-  name: GetIPv4Addresses(NetworkInterfaceType)
-  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetIPv4Addresses_NetworkInterfaceType_
-  commentId: M:Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType)
-  fullName: Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType)
-  nameWithType: Network.GetIPv4Addresses(NetworkInterfaceType)
+- uid: Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType,System.Boolean,System.Boolean)
+  name: GetIPv4Addresses(NetworkInterfaceType, Boolean, Boolean)
+  href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetIPv4Addresses_NetworkInterfaceType_System_Boolean_System_Boolean_
+  commentId: M:Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType,System.Boolean,System.Boolean)
+  fullName: Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType, System.Boolean, System.Boolean)
+  nameWithType: Network.GetIPv4Addresses(NetworkInterfaceType, Boolean, Boolean)
 - uid: Unosquare.Swan.Network.GetIPv4Addresses(System.Boolean)
   name: GetIPv4Addresses(Boolean)
   href: api/Unosquare.Swan.Network.html#Unosquare_Swan_Network_GetIPv4Addresses_System_Boolean_
@@ -7791,21 +7851,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapControl.Register
   fullName: Unosquare.Swan.Networking.Ldap.LdapControl.Register
   nameWithType: LdapControl.Register
-- uid: Unosquare.Swan.Networking.Ldap.LdapControl.SetValue(System.SByte[])
-  name: SetValue(SByte[])
-  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_SetValue_System_SByte___
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapControl.SetValue(System.SByte[])
-  name.vb: SetValue(SByte())
-  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.SetValue(System.SByte[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapControl.SetValue(System.SByte())
-  nameWithType: LdapControl.SetValue(SByte[])
-  nameWithType.vb: LdapControl.SetValue(SByte())
-- uid: Unosquare.Swan.Networking.Ldap.LdapControl.SetValue*
-  name: SetValue
-  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_SetValue_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapControl.SetValue
-  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.SetValue
-  nameWithType: LdapControl.SetValue
 - uid: Unosquare.Swan.Networking.Ldap.LdapEntry
   name: LdapEntry
   href: api/Unosquare.Swan.Networking.Ldap.LdapEntry.html
@@ -7878,96 +7923,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapEntry.GetAttributeSet
   fullName: Unosquare.Swan.Networking.Ldap.LdapEntry.GetAttributeSet
   nameWithType: LdapEntry.GetAttributeSet
-- uid: Unosquare.Swan.Networking.Ldap.LdapException
-  name: LdapException
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.LdapException
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException
-  nameWithType: LdapException
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)
-  name: LdapException(String, LdapStatusCode, String, String, Exception)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapException(System.String, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.String, System.Exception)
-  nameWithType: LdapException.LdapException(String, LdapStatusCode, String, String, Exception)
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.#ctor*
-  name: LdapException
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException__ctor_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapException
-  nameWithType: LdapException.LdapException
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.Cause
-  name: Cause
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Cause
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapException.Cause
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.Cause
-  nameWithType: LdapException.Cause
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.Cause*
-  name: Cause
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Cause_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.Cause
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.Cause
-  nameWithType: LdapException.Cause
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
-  name: LdapErrorMessage
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_LdapErrorMessage
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
-  nameWithType: LdapException.LdapErrorMessage
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage*
-  name: LdapErrorMessage
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_LdapErrorMessage_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage
-  nameWithType: LdapException.LdapErrorMessage
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN
-  name: MatchedDN
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_MatchedDN
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN
-  nameWithType: LdapException.MatchedDN
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN*
-  name: MatchedDN
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_MatchedDN_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN
-  nameWithType: LdapException.MatchedDN
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.Message
-  name: Message
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Message
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapException.Message
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.Message
-  nameWithType: LdapException.Message
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.Message*
-  name: Message
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_Message_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.Message
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.Message
-  nameWithType: LdapException.Message
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
-  name: ResultCode
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ResultCode
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
-  nameWithType: LdapException.ResultCode
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ResultCode*
-  name: ResultCode
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ResultCode_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ResultCode
-  nameWithType: LdapException.ResultCode
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ToString
-  name: ToString()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ToString
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapException.ToString
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ToString()
-  nameWithType: LdapException.ToString()
-- uid: Unosquare.Swan.Networking.Ldap.LdapException.ToString*
-  name: ToString
-  href: api/Unosquare.Swan.Networking.Ldap.LdapException.html#Unosquare_Swan_Networking_Ldap_LdapException_ToString_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapException.ToString
-  fullName: Unosquare.Swan.Networking.Ldap.LdapException.ToString
-  nameWithType: LdapException.ToString
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage
   name: LdapMessage
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html
@@ -8157,48 +8112,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapModifyRequest.ToString
   fullName: Unosquare.Swan.Networking.Ldap.LdapModifyRequest.ToString
   nameWithType: LdapModifyRequest.ToString
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException
-  name: LdapReferralException
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html
-  commentId: T:Unosquare.Swan.Networking.Ldap.LdapReferralException
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException
-  nameWithType: LdapReferralException
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.Exception)
-  name: LdapReferralException(String, LdapStatusCode, String, Exception)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_Exception_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.Exception)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException(System.String, Unosquare.Swan.Networking.Ldap.LdapStatusCode, System.String, System.Exception)
-  nameWithType: LdapReferralException.LdapReferralException(String, LdapStatusCode, String, Exception)
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor*
-  name: LdapReferralException
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException__ctor_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapReferralException.#ctor
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.LdapReferralException
-  nameWithType: LdapReferralException.LdapReferralException
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral
-  name: FailedReferral
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException_FailedReferral
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral
-  nameWithType: LdapReferralException.FailedReferral
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral*
-  name: FailedReferral
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException_FailedReferral_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.FailedReferral
-  nameWithType: LdapReferralException.FailedReferral
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString
-  name: ToString()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException_ToString
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString()
-  nameWithType: LdapReferralException.ToString()
-- uid: Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString*
-  name: ToString
-  href: api/Unosquare.Swan.Networking.Ldap.LdapReferralException.html#Unosquare_Swan_Networking_Ldap_LdapReferralException_ToString_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString
-  fullName: Unosquare.Swan.Networking.Ldap.LdapReferralException.ToString
-  nameWithType: LdapReferralException.ToString
 - uid: Unosquare.Swan.Networking.Ldap.LdapResponse
   name: LdapResponse
   href: api/Unosquare.Swan.Networking.Ldap.LdapResponse.html

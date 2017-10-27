@@ -303,7 +303,7 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn, IPAddress dnsServer, int port, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -366,7 +366,7 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IPAddress[]&gt; GetDnsHostEntryAsync(string fqdn, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -627,13 +627,13 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
   
   
   <a id="Unosquare_Swan_Network_GetIPv4Addresses_" data-uid="Unosquare.Swan.Network.GetIPv4Addresses*"></a>
-  <h4 id="Unosquare_Swan_Network_GetIPv4Addresses_NetworkInterfaceType_" data-uid="Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType)">GetIPv4Addresses(NetworkInterfaceType)</h4>
-  <div class="markdown level1 summary"><p>Retrieves the local IP addresses.</p>
+  <h4 id="Unosquare_Swan_Network_GetIPv4Addresses_NetworkInterfaceType_System_Boolean_System_Boolean_" data-uid="Unosquare.Swan.Network.GetIPv4Addresses(NetworkInterfaceType,System.Boolean,System.Boolean)">GetIPv4Addresses(NetworkInterfaceType, Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the local ip addresses.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IPAddress[] GetIPv4Addresses(NetworkInterfaceType interfaceType, bool skipTypeFilter = false, bool includeLoopback = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -649,6 +649,18 @@ a DNS client to query DNS records of any kind, and an NTP client.</p>
         <td><span class="xref">NetworkInterfaceType</span></td>
         <td><span class="parametername">interfaceType</span></td>
         <td><p>Type of the interface.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">skipTypeFilter</span></td>
+        <td><p>if set to <code>true</code> [skip type filter].</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">includeLoopback</span></td>
+        <td><p>if set to <code>true</code> [include loopback].</p>
 </td>
       </tr>
     </tbody>

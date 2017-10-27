@@ -94,14 +94,11 @@ LdapAttributeSet when retrieving or adding multiple
 attributes to an entry.</p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html">LdapAttributeSet</a></h4>
-      <section><p>A set of {@link LdapAttribute} objects.
+      <section><p>A set of LdapAttribute objects.
 An <pre><code>LdapAttributeSet</code></pre> is a collection of <pre><code>LdapAttribute</code></pre>
 classes as returned from an <pre><code>LdapEntry</code></pre> on a search or read
 operation. <pre><code>LdapAttributeSet</code></pre> may be also used to contruct an entry
-to be added to a directory.  If the <pre><code>add()</code></pre> or <pre><code>addAll()</code></pre>
-methods are called and one or more of the objects to be added is not
-an <pre><code>LdapAttribute, ClassCastException</code></pre> is thrown (as discussed in the
-documentation for <pre><code>java.util.Collection</code></pre>).</p>
+to be added to a directory.  </p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapBindRequest.html">LdapBindRequest</a></h4>
       <section><p>Represents a simple bind request.</p>
@@ -136,14 +133,6 @@ An instance of
 LdapEntry is created in order to add an entry to a directory, and
 instances of LdapEntry are returned on a search by enumerating an
 LdapSearchResults.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a></h4>
-      <section><p>Thrown to indicate that an Ldap exception has occurred. This is a general
-exception which includes a message and an Ldap result code.
-An LdapException can result from physical problems (such as
-network errors) as well as problems with Ldap operations detected
-by the server. For example, if an Ldap add operation fails because of a
-duplicate entry, the server returns a result code.</p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapMessage.html">LdapMessage</a></h4>
       <section><p>The base class for Ldap request and response messages.
@@ -182,12 +171,6 @@ of <a href="http://www.ietf.org/rfc/rfc2251.txt">rfc2251.txt</a></p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html">LdapModifyRequest</a></h4>
       <section><p>Modification Request</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a></h4>
-      <section><p>Thrown when a server returns a referral and when a referral has not
-been followed.  It contains a list of URL strings corresponding
-to the referrals or search continuation references received on an Ldap
-operation.</p>
 </section>
       <h4><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapResponse.html">LdapResponse</a></h4>
       <section><p>A message received from an LdapServer

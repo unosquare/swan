@@ -119,7 +119,7 @@ operation (entries and exceptions).</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapSearchResults_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapSearchResults</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapSearchResults</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -138,7 +138,7 @@ received.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int Count { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -151,7 +151,7 @@ received.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>The number of items received but not retrieved by the application</p>
+        <td><p>The count.</p>
 </td>
       </tr>
     </tbody>
@@ -167,7 +167,7 @@ received.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool HasMore()</code></pre>
+    <pre><code class="lang-csharp hljs">public bool HasMore()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -197,7 +197,7 @@ when the referral is received.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapEntry Next()</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapEntry Next()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -211,6 +211,22 @@ when the referral is received.</p>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a></td>
         <td><p>The next search result as an LdapEntry.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p>Next - No more results</p>
 </td>
       </tr>
     </tbody>

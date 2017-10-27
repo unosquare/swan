@@ -81,14 +81,11 @@
   
   <h1 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet" class="text-break">Class LdapAttributeSet
   </h1>
-  <div class="markdown level0 summary"><p>A set of {@link LdapAttribute} objects.
+  <div class="markdown level0 summary"><p>A set of LdapAttribute objects.
 An <pre><code>LdapAttributeSet</code></pre> is a collection of <pre><code>LdapAttribute</code></pre>
 classes as returned from an <pre><code>LdapEntry</code></pre> on a search or read
 operation. <pre><code>LdapAttributeSet</code></pre> may be also used to contruct an entry
-to be added to a directory.  If the <pre><code>add()</code></pre> or <pre><code>addAll()</code></pre>
-methods are called and one or more of the objects to be added is not
-an <pre><code>LdapAttribute, ClassCastException</code></pre> is thrown (as discussed in the
-documentation for <pre><code>java.util.Collection</code></pre>).</p>
+to be added to a directory.  </p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -255,7 +252,7 @@ documentation for <pre><code>java.util.Collection</code></pre>).</p>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapAttributeSet : ArrayList, IList, ICollection, IEnumerable, ICloneable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapAttributeSet : ArrayList, IList, ICollection, IEnumerable, ICloneable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -332,9 +329,7 @@ specified attribute will not be added.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>true if the attribute was added.
-@throws ClassCastException occurs the specified Object
-is not of type <pre><code>LdapAttribute</code></pre>.</p>
+        <td><p>true if the attribute was added.</p>
 </td>
       </tr>
     </tbody>
@@ -422,9 +417,7 @@ as the specified attribute.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>true if this set contains the specified attribute
-@throws ClassCastException occurs the specified Object
-is not of type LdapAttribute.</p>
+        <td><p>true if this set contains the specified attribute</p>
 </td>
       </tr>
     </tbody>
@@ -452,7 +445,7 @@ It does support the &quot;binary&quot; subtype.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapAttribute GetAttribute(string attrName)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttribute GetAttribute(string attrName)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -545,7 +538,7 @@ It does support the &quot;binary&quot; subtype.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapAttribute GetAttribute(string attrName, string lang)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttribute GetAttribute(string attrName, string lang)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -645,7 +638,7 @@ attributes:
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapAttributeSet GetSubset(string subtype)</code></pre>
+    <pre><code class="lang-csharp hljs">public LdapAttributeSet GetSubset(string subtype)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -764,9 +757,7 @@ specified attribute will be removed.  If the specified object is of type</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>true if the object was removed.
-@throws ClassCastException occurs the specified Object
-is not of type <pre><code>LdapAttribute</code></pre> or of type <pre><code>String</code></pre>.</p>
+        <td><p>true if the object was removed.</p>
 </td>
       </tr>
     </tbody>
@@ -815,6 +806,7 @@ is not of type <pre><code>LdapAttribute</code></pre> or of type <pre><code>Strin
   </div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
+      <div><span class="xref">System.Collections.ArrayList</span></div>
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></div>
       <div><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapEntry.html">LdapEntry</a></div>
   </div>

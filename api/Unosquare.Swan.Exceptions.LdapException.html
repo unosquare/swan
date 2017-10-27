@@ -76,10 +76,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapException">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Exceptions.LdapException">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_LdapException" data-uid="Unosquare.Swan.Networking.Ldap.LdapException" class="text-break">Class LdapException
+  <h1 id="Unosquare_Swan_Exceptions_LdapException" data-uid="Unosquare.Swan.Exceptions.LdapException" class="text-break">Class LdapException
   </h1>
   <div class="markdown level0 summary"><p>Thrown to indicate that an Ldap exception has occurred. This is a general
 exception which includes a message and an Ldap result code.
@@ -94,7 +94,6 @@ duplicate entry, the server returns a result code.</p>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Exception</span></div>
     <div class="level2"><span class="xref">LdapException</span></div>
-      <div class="level3"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapReferralException.html">LdapReferralException</a></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -152,9 +151,9 @@ duplicate entry, the server returns a result code.</p>
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Exceptions.html">Unosquare.Swan.Exceptions</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapException_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Exceptions_LdapException_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class LdapException : Exception, ISerializable, _Exception</code></pre>
   </div>
@@ -162,9 +161,9 @@ duplicate entry, the server returns a result code.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapException__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)">LdapException(String, LdapStatusCode, String, String, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapException.html">LdapException</a> class.
+  <a id="Unosquare_Swan_Exceptions_LdapException__ctor_" data-uid="Unosquare.Swan.Exceptions.LdapException.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_" data-uid="Unosquare.Swan.Exceptions.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)">LdapException(String, LdapStatusCode, String, String, Exception)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Exceptions.LdapException.html">LdapException</a> class.
 Constructs an exception with a detailed message obtained from the
 specified <pre><code>MessageOrKey</code></pre> String.
 Additional parameters specify the result code, the message returned
@@ -226,8 +225,8 @@ be matched by the server on a search operation.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapException_Cause_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.Cause*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapException_Cause" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.Cause">Cause</h4>
+  <a id="Unosquare_Swan_Exceptions_LdapException_Cause_" data-uid="Unosquare.Swan.Exceptions.LdapException.Cause*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_Cause" data-uid="Unosquare.Swan.Exceptions.LdapException.Cause">Cause</h4>
   <div class="markdown level1 summary"><p>Returns the lower level Exception which caused the failure, if any.
 For example, an IOException with additional information may be returned
 on a CONNECT_ERROR failure.</p>
@@ -254,8 +253,8 @@ on a CONNECT_ERROR failure.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapException_LdapErrorMessage_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapException_LdapErrorMessage" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.LdapErrorMessage">LdapErrorMessage</h4>
+  <a id="Unosquare_Swan_Exceptions_LdapException_LdapErrorMessage_" data-uid="Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_LdapErrorMessage" data-uid="Unosquare.Swan.Exceptions.LdapException.LdapErrorMessage">LdapErrorMessage</h4>
   <div class="markdown level1 summary"><p>Returns the error message from the Ldap server, if this message is
 available (that is, if this message was set). If the message was not set,
 this method returns null.</p>
@@ -283,8 +282,8 @@ this method returns null.</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapException_MatchedDN_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapException_MatchedDN" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.MatchedDN">MatchedDN</h4>
+  <a id="Unosquare_Swan_Exceptions_LdapException_MatchedDN_" data-uid="Unosquare.Swan.Exceptions.LdapException.MatchedDN*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_MatchedDN" data-uid="Unosquare.Swan.Exceptions.LdapException.MatchedDN">MatchedDN</h4>
   <div class="markdown level1 summary"><p>Returns the part of a submitted distinguished name which could be
 matched by the server.
 If the exception was caused by a local error, such as no server
@@ -316,8 +315,8 @@ except when the result of the operation was one of the following:
   </table>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapException_Message_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.Message*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapException_Message" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.Message">Message</h4>
+  <a id="Unosquare_Swan_Exceptions_LdapException_Message_" data-uid="Unosquare.Swan.Exceptions.LdapException.Message*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_Message" data-uid="Unosquare.Swan.Exceptions.LdapException.Message">Message</h4>
   <div class="markdown level1 summary"><p>Gets a message that describes the current exception.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -344,8 +343,8 @@ except when the result of the operation was one of the following:
   <div><span class="xref">System.Exception.Message</span></div>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapException_ResultCode_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.ResultCode*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapException_ResultCode" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.ResultCode">ResultCode</h4>
+  <a id="Unosquare_Swan_Exceptions_LdapException_ResultCode_" data-uid="Unosquare.Swan.Exceptions.LdapException.ResultCode*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_ResultCode" data-uid="Unosquare.Swan.Exceptions.LdapException.ResultCode">ResultCode</h4>
   <div class="markdown level1 summary"><p>Returns the result code from the exception.
 The codes are defined as <pre><code>public final static int</code></pre> members
 of the Ldap Exception class. If the exception is a
@@ -377,8 +376,8 @@ code is returned.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapException_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.ToString*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapException_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapException.ToString">ToString()</h4>
+  <a id="Unosquare_Swan_Exceptions_LdapException_ToString_" data-uid="Unosquare.Swan.Exceptions.LdapException.ToString*"></a>
+  <h4 id="Unosquare_Swan_Exceptions_LdapException_ToString" data-uid="Unosquare.Swan.Exceptions.LdapException.ToString">ToString()</h4>
   <div class="markdown level1 summary"><p>Returns a string of information about the exception and the
 the nested exceptions, if any.</p>
 </div>
