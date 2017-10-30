@@ -89,5 +89,31 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         IntermediateResponse = 25
     }
+
+    /// <summary>
+    /// ASN1 tags
+    /// </summary>
+    internal enum Asn1IdentifierTag
+    {
+        /// <summary>
+        /// Universal tag class.
+        /// </summary>
+        Universal = 0,
+
+        /// <summary>
+        ///     Application-wide tag class.
+        /// </summary>
+        Application = 1,
+
+        /// <summary>
+        ///     Context-specific tag class.
+        /// </summary>
+        Context = 2,
+
+        /// <summary>
+        ///     Private-use tag class.
+        /// </summary>
+        Private = 3
+    }
 }
 #endif
