@@ -6,9 +6,9 @@
     using System.Net.Sockets;
 
     /// <summary>
-    /// Extension methods
+    /// Provides various extension methods for networking-related tasks
     /// </summary>
-    public partial class Extensions
+    public static class NetworkExtensions
     {
         /// <summary>
         /// Determines whether the IP address is private

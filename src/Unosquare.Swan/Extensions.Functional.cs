@@ -7,7 +7,7 @@
     /// <summary>
     /// Functional programming extension methods
     /// </summary>
-    public static partial class Extensions
+    public static class FunctionalExtensions
     {
         /// <summary>
         /// Whens the specified condition.

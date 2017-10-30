@@ -179,7 +179,6 @@ namespace Unosquare.Swan.Networking
         /// <exception cref="ArgumentNullException">sessionStates</exception>
         /// <exception cref="SecurityException">Could not upgrade the channel to SSL.</exception>
         /// <exception cref="SmtpException">Defines an SMTP Exceptions class</exception>
-        /// <exception cref="System.Security.SecurityException">Could not upgrade the channel to SSL.</exception>
         public async Task SendMailAsync(
             IEnumerable<SmtpSessionState> sessionStates,
             string sessionId = null,
