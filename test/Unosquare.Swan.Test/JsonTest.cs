@@ -6,7 +6,7 @@ using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Reflection;
 using Unosquare.Swan.Test.Mocks;
 
-namespace Unosquare.Swan.Test
+namespace Unosquare.Swan.Test.JsonTests
 {
     [TestFixture]
     public class JsonTest
@@ -335,6 +335,34 @@ namespace Unosquare.Swan.Test
             var data = Json.Deserialize<EmptyJson>("{ }");
 
             Assert.IsNotNull(data);
+        }
+
+        [Test]
+        public void Json_SerializeOnly_ReturnsObjectSerialized()
+        {
+            AdvJson obj = new AdvJson
+            {
+                StringData = "UnoSquare",
+                IntData = 2,
+                NegativeInt = -5,
+                DecimalData = 234.22M,
+                BoolData = false,
+            };
+
+            string[] includedNames = new string[]
+            {
+                "StringData",
+                "IntData",
+                "NegativeInt",
+                "DecimalData",
+                "BoolData"
+            };
+
+            var expectedObjectSerialized = "{\r\n    \"StringData\": \"UnoSquare\",\r\n    \"IntData\": 2,\r\n    \"NegativeInt\": -5,\r\n    \"DecimalData\": 234.22,\r\n    \"BoolData\": false\r\n}";
+
+            var dataSerialized = Json.SerializeOnly(obj, true, includedNames);
+
+            Assert.AreEqual(expectedObjectSerialized, dataSerialized);
         }
     }
 }
