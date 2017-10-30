@@ -56,15 +56,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="len">Length in bytes</param>
         /// <returns>Decoded string</returns>
         object DecodeOctetString(Stream stream, int len);
-
-        /// <summary>
-        /// Decode a CharacterString directly from a stream.
-        /// Decodes any of the specialized character strings.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">Length in bytes</param>
-        /// <returns>Decoded char string</returns>
-        object DecodeCharacterString(Stream stream, int len);
     }
 }
 #endif

@@ -31,10 +31,17 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void ObjectsWithDifferentProps_ReturnsFalse()
         {
-            var leftArray = new { Numero = new Array[1, 2, 3], Letra = "A" };
-            var rightArray = new { Numero = new Array[1, 5, 3], Letra = "A" };
+            var leftArray = new {Numero = new Array[1, 2, 3], Letra = "A"};
+            var rightArray = new {Numero = new Array[1, 5, 3], Letra = "A"};
 
             Assert.IsFalse(ObjectComparer.AreObjectsEqual(leftArray, rightArray));
+        }
+
+        [Test]
+        public void NullType_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreObjectsEqual(DateBasicJson.GetDateDefault(),
+                DateBasicJson.GetDateDefault(), null));
         }
     }
 
@@ -44,13 +51,13 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void EqualStructs_ReturnsTrue()
         {
-            var leftStruct = new SampleStruct()
+            var leftStruct = new SampleStruct
             {
                 Name = "Alexey Turpalov",
                 Value = 1
             };
 
-            var rightStruct = new SampleStruct()
+            var rightStruct = new SampleStruct
             {
                 Name = "Alexey Turpalov",
                 Value = 1
@@ -62,19 +69,25 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void DifferentStructs_ReturnsFalse()
         {
-            var leftStruct = new SampleStruct()
+            var leftStruct = new SampleStruct
             {
                 Name = "ArCiGo",
                 Value = 1
             };
 
-            var rightStruct = new SampleStruct()
+            var rightStruct = new SampleStruct
             {
                 Name = "Kadosh",
                 Value = 2
             };
 
             Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+        }
+
+        [Test]
+        public void NullType_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreStructsEqual(new SampleStruct(), new SampleStruct(), null));
         }
     }
 
@@ -84,8 +97,8 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void EqualArrays_ReturnsTrue()
         {
-            var leftArray = new[] { 1, 2, 3, 4, 5 };
-            var rightArray = new[] { 1, 2, 3, 4, 5 };
+            var leftArray = new[] {1, 2, 3, 4, 5};
+            var rightArray = new[] {1, 2, 3, 4, 5};
 
             Assert.IsTrue(ObjectComparer.AreEnumsEqual(leftArray, rightArray));
         }
@@ -93,8 +106,8 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void DifferentArrays_ReturnsFalse()
         {
-            var leftArray = new[] { 1, 2, 3 };
-            var rightArray = new[] { 7, 1, 9 };
+            var leftArray = new[] {1, 2, 3};
+            var rightArray = new[] {7, 1, 9};
 
             Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftArray, rightArray));
         }
@@ -106,8 +119,8 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void EqualObjectsWithArrayProperties_ReturnsTrue()
         {
-            var leftObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
-            var rightObject = new AdvArrayJson { Id = 1, Properties = new[] { BasicJson.GetDefault() } };
+            var leftObject = new AdvArrayJson {Id = 1, Properties = new[] {BasicJson.GetDefault()}};
+            var rightObject = new AdvArrayJson {Id = 1, Properties = new[] {BasicJson.GetDefault()}};
 
             Assert.IsTrue(ObjectComparer.AreEqual(leftObject, rightObject));
         }
@@ -115,8 +128,8 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void EqualArraysWithObjects_ReturnsTrue()
         {
-            var leftArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
-            var rightArrayObject = new[] { BasicJson.GetDefault(), BasicJson.GetDefault() };
+            var leftArrayObject = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()};
+            var rightArrayObject = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()};
 
             Assert.IsTrue(ObjectComparer.AreEnumsEqual(leftArrayObject, rightArrayObject));
         }
@@ -129,17 +142,17 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         public void EnumsWithDifferentLengths_ReturnsFalse()
         {
             var leftListEnum = new List<string>
-                {
-                    "ArCiGo",
-                    "ElCiGo",
-                    "WizardexC137",
-                    "DCOW"
-                };
+            {
+                "ArCiGo",
+                "ElCiGo",
+                "WizardexC137",
+                "DCOW"
+            };
 
             var rightListEnum = new List<string>
-                {
-                    "Kadosh"
-                };
+            {
+                "Kadosh"
+            };
 
             Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
         }
@@ -160,6 +173,23 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
                 ObjectComparer.AreEnumsEqual(left, right);
             });
         }
+
+        [Test]
+        public void RightEnumNull_ThrowsArgumentNullException()
+        {
+            var left = new List<string>
+            {
+                "UnoSquare"
+            };
+
+            var right = new List<string>();
+            right = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectComparer.AreEnumsEqual(left, right);
+            });
+        }
     }
 
     [TestFixture]
@@ -168,14 +198,14 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void StructsSameProps_ReturnsTrue()
         {
-            var leftStruct = new SampleStructWithProps()
+            var leftStruct = new SampleStructWithProps
             {
                 StudentId = 1,
                 Average = 98.10,
                 Notes = "Good"
             };
 
-            var rightStruct = new SampleStructWithProps()
+            var rightStruct = new SampleStructWithProps
             {
                 StudentId = 1,
                 Average = 98.10,
@@ -188,14 +218,14 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void StructsDifferentProps_ReturnsFalse()
         {
-            var leftStruct = new SampleStructWithProps()
+            var leftStruct = new SampleStructWithProps
             {
                 StudentId = 1,
                 Average = 98.10,
                 Notes = "Good"
             };
 
-            var rightStruct = new SampleStructWithProps()
+            var rightStruct = new SampleStructWithProps
             {
                 StudentId = 2,
                 Average = 79.78,
@@ -225,6 +255,12 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
             };
 
             Assert.IsTrue(ObjectComparer.AreEqual(leftStruct, rightStruct));
+        }
+
+        [Test]
+        public void NullType_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEqual(new SampleStruct(), new SampleStruct(), null));
         }
     }
 }

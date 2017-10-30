@@ -88,11 +88,17 @@
         /// <summary>
         /// Gets the raw data of the record.
         /// </summary>
+        /// <value>
+        /// The data.
+        /// </value>
         public byte[] Data { get; }
 
         /// <summary>
         /// Gets the data text bytes in ASCII encoding.
         /// </summary>
+        /// <value>
+        /// The data text.
+        /// </value>
         public string DataText => Data == null ? string.Empty : Encoding.ASCII.GetString(Data);
 
         /// <summary>

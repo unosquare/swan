@@ -12,7 +12,7 @@
     /// <summary>
     /// String related extension methods
     /// </summary>
-    public partial class Extensions
+    public static class StringExtensions
     {
         #region Private Declarations
 

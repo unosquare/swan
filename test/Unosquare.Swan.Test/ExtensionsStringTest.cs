@@ -198,6 +198,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");
         }
 
+        [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
             string input = null;
@@ -286,6 +287,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             }
         }
 
+        [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
             string input = null;

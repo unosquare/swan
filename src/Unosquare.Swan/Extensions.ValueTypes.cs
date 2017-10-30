@@ -7,9 +7,9 @@
     using Attributes;
 
     /// <summary>
-    /// Provides various extension methods
+    /// Provides various extension methods for value types and structs
     /// </summary>
-    public partial class Extensions
+    public static class ValueTypeExtensions
     {
         /// <summary>
         /// Clamps the specified value between the minimum and the maximum

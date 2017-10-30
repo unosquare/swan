@@ -102,26 +102,41 @@
         /// <summary>
         /// Gets or sets the field separator character.
         /// </summary>
+        /// <value>
+        /// The separator character.
+        /// </value>
         public char SeparatorCharacter { get; set; } = ',';
 
         /// <summary>
         /// Gets or sets the escape character to use to escape field values
         /// </summary>
+        /// <value>
+        /// The escape character.
+        /// </value>
         public char EscapeCharacter { get; set; } = '"';
 
         /// <summary>
         /// Gets or sets the new line character sequence to use when writing a line.
         /// </summary>
+        /// <value>
+        /// The new line sequence.
+        /// </value>
         public string NewLineSequence { get; set; } = Environment.NewLine;
 
         /// <summary>
         /// Defines a list of properties to ignore when outputting CSV lines
         /// </summary>
+        /// <value>
+        /// The ignore property names.
+        /// </value>
         public List<string> IgnorePropertyNames { get; } = new List<string>();
 
         /// <summary>
         /// Gets number of lines that have been written, including the headings line
         /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
         public ulong Count
         {
             get

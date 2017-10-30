@@ -287,7 +287,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// search results.
     /// </summary>
     /// <seealso cref="LdapConnection.Search"></seealso>
-    public sealed class LdapUrl
+    internal class LdapUrl
     {
         // Broken out parts of the URL
         private readonly bool ipV6 = false; // TCP/IP V6
@@ -726,12 +726,12 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     A message received from an LdapServer
-    ///     in response to an asynchronous request.
+    /// A message received from an LdapServer
+    /// in response to an asynchronous request.
     /// </summary>
-    /// <seealso cref="LdapConnection.Search">
-    /// </seealso>
-    public sealed class LdapResponse : LdapMessage
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
+    /// <seealso cref="LdapConnection.Search"></seealso>
+    internal class LdapResponse : LdapMessage
     {
         private readonly LdapException exception;
 
@@ -768,57 +768,54 @@ namespace Unosquare.Swan.Networking.Ldap
             : ((IRfcResponse) Message.Response).GetMatchedDN().StringValue();
 
         /// <summary>
-        ///     Returns all referrals in a server response, if the response contains any.
+        /// Returns all referrals in a server response, if the response contains any.
         /// </summary>
-        /// <returns>
-        ///     All the referrals in the server response.
-        /// </returns>
+        /// <value>
+        /// The referrals.
+        /// </value>
         public string[] Referrals
         {
             get
             {
-                string[] referrals;
                 var reference = ((IRfcResponse) Message.Response).GetReferral();
 
                 if (reference == null)
                 {
-                    referrals = new string[0];
-                }
-                else
-                {
-                    // convert RFC 2251 Referral to String[]
-                    var size = reference.Size();
-                    referrals = new string[size];
-                    for (var i = 0; i < size; i++)
-                    {
-                        var aRef = ((Asn1OctetString) reference.Get(i)).StringValue();
-                        try
-                        {
-                            // get the referral URL
-                            var urlRef = new LdapUrl(aRef);
-                            if (urlRef.GetDN() == null)
-                            {
-                                var origMsg = Asn1Object.RequestingMessage.Asn1Object;
-                                string dn;
-                                if ((dn = origMsg.RequestDn) != null)
-                                {
-                                    urlRef.SetDN(dn);
-                                    aRef = urlRef.ToString();
-                                }
-                            }
-                        }
-                        catch (UriFormatException)
-                        {
-                            // Ignore
-                        }
-                        finally
-                        {
-                            referrals[i] = aRef;
-                        }
-                    }
+                    return new string[0];
                 }
 
-                return referrals;
+                // convert RFC 2251 Referral to String[]
+                var size = reference.Size();
+                var referrals = new string[size];
+                for (var i = 0; i < size; i++)
+                {
+                    var aRef = ((Asn1OctetString) reference.Get(i)).StringValue();
+                    try
+                    {
+                        // get the referral URL
+                        var urlRef = new LdapUrl(aRef);
+                        if (urlRef.GetDN() == null)
+                        {
+                            var origMsg = Asn1Object.RequestingMessage.Asn1Object;
+                            string dn;
+                            if ((dn = origMsg.RequestDn) != null)
+                            {
+                                urlRef.SetDN(dn);
+                                aRef = urlRef.ToString();
+                            }
+                        }
+                    }
+                    catch (UriFormatException)
+                    {
+                        // Ignore
+                    }
+                    finally
+                    {
+                        referrals[i] = aRef;
+                    }
+                }
+            
+            return referrals;
             }
         }
 
@@ -838,11 +835,11 @@ namespace Unosquare.Swan.Networking.Ldap
                     return exception.ResultCode;
                 }
 
-                if (Message.Response is RfcSearchResultEntry)
+                if (Message.Response is RfcSearchResultEntry ||
+                    (IRfcResponse) Message.Response is RfcIntermediateResponse)
+                {
                     return LdapStatusCode.Success;
-
-                if ((IRfcResponse) Message.Response is RfcIntermediateResponse)
-                    return LdapStatusCode.Success;
+                }
 
                 return (LdapStatusCode) ((IRfcResponse) Message.Response).GetResultCode().IntValue();
             }
@@ -869,7 +866,7 @@ namespace Unosquare.Swan.Networking.Ldap
                             "Automatic referral following not enabled",
                             LdapStatusCode.Referral, 
                             ErrorMessage);
-                        ((LdapException) ex).SetReferrals(refs);
+                        ex.SetReferrals(refs);
                         break;
                     default:
                         ex = new LdapException(ResultCode.ToString().Humanize(), ResultCode, ErrorMessage, MatchedDN);

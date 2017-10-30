@@ -32,30 +32,20 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class LBEREncoder : IAsn1Encoder
     {
         /// <summary>
-        /// This method returns the literal value received
-        /// </summary>
-        /// <param name="literal">The literal.</param>
-        /// <returns>The literal value</returns>
-        public static long Identity(long literal)
-        {
-            return literal;
-        }
-
-        /// <summary>
         /// BER Encode an Asn1Boolean directly into the specified output stream.
         /// </summary>
         /// <param name="b">The Asn1Boolean object to encode</param>
         /// <param name="stream">The stream.</param>
         public void Encode(Asn1Boolean b, Stream stream)
         {
-            /* Encode the id */
+            // Encode the id 
             Encode(b.GetIdentifier(), stream);
 
-            /* Encode the length */
+            // Encode the length
             stream.WriteByte(0x01);
 
-            /* Encode the boolean content*/
-            stream.WriteByte((byte)(b.BooleanValue() ? (sbyte)Identity(0xff) : (sbyte)0x00));
+            // Encode the boolean content
+            stream.WriteByte((byte) (b.BooleanValue() ? 0xff : 0x00));
         }
 
         /// <summary>
@@ -150,7 +140,7 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 Encode(t.GetIdentifier(), stream);
 
-                /* determine the encoded length of the base type. */
+                // determine the encoded length of the base type.
                 var encodedContent = new MemoryStream();
                 t.TaggedValue.Encode(this, encodedContent);
 
@@ -171,7 +161,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         public void Encode(Asn1Identifier id, Stream stream)
         {
-            var c = id.Asn1Class;
+            var c = (int) id.Asn1Class;
             var t = id.Tag;
             var ccf = (sbyte)((c << 6) | (id.Constructed ? 0x20 : 0));
 

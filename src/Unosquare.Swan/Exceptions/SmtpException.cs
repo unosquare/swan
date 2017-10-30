@@ -1,6 +1,8 @@
 ﻿#if NETSTANDARD1_3 || UWP
 namespace Unosquare.Swan.Exceptions
 {
+    using Networking;
+
     /// <summary>
     /// Defines an SMTP Exceptions class
     /// </summary>

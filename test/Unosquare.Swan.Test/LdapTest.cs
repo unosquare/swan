@@ -43,6 +43,18 @@ namespace Unosquare.Swan.Test
                 cn.Disconnect();
             });
         }
+
+        [Test]
+        public void NullPassword_ThrowsLdapException()
+        {
+            Assert.ThrowsAsync<LdapException>(async () =>
+            {
+                var cn = new LdapConnection();
+                await cn.Connect(LdapServer, 389);
+                await cn.Bind("uid=riemann,dc=example", null);
+                cn.Disconnect();
+            });
+        }
     }
 
     [TestFixture]
@@ -171,7 +183,7 @@ namespace Unosquare.Swan.Test
 
                 var cn = await GetDefaultConnection();
                     await cn.Modify("uid=euclid,dc=example,dc=com",
-                        new LdapModification[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
+                        new[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
 
                     cn.Disconnect();
                 });

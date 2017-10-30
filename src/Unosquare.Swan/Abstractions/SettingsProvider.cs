@@ -26,6 +26,9 @@
         /// Gets or sets the configuration file path. By default the entry assembly directory is used
         /// and the filename is appsettings.json.
         /// </summary>
+        /// <value>
+        /// The configuration file path.
+        /// </value>
         public virtual string ConfigurationFilePath { get; set; } =
 #if NETSTANDARD1_3 || UWP
             Path.Combine(Runtime.LocalStoragePath, "appsettings.json");
@@ -36,6 +39,9 @@
         /// <summary>
         /// Gets the global settings object
         /// </summary>
+        /// <value>
+        /// The global settings object.
+        /// </value>
         public T Global
         {
             get
