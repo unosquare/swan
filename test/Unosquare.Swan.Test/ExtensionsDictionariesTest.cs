@@ -54,4 +54,20 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
             Assert.AreEqual(Extensions.GetValueOrDefault(dict, 7), null);
         }
     }
+
+    [TestFixture]
+    public class ForEach : ExtensionsDictionariesTest
+    {
+        [Test]
+        public void NullDictionary_ThrowsArgumentNullException()
+        {
+            dict = null;
+            Action<object, object> itemAction = (key, value) => Console.WriteLine("Key {0}, Value {1}", key, value);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Extensions.ForEach(dict, itemAction);
+            });
+        }
+    }
 }
