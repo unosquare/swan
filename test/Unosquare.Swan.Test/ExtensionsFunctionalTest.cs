@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Unosquare.Swan.Test.Mocks;
 
@@ -9,7 +10,9 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
 {
     public abstract class ExtensionsFunctionalTest
     {
-        protected readonly IEnumerable<byte> enumerableByte = BitConverter.GetBytes(123456789);
+        protected static IList<object> _names = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf"};
+        protected readonly IEnumerable<string> _enumerable = _names.AsQueryable().Cast<string>();
+        protected readonly IQueryable<string> _queryable = _names.AsQueryable().Cast<string>();
 
         protected bool ReturnTrue()
         {
@@ -21,11 +24,25 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             return false;
         }
 
-        protected IEnumerable<byte> Arc(IEnumerable<byte> input)
+        protected IEnumerable<string> Function(IEnumerable<string> input)
         {
-            IEnumerable<byte> enumerableByte = BitConverter.GetBytes(45347645);
+            IEnumerable<string> names = input.AsEnumerable().Concat(new[] { "Frodo", "Sam", "Pippin", "Merry" });
 
-            return enumerableByte;
+            return names;
+        }
+
+        protected IQueryable<string> Function(IQueryable<string> input)
+        {
+            IQueryable<string> names = input.AsQueryable().Concat(new[] { "Frodo", "Sam", "Pippin", "Merry" });
+            
+            return names;
+        }
+
+        protected string Function()
+        {
+            string name = "Arwen";
+            
+            return name;
         }
     }
 
@@ -33,27 +50,107 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
     public class When : ExtensionsFunctionalTest
     {
         [Test]
-        public void WithMethodCallEqualsTrue_IEnumerable()
+        public void WithIEnumerableAndMethodCallEqualsTrue_IEnumerable()
         {
-            Func<bool> methodCall = ReturnTrue;
-            Func<IEnumerable<byte>, IEnumerable<byte>> dsad = Arc;
+            Func<bool> condition = ReturnTrue;
+            Func<IEnumerable<string>, IEnumerable<string>> methodCall = Function;
             
-            var whenResult = enumerableByte.When(methodCall, dsad);
-            
-            Assert.AreNotEqual(whenResult, enumerableByte);
+            var whenResult = _enumerable.When(condition, methodCall);
+
+            foreach(var item in whenResult)
+            {
+                Console.WriteLine(item);
+            }
+
+            Assert.AreNotEqual(whenResult, _enumerable);
         }
 
         [Test]
-        public void WithMethodCallEqualsFalse_IEnumerable()
+        public void WithIEnumerableAndMethodCallEqualsFalse_IEnumerable()
         {
-            Func<bool> methodCall = ReturnFalse;
-            Func<IEnumerable<byte>, IEnumerable<byte>> dsad = Arc;
+            Func<bool> condition = ReturnFalse;
+            Func<IEnumerable<string>, IEnumerable<string>> methodCall = Function;
 
-            var whenResult = enumerableByte.When(methodCall, dsad);
+            var whenResult = _enumerable.When(condition, methodCall);
 
-            Assert.AreEqual(whenResult, enumerableByte);
+            foreach(var item in whenResult)
+            {
+                Console.WriteLine(item);
+            }
+
+            Assert.AreEqual(whenResult, _enumerable);
         }
 
+
+        [Test]
+        public void WithIQueryableAndMethodCallEqualsFalse_IEnumerable()
+        {
+            Func<bool> condition = ReturnFalse;
+            Func<IQueryable<string>, IQueryable<string>> methodCall = Function;
+
+            var whenResult = _queryable.When(condition, methodCall);
+            
+            Assert.AreEqual(whenResult, _queryable);
+        }
+
+        [Test]
+        public void WithIQueryableAndMethodCallEqualsTrue_IEnumerable()
+        {
+            Func<bool> condition = ReturnTrue;
+            Func<IQueryable<string>, IQueryable<string>> methodCall = Function;
+
+            var whenResult = _queryable.When(condition, methodCall);
+            
+            Assert.AreNotEqual(whenResult, _queryable);
+        }
     }
-   
+
+    [TestFixture]
+    public class AddWhen : ExtensionsFunctionalTest
+    {
+        [Test]
+        public void WithValidParams_ThrowsArgumentNullException()
+        {
+            Func<bool> condition = ReturnTrue;
+            Func<string> methodCall = Function;
+
+            var whenResult = _names.AddWhen(condition, methodCall);
+           
+            Assert.IsNotNull(null);
+        }
+
+        [Test]
+        public void WithNullIList_ThrowsArgumentNullException()
+        {
+            IList<object> list = null;
+            Func<bool> condition = ReturnTrue;
+            Func<string> methodCall = Function;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                list.AddWhen(condition, methodCall)
+            );
+        }
+
+        [Test]
+        public void WithNullCondition_ThrowsArgumentNullException()
+        {
+            Func<string> methodCall = Function;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                _names.AddWhen(null, methodCall)
+            );
+        }
+
+        [Test]
+        public void WithNullValue_ThrowsArgumentNullException()
+        {
+            Func<bool> condition = ReturnTrue;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                _names.AddWhen(condition, null)
+            );
+        }
+    }
+
+
 }
