@@ -2142,42 +2142,6 @@ references:
   commentId: Overload:Unosquare.Swan.Components.DependencyContainerResolveOptions.Default
   fullName: Unosquare.Swan.Components.DependencyContainerResolveOptions.Default
   nameWithType: DependencyContainerResolveOptions.Default
-- uid: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailNameNotFoundOnly
-  name: FailNameNotFoundOnly
-  href: api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html#Unosquare_Swan_Components_DependencyContainerResolveOptions_FailNameNotFoundOnly
-  commentId: P:Unosquare.Swan.Components.DependencyContainerResolveOptions.FailNameNotFoundOnly
-  fullName: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailNameNotFoundOnly
-  nameWithType: DependencyContainerResolveOptions.FailNameNotFoundOnly
-- uid: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailNameNotFoundOnly*
-  name: FailNameNotFoundOnly
-  href: api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html#Unosquare_Swan_Components_DependencyContainerResolveOptions_FailNameNotFoundOnly_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainerResolveOptions.FailNameNotFoundOnly
-  fullName: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailNameNotFoundOnly
-  nameWithType: DependencyContainerResolveOptions.FailNameNotFoundOnly
-- uid: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound
-  name: FailUnregisteredAndNameNotFound
-  href: api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html#Unosquare_Swan_Components_DependencyContainerResolveOptions_FailUnregisteredAndNameNotFound
-  commentId: P:Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound
-  fullName: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound
-  nameWithType: DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound
-- uid: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound*
-  name: FailUnregisteredAndNameNotFound
-  href: api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html#Unosquare_Swan_Components_DependencyContainerResolveOptions_FailUnregisteredAndNameNotFound_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound
-  fullName: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound
-  nameWithType: DependencyContainerResolveOptions.FailUnregisteredAndNameNotFound
-- uid: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredOnly
-  name: FailUnregisteredOnly
-  href: api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html#Unosquare_Swan_Components_DependencyContainerResolveOptions_FailUnregisteredOnly
-  commentId: P:Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredOnly
-  fullName: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredOnly
-  nameWithType: DependencyContainerResolveOptions.FailUnregisteredOnly
-- uid: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredOnly*
-  name: FailUnregisteredOnly
-  href: api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html#Unosquare_Swan_Components_DependencyContainerResolveOptions_FailUnregisteredOnly_
-  commentId: Overload:Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredOnly
-  fullName: Unosquare.Swan.Components.DependencyContainerResolveOptions.FailUnregisteredOnly
-  nameWithType: DependencyContainerResolveOptions.FailUnregisteredOnly
 - uid: Unosquare.Swan.Components.DependencyContainerResolveOptions.NamedResolutionFailureAction
   name: NamedResolutionFailureAction
   href: api/Unosquare.Swan.Components.DependencyContainerResolveOptions.html#Unosquare_Swan_Components_DependencyContainerResolveOptions_NamedResolutionFailureAction
