@@ -142,6 +142,11 @@ namespace Unosquare.Swan.Components
     public sealed class DependencyContainerResolveOptions
     {
         /// <summary>
+        /// Gets the default options (attempt resolution of unregistered types, fail on named resolution if name not found)
+        /// </summary>
+        public static DependencyContainerResolveOptions Default { get; } = new DependencyContainerResolveOptions();
+
+        /// <summary>
         /// Gets or sets the unregistered resolution action.
         /// </summary>
         /// <value>
@@ -156,26 +161,6 @@ namespace Unosquare.Swan.Components
         /// The named resolution failure action.
         /// </value>
         public DependencyContainerNamedResolutionFailureActions NamedResolutionFailureAction { get; set; } = DependencyContainerNamedResolutionFailureActions.Fail;
-
-        /// <summary>
-        /// Gets the default options (attempt resolution of unregistered types, fail on named resolution if name not found)
-        /// </summary>
-        public static DependencyContainerResolveOptions Default { get; } = new DependencyContainerResolveOptions();
-
-        /// <summary>
-        /// Preconfigured option for attempting resolution of unregistered types and failing on named resolution if name not found
-        /// </summary>
-        public static DependencyContainerResolveOptions FailNameNotFoundOnly { get; } = new DependencyContainerResolveOptions() { NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.Fail, UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.AttemptResolve };
-
-        /// <summary>
-        /// Preconfigured option for failing on resolving unregistered types and on named resolution if name not found
-        /// </summary>
-        public static DependencyContainerResolveOptions FailUnregisteredAndNameNotFound { get; } = new DependencyContainerResolveOptions() { NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.Fail, UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.Fail };
-
-        /// <summary>
-        /// Preconfigured option for failing on resolving unregistered types, but attempting unnamed resolution if name not found
-        /// </summary>
-        public static DependencyContainerResolveOptions FailUnregisteredOnly { get; } = new DependencyContainerResolveOptions() { NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution, UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.Fail };
     }
 
     #endregion
@@ -338,7 +323,6 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        /// <exception cref="DependencyContainerAutoRegistrationException">Auto-registration Exception</exception> 
         public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
             AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
@@ -352,7 +336,6 @@ namespace Unosquare.Swan.Components
         /// <param name="assemblies">Assemblies to process</param>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        /// <exception cref="DependencyContainerAutoRegistrationException">Auto-registration Exception</exception> 
         public void AutoRegister(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
             AutoRegisterInternal(assemblies, duplicateAction, registrationPredicate);
@@ -1469,7 +1452,7 @@ namespace Unosquare.Swan.Components
                 lock (_singletonLock)
                 {
                     if (_current == null)
-                        _current = container.ConstructType(_registerImplementation, Constructor, options);
+                        _current = container.ConstructType(_registerImplementation, Constructor, DependencyContainerNamedParameterOverloads.Default, options);
                 }
 
                 return _current;
@@ -1896,7 +1879,7 @@ namespace Unosquare.Swan.Components
             if ((options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType() && options.UnregisteredResolutionAction == DependencyContainerUnregisteredResolutionActions.GenericsOnly))
             {
                 if (!registration.Type.IsAbstract() && !registration.Type.IsInterface())
-                    return ConstructType(registration.Type, parameters, options);
+                    return ConstructType(registration.Type, null, parameters, options);
             }
 
             // Unable to resolve - throw
@@ -1944,17 +1927,7 @@ namespace Unosquare.Swan.Components
         {
             return type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
         }
-
-        private object ConstructType(Type implementationType, ConstructorInfo constructor, DependencyContainerResolveOptions options)
-        {
-            return ConstructType(implementationType, constructor, DependencyContainerNamedParameterOverloads.Default, options);
-        }
-
-        private object ConstructType(Type implementationType, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
-        {
-            return ConstructType(implementationType, null, parameters, options);
-        }
-
+        
         private object ConstructType(Type implementationType, ConstructorInfo constructor, DependencyContainerNamedParameterOverloads parameters, DependencyContainerResolveOptions options)
         {
             var typeToConstruct = implementationType;
