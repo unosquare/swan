@@ -3852,45 +3852,6 @@ references:
   commentId: T:Unosquare.Swan.Extensions
   fullName: Unosquare.Swan.Extensions
   nameWithType: Extensions
-- uid: Unosquare.Swan.Extensions.AddRangeWhen*
-  name: AddRangeWhen
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_AddRangeWhen_
-  commentId: Overload:Unosquare.Swan.Extensions.AddRangeWhen
-  fullName: Unosquare.Swan.Extensions.AddRangeWhen
-  nameWithType: Extensions.AddRangeWhen
-- uid: Unosquare.Swan.Extensions.AddRangeWhen``1(System.Collections.Generic.List{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0}})
-  name: AddRangeWhen<T>(List<T>, Func<Boolean>, Func<IEnumerable<T>>)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_AddRangeWhen__1_System_Collections_Generic_List___0__System_Func_System_Boolean__System_Func_System_Collections_Generic_IEnumerable___0___
-  commentId: M:Unosquare.Swan.Extensions.AddRangeWhen``1(System.Collections.Generic.List{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0}})
-  name.vb: AddRangeWhen(Of T)(List(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T)))
-  fullName: Unosquare.Swan.Extensions.AddRangeWhen<T>(System.Collections.Generic.List<T>, System.Func<System.Boolean>, System.Func<System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Unosquare.Swan.Extensions.AddRangeWhen(Of T)(System.Collections.Generic.List(Of T), System.Func(Of System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: Extensions.AddRangeWhen<T>(List<T>, Func<Boolean>, Func<IEnumerable<T>>)
-  nameWithType.vb: Extensions.AddRangeWhen(Of T)(List(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T)))
-- uid: Unosquare.Swan.Extensions.AddWhen*
-  name: AddWhen
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_AddWhen_
-  commentId: Overload:Unosquare.Swan.Extensions.AddWhen
-  fullName: Unosquare.Swan.Extensions.AddWhen
-  nameWithType: Extensions.AddWhen
-- uid: Unosquare.Swan.Extensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Boolean,``0)
-  name: AddWhen<T>(IList<T>, Boolean, T)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_AddWhen__1_System_Collections_Generic_IList___0__System_Boolean___0_
-  commentId: M:Unosquare.Swan.Extensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Boolean,``0)
-  name.vb: AddWhen(Of T)(IList(Of T), Boolean, T)
-  fullName: Unosquare.Swan.Extensions.AddWhen<T>(System.Collections.Generic.IList<T>, System.Boolean, T)
-  fullName.vb: Unosquare.Swan.Extensions.AddWhen(Of T)(System.Collections.Generic.IList(Of T), System.Boolean, T)
-  nameWithType: Extensions.AddWhen<T>(IList<T>, Boolean, T)
-  nameWithType.vb: Extensions.AddWhen(Of T)(IList(Of T), Boolean, T)
-- uid: Unosquare.Swan.Extensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Func{System.Boolean},System.Func{``0})
-  name: AddWhen<T>(IList<T>, Func<Boolean>, Func<T>)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_AddWhen__1_System_Collections_Generic_IList___0__System_Func_System_Boolean__System_Func___0__
-  commentId: M:Unosquare.Swan.Extensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Func{System.Boolean},System.Func{``0})
-  name.vb: AddWhen(Of T)(IList(Of T), Func(Of Boolean), Func(Of T))
-  fullName: Unosquare.Swan.Extensions.AddWhen<T>(System.Collections.Generic.IList<T>, System.Func<System.Boolean>, System.Func<T>)
-  fullName.vb: Unosquare.Swan.Extensions.AddWhen(Of T)(System.Collections.Generic.IList(Of T), System.Func(Of System.Boolean), System.Func(Of T))
-  nameWithType: Extensions.AddWhen<T>(IList<T>, Func<Boolean>, Func<T>)
-  nameWithType.vb: Extensions.AddWhen(Of T)(IList(Of T), Func(Of Boolean), Func(Of T))
 - uid: Unosquare.Swan.Extensions.Benchmark(System.Action)
   name: Benchmark(Action)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Benchmark_System_Action_
@@ -4044,18 +4005,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.GetValueOrDefault(Of T)(System.Collections.Generic.Dictionary(Of T, T), T, T)
   nameWithType: Extensions.GetValueOrDefault<T>(Dictionary<T, T>, T, T)
   nameWithType.vb: Extensions.GetValueOrDefault(Of T)(Dictionary(Of T, T), T, T)
-- uid: Unosquare.Swan.Extensions.IsPrivateAddress(IPAddress)
-  name: IsPrivateAddress(IPAddress)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsPrivateAddress_IPAddress_
-  commentId: M:Unosquare.Swan.Extensions.IsPrivateAddress(IPAddress)
-  fullName: Unosquare.Swan.Extensions.IsPrivateAddress(IPAddress)
-  nameWithType: Extensions.IsPrivateAddress(IPAddress)
-- uid: Unosquare.Swan.Extensions.IsPrivateAddress*
-  name: IsPrivateAddress
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsPrivateAddress_
-  commentId: Overload:Unosquare.Swan.Extensions.IsPrivateAddress
-  fullName: Unosquare.Swan.Extensions.IsPrivateAddress
-  nameWithType: Extensions.IsPrivateAddress
 - uid: Unosquare.Swan.Extensions.Retry(System.Action,System.TimeSpan,System.Int32)
   name: Retry(Action, TimeSpan, Int32)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Retry_System_Action_System_TimeSpan_System_Int32_
@@ -4077,42 +4026,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.Retry(Of T)(System.Func(Of T), System.TimeSpan, System.Int32)
   nameWithType: Extensions.Retry<T>(Func<T>, TimeSpan, Int32)
   nameWithType.vb: Extensions.Retry(Of T)(Func(Of T), TimeSpan, Int32)
-- uid: Unosquare.Swan.Extensions.ToUInt32(IPAddress)
-  name: ToUInt32(IPAddress)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUInt32_IPAddress_
-  commentId: M:Unosquare.Swan.Extensions.ToUInt32(IPAddress)
-  fullName: Unosquare.Swan.Extensions.ToUInt32(IPAddress)
-  nameWithType: Extensions.ToUInt32(IPAddress)
-- uid: Unosquare.Swan.Extensions.ToUInt32*
-  name: ToUInt32
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ToUInt32_
-  commentId: Overload:Unosquare.Swan.Extensions.ToUInt32
-  fullName: Unosquare.Swan.Extensions.ToUInt32
-  nameWithType: Extensions.ToUInt32
-- uid: Unosquare.Swan.Extensions.When*
-  name: When
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_When_
-  commentId: Overload:Unosquare.Swan.Extensions.When
-  fullName: Unosquare.Swan.Extensions.When
-  nameWithType: Extensions.When
-- uid: Unosquare.Swan.Extensions.When``1(IQueryable{``0},System.Func{System.Boolean},System.Func{IQueryable{``0},IQueryable{``0}})
-  name: When<T>(IQueryable<T>, Func<Boolean>, Func<IQueryable<T>, IQueryable<T>>)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_When__1_IQueryable___0__System_Func_System_Boolean__System_Func_IQueryable___0__IQueryable___0___
-  commentId: M:Unosquare.Swan.Extensions.When``1(IQueryable{``0},System.Func{System.Boolean},System.Func{IQueryable{``0},IQueryable{``0}})
-  name.vb: When(Of T)(IQueryable(Of T), Func(Of Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
-  fullName: Unosquare.Swan.Extensions.When<T>(IQueryable<T>, System.Func<System.Boolean>, System.Func<IQueryable<T>, IQueryable<T>>)
-  fullName.vb: Unosquare.Swan.Extensions.When(Of T)(IQueryable(Of T), System.Func(Of System.Boolean), System.Func(Of IQueryable(Of T), IQueryable(Of T)))
-  nameWithType: Extensions.When<T>(IQueryable<T>, Func<Boolean>, Func<IQueryable<T>, IQueryable<T>>)
-  nameWithType.vb: Extensions.When(Of T)(IQueryable(Of T), Func(Of Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
-- uid: Unosquare.Swan.Extensions.When``1(System.Collections.Generic.IEnumerable{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0}})
-  name: When<T>(IEnumerable<T>, Func<Boolean>, Func<IEnumerable<T>, IEnumerable<T>>)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_When__1_System_Collections_Generic_IEnumerable___0__System_Func_System_Boolean__System_Func_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable___0___
-  commentId: M:Unosquare.Swan.Extensions.When``1(System.Collections.Generic.IEnumerable{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0}})
-  name.vb: When(Of T)(IEnumerable(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T), IEnumerable(Of T)))
-  fullName: Unosquare.Swan.Extensions.When<T>(System.Collections.Generic.IEnumerable<T>, System.Func<System.Boolean>, System.Func<System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Unosquare.Swan.Extensions.When(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: Extensions.When<T>(IEnumerable<T>, Func<Boolean>, Func<IEnumerable<T>, IEnumerable<T>>)
-  nameWithType.vb: Extensions.When(Of T)(IEnumerable(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T), IEnumerable(Of T)))
 - uid: Unosquare.Swan.Formatters
   name: Unosquare.Swan.Formatters
   href: api/Unosquare.Swan.Formatters.html
@@ -4644,6 +4557,75 @@ references:
   commentId: Overload:Unosquare.Swan.Formatters.Json.SerializeOnly
   fullName: Unosquare.Swan.Formatters.Json.SerializeOnly
   nameWithType: Json.SerializeOnly
+- uid: Unosquare.Swan.FunctionalExtensions
+  name: FunctionalExtensions
+  href: api/Unosquare.Swan.FunctionalExtensions.html
+  commentId: T:Unosquare.Swan.FunctionalExtensions
+  fullName: Unosquare.Swan.FunctionalExtensions
+  nameWithType: FunctionalExtensions
+- uid: Unosquare.Swan.FunctionalExtensions.AddRangeWhen*
+  name: AddRangeWhen
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_AddRangeWhen_
+  commentId: Overload:Unosquare.Swan.FunctionalExtensions.AddRangeWhen
+  fullName: Unosquare.Swan.FunctionalExtensions.AddRangeWhen
+  nameWithType: FunctionalExtensions.AddRangeWhen
+- uid: Unosquare.Swan.FunctionalExtensions.AddRangeWhen``1(System.Collections.Generic.List{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0}})
+  name: AddRangeWhen<T>(List<T>, Func<Boolean>, Func<IEnumerable<T>>)
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_AddRangeWhen__1_System_Collections_Generic_List___0__System_Func_System_Boolean__System_Func_System_Collections_Generic_IEnumerable___0___
+  commentId: M:Unosquare.Swan.FunctionalExtensions.AddRangeWhen``1(System.Collections.Generic.List{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0}})
+  name.vb: AddRangeWhen(Of T)(List(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T)))
+  fullName: Unosquare.Swan.FunctionalExtensions.AddRangeWhen<T>(System.Collections.Generic.List<T>, System.Func<System.Boolean>, System.Func<System.Collections.Generic.IEnumerable<T>>)
+  fullName.vb: Unosquare.Swan.FunctionalExtensions.AddRangeWhen(Of T)(System.Collections.Generic.List(Of T), System.Func(Of System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of T)))
+  nameWithType: FunctionalExtensions.AddRangeWhen<T>(List<T>, Func<Boolean>, Func<IEnumerable<T>>)
+  nameWithType.vb: FunctionalExtensions.AddRangeWhen(Of T)(List(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T)))
+- uid: Unosquare.Swan.FunctionalExtensions.AddWhen*
+  name: AddWhen
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_AddWhen_
+  commentId: Overload:Unosquare.Swan.FunctionalExtensions.AddWhen
+  fullName: Unosquare.Swan.FunctionalExtensions.AddWhen
+  nameWithType: FunctionalExtensions.AddWhen
+- uid: Unosquare.Swan.FunctionalExtensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Boolean,``0)
+  name: AddWhen<T>(IList<T>, Boolean, T)
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_AddWhen__1_System_Collections_Generic_IList___0__System_Boolean___0_
+  commentId: M:Unosquare.Swan.FunctionalExtensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Boolean,``0)
+  name.vb: AddWhen(Of T)(IList(Of T), Boolean, T)
+  fullName: Unosquare.Swan.FunctionalExtensions.AddWhen<T>(System.Collections.Generic.IList<T>, System.Boolean, T)
+  fullName.vb: Unosquare.Swan.FunctionalExtensions.AddWhen(Of T)(System.Collections.Generic.IList(Of T), System.Boolean, T)
+  nameWithType: FunctionalExtensions.AddWhen<T>(IList<T>, Boolean, T)
+  nameWithType.vb: FunctionalExtensions.AddWhen(Of T)(IList(Of T), Boolean, T)
+- uid: Unosquare.Swan.FunctionalExtensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Func{System.Boolean},System.Func{``0})
+  name: AddWhen<T>(IList<T>, Func<Boolean>, Func<T>)
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_AddWhen__1_System_Collections_Generic_IList___0__System_Func_System_Boolean__System_Func___0__
+  commentId: M:Unosquare.Swan.FunctionalExtensions.AddWhen``1(System.Collections.Generic.IList{``0},System.Func{System.Boolean},System.Func{``0})
+  name.vb: AddWhen(Of T)(IList(Of T), Func(Of Boolean), Func(Of T))
+  fullName: Unosquare.Swan.FunctionalExtensions.AddWhen<T>(System.Collections.Generic.IList<T>, System.Func<System.Boolean>, System.Func<T>)
+  fullName.vb: Unosquare.Swan.FunctionalExtensions.AddWhen(Of T)(System.Collections.Generic.IList(Of T), System.Func(Of System.Boolean), System.Func(Of T))
+  nameWithType: FunctionalExtensions.AddWhen<T>(IList<T>, Func<Boolean>, Func<T>)
+  nameWithType.vb: FunctionalExtensions.AddWhen(Of T)(IList(Of T), Func(Of Boolean), Func(Of T))
+- uid: Unosquare.Swan.FunctionalExtensions.When*
+  name: When
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_When_
+  commentId: Overload:Unosquare.Swan.FunctionalExtensions.When
+  fullName: Unosquare.Swan.FunctionalExtensions.When
+  nameWithType: FunctionalExtensions.When
+- uid: Unosquare.Swan.FunctionalExtensions.When``1(IQueryable{``0},System.Func{System.Boolean},System.Func{IQueryable{``0},IQueryable{``0}})
+  name: When<T>(IQueryable<T>, Func<Boolean>, Func<IQueryable<T>, IQueryable<T>>)
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_When__1_IQueryable___0__System_Func_System_Boolean__System_Func_IQueryable___0__IQueryable___0___
+  commentId: M:Unosquare.Swan.FunctionalExtensions.When``1(IQueryable{``0},System.Func{System.Boolean},System.Func{IQueryable{``0},IQueryable{``0}})
+  name.vb: When(Of T)(IQueryable(Of T), Func(Of Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
+  fullName: Unosquare.Swan.FunctionalExtensions.When<T>(IQueryable<T>, System.Func<System.Boolean>, System.Func<IQueryable<T>, IQueryable<T>>)
+  fullName.vb: Unosquare.Swan.FunctionalExtensions.When(Of T)(IQueryable(Of T), System.Func(Of System.Boolean), System.Func(Of IQueryable(Of T), IQueryable(Of T)))
+  nameWithType: FunctionalExtensions.When<T>(IQueryable<T>, Func<Boolean>, Func<IQueryable<T>, IQueryable<T>>)
+  nameWithType.vb: FunctionalExtensions.When(Of T)(IQueryable(Of T), Func(Of Boolean), Func(Of IQueryable(Of T), IQueryable(Of T)))
+- uid: Unosquare.Swan.FunctionalExtensions.When``1(System.Collections.Generic.IEnumerable{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0}})
+  name: When<T>(IEnumerable<T>, Func<Boolean>, Func<IEnumerable<T>, IEnumerable<T>>)
+  href: api/Unosquare.Swan.FunctionalExtensions.html#Unosquare_Swan_FunctionalExtensions_When__1_System_Collections_Generic_IEnumerable___0__System_Func_System_Boolean__System_Func_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable___0___
+  commentId: M:Unosquare.Swan.FunctionalExtensions.When``1(System.Collections.Generic.IEnumerable{``0},System.Func{System.Boolean},System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0}})
+  name.vb: When(Of T)(IEnumerable(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T), IEnumerable(Of T)))
+  fullName: Unosquare.Swan.FunctionalExtensions.When<T>(System.Collections.Generic.IEnumerable<T>, System.Func<System.Boolean>, System.Func<System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<T>>)
+  fullName.vb: Unosquare.Swan.FunctionalExtensions.When(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of T)))
+  nameWithType: FunctionalExtensions.When<T>(IEnumerable<T>, Func<Boolean>, Func<IEnumerable<T>, IEnumerable<T>>)
+  nameWithType.vb: FunctionalExtensions.When(Of T)(IEnumerable(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T), IEnumerable(Of T)))
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html
@@ -5157,6 +5139,36 @@ references:
   commentId: Overload:Unosquare.Swan.Network.QueryDnsAsync
   fullName: Unosquare.Swan.Network.QueryDnsAsync
   nameWithType: Network.QueryDnsAsync
+- uid: Unosquare.Swan.NetworkExtensions
+  name: NetworkExtensions
+  href: api/Unosquare.Swan.NetworkExtensions.html
+  commentId: T:Unosquare.Swan.NetworkExtensions
+  fullName: Unosquare.Swan.NetworkExtensions
+  nameWithType: NetworkExtensions
+- uid: Unosquare.Swan.NetworkExtensions.IsPrivateAddress(IPAddress)
+  name: IsPrivateAddress(IPAddress)
+  href: api/Unosquare.Swan.NetworkExtensions.html#Unosquare_Swan_NetworkExtensions_IsPrivateAddress_IPAddress_
+  commentId: M:Unosquare.Swan.NetworkExtensions.IsPrivateAddress(IPAddress)
+  fullName: Unosquare.Swan.NetworkExtensions.IsPrivateAddress(IPAddress)
+  nameWithType: NetworkExtensions.IsPrivateAddress(IPAddress)
+- uid: Unosquare.Swan.NetworkExtensions.IsPrivateAddress*
+  name: IsPrivateAddress
+  href: api/Unosquare.Swan.NetworkExtensions.html#Unosquare_Swan_NetworkExtensions_IsPrivateAddress_
+  commentId: Overload:Unosquare.Swan.NetworkExtensions.IsPrivateAddress
+  fullName: Unosquare.Swan.NetworkExtensions.IsPrivateAddress
+  nameWithType: NetworkExtensions.IsPrivateAddress
+- uid: Unosquare.Swan.NetworkExtensions.ToUInt32(IPAddress)
+  name: ToUInt32(IPAddress)
+  href: api/Unosquare.Swan.NetworkExtensions.html#Unosquare_Swan_NetworkExtensions_ToUInt32_IPAddress_
+  commentId: M:Unosquare.Swan.NetworkExtensions.ToUInt32(IPAddress)
+  fullName: Unosquare.Swan.NetworkExtensions.ToUInt32(IPAddress)
+  nameWithType: NetworkExtensions.ToUInt32(IPAddress)
+- uid: Unosquare.Swan.NetworkExtensions.ToUInt32*
+  name: ToUInt32
+  href: api/Unosquare.Swan.NetworkExtensions.html#Unosquare_Swan_NetworkExtensions_ToUInt32_
+  commentId: Overload:Unosquare.Swan.NetworkExtensions.ToUInt32
+  fullName: Unosquare.Swan.NetworkExtensions.ToUInt32
+  nameWithType: NetworkExtensions.ToUInt32
 - uid: Unosquare.Swan.Networking
   name: Unosquare.Swan.Networking
   href: api/Unosquare.Swan.Networking.html
