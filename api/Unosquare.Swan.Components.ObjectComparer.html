@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ObjectComparer
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.26.3.0">
+    <meta name="generator" content="docfx 2.26.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -210,6 +210,79 @@ right</p>
   
   
   <a id="Unosquare_Swan_Components_ObjectComparer_AreEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectComparer_AreEqual_System_Object_System_Object_System_Type_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual(System.Object,System.Object,System.Type)">AreEqual(Object, Object, Type)</h4>
+  <div class="markdown level1 summary"><p>Compare if two variables of the same type are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AreEqual(object left, object right, Type targetType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">targetType</span></td>
+        <td><p>Type of the target.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the variables are equal; otherwise, <code>false</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>targetType</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ObjectComparer_AreEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual*"></a>
   <h4 id="Unosquare_Swan_Components_ObjectComparer_AreEqual__1___0___0_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreEqual``1(``0,``0)">AreEqual&lt;T&gt;(T, T)</h4>
   <div class="markdown level1 summary"><p>Compare if two variables of the same type are equal.</p>
 </div>
@@ -253,7 +326,7 @@ right</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>True if two specified types are equal; otherwise, false</p>
+        <td><p><code>true</code> if the variables are equal; otherwise, <code>false</code></p>
 </td>
       </tr>
     </tbody>
@@ -270,6 +343,79 @@ right</p>
       <tr>
         <td><span class="parametername">T</span></td>
         <td><p>The type of objects to compare</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ObjectComparer_AreObjectsEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectComparer_AreObjectsEqual_System_Object_System_Object_System_Type_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual(System.Object,System.Object,System.Type)">AreObjectsEqual(Object, Object, Type)</h4>
+  <div class="markdown level1 summary"><p>Compare if two objects of the same type are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AreObjectsEqual(object left, object right, Type targetType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">targetType</span></td>
+        <td><p>Type of the target.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the objects are equal; otherwise, <code>false</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>targetType</p>
 </td>
       </tr>
     </tbody>
@@ -320,7 +466,7 @@ right</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>True if two specified objects are equal; otherwise, false</p>
+        <td><p><code>true</code> if the objects are equal; otherwise, <code>false</code></p>
 </td>
       </tr>
     </tbody>
@@ -337,6 +483,79 @@ right</p>
       <tr>
         <td><span class="parametername">T</span></td>
         <td><p>The type of objects to compare</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ObjectComparer_AreStructsEqual_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreStructsEqual*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectComparer_AreStructsEqual_System_Object_System_Object_System_Type_" data-uid="Unosquare.Swan.Components.ObjectComparer.AreStructsEqual(System.Object,System.Object,System.Type)">AreStructsEqual(Object, Object, Type)</h4>
+  <div class="markdown level1 summary"><p>Compare if two structures of the same type are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AreStructsEqual(object left, object right, Type targetType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The left.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The right.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">targetType</span></td>
+        <td><p>Type of the target.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if the structs are equal; otherwise, <code>false</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>targetType</p>
 </td>
       </tr>
     </tbody>
@@ -387,7 +606,7 @@ right</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>True if two specified types are equal; otherwise, false</p>
+        <td><p><code>true</code> if the structs are equal; otherwise, <code>false</code></p>
 </td>
       </tr>
     </tbody>

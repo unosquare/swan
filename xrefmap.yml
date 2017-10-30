@@ -2849,6 +2849,12 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual(Of T)(T, T)
   nameWithType: ObjectComparer.AreEnumsEqual<T>(T, T)
   nameWithType.vb: ObjectComparer.AreEnumsEqual(Of T)(T, T)
+- uid: Unosquare.Swan.Components.ObjectComparer.AreEqual(System.Object,System.Object,System.Type)
+  name: AreEqual(Object, Object, Type)
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEqual_System_Object_System_Object_System_Type_
+  commentId: M:Unosquare.Swan.Components.ObjectComparer.AreEqual(System.Object,System.Object,System.Type)
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreEqual(System.Object, System.Object, System.Type)
+  nameWithType: ObjectComparer.AreEqual(Object, Object, Type)
 - uid: Unosquare.Swan.Components.ObjectComparer.AreEqual*
   name: AreEqual
   href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEqual_
@@ -2864,6 +2870,12 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreEqual(Of T)(T, T)
   nameWithType: ObjectComparer.AreEqual<T>(T, T)
   nameWithType.vb: ObjectComparer.AreEqual(Of T)(T, T)
+- uid: Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual(System.Object,System.Object,System.Type)
+  name: AreObjectsEqual(Object, Object, Type)
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreObjectsEqual_System_Object_System_Object_System_Type_
+  commentId: M:Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual(System.Object,System.Object,System.Type)
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual(System.Object, System.Object, System.Type)
+  nameWithType: ObjectComparer.AreObjectsEqual(Object, Object, Type)
 - uid: Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual*
   name: AreObjectsEqual
   href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreObjectsEqual_
@@ -2879,6 +2891,12 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreObjectsEqual(Of T)(T, T)
   nameWithType: ObjectComparer.AreObjectsEqual<T>(T, T)
   nameWithType.vb: ObjectComparer.AreObjectsEqual(Of T)(T, T)
+- uid: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual(System.Object,System.Object,System.Type)
+  name: AreStructsEqual(Object, Object, Type)
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreStructsEqual_System_Object_System_Object_System_Type_
+  commentId: M:Unosquare.Swan.Components.ObjectComparer.AreStructsEqual(System.Object,System.Object,System.Type)
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual(System.Object, System.Object, System.Type)
+  nameWithType: ObjectComparer.AreStructsEqual(Object, Object, Type)
 - uid: Unosquare.Swan.Components.ObjectComparer.AreStructsEqual*
   name: AreStructsEqual
   href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreStructsEqual_
