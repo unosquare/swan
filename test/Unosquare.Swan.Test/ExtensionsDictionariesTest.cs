@@ -61,13 +61,51 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            dict = null;
-            Action<object, object> itemAction = (key, value) => Console.WriteLine("Key {0}, Value {1}", key, value);
+            Dictionary<int, int> originalDictionary = new Dictionary<int, int>();
+            originalDictionary = null;
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Extensions.ForEach(dict, itemAction);
+                originalDictionary.ForEach((key, value) =>
+                {
+                    originalDictionary[key] = value + 1;
+                });
             });
+        }
+
+        [Test]
+        public void NotNullDictionary_DoesForEach()
+        {
+            Dictionary<int, int> originalDictionary = new Dictionary<int, int>()
+            {
+                {1, 2},
+                {2, 2},
+                {3, 2},
+                {4, 2},
+            };
+
+            Dictionary<int, int> copyDictionary = new Dictionary<int, int>()
+            {
+                {1, 2},
+                {2, 2},
+                {3, 2},
+                {4, 2},
+            };
+
+            Dictionary<int, int> expectedDictionary = new Dictionary<int, int>()
+            {
+                {1, 3},
+                {2, 3},
+                {3, 3},
+                {4, 3},
+            };
+
+            originalDictionary.ForEach((key, value) =>
+            {
+                copyDictionary[key] = value + 1;
+            });
+
+            CollectionAssert.AreEqual(expectedDictionary, copyDictionary);
         }
     }
 }
