@@ -4008,15 +4008,15 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.ForEach
   fullName: Unosquare.Swan.Extensions.ForEach
   nameWithType: Extensions.ForEach
-- uid: Unosquare.Swan.Extensions.ForEach``1(System.Collections.Generic.Dictionary{``0,``0},System.Action{``0,``0})
-  name: ForEach<T>(Dictionary<T, T>, Action<T, T>)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ForEach__1_System_Collections_Generic_Dictionary___0___0__System_Action___0___0__
-  commentId: M:Unosquare.Swan.Extensions.ForEach``1(System.Collections.Generic.Dictionary{``0,``0},System.Action{``0,``0})
-  name.vb: ForEach(Of T)(Dictionary(Of T, T), Action(Of T, T))
-  fullName: Unosquare.Swan.Extensions.ForEach<T>(System.Collections.Generic.Dictionary<T, T>, System.Action<T, T>)
-  fullName.vb: Unosquare.Swan.Extensions.ForEach(Of T)(System.Collections.Generic.Dictionary(Of T, T), System.Action(Of T, T))
-  nameWithType: Extensions.ForEach<T>(Dictionary<T, T>, Action<T, T>)
-  nameWithType.vb: Extensions.ForEach(Of T)(Dictionary(Of T, T), Action(Of T, T))
+- uid: Unosquare.Swan.Extensions.ForEach``2(System.Collections.Generic.Dictionary{``0,``1},System.Action{``0,``1})
+  name: ForEach<TKey, TValue>(Dictionary<TKey, TValue>, Action<TKey, TValue>)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ForEach__2_System_Collections_Generic_Dictionary___0___1__System_Action___0___1__
+  commentId: M:Unosquare.Swan.Extensions.ForEach``2(System.Collections.Generic.Dictionary{``0,``1},System.Action{``0,``1})
+  name.vb: ForEach(Of TKey, TValue)(Dictionary(Of TKey, TValue), Action(Of TKey, TValue))
+  fullName: Unosquare.Swan.Extensions.ForEach<TKey, TValue>(System.Collections.Generic.Dictionary<TKey, TValue>, System.Action<TKey, TValue>)
+  fullName.vb: Unosquare.Swan.Extensions.ForEach(Of TKey, TValue)(System.Collections.Generic.Dictionary(Of TKey, TValue), System.Action(Of TKey, TValue))
+  nameWithType: Extensions.ForEach<TKey, TValue>(Dictionary<TKey, TValue>, Action<TKey, TValue>)
+  nameWithType.vb: Extensions.ForEach(Of TKey, TValue)(Dictionary(Of TKey, TValue), Action(Of TKey, TValue))
 - uid: Unosquare.Swan.Extensions.GetCopyableProperties(System.Object)
   name: GetCopyableProperties(Object)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetCopyableProperties_System_Object_
