@@ -179,5 +179,16 @@ namespace Unosquare.Swan.Test
                 Assert.AreEqual(ex.ResultCode, LdapStatusCode.InsufficientAccessRights);
             }
         }
+
+        public class ReadTest : LdapTest
+        {
+            public async Task ReadUserProperties()
+            {
+                var cn = await GetDefaultConnection();
+                var properties = await cn.Read("uid=euclid,dc=example,dc=com");
+                var mail = properties.GetAttribute("mail");
+                Assert.AreEqual(mail.StringValue, "euclid@ldap.forumsys.com");
+            }
+        }
     }
 }
