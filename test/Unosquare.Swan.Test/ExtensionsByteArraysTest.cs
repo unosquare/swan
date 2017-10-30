@@ -94,9 +94,17 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         }
 
         [Test]
+        public void WithSequenceEqualsBytes_ReturnsSplitedString()
+        {
+            var expected = new List<byte[]>() { new byte[] { 21, 205, 91, 7 } };
+            byte[] sequence = BitConverter.GetBytes(123456789);
+            
+            Assert.AreEqual(expected, _bytes.Split(0, sequence), $"Get Split value");
+        }
+
+        [Test]
         public void WithNullSequence_ThrowsArgumentNullException()
         {
-            var expected = new List<byte[]>() { new byte[] { 91, 7 } };
             var sequence = BitConverter.GetBytes(456);
 
             Assert.Throws<ArgumentNullException>(() => 
@@ -411,8 +419,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
 
             Assert.AreEqual(buffer, bufferAsync);
         }
-
-        //[Test]
+        
         [TestCase(256)]
         [TestCase(25654323)]
         public async Task WithBufferSize_ReturnsArray(int bufferLength)
@@ -574,5 +581,32 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             
             Assert.AreEqual(0, result);
         }
+
+        [Test]
+        public void WithCountEqualsZero_ReturnsNegativeOne()
+        {
+            var sampleFile = Path.GetTempFileName();
+            var stream = new FileStream(sampleFile, FileMode.Open);
+            var lber = new sbyte[234];
+
+            var result = stream.ReadInput(ref lber, 0, 0);
+
+            Assert.AreEqual(-1, result);
+        }
+
+
+        [Test]
+        public void WithNullTarget_ThrowsArgumentNullException()
+        {
+            var sampleFile = Path.GetTempFileName();
+            var stream = new FileStream(sampleFile, FileMode.Open);
+            sbyte[] lber = null;
+            
+            Assert.Throws<ArgumentNullException>(() =>
+                stream.ReadInput(ref lber, 0, 0)
+            );
+            
+        }
+
     }
 }
