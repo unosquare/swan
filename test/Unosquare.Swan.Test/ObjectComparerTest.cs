@@ -87,7 +87,7 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreObjectsEqual(new SampleStruct(), new SampleStruct(), null));
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreStructsEqual(new SampleStruct(), new SampleStruct(), null));
         }
     }
 
