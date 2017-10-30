@@ -72,5 +72,40 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
                 });
             });
         }
+
+        [Test]
+        public void NotNullDictionary_DoesForEach()
+        {
+            Dictionary<int, int> originalDictionary = new Dictionary<int, int>()
+            {
+                {1, 2},
+                {2, 2},
+                {3, 2},
+                {4, 2},
+            };
+
+            Dictionary<int, int> copyDictionary = new Dictionary<int, int>()
+            {
+                {1, 2},
+                {2, 2},
+                {3, 2},
+                {4, 2},
+            };
+
+            Dictionary<int, int> expectedDictionary = new Dictionary<int, int>()
+            {
+                {1, 3},
+                {2, 3},
+                {3, 3},
+                {4, 3},
+            };
+
+            originalDictionary.ForEach((key, value) =>
+            {
+                copyDictionary[key] = value + 1;
+            });
+
+            CollectionAssert.AreEqual(expectedDictionary, copyDictionary);
+        }
     }
 }
