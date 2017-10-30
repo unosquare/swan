@@ -340,7 +340,7 @@ namespace Unosquare.Swan.Test.JsonTests
         [Test]
         public void Json_SerializeOnly_ReturnsObjectSerialized()
         {
-            AdvJson obj = new AdvJson
+            var obj = new AdvJson
             {
                 StringData = "UnoSquare",
                 IntData = 2,
@@ -349,7 +349,7 @@ namespace Unosquare.Swan.Test.JsonTests
                 BoolData = false,
             };
 
-            string[] includedNames = new string[]
+            var includeNames = new string[]
             {
                 "StringData",
                 "IntData",
@@ -358,9 +358,33 @@ namespace Unosquare.Swan.Test.JsonTests
                 "BoolData"
             };
 
+            var dataSerialized = Json.SerializeOnly(obj, true, includeNames);
             var expectedObjectSerialized = "{\r\n    \"StringData\": \"UnoSquare\",\r\n    \"IntData\": 2,\r\n    \"NegativeInt\": -5,\r\n    \"DecimalData\": 234.22,\r\n    \"BoolData\": false\r\n}";
 
-            var dataSerialized = Json.SerializeOnly(obj, true, includedNames);
+            Assert.AreEqual(expectedObjectSerialized, dataSerialized);
+        }
+
+        [Test]
+        public void Json_SerializeExcluding_ReturnsObjectSerializedExcludingProps()
+        {
+            var obj = new AdvJson
+            {
+                StringData = "UnoSquare",
+                IntData = 2,
+                NegativeInt = -5,
+                DecimalData = 234.22M,
+                BoolData = false,
+            };
+
+            var excludeNames = new string[]
+            {
+                "StringData",
+                "IntData",
+                "NegativeInt"
+            };
+
+            var dataSerialized = Json.SerializeExcluding(obj, true, excludeNames);
+            var expectedObjectSerialized = "{\r\n    \"InnerChild\": null,\r\n    \"DecimalData\": 234.22,\r\n    \"BoolData\": false,\r\n    \"StringNull\": null\r\n}";
 
             Assert.AreEqual(expectedObjectSerialized, dataSerialized);
         }
