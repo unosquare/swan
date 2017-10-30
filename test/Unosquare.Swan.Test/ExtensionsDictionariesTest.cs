@@ -23,5 +23,35 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
                 Extensions.GetValueOrDefault(dict, 1);
             });
         }
+
+        [Test]
+        public void DictionaryWithExistingKey_ReturnsValue()
+        {
+            dict = new Dictionary<object, object>
+            {
+                { 1, "Armando" },
+                { 2, "Alexey" },
+                { 3, "Alejandro" },
+                { 4, "Florencia" },
+                { 5, "Israel" }
+            };
+
+            Assert.AreEqual(Extensions.GetValueOrDefault(dict, 3), "Alejandro");
+        }
+
+        [Test]
+        public void DictionaryWithoutExistingKey_ReturnsNull()
+        {
+            dict = new Dictionary<object, object>
+            {
+                { 1, "Armando" },
+                { 2, "Alexey" },
+                { 3, "Alejandro" },
+                { 4, "Florencia" },
+                { 5, "Israel" }
+            };
+
+            Assert.AreEqual(Extensions.GetValueOrDefault(dict, 7), null);
+        }
     }
 }
