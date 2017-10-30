@@ -61,12 +61,15 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            dict = null;
-            Action<object, object> itemAction = (key, value) => Console.WriteLine("Key {0}, Value {1}", key, value);
+            Dictionary<int, int> originalDictionary = new Dictionary<int, int>();
+            originalDictionary = null;
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Extensions.ForEach(dict, itemAction);
+                originalDictionary.ForEach((key, value) =>
+                {
+                    originalDictionary[key] = value + 1;
+                });
             });
         }
     }
