@@ -194,12 +194,14 @@ namespace Unosquare.Swan.Test
 
         public class ReadTest : LdapTest
         {
+            [Test]
             public async Task ReadUserProperties()
             {
                 var cn = await GetDefaultConnection();
                 var properties = await cn.Read("uid=euclid,dc=example,dc=com");
                 var mail = properties.GetAttribute("mail");
                 Assert.AreEqual(mail.StringValue, "euclid@ldap.forumsys.com");
+                cn.Disconnect();
             }
         }
     }
