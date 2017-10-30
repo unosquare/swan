@@ -71,28 +71,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             Assert.AreEqual("Fc1bBw==", _bytes.ToBase64(), $"Get ToBase64 value");
         }
     }
-
-    [TestFixture]
-    public class ConvertHexadecimalToBytes : ExtensionsByteArraysTest
-    {
-        [Test]
-        public void WithValidHex_ReturnsString()
-        {
-            const string hex = "15CD5B07";
-            Assert.AreEqual(_bytes, hex.ConvertHexadecimalToBytes(), $"Get ConvertHexadecimalToBytes value");
-        }
-
-        [Test]
-        public void WithNullHex_ThrowsArgumentNullException()
-        {
-            const string hex = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-                hex.ConvertHexadecimalToBytes()
-            );
-        }
-    }
-
+    
     [TestFixture]
     public class GetBitValueAt : ExtensionsByteArraysTest
     {
@@ -433,8 +412,10 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             Assert.AreEqual(buffer, bufferAsync);
         }
 
-        [Test]
-        public async Task WithBufferSize_ReturnsArray()
+        //[Test]
+        [TestCase(256)]
+        [TestCase(25654323)]
+        public async Task WithBufferSize_ReturnsArray(int bufferLength)
         {
             var sampleFile = Path.GetTempFileName();
             Helper.CreateTempBinaryFile(sampleFile, 1);
@@ -443,9 +424,155 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             var buffer = File.ReadAllBytes(sampleFile);
             var currentAssembly = new FileStream(sampleFile, FileMode.Open);
 
-            var bufferAsync = await currentAssembly.ReadBytesAsync(currentAssembly.Length, 256);
+            var bufferAsync = await currentAssembly.ReadBytesAsync(currentAssembly.Length, bufferLength);
 
             Assert.AreEqual(buffer, bufferAsync);
+        }
+
+        [Test]
+        public void WithNullStreamAndBufferLength_ThrowsArgumentNullException()
+        {
+            FileStream currentAssembly = null;
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+
+                await currentAssembly.ReadBytesAsync(23, 256)
+            );
+        }
+
+        [Test]
+        public void WithNullStream_ThrowsArgumentNullException()
+        {
+            FileStream currentAssembly = null;
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+
+                await currentAssembly.ReadBytesAsync(23)
+            );
+        }
+        
+    }
+
+    [TestFixture]
+    public class SetBitValueAt : ExtensionsByteArraysTest
+    {
+        [Test]
+        public void WithOffsetAndValue_ReturnsBitValue()
+        {
+            byte input = 201;
+
+            byte result = input.SetBitValueAt(2, 1);
+            
+            Assert.AreEqual(205, result);
+        }
+    }
+
+    [TestFixture]
+    public class ConvertHexadecimalToBytes : ExtensionsByteArraysTest
+    {
+        [Test]
+        public void WithValidHex_ReturnsString()
+        {
+            const string hex = "15CD5B07";
+
+            Assert.AreEqual(_bytes, hex.ConvertHexadecimalToBytes(), $"Get ConvertHexadecimalToBytes value");
+        }
+
+        [Test]
+        public void WithNullHex_ThrowsArgumentNullException()
+        {
+            const string hex = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                hex.ConvertHexadecimalToBytes()
+            );
+        }
+    }
+
+    [TestFixture]
+    public class SubArray : ExtensionsByteArraysTest
+    {
+        [TestCase(0, 2, 21)]
+        [TestCase(2, 2, 91)]
+        public void WithValidParams_ReturnsSubArray(long startIndex, long length, int expected)
+        {
+            var sub = _bytes.SubArray<Byte>(startIndex, length);
+            
+            Assert.AreEqual(expected, sub[0]);
+        }
+
+        [TestCase(2, 3)]
+        [TestCase(2, 0)]
+        [TestCase(-1, 3)]
+        public void WithInvalidParams_ReturnsEmpty(long startIndex, long length)
+        {
+            var sub = _bytes.SubArray<Byte>(startIndex, length);
+            
+            Assert.IsEmpty(sub);
+        }
+
+        [Test]
+        public void WithNullArray_ReturnsEmpty()
+        {
+            long startIndex=0;
+            long length=0;
+
+            var sub = _nullBytes.SubArray<Byte>(startIndex, length);
+
+            Assert.IsEmpty(sub);
+        }
+    }
+
+    [TestFixture]
+    public class ToByteArray : ExtensionsByteArraysTest
+    {
+        [Test]
+        public void WithNullArray_ReturnsByteArray()
+        {
+            sbyte[] input = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                input.ToByteArray()
+            ); 
+        }
+    }
+
+    [TestFixture]
+    public class ToSByteArray : ExtensionsByteArraysTest
+    {
+        [Test]
+        public void WithNullArray_ReturnsByteArray()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullBytes.ToSByteArray()
+            ); 
+        }
+    }
+
+    [TestFixture]
+    public class ReadInput
+    {
+        [Test]
+        public void WithNullStream_ThrowsArgumentNullException()
+        {
+            FileStream stream = null;
+            var lber = new sbyte[23];
+
+            Assert.Throws<ArgumentNullException>(() =>
+                stream.ReadInput(ref lber, 0, lber.Length)
+            );
+        }
+
+        [Test]
+        public void WithTargetLengthEqualsZero_ReturnsZeroBytes()
+        {
+            var sampleFile = Path.GetTempFileName();
+            var stream = new FileStream(sampleFile, FileMode.Open);
+            var lber = new sbyte[0];
+
+            var result = stream.ReadInput(ref lber, 0, lber.Length);
+            
+            Assert.AreEqual(0, result);
         }
     }
 }
