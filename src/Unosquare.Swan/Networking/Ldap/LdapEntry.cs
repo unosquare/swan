@@ -729,9 +729,9 @@ namespace Unosquare.Swan.Networking.Ldap
 
     /// <summary>
     /// A set of LdapAttribute objects.
-    /// An <code>LdapAttributeSet</code> is a collection of <code>LdapAttribute</code>
-    /// classes as returned from an <code>LdapEntry</code> on a search or read
-    /// operation. <code>LdapAttributeSet</code> may be also used to contruct an entry
+    /// An LdapAttributeSet is a collection of LdapAttribute
+    /// classes as returned from an LdapEntry on a search or read
+    /// operation. LdapAttributeSet may be also used to construct an entry
     /// to be added to a directory.  
     /// </summary>
     /// <seealso cref="System.Collections.ArrayList" />
