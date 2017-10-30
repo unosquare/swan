@@ -52,6 +52,9 @@
         /// <param name="t">The t.</param>
         public ExtendedTypeInfo(Type t)
         {
+            if (t == null)
+                throw new ArgumentNullException(nameof(t));
+
             Type = t;
             IsNullableValueType = Type.GetTypeInfo().IsGenericType
                 && Type.GetGenericTypeDefinition() == typeof(Nullable<>);

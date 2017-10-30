@@ -54,6 +54,15 @@ namespace Unosquare.Swan.Test
 #endif
 
         [Test]
+        public void Autoregister_ResolvesIAnimal()
+        {
+            var container = new DependencyContainer();
+            container.AutoRegister(Runtime.GetAssemblies());
+            Assert.IsTrue(container.CanResolve<ICar>());
+        }
+
+
+        [Test]
         public void BuildUpTest()
         {
             var container = new DependencyContainer();
@@ -77,16 +86,86 @@ namespace Unosquare.Swan.Test
 
             Assert.Throws<DependencyContainerResolutionException>(() => Runtime.Container.Resolve<IAnimal>());
         }
-        
+
         [Test]
-        public void TryResolveTest()
+        public void RegisterClass_ReturnsOptions()
         {
             var container = new DependencyContainer();
+            Assert.IsNotNull(container.Register<Controller>());
+        }
 
+        [Test]
+        public void RegisterInterfaceWithInstance_CanResolve()
+        {
+            var container = new DependencyContainer();
+            var instance = new Human("George");
+
+            container.Register<IAnimal, Human>(instance);
+            Assert.IsTrue(container.TryResolve(out IAnimal containerInstance));
+            Assert.AreEqual(instance.Name, containerInstance.Name);
+        }
+
+        [Test]
+        public void RegisterInterfaceWithInstanceWeakReference_CanDestroy()
+        {
+            var container = new DependencyContainer();
+            using (var instance = new Human("George"))
+            {
+                container.Register<IAnimal, Human>(instance).WithWeakReference();
+            }
+
+            var containerInstance = (Human) container.Resolve<IAnimal>();
+            Assert.IsTrue(containerInstance.IsDisposed);
+        }
+
+        [Test]
+        public void RegisterInterfaceWithInstanceStrongReference_CanDestroy()
+        {
+            var container = new DependencyContainer();
+            using (var instance = new Human("George"))
+            {
+                // TODO: mmmmm
+                container.Register<IAnimal>(instance).WithStrongReference();
+            }
+            
+            var containerInstance = (Human)container.Resolve<IAnimal>();
+            Assert.IsTrue(containerInstance.IsDisposed);
+        }
+
+
+        [Test]
+        public void RegisterDisposable_IsDispose()
+        {
+            var container = new DependencyContainer();
+            var instance = new Human("George");
+            container.Register<IAnimal>(instance);
+            container.Dispose();
+            Assert.IsTrue(instance.IsDisposed);
+        }
+
+        [Test]
+        public void RegisterMultipleTypes_ReturnsOptionse()
+        {
+            var container = new DependencyContainer();
+            Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] {typeof(Monkey), typeof(Fish)}));
+        }
+
+        [Test]
+        public void TryResolve_CanResolve()
+        {
+            var container = new DependencyContainer();
             container.Register<IAnimal, Fish>();
 
             Assert.IsTrue(container.TryResolve(out IAnimal instance));
             Assert.AreEqual((new Fish()).Name, instance.Name);
+        }
+
+        [Test]
+        public void TryResolve_Fail()
+        {
+            var container = new DependencyContainer();
+
+            Assert.IsFalse(container.TryResolve(out IAnimal instance));
         }
 
         [Test]

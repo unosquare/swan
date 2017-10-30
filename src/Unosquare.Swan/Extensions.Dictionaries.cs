@@ -30,11 +30,12 @@
         /// <summary>
         /// Executes the item action for each element in the Dictionary
         /// </summary>
-        /// <typeparam name="T">Generic type</typeparam>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="dict">The dictionary.</param>
         /// <param name="itemAction">The item action.</param>
         /// <exception cref="ArgumentNullException">dict</exception>
-        public static void ForEach<T>(this Dictionary<T, T> dict, Action<T, T> itemAction)
+        public static void ForEach<TKey, TValue>(this Dictionary<TKey, TValue> dict, Action<TKey, TValue> itemAction)
         {
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));

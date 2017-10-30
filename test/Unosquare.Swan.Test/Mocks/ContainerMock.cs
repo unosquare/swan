@@ -14,6 +14,23 @@ namespace Unosquare.Swan.Test.Mocks
         public string Name => nameof(Monkey);
     }
 
+    public class Human : IAnimal, IDisposable
+    {
+        public Human(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; }
+
+        public bool IsDisposed { get; private set; }
+
+        public void Dispose()
+        {
+            IsDisposed = true;
+        }
+    }
+
     public class Fish : IAnimal
     {
         public string Name => nameof(Fish);

@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Networking
 {
+    using System;
     using Exceptions;
     using Models;
     using Formatters;
@@ -23,7 +24,7 @@
         /// <summary>
         /// Post a object as JSON with optional authorization token.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of response object</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
@@ -44,8 +45,8 @@
         /// Posts a object as JSON with optional authorization token and retrieve an object
         /// or an error.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TE">The type of the e.</typeparam>
+        /// <typeparam name="T">The type of response object</typeparam>
+        /// <typeparam name="TE">The type of the error.</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="httpStatusError">The HTTP status error.</param>
@@ -116,7 +117,11 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested string</returns>
+        /// <returns>
+        /// A task with a result of the requested string
+        /// </returns>
+        /// <exception cref="ArgumentNullException">url</exception>
+        /// <exception cref="JsonRequestException">Error POST JSON</exception>
         /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error POST Json.</exception>
         public static async Task<string> PostString(
             string url, 
@@ -124,6 +129,9 @@
             string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentNullException(nameof(url));
+
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
                 var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
@@ -140,7 +148,7 @@
         /// <summary>
         /// Puts the specified URL.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of response object</typeparam>
         /// <param name="url">The URL.</param>
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
@@ -185,14 +193,20 @@
         /// <param name="payload">The payload.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested string</returns>
-        /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error PUT JSON</exception>
+        /// <returns>
+        /// A task with a result of the requested string
+        /// </returns>
+        /// <exception cref="ArgumentNullException">url</exception>
+        /// <exception cref="JsonRequestException">Error PUT JSON</exception>
         public static async Task<string> PutString(
             string url, 
             object payload, 
             string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentNullException(nameof(url));
+
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
                 var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
@@ -212,13 +226,19 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested string</returns>
-        /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error GET JSON</exception>
+        /// <returns>
+        /// A task with a result of the requested string
+        /// </returns>
+        /// <exception cref="ArgumentNullException">url</exception>
+        /// <exception cref="JsonRequestException">Error GET JSON</exception>
         public static async Task<string> GetString(
             string url, 
             string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentNullException(nameof(url));
+
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
                 var response = await httpClient.GetAsync(url, ct);
@@ -254,13 +274,19 @@
         /// <param name="url">The URL.</param>
         /// <param name="authorization">The authorization.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a result of the requested byte array</returns>
-        /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error GET Binary</exception>
+        /// <returns>
+        /// A task with a result of the requested byte array
+        /// </returns>
+        /// <exception cref="ArgumentNullException">url</exception>
+        /// <exception cref="JsonRequestException">Error GET Binary</exception>
         public static async Task<byte[]> GetBinary(
-            string url, 
+            string url,
             string authorization = null,
             CancellationToken ct = default(CancellationToken))
         {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentNullException(nameof(url));
+
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
                 var response = await httpClient.GetAsync(url, ct);
@@ -279,19 +305,33 @@
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task with a Dictionary with authentication data</returns>
-        /// <exception cref="System.Security.SecurityException">Error Authenticating</exception>
+        /// <returns>
+        /// A task with a Dictionary with authentication data
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// url
+        /// or
+        /// username
+        /// </exception>
+        /// <exception cref="SecurityException">Error Authenticating</exception>
         public static async Task<IDictionary<string, object>> Authenticate(
-            string url, 
-            string username, 
+            string url,
+            string username,
             string password,
             CancellationToken ct = default(CancellationToken))
         {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentNullException(nameof(url));
+
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentNullException(nameof(username));
+            
             using (var httpClient = new HttpClient())
             {
+                // ignore empty password for now
                 var requestContent = new StringContent(
                     $"grant_type=password&username={username}&password={password}",
-                    Encoding.UTF8, 
+                    Encoding.UTF8,
                     "application/x-www-form-urlencoded");
                 var response = await httpClient.PostAsync(url, requestContent, ct);
 
