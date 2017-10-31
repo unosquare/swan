@@ -26,7 +26,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// handy when decoding structured types. It allows you to accumulate
         /// the number of bytes decoded, so you know when the structured
         /// type has decoded all of its components.</param>
-        /// <returns></returns>
+        /// <returns>Decoded object</returns>
         Asn1Object Decode(Stream stream, int[] length);
 
         /// <summary>
@@ -54,18 +54,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="len">Length in bytes</param>
-        /// <returns></returns>
+        /// <returns>Decoded string</returns>
         object DecodeOctetString(Stream stream, int len);
-
-        /// <summary>
-        /// Decode a CharacterString directly from a stream.
-        /// Decodes any of the specialized character strings.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">Length in bytes</param>
-        /// <returns></returns>
-        object DecodeCharacterString(Stream stream, int len);
     }
-
 }
 #endif

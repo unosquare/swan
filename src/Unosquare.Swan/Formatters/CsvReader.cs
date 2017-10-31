@@ -130,6 +130,9 @@
         /// <summary>
         /// Gets number of lines that have been read, including the headings
         /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
         public ulong Count
         {
             get
@@ -145,6 +148,9 @@
         /// Gets or sets the escape character.
         /// By default it is the double quote '"'
         /// </summary>
+        /// <value>
+        /// The escape character.
+        /// </value>
         public char EscapeCharacter
         {
             get => _escapeCharacter;
@@ -161,6 +167,9 @@
         /// Gets or sets the separator character.
         /// By default it is the comma character ','
         /// </summary>
+        /// <value>
+        /// The separator character.
+        /// </value>
         public char SeparatorCharacter
         {
             get => _separatorCharacter;
@@ -249,12 +258,12 @@
         {
             lock (_syncLock)
             {
-                if (_count != 0)
-                    throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
-
                 if (_headings != null)
                     throw new InvalidOperationException($"The {nameof(ReadHeadings)} method had already been called.");
 
+                if (_count != 0)
+                    throw new InvalidOperationException("Reading headings is only supported as the first read operation.");
+                
                 _headings = ReadLine();
                 _defaultMap = new Dictionary<string, string>();
                 foreach (var heading in _headings)
@@ -331,12 +340,12 @@
                     if (map == null)
                         throw new ArgumentNullException(nameof(map));
 
-                    if (_headings == null)
-                        throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
-
                     if (_reader.EndOfStream)
                         throw new EndOfStreamException("Cannot read past the end of the stream");
 
+                    if (_headings == null)
+                        throw new InvalidOperationException($"Call the {nameof(ReadHeadings)} method before reading as an object.");
+                    
                     if (result == null)
                         throw new ArgumentNullException(nameof(result));
                 }

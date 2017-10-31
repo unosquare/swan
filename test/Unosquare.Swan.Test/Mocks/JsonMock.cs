@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
     using System;
-    using Swan.Attributes;
+    using Attributes;
 
     public class ErrorJson
     {
@@ -113,6 +113,15 @@
     {
         public int Value;
         public string Name;
+    }
+
+    public struct SampleStructWithProps
+    {
+        public int StudentId { get; set; }
+
+        public double Average { get; set; }
+
+        public string Notes { get; set; }
     }
 
     public class ObjectEnum

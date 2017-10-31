@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Reflection
 {
+    using System;
     using System.Linq;
     using System.Reflection;
     using Attributes;
@@ -15,8 +16,12 @@
         /// <param name="propertyInfo">The property information.</param>
         public ExtendedPropertyInfo(PropertyInfo propertyInfo)
         {
-            Property = propertyInfo.Name;
+            if (propertyInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propertyInfo));
+            }
 
+            Property = propertyInfo.Name;
             DataType = propertyInfo.PropertyType.Name;
 
             foreach (var display in propertyInfo.GetCustomAttributes(true).OfType<PropertyDisplayAttribute>())
@@ -34,7 +39,7 @@
         /// <value>
         /// The property.
         /// </value>
-        public string Property { get; set; }
+        public string Property { get; }
 
         /// <summary>
         /// Gets or sets the type of the data.
@@ -42,7 +47,7 @@
         /// <value>
         /// The type of the data.
         /// </value>
-        public string DataType { get; set; }
+        public string DataType { get; }
 
         /// <summary>
         /// Gets or sets the value.
@@ -58,7 +63,7 @@
         /// <value>
         /// The default value.
         /// </value>
-        public object DefaultValue { get; set; }
+        public object DefaultValue { get; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -66,7 +71,7 @@
         /// <value>
         /// The name.
         /// </value>
-        public string Name { get; set; }
+        public string Name { get;  }
 
         /// <summary>
         /// Gets or sets the description.
@@ -74,7 +79,7 @@
         /// <value>
         /// The description.
         /// </value>
-        public string Description { get; set; }
+        public string Description { get; }
 
         /// <summary>
         /// Gets or sets the name of the group.
@@ -82,7 +87,7 @@
         /// <value>
         /// The name of the group.
         /// </value>
-        public string GroupName { get; set; }
+        public string GroupName { get; }
     }
 
     /// <summary>

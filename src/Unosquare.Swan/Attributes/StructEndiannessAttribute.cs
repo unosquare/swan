@@ -22,6 +22,9 @@
         /// <summary>
         /// Gets the endianness.
         /// </summary>
+        /// <value>
+        /// The endianness.
+        /// </value>
         public Endianness Endianness { get; }
     }
 

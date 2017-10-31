@@ -21,11 +21,17 @@
         /// <summary>
         /// Gets the state to which the application service changed.
         /// </summary>
+        /// <value>
+        /// The new state.
+        /// </value>
         public AppWorkerState NewState { get; }
 
         /// <summary>
         /// Gets the old state.
         /// </summary>
+        /// <value>
+        /// The old state.
+        /// </value>
         public AppWorkerState OldState { get; }
     }
 }

@@ -128,11 +128,10 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             for (var index = 0; index < elements.Count; index++)
             {
-                if ((string) elements[index] == string.Empty)
-                {
-                    elements.RemoveAt(index);
-                    index--;
-                }
+                if ((string) elements[index] != string.Empty) continue;
+
+                elements.RemoveAt(index);
+                index--;
             }
         }
     }
@@ -151,16 +150,6 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcMatchingRuleAssertion"/> class.
-        /// Creates a MatchingRuleAssertion with the only required parameter.
-        /// </summary>
-        /// <param name="matchValue">The assertion value.</param>
-        public RfcMatchingRuleAssertion(Asn1OctetString matchValue)
-            : this(null, null, matchValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcMatchingRuleAssertion"/> class.
         /// Creates a MatchingRuleAssertion.
         /// The value null may be passed for an optional value that is not used.
         /// </summary>
@@ -169,8 +158,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="matchValue">The assertion value.</param>
         /// <param name="dnAttributes">Asn1Boolean value. (default false)</param>
         public RfcMatchingRuleAssertion(
-            RfcLdapString matchingRule, 
-            RfcLdapString type, 
+            Asn1OctetString matchingRule,
+            Asn1OctetString type, 
             Asn1OctetString matchValue,
             Asn1Boolean dnAttributes = null)
             : base(4)
@@ -200,15 +189,6 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class RfcAttributeDescriptionList : Asn1SequenceOf
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RfcAttributeDescriptionList"/> class.
-        /// </summary>
-        /// <param name="size">Specifies the initial size of the collection.</param>
-        public RfcAttributeDescriptionList(int size)
-            : base(size)
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="RfcAttributeDescriptionList" /> class.
         /// Convenience constructor. This constructor will construct an
         /// AttributeDescriptionList using the supplied array of Strings.
@@ -221,7 +201,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             foreach (var attr in attrs)
             {
-                Add(new RfcLdapString(attr));
+                Add(attr);
             }
         }
     }
@@ -262,7 +242,7 @@ namespace Unosquare.Swan.Networking.Ldap
             string[] attributes)
             : base(8)
         {
-            Add(new RfcLdapDN(basePath));
+            Add(basePath);
             Add(new Asn1Enumerated(scope));
             Add(new Asn1Enumerated(derefAliases));
             Add(new Asn1Integer(sizeLimit));
@@ -283,7 +263,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchRequest);
 
-        public string GetRequestDN() => ((RfcLdapDN) Get(0)).StringValue();
+        public string GetRequestDN() => ((Asn1OctetString) Get(0)).StringValue();
     }
 
     /// <summary>
@@ -300,7 +280,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class RfcSubstringFilter : Asn1Sequence
     {
-        public RfcSubstringFilter(RfcLdapString type, Asn1SequenceOf substrings)
+        public RfcSubstringFilter(string type, Asn1SequenceOf substrings)
             : base(2)
         {
             Add(type);
@@ -316,7 +296,7 @@ namespace Unosquare.Swan.Networking.Ldap
     ///         assertionValue  AssertionValue }
     ///     </pre>
     /// </summary>
-    internal class RfcAttributeValueAssertion : Asn1Sequence
+    internal sealed class RfcAttributeValueAssertion : Asn1Sequence
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcAttributeValueAssertion" /> class.
@@ -324,11 +304,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <param name="ad">The assertion description</param>
         /// <param name="av">The assertion value</param>
-        public RfcAttributeValueAssertion(RfcLdapString ad, Asn1OctetString av)
+        public RfcAttributeValueAssertion(string ad, sbyte[] av)
             : base(2)
         {
             Add(ad);
-            Add(av);
+            Add(new Asn1OctetString(av));
         }
 
         /// <summary>
@@ -337,7 +317,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the attribute description
         /// </returns>
-        public virtual string AttributeDescription => ((RfcLdapString) Get(0)).StringValue();
+        public string AttributeDescription => ((Asn1OctetString) Get(0)).StringValue();
 
         /// <summary>
         ///     Returns the assertion value.
@@ -345,7 +325,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the assertion value.
         /// </returns>
-        public virtual sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
+        public sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
     }
 
     /// <summary>
@@ -450,7 +430,7 @@ namespace Unosquare.Swan.Networking.Ldap
             Anonymous = anonymous;
         }
         
-        public int ProtocolVersion { get; } = 3;
+        public int ProtocolVersion { get; }
         
         public string AuthenticationDN { get; }
         

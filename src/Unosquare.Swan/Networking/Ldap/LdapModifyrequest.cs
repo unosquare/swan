@@ -2,7 +2,6 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.IO;
 
     /// <summary>
     /// Modification Request
@@ -17,7 +16,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="modifications">The modifications.</param>
         /// <param name="control">The control.</param>
         public LdapModifyRequest(string dn, LdapModification[] modifications, LdapControl[] control)
-            : base(LdapOperation.ModifyRequest, new RfcModifyRequest(new RfcLdapDN(dn), EncodeModifications(modifications)), control)
+            : base(LdapOperation.ModifyRequest, new RfcModifyRequest(dn, EncodeModifications(modifications)), control)
         {
         }
 
@@ -61,13 +60,13 @@ namespace Unosquare.Swan.Networking.Ldap
                     var op = ((Asn1Enumerated)operators[0]).IntValue();
                     var attrSeq = (Asn1Sequence)operators[1];
                     var attrArray = attrSeq.ToArray();
-                    var aname = (RfcAttributeDescription)attrArray[0];
+                    var aname = (Asn1OctetString)attrArray[0];
                     var name = aname.StringValue();
                     var avalue = (Asn1SetOf)attrArray[1];
                     var valueArray = avalue.ToArray();
                     var attr = new LdapAttribute(name);
 
-                    foreach (RfcAttributeValue t in valueArray)
+                    foreach (Asn1OctetString t in valueArray)
                     {
                         attr.AddValue(t.ByteValue());
                     }
@@ -100,13 +99,13 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     foreach (var val in attr.ByteValueArray)
                     {
-                        vals.Add(new RfcAttributeValue(val));
+                        vals.Add(new Asn1OctetString(val));
                     }
                 }
 
                 var rfcMod = new Asn1Sequence(2);
                 rfcMod.Add(new Asn1Enumerated((int) t.Op));
-                rfcMod.Add(new RfcAttributeTypeAndValues(new RfcAttributeDescription(attr.Name), vals));
+                rfcMod.Add(new RfcAttributeTypeAndValues(attr.Name, vals));
 
                 rfcMods.Add(rfcMod);
             }
@@ -121,43 +120,11 @@ namespace Unosquare.Swan.Networking.Ldap
             /// </summary>
             /// <param name="type">The type.</param>
             /// <param name="vals">The vals.</param>
-            public RfcAttributeTypeAndValues(RfcAttributeDescription type, Asn1SetOf vals)
+            public RfcAttributeTypeAndValues(string type, Asn1SetOf vals)
                 : base(2)
             {
                 Add(type);
                 Add(vals);
-            }
-        }
-
-        internal class RfcAttributeDescription : RfcLdapString
-        {
-            public RfcAttributeDescription(string s)
-                : base(s)
-            {
-            }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="RfcAttributeDescription" /> class.
-            /// </summary>
-            /// <param name="dec">The decimal.</param>
-            /// <param name="stream">The stream.</param>
-            /// <param name="len">The length.</param>
-            public RfcAttributeDescription(IAsn1Decoder dec, Stream stream, int len)
-                : base(dec, stream, len)
-            {
-            }
-        }
-
-        internal class RfcAttributeValue : Asn1OctetString
-        {
-            public RfcAttributeValue(string value)
-                : base(value)
-            {
-            }
-
-            public RfcAttributeValue(sbyte[] value)
-                : base(value)
-            {
             }
         }
     }

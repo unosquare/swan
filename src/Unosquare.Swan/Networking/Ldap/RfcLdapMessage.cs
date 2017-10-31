@@ -65,26 +65,6 @@ namespace Unosquare.Swan.Networking.Ldap
         
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
-        /// Create an RfcLdapMessage response from input parameters.
-        /// </summary>
-        /// <param name="op">The op.</param>
-        /// <param name="controls">The controls.</param>
-        public RfcLdapMessage(Asn1Sequence op, RfcControls controls = null)
-            : base(3)
-        {
-            _op = op;
-
-            Add(new RfcMessageID()); // MessageID has static counter
-            Add(op);
-
-            if (controls != null)
-            {
-                Add(controls);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Will decode an RfcLdapMessage directly from an InputStream.
         /// </summary>
         /// <param name="dec">The decimal.</param>
@@ -201,7 +181,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
     internal class RfcControls : Asn1SequenceOf
     {
-        /// <summary> Controls context specific tag</summary>
         public const int CONTROLS = 0;
 
         /// <summary>
@@ -274,13 +253,13 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Gets the matched dn.
         /// </summary>
         /// <returns>RfcLdapDN</returns>
-        RfcLdapDN GetMatchedDN();
+        Asn1OctetString GetMatchedDN();
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         /// <returns>RfcLdapString</returns>
-        RfcLdapString GetErrorMessage();
+        Asn1OctetString GetErrorMessage();
 
         /// <summary>
         /// Gets the referral.
@@ -366,24 +345,6 @@ namespace Unosquare.Swan.Networking.Ldap
         
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
-        /// Constructs an RfcLdapResult from parameters
-        /// </summary>
-        /// <param name="resultCode">the result code of the operation</param>
-        /// <param name="matchedDN">the matched DN returned from the server</param>
-        /// <param name="errorMessage">the diagnostic message returned from the server</param>
-        /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral = null)
-            : base(4)
-        {
-            Add(resultCode);
-            Add(matchedDN);
-            Add(errorMessage);
-            if (referral != null)
-                Add(referral);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
         /// Constructs an RfcLdapResult from the inputstream
         /// </summary>
         /// <param name="dec">The decimal.</param>
@@ -393,16 +354,15 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(dec, stream, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
-            if (Size() > 3)
+            if (Size() <= 3) return;
+
+            var obj = (Asn1Tagged)Get(3);
+            var id = obj.GetIdentifier();
+            if (id.Tag == REFERRAL)
             {
-                var obj = (Asn1Tagged)Get(3);
-                var id = obj.GetIdentifier();
-                if (id.Tag == REFERRAL)
-                {
-                    var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
-                    var bais = new MemoryStream(content.ToByteArray());
-                    Set(3, new Asn1SequenceOf(dec, bais, content.Length));
-                }
+                var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
+                var bais = new MemoryStream(content.ToByteArray());
+                Set(3, new Asn1SequenceOf(dec, bais, content.Length));
             }
         }
 
@@ -420,7 +380,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the matched DN
         /// </returns>
-        public RfcLdapDN GetMatchedDN() => new RfcLdapDN(((Asn1OctetString)Get(1)).ByteValue());
+        public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString)Get(1)).ByteValue());
 
         /// <summary>
         ///     Returns the error message from the server
@@ -428,7 +388,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     the server error message
         /// </returns>
-        public RfcLdapString GetErrorMessage() => new RfcLdapString(((Asn1OctetString)Get(2)).ByteValue());
+        public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString)Get(2)).ByteValue());
 
         /// <summary>
         ///     Returns the referral(s) from the server
@@ -458,20 +418,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(dec, stream, len)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcSearchResultDone"/> class.
-        /// Constructs an RfcSearchResultDone from parameters.
-        /// </summary>
-        /// <param name="resultCode">the result code of the operation</param>
-        /// <param name="matchedDN">the matched DN returned from the server</param>
-        /// <param name="errorMessage">the diagnostic message returned from the server</param>
-        /// <param name="referral">the referral(s) returned by the server</param>
-        public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, Asn1SequenceOf referral)
-            : base(resultCode, matchedDN, errorMessage, referral)
-        {
-        }
-
+        
         /// <summary>
         /// Override getIdentifier to return an application-wide id.
         /// </summary>
@@ -553,17 +500,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(MessageID)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcMessageID"/> class
-        /// with a specified int value.
-        /// </summary>
-        /// <param name="i">The i.</param>
-        protected internal RfcMessageID(int i)
-            : base(i)
-        {
-        }
-
+        
         /// <summary>
         ///     Increments the message number atomically
         /// </summary>

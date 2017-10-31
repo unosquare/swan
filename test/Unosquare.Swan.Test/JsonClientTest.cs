@@ -1,9 +1,10 @@
-﻿#pragma warning disable 4014
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security;
+using System.Threading;
 using System.Threading.Tasks;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Modules;
@@ -11,17 +12,16 @@ using Unosquare.Swan.Exceptions;
 using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
-namespace Unosquare.Swan.Test
+namespace Unosquare.Swan.Test.JsonClientTest
 {
-    [TestFixture]
-    public class JsonClientTest
+    public abstract class JsonClientTest
     {
-        private static int _port = 8080;
-        private int _defaultPort;
-        private string _defaultHttp;
+        protected static int _port = 8080;
+        protected int _defaultPort;
+        protected string _defaultHttp;
 
-        private const string Authorization = "Authorization";
-        private const string AuthorizationToken = "Token";
+        protected const string Authorization = "Authorization";
+        protected const string AuthorizationToken = "Token";
 
         [SetUp]
         public void SetupWebServer()
@@ -31,8 +31,13 @@ namespace Unosquare.Swan.Test
             _defaultHttp = "http://localhost:" + _defaultPort;
         }
 
+    }
+
+    [TestFixture]
+    public class Authenticate : JsonClientTest
+    {
         [Test]
-        public async Task AuthenticationTest()
+        public async Task WithValidParams_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
@@ -47,8 +52,9 @@ namespace Unosquare.Swan.Test
 
                     return true;
                 }));
-                
+
                 webserver.RunAsync();
+                await Task.Delay(100);
 
                 var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
 
@@ -59,7 +65,27 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task PostTest()
+        public void WithInvalidParams_ThrowsSecurityException()
+        {
+            Assert.ThrowsAsync<SecurityException>(async () =>
+            {
+                using (var webserver = new WebServer(_defaultPort))
+                {
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+                    webserver.RunAsync();
+                    await Task.Delay(100);
+
+                    var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
+                }
+            });
+        }
+    }
+
+    [TestFixture]
+    public class Post : JsonClientTest
+    {
+        [Test]
+        public async Task WithValidParams_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
@@ -86,13 +112,16 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task PostWithAuthenticationTest()
+        public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization)}});
+                    ctx.JsonResponse(new Dictionary<string, string>
+                    {
+                        {Authorization, ctx.RequestHeader(Authorization)}
+                    });
 
                     return true;
                 }));
@@ -109,7 +138,30 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task GetWithAuthenticationTest()
+        public void WithInvalidParams_ThrowsJsonRequestException()
+        {
+            var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
+            {
+                using (var webserver = new WebServer(_defaultPort))
+                {
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+
+                    webserver.RunAsync();
+                    await Task.Delay(100);
+
+                    await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
+                }
+            });
+
+            Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+        }
+    }
+
+    [TestFixture]
+    public class GetString : JsonClientTest
+    {
+        [Test]
+        public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
@@ -133,28 +185,20 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task ThrowGetErrorTest()
+        public async Task WithInvalidParam_ThrowsHttpRequestException()
         {
-            await Task.Delay(10);
-
             Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
                 await JsonClient.GetString(_defaultHttp);
             });
-
-            Assert.ThrowsAsync<HttpRequestException>(async () =>
-            {
-                await JsonClient.Get<BasicJson>(_defaultHttp);
-            });
-
-            Assert.ThrowsAsync<HttpRequestException>(async () =>
-            {
-                await JsonClient.GetBinary(_defaultHttp);
-            });
         }
+    }
 
+    [TestFixture]
+    public class Put : JsonClientTest
+    {
         [Test]
-        public async Task PutTest()
+        public async Task WithValidParams_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
@@ -181,13 +225,16 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task PutWithAuthenticationTest()
+        public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> {{Authorization, ctx.RequestHeader(Authorization)}});
+                    ctx.JsonResponse(new Dictionary<string, string>
+                    {
+                        {Authorization, ctx.RequestHeader(Authorization)}
+                    });
 
                     return true;
                 }));
@@ -204,7 +251,29 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task PostFileStringTest()
+        public void WithInvalidParams_ThrowsJsonRequestException()
+        {
+            var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
+            {
+                using (var webserver = new WebServer(_defaultPort))
+                {
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+                    webserver.RunAsync();
+                    await Task.Delay(100);
+
+                    await JsonClient.Put<BasicJson>(_defaultHttp, BasicJson.GetDefault());
+                }
+            });
+
+            Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+        }
+    }
+
+    [TestFixture]
+    public class PostFileString : JsonClientTest
+    {
+        [Test]
+        public async Task WithValidParams_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
@@ -222,14 +291,19 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostFileString(_defaultHttp, buffer, nameof(PostFileStringTest));
+                var data = await JsonClient.PostFileString(_defaultHttp, buffer, nameof(WithValidParams_ReturnsTrue));
 
                 Assert.IsNotNull(data);
             }
         }
 
+    }
+
+    [TestFixture]
+    public class PostFile : JsonClientTest
+    {
         [Test]
-        public async Task PostFileTest()
+        public async Task WithValidParams_ReturnsTrue()
         {
             using (var webserver = new WebServer(_defaultPort))
             {
@@ -247,16 +321,22 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, nameof(PostFileStringTest));
+                var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, "Paco De Lucia");
 
                 Assert.IsNotNull(data);
-                Assert.AreEqual(data.Filename, nameof(PostFileStringTest));
+                Assert.AreEqual(data.Filename, "Paco De Lucia");
             }
         }
+    }
 
+    [TestFixture]
+    public class PostOrError : JsonClientTest
+    {
 
-        [Test]
-        public async Task PostOrErrorTest()
+        [TestCase(1, 500, true)]
+        [TestCase(2, 500, false)]
+        [TestCase(4678, 404, false)]
+        public async Task PostOrErrorTest(int input, int error, bool expected)
         {
             using (var webserver = new WebServer(_defaultPort))
             {
@@ -280,41 +360,95 @@ namespace Unosquare.Swan.Test
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp, new BasicJson {IntData = 1});
+                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp,
+                    new BasicJson {IntData = input}, error);
 
                 Assert.IsNotNull(data);
-                Assert.IsTrue(data.IsOk);
-                Assert.IsNotNull(data.Ok);
-                Assert.AreEqual(1, data.Ok.IntData);
+                Assert.AreEqual(expected, data.IsOk);
 
-                var dataError = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp,
-                    new BasicJson {IntData = 2});
+            }
+        }
+    }
 
-                Assert.IsNotNull(dataError);
-                Assert.IsFalse(dataError.IsOk);
-                Assert.IsNotNull(dataError.Error);
-                Assert.AreEqual("ERROR", dataError.Error.Message);
+    [TestFixture]
+    public class GetBinary : JsonClientTest
+    {
+        [Test]
+        public async Task WithInvalidParams_ThrowsHttpRequestException()
+        {
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            {
+                var data = await JsonClient.GetBinary(_defaultHttp);
+            });
+        }
+
+        [Test]
+        public async Task WithValidParams_ReturnsTrue()
+        {
+            using (var webserver = new WebServer(_defaultPort))
+            {
+                var ctxHeaders = new List<string>();
+
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+                {
+                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
+
+                    return true;
+                }));
+
+                webserver.RunAsync();
+                await Task.Delay(100);
+
+                await JsonClient.GetBinary(_defaultHttp);
+
+                Assert.IsTrue(ctxHeaders.Any());
             }
         }
 
         [Test]
-        public void JsonRequestErrorTest()
+        public async Task WithInvalidUrl_ThrowsJsonRequestException()
         {
-            var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
+            Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                using (var webserver = new WebServer(_defaultPort))
-                {
-                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
-
-                    webserver.RunAsync();
-                    await Task.Delay(100);
-
-                    await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
-                }
+                var data = await JsonClient.GetBinary("https://accesscore.azurewebsites.net/api/token");
             });
-            
-            Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+        }
+
+    }
+
+    [TestFixture]
+    public class Get : JsonClientTest
+    {
+        [Test]
+        public async Task WithInvalidParams_ThrowsHttpRequestException()
+        {
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            {
+                await JsonClient.Get<BasicJson>(_defaultHttp);
+            });
+        }
+
+        [Test]
+        public async Task WithValidParams_ReturnsTrue()
+        {
+            using (var webserver = new WebServer(_defaultPort))
+            {
+                var ctxHeaders = new List<string>();
+
+                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+                {
+                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
+
+                    return true;
+                }));
+
+                webserver.RunAsync();
+                await Task.Delay(100);
+
+                var arc = await JsonClient.Get<BasicJson>(_defaultHttp);
+
+                Assert.IsTrue(ctxHeaders.Any());
+            }
         }
     }
 }
-#pragma warning restore 4014

@@ -88,7 +88,7 @@
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            return Copy(target, propertiesToCopy, ignoreProperties, source.ToDictionary(x => x.Key, x => new TypeValuePair(typeof(object), x.Value)));
+            return Copy(target, propertiesToCopy, ignoreProperties, source.ToDictionary(x => x.Key.ToLowerInvariant(), x => new TypeValuePair(typeof(object), x.Value)));
         }
 
         /// <summary>
@@ -135,7 +135,11 @@
         /// <typeparam name="TDestination">The type of the destination.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="autoResolve">if set to <c>true</c> [automatic resolve].</param>
-        /// <returns>A new instance of the map</returns>
+        /// <returns>
+        /// A new instance of the map
+        /// </returns>
+        /// <exception cref="ArgumentNullException">source</exception>
+        /// <exception cref="InvalidOperationException">You can't map from type {source.GetType().Name} to {typeof(TDestination).Name}</exception>
         public TDestination Map<TDestination>(object source, bool autoResolve = true)
         {
             if (source == null)
@@ -268,12 +272,6 @@
         {
             public bool Equals(PropertyInfo x, PropertyInfo y)
             {
-                if (x == null)
-                    throw new ArgumentNullException(nameof(x));
-
-                if (y == null)
-                    throw new ArgumentNullException(nameof(y));
-
                 // TODO: Include mapping matcher and types proximity
                 return x.Name == y.Name && x.PropertyType == y.PropertyType;
             }

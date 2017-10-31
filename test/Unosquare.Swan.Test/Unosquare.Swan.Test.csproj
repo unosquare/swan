@@ -6,6 +6,7 @@
     <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
     <TargetFrameworks>netcoreapp2.0;net452</TargetFrameworks>
     <AssemblyName>Unosquare.Swan.Test</AssemblyName>
+    <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
     <DebugType>Full</DebugType>
   </PropertyGroup>
 
@@ -15,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170106-08" />
-    <packagereference Include="NUnit3TestAdapter" Version="3.8.0-alpha1"></packagereference>
+    <packagereference Include="NUnit3TestAdapter" Version="3.8.0"></packagereference>
     <PackageReference Include="EmbedIO" Version="1.6.10" />
     <PackageReference Include="NUnit" Version="3.7.1" />
     <PackageReference Include="MimeKit" Version="1.16.2" />

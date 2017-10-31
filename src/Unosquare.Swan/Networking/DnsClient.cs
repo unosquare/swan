@@ -21,18 +21,7 @@
             : this(new IPEndPoint(ip, port), resolver)
         {
         }
-
-        public DnsClient(string ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
-            : this(IPAddress.Parse(ip), port, resolver)
-        {
-        }
-
-        public DnsClientRequest FromArray(byte[] message)
-        {
-            var request = DnsRequest.FromArray(message);
-            return new DnsClientRequest(dns, request, resolver);
-        }
-
+        
         public DnsClientRequest Create(IDnsRequest request = null)
         {
             return new DnsClientRequest(dns, request, resolver);
@@ -40,6 +29,9 @@
 
         public IList<IPAddress> Lookup(string domain, DnsRecordType type = DnsRecordType.A)
         {
+            if (string.IsNullOrWhiteSpace(domain))
+                throw new ArgumentNullException(nameof(domain));
+
             if (type != DnsRecordType.A && type != DnsRecordType.AAAA)
             {
                 throw new ArgumentException("Invalid record type " + type);
@@ -59,11 +51,12 @@
 
             return ips;
         }
-
-        public string Reverse(string ip) => Reverse(IPAddress.Parse(ip));
-
+        
         public string Reverse(IPAddress ip)
         {
+            if (ip == null)
+                throw new ArgumentNullException(nameof(ip));
+
             var response = Resolve(DnsDomain.PointerName(ip), DnsRecordType.PTR);
             var ptr = response.AnswerRecords.FirstOrDefault(r => r.Type == DnsRecordType.PTR);
 
@@ -75,10 +68,7 @@
             return ((DnsPointerResourceRecord)ptr).PointerDomainName.ToString();
         }
 
-        public DnsClientResponse Resolve(string domain, DnsRecordType type)
-        {
-            return Resolve(new DnsDomain(domain), type);
-        }
+        public DnsClientResponse Resolve(string domain, DnsRecordType type) => Resolve(new DnsDomain(domain), type);
 
         public DnsClientResponse Resolve(DnsDomain domain, DnsRecordType type)
         {

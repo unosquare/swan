@@ -11,7 +11,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// operation (entries and exceptions).
     /// </summary>
     /// <seealso cref="LdapConnection.Search"></seealso>
-    public class LdapSearchResults
+    public sealed class LdapSearchResults
     {
         private readonly LdapConnection _conn; // LdapConnection which started search
         private readonly int _messageId;
@@ -28,47 +28,40 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns a count of the items in the search result.
-        ///     Returns a count of the entries and exceptions remaining in the object.
-        ///     If the search was submitted with a batch size greater than zero,
-        ///     getCount reports the number of results received so far but not enumerated
-        ///     with next().  If batch size equals zero, getCount reports the number of
-        ///     items received, since the application thread blocks until all results are
-        ///     received.
+        /// Returns a count of the items in the search result.
+        /// Returns a count of the entries and exceptions remaining in the object.
+        /// If the search was submitted with a batch size greater than zero,
+        /// getCount reports the number of results received so far but not enumerated
+        /// with next().  If batch size equals zero, getCount reports the number of
+        /// items received, since the application thread blocks until all results are
+        /// received.
         /// </summary>
-        /// <returns>
-        ///     The number of items received but not retrieved by the application
-        /// </returns>
-        public virtual int Count => new List<RfcLdapMessage>(_conn.Messages)
+        /// <value>
+        /// The count.
+        /// </value>
+        public int Count => new List<RfcLdapMessage>(_conn.Messages)
             .Count(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
-        ///     Reports if there are more search results.
+        /// Reports if there are more search results.
         /// </summary>
         /// <returns>
-        ///     true if there are more search results.
+        /// true if there are more search results.
         /// </returns>
-        public virtual bool HasMore() => new List<RfcLdapMessage>(_conn.Messages)
+        public bool HasMore() => new List<RfcLdapMessage>(_conn.Messages)
             .Any(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
-        ///     Returns the next result as an LdapEntry.
-        ///     If automatic referral following is disabled or if a referral
-        ///     was not followed, next() will throw an LdapReferralException
-        ///     when the referral is received.
+        /// Returns the next result as an LdapEntry.
+        /// If automatic referral following is disabled or if a referral
+        /// was not followed, next() will throw an LdapReferralException
+        /// when the referral is received.
         /// </summary>
         /// <returns>
-        ///     The next search result as an LdapEntry.
+        /// The next search result as an LdapEntry.
         /// </returns>
-        /// <exception>
-        ///     LdapException A general exception which includes an error
-        ///     message and an Ldap error code.
-        /// </exception>
-        /// <exception>
-        ///     LdapReferralException A referral was received and not
-        ///     followed.
-        /// </exception>
-        public virtual LdapEntry Next()
+        /// <exception cref="ArgumentOutOfRangeException">Next - No more results</exception>
+        public LdapEntry Next()
         {
             var list = new List<RfcLdapMessage>(_conn.Messages)
                 .Where(x => x.MessageID == _messageId);

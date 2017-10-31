@@ -55,16 +55,25 @@
         /// <summary>
         /// Gets the local end point on which we are listening.
         /// </summary>
+        /// <value>
+        /// The local end point.
+        /// </value>
         public IPEndPoint LocalEndPoint { get; }
 
         /// <summary>
         /// Gets a value indicating whether this listener is active
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is listening; otherwise, <c>false</c>.
+        /// </value>
         public bool IsListening => _backgroundWorkerTask != null;
 
         /// <summary>
         /// Gets a unique identifier that gets automatically assigned upon instantiation of this class.
         /// </summary>
+        /// <value>
+        /// The unique identifier.
+        /// </value>
         public Guid Id { get; }
 
         #endregion
@@ -78,7 +87,7 @@
         public ConnectionListener(IPEndPoint listenEndPoint)
         {
             Id = Guid.NewGuid();
-            LocalEndPoint = listenEndPoint;
+            LocalEndPoint = listenEndPoint ?? throw new ArgumentNullException(nameof(listenEndPoint));
         }
 
         /// <summary>
@@ -209,10 +218,7 @@
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-        {
-            return LocalEndPoint.ToString();
-        }
+        public override string ToString() => LocalEndPoint.ToString();
 
         #endregion
 

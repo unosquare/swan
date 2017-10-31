@@ -4,7 +4,8 @@ namespace Unosquare.Swan.Networking.Ldap
     using System;
     using System.Collections;
     using System.Text;
-    
+    using Exceptions;
+
     /// <summary>
     /// Encapsulates optional additional parameters or constraints to be applied to
     /// an Ldap operation.
@@ -13,19 +14,8 @@ namespace Unosquare.Swan.Networking.Ldap
     /// sent to the server along with operation requests.
     /// </summary>
     /// <seealso cref="LdapConnection.ResponseControls"></seealso>
-    /// <seealso cref="LdapConstraints.GetControls"></seealso>
-    public class LdapControl
+    public sealed class LdapControl
     {
-        private RfcControl _control; // An RFC 2251 Control
-
-        /// <summary>
-        /// Initializes the <see cref="LdapControl" /> class.
-        /// </summary>
-        static LdapControl()
-        {
-            RegisteredControls = new RespControlVector(5);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapControl"/> class.
         /// Constructs a new LdapControl object using the specified values.
@@ -43,19 +33,10 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new ArgumentException("An OID must be specified");
             }
 
-            _control = values == null
-                ? new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical))
-                : new RfcControl(new RfcLdapOID(oid), new Asn1Boolean(critical), new Asn1OctetString(values));
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapControl"/> class.
-        /// Create an LdapControl from an existing control.
-        /// </summary>
-        /// <param name="control">The control.</param>
-        internal LdapControl(RfcControl control)
-        {
-            _control = control;
+            Asn1Object = new RfcControl(
+                oid, 
+                new Asn1Boolean(critical),
+                values == null ? null : new Asn1OctetString(values));
         }
 
         /// <summary>
@@ -64,7 +45,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The object ID of the control.
         /// </returns>
-        public virtual string ID => _control.ControlType.StringValue();
+        public string ID => Asn1Object.ControlType.StringValue();
 
         /// <summary>
         ///     Returns whether the control is critical for the operation.
@@ -74,9 +55,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     operation to be executed, and false if the control is not required for
         ///     the operation.
         /// </returns>
-        public virtual bool Critical => _control.Criticality.BooleanValue();
+        public bool Critical => Asn1Object.Criticality.BooleanValue();
 
-        internal static RespControlVector RegisteredControls { get; }
+        internal static RespControlVector RegisteredControls { get; } = new RespControlVector(5);
 
         /// <summary>
         ///     Returns the RFC 2251 Control object.
@@ -84,7 +65,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     An ASN.1 RFC 2251 Control.
         /// </returns>
-        internal virtual RfcControl Asn1Object => _control;
+        internal RfcControl Asn1Object { get; private set; }
 
         /// <summary>
         ///     Returns a copy of the current LdapControl object.
@@ -94,16 +75,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public object Clone()
         {
-            LdapControl cont;
-            try
-            {
-                cont = (LdapControl)MemberwiseClone();
-            }
-            catch (Exception ce)
-            {
-                throw new Exception("Internal error, cannot create clone", ce);
-            }
-
+            var cont = (LdapControl) MemberwiseClone();
             var vals = GetValue();
 
             if (vals != null)
@@ -118,7 +90,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     twin[i] = vals[i];
                 }
 
-                cont._control = new RfcControl(new RfcLdapOID(ID), new Asn1Boolean(Critical), new Asn1OctetString(twin));
+                cont.Asn1Object = new RfcControl(ID, new Asn1Boolean(Critical), new Asn1OctetString(twin));
             }
 
             return cont;
@@ -131,26 +103,16 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     The control-specific data of the object as a byte array,
         ///     or null if the control has no data.
         /// </returns>
-        public virtual sbyte[] GetValue()
-        {
-            sbyte[] result = null;
-            var val = _control.ControlValue;
-            if (val != null)
-            {
-                result = val.ByteValue();
-            }
-
-            return result;
-        }
+        public sbyte[] GetValue() => Asn1Object.ControlValue?.ByteValue();
 
         /// <summary>
         /// Sets the control-specific data of the object.  This method is for
         /// use by an extension of LdapControl.
         /// </summary>
         /// <param name="controlValue">The control value.</param>
-        protected internal virtual void SetValue(sbyte[] controlValue)
+        internal void SetValue(sbyte[] controlValue)
         {
-            _control.ControlValue = new Asn1OctetString(controlValue);
+            Asn1Object.ControlValue = new Asn1OctetString(controlValue);
         }
 
         /// <summary>
@@ -175,28 +137,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     /// <seealso cref="IRfcRequest" />
-    internal class RfcBindRequest 
+    internal sealed class RfcBindRequest
         : Asn1Sequence, IRfcRequest
     {
-        /// <summary> Sets the protocol version</summary>
-        public virtual Asn1Integer Version
-        {
-            get => (Asn1Integer)Get(0);
-            set => Set(0, value);
-        }
-
-        public virtual RfcLdapDN Name
-        {
-            get => (RfcLdapDN)Get(1);
-            set => Set(1, value);
-        }
-
-        public virtual RfcAuthenticationChoice AuthenticationChoice
-        {
-            get => (RfcAuthenticationChoice)Get(2);
-            set => Set(2, value);
-        }
-
         /// <summary>
         /// ID is added for Optimization.
         /// ID needs only be one Value for every instance,
@@ -210,34 +153,29 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="version">The version.</param>
         /// <param name="name">The name.</param>
         /// <param name="auth">The authentication.</param>
-        public RfcBindRequest(Asn1Integer version, RfcLdapDN name, RfcAuthenticationChoice auth)
+        public RfcBindRequest(Asn1Integer version, string name, RfcAuthenticationChoice auth)
             : base(3)
         {
             Add(version);
             Add(name);
             Add(auth);
         }
-
-        public RfcBindRequest(int version, string dn, string mechanism, sbyte[] credentials)
-            : this(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(mechanism, credentials))
+        public Asn1Integer Version
         {
+            get => (Asn1Integer)Get(0);
+            set => Set(0, value);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcBindRequest"/> class.
-        /// Constructs a new Bind Request copying the original data from
-        /// an existing request.
-        /// </summary>
-        /// <param name="origRequest">The original request.</param>
-        /// <param name="base_Renamed">The base renamed.</param>
-        internal RfcBindRequest(Asn1Object[] origRequest, string base_Renamed) 
-            : base(origRequest, origRequest.Length)
+        public Asn1OctetString Name
         {
-            // Replace the dn if specified, otherwise keep original base
-            if (base_Renamed != null)
-            {
-                Set(1, new RfcLdapDN(base_Renamed));
-            }
+            get => (Asn1OctetString)Get(1);
+            set => Set(1, value);
+        }
+
+        public RfcAuthenticationChoice AuthenticationChoice
+        {
+            get => (RfcAuthenticationChoice)Get(2);
+            set => Set(2, value);
         }
 
         /// <summary>
@@ -250,8 +188,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Asn1 Identifier
         /// </returns>
         public override Asn1Identifier GetIdentifier() => ID;
-        
-        public string GetRequestDN() => ((RfcLdapDN)Get(1)).StringValue();
+
+        public string GetRequestDN() => ((Asn1OctetString) Get(1)).StringValue();
     }
 
     /// <summary>
@@ -274,10 +212,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// connection and all operations through it should
         /// be authenticated with dn as the distinguished
         /// name and passwd as password.</param>
-        /// <param name="cont">Any controls that apply to the simple bind request,
-        /// or null if none.</param>
-        public LdapBindRequest(int version, string dn, sbyte[] passwd, LdapControl[] cont)
-            : base(LdapOperation.BindRequest, new RfcBindRequest(new Asn1Integer(version), new RfcLdapDN(dn), new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd), false))), cont)
+        public LdapBindRequest(int version, string dn, sbyte[] passwd)
+            : base(LdapOperation.BindRequest,
+                new RfcBindRequest(
+                    new Asn1Integer(version), 
+                    dn,
+                    new RfcAuthenticationChoice(new Asn1Tagged(new Asn1Identifier(0), new Asn1OctetString(passwd),
+                        false))), 
+                null)
         {
         }
 
@@ -327,167 +269,16 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                var references = ((RfcSearchResultReference)Message.Response).ToArray();
+                var references = ((RfcSearchResultReference) Message.Response).ToArray();
                 srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
-                    srefs[i] = ((Asn1OctetString)references[i]).StringValue();
+                    srefs[i] = ((Asn1OctetString) references[i]).StringValue();
                 }
 
                 return srefs;
             }
         }
-    }
-
-    /// <summary>
-    /// Defines the options controlling search operations.
-    /// An LdapSearchConstraints object is always associated with an
-    /// LdapConnection object; its values can be changed with the
-    /// LdapConnection.setConstraints method, or overridden by passing
-    /// an LdapSearchConstraints object to the search operation.
-    /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapConstraints" />
-    /// <seealso cref="LdapConstraints"></seealso>
-    /// <seealso cref="LdapConnection.Constraints"></seealso>
-    public sealed class LdapSearchConstraints : LdapConstraints
-    {
-        /// <summary>
-        ///     Indicates that aliases are never dereferenced.
-        ///     DEREF_NEVER = 0
-        /// </summary>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        public const int DEREF_NEVER = 0;
-
-        /// <summary>
-        ///     Indicates that aliases are are derefrenced when
-        ///     searching the entries beneath the starting point of the search,
-        ///     but not when finding the starting entry.
-        ///     DEREF_SEARCHING = 1
-        /// </summary>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        public const int DEREF_SEARCHING = 1;
-
-        /// <summary>
-        ///     Indicates that aliases are dereferenced when
-        ///     finding the starting point for the search,
-        ///     but not when searching under that starting entry.
-        ///     DEREF_FINDING = 2
-        /// </summary>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        public const int DEREF_FINDING = 2;
-
-        /// <summary>
-        ///     Indicates that aliases are always dereferenced, both when
-        ///     finding the starting point for the search, and also when
-        ///     searching the entries beneath the starting entry.
-        ///     DEREF_ALWAYS = 3
-        /// </summary>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        /// <seealso cref="Dereference">
-        /// </seealso>
-        public const int DEREF_ALWAYS = 3;
-
-        /// <summary>
-        /// Constructs an LdapSearchConstraints object with a default set
-        /// of search constraints.
-        /// </summary>
-        public LdapSearchConstraints()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapSearchConstraints"/> class  with values
-        /// from an existing constraints object (LdapConstraints
-        /// or LdapSearchConstraints).
-        /// </summary>
-        /// <param name="cons">The cons.</param>
-        public LdapSearchConstraints(LdapConstraints cons)
-            : base(cons.TimeLimit, cons.ReferralFollowing, cons.HopLimit)
-        {
-            var lsc = cons.GetControls();
-            if (lsc != null)
-            {
-                var ldapControl = new LdapControl[lsc.Length];
-                lsc.CopyTo(ldapControl, 0);
-                SetControls(ldapControl);
-            }
-
-            var lp = cons.Properties;
-            if (lp != null)
-            {
-                Properties = (Hashtable) lp.Clone();
-            }
-
-            if (cons is LdapSearchConstraints scons)
-            {
-                ServerTimeLimit = scons.ServerTimeLimit;
-                Dereference = scons.Dereference;
-                MaxResults = scons.MaxResults;
-                BatchSize = scons.BatchSize;
-            }
-        }
-        
-        /// <summary>
-        /// Returns the number of results to block on during receipt of search
-        /// results.
-        /// This should be 0 if intermediate reults are not needed,
-        /// and 1 if results are to be processed as they come in. A value of
-        /// indicates block until all results are received.  Default:
-        /// </summary>
-        /// <value>
-        /// The size of the batch.
-        /// </value>
-        public int BatchSize { get; set; } = 1;
-
-        /// <summary>
-        ///     Specifies when aliases should be dereferenced.
-        ///     Returns one of the following:
-        ///     <ul>
-        ///         <li>DEREF_NEVER</li>
-        ///         <li>DEREF_FINDING</li>
-        ///         <li>DEREF_SEARCHING</li>
-        ///         <li>DEREF_ALWAYS</li>
-        ///     </ul>
-        /// </summary>
-        /// <returns>
-        ///     The setting for dereferencing aliases.
-        /// </returns>
-        public int Dereference { get; set; } = DEREF_NEVER;
-
-        /// <summary>
-        ///     Returns the maximum number of search results to be returned for
-        ///     a search operation. A value of 0 means no limit.  Default: 1000
-        ///     The search operation will be terminated with an
-        ///     LdapException.SIZE_LIMIT_EXCEEDED if the number of results
-        ///     exceed the maximum.
-        /// </summary>
-        /// <returns>
-        ///     Maximum number of search results to return.
-        /// </returns>
-        public int MaxResults { get; set; } = 1000;
-
-        /// <summary>
-        ///     Returns the maximum number of seconds that the server waits when
-        ///     returning search results.
-        ///     The search operation will be terminated with an
-        ///     LdapException.TIME_LIMIT_EXCEEDED if the operation exceeds the time
-        ///     limit.
-        /// </summary>
-        /// <returns>
-        ///     The maximum number of seconds the server waits for search'
-        ///     results.
-        /// </returns>
-        public int ServerTimeLimit { get; set; }
     }
     
     /// <summary>
@@ -496,10 +287,11 @@ namespace Unosquare.Swan.Networking.Ldap
     /// search results.
     /// </summary>
     /// <seealso cref="LdapConnection.Search"></seealso>
-    public sealed class LdapUrl
+    internal class LdapUrl
     {
         // Broken out parts of the URL
         private readonly bool ipV6 = false; // TCP/IP V6
+
         private int _port; // Port
         private string _dn; // Base DN
 
@@ -513,64 +305,6 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapUrl(string url)
         {
             ParseUrl(url);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapUrl"/> class.
-        /// Constructs a URL object with the specified host, port, and DN.
-        /// This form is used to create URL references to a particular object
-        /// in the directory.
-        /// </summary>
-        /// <param name="host">Host identifier of Ldap server, or null for
-        /// "localhost".</param>
-        /// <param name="port">The port number for Ldap server (use
-        /// LdapConnection.DEFAULT_PORT for default port).</param>
-        /// <param name="dn">Distinguished name of the base object of the search.</param>
-        public LdapUrl(string host, int port, string dn)
-        {
-            Host = host;
-            _port = port;
-            _dn = dn;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapUrl"/> class.
-        /// Constructs an Ldap URL with all fields explicitly assigned, including
-        /// isSecure, to specify an Ldap search operation.
-        /// </summary>
-        /// <param name="host">Host identifier of Ldap server, or null for
-        /// "localhost".</param>
-        /// <param name="port">The port number for Ldap server (use
-        /// LdapConnection.DEFAULT_PORT for default port).</param>
-        /// <param name="dn">Distinguished name of the base object of the search.</param>
-        /// <param name="attrNames">Names or OIDs of attributes to retrieve.  Passing a
-        /// null array signifies that all user attributes are to be
-        /// retrieved. Passing a value of "*" allows you to specify
-        /// that all user attributes as well as any specified
-        /// operational attributes are to be retrieved.</param>
-        /// <param name="scope">Depth of search (in DN namespace). Use one of
-        /// SCOPE_BASE, SCOPE_ONE, SCOPE_SUB from LdapConnection.</param>
-        /// <param name="filter">The search filter specifying the search criteria.
-        /// from LdapConnection: SCOPE_BASE, SCOPE_ONE, SCOPE_SUB.</param>
-        /// <param name="extensions">Extensions provide a mechanism to extend the
-        /// functionality of Ldap URLs. Currently no
-        /// Ldap URL extensions are defined. Each extension
-        /// specification is a type=value expression, and  may
-        /// be <code>null</code> or empty.  The =value part may be
-        /// omitted. The expression may be prefixed with '!' if it
-        /// is mandatory for the evaluation of the URL.</param>
-        /// <param name="secure">If true creates an Ldap URL of the ldaps type</param>
-        public LdapUrl(string host, int port, string dn, string[] attrNames, int scope, string filter, string[] extensions, bool secure = false)
-        {
-            Host = host;
-            _port = port;
-            _dn = dn;
-            AttributeArray = attrNames;
-            Scope = scope;
-            Filter = filter;
-            Extensions = new string[extensions.Length];
-            extensions.CopyTo(Extensions, 0);
-            Secure = secure;
         }
 
         /// <summary>
@@ -646,120 +380,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     clone of this URL object.
         /// </returns>
-        public object Clone()
-        {
-            try
-            {
-                return MemberwiseClone();
-            }
-            catch (Exception ce)
-            {
-                throw new Exception("Internal error, cannot create clone", ce);
-            }
-        }
-
-        /// <summary>
-        /// Decodes a URL-encoded string.
-        /// Any occurences of %HH are decoded to the hex value represented.
-        /// However, this method does NOT decode "+" into " ".
-        /// </summary>
-        /// <param name="urlEncoded">String to decode.</param>
-        /// <returns>
-        /// The decoded string.
-        /// </returns>
-        /// <exception cref="UriFormatException">LdapUrl.decode: must be two hex characters following escape character '%'
-        /// or
-        /// LdapUrl.decode: error converting hex characters to integer \"" +
-        /// ex.Message + "\"</exception>
-        public static string Decode(string urlEncoded)
-        {
-            var searchStart = 0;
-            var fieldStart = urlEncoded.IndexOf("%", searchStart);
-
-            // Return now if no encoded data
-            if (fieldStart < 0)
-            {
-                return urlEncoded;
-            }
-
-            // Decode the %HH value and copy to new string buffer
-            var fieldEnd = 0; // end of previous field
-            var dataLen = urlEncoded.Length;
-            var decoded = new StringBuilder(dataLen);
-            while (true)
-            {
-                if (fieldStart > dataLen - 3)
-                {
-                    throw new UriFormatException(
-                        "LdapUrl.decode: must be two hex characters following escape character '%'");
-                }
-
-                if (fieldStart < 0)
-                    fieldStart = dataLen;
-
-                // Copy to string buffer from end of last field to start of next
-                decoded.Append(urlEncoded.Substring(fieldEnd, fieldStart - fieldEnd));
-                fieldStart += 1;
-                if (fieldStart >= dataLen)
-                    break;
-                fieldEnd = fieldStart + 2;
-                try
-                {
-                    decoded.Append((char) Convert.ToInt32(urlEncoded.Substring(fieldStart, fieldEnd - fieldStart), 16));
-                }
-                catch (FormatException ex)
-                {
-                    throw new UriFormatException("LdapUrl.decode: error converting hex characters to integer \"" +
-                                                 ex.Message + "\"");
-                }
-
-                searchStart = fieldEnd;
-                if (searchStart == dataLen)
-                    break;
-                fieldStart = urlEncoded.IndexOf("%", searchStart);
-            }
-
-            return decoded.ToString();
-        }
-
-        /// <summary>
-        /// Encodes an arbitrary string using the URL encoding rules.
-        /// Any illegal characters are encoded as %HH.
-        /// </summary>
-        /// <param name="toEncode">The string to encode.</param>
-        /// <returns>
-        /// The URL-encoded string.
-        /// Comment: An illegal character consists of any non graphical US-ASCII character, Unsafe, or reserved characters.
-        /// </returns>
-        public static string Encode(string toEncode)
-        {
-            var buffer = new StringBuilder(toEncode.Length);
-            string temp;
-            char currChar;
-
-            for (var i = 0; i < toEncode.Length; i++)
-            {
-                currChar = toEncode[i];
-                if (currChar <= 0x1F || currChar == 0x7F || currChar >= 0x80 && currChar <= 0xFF || currChar == '<' ||
-                    currChar == '>' || currChar == '\"' || currChar == '#' || currChar == '%' || currChar == '{' ||
-                    currChar == '}' || currChar == '|' || currChar == '\\' || currChar == '^' || currChar == '~' ||
-                    currChar == '[' || currChar == '\'' || currChar == ';' || currChar == '/' || currChar == '?' ||
-                    currChar == ':' || currChar == '@' || currChar == '=' || currChar == '&')
-                {
-                    temp = Convert.ToString(currChar, 16);
-                    if (temp.Length == 1)
-                        buffer.Append("%0" + temp);
-                    else
-                        buffer.Append("%" + Convert.ToString(currChar, 16));
-                }
-                else
-                {
-                    buffer.Append(currChar);
-                }
-            }
-
-            return buffer.ToString();
-        }
+        public object Clone() => MemberwiseClone();
 
         /// <summary>
         ///     Returns the base distinguished name encapsulated in the URL.
@@ -797,7 +418,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 url.Append(":" + _port);
             }
 
-            if (_dn == null && AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null && Extensions == null)
+            if (_dn == null && AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null &&
+                Extensions == null)
             {
                 return url.ToString();
             }
@@ -923,7 +545,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var scanStart = 0;
             var scanEnd = url.Length;
-            
+
             // Check if URL is enclosed by < & >
             if (url[scanStart] == '<')
             {
@@ -1027,7 +649,9 @@ namespace Unosquare.Swan.Networking.Ldap
             scanStart = dnStart + 1;
             var attrsStart = url.IndexOf('?', scanStart);
 
-            _dn = attrsStart < 0 ? url.Substring(scanStart, scanEnd - scanStart) : url.Substring(scanStart, attrsStart - scanStart);
+            _dn = attrsStart < 0
+                ? url.Substring(scanStart, scanEnd - scanStart)
+                : url.Substring(scanStart, attrsStart - scanStart);
 
             scanStart = attrsStart + 1;
 
@@ -1046,7 +670,9 @@ namespace Unosquare.Swan.Networking.Ldap
 
             // Parse out the scope
             var filterStart = url.IndexOf('?', scanStart);
-            var scopeStr = filterStart < 0 ? url.Substring(scanStart, scanEnd - scanStart) : url.Substring(scanStart, filterStart - scanStart);
+            var scopeStr = filterStart < 0
+                ? url.Substring(scanStart, scanEnd - scanStart)
+                : url.Substring(scanStart, filterStart - scanStart);
 
             if (scopeStr.ToUpper().Equals(string.Empty.ToUpper()))
             {
@@ -1077,7 +703,9 @@ namespace Unosquare.Swan.Networking.Ldap
             scanStart = filterStart + 1;
             var extStart = url.IndexOf('?', scanStart);
 
-            var filterStr = extStart < 0 ? url.Substring(scanStart, scanEnd - scanStart) : url.Substring(scanStart, extStart - scanStart);
+            var filterStr = extStart < 0
+                ? url.Substring(scanStart, scanEnd - scanStart)
+                : url.Substring(scanStart, extStart - scanStart);
 
             if (!filterStr.Equals(string.Empty))
             {
@@ -1098,33 +726,35 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     A message received from an LdapServer
-    ///     in response to an asynchronous request.
+    /// A message received from an LdapServer
+    /// in response to an asynchronous request.
     /// </summary>
-    /// <seealso cref="LdapConnection.Search">
-    /// </seealso>
-    public sealed class LdapResponse : LdapMessage
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
+    /// <seealso cref="LdapConnection.Search"></seealso>
+    internal class LdapResponse : LdapMessage
     {
         private readonly LdapException exception;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapResponse"/> class.
         /// Creates a response LdapMessage when receiving an asynchronous
         /// response from a server.
         /// </summary>
         /// <param name="message">The RfcLdapMessage from a server.</param>
-        internal LdapResponse(RfcLdapMessage message) 
+        internal LdapResponse(RfcLdapMessage message)
             : base(message)
         {
         }
-        
+
         /// <summary>
         ///     Returns any error message in the response.
         /// </summary>
         /// <returns>
         ///     Any error message in the response.
         /// </returns>
-        public string ErrorMessage => exception != null ? exception.LdapErrorMessage : ((IRfcResponse)Message.Response).GetErrorMessage().StringValue();
+        public string ErrorMessage => exception != null
+            ? exception.LdapErrorMessage
+            : ((IRfcResponse) Message.Response).GetErrorMessage().StringValue();
 
         /// <summary>
         ///     Returns the partially matched DN field from the server response,
@@ -1133,60 +763,59 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The partially matched DN field, if the response contains one.
         /// </returns>
-        public string MatchedDN => exception != null ? exception.MatchedDN : ((IRfcResponse)Message.Response).GetMatchedDN().StringValue();
+        public string MatchedDN => exception != null
+            ? exception.MatchedDN
+            : ((IRfcResponse) Message.Response).GetMatchedDN().StringValue();
 
         /// <summary>
-        ///     Returns all referrals in a server response, if the response contains any.
+        /// Returns all referrals in a server response, if the response contains any.
         /// </summary>
-        /// <returns>
-        ///     All the referrals in the server response.
-        /// </returns>
+        /// <value>
+        /// The referrals.
+        /// </value>
         public string[] Referrals
         {
             get
             {
-                string[] referrals;
-                var reference = ((IRfcResponse)Message.Response).GetReferral();
+                var reference = ((IRfcResponse) Message.Response).GetReferral();
 
                 if (reference == null)
                 {
-                    referrals = new string[0];
-                }
-                else
-                {
-                    // convert RFC 2251 Referral to String[]
-                    var size = reference.Size();
-                    referrals = new string[size];
-                    for (var i = 0; i < size; i++)
-                    {
-                        var aRef = ((Asn1OctetString)reference.Get(i)).StringValue();
-                        try
-                        {
-                            // get the referral URL
-                            var urlRef = new LdapUrl(aRef);
-                            if (urlRef.GetDN() == null)
-                            {
-                                var origMsg = Asn1Object.RequestingMessage.Asn1Object;
-                                string dn;
-                                if ((dn = origMsg.RequestDn) != null)
-                                {
-                                    urlRef.SetDN(dn);
-                                    aRef = urlRef.ToString();
-                                }
-                            }
-                        }
-                        catch (UriFormatException)
-                        {
-                            // Ignore
-                        }
-                        finally
-                        {
-                            referrals[i] = aRef;
-                        }
-                    }
+                    return new string[0];
                 }
 
-                return referrals;
+                // convert RFC 2251 Referral to String[]
+                var size = reference.Size();
+                var referrals = new string[size];
+                for (var i = 0; i < size; i++)
+                {
+                    var aRef = ((Asn1OctetString) reference.Get(i)).StringValue();
+                    try
+                    {
+                        // get the referral URL
+                        var urlRef = new LdapUrl(aRef);
+                        if (urlRef.GetDN() == null)
+                        {
+                            var origMsg = Asn1Object.RequestingMessage.Asn1Object;
+                            string dn;
+                            if ((dn = origMsg.RequestDn) != null)
+                            {
+                                urlRef.SetDN(dn);
+                                aRef = urlRef.ToString();
+                            }
+                        }
+                    }
+                    catch (UriFormatException)
+                    {
+                        // Ignore
+                    }
+                    finally
+                    {
+                        referrals[i] = aRef;
+                    }
+                }
+            
+            return referrals;
             }
         }
 
@@ -1206,13 +835,13 @@ namespace Unosquare.Swan.Networking.Ldap
                     return exception.ResultCode;
                 }
 
-                if (Message.Response is RfcSearchResultEntry)
+                if (Message.Response is RfcSearchResultEntry ||
+                    (IRfcResponse) Message.Response is RfcIntermediateResponse)
+                {
                     return LdapStatusCode.Success;
+                }
 
-                if ((IRfcResponse)Message.Response is RfcIntermediateResponse)
-                    return LdapStatusCode.Success;
-
-                return (LdapStatusCode)((IRfcResponse)Message.Response).GetResultCode().IntValue();
+                return (LdapStatusCode) ((IRfcResponse) Message.Response).GetResultCode().IntValue();
             }
         }
 
@@ -1233,8 +862,11 @@ namespace Unosquare.Swan.Networking.Ldap
                         break;
                     case LdapStatusCode.Referral:
                         var refs = Referrals;
-                        ex = new LdapReferralException("Automatic referral following not enabled", LdapStatusCode.Referral, ErrorMessage);
-                        ((LdapReferralException)ex).SetReferrals(refs);
+                        ex = new LdapException(
+                            "Automatic referral following not enabled",
+                            LdapStatusCode.Referral, 
+                            ErrorMessage);
+                        ex.SetReferrals(refs);
                         break;
                     default:
                         ex = new LdapException(ResultCode.ToString().Humanize(), ResultCode, ErrorMessage, MatchedDN);
@@ -1260,7 +892,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     an embedded exception if any
         /// </returns>
         internal LdapException Exception => exception;
-        
+
         internal bool HasException() => exception != null;
 
         internal void ChkResultCode()
@@ -1275,26 +907,6 @@ namespace Unosquare.Swan.Networking.Ldap
             {
                 throw ex;
             }
-        }
-
-        private static Asn1Sequence RfcResultFactory(LdapOperation type, LdapStatusCode resultCode, string matchedDN, string serverMessage)
-        {
-            Asn1Sequence ret;
-            if (matchedDN == null)
-                matchedDN = string.Empty;
-            if (serverMessage == null)
-                serverMessage = string.Empty;
-
-            switch (type)
-            {
-                case LdapOperation.SearchResult:
-                    ret = new RfcSearchResultDone(new Asn1Enumerated((int) resultCode), new RfcLdapDN(matchedDN), new RfcLdapString(serverMessage), null);
-                    break;
-                default:
-                    throw new Exception("Type " + type + " Not Supported");
-            }
-
-            return ret;
         }
     }
 
@@ -1332,7 +944,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Initializes a new instance of the <see cref="RespControlVector"/> class.
         /// </summary>
         /// <param name="cap">The cap.</param>
-        public RespControlVector(int cap) 
+        public RespControlVector(int cap)
             : base(cap)
         {
         }
@@ -1365,24 +977,23 @@ namespace Unosquare.Swan.Networking.Ldap
                 // loop through the contents of the vector
                 for (var i = 0; i < Count; i++)
                 {
-                    /* Get next registered control */
+                    // Get next registered control
                     if ((ctl = (RegisteredControl) ToArray()[i]) == null)
                     {
                         throw new FieldAccessException();
                     }
 
-                    /* Does the stored OID match with whate we are looking for */
+                    // Does the stored OID match with whate we are looking for
                     if (ctl.MyOid.CompareTo(searchOID) == 0)
                     {
-                        /* Return the class name if we have match */
+                        // Return the class name if we have match
                         return ctl.MyClass;
                     }
                 }
-                
+
                 return null;
             }
         }
     }
 }
-
 #endif

@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Unosquare.Swan;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
@@ -98,8 +96,8 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(expected, input.IsGenericTypeDefinition(), $"Get IsGenericTypeDefinition value of {input}");
         }
 
-        [TestCase(typeof(Object), typeof(List<Fish>))]
-        [TestCase(typeof(Object), typeof(string))]
+        [TestCase(typeof(object), typeof(List<Fish>))]
+        [TestCase(typeof(object), typeof(string))]
         public void BaseTypeTest(Type expected, Type input)
         {
             Assert.AreEqual(expected, input.BaseType(), $"Get BaseType value of {input}");

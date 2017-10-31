@@ -41,7 +41,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="cont">Any controls that apply to the search request.
         /// or null if none.</param>
         /// <seealso cref="LdapConnection.Search"></seealso>
-        /// <seealso cref="LdapSearchConstraints"></seealso>
         public LdapSearchRequest(
             string ldapBase,
             int scope,
@@ -161,7 +160,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 var values = new string[attrs.Size()];
                 for (var i = 0; i < values.Length; i++)
                 {
-                    values[i] = ((RfcLdapString)attrs.Get(i)).StringValue();
+                    values[i] = ((Asn1OctetString)attrs.Get(i)).StringValue();
                 }
 
                 return values;

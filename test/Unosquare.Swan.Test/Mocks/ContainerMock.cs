@@ -14,15 +14,29 @@ namespace Unosquare.Swan.Test.Mocks
         public string Name => nameof(Monkey);
     }
 
+    public class Human : IAnimal, IDisposable
+    {
+        public Human(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; }
+
+        public bool IsDisposed { get; private set; }
+
+        public void Dispose()
+        {
+            IsDisposed = true;
+        }
+    }
+
     public class Fish : IAnimal
     {
         public string Name => nameof(Fish);
 
         [AttributeMock("This is an Attribute")]
-        public virtual string GetFeeding()
-        {
-            return "Worms";
-        }
+        public virtual string GetFeeding() => "Worms";
     }
 
     public interface ICar
@@ -62,6 +76,7 @@ namespace Unosquare.Swan.Test.Mocks
         {
             Name = name;
         }
+
         public string Name { get; }
     }
 

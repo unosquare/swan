@@ -27,6 +27,9 @@
         /// </returns>
         public bool Contains(Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             lock (_syncLock)
             {
                 return this[type] != null;
@@ -57,6 +60,9 @@
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
+
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
 
             lock (_syncLock)
             {
@@ -124,6 +130,9 @@
         /// <returns>A function to retrieve all properties</returns>
         public static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             return () => type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(p => p.CanRead || p.CanWrite)
                 .ToArray();
@@ -136,6 +145,9 @@
         /// <returns>A function to retrieve all public properties</returns>
         public static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             return () => type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => p.CanRead || p.CanWrite)
                 .ToArray();
@@ -157,6 +169,9 @@
         /// <returns>A function to retrieve all fields</returns>
         public static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             return () => type.GetFields(BindingFlags.Public | BindingFlags.Instance).ToArray();
         }
     }

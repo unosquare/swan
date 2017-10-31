@@ -1,15 +1,138 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
-namespace Unosquare.Swan.Test
+namespace Unosquare.Swan.Test.ExtensionsTest
 {
     [TestFixture]
-    public class ExtensionsTest
+    public class Benchmark
     {
         [Test]
-        public void CopyPropertiesToTest()
+        public void WithAction_ReturnsTimeSpan()
+        {
+            var total = 0;
+            var action = new Action(() =>
+            {
+                if(total < 2)
+                    throw new Exception();
+                
+            });
+            
+            var result = action.Benchmark();
+
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void WithEmptyAction_ReturnsTimeSpan()
+        {
+            var action = new Action(() =>{ });
+            
+            var result = action.Benchmark();
+
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void WithNullAction_ThrowsArgumentNullException()
+        {
+            Action action = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                action.Benchmark()
+            );
+        }
+    }
+
+    [TestFixture]
+    public class Retry
+    {
+        [Test]
+        public void WithNewFunction_RetryAction()
+        {
+            var total = 0;
+
+            var action = new Func<int>(() =>
+            {
+                if(total++ < 2)
+                    throw new Exception();
+
+                return total;
+            });
+            
+            var result = action.Retry();
+            Assert.AreEqual(3, result);
+        }
+
+        [Test]
+        public void WithInvalidAction_ThrowsAggregateException()
+        {
+            Assert.Throws<AggregateException>(() =>
+            {
+                var action =
+                    new Action(() => JsonClient.GetString("http://accesscore.azurewebsites.net/api/token").Wait());
+
+                action.Retry();
+            });
+        }
+
+        [Test]
+        public void WithValidAction_DoesNotThrowException()
+        {
+            var total = 0;
+
+            Assert.DoesNotThrow(() =>
+            {
+                var action = new Action(() =>
+                {
+                    if(total++ < 2)
+                        throw new Exception();
+                });
+
+                action.Retry();
+            });
+        }
+
+        [Test]
+        public void WithNullAction_ThrowsArgumentNullException()
+        {
+            Action action = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                action.Retry()
+            );
+        }
+
+        [Test]
+        public void WithNullFunction_ThrowsArgumentNullException()
+        {
+            Func<int> action = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                action.Retry()
+            );
+        }
+    }
+
+    [TestFixture]
+    public class CopyPropertiesTo
+    {
+        [Test]
+        public void WithValidObjectAttr_CopyPropertiesToTarget()
+        {
+            var source = ObjectAttr.Get();
+            var target = new ObjectAttr();
+
+            source.CopyPropertiesTo(target);
+
+            Assert.AreEqual(source.Name, target.Name);
+            Assert.AreEqual(source.IsActive, target.IsActive);
+        }
+        
+        [Test]
+        public void WithValidBasicJson_CopyPropertiesToTarget()
         {
             var source = BasicJson.GetDefault();
             var destination = new BasicJson();
@@ -23,60 +146,18 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void IgnoredPropertiesTest()
+        public void WithNullObjectAttr_CopyPropertiesToTarget()
         {
-            var source = BasicJson.GetDefault();
-            var destination = new BasicJson();
-            source.CopyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData)});
+            var source = ObjectAttr.Get();
+            ObjectAttr target = null;
 
-            Assert.AreNotEqual(source.BoolData, destination.BoolData);
-            Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
-            Assert.AreEqual(source.StringData, destination.StringData);
+            Assert.Throws<ArgumentNullException>(() =>
+                source.CopyPropertiesTo(target)
+            );
         }
 
         [Test]
-        public void OnlyPropertiesTest()
-        {
-            var source = BasicJson.GetDefault();
-            var destination = new BasicJson {NegativeInt = 800, BoolData = false};
-            source.CopyOnlyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData) });
-
-            Assert.AreEqual(source.BoolData, destination.BoolData);
-            Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
-            Assert.AreNotEqual(source.StringData, destination.StringData);
-        }
-
-        [Test]
-        public void CopyPropertiesToNewTest()
-        {
-            var source = BasicJson.GetDefault();
-            var destination = source.CopyPropertiesToNew<BasicJson>();
-
-            Assert.IsNotNull(destination);
-            Assert.AreSame(source.GetType(), destination.GetType());
-
-            Assert.AreEqual(source.BoolData, destination.BoolData);
-            Assert.AreEqual(source.DecimalData, destination.DecimalData);
-            Assert.AreEqual(source.StringData, destination.StringData);
-            Assert.AreEqual(source.StringNull, destination.StringNull);
-        }
-
-        [Test]
-        public void CopyOnlyPropertiesToNewTest()
-        {
-            var source = BasicJson.GetDefault();
-            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(new[]
-                {nameof(BasicJson.BoolData), nameof(BasicJson.DecimalData)});
-
-            Assert.IsNotNull(destination);
-            Assert.AreSame(source.GetType(), destination.GetType());
-
-            Assert.AreEqual(source.BoolData, destination.BoolData);
-            Assert.AreEqual(source.DecimalData, destination.DecimalData);
-        }
-
-        [Test]
-        public void CopyPropertiesToWithNewPropertyTest()
+        public void WithValidParamsAndNewProperty_CopyPropertiesToTarget()
         {
             var source = BasicJson.GetDefault();
             source.StringNull = "1";
@@ -92,36 +173,57 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void ActionRetryTest()
+        public void WithValidBasicJson_CopyNotIgnoredPropertiesToTarget()
         {
-            Assert.Throws<AggregateException>(() =>
-            {
-                var action =
-                    new Action(() => JsonClient.GetString("http://accesscore.azurewebsites.net/api/token").Wait());
+            var source = BasicJson.GetDefault();
+            var destination = new BasicJson();
 
-                action.Retry();
-            });
+            source.CopyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData) });
+
+            Assert.AreNotEqual(source.BoolData, destination.BoolData);
+            Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
+            Assert.AreEqual(source.StringData, destination.StringData);
         }
 
         [Test]
-        public void FuncRetryTest()
+        public void WithValidDictionary_CopyPropertiesToTarget()
         {
-            var total = 0;
-
-            var action = new Func<int>(() =>
+            var source = new Dictionary<string, object>
             {
-                if (total++ < 2)
-                    throw new Exception();
+                { "Name", "Thrall" },
+                { "Email", "Warchief.Thrall@horde.com" },
+                { "Role", "Warchief" }
+            };
 
-                return total;
-            });
+            var target = new UserDto();
 
-            var result = action.Retry();
-            Assert.AreEqual(3, result);
+            source.CopyPropertiesTo(target, null);
+
+            Assert.AreEqual(source["Name"].ToString(), target.Name);
+            Assert.AreEqual(source["Email"].ToString(), target.Email);
+        }
+    }
+    
+    [TestFixture]
+    public class CopyPropertiesToNew
+    {
+        [Test]
+        public void WithObjectWithCopyableAttribute_CopyPropertiesToNewObjectAttr()
+        {
+            var source = ObjectAttr.Get();
+            
+            var destination = source.CopyPropertiesToNew<ObjectAttr>();
+            
+            Assert.IsNotNull(destination);
+            Assert.AreSame(source.GetType(), destination.GetType());
+            Assert.AreEqual(source.Id, destination.Id);
+            Assert.AreEqual(source.Name, destination.Name);
+            Assert.AreEqual(source.IsActive, destination.IsActive);
+            Assert.AreEqual(source.Owner, destination.Owner);
         }
 
         [Test]
-        public void CopyEnum()
+        public void WithValidParams_CopyPropertiesToNewObject()
         {
             var source = new ObjectEnum
             {
@@ -134,21 +236,90 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void CopyWithAttr()
+        public void WithValidBasicJson_CopyPropertiesToNewBasicJson()
         {
-            var source = ObjectAttr.Get();
-            var target = new ObjectAttr();
-            source.CopyPropertiesTo(target);
-            Assert.AreEqual(source.Name, target.Name);
-            Assert.AreEqual(source.IsActive, target.IsActive);
+            var source = BasicJson.GetDefault();
+            var destination = source.CopyPropertiesToNew<BasicJson>();
+
+            Assert.IsNotNull(destination);
+            Assert.AreSame(source.GetType(), destination.GetType());
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.DecimalData, destination.DecimalData);
+            Assert.AreEqual(source.StringData, destination.StringData);
+            Assert.AreEqual(source.StringNull, destination.StringNull);
         }
 
         [Test]
-        public void CopyWithAttributeToNew()
+        public void WithNullSource_ThrowsArgumentNullException()
         {
-            var source = ObjectAttr.Get();
-            var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)});
-            Assert.AreEqual(source.Name, target.Name);
+            ObjectEnum source = null;
+
+            Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesToNew<ObjectEnum>());
         }
     }
+
+    [TestFixture]
+    public class CopyOnlyPropertiesTo
+    {
+        [Test]
+        public void WithValidBasicJson_CopyOnlyPropertiesToTarget()
+        {
+            var source = BasicJson.GetDefault();
+            var destination = new BasicJson { NegativeInt = 800, BoolData = false };
+            source.CopyOnlyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData) });
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
+            Assert.AreNotEqual(source.StringData, destination.StringData);
+        }
+
+        [Test]
+        public void WithValidObjectAttr_CopyOnlyPropertiesToTarget()
+        {
+            var source = ObjectAttr.Get();
+            var target = new ObjectAttr();
+
+            source.CopyOnlyPropertiesTo(target);
+
+            Assert.AreEqual(source.Name, target.Name);
+            Assert.AreEqual(source.IsActive, target.IsActive);
+        }
+    }
+    
+    [TestFixture]
+    public class CopyOnlyPropertiesToNew
+    {
+        [Test]
+        public void WithValidParams_CopyOnlyPropertiesToNewObject()
+        {
+            var source = ObjectAttr.Get();
+            var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] { nameof(ObjectAttr.Name) });
+            Assert.AreEqual(source.Name, target.Name);
+        }
+
+        [Test]
+        public void WithNullSource_ThrowsArgumentNullException()
+        {
+            ObjectAttr source = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] { nameof(ObjectAttr.Name) })
+            );
+        }
+
+        [Test]
+        public void WithValidBasicJson_CopyOnlyPropertiesToNewBasicJson()
+        {
+            var source = BasicJson.GetDefault();
+            var destination = source.CopyOnlyPropertiesToNew<BasicJson>(new[]
+                {nameof(BasicJson.BoolData), nameof(BasicJson.DecimalData)});
+
+            Assert.IsNotNull(destination);
+            Assert.AreSame(source.GetType(), destination.GetType());
+
+            Assert.AreEqual(source.BoolData, destination.BoolData);
+            Assert.AreEqual(source.DecimalData, destination.DecimalData);
+        }
+    }
+
 }

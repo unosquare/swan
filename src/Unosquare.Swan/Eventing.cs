@@ -175,7 +175,7 @@
         /// <param name="moreAvailable">if set to <c>true</c> [more available].</param>
         public ConnectionDataReceivedEventArgs(byte[] buffer, ConnectionDataReceivedTrigger trigger, bool moreAvailable)
         {
-            Buffer = buffer;
+            Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
             Trigger = trigger;
             HasMoreAvailable = moreAvailable;
         }

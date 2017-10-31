@@ -1,10 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test
 {
@@ -12,11 +8,11 @@ namespace Unosquare.Swan.Test
     public class ExtensionsExceptionMessageTest
     {
         [Test]
-        public async Task ExceptionMessageTest()
+        public void ExceptionMessageTest()
         {
             try
             {
-                var token = await JsonClient.GetString("https://accesscore.azurewebsites.net/api/token");
+                throw new Exception("Random message");
             }
             catch(Exception ex)
             {
@@ -30,9 +26,12 @@ namespace Unosquare.Swan.Test
         public void InnerExceptionTest()
         {
             string[] splits = { "\r\n" };
-            var exceptions = new List<Exception>();
-            exceptions.Add(new TimeoutException("It timed out", new ArgumentException("ID missing")));
-            exceptions.Add(new NotImplementedException("Somethings not implemented", new ArgumentNullException()));
+            var exceptions = new List<Exception>
+            {
+                new TimeoutException("It timed out", new ArgumentException("ID missing")),
+                new NotImplementedException("Somethings not implemented", new ArgumentNullException())
+            };
+
             var ex = new AggregateException(exceptions);
 
             var exMsg = ex.ExceptionMessage();
@@ -40,7 +39,7 @@ namespace Unosquare.Swan.Test
             var lines = exMsg.Split(splits, StringSplitOptions.None);
 
             Assert.IsNotNull(exMsg);
-            Assert.AreEqual(lines.Count() - 1, ex.InnerExceptions.Count());
+            Assert.AreEqual(lines.Length - 1, ex.InnerExceptions.Count);
         }
     }
 }
