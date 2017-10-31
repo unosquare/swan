@@ -3945,15 +3945,15 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.GetValueOrDefault
   fullName: Unosquare.Swan.Extensions.GetValueOrDefault
   nameWithType: Extensions.GetValueOrDefault
-- uid: Unosquare.Swan.Extensions.GetValueOrDefault``1(System.Collections.Generic.Dictionary{``0,``0},``0,``0)
-  name: GetValueOrDefault<T>(Dictionary<T, T>, T, T)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetValueOrDefault__1_System_Collections_Generic_Dictionary___0___0____0___0_
-  commentId: M:Unosquare.Swan.Extensions.GetValueOrDefault``1(System.Collections.Generic.Dictionary{``0,``0},``0,``0)
-  name.vb: GetValueOrDefault(Of T)(Dictionary(Of T, T), T, T)
-  fullName: Unosquare.Swan.Extensions.GetValueOrDefault<T>(System.Collections.Generic.Dictionary<T, T>, T, T)
-  fullName.vb: Unosquare.Swan.Extensions.GetValueOrDefault(Of T)(System.Collections.Generic.Dictionary(Of T, T), T, T)
-  nameWithType: Extensions.GetValueOrDefault<T>(Dictionary<T, T>, T, T)
-  nameWithType.vb: Extensions.GetValueOrDefault(Of T)(Dictionary(Of T, T), T, T)
+- uid: Unosquare.Swan.Extensions.GetValueOrDefault``2(System.Collections.Generic.Dictionary{``0,``1},``0,``1)
+  name: GetValueOrDefault<TKey, TValue>(Dictionary<TKey, TValue>, TKey, TValue)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_GetValueOrDefault__2_System_Collections_Generic_Dictionary___0___1____0___1_
+  commentId: M:Unosquare.Swan.Extensions.GetValueOrDefault``2(System.Collections.Generic.Dictionary{``0,``1},``0,``1)
+  name.vb: GetValueOrDefault(Of TKey, TValue)(Dictionary(Of TKey, TValue), TKey, TValue)
+  fullName: Unosquare.Swan.Extensions.GetValueOrDefault<TKey, TValue>(System.Collections.Generic.Dictionary<TKey, TValue>, TKey, TValue)
+  fullName.vb: Unosquare.Swan.Extensions.GetValueOrDefault(Of TKey, TValue)(System.Collections.Generic.Dictionary(Of TKey, TValue), TKey, TValue)
+  nameWithType: Extensions.GetValueOrDefault<TKey, TValue>(Dictionary<TKey, TValue>, TKey, TValue)
+  nameWithType.vb: Extensions.GetValueOrDefault(Of TKey, TValue)(Dictionary(Of TKey, TValue), TKey, TValue)
 - uid: Unosquare.Swan.Extensions.Retry(System.Action,System.TimeSpan,System.Int32)
   name: Retry(Action, TimeSpan, Int32)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Retry_System_Action_System_TimeSpan_System_Int32_

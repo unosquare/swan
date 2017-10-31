@@ -846,13 +846,13 @@ tries to write a compatible value to a public, instance, writable property in th
   
   
   <a id="Unosquare_Swan_Extensions_GetValueOrDefault_" data-uid="Unosquare.Swan.Extensions.GetValueOrDefault*"></a>
-  <h4 id="Unosquare_Swan_Extensions_GetValueOrDefault__1_System_Collections_Generic_Dictionary___0___0____0___0_" data-uid="Unosquare.Swan.Extensions.GetValueOrDefault``1(System.Collections.Generic.Dictionary{``0,``0},``0,``0)">GetValueOrDefault&lt;T&gt;(Dictionary&lt;T, T&gt;, T, T)</h4>
+  <h4 id="Unosquare_Swan_Extensions_GetValueOrDefault__2_System_Collections_Generic_Dictionary___0___1____0___1_" data-uid="Unosquare.Swan.Extensions.GetValueOrDefault``2(System.Collections.Generic.Dictionary{``0,``1},``0,``1)">GetValueOrDefault&lt;TKey, TValue&gt;(Dictionary&lt;TKey, TValue&gt;, TKey, TValue)</h4>
   <div class="markdown level1 summary"><p>Gets the value or default.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T GetValueOrDefault&lt;T&gt;(this Dictionary&lt;T, T&gt; dict, T key, T defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static TValue GetValueOrDefault&lt;TKey, TValue&gt;(this Dictionary&lt;TKey, TValue&gt; dict, TKey key, TValue defaultValue = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -865,19 +865,19 @@ tries to write a compatible value to a public, instance, writable property in th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;T, T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;TKey, TValue&gt;</td>
         <td><span class="parametername">dict</span></td>
         <td><p>The dictionary.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">T</span></td>
+        <td><span class="xref">TKey</span></td>
         <td><span class="parametername">key</span></td>
         <td><p>The key.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">T</span></td>
+        <td><span class="xref">TValue</span></td>
         <td><span class="parametername">defaultValue</span></td>
         <td><p>The default value.</p>
 </td>
@@ -894,7 +894,7 @@ tries to write a compatible value to a public, instance, writable property in th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">T</span></td>
+        <td><span class="xref">TValue</span></td>
         <td><p>A dictionary of generic types</p>
 </td>
       </tr>
@@ -910,8 +910,13 @@ tries to write a compatible value to a public, instance, writable property in th
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>Generic type</p>
+        <td><span class="parametername">TKey</span></td>
+        <td><p>The type of the key.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td><p>The type of the value.</p>
 </td>
       </tr>
     </tbody>
