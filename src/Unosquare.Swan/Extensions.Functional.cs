@@ -16,12 +16,32 @@
         /// <param name="this">The this.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="fn">The function.</param>
-        /// <returns>The IQueryable</returns>
+        /// <returns>
+        /// The IQueryable
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// this
+        /// or
+        /// condition
+        /// or
+        /// fn
+        /// </exception>
         public static IQueryable<T> When<T>(
             this IQueryable<T> @this,
             Func<bool> condition,
-            Func<IQueryable<T>, IQueryable<T>> fn) =>
-            condition() ? fn(@this) : @this;
+            Func<IQueryable<T>, IQueryable<T>> fn)
+        {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            if (condition == null)
+                throw new ArgumentNullException(nameof(condition));
+
+            if (fn == null)
+                throw new ArgumentNullException(nameof(fn));
+
+            return condition() ? fn(@this) : @this;
+        }
 
         /// <summary>
         /// Whens the specified condition.
@@ -30,12 +50,32 @@
         /// <param name="this">The this.</param>
         /// <param name="condition">The condition.</param>
         /// <param name="fn">The function.</param>
-        /// <returns>The IEnumerable</returns>
+        /// <returns>
+        /// The IEnumerable
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// this
+        /// or
+        /// condition
+        /// or
+        /// fn
+        /// </exception>
         public static IEnumerable<T> When<T>(
             this IEnumerable<T> @this,
             Func<bool> condition,
-            Func<IEnumerable<T>, IEnumerable<T>> fn) =>
-            condition() ? fn(@this) : @this;
+            Func<IEnumerable<T>, IEnumerable<T>> fn)
+        {
+            if (@this == null)
+                throw new ArgumentNullException(nameof(@this));
+
+            if (condition == null)
+                throw new ArgumentNullException(nameof(condition));
+
+            if (fn == null)
+                throw new ArgumentNullException(nameof(fn));
+
+            return condition() ? fn(@this) : @this;
+        }
 
         /// <summary>
         /// Adds the value when the condition is true.
