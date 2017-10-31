@@ -13,9 +13,9 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         protected readonly IQueryable<string> Queryable = Names.AsQueryable();
 
         protected IEnumerable<string> AddName(IEnumerable<string> input) =>
-            input.AsEnumerable().Concat(new[] {"Sauron"});
+            input.AsEnumerable().Concat(new[] {"Saruman"});
 
-        protected IQueryable<string> AddName(IQueryable<string> input) => input.AsQueryable().Concat(new[] {"Sauron"});
+        protected IQueryable<string> AddName(IQueryable<string> input) => input.AsQueryable().Concat(new[] { "Saruman" });
 
         protected string AddName() => "Sauron";
 
@@ -25,13 +25,13 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
     [TestFixture]
     public class When : ExtensionsFunctionalTest
     {
-        public static List<object> expected = new List<object> {"Aragorn", "Gimli", "Legolas", "Gandalf", "Sauron"};
+        public static List<object> expected = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf", "Frodo", "Sam", "Arwen", "Sauron", "Saruman" };
 
         [Test]
         public void WithIEnumerableAndConditionEqualsTrue_ReturnsIEnumerable()
         {
             var whenResult = Enumerable.When(() => true, AddName);
-
+            
             Assert.AreEqual(expected, whenResult);
         }
 
@@ -74,7 +74,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         {
             var whenResult = Queryable.When(() => true, AddName);
 
-            Assert.AreNotEqual(expected, whenResult);
+            Assert.AreEqual(expected, whenResult);
         }
 
         [Test]
