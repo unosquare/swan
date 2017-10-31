@@ -1410,12 +1410,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, System.Collections.Generic.Dictionary(Of System.String, System.Object), System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.CanResolve(Type, Dictionary<String, Object>, String, DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.CanResolve(Type, Dictionary(Of String, Object), String, DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: CanResolve(Type, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.CanResolve(Type, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve*
   name: CanResolve
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_
@@ -1440,15 +1434,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String, System.Collections.Generic.Dictionary(Of System.String, System.Object), Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.CanResolve<ResolveType>(String, Dictionary<String, Object>, DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String, Dictionary(Of String, Object), DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: CanResolve<ResolveType>(String, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name.vb: CanResolve(Of ResolveType)(String, DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve<ResolveType>(System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.CanResolve<ResolveType>(String, DependencyContainerResolveOptions)
-  nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: CanResolve<ResolveType>(DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_Unosquare_Swan_Components_DependencyContainerResolveOptions_
