@@ -6,7 +6,7 @@ using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Reflection;
 using Unosquare.Swan.Test.Mocks;
 
-namespace Unosquare.Swan.Test
+namespace Unosquare.Swan.Test.JsonTests
 {
     [TestFixture]
     public class JsonTest
@@ -335,6 +335,58 @@ namespace Unosquare.Swan.Test
             var data = Json.Deserialize<EmptyJson>("{ }");
 
             Assert.IsNotNull(data);
+        }
+
+        [Test]
+        public void Json_SerializeOnly_ReturnsObjectSerialized()
+        {
+            var obj = new AdvJson
+            {
+                StringData = "UnoSquare",
+                IntData = 2,
+                NegativeInt = -5,
+                DecimalData = 234.22M,
+                BoolData = false,
+            };
+
+            var includeNames = new string[]
+            {
+                "StringData",
+                "IntData",
+                "NegativeInt",
+                "DecimalData",
+                "BoolData"
+            };
+
+            var dataSerialized = Json.SerializeOnly(obj, true, includeNames);
+            var expectedObjectSerialized = "{\r\n    \"StringData\": \"UnoSquare\",\r\n    \"IntData\": 2,\r\n    \"NegativeInt\": -5,\r\n    \"DecimalData\": 234.22,\r\n    \"BoolData\": false\r\n}";
+
+            Assert.AreEqual(expectedObjectSerialized, dataSerialized);
+        }
+
+        [Test]
+        public void Json_SerializeExcluding_ReturnsObjectSerializedExcludingProps()
+        {
+            var obj = new AdvJson
+            {
+                StringData = "UnoSquare",
+                IntData = 2,
+                NegativeInt = -5,
+                DecimalData = 234.22M,
+                BoolData = false,
+            };
+
+            var excludeNames = new string[]
+            {
+                "StringData",
+                "IntData",
+                "NegativeInt"
+            };
+
+            var dataSerialized = Json.SerializeExcluding(obj, true, excludeNames);
+            var expectedObjectSerialized = "{\r\n    \"InnerChild\": null,\r\n    \"DecimalData\": 234.22,\r\n    \"BoolData\": false,\r\n    \"StringNull\": null\r\n}";
+
+            Assert.AreEqual(expectedObjectSerialized, dataSerialized);
         }
     }
 }
