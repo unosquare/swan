@@ -79,8 +79,13 @@ namespace Unosquare.Swan.Test.JsonTests
         {
             Assert.AreEqual(BasicStr, BasicJson.GetDefault().ToJson(false));
             Assert.AreNotEqual(BasicStr, BasicJson.GetDefault().ToJson());
+        }
 
+        [Test]
+        public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals()
+        {
             object nullObj = null;
+
             Assert.AreEqual(string.Empty, nullObj.ToJson());
         }
     }
@@ -168,11 +173,15 @@ namespace Unosquare.Swan.Test.JsonTests
                 Assert.AreEqual(obj.StringNull, AdvObj.StringNull);
             }
         }
-
-        [Test]
-        public void EmptyStringError_ReturnsNull()
+        
+        public void EmptyString_ReturnsNull()
         {
             Assert.IsNull(Json.Deserialize(string.Empty));
+        }
+
+        [Test]
+        public void EmptyStringWithTypeParam_ReturnsNull()
+        {
             Assert.IsNull(Json.Deserialize<BasicJson>(string.Empty));
         }
 
