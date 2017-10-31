@@ -51,7 +51,7 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
                 { 5, "Israel" }
             };
 
-            Assert.AreEqual(Extensions.GetValueOrDefault(dict, 7), null);
+            Assert.IsNull(Extensions.GetValueOrDefault(dict, 7), null);
         }
     }
 
