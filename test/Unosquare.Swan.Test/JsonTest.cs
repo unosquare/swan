@@ -78,6 +78,11 @@ namespace Unosquare.Swan.Test.JsonTests
         public void CheckJsonFormat_ValidatesIfObjectsAreEqual()
         {
             Assert.AreEqual(BasicStr, BasicJson.GetDefault().ToJson(false));
+        }
+
+        [Test]
+        public void CheckJsonFormat_ValidatesIfObjectsAreNotEqual()
+        {
             Assert.AreNotEqual(BasicStr, BasicJson.GetDefault().ToJson());
         }
 
