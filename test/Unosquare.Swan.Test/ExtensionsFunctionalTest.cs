@@ -10,37 +10,28 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
 {
     public abstract class ExtensionsFunctionalTest
     {
+        protected static IList<object> _cities = new List<object> { "Edoras", "Minas Tirith", "Moria" };
         protected static IList<object> _names = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf"};
-        protected readonly IEnumerable<string> _enumerable = _names.AsQueryable().Cast<string>();
-        protected readonly IQueryable<string> _queryable = _names.AsQueryable().Cast<string>();
-
-        protected bool ReturnTrue()
+        protected readonly IEnumerable<object> _enumerable = _names.AsEnumerable();
+        protected readonly IQueryable<object> _queryable = _names.AsQueryable();
+        
+        protected IEnumerable<object> Function(IEnumerable<object> input)
         {
-            return true;
-        }
-
-        protected bool ReturnFalse()
-        {
-            return false;
-        }
-
-        protected IEnumerable<string> Function(IEnumerable<string> input)
-        {
-            IEnumerable<string> names = input.AsEnumerable().Concat(new[] { "Frodo", "Sam", "Pippin", "Merry" });
+            var names = input.AsEnumerable().Concat(new[] { "Frodo", "Sam", "Pippin", "Merry" });
 
             return names;
         }
 
-        protected IQueryable<string> Function(IQueryable<string> input)
+        protected IQueryable<object> Function(IQueryable<object> input)
         {
-            IQueryable<string> names = input.AsQueryable().Concat(new[] { "Frodo", "Sam", "Pippin", "Merry" });
+            var names = input.AsQueryable().Concat(new[] { "Frodo", "Sam", "Pippin", "Merry" });
             
             return names;
         }
 
         protected string Function()
         {
-            string name = "Arwen";
+            var name = "Rivendell";
             
             return name;
         }
@@ -52,78 +43,69 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         [Test]
         public void WithIEnumerableAndMethodCallEqualsTrue_IEnumerable()
         {
-            Func<bool> condition = ReturnTrue;
-            Func<IEnumerable<string>, IEnumerable<string>> methodCall = Function;
+            Func<bool> condition = () => true;
+            Func<IEnumerable<object>, IEnumerable<object>> methodCall = Function;
             
             var whenResult = _enumerable.When(condition, methodCall);
-
-            foreach(var item in whenResult)
-            {
-                Console.WriteLine(item);
-            }
-
+            
             Assert.AreNotEqual(whenResult, _enumerable);
         }
 
         [Test]
         public void WithIEnumerableAndMethodCallEqualsFalse_IEnumerable()
         {
-            Func<bool> condition = ReturnFalse;
-            Func<IEnumerable<string>, IEnumerable<string>> methodCall = Function;
+            Func<bool> condition = () => false;
+            Func<IEnumerable<object>, IEnumerable<object>> methodCall = Function;
 
             var whenResult = _enumerable.When(condition, methodCall);
-
-            foreach(var item in whenResult)
-            {
-                Console.WriteLine(item);
-            }
-
+            
             Assert.AreEqual(whenResult, _enumerable);
         }
-
-
-        [Test]
-        public void WithIQueryableAndMethodCallEqualsFalse_IEnumerable()
-        {
-            Func<bool> condition = ReturnFalse;
-            Func<IQueryable<string>, IQueryable<string>> methodCall = Function;
-
-            var whenResult = _queryable.When(condition, methodCall);
-            
-            Assert.AreEqual(whenResult, _queryable);
-        }
-
+        
         [Test]
         public void WithIQueryableAndMethodCallEqualsTrue_IEnumerable()
         {
-            Func<bool> condition = ReturnTrue;
-            Func<IQueryable<string>, IQueryable<string>> methodCall = Function;
+            Func<bool> condition = () => true;
+            Func<IQueryable<object>, IQueryable<object>> methodCall = Function;
 
             var whenResult = _queryable.When(condition, methodCall);
             
             Assert.AreNotEqual(whenResult, _queryable);
+        }
+
+        [Test]
+        public void WithIQueryableAndMethodCallEqualsFalse_IEnumerable()
+        {
+            Func<bool> condition = () => false;
+            Func<IQueryable<object>, IQueryable<object>> methodCall = Function;
+
+            var whenResult = _queryable.When(condition, methodCall);
+
+            Assert.AreEqual(whenResult, _queryable);
         }
     }
 
     [TestFixture]
     public class AddWhen : ExtensionsFunctionalTest
     {
+        IList<object> expected = new List<object> { "Edoras", "Minas Tirith", "Moria", "Rivendell" };
+
         [Test]
-        public void WithValidParams_ThrowsArgumentNullException()
+        public void WithConditionEqualsTrue_ReturnsObjectWithAddedItem()
         {
-            Func<bool> condition = ReturnTrue;
+            Func<bool> condition = () => true;
             Func<string> methodCall = Function;
 
-            var whenResult = _names.AddWhen(condition, methodCall);
-           
-            Assert.IsNotNull(null);
+            var whenResult = _cities.AddWhen(condition, methodCall);
+            
+            Assert.AreEqual(expected, whenResult);
         }
 
         [Test]
         public void WithNullIList_ThrowsArgumentNullException()
         {
             IList<object> list = null;
-            Func<bool> condition = ReturnTrue;
+            Func<bool> condition = () => true;
             Func<string> methodCall = Function;
 
             Assert.Throws<ArgumentNullException>(() =>
@@ -137,20 +119,19 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             Func<string> methodCall = Function;
 
             Assert.Throws<ArgumentNullException>(() =>
-                _names.AddWhen(null, methodCall)
+                _cities.AddWhen(null, methodCall)
             );
         }
 
         [Test]
         public void WithNullValue_ThrowsArgumentNullException()
         {
-            Func<bool> condition = ReturnTrue;
+            Func<bool> condition = () => true;
 
             Assert.Throws<ArgumentNullException>(() =>
-                _names.AddWhen(condition, null)
+                _cities.AddWhen(condition, null)
             );
         }
     }
-
-
+    
 }
