@@ -66,15 +66,6 @@ namespace Unosquare.Swan.Test.JsonTests
     public class ToJson : JsonTest
     {
         [Test]
-        public void BasicObject_ReturnsJsonUnformatted()
-        {
-            var data = BasicJson.GetDefault().ToJson(false);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(BasicStr, data);
-        }
-
-        [Test]
         public void CheckJsonFormat_ValidatesIfObjectsAreEqual()
         {
             Assert.AreEqual(BasicStr, BasicJson.GetDefault().ToJson(false));
