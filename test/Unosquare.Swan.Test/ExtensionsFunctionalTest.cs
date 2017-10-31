@@ -7,22 +7,21 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
 {
     public abstract class ExtensionsFunctionalTest
     {
-        protected static IList<object> _names = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf"};
-        protected static List<object> _hobbits = new List<object> { "Frodo", "Sam", "Pippin" };
-
+        protected static List<object> _names = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf" };
+        
         protected readonly IEnumerable<object> _enumerable = _names.AsEnumerable();
         protected readonly IQueryable<object> _queryable = _names.AsQueryable();
         
         protected IEnumerable<object> AddName(IEnumerable<object> input)
         {
-            var names = input.AsEnumerable().Concat(new[] { "Galadriel", "Elrond" });
+            var names = input.AsEnumerable().Concat(new[] { "Sauron" });
 
             return names;
         }
 
         protected IQueryable<object> AddName(IQueryable<object> input)
         {
-            var names = input.AsQueryable().Concat(new[] { "Galadriel", "Elrond" });
+            var names = input.AsQueryable().Concat(new[] { "Sauron" });
             
             return names;
         }
@@ -36,7 +35,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
 
         protected IEnumerable<object> AddRange()
         {
-            var names = new[] { "Merry", "Bilbo" };
+            var names = new[] { "Frodo", "Sam" };
 
             return names;
         }
@@ -45,12 +44,14 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
     [TestFixture]
     public class When : ExtensionsFunctionalTest
     {
+        public static List<object> expected = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf", "Sauron" };
+
         [Test]
         public void WithIEnumerableAndConditionEqualsTrue_ReturnsIEnumerable()
         {
             var whenResult = _enumerable.When(() => true, AddName);
             
-            Assert.AreNotEqual(whenResult, _enumerable);
+            Assert.AreEqual(expected, whenResult);
         }
 
         [Test]
@@ -58,7 +59,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         {
             var whenResult = _enumerable.When(() => false, AddName);
 
-            Assert.AreEqual(whenResult, _enumerable);
+            Assert.AreEqual(_enumerable, whenResult);
         }
 
         [Test]
@@ -92,7 +93,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         {
             var whenResult = _queryable.When(() => true, AddName);
 
-            Assert.AreNotEqual(whenResult, _queryable);
+            Assert.AreNotEqual(expected, whenResult);
         }
 
         [Test]
@@ -100,7 +101,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         {
             var whenResult = _queryable.When(() => false, AddName);
 
-            Assert.AreEqual(whenResult, _queryable);
+            Assert.AreEqual(_queryable, whenResult);
         }
 
         [Test]
@@ -133,12 +134,12 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
     [TestFixture]
     public class AddWhen : ExtensionsFunctionalTest
     {
-        List<object> expected = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf", "Arwen" };
+        List<object> expected = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf", "Frodo", "Sam", "Arwen" };
 
         [Test]
         public void WithMethodCallAndConditionEqualsTrue_ReturnsListWithAddedItem()
         {
-            var expected = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf", "Arwen", "Sauron" };
+            var expected = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf", "Frodo", "Sam", "Arwen", "Sauron" };
             
             var whenResult = _names.AddWhen(() => true, AddName);
             
@@ -215,19 +216,19 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         [Test]
         public void WithConditionEqualsTrue_ReturnsListWithAddedRange()
         {
-            var expected = new List<object> { "Frodo", "Sam", "Pippin", "Merry", "Bilbo" };
+            var expected = new List<object> { "Aragorn", "Gimli", "Legolas", "Gandalf", "Frodo", "Sam" };
             
-            var whenResult = _hobbits.AddRangeWhen(() => true, AddRange);
+            var whenResult = _names.AddRangeWhen(() => true, AddRange);
             
-            Assert.AreEqual(expected, _hobbits);
+            Assert.AreEqual(expected, _names);
         }
 
         [Test]
         public void WithConditionEqualsFalse_ReturnsSameList()
         {
-            var whenResult = _hobbits.AddRangeWhen(() => false, AddRange);
+            var whenResult = _names.AddRangeWhen(() => false, AddRange);
 
-            Assert.AreEqual(_hobbits, _hobbits);
+            Assert.AreEqual(_names, _names);
         }
 
         [Test]
@@ -246,7 +247,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             Func<IEnumerable<object>> methodCall = AddRange;
 
             Assert.Throws<ArgumentNullException>(() =>
-                 _hobbits.AddRangeWhen(null, methodCall)
+                 _names.AddRangeWhen(null, methodCall)
             );
         }
 
@@ -254,7 +255,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
         public void WithNullValue_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                 _hobbits.AddRangeWhen(() => true, null)
+                 _names.AddRangeWhen(() => true, null)
             );
         }
 
