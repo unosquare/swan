@@ -91,6 +91,127 @@ namespace Unosquare.Swan.Test.JsonTests
     }
 
     [TestFixture]
+    public class Serialize : JsonTest
+    {
+        [Test]
+        public void StringArray_ReturnsArraySerialized()
+        {
+            var data = Json.Serialize(_basicArray);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_basicAStr, data);
+        }
+
+        [Test]
+        public void NumericArray_ReturnsArraySerialized()
+        {
+            var data = Json.Serialize(_numericArray);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_numericAStr, data);
+        }
+
+        [Test]
+        public void BasicObjectWithArray_ReturnsObjectWithArraySerialized()
+        {
+            var data = Json.Serialize(_basicAObj);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_basicAObjStr, data);
+        }
+
+        [Test]
+        public void ArrayOfObjects_ReturnsArrayOfObjectsSerialized()
+        {
+            var data = Json.Serialize(_arrayOfObj);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_arrayOfObjStr, data);
+        }
+
+        [Test]
+        public void AdvObject_ReturnsAdvObjectSerialized()
+        {
+            var data = Json.Serialize(AdvObj);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(AdvStr, data);
+        }
+
+        [Test]
+        public void AdvObjectArray_ReturnsAdvObjectArraySerialized()
+        {
+            var data = Json.Serialize(_advAObj);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_advAStr, data);
+        }
+
+        [Test]
+        public void EmptyObject_ReturnsEmptyObjectSerialized()
+        {
+            Assert.AreEqual("{ }", Json.Serialize(default(object)));
+        }
+
+        [Test]
+        public void PrimitiveError_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => Json.Serialize(1), "Throws exception serializing primitive");
+        }
+
+        [Test]
+        public void DateTest_ReturnsDateTestSerialized()
+        {
+            var obj = new DateTimeJson { Date = new DateTime(2010, 1, 1) };
+            var data = Json.Serialize(obj);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data,
+                "Date must be formatted as ISO");
+
+            var dict = Json.Deserialize<Dictionary<string, DateTime>>(data);
+
+            Assert.IsNotNull(dict);
+            Assert.IsTrue(dict.ContainsKey("Date"));
+            Assert.AreEqual(obj.Date, dict["Date"]);
+
+            var objDeserialized = Json.Deserialize<DateTimeJson>(data);
+
+            Assert.IsNotNull(objDeserialized);
+            Assert.AreEqual(obj.Date, objDeserialized.Date);
+        }
+
+        [Test]
+        public void WithStructureArray_ReturnsStructureArraySerialized()
+        {
+            var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
+            var data = Json.Serialize(result);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(ArrayStruct, data);
+        }
+
+        [Test]
+        public void EmptyClass_ReturnsEmptyClassSerialized()
+        {
+            var data = Json.Serialize(new EmptyJson());
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{ }", data);
+        }
+
+        [Test]
+        public void WithStructure_ReturnsStructureSerialized()
+        {
+            var result = new SampleStruct { Value = 1, Name = "A" };
+            var data = Json.Serialize(result);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"A\"}", data);
+        }
+    }
+
+    [TestFixture]
     public class Deserialize : JsonTest
     {
         [Test]
@@ -202,7 +323,7 @@ namespace Unosquare.Swan.Test.JsonTests
         }
 
         [Test]
-        public void WithJsonProperty_ReturnsPropertiesSerialized()
+        public void WithJsonProperty_ReturnsPropertiesDeserialized()
         {
             var obj = new JsonPropertySample() { Data = "OK", IgnoredData = "OK" };
             var data = Json.Serialize(obj);
@@ -214,16 +335,6 @@ namespace Unosquare.Swan.Test.JsonTests
 
             Assert.IsNotNull(objDeserialized);
             Assert.AreEqual(obj.Data, objDeserialized.Data);
-        }
-
-        [Test]
-        public void WithStructure_ReturnsStructureSerialized()
-        {
-            var result = new SampleStruct { Value = 1, Name = "A" };
-            var data = Json.Serialize(result);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Value\": 1,\"Name\": \"A\"}", data);
         }
 
         [Test]
@@ -253,117 +364,6 @@ namespace Unosquare.Swan.Test.JsonTests
             var data = Json.Deserialize<EmptyJson>("{ }");
 
             Assert.IsNotNull(data);
-        }
-    }
-
-    [TestFixture]
-    public class Serialize : JsonTest
-    {
-        [Test]
-        public void StringArray_ReturnsArraySerialized()
-        {
-            var data = Json.Serialize(_basicArray);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(_basicAStr, data);
-        }
-
-        [Test]
-        public void NumericArray_ReturnsArraySerialized()
-        {
-            var data = Json.Serialize(_numericArray);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(_numericAStr, data);
-        }
-
-        [Test]
-        public void BasicObjectWithArray_ReturnsObjectWithArraySerialized()
-        {
-            var data = Json.Serialize(_basicAObj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(_basicAObjStr, data);
-        }
-
-        [Test]
-        public void ArrayOfObjects_ReturnsArrayOfObjectsSerialized()
-        {
-            var data = Json.Serialize(_arrayOfObj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(_arrayOfObjStr, data);
-        }
-
-        [Test]
-        public void AdvObject_ReturnsAdvObjectSerialized()
-        {
-            var data = Json.Serialize(AdvObj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(AdvStr, data);
-        }
-
-        [Test]
-        public void AdvObjectArray_ReturnsAdvObjectArraySerialized()
-        {
-            var data = Json.Serialize(_advAObj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(_advAStr, data);
-        }
-
-        [Test]
-        public void EmptyObject_ReturnsEmptyObjectSerialized()
-        {
-            Assert.AreEqual("{ }", Json.Serialize(default(object)));
-        }
-
-        [Test]
-        public void PrimitiveError_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => Json.Serialize(1), "Throws exception serializing primitive");
-        }
-
-        [Test]
-        public void DateTest_ReturnsDateTestSerialized()
-        {
-            var obj = new DateTimeJson { Date = new DateTime(2010, 1, 1) };
-            var data = Json.Serialize(obj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data,
-                "Date must be formatted as ISO");
-
-            var dict = Json.Deserialize<Dictionary<string, DateTime>>(data);
-
-            Assert.IsNotNull(dict);
-            Assert.IsTrue(dict.ContainsKey("Date"));
-            Assert.AreEqual(obj.Date, dict["Date"]);
-
-            var objDeserialized = Json.Deserialize<DateTimeJson>(data);
-
-            Assert.IsNotNull(objDeserialized);
-            Assert.AreEqual(obj.Date, objDeserialized.Date);
-        }
-
-        [Test]
-        public void WithStructureArray_ReturnsStructureArraySerialized()
-        {
-            var result = new[] { new SampleStruct { Value = 1, Name = "A" }, new SampleStruct { Value = 2, Name = "B" } };
-            var data = Json.Serialize(result);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(ArrayStruct, data);
-        }
-
-        [Test]
-        public void EmptyClass_ReturnsEmptyClassSerialized()
-        {
-            var data = Json.Serialize(new EmptyJson());
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual("{ }", data);
         }
     }
 
