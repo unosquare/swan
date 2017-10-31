@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
 {
     public abstract class ExtensionsDictionariesTest
     {
-        protected Dictionary<object, object> dict = new Dictionary<object, object>();
+        protected Dictionary<int, string> Dict = new Dictionary<int, string>
+        {
+            {1, "Armando"},
+            {2, "Alexey"},
+            {3, "Alejandro"},
+            {4, "Florencia"},
+            {5, "Israel"}
+        };
     }
 
     [TestFixture]
@@ -16,42 +23,24 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            dict = null;
+            Dictionary<object, object> dict = null;
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Extensions.GetValueOrDefault(dict, 1);
+                dict.GetValueOrDefault(1);
             });
         }
 
         [Test]
         public void DictionaryWithExistingKey_ReturnsValue()
         {
-            dict = new Dictionary<object, object>
-            {
-                { 1, "Armando" },
-                { 2, "Alexey" },
-                { 3, "Alejandro" },
-                { 4, "Florencia" },
-                { 5, "Israel" }
-            };
-
-            Assert.AreEqual(Extensions.GetValueOrDefault(dict, 3), "Alejandro");
+            Assert.AreEqual(Dict.GetValueOrDefault(3), "Alejandro");
         }
 
         [Test]
         public void DictionaryWithoutExistingKey_ReturnsNull()
         {
-            dict = new Dictionary<object, object>
-            {
-                { 1, "Armando" },
-                { 2, "Alexey" },
-                { 3, "Alejandro" },
-                { 4, "Florencia" },
-                { 5, "Israel" }
-            };
-
-            Assert.IsNull(Extensions.GetValueOrDefault(dict, 7), null);
+            Assert.IsNull(Dict.GetValueOrDefault(7), null);
         }
     }
 
@@ -61,51 +50,34 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<int, int> originalDictionary = new Dictionary<int, int>();
-            originalDictionary = null;
+            Dictionary<int, int> originalDictionary = null;
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                originalDictionary.ForEach((key, value) =>
-                {
-                    originalDictionary[key] = value + 1;
-                });
+                originalDictionary.ForEach((key, value) => { });
             });
         }
 
         [Test]
         public void NotNullDictionary_DoesForEach()
         {
-            var originalDictionary = new Dictionary<int, int>()
+            var dict = new Dictionary<int, int>
             {
-                {1, 2},
+                {1, 1},
                 {2, 2},
-                {3, 2},
-                {4, 2},
-            };
-
-            var copyDictionary = new Dictionary<int, int>()
-            {
-                {1, 2},
-                {2, 2},
-                {3, 2},
-                {4, 2},
-             };
-
-            var expectedDictionary = new Dictionary<int, int>()
-            {
-                {1, 3},
-                {2, 3},
                 {3, 3},
-                {4, 3},
+                {4, 4},
+                {5, 5}
             };
 
-            originalDictionary.ForEach((key, value) =>
+            var result = 0;
+
+            dict.ForEach((key, value) =>
             {
-                copyDictionary[key] = value + 1;
+                result += value * 2;
             });
 
-            CollectionAssert.AreEqual(expectedDictionary, copyDictionary);
+            Assert.AreEqual(dict.Sum(y => y.Key * 2), result);
         }
     }
 }
