@@ -1322,7 +1322,8 @@ namespace Unosquare.Swan.Components
             public WeakInstanceFactory(Type registerType, Type registerImplementation, object instance)
             {
                 if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, "WeakInstanceFactory", true);
+                    throw new DependencyContainerRegistrationException(registerImplementation, "WeakInstanceFactory",
+                        true);
 
                 this.registerType = registerType;
                 this.registerImplementation = registerImplementation;
@@ -1331,7 +1332,8 @@ namespace Unosquare.Swan.Components
 
             public override Type CreatesType => registerImplementation;
 
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
+            public override object GetObject(Type requestedType, DependencyContainer container,
+                Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
             {
                 var instance = _instance.Target;
 
@@ -1341,7 +1343,8 @@ namespace Unosquare.Swan.Components
                 return instance;
             }
 
-            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(registerType, registerImplementation);
+            public override ObjectFactoryBase MultiInstanceVariant =>
+                new MultiInstanceFactory(registerType, registerImplementation);
 
             public override ObjectFactoryBase WeakReferenceVariant => this;
 
@@ -1358,12 +1361,7 @@ namespace Unosquare.Swan.Components
                 }
             }
 
-            public void Dispose()
-            {
-                var disposable = _instance.Target as IDisposable;
-
-                disposable?.Dispose();
-            }
+            public void Dispose() => (_instance.Target as IDisposable)?.Dispose();
         }
 
         /// <summary>
@@ -1417,13 +1415,8 @@ namespace Unosquare.Swan.Components
                 return this;
             }
 
-            public void Dispose()
-            {
-                var disposable = _current as IDisposable;
-
-                disposable?.Dispose();
+            public void Dispose() =>(_current as IDisposable)?.Dispose();
             }
-        }
 
         #endregion
 
