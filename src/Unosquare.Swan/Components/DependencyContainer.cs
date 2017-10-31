@@ -607,20 +607,7 @@ namespace Unosquare.Swan.Components
         {
             return (ResolveType)Resolve(typeof(ResolveType), name, parameters, options);
         }
-
-        /// <summary>
-        /// Attempts to predict whether a given type can be resolved with the specified options.
-        ///
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve</param>
-        /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve(Type resolveType, DependencyContainerResolveOptions options)
-        {
-            return CanResolveInternal(new TypeRegistration(resolveType), null, options);
-        }
-
+        
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -647,27 +634,12 @@ namespace Unosquare.Swan.Components
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(DependencyContainerResolveOptions options)
+        public bool CanResolve<ResolveType>(DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
-            return CanResolve(typeof(ResolveType), options);
+            return CanResolve(typeof(ResolveType), null, null, options);
         }
-
-        /// <summary>
-        /// Attempts to predict whether a given named type can be resolved with the specified options.
-        ///
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <param name="name">Name of registration</param>
-        /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(string name = null, DependencyContainerResolveOptions options = null)
-            where ResolveType : class
-        {
-            return CanResolve(typeof(ResolveType), null, name, options);
-        }
-
+        
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
         ///
@@ -699,7 +671,7 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
+        public bool CanResolve<ResolveType>(string name, Dictionary<string, object> parameters = null, DependencyContainerResolveOptions options = null)
             where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), parameters, name, options);

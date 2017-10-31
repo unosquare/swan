@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using System.Collections.Generic;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Exceptions;
@@ -28,7 +29,7 @@ namespace Unosquare.Swan.Test
             container.Unregister<IAnimal>();
             Assert.Throws<DependencyContainerResolutionException>(() => container.Resolve<IAnimal>());
         }
-        
+
 #if !NETSTANDARD1_3 && !UWP
         [Test]
         public void AutoregisterTest_ThrowResolutionException()
@@ -127,8 +128,8 @@ namespace Unosquare.Swan.Test
                 // TODO: mmmmm
                 container.Register<IAnimal>(instance).WithStrongReference();
             }
-            
-            var containerInstance = (Human)container.Resolve<IAnimal>();
+
+            var containerInstance = (Human) container.Resolve<IAnimal>();
             Assert.IsTrue(containerInstance.IsDisposed);
         }
 
@@ -148,6 +149,36 @@ namespace Unosquare.Swan.Test
         {
             var container = new DependencyContainer();
             Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] {typeof(Monkey), typeof(Fish)}));
+        }
+
+        [Test]
+        public void RegisterMultipleTypesNullImplementations_ThrowsException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var container = new DependencyContainer();
+                Assert.IsNotNull(container.RegisterMultiple(typeof(IAnimal), null));
+            });
+        }
+
+        [Test]
+        public void RegisterMultipleTypesInvalidImplementations_ThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var container = new DependencyContainer();
+                Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] { typeof(TheOnlyCar), typeof(Fish) }));
+            });
+        }
+
+        [Test]
+        public void RegisterMultipleTypesDuplicatedImplementations_ThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var container = new DependencyContainer();
+                Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] { typeof(Monkey), typeof(Monkey) }));
+            });
         }
 
         [Test]
@@ -178,6 +209,26 @@ namespace Unosquare.Swan.Test
 
             Assert.IsTrue(container.CanResolve<IEnumerable<string>>());
             Assert.AreEqual(typeof(StringEnumerable), container.Resolve<IEnumerable<string>>().GetType());
+        }
+
+        [Test]
+        public void RegisterWithConstructor_ReturnsOptions()
+        {
+            var container = new DependencyContainer();
+
+            container.Register(typeof(IAnimal), (di, param) => new Human(param["Name"].ToString()));
+        }
+
+
+        [Test]
+        public void RegisterWithConstructor_ThrowsException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var container = new DependencyContainer();
+
+                container.Register((Func<DependencyContainer, Dictionary<string, object>, IAnimal>) null);
+            });
         }
     }
 }
