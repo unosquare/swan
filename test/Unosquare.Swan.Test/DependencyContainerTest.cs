@@ -162,6 +162,26 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
+        public void RegisterMultipleTypesInvalidImplementations_ThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var container = new DependencyContainer();
+                Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] { typeof(TheOnlyCar), typeof(Fish) }));
+            });
+        }
+
+        [Test]
+        public void RegisterMultipleTypesDuplicatedImplementations_ThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var container = new DependencyContainer();
+                Assert.IsNotNull(container.RegisterMultiple<IAnimal>(new[] { typeof(Monkey), typeof(Monkey) }));
+            });
+        }
+
+        [Test]
         public void TryResolve_CanResolve()
         {
             var container = new DependencyContainer();
