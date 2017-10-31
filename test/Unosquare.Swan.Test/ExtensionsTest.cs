@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using Unosquare.Swan.Attributes;
 using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
@@ -189,7 +188,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         [Test]
         public void WithValidDictionary_CopyPropertiesToTarget()
         {
-            IDictionary<string, object> source = new Dictionary<string, object>
+            var source = new Dictionary<string, object>
             {
                 { "Name", "Thrall" },
                 { "Email", "Warchief.Thrall@horde.com" },
@@ -287,22 +286,6 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         }
     }
     
-    [TestFixture]
-    public class ExceptionMessage
-    {
-        [Test]
-        public void WithNullException_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Exception ex = null;
-
-                ex.ExceptionMessage();
-            });
-            
-        }
-    }
-
     [TestFixture]
     public class CopyOnlyPropertiesToNew
     {

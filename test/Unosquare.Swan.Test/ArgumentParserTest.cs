@@ -115,8 +115,8 @@ namespace Unosquare.Swan.Test.ArgumentParserTests
             Assert.Throws<ArgumentNullException>(() =>
             {
                 var parser = new ArgumentParser();
-                var options = new OptionMock();
-                parser.ParseArguments(null, options);
+                
+                parser.ParseArguments(null, new OptionMock());
             });
         }
 
@@ -144,12 +144,12 @@ namespace Unosquare.Swan.Test.ArgumentParserTests
         [Test]
         public void InstanceNull_ThrowsArgumentNullException()
         {
-            var options = new OptionMock();
+            OptionMock options = null;
             var dumpArgs = new[] { "-N", "babu", "-V" };
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Runtime.ArgumentParser.ParseArguments(dumpArgs, options = null);
+                Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
             });
         }
     }

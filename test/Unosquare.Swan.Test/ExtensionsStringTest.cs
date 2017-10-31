@@ -109,7 +109,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithEmptyJsonAsParam_ReturnsStringifiedJson()
         {
-            var emptyJson = new EmptyJson { };
+            var emptyJson = new EmptyJson();
             var objectInfoLines = emptyJson.Stringify().ToLines();
 
             Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.EmptyJson", objectInfoLines[0]);
@@ -290,11 +290,10 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
-            string input = null;
-
-            if(Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
+            string input = null;
             Assert.Throws<ArgumentNullException>(() =>
                 input.ToSafeFilename()
             );
@@ -342,11 +341,12 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     [TestFixture]
     public class Contains
     {
-        [Test]
-        public void WithValidString_ReturnsTrue()
+        [TestCase(new[] {'l'})]
+        [TestCase(new[] {'l', 'W'})]
+        public void WithValidString_ReturnsTrue(params char[] chars)
         {
             const string input = "Hello World";
-            Assert.IsTrue(input.Contains('l'));
+            Assert.IsTrue(input.Contains(chars));
         }
     }
 

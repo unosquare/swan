@@ -30,7 +30,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
             _defaultPort = _port;
             _defaultHttp = "http://localhost:" + _defaultPort;
         }
-        
+
     }
 
     [TestFixture]
@@ -39,13 +39,13 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
-                var responseObj = new Dictionary<string, object> { { AuthorizationToken, "123" } };
+                var responseObj = new Dictionary<string, object> {{AuthorizationToken, "123"}};
 
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    if(ctx.RequestFormDataDictionary().ContainsKey("grant_type"))
+                    if (ctx.RequestFormDataDictionary().ContainsKey("grant_type"))
                     {
                         ctx.JsonResponse(responseObj);
                     }
@@ -67,8 +67,9 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public void WithInvalidParams_ThrowsSecurityException()
         {
-            Assert.ThrowsAsync<SecurityException>(async () => {
-                using(var webserver = new WebServer(_defaultPort))
+            Assert.ThrowsAsync<SecurityException>(async () =>
+            {
+                using (var webserver = new WebServer(_defaultPort))
                 {
                     webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
                     webserver.RunAsync();
@@ -86,7 +87,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 const string status = "OK";
 
@@ -113,11 +114,14 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> { { Authorization, ctx.RequestHeader(Authorization) } });
+                    ctx.JsonResponse(new Dictionary<string, string>
+                    {
+                        {Authorization, ctx.RequestHeader(Authorization)}
+                    });
 
                     return true;
                 }));
@@ -138,7 +142,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                using(var webserver = new WebServer(_defaultPort))
+                using (var webserver = new WebServer(_defaultPort))
                 {
                     webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
 
@@ -159,7 +163,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var ctxHeaders = new List<string>();
 
@@ -196,7 +200,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 const string status = "OK";
 
@@ -223,11 +227,14 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
-                    ctx.JsonResponse(new Dictionary<string, string> { { Authorization, ctx.RequestHeader(Authorization) } });
+                    ctx.JsonResponse(new Dictionary<string, string>
+                    {
+                        {Authorization, ctx.RequestHeader(Authorization)}
+                    });
 
                     return true;
                 }));
@@ -246,8 +253,9 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public void WithInvalidParams_ThrowsJsonRequestException()
         {
-            var exception = Assert.ThrowsAsync<JsonRequestException>(async () => {
-                using(var webserver = new WebServer(_defaultPort))
+            var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
+            {
+                using (var webserver = new WebServer(_defaultPort))
                 {
                     webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
                     webserver.RunAsync();
@@ -267,7 +275,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var buffer = new byte[20];
                 new Random().NextBytes(buffer);
@@ -288,7 +296,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
                 Assert.IsNotNull(data);
             }
         }
-        
+
     }
 
     [TestFixture]
@@ -297,7 +305,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var buffer = new byte[20];
                 new Random().NextBytes(buffer);
@@ -312,7 +320,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
 
                 webserver.RunAsync();
                 await Task.Delay(100);
-                
+
                 var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, "Paco De Lucia");
 
                 Assert.IsNotNull(data);
@@ -320,7 +328,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
             }
         }
     }
-    
+
     [TestFixture]
     public class PostOrError : JsonClientTest
     {
@@ -330,20 +338,20 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [TestCase(4678, 404, false)]
         public async Task PostOrErrorTest(int input, int error, bool expected)
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 webserver.RegisterModule(new FallbackModule((ctx, ct) =>
                 {
                     var obj = ctx.ParseJson<BasicJson>();
 
-                    if(obj.IntData == 1)
+                    if (obj.IntData == 1)
                     {
                         ctx.JsonResponse(obj);
                     }
                     else
                     {
                         ctx.Response.StatusCode = 500;
-                        ctx.JsonResponse(new ErrorJson { Message = "ERROR" });
+                        ctx.JsonResponse(new ErrorJson {Message = "ERROR"});
                     }
 
                     return true;
@@ -353,11 +361,11 @@ namespace Unosquare.Swan.Test.JsonClientTest
                 await Task.Delay(100);
 
                 var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp,
-                    new BasicJson { IntData = input }, error);
-                
+                    new BasicJson {IntData = input}, error);
+
                 Assert.IsNotNull(data);
                 Assert.AreEqual(expected, data.IsOk);
-                
+
             }
         }
     }
@@ -377,7 +385,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var ctxHeaders = new List<string>();
 
@@ -390,13 +398,13 @@ namespace Unosquare.Swan.Test.JsonClientTest
 
                 webserver.RunAsync();
                 await Task.Delay(100);
-                
+
                 await JsonClient.GetBinary(_defaultHttp);
-                
+
                 Assert.IsTrue(ctxHeaders.Any());
             }
         }
-        
+
         [Test]
         public async Task WithInvalidUrl_ThrowsJsonRequestException()
         {
@@ -407,7 +415,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         }
 
     }
-    
+
     [TestFixture]
     public class Get : JsonClientTest
     {
@@ -423,7 +431,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using(var webserver = new WebServer(_defaultPort))
+            using (var webserver = new WebServer(_defaultPort))
             {
                 var ctxHeaders = new List<string>();
 
@@ -436,12 +444,11 @@ namespace Unosquare.Swan.Test.JsonClientTest
 
                 webserver.RunAsync();
                 await Task.Delay(100);
-                
+
                 var arc = await JsonClient.Get<BasicJson>(_defaultHttp);
 
                 Assert.IsTrue(ctxHeaders.Any());
             }
         }
-
     }
 }

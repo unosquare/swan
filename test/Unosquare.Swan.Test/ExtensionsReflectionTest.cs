@@ -96,8 +96,8 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(expected, input.IsGenericTypeDefinition(), $"Get IsGenericTypeDefinition value of {input}");
         }
 
-        [TestCase(typeof(Object), typeof(List<Fish>))]
-        [TestCase(typeof(Object), typeof(string))]
+        [TestCase(typeof(object), typeof(List<Fish>))]
+        [TestCase(typeof(object), typeof(string))]
         public void BaseTypeTest(Type expected, Type input)
         {
             Assert.AreEqual(expected, input.BaseType(), $"Get BaseType value of {input}");

@@ -11,7 +11,8 @@
         /// <summary>
         /// Gets the value or default.
         /// </summary>
-        /// <typeparam name="T">Generic type</typeparam>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="dict">The dictionary.</param>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
@@ -19,7 +20,7 @@
         /// A dictionary of generic types
         /// </returns>
         /// <exception cref="ArgumentNullException">dict</exception>
-        public static T GetValueOrDefault<T>(this Dictionary<T, T> dict, T key, T defaultValue = default(T))
+        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default(TValue))
         {
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));

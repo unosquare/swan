@@ -66,184 +66,23 @@ namespace Unosquare.Swan.Test.JsonTests
     public class ToJson : JsonTest
     {
         [Test]
-        public void BasicObject_ReturnsJsonUnformatted()
-        {
-            var data = BasicJson.GetDefault().ToJson(false);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(BasicStr, data);
-        }
-
-        [Test]
         public void CheckJsonFormat_ValidatesIfObjectsAreEqual()
         {
             Assert.AreEqual(BasicStr, BasicJson.GetDefault().ToJson(false));
+        }
+
+        [Test]
+        public void CheckJsonFormat_ValidatesIfObjectsAreNotEqual()
+        {
             Assert.AreNotEqual(BasicStr, BasicJson.GetDefault().ToJson());
+        }
 
+        [Test]
+        public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals()
+        {
             object nullObj = null;
+
             Assert.AreEqual(string.Empty, nullObj.ToJson());
-        }
-    }
-
-    [TestFixture]
-    public class Deserialize : JsonTest
-    {
-        [Test]
-        public void BasicObject_ReturnsObjectDeserialized()
-        {
-            var obj = Json.Deserialize<BasicJson>(BasicStr);
-
-            Assert.IsNotNull(obj);
-            Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
-            Assert.AreEqual(obj.IntData, BasicJson.GetDefault().IntData);
-            Assert.AreEqual(obj.NegativeInt, BasicJson.GetDefault().NegativeInt);
-            Assert.AreEqual(obj.BoolData, BasicJson.GetDefault().BoolData);
-            Assert.AreEqual(obj.DecimalData, BasicJson.GetDefault().DecimalData);
-            Assert.AreEqual(obj.StringNull, BasicJson.GetDefault().StringNull);
-        }
-
-        [Test]
-        public void BasicArray_ReturnsArrayDeserialized()
-        {
-            var arr = Json.Deserialize<List<string>>(_basicAStr);
-
-            Assert.IsNotNull(arr);
-            Assert.AreEqual(string.Join(",", _basicArray), string.Join(",", arr));
-        }
-
-        [Test]
-        public void BasicObjectWithArray_ReturnsBasicObjectWithArrayDeserialized()
-        {
-            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(_basicAObj.Id, data.Id);
-            Assert.IsNotNull(data.Properties);
-            Assert.AreEqual(string.Join(",", _basicAObj.Properties), string.Join(",", data.Properties));
-        }
-
-        [Test]
-        public void ArrayOfObjects_ReturnsArrayOfObjectsDeserialized()
-        {
-            var data = Json.Deserialize<List<ExtendedPropertyInfo>>(_basicAObjStr);
-
-            Assert.IsNotNull(data);
-        }
-
-        [Test]
-        public void AdvObject_ReturnsAdvObjectDeserialized()
-        {
-            var data = Json.Deserialize<AdvJson>(AdvStr);
-
-            Assert.IsNotNull(data);
-            Assert.IsNotNull(data.InnerChild);
-
-            foreach (var obj in new[] { data, data.InnerChild })
-            {
-                Assert.AreEqual(obj.StringData, AdvObj.StringData);
-                Assert.AreEqual(obj.IntData, AdvObj.IntData);
-                Assert.AreEqual(obj.NegativeInt, AdvObj.NegativeInt);
-                Assert.AreEqual(obj.BoolData, AdvObj.BoolData);
-                Assert.AreEqual(obj.DecimalData, AdvObj.DecimalData);
-                Assert.AreEqual(obj.StringNull, AdvObj.StringNull);
-            }
-        }
-
-        [Test]
-        public void AdvObjectArray_ReturnsAdvObjectArray()
-        {
-            var data = Json.Deserialize<AdvArrayJson>(_advAStr);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(_basicAObj.Id, data.Id);
-            Assert.IsNotNull(data.Properties);
-
-            foreach (var obj in data.Properties)
-            {
-                Assert.AreEqual(obj.StringData, AdvObj.StringData);
-                Assert.AreEqual(obj.IntData, AdvObj.IntData);
-                Assert.AreEqual(obj.NegativeInt, AdvObj.NegativeInt);
-                Assert.AreEqual(obj.BoolData, AdvObj.BoolData);
-                Assert.AreEqual(obj.DecimalData, AdvObj.DecimalData);
-                Assert.AreEqual(obj.StringNull, AdvObj.StringNull);
-            }
-        }
-
-        [Test]
-        public void EmptyStringError_ReturnsNull()
-        {
-            Assert.IsNull(Json.Deserialize(string.Empty));
-            Assert.IsNull(Json.Deserialize<BasicJson>(string.Empty));
-        }
-
-        [Test]
-        public void EmptyPropertyTest_ReturnsNotNullPropertyDeserialized()
-        {
-            Assert.IsNotNull(Json.Deserialize<BasicJson>("{ \"\": \"value\" }"));
-        }
-
-        [Test]
-        public void ObjectWithArrayWithData_ReturnsObjectWithArrayWithDataDeserialized()
-        {
-            var data = Json.Deserialize<ArrayJsonWithInitialData>("{\"Id\": 2,\"Properties\": [\"THREE\"]}");
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(2, data.Id);
-            Assert.AreEqual(1, data.Properties.Length);
-        }
-
-        [Test]
-        public void WithJsonProperty_ReturnsPropertiesSerialized()
-        {
-            var obj = new JsonPropertySample() { Data = "OK", IgnoredData = "OK" };
-            var data = Json.Serialize(obj);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual("{\"data\": \"OK\"}", data);
-
-            var objDeserialized = Json.Deserialize<JsonPropertySample>(data);
-
-            Assert.IsNotNull(objDeserialized);
-            Assert.AreEqual(obj.Data, objDeserialized.Data);
-        }
-
-        [Test]
-        public void WithStructure_ReturnsStructureSerialized()
-        {
-            var result = new SampleStruct { Value = 1, Name = "A" };
-            var data = Json.Serialize(result);
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Value\": 1,\"Name\": \"A\"}", data);
-        }
-
-        [Test]
-        public void WithStructureArray_ReturnsStructureArrayDeserialized()
-        {
-            var data = Json.Deserialize<SampleStruct>("{\"Value\": 1,\"Name\": \"A\"}");
-
-            Assert.IsNotNull(data);
-            Assert.AreEqual(data.Value, 1);
-            Assert.AreEqual(data.Name, "A");
-        }
-
-        [Test]
-        public void WithStructure_ReturnsStructureDeserialized()
-        {
-            var data = Json.Deserialize<SampleStruct[]>(ArrayStruct);
-
-            Assert.IsNotNull(data);
-            Assert.IsTrue(data.Any());
-            Assert.AreEqual(data.First().Value, 1);
-            Assert.AreEqual(data.First().Name, "A");
-        }
-
-        [Test]
-        public void EmptyClass_ReturnsEmptyClassDeserialized()
-        {
-            var data = Json.Deserialize<EmptyJson>("{ }");
-
-            Assert.IsNotNull(data);
         }
     }
 
@@ -355,6 +194,172 @@ namespace Unosquare.Swan.Test.JsonTests
 
             Assert.IsNotNull(data);
             Assert.AreEqual("{ }", data);
+        }
+
+        [Test]
+        public void WithStructure_ReturnsStructureSerialized()
+        {
+            var result = new SampleStruct { Value = 1, Name = "A" };
+            var data = Json.Serialize(result);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"A\"}", data);
+        }
+    }
+
+    [TestFixture]
+    public class Deserialize : JsonTest
+    {
+        [Test]
+        public void BasicObject_ReturnsObjectDeserialized()
+        {
+            var obj = Json.Deserialize<BasicJson>(BasicStr);
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
+            Assert.AreEqual(obj.IntData, BasicJson.GetDefault().IntData);
+            Assert.AreEqual(obj.NegativeInt, BasicJson.GetDefault().NegativeInt);
+            Assert.AreEqual(obj.BoolData, BasicJson.GetDefault().BoolData);
+            Assert.AreEqual(obj.DecimalData, BasicJson.GetDefault().DecimalData);
+            Assert.AreEqual(obj.StringNull, BasicJson.GetDefault().StringNull);
+        }
+
+        [Test]
+        public void BasicArray_ReturnsArrayDeserialized()
+        {
+            var arr = Json.Deserialize<List<string>>(_basicAStr);
+
+            Assert.IsNotNull(arr);
+            Assert.AreEqual(string.Join(",", _basicArray), string.Join(",", arr));
+        }
+
+        [Test]
+        public void BasicObjectWithArray_ReturnsBasicObjectWithArrayDeserialized()
+        {
+            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_basicAObj.Id, data.Id);
+            Assert.IsNotNull(data.Properties);
+            Assert.AreEqual(string.Join(",", _basicAObj.Properties), string.Join(",", data.Properties));
+        }
+
+        [Test]
+        public void ArrayOfObjects_ReturnsArrayOfObjectsDeserialized()
+        {
+            var data = Json.Deserialize<List<ExtendedPropertyInfo>>(_basicAObjStr);
+
+            Assert.IsNotNull(data);
+        }
+
+        [Test]
+        public void AdvObject_ReturnsAdvObjectDeserialized()
+        {
+            var data = Json.Deserialize<AdvJson>(AdvStr);
+
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.InnerChild);
+
+            foreach (var obj in new[] { data, data.InnerChild })
+            {
+                Assert.AreEqual(obj.StringData, AdvObj.StringData);
+                Assert.AreEqual(obj.IntData, AdvObj.IntData);
+                Assert.AreEqual(obj.NegativeInt, AdvObj.NegativeInt);
+                Assert.AreEqual(obj.BoolData, AdvObj.BoolData);
+                Assert.AreEqual(obj.DecimalData, AdvObj.DecimalData);
+                Assert.AreEqual(obj.StringNull, AdvObj.StringNull);
+            }
+        }
+
+        [Test]
+        public void AdvObjectArray_ReturnsAdvObjectArray()
+        {
+            var data = Json.Deserialize<AdvArrayJson>(_advAStr);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(_basicAObj.Id, data.Id);
+            Assert.IsNotNull(data.Properties);
+
+            foreach (var obj in data.Properties)
+            {
+                Assert.AreEqual(obj.StringData, AdvObj.StringData);
+                Assert.AreEqual(obj.IntData, AdvObj.IntData);
+                Assert.AreEqual(obj.NegativeInt, AdvObj.NegativeInt);
+                Assert.AreEqual(obj.BoolData, AdvObj.BoolData);
+                Assert.AreEqual(obj.DecimalData, AdvObj.DecimalData);
+                Assert.AreEqual(obj.StringNull, AdvObj.StringNull);
+            }
+        }
+        
+        public void EmptyString_ReturnsNull()
+        {
+            Assert.IsNull(Json.Deserialize(string.Empty));
+        }
+
+        [Test]
+        public void EmptyStringWithTypeParam_ReturnsNull()
+        {
+            Assert.IsNull(Json.Deserialize<BasicJson>(string.Empty));
+        }
+
+        [Test]
+        public void EmptyPropertyTest_ReturnsNotNullPropertyDeserialized()
+        {
+            Assert.IsNotNull(Json.Deserialize<BasicJson>("{ \"\": \"value\" }"));
+        }
+
+        [Test]
+        public void ObjectWithArrayWithData_ReturnsObjectWithArrayWithDataDeserialized()
+        {
+            var data = Json.Deserialize<ArrayJsonWithInitialData>("{\"Id\": 2,\"Properties\": [\"THREE\"]}");
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(2, data.Id);
+            Assert.AreEqual(1, data.Properties.Length);
+        }
+
+        [Test]
+        public void WithJsonProperty_ReturnsPropertiesDeserialized()
+        {
+            var obj = new JsonPropertySample() { Data = "OK", IgnoredData = "OK" };
+            var data = Json.Serialize(obj);
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual("{\"data\": \"OK\"}", data);
+
+            var objDeserialized = Json.Deserialize<JsonPropertySample>(data);
+
+            Assert.IsNotNull(objDeserialized);
+            Assert.AreEqual(obj.Data, objDeserialized.Data);
+        }
+
+        [Test]
+        public void WithStructureArray_ReturnsStructureArrayDeserialized()
+        {
+            var data = Json.Deserialize<SampleStruct>("{\"Value\": 1,\"Name\": \"A\"}");
+
+            Assert.IsNotNull(data);
+            Assert.AreEqual(data.Value, 1);
+            Assert.AreEqual(data.Name, "A");
+        }
+
+        [Test]
+        public void WithStructure_ReturnsStructureDeserialized()
+        {
+            var data = Json.Deserialize<SampleStruct[]>(ArrayStruct);
+
+            Assert.IsNotNull(data);
+            Assert.IsTrue(data.Any());
+            Assert.AreEqual(data.First().Value, 1);
+            Assert.AreEqual(data.First().Name, "A");
+        }
+
+        [Test]
+        public void EmptyClass_ReturnsEmptyClassDeserialized()
+        {
+            var data = Json.Deserialize<EmptyJson>("{ }");
+
+            Assert.IsNotNull(data);
         }
     }
 
