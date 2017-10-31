@@ -89,9 +89,8 @@ namespace Unosquare.Swan.Test.ExtensionsDatesTests
         public void GivingADate_ConvertItIntoTicks()
         {
             var date = new DateTime(2017, 10, 27);
-            var expectedTicks = 1509062400;
-
-            Assert.AreEqual(expectedTicks, date.ToUnixEpochDate());
+            
+            Assert.AreEqual(1509062400, date.ToUnixEpochDate());
         }
     }    
 }

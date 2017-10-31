@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Unosquare.Swan.Networking;
 
 namespace Unosquare.Swan.Test
 {
@@ -11,11 +8,11 @@ namespace Unosquare.Swan.Test
     public class ExtensionsExceptionMessageTest
     {
         [Test]
-        public async Task ExceptionMessageTest()
+        public void ExceptionMessageTest()
         {
             try
             {
-                await JsonClient.GetString("https://accesscore.azurewebsites.net/api/token");
+                throw new Exception("Random message");
             }
             catch(Exception ex)
             {

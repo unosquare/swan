@@ -1,11 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Threading;
-using System.Threading.Tasks;
 using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
@@ -39,7 +33,7 @@ namespace Unosquare.Swan.Test.EnumHelperTest
         public void WithInvalidType_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() =>
-                EnumHelper.GetItemsWithIndex<String>()
+                EnumHelper.GetItemsWithIndex<string>()
             );
         }
     }
@@ -62,7 +56,7 @@ namespace Unosquare.Swan.Test.EnumHelperTest
         public void WithInvalidType_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() =>
-                EnumHelper.GetItemsWithValue<String>()
+                EnumHelper.GetItemsWithValue<string>()
             );
         }
 
