@@ -76,7 +76,7 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
         [Test]
         public void NotNullDictionary_DoesForEach()
         {
-            Dictionary<int, int> originalDictionary = new Dictionary<int, int>()
+            var originalDictionary = new Dictionary<int, int>()
             {
                 {1, 2},
                 {2, 2},
@@ -84,15 +84,15 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
                 {4, 2},
             };
 
-            Dictionary<int, int> copyDictionary = new Dictionary<int, int>()
+            var copyDictionary = new Dictionary<int, int>()
             {
                 {1, 2},
                 {2, 2},
                 {3, 2},
                 {4, 2},
-            };
+             };
 
-            Dictionary<int, int> expectedDictionary = new Dictionary<int, int>()
+            var expectedDictionary = new Dictionary<int, int>()
             {
                 {1, 3},
                 {2, 3},
