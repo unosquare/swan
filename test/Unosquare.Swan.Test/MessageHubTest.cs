@@ -12,6 +12,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
     {
         protected object nullSender = null;
         protected object sender = "alexey.turlapov@unosquare.com";
+        protected bool cancel;
     }
 
     [TestFixture]
@@ -37,6 +38,22 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
         }
+    }
+
+    [TestFixture]
+    public class MessageHubCancellableGenericMessageConstructor : MessageHubTest
+    {
+        [Test]
+        public void NullCancel_ThrowsArgumentNullException()
+        {
+            var content = new SimpleMessageMock(this, "Unosquare Américas");
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var message = new MessageHubCancellableGenericMessage<string>(sender, content.Content, null);
+            });
+        }
+
     }
 
     [TestFixture]
