@@ -1,22 +1,47 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Unosquare.Swan.Components;
 using Unosquare.Swan.Test.Mocks;
 
-namespace Unosquare.Swan.Test
+namespace Unosquare.Swan.Test.MessageHubTests
 {
+    public abstract class MessageHubTest
+    {
+        protected object nullSender = null;
+        protected string content = "Armando Cifuentes González";
+    }
+
     [TestFixture]
-    public class MessageHubTest
+    public class MessageHubMessageBaseConstructor : MessageHubTest
     {
         [Test]
-        public void GetMessageHubTest()
+        public void NullSender_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var aux = new MessageHubGenericMessage<string>(nullSender, content);
+            });
+        }
+    }
+
+    [TestFixture]
+    public class Messages : MessageHubTest
+    {
+        [Test]
+        public void GetMessagesHub_ReturnsMessage()
         {
             Assert.IsNotNull(Runtime.Messages);
         }
+    }
 
+    [TestFixture]
+    public class SendMessage : MessageHubTest
+    {
         [Test]
-        public void SendMessageTest()
+        public void PublishMessage_ReturnsSuccess()
         {
             var messages = new List<SimpleMessageMock>();
 
@@ -35,9 +60,9 @@ namespace Unosquare.Swan.Test
             Runtime.Messages.Publish(message);
             Assert.IsFalse(messages.Skip(1).Any());
         }
-        
+
         [Test]
-        public async Task SendMessageAsyncTest()
+        public async Task PublishMessageAsync_ReturnsSuccess()
         {
             var messages = new List<SimpleMessageMock>();
 
