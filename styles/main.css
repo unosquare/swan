@@ -18,13 +18,19 @@ nav {
     top: 190px !important;
 }
 
+.doc-logo {
+    padding-top: 15px;
+    width: 64px;
+    height: 64px;
+}
+
 .navbar-brand img{
     height: 40px !important;
 }
 
 .doc {
     position: fixed !important;
-    width: 140px;
+    width: 120px;
     height: 60px;
 }
 
