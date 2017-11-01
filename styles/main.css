@@ -36,3 +36,7 @@ nav {
 .sideaffix {
     margin-top: 80px;
 }
+
+div#toc li {
+    padding-bottom: 6px;
+ }

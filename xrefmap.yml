@@ -3531,12 +3531,6 @@ references:
   commentId: Overload:Unosquare.Swan.Definitions.AllNumericValueTypes
   fullName: Unosquare.Swan.Definitions.AllNumericValueTypes
   nameWithType: Definitions.AllNumericValueTypes
-- uid: Unosquare.Swan.Definitions.BasicTypesInfo
-  name: BasicTypesInfo
-  href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_BasicTypesInfo
-  commentId: F:Unosquare.Swan.Definitions.BasicTypesInfo
-  fullName: Unosquare.Swan.Definitions.BasicTypesInfo
-  nameWithType: Definitions.BasicTypesInfo
 - uid: Unosquare.Swan.Definitions.CurrentAnsiEncoding
   name: CurrentAnsiEncoding
   href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_CurrentAnsiEncoding
