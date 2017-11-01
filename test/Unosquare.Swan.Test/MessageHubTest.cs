@@ -24,11 +24,19 @@ namespace Unosquare.Swan.Test.MessageHubTests
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var aux = new MessageHubGenericMessage<string>(nullSender, content.Content);
+                var message = new MessageHubGenericMessage<string>(nullSender, content.Content);
             });
         }
 
-        
+        [Test]
+        public void NotNullSender_ReturnsSuccess()
+        {
+            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            var message = new MessageHubGenericMessage<string>(sender, content.Content);
+
+            Assert.IsNotNull(message.Sender);
+            Assert.IsNotNull(message.Content);
+        }
     }
 
     [TestFixture]
