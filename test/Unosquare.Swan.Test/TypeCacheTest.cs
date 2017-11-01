@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Unosquare.Swan.Reflection;
 
 namespace Unosquare.Swan.Test.TypeCacheTest
@@ -26,7 +25,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithInvalidType_ReturnsFalse()
         {
             var contains = TypeCache.Contains<string>();
-            
+
             Assert.IsFalse(contains);
         }
     }
@@ -37,13 +36,8 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         [Test]
         public void WithFactoryReturnsNull_ThrowsKeyNotFoundException()
         {
-            PropertyInfo[] properties;
-
             Assert.Throws<KeyNotFoundException>(() =>
-                properties = TypeCache.Retrieve(typeof(String), () =>
-                {
-                    return null;
-                })
+                TypeCache.Retrieve(typeof(string), () => null)
             );
         }
 
@@ -51,9 +45,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Retrieve(null, () => {
-                    return null;
-                } )
+                TypeCache.Retrieve(null, () => null)
             );
         }
 
@@ -61,7 +53,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithNullFactory_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Retrieve(typeof(String), null)
+                TypeCache.Retrieve(typeof(string), null)
             );
         }
     }
@@ -71,7 +63,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         [Test]
         public void WithNullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => 
+            Assert.Throws<ArgumentNullException>(() =>
                 PropertyTypeCache.GetAllPropertiesFunc(null)
             );
         }
@@ -98,5 +90,4 @@ namespace Unosquare.Swan.Test.TypeCacheTest
             );
         }
     }
-
 }
