@@ -229,7 +229,7 @@
 
                 // Iterate through the elements and output recursively
                 var writeCount = 0;
-                foreach (KeyValuePair<object, object> entry in items)
+                foreach (DictionaryEntry entry in items)
                 {
                     // Serialize and append the key
                     Append(
