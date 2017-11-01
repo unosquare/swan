@@ -20,13 +20,15 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void NullSender_ThrowsArgumentNullException()
         {
-            var content = new SimpleMessageMock(this, "UnoSquare Américas");
+            var content = new SimpleMessageMock(this, "Unosquare Américas");
 
             Assert.Throws<ArgumentNullException>(() =>
             {
                 var aux = new MessageHubGenericMessage<string>(nullSender, content.Content);
             });
         }
+
+        
     }
 
     [TestFixture]
