@@ -22,6 +22,9 @@
         /// Gets the instance that this singleton represents.
         /// If the instance is null, it is constructed and assigned when this member is accessed.
         /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
         public static T Instance => LazyInstance.Value;
 
         /// <summary>

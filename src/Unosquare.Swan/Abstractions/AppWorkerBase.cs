@@ -99,6 +99,9 @@
         /// Gets the state of the application service.
         /// In other words, useful to know whether the service is running.
         /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
         public AppWorkerState State
         {
             get => _workerState;
@@ -122,11 +125,17 @@
         /// <summary>
         /// Gets the cancellation token.
         /// </summary>
+        /// <value>
+        /// The cancellation token.
+        /// </value>
         public CancellationToken CancellationToken => _tokenSource?.Token ?? default(CancellationToken);
 
         /// <summary>
         /// Gets a value indicating whether the thread is busy
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is busy; otherwise, <c>false</c>.
+        /// </value>
         public bool IsBusy { get; private set; }
 
         #endregion

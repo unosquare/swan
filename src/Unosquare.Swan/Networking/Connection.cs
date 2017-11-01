@@ -179,6 +179,9 @@ namespace Unosquare.Swan.Networking
         /// <summary>
         /// Gets the start time at which the connection was started in local time.
         /// </summary>
+        /// <value>
+        /// The connection start time.
+        /// </value>
         public DateTime ConnectionStartTime => ConnectionStartTimeUtc.ToLocalTime();
 
         /// <summary>
