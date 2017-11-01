@@ -26,13 +26,13 @@
     ],
     "resource": [
       {
-        "files": [ "best-practices/resources/**", "swan-logo-32.png"]
+        "files": [ "best-practices/resources/**", "swan-logo-256.png"]
       }
     ],
     "globalMetadata": {
       "_appTitle": "Unosquare SWAN",
       "_enableSearch": true,
-      "_docLogo":  "swan-logo-32.png",
+      "_docLogo":  "swan-logo-256.png",
       "_appLogoPath": "best-practices/resources/images/logo.png"
     },
     "dest": "_site"
