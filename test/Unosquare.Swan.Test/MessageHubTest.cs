@@ -11,7 +11,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
     public abstract class MessageHubTest
     {
         protected object nullSender = null;
-        protected string content = "Armando Cifuentes González";
+        protected object sender = "alexey.turlapov@unosquare.com";
     }
 
     [TestFixture]
@@ -20,9 +20,11 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void NullSender_ThrowsArgumentNullException()
         {
+            var content = new SimpleMessageMock(this, "UnoSquare Américas");
+
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var aux = new MessageHubGenericMessage<string>(nullSender, content);
+                var aux = new MessageHubGenericMessage<string>(nullSender, content.Content);
             });
         }
     }
