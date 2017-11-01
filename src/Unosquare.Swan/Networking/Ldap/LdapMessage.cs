@@ -158,7 +158,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     the tag associated with the corresponding server request is used.
         /// </summary>
         /// <returns>
-        ///     the identifier associated with this message or <code>null</code>
+        ///     the identifier associated with this message or null
         ///     if none.
         /// </returns>
         /// <summary>

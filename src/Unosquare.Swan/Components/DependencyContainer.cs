@@ -485,7 +485,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="RegisterType">Type to unregister</typeparam>
         /// <param name="name">Name of registration</param>
-        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
+        /// <returns><c>true</c> if the registration is successfully found and removed; otherwise, <c>false</c>.</returns>
         public bool Unregister<RegisterType>(string name = "")
         {
             return Unregister(typeof(RegisterType), name);
@@ -496,7 +496,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="registerType">Type to unregister</param>
         /// <param name="name">Name of registration</param>
-        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
+        /// <returns><c>true</c> if the registration is successfully found and removed; otherwise, <c>false</c>.</returns>
         public bool Unregister(Type registerType, string name = "")
         {
             var typeRegistration = new TypeRegistration(registerType, name);
@@ -680,7 +680,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, out object resolvedType)
         {
             try
@@ -701,7 +701,7 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -722,7 +722,7 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, out object resolvedType)
         {
             try
@@ -744,7 +744,7 @@ namespace Unosquare.Swan.Components
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -765,7 +765,7 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, Dictionary<string, object> parameters, out object resolvedType)
         {
             try
@@ -787,7 +787,7 @@ namespace Unosquare.Swan.Components
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, Dictionary<string, object> parameters, out object resolvedType)
         {
             try
@@ -809,7 +809,7 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -832,7 +832,7 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -852,7 +852,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(out ResolveType resolvedType)
             where ResolveType : class
         {
@@ -874,7 +874,7 @@ namespace Unosquare.Swan.Components
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(DependencyContainerResolveOptions options, out ResolveType resolvedType)
             where ResolveType : class
         {
@@ -896,7 +896,7 @@ namespace Unosquare.Swan.Components
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, out ResolveType resolvedType)
             where ResolveType : class
         {
@@ -919,7 +919,7 @@ namespace Unosquare.Swan.Components
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, DependencyContainerResolveOptions options, out ResolveType resolvedType)
             where ResolveType : class
         {
@@ -941,7 +941,7 @@ namespace Unosquare.Swan.Components
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(Dictionary<string, object> parameters, out ResolveType resolvedType)
             where ResolveType : class
         {
@@ -964,7 +964,7 @@ namespace Unosquare.Swan.Components
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, Dictionary<string, object> parameters, out ResolveType resolvedType)
             where ResolveType : class
         {
@@ -987,7 +987,7 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out ResolveType resolvedType)
             where ResolveType : class
         {
@@ -1011,7 +1011,7 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out ResolveType resolvedType)
             where ResolveType : class
         {

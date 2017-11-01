@@ -11,7 +11,7 @@
     /// Provides extended information about a type.
     /// 
     /// This class is mainly used to define sets of types within the Constants class
-    /// and it is not meant for other than querying the VasicTypesInfo dictionary.
+    /// and it is not meant for other than querying the BasicTypesInfo dictionary.
     /// </summary>
     public class ExtendedTypeInfo
     {
@@ -52,10 +52,7 @@
         /// <param name="t">The t.</param>
         public ExtendedTypeInfo(Type t)
         {
-            if (t == null)
-                throw new ArgumentNullException(nameof(t));
-
-            Type = t;
+            Type = t ?? throw new ArgumentNullException(nameof(t));
             IsNullableValueType = Type.GetTypeInfo().IsGenericType
                 && Type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
@@ -105,16 +102,25 @@
         /// <summary>
         /// Gets the type this extended info class provides for.
         /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
         public Type Type { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type is a nullable value type.
         /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is nullable value type; otherwise, <c>false</c>.
+        /// </value>
         public bool IsNullableValueType { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type or underlying type is numeric.
         /// </summary>
+        /// <value>
+        ///  <c>true</c> if this instance is numeric; otherwise, <c>false</c>.
+        /// </value>
         public bool IsNumeric { get; }
 
         /// <summary>
@@ -128,23 +134,35 @@
         /// return the underlying value type of the nullable,
         /// Otherwise it will return the same type as the Type property
         /// </summary>
+        /// <value>
+        /// The type of the underlying.
+        /// </value>
         public Type UnderlyingType { get; }
 
         /// <summary>
         /// Gets the try parse method information. If the type does not contain
         /// a suitable TryParse static method, it will return null.
         /// </summary>
+        /// <value>
+        /// The try parse method information.
+        /// </value>
         public MethodInfo TryParseMethodInfo { get; }
 
         /// <summary>
         /// Gets the ToString method info
         /// It will prefer the overload containing the IFormatProvider argument
         /// </summary>
+        /// <value>
+        /// To string method information.
+        /// </value>
         public MethodInfo ToStringMethodInfo { get; }
 
         /// <summary>
         /// Gets a value indicating whether the type contains a suitable TryParse method.
         /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance can parse natively; otherwise, <c>false</c>.
+        /// </value>
         public bool CanParseNatively => TryParseMethodInfo != null;
 
         #endregion
@@ -155,9 +173,9 @@
         /// Gets the default value of this type. For reference types it return null.
         /// For value types it returns the default value.
         /// </summary>
-        /// <returns> Default value of this type</returns>
+        /// <returns>Default value of this type</returns>
         public object GetDefault() => Type.GetTypeInfo().IsValueType ? Activator.CreateInstance(Type) : null;
-        
+
         /// <summary>
         /// Tries to parse the string into an object of the type this instance represents.
         /// Returns false when no suitable TryParse methods exists for the type or when parsing fails
@@ -165,7 +183,7 @@
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="result">The result.</param>
-        /// <returns>True if parse was converted successfully; otherwise, false</returns>
+        /// <returns><c>true</c> if parse was converted successfully; otherwise, <c>false</c>.</returns>
         public bool TryParse(string s, out object result)
         {
             result = GetDefault();

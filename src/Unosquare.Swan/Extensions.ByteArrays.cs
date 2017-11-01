@@ -284,7 +284,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>True if the specified buffer starts; otherwise, false.</returns>
+        /// <returns><c>true</c> if the specified buffer starts; otherwise, <c>false</c>.</returns>
         public static bool StartsWith(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) == 0;
 
         /// <summary>

@@ -333,7 +333,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public string[] Extensions { get; private set; }
 
         /// <summary>
-        ///     Returns the search filter or <code>null</code> if none was specified.
+        ///     Returns the search filter or null if none was specified.
         /// </summary>
         /// <returns>
         ///     The search filter.
