@@ -6684,18 +6684,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add
   nameWithType: LdapAttributeSet.Add
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  name: Clear()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear()
-  nameWithType: LdapAttributeSet.Clear()
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear*
-  name: Clear
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  nameWithType: LdapAttributeSet.Clear
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone
   name: Clone()
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone
@@ -6720,18 +6708,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains
   nameWithType: LdapAttributeSet.Contains
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  name: Count
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  nameWithType: LdapAttributeSet.Count
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count*
-  name: Count
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  nameWithType: LdapAttributeSet.Count
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)
   name: GetAttribute(String)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_
@@ -6774,18 +6750,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset
   nameWithType: LdapAttributeSet.GetSubset
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  name: IsEmpty()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty()
-  nameWithType: LdapAttributeSet.IsEmpty()
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty*
-  name: IsEmpty
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  nameWithType: LdapAttributeSet.IsEmpty
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)
   name: Remove(Object)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_
