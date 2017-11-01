@@ -589,7 +589,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
         public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct)
         {
             var buffer = await ReadDataAsync(timeout, ct);
@@ -750,7 +750,7 @@ namespace Unosquare.Swan.Networking
         /// Upgrades the active stream to an SSL stream if this connection object is hosted in the server.
         /// </summary>
         /// <param name="serverCertificate">The server certificate.</param>
-        /// <returns>True if the object is hosted in the server; otherwise, false</returns>
+        /// <returns><c>true</c> if the object is hosted in the server; otherwise, <c>false</c>.</returns>
         public async Task<bool> UpgradeToSecureAsServerAsync(X509Certificate2 serverCertificate)
         {
             if (IsActiveStreamSecure)

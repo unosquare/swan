@@ -277,7 +277,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Builds a new request using the data from the this object.
         /// </summary>
-        /// <returns>A string</returns>
+        /// <returns>A <see cref="System.String" /></returns>
         string GetRequestDN();
     }
     

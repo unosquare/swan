@@ -246,7 +246,7 @@
         /// IFormat provider if the overload is available
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public string ToStringInvariant(object instance)
         {
             if (instance == null)
@@ -286,7 +286,7 @@
         /// IFormat provider if the overload is available
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public string ToStringInvariant(T instance) => base.ToStringInvariant(instance);
     }
 }

@@ -56,7 +56,7 @@
         /// <param name="includeNonPublic">if set to <c>true</c> non-public getters will be also read.</param>
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string Serialize(
             object obj,
             bool format = false,
@@ -85,7 +85,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="includeNames">The include names.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, includeNames, null, true);
@@ -97,7 +97,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="excludeNames">The exclude names.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false);

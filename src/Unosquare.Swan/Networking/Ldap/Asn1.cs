@@ -466,8 +466,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Returns the content of this Asn1OctetString as a String.
         /// </summary>
-        /// <returns>String</returns>
-        /// <exception cref="Exception">IO Exception</exception>
+        /// <returns>A <see cref="System.String" /></returns>
         public string StringValue() => Encoding.UTF8.GetString(_content);
 
         /// <summary>
