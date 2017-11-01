@@ -13,8 +13,6 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 // ===============================================================================
 
-#define USE_OBJECT_CONSTRUCTOR
-
 namespace Unosquare.Swan.Components
 {
     using System;
@@ -1471,10 +1469,8 @@ namespace Unosquare.Swan.Components
 
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
         private delegate object ObjectConstructor(params object[] parameters);
-#if USE_OBJECT_CONSTRUCTOR
         private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache
             = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
-#endif
         #endregion
 
         /// <summary>
@@ -1842,7 +1838,11 @@ namespace Unosquare.Swan.Components
             return type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
         }
         
-        private object ConstructType(Type implementationType, ConstructorInfo constructor, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
+        private object ConstructType(
+            Type implementationType, 
+            ConstructorInfo constructor, 
+            Dictionary<string, object> parameters, 
+            DependencyContainerResolveOptions options = null)
         {
             var typeToConstruct = implementationType;
 
@@ -1886,20 +1886,15 @@ namespace Unosquare.Swan.Components
 
             try
             {
-#if USE_OBJECT_CONSTRUCTOR
                 var constructionDelegate = CreateObjectConstructionDelegateWithCache(constructor);
                 return constructionDelegate.Invoke(args);
-#else
-                return constructor.Invoke(args);
-#endif
             }
             catch (Exception ex)
             {
                 throw new DependencyContainerResolutionException(typeToConstruct, ex);
             }
         }
-
-#if USE_OBJECT_CONSTRUCTOR
+        
         private static ObjectConstructor CreateObjectConstructionDelegateWithCache(ConstructorInfo constructor)
         {
             if (ObjectConstructorCache.TryGetValue(constructor, out var objectConstructor))
@@ -1929,7 +1924,6 @@ namespace Unosquare.Swan.Components
             ObjectConstructorCache[constructor] = objectConstructor;
             return objectConstructor;
         }
-#endif
 
         private static bool IsValidAssignment(Type registerType, Type registerImplementation)
         {

@@ -2,7 +2,7 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
     using System.Text;
     using Exceptions;
 
@@ -915,15 +915,14 @@ namespace Unosquare.Swan.Networking.Ldap
     /// existing Vector class so that it can be used to maintain a
     /// list of currently registered control responses.
     /// </summary>
-    /// <seealso cref="System.Collections.ArrayList" />
-    internal sealed class RespControlVector : ArrayList
+    internal class RespControlVector : List<RespControlVector.RegisteredControl>
     {
         /// <summary>
-        ///     Inner class defined to create a temporary object to encapsulate
-        ///     all registration information about a response control.  This class
-        ///     cannot be used outside this class
+        /// Inner class defined to create a temporary object to encapsulate
+        /// all registration information about a response control.  This class
+        /// cannot be used outside this class
         /// </summary>
-        private class RegisteredControl
+        internal class RegisteredControl
         {
             public RegisteredControl(RespControlVector enclosingInstance, string oid, Type controlClass)
             {
