@@ -65,7 +65,33 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
         }
+    }
 
+    [TestFixture]
+    public class MessageHubSubscriptionTokenConstructor : MessageHubTest
+    {
+        [Test]
+        public void NullHub_ThrowsArgumentNullException()
+        {
+            var message = "Hello, World!";
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var result = new MessageHubSubscriptionToken(null, message.GetType());
+            });
+        }
+
+        [Test]
+        public void MessageType_ThrowsArgumentOutOfRangeException()
+        {
+            var hub = new MessageHub();
+            var message = "Hello, World!";
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                var result = new MessageHubSubscriptionToken(hub, message.GetType());
+            });
+        }
     }
 
     [TestFixture]
