@@ -50,24 +50,27 @@ namespace Unosquare.Swan.Test.NetworkTests
             {
                 var record = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
                 var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
-                
+
                 Assert.AreNotEqual(records.Id, record.Id, $"Id, Testing with {dnsRecordType}");
                 Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");
                 Assert.IsFalse(records.IsTruncated, $"IsTruncated, Testing with {dnsRecordType}");
                 Assert.IsTrue(records.IsRecursionAvailable, $"IsRecursionAvailable, Testing with {dnsRecordType}");
-                Assert.AreEqual("Query", records.OperationCode.ToString(), $"OperationCode, Testing with {dnsRecordType}");
-                Assert.AreEqual(DnsResponseCode.NoError, records.ResponseCode, $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
-                Assert.AreEqual(answerRecords, records.AnswerRecords.Any(), $"AnswerRecords, Testing with {dnsRecordType}");
+                Assert.AreEqual("Query", records.OperationCode.ToString(),
+                    $"OperationCode, Testing with {dnsRecordType}");
+                Assert.AreEqual(DnsResponseCode.NoError, records.ResponseCode,
+                    $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
+                Assert.AreEqual(answerRecords, records.AnswerRecords.Any(),
+                    $"AnswerRecords, Testing with {dnsRecordType}");
                 //Assert.AreEqual(additionalRecords, records.AdditionalRecords.Any(), $"AdditionalRecords, Testing with {dnsRecordType}");
             }
         }
-        
+
         [Test]
         public void WithNullFqdn_ReturnsQueryDns()
         {
-            if(Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
-            
+
             Assert.Throws<ArgumentNullException>(() =>
             {
                 Network.QueryDns(null, DnsRecordType.TXT);
@@ -117,7 +120,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithNullFqdn_ThrowsArgumentNullException()
         {
-            if(Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             Assert.Throws<ArgumentNullException>(() =>
