@@ -44,6 +44,7 @@ after_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
+            git clone -b documentation https://github.com/unosquare/best-practices.git
             docfx docfx.json --logLevel Error
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
