@@ -33,10 +33,14 @@ namespace Unosquare.Swan.Test.NetworkTests
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
 
-        [TestCase(DnsRecordType.MX)]
-        [TestCase(DnsRecordType.NS)]
-        [TestCase(DnsRecordType.CNAME)]
-        public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType)
+        [TestCase(DnsRecordType.TXT, true, true)]
+        [TestCase(DnsRecordType.MX, false, false)]
+        [TestCase(DnsRecordType.NS, false, false)]
+        [TestCase(DnsRecordType.SOA, false, false)]
+        [TestCase(DnsRecordType.SRV, false, false)]
+        [TestCase(DnsRecordType.WKS, false, false)]
+        [TestCase(DnsRecordType.CNAME, false, false)]
+        public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType, bool AnswerRecords, bool AdditionalRecords)
         {
             if (Runtime.OS != OperatingSystem.Windows)
             {
@@ -44,28 +48,20 @@ namespace Unosquare.Swan.Test.NetworkTests
             }
             else
             {
-                var mxRecord = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
-
-                Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode,
-                    $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
+                var record = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+                var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+                
+                Assert.AreNotEqual(records.Id, record.Id);
+                Assert.IsFalse(records.IsAuthoritativeServer);
+                Assert.IsFalse(records.IsTruncated);
+                Assert.IsTrue(records.IsRecursionAvailable);
+                Assert.AreEqual("Query", records.OperationCode.ToString());
+                Assert.AreEqual(DnsResponseCode.NoError, records.ResponseCode, $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
+                Assert.AreEqual(AnswerRecords, records.AnswerRecords.Any());
+                Assert.AreEqual(AdditionalRecords, records.AdditionalRecords.Any());
             }
         }
-
-        [Test]
-        public void ValidDnsAndTXTAsDnsRecordType_ReturnsQueryDns()
-        {
-            if (Runtime.OS != OperatingSystem.Windows)
-            {
-                Assert.Ignore("Ignored");
-            }
-            else
-            {
-                var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
-
-                Assert.IsTrue(txtRecords.AnswerRecords.Any());
-            }
-        }
-
+        
         [Test]
         public void WithNullFqdn_ReturnsQueryDns()
         {
