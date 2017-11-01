@@ -25,9 +25,9 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         [Test]
         public void WithInvalidType_ReturnsFalse()
         {
-            var arc = TypeCache.Contains<string>();
+            var contains = TypeCache.Contains<string>();
             
-            Assert.IsFalse(arc);
+            Assert.IsFalse(contains);
         }
     }
 
