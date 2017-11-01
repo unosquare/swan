@@ -349,6 +349,58 @@ Note: Resolution may still fail if user defined factory registrations fail to co
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve(Type, DependencyContainerResolveOptions)</h4>
+  <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the specified options.</p>
+<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanResolve(Type resolveType, DependencyContainerResolveOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">resolveType</span></td>
+        <td><p>Type to resolve</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>Bool indicating whether the type can be resolved</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_Collections_Generic_Dictionary_System_String_System_Object__Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.Collections.Generic.Dictionary{System.String,System.Object},Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;ResolveType&gt;(Dictionary&lt;String, Object&gt;, DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.</p>
 <p>Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -428,7 +480,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -495,6 +547,74 @@ All user supplied parameters must exist in at least one resolvable constructor o
   
   
   <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
+  <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;ResolveType&gt;(String, DependencyContainerResolveOptions)</h4>
+  <div class="markdown level1 summary"><p>Attempts to predict whether a given named type can be resolved with the specified options.</p>
+<p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(string name = null, DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name of registration</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.DependencyContainerResolveOptions.html">DependencyContainerResolveOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Resolution options</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>Bool indicating whether the type can be resolved</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">ResolveType</span></td>
+        <td><p>Type to resolve</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_DependencyContainer_CanResolve_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve*"></a>
   <h4 id="Unosquare_Swan_Components_DependencyContainer_CanResolve__1_Unosquare_Swan_Components_DependencyContainerResolveOptions_" data-uid="Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerResolveOptions)">CanResolve&lt;ResolveType&gt;(DependencyContainerResolveOptions)</h4>
   <div class="markdown level1 summary"><p>Attempts to predict whether a given type can be resolved with the specified options.</p>
 <p>Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.</p>
@@ -502,7 +622,7 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(DependencyContainerResolveOptions options = null)where ResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;ResolveType&gt;(DependencyContainerResolveOptions options)where ResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
