@@ -108,7 +108,7 @@
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="mibstring">The mibstring.</param>
-        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
         public static string GetString(IPEndPoint host, string mibstring)
         {
             var response = Get(host, mibstring);

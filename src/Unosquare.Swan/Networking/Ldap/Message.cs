@@ -49,7 +49,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         ///     Determines if there are more tokens to return from the source string
         /// </summary>
-        /// <returns>True or false, depending if there are more tokens</returns>
+        /// <returns><c>true</c> or false, depending if there are more tokens</returns>
         public bool HasMoreTokens() => elements.Count > 0;
 
         /// <summary>

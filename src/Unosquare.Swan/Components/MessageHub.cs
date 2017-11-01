@@ -182,7 +182,7 @@ namespace Unosquare.Swan.Components
         /// Whether delivery should be attempted.
         /// </summary>
         /// <param name="message">Message that may potentially be delivered.</param>
-        /// <returns>True - ok to send, False - should not attempt to send</returns>
+        /// <returns><c>true</c> - ok to send, False - should not attempt to send</returns>
         bool ShouldAttemptDelivery(IMessageHubMessage message);
 
         /// <summary>

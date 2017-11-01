@@ -132,7 +132,7 @@
             /// <param name="excludeProperties">The exclude properties.</param>
             /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
             /// <param name="parentReferences">The parent references.</param>
-            /// <returns>A string that represents the current object</returns>
+            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
             public static string Serialize(
                 object obj, 
                 int depth, 
@@ -358,7 +358,7 @@
             /// Gets the indent string given the depth.
             /// </summary>
             /// <param name="depth">The depth.</param>
-            /// <returns>A string that represents the current object</returns>
+            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
             private string GetIndentString(int depth)
             {
                 if (_format == false) return string.Empty;
@@ -394,7 +394,7 @@
             /// Escapes the specified string as a JSON string.
             /// </summary>
             /// <param name="str">The string to escape.</param>
-            /// <returns>A string that represents the current object</returns>
+            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
             private static string Escape(string str)
             {
                 if (string.IsNullOrEmpty(str))
