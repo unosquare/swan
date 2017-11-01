@@ -22,11 +22,11 @@ namespace Unosquare.Swan.Test.EnumHelperTest
         [Test]
         public void WithValidEnum_ReturnsTuple()
         {
-            var arc = EnumHelper.GetItemsWithIndex<MyEnum>();
+            var items = EnumHelper.GetItemsWithIndex<MyEnum>();
             
-            Assert.AreEqual(arc[0].ToString(), "(0, One)");
-            Assert.AreEqual(arc[1].ToString(), "(1, Two)");
-            Assert.AreEqual(arc[2].ToString(), "(2, Three)");
+            Assert.AreEqual(items[0].ToString(), "(0, One)");
+            Assert.AreEqual(items[1].ToString(), "(1, Two)");
+            Assert.AreEqual(items[2].ToString(), "(2, Three)");
         }
 
         [Test]
@@ -44,12 +44,12 @@ namespace Unosquare.Swan.Test.EnumHelperTest
         [Test]
         public void WithValidEnum_ReturnsTuple()
         {
-            var arc = EnumHelper.GetItemsWithValue<City>();
+            var items = EnumHelper.GetItemsWithValue<City>();
 
-            Assert.AreEqual(arc[0].ToString(), "(1, Stormwind)");
-            Assert.AreEqual(arc[1].ToString(), "(2, Suramar)");
-            Assert.AreEqual(arc[2].ToString(), "(3, Orgrimmar)");
-            Assert.AreEqual(arc[3].ToString(), "(4, Dalaran)");
+            Assert.AreEqual(items[0].ToString(), "(1, Stormwind)");
+            Assert.AreEqual(items[1].ToString(), "(2, Suramar)");
+            Assert.AreEqual(items[2].ToString(), "(3, Orgrimmar)");
+            Assert.AreEqual(items[3].ToString(), "(4, Dalaran)");
         }
 
         [Test]
