@@ -54,6 +54,18 @@ namespace Unosquare.Swan.Test.MessageHubTests
             });
         }
 
+        [Test]
+        public void ValidCancel_ReturnsSuccess()
+        {
+            Action act = () => cancel = true;
+            var content = new SimpleMessageMock(this, "Unosquare Américas");
+
+            var message = new MessageHubCancellableGenericMessage<string>(sender, content.Content, act);
+
+            Assert.IsNotNull(message.Sender);
+            Assert.IsNotNull(message.Content);
+        }
+
     }
 
     [TestFixture]
