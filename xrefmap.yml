@@ -1410,12 +1410,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, System.Collections.Generic.Dictionary(Of System.String, System.Object), System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.CanResolve(Type, Dictionary<String, Object>, String, DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.CanResolve(Type, Dictionary(Of String, Object), String, DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: CanResolve(Type, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.CanResolve(Type, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve*
   name: CanResolve
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_
@@ -1440,15 +1434,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String, System.Collections.Generic.Dictionary(Of System.String, System.Object), Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.CanResolve<ResolveType>(String, Dictionary<String, Object>, DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String, Dictionary(Of String, Object), DependencyContainerResolveOptions)
-- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name: CanResolve<ResolveType>(String, DependencyContainerResolveOptions)
-  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_
-  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  name.vb: CanResolve(Of ResolveType)(String, DependencyContainerResolveOptions)
-  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve<ResolveType>(System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
-  nameWithType: DependencyContainer.CanResolve<ResolveType>(String, DependencyContainerResolveOptions)
-  nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: CanResolve<ResolveType>(DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -3546,12 +3531,6 @@ references:
   commentId: Overload:Unosquare.Swan.Definitions.AllNumericValueTypes
   fullName: Unosquare.Swan.Definitions.AllNumericValueTypes
   nameWithType: Definitions.AllNumericValueTypes
-- uid: Unosquare.Swan.Definitions.BasicTypesInfo
-  name: BasicTypesInfo
-  href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_BasicTypesInfo
-  commentId: F:Unosquare.Swan.Definitions.BasicTypesInfo
-  fullName: Unosquare.Swan.Definitions.BasicTypesInfo
-  nameWithType: Definitions.BasicTypesInfo
 - uid: Unosquare.Swan.Definitions.CurrentAnsiEncoding
   name: CurrentAnsiEncoding
   href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_CurrentAnsiEncoding
@@ -6699,18 +6678,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add
   nameWithType: LdapAttributeSet.Add
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  name: Clear()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear()
-  nameWithType: LdapAttributeSet.Clear()
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear*
-  name: Clear
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
-  nameWithType: LdapAttributeSet.Clear
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone
   name: Clone()
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone
@@ -6735,18 +6702,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains
   nameWithType: LdapAttributeSet.Contains
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  name: Count
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  nameWithType: LdapAttributeSet.Count
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count*
-  name: Count
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
-  nameWithType: LdapAttributeSet.Count
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)
   name: GetAttribute(String)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_
@@ -6789,18 +6744,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset
   nameWithType: LdapAttributeSet.GetSubset
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  name: IsEmpty()
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty()
-  nameWithType: LdapAttributeSet.IsEmpty()
-- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty*
-  name: IsEmpty
-  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
-  nameWithType: LdapAttributeSet.IsEmpty
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)
   name: Remove(Object)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://bootswatch.com/readable/bootstrap.min.css">  
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
@@ -26,7 +27,7 @@
     <div id="wrapper">
       <header>
         
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+        <nav class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -37,7 +38,7 @@
               </button>
               
               <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
+                <img id="logo" class="logo" src="../best-practices/resources/images/logo.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -50,7 +51,7 @@
           </div>
         </nav>
         
-        <div class="subnav navbar navbar-default">
+        <div class="subnav navbar">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
@@ -121,7 +122,6 @@ your logger of choice.</p>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
-  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_LogMessageReceivedEventArgs_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class LogMessageReceivedEventArgs : EventArgs</code></pre>
@@ -229,7 +229,8 @@ your logger of choice.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The caller file path.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -255,7 +256,8 @@ your logger of choice.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td></td>
+        <td><p>The caller line number.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -281,7 +283,8 @@ your logger of choice.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The name of the caller member.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -308,7 +311,8 @@ Otherwise, it return null</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Exception</span></td>
-        <td></td>
+        <td><p>The exception.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -335,7 +339,8 @@ It could be an exception or anything else</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Object</span></td>
-        <td></td>
+        <td><p>The extended data.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -361,7 +366,8 @@ It could be an exception or anything else</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The message.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -388,7 +394,8 @@ It can be a combination as the enumeration is a set of bitwise flags</p>
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.LogMessageType.html">LogMessageType</a></td>
-        <td></td>
+        <td><p>The type of the message.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -414,7 +421,8 @@ It can be a combination as the enumeration is a set of bitwise flags</p>
     <tbody>
       <tr>
         <td><span class="xref">System.UInt64</span></td>
-        <td></td>
+        <td><p>The sequence.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -441,7 +449,8 @@ came from. This can come empty if the logger did not set it.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The source.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -467,7 +476,8 @@ came from. This can come empty if the logger did not set it.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.DateTime</span></td>
-        <td></td>
+        <td><p>The UTC date.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -479,6 +489,11 @@ came from. This can come empty if the logger did not set it.</p>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
+            <div class="doc" align="center">
+              <span class="small mobile-hide">
+                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
+              </span>
+            </div>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
@@ -500,7 +515,7 @@ came from. This can come empty if the logger did not set it.</p>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2017 <a href="https://www.unosquare.com">Unosquare</a></span>
           </div>
         </div>
       </footer>
