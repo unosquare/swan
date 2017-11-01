@@ -382,6 +382,65 @@ namespace Unosquare.Swan.Test.JsonTests
                 "{\r\n    \"StringData\": \"string\",\r\n    \"IntData\": 1,\r\n    \"NegativeInt\": -1\r\n}",
                 dataSerialized);
         }
+
+        [Test]
+        public void WithType_ReturnsString()
+        {
+            var dataSerialized = Json.SerializeOnly(typeof(string), true, null);
+
+            Assert.AreEqual("\"System.String\"", dataSerialized);
+        }
+
+        [Test]
+        public void WithEmptyEnumerable_ReturnsEmptyArrayLiteral()
+        {
+            var emptyEnumerable = Enumerable.Empty<int>();
+
+            var dataSerialized = Json.SerializeOnly(emptyEnumerable, true, null);
+
+            Assert.AreEqual("[ ]", dataSerialized);
+        }
+
+        [Test]
+        public void WithEmptyDictionary_ReturnsEmptyObjectLiteral()
+        {
+            var emptyDictionary = new Dictionary<string, string>();
+
+            var dataSerialized = Json.SerializeOnly(emptyDictionary, true, null);
+
+            Console.WriteLine(dataSerialized.Stringify());
+
+            Assert.AreEqual("{ }", dataSerialized);
+        }
+
+        [Test]
+        public void WithDictionaryOfDictionaries_ReturnsString()
+        {
+            string[] arrayString = {  };
+
+            var persons = new Dictionary<string, Dictionary<string, string>>
+                {
+                    { "Tyrande", new Dictionary<string, string> {  } },
+                    { "Jaina", new Dictionary<string, string> { { "Race", "Human" }, { "Affiliation", "Alliance" } } }
+                };
+
+            var dataSerialized = Json.SerializeOnly(persons, true, null);
+            
+            Assert.AreEqual("{\r\n    \"Tyrande\": { },\r\n    \"Jaina\": \r\n    {\r\n        \"Race\": \"Human\",\r\n        \"Affiliation\": \"Alliance\"\r\n    }\r\n}", dataSerialized);
+        }
+
+        [Test]
+        public void WithDictionaryOfArrays_ReturnsString()
+        {
+            string[] arrayString = { };
+
+            var wordDictionary =
+                new Dictionary<string, string[][]> { { "Horde Capitals", new[] { new string[] { } , new string[] {"Orgrimmar", "Thunder Bluff"} } } };
+
+            var dataSerialized = Json.SerializeOnly(wordDictionary, true, null);
+            
+            Assert.AreEqual("{\r\n    \"Horde Capitals\": \r\n    [\r\n        [ ],\r\n        [\r\n            \"Orgrimmar\",\r\n            \"Thunder Bluff\"\r\n        ]\r\n    ]\r\n}", dataSerialized);
+        }
     }
 
     [TestFixture]
