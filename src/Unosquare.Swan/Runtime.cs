@@ -93,6 +93,9 @@
         /// <summary>
         /// Gets the current Operating System.
         /// </summary>
+        /// <value>
+        /// The os.
+        /// </value>
         public static OperatingSystem OS
         {
             get
@@ -120,12 +123,18 @@
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
+        /// <value>
+        /// The process.
+        /// </value>
         public static Process Process => m_Process.Value;
 #endif
 
         /// <summary>
         /// Checks if this application (including version number) is the only instance currently running.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is the only instance; otherwise, <c>false</c>.
+        /// </value>
         public static bool IsTheOnlyInstance
         {
             get
@@ -164,6 +173,9 @@
         /// <summary>
         /// Gets a value indicating whether this application instance is using the Mono runtime.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is using mono runtime; otherwise, <c>false</c>.
+        /// </value>
         public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value ?? false;
 
         /// <summary>
@@ -188,11 +200,17 @@
         /// <summary>
         /// Gets the assembly that started the application.
         /// </summary>
+        /// <value>
+        /// The entry assembly.
+        /// </value>
         public static Assembly EntryAssembly => m_EntryAssembly.Value;
 
         /// <summary>
         /// Gets the name of the entry assembly.
         /// </summary>
+        /// <value>
+        /// The name of the entry assembly.
+        /// </value>
         public static AssemblyName EntryAssemblyName => m_EntryAssemblyName.Value;
 
         /// <summary>
@@ -203,6 +221,9 @@
         /// <summary>
         /// Gets the full path to the folder containing the assembly that started the application.
         /// </summary>
+        /// <value>
+        /// The entry assembly directory.
+        /// </value>
         public static string EntryAssemblyDirectory
         {
             get
@@ -216,22 +237,34 @@
         /// <summary>
         /// Gets the name of the company.
         /// </summary>
+        /// <value>
+        /// The name of the company.
+        /// </value>
         public static string CompanyName => m_CompanyName.Value;
 
         /// <summary>
         /// Gets the name of the product.
         /// </summary>
+        /// <value>
+        /// The name of the product.
+        /// </value>
         public static string ProductName => m_ProductName.Value;
 
         /// <summary>
         /// Gets the trademark.
         /// </summary>
+        /// <value>
+        /// The product trademark.
+        /// </value>
         public static string ProductTrademark => m_ProductTrademark.Value;
 #endif
 
         /// <summary>
         /// Gets a local storage path with a version
         /// </summary>
+        /// <value>
+        /// The local storage path.
+        /// </value>
         public static string LocalStoragePath
         {
             get
@@ -262,22 +295,34 @@
         /// <summary>
         /// Provides a simple IoC Container based on TinyIoC
         /// </summary>
+        /// <value>
+        /// The container.
+        /// </value>
         public static DependencyContainer Container => DependencyContainer.Current;
 
         /// <summary>
         /// Provides a Message Hub with the Publish/Subscribe pattern
         /// The implementation is based on TinyIoC Messenger
         /// </summary>
+        /// <value>
+        /// The messages.
+        /// </value>
         public static MessageHub Messages => Container.Resolve<IMessageHub>() as MessageHub;
 
         /// <summary>
         /// Gets the singleton instance created with basic defaults.
         /// </summary>
+        /// <value>
+        /// The argument parser.
+        /// </value>
         public static ArgumentParser ArgumentParser => _argumentParser.Value;
 
         /// <summary>
         /// Gets the object mapper instance created with basic defaults.
         /// </summary>
+        /// <value>
+        /// The object mapper.
+        /// </value>
         public static ObjectMapper ObjectMapper => _objectMapper.Value;
 
         #endregion

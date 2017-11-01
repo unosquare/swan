@@ -50,55 +50,85 @@
         /// <summary>
         /// Gets logging message sequence.
         /// </summary>
+        /// <value>
+        /// The sequence.
+        /// </value>
         public ulong Sequence { get; }
 
         /// <summary>
         /// Gets the type of the message.
         /// It can be a combination as the enumeration is a set of bitwise flags
         /// </summary>
+        /// <value>
+        /// The type of the message.
+        /// </value>
         public LogMessageType MessageType { get; }
 
         /// <summary>
         /// Gets the UTC date at which the event at which the message was logged.
         /// </summary>
+        /// <value>
+        /// The UTC date.
+        /// </value>
         public DateTime UtcDate { get; }
 
         /// <summary>
         /// Gets the name of the source where the logging message
         /// came from. This can come empty if the logger did not set it.
         /// </summary>
+        /// <value>
+        /// The source.
+        /// </value>
         public string Source { get; }
 
         /// <summary>
         /// Gets the body of the message.
         /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
         public string Message { get; }
 
         /// <summary>
         /// Gets the name of the caller member.
         /// </summary>
+        /// <value>
+        /// The name of the caller member.
+        /// </value>
         public string CallerMemberName { get; }
-        
+
         /// <summary>
         /// Gets the caller file path.
         /// </summary>
+        /// <value>
+        /// The caller file path.
+        /// </value>
         public string CallerFilePath { get; }
-        
+
         /// <summary>
         /// Gets the caller line number.
         /// </summary>
+        /// <value>
+        /// The caller line number.
+        /// </value>
         public int CallerLineNumber { get; }
 
         /// <summary>
         /// Gets an object representing extended data.
         /// It could be an exception or anything else
         /// </summary>
+        /// <value>
+        /// The extended data.
+        /// </value>
         public object ExtendedData { get; }
 
         /// <summary>
         /// Gets the Extended Data properties cast as an Exception (if possible)
         /// Otherwise, it return null
         /// </summary>
+        /// <value>
+        /// The exception.
+        /// </value>
         public Exception Exception => ExtendedData as Exception;
     }
 
@@ -133,6 +163,9 @@
         /// Gets or sets a value indicating whether the displaying of the
         /// logging message should be canceled.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [cancel output]; otherwise, <c>false</c>.
+        /// </value>
         public bool CancelOutput { get; set; }
     }
 
@@ -158,6 +191,9 @@
         /// <summary>
         /// Gets the error.
         /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
         public Exception Error { get; }
     }
 
@@ -183,16 +219,25 @@
         /// <summary>
         /// Gets the buffer.
         /// </summary>
+        /// <value>
+        /// The buffer.
+        /// </value>
         public byte[] Buffer { get; }
 
         /// <summary>
         /// Gets the cause as to why this event was thrown
         /// </summary>
+        /// <value>
+        /// The trigger.
+        /// </value>
         public ConnectionDataReceivedTrigger Trigger { get; }
 
         /// <summary>
         /// Gets a value indicating whether the receive buffer has more bytes available
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance has more available; otherwise, <c>false</c>.
+        /// </value>
         public bool HasMoreAvailable { get; }
 
         /// <summary>

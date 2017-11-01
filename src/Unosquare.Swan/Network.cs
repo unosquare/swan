@@ -22,11 +22,17 @@
         /// <summary>
         /// Gets the name of the host.
         /// </summary>
+        /// <value>
+        /// The name of the host.
+        /// </value>
         public static string HostName => IPGlobalProperties.GetIPGlobalProperties().HostName;
 
         /// <summary>
-        /// Gets the name of the domain.
+        /// Gets the name of the network domain.
         /// </summary>
+        /// <value>
+        /// The name of the network domain.
+        /// </value>
         public static string DomainName => IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
         #endregion
