@@ -382,7 +382,7 @@ For example:
 <ul><li><pre><code>getAttribute(&quot;cn&quot;)</code></pre>      returns only the &quot;cn&quot; attribute</li><li><pre><code>getAttribute(&quot;cn;lang-en&quot;)</code></pre> returns only the &quot;cn;lang-en&quot;
 attribute.
 </li></ul>
-In both cases, <pre><code>null</code></pre> is returned if there is no exact match to
+In both cases, null is returned if there is no exact match to
 the specified attrName.
 Note: Novell eDirectory does not currently support language subtypes.
 It does support the &quot;binary&quot; subtype.</p>
@@ -423,7 +423,7 @@ subtype specifications. For example, &quot;cn&quot;, &quot;cn;phonetic&quot;, an
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
-        <td><p>The attribute matching the specified attrName, or <pre><code>null</code></pre>
+        <td><p>The attribute matching the specified attrName, or null
 if there is no exact match.</p>
 </td>
       </tr>
@@ -433,7 +433,7 @@ if there is no exact match.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String,System.String)">GetAttribute(String, String)</h4>
-  <div class="markdown level1 summary"><p>Returns a single best-match attribute, or <pre><code>null</code></pre> if no match is
+  <div class="markdown level1 summary"><p>Returns a single best-match attribute, or null if no match is
 available in the entry.
 Ldap version 3 allows adding a subtype specification to an attribute
 name. For example, &quot;cn;lang-ja&quot; indicates a Japanese language
@@ -447,9 +447,9 @@ For example, <pre><code>getAttribute(attrName,lang)</code></pre> returns the</p>
 <p>best matches lang.
 If there are subtypes other than &quot;lang&quot; subtypes included
 in attrName, for example, &quot;cn;binary&quot;, only attributes with all of
-those subtypes are returned. If lang is <pre><code>null</code></pre> or empty, the
+those subtypes are returned. If lang is null or empty, the
 method behaves as getAttribute(attrName). If there are no matching
-attributes, <pre><code>null</code></pre> is returned.
+attributes, null is returned.
 Assume the entry contains only the following attributes:
 <ul>
 <li>cn;lang-en</li>
@@ -458,7 +458,7 @@ Assume the entry contains only the following attributes:
 </ul>
 Examples:
 <ul>
-<li><pre><code>getAttribute( &quot;cn&quot; )</code></pre>       returns <pre><code>null</code></pre>.</li>
+<li><pre><code>getAttribute( &quot;cn&quot; )</code></pre>       returns null.</li>
 <li><pre><code>getAttribute( &quot;sn&quot; )</code></pre>       returns the &quot;sn&quot; attribute.</li>
 <li><p>
 <pre><code>getAttribute( &quot;cn&quot;, &quot;lang-en-us&quot; )</code></pre>
@@ -470,7 +470,7 @@ Examples:
 </li>
 <li><p>
 <pre><code>getAttribute( &quot;cn&quot;, &quot;lang-ja&quot; )</code></pre>
-<p>returns <pre><code>null</code></pre>.
+<p>returns null.
 </li>
 <li><p>
 <pre><code>getAttribute( &quot;sn&quot;, &quot;lang-en&quot; )</code></pre>
@@ -524,7 +524,7 @@ appended using &quot;-&quot; as separator. For example, &quot;lang-en&quot;, &qu
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
-        <td><p>A single best-match <pre><code>LdapAttribute</code></pre>, or <pre><code>null</code></pre>
+        <td><p>A single best-match <pre><code>LdapAttribute</code></pre>, or null
 if no match is found in the entry.</p>
 </td>
       </tr>
@@ -637,9 +637,9 @@ specified subtype.</p>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)">Remove(Object)</h4>
   <div class="markdown level1 summary"><p>Removes the specified object from this set if it is present.
 If the specified object is of type <pre><code>LdapAttribute</code></pre>, the
-specified attribute will be removed.  If the specified object is of type</p>
-<pre><code>String</code></pre>, the attribute with a name that matches the string will
-<p>be removed.</p>
+specified attribute will be removed.  If the specified object is of type
+string, the attribute with a name that matches the string will
+be removed.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -684,7 +684,7 @@ specified attribute will be removed.  If the specified object is of type</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.ToString*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.ToString">ToString()</h4>
-  <div class="markdown level1 summary"><p>Returns a string representation of this LdapAttributeSet</p>
+  <div class="markdown level1 summary"><p>Returns a <span class="xref">System.String</span> that represents this instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -702,7 +702,7 @@ specified attribute will be removed.  If the specified object is of type</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>a string representation of this LdapAttributeSet</p>
+        <td><p>A <span class="xref">System.String</span> that represents this instance.</p>
 </td>
       </tr>
     </tbody>
