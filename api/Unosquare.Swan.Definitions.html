@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="https://bootswatch.com/readable/bootstrap.min.css">  
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
@@ -27,7 +26,7 @@
     <div id="wrapper">
       <header>
         
-        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -38,7 +37,7 @@
               </button>
               
               <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="logo" src="../best-practices/resources/images/logo.png" alt="">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -51,7 +50,7 @@
           </div>
         </nav>
         
-        <div class="subnav navbar">
+        <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
@@ -115,12 +114,38 @@
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Definitions_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class Definitions</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
+  
+  
+  <h4 id="Unosquare_Swan_Definitions_BasicTypesInfo" data-uid="Unosquare.Swan.Definitions.BasicTypesInfo">BasicTypesInfo</h4>
+  <div class="markdown level1 summary"><p>The basic types information</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;Type, ExtendedTypeInfo&gt; BasicTypesInfo</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Type</span>, <a class="xref" href="Unosquare.Swan.Reflection.ExtendedTypeInfo.html">ExtendedTypeInfo</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <h4 id="Unosquare_Swan_Definitions_CurrentAnsiEncoding" data-uid="Unosquare.Swan.Definitions.CurrentAnsiEncoding">CurrentAnsiEncoding</h4>
@@ -247,8 +272,7 @@ such as default CSV text encoding from Excel</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
-        <td><p>All basic nullable value types.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -274,8 +298,7 @@ such as default CSV text encoding from Excel</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
-        <td><p>All basic types.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -301,8 +324,7 @@ such as default CSV text encoding from Excel</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
-        <td><p>All basic value and string types.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -328,8 +350,7 @@ such as default CSV text encoding from Excel</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
-        <td><p>All basic value types.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -337,7 +358,7 @@ such as default CSV text encoding from Excel</p>
   
   <a id="Unosquare_Swan_Definitions_AllNumericTypes_" data-uid="Unosquare.Swan.Definitions.AllNumericTypes*"></a>
   <h4 id="Unosquare_Swan_Definitions_AllNumericTypes" data-uid="Unosquare.Swan.Definitions.AllNumericTypes">AllNumericTypes</h4>
-  <div class="markdown level1 summary"><p>Gets all numeric types including their nullable counterparts.
+  <div class="markdown level1 summary"><p>Gets all numeric types including their nullable counterparts. 
 Note that Booleans and Guids are not considered numeric types</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -356,8 +377,7 @@ Note that Booleans and Guids are not considered numeric types</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
-        <td><p>All numeric types.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -365,7 +385,7 @@ Note that Booleans and Guids are not considered numeric types</p>
   
   <a id="Unosquare_Swan_Definitions_AllNumericValueTypes_" data-uid="Unosquare.Swan.Definitions.AllNumericValueTypes*"></a>
   <h4 id="Unosquare_Swan_Definitions_AllNumericValueTypes" data-uid="Unosquare.Swan.Definitions.AllNumericValueTypes">AllNumericValueTypes</h4>
-  <div class="markdown level1 summary"><p>Gets all numeric types without their nullable counterparts.
+  <div class="markdown level1 summary"><p>Gets all numeric types without their nullable counterparts. 
 Note that Booleans and Guids are not considered numeric types</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -384,8 +404,7 @@ Note that Booleans and Guids are not considered numeric types</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
-        <td><p>All numeric value types.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -393,11 +412,6 @@ Note that Booleans and Guids are not considered numeric types</p>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
-            <div class="doc" align="center">
-              <span class="small mobile-hide">
-                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
-              </span>
-            </div>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
@@ -419,7 +433,7 @@ Note that Booleans and Guids are not considered numeric types</p>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2017 <a href="https://www.unosquare.com">Unosquare</a></span>
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

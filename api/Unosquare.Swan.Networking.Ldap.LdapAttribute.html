@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="https://bootswatch.com/readable/bootstrap.min.css">  
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
@@ -27,7 +26,7 @@
     <div id="wrapper">
       <header>
         
-        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -38,7 +37,7 @@
               </button>
               
               <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="logo" src="../best-practices/resources/images/logo.png" alt="">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -51,7 +50,7 @@
           </div>
         </nav>
         
-        <div class="subnav navbar">
+        <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
@@ -117,6 +116,7 @@ attributes to an entry.</p>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class LdapAttribute</code></pre>
@@ -174,7 +174,7 @@ Constructs an attribute with no values.</p>
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute__ctor_System_String_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.#ctor(System.String,System.String)">LdapAttribute(String, String)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a> class.
-Constructs an attribute with a single <span class="xref">System.String</span> value.</p>
+Constructs an attribute with a single string value.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -227,7 +227,7 @@ Constructs an attribute with a single <span class="xref">System.String</span> va
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute_ByteValue_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.ByteValue*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute_ByteValue" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.ByteValue">ByteValue</h4>
-  <div class="markdown level1 summary"><p>Returns the first value of the attribute as a byte array or null.</p>
+  <div class="markdown level1 summary"><p>Returns the the first value of the attribute as a byte array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -245,7 +245,9 @@ Constructs an attribute with a single <span class="xref">System.String</span> va
     <tbody>
       <tr>
         <td><span class="xref">System.SByte</span>[]</td>
-        <td><p>The byte value.</p>
+        <td><p>The binary value of <pre><code>this</code></pre> attribute or</p>
+<pre><code>null</code></pre> if <pre><code>this</code></pre> attribute doesn&apos;t have a value.
+<p>If the attribute has no values <pre><code>null</code></pre> is returned</p>
 </td>
       </tr>
     </tbody>
@@ -339,7 +341,7 @@ has none.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute_StringValue_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.StringValue*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute_StringValue" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.StringValue">StringValue</h4>
-  <div class="markdown level1 summary"><p>Returns the the first value of the attribute as a string.</p>
+  <div class="markdown level1 summary"><p>Returns the the first value of the attribute as a <pre><code>String</code></pre>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -357,16 +359,16 @@ has none.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>The UTF-8 encoded <span class="xref">System.String</span> value of the attribute&apos;s
-value.  If the value wasn&apos;t a UTF-8 encoded string
-to begin with the value of the returned <span class="xref">System.String</span> is
+        <td><p>The UTF-8 encoded<pre><code>String</code></pre> value of the attribute&apos;s
+value.  If the value wasn&apos;t a UTF-8 encoded <pre><code>String</code></pre>
+to begin with the value of the returned <pre><code>String</code></pre> is
 non deterministic.
-If this attribute has more than one value the
-first value is converted to a UTF-8 encoded string
+If <pre><code>this</code></pre> attribute has more than one value the
+first value is converted to a UTF-8 encoded <pre><code>String</code></pre>
 and returned. It should be noted, that the directory may
 return attribute values in any order, so that the first
 value may vary from one call to another.
-If the attribute has no values null is returned</p>
+If the attribute has no values <pre><code>null</code></pre> is returned</p>
 </td>
       </tr>
     </tbody>
@@ -541,7 +543,7 @@ Note: If attrBytes represents a string it should be UTF-8 encoded.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttribute_AddValue_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.AddValue*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttribute_AddValue_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttribute.AddValue(System.String)">AddValue(String)</h4>
-  <div class="markdown level1 summary"><p>Adds a <span class="xref">System.String</span> value to the attribute.</p>
+  <div class="markdown level1 summary"><p>Adds a string value to the attribute.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1066,11 +1068,6 @@ no effect.</p>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
-            <div class="doc" align="center">
-              <span class="small mobile-hide">
-                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
-              </span>
-            </div>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
@@ -1092,7 +1089,7 @@ no effect.</p>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2017 <a href="https://www.unosquare.com">Unosquare</a></span>
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
