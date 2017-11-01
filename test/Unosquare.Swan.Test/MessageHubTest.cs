@@ -80,6 +80,18 @@ namespace Unosquare.Swan.Test.MessageHubTests
                 var result = new MessageHubSubscriptionToken(null, message.GetType());
             });
         }
+
+        [Test]
+        public void MessageType_ThrowsArgumentOutOfRangeException()
+        {
+            var hub = new MessageHub();
+            var message = "Hello, World!";
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                var result = new MessageHubSubscriptionToken(hub, message.GetType());
+            });
+        }
     }
 
     [TestFixture]
