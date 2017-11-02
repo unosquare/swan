@@ -101,6 +101,16 @@ namespace Unosquare.Swan.Test.JsonTests
         }
 
         [Test]
+        public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
+        {
+            List<WeakReference> reference = new List<WeakReference> { new WeakReference(new string[] { "Warsong", "Frostwolf", "Bleeding Hollow" }) };
+
+            var data = Json.Serialize(BasicArray, false, null, false, null, null, reference);
+
+            Assert.AreEqual(BasicAStr, data);
+        }
+
+        [Test]
         public void NumericArray_ReturnsArraySerialized()
         {
             var data = Json.Serialize(_numericArray);
