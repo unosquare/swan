@@ -144,15 +144,11 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.IsTrue(messages.Any());
             Assert.AreEqual(message, messages.First());
         }
-    }
 
-    [TestFixture]
-    public class PublishInternal : MessageHubTest
-    {
         [Test]
         public void NullMessage_ThrowsArgumentNullException()
         {
-            var message = new SimpleMessageMock(sender, "Test");
+            var message = new SimpleMessageMock(sender, "Unosquare Américas");
             message = null;
 
             Assert.Throws<ArgumentNullException>(() =>
@@ -160,5 +156,18 @@ namespace Unosquare.Swan.Test.MessageHubTests
                 Runtime.Messages.Publish(message);
             });
         }
+
+        [Test]
+        public void NotNullMessage_ReturnsSuccess()
+        {
+            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+
+        }
+    }
+
+    [TestFixture]
+    public class PublishInternal : MessageHubTest
+    {
+        
     }
 }
