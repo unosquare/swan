@@ -376,10 +376,10 @@ namespace Unosquare.Swan.Test.JsonTests
                 nameof(BasicJson.NegativeInt)
             };
 
-            var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), true, includeNames);
+            var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), false, includeNames);
 
             Assert.AreEqual(
-                "{\r\n    \"StringData\": \"string\",\r\n    \"IntData\": 1,\r\n    \"NegativeInt\": -1\r\n}",
+                "{\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1}",
                 dataSerialized);
         }
 
@@ -396,7 +396,7 @@ namespace Unosquare.Swan.Test.JsonTests
         {
             var dataSerialized = Json.SerializeOnly("", true, null);
 
-            Assert.AreNotEqual("\"\"", dataSerialized);
+            Assert.AreEqual("\"\"", dataSerialized);
         }
 
         [Test]
@@ -430,30 +430,26 @@ namespace Unosquare.Swan.Test.JsonTests
         [Test]
         public void WithDictionaryOfDictionaries_ReturnsString()
         {
-            string[] arrayString = {  };
-
             var persons = new Dictionary<string, Dictionary<string, string>>
                 {
                     { "Tyrande", new Dictionary<string, string> {  } },
                     { "Jaina", new Dictionary<string, string> { { "Race", "Human" }, { "Affiliation", "Alliance" } } }
                 };
 
-            var dataSerialized = Json.SerializeOnly(persons, true, null);
+            var dataSerialized = Json.SerializeOnly(persons, false, null);
             
-            Assert.AreEqual("{\r\n    \"Tyrande\": { },\r\n    \"Jaina\": \r\n    {\r\n        \"Race\": \"Human\",\r\n        \"Affiliation\": \"Alliance\"\r\n    }\r\n}", dataSerialized);
+            Assert.AreEqual("{\"Tyrande\": { },\"Jaina\": {\"Race\": \"Human\",\"Affiliation\": \"Alliance\"}}", dataSerialized);
         }
 
         [Test]
         public void WithDictionaryOfArrays_ReturnsString()
         {
-            string[] arrayString = { };
-
             var wordDictionary =
-                new Dictionary<string, string[][]> { { "Horde Capitals", new[] { new string[] { } , new string[] {"Orgrimmar", "Thunder Bluff"} } } };
+                new Dictionary<string, string[][]> { { "Horde Capitals", new[] { new string[] { } , new[] {"Orgrimmar", "Thunder Bluff"} } } };
 
-            var dataSerialized = Json.SerializeOnly(wordDictionary, true, null);
+            var dataSerialized = Json.SerializeOnly(wordDictionary, false, null);
             
-            Assert.AreEqual("{\r\n    \"Horde Capitals\": \r\n    [\r\n        [ ],\r\n        [\r\n            \"Orgrimmar\",\r\n            \"Thunder Bluff\"\r\n        ]\r\n    ]\r\n}", dataSerialized);
+            Assert.AreEqual("{\"Horde Capitals\": [[ ],[\"Orgrimmar\",\"Thunder Bluff\"]]}", dataSerialized);
         }
     }
 
@@ -470,10 +466,10 @@ namespace Unosquare.Swan.Test.JsonTests
                 nameof(BasicJson.NegativeInt)
             };
 
-            var dataSerialized = Json.SerializeExcluding(BasicJson.GetDefault(), true, excludeNames);
+            var dataSerialized = Json.SerializeExcluding(BasicJson.GetDefault(), false, excludeNames);
 
             Assert.AreEqual(
-                "{\r\n    \"DecimalData\": 10.33,\r\n    \"BoolData\": true,\r\n    \"StringNull\": null\r\n}",
+                "{\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null}",
                 dataSerialized);
         }
     }
