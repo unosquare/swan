@@ -103,11 +103,11 @@ namespace Unosquare.Swan.Test.JsonTests
         [Test]
         public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
         {
-            var reference = new List<WeakReference> { new WeakReference(new string[] { "Warsong", "Frostwolf", "Bleeding Hollow" }) };
+            var reference = new List<WeakReference> { new WeakReference(BasicArray)};
 
             var data = Json.Serialize(BasicArray, false, null, false, null, null, reference);
-
-            Assert.AreEqual(BasicAStr, data);
+            
+            Assert.AreEqual("{ \"$circref\":", data.Substring(0, 13));
         }
 
         [Test]
