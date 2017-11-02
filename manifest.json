@@ -47,6 +47,17 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "best-practices/resources/images/transparent.gif",
+      "output": {
+        "resource": {
+          "relative_path": "best-practices/resources/images/transparent.gif"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.AppWorkerBase.yml",
       "output": {
@@ -1580,13 +1591,13 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
