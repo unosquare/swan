@@ -226,9 +226,7 @@ namespace Unosquare.Swan.Test.JsonTests
         public void WithIncludeNonPublic_ReturnsObjectDeserialized()
         {
             var obj = Json.Deserialize<BasicJson>(BasicStr, false);
-
-            Console.WriteLine(obj.Stringify());
-
+            
             Assert.IsNotNull(obj);
             Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
             Assert.AreEqual(obj.IntData, BasicJson.GetDefault().IntData);
