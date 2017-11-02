@@ -377,7 +377,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithoutBufferSize_ReturnsArray()
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var currentAssembly = new FileStream(sampleFile, FileMode.Open);
@@ -393,7 +393,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithoutBufferSizeAndBuffer_ReturnsArray()
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var buffer = File.ReadAllBytes(sampleFile);
@@ -408,7 +408,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithBufferSizeAndBuffer_ReturnsArray()
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var currentAssembly = new FileStream(sampleFile, FileMode.Open);
@@ -425,7 +425,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithBufferSize_ReturnsArray(int bufferLength)
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var buffer = File.ReadAllBytes(sampleFile);
