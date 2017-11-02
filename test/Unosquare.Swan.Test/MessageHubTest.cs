@@ -162,12 +162,8 @@ namespace Unosquare.Swan.Test.MessageHubTests
         {
             var message = new SimpleMessageMock(sender, "Unosquare Américas");
 
+            Assert.IsNotNull(message.Sender);
+            Assert.IsNotNull(message.Content);
         }
-    }
-
-    [TestFixture]
-    public class PublishInternal : MessageHubTest
-    {
-        
     }
 }
