@@ -173,7 +173,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Runtime.Messages.Subscribe<SimpleMessageMock>(null, MessageHubDefaultProxy.Instance);
+                Runtime.Messages.Subscribe<SimpleMessageMock>(null, proxy);
             });
         }
 
@@ -185,6 +185,15 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.Throws<ArgumentNullException>(() =>
             {
                 Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, proxy);
+            });
+        }
+
+        [Test]
+        public void NullFunc_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, null, proxy);
             });
         }
     }
