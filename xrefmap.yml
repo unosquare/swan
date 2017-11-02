@@ -4440,15 +4440,15 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.Json.Deserialize(Of T)(System.String, System.Boolean)
   nameWithType: Json.Deserialize<T>(String, Boolean)
   nameWithType.vb: Json.Deserialize(Of T)(String, Boolean)
-- uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[])
-  name: Serialize(Object, Boolean, String, Boolean, String[], String[])
-  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___
-  commentId: M:Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[])
-  name.vb: Serialize(Object, Boolean, String, Boolean, String(), String())
-  fullName: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[])
-  fullName.vb: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String())
-  nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[])
-  nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String())
+- uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})
+  name: Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>)
+  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Collections_Generic_List_System_WeakReference__
+  commentId: M:Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})
+  name.vb: Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference))
+  fullName: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[], System.Collections.Generic.List<System.WeakReference>)
+  fullName.vb: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String(), System.Collections.Generic.List(Of System.WeakReference))
+  nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>)
+  nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference))
 - uid: Unosquare.Swan.Formatters.Json.Serialize*
   name: Serialize
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_
