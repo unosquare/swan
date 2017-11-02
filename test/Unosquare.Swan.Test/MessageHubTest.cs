@@ -13,6 +13,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         protected object nullSender = null;
         protected object sender = "alexey.turlapov@unosquare.com";
         protected bool cancel;
+        protected SimpleMessageMock content;
     }
 
     [TestFixture]
@@ -21,7 +22,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void NullSender_ThrowsArgumentNullException()
         {
-            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            content = new SimpleMessageMock(this, "Unosquare Américas");
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -32,7 +33,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void NotNullSender_ReturnsSuccess()
         {
-            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            content = new SimpleMessageMock(this, "Unosquare Américas");
             var message = new MessageHubGenericMessage<string>(sender, content.Content);
 
             Assert.IsNotNull(message.Sender);
@@ -46,7 +47,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void NullCancel_ThrowsArgumentNullException()
         {
-            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            content = new SimpleMessageMock(this, "Unosquare Américas");
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -58,7 +59,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         public void ValidCancel_ReturnsSuccess()
         {
             Action act = () => cancel = true;
-            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            content = new SimpleMessageMock(this, "Unosquare Américas");
 
             var message = new MessageHubCancellableGenericMessage<string>(sender, content.Content, act);
 
@@ -143,5 +144,30 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.IsTrue(messages.Any());
             Assert.AreEqual(message, messages.First());
         }
+
+        [Test]
+        public void NullMessage_ThrowsArgumentNullException()
+        {
+            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+            message = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Publish(message);
+            });
+        }
+
+        [Test]
+        public void NotNullMessage_ReturnsSuccess()
+        {
+            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+
+        }
+    }
+
+    [TestFixture]
+    public class PublishInternal : MessageHubTest
+    {
+        
     }
 }
