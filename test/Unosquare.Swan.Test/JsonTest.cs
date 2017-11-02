@@ -223,6 +223,22 @@ namespace Unosquare.Swan.Test.JsonTests
     public class Deserialize : JsonTest
     {
         [Test]
+        public void WithIncludeNonPublic_ReturnsObjectDeserialized()
+        {
+            var obj = Json.Deserialize<BasicJson>(BasicStr, false);
+
+            Console.WriteLine(obj.Stringify());
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
+            Assert.AreEqual(obj.IntData, BasicJson.GetDefault().IntData);
+            Assert.AreEqual(obj.NegativeInt, BasicJson.GetDefault().NegativeInt);
+            Assert.AreEqual(obj.BoolData, BasicJson.GetDefault().BoolData);
+            Assert.AreEqual(obj.DecimalData, BasicJson.GetDefault().DecimalData);
+            Assert.AreEqual(obj.StringNull, BasicJson.GetDefault().StringNull);
+        }
+
+        [Test]
         public void BasicObject_ReturnsObjectDeserialized()
         {
             var obj = Json.Deserialize<BasicJson>(BasicStr);
