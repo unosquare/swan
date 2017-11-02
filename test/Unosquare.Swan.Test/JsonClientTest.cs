@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Security;
-using System.Threading;
 using System.Threading.Tasks;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Modules;
@@ -187,7 +185,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithInvalidParam_ThrowsHttpRequestException()
         {
-            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
             {
                 await JsonClient.GetString(_defaultHttp);
             });
@@ -376,7 +374,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithInvalidParams_ThrowsHttpRequestException()
         {
-            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
             {
                 var data = await JsonClient.GetBinary(_defaultHttp);
             });
@@ -413,7 +411,6 @@ namespace Unosquare.Swan.Test.JsonClientTest
                 var data = await JsonClient.GetBinary("https://accesscore.azurewebsites.net/api/token");
             });
         }
-
     }
 
     [TestFixture]
@@ -422,7 +419,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public async Task WithInvalidParams_ThrowsHttpRequestException()
         {
-            Assert.ThrowsAsync<HttpRequestException>(async () =>
+            Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
             {
                 await JsonClient.Get<BasicJson>(_defaultHttp);
             });

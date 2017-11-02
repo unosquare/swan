@@ -210,6 +210,88 @@
                     : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
             }
 
+            /// <summary>
+            /// Determines whether the specified serialized JSON is a non-empty an array or an object
+            /// </summary>
+            /// <param name="serialized">The serialized.</param>
+            /// <returns>
+            ///   <c>true</c> if [is set opening] [the specified serialized]; otherwise, <c>false</c>.
+            /// </returns>
+            private static bool IsNonEmptyJsonArrayOrObject(string serialized)
+            {
+                if (serialized.Length == EmptyObjectLiteral.Length && serialized.Equals(EmptyObjectLiteral)) return false;
+                if (serialized.Length == EmptyArrayLiteral.Length && serialized.Equals(EmptyArrayLiteral)) return false;
+
+                // find the first position the character is not a space
+                var startTextIndex = serialized.TakeWhile(c => c == ' ').Count();
+
+                // If the position is opening braces or brackets, then we have an
+                // opening set.
+                return serialized[startTextIndex] == OpenObjectChar
+                    || serialized[startTextIndex] == OpenArrayChar;
+            }
+
+            /// <summary>
+            /// Escapes the specified string as a JSON string.
+            /// </summary>
+            /// <param name="str">The string to escape.</param>
+            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+            private static string Escape(string str)
+            {
+                if (string.IsNullOrEmpty(str))
+                    return string.Empty;
+
+                var builder = new StringBuilder(str.Length * 2);
+
+                foreach (var currentChar in str)
+                {
+                    switch (currentChar)
+                    {
+                        case '\\':
+                        case '"':
+                        case '/':
+                            builder
+                                .Append('\\')
+                                .Append(currentChar);
+                            break;
+                        case '\b':
+                            builder.Append("\\b");
+                            break;
+                        case '\t':
+                            builder.Append("\\t");
+                            break;
+                        case '\n':
+                            builder.Append("\\n");
+                            break;
+                        case '\f':
+                            builder.Append("\\f");
+                            break;
+                        case '\r':
+                            builder.Append("\\r");
+                            break;
+                        default:
+                            if (currentChar < ' ')
+                            {
+                                var escapeBytes = BitConverter.GetBytes((ushort)currentChar);
+                                if (BitConverter.IsLittleEndian == false)
+                                    Array.Reverse(escapeBytes);
+
+                                builder.Append("\\u"
+                                    + escapeBytes[1].ToString("X").PadLeft(2, '0')
+                                    + escapeBytes[0].ToString("X").PadLeft(2, '0'));
+                            }
+                            else
+                            {
+                                builder.Append(currentChar);
+                            }
+
+                            break;
+                    }
+                }
+
+                return builder.ToString();
+            }
+
             private string ResolveDictionary(object target, int depth, SerializerOptions options)
             {
                 if (target is IDictionary == false)
@@ -367,88 +449,6 @@
                     IndentStrings[depth] = new string(' ', depth * 4);
 
                 return depth > 0 ? IndentStrings[depth] : string.Empty;
-            }
-
-            /// <summary>
-            /// Determines whether the specified serialized JSON is a non-empty an array or an object
-            /// </summary>
-            /// <param name="serialized">The serialized.</param>
-            /// <returns>
-            ///   <c>true</c> if [is set opening] [the specified serialized]; otherwise, <c>false</c>.
-            /// </returns>
-            private static bool IsNonEmptyJsonArrayOrObject(string serialized)
-            {
-                if (serialized.Length == EmptyObjectLiteral.Length && serialized.Equals(EmptyObjectLiteral)) return false;
-                if (serialized.Length == EmptyArrayLiteral.Length && serialized.Equals(EmptyArrayLiteral)) return false;
-
-                // find the first position the character is not a space
-                var startTextIndex = serialized.TakeWhile(c => c == ' ').Count();
-
-                // If the position is opening braces or brackets, then we have an
-                // opening set.
-                return serialized[startTextIndex] == OpenObjectChar
-                    || serialized[startTextIndex] == OpenArrayChar;
-            }
-
-            /// <summary>
-            /// Escapes the specified string as a JSON string.
-            /// </summary>
-            /// <param name="str">The string to escape.</param>
-            /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-            private static string Escape(string str)
-            {
-                if (string.IsNullOrEmpty(str))
-                    return string.Empty;
-
-                var builder = new StringBuilder(str.Length * 2);
-
-                foreach (var currentChar in str)
-                {
-                    switch (currentChar)
-                    {
-                        case '\\':
-                        case '"':
-                        case '/':
-                            builder
-                                .Append('\\')
-                                .Append(currentChar);
-                            break;
-                        case '\b':
-                            builder.Append("\\b");
-                            break;
-                        case '\t':
-                            builder.Append("\\t");
-                            break;
-                        case '\n':
-                            builder.Append("\\n");
-                            break;
-                        case '\f':
-                            builder.Append("\\f");
-                            break;
-                        case '\r':
-                            builder.Append("\\r");
-                            break;
-                        default:
-                            if (currentChar < ' ')
-                            {
-                                var escapeBytes = BitConverter.GetBytes((ushort)currentChar);
-                                if (BitConverter.IsLittleEndian == false)
-                                    Array.Reverse(escapeBytes);
-
-                                builder.Append("\\u"
-                                    + escapeBytes[1].ToString("X").PadLeft(2, '0')
-                                    + escapeBytes[0].ToString("X").PadLeft(2, '0'));
-                            }
-                            else
-                            {
-                                builder.Append(currentChar);
-                            }
-
-                            break;
-                    }
-                }
-
-                return builder.ToString();
             }
 
             /// <summary>
