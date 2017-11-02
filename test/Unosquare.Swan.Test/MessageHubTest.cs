@@ -145,4 +145,20 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.AreEqual(message, messages.First());
         }
     }
+
+    [TestFixture]
+    public class PublishInternal : MessageHubTest
+    {
+        [Test]
+        public void NullMessage_ThrowsArgumentNullException()
+        {
+            var message = new SimpleMessageMock(sender, "Test");
+            message = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Publish(message);
+            });
+        }
+    }
 }
