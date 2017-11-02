@@ -384,6 +384,22 @@ namespace Unosquare.Swan.Test.JsonTests
         }
 
         [Test]
+        public void WithString_ReturnsString()
+        {
+            var sdsdas = Json.SerializeOnly("\b\t\f\0", true, null);
+            
+            Assert.AreEqual("\"\\b\\t\\f\\u0000\"", sdsdas);
+        }
+
+        [Test]
+        public void WithEmptyString_ReturnsEmptyString()
+        {
+            var dataSerialized = Json.SerializeOnly("", true, null);
+
+            Assert.AreNotEqual("\"\"", dataSerialized);
+        }
+
+        [Test]
         public void WithType_ReturnsString()
         {
             var dataSerialized = Json.SerializeOnly(typeof(string), true, null);
@@ -407,9 +423,7 @@ namespace Unosquare.Swan.Test.JsonTests
             var emptyDictionary = new Dictionary<string, string>();
 
             var dataSerialized = Json.SerializeOnly(emptyDictionary, true, null);
-
-            Console.WriteLine(dataSerialized.Stringify());
-
+            
             Assert.AreEqual("{ }", dataSerialized);
         }
 
