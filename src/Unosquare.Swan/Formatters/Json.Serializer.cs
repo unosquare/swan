@@ -133,7 +133,7 @@
             /// <param name="includeNonPublic">if set to true, then non public properties are also retrieved</param>
             /// <param name="parentReferences">The parent references.</param>
             /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-            public static string Serialize(
+            internal static string Serialize(
                 object obj, 
                 int depth, 
                 bool format, 

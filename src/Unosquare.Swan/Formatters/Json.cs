@@ -56,14 +56,19 @@
         /// <param name="includeNonPublic">if set to <c>true</c> non-public getters will be also read.</param>
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
-        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <param name="parentReferences">The parent references.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents the current object
+        /// </returns>
+        /// <exception cref="ArgumentException">You need to provide an object or array - obj</exception>
         public static string Serialize(
             object obj,
             bool format = false,
             string typeSpecifier = null,
             bool includeNonPublic = false,
             string[] includedNames = null,
-            string[] excludedNames = null)
+            string[] excludedNames = null,
+            List<WeakReference> parentReferences = null)
         {
             if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
                 throw new ArgumentException("You need to provide an object or array", nameof(obj));
@@ -76,7 +81,7 @@
                 excludedNames = excludedNames == null ? excludedByAttr.ToArray() : excludedByAttr.Intersect(excludedNames).ToArray();
             }
 
-            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic);
+            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, parentReferences);
         }
 
         /// <summary>
