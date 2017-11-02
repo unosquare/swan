@@ -14,6 +14,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         protected object sender = "alexey.turlapov@unosquare.com";
         protected bool cancel;
         protected SimpleMessageMock content;
+        protected List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
     }
 
     [TestFixture]
@@ -164,6 +165,15 @@ namespace Unosquare.Swan.Test.MessageHubTests
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
+        }
+
+        [Test]
+        public void NullDeliveryAction_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Subscribe<SimpleMessageMock>(null, MessageHubDefaultProxy.Instance);
+            });
         }
     }
 }
