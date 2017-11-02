@@ -15,6 +15,16 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         {
             Assert.AreEqual(expected, input.GetDefault(), $"Get default type of {input}");
         }
+
+        [Test]
+        public void WithNullType_ThrowsArgumentNullException()
+        {
+            Type input = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                input.GetDefault()
+            );
+        }
     }
 
     [TestFixture]
@@ -25,6 +35,16 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         public void WithType_ReturnsABool(bool expected, Type input)
         {
             Assert.AreEqual(expected, input.IsCollection(), $"Get IsCollection value of {input}");
+        }
+
+        [Test]
+        public void WithNullType_ThrowsArgumentNullException()
+        {
+            Type input = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                input.IsCollection()
+            );
         }
     }
 
@@ -154,18 +174,39 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         {
             Assert.AreEqual(expected, input.IsIEnumerable(), $"Get IsIEnumerable value of {input}");
         }
+
+        [Test]
+        public void WithNullType_ThrowsArgumentNullException()
+        {
+            Type input = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                input.IsIEnumerable()
+            );
+        }
     }
 
     [TestFixture]
     public class GetAllTypes
     {
+        [Test]
         public void WithNullAssembly_ThrowsArgumentNullException()
         {
             Assembly assembly = null;
 
-            Assert.Throws<IgnoreException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
                 assembly.GetAllTypes()
             );
+        }
+
+        [Test]
+        public void WithAssembly_ReturnsTypeObjects()
+        {
+            var assembly = typeof(String).Assembly();
+
+            var assem = assembly.GetAllTypes();
+            
+            Assert.AreEqual("System.Type[]", assem.ToString());
         }
     }
 }
