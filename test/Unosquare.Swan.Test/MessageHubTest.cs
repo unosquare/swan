@@ -15,6 +15,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         protected bool cancel;
         protected SimpleMessageMock content;
         protected List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
+        protected MessageHubDefaultProxy proxy = MessageHubDefaultProxy.Instance;
     }
 
     [TestFixture]
@@ -173,6 +174,17 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.Throws<ArgumentNullException>(() =>
             {
                 Runtime.Messages.Subscribe<SimpleMessageMock>(null, MessageHubDefaultProxy.Instance);
+            });
+        }
+
+        [Test]
+        public void NullProxy_ThrowsArgumentNullException()
+        {
+            proxy = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, proxy);
             });
         }
     }
