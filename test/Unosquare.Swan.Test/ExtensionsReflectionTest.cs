@@ -127,6 +127,7 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
             var members = input.GetMembers();
             Assert.AreEqual(expected, members[0].IsDefined(typeof(AttributeMock), false), $"Get IsDefined value of {input}");
         }
+        
     }
 
     [TestFixture]
@@ -205,7 +206,7 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         [Test]
         public void WithAssembly_ReturnsTypeObjects()
         {
-            var assembly = typeof(String).Assembly();
+            var assembly = typeof(string).Assembly();
 
             var assem = assembly.GetAllTypes();
             
@@ -268,6 +269,6 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
                 type.GetMethod(BindingFlags.Public | BindingFlags.Static, methodName, genericTypes, parameterTypes)
             );
         }
-
+        
     }
 }
