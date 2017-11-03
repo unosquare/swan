@@ -14,6 +14,8 @@ namespace Unosquare.Swan.Test.MessageHubTests
         protected object sender = "alexey.turlapov@unosquare.com";
         protected bool cancel;
         protected SimpleMessageMock content;
+        protected List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
+        protected MessageHubDefaultProxy proxy = MessageHubDefaultProxy.Instance;
     }
 
     [TestFixture]
@@ -162,12 +164,59 @@ namespace Unosquare.Swan.Test.MessageHubTests
         {
             var message = new SimpleMessageMock(sender, "Unosquare Américas");
 
+            Assert.IsNotNull(message.Sender);
+            Assert.IsNotNull(message.Content);
         }
-    }
 
-    [TestFixture]
-    public class PublishInternal : MessageHubTest
-    {
-        
+        [Test]
+        public void NullDeliveryAction_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Subscribe<SimpleMessageMock>(null, proxy);
+            });
+        }
+
+        [Test]
+        public void NullProxy_ThrowsArgumentNullException()
+        {
+            proxy = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, proxy);
+            });
+        }
+
+        [Test]
+        public void NullFunc_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, null, proxy);
+            });
+        }
+
+        [Test]
+        public void StrongReferenceFalse_ReturnsSuccess()
+        {
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => false, false, MessageHubDefaultProxy.Instance);
+
+            Assert.IsNotNull(token);
+        }
+
+        [Test]
+        public void NullToken_ThrowsArgumentNullException()
+        {
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
+            token = null;
+
+            Assert.IsNull(token);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
+            });
+        }
     }
 }
