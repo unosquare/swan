@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
+using Unosquare.Swan.Networking;
 using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.ExtensionsReflectionTest
@@ -138,6 +140,7 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
             
             Assert.GreaterOrEqual(expected, attributes.Length, $"Get GetCustomAttributes length of {input}");
         }
+        
     }
 
     [TestFixture]
@@ -208,5 +211,63 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
             
             Assert.AreEqual("System.Type[]", assem.ToString());
         }
+    }
+
+    [TestFixture]
+    public class GetMethod
+    {
+        Type type = typeof(JsonClient);
+        string methodName = "PostFile";
+        Type[] genericTypes = { typeof(Task<string>) };
+        Type[] parameterTypes = { typeof(string), typeof(byte[]), typeof(string), typeof(string) };
+
+        [Test]
+        public void WithValidParams_ReturnsAnObject()
+        {
+            var method = type.GetMethod(BindingFlags.Public | BindingFlags.Static, methodName, genericTypes, parameterTypes);
+            
+            Assert.AreEqual(method.ToString(), "System.Threading.Tasks.Task`1[System.Threading.Tasks.Task`1[System.String]] PostFile[Task`1](System.String, Byte[], System.String, System.String)");
+        }
+
+        [Test]
+        public void WithNullSourceType_ThrowsArgumentNullException()
+        {
+            Type type = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                type.GetMethod(BindingFlags.Public | BindingFlags.Static, methodName, genericTypes, parameterTypes)
+            );
+        }
+
+        [Test]
+        public void WithNullMethodName_ThrowsArgumentNullException()
+        {
+            string methodName = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                type.GetMethod(BindingFlags.Public | BindingFlags.Static, methodName, genericTypes, parameterTypes)
+            );
+        }
+
+        [Test]
+        public void WithNullGenericTypes_ThrowsArgumentNullException()
+        {
+            Type[] genericTypes = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                type.GetMethod(BindingFlags.Public | BindingFlags.Static, methodName, genericTypes, parameterTypes)
+            );
+        }
+
+        [Test]
+        public void WithNullParameterTypes_ThrowsArgumentNullException()
+        {
+            Type[] parameterTypes = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+                type.GetMethod(BindingFlags.Public | BindingFlags.Static, methodName, genericTypes, parameterTypes)
+            );
+        }
+
     }
 }
