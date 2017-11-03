@@ -418,6 +418,26 @@ namespace Unosquare.Swan.Components
             private readonly WeakReference _deliveryAction;
             private readonly WeakReference _messageFilter;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="WeakTinyMessageSubscription{TMessage}" /> class.
+            /// </summary>
+            /// <param name="subscriptionToken">The subscription token.</param>
+            /// <param name="deliveryAction">The delivery action.</param>
+            /// <param name="messageFilter">The message filter.</param>
+            /// <exception cref="ArgumentNullException">subscriptionToken
+            /// or
+            /// deliveryAction
+            /// or
+            /// messageFilter</exception>
+            public WeakTinyMessageSubscription(
+                MessageHubSubscriptionToken subscriptionToken,
+                Action<TMessage> deliveryAction, 
+                Func<TMessage, bool> messageFilter)
+            {
+                SubscriptionToken = subscriptionToken ?? throw new ArgumentNullException(nameof(subscriptionToken));
+                _deliveryAction = new WeakReference(deliveryAction);
+                _messageFilter = new WeakReference(messageFilter);
+            }
             public MessageHubSubscriptionToken SubscriptionToken { get; }
 
             public bool ShouldAttemptDelivery(IMessageHubMessage message)
@@ -425,7 +445,7 @@ namespace Unosquare.Swan.Components
                 if (!(message is TMessage) || !_deliveryAction.IsAlive || !_messageFilter.IsAlive)
                     return false;
 
-                return ((Func<TMessage, bool>) _messageFilter.Target).Invoke((TMessage) message);
+                return ((Func<TMessage, bool>)_messageFilter.Target).Invoke((TMessage)message);
             }
 
             public void Deliver(IMessageHubMessage message)
@@ -440,40 +460,7 @@ namespace Unosquare.Swan.Components
                     return;
                 }
 
-                ((Action<TMessage>) _deliveryAction.Target).Invoke((TMessage) message);
-            }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="WeakTinyMessageSubscription{TMessage}"/> class.
-            /// </summary>
-            /// <param name="subscriptionToken">The subscription token.</param>
-            /// <param name="deliveryAction">The delivery action.</param>
-            /// <param name="messageFilter">The message filter.</param>
-            /// <exception cref="System.ArgumentNullException">
-            /// subscriptionToken
-            /// or
-            /// deliveryAction
-            /// or
-            /// messageFilter
-            /// </exception>
-            public WeakTinyMessageSubscription(
-                MessageHubSubscriptionToken subscriptionToken,
-                Action<TMessage> deliveryAction, 
-                Func<TMessage, bool> messageFilter)
-            {
-                if (deliveryAction == null)
-                {
-                    throw new ArgumentNullException(nameof(deliveryAction));
-                }
-
-                if (messageFilter == null)
-                {
-                    throw new ArgumentNullException(nameof(messageFilter));
-                }
-
-                SubscriptionToken = subscriptionToken ?? throw new ArgumentNullException(nameof(subscriptionToken));
-                _deliveryAction = new WeakReference(deliveryAction);
-                _messageFilter = new WeakReference(messageFilter);
+                ((Action<TMessage>)_deliveryAction.Target).Invoke((TMessage)message);
             }
         }
 
@@ -482,6 +469,27 @@ namespace Unosquare.Swan.Components
         {
             private readonly Action<TMessage> _deliveryAction;
             private readonly Func<TMessage, bool> _messageFilter;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="StrongTinyMessageSubscription{TMessage}" /> class.
+            /// </summary>
+            /// <param name="subscriptionToken">The subscription token.</param>
+            /// <param name="deliveryAction">The delivery action.</param>
+            /// <param name="messageFilter">The message filter.</param>
+            /// <exception cref="ArgumentNullException">subscriptionToken
+            /// or
+            /// deliveryAction
+            /// or
+            /// messageFilter</exception>
+            public StrongTinyMessageSubscription(
+                MessageHubSubscriptionToken subscriptionToken,
+                Action<TMessage> deliveryAction,
+                Func<TMessage, bool> messageFilter)
+            {
+                SubscriptionToken = subscriptionToken ?? throw new ArgumentNullException(nameof(subscriptionToken));
+                _deliveryAction = deliveryAction;
+                _messageFilter = messageFilter;
+            }
 
             public MessageHubSubscriptionToken SubscriptionToken { get; }
 
@@ -492,7 +500,7 @@ namespace Unosquare.Swan.Components
                     return false;
                 }
 
-                return _messageFilter.Invoke((TMessage) message);
+                return _messageFilter.Invoke((TMessage)message);
             }
 
             public void Deliver(IMessageHubMessage message)
@@ -502,31 +510,9 @@ namespace Unosquare.Swan.Components
                     throw new ArgumentException("Message is not the correct type");
                 }
 
-                _deliveryAction.Invoke((TMessage) message);
+                _deliveryAction.Invoke((TMessage)message);
             }
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="StrongTinyMessageSubscription{TMessage}"/> class.
-            /// </summary>
-            /// <param name="subscriptionToken">The subscription token.</param>
-            /// <param name="deliveryAction">The delivery action.</param>
-            /// <param name="messageFilter">The message filter.</param>
-            /// <exception cref="System.ArgumentNullException">
-            /// subscriptionToken
-            /// or
-            /// deliveryAction
-            /// or
-            /// messageFilter
-            /// </exception>
-            public StrongTinyMessageSubscription(
-                MessageHubSubscriptionToken subscriptionToken,
-                Action<TMessage> deliveryAction,
-                Func<TMessage, bool> messageFilter)
-            {
-                SubscriptionToken = subscriptionToken ?? throw new ArgumentNullException(nameof(subscriptionToken));
-                _deliveryAction = deliveryAction ?? throw new ArgumentNullException(nameof(deliveryAction));
-                _messageFilter = messageFilter ?? throw new ArgumentNullException(nameof(messageFilter));
-            }
         }
 
         #endregion
