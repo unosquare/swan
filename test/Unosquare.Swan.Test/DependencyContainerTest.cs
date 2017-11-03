@@ -179,33 +179,6 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.IsTrue(container.TryResolve(out IAnimal containerInstance));
             Assert.AreEqual(instance.Name, containerInstance.Name);
         }
-
-        [Test]
-        public void RegisterInterfaceWithInstanceWeakReference_CanDestroy()
-        {
-            var container = new DependencyContainer();
-            using(var instance = new Human("George"))
-            {
-                container.Register<IAnimal, Human>(instance).WithWeakReference();
-            }
-
-            var containerInstance = (Human)container.Resolve<IAnimal>();
-            Assert.IsTrue(containerInstance.IsDisposed);
-        }
-
-        [Test]
-        public void RegisterInterfaceWithInstanceStrongReference_CanDestroy()
-        {
-            var container = new DependencyContainer();
-            using(var instance = new Human("George"))
-            {
-                // TODO: mmmmm
-                container.Register<IAnimal>(instance).WithStrongReference();
-            }
-
-            var containerInstance = (Human)container.Resolve<IAnimal>();
-            Assert.IsTrue(containerInstance.IsDisposed);
-        }
         
         [Test]
         public void WithIEnumerable_RegisterIEnumerable()
@@ -226,6 +199,87 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             container.Register(typeof(IAnimal), (di, param) => new Human(param["Name"].ToString()));
         }
+        
+        [Test]
+        public void RegisterInterfaceWithInstanceAndWeakReference_CanDestroy()
+        {
+            var container = new DependencyContainer();
+            using(var instance = new Human("George"))
+            {
+                container.Register<IAnimal, Human>(instance).WithWeakReference();
+            }
+
+            var containerInstance = (Human)container.Resolve<IAnimal>();
+            Assert.IsTrue(containerInstance.IsDisposed);
+        }
+
+        [Test]
+        public void RegisterInterfaceAndWeakReference_ThrowsDependencyContainerRegistrationException()
+        {
+            var container = new DependencyContainer();
+
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register<IAnimal, Fish>().WithWeakReference()
+            );
+        }
+
+        [Test]
+        public void RegisterInterfaceAndStrongReference_ThrowsDependencyContainerRegistrationException()
+        {
+            var container = new DependencyContainer();
+
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register<IAnimal, Fish>().WithStrongReference()
+            );
+        }
+
+        [Test]
+        public void RegisterInterfaceWithInstanceStrongReference_CanDestroy()
+        {
+            var container = new DependencyContainer();
+            using(var instance = new Human("George"))
+            {
+                // TODO: mmmmm
+                container.Register<IAnimal>(instance).WithStrongReference();
+            }
+
+            var containerInstance = (Human)container.Resolve<IAnimal>();
+            Assert.IsTrue(containerInstance.IsDisposed);
+        }
+
+        [Test]
+        public void RegisterInterfaceAnsdStrongReference_ThrowsDependencyContainerRegistrationException()
+        {
+            var container = new DependencyContainer();
+
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register<IAnimal, Fish>().WithStrongReference()
+            );
+        }
+
+        [Test]
+        public void WithTypeAsSingleton_ThrowsDependencyContainerResolutionException()
+        {
+            var container = new DependencyContainer();
+
+            container.Register(typeof(string)).AsSingleton();
+            
+            Assert.Throws<DependencyContainerResolutionException>(() =>
+                container.Resolve<IAnimal>()
+            );
+        }
+
+        [Test]
+        public void WithTypeAsMultiInstance_ThrowsDependencyContainerResolutionException()
+        {
+            var container = new DependencyContainer();
+
+            container.Register(typeof(string)).AsMultiInstance();
+
+            Assert.Throws<DependencyContainerResolutionException>(() =>
+                container.Resolve<IAnimal>()
+            );
+        }
 
         [Test]
         public void WithNullFactory_ThrowsArgumentNullException()
@@ -237,7 +291,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 container.Register((Func<DependencyContainer, Dictionary<string, object>, IAnimal>)null);
             });
         }
-        
+
     }
 
     [TestFixture]
