@@ -230,6 +230,14 @@ namespace Unosquare.Swan.Test.MessageHubTests
         }
 
         [Test]
+        public void DeliveryActionWithStrongReferencesTrueAndProxy_ReturnsToken()
+        {
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, true, proxy);
+
+            Assert.IsNotNull(token);
+        }
+
+        [Test]
         public void NullToken_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
