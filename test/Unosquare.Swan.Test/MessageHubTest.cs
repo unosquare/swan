@@ -222,6 +222,14 @@ namespace Unosquare.Swan.Test.MessageHubTests
         }
 
         [Test]
+        public void DeliveryActionAndStrongReferencesFalse_ReturnsToken()
+        {
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, false);
+
+            Assert.IsNotNull(token);
+        }
+
+        [Test]
         public void NullToken_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
