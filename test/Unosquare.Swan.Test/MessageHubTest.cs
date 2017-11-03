@@ -200,8 +200,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void StrongReferenceFalse_ReturnsSuccess()
         {
-            Func<SimpleMessageMock, bool> messageFilter = x => true;
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, messageFilter, false, MessageHubDefaultProxy.Instance);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => false, false, MessageHubDefaultProxy.Instance);
 
             Assert.IsNotNull(token);
         }
