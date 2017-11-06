@@ -2202,24 +2202,6 @@ references:
   commentId: Overload:Unosquare.Swan.Components.IMessageHub.Subscribe
   fullName: Unosquare.Swan.Components.IMessageHub.Subscribe
   nameWithType: IMessageHub.Subscribe
-- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0})
-  name: Subscribe<TMessage>(Action<TMessage>)
-  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__
-  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0})
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage))
-  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>)
-  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage))
-  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>)
-  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage))
-- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean)
-  name: Subscribe<TMessage>(Action<TMessage>, Boolean)
-  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Boolean_
-  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
-  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean)
-  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean)
-  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean)
-  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
 - uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2229,24 +2211,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
-- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
-  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
-  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__
-  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
-  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>)
-  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean))
-  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
-  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
-- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
-  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
-  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_
-  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
-  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, System.Boolean)
-  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean)
-  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
-  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
 - uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2256,24 +2220,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
-- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
-  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
-  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__Unosquare_Swan_Components_IMessageHubProxy_
-  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
-  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, Unosquare.Swan.Components.IMessageHubProxy)
-  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), Unosquare.Swan.Components.IMessageHubProxy)
-  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
-  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
-- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
-  name: Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
-  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__Unosquare_Swan_Components_IMessageHubProxy_
-  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
-  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, Unosquare.Swan.Components.IMessageHubProxy)
-  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), Unosquare.Swan.Components.IMessageHubProxy)
-  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
-  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
 - uid: Unosquare.Swan.Components.IMessageHub.Unsubscribe*
   name: Unsubscribe
   href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Unsubscribe_
@@ -2451,24 +2397,6 @@ references:
   commentId: Overload:Unosquare.Swan.Components.MessageHub.Subscribe
   fullName: Unosquare.Swan.Components.MessageHub.Subscribe
   nameWithType: MessageHub.Subscribe
-- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0})
-  name: Subscribe<TMessage>(Action<TMessage>)
-  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__
-  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0})
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage))
-  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>)
-  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage))
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage))
-- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Boolean)
-  name: Subscribe<TMessage>(Action<TMessage>, Boolean)
-  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Boolean_
-  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Boolean)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
-  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean)
-  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean)
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
 - uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2478,24 +2406,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
-- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
-  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
-  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__
-  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
-  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>)
-  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean))
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
-- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
-  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
-  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_
-  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
-  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, System.Boolean)
-  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean)
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
 - uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2505,24 +2415,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
-- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
-  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
-  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__Unosquare_Swan_Components_IMessageHubProxy_
-  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
-  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, Unosquare.Swan.Components.IMessageHubProxy)
-  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), Unosquare.Swan.Components.IMessageHubProxy)
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
-- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
-  name: Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
-  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__Unosquare_Swan_Components_IMessageHubProxy_
-  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
-  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
-  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, Unosquare.Swan.Components.IMessageHubProxy)
-  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), Unosquare.Swan.Components.IMessageHubProxy)
-  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
-  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
 - uid: Unosquare.Swan.Components.MessageHub.Unsubscribe*
   name: Unsubscribe
   href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Unsubscribe_
