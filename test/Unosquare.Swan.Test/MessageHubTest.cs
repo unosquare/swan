@@ -237,6 +237,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.IsNotNull(token);
         }
 
+        [Test]
         public void DeliveryActionWithStrongReferencesFalseAndProxy_ReturnsToken()
         {
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, false, proxy);
@@ -244,6 +245,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.IsNotNull(token);
         }
 
+        [Test]
         public void DeliveryActionAndMessageFilter_ReturnsToken()
         {
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => true);
@@ -251,6 +253,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Assert.IsNotNull(token);
         }
 
+        [Test]
         public void DeliveryActionWithFuncAndStrongReferencesTrue_ReturnsToken()
         {
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => true, true);
@@ -265,6 +268,32 @@ namespace Unosquare.Swan.Test.MessageHubTests
             {
                 Runtime.Messages.Unsubscribe<SimpleMessageMock>(null);
             });
+        }
+
+        [Test]
+        public void PublishWithStrongReference_ReturnsMessagePublished()
+        {
+            var messages = new List<SimpleMessageMock>();
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+
+            Runtime.Messages.Publish(message);
+
+            Assert.IsTrue(messages.Any());
+            Assert.AreEqual(message, messages.First());
+        }
+
+        [Test]
+        public void PublishWithWeakReference_ReturnsMessagePublished()
+        {
+            var messages = new List<SimpleMessageMock>();
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add, false);
+            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+
+            Runtime.Messages.Publish(message);
+
+            Assert.IsTrue(messages.Any());
+            Assert.AreEqual(message, messages.First());
         }
     }
 }
