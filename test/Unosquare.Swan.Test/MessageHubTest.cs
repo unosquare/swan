@@ -139,6 +139,21 @@ namespace Unosquare.Swan.Test.MessageHubTests
         }
 
         [Test]
+        public void PublishMessageWhenUnsubscribed_MessageNotPublished()
+        {
+            var messages = new List<SimpleMessageMock>();
+            var message = new SimpleMessageMock(this, "Unosquare Labs");
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+
+            Assert.IsNotNull(token);
+
+            Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
+            Runtime.Messages.Publish(message);
+
+            Assert.IsFalse(messages.Skip(1).Any());
+        }
+
+        [Test]
         public void NullMessage_ThrowsArgumentNullException()
         {
             var message = new SimpleMessageMock(sender, "Unosquare Américas");
