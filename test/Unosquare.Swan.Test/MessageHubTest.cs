@@ -15,7 +15,6 @@ namespace Unosquare.Swan.Test.MessageHubTests
         protected bool cancel;
         protected SimpleMessageMock content;
         protected List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
-        protected MessageHubDefaultProxy proxy = MessageHubDefaultProxy.Instance;
     }
 
     [TestFixture]
@@ -60,10 +59,9 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void ValidCancel_ReturnsSuccess()
         {
-            Action act = () => cancel = true;
             content = new SimpleMessageMock(this, "Unosquare Américas");
 
-            var message = new MessageHubCancellableGenericMessage<string>(sender, content.Content, act);
+            var message = new MessageHubCancellableGenericMessage<string>(sender, content.Content, () => cancel = true);
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
@@ -111,24 +109,17 @@ namespace Unosquare.Swan.Test.MessageHubTests
     public class SendMessage : MessageHubTest
     {
         [Test]
-        public void PublishMessage_ReturnsSuccess()
+        public void PublishMessage_MessagePublished()
         {
-            var messages = new List<SimpleMessageMock>();
+            var message = new SimpleMessageMock(sender, "Unosquare Labs");
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
             Assert.IsNotNull(token);
 
-            var message = new SimpleMessageMock(this, "HOLA");
-
             Runtime.Messages.Publish(message);
 
-            Assert.IsTrue(messages.Any());
-            Assert.AreEqual(message, messages.First());
-
-            Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
-
-            Runtime.Messages.Publish(message);
-            Assert.IsFalse(messages.Skip(1).Any());
+            Assert.IsTrue(messagesToSend.Any());
+            Assert.AreEqual(message, messagesToSend.First());
         }
 
         [Test]
@@ -169,46 +160,10 @@ namespace Unosquare.Swan.Test.MessageHubTests
         }
 
         [Test]
-        public void NullDeliveryAction_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Runtime.Messages.Subscribe<SimpleMessageMock>(null, proxy);
-            });
-        }
-
-        [Test]
-        public void NullProxy_ThrowsArgumentNullException()
-        {
-            proxy = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, proxy);
-            });
-        }
-
-        [Test]
-        public void NullFunc_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, null, proxy);
-            });
-        }
-
-        [Test]
         public void StrongReferenceFalse_ReturnsToken()
         {
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => false, false, MessageHubDefaultProxy.Instance);
-
-            Assert.IsNotNull(token);
-        }
-
-        [Test]
-        public void DeliveryActionAndProxy_ReturnsSuccess()
-        {
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, proxy);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => false, false,
+                MessageHubDefaultProxy.Instance);
 
             Assert.IsNotNull(token);
         }
@@ -216,7 +171,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void DeliveryActionAndStrongReferencesTrue_ReturnsToken()
         {
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, true);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
         }
@@ -232,7 +187,8 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void DeliveryActionWithStrongReferencesTrueAndProxy_ReturnsToken()
         {
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, true, proxy);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, true,
+                MessageHubDefaultProxy.Instance);
 
             Assert.IsNotNull(token);
         }
@@ -240,7 +196,8 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void DeliveryActionWithStrongReferencesFalseAndProxy_ReturnsToken()
         {
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, false, proxy);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, false,
+                MessageHubDefaultProxy.Instance);
 
             Assert.IsNotNull(token);
         }
@@ -256,7 +213,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void DeliveryActionWithFuncAndStrongReferencesTrue_ReturnsToken()
         {
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => true, true);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, x => true);
 
             Assert.IsNotNull(token);
         }
