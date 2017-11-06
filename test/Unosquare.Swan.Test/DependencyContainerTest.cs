@@ -411,7 +411,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.AreEqual((new Fish()).Name, container.Resolve<IAnimal>().Name);
 
             container.Unregister<IAnimal>();
-            Assert.Throws<DependencyContainerResolutionException>(() => 
+            Assert.Throws<DependencyContainerResolutionException>(() =>
                 container.Resolve<IAnimal>()
             );
         }
@@ -433,7 +433,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.IsTrue(container.TryResolve(out IAnimal containerInstance));
             Assert.AreEqual(instance.Name, containerInstance.Name);
         }
-        
+
         [Test]
         public void RegisterInterfaceWithInstanceAndWeakReference_CanDestroy()
         {
@@ -473,7 +473,6 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
             using(var instance = new Human("George"))
             {
-                // TODO: mmmmm
                 container.Register<IAnimal>(instance).WithStrongReference();
             }
 
@@ -490,9 +489,19 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 container.Register<IAnimal, Fish>().WithStrongReference()
             );
         }
+        
+        [TestCase(typeof(IAnimal))]
+        [TestCase(typeof(Dictionary<string, string>))]
+        public void WithInvalidRegisterImplementation_ThrowsDependencyContainerRegistrationException(Type registerImplementation)
+        {
+            var container = new DependencyContainer();
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register(typeof(IAnimal), registerImplementation).AsSingleton()
+            );
+        }
 
         [Test]
-        public void WithTypeAsSingleton_ThrowsDependencyContainerResolutionException()
+        public void WithTypeAsSingleton_ResolveThrowsDependencyContainerResolutionException()
         {
             var container = new DependencyContainer();
 
@@ -500,6 +509,18 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             
             Assert.Throws<DependencyContainerResolutionException>(() =>
                 container.Resolve<IAnimal>()
+            );
+        }
+        
+        [TestCase(typeof(IAnimal))]
+        [TestCase(typeof(List))]
+        public void WithInvalidRegisterImplementation_ThrowsDependencyContainerResolutionException(
+            Type registerImplementation)
+        {
+            var container = new DependencyContainer();
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register(
+                    typeof(Dictionary<string, string>), registerImplementation).AsMultiInstance()
             );
         }
         
@@ -532,6 +553,8 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             container.Register<IAnimal>((di, param) => new Human(param["Name"].ToString()));
+
+            Assert.IsNotNull(container);
         }
         
     }
@@ -546,6 +569,22 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var instance = new Human("George");
             container.Register<IAnimal>(instance);
             container.Dispose();
+            Assert.IsTrue(instance.IsDisposed);
+        }
+
+        [Test]
+        public void WithRegisteredInterfaceAndContainerParent_DisposeContainer()
+        {
+            var instance = new Human("George");
+
+            var containerParent = new DependencyContainer();
+            containerParent.Register<IAnimal>(instance);
+
+            var container = containerParent.GetChildContainer();
+            container.Register<IAnimal>(instance);
+
+            containerParent.Dispose();
+
             Assert.IsTrue(instance.IsDisposed);
         }
     }
@@ -580,6 +619,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             Assert.IsFalse(container.CanResolve<string>((new Shark()).Name));
         }
+        
     }
 
     [TestFixture]
