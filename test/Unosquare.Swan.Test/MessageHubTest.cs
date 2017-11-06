@@ -111,24 +111,17 @@ namespace Unosquare.Swan.Test.MessageHubTests
     public class SendMessage : MessageHubTest
     {
         [Test]
-        public void PublishMessage_ReturnsSuccess()
+        public void PublishMessage_MessagePublished()
         {
-            var messages = new List<SimpleMessageMock>();
+            var message = new SimpleMessageMock(sender, "Unosquare Labs");
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
             Assert.IsNotNull(token);
-
-            var message = new SimpleMessageMock(this, "HOLA");
-
+            
             Runtime.Messages.Publish(message);
 
-            Assert.IsTrue(messages.Any());
-            Assert.AreEqual(message, messages.First());
-
-            Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
-
-            Runtime.Messages.Publish(message);
-            Assert.IsFalse(messages.Skip(1).Any());
+            Assert.IsTrue(messagesToSend.Any());
+            Assert.AreEqual(message, messagesToSend.First());
         }
 
         [Test]
