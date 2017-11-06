@@ -123,34 +123,31 @@ namespace Unosquare.Swan.Test.MessageHubTests
         }
 
         [Test]
-        public async Task PublishMessageAsync_ReturnsSuccess()
-        {
-            var messages = new List<SimpleMessageMock>();
-
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
-            Assert.IsNotNull(token);
-
-            var message = new SimpleMessageMock(this, "HOLA");
-
-            await Runtime.Messages.PublishAsync(message);
-
-            Assert.IsTrue(messages.Any());
-            Assert.AreEqual(message, messages.First());
-        }
-
-        [Test]
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
-            var messages = new List<SimpleMessageMock>();
             var message = new SimpleMessageMock(this, "Unosquare Labs");
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
 
             Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
             Runtime.Messages.Publish(message);
 
-            Assert.IsFalse(messages.Skip(1).Any());
+            Assert.IsFalse(messagesToSend.Any());
+        }
+
+        [Test]
+        public async Task PublishMessageAsync_ReturnsSuccess()
+        {
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
+            Assert.IsNotNull(token);
+
+            var message = new SimpleMessageMock(this, "HOLA");
+
+            await Runtime.Messages.PublishAsync(message);
+
+            Assert.IsTrue(messagesToSend.Any());
+            Assert.AreEqual(message, messagesToSend.First());
         }
 
         [Test]
