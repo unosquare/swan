@@ -113,6 +113,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 container.Resolve<string>((new Shark()).Name, NameDictionary)
             );
         }
+        
     }
 
     [TestFixture]
@@ -618,6 +619,16 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.IsFalse(container.CanResolve<string>((new Shark()).Name));
+        }
+
+        [TestCase(typeof(Func<>))]
+        [TestCase(typeof(Func<string, int>))]
+        [TestCase(typeof(Func<string, IDictionary<string, object>, int>))]
+        public void WithType_RegisterDictionary(Type resolveType)
+        {
+            var container = new DependencyContainer();
+
+            Assert.IsTrue(container.CanResolve(resolveType, NameDictionary));
         }
         
     }
