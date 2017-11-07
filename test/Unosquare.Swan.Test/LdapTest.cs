@@ -45,15 +45,14 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void NullPassword_ThrowsLdapException()
+        public async Task NullPassword_ReturnsNullAuthenticationDnProperty()
         {
-            Assert.ThrowsAsync<LdapException>(async () =>
-            {
-                var cn = new LdapConnection();
-                await cn.Connect(LdapServer, 389);
-                await cn.Bind("uid=riemann,dc=example", null);
-                cn.Disconnect();
-            });
+            var cn = new LdapConnection();
+            await cn.Connect(LdapServer, 389);
+            await cn.Bind("uid=riemann,dc=example,dc=com", null);
+            Assert.IsNull(cn.AuthenticationDn);
+            cn.Disconnect();
+
         }
     }
 
@@ -171,6 +170,8 @@ namespace Unosquare.Swan.Test
                 }
 
                 lsc.Next();
+
+                cn.Disconnect();
             });
         }
 
@@ -179,9 +180,10 @@ namespace Unosquare.Swan.Test
             [Test]
             public void ChangeUserProperty()
             {
-                var ex = Assert.ThrowsAsync<LdapException>(async () => {
+                var ex = Assert.ThrowsAsync<LdapException>(async () =>
+                {
 
-                var cn = await GetDefaultConnection();
+                    var cn = await GetDefaultConnection();
                     await cn.Modify("uid=euclid,dc=example,dc=com",
                         new[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
 
