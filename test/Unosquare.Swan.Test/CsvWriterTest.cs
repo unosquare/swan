@@ -16,6 +16,8 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         protected string _data = @"Company,OpenPositions,MainTechnology,Revenue
                 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
                 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+
+        protected dynamic dynObject;
     }
 
     [TestFixture]
@@ -134,6 +136,29 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                     writer.WriteObjects(strings);
 
                     Assert.AreEqual((int)writer.Count, strings.Count);
+                }
+            }
+        }
+
+        [Test]
+        public void DynamicObject_ReturnsAreEqual()
+        {
+            dynObject = new Dictionary<string, object>
+            {
+                {"A", "Florencia"},
+                {"B", "Camila"},
+                {"C", "Mariana"},
+                {"D", "Mónica"}
+            };
+
+            using(var stream = new MemoryStream())
+            {
+                using(var writer = new CsvWriter(stream))
+                {
+                    writer.WriteObject(dynObject);
+
+                    Assert.IsNotNull(writer);
+                    Assert.AreEqual(1, (int)writer.Count);
                 }
             }
         }
