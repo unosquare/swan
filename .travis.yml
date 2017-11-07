@@ -11,6 +11,7 @@ matrix:
     - os: osx
 install:
   - npm install maildev
+  - npm install ldapjs
   - dotnet restore
 script:
   - node ./mail.js &
