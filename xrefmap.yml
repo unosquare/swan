@@ -4194,15 +4194,6 @@ references:
   commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.SeparatorCharacter
   fullName: Unosquare.Swan.Formatters.CsvWriter.SeparatorCharacter
   nameWithType: CsvWriter.SeparatorCharacter
-- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.Generic.IDictionary{System.String,System.Object})
-  name: WriteHeadings(IDictionary<String, Object>)
-  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_System_Collections_Generic_IDictionary_System_String_System_Object__
-  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.Generic.IDictionary{System.String,System.Object})
-  name.vb: WriteHeadings(IDictionary(Of String, Object))
-  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.Generic.IDictionary<System.String, System.Object>)
-  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.Generic.IDictionary(Of System.String, System.Object))
-  nameWithType: CsvWriter.WriteHeadings(IDictionary<String, Object>)
-  nameWithType.vb: CsvWriter.WriteHeadings(IDictionary(Of String, Object))
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.IDictionary)
   name: WriteHeadings(IDictionary)
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_System_Collections_IDictionary_
