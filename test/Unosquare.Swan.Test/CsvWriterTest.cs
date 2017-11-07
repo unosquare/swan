@@ -16,8 +16,6 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         protected string _data = @"Company,OpenPositions,MainTechnology,Revenue
                 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
                 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
-
-        //protected Dictionary<string, string> dictionaryHeaders;
     }
 
     [TestFixture]
@@ -187,15 +185,13 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<string, string> dictionaryHeaders = null;
-
             using (var stream = new MemoryStream())
             {
                 using(var writer = new CsvWriter(stream))
                 {
                     Assert.Throws<ArgumentNullException>(() =>
                     {
-                        writer.WriteHeadings(dictionaryHeaders);
+                        writer.WriteHeadings(null as Dictionary<string, string>);
                     });
                 }
             }
@@ -226,11 +222,6 @@ namespace Unosquare.Swan.Test.CsvWriterTest
 
             using(var stream = File.OpenWrite(tempFile))
             {
-                if(stream.Length > 0)
-                {
-                    stream.SetLength(0);
-                }
-
                 using(var writer = new CsvWriter(stream))
                 {
                     writer.WriteHeadings(dictionaryHeaders);
@@ -255,9 +246,6 @@ namespace Unosquare.Swan.Test.CsvWriterTest
 
             using (var stream = File.OpenWrite(tempFile))
             {
-                if (stream.Length > 0)
-                    stream.SetLength(0);
-
                 using (var writer = new CsvWriter(stream))
                 {
                     writer.WriteHeadings<SampleCsvRecord>();
