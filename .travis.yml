@@ -11,8 +11,11 @@ matrix:
     - os: osx
 install:
   - npm install maildev
+  - npm install ldapjs
   - dotnet restore
 script:
   - node ./mail.js &
+  - node ./ldap.js &
+  - node ./LdapClient.js &
   - cd ./test/Unosquare.Swan.Test/
   - dotnet test Unosquare.Swan.Test.csproj -s .runsettings -f netcoreapp2.0
