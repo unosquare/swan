@@ -199,6 +199,9 @@ namespace Unosquare.Swan.Test
             [Test]
             public async Task ReadUserProperties()
             {
+                if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                    Assert.Inconclusive("Can not test in AppVeyor");
+
                 var cn = new LdapConnection();
                 await cn.Connect("127.0.0.1", 1089);
                 await cn.Bind("cn=root", "secret");
