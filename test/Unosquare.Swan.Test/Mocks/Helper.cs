@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Unosquare.Swan.Test.Mocks
 {
-    internal class Helper
+    internal static class Helper
     {
         /// <summary>
         /// Creates the temporary binary file.
