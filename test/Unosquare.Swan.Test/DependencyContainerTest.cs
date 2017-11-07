@@ -227,7 +227,22 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.AreEqual(expected, container.TryResolve(
                 resolveType, NameDictionary, out object obj));
         }
-        
+
+        [TestCase(typeof(Dictionary<String, Object>), true)]
+        [TestCase(typeof(string), false)]
+        [TestCase(typeof(int), false)]
+        [TestCase(typeof(IEnumerable<>), false)]
+        public void WithTypeAndParent_ResolveType(Type resolveType, bool expected)
+        {
+            var containerParent = new DependencyContainer();
+            containerParent.Register(typeof(string));
+            
+            var container = containerParent.GetChildContainer();
+
+            Assert.AreEqual(expected, container.TryResolve(
+                resolveType, out object obj));
+        }
+
         [TestCase(typeof(string), "Warsong", false)]
         [TestCase(typeof(Dictionary<string, string>), "", true)]
         [TestCase(typeof(Dictionary<string, string>), "Warsong", false)]
@@ -534,6 +549,26 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
                 container.Resolve<IAnimal>()
+            );
+        }
+
+        [Test]
+        public void WithRegisterImplementationAsSingleton_ThrowsDependencyContainerRegistrationException()
+        {
+            var container = new DependencyContainer();
+
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register<IAnimal, Shark>(new Shark()).AsSingleton()
+            );
+        }
+
+        [Test]
+        public void WithRegisterImplementationAsMultiInstance_ThrowsDependencyContainerResolutionException()
+        {
+            var container = new DependencyContainer();
+
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register( (di, param) => new Human(param["Name"].ToString()) ).AsMultiInstance()
             );
         }
 
