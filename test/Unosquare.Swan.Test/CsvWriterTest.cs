@@ -166,6 +166,24 @@ namespace Unosquare.Swan.Test.CsvWriterTest
     public class WriteHeadings : CsvWriterTest
     {
         [Test]
+        public void NullType_ThrowsArgumentNullException()
+        {
+            var tempFile = Path.GetTempFileName();
+            Type nullType = null;
+            
+            using(var stream = File.OpenWrite(tempFile))
+            {
+                using(var writer = new CsvWriter(stream))
+                {
+                    Assert.Throws<ArgumentNullException>(() =>
+                    {
+                        writer.WriteHeadings(nullType);
+                    });
+                }
+            }
+        }
+
+        [Test]
         public void HeadersLength_ReturnsAreEqual()
         {
             var tempFile = Path.GetTempFileName();
