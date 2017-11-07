@@ -159,7 +159,7 @@
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
-            => WriteLine(items.Select(x=> x == null ? string.Empty : x.ToStringInvariant()).ToArray());
+            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()).ToArray());
 
         /// <summary>
         /// Writes a line of CSV text.
@@ -187,9 +187,9 @@
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, new line, or separator char)
                     needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                        || textValue.IndexOf(EscapeCharacter) >= 0
-                        || textValue.IndexOf('\r') >= 0
-                        || textValue.IndexOf('\n') >= 0;
+                                     || textValue.IndexOf(EscapeCharacter) >= 0
+                                     || textValue.IndexOf('\r') >= 0
+                                     || textValue.IndexOf('\n') >= 0;
 
                     // Escape the escape characters by repeating them twice for every instance
                     textValue = textValue.Replace($"{EscapeCharacter}",
@@ -234,7 +234,8 @@
 
             lock (_syncLock)
             {
-                { // Handling as Dynamic Object
+                {
+                    // Handling as Dynamic Object
                     if (item is IDictionary<string, object> typedItem)
                     {
                         WriteDynamicObjectValues(typedItem);
@@ -242,7 +243,8 @@
                     }
                 }
 
-                { // Handling as Dictionary
+                {
+                    // Handling as Dictionary
                     if (item is IDictionary typedItem)
                     {
                         WriteDictionaryValues(typedItem);
@@ -250,7 +252,8 @@
                     }
                 }
 
-                { // Handling as array
+                {
+                    // Handling as array
                     if (item is ICollection typedItem)
                     {
                         WriteCollectionValues(typedItem);
@@ -258,7 +261,8 @@
                     }
                 }
 
-                { // Handling as a regular type
+                {
+                    // Handling as a regular type
                     WriteObjectValues(item);
                 }
             }
@@ -345,7 +349,7 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <param name="type">The type of object to extract heads.</param>
+        /// <param name="type">The type of object to extract headings.</param>
         /// <exception cref="System.ArgumentNullException">type</exception>
         public void WriteHeadings(Type type)
         {
@@ -359,13 +363,13 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <typeparam name="T">The type of object to extract heads</typeparam>
+        /// <typeparam name="T">The type of object to extract headings</typeparam>
         public void WriteHeadings<T>() => WriteHeadings(typeof(T));
 
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
+        /// <param name="dictionary">The dictionary to extract headings.</param>
         /// <exception cref="System.ArgumentNullException">dictionary</exception>
         public void WriteHeadings(IDictionary dictionary)
         {
@@ -379,9 +383,9 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <param name="item">The item.</param>
-        /// <exception cref="System.ArgumentNullException">item</exception>
-        /// <exception cref="System.ArgumentException">Unable to cast dynamic object to a suitable dictionary - item</exception>
+        /// <param name="item">The object to extract headings.</param>
+        /// <exception cref="ArgumentNullException">item</exception>
+        /// <exception cref="ArgumentException">Unable to cast dynamic object to a suitable dictionary - item</exception>
         public void WriteHeadings(dynamic item)
         {
             if (item == null)
@@ -391,6 +395,19 @@
                 throw new ArgumentException("Unable to cast dynamic object to a suitable dictionary", nameof(item));
 
             WriteHeadings(dictionary);
+        }
+#else
+        /// <summary>
+        /// Writes the headings.
+        /// </summary>
+        /// <param name="obj">The object to extract headings.</param>
+        /// <exception cref="ArgumentNullException">obj</exception>
+        public void WriteHeadings(object obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException(nameof(obj));
+
+            WriteHeadings(obj.GetType());
         }
 #endif
 
