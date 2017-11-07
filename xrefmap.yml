@@ -4200,6 +4200,12 @@ references:
   commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.IDictionary)
   fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Collections.IDictionary)
   nameWithType: CsvWriter.WriteHeadings(IDictionary)
+- uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Object)
+  name: WriteHeadings(Object)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_System_Object_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Object)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Object)
+  nameWithType: CsvWriter.WriteHeadings(Object)
 - uid: Unosquare.Swan.Formatters.CsvWriter.WriteHeadings(System.Type)
   name: WriteHeadings(Type)
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_WriteHeadings_System_Type_
