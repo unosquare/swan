@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/bootstrap.min.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
@@ -27,7 +26,7 @@
     <div id="wrapper">
       <header>
         
-        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -38,7 +37,7 @@
               </button>
               
               <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="logo" src="../best-practices/resources/images/logo.png" alt="">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -51,7 +50,7 @@
           </div>
         </nav>
         
-        <div class="subnav navbar">
+        <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
@@ -84,7 +83,7 @@
   </h1>
   <div class="markdown level0 summary"><p>Provides extended information about a type.</p>
 <p>This class is mainly used to define sets of types within the Constants class
-and it is not meant for other than querying the BasicTypesInfo dictionary.</p>
+and it is not meant for other than querying the VasicTypesInfo dictionary.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -118,6 +117,7 @@ and it is not meant for other than querying the BasicTypesInfo dictionary.</p>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Reflection.html">Unosquare.Swan.Reflection</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Reflection_ExtendedTypeInfo_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class ExtendedTypeInfo</code></pre>
@@ -177,8 +177,7 @@ and it is not meant for other than querying the BasicTypesInfo dictionary.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if this instance can parse natively; otherwise, <code>false</code>.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -204,8 +203,7 @@ and it is not meant for other than querying the BasicTypesInfo dictionary.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if this instance is nullable value type; otherwise, <code>false</code>.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -231,8 +229,7 @@ and it is not meant for other than querying the BasicTypesInfo dictionary.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if this instance is numeric; otherwise, <code>false</code>.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -286,8 +283,7 @@ It will prefer the overload containing the IFormatProvider argument</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Reflection.MethodInfo</span></td>
-        <td><p>To string method information.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -314,8 +310,7 @@ a suitable TryParse static method, it will return null.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Reflection.MethodInfo</span></td>
-        <td><p>The try parse method information.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -341,8 +336,7 @@ a suitable TryParse static method, it will return null.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Type</span></td>
-        <td><p>The type.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -370,8 +364,7 @@ Otherwise it will return the same type as the Type property</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Type</span></td>
-        <td><p>The type of the underlying.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -447,7 +440,7 @@ IFormat provider if the overload is available</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that represents the current object</p>
+        <td><p>A string that represents the current object</p>
 </td>
       </tr>
     </tbody>
@@ -500,7 +493,7 @@ for any reason. When possible, this method uses CultureInfo.InvariantCulture and
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if parse was converted successfully; otherwise, <code>false</code>.</p>
+        <td><p>True if parse was converted successfully; otherwise, false</p>
 </td>
       </tr>
     </tbody>
@@ -509,11 +502,6 @@ for any reason. When possible, this method uses CultureInfo.InvariantCulture and
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
-            <div class="doc" align="center">
-              <span class="small mobile-hide">
-                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
-              </span>
-            </div>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
@@ -535,7 +523,7 @@ for any reason. When possible, this method uses CultureInfo.InvariantCulture and
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2017 <a href="https://www.unosquare.com">Unosquare</a></span>
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

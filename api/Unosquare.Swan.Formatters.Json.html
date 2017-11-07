@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/bootstrap.min.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
@@ -27,7 +26,7 @@
     <div id="wrapper">
       <header>
         
-        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -38,7 +37,7 @@
               </button>
               
               <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="logo" src="../best-practices/resources/images/logo.png" alt="">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -51,7 +50,7 @@
           </div>
         </nav>
         
-        <div class="subnav navbar">
+        <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
@@ -118,6 +117,7 @@ serializer such as the beloved Json.NET</p>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Formatters.html">Unosquare.Swan.Formatters</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Formatters_Json_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class Json</code></pre>
@@ -426,120 +426,7 @@ Non-public constructors and property setters are ignored.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that represents the current object</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.ArgumentException</span></td>
-        <td><p>You need to provide an object or array</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Formatters_Json_Serialize_" data-uid="Unosquare.Swan.Formatters.Json.Serialize*"></a>
-  <h4 id="Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Collections_Generic_List_System_WeakReference__" data-uid="Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})">Serialize(Object, Boolean, String, Boolean, String[], String[], List&lt;WeakReference&gt;)</h4>
-  <div class="markdown level1 summary"><p>Serializes the specified object into a JSON string.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Serialize(object obj, bool format, string typeSpecifier, bool includeNonPublic, string[] includedNames, string[] excludedNames, List&lt;WeakReference&gt; parentReferences)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><span class="parametername">obj</span></td>
-        <td><p>The object.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">format</span></td>
-        <td><p>if set to <code>true</code> it formats and indents the output.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">typeSpecifier</span></td>
-        <td><p>The type specifier. Leave null or empty to avoid setting.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">includeNonPublic</span></td>
-        <td><p>if set to <code>true</code> non-public getters will be also read.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span>[]</td>
-        <td><span class="parametername">includedNames</span></td>
-        <td><p>The included property names.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span>[]</td>
-        <td><span class="parametername">excludedNames</span></td>
-        <td><p>The excluded property names.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.WeakReference</span>&gt;</td>
-        <td><span class="parametername">parentReferences</span></td>
-        <td><p>The parent references.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that represents the current object</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.ArgumentException</span></td>
-        <td><p>You need to provide an object or array</p>
+        <td><p>A string that represents the current object</p>
 </td>
       </tr>
     </tbody>
@@ -596,7 +483,7 @@ Non-public constructors and property setters are ignored.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that represents the current object</p>
+        <td><p>A string that represents the current object</p>
 </td>
       </tr>
     </tbody>
@@ -653,7 +540,7 @@ Non-public constructors and property setters are ignored.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that represents the current object</p>
+        <td><p>A string that represents the current object</p>
 </td>
       </tr>
     </tbody>
@@ -662,11 +549,6 @@ Non-public constructors and property setters are ignored.</p>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
-            <div class="doc" align="center">
-              <span class="small mobile-hide">
-                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
-              </span>
-            </div>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
@@ -688,7 +570,7 @@ Non-public constructors and property setters are ignored.</p>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2017 <a href="https://www.unosquare.com">Unosquare</a></span>
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

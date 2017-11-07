@@ -1410,6 +1410,12 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, System.Collections.Generic.Dictionary(Of System.String, System.Object), System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.CanResolve(Type, Dictionary<String, Object>, String, DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.CanResolve(Type, Dictionary(Of String, Object), String, DependencyContainerResolveOptions)
+- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  name: CanResolve(Type, DependencyContainerResolveOptions)
+  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_System_Type_Unosquare_Swan_Components_DependencyContainerResolveOptions_
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type,Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve(System.Type, Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  nameWithType: DependencyContainer.CanResolve(Type, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve*
   name: CanResolve
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve_
@@ -1434,6 +1440,15 @@ references:
   fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String, System.Collections.Generic.Dictionary(Of System.String, System.Object), Unosquare.Swan.Components.DependencyContainerResolveOptions)
   nameWithType: DependencyContainer.CanResolve<ResolveType>(String, Dictionary<String, Object>, DependencyContainerResolveOptions)
   nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String, Dictionary(Of String, Object), DependencyContainerResolveOptions)
+- uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  name: CanResolve<ResolveType>(String, DependencyContainerResolveOptions)
+  href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_System_String_Unosquare_Swan_Components_DependencyContainerResolveOptions_
+  commentId: M:Unosquare.Swan.Components.DependencyContainer.CanResolve``1(System.String,Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  name.vb: CanResolve(Of ResolveType)(String, DependencyContainerResolveOptions)
+  fullName: Unosquare.Swan.Components.DependencyContainer.CanResolve<ResolveType>(System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  fullName.vb: Unosquare.Swan.Components.DependencyContainer.CanResolve(Of ResolveType)(System.String, Unosquare.Swan.Components.DependencyContainerResolveOptions)
+  nameWithType: DependencyContainer.CanResolve<ResolveType>(String, DependencyContainerResolveOptions)
+  nameWithType.vb: DependencyContainer.CanResolve(Of ResolveType)(String, DependencyContainerResolveOptions)
 - uid: Unosquare.Swan.Components.DependencyContainer.CanResolve``1(Unosquare.Swan.Components.DependencyContainerResolveOptions)
   name: CanResolve<ResolveType>(DependencyContainerResolveOptions)
   href: api/Unosquare.Swan.Components.DependencyContainer.html#Unosquare_Swan_Components_DependencyContainer_CanResolve__1_Unosquare_Swan_Components_DependencyContainerResolveOptions_
@@ -2202,6 +2217,24 @@ references:
   commentId: Overload:Unosquare.Swan.Components.IMessageHub.Subscribe
   fullName: Unosquare.Swan.Components.IMessageHub.Subscribe
   nameWithType: IMessageHub.Subscribe
+- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0})
+  name: Subscribe<TMessage>(Action<TMessage>)
+  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__
+  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0})
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage))
+  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>)
+  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage))
+  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>)
+  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage))
+- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean)
+  name: Subscribe<TMessage>(Action<TMessage>, Boolean)
+  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Boolean_
+  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
+  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean)
+  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean)
+  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
 - uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2211,6 +2244,24 @@ references:
   fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
+- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
+  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
+  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__
+  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
+  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>)
+  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean))
+  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
+  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
+- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
+  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
+  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_
+  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
+  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean)
+  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
+  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
 - uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2220,6 +2271,24 @@ references:
   fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
+- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
+  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
+  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__Unosquare_Swan_Components_IMessageHubProxy_
+  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
+  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, Unosquare.Swan.Components.IMessageHubProxy)
+  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), Unosquare.Swan.Components.IMessageHubProxy)
+  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
+  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
+- uid: Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
+  name: Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
+  href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__Unosquare_Swan_Components_IMessageHubProxy_
+  commentId: M:Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
+  fullName: Unosquare.Swan.Components.IMessageHub.Subscribe<TMessage>(System.Action<TMessage>, Unosquare.Swan.Components.IMessageHubProxy)
+  fullName.vb: Unosquare.Swan.Components.IMessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), Unosquare.Swan.Components.IMessageHubProxy)
+  nameWithType: IMessageHub.Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
+  nameWithType.vb: IMessageHub.Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
 - uid: Unosquare.Swan.Components.IMessageHub.Unsubscribe*
   name: Unsubscribe
   href: api/Unosquare.Swan.Components.IMessageHub.html#Unosquare_Swan_Components_IMessageHub_Unsubscribe_
@@ -2397,6 +2466,24 @@ references:
   commentId: Overload:Unosquare.Swan.Components.MessageHub.Subscribe
   fullName: Unosquare.Swan.Components.MessageHub.Subscribe
   nameWithType: MessageHub.Subscribe
+- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0})
+  name: Subscribe<TMessage>(Action<TMessage>)
+  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__
+  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0})
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage))
+  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>)
+  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage))
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage))
+- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Boolean)
+  name: Subscribe<TMessage>(Action<TMessage>, Boolean)
+  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Boolean_
+  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
+  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean)
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
 - uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2406,6 +2493,24 @@ references:
   fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Boolean, IMessageHubProxy)
   nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Boolean, IMessageHubProxy)
+- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
+  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
+  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__
+  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
+  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>)
+  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean))
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean))
+- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
+  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
+  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_
+  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
+  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean)
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean)
 - uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)
   name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_
@@ -2415,6 +2520,24 @@ references:
   fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), System.Boolean, Unosquare.Swan.Components.IMessageHubProxy)
   nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, Boolean, IMessageHubProxy)
   nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), Boolean, IMessageHubProxy)
+- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
+  name: Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
+  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__Unosquare_Swan_Components_IMessageHubProxy_
+  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
+  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, System.Func<TMessage, System.Boolean>, Unosquare.Swan.Components.IMessageHubProxy)
+  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Func(Of TMessage, System.Boolean), Unosquare.Swan.Components.IMessageHubProxy)
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, Func<TMessage, Boolean>, IMessageHubProxy)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), Func(Of TMessage, Boolean), IMessageHubProxy)
+- uid: Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
+  name: Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
+  href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Subscribe__1_System_Action___0__Unosquare_Swan_Components_IMessageHubProxy_
+  commentId: M:Unosquare.Swan.Components.MessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
+  fullName: Unosquare.Swan.Components.MessageHub.Subscribe<TMessage>(System.Action<TMessage>, Unosquare.Swan.Components.IMessageHubProxy)
+  fullName.vb: Unosquare.Swan.Components.MessageHub.Subscribe(Of TMessage)(System.Action(Of TMessage), Unosquare.Swan.Components.IMessageHubProxy)
+  nameWithType: MessageHub.Subscribe<TMessage>(Action<TMessage>, IMessageHubProxy)
+  nameWithType.vb: MessageHub.Subscribe(Of TMessage)(Action(Of TMessage), IMessageHubProxy)
 - uid: Unosquare.Swan.Components.MessageHub.Unsubscribe*
   name: Unsubscribe
   href: api/Unosquare.Swan.Components.MessageHub.html#Unosquare_Swan_Components_MessageHub_Unsubscribe_
@@ -3423,6 +3546,12 @@ references:
   commentId: Overload:Unosquare.Swan.Definitions.AllNumericValueTypes
   fullName: Unosquare.Swan.Definitions.AllNumericValueTypes
   nameWithType: Definitions.AllNumericValueTypes
+- uid: Unosquare.Swan.Definitions.BasicTypesInfo
+  name: BasicTypesInfo
+  href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_BasicTypesInfo
+  commentId: F:Unosquare.Swan.Definitions.BasicTypesInfo
+  fullName: Unosquare.Swan.Definitions.BasicTypesInfo
+  nameWithType: Definitions.BasicTypesInfo
 - uid: Unosquare.Swan.Definitions.CurrentAnsiEncoding
   name: CurrentAnsiEncoding
   href: api/Unosquare.Swan.Definitions.html#Unosquare_Swan_Definitions_CurrentAnsiEncoding
@@ -4341,15 +4470,6 @@ references:
   fullName.vb: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String())
   nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[])
   nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String())
-- uid: Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})
-  name: Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>)
-  href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String___System_Collections_Generic_List_System_WeakReference__
-  commentId: M:Unosquare.Swan.Formatters.Json.Serialize(System.Object,System.Boolean,System.String,System.Boolean,System.String[],System.String[],System.Collections.Generic.List{System.WeakReference})
-  name.vb: Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference))
-  fullName: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String[], System.String[], System.Collections.Generic.List<System.WeakReference>)
-  fullName.vb: Unosquare.Swan.Formatters.Json.Serialize(System.Object, System.Boolean, System.String, System.Boolean, System.String(), System.String(), System.Collections.Generic.List(Of System.WeakReference))
-  nameWithType: Json.Serialize(Object, Boolean, String, Boolean, String[], String[], List<WeakReference>)
-  nameWithType.vb: Json.Serialize(Object, Boolean, String, Boolean, String(), String(), List(Of WeakReference))
 - uid: Unosquare.Swan.Formatters.Json.Serialize*
   name: Serialize
   href: api/Unosquare.Swan.Formatters.Json.html#Unosquare_Swan_Formatters_Json_Serialize_
@@ -6579,6 +6699,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Add
   nameWithType: LdapAttributeSet.Add
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
+  name: Clear()
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear()
+  nameWithType: LdapAttributeSet.Clear()
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear*
+  name: Clear
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clear_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clear
+  nameWithType: LdapAttributeSet.Clear
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Clone
   name: Clone()
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Clone
@@ -6603,6 +6735,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains
   nameWithType: LdapAttributeSet.Contains
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
+  name: Count
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count
+  commentId: P:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
+  nameWithType: LdapAttributeSet.Count
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count*
+  name: Count
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Count_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Count
+  nameWithType: LdapAttributeSet.Count
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)
   name: GetAttribute(String)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_
@@ -6645,6 +6789,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset
   fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetSubset
   nameWithType: LdapAttributeSet.GetSubset
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
+  name: IsEmpty()
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty()
+  nameWithType: LdapAttributeSet.IsEmpty()
+- uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty*
+  name: IsEmpty
+  href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_IsEmpty_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
+  fullName: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.IsEmpty
+  nameWithType: LdapAttributeSet.IsEmpty
 - uid: Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)
   name: Remove(Object)
   href: api/Unosquare.Swan.Networking.Ldap.LdapAttributeSet.html#Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_

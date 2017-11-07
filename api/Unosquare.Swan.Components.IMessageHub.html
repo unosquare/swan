@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/bootstrap.min.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
@@ -27,7 +26,7 @@
     <div id="wrapper">
       <header>
         
-        <nav class="navbar navbar-inverse ng-scope" role="navigation">
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -38,7 +37,7 @@
               </button>
               
               <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="logo" src="../best-practices/resources/images/logo.png" alt="">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -51,7 +50,7 @@
           </div>
         </nav>
         
-        <div class="subnav navbar">
+        <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
               <li></li>
@@ -86,6 +85,7 @@
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Unosquare_Swan_Components_IMessageHub_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public interface IMessageHub</code></pre>
@@ -201,6 +201,137 @@
   
   
   <a id="Unosquare_Swan_Components_IMessageHub_Subscribe_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe*"></a>
+  <h4 id="Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0})">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;)</h4>
+  <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action.
+All references are held with WeakReferences</p>
+<p>All messages of this type will be delivered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction)where TMessage : class, IMessageHubMessage</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">deliveryAction</span></td>
+        <td><p>Action to invoke when message is delivered</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td><p>Type of message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_IMessageHub_Subscribe_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe*"></a>
+  <h4 id="Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Boolean_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action.</p>
+<p>All messages of this type will be delivered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, bool useStrongReferences)where TMessage : class, IMessageHubMessage</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">deliveryAction</span></td>
+        <td><p>Action to invoke when message is delivered</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">useStrongReferences</span></td>
+        <td><p>Use strong references to destination and deliveryAction </p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td><p>Type of message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_IMessageHub_Subscribe_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe*"></a>
   <h4 id="Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Boolean_Unosquare_Swan_Components_IMessageHubProxy_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Boolean,Unosquare.Swan.Components.IMessageHubProxy)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Boolean, IMessageHubProxy)</h4>
   <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action.
 Messages will be delivered via the specified proxy.</p>
@@ -252,7 +383,151 @@ Messages will be delivered via the specified proxy.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
-        <td><p>MessageSubscription used to unsubscribing</p>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td><p>Type of message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_IMessageHub_Subscribe_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe*"></a>
+  <h4 id="Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean})">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Func&lt;TMessage, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action with the given filter.
+All references are held with WeakReferences
+Only messages that &quot;pass&quot; the filter will be delivered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, Func&lt;TMessage, bool&gt; messageFilter)where TMessage : class, IMessageHubMessage</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">deliveryAction</span></td>
+        <td><p>Action to invoke when message is delivered</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TMessage, <span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">messageFilter</span></td>
+        <td><p>The message filter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td><p>Type of message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_IMessageHub_Subscribe_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe*"></a>
+  <h4 id="Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__System_Boolean_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},System.Boolean)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Func&lt;TMessage, Boolean&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action with the given filter.
+All references are held with WeakReferences
+Only messages that &quot;pass&quot; the filter will be delivered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, Func&lt;TMessage, bool&gt; messageFilter, bool useStrongReferences)where TMessage : class, IMessageHubMessage</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">deliveryAction</span></td>
+        <td><p>Action to invoke when message is delivered</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TMessage, <span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">messageFilter</span></td>
+        <td><p>The message filter.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">useStrongReferences</span></td>
+        <td><p>Use strong references to destination and deliveryAction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
 </td>
       </tr>
     </tbody>
@@ -334,7 +609,153 @@ Only messages that &quot;pass&quot; the filter will be delivered.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
-        <td><p>MessageSubscription used to unsubscribing</p>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td><p>Type of message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_IMessageHub_Subscribe_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe*"></a>
+  <h4 id="Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__System_Func___0_System_Boolean__Unosquare_Swan_Components_IMessageHubProxy_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},System.Func{``0,System.Boolean},Unosquare.Swan.Components.IMessageHubProxy)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Func&lt;TMessage, Boolean&gt;, IMessageHubProxy)</h4>
+  <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action with the given filter.
+Messages will be delivered via the specified proxy.
+All references (apart from the proxy) are held with WeakReferences
+Only messages that &quot;pass&quot; the filter will be delivered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, Func&lt;TMessage, bool&gt; messageFilter, IMessageHubProxy proxy)where TMessage : class, IMessageHubMessage</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">deliveryAction</span></td>
+        <td><p>Action to invoke when message is delivered</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TMessage, <span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">messageFilter</span></td>
+        <td><p>The message filter.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.IMessageHubProxy.html">IMessageHubProxy</a></td>
+        <td><span class="parametername">proxy</span></td>
+        <td><p>Proxy to use when delivering the messages</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td><p>Type of message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_IMessageHub_Subscribe_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe*"></a>
+  <h4 id="Unosquare_Swan_Components_IMessageHub_Subscribe__1_System_Action___0__Unosquare_Swan_Components_IMessageHubProxy_" data-uid="Unosquare.Swan.Components.IMessageHub.Subscribe``1(System.Action{``0},Unosquare.Swan.Components.IMessageHubProxy)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, IMessageHubProxy)</h4>
+  <div class="markdown level1 summary"><p>Subscribe to a message type with the given destination and delivery action.
+Messages will be delivered via the specified proxy.
+All references (apart from the proxy) are held with WeakReferences</p>
+<p>All messages of this type will be delivered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, IMessageHubProxy proxy)where TMessage : class, IMessageHubMessage</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">deliveryAction</span></td>
+        <td><p>Action to invoke when message is delivered</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.IMessageHubProxy.html">IMessageHubProxy</a></td>
+        <td><span class="parametername">proxy</span></td>
+        <td><p>Proxy to use when delivering the messages</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.MessageHubSubscriptionToken.html">MessageHubSubscriptionToken</a></td>
+        <td><p>TinyMessageSubscription used to unsubscribing</p>
 </td>
       </tr>
     </tbody>
@@ -405,11 +826,6 @@ Only messages that &quot;pass&quot; the filter will be delivered.</p>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
-            <div class="doc" align="center">
-              <span class="small mobile-hide">
-                <img id="logo" class="doc-logo" src="../swan-logo-256.png" alt="">
-              </span>
-            </div>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
@@ -431,7 +847,7 @@ Only messages that &quot;pass&quot; the filter will be delivered.</p>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2017 <a href="https://www.unosquare.com">Unosquare</a></span>
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
