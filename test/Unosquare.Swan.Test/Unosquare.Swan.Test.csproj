@@ -4,7 +4,7 @@
     <Description>Unit Testing project</Description>
     <Copyright>Copyright (c) 2016-2017 - Unosquare</Copyright>
     <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
-    <TargetFrameworks>netcoreapp2.0;net46</TargetFrameworks>
+    <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
     <AssemblyName>Unosquare.Swan.Test</AssemblyName>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
     <DebugType>Full</DebugType>
