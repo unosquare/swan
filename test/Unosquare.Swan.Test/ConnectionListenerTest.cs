@@ -8,10 +8,10 @@ namespace Unosquare.Swan.Test
     [TestFixture]
     public class ConnectionListenerTest
     {
-        [TestCase(12345)]
-        public async Task OnConnectionAcceptingTest(int port)
+        [Test]
+        public async Task OnConnectionAcceptingTest()
         {
-            using (var connectionListener = new ConnectionListener(port))
+            using (var connectionListener = new ConnectionListener(12345))
             {
                 using (var client = new TcpClient())
                 {
@@ -19,11 +19,14 @@ namespace Unosquare.Swan.Test
                     connectionListener.Start();
                     connectionListener.OnConnectionAccepting += (s, e) =>
                     {
+                        Assert.IsTrue(e.Client.Connected);
+                        
                         isAccepting = true;
                     };
 
-                    await client.ConnectAsync("localhost", port);
+                    await client.ConnectAsync("localhost", 12345);
                     await Task.Delay(100);
+
                     Assert.IsTrue(connectionListener.IsListening);
                     Assert.IsTrue(client.Connected);
                     Assert.IsTrue(isAccepting);
@@ -31,10 +34,26 @@ namespace Unosquare.Swan.Test
             }
         }
 
-        [TestCase(12346)]
-        public async Task OnConnectionAcceptedTest(int port)
+        [Test]
+        public async Task UsingLoopback_CanListen()
         {
-            using (var connectionListener = new ConnectionListener(port))
+            using (var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), 12345))
+            {
+                using (var client = new TcpClient())
+                {
+                    connectionListener.Start();
+                    await client.ConnectAsync("localhost", 12345);
+                    await Task.Delay(100);
+                    Assert.IsTrue(connectionListener.IsListening);
+                    Assert.IsTrue(client.Connected);
+                }
+            }
+        }
+
+        [Test]
+        public async Task OnConnectionAcceptedTest()
+        {
+            using (var connectionListener = new ConnectionListener(12345))
             {
                 using (var client = new TcpClient())
                 {
@@ -44,7 +63,7 @@ namespace Unosquare.Swan.Test
                         isAccepted = true;
                     };
                     connectionListener.Start();
-                    await client.ConnectAsync("localhost", port);
+                    await client.ConnectAsync("localhost", 12345);
                     await Task.Delay(100);
                     Assert.IsTrue(connectionListener.IsListening, "Connection Listerner is listening");
                     Assert.IsTrue(client.Connected, "Client is connected");
@@ -53,12 +72,12 @@ namespace Unosquare.Swan.Test
             }
         }
 
-        [TestCase(12347)]
-        public async Task OnConnectionFailureTest(int port)
+        [Test]
+        public async Task OnConnectionFailureTest()
         {
             Assert.Inconclusive("How to throw a failure?");
 
-            using (var connectionListener = new ConnectionListener(port))
+            using (var connectionListener = new ConnectionListener(12345))
             {
                 using (var client = new TcpClient())
                 {
@@ -69,16 +88,16 @@ namespace Unosquare.Swan.Test
                     };
 
                     connectionListener.Start();
-                    await client.ConnectAsync("localhost", port);
+                    await client.ConnectAsync("localhost", 12345);
                     Assert.IsTrue(isFailure);
                 }
             }
         }
 
-        [TestCase(12348)]
-        public void OnListenerStoppedTest(int port)
+        [Test]
+        public void OnListenerStoppedTest()
         {
-            using (var connectionListener = new ConnectionListener(port))
+            using (var connectionListener = new ConnectionListener(12345))
             {
                 var isStopped = false;
                 connectionListener.Start();
