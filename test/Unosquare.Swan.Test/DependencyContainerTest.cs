@@ -411,6 +411,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 name, NameDictionary, DependencyContainerResolveOptions.Default, 
                 out Dictionary<string, object> instance));
         }
+        
     }
 
     [TestFixture]
@@ -592,6 +593,17 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             Assert.IsNotNull(container);
         }
+
+        [Test]
+        public void RegisterInterfaceWithInstance_ThrowsDependencyContainerRegistrationException()
+        {
+            var container = new DependencyContainer();
+            var instance = new Human("George");
+
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+                container.Register(typeof(IDictionary<string, string>).GetGenericTypeDefinition(), typeof(string), instance)
+            );
+        }
         
     }
 
@@ -689,6 +701,22 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         {
             var container = new DependencyContainer();
 
+            var resolved = container.ResolveAll(typeof(Dictionary<string, object>));
+
+            Assert.AreEqual(
+                "System.Linq.Enumerable+WhereSelectEnumerableIterator`2" +
+                "[Unosquare.Swan.Components.DependencyContainer+TypeRegistration,System.Object]",
+                resolved.ToString());
+        }
+
+        [Test]
+        public void WithTypeAsParamAndWithParent_ResolveAll()
+        {
+            var containerParent = new DependencyContainer();
+            containerParent.Register(typeof(string));
+
+            var container = containerParent.GetChildContainer();
+            
             var resolved = container.ResolveAll(typeof(Dictionary<string, object>));
 
             Assert.AreEqual(
