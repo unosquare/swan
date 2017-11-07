@@ -171,7 +171,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
             var tempFile = Path.GetTempFileName();
             Type nullType = null;
             
-            using(var stream = File.OpenWrite(tempFile))
+            using(var stream = new MemoryStream())
             {
                 using(var writer = new CsvWriter(stream))
                 {
