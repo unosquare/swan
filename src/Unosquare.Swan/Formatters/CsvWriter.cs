@@ -375,19 +375,6 @@
             WriteLine(GetFilteredDictionaryKeys(dictionary));
         }
 
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <exception cref="System.ArgumentNullException">dictionary</exception>
-        public void WriteHeadings(IDictionary<string, object> dictionary)
-        {
-            if (dictionary == null)
-                throw new ArgumentNullException(nameof(dictionary));
-
-            WriteLine(GetFilteredDictionaryKeys(dictionary));
-        }
-
 #if NET452
         /// <summary>
         /// Writes the headings.
