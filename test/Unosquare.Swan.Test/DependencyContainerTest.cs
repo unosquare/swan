@@ -684,45 +684,31 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
     public class ResolveAll
     {
         [Test]
-        public void WithType_ResolveAll()
-        {
-            var container = new DependencyContainer();
-
-            var resolved = container.ResolveAll<Dictionary<string, object>>();
-            
-            Assert.AreEqual(
-                "System.Linq.Enumerable+<CastIterator>d__94`1[System.Collections" +
-                ".Generic.Dictionary`2[System.String,System.Object]]", 
-                resolved.ToString());
-        }
-
-        [Test]
         public void WithTypeAsParam_ResolveAll()
         {
             var container = new DependencyContainer();
-
-            var resolved = container.ResolveAll(typeof(Dictionary<string, object>));
-
-            Assert.AreEqual(
-                "System.Linq.Enumerable+WhereSelectEnumerableIterator`2" +
-                "[Unosquare.Swan.Components.DependencyContainer+TypeRegistration,System.Object]",
-                resolved.ToString());
+            container.Register(typeof(Shark));
+            Assert.IsNotNull(container.ResolveAll(typeof(Shark)));
         }
 
         [Test]
-        public void WithTypeAsParamAndWithParent_ResolveAll()
+        public void WithType_ResolveAll()
+        {
+            var container = new DependencyContainer();
+            container.Register(typeof(Shark));
+            Assert.IsNotNull(container.ResolveAll<Shark>());
+        }
+        
+        [TestCase(typeof(Shark), false)]
+        [TestCase(typeof(Shark), true)]
+        public void WithTypeAsParamAndWithParent_ResolveAll(Type resolveType, bool includeUnnamed)
         {
             var containerParent = new DependencyContainer();
-            containerParent.Register(typeof(string));
+            containerParent.Register(typeof(Shark));
 
             var container = containerParent.GetChildContainer();
             
-            var resolved = container.ResolveAll(typeof(Dictionary<string, object>));
-
-            Assert.AreEqual(
-                "System.Linq.Enumerable+WhereSelectEnumerableIterator`2" +
-                "[Unosquare.Swan.Components.DependencyContainer+TypeRegistration,System.Object]",
-                resolved.ToString());
+            Assert.IsNotNull(container.ResolveAll(resolveType, includeUnnamed));
         }
     }
 
