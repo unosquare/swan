@@ -125,7 +125,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
-            var message = new SimpleMessageMock(this, "Unosquare Labs");
+            var message = new SimpleMessageMock(sender, "Unosquare Labs");
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
@@ -133,16 +133,18 @@ namespace Unosquare.Swan.Test.MessageHubTests
             Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
             Runtime.Messages.Publish(message);
 
-            Assert.IsFalse(messagesToSend.Any());
+            Assert.IsTrue(messagesToSend.Any());
         }
 
         [Test]
         public async Task PublishMessageAsync_ReturnsSuccess()
         {
+            var messagesToSend = new List<SimpleMessageMock>();
+
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
             Assert.IsNotNull(token);
 
-            var message = new SimpleMessageMock(this, "HOLA");
+            var message = new SimpleMessageMock(this, "Unosquare Labs");
 
             await Runtime.Messages.PublishAsync(message);
 
@@ -169,6 +171,23 @@ namespace Unosquare.Swan.Test.MessageHubTests
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
+        }
+
+        [Test]
+        public void NullDeliveryAction_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(null, x => true, true);
+            });
+        }
+
+        public void NullMessageFilter_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, null, true);
+            });
         }
 
         [Test]
