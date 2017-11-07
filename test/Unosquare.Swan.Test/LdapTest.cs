@@ -45,15 +45,14 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public void NullPassword_ThrowsLdapException()
+        public async Task NullPassword_ReturnsNullAuthenticationDnProperty()
         {
-            Assert.ThrowsAsync<LdapException>(async () =>
-            {
-                var cn = new LdapConnection();
-                await cn.Connect(LdapServer, 389);
-                await cn.Bind("uid=riemann,dc=example", null);
-                cn.Disconnect();
-            });
+            var cn = new LdapConnection();
+            await cn.Connect(LdapServer, 389);
+            await cn.Bind("uid=riemann,dc=example,dc=com", null);
+            Assert.IsNull(cn.AuthenticationDn);
+            cn.Disconnect();
+
         }
     }
 
@@ -171,6 +170,8 @@ namespace Unosquare.Swan.Test
                 }
 
                 lsc.Next();
+
+                cn.Disconnect();
             });
         }
 
@@ -179,9 +180,10 @@ namespace Unosquare.Swan.Test
             [Test]
             public void ChangeUserProperty()
             {
-                var ex = Assert.ThrowsAsync<LdapException>(async () => {
+                var ex = Assert.ThrowsAsync<LdapException>(async () =>
+                {
 
-                var cn = await GetDefaultConnection();
+                    var cn = await GetDefaultConnection();
                     await cn.Modify("uid=euclid,dc=example,dc=com",
                         new[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
 
@@ -197,10 +199,15 @@ namespace Unosquare.Swan.Test
             [Test]
             public async Task ReadUserProperties()
             {
-                var cn = await GetDefaultConnection();
-                var properties = await cn.Read("uid=euclid,dc=example,dc=com");
-                var mail = properties.GetAttribute("mail");
-                Assert.AreEqual(mail.StringValue, "euclid@ldap.forumsys.com");
+                if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                    Assert.Inconclusive("Can not test in AppVeyor");
+
+                var cn = new LdapConnection();
+                await cn.Connect("127.0.0.1", 1089);
+                await cn.Bind("cn=root", "secret");
+                var properties = await cn.Read("cn=Simio, o=joyent");
+                var mail = properties.GetAttribute("email");
+                Assert.AreEqual(mail.StringValue, "gperez@unosquare.com");
                 cn.Disconnect();
             }
         }

@@ -16,6 +16,8 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         protected string _data = @"Company,OpenPositions,MainTechnology,Revenue
                 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
                 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
+
+        //protected Dictionary<string, string> dictionaryHeaders;
     }
 
     [TestFixture]
@@ -166,10 +168,86 @@ namespace Unosquare.Swan.Test.CsvWriterTest
     public class WriteHeadings : CsvWriterTest
     {
         [Test]
+        public void NullType_ThrowsArgumentNullException()
+        {
+            Type nullType = null;
+            
+            using(var stream = new MemoryStream())
+            {
+                using(var writer = new CsvWriter(stream))
+                {
+                    Assert.Throws<ArgumentNullException>(() =>
+                    {
+                        writer.WriteHeadings(nullType);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void NullDictionary_ThrowsArgumentNullException()
+        {
+            Dictionary<string, string> dictionaryHeaders = null;
+
+            using (var stream = new MemoryStream())
+            {
+                using(var writer = new CsvWriter(stream))
+                {
+                    Assert.Throws<ArgumentNullException>(() =>
+                    {
+                        writer.WriteHeadings(dictionaryHeaders);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void HeadersDictionaryLength_ReturnsAreEqual()
+        {
+            var tempFile = Path.GetTempFileName();
+            var stringHeaders = new[]
+            {
+                "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score",
+                "ValidationResult"
+            };
+
+            var dictionaryHeaders = new Dictionary<string, string>
+            {
+                {"AccessDate", "20171107"},
+                {"AlternateId", "1"},
+                {"CreationDate", "20171107"},
+                {"Description", "Sr. Software Engineer"},
+                {"Id", "0001"},
+                {"IsValidated", "true"},
+                {"Name", "Alexey Turpalov"},
+                {"Score", "1245F"},
+                {"ValidationResult", "true"}
+            };
+
+            using(var stream = File.OpenWrite(tempFile))
+            {
+                if(stream.Length > 0)
+                {
+                    stream.SetLength(0);
+                }
+
+                using(var writer = new CsvWriter(stream))
+                {
+                    writer.WriteHeadings(dictionaryHeaders);
+                    writer.WriteObjects(stringHeaders);
+                }
+            }
+
+            var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+
+            Assert.AreEqual(stringHeaders.Length, loadedRecords.Count);
+        }
+
+        [Test]
         public void HeadersLength_ReturnsAreEqual()
         {
             var tempFile = Path.GetTempFileName();
-            var headers = new[]
+            var stringHeaders = new[]
             {
                 "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score",
                 "ValidationResult"
@@ -183,12 +261,12 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                 using (var writer = new CsvWriter(stream))
                 {
                     writer.WriteHeadings<SampleCsvRecord>();
-                    writer.WriteObjects(headers);
+                    writer.WriteObjects(stringHeaders);
                 }
             }
             var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
 
-            Assert.AreEqual(headers.Length, loadedRecords.Count);
+            Assert.AreEqual(stringHeaders.Length, loadedRecords.Count);
         }
     }
 }
