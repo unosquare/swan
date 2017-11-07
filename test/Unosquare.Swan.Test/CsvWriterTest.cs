@@ -137,6 +137,29 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                 }
             }
         }
+
+        [Test]
+        public void DynamicObject_ReturnsAreEqual()
+        {
+            dynamic dynObject = new Dictionary<string, object>
+            {
+                {"A", "Florencia"},
+                {"B", "Camila"},
+                {"C", "Mariana"},
+                {"D", "Mónica"}
+            };
+
+            using(var stream = new MemoryStream())
+            {
+                using(var writer = new CsvWriter(stream))
+                {
+                    writer.WriteObject(dynObject);
+
+                    Assert.IsNotNull(writer);
+                    Assert.AreEqual(1, (int)writer.Count);
+                }
+            }
+        }
     }
 
     [TestFixture]

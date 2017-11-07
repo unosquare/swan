@@ -123,34 +123,33 @@ namespace Unosquare.Swan.Test.MessageHubTests
         }
 
         [Test]
-        public async Task PublishMessageAsync_ReturnsSuccess()
-        {
-            var messages = new List<SimpleMessageMock>();
-
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
-            Assert.IsNotNull(token);
-
-            var message = new SimpleMessageMock(this, "HOLA");
-
-            await Runtime.Messages.PublishAsync(message);
-
-            Assert.IsTrue(messages.Any());
-            Assert.AreEqual(message, messages.First());
-        }
-
-        [Test]
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
-            var messages = new List<SimpleMessageMock>();
-            var message = new SimpleMessageMock(this, "Unosquare Labs");
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+            var message = new SimpleMessageMock(sender, "Unosquare Labs");
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
 
             Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
             Runtime.Messages.Publish(message);
 
-            Assert.IsFalse(messages.Skip(1).Any());
+            Assert.IsTrue(messagesToSend.Any());
+        }
+
+        [Test]
+        public async Task PublishMessageAsync_ReturnsSuccess()
+        {
+            var messagesToSend = new List<SimpleMessageMock>();
+
+            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
+            Assert.IsNotNull(token);
+
+            var message = new SimpleMessageMock(this, "Unosquare Labs");
+
+            await Runtime.Messages.PublishAsync(message);
+
+            Assert.IsTrue(messagesToSend.Any());
+            Assert.AreEqual(message, messagesToSend.First());
         }
 
         [Test]
@@ -172,6 +171,23 @@ namespace Unosquare.Swan.Test.MessageHubTests
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
+        }
+
+        [Test]
+        public void NullDeliveryAction_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(null, x => true, true);
+            });
+        }
+
+        public void NullMessageFilter_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, null, true);
+            });
         }
 
         [Test]

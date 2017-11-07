@@ -100,8 +100,12 @@
         /// The exception that is thrown when binding to a member results in more than one member matching the 
         /// binding criteria. This class cannot be inherited
         /// </exception>
-        public static MethodInfo GetMethod(this Type sourceType, BindingFlags bindingFlags, string methodName,
-            Type[] genericTypes, Type[] parameterTypes)
+        public static MethodInfo GetMethod(
+            this Type sourceType, 
+            BindingFlags bindingFlags, 
+            string methodName,
+            Type[] genericTypes, 
+            Type[] parameterTypes)
         {
             if (sourceType == null)
                 throw new ArgumentNullException(nameof(sourceType));
@@ -120,9 +124,9 @@
                         mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
                         mi => mi.ContainsGenericParameters)
                     .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
-                    .Where(mi => mi.GetParameters().Length == parameterTypes.Length).Select(
-                        mi => mi.MakeGenericMethod(genericTypes)).Where(
-                        mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes)).ToList();
+                    .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
+                    .Select(mi => mi.MakeGenericMethod(genericTypes))
+                    .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes)).ToList();
 
             if (methods.Count > 1)
             {
