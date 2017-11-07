@@ -16,8 +16,6 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         protected string _data = @"Company,OpenPositions,MainTechnology,Revenue
                 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
                 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
-
-        protected string _aux = @"AccessDate,AlternateId,CreationDate,Description,Id,IsValidated,Name,Score,ValidationResult";
     }
 
     [TestFixture]
