@@ -1,17 +1,26 @@
-﻿using System;
-using NUnit.Framework;
-using System.Collections.Generic;
-using Unosquare.Swan.Components;
-using Unosquare.Swan.Exceptions;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.DependencyContainerTest
+﻿namespace Unosquare.Swan.Test.DependencyContainerTest
 {
+    using System;
+    using NUnit.Framework;
+    using System.Collections.Generic;
+    using Unosquare.Swan.Components;
+    using Unosquare.Swan.Exceptions;
+    using Unosquare.Swan.Test.Mocks;
+
     [TestFixture]
     public class AutoRegister
     {
-
 #if !NETSTANDARD1_3 && !UWP
+        [Test]
+        public void WithFailDependencyContainer_ThrowsDependencyContainerRegistrationException()
+        {
+            Assert.Throws<DependencyContainerRegistrationException>(() =>
+            {
+                var container = new DependencyContainer();
+                container.AutoRegister(DependencyContainerDuplicateImplementationActions.Fail);
+            });
+        }
+
         [Test]
         public void WithNoParams_ThrowsDependencyContainerResolutionException()
         {
@@ -23,16 +32,6 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 Assert.AreEqual(new TheOnlyCar().Name, Runtime.Container.Resolve<ICar>().Name);
             });
         }
-
-        [Test]
-        public void WithFailDependencyContainer_ThrowsDependencyContainerRegistrationException()
-        {
-            Assert.Throws<DependencyContainerRegistrationException>(() =>
-            {
-                var container = new DependencyContainer();
-                container.AutoRegister(DependencyContainerDuplicateImplementationActions.Fail);
-            });
-        }
 #endif
 
         [Test]
@@ -40,6 +39,19 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         {
             var container = new DependencyContainer();
             container.AutoRegister(Runtime.GetAssemblies());
+            Assert.IsTrue(container.CanResolve<ICar>());
+        }
+        
+        [Test]
+        public void WithAssembliesAndFunc_ResolvesIAnimal()
+        {
+            var container = new DependencyContainer();
+
+            container.AutoRegister(
+                Runtime.GetAssemblies(),
+                DependencyContainerDuplicateImplementationActions.RegisterSingle,
+                (param) => true);
+
             Assert.IsTrue(container.CanResolve<ICar>());
         }
     }
@@ -102,7 +114,6 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.Throws<DependencyContainerResolutionException>(() =>
                 container.Resolve<IAnimal>("name", new Dictionary<string, object>()));
         }
-
     }
 
     [TestFixture]
@@ -264,8 +275,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                resolveType, name, new Dictionary<string, object>(),
-                DependencyContainerResolveOptions.Default, out var obj));
+                resolveType, name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out var obj));
         }
 
         [Test]
@@ -379,8 +389,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.IsFalse(container.TryResolve(
-                new Dictionary<string, object>(), DependencyContainerResolveOptions.Default,
-                out IAnimal instance));
+                new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out IAnimal instance));
         }
 
         [Test]
@@ -389,8 +398,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.IsTrue(container.TryResolve(
-                new Dictionary<string, object>(), DependencyContainerResolveOptions.Default,
-                out Fish instance));
+                new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out Fish instance));
         }
 
         [TestCase("", true)]
@@ -400,8 +408,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default,
-                out Shark instance));
+                name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out Shark instance));
         }
 
         [TestCase("", true)]
@@ -529,10 +536,8 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Type registerImplementation)
         {
             var container = new DependencyContainer();
-            Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register(
-                    typeof(Shark), registerImplementation).AsMultiInstance()
-            );
+            Assert.Throws<DependencyContainerRegistrationException>(() => container.Register(
+                    typeof(Shark), registerImplementation).AsMultiInstance());
         }
 
         [Test]
@@ -551,8 +556,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register<IAnimal, Shark>(new Shark()).AsSingleton()
-            );
+                container.Register<IAnimal, Shark>(new Shark()).AsSingleton());
         }
 
         [Test]
@@ -591,11 +595,9 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
             var instance = new Human("George");
 
-            Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register(typeof(IDictionary<string, string>).GetGenericTypeDefinition(), typeof(string),
-                    instance));
+            Assert.Throws<DependencyContainerRegistrationException>(() => container.Register(
+                    typeof(IDictionary<string, string>).GetGenericTypeDefinition(), typeof(string), instance));
         }
-
     }
 
     [TestFixture]
@@ -667,7 +669,6 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             Assert.IsTrue(container.CanResolve(resolveType, new Dictionary<string, object>()));
         }
-
     }
 
     [TestFixture]
