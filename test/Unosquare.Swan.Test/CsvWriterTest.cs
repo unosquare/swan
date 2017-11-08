@@ -272,9 +272,9 @@ namespace Unosquare.Swan.Test.CsvWriterTest
             var stringHeaders = new[]
             {
                 "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate",
-                "AccessDate"
+                "AccessDate\r\n"
             };
-            var stringHeadersOutput = "Id,AlternateId,Name,Description,IsValidated,ValidationResult,Score,CreationDate,AccessDate\r\n";
+            var stringHeadersOutput = string.Join(",", stringHeaders);
 
             using (var stream = new MemoryStream())
             {
