@@ -9899,6 +9899,12 @@ references:
   commentId: M:Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32)
   fullName: Unosquare.Swan.StringExtensions.Truncate(System.String, System.Int32)
   nameWithType: StringExtensions.Truncate(String, Int32)
+- uid: Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32,System.String)
+  name: Truncate(String, Int32, String)
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_System_String_System_Int32_System_String_
+  commentId: M:Unosquare.Swan.StringExtensions.Truncate(System.String,System.Int32,System.String)
+  fullName: Unosquare.Swan.StringExtensions.Truncate(System.String, System.Int32, System.String)
+  nameWithType: StringExtensions.Truncate(String, Int32, String)
 - uid: Unosquare.Swan.StringExtensions.Truncate*
   name: Truncate
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Truncate_
