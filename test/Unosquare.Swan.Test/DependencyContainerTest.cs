@@ -93,7 +93,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
             
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve(typeof(IAnimal), new Dictionary<string, object>())
+                container.Resolve(typeof(IAnimal))
             );
         }
 
@@ -368,12 +368,12 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
         [TestCase("", true)]
         [TestCase("Warsong", false)]
-        public void WithStringAndsadWithDictionary_FailResolveType(string name, bool expected)
+        public void WithStringAndWithDictionary_ResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                name, new Dictionary<string, object>(), out Dictionary<string, object> instance));
+                name, new Dictionary<string, object>(), out Shark instance));
         }
 
         [Test]
