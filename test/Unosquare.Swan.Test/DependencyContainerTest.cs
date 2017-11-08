@@ -227,6 +227,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         [TestCase(typeof(Shark), true)]
         [TestCase(typeof(IAnimal), false)]
         [TestCase(typeof(ICar), false)]
+        [TestCase(typeof(MyEnum), false)]
         public void WithTypeAndParent_ResolveType(Type resolveType, bool expected)
         {
             var containerParent = new DependencyContainer();
@@ -366,16 +367,16 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 new Dictionary<string, object>(), out var instance));
         }
 
-        [TestCase("", true)]
+        [TestCase("", false)]
         [TestCase("Warsong", false)]
         public void WithStringAndWithDictionary_ResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                name, new Dictionary<string, object>(), out Shark instance));
+                name, new Dictionary<string, object>(), out Human instance));
         }
-
+        
         [Test]
         public void WithInvalidTypeAndDictionaryAndResolveOptions_FailResolveType()
         {
@@ -406,7 +407,17 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, 
                 out Shark instance));
         }
-        
+
+        [TestCase("", true)]
+        [TestCase("Warsong", false)]
+        public void WithStringAndDictionary_ResolveType(string name, bool expected)
+        {
+            var container = new DependencyContainer();
+
+            Assert.AreEqual(expected, container.TryResolve(
+                name, new Dictionary<string, object>(), out Shark instance));
+        }
+
     }
 
     [TestFixture]
@@ -537,11 +548,11 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         }
 
         [Test]
-        public void WithTypeAsMultiInstance_ThrowsDependencyContainerResolutionException()
+        public void WithInvalidTypeAsMultiInstance_ThrowsDependencyContainerResolutionException()
         {
             var container = new DependencyContainer();
 
-            container.Register(typeof(string)).AsMultiInstance();
+            container.Register(typeof(TheOnlyCar)).AsMultiInstance();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
                 container.Resolve<IAnimal>()
@@ -636,7 +647,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
     public class CanResolve
     {
         [Test]
-        public void WithIEnumerable_RegisterIEnumerable()
+        public void WithIEnumerable_ResolveContainer()
         {
             var container = new DependencyContainer();
 
@@ -647,7 +658,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         }
 
         [Test]
-        public void WithDictionary_RegisterDictionary()
+        public void WithDictionary_ResolveContainer()
         {
             var container = new DependencyContainer();
 
@@ -655,7 +666,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         }
 
         [Test]
-        public void WithString_RegisterDictionary()
+        public void WithString_ResolveContainer()
         {
             var container = new DependencyContainer();
 
@@ -665,7 +676,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         [TestCase(typeof(Func<>))]
         [TestCase(typeof(Func<string, int>))]
         [TestCase(typeof(Func<string, IDictionary<string, object>, int>))]
-        public void WithType_RegisterDictionary(Type resolveType)
+        public void WithType_ResolveContainer(Type resolveType)
         {
             var container = new DependencyContainer();
 
