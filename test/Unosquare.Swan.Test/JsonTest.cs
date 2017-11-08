@@ -399,7 +399,7 @@ namespace Unosquare.Swan.Test.JsonTests
             var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), false, includeNames);
 
             Assert.AreEqual(
-                "{\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1}",
+                "{\"StringData\": \"string,\\r\\ndata\",\"IntData\": 1,\"NegativeInt\": -1}",
                 dataSerialized);
         }
 

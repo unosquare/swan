@@ -103,7 +103,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         {
             var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
 
-            Assert.Greater(7, objectInfoLines.Length);
+            Assert.Greater(8, objectInfoLines.Length);
             Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
             Assert.AreEqual("StringData      : string", objectInfoLines[1]);
             Assert.AreEqual("IntData         : 1", objectInfoLines[2]);
