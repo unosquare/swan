@@ -188,7 +188,6 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.AreEqual(expected, container.TryResolve(
                 resolveType, DependencyContainerResolveOptions.Default, out var obj));
         }
-
         
         [TestCase(typeof(Shark), "", true)]
         [TestCase(typeof(Shark), "Warsong", false)]

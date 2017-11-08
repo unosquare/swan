@@ -31,7 +31,6 @@
         public List<int?> Options { get; set; }
     }
 
-
     public class OptionObjectArrayMock
     {
         [ArgumentOption('o', "options", Separator = ',', HelpText = "Specify additional options.")]
@@ -40,6 +39,6 @@
 
     public class OptionMockEmpty
     {
-
+        // empty
     }
 }

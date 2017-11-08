@@ -154,7 +154,6 @@ namespace Unosquare.Swan.Test
             });
         }
 
-
         [Test]
         public void SearchForMore_ThrowsLdapException()
         {

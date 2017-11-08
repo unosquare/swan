@@ -20,6 +20,9 @@
     <PackageReference Include="EmbedIO" Version="1.11.0" />
     <PackageReference Include="NUnit" Version="3.8.1" />
     <PackageReference Include="MimeKit" Version="1.20.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">

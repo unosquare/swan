@@ -27,9 +27,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.ToLowerHex()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.ToLowerHex());
         }
     }
 
@@ -593,7 +591,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
 
             Assert.AreEqual(-1, result);
         }
-        
+
         [Test]
         public void WithNullTarget_ThrowsArgumentNullException()
         {
