@@ -63,6 +63,44 @@ namespace Unosquare.Swan.Test.CsvWriterTest
     public class SaveRecords : CsvWriterTest
     {
         [Test]
+        public void TempFileFilled_SetStreamLengthToZero()
+        {
+            var tempFile = Path.GetTempFileName();
+            var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
+            var stringheaders = new[]
+            {
+                "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score",
+                "ValidationResult"
+            };
+            var dictionaryheaders = new Dictionary<string, string>
+            {
+                {"AccessDate", "20171107"},
+                {"AlternateId", "1"},
+                {"CreationDate", "20171107"},
+                {"Description", "Sr. Software Engineer"},
+                {"Id", "0001"},
+                {"IsValidated", "true"},
+                {"Name", "Alexey Turpalov"},
+                {"Score", "1245F"},
+                {"ValidationResult", "true"}
+            };
+
+            using (var stream = File.OpenWrite(tempFile))
+            {
+                using (var writer = new CsvWriter(stream))
+                {
+                    writer.WriteHeadings(dictionaryheaders);
+                    writer.WriteObjects(stringheaders);
+                }
+            }
+
+            CsvWriter.SaveRecords(generatedRecords, tempFile);
+
+            var valuesInFile = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
+            Assert.AreEqual(generatedRecords.Count, valuesInFile.Count, "Same length");
+        }
+
+        [Test]
         public void WithObjectList_Valid()
         {
             var tempFile = Path.GetTempFileName();
@@ -74,7 +112,6 @@ namespace Unosquare.Swan.Test.CsvWriterTest
             Assert.AreEqual(generatedRecords.Count, valuesInFile.Count, "Same length");
             Assert.AreEqual(generatedRecords[0].Name, valuesInFile[0].Name, "Same first name");
         }
-
 
         [Test]
         public void WithNullList_Invalid()
