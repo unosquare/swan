@@ -100,15 +100,6 @@
         #region Methods
 
         /// <summary>
-        /// Fast pointer memory block copy function
-        /// </summary>
-        /// <param name="destination">The destination.</param>
-        /// <param name="source">The source.</param>
-        /// <param name="length">The length.</param>
-        [DllImport("kernel32")]
-        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
-
-        /// <summary>
         /// Reads the specified number of bytes into the target array.
         /// </summary>
         /// <param name="requestedBytes">The requested bytes.</param>
@@ -207,6 +198,15 @@
             _buffer = IntPtr.Zero;
             Length = 0;
         }
+
+        /// <summary>
+        /// Fast pointer memory block copy function
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="length">The length.</param>
+        [DllImport("kernel32")]
+        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
 
         #endregion
     }

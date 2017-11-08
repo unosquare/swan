@@ -173,6 +173,11 @@ namespace Unosquare.Swan.Components
     {
         #region Private Types and Interfaces
 
+        private readonly object _subscriptionsPadlock = new object();
+
+        private readonly Dictionary<Type, List<SubscriptionItem>> _subscriptions =
+            new Dictionary<Type, List<SubscriptionItem>>();
+
         private class WeakMessageSubscription<TMessage> : IMessageHubSubscription
             where TMessage : class, IMessageHubMessage
         {
@@ -270,11 +275,6 @@ namespace Unosquare.Swan.Components
             public IMessageHubProxy Proxy { get; }
             public IMessageHubSubscription Subscription { get; }
         }
-
-        private readonly object _subscriptionsPadlock = new object();
-
-        private readonly Dictionary<Type, List<SubscriptionItem>> _subscriptions =
-            new Dictionary<Type, List<SubscriptionItem>>();
 
         #endregion
 

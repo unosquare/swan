@@ -74,25 +74,32 @@
         {
             private readonly Type registerType;
             private readonly Type registerImplementation;
-            public override Type CreatesType => registerImplementation;
-
             public MultiInstanceFactory(Type registerType, Type registerImplementation)
             {
                 if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
                 {
-                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory",
+                    throw new DependencyContainerRegistrationException(registerImplementation,
+                        "MultiInstanceFactory",
                         true);
                 }
 
                 if (!IsValidAssignment(registerType, registerImplementation))
                 {
-                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory",
+                    throw new DependencyContainerRegistrationException(registerImplementation,
+                        "MultiInstanceFactory",
                         true);
                 }
 
                 this.registerType = registerType;
                 this.registerImplementation = registerImplementation;
             }
+
+            public override Type CreatesType => registerImplementation;
+
+            public override ObjectFactoryBase SingletonVariant =>
+                new SingletonFactory(registerType, registerImplementation);
+
+            public override ObjectFactoryBase MultiInstanceVariant => this;
 
             public override object GetObject(
                 Type requestedType, 
@@ -109,11 +116,6 @@
                     throw new DependencyContainerResolutionException(registerType, ex);
                 }
             }
-
-            public override ObjectFactoryBase SingletonVariant =>
-                new SingletonFactory(registerType, registerImplementation);
-
-            public override ObjectFactoryBase MultiInstanceVariant => this;
         }
 
         /// <summary>
@@ -129,22 +131,6 @@
 
             public override Type CreatesType => registerType;
 
-            public override object GetObject(
-                Type requestedType, 
-                DependencyContainer container,
-                Dictionary<string, object> parameters, 
-                DependencyContainerResolveOptions options)
-            {
-                try
-                {
-                    return _factory.Invoke(container, parameters);
-                }
-                catch (Exception ex)
-                {
-                    throw new DependencyContainerResolutionException(registerType, ex);
-                }
-            }
-
             public DelegateFactory(
                 Type registerType,
                 Func<DependencyContainer,
@@ -158,6 +144,22 @@
             public override ObjectFactoryBase WeakReferenceVariant => new WeakDelegateFactory(registerType, _factory);
 
             public override ObjectFactoryBase StrongReferenceVariant => this;
+
+            public override object GetObject(
+                Type requestedType,
+                DependencyContainer container,
+                Dictionary<string, object> parameters,
+                DependencyContainerResolveOptions options)
+            {
+                try
+                {
+                    return _factory.Invoke(container, parameters);
+                }
+                catch (Exception ex)
+                {
+                    throw new DependencyContainerResolutionException(registerType, ex);
+                }
+            }
         }
 
         /// <summary>

@@ -86,6 +86,5 @@
         /// Contents of the message
         /// </summary>
         public TContent Content { get; protected set; }
-
     }
 }

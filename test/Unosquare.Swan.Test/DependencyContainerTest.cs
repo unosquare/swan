@@ -73,8 +73,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>()
-            );
+                container.Resolve<IAnimal>());
         }
 
         [Test]
@@ -83,8 +82,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>("name")
-            );
+                container.Resolve<IAnimal>("name"));
         }
 
         [Test]
@@ -93,8 +91,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve(typeof(IAnimal))
-            );
+                container.Resolve(typeof(IAnimal)));
         }
 
         [Test]
@@ -103,8 +100,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>("name", new Dictionary<string, object>())
-            );
+                container.Resolve<IAnimal>("name", new Dictionary<string, object>()));
         }
 
     }
@@ -417,7 +413,6 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.AreEqual(expected, container.TryResolve(
                 name, new Dictionary<string, object>(), out Shark instance));
         }
-
     }
 
     [TestFixture]
@@ -434,9 +429,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.AreEqual(new Fish().Name, container.Resolve<IAnimal>().Name);
 
             container.Unregister<IAnimal>();
-            Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>()
-            );
+            Assert.Throws<DependencyContainerResolutionException>(() => container.Resolve<IAnimal>());
         }
 
         [Test]
@@ -476,8 +469,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register<IAnimal, Fish>().WithWeakReference()
-            );
+                container.Register<IAnimal, Fish>().WithWeakReference());
         }
 
         [Test]
@@ -486,8 +478,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register<IAnimal, Fish>().WithStrongReference()
-            );
+                container.Register<IAnimal, Fish>().WithStrongReference());
         }
 
         [Test]
@@ -509,8 +500,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register<IAnimal, Fish>().WithStrongReference()
-            );
+                container.Register<IAnimal, Fish>().WithStrongReference());
         }
 
         [TestCase(typeof(IAnimal))]
@@ -520,8 +510,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         {
             var container = new DependencyContainer();
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register(typeof(IAnimal), registerImplementation).AsSingleton()
-            );
+                container.Register(typeof(IAnimal), registerImplementation).AsSingleton());
         }
 
         [Test]
@@ -531,9 +520,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             container.Register(typeof(string)).AsSingleton();
 
-            Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>()
-            );
+            Assert.Throws<DependencyContainerResolutionException>(() => container.Resolve<IAnimal>());
         }
 
         [TestCase(typeof(IAnimal))]
@@ -555,9 +542,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             container.Register(typeof(TheOnlyCar)).AsMultiInstance();
 
-            Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>()
-            );
+            Assert.Throws<DependencyContainerResolutionException>(() => container.Resolve<IAnimal>());
         }
 
         [Test]
@@ -576,8 +561,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register((di, param) => new Human(param["Name"].ToString())).AsMultiInstance()
-            );
+                container.Register((di, param) => new Human(param["Name"].ToString())).AsMultiInstance());
         }
 
         [Test]
@@ -609,8 +593,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             Assert.Throws<DependencyContainerRegistrationException>(() =>
                 container.Register(typeof(IDictionary<string, string>).GetGenericTypeDefinition(), typeof(string),
-                    instance)
-            );
+                    instance));
         }
 
     }
