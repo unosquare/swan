@@ -265,5 +265,32 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                 }
             }
         }
+
+        [Test]
+        public void HeadersLength_ReturnsAreEqual()
+        {
+            var stringHeaders = new[]
+            {
+                "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate",
+                "AccessDate"
+            };
+            var stringHeadersOutput = "Id,AlternateId,Name,Description,IsValidated,ValidationResult,Score,CreationDate,AccessDate\r\n";
+
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new CsvWriter(stream))
+                {
+                    writer.WriteHeadings<SampleCsvRecord>();
+
+                    stream.Position = 0;
+                    var sr = new StreamReader(stream);
+                    var myStr = sr.ReadToEnd();
+                    var myStrSplitted = myStr.Split(',');
+
+                    Assert.AreEqual(stringHeadersOutput, myStr);
+                    Assert.AreEqual(stringHeaders.Length, myStrSplitted.Length);
+                }
+            }
+        }
     }
 }
