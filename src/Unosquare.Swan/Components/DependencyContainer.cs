@@ -30,7 +30,16 @@ namespace Unosquare.Swan.Components
     /// <seealso cref="System.IDisposable" />
     public partial class DependencyContainer : IDisposable
     {
+        private readonly DependencyContainer _parent;
+        private readonly object _autoRegisterLock = new object();
+        private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
+        private delegate object ObjectConstructor(params object[] parameters);
+        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
         private bool _disposed;
+
+        static DependencyContainer()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
@@ -49,13 +58,15 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
+        /// Lazy created Singleton instance of the container for simple scenarios
+        /// </summary>
+        public static DependencyContainer Current { get; } = new DependencyContainer();
+
+        /// <summary>
         /// Gets the child container.
         /// </summary>
         /// <returns>A new instance of the <see cref="DependencyContainer"/> class</returns>
-        public DependencyContainer GetChildContainer()
-        {
-            return new DependencyContainer(this);
-        }
+        public DependencyContainer GetChildContainer() => new DependencyContainer(this);
 
         #region Registration
 
@@ -66,9 +77,13 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
+        public void AutoRegister(
+            DependencyContainerDuplicateImplementationActions duplicateAction =
+                DependencyContainerDuplicateImplementationActions.RegisterSingle,
+            Func<Type, bool> registrationPredicate = null)
         {
-            AutoRegister(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
+            AutoRegister(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction,
+                registrationPredicate);
         }
 #endif
 
@@ -79,14 +94,20 @@ namespace Unosquare.Swan.Components
         /// <param name="assemblies">Assemblies to process</param>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        public void AutoRegister(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
+        public void AutoRegister(IEnumerable<Assembly> assemblies,
+            DependencyContainerDuplicateImplementationActions duplicateAction =
+                DependencyContainerDuplicateImplementationActions.RegisterSingle,
+            Func<Type, bool> registrationPredicate = null)
         {
             lock (_autoRegisterLock)
             {
-                var types = assemblies.SelectMany(a => a.GetAllTypes()).Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
+                var types = assemblies.SelectMany(a => a.GetAllTypes())
+                    .Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
 
                 var concreteTypes = types
-                    .Where(type => type.IsClass() && (type.IsAbstract() == false) && (type != GetType() && (type.DeclaringType != GetType()) && (!type.IsGenericTypeDefinition())))
+                    .Where(type =>
+                        type.IsClass() && (type.IsAbstract() == false) &&
+                        (type != GetType() && (type.DeclaringType != GetType()) && (!type.IsGenericTypeDefinition())))
                     .ToList();
 
                 foreach (var type in concreteTypes)
@@ -102,14 +123,15 @@ namespace Unosquare.Swan.Components
                 }
 
                 var abstractInterfaceTypes = types.Where(
-                        type =>
-                            ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
-                             (!type.IsGenericTypeDefinition())));
+                    type =>
+                        ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
+                         (!type.IsGenericTypeDefinition())));
 
                 foreach (var type in abstractInterfaceTypes)
                 {
                     var localType = type;
-                    var implementations = concreteTypes.Where(implementationType => localType.IsAssignableFrom(implementationType)).ToList();
+                    var implementations = concreteTypes
+                        .Where(implementationType => localType.IsAssignableFrom(implementationType)).ToList();
 
                     if (implementations.Skip(1).Any())
                     {
@@ -925,19 +947,6 @@ namespace Unosquare.Swan.Components
         }
         #endregion
         
-        #region Singleton Container
-
-        static DependencyContainer()
-        {
-        }
-
-        /// <summary>
-        /// Lazy created Singleton instance of the container for simple scenarios
-        /// </summary>
-        public static DependencyContainer Current { get; } = new DependencyContainer();
-
-        #endregion
-
         #region Type Registrations
 
         /// <summary>
@@ -999,17 +1008,10 @@ namespace Unosquare.Swan.Components
             /// </returns>
             public override int GetHashCode() => _hashCode;
         }
-
-        private readonly DependencyContainer _parent;
-
-        private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
-        private delegate object ObjectConstructor(params object[] parameters);
-        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache
-            = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
+        
         #endregion
 
         #region Internal Methods
-        private readonly object _autoRegisterLock = new object();
         
 #if !NETSTANDARD1_3 && !UWP
         private static bool IsIgnoredAssembly(Assembly assembly)
