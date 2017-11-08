@@ -379,10 +379,7 @@ namespace Unosquare.Swan.Components
 
             if (messageFilter == null)
                 throw new ArgumentNullException(nameof(messageFilter));
-
-            if (proxy == null)
-                throw new ArgumentNullException(nameof(proxy));
-
+            
             lock (_subscriptionsPadlock)
             {
                 if (!_subscriptions.TryGetValue(typeof(TMessage), out var currentSubscriptions))

@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Test.Mocks;
+using System.Linq;
 
 namespace Unosquare.Swan.Test.CsvWriterTest
 {
@@ -67,11 +68,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         {
             var tempFile = Path.GetTempFileName();
             var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-            var stringheaders = new[]
-            {
-                "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score",
-                "ValidationResult"
-            };
+            var stringHeaders = new List<string>();
             var dictionaryheaders = new Dictionary<string, string>
             {
                 {"AccessDate", "20171107"},
@@ -85,12 +82,14 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                 {"ValidationResult", "true"}
             };
 
+            stringHeaders = dictionaryheaders.Select(k => k.Key).ToList();
+
             using (var stream = File.OpenWrite(tempFile))
             {
                 using (var writer = new CsvWriter(stream))
                 {
                     writer.WriteHeadings(dictionaryheaders);
-                    writer.WriteObjects(stringheaders);
+                    writer.WriteObjects(stringHeaders);
                 }
             }
 
