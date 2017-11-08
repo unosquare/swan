@@ -274,7 +274,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                 "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate",
                 "AccessDate"
             };
-            var stringHeadersOutput = "Id,AlternateId,Name,Description,IsValidated,ValidationResult,Score,CreationDate,AccessDate\r\n";
+            var stringHeadersOutput = string.Join(",", stringHeaders);
 
             using (var stream = new MemoryStream())
             {
@@ -287,7 +287,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                     var myStr = sr.ReadToEnd();
                     var myStrSplitted = myStr.Split(',');
 
-                    Assert.AreEqual(stringHeadersOutput, myStr);
+                    Assert.AreEqual(stringHeadersOutput, myStr.Replace("\r\n", string.Empty));
                     Assert.AreEqual(stringHeaders.Length, myStrSplitted.Length);
                 }
             }
