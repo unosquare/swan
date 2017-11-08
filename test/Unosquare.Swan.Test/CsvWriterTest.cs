@@ -178,10 +178,10 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         {
             dynamic dynObject = new Dictionary<string, object>
             {
-                {"A", "Florencia"},
-                {"B", "Camila"},
-                {"C", "Mariana"},
-                {"D", "Mónica"}
+                {"A", new { Name = "Florencia" }},
+                {"B", new { Name = "Camila" }},
+                {"C", new { Name = "Florencia" }},
+                {"D", new { Name = "Mónica" }}
             };
 
             using(var stream = new MemoryStream())
