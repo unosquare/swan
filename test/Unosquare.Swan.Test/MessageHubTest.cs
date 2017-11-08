@@ -8,34 +8,22 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.MessageHubTests
 {
-    public abstract class MessageHubTest
-    {
-        protected object nullSender = null;
-        protected object sender = "alexey.turlapov@unosquare.com";
-        protected bool cancel;
-        protected SimpleMessageMock content;
-        protected List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
-    }
-
     [TestFixture]
-    public class MessageHubMessageBaseConstructor : MessageHubTest
+    public class MessageHubMessageBaseConstructor
     {
         [Test]
         public void NullSender_ThrowsArgumentNullException()
         {
-            content = new SimpleMessageMock(this, "Unosquare Américas");
+            var content = new SimpleMessageMock(this, "Unosquare Américas");
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                var message = new MessageHubGenericMessage<string>(nullSender, content.Content);
-            });
+            Assert.Throws<ArgumentNullException>(() => new MessageHubGenericMessage<string>(null, content.Content));
         }
 
         [Test]
         public void NotNullSender_ReturnsSuccess()
         {
-            content = new SimpleMessageMock(this, "Unosquare Américas");
-            var message = new MessageHubGenericMessage<string>(sender, content.Content);
+            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            var message = new MessageHubGenericMessage<string>(this, content.Content);
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
@@ -43,25 +31,21 @@ namespace Unosquare.Swan.Test.MessageHubTests
     }
 
     [TestFixture]
-    public class MessageHubCancellableGenericMessageConstructor : MessageHubTest
+    public class MessageHubCancellableGenericMessageConstructor
     {
         [Test]
         public void NullCancel_ThrowsArgumentNullException()
         {
-            content = new SimpleMessageMock(this, "Unosquare Américas");
-
             Assert.Throws<ArgumentNullException>(() =>
-            {
-                var message = new MessageHubCancellableGenericMessage<string>(sender, content.Content, null);
-            });
+                new MessageHubCancellableGenericMessage<string>(this, "Unosquare Américas", null));
         }
 
         [Test]
         public void ValidCancel_ReturnsSuccess()
         {
-            content = new SimpleMessageMock(this, "Unosquare Américas");
-
-            var message = new MessageHubCancellableGenericMessage<string>(sender, content.Content, () => cancel = true);
+            bool cancel;
+            var message =
+                new MessageHubCancellableGenericMessage<string>(this, "Unosquare Américas", () => cancel = true);
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
@@ -69,16 +53,14 @@ namespace Unosquare.Swan.Test.MessageHubTests
     }
 
     [TestFixture]
-    public class MessageHubSubscriptionTokenConstructor : MessageHubTest
+    public class MessageHubSubscriptionTokenConstructor
     {
         [Test]
         public void NullHub_ThrowsArgumentNullException()
         {
-            var message = "Hello, World!";
-
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var result = new MessageHubSubscriptionToken(null, message.GetType());
+                var result = new MessageHubSubscriptionToken(null, typeof(string));
             });
         }
 
@@ -86,17 +68,16 @@ namespace Unosquare.Swan.Test.MessageHubTests
         public void MessageType_ThrowsArgumentOutOfRangeException()
         {
             var hub = new MessageHub();
-            var message = "Hello, World!";
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                var result = new MessageHubSubscriptionToken(hub, message.GetType());
+                var result = new MessageHubSubscriptionToken(hub, typeof(string));
             });
         }
     }
 
     [TestFixture]
-    public class Messages : MessageHubTest
+    public class Messages
     {
         [Test]
         public void GetMessagesHub_ReturnsMessage()
@@ -106,12 +87,14 @@ namespace Unosquare.Swan.Test.MessageHubTests
     }
 
     [TestFixture]
-    public class SendMessage : MessageHubTest
+    public class SendMessage
     {
+        private List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
+
         [Test]
         public void PublishMessage_MessagePublished()
         {
-            var message = new SimpleMessageMock(sender, "Unosquare Labs");
+            var message = new SimpleMessageMock(this, "Unosquare Labs");
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
@@ -125,7 +108,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
-            var message = new SimpleMessageMock(sender, "Unosquare Labs");
+            var message = new SimpleMessageMock(this, "Unosquare Labs");
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
@@ -155,11 +138,9 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void NullMessage_ThrowsArgumentNullException()
         {
-            var message = new SimpleMessageMock(sender, "Unosquare Américas");
-            message = null;
-
             Assert.Throws<ArgumentNullException>(() =>
             {
+                SimpleMessageMock message = null;
                 Runtime.Messages.Publish(message);
             });
         }
@@ -167,7 +148,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [Test]
         public void NotNullMessage_ReturnsSuccess()
         {
-            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+            var message = new SimpleMessageMock(this, "Unosquare Américas");
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
@@ -178,7 +159,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(null, x => true, true);
+                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(null, x => true);
             });
         }
 
@@ -186,7 +167,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, null, true);
+                var result = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add, null);
             });
         }
 
@@ -262,8 +243,8 @@ namespace Unosquare.Swan.Test.MessageHubTests
         public void PublishWithStrongReference_ReturnsMessagePublished()
         {
             var messages = new List<SimpleMessageMock>();
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
-            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+            Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+            var message = new SimpleMessageMock(this, "Unosquare Américas");
 
             Runtime.Messages.Publish(message);
 
@@ -275,8 +256,8 @@ namespace Unosquare.Swan.Test.MessageHubTests
         public void PublishWithWeakReference_ReturnsMessagePublished()
         {
             var messages = new List<SimpleMessageMock>();
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add, false);
-            var message = new SimpleMessageMock(sender, "Unosquare Américas");
+            Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add, false);
+            var message = new SimpleMessageMock(this, "Unosquare Américas");
 
             Runtime.Messages.Publish(message);
 

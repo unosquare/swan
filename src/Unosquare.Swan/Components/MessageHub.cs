@@ -204,7 +204,7 @@ namespace Unosquare.Swan.Components
 
             public bool ShouldAttemptDelivery(IMessageHubMessage message)
             {
-                if (!(message is TMessage) || !_deliveryAction.IsAlive || !_messageFilter.IsAlive)
+                if (!_deliveryAction.IsAlive || !_messageFilter.IsAlive)
                     return false;
 
                 return ((Func<TMessage, bool>) _messageFilter.Target).Invoke((TMessage) message);
@@ -212,11 +212,6 @@ namespace Unosquare.Swan.Components
 
             public void Deliver(IMessageHubMessage message)
             {
-                if (!(message is TMessage))
-                {
-                    throw new ArgumentException("Message is not the correct type");
-                }
-
                 if (!_deliveryAction.IsAlive)
                 {
                     return;
@@ -255,26 +250,9 @@ namespace Unosquare.Swan.Components
 
             public MessageHubSubscriptionToken SubscriptionToken { get; }
 
-            public bool ShouldAttemptDelivery(IMessageHubMessage message)
-            {
-                if (!(message is TMessage))
-                {
-                    return false;
-                }
+            public bool ShouldAttemptDelivery(IMessageHubMessage message) => _messageFilter.Invoke((TMessage) message);
 
-                return _messageFilter.Invoke((TMessage) message);
-            }
-
-            public void Deliver(IMessageHubMessage message)
-            {
-                if (!(message is TMessage))
-                {
-                    throw new ArgumentException("Message is not the correct type");
-                }
-
-                _deliveryAction.Invoke((TMessage) message);
-            }
-
+            public void Deliver(IMessageHubMessage message) => _deliveryAction.Invoke((TMessage) message);
         }
 
         #endregion
@@ -479,7 +457,7 @@ namespace Unosquare.Swan.Components
                 {
                     sub.Proxy.Deliver(message, sub.Subscription);
                 }
-                catch (Exception)
+                catch
                 {
                     // Ignore any errors and carry on
                 }
