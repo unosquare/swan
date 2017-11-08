@@ -3954,6 +3954,15 @@ references:
   commentId: Overload:Unosquare.Swan.Formatters.CsvReader.LoadRecords
   fullName: Unosquare.Swan.Formatters.CsvReader.LoadRecords
   nameWithType: CsvReader.LoadRecords
+- uid: Unosquare.Swan.Formatters.CsvReader.LoadRecords``1(System.IO.Stream)
+  name: LoadRecords<T>(Stream)
+  href: api/Unosquare.Swan.Formatters.CsvReader.html#Unosquare_Swan_Formatters_CsvReader_LoadRecords__1_System_IO_Stream_
+  commentId: M:Unosquare.Swan.Formatters.CsvReader.LoadRecords``1(System.IO.Stream)
+  name.vb: LoadRecords(Of T)(Stream)
+  fullName: Unosquare.Swan.Formatters.CsvReader.LoadRecords<T>(System.IO.Stream)
+  fullName.vb: Unosquare.Swan.Formatters.CsvReader.LoadRecords(Of T)(System.IO.Stream)
+  nameWithType: CsvReader.LoadRecords<T>(Stream)
+  nameWithType.vb: CsvReader.LoadRecords(Of T)(Stream)
 - uid: Unosquare.Swan.Formatters.CsvReader.LoadRecords``1(System.String)
   name: LoadRecords<T>(String)
   href: api/Unosquare.Swan.Formatters.CsvReader.html#Unosquare_Swan_Formatters_CsvReader_LoadRecords__1_System_String_
@@ -4173,6 +4182,15 @@ references:
   commentId: Overload:Unosquare.Swan.Formatters.CsvWriter.SaveRecords
   fullName: Unosquare.Swan.Formatters.CsvWriter.SaveRecords
   nameWithType: CsvWriter.SaveRecords
+- uid: Unosquare.Swan.Formatters.CsvWriter.SaveRecords``1(System.Collections.Generic.IEnumerable{``0},System.IO.Stream,System.Boolean)
+  name: SaveRecords<T>(IEnumerable<T>, Stream, Boolean)
+  href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_SaveRecords__1_System_Collections_Generic_IEnumerable___0__System_IO_Stream_System_Boolean_
+  commentId: M:Unosquare.Swan.Formatters.CsvWriter.SaveRecords``1(System.Collections.Generic.IEnumerable{``0},System.IO.Stream,System.Boolean)
+  name.vb: SaveRecords(Of T)(IEnumerable(Of T), Stream, Boolean)
+  fullName: Unosquare.Swan.Formatters.CsvWriter.SaveRecords<T>(System.Collections.Generic.IEnumerable<T>, System.IO.Stream, System.Boolean)
+  fullName.vb: Unosquare.Swan.Formatters.CsvWriter.SaveRecords(Of T)(System.Collections.Generic.IEnumerable(Of T), System.IO.Stream, System.Boolean)
+  nameWithType: CsvWriter.SaveRecords<T>(IEnumerable<T>, Stream, Boolean)
+  nameWithType.vb: CsvWriter.SaveRecords(Of T)(IEnumerable(Of T), Stream, Boolean)
 - uid: Unosquare.Swan.Formatters.CsvWriter.SaveRecords``1(System.Collections.Generic.IEnumerable{``0},System.String)
   name: SaveRecords<T>(IEnumerable<T>, String)
   href: api/Unosquare.Swan.Formatters.CsvWriter.html#Unosquare_Swan_Formatters_CsvWriter_SaveRecords__1_System_Collections_Generic_IEnumerable___0__System_String_

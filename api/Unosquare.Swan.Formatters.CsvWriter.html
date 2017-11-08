@@ -483,6 +483,80 @@ disposing of this writer, and uses the given text encoding for output</p>
   
   
   <a id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords__1_System_Collections_Generic_IEnumerable___0__System_IO_Stream_System_Boolean_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords``1(System.Collections.Generic.IEnumerable{``0},System.IO.Stream,System.Boolean)">SaveRecords&lt;T&gt;(IEnumerable&lt;T&gt;, Stream, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Saves the items to a stream.
+It uses the Windows 1252 text encoding for output</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int SaveRecords&lt;T&gt;(IEnumerable&lt;T&gt; items, Stream stream, bool truncateData = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">truncateData</span></td>
+        <td><p><code>true</code> if stream is truncated, default <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Number of item saved</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of enumeration</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords*"></a>
   <h4 id="Unosquare_Swan_Formatters_CsvWriter_SaveRecords__1_System_Collections_Generic_IEnumerable___0__System_String_" data-uid="Unosquare.Swan.Formatters.CsvWriter.SaveRecords``1(System.Collections.Generic.IEnumerable{``0},System.String)">SaveRecords&lt;T&gt;(IEnumerable&lt;T&gt;, String)</h4>
   <div class="markdown level1 summary"><p>Saves the items to a CSV file.
 If the file exits, it overwrites it. If it does not, it creates it.
@@ -528,7 +602,7 @@ It uses the Windows 1252 text encoding for output</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><p>Number of item of CsvWriter</p>
+        <td><p>Number of item saved</p>
 </td>
       </tr>
     </tbody>

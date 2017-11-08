@@ -461,6 +461,68 @@ By default it is the comma character &apos;,&apos;</p>
   
   
   <a id="Unosquare_Swan_Formatters_CsvReader_LoadRecords_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords*"></a>
+  <h4 id="Unosquare_Swan_Formatters_CsvReader_LoadRecords__1_System_IO_Stream_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords``1(System.IO.Stream)">LoadRecords&lt;T&gt;(Stream)</h4>
+  <div class="markdown level1 summary"><p>Loads the records from the stream
+This method uses Windows 1252 encoding</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IList&lt;T&gt; LoadRecords&lt;T&gt;(Stream stream)where T : new ()</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;T&gt;</td>
+        <td><p>A generic collection of objects that can be individually accessed by index</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of IList items to load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Formatters_CsvReader_LoadRecords_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords*"></a>
   <h4 id="Unosquare_Swan_Formatters_CsvReader_LoadRecords__1_System_String_" data-uid="Unosquare.Swan.Formatters.CsvReader.LoadRecords``1(System.String)">LoadRecords&lt;T&gt;(String)</h4>
   <div class="markdown level1 summary"><p>Loads the records from the give file path.
 This method uses Windows 1252 encoding</p>
