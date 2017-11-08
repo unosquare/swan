@@ -202,16 +202,14 @@ namespace Unosquare.Swan.Test.CsvWriterTest
     {
         [Test]
         public void NullType_ThrowsArgumentNullException()
-        {
-            Type nullType = null;
-            
+        {            
             using(var stream = new MemoryStream())
             {
                 using(var writer = new CsvWriter(stream))
                 {
                     Assert.Throws<ArgumentNullException>(() =>
                     {
-                        writer.WriteHeadings(nullType);
+                        writer.WriteHeadings(null as Type);
                     });
                 }
             }
