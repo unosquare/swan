@@ -12,7 +12,7 @@ namespace Unosquare.Swan.Test.JsonTests
     {
         protected static readonly AdvJson AdvObj = new AdvJson
         {
-            StringData = "string",
+            StringData = "string,\r\ndata",
             IntData = 1,
             NegativeInt = -1,
             DecimalData = 10.33M,
@@ -21,15 +21,11 @@ namespace Unosquare.Swan.Test.JsonTests
         };
 
         protected const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
+        
+        protected static string BasicStr = "{" + BasicJson.GetControlValue() + "}";
 
-        protected const string BasicStrWithoutWrap =
-                "\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null"
-            ;
-
-        protected const string BasicStr = "{" + BasicStrWithoutWrap + "}";
-
-        protected const string AdvStr =
-            "{\"InnerChild\": " + BasicStr + "," + BasicStrWithoutWrap + "}";
+        protected string AdvStr =
+            "{\"InnerChild\": " + BasicStr + "," + BasicJson.GetControlValue() + "}";
 
         protected readonly string[] BasicArray = {"One", "Two", "Three"};
         protected string BasicAStr = "[\"One\",\"Two\",\"Three\"]";
