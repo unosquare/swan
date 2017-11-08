@@ -679,31 +679,26 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
     public class ResolveAll
     {
         [Test]
-        public void WithTypeAsParam_ResolveAll()
-        {
-            var container = new DependencyContainer();
-            container.Register(typeof(Shark));
-            Assert.IsNotNull(container.ResolveAll(typeof(Shark)));
-        }
-
-        [Test]
         public void WithType_ResolveAll()
         {
             var container = new DependencyContainer();
             container.Register(typeof(Shark));
+            container.Register(typeof(Clown));
+
             Assert.IsNotNull(container.ResolveAll<Shark>());
         }
         
-        [TestCase(typeof(Shark), false)]
-        [TestCase(typeof(Shark), true)]
-        public void WithTypeAsParamAndWithParent_ResolveAll(Type resolveType, bool includeUnnamed)
+        [TestCase(false)]
+        [TestCase(true)]
+        public void WithTypeAsParamAndWithParent_ResolveAll(bool includeUnnamed)
         {
             var containerParent = new DependencyContainer();
             containerParent.Register(typeof(Shark));
+            containerParent.Register(typeof(Clown));
 
             var container = containerParent.GetChildContainer();
             
-            Assert.IsNotNull(container.ResolveAll(resolveType, includeUnnamed));
+            Assert.IsNotNull(container.ResolveAll(typeof(Shark), includeUnnamed));
         }
     }
 
