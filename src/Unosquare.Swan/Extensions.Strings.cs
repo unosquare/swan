@@ -456,15 +456,30 @@
         /// <param name="value">The value.</param>
         /// <param name="maximumLength">The maximum length.</param>
         /// <returns>
-        /// Retrieves a substring from this instance. 
+        /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length
         /// </returns>
-        public static string Truncate(this string value, int maximumLength)
+        public static string Truncate(this string value, int maximumLength) =>
+            Truncate(value, maximumLength, string.Empty);
+
+        /// <summary>
+        /// Truncates the specified value and append the ommision last.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="maximumLength">The maximum length.</param>
+        /// <param name="omission">The omission.</param>
+        /// <returns>
+        /// Retrieves a substring from this instance.
+        /// The substring starts at a specified character position and has a specified length
+        /// </returns>
+        public static string Truncate(this string value, int maximumLength, string omission)
         {
             if (value == null)
                 return null;
 
-            return value.Length > maximumLength ? value.Substring(0, maximumLength) : value;
+            return value.Length > maximumLength
+                ? value.Substring(0, maximumLength) + (omission ?? string.Empty)
+                : value;
         }
 
         /// <summary>

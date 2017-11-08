@@ -100,9 +100,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         {
             Action action = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                action.Retry()
-            );
+            Assert.Throws<ArgumentNullException>(() => action.Retry());
         }
 
         [Test]
@@ -110,9 +108,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         {
             Func<int> action = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                action.Retry()
-            );
+            Assert.Throws<ArgumentNullException>(() => action.Retry());
         }
     }
 
@@ -151,9 +147,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             var source = ObjectAttr.Get();
             ObjectAttr target = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                source.CopyPropertiesTo(target)
-            );
+            Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesTo(target));
         }
 
         [Test]
@@ -303,8 +297,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             ObjectAttr source = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)})
-            );
+                source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)}));
         }
 
         [Test]
