@@ -230,14 +230,13 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 resolveType, NameDictionary, out var obj));
         }
 
-        [TestCase(typeof(Dictionary<String, Object>), true)]
-        [TestCase(typeof(string), false)]
-        [TestCase(typeof(int), false)]
-        [TestCase(typeof(IEnumerable<>), false)]
+        [TestCase(typeof(Shark), true)]
+        [TestCase(typeof(IAnimal), false)]
+        [TestCase(typeof(ICar), false)]
         public void WithTypeAndParent_ResolveType(Type resolveType, bool expected)
         {
             var containerParent = new DependencyContainer();
-            containerParent.Register(typeof(string));
+            containerParent.Register(typeof(Shark));
             
             var container = containerParent.GetChildContainer();
 
