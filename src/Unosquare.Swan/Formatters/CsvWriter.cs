@@ -464,6 +464,29 @@
         #region Helpers
 
         /// <summary>
+        /// Saves the items to a stream.
+        /// It uses the Windows 1252 text encoding for output
+        /// </summary>
+        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="stream">The stream.</param>
+        /// <param name="truncateData"><c>true</c> if stream is truncated, default <c>false</c>.</param>
+        /// <returns>Number of item saved</returns>
+        public static int SaveRecords<T>(IEnumerable<T> items, Stream stream, bool truncateData = false)
+        {
+            // truncate the file if it had data
+            if (truncateData && stream.Length > 0)
+                stream.SetLength(0);
+
+            using (var writer = new CsvWriter(stream))
+            {
+                writer.WriteHeadings<T>();
+                writer.WriteObjects(items);
+                return (int) writer.Count;
+            }
+        }
+
+        /// <summary>
         /// Saves the items to a CSV file.
         /// If the file exits, it overwrites it. If it does not, it creates it.
         /// It uses the Windows 1252 text encoding for output
@@ -471,24 +494,10 @@
         /// <typeparam name="T">The type of enumeration</typeparam>
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
-        /// <returns>Number of item of CsvWriter</returns>
+        /// <returns>Number of item saved</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
-            var fullPath = Path.GetFullPath(filePath);
-
-            using (var stream = File.OpenWrite(fullPath))
-            {
-                // truncate the file if it had data
-                if (stream.Length > 0)
-                    stream.SetLength(0);
-
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteHeadings<T>();
-                    writer.WriteObjects(items);
-                    return (int)writer.Count;
-                }
-            }
+            return SaveRecords<T>(items, File.OpenWrite(filePath), true);
         }
 
         #endregion
