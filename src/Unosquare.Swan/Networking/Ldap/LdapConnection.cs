@@ -131,8 +131,7 @@ namespace Unosquare.Swan.Networking.Ldap
         private LdapControl[] _responseCtls;
         private readonly object _responseCtlSemaphore = new object();
         private Connection _conn;
-
-        /// <
+        
         /// <summary>
         /// Returns the protocol version uses to authenticate.
         /// 0 is returned if no authentication has been performed.

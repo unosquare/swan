@@ -22,144 +22,31 @@ namespace Unosquare.Swan.Components
     using System.Linq.Expressions;
     using System.Reflection;
     using Exceptions;
-    
+
     /// <summary>
     /// The concrete implementation of a simple IoC container
     /// based largely on TinyIoC
     /// </summary>
     /// <seealso cref="System.IDisposable" />
-    public sealed class DependencyContainer : IDisposable
+    public partial class DependencyContainer : IDisposable
     {
-        #region "Fluent" API
+        private bool _disposed;
 
         /// <summary>
-        /// Registration options for "fluent" API
+        /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
         /// </summary>
-        public sealed class RegisterOptions
+        public DependencyContainer()
         {
-            private readonly DependencyContainer _container;
-            private readonly TypeRegistration _registration;
+            _registeredTypes = new ConcurrentDictionary<TypeRegistration, ObjectFactoryBase>();
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="RegisterOptions"/> class.
-            /// </summary>
-            /// <param name="container">The container.</param>
-            /// <param name="registration">The registration.</param>
-            public RegisterOptions(DependencyContainer container, TypeRegistration registration)
-            {
-                _container = container;
-                _registration = registration;
-            }
-
-            /// <summary>
-            /// Make registration a singleton (single instance) if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions AsSingleton()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "singleton");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.SingletonVariant);
-            }
-
-            /// <summary>
-            /// Make registration multi-instance if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions AsMultiInstance()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "multi-instance");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.MultiInstanceVariant);
-            }
-
-            /// <summary>
-            /// Make registration hold a weak reference if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions WithWeakReference()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "weak reference");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.WeakReferenceVariant);
-            }
-
-            /// <summary>
-            /// Make registration hold a strong reference if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions WithStrongReference()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "strong reference");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.StrongReferenceVariant);
-            }
+            RegisterDefaultTypes();
         }
 
-        /// <summary>
-        /// Registration options for "fluent" API when registering multiple implementations
-        /// </summary>
-        public sealed class MultiRegisterOptions
+        private DependencyContainer(DependencyContainer parent)
+            : this()
         {
-            private IEnumerable<RegisterOptions> _registerOptions;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MultiRegisterOptions"/> class.
-            /// </summary>
-            /// <param name="registerOptions">The register options.</param>
-            public MultiRegisterOptions(IEnumerable<RegisterOptions> registerOptions)
-            {
-                _registerOptions = registerOptions;
-            }
-            
-            /// <summary>
-            /// Make registration a singleton (single instance) if possible
-            /// </summary>
-            /// <returns>A registration multi-instance for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
-            public MultiRegisterOptions AsSingleton()
-            {
-                _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsSingleton());
-                return this;
-            }
-
-            /// <summary>
-            /// Make registration multi-instance if possible
-            /// </summary>
-            /// <returns>A registration multi-instance for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
-            public MultiRegisterOptions AsMultiInstance()
-            {
-                _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsMultiInstance());
-                return this;
-            }
-
-            private IEnumerable<RegisterOptions> ExecuteOnAllRegisterOptions(Func<RegisterOptions, RegisterOptions> action)
-            {
-                return _registerOptions.Select(action).ToList();
-            }
+            _parent = parent;
         }
-        #endregion
-
-        #region Public API
-
-        #region Child Containers
 
         /// <summary>
         /// Gets the child container.
@@ -169,8 +56,6 @@ namespace Unosquare.Swan.Components
         {
             return new DependencyContainer(this);
         }
-
-        #endregion
 
         #region Registration
 
@@ -183,7 +68,7 @@ namespace Unosquare.Swan.Components
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
         public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
-            AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
+            AutoRegister(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
         }
 #endif
 
@@ -196,7 +81,61 @@ namespace Unosquare.Swan.Components
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
         public void AutoRegister(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
         {
-            AutoRegisterInternal(assemblies, duplicateAction, registrationPredicate);
+            lock (_autoRegisterLock)
+            {
+                var types = assemblies.SelectMany(a => a.GetAllTypes()).Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
+
+                var concreteTypes = types
+                    .Where(type => type.IsClass() && (type.IsAbstract() == false) && (type != GetType() && (type.DeclaringType != GetType()) && (!type.IsGenericTypeDefinition())))
+                    .ToList();
+
+                foreach (var type in concreteTypes)
+                {
+                    try
+                    {
+                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, type));
+                    }
+                    catch (MethodAccessException)
+                    {
+                        // Ignore methods we can't access - added for Silverlight
+                    }
+                }
+
+                var abstractInterfaceTypes = types.Where(
+                        type =>
+                            ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
+                             (!type.IsGenericTypeDefinition())));
+
+                foreach (var type in abstractInterfaceTypes)
+                {
+                    var localType = type;
+                    var implementations = concreteTypes.Where(implementationType => localType.IsAssignableFrom(implementationType)).ToList();
+
+                    if (implementations.Skip(1).Any())
+                    {
+                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.Fail)
+                            throw new DependencyContainerRegistrationException(type, implementations);
+
+                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.RegisterMultiple)
+                        {
+                            RegisterMultiple(type, implementations);
+                        }
+                    }
+
+                    var firstImplementation = implementations.FirstOrDefault();
+
+                    if (firstImplementation == null) continue;
+
+                    try
+                    {
+                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, firstImplementation));
+                    }
+                    catch (MethodAccessException)
+                    {
+                        // Ignore methods we can't access - added for Silverlight
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -937,7 +876,12 @@ namespace Unosquare.Swan.Components
         /// <returns>IEnumerable</returns>
         public IEnumerable<object> ResolveAll(Type resolveType, bool includeUnnamed = false)
         {
-            return ResolveAllInternal(resolveType, includeUnnamed);
+            var registrations = _registeredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(GetParentRegistrationsForType(resolveType)).Distinct();
+
+            if (!includeUnnamed)
+                registrations = registrations.Where(tr => tr.Name != string.Empty);
+
+            return registrations.Select(registration => ResolveInternal(registration, null, DependencyContainerResolveOptions.Default));
         }
 
         /// <summary>
@@ -959,339 +903,28 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveOptions">Resolve options to use</param>
         public void BuildUp(object input, DependencyContainerResolveOptions resolveOptions = null)
         {
-            BuildUpInternal(input, resolveOptions ?? DependencyContainerResolveOptions.Default);
+            if (resolveOptions == null)
+                resolveOptions = DependencyContainerResolveOptions.Default;
+
+            var properties = input.GetType()
+                .GetProperties()
+                .Where(property => (property.GetGetMethod() != null) && (property.GetSetMethod() != null) &&
+                                   !property.PropertyType.IsValueType());
+
+            foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
+            {
+                try
+                {
+                    property.SetValue(input, ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions), null);
+                }
+                catch (DependencyContainerResolutionException)
+                {
+                    // Catch any resolution errors and ignore them
+                }
+            }
         }
         #endregion
-        #endregion
-
-        #region Object Factories
         
-        private abstract class ObjectFactoryBase
-        {
-            /// <summary>
-            /// Whether to assume this factory successfully constructs its objects
-            /// 
-            /// Generally set to true for delegate style factories as CanResolve cannot delve
-            /// into the delegates they contain.
-            /// </summary>
-            public virtual bool AssumeConstruction => false;
-
-            /// <summary>
-            /// The type the factory instantiates
-            /// </summary>
-            public abstract Type CreatesType { get; }
-
-            /// <summary>
-            /// Constructor to use, if specified
-            /// </summary>
-            public ConstructorInfo Constructor { get; private set; }
-
-            public virtual ObjectFactoryBase SingletonVariant => throw new DependencyContainerRegistrationException(GetType(), "singleton");
-
-            public virtual ObjectFactoryBase MultiInstanceVariant => throw new DependencyContainerRegistrationException(GetType(), "multi-instance");
-
-            public virtual ObjectFactoryBase StrongReferenceVariant => throw new DependencyContainerRegistrationException(GetType(), "strong reference");
-
-            public virtual ObjectFactoryBase WeakReferenceVariant => throw new DependencyContainerRegistrationException(GetType(), "weak reference");
-
-            /// <summary>
-            /// Create the type
-            /// </summary>
-            /// <param name="requestedType">Type user requested to be resolved</param>
-            /// <param name="container">Container that requested the creation</param>
-            /// <param name="parameters">Any user parameters passed</param>
-            /// <param name="options">The options.</param>
-            /// <returns> Instance of type </returns>
-            public abstract object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options);
-            
-            public virtual ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// IObjectFactory that creates new instances of types for each resolution
-        /// </summary>
-        private class MultiInstanceFactory : ObjectFactoryBase
-        {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            public override Type CreatesType => registerImplementation;
-
-            public MultiInstanceFactory(Type registerType, Type registerImplementation)
-            {
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory", true);
-
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory", true);
-
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
-            }
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                try
-                {
-                    return container.ConstructType(registerImplementation, Constructor, parameters, options);
-                }
-                catch (DependencyContainerResolutionException ex)
-                {
-                    throw new DependencyContainerResolutionException(registerType, ex);
-                }
-            }
-
-            public override ObjectFactoryBase SingletonVariant => new SingletonFactory(registerType, registerImplementation);
-            
-            public override ObjectFactoryBase MultiInstanceVariant => this;
-        }
-
-        /// <summary>
-        /// IObjectFactory that invokes a specified delegate to construct the object
-        /// </summary>
-        private class DelegateFactory : ObjectFactoryBase
-        {
-            private readonly Type registerType;
-
-            private readonly Func<DependencyContainer, Dictionary<string, object>, object> _factory;
-
-            public override bool AssumeConstruction => true;
-
-            public override Type CreatesType => registerType;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                try
-                {
-                    return _factory.Invoke(container, parameters);
-                }
-                catch (Exception ex)
-                {
-                    throw new DependencyContainerResolutionException(registerType, ex);
-                }
-            }
-
-            public DelegateFactory(Type registerType, Func<DependencyContainer, Dictionary<string, object>, object> factory)
-            {
-                _factory = factory ?? throw new ArgumentNullException(nameof(factory));
-
-                this.registerType = registerType;
-            }
-
-            public override ObjectFactoryBase WeakReferenceVariant => new WeakDelegateFactory(registerType, _factory);
-
-            public override ObjectFactoryBase StrongReferenceVariant => this;
-        }
-
-        /// <summary>
-        /// IObjectFactory that invokes a specified delegate to construct the object
-        /// Holds the delegate using a weak reference
-        /// </summary>
-        private class WeakDelegateFactory : ObjectFactoryBase
-        {
-            private readonly Type registerType;
-
-            private readonly WeakReference _factory;
-
-            public override bool AssumeConstruction => true;
-
-            public override Type CreatesType => registerType;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
-                    throw new DependencyContainerWeakReferenceException(registerType);
-
-                try
-                {
-                    return factory.Invoke(container, parameters);
-                }
-                catch (Exception ex)
-                {
-                    throw new DependencyContainerResolutionException(registerType, ex);
-                }
-            }
-
-            public WeakDelegateFactory(Type registerType, Func<DependencyContainer, Dictionary<string, object>, object> factory)
-            {
-                if (factory == null)
-                    throw new ArgumentNullException(nameof(factory));
-
-                _factory = new WeakReference(factory);
-
-                this.registerType = registerType;
-            }
-
-            public override ObjectFactoryBase StrongReferenceVariant
-            {
-                get
-                {
-                    if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
-                        throw new DependencyContainerWeakReferenceException(registerType);
-
-                    return new DelegateFactory(registerType, factory);
-                }
-            }
-
-            public override ObjectFactoryBase WeakReferenceVariant => this;
-        }
-
-        /// <summary>
-        /// Stores an particular instance to return for a type
-        /// </summary>
-        private class InstanceFactory : ObjectFactoryBase, IDisposable
-        {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            private readonly object _instance;
-
-            public override bool AssumeConstruction => true;
-
-            public InstanceFactory(Type registerType, Type registerImplementation, object instance)
-            {
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, "InstanceFactory", true);
-
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
-                _instance = instance;
-            }
-
-            public override Type CreatesType => registerImplementation;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                return _instance;
-            }
-
-            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(registerType, registerImplementation);
-
-            public override ObjectFactoryBase WeakReferenceVariant => new WeakInstanceFactory(registerType, registerImplementation, _instance);
-
-            public override ObjectFactoryBase StrongReferenceVariant => this;
-            
-            public void Dispose()
-            {
-                var disposable = _instance as IDisposable;
-
-                disposable?.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Stores an particular instance to return for a type
-        /// 
-        /// Stores the instance with a weak reference
-        /// </summary>
-        private class WeakInstanceFactory : ObjectFactoryBase, IDisposable
-        {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            private readonly WeakReference _instance;
-
-            public WeakInstanceFactory(Type registerType, Type registerImplementation, object instance)
-            {
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, "WeakInstanceFactory",
-                        true);
-
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
-                _instance = new WeakReference(instance);
-            }
-
-            public override Type CreatesType => registerImplementation;
-
-            public override object GetObject(Type requestedType, DependencyContainer container,
-                Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                var instance = _instance.Target;
-
-                if (instance == null)
-                    throw new DependencyContainerWeakReferenceException(registerType);
-
-                return instance;
-            }
-
-            public override ObjectFactoryBase MultiInstanceVariant =>
-                new MultiInstanceFactory(registerType, registerImplementation);
-
-            public override ObjectFactoryBase WeakReferenceVariant => this;
-
-            public override ObjectFactoryBase StrongReferenceVariant
-            {
-                get
-                {
-                    var instance = _instance.Target;
-
-                    if (instance == null)
-                        throw new DependencyContainerWeakReferenceException(registerType);
-
-                    return new InstanceFactory(registerType, registerImplementation, instance);
-                }
-            }
-
-            public void Dispose() => (_instance.Target as IDisposable)?.Dispose();
-        }
-
-        /// <summary>
-        /// A factory that lazy instantiates a type and always returns the same instance
-        /// </summary>
-        private class SingletonFactory : ObjectFactoryBase, IDisposable
-        {
-            private readonly Type _registerType;
-            private readonly Type _registerImplementation;
-            private readonly object _singletonLock = new object();
-            private object _current;
-
-            public SingletonFactory(Type registerType, Type registerImplementation)
-            {
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationException(registerImplementation, nameof(SingletonFactory), true);
-
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, nameof(SingletonFactory), true);
-
-                _registerType = registerType;
-                _registerImplementation = registerImplementation;
-            }
-
-            public override Type CreatesType => _registerImplementation;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                if (parameters.Count != 0)
-                    throw new ArgumentException("Cannot specify parameters for singleton types");
-
-                lock (_singletonLock)
-                {
-                    if (_current == null)
-                        _current = container.ConstructType(_registerImplementation, Constructor, null, options);
-                }
-
-                return _current;
-            }
-
-            public override ObjectFactoryBase SingletonVariant => this;
-            
-            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(_registerType, _registerImplementation);
-
-            public override ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
-            {
-                // We make sure that the singleton is constructed before the child container takes the factory.
-                // Otherwise the results would vary depending on whether or not the parent container had resolved
-                // the type before the child container does.
-                GetObject(type, parent, null, DependencyContainerResolveOptions.Default);
-                return this;
-            }
-
-            public void Dispose() =>(_current as IDisposable)?.Dispose();
-            }
-
-        #endregion
-
         #region Singleton Container
 
         static DependencyContainer()
@@ -1375,84 +1008,9 @@ namespace Unosquare.Swan.Components
             = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
         #endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
-        /// </summary>
-        public DependencyContainer()
-        {
-            _registeredTypes = new ConcurrentDictionary<TypeRegistration, ObjectFactoryBase>();
-
-            RegisterDefaultTypes();
-        }
-
-        private DependencyContainer(DependencyContainer parent)
-            : this()
-        {
-            _parent = parent;
-        }
-
         #region Internal Methods
         private readonly object _autoRegisterLock = new object();
-
-        private void AutoRegisterInternal(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction, Func<Type, bool> registrationPredicate)
-        {
-            lock (_autoRegisterLock)
-            {
-                var types = assemblies.SelectMany(a => a.GetAllTypes()).Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
-
-                var concreteTypes = types
-                    .Where(type => type.IsClass() && (type.IsAbstract() == false) && (type != GetType() && (type.DeclaringType != GetType()) && (!type.IsGenericTypeDefinition())))
-                    .ToList();
-
-                foreach (var type in concreteTypes)
-                {
-                    try
-                    {
-                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, type));
-                    }
-                    catch (MethodAccessException)
-                    {
-                        // Ignore methods we can't access - added for Silverlight
-                    }
-                }
-
-                var abstractInterfaceTypes = types.Where(
-                        type =>
-                            ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
-                             (!type.IsGenericTypeDefinition())));
-
-                foreach (var type in abstractInterfaceTypes)
-                {
-                    var localType = type;
-                    var implementations = concreteTypes.Where(implementationType => localType.IsAssignableFrom(implementationType)).ToList();
-
-                    if (implementations.Skip(1).Any())
-                    {
-                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.Fail)
-                            throw new DependencyContainerRegistrationException(type, implementations);
-
-                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.RegisterMultiple)
-                        {
-                            RegisterMultiple(type, implementations);
-                        }
-                    }
-
-                    var firstImplementation = implementations.FirstOrDefault();
-
-                    if (firstImplementation == null) continue;
-
-                    try
-                    {
-                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, firstImplementation));
-                    }
-                    catch (MethodAccessException)
-                    {
-                        // Ignore methods we can't access - added for Silverlight
-                    }
-                }
-            }
-        }
-
+        
 #if !NETSTANDARD1_3 && !UWP
         private static bool IsIgnoredAssembly(Assembly assembly)
         {
@@ -1849,27 +1407,7 @@ namespace Unosquare.Swan.Components
 
             return true;
         }
-
-        private void BuildUpInternal(object input, DependencyContainerResolveOptions resolveOptions)
-        {
-            var properties = input.GetType()
-                .GetProperties()
-                .Where(property => (property.GetGetMethod() != null) && (property.GetSetMethod() != null) &&
-                                   !property.PropertyType.IsValueType());
-
-            foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
-            {
-                try
-                {
-                    property.SetValue(input, ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions), null);
-                }
-                catch (DependencyContainerResolutionException)
-                {
-                    // Catch any resolution errors and ignore them
-                }
-            }
-        }
-
+        
         private IEnumerable<TypeRegistration> GetParentRegistrationsForType(Type resolveType)
         {
             if (_parent == null)
@@ -1879,22 +1417,10 @@ namespace Unosquare.Swan.Components
 
             return registrations.Concat(_parent.GetParentRegistrationsForType(resolveType));
         }
-
-        private IEnumerable<object> ResolveAllInternal(Type resolveType, bool includeUnnamed)
-        {
-            var registrations = _registeredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(GetParentRegistrationsForType(resolveType)).Distinct();
-
-            if (!includeUnnamed)
-                registrations = registrations.Where(tr => tr.Name != string.Empty);
-
-            return registrations.Select(registration => ResolveInternal(registration, null, DependencyContainerResolveOptions.Default));
-        }
-
+        
         #endregion
 
         #region IDisposable Members
-
-        private bool _disposed;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

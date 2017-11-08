@@ -733,8 +733,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="LdapConnection.Search"></seealso>
     internal class LdapResponse : LdapMessage
     {
-        private readonly LdapException exception;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapResponse"/> class.
         /// Creates a response LdapMessage when receiving an asynchronous
@@ -752,9 +750,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     Any error message in the response.
         /// </returns>
-        public string ErrorMessage => exception != null
-            ? exception.LdapErrorMessage
-            : ((IRfcResponse) Message.Response).GetErrorMessage().StringValue();
+        public string ErrorMessage => ((IRfcResponse) Message.Response).GetErrorMessage().StringValue();
 
         /// <summary>
         ///     Returns the partially matched DN field from the server response,
@@ -763,9 +759,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     The partially matched DN field, if the response contains one.
         /// </returns>
-        public string MatchedDN => exception != null
-            ? exception.MatchedDN
-            : ((IRfcResponse) Message.Response).GetMatchedDN().StringValue();
+        public string MatchedDN => ((IRfcResponse) Message.Response).GetMatchedDN().StringValue();
 
         /// <summary>
         /// Returns all referrals in a server response, if the response contains any.
@@ -830,11 +824,6 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if (exception != null)
-                {
-                    return exception.ResultCode;
-                }
-
                 if (Message.Response is RfcSearchResultEntry ||
                     (IRfcResponse) Message.Response is RfcIntermediateResponse)
                 {
@@ -878,28 +867,20 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        /// Returns any controls in the message.
-        /// </summary>
-        /// <value>
-        /// The controls.
-        /// </value>
-        public override LdapControl[] Controls => exception != null ? null : base.Controls;
-
-        /// <summary>
         ///     Returns an embedded exception response
         /// </summary>
         /// <returns>
         ///     an embedded exception if any
         /// </returns>
-        internal LdapException Exception => exception;
+        internal LdapException Exception { get; set; }
 
-        internal bool HasException() => exception != null;
+        internal bool HasException() => Exception != null;
 
         internal void ChkResultCode()
         {
-            if (exception != null)
+            if (Exception != null)
             {
-                throw exception;
+                throw Exception;
             }
 
             var ex = ResultException;
@@ -977,7 +958,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 for (var i = 0; i < Count; i++)
                 {
                     // Get next registered control
-                    if ((ctl = (RegisteredControl) ToArray()[i]) == null)
+                    if ((ctl = ToArray()[i]) == null)
                     {
                         throw new FieldAccessException();
                     }

@@ -17,7 +17,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapAttribute"></seealso>
     /// <seealso cref="LdapAttributeSet"></seealso>
-    public sealed class LdapEntry
+    public class LdapEntry
     {
         /// <summary>
         /// Returns the distinguished name of the entry.
@@ -900,7 +900,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// iterator over the attributes in this set
         /// </returns>
-        public IEnumerator GetEnumerator() => Values.GetEnumerator();
+        public new IEnumerator GetEnumerator() => Values.GetEnumerator();
 
         /// <summary>
         ///     Returns <code>true</code> if this set contains an attribute of the same name

@@ -497,7 +497,7 @@
         /// <returns>Number of item saved</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
-            return SaveRecords<T>(items, File.OpenWrite(filePath), true);
+            return SaveRecords(items, File.OpenWrite(filePath), true);
         }
 
         #endregion

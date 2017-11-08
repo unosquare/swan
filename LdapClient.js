@@ -3,9 +3,11 @@ var client = ldap.createClient({
     url: 'ldap://127.0.0.1:1089'
 });
 
-client.bind('cn=root', 'secret', function (err) {
-    console.log(err);
-})
+client.bind('cn=root',
+    'secret',
+    function (err) {
+        console.log(err);
+    });
 
 var entries = [
     {

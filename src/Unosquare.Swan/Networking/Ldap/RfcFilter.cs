@@ -695,7 +695,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 _filterStack.Pop();
             }
 
-            var topOfStackType = ((Asn1Object) _filterStack.Peek()).GetIdentifier().Tag;
+            var topOfStackType = _filterStack.Peek().GetIdentifier().Tag;
             if (topOfStackType != (int) rfcType)
             {
                 throw new LdapException("Mismatched ending of nested filter", LdapStatusCode.FilterError);
