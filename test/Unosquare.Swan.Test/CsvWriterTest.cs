@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Unosquare.Swan.Formatters;
 using Unosquare.Swan.Test.Mocks;

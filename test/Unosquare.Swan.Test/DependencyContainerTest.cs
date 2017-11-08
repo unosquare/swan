@@ -176,8 +176,8 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
     [TestFixture]
     public class TryResolve : DependencyContainerTest
     {
-        [TestCase(typeof(string), false)]
-        [TestCase(typeof(Dictionary<string, string>), true)]
+        [TestCase(typeof(IAnimal), false)]
+        [TestCase(typeof(Shark), true)]
         public void WithType_ResolveType(Type resolveType, bool expected)
         {
             var container = new DependencyContainer();
@@ -185,19 +185,21 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.AreEqual(expected, container.TryResolve(resolveType, out var obj));
         }
         
-        [TestCase(typeof(Dictionary<String, Object>), true)]
-        [TestCase(typeof(string), false)]
-        public void WithObjectAndResolveOptions_ResolveType(Type resolveType, bool expected)
+        [TestCase(typeof(Shark), true)]
+        [TestCase(typeof(IAnimal), false)]
+        public void WithTypeAndResolveOptions_ResolveType(Type resolveType, bool expected)
         {
             var container = new DependencyContainer();
             
             Assert.AreEqual(expected, container.TryResolve(
                 resolveType, DependencyContainerResolveOptions.Default, out var obj));
         }
+
         
-        [TestCase(typeof(string), "Warsong", false)]
-        [TestCase(typeof(Dictionary<string, string>), "", true)]
-        [TestCase(typeof(Dictionary<string, string>), "Warsong", false)]
+        [TestCase(typeof(Shark), "", true)]
+        [TestCase(typeof(Shark), "Warsong", false)]
+        [TestCase(typeof(IAnimal), "", false)]
+        [TestCase(typeof(IAnimal), "Warsong", false)]
         public void WithTypeAndString_ResolveType(Type resolveType, string name, bool expected)
         {
             var container = new DependencyContainer();
@@ -205,10 +207,11 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
             Assert.AreEqual(expected, container.TryResolve(
                 resolveType, name, out var obj));
         }
-        
-        [TestCase(typeof(string), "Warsong", false)]
-        [TestCase(typeof(Dictionary<string, string>), "", true)]
-        [TestCase(typeof(Dictionary<string, string>), "Warsong", false)]
+
+        [TestCase(typeof(Shark), "", true)]
+        [TestCase(typeof(Shark), "Warsong", false)]
+        [TestCase(typeof(IAnimal), "", false)]
+        [TestCase(typeof(IAnimal), "Warsong", false)]
         public void WithTypeAndStringAndResolveOptions_ResolveType(Type resolveType, string name, bool expected)
         {
             var container = new DependencyContainer();
@@ -217,8 +220,8 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 resolveType, name, DependencyContainerResolveOptions.Default, out var obj));
         }
 
-        [TestCase(typeof(Dictionary<String, Object>), true)]
-        [TestCase(typeof(string), false)]
+        [TestCase(typeof(Shark), true)]
+        [TestCase(typeof(IAnimal), false)]
         public void WithObjectAndDictionary_ResolveType(Type resolveType, bool expected)
         {
             var container = new DependencyContainer();
@@ -227,14 +230,13 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 resolveType, NameDictionary, out var obj));
         }
 
-        [TestCase(typeof(Dictionary<String, Object>), true)]
-        [TestCase(typeof(string), false)]
-        [TestCase(typeof(int), false)]
-        [TestCase(typeof(IEnumerable<>), false)]
+        [TestCase(typeof(Shark), true)]
+        [TestCase(typeof(IAnimal), false)]
+        [TestCase(typeof(ICar), false)]
         public void WithTypeAndParent_ResolveType(Type resolveType, bool expected)
         {
             var containerParent = new DependencyContainer();
-            containerParent.Register(typeof(string));
+            containerParent.Register(typeof(Shark));
             
             var container = containerParent.GetChildContainer();
 
