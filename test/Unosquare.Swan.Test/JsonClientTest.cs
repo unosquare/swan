@@ -77,6 +77,22 @@ namespace Unosquare.Swan.Test.JsonClientTest
                 }
             });
         }
+
+        [Test]
+        public void WithNullUrl_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                using(var webserver = new WebServer(_defaultPort))
+                {
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+                    webserver.RunAsync();
+                    await Task.Delay(100);
+
+                    var data = await JsonClient.Authenticate(null, "admin", "password");
+                }
+            });
+        }
     }
 
     [TestFixture]
@@ -152,6 +168,23 @@ namespace Unosquare.Swan.Test.JsonClientTest
             });
 
             Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+        }
+
+        [Test]
+        public void WithNullUrl_ThrowsArgumentNullException()
+        {
+             Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                using(var webserver = new WebServer(_defaultPort))
+                {
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+
+                    webserver.RunAsync();
+                    await Task.Delay(100);
+
+                    await JsonClient.Post<BasicJson>(null, BasicJson.GetDefault());
+                }
+            });
         }
     }
 
@@ -265,6 +298,23 @@ namespace Unosquare.Swan.Test.JsonClientTest
 
             Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
         }
+
+        [Test]
+        public void WithNullUrl_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                using(var webserver = new WebServer(_defaultPort))
+                {
+                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
+
+                    webserver.RunAsync();
+                    await Task.Delay(100);
+
+                    await JsonClient.Put<BasicJson>(null, BasicJson.GetDefault());
+                }
+            });
+        }
     }
 
     [TestFixture]
@@ -376,7 +426,16 @@ namespace Unosquare.Swan.Test.JsonClientTest
         {
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
             {
-                var data = await JsonClient.GetBinary(_defaultHttp);
+                await JsonClient.GetBinary(_defaultHttp);
+            });
+        }
+
+        [Test]
+        public async Task WithNullUrl_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await JsonClient.GetBinary(null);
             });
         }
 
@@ -422,6 +481,15 @@ namespace Unosquare.Swan.Test.JsonClientTest
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
             {
                 await JsonClient.Get<BasicJson>(_defaultHttp);
+            });
+        }
+
+        [Test]
+        public async Task WithNullUrl_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await JsonClient.Get<BasicJson>(null);
             });
         }
 
