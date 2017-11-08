@@ -178,10 +178,10 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         {
             dynamic dynObject = new Dictionary<string, object>
             {
-                {"A", "Florencia"},
-                {"B", "Camila"},
-                {"C", "Mariana"},
-                {"D", "Mónica"}
+                {"A", new { Name = "Florencia" }},
+                {"B", new { Name = "Camila" }},
+                {"C", new { Name = "Florencia" }},
+                {"D", new { Name = "Mónica" }}
             };
 
             using(var stream = new MemoryStream())
@@ -202,16 +202,14 @@ namespace Unosquare.Swan.Test.CsvWriterTest
     {
         [Test]
         public void NullType_ThrowsArgumentNullException()
-        {
-            Type nullType = null;
-            
+        {            
             using(var stream = new MemoryStream())
             {
                 using(var writer = new CsvWriter(stream))
                 {
                     Assert.Throws<ArgumentNullException>(() =>
                     {
-                        writer.WriteHeadings(nullType);
+                        writer.WriteHeadings(null as Type);
                     });
                 }
             }
@@ -236,13 +234,8 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         public void HeadersDictionaryLength_ReturnsAreEqual()
         {
             var tempFile = Path.GetTempFileName();
-            var stringHeaders = new[]
-            {
-                "AccessDate", "AlternateId", "CreationDate", "Description", "Id", "IsValidated", "Name", "Score",
-                "ValidationResult"
-            };
-
-            var dictionaryHeaders = new Dictionary<string, string>
+            var stringHeaders = new List<string>();
+            var dictionaryheaders = new Dictionary<string, string>
             {
                 {"AccessDate", "20171107"},
                 {"AlternateId", "1"},
@@ -255,18 +248,20 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                 {"ValidationResult", "true"}
             };
 
-            using(var stream = File.OpenWrite(tempFile))
+            stringHeaders = dictionaryheaders.Select(k => k.Key).ToList();
+
+            using (var stream = File.OpenWrite(tempFile))
             {
                 using(var writer = new CsvWriter(stream))
                 {
-                    writer.WriteHeadings(dictionaryHeaders);
+                    writer.WriteHeadings(dictionaryheaders);
                     writer.WriteObjects(stringHeaders);
                 }
             }
 
             var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(tempFile);
 
-            Assert.AreEqual(stringHeaders.Length, loadedRecords.Count);
+            Assert.AreEqual(stringHeaders.Count, loadedRecords.Count);
         }
 
         [Test]
