@@ -235,15 +235,6 @@
             lock (_syncLock)
             {
                 {
-                    // Handling as Dynamic Object
-                    if (item is IDictionary<string, object> typedItem)
-                    {
-                        WriteDynamicObjectValues(typedItem);
-                        return;
-                    }
-                }
-
-                {
                     // Handling as Dictionary
                     if (item is IDictionary typedItem)
                     {
@@ -332,16 +323,7 @@
         {
             WriteLine(GetFilteredDictionaryValues(typedItem));
         }
-
-        /// <summary>
-        /// Writes the dynamic object values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteDynamicObjectValues(IDictionary<string, object> typedItem)
-        {
-            WriteLine(GetFilteredDictionaryValues(typedItem));
-        }
-
+        
         #endregion
 
         #region Write Headings Methods
@@ -420,9 +402,9 @@
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
         /// <returns>An array containing copies of the elements of the dictionary</returns>
-        private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
+        private string[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
-            var keys = new List<object>();
+            var keys = new List<string>();
 
             foreach (var key in dictionary.Keys)
             {
@@ -435,28 +417,7 @@
 
             return keys.ToArray();
         }
-
-        /// <summary>
-        /// Gets the filtered dictionary keys using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary</returns>
-        private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
-        {
-            var keys = new List<object>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key ?? string.Empty;
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                keys.Add(stringKey);
-            }
-
-            return keys.ToArray();
-        }
-
+        
         /// <summary>
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
@@ -477,28 +438,7 @@
 
             return values.ToArray();
         }
-
-        /// <summary>
-        /// Gets the filtered dictionary values using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary</returns>
-        private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
-        {
-            var values = new List<object>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key ?? string.Empty;
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                values.Add(dictionary[key]);
-            }
-
-            return values.ToArray();
-        }
-
+        
         /// <summary>
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
@@ -524,6 +464,29 @@
         #region Helpers
 
         /// <summary>
+        /// Saves the items to a stream.
+        /// It uses the Windows 1252 text encoding for output
+        /// </summary>
+        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="stream">The stream.</param>
+        /// <param name="truncateData"><c>true</c> if stream is truncated, default <c>false</c>.</param>
+        /// <returns>Number of item saved</returns>
+        public static int SaveRecords<T>(IEnumerable<T> items, Stream stream, bool truncateData = false)
+        {
+            // truncate the file if it had data
+            if (truncateData && stream.Length > 0)
+                stream.SetLength(0);
+
+            using (var writer = new CsvWriter(stream))
+            {
+                writer.WriteHeadings<T>();
+                writer.WriteObjects(items);
+                return (int) writer.Count;
+            }
+        }
+
+        /// <summary>
         /// Saves the items to a CSV file.
         /// If the file exits, it overwrites it. If it does not, it creates it.
         /// It uses the Windows 1252 text encoding for output
@@ -531,24 +494,10 @@
         /// <typeparam name="T">The type of enumeration</typeparam>
         /// <param name="items">The items.</param>
         /// <param name="filePath">The file path.</param>
-        /// <returns>Number of item of CsvWriter</returns>
+        /// <returns>Number of item saved</returns>
         public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
         {
-            var fullPath = Path.GetFullPath(filePath);
-
-            using (var stream = File.OpenWrite(fullPath))
-            {
-                // truncate the file if it had data
-                if (stream.Length > 0)
-                    stream.SetLength(0);
-
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteHeadings<T>();
-                    writer.WriteObjects(items);
-                    return (int)writer.Count;
-                }
-            }
+            return SaveRecords<T>(items, File.OpenWrite(filePath), true);
         }
 
         #endregion

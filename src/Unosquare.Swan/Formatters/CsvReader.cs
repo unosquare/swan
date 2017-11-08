@@ -557,6 +557,30 @@
         #region Helpers
 
         /// <summary>
+        /// Loads the records from the stream
+        /// This method uses Windows 1252 encoding
+        /// </summary>
+        /// <typeparam name="T">The type of IList items to load</typeparam>
+        /// <param name="stream">The stream.</param>
+        /// <returns>A generic collection of objects that can be individually accessed by index</returns>
+        public static IList<T> LoadRecords<T>(Stream stream)
+            where T : new()
+        {
+            var result = new List<T>();
+
+            using (var reader = new CsvReader(stream))
+            {
+                reader.ReadHeadings();
+                while (reader.EndOfStream == false)
+                {
+                    result.Add(reader.ReadObject<T>());
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Loads the records from the give file path.
         /// This method uses Windows 1252 encoding
         /// </summary>
@@ -566,18 +590,7 @@
         public static IList<T> LoadRecords<T>(string filePath)
             where T : new()
         {
-            var result = new List<T>();
-            using (var reader = new CsvReader(filePath))
-            {
-                reader.ReadHeadings();
-                while (reader.EndOfStream == false)
-                {
-                    var record = reader.ReadObject<T>();
-                    result.Add(record);
-                }
-            }
-
-            return result;
+            return LoadRecords<T>(File.OpenRead(filePath));
         }
 
         #endregion
