@@ -642,8 +642,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
 
             Assert.IsTrue(container.CanResolve<IEnumerable<string>>());
             container.Register<IEnumerable<string>, StringEnumerable>();
-
-            Assert.IsTrue(container.CanResolve<IEnumerable<string>>());
+            
             Assert.AreEqual(typeof(StringEnumerable), container.Resolve<IEnumerable<string>>().GetType());
         }
 
@@ -652,7 +651,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         {
             var container = new DependencyContainer();
 
-            Assert.IsTrue(container.CanResolve<Dictionary<string,object>>(new Dictionary<string, object>()));
+            Assert.IsTrue(container.CanResolve<Shark>(new Dictionary<string, object>()));
         }
 
         [Test]
@@ -660,7 +659,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
         {
             var container = new DependencyContainer();
 
-            Assert.IsFalse(container.CanResolve<string>((new Shark()).Name));
+            Assert.IsFalse(container.CanResolve<Shark>((new Shark()).Name));
         }
 
         [TestCase(typeof(Func<>))]
