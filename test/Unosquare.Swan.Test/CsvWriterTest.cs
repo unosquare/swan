@@ -272,7 +272,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
             var stringHeaders = new[]
             {
                 "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate",
-                "AccessDate\r\n"
+                "AccessDate"
             };
             var stringHeadersOutput = string.Join(",", stringHeaders);
 
@@ -287,7 +287,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                     var myStr = sr.ReadToEnd();
                     var myStrSplitted = myStr.Split(',');
 
-                    Assert.AreEqual(stringHeadersOutput, myStr);
+                    Assert.AreEqual(stringHeadersOutput, myStr.Replace("\r\n", string.Empty));
                     Assert.AreEqual(stringHeaders.Length, myStrSplitted.Length);
                 }
             }
