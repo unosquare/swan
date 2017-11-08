@@ -528,19 +528,19 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 container.Resolve<IAnimal>()
             );
         }
-        
+
         [TestCase(typeof(IAnimal))]
-        [TestCase(typeof(List))]
-        public void WithInvalidRegisterImplementation_ThrowsDependencyContainerResolutionException(
+        [TestCase(typeof(Fish))]
+        public void WithRegisterTypeAndInvalidRegisterImplementation_ThrowsDependencyContainerRegistrationException(
             Type registerImplementation)
         {
             var container = new DependencyContainer();
             Assert.Throws<DependencyContainerRegistrationException>(() =>
                 container.Register(
-                    typeof(Dictionary<string, string>), registerImplementation).AsMultiInstance()
+                    typeof(Shark), registerImplementation).AsMultiInstance()
             );
         }
-        
+
         [Test]
         public void WithTypeAsMultiInstance_ThrowsDependencyContainerResolutionException()
         {
@@ -604,7 +604,7 @@ namespace Unosquare.Swan.Test.DependencyContainerTest
                 container.Register(typeof(IDictionary<string, string>).GetGenericTypeDefinition(), typeof(string), instance)
             );
         }
-        
+
     }
 
     [TestFixture]
