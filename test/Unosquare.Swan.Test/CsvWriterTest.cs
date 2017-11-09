@@ -287,7 +287,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                     var myStr = sr.ReadToEnd();
                     var myStrSplitted = myStr.Split(',');
 
-                    Assert.AreEqual(stringHeadersOutput, myStr.Replace("\r\n", string.Empty));
+                    Assert.AreEqual(stringHeadersOutput, myStr.Trim());
                     Assert.AreEqual(stringHeaders.Length, myStrSplitted.Length);
                 }
             }
