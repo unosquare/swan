@@ -231,7 +231,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         }
 
         [Test]
-        public void HeadersDictionaryLength_ReturnsAreEqual()
+        public void WritingHeadersFromDictionary_WritesHeaders()
         {
             var dictionaryHeaders = new Dictionary<string, string>
             {
@@ -267,7 +267,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         }
 
         [Test]
-        public void HeadersLength_ReturnsAreEqual()
+        public void WritingHeadersFromSampleClass_WritesHeaders()
         {
             var stringHeaders = new[]
             {
