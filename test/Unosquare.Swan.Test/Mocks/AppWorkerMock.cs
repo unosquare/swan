@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Unosquare.Swan.Abstractions;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using System.Threading.Tasks;
+    using Abstractions;
+
     public class AppWorkerMock : AppWorkerBase
     {
         public Exception Exception { get; private set; }

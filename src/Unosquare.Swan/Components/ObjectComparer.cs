@@ -83,7 +83,7 @@
                     var leftObj = targetPropertyGetMethod.Invoke(left, null) as IEnumerable;
                     var rightObj = targetPropertyGetMethod.Invoke(right, null) as IEnumerable;
 
-                    if (!AreEnumsEqual(leftObj, rightObj))
+                    if (!AreEnumerationsEquals(leftObj, rightObj))
                         return false;
                 }
                 else
@@ -161,7 +161,7 @@
         /// or
         /// right
         /// </exception>
-        public static bool AreEnumsEqual<T>(T left, T right)
+        public static bool AreEnumerationsEquals<T>(T left, T right)
             where T : IEnumerable
         {
             if (left == null)

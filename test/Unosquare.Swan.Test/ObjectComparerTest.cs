@@ -8,13 +8,37 @@
     using Mocks;
 
     [TestFixture]
-    public class AreObjectsEqual
+    public class AreObjectsEqual : TestFixtureBase
     {
         [Test]
-        public void EqualObjects_ReturnsTrue()
+        public void SameObjects_ReturnsTrue()
         {
-            var left = DateBasicJson.GetDateDefault();
-            var right = DateBasicJson.GetDateDefault();
+            Assert.IsTrue(ObjectComparer.AreObjectsEqual(DefaultObject, DefaultObject));
+
+        }
+
+        [Test]
+        public void EqualsObjects_ReturnsTrue()
+        {
+            var left = new BasicJson
+            {
+                BoolData = true,
+                DecimalData = 1,
+                IntData = 1,
+                NegativeInt = -1,
+                StringData = "A",
+                StringNull = null
+            };
+
+            var right = new BasicJson
+            {
+                BoolData = true,
+                DecimalData = 1,
+                IntData = 1,
+                NegativeInt = -1,
+                StringData = "A",
+                StringNull = null
+            };
 
             Assert.IsTrue(ObjectComparer.AreObjectsEqual(left, right));
         }
@@ -22,10 +46,7 @@
         [Test]
         public void DifferentObjects_ReturnsFalse()
         {
-            var left = BasicJson.GetDefault();
-            var right = new BasicJson();
-
-            Assert.IsFalse(ObjectComparer.AreObjectsEqual(left, right));
+            Assert.IsFalse(ObjectComparer.AreObjectsEqual(DefaultObject, new DateBasicJson()));
         }
 
         [Test]
@@ -40,57 +61,36 @@
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectComparer.AreObjectsEqual(DateBasicJson.GetDateDefault(), DateBasicJson.GetDateDefault(), null);
-            });
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreObjectsEqual(DefaultObject, DefaultObject, null));
         }
     }
 
     [TestFixture]
-    public class AreStructsEqual
+    public class AreStructsEqual : TestFixtureBase
     {
         [Test]
         public void EqualStructs_ReturnsTrue()
         {
-            var leftStruct = new SampleStruct
-            {
-                Name = "Alexey Turpalov",
-                Value = 1
-            };
-
-            var rightStruct = new SampleStruct
-            {
-                Name = "Alexey Turpalov",
-                Value = 1
-            };
-
-            Assert.IsTrue(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+            Assert.IsTrue(ObjectComparer.AreStructsEqual(DefaultStruct, DefaultStruct));
         }
 
         [Test]
         public void DifferentStructs_ReturnsFalse()
         {
-            var leftStruct = new SampleStruct
-            {
-                Name = "ArCiGo",
-                Value = 1
-            };
-
             var rightStruct = new SampleStruct
             {
                 Name = "Kadosh",
                 Value = 2
             };
 
-            Assert.IsFalse(ObjectComparer.AreStructsEqual(leftStruct, rightStruct));
+            Assert.IsFalse(ObjectComparer.AreStructsEqual(DefaultStruct, rightStruct));
         }
 
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                ObjectComparer.AreStructsEqual(new SampleStruct(), new SampleStruct(), null));
+                ObjectComparer.AreStructsEqual(DefaultStruct, DefaultStruct, null));
         }
     }
 
@@ -103,7 +103,7 @@
             var leftArray = new[] {1, 2, 3, 4, 5};
             var rightArray = new[] {1, 2, 3, 4, 5};
 
-            Assert.IsTrue(ObjectComparer.AreEnumsEqual(leftArray, rightArray));
+            Assert.IsTrue(ObjectComparer.AreEnumerationsEquals(leftArray, rightArray));
         }
 
         [Test]
@@ -112,7 +112,7 @@
             var leftArray = new[] {1, 2, 3};
             var rightArray = new[] {7, 1, 9};
 
-            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftArray, rightArray));
+            Assert.IsFalse(ObjectComparer.AreEnumerationsEquals(leftArray, rightArray));
         }
     }
 
@@ -134,12 +134,12 @@
             var leftArrayObject = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()};
             var rightArrayObject = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()};
 
-            Assert.IsTrue(ObjectComparer.AreEnumsEqual(leftArrayObject, rightArrayObject));
+            Assert.IsTrue(ObjectComparer.AreEnumerationsEquals(leftArrayObject, rightArrayObject));
         }
     }
 
     [TestFixture]
-    public class AreEnumsEquals
+    public class AreEnumerationsEquals : TestFixtureBase
     {
         [Test]
         public void EnumsWithDifferentLengths_ReturnsFalse()
@@ -157,20 +157,18 @@
                 "Kadosh"
             };
 
-            Assert.IsFalse(ObjectComparer.AreEnumsEqual(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
+            Assert.IsFalse(ObjectComparer.AreEnumerationsEquals(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
         }
 
         [Test]
         public void LeftEnumNull_ThrowsArgumentNullException()
         {
-            List<string> left = null;
-
             var right = new List<string>
             {
                 "UnoSquare"
             };
 
-            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumsEqual(left, right));
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumerationsEquals(NullStringList, right));
         }
 
         [Test]
@@ -180,10 +178,8 @@
             {
                 "UnoSquare"
             };
-
-            List<string> right = null;
-
-            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumsEqual(left, right));
+            
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumerationsEquals(left, NullStringList));
         }
     }
 

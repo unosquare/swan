@@ -41,6 +41,7 @@ namespace Unosquare.Swan.Test
         {
             MockProvider.Instance.Dispose();
             MockProvider.Instance.Dispose();
+
             // here we only check if we don't get any exception
             Assert.IsTrue(true);
         }

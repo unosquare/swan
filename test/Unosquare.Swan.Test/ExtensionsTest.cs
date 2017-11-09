@@ -7,7 +7,7 @@
     using Mocks;
 
     [TestFixture]
-    public class Benchmark
+    public class Benchmark : TestFixtureBase
     {
         [Test]
         public void WithAction_ReturnsTimeSpan()
@@ -38,16 +38,12 @@
         [Test]
         public void WithNullAction_ThrowsArgumentNullException()
         {
-            Action action = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-                action.Benchmark()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullAction.Benchmark());
         }
     }
 
     [TestFixture]
-    public class Retry
+    public class Retry : TestFixtureBase
     {
         [Test]
         public void WithNewFunction_RetryAction()
@@ -98,9 +94,7 @@
         [Test]
         public void WithNullAction_ThrowsArgumentNullException()
         {
-            Action action = null;
-
-            Assert.Throws<ArgumentNullException>(() => action.Retry());
+            Assert.Throws<ArgumentNullException>(() => NullAction.Retry());
         }
 
         [Test]
@@ -145,9 +139,8 @@
         public void WithNullObjectAttr_CopyPropertiesToTarget()
         {
             var source = ObjectAttr.Get();
-            ObjectAttr target = null;
 
-            Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesTo(target));
+            Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesTo(null));
         }
 
         [Test]

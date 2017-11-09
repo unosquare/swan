@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
-    using Swan.Attributes;
+    using Attributes;
 
     public class AppSettingMock
     {

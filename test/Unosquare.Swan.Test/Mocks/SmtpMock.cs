@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System.Collections.Generic;
+
     public class From
     {
         public string address { get; set; }

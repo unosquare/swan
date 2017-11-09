@@ -70,10 +70,7 @@
             if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Network.QueryDns(null, DnsRecordType.TXT);
-            });
+            Assert.Throws<ArgumentNullException>(() => Network.QueryDns(null, DnsRecordType.TXT));
         }
     }
 
@@ -122,10 +119,7 @@
             if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Network.GetDnsHostEntry(null);
-            });
+            Assert.Throws<ArgumentNullException>(() => Network.GetDnsHostEntry(null));
         }
     }
 
@@ -147,9 +141,7 @@
         [Test]
         public void WithNullAddress_ReturnsFalse()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullIP.IsPrivateAddress()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullIP.IsPrivateAddress());
         }
     }
 
@@ -171,9 +163,7 @@
         [Test]
         public void WithNullAddress_ReturnsFalse()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullIP.ToUInt32()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullIP.ToUInt32());
         }
 
         [Test]
@@ -181,10 +171,7 @@
         {
             var privateIP = IPAddress.Parse("2001:0db8:85a3:0000:1319:8a2e:0370:7344");
 
-            Assert.Throws<ArgumentException>(() =>
-            {
-                privateIP.ToUInt32();
-            });
+            Assert.Throws<ArgumentException>(() => privateIP.ToUInt32());
         }
     }
 
@@ -241,9 +228,7 @@
         [Test]
         public void WithNullNtpServerName_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                Network.GetNetworkTimeUtc(NullIP)
-            );
+            Assert.Throws<ArgumentNullException>(() => Network.GetNetworkTimeUtc(NullIP));
         }
     }
 

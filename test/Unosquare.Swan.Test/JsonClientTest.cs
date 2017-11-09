@@ -28,7 +28,6 @@
             _defaultPort = _port;
             _defaultHttp = "http://localhost:" + _defaultPort;
         }
-
     }
 
     [TestFixture]
