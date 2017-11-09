@@ -8,7 +8,7 @@
     using Reflection;
     using Mocks;
 
-    public abstract class JsonTest
+    public abstract class JsonTest : TestFixtureBase
     {
         protected static readonly AdvJson AdvObj = new AdvJson
         {
@@ -78,9 +78,7 @@
         [Test]
         public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals()
         {
-            object nullObj = null;
-
-            Assert.AreEqual(string.Empty, nullObj.ToJson());
+            Assert.AreEqual(string.Empty, NullObj.ToJson());
         }
     }
 
@@ -207,11 +205,10 @@
         [Test]
         public void WithStructure_ReturnsStructureSerialized()
         {
-            var result = new SampleStruct {Value = 1, Name = "A"};
-            var data = Json.Serialize(result);
+            var data = Json.Serialize(DefaultStruct);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Value\": 1,\"Name\": \"A\"}", data);
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"string\"}", data);
         }
     }
 

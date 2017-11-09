@@ -5,7 +5,7 @@
     using NUnit.Framework;
     using System.Linq;
 
-    public abstract class ExtensionsDictionariesTest
+    public abstract class ExtensionsDictionariesTest : TestFixtureBase
     {
         protected Dictionary<int, string> Dict = new Dictionary<int, string>
         {
@@ -15,8 +15,6 @@
             {4, "Florencia"},
             {5, "Israel"}
         };
-
-        protected Dictionary<object, object> NullDict = null;
     }
 
     [TestFixture]
@@ -53,20 +51,11 @@
         [Test]
         public void NotNullDictionary_DoesForEach()
         {
-            var dict = new Dictionary<int, int>
-            {
-                {1, 1},
-                {2, 2},
-                {3, 3},
-                {4, 4},
-                {5, 5}
-            };
-
             var result = 0;
 
-            dict.ForEach((key, value) => result += value * 2);
+            Dict.ForEach((key, value) => result += key * 2);
 
-            Assert.AreEqual(dict.Sum(y => y.Key * 2), result);
+            Assert.AreEqual(Dict.Sum(y => y.Key * 2), result);
         }
     }
 }
