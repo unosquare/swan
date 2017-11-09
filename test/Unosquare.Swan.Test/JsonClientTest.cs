@@ -1,17 +1,17 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Threading.Tasks;
-using Unosquare.Labs.EmbedIO;
-using Unosquare.Labs.EmbedIO.Modules;
-using Unosquare.Swan.Exceptions;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.JsonClientTest
+﻿namespace Unosquare.Swan.Test.JsonClientTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security;
+    using System.Threading.Tasks;
+    using Unosquare.Labs.EmbedIO;
+    using Unosquare.Labs.EmbedIO.Modules;
+    using Unosquare.Swan.Exceptions;
+    using Unosquare.Swan.Networking;
+    using Unosquare.Swan.Test.Mocks;
+
     public abstract class JsonClientTest
     {
         protected static int _port = 8080;
@@ -82,16 +82,14 @@ namespace Unosquare.Swan.Test.JsonClientTest
         public void WithNullUrl_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                using(var webserver = new WebServer(_defaultPort))
-                {
-                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
-                    webserver.RunAsync();
-                    await Task.Delay(100);
+                await JsonClient.Authenticate(null, "admin", "password"));
+        }
 
-                    var data = await JsonClient.Authenticate(null, "admin", "password");
-                }
-            });
+        [Test]
+        public void WithNullUsername_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await JsonClient.Authenticate(_defaultHttp, null, "password"));
         }
     }
 
@@ -173,18 +171,8 @@ namespace Unosquare.Swan.Test.JsonClientTest
         [Test]
         public void WithNullUrl_ThrowsArgumentNullException()
         {
-             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                using(var webserver = new WebServer(_defaultPort))
-                {
-                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
-
-                    webserver.RunAsync();
-                    await Task.Delay(100);
-
-                    await JsonClient.Post<BasicJson>(null, BasicJson.GetDefault());
-                }
-            });
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await JsonClient.Post<BasicJson>(null, BasicJson.GetDefault()));
         }
     }
 
@@ -219,9 +207,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         public async Task WithInvalidParam_ThrowsHttpRequestException()
         {
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
-            {
-                await JsonClient.GetString(_defaultHttp);
-            });
+                await JsonClient.GetString(_defaultHttp));
         }
     }
 
@@ -303,17 +289,7 @@ namespace Unosquare.Swan.Test.JsonClientTest
         public void WithNullUrl_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                using(var webserver = new WebServer(_defaultPort))
-                {
-                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
-
-                    webserver.RunAsync();
-                    await Task.Delay(100);
-
-                    await JsonClient.Put<BasicJson>(null, BasicJson.GetDefault());
-                }
-            });
+                await JsonClient.Put<BasicJson>(null, BasicJson.GetDefault()));
         }
     }
 
@@ -425,18 +401,14 @@ namespace Unosquare.Swan.Test.JsonClientTest
         public async Task WithInvalidParams_ThrowsHttpRequestException()
         {
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
-            {
-                await JsonClient.GetBinary(_defaultHttp);
-            });
+                await JsonClient.GetBinary(_defaultHttp));
         }
 
         [Test]
         public async Task WithNullUrl_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                await JsonClient.GetBinary(null);
-            });
+                await JsonClient.GetBinary(null));
         }
 
         [Test]
@@ -479,18 +451,14 @@ namespace Unosquare.Swan.Test.JsonClientTest
         public async Task WithInvalidParams_ThrowsHttpRequestException()
         {
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
-            {
-                await JsonClient.Get<BasicJson>(_defaultHttp);
-            });
+                await JsonClient.Get<BasicJson>(_defaultHttp));
         }
 
         [Test]
         public async Task WithNullUrl_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                await JsonClient.Get<BasicJson>(null);
-            });
+                await JsonClient.Get<BasicJson>(null));
         }
 
         [Test]
