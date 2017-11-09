@@ -2624,21 +2624,21 @@ references:
   commentId: T:Unosquare.Swan.Components.ObjectComparer
   fullName: Unosquare.Swan.Components.ObjectComparer
   nameWithType: ObjectComparer
-- uid: Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual*
-  name: AreEnumsEqual
-  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEnumsEqual_
-  commentId: Overload:Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual
-  fullName: Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual
-  nameWithType: ObjectComparer.AreEnumsEqual
-- uid: Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual``1(``0,``0)
-  name: AreEnumsEqual<T>(T, T)
-  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEnumsEqual__1___0___0_
-  commentId: M:Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual``1(``0,``0)
-  name.vb: AreEnumsEqual(Of T)(T, T)
-  fullName: Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual<T>(T, T)
-  fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreEnumsEqual(Of T)(T, T)
-  nameWithType: ObjectComparer.AreEnumsEqual<T>(T, T)
-  nameWithType.vb: ObjectComparer.AreEnumsEqual(Of T)(T, T)
+- uid: Unosquare.Swan.Components.ObjectComparer.AreEnumerationsEquals*
+  name: AreEnumerationsEquals
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEnumerationsEquals_
+  commentId: Overload:Unosquare.Swan.Components.ObjectComparer.AreEnumerationsEquals
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreEnumerationsEquals
+  nameWithType: ObjectComparer.AreEnumerationsEquals
+- uid: Unosquare.Swan.Components.ObjectComparer.AreEnumerationsEquals``1(``0,``0)
+  name: AreEnumerationsEquals<T>(T, T)
+  href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEnumerationsEquals__1___0___0_
+  commentId: M:Unosquare.Swan.Components.ObjectComparer.AreEnumerationsEquals``1(``0,``0)
+  name.vb: AreEnumerationsEquals(Of T)(T, T)
+  fullName: Unosquare.Swan.Components.ObjectComparer.AreEnumerationsEquals<T>(T, T)
+  fullName.vb: Unosquare.Swan.Components.ObjectComparer.AreEnumerationsEquals(Of T)(T, T)
+  nameWithType: ObjectComparer.AreEnumerationsEquals<T>(T, T)
+  nameWithType.vb: ObjectComparer.AreEnumerationsEquals(Of T)(T, T)
 - uid: Unosquare.Swan.Components.ObjectComparer.AreEqual(System.Object,System.Object,System.Type)
   name: AreEqual(Object, Object, Type)
   href: api/Unosquare.Swan.Components.ObjectComparer.html#Unosquare_Swan_Components_ObjectComparer_AreEqual_System_Object_System_Object_System_Type_
