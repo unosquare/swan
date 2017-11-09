@@ -8,10 +8,8 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.TerminalLoggingTests
 {
-    public abstract class TerminalLoggingTest { }
-
     [TestFixture]
-    public class OnLogMessageReceived : TerminalLoggingTest
+    public class OnLogMessageReceived
     {
         [Test]
         public void Logging()
@@ -57,6 +55,43 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(nameof(LogMessageType.Info), messages.First(x => x.ExtendedData != null).Message);
+        }
+    }
+
+    [TestFixture]
+    public class Log
+    {
+        [Test]
+        public void Message_MessageLogged()
+        {
+            Terminal.Flush();
+
+            var messages = new List<LoggingEntryMock>();
+
+            Terminal.OnLogMessageReceived += (s, e) =>
+            {
+                messages.Add(new LoggingEntryMock
+                {
+                    DateTime = e.UtcDate,
+                    Exception = e.Exception,
+                    Message = e.Message,
+                    Source = e.Source,
+                    Type = e.MessageType,
+                    ExtendedData = e.ExtendedData
+                });
+            };
+
+            Task.Delay(200).Wait();
+            new Exception().Error(nameof(Log), nameof(Message_MessageLogged));
+            Task.Delay(150).Wait();
+            
+            messages.Clear();
+            nameof(LogMessageType.None).Log("Unosquare Labs", LogMessageType.None, 1);
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
+            Assert.AreEqual(nameof(LogMessageType.None), messages.First(x => x.ExtendedData != null).Message);
         }
     }
 }
