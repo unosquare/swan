@@ -93,6 +93,34 @@
     public class Resolve
     {
         [Test]
+        public void WithRegisterAndAttemptUnnamedResolution_ResolveContainer()
+        {
+            var container = new DependencyContainer();
+
+            container.Register(typeof(Shark));
+
+            var resolveOptions = new DependencyContainerResolveOptions();
+            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+
+            Assert.IsNotNull(container.Resolve(
+                typeof(Shark), new Shark().GetName(), new Dictionary<string, object>(), resolveOptions));
+        }
+
+        [Test]
+        public void WithInvalidTypeAndAttemptUnnamedResolution_ThrowsDependencyContainerResolutionException()
+        {
+            var container = new DependencyContainer();
+
+            container.Register(typeof(Human));
+
+            var resolveOptions = new DependencyContainerResolveOptions();
+            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+
+            Assert.Throws<DependencyContainerResolutionException>(() =>
+                container.Resolve(typeof(Human), "B. B. King", new Dictionary<string, object>(), resolveOptions));
+        }
+        
+        [Test]
         public void WithInterface_ThrowsDependencyContainerResolutionException()
         {
             var container = new DependencyContainer();
@@ -107,7 +135,7 @@
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>("name"));
+                container.Resolve<IAnimal>("Jim Morrison"));
         }
 
         [Test]
@@ -125,7 +153,7 @@
             var container = new DependencyContainer();
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
-                container.Resolve<IAnimal>("name", new Dictionary<string, object>()));
+                container.Resolve<IAnimal>("Carlos Santana", new Dictionary<string, object>()));
         }
     }
 
@@ -244,21 +272,22 @@
                 resolveType, new Dictionary<string, object>(), out var obj));
         }
 
-        [TestCase(typeof(Shark), true)]
-        [TestCase(typeof(IAnimal), false)]
-        [TestCase(typeof(ICar), false)]
-        [TestCase(typeof(MyEnum), false)]
-        public void WithTypeAndParent_ResolveType(Type resolveType, bool expected)
+        [TestCase(typeof(Human), typeof(Human), false)]
+        [TestCase(typeof(Shark), typeof(Shark), true)]
+        [TestCase(typeof(IAnimal), typeof(Shark), false)]
+        [TestCase(typeof(ICar), typeof(Shark), false)]
+        [TestCase(typeof(MyEnum), typeof(Shark),false)]
+        public void WithTypeAndParent_ResolveType(Type resolveType, Type register, bool expected)
         {
             var containerParent = new DependencyContainer();
-            containerParent.Register(typeof(Shark));
+            containerParent.Register(register);
 
             var container = containerParent.GetChildContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
                 resolveType, out var obj));
         }
-
+        
         [TestCase(typeof(IAnimal), "Warsong", false)]
         [TestCase(typeof(Shark), "", true)]
         [TestCase(typeof(Shark), "Warsong", false)]
@@ -391,6 +420,18 @@
         public void WithStringAndWithDictionary_ResolveType(string name, bool expected)
         {
             var container = new DependencyContainer();
+
+            Assert.AreEqual(expected, container.TryResolve(
+                name, new Dictionary<string, object>(), out Human instance));
+        }
+
+        [TestCase("", false)]
+        [TestCase("Warsong", false)]
+        public void WithRegisterAndStringAndDictionary_ResolveType(string name, bool expected)
+        {
+            var container = new DependencyContainer();
+
+            container.Register(typeof(Human), name);
 
             Assert.AreEqual(expected, container.TryResolve(
                 name, new Dictionary<string, object>(), out Human instance));
