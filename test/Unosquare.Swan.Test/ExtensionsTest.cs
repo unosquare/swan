@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ExtensionsTest
+﻿namespace Unosquare.Swan.Test.ExtensionsTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using Networking;
+    using Mocks;
+
     [TestFixture]
     public class Benchmark
     {

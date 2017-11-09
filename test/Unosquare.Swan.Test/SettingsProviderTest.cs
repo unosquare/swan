@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using System.IO;
-using System.Linq;
-using Unosquare.Swan.Abstractions;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System.IO;
+    using System.Linq;
+    using Abstractions;
+    using Mocks;
+
     [TestFixture]
     public class SettingsProviderTest
     {

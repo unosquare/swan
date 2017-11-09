@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Unosquare.Swan.Components;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ObjectComparerTests
+﻿namespace Unosquare.Swan.Test.ObjectComparerTests
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Components;
+    using Mocks;
+
     [TestFixture]
     public class AreObjectsEqual
     {
@@ -40,8 +40,10 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreObjectsEqual(DateBasicJson.GetDateDefault(),
-                DateBasicJson.GetDateDefault(), null));
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ObjectComparer.AreObjectsEqual(DateBasicJson.GetDateDefault(), DateBasicJson.GetDateDefault(), null);
+            });
         }
     }
 
@@ -87,7 +89,8 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreStructsEqual(new SampleStruct(), new SampleStruct(), null));
+            Assert.Throws<ArgumentNullException>(() =>
+                ObjectComparer.AreStructsEqual(new SampleStruct(), new SampleStruct(), null));
         }
     }
 
@@ -160,18 +163,14 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void LeftEnumNull_ThrowsArgumentNullException()
         {
-            var left = new List<string>();
-            left = null;
+            List<string> left = null;
 
             var right = new List<string>
             {
                 "UnoSquare"
             };
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectComparer.AreEnumsEqual(left, right);
-            });
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumsEqual(left, right));
         }
 
         [Test]
@@ -182,13 +181,9 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
                 "UnoSquare"
             };
 
-            var right = new List<string>();
-            right = null;
+            List<string> right = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectComparer.AreEnumsEqual(left, right);
-            });
+            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumsEqual(left, right));
         }
     }
 
@@ -260,7 +255,8 @@ namespace Unosquare.Swan.Test.ObjectComparerTests
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEqual(new SampleStruct(), new SampleStruct(), null));
+            Assert.Throws<ArgumentNullException>(() =>
+                ObjectComparer.AreEqual(new SampleStruct(), new SampleStruct(), null));
         }
     }
 }

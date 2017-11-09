@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Unosquare.Swan.Formatters;
-using Unosquare.Swan.Test.Mocks;
-using System.Linq;
-
-namespace Unosquare.Swan.Test.CsvWriterTest
+﻿namespace Unosquare.Swan.Test.CsvWriterTest
 {
+    using Formatters;
+    using Mocks;
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+
     public abstract class CsvWriterTest
     {
         protected const int TotalRows = 100;
@@ -68,7 +68,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
         {
             var tempFile = Path.GetTempFileName();
             var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-            var stringHeaders = new List<string>();
+            
             var dictionaryheaders = new Dictionary<string, string>
             {
                 {"AccessDate", "20171107"},
@@ -82,7 +82,7 @@ namespace Unosquare.Swan.Test.CsvWriterTest
                 {"ValidationResult", "true"}
             };
 
-            stringHeaders = dictionaryheaders.Select(k => k.Key).ToList();
+            var stringHeaders = dictionaryheaders.Select(k => k.Key).ToList();
 
             using (var stream = File.OpenWrite(tempFile))
             {

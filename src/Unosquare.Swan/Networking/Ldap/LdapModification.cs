@@ -94,6 +94,18 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LdapModification"/> class.
+        /// </summary>
+        /// <param name="op">The op.</param>
+        /// <param name="attrName">Name of the attribute.</param>
+        /// <param name="attrValue">The attribute value.</param>
+        public LdapModification(LdapModificationOp op, string attrName, string attrValue)
+            : this(op, new LdapAttribute(attrName, attrValue))
+        {
+            // placeholder
+        }
+
+        /// <summary>
         /// Returns the attribute to modify, with any existing values.
         /// </summary>
         /// <value>

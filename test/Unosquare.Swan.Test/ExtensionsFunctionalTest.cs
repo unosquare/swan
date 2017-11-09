@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
+﻿namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public abstract class ExtensionsFunctionalTest
     {
         protected static IEnumerable<string> Enumerable = new List<string> {"Aragorn", "Gimli", "Legolas", "Gandalf"};
@@ -56,24 +56,21 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             IEnumerable<string> enumerable = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                enumerable.When(() => false, AddName)
-            );
+                enumerable.When(() => false, AddName));
         }
 
         [Test]
         public void WithIEnumerableAndNullCondition_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                Enumerable.When(null, AddName)
-            );
+                Enumerable.When(null, AddName));
         }
 
         [Test]
         public void WithIEnumerableAndNullFunction_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                Enumerable.When(() => false, null)
-            );
+                Enumerable.When(() => false, null));
         }
 
         [Test]
@@ -98,24 +95,19 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             IQueryable<string> queryable = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                queryable.When(() => false, AddName)
-            );
+                queryable.When(() => false, AddName));
         }
 
         [Test]
         public void WithIQueryableAndNullCondition_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                Queryable.When(null, AddName)
-            );
+            Assert.Throws<ArgumentNullException>(() => Queryable.When(null, AddName));
         }
 
         [Test]
         public void WithIQueryableAndNullFunction_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                Queryable.When(() => false, null)
-            );
+            Assert.Throws<ArgumentNullException>(() => Queryable.When(() => false, null));
         }
     }
 
@@ -144,24 +136,19 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             IList<object> list = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                list.AddWhen(() => true, AddName)
-            );
+                list.AddWhen(() => true, AddName));
         }
 
         [Test]
         public void WithMethodCallAndNullCondition_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                List.AddWhen(null, AddName)
-            );
+            Assert.Throws<ArgumentNullException>(() => List.AddWhen(null, AddName));
         }
 
         [Test]
         public void WithNullValue_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                List.AddWhen(() => true, null)
-            );
+            Assert.Throws<ArgumentNullException>(() => List.AddWhen(() => true, null));
         }
 
         [Test]
@@ -186,8 +173,7 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             IList<object> list = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                list.AddWhen(true, "Sauron")
-            );
+                list.AddWhen(true, "Sauron"));
         }
 
     }
@@ -217,24 +203,21 @@ namespace Unosquare.Swan.Test.ExtensionsFunctionalTest
             List<object> list = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                list.AddRangeWhen(() => true, AddRange)
-            );
+                list.AddRangeWhen(() => true, AddRange));
         }
 
         [Test]
         public void WithNullCondition_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                List.AddRangeWhen(null, AddRange)
-            );
+                List.AddRangeWhen(null, AddRange));
         }
 
         [Test]
         public void WithNullValue_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                List.AddRangeWhen(() => true, null)
-            );
+                List.AddRangeWhen(() => true, null));
         }
     }
 }

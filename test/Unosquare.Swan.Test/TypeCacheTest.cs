@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using Unosquare.Swan.Reflection;
-
-namespace Unosquare.Swan.Test.TypeCacheTest
+﻿namespace Unosquare.Swan.Test.TypeCacheTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using Reflection;
+
     public abstract class TypeCacheTest
     {
         protected static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
@@ -17,8 +17,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Contains(null)
-            );
+                TypeCache.Contains(null));
         }
 
         [Test]
@@ -37,24 +36,21 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithFactoryReturnsNull_ThrowsKeyNotFoundException()
         {
             Assert.Throws<KeyNotFoundException>(() =>
-                TypeCache.Retrieve(typeof(string), () => null)
-            );
+                TypeCache.Retrieve(typeof(string), () => null));
         }
 
         [Test]
         public void WithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Retrieve(null, () => null)
-            );
+                TypeCache.Retrieve(null, () => null));
         }
 
         [Test]
         public void WithNullFactory_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                TypeCache.Retrieve(typeof(string), null)
-            );
+                TypeCache.Retrieve(typeof(string), null));
         }
     }
 
@@ -64,8 +60,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                PropertyTypeCache.GetAllPropertiesFunc(null)
-            );
+                PropertyTypeCache.GetAllPropertiesFunc(null));
         }
     }
 
@@ -75,8 +70,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                PropertyTypeCache.GetAllPublicPropertiesFunc(null)
-            );
+                PropertyTypeCache.GetAllPublicPropertiesFunc(null));
         }
     }
 
@@ -86,8 +80,7 @@ namespace Unosquare.Swan.Test.TypeCacheTest
         public void WithNullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                FieldTypeCache.GetAllFieldsFunc(null)
-            );
+                FieldTypeCache.GetAllFieldsFunc(null));
         }
     }
 }

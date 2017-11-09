@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Unosquare.Swan.Components;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.MessageHubTests
+﻿namespace Unosquare.Swan.Test.MessageHubTests
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Components;
+    using Mocks;
+
     [TestFixture]
     public class MessageHubMessageBaseConstructor
     {
@@ -89,7 +89,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
     [TestFixture]
     public class SendMessage
     {
-        private List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
+        private readonly List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
 
         [Test]
         public void PublishMessage_MessagePublished()
@@ -155,7 +155,7 @@ namespace Unosquare.Swan.Test.MessageHubTests
         [TestFixture]
         public class Subscribe
         {
-            private List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
+            private readonly List<SimpleMessageMock> messagesToSend = new List<SimpleMessageMock>();
 
             [Test]
             public void NullDeliveryAction_ThrowsArgumentNullException()

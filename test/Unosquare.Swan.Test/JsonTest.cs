@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Unosquare.Swan.Formatters;
-using Unosquare.Swan.Reflection;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.JsonTests
+﻿namespace Unosquare.Swan.Test.JsonTests
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Formatters;
+    using Reflection;
+    using Mocks;
+
     public abstract class JsonTest
     {
         protected static readonly AdvJson AdvObj = new AdvJson

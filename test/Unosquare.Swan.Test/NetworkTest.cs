@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using System;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Exceptions;
-
-namespace Unosquare.Swan.Test.NetworkTests
+﻿namespace Unosquare.Swan.Test.NetworkTests
 {
+    using NUnit.Framework;
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Net.NetworkInformation;
+    using System.Threading.Tasks;
+    using Networking;
+    using Exceptions;
+
     public abstract class NetworkTest
     {
         protected const string GoogleDnsFqdn = "google-public-dns-a.google.com";
@@ -27,7 +27,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void InvalidDnsAsParam_ThrowsDnsQueryException()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
@@ -42,7 +42,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [TestCase(DnsRecordType.CNAME, false, false)]
         public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType, bool answerRecords, bool additionalRecords)
         {
-            if (Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
             {
                 Assert.Ignore("Ignored");
             }
@@ -61,14 +61,13 @@ namespace Unosquare.Swan.Test.NetworkTests
                     $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
                 Assert.AreEqual(answerRecords, records.AnswerRecords.Any(),
                     $"AnswerRecords, Testing with {dnsRecordType}");
-                //Assert.AreEqual(additionalRecords, records.AdditionalRecords.Any(), $"AdditionalRecords, Testing with {dnsRecordType}");
             }
         }
 
         [Test]
         public void WithNullFqdn_ReturnsQueryDns()
         {
-            if (Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
             Assert.Throws<ArgumentNullException>(() =>
@@ -84,7 +83,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithValidDns_ReturnsDnsEntry()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
@@ -109,7 +108,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithValidDnsAndFinalDot_ReturnsDnsEntry()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
@@ -120,7 +119,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithNullFqdn_ThrowsArgumentNullException()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             Assert.Throws<ArgumentNullException>(() =>

@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using System;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-using Unosquare.Swan.Exceptions;
-using Unosquare.Swan.Networking.Ldap;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+    using Exceptions;
+    using Networking.Ldap;
+
     public abstract class LdapTest
     {
         protected const string LdapServer = "ldap.forumsys.com";
@@ -115,8 +115,8 @@ namespace Unosquare.Swan.Test
             {
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
-                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsNotNull(obj);
+
+                Assert.IsNotNull(ldapAttributes.GetAttribute("uniqueMember")?.StringValue);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -135,8 +135,8 @@ namespace Unosquare.Swan.Test
             {
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
-                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsNotNull(obj);
+                
+                Assert.IsNotNull(ldapAttributes.GetAttribute("uniqueMember")?.StringValue);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -181,10 +181,12 @@ namespace Unosquare.Swan.Test
             {
                 var ex = Assert.ThrowsAsync<LdapException>(async () =>
                 {
-
                     var cn = await GetDefaultConnection();
                     await cn.Modify("uid=euclid,dc=example,dc=com",
-                        new[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
+                        new[]
+                        {
+                            new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")
+                        });
 
                     cn.Disconnect();
                 });

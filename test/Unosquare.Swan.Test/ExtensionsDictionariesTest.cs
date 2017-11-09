@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
-using System.Linq;
-
-namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
+﻿namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
 {
+    using System;
+    using System.Collections.Generic;
+    using NUnit.Framework;
+    using System.Linq;
+
     public abstract class ExtensionsDictionariesTest
     {
         protected Dictionary<int, string> Dict = new Dictionary<int, string>
@@ -15,6 +15,8 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
             {4, "Florencia"},
             {5, "Israel"}
         };
+
+        protected Dictionary<object, object> NullDict = null;
     }
 
     [TestFixture]
@@ -23,12 +25,7 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<object, object> dict = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                dict.GetValueOrDefault(1);
-            });
+            Assert.Throws<ArgumentNullException>(() => NullDict.GetValueOrDefault(1));
         }
 
         [Test]
@@ -50,12 +47,7 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<int, int> originalDictionary = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                originalDictionary.ForEach((key, value) => { });
-            });
+            Assert.Throws<ArgumentNullException>(() => NullDict.ForEach((key, value) => { }));
         }
 
         [Test]
@@ -72,10 +64,7 @@ namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
 
             var result = 0;
 
-            dict.ForEach((key, value) =>
-            {
-                result += value * 2;
-            });
+            dict.ForEach((key, value) => result += value * 2);
 
             Assert.AreEqual(dict.Sum(y => y.Key * 2), result);
         }

@@ -6,11 +6,11 @@
     using System.Linq;
     using System.Security;
     using System.Threading.Tasks;
-    using Unosquare.Labs.EmbedIO;
-    using Unosquare.Labs.EmbedIO.Modules;
-    using Unosquare.Swan.Exceptions;
-    using Unosquare.Swan.Networking;
-    using Unosquare.Swan.Test.Mocks;
+    using Labs.EmbedIO;
+    using Labs.EmbedIO.Modules;
+    using Exceptions;
+    using Networking;
+    using Mocks;
 
     public abstract class JsonClientTest
     {

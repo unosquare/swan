@@ -176,8 +176,35 @@
 
             public override Type CreatesType => registerType;
 
-            public override object GetObject(Type requestedType, DependencyContainer container,
-                Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
+            public override ObjectFactoryBase StrongReferenceVariant
+            {
+                get
+                {
+                    if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
+                        throw new DependencyContainerWeakReferenceException(registerType);
+
+                    return new DelegateFactory(registerType, factory);
+                }
+            }
+
+            public override ObjectFactoryBase WeakReferenceVariant => this;
+
+            public WeakDelegateFactory(Type registerType,
+                Func<DependencyContainer, Dictionary<string, object>, object> factory)
+            {
+                if (factory == null)
+                    throw new ArgumentNullException(nameof(factory));
+
+                _factory = new WeakReference(factory);
+
+                this.registerType = registerType;
+            }
+
+            public override object GetObject(
+                Type requestedType, 
+                DependencyContainer container,
+                Dictionary<string, object> parameters, 
+                DependencyContainerResolveOptions options)
             {
                 if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
                     throw new DependencyContainerWeakReferenceException(registerType);
@@ -191,30 +218,6 @@
                     throw new DependencyContainerResolutionException(registerType, ex);
                 }
             }
-
-            public WeakDelegateFactory(Type registerType,
-                Func<DependencyContainer, Dictionary<string, object>, object> factory)
-            {
-                if (factory == null)
-                    throw new ArgumentNullException(nameof(factory));
-
-                _factory = new WeakReference(factory);
-
-                this.registerType = registerType;
-            }
-
-            public override ObjectFactoryBase StrongReferenceVariant
-            {
-                get
-                {
-                    if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
-                        throw new DependencyContainerWeakReferenceException(registerType);
-
-                    return new DelegateFactory(registerType, factory);
-                }
-            }
-
-            public override ObjectFactoryBase WeakReferenceVariant => this;
         }
 
         /// <summary>
