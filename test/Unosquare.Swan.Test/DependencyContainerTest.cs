@@ -14,11 +14,10 @@
         [Test]
         public void WithFailDependencyContainer_ThrowsDependencyContainerRegistrationException()
         {
+            var container = new DependencyContainer();
+
             Assert.Throws<DependencyContainerRegistrationException>(() =>
-            {
-                var container = new DependencyContainer();
-                container.AutoRegister(DependencyContainerDuplicateImplementationActions.Fail);
-            });
+                container.AutoRegister(DependencyContainerDuplicateImplementationActions.Fail));
         }
 
         [Test]
@@ -28,6 +27,7 @@
             {
                 var container = new DependencyContainer();
                 container.AutoRegister();
+
                 Assert.IsTrue(container.CanResolve<ICar>());
                 Assert.AreEqual(new TheOnlyCar().Name, Runtime.Container.Resolve<ICar>().Name);
             });
@@ -39,11 +39,12 @@
         {
             var container = new DependencyContainer();
             container.AutoRegister(Runtime.GetAssemblies());
+
             Assert.IsTrue(container.CanResolve<ICar>());
         }
         
         [Test]
-        public void WithAssembliesAndFunc_ResolvesIAnimal()
+        public void WithAssembliesAndFunc_ResolvesICar()
         {
             var container = new DependencyContainer();
 
@@ -51,6 +52,18 @@
                 Runtime.GetAssemblies(),
                 DependencyContainerDuplicateImplementationActions.RegisterSingle,
                 (param) => true);
+
+            Assert.IsTrue(container.CanResolve<ICar>());
+        }
+
+        [Test]
+        public void WithAssembliesAndRegisterMultiple_ResolvesICar()
+        {
+            var container = new DependencyContainer();
+
+            container.AutoRegister(
+                Runtime.GetAssemblies(),
+                DependencyContainerDuplicateImplementationActions.RegisterMultiple);
 
             Assert.IsTrue(container.CanResolve<ICar>());
         }
@@ -690,10 +703,12 @@
         {
             var containerParent = new DependencyContainer();
             containerParent.Register(typeof(Shark));
+            containerParent.Register(typeof(Shark), new Shark().GetName());
             containerParent.Register(typeof(Clown));
 
             var container = containerParent.GetChildContainer();
-
+            container.Register(typeof(Shark), new Shark().GetName());
+            
             Assert.IsNotNull(container.ResolveAll(typeof(Shark), includeUnnamed));
         }
     }
