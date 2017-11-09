@@ -7212,6 +7212,12 @@ references:
   commentId: T:Unosquare.Swan.Networking.Ldap.LdapModification
   fullName: Unosquare.Swan.Networking.Ldap.LdapModification
   nameWithType: LdapModification
+- uid: Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(Unosquare.Swan.Networking.Ldap.LdapModificationOp,System.String,System.String)
+  name: LdapModification(LdapModificationOp, String, String)
+  href: api/Unosquare.Swan.Networking.Ldap.LdapModification.html#Unosquare_Swan_Networking_Ldap_LdapModification__ctor_Unosquare_Swan_Networking_Ldap_LdapModificationOp_System_String_System_String_
+  commentId: M:Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(Unosquare.Swan.Networking.Ldap.LdapModificationOp,System.String,System.String)
+  fullName: Unosquare.Swan.Networking.Ldap.LdapModification.LdapModification(Unosquare.Swan.Networking.Ldap.LdapModificationOp, System.String, System.String)
+  nameWithType: LdapModification.LdapModification(LdapModificationOp, String, String)
 - uid: Unosquare.Swan.Networking.Ldap.LdapModification.#ctor(Unosquare.Swan.Networking.Ldap.LdapModificationOp,Unosquare.Swan.Networking.Ldap.LdapAttribute)
   name: LdapModification(LdapModificationOp, LdapAttribute)
   href: api/Unosquare.Swan.Networking.Ldap.LdapModification.html#Unosquare_Swan_Networking_Ldap_LdapModification__ctor_Unosquare_Swan_Networking_Ldap_LdapModificationOp_Unosquare_Swan_Networking_Ldap_LdapAttribute_
