@@ -643,17 +643,18 @@
             Assert.IsNotNull(container);
         }
 
-        [Test]
-        public void RegisterInterfaceWithInstance_ThrowsDependencyContainerRegistrationException()
+        [TestCase(typeof(IEnumerator<>))]
+        [TestCase(typeof(DependencyContainerTest<>))]
+        public void RegisterTypeWithInstance_ThrowsDependencyContainerRegistrationException(Type registerType)
         {
             var container = new DependencyContainer();
             var instance = new Human("George");
 
             Assert.Throws<DependencyContainerRegistrationException>(() => container.Register(
-                    typeof(IDictionary<string, string>).GetGenericTypeDefinition(), typeof(string), instance));
+                    registerType.GetGenericTypeDefinition(), typeof(string), instance));
         }
     }
-
+    
     [TestFixture]
     public class Dispose
     {
