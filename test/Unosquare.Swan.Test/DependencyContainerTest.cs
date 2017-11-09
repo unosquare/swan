@@ -532,16 +532,7 @@
             Assert.Throws<DependencyContainerRegistrationException>(() =>
                 container.Register<IAnimal, Fish>().WithWeakReference());
         }
-
-        [Test]
-        public void RegisterInterfaceAndStrongReference_ThrowsDependencyContainerRegistrationException()
-        {
-            var container = new DependencyContainer();
-
-            Assert.Throws<DependencyContainerRegistrationException>(() =>
-                container.Register<IAnimal, Fish>().WithStrongReference());
-        }
-
+        
         [Test]
         public void RegisterInterfaceWithInstanceStrongReference_CanDestroy()
         {
@@ -556,7 +547,7 @@
         }
 
         [Test]
-        public void RegisterInterfaceAnsdStrongReference_ThrowsDependencyContainerRegistrationException()
+        public void WithoutInstanceAndWithStrongReference_ThrowsDependencyContainerRegistrationException()
         {
             var container = new DependencyContainer();
 
@@ -688,6 +679,20 @@
     [TestFixture]
     public class CanResolve
     {
+        [TestCase("Turalyon", "Turalyon")]
+        [TestCase("", "Alleria")]
+        public void WithInstanceAndRegister_ResolveContainer(string registerName, string resolveName)
+        {
+            var container = new DependencyContainer();
+
+            var resolveOptions = new DependencyContainerResolveOptions();
+            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+
+            container.Register<IAnimal>(new Human("George"), registerName).WithStrongReference();
+            
+            Assert.IsTrue(container.CanResolve<IAnimal>(resolveName, null, resolveOptions));
+        }
+
         [Test]
         public void WithIEnumerable_ResolveContainer()
         {
