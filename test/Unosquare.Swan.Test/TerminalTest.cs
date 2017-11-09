@@ -7,10 +7,8 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.TerminalTests
 {
-    public abstract class TerminalTest { }
-
     [TestFixture]
-    public class IsConsolePresent : TerminalTest
+    public class IsConsolePresent
     {
         [Test]
         public void ConsolePresent_ReturnsTrue()
@@ -23,7 +21,7 @@ namespace Unosquare.Swan.Test.TerminalTests
     }
 
     [TestFixture]
-    public class AvailableWriters : TerminalTest
+    public class AvailableWriters
     {
         [Test]
         public void Writers_ReturnsNotEqualWriters()
@@ -38,7 +36,7 @@ namespace Unosquare.Swan.Test.TerminalTests
     }
 
     [TestFixture]
-    public class OutputEncoding : TerminalTest
+    public class OutputEncoding
     {
         [Test]
         public void DefaultEncoding_ReturnsEqualEncoding()
