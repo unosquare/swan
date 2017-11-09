@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+
     [TestFixture]
     public class ExtensionsValueTypeTest
     {

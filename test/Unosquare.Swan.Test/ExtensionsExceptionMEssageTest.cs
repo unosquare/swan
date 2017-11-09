@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+
     [TestFixture]
     public class ExtensionsExceptionMessageTest
     {
@@ -14,18 +14,18 @@ namespace Unosquare.Swan.Test
             {
                 throw new Exception("Random message");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                var exMsg = ex.ExceptionMessage();
-                Assert.IsNotNull(exMsg);
-                Assert.AreEqual(exMsg, ex.Message);
+                var msg = ex.ExceptionMessage();
+                Assert.IsNotNull(msg);
+                Assert.AreEqual(msg, ex.Message);
             }
         }
 
         [Test]
         public void InnerExceptionTest()
         {
-            string[] splits = { "\r\n" };
+            string[] splits = {"\r\n"};
             var exceptions = new List<Exception>
             {
                 new TimeoutException("It timed out", new ArgumentException("ID missing")),
@@ -34,11 +34,10 @@ namespace Unosquare.Swan.Test
 
             var ex = new AggregateException(exceptions);
 
-            var exMsg = ex.ExceptionMessage();
+            var msg = ex.ExceptionMessage();
+            Assert.IsNotNull(msg);
 
-            var lines = exMsg.Split(splits, StringSplitOptions.None);
-
-            Assert.IsNotNull(exMsg);
+            var lines = msg.Split(splits, StringSplitOptions.None);
             Assert.AreEqual(lines.Length - 1, ex.InnerExceptions.Count);
         }
     }

@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ExtensionsReflectionTest
+﻿namespace Unosquare.Swan.Test.ExtensionsReflectionTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Networking;
+    using Mocks;
+
     [TestFixture]
     public class GetDefault
     {
@@ -23,9 +23,7 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         {
             Type input = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                input.GetDefault()
-            );
+            Assert.Throws<ArgumentNullException>(() => input.GetDefault());
         }
     }
 
@@ -44,9 +42,7 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         {
             Type input = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                input.IsCollection()
-            );
+            Assert.Throws<ArgumentNullException>(() => input.IsCollection());
         }
     }
 
@@ -125,10 +121,8 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         public void WithType_ReturnsABool(bool expected, Type input)
         {
             var members = input.GetMembers();
-            Assert.AreEqual(expected, members[0].IsDefined(typeof(AttributeMock), false),
-                $"Get IsDefined value of {input}");
+            Assert.AreEqual(expected, members[0].IsDefined(typeof(AttributeMock), false), $"Get IsDefined value of {input}");
         }
-
     }
 
     [TestFixture]
@@ -142,7 +136,6 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
 
             Assert.GreaterOrEqual(expected, attributes.Length, $"Get GetCustomAttributes length of {input}");
         }
-
     }
 
     [TestFixture]
@@ -185,9 +178,7 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         {
             Type input = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                input.IsIEnumerable()
-            );
+            Assert.Throws<ArgumentNullException>(() => input.IsIEnumerable());
         }
     }
 
@@ -199,17 +190,14 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
         {
             System.Reflection.Assembly assembly = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                assembly.GetAllTypes()
-            );
+            Assert.Throws<ArgumentNullException>(() => assembly.GetAllTypes());
         }
 
         [Test]
         public void WithInvalidAssmblyFromFile_ThrowsFileNotFoundException()
         {
             Assert.Throws<FileNotFoundException>(() =>
-                System.Reflection.Assembly.LoadFrom("invalid.dll").GetAllTypes()
-            );
+                System.Reflection.Assembly.LoadFrom("invalid.dll").GetAllTypes());
         }
 
         [Test]
@@ -249,32 +237,28 @@ namespace Unosquare.Swan.Test.ExtensionsReflectionTest
             Type type = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                type.GetMethod(_bindingFlags, _methodName, _genericTypes, _parameterTypes)
-            );
+                type.GetMethod(_bindingFlags, _methodName, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullMethodName_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, null, _genericTypes, _parameterTypes)
-            );
+                _type.GetMethod(_bindingFlags, null, _genericTypes, _parameterTypes));
         }
 
         [Test]
         public void WithNullGenericTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, _methodName, null, _parameterTypes)
-            );
+                _type.GetMethod(_bindingFlags, _methodName, null, _parameterTypes));
         }
 
         [Test]
         public void WithNullParameterTypes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                _type.GetMethod(_bindingFlags, _methodName, _genericTypes, null)
-            );
+                _type.GetMethod(_bindingFlags, _methodName, _genericTypes, null));
         }
     }
 }

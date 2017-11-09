@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ExtensionsStringTest
+﻿namespace Unosquare.Swan.Test.ExtensionsStringTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Mocks;
+
     [TestFixture]
     public class Humanize
     {
@@ -280,7 +280,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
         public void WithValidParams_ReturnsASafeFileName(string expected, string input)
         {
-            if (Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
             Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
@@ -289,7 +289,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
-            if (Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
             string input = null;
@@ -304,11 +304,9 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [TestCase("97.66 KB", 100000)]
         [TestCase("3.38 MB", 3546346)]
         [TestCase("4.94 TB", 5432675475323)]
-        public void WithUlongAsParam_ReturnsFormatedBytes(string expected, long input)
+        public void WithUlongAsParam_ReturnsFormatedBytes(string expected, ulong input)
         {
-            var inputByte = Convert.ToUInt64(input);
-
-            Assert.AreEqual(expected, inputByte.FormatBytes(), $"Testing with {input}");
+            Assert.AreEqual(expected, input.FormatBytes(), $"Testing with {input}");
         }
 
         [TestCase("3 KB", 3072)]
@@ -340,8 +338,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [TestCase(new[] {'l', 'W'})]
         public void WithValidString_ReturnsTrue(params char[] chars)
         {
-            const string input = "Hello World";
-            Assert.IsTrue(input.Contains(chars));
+            Assert.IsTrue("Hello World".Contains(chars));
         }
     }
 

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Unosquare.Swan.Formatters;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using Formatters;
+    using Mocks;
+    using Networking;
+    using NUnit.Framework;
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class SmtpClientntTest
     {

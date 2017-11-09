@@ -397,7 +397,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <summary>
     /// This class encapsulates the OCTET STRING type.
     /// </summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Object" />
+    /// <seealso cref="Asn1Object" />
     internal sealed class Asn1OctetString
         : Asn1Object
     {
