@@ -24,7 +24,7 @@
         [Test]
         public void WithMemoryStreamAndEncoding_Valid()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            using (var stream = new MemoryStream())
             {
                 var reader = new CsvWriter(stream, Encoding.ASCII);
                 Assert.IsNotNull(reader);
@@ -34,7 +34,7 @@
         [Test]
         public void WithMemoryStream_Valid()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            using (var stream = new MemoryStream())
             {
                 var reader = new CsvWriter(stream);
                 Assert.IsNotNull(reader);
@@ -59,7 +59,7 @@
             Assert.IsNotNull(reader);
         }
     }
-        
+
     [TestFixture]
     public class SaveRecords : CsvWriterTest
     {
@@ -68,7 +68,7 @@
         {
             var tempFile = Path.GetTempFileName();
             var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
-            
+
             var dictionaryheaders = new Dictionary<string, string>
             {
                 {"AccessDate", "20171107"},
@@ -115,14 +115,10 @@
         [Test]
         public void WithNullList_Invalid()
         {
-            var tempFile = Path.GetTempFileName();
             var generatedRecords = SampleCsvRecord.CreateSampleSet(TotalRows);
             generatedRecords.Add(null);
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                CsvWriter.SaveRecords(generatedRecords, tempFile);
-            });
+            Assert.Throws<ArgumentNullException>(() => CsvWriter.SaveRecords(generatedRecords, new MemoryStream()));
         }
     }
 
@@ -132,7 +128,7 @@
         [Test]
         public void Dictionary_ReturnsAreNotEqual()
         {
-            var item = new Dictionary<string, string> { { "A", "A" }, { "B", "B" }, { "C", "C" } };
+            var item = new Dictionary<string, string> {{"A", "A"}, {"B", "B"}, {"C", "C"}};
 
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
@@ -146,7 +142,7 @@
         [Test]
         public void Array_ReturnsAreNotEqual()
         {
-            var item = new[] { "A", "B", "C" };
+            var item = new[] {"A", "B", "C"};
 
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
@@ -168,7 +164,7 @@
                 {
                     writer.WriteObjects(strings);
 
-                    Assert.AreEqual((int)writer.Count, strings.Count);
+                    Assert.AreEqual((int) writer.Count, strings.Count);
                 }
             }
         }
@@ -178,10 +174,10 @@
         {
             dynamic dynObject = new Dictionary<string, object>
             {
-                {"A", new { Name = "Florencia" }},
-                {"B", new { Name = "Camila" }},
-                {"C", new { Name = "Florencia" }},
-                {"D", new { Name = "Mónica" }}
+                {"A", new {Name = "Florencia"}},
+                {"B", new {Name = "Camila"}},
+                {"C", new {Name = "Florencia"}},
+                {"D", new {Name = "Mónica"}}
             };
 
             using (var stream = new MemoryStream())
@@ -191,7 +187,7 @@
                     writer.WriteObject(dynObject);
 
                     Assert.IsNotNull(writer);
-                    Assert.AreEqual(1, (int)writer.Count);
+                    Assert.AreEqual(1, (int) writer.Count);
                 }
             }
         }
@@ -202,7 +198,7 @@
     {
         [Test]
         public void NullType_ThrowsArgumentNullException()
-        {            
+        {
             using (var stream = new MemoryStream())
             {
                 using (var writer = new CsvWriter(stream))
@@ -245,9 +241,9 @@
                 {"Score", "1245F"},
                 {"ValidationResult", "true"}
             };
-            var stringHeadersOutput = "AccessDate,AlternateId,CreationDate,Description,Id,IsValidated,Name,Score,ValidationResult\r\n";
 
             var stringHeaders = dictionaryHeaders.Select(k => k.Key).ToList();
+            var stringHeadersOutput = string.Join(",", stringHeaders);
 
             using (var stream = new MemoryStream())
             {
@@ -257,11 +253,11 @@
 
                     stream.Position = 0;
                     var sr = new StreamReader(stream);
-                    var myStr = sr.ReadToEnd();
-                    var myStrSplitted = myStr.Split(',');
+                    var value = sr.ReadToEnd();
+                    var values = value.Split(',');
 
-                    Assert.AreEqual(stringHeadersOutput, myStr);
-                    Assert.AreEqual(stringHeaders.Count, myStrSplitted.Length);
+                    Assert.AreEqual(stringHeadersOutput, value);
+                    Assert.AreEqual(stringHeaders.Count, values.Length);
                 }
             }
         }
@@ -274,6 +270,7 @@
                 "Id", "AlternateId", "Name", "Description", "IsValidated", "ValidationResult", "Score", "CreationDate",
                 "AccessDate"
             };
+
             var stringHeadersOutput = string.Join(",", stringHeaders);
 
             using (var stream = new MemoryStream())
@@ -284,11 +281,11 @@
 
                     stream.Position = 0;
                     var sr = new StreamReader(stream);
-                    var myStr = sr.ReadToEnd();
-                    var myStrSplitted = myStr.Split(',');
+                    var value = sr.ReadToEnd();
+                    var values = value.Split(',');
 
-                    Assert.AreEqual(stringHeadersOutput, myStr.Trim());
-                    Assert.AreEqual(stringHeaders.Length, myStrSplitted.Length);
+                    Assert.AreEqual(stringHeadersOutput, value.Trim());
+                    Assert.AreEqual(stringHeaders.Length, values.Length);
                 }
             }
         }

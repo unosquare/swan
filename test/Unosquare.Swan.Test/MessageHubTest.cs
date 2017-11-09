@@ -14,7 +14,7 @@
         [Test]
         public void NullSender_ThrowsArgumentNullException()
         {
-            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            var content = new SimpleMessageMock(this);
 
             Assert.Throws<ArgumentNullException>(() => new MessageHubGenericMessage<string>(null, content.Content));
         }
@@ -22,7 +22,7 @@
         [Test]
         public void NotNullSender_ReturnsSuccess()
         {
-            var content = new SimpleMessageMock(this, "Unosquare Américas");
+            var content = new SimpleMessageMock(this);
             var message = new MessageHubGenericMessage<string>(this, content.Content);
 
             Assert.IsNotNull(message.Sender);
@@ -94,7 +94,7 @@
         [Test]
         public void PublishMessage_MessagePublished()
         {
-            var message = new SimpleMessageMock(this, "Unosquare Labs");
+            var message = new SimpleMessageMock(this);
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
@@ -108,7 +108,7 @@
         [Test]
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
-            var message = new SimpleMessageMock(this, "Unosquare Labs");
+            var message = new SimpleMessageMock(this);
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
 
             Assert.IsNotNull(token);
@@ -125,7 +125,7 @@
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
             Assert.IsNotNull(token);
 
-            var message = new SimpleMessageMock(this, "Unosquare Labs");
+            var message = new SimpleMessageMock(this);
 
             await Runtime.Messages.PublishAsync(message);
 
@@ -146,7 +146,7 @@
         [Test]
         public void NotNullMessage_ReturnsSuccess()
         {
-            var message = new SimpleMessageMock(this, "Unosquare Américas");
+            var message = new SimpleMessageMock(this);
 
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
@@ -243,7 +243,7 @@
             {
                 var messages = new List<SimpleMessageMock>();
                 Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
-                var message = new SimpleMessageMock(this, "Unosquare Américas");
+                var message = new SimpleMessageMock(this);
 
                 Runtime.Messages.Publish(message);
 
@@ -256,7 +256,7 @@
             {
                 var messages = new List<SimpleMessageMock>();
                 Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add, false);
-                var message = new SimpleMessageMock(this, "Unosquare Américas");
+                var message = new SimpleMessageMock(this);
 
                 Runtime.Messages.Publish(message);
 

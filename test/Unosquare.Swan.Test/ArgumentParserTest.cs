@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using System;
-using System.Linq;
-using Unosquare.Swan.Components;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ArgumentParserTests
+﻿namespace Unosquare.Swan.Test.ArgumentParserTests
 {
+    using NUnit.Framework;
+    using System;
+    using System.Linq;
+    using Components;
+    using Mocks;
+
     [TestFixture]
     public class ParseArguments
     {
@@ -113,43 +113,34 @@ namespace Unosquare.Swan.Test.ArgumentParserTests
         public void UnavailableArguments_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-            {
-                var parser = new ArgumentParser();
-                
-                parser.ParseArguments(null, new OptionMock());
-            });
+                Runtime.ArgumentParser.ParseArguments(null, new OptionMock()));
         }
 
         [Test]
         public void TypeInvalid_ThrowsInvalidOperationException()
         {
             Assert.Throws<InvalidOperationException>(() =>
-            {
-                var parser = new ArgumentParser();
-                parser.ParseArguments(new[] {"Alejandro", "Mariana", "Federico", "Víctor"}, 1);
-            });
+                Runtime.ArgumentParser.ParseArguments(new[] {"Alejandro", "Mariana", "Federico", "Víctor"}, 1));
         }
 
         [Test]
         public void PropertiesEmpty_ThrowsInvalidOperationException()
         {
-            var options = new OptionMockEmpty();
             var collection = new[] {"v", "n", "color"};
             var dumpArgs = new[] {"--options", string.Join(",", collection)};
 
-            Assert.Throws<InvalidOperationException>(
-                () => { Runtime.ArgumentParser.ParseArguments(dumpArgs, options); });
+            Assert.Throws<InvalidOperationException>(() =>
+                Runtime.ArgumentParser.ParseArguments(dumpArgs, new OptionMockEmpty()));
         }
 
         [Test]
         public void InstanceNull_ThrowsArgumentNullException()
         {
-            OptionMock options = null;
-            var dumpArgs = new[] { "-N", "babu", "-V" };
+            var dumpArgs = new[] {"-N", "babu", "-V"};
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
+                Runtime.ArgumentParser.ParseArguments<OptionMock>(dumpArgs, null);
             });
         }
     }

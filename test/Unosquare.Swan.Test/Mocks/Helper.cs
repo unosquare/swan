@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using System.IO;
+
     internal static class Helper
     {
         /// <summary>

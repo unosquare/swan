@@ -106,8 +106,8 @@ namespace Unosquare.Swan.Test.Mocks
             var random = new Random();
             return new SampleCsvRecord
             {
-                AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : new DateTime?(),
-                AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : new int?(),
+                AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : (DateTime?) null,
+                AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : (int?) null,
                 CreationDate = random.NextDouble() > 0.5d ? DateTime.Now : DateTime.MinValue,
                 Description = $"{RandomWords[random.Next(0, RandomWords.Length - 1)]} ",
                 Id = 1000,

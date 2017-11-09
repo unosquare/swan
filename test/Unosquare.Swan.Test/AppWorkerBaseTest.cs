@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System;
+    using System.Threading.Tasks;
+    using Mocks;
+
     [TestFixture]
     public class AppWorkerBaseTest
     {
@@ -32,6 +32,7 @@ namespace Unosquare.Swan.Test
         {
             var mock = new AppWorkerMock();
             mock.Start();
+
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromMilliseconds(600));
             Assert.GreaterOrEqual(mock.Count, 5);
@@ -42,6 +43,7 @@ namespace Unosquare.Swan.Test
         {
             var mock = new AppWorkerMock();
             mock.Start();
+
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromSeconds(2));
 
