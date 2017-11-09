@@ -666,11 +666,45 @@
         }
 
         [Test]
-        public void WithString_ResolveContainer()
+        public void WithFailUnregisteredResolutionActions_FailResolveContainer()
+        {
+            var container = new DependencyContainer();
+
+            var resolveOptions = new DependencyContainerResolveOptions();
+            resolveOptions.UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.Fail;
+
+            Assert.IsFalse(container.CanResolve<Shark>(new Dictionary<string, object>(), resolveOptions));
+        }
+
+        [Test]
+        public void WithoutRegister_FailResolveContainer()
         {
             var container = new DependencyContainer();
 
             Assert.IsFalse(container.CanResolve<Shark>(new Shark().Name));
+        }
+
+        [Test]
+        public void WithRegister_ResolveContainer()
+        {
+            var container = new DependencyContainer();
+            container.Register(typeof(Shark),new Shark().Name);
+
+            Assert.IsTrue(container.CanResolve<Shark>(new Shark().Name));
+        }
+
+        [Test]
+        public void WithRegisterAndAttemptUnnamedResolution_ResolveContainer()
+        {
+            var container = new DependencyContainer();
+
+            container.Register(typeof(Shark));
+
+            var resolveOptions = new DependencyContainerResolveOptions();
+            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+
+            Assert.IsTrue(container.CanResolve(
+                typeof(Shark), new Dictionary<string, object>(), new Shark().Name, resolveOptions));
         }
 
         [TestCase(typeof(Func<>))]
