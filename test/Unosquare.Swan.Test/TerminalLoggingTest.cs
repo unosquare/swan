@@ -73,11 +73,15 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         public void Message_MessageLogged()
         {
             Task.Delay(200).Wait();
-            new Exception().Error(nameof(Log), nameof(Message_MessageLogged));
+
+            new Exception().Error("Unosquare Américas", "Error del sistema");
+
             Task.Delay(150).Wait();
             
             messages.Clear();
+
             nameof(LogMessageType.None).Log("Unosquare Labs", LogMessageType.None, 1);
+
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
@@ -96,12 +100,12 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
 
             Task.Delay(200).Wait();
 
-            new Exception().Debug("Test", "ArCiGo");
+            new Exception().Debug("Unosquare Américas", "Unosquare Labs");
 
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual("ArCiGo", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
             Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
 
         }
@@ -138,6 +142,24 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(nameof(LogMessageType.Trace), messages.First(x => x.ExtendedData != null).Message);
+        }
+    }
+
+    [TestFixture]
+    public class Warn : TerminalLoggingTest
+    {
+        [Test]
+        public void MessageWithType_MessageLogged()
+        {
+            messages.Clear();
+
+            nameof(LogMessageType.Warning).Warn(typeof(string), 1);
+
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
+            Assert.AreEqual(nameof(LogMessageType.Warning), messages.First(x => x.ExtendedData != null).Message);
         }
     }
 }
