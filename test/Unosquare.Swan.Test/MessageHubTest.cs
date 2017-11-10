@@ -123,6 +123,8 @@
         [Test]
         public async Task PublishMessageAsync_ReturnsSuccess()
         {
+            var messagesToSend = new List<SimpleMessageMock>();
+
             var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
             Assert.IsNotNull(token);
 
