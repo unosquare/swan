@@ -688,11 +688,11 @@
             var resolveOptions = new DependencyContainerResolveOptions();
             resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
 
-            container.Register<IAnimal>(new Human("George"), registerName).WithStrongReference();
+            container.Register<IAnimal>(new Human("George"), registerName);
             
             Assert.IsTrue(container.CanResolve<IAnimal>(resolveName, null, resolveOptions));
         }
-
+        
         [Test]
         public void WithIEnumerable_ResolveContainer()
         {
