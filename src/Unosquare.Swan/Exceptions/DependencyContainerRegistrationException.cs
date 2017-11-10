@@ -37,6 +37,7 @@
                 : string.Format(ConvertErrorText, type.FullName, method))
         {
         }
+
         private static string GetTypesString(IEnumerable<Type> types)
         {
             return string.Join(",", types.Select(type => type.FullName));

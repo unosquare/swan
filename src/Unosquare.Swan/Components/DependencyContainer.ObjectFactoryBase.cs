@@ -72,8 +72,9 @@
         /// </summary>
         private class MultiInstanceFactory : ObjectFactoryBase
         {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
+            private readonly Type _registerType;
+            private readonly Type _registerImplementation;
+
             public MultiInstanceFactory(Type registerType, Type registerImplementation)
             {
                 if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
@@ -90,14 +91,14 @@
                         true);
                 }
 
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
+                _registerType = registerType;
+                _registerImplementation = registerImplementation;
             }
 
-            public override Type CreatesType => registerImplementation;
+            public override Type CreatesType => _registerImplementation;
 
             public override ObjectFactoryBase SingletonVariant =>
-                new SingletonFactory(registerType, registerImplementation);
+                new SingletonFactory(_registerType, _registerImplementation);
 
             public override ObjectFactoryBase MultiInstanceVariant => this;
 
@@ -109,11 +110,11 @@
             {
                 try
                 {
-                    return container.ConstructType(registerImplementation, Constructor, parameters, options);
+                    return container.ConstructType(_registerImplementation, Constructor, parameters, options);
                 }
                 catch (DependencyContainerResolutionException ex)
                 {
-                    throw new DependencyContainerResolutionException(registerType, ex);
+                    throw new DependencyContainerResolutionException(_registerType, ex);
                 }
             }
         }
@@ -123,13 +124,9 @@
         /// </summary>
         private class DelegateFactory : ObjectFactoryBase
         {
-            private readonly Type registerType;
+            private readonly Type _registerType;
 
             private readonly Func<DependencyContainer, Dictionary<string, object>, object> _factory;
-
-            public override bool AssumeConstruction => true;
-
-            public override Type CreatesType => registerType;
 
             public DelegateFactory(
                 Type registerType,
@@ -138,10 +135,14 @@
             {
                 _factory = factory ?? throw new ArgumentNullException(nameof(factory));
 
-                this.registerType = registerType;
+                _registerType = registerType;
             }
 
-            public override ObjectFactoryBase WeakReferenceVariant => new WeakDelegateFactory(registerType, _factory);
+            public override bool AssumeConstruction => true;
+
+            public override Type CreatesType => _registerType;
+
+            public override ObjectFactoryBase WeakReferenceVariant => new WeakDelegateFactory(_registerType, _factory);
 
             public override ObjectFactoryBase StrongReferenceVariant => this;
 
@@ -157,7 +158,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new DependencyContainerResolutionException(registerType, ex);
+                    throw new DependencyContainerResolutionException(_registerType, ex);
                 }
             }
         }
@@ -168,26 +169,9 @@
         /// </summary>
         private class WeakDelegateFactory : ObjectFactoryBase
         {
-            private readonly Type registerType;
+            private readonly Type _registerType;
 
             private readonly WeakReference _factory;
-
-            public override bool AssumeConstruction => true;
-
-            public override Type CreatesType => registerType;
-
-            public override ObjectFactoryBase StrongReferenceVariant
-            {
-                get
-                {
-                    if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
-                        throw new DependencyContainerWeakReferenceException(registerType);
-
-                    return new DelegateFactory(registerType, factory);
-                }
-            }
-
-            public override ObjectFactoryBase WeakReferenceVariant => this;
 
             public WeakDelegateFactory(Type registerType,
                 Func<DependencyContainer, Dictionary<string, object>, object> factory)
@@ -197,8 +181,25 @@
 
                 _factory = new WeakReference(factory);
 
-                this.registerType = registerType;
+                _registerType = registerType;
             }
+
+            public override bool AssumeConstruction => true;
+
+            public override Type CreatesType => _registerType;
+
+            public override ObjectFactoryBase StrongReferenceVariant
+            {
+                get
+                {
+                    if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
+                        throw new DependencyContainerWeakReferenceException(_registerType);
+
+                    return new DelegateFactory(_registerType, factory);
+                }
+            }
+
+            public override ObjectFactoryBase WeakReferenceVariant => this;
 
             public override object GetObject(
                 Type requestedType, 
@@ -207,7 +208,7 @@
                 DependencyContainerResolveOptions options)
             {
                 if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
-                    throw new DependencyContainerWeakReferenceException(registerType);
+                    throw new DependencyContainerWeakReferenceException(_registerType);
 
                 try
                 {
@@ -215,7 +216,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new DependencyContainerResolutionException(registerType, ex);
+                    throw new DependencyContainerResolutionException(_registerType, ex);
                 }
             }
         }
@@ -225,37 +226,40 @@
         /// </summary>
         private class InstanceFactory : ObjectFactoryBase, IDisposable
         {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
+            private readonly Type _registerType;
+            private readonly Type _registerImplementation;
             private readonly object _instance;
-
-            public override bool AssumeConstruction => true;
 
             public InstanceFactory(Type registerType, Type registerImplementation, object instance)
             {
                 if (!IsValidAssignment(registerType, registerImplementation))
                     throw new DependencyContainerRegistrationException(registerImplementation, "InstanceFactory", true);
 
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
+                _registerType = registerType;
+                _registerImplementation = registerImplementation;
                 _instance = instance;
             }
 
-            public override Type CreatesType => registerImplementation;
+            public override bool AssumeConstruction => true;
 
-            public override object GetObject(Type requestedType, DependencyContainer container,
-                Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
+            public override Type CreatesType => _registerImplementation;
+
+            public override ObjectFactoryBase MultiInstanceVariant =>
+                new MultiInstanceFactory(_registerType, _registerImplementation);
+
+            public override ObjectFactoryBase WeakReferenceVariant =>
+                new WeakInstanceFactory(_registerType, _registerImplementation, _instance);
+
+            public override ObjectFactoryBase StrongReferenceVariant => this;
+
+            public override object GetObject(
+                Type requestedType, 
+                DependencyContainer container,
+                Dictionary<string, object> parameters, 
+                DependencyContainerResolveOptions options)
             {
                 return _instance;
             }
-
-            public override ObjectFactoryBase MultiInstanceVariant =>
-                new MultiInstanceFactory(registerType, registerImplementation);
-
-            public override ObjectFactoryBase WeakReferenceVariant =>
-                new WeakInstanceFactory(registerType, registerImplementation, _instance);
-
-            public override ObjectFactoryBase StrongReferenceVariant => this;
 
             public void Dispose()
             {
@@ -272,8 +276,8 @@
         /// </summary>
         private class WeakInstanceFactory : ObjectFactoryBase, IDisposable
         {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
+            private readonly Type _registerType;
+            private readonly Type _registerImplementation;
             private readonly WeakReference _instance;
 
             public WeakInstanceFactory(Type registerType, Type registerImplementation, object instance)
@@ -286,15 +290,15 @@
                         true);
                 }
 
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
+                _registerType = registerType;
+                _registerImplementation = registerImplementation;
                 _instance = new WeakReference(instance);
             }
 
-            public override Type CreatesType => registerImplementation;
+            public override Type CreatesType => _registerImplementation;
 
             public override ObjectFactoryBase MultiInstanceVariant =>
-                new MultiInstanceFactory(registerType, registerImplementation);
+                new MultiInstanceFactory(_registerType, _registerImplementation);
 
             public override ObjectFactoryBase WeakReferenceVariant => this;
 
@@ -305,9 +309,9 @@
                     var instance = _instance.Target;
 
                     if (instance == null)
-                        throw new DependencyContainerWeakReferenceException(registerType);
+                        throw new DependencyContainerWeakReferenceException(_registerType);
 
-                    return new InstanceFactory(registerType, registerImplementation, instance);
+                    return new InstanceFactory(_registerType, _registerImplementation, instance);
                 }
             }
 
@@ -320,7 +324,7 @@
                 var instance = _instance.Target;
 
                 if (instance == null)
-                    throw new DependencyContainerWeakReferenceException(registerType);
+                    throw new DependencyContainerWeakReferenceException(_registerType);
 
                 return instance;
             }
@@ -356,10 +360,15 @@
 
             public override Type CreatesType => _registerImplementation;
 
+            public override ObjectFactoryBase SingletonVariant => this;
+
+            public override ObjectFactoryBase MultiInstanceVariant =>
+                new MultiInstanceFactory(_registerType, _registerImplementation);
+
             public override object GetObject(
-                Type requestedType, 
+                Type requestedType,
                 DependencyContainer container,
-                Dictionary<string, object> parameters, 
+                Dictionary<string, object> parameters,
                 DependencyContainerResolveOptions options)
             {
                 if (parameters.Count != 0)
@@ -373,11 +382,6 @@
 
                 return _current;
             }
-
-            public override ObjectFactoryBase SingletonVariant => this;
-
-            public override ObjectFactoryBase MultiInstanceVariant =>
-                new MultiInstanceFactory(_registerType, _registerImplementation);
 
             public override ObjectFactoryBase GetFactoryForChildContainer(
                 Type type, 

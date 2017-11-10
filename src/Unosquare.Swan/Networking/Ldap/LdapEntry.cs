@@ -19,16 +19,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="LdapAttributeSet"></seealso>
     public class LdapEntry
     {
-        /// <summary>
-        /// Returns the distinguished name of the entry.
-        /// </summary>
-        /// <value>
-        /// The dn.
-        /// </value>
-        public string DN => Dn;
-
-        protected internal string Dn;
-        protected internal LdapAttributeSet Attrs;
+        private readonly LdapAttributeSet _attrs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapEntry" /> class.
@@ -42,9 +33,17 @@ namespace Unosquare.Swan.Networking.Ldap
         /// entry.</param>
         public LdapEntry(string dn = null, LdapAttributeSet attrs = null)
         {
-            Dn = dn ?? string.Empty;
-            Attrs = attrs ?? new LdapAttributeSet();
+            DN = dn ?? string.Empty;
+            _attrs = attrs ?? new LdapAttributeSet();
         }
+
+        /// <summary>
+        /// Returns the distinguished name of the entry.
+        /// </summary>
+        /// <value>
+        /// The dn.
+        /// </value>
+        public string DN { get; }
 
         /// <summary>
         /// Returns the attributes matching the specified attrName.
@@ -53,7 +52,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// An array of LdapAttribute objects.
         /// </returns>
-        public LdapAttribute GetAttribute(string attrName) => Attrs.GetAttribute(attrName);
+        public LdapAttribute GetAttribute(string attrName) => _attrs.GetAttribute(attrName);
 
         /// <summary>
         /// Returns the attribute set of the entry.
@@ -64,31 +63,29 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// The attribute set of the entry.
         /// </returns>
-        public LdapAttributeSet GetAttributeSet() => Attrs;
+        public LdapAttributeSet GetAttributeSet() => _attrs;
 
         /// <summary>
-        ///     Returns an attribute set from the entry, consisting of only those
-        ///     attributes matching the specified subtypes.
-        ///     The getAttributeSet method can be used to extract only
-        ///     a particular language variant subtype of each attribute,
-        ///     if it exists. The "subtype" may be, for example, "lang-ja", "binary",
-        ///     or "lang-ja;phonetic". If more than one subtype is specified, separated
-        ///     with a semicolon, only those attributes with all of the named
-        ///     subtypes will be returned. The LdapAttributeSet returned may be
-        ///     empty if there are no matching attributes in the entry.
+        /// Returns an attribute set from the entry, consisting of only those
+        /// attributes matching the specified subtypes.
+        /// The getAttributeSet method can be used to extract only
+        /// a particular language variant subtype of each attribute,
+        /// if it exists. The "subtype" may be, for example, "lang-ja", "binary",
+        /// or "lang-ja;phonetic". If more than one subtype is specified, separated
+        /// with a semicolon, only those attributes with all of the named
+        /// subtypes will be returned. The LdapAttributeSet returned may be
+        /// empty if there are no matching attributes in the entry.
         /// </summary>
-        /// <param name="subtype">
-        ///     One or more subtype specification(s), separated
-        ///     with semicolons. The "lang-ja" and
-        ///     "lang-en;phonetic" are valid subtype
-        ///     specifications.
-        /// </param>
+        /// <param name="subtype">One or more subtype specification(s), separated
+        /// with semicolons. The "lang-ja" and
+        /// "lang-en;phonetic" are valid subtype
+        /// specifications.</param>
         /// <returns>
-        ///     An attribute set from the entry with the attributes that
-        ///     match the specified subtypes or an empty set if no attributes
-        ///     match.
+        /// An attribute set from the entry with the attributes that
+        /// match the specified subtypes or an empty set if no attributes
+        /// match.
         /// </returns>
-        public LdapAttributeSet GetAttributeSet(string subtype) => Attrs.GetSubset(subtype);
+        public LdapAttributeSet GetAttributeSet(string subtype) => _attrs.GetSubset(subtype);
     }
 
     /// <summary>

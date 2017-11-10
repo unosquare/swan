@@ -85,9 +85,7 @@
         public void PropertyDestinationWithInvalidPropertySource_ThrowsException()
         {
             Assert.Throws<Exception>(() =>
-            {
-                Runtime.ObjectMapper.CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name);
-            });
+                new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name));
         }
 
         [Test]
