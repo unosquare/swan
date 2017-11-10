@@ -33,16 +33,7 @@
         }
 
         #endregion
-
-        internal class SampleSingleton : SingletonBase<SampleSingleton>
-        {
-            private SampleSingleton()
-            {
-            }
-
-            public string Name => "Hello";
-        }
-
+        
         internal class SampleCopyTarget
         {
             public float ID { get; set; }

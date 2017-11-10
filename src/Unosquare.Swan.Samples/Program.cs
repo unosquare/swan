@@ -54,7 +54,8 @@
                         var ldapAttributes = entry.GetAttributeSet();
 
 
-                        Console.WriteLine($"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
+                        Console.WriteLine(
+                            $"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
                     }
 
                     //While all the entries are parsed, disconnect
@@ -78,7 +79,7 @@
                     await cn.Connect("ad.unosquare.com", 389);
                     await cn.Bind("@unosquare.com", "password");
                     await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com",
-                        new LdapModification[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mobile", "33366669999")) });
+                        new[] {new LdapModification(LdapModificationOp.Replace, "mobile", "33366669999")});
                     cn.Disconnect();
                 }
                 catch (Exception ex)
@@ -110,19 +111,17 @@
 
         static void TestJson()
         {
-            var jsonText = "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
+            var jsonText =
+                "{\"SimpleProperty\": \"SimpleValue\", \"EmptyProperty\": \"\\/Forward-Slash\\\"\", \"EmptyArray\": [], \"EmptyObject\": {}}";
             var jsonObject = Json.Deserialize(jsonText);
             jsonObject.Dump(typeof(Program));
 
-            jsonText = "{\"SimpleProperty\": \r\n     \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [  \r\n \r\n  ], \"EmptyObject\": { } \r\n, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
+            jsonText =
+                "{\"SimpleProperty\": \r\n     \"SimpleValue\", \"EmptyProperty\": \" \", \"EmptyArray\": [  \r\n \r\n  ], \"EmptyObject\": { } \r\n, \"NumberStringArray\": [1,2,\"hello\",4,\"666\",{ \"NestedObject\":true }] }";
             jsonObject = Json.Deserialize(jsonText);
             jsonObject.Dump(typeof(Program));
 
             "test".Dump(typeof(Program));
-
-            //var jsonTextData = "{\"Text\":\"Hello. We will try some special chars: New Line: \\r \\n Quotes: \\\" / Special Chars: \\u0323 \\u0003 \\u1245\", \"EmptyObject\": {}, \"EmptyArray\": [], \"SomeDate\": \"/" + DateTime.Now.ToStringInvariant() + "/\" }";
-            //var jsonParsedData = Json.Deserialize(jsonTextData);
-
         }
 
         static void TestNetworkUtilities()
@@ -144,16 +143,14 @@
             $"DNS Servers: [{string.Join(", ", dnsServers.Select(p => p.ToString()))}]".Info(nameof(Network));
             $"Public IP  : [{publicIP}]".Info(nameof(Network));
             $"Reverse DNS: [{publicIP}]: [{ptrRecord}]".Info(nameof(Network));
-            $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(nameof(Network));
-            $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]".Info(nameof(Network));
-            $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]".Info(nameof(Network));
+            $"Lookup DNS : [{domainName}]: [{string.Join("; ", dnsLookup.Select(p => p.ToString()))}]".Info(
+                nameof(Network));
+            $"Query MX   : [{domainName}]: [{mxRecords.AnswerRecords.First().MailExchangerPreference} {mxRecords.AnswerRecords.First().MailExchangerDomainName}]"
+                .Info(nameof(Network));
+            $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]"
+                .Info(nameof(Network));
         }
-
-        static void TestSingleton()
-        {
-            SampleSingleton.Instance.Name.Info(nameof(SampleSingleton));
-        }
-
+        
         static void TestContainerAndMessageHub()
         {
             Runtime.Container.Register<ISampleAnimal, SampleFish>();
@@ -162,7 +159,10 @@
             Runtime.Container.Register<ISampleAnimal, SampleMonkey>();
             $"The concrete type ended up being: {Runtime.Container.Resolve<ISampleAnimal>().Name}".Warn();
 
-            Runtime.Messages.Subscribe<SampleMessage>((m) => { $"Received the following message from '{m.Sender}': '{m.Content}'".Trace(); });
+            Runtime.Messages.Subscribe<SampleMessage>((m) =>
+            {
+                $"Received the following message from '{m.Sender}': '{m.Content}'".Trace();
+            });
             Runtime.Messages.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
@@ -171,14 +171,14 @@
             var limit = Console.BufferHeight;
             for (var i = 0; i < limit; i += 25)
             {
-                $"Output info {i} ({((decimal)i / limit):P})".Info(typeof(Program));
+                $"Output info {i} ({((decimal) i / limit):P})".Info(typeof(Program));
                 Terminal.BacklineCursor();
             }
 
             var sampleOptions = new Dictionary<ConsoleKey, string>
             {
-                { ConsoleKey.A, "Sample A" },
-                { ConsoleKey.B, "Sample B" }
+                {ConsoleKey.A, "Sample A"},
+                {ConsoleKey.B, "Sample B"}
             };
 
             "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
@@ -219,18 +219,20 @@
             $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green);
 
             // Write it out to the debugger as well!
-            $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+            $"Hello, today is {DateTime.Today}".WriteLine(ConsoleColor.Green,
+                TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
             // You could have also skipped the color argument and just use the default
-            $"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
+            $"Hello, today is {DateTime.Today}".WriteLine(null,
+                TerminalWriters.StandardOutput | TerminalWriters.Diagnostics);
 
             if ("Press a key to test menu options. (X) will exit.".ReadKey().Key == ConsoleKey.X) return;
             "TESTING MENU OPTIONS".WriteLine(ConsoleColor.Blue);
 
             var sampleOptions = new Dictionary<ConsoleKey, string>
             {
-                { ConsoleKey.A, "Sample A" },
-                { ConsoleKey.B, "Sample B" }
+                {ConsoleKey.A, "Sample A"},
+                {ConsoleKey.B, "Sample B"}
             };
 
             "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
@@ -247,24 +249,26 @@
                 $"Generated {generatedRecords.Count} sample records.".Info(nameof(TestCsvFormatters));
 
                 var savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test01FilePath);
-                $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}.".Info(nameof(TestCsvFormatters));
+                $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test01FilePath)}."
+                    .Info(nameof(TestCsvFormatters));
 
                 var loadedRecords = CsvReader.LoadRecords<SampleCsvRecord>(test01FilePath);
-                $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(nameof(TestCsvFormatters));
+                $"Loaded {loadedRecords.Count} records from file: {Path.GetFileName(test01FilePath)}.".Info(
+                    nameof(TestCsvFormatters));
 
                 savedRecordCount = CsvWriter.SaveRecords(generatedRecords, test02FilePath);
-                $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}.".Info(nameof(TestCsvFormatters));
+                $"Saved {savedRecordCount} records (including header) to file: {Path.GetFileName(test02FilePath)}."
+                    .Info(nameof(TestCsvFormatters));
 
                 var sourceObject = loadedRecords[generatedRecords.Count / 2];
                 var targetObject = new SampleCopyTarget();
                 var copiedProperties = sourceObject.CopyPropertiesTo(targetObject);
-                $"{nameof(Extensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another".Info(nameof(TestCsvFormatters));
+                $"{nameof(Extensions.CopyPropertiesTo)} method copied {copiedProperties} properties from one object to another"
+                    .Info(nameof(TestCsvFormatters));
             });
 
             var elapsed = action.Benchmark();
             $"Elapsed: {Math.Round(elapsed.TotalMilliseconds, 3)} milliseconds".Trace();
         }
     }
-
-
 }

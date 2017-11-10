@@ -170,7 +170,7 @@
     }
 
     [TestFixture]
-    public class ToStringInvariant
+    public class ToStringInvariant : TestFixtureBase
     {
         [TestCase("", null)]
         [TestCase("Test", "Test")]
@@ -189,7 +189,7 @@
     }
 
     [TestFixture]
-    public class RemoveControlCharsExcept
+    public class RemoveControlCharsExcept : TestFixtureBase
     {
         [TestCase("Test", "Test", null)]
         [TestCase("Test", "\0Test\0", null)]
@@ -204,9 +204,7 @@
         [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
-            string input = null;
-
-            Assert.Throws<ArgumentNullException>(() => input.RemoveControlCharsExcept(null));
+            Assert.Throws<ArgumentNullException>(() => NullString.RemoveControlCharsExcept(null));
         }
     }
 
@@ -272,7 +270,7 @@
     }
 
     [TestFixture]
-    public class ToSafeFilename
+    public class ToSafeFilename : TestFixtureBase
     {
         [TestCase("FileName", ":File|Name*")]
         [TestCase(
@@ -292,8 +290,7 @@
             if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
-            string input = null;
-            Assert.Throws<ArgumentNullException>(() => input.ToSafeFilename());
+            Assert.Throws<ArgumentNullException>(() => NullString.ToSafeFilename());
         }
     }
 
@@ -304,9 +301,9 @@
         [TestCase("97.66 KB", 100000)]
         [TestCase("3.38 MB", 3546346)]
         [TestCase("4.94 TB", 5432675475323)]
-        public void WithUlongAsParam_ReturnsFormatedBytes(string expected, ulong input)
+        public void WithUlongAsParam_ReturnsFormatedBytes(string expected, long input)
         {
-            Assert.AreEqual(expected, input.FormatBytes(), $"Testing with {input}");
+            Assert.AreEqual(expected, ((ulong) input).FormatBytes(), $"Testing with {input}");
         }
 
         [TestCase("3 KB", 3072)]
