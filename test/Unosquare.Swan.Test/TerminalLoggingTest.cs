@@ -8,15 +8,19 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.TerminalLoggingTests
 {
+    public abstract class TerminalLoggingTest
+    {
+        protected List<LoggingEntryMock> messages = new List<LoggingEntryMock>();
+        protected string extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
+    }
+
     [TestFixture]
-    public class OnLogMessageReceived
+    public class OnLogMessageReceived : TerminalLoggingTest
     {
         [Test]
         public void Logging()
         {
             Terminal.Flush();
-
-            var messages = new List<LoggingEntryMock>();
 
             Terminal.OnLogMessageReceived += (s, e) =>
             {
@@ -59,14 +63,12 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
     }
 
     [TestFixture]
-    public class Log
+    public class Log : TerminalLoggingTest
     {
         [Test]
         public void Message_MessageLogged()
         {
-            Terminal.Flush();
-
-            var messages = new List<LoggingEntryMock>();
+            Terminal.Flush();           
 
             Terminal.OnLogMessageReceived += (s, e) =>
             {
@@ -96,15 +98,12 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
     }
 
     [TestFixture]
-    public class Debug
+    public class Debug : TerminalLoggingTest
     {
         [Test]
         public void MessageWithException_MessageLogged()
         {
             Terminal.Flush();
-
-            var messages = new List<LoggingEntryMock>();
-            var extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
 
             Terminal.OnLogMessageReceived += (s, e) =>
             {
