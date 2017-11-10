@@ -162,4 +162,24 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.AreEqual(nameof(LogMessageType.Warning), messages.First(x => x.ExtendedData != null).Message);
         }
     }
+
+    [TestFixture]
+    public class Info : TerminalLoggingTest
+    {
+        [Test]
+        public void MessageWithException_MessageLogged()
+        {
+            nameof(LogMessageType.Info).Info();
+
+            Task.Delay(200).Wait();
+
+            new Exception().Info("Unosquare Américas", "Unosquare Labs");
+
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
+        }
+    }
 }
