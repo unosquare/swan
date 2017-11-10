@@ -94,4 +94,37 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.AreEqual(nameof(LogMessageType.None), messages.First(x => x.ExtendedData != null).Message);
         }
     }
+
+    [TestFixture]
+    public class Debug
+    {
+        [Test]
+        public void MessageWithException_MessageLogged()
+        {
+            Terminal.Flush();
+
+            var messages = new List<LoggingEntryMock>();
+            var extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
+
+            Terminal.OnLogMessageReceived += (s, e) =>
+            {
+                messages.Add(new LoggingEntryMock
+                {
+                    DateTime = e.UtcDate,
+                    Exception = e.Exception,
+                    Message = e.Message,
+                    Source = e.Source,
+                    Type = e.MessageType,
+                    ExtendedData = e.ExtendedData
+                });
+            };
+
+            new Exception().Debug("Test", "ArCiGo");
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual("ArCiGo", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
+
+        }
+    }
 }
