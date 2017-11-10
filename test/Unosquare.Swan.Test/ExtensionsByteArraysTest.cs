@@ -505,8 +505,7 @@
         {
             sbyte[] input = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                input.ToByteArray());
+            Assert.Throws<ArgumentNullException>(() => input.ToByteArray());
         }
     }
 
@@ -516,8 +515,7 @@
         [Test]
         public void WithNullArray_ReturnsByteArray()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.ToSByteArray());
+            Assert.Throws<ArgumentNullException>(() => NullBytes.ToSByteArray());
         }
     }
 

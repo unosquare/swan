@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Text;
 
     public class SampleCsvRecord
@@ -59,8 +58,8 @@
 
                 var record = new SampleCsvRecord
                 {
-                    AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : new DateTime?(),
-                    AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : new int?(),
+                    AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : (DateTime?) null,
+                    AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : (int?) null,
                     CreationDate = random.NextDouble() > 0.5d ? DateTime.Now : DateTime.MinValue,
                     Description = descriptionSb.ToString(),
                     Id = i,
@@ -75,17 +74,7 @@
 
             return result;
         }
-
-        public static Stream GenerateStreamFromString(string s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
-
+        
         public static List<string[]> SampleStringList()
             => new List<string[]>
             {
@@ -105,13 +94,5 @@
                     "true"
                 }
             };
-    }
-
-    public class SampleDto
-    {
-        public string Company { get; set; }
-        public int OpenPositions { get; set; }
-        public string MainTechnology { get; set; }
-        public string Revenue { get; set; }
     }
 }

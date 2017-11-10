@@ -43,10 +43,11 @@
         [Test]
         public void ValidCancel_ReturnsSuccess()
         {
+            // TODO: Rewrite this action to really check the cancel
             bool cancel;
             var message =
                 new MessageHubCancellableGenericMessage<string>(this, "Unosquare Américas", () => cancel = true);
-
+            
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
         }
