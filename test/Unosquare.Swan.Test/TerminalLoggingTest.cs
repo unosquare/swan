@@ -96,8 +96,6 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
 
             Task.Delay(200).Wait();
 
-            Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
-
             new Exception().Debug("Test", "ArCiGo");
 
             Task.Delay(150).Wait();
@@ -118,8 +116,6 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             nameof(LogMessageType.Trace).Trace();
 
             Task.Delay(200).Wait();
-
-            Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
 
             new Exception().Trace("Unosquare Américas", "Unosquare Labs");
 
