@@ -12,16 +12,10 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
     {
         protected List<LoggingEntryMock> messages = new List<LoggingEntryMock>();
         protected string extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
-    }
 
-    [TestFixture]
-    public class OnLogMessageReceived : TerminalLoggingTest
-    {
-        [Test]
-        public void Logging()
+        [SetUp]
+        public void SetupLoggingMessages()
         {
-            Terminal.Flush();
-
             Terminal.OnLogMessageReceived += (s, e) =>
             {
                 messages.Add(new LoggingEntryMock
@@ -34,6 +28,16 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
                     ExtendedData = e.ExtendedData
                 });
             };
+        }
+    }
+
+    [TestFixture]
+    public class OnLogMessageReceived : TerminalLoggingTest
+    {
+        [Test]
+        public void Logging()
+        {
+            Terminal.Flush();
 
             nameof(LogMessageType.Info).Info();
             nameof(LogMessageType.Debug).Debug();
@@ -68,20 +72,7 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void Message_MessageLogged()
         {
-            Terminal.Flush();           
-
-            Terminal.OnLogMessageReceived += (s, e) =>
-            {
-                messages.Add(new LoggingEntryMock
-                {
-                    DateTime = e.UtcDate,
-                    Exception = e.Exception,
-                    Message = e.Message,
-                    Source = e.Source,
-                    Type = e.MessageType,
-                    ExtendedData = e.ExtendedData
-                });
-            };
+            Terminal.Flush();
 
             Task.Delay(200).Wait();
             new Exception().Error(nameof(Log), nameof(Message_MessageLogged));
@@ -104,19 +95,6 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         public void MessageWithException_MessageLogged()
         {
             Terminal.Flush();
-
-            Terminal.OnLogMessageReceived += (s, e) =>
-            {
-                messages.Add(new LoggingEntryMock
-                {
-                    DateTime = e.UtcDate,
-                    Exception = e.Exception,
-                    Message = e.Message,
-                    Source = e.Source,
-                    Type = e.MessageType,
-                    ExtendedData = e.ExtendedData
-                });
-            };
 
             new Exception().Debug("Test", "ArCiGo");
 
