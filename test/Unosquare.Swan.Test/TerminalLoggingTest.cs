@@ -144,7 +144,4 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.AreEqual(nameof(LogMessageType.Trace), messages.First(x => x.ExtendedData != null).Message);
         }
     }
-
-    //[TestFixture]
-
 }
