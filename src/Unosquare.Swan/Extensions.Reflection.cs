@@ -294,9 +294,7 @@
         {
             try
             {
-                propertyInfo.GetValue(obj);
-
-                return obj;
+                return propertyInfo.GetValue(obj);
             }
             catch
             {
