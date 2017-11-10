@@ -236,7 +236,7 @@
     public class GetNetworkTimeUtcAsync : NetworkTest
     {
         [Test]
-        public async Task WitDefaulthNtpServerName_ReturnsDateTime()
+        public async Task WithDefaulthNtpServerName_ReturnsDateTime()
         {
             var publicIPAddress = await Network.GetNetworkTimeUtcAsync();
 
