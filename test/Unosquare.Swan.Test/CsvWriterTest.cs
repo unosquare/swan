@@ -243,12 +243,13 @@
             };
 
             var stringHeaders = dictionaryHeaders.Select(k => k.Key).ToList();
-            var stringHeadersOutput = string.Join(",", stringHeaders);
-
+            
             using (var stream = new MemoryStream())
             {
                 using (var writer = new CsvWriter(stream))
                 {
+                    var stringHeadersOutput = string.Join(",", stringHeaders) + writer.NewLineSequence;
+
                     writer.WriteHeadings(dictionaryHeaders);
 
                     stream.Position = 0;

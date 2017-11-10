@@ -6,7 +6,7 @@
     using Components;
     using Mocks;
 
-    public abstract class ObjectMapperTest
+    public abstract class ObjectMapperTest : TestFixtureBase
     {
         protected readonly User SourceUser = new User
         {
@@ -60,7 +60,7 @@
         [Test]
         public void WithAutoresolveFalse_ThrowsInvalidOperationException()
         {
-            Assert.Throws<InvalidOperationException>(() => Runtime.ObjectMapper.Map<UserDto>(SourceUser, false));
+            Assert.Throws<InvalidOperationException>(() => new ObjectMapper().Map<UserDto>(SourceUser, false));
         }
     }
 
@@ -85,18 +85,14 @@
         public void PropertyDestinationWithInvalidPropertySource_ThrowsException()
         {
             Assert.Throws<Exception>(() =>
-            {
-                Runtime.ObjectMapper.CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name);
-            });
+                new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name));
         }
 
         [Test]
         public void PropertySourceWithInvalidPropertyDestination_ThrowsException()
         {
             Assert.Throws<Exception>(() =>
-            {
-                Runtime.ObjectMapper.CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s);
-            });
+                new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s));
         }
 
         [Test]
@@ -127,18 +123,14 @@
         public void RemoveInvalidProperty_ThrowsException()
         {
             Assert.Throws<Exception>(() =>
-            {
-                Runtime.ObjectMapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t);
-            });
+                new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(t => t));
         }
 
         [Test]
         public void PropertyDestionationInfoNull_ReturnsException()
         {
-            Assert.Throws<Exception>(() =>
-            {
-                Runtime.ObjectMapper.CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null);
-            });
+            Assert.Throws<Exception>(() => 
+                new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null));
         }
     }
 
@@ -164,7 +156,7 @@
         [Test]
         public void SourceNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy((object) null, new UserDto()));
+            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(NullObj, new UserDto()));
         }
 
         [Test]

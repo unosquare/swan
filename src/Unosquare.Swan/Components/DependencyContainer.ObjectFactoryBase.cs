@@ -127,10 +127,6 @@
 
             private readonly Func<DependencyContainer, Dictionary<string, object>, object> _factory;
 
-            public override bool AssumeConstruction => true;
-
-            public override Type CreatesType => registerType;
-
             public DelegateFactory(
                 Type registerType,
                 Func<DependencyContainer,
@@ -140,6 +136,10 @@
 
                 this.registerType = registerType;
             }
+
+            public override bool AssumeConstruction => true;
+
+            public override Type CreatesType => registerType;
 
             public override ObjectFactoryBase WeakReferenceVariant => new WeakDelegateFactory(registerType, _factory);
 
@@ -172,6 +172,17 @@
 
             private readonly WeakReference _factory;
 
+            public WeakDelegateFactory(Type registerType,
+                Func<DependencyContainer, Dictionary<string, object>, object> factory)
+            {
+                if (factory == null)
+                    throw new ArgumentNullException(nameof(factory));
+
+                _factory = new WeakReference(factory);
+
+                this.registerType = registerType;
+            }
+
             public override bool AssumeConstruction => true;
 
             public override Type CreatesType => registerType;
@@ -188,17 +199,6 @@
             }
 
             public override ObjectFactoryBase WeakReferenceVariant => this;
-
-            public WeakDelegateFactory(Type registerType,
-                Func<DependencyContainer, Dictionary<string, object>, object> factory)
-            {
-                if (factory == null)
-                    throw new ArgumentNullException(nameof(factory));
-
-                _factory = new WeakReference(factory);
-
-                this.registerType = registerType;
-            }
 
             public override object GetObject(
                 Type requestedType, 

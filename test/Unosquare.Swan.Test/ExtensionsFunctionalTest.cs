@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class ExtensionsFunctionalTest
+    public abstract class ExtensionsFunctionalTest : TestFixtureBase
     {
         protected static IEnumerable<string> Enumerable = new List<string> {"Aragorn", "Gimli", "Legolas", "Gandalf"};
 
@@ -133,10 +133,8 @@
         [Test]
         public void WithMethodCallAndNullIList_ThrowsArgumentNullException()
         {
-            IList<object> list = null;
-
             Assert.Throws<ArgumentNullException>(() =>
-                list.AddWhen(() => true, AddName));
+                NullStringList.AddWhen(() => true, AddName));
         }
 
         [Test]
@@ -170,12 +168,9 @@
         [Test]
         public void WithNullIList_ThrowsArgumentNullException()
         {
-            IList<object> list = null;
-
             Assert.Throws<ArgumentNullException>(() =>
-                list.AddWhen(true, "Sauron"));
+                NullStringList.AddWhen(true, "Sauron"));
         }
-
     }
 
     [TestFixture]
@@ -200,10 +195,8 @@
         [Test]
         public void WithNullList_ThrowsArgumentNullException()
         {
-            List<object> list = null;
-
             Assert.Throws<ArgumentNullException>(() =>
-                list.AddRangeWhen(() => true, AddRange));
+                NullStringList.AddRangeWhen(() => true, AddRange));
         }
 
         [Test]

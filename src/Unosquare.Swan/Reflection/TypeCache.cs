@@ -17,6 +17,38 @@
     {
         private readonly object _syncLock = new object();
         private readonly Dictionary<Type, T[]> _cache = new Dictionary<Type, T[]>();
+        
+        /// <summary>
+        /// Gets or sets the <see cref="IEnumerable{PropertyInfo}" /> with the specified type.
+        /// If the properties are not available, it returns null.
+        /// </summary>
+        /// <value>
+        /// The <see cref="IEnumerable{PropertyInfo}" />.
+        /// </value>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// A sequence of <see cref="IEnumerable{PropertyInfo}" /> with a specified type
+        /// </returns>
+        public IEnumerable<T> this[Type type]
+        {
+            get
+            {
+                lock (_syncLock)
+                {
+                    return _cache.ContainsKey(type) ? _cache[type] : null;
+                }
+            }
+            set
+            {
+                lock (_syncLock)
+                {
+                    if (value == null)
+                        return;
+
+                    _cache[type] = value.Where(item => item != null).ToArray();
+                }
+            }
+        }
 
         /// <summary>
         /// Determines whether the cache contains the specified type.
@@ -81,38 +113,6 @@
         /// <param name="factory">The factory.</param>
         /// <returns>An array of the properties stored for the specified type</returns>
         public T[] Retrieve<TOut>(Func<IEnumerable<T>> factory) => Retrieve(typeof(TOut), factory);
-
-        /// <summary>
-        /// Gets or sets the <see cref="IEnumerable{PropertyInfo}" /> with the specified type.
-        /// If the properties are not available, it returns null.
-        /// </summary>
-        /// <value>
-        /// The <see cref="IEnumerable{PropertyInfo}" />.
-        /// </value>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        /// A sequence of <see cref="IEnumerable{PropertyInfo}" /> with a specified type
-        /// </returns>
-        public IEnumerable<T> this[Type type]
-        {
-            get
-            {
-                lock (_syncLock)
-                {
-                    return _cache.ContainsKey(type) ? _cache[type] : null;
-                }
-            }
-            set
-            {
-                lock (_syncLock)
-                {
-                    if (value == null)
-                        return;
-
-                    _cache[type] = value.Where(item => item != null).ToArray();
-                }
-            }
-        }
     }
 
     /// <summary>

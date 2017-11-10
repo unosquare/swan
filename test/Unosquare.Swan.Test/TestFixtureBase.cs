@@ -10,6 +10,8 @@
 
         protected object NullObj = null;
 
+        protected string NullString = null;
+
         protected List<string> NullStringList = null;
 
         protected Action NullAction = null;
@@ -29,5 +31,7 @@
             Name = "string",
             Value = 1
         };
+
+        protected readonly List<string> DefaultStringList = new List<string> { "A", "B", "C" };
     }
 }
