@@ -305,4 +305,16 @@
             Assert.AreEqual(source.DecimalData, destination.DecimalData);
         }
     }
+
+    [TestFixture]
+    public class ExceptionMessage
+    {
+        [Test]
+        public void WithNullException_ThrowsArgumentNullException()
+        {
+            Exception ex = null;
+
+            Assert.Throws<ArgumentNullException>(() => ex.ExceptionMessage());
+        }
+    }
 }
