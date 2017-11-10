@@ -121,7 +121,7 @@
         }
 
         [Test]
-        public async Task PublishMessageAsync_ReturnsSuccess()
+        public async Task PublishMessageAsync_MessagePublished()
         {
             var messagesToSend = new List<SimpleMessageMock>();
 
