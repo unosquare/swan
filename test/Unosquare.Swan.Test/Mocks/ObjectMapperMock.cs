@@ -22,10 +22,4 @@
 
         public string Role { get; set; }
     }
-
-    public class AdminDto
-    {
-        public string Role { get; set; }
-        public string Privileges { get; set; }
-    }
 }

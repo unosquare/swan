@@ -47,7 +47,7 @@
 
             Assert.IsNotNull(Runtime.Process);
             Assert.AreEqual(Runtime.Process.ProcessName,
-#if NET452
+#if NET46
                 "dotnet-test-nunit"
 #else
                 "dotnet"

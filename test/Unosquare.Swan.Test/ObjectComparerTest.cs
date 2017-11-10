@@ -14,7 +14,6 @@
         public void SameObjects_ReturnsTrue()
         {
             Assert.IsTrue(ObjectComparer.AreObjectsEqual(DefaultObject, DefaultObject));
-
         }
 
         [Test]

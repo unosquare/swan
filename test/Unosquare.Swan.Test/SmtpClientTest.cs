@@ -61,10 +61,10 @@
             Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
             Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
 
-            Assert.AreEqual("hh", smtpMock.headers.First().Key);
+            Assert.AreEqual("hh", smtpMock.Headers.First().Key);
         }
 
-#if NET452
+#if NET46
         [Test]
         public async Task SendLocalEmailWithMailMessage()
         {
@@ -90,8 +90,8 @@
             Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
             Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
 
-            Assert.AreEqual("x-sender", smtpMock.headers.First().Key);
-            Assert.AreEqual(SenderEmail, smtpMock.headers.First().Value);
+            Assert.AreEqual("x-sender", smtpMock.Headers.First().Key);
+            Assert.AreEqual(SenderEmail, smtpMock.Headers.First().Value);
         }
 #endif
 

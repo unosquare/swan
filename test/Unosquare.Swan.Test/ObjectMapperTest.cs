@@ -102,7 +102,7 @@
         [Test]
         public void PropertiesTypeNotMatchInMaps_ThrowsInvalidOperationException()
         {
-            Assert.Throws<InvalidOperationException>(() => Runtime.ObjectMapper.CreateMap<User, AdminDto>());
+            Assert.Throws<InvalidOperationException>(() => Runtime.ObjectMapper.CreateMap<User, ErrorJson>());
         }
     }
 
