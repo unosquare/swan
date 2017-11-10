@@ -6,6 +6,7 @@
     using Unosquare.Swan.Components;
     using Unosquare.Swan.Exceptions;
     using Unosquare.Swan.Test.Mocks;
+    using System.Linq;
 
     [TestFixture]
     public class AutoRegister
@@ -768,14 +769,19 @@
     [TestFixture]
     public class ResolveAll
     {
-        [Test]
-        public void WithType_ResolveAll()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void WithType_ResolveAll(bool includeUnnamed)
         {
             var container = new DependencyContainer();
-            container.Register(typeof(Shark));
-            container.Register(typeof(Clown));
+            container.Register(typeof(Fish), typeof(Shark), new Shark().GetName());
+            container.Register(typeof(Fish), typeof(Clown));
+            container.Register(typeof(Fish), typeof(Shark), "Kisame");
 
-            Assert.IsNotNull(container.ResolveAll<Fish>());
+            var resolve = container.ResolveAll<Fish>(includeUnnamed);
+
+            Assert.IsTrue(resolve.Any(x => x.GetType() == typeof(Shark)));
+            Assert.AreEqual(includeUnnamed, resolve.Any(x => x.GetType() == typeof(Clown)));
         }
 
         [TestCase(false)]
@@ -783,14 +789,16 @@
         public void WithTypeAsParamAndWithParent_ResolveAll(bool includeUnnamed)
         {
             var containerParent = new DependencyContainer();
-            containerParent.Register(typeof(Shark));
-            containerParent.Register(typeof(Shark), new Shark().GetName());
-            containerParent.Register(typeof(Clown));
+            containerParent.Register(typeof(Fish), typeof(Shark), new Shark().GetName());
+            containerParent.Register(typeof(Fish), typeof(Shark), "Kisame");
+            containerParent.Register(typeof(Fish), typeof(Clown));
 
             var container = containerParent.GetChildContainer();
-            container.Register(typeof(Shark), new Shark().GetName());
+
+            var resolve = container.ResolveAll<Fish>(includeUnnamed);
             
-            Assert.IsNotNull(container.ResolveAll(typeof(Shark), includeUnnamed));
+            Assert.IsTrue(resolve.Any(x => x.GetType() == typeof(Shark)));
+            Assert.AreEqual(includeUnnamed, resolve.Any(x => x.GetType() == typeof(Clown)));
         }
     }
 }
