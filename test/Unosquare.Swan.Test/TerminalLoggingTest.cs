@@ -92,7 +92,15 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void MessageWithException_MessageLogged()
         {
+            nameof(LogMessageType.Trace).Trace();
+
+            Task.Delay(200).Wait();
+
+            Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
+
             new Exception().Debug("Test", "ArCiGo");
+
+            Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual("ArCiGo", messages.First(x => x.ExtendedData != null).Message);
@@ -107,7 +115,15 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void MessageWithException_MessageLogged()
         {
+            nameof(LogMessageType.Trace).Trace();
+
+            Task.Delay(200).Wait();
+
+            Assert.IsTrue(messages.All(x => x.Message == x.Type.ToString()));
+
             new Exception().Trace("Unosquare Américas", "Unosquare Labs");
+
+            Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
@@ -128,4 +144,7 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.AreEqual(nameof(LogMessageType.Trace), messages.First(x => x.ExtendedData != null).Message);
         }
     }
+
+    //[TestFixture]
+
 }
