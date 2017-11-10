@@ -102,6 +102,21 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(nameof(LogMessageType.None), messages.First(x => x.ExtendedData != null).Message);
         }
+
+        [Test]
+        public void MessageWithException_MessageLogged()
+        {
+            nameof(LogMessageType.None).Log("Test", LogMessageType.None);
+
+            Task.Delay(200).Wait();
+
+            new Exception().Log(typeof(string));
+
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.IsNotNull(messages.First(x => x.ExtendedData != null).Message);
+        }
     }
 
     [TestFixture]
@@ -228,6 +243,34 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(nameof(LogMessageType.Error), messages.First(x => x.ExtendedData != null).Message);
+        }
+    }
+
+    [TestFixture]
+    public class Dump : TerminalLoggingTest
+    {
+        [Test]
+        public void NullObject_ReturnsNothing()
+        {
+            messages.Clear();
+
+            object consultant = null;
+
+            consultant.Dump("Unosquare Américas");
+
+            Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
+        }
+
+        [Test]
+        public void NotNullObject_MessageLogged()
+        {
+            messages.Clear();
+
+            object consultant = new { Name = "Alejandro" };
+
+            consultant.Dump("Unosquare Américas");
+
+            Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
         }
     }
 }

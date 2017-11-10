@@ -167,6 +167,7 @@
                     Runtime.Messages.Subscribe<SimpleMessageMock>(null, x => true));
             }
 
+            [Test]
             public void NullMessageFilter_ThrowsArgumentNullException()
             {
                 Assert.Throws<ArgumentNullException>(() =>
