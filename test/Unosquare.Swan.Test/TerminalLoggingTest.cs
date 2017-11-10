@@ -245,4 +245,20 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.AreEqual(nameof(LogMessageType.Error), messages.First(x => x.ExtendedData != null).Message);
         }
     }
+
+    [TestFixture]
+    public class Dump : TerminalLoggingTest
+    {
+        [Test]
+        public void NullObject_ReturnsNothing()
+        {
+            messages.Clear();
+
+            object consultant = null;
+
+            consultant.Dump("Unosquare Américas");
+
+            Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
+        }
+    }
 }
