@@ -7044,18 +7044,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapControl.GetValue
   fullName: Unosquare.Swan.Networking.Ldap.LdapControl.GetValue
   nameWithType: LdapControl.GetValue
-- uid: Unosquare.Swan.Networking.Ldap.LdapControl.ID
-  name: ID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_ID
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapControl.ID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.ID
-  nameWithType: LdapControl.ID
-- uid: Unosquare.Swan.Networking.Ldap.LdapControl.ID*
-  name: ID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_ID_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapControl.ID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.ID
-  nameWithType: LdapControl.ID
+- uid: Unosquare.Swan.Networking.Ldap.LdapControl.Id
+  name: Id
+  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_Id
+  commentId: P:Unosquare.Swan.Networking.Ldap.LdapControl.Id
+  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.Id
+  nameWithType: LdapControl.Id
+- uid: Unosquare.Swan.Networking.Ldap.LdapControl.Id*
+  name: Id
+  href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_Id_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapControl.Id
+  fullName: Unosquare.Swan.Networking.Ldap.LdapControl.Id
+  nameWithType: LdapControl.Id
 - uid: Unosquare.Swan.Networking.Ldap.LdapControl.Register(System.String,System.Type)
   name: Register(String, Type)
   href: api/Unosquare.Swan.Networking.Ldap.LdapControl.html#Unosquare_Swan_Networking_Ldap_LdapControl_Register_System_String_System_Type_
@@ -9212,6 +9212,18 @@ references:
   commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetMethod
   fullName: Unosquare.Swan.ReflectionExtensions.GetMethod
   nameWithType: ReflectionExtensions.GetMethod
+- uid: Unosquare.Swan.ReflectionExtensions.GetValueOrNull(System.Reflection.PropertyInfo,System.Object)
+  name: GetValueOrNull(PropertyInfo, Object)
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetValueOrNull_System_Reflection_PropertyInfo_System_Object_
+  commentId: M:Unosquare.Swan.ReflectionExtensions.GetValueOrNull(System.Reflection.PropertyInfo,System.Object)
+  fullName: Unosquare.Swan.ReflectionExtensions.GetValueOrNull(System.Reflection.PropertyInfo, System.Object)
+  nameWithType: ReflectionExtensions.GetValueOrNull(PropertyInfo, Object)
+- uid: Unosquare.Swan.ReflectionExtensions.GetValueOrNull*
+  name: GetValueOrNull
+  href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_GetValueOrNull_
+  commentId: Overload:Unosquare.Swan.ReflectionExtensions.GetValueOrNull
+  fullName: Unosquare.Swan.ReflectionExtensions.GetValueOrNull
+  nameWithType: ReflectionExtensions.GetValueOrNull
 - uid: Unosquare.Swan.ReflectionExtensions.IsAbstract(System.Type)
   name: IsAbstract(Type)
   href: api/Unosquare.Swan.ReflectionExtensions.html#Unosquare_Swan_ReflectionExtensions_IsAbstract_System_Type_
