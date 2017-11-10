@@ -8,7 +8,7 @@ using Unosquare.Swan.Test.Mocks;
 
 namespace Unosquare.Swan.Test.TerminalLoggingTests
 {
-    public abstract class TerminalLoggingTest
+    public abstract class TerminalLoggingTest : TestFixtureBase
     {
         protected List<LoggingEntryMock> messages = new List<LoggingEntryMock>();
         protected string extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
@@ -254,9 +254,7 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         {
             messages.Clear();
 
-            object consultant = null;
-
-            consultant.Dump("Unosquare Américas");
+            NullObj.Dump("Unosquare Américas");
 
             Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
         }
@@ -266,11 +264,36 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         {
             messages.Clear();
 
-            object consultant = new { Name = "Alejandro" };
+            object consultant = "Alejandro";
 
             consultant.Dump("Unosquare Américas");
 
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual("Unosquare Américas", messages.First(x => x.ExtendedData != null).Source);
+        }
+
+        [Test]
+        public void NullObjectAcceptingType_ReturnsNothing()
+        {
+            messages.Clear();
+
+            NullObj.Dump(typeof(string));
+
             Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
+        }
+
+        [Test]
+        public void NotNullObjectAcceptingType_ReturnsNothing()
+        {
+            messages.Clear();
+
+            object consultant = "Alejandro";
+
+            consultant.Dump(typeof(string));
+
+            Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual("Alejandro", messages.First(x => x.ExtendedData != null).ExtendedData);
+            Assert.AreEqual("System.String", messages.First(x => x.ExtendedData != null).Source);
         }
     }
 }
