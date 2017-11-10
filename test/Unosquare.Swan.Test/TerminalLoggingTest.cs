@@ -104,4 +104,20 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
 
         }
     }
+
+    [TestFixture]
+    public class Trace : TerminalLoggingTest
+    {
+        [Test]
+        public void MessageWithException_MessageLogged()
+        {
+            Terminal.Flush();
+
+            new Exception().Trace("Unosquare Américas", "Unosquare Labs");
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
+        }
+    }
 }
