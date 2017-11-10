@@ -182,4 +182,22 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
             Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
     }
+
+    [TestFixture]
+    public class Error : TerminalLoggingTest
+    {
+        [Test]
+        public void MessageWithType_MessageLogged()
+        {
+            messages.Clear();
+
+            nameof(LogMessageType.Error).Error(typeof(string), 1);
+
+            Task.Delay(150).Wait();
+
+            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
+            Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
+            Assert.AreEqual(nameof(LogMessageType.Error), messages.First(x => x.ExtendedData != null).Message);
+        }
+    }
 }
