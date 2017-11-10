@@ -28,6 +28,8 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
                     ExtendedData = e.ExtendedData
                 });
             };
+            
+            Terminal.Flush();
         }
     }
 
@@ -37,8 +39,6 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void Logging()
         {
-            Terminal.Flush();
-
             nameof(LogMessageType.Info).Info();
             nameof(LogMessageType.Debug).Debug();
             nameof(LogMessageType.Error).Error();
@@ -72,8 +72,6 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void Message_MessageLogged()
         {
-            Terminal.Flush();
-
             Task.Delay(200).Wait();
             new Exception().Error(nameof(Log), nameof(Message_MessageLogged));
             Task.Delay(150).Wait();
@@ -94,8 +92,6 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void MessageWithException_MessageLogged()
         {
-            Terminal.Flush();
-
             new Exception().Debug("Test", "ArCiGo");
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
@@ -111,8 +107,6 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void MessageWithException_MessageLogged()
         {
-            Terminal.Flush();
-
             new Exception().Trace("Unosquare Américas", "Unosquare Labs");
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
@@ -123,11 +117,10 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
         [Test]
         public void MessageWithType_MessageLogged()
         {
-            Terminal.Flush();
-            Type type = "Test".GetType();
-
             messages.Clear();
-            nameof(LogMessageType.Trace).Trace(type, 1);
+
+            nameof(LogMessageType.Trace).Trace(typeof(string), 1);
+
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
