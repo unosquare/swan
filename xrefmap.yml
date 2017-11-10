@@ -3684,6 +3684,21 @@ references:
   commentId: Overload:Unosquare.Swan.Extensions.Benchmark
   fullName: Unosquare.Swan.Extensions.Benchmark
   nameWithType: Extensions.Benchmark
+- uid: Unosquare.Swan.Extensions.CopyKeyValuePairTo(System.Collections.Generic.IDictionary{System.String,System.Object},System.Object,System.String[])
+  name: CopyKeyValuePairTo(IDictionary<String, Object>, Object, String[])
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyKeyValuePairTo_System_Collections_Generic_IDictionary_System_String_System_Object__System_Object_System_String___
+  commentId: M:Unosquare.Swan.Extensions.CopyKeyValuePairTo(System.Collections.Generic.IDictionary{System.String,System.Object},System.Object,System.String[])
+  name.vb: CopyKeyValuePairTo(IDictionary(Of String, Object), Object, String())
+  fullName: Unosquare.Swan.Extensions.CopyKeyValuePairTo(System.Collections.Generic.IDictionary<System.String, System.Object>, System.Object, System.String[])
+  fullName.vb: Unosquare.Swan.Extensions.CopyKeyValuePairTo(System.Collections.Generic.IDictionary(Of System.String, System.Object), System.Object, System.String())
+  nameWithType: Extensions.CopyKeyValuePairTo(IDictionary<String, Object>, Object, String[])
+  nameWithType.vb: Extensions.CopyKeyValuePairTo(IDictionary(Of String, Object), Object, String())
+- uid: Unosquare.Swan.Extensions.CopyKeyValuePairTo*
+  name: CopyKeyValuePairTo
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyKeyValuePairTo_
+  commentId: Overload:Unosquare.Swan.Extensions.CopyKeyValuePairTo
+  fullName: Unosquare.Swan.Extensions.CopyKeyValuePairTo
+  nameWithType: Extensions.CopyKeyValuePairTo
 - uid: Unosquare.Swan.Extensions.CopyOnlyPropertiesTo(System.Object,System.Object,System.String[])
   name: CopyOnlyPropertiesTo(Object, Object, String[])
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyOnlyPropertiesTo_System_Object_System_Object_System_String___
@@ -3723,15 +3738,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.CopyOnlyPropertiesToNew(Of T)(System.Object, System.String())
   nameWithType: Extensions.CopyOnlyPropertiesToNew<T>(Object, String[])
   nameWithType.vb: Extensions.CopyOnlyPropertiesToNew(Of T)(Object, String())
-- uid: Unosquare.Swan.Extensions.CopyPropertiesTo(System.Collections.Generic.IDictionary{System.String,System.Object},System.Object,System.String[])
-  name: CopyPropertiesTo(IDictionary<String, Object>, Object, String[])
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyPropertiesTo_System_Collections_Generic_IDictionary_System_String_System_Object__System_Object_System_String___
-  commentId: M:Unosquare.Swan.Extensions.CopyPropertiesTo(System.Collections.Generic.IDictionary{System.String,System.Object},System.Object,System.String[])
-  name.vb: CopyPropertiesTo(IDictionary(Of String, Object), Object, String())
-  fullName: Unosquare.Swan.Extensions.CopyPropertiesTo(System.Collections.Generic.IDictionary<System.String, System.Object>, System.Object, System.String[])
-  fullName.vb: Unosquare.Swan.Extensions.CopyPropertiesTo(System.Collections.Generic.IDictionary(Of System.String, System.Object), System.Object, System.String())
-  nameWithType: Extensions.CopyPropertiesTo(IDictionary<String, Object>, Object, String[])
-  nameWithType.vb: Extensions.CopyPropertiesTo(IDictionary(Of String, Object), Object, String())
 - uid: Unosquare.Swan.Extensions.CopyPropertiesTo(System.Object,System.Object,System.String[])
   name: CopyPropertiesTo(Object, Object, String[])
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CopyPropertiesTo_System_Object_System_Object_System_String___
