@@ -775,7 +775,7 @@
             container.Register(typeof(Shark));
             container.Register(typeof(Clown));
 
-            Assert.IsNotNull(container.ResolveAll<Shark>());
+            Assert.IsNotNull(container.ResolveAll<Fish>());
         }
 
         [TestCase(false)]
