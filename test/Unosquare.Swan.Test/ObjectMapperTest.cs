@@ -6,7 +6,7 @@
     using Components;
     using Mocks;
 
-    public abstract class ObjectMapperTest
+    public abstract class ObjectMapperTest : TestFixtureBase
     {
         protected readonly User SourceUser = new User
         {
@@ -158,7 +158,7 @@
         [Test]
         public void SourceNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy((object) null, new UserDto()));
+            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(NullObj, new UserDto()));
         }
 
         [Test]
