@@ -122,14 +122,11 @@
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
-        /// <param name="ignoreProperties">The ignore properties.</param>
+        /// <param name="ignoreKeys">The ignore keys.</param>
         /// <returns>Number of properties that was copied successful</returns>
-        public static int CopyPropertiesTo(
-            this IDictionary<string, object> source,
-            object target,
-            string[] ignoreProperties = null)
+        public static int CopyKeyValuePairTo(this IDictionary<string, object> source, object target, string[] ignoreKeys = null)
         {
-            return Components.ObjectMapper.Copy(source, target, null, ignoreProperties);
+            return Components.ObjectMapper.Copy(source, target, null, ignoreKeys);
         }
 
         /// <summary>

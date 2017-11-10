@@ -7,6 +7,8 @@
 
     public abstract class ExtensionsFunctionalTest : TestFixtureBase
     {
+        protected const string AdditionalName = "Sauron";
+
         protected static IEnumerable<string> Enumerable = new List<string> {"Aragorn", "Gimli", "Legolas", "Gandalf"};
 
         protected static List<object> Expected = new List<object>
@@ -15,20 +17,20 @@
             "Gimli",
             "Legolas",
             "Gandalf",
-            "Sauron"
+            AdditionalName
         };
 
         protected readonly IQueryable<string> Queryable = Enumerable.AsQueryable();
 
         protected List<string> List => Enumerable.ToList();
 
-        protected IEnumerable<string> AddName(IEnumerable<string> input) => input.Concat(new[] {"Sauron"});
+        protected IEnumerable<string> AddName(IEnumerable<string> input) => input.Concat(new[] {AdditionalName});
 
-        protected IQueryable<string> AddName(IQueryable<string> input) => input.Concat(new[] {"Sauron"});
+        protected IQueryable<string> AddName(IQueryable<string> input) => input.Concat(new[] {AdditionalName});
 
-        protected string AddName() => "Sauron";
+        protected string AddName() => AdditionalName;
 
-        protected IEnumerable<string> AddRange() => new[] {"Sauron"};
+        protected IEnumerable<string> AddRange() => new[] {AdditionalName};
     }
 
     [TestFixture]
@@ -152,7 +154,7 @@
         [Test]
         public void WithConditionEqualsTrue_ReturnsListWithAddedItem()
         {
-            var whenResult = List.AddWhen(true, "Sauron");
+            var whenResult = List.AddWhen(true, AdditionalName);
 
             Assert.AreEqual(Expected, whenResult);
         }
@@ -160,7 +162,7 @@
         [Test]
         public void WithConditionEqualsFalse_ReturnsListWithAddedItem()
         {
-            var whenResult = List.AddWhen(false, "Sauron");
+            var whenResult = List.AddWhen(false, AdditionalName);
 
             Assert.AreEqual(Enumerable, whenResult);
         }
@@ -169,7 +171,7 @@
         public void WithNullIList_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullStringList.AddWhen(true, "Sauron"));
+                NullStringList.AddWhen(true, AdditionalName));
         }
     }
 

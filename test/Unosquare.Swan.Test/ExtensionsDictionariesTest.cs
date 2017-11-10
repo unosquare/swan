@@ -22,7 +22,7 @@
         [Test]
         public void DictionaryWithoutExistingKey_ReturnsNull()
         {
-            Assert.IsNull(DefaultDictionary.GetValueOrDefault(7), null);
+            Assert.IsNull(DefaultDictionary.GetValueOrDefault(7));
         }
     }
 

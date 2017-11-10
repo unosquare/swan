@@ -138,9 +138,7 @@
         [Test]
         public void WithNullObjectAttr_CopyPropertiesToTarget()
         {
-            var source = ObjectAttr.Get();
-
-            Assert.Throws<ArgumentNullException>(() => source.CopyPropertiesTo(null));
+            Assert.Throws<ArgumentNullException>(() => ObjectAttr.Get().CopyPropertiesTo(null));
         }
 
         [Test]
@@ -184,7 +182,7 @@
 
             var target = new UserDto();
 
-            source.CopyPropertiesTo(target, null);
+            source.CopyKeyValuePairTo(target);
 
             Assert.AreEqual(source["Name"].ToString(), target.Name);
             Assert.AreEqual(source["Email"].ToString(), target.Email);
