@@ -51,7 +51,7 @@
         }
 
         [Test]
-        public void WithNullArrayOfBytes_ReturnsStruct()
+        public void WithNullArrayOfBytes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() => NullByteArray.ToStruct<int>(0, 0)); 
         }
