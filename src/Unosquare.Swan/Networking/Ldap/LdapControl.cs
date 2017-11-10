@@ -66,6 +66,17 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     An ASN.1 RFC 2251 Control.
         /// </returns>
         internal RfcControl Asn1Object { get; private set; }
+        
+        /// <summary>
+        /// Registers a class to be instantiated on receipt of a control with the
+        /// given OID.
+        /// Any previous registration for the OID is overridden. The
+        /// controlClass must be an extension of LdapControl.
+        /// </summary>
+        /// <param name="oid">The object identifier of the control.</param>
+        /// <param name="controlClass">A class which can instantiate an LdapControl.</param>
+        public static void Register(string oid, Type controlClass)
+            => RegisteredControls.RegisterResponseControl(oid, controlClass);
 
         /// <summary>
         ///     Returns a copy of the current LdapControl object.
@@ -104,27 +115,11 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     or null if the control has no data.
         /// </returns>
         public sbyte[] GetValue() => Asn1Object.ControlValue?.ByteValue();
-
-        /// <summary>
-        /// Sets the control-specific data of the object.  This method is for
-        /// use by an extension of LdapControl.
-        /// </summary>
-        /// <param name="controlValue">The control value.</param>
+        
         internal void SetValue(sbyte[] controlValue)
         {
             Asn1Object.ControlValue = new Asn1OctetString(controlValue);
         }
-
-        /// <summary>
-        /// Registers a class to be instantiated on receipt of a control with the
-        /// given OID.
-        /// Any previous registration for the OID is overridden. The
-        /// controlClass must be an extension of LdapControl.
-        /// </summary>
-        /// <param name="oid">The object identifier of the control.</param>
-        /// <param name="controlClass">A class which can instantiate an LdapControl.</param>
-        public static void Register(string oid, Type controlClass)
-            => RegisteredControls.RegisterResponseControl(oid, controlClass);
     }
 
     /// <summary>
@@ -160,6 +155,7 @@ namespace Unosquare.Swan.Networking.Ldap
             Add(name);
             Add(auth);
         }
+
         public Asn1Integer Version
         {
             get => (Asn1Integer)Get(0);
@@ -290,10 +286,9 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class LdapUrl
     {
         // Broken out parts of the URL
-        private readonly bool ipV6 = false; // TCP/IP V6
+        private readonly bool _ipV6 = false; // TCP/IP V6
 
         private int _port; // Port
-        private string _dn; // Base DN
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapUrl"/> class.
@@ -306,6 +301,14 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             ParseUrl(url);
         }
+
+        /// <summary>
+        /// Gets or sets the distinguised name.
+        /// </summary>
+        /// <value>
+        /// The dn.
+        /// </value>
+        public string DN { get; set; }
 
         /// <summary>
         /// Returns an array of attribute names specified in the URL.
@@ -381,21 +384,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     clone of this URL object.
         /// </returns>
         public object Clone() => MemberwiseClone();
-
-        /// <summary>
-        ///     Returns the base distinguished name encapsulated in the URL.
-        /// </summary>
-        /// <returns>
-        ///     The base distinguished name specified in the URL, or null if none.
-        /// </returns>
-        public string GetDN() => _dn;
-
-        /// <summary>
-        /// Sets the base distinguished name encapsulated in the URL.
-        /// </summary>
-        /// <param name="dn">The dn.</param>
-        internal void SetDN(string dn) => _dn = dn;
-
+        
         /// <summary>
         /// Returns a valid string representation of this Ldap URL.
         /// </summary>
@@ -410,7 +399,7 @@ namespace Unosquare.Swan.Networking.Ldap
             url.Append(Secure ? "ldaps://" : "ldap://");
 
             // Host:port/dn
-            url.Append(ipV6 ? $"[{Host}]" : Host);
+            url.Append(_ipV6 ? $"[{Host}]" : Host);
 
             // Port not specified
             if (_port != 0)
@@ -418,16 +407,16 @@ namespace Unosquare.Swan.Networking.Ldap
                 url.Append(":" + _port);
             }
 
-            if (_dn == null && AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null &&
+            if (DN == null && AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null &&
                 Extensions == null)
             {
                 return url.ToString();
             }
 
             url.Append("/");
-            if (_dn != null)
+            if (DN != null)
             {
-                url.Append(_dn);
+                url.Append(DN);
             }
 
             if (AttributeArray == null && Scope == LdapConnection.ScopeBase && Filter == null && Extensions == null)
@@ -649,7 +638,7 @@ namespace Unosquare.Swan.Networking.Ldap
             scanStart = dnStart + 1;
             var attrsStart = url.IndexOf('?', scanStart);
 
-            _dn = attrsStart < 0
+            DN = attrsStart < 0
                 ? url.Substring(scanStart, scanEnd - scanStart)
                 : url.Substring(scanStart, attrsStart - scanStart);
 
@@ -783,19 +772,20 @@ namespace Unosquare.Swan.Networking.Ldap
                 var referrals = new string[size];
                 for (var i = 0; i < size; i++)
                 {
-                    var aRef = ((Asn1OctetString) reference.Get(i)).StringValue();
+                    var refString = ((Asn1OctetString) reference.Get(i)).StringValue();
+
                     try
                     {
                         // get the referral URL
-                        var urlRef = new LdapUrl(aRef);
-                        if (urlRef.GetDN() == null)
+                        var urlRef = new LdapUrl(refString);
+                        if (urlRef.DN == null)
                         {
                             var origMsg = Asn1Object.RequestingMessage.Asn1Object;
                             string dn;
                             if ((dn = origMsg.RequestDn) != null)
                             {
-                                urlRef.SetDN(dn);
-                                aRef = urlRef.ToString();
+                                urlRef.DN = dn;
+                                refString = urlRef.ToString();
                             }
                         }
                     }
@@ -805,11 +795,11 @@ namespace Unosquare.Swan.Networking.Ldap
                     }
                     finally
                     {
-                        referrals[i] = aRef;
+                        referrals[i] = refString;
                     }
                 }
-            
-            return referrals;
+
+                return referrals;
             }
         }
 
