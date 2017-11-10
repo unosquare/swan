@@ -1,32 +1,36 @@
-﻿using NUnit.Framework;
-using System;
-using System.Text;
-using System.Threading.Tasks;
-using Unosquare.Swan.Components;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Unosquare.Swan.Components;
+
     [TestFixture]
-    public class ProcessHelperTest
+    public class GetProcessOutputAsync
     {
         [Test]
-        public async Task GetProcessOutputAsyncTest()
+        public async Task WithValidParams_ReturnsProcessOutput()
         {
             var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help");
             Assert.IsNotEmpty(data);
             Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
         }
+    }
 
+    [TestFixture]
+    public class RunProcessAsync
+    {
         [Test]
-        public async Task GetValidRunProcessAsyncTest()
+        public async Task WithNullonErrorData_ValidRunProcess()
         {
             const int okCode = 0;
             string output = null;
 
             var result = await ProcessRunner.RunProcessAsync("dotnet", "--help", (data, proc) =>
             {
-                if (output == null) output = Encoding.GetEncoding(0).GetString(data);
-
+                if (output == null)
+                    output = Encoding.GetEncoding(0).GetString(data);
             }, null);
 
             Assert.IsTrue(result == okCode);
@@ -34,7 +38,7 @@ namespace Unosquare.Swan.Test
         }
 
         [Test]
-        public async Task GetInvalidRunProcessAsyncTest()
+        public async Task WithNullOnOutputData_InvalidRunProcess()
         {
             if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
             {
@@ -47,19 +51,13 @@ namespace Unosquare.Swan.Test
 
                 var result = await ProcessRunner.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
                 {
-                    if (output == null) output = Encoding.GetEncoding(0).GetString(data);
+                    if (output == null)
+                        output = Encoding.GetEncoding(0).GetString(data);
                 });
 
                 Assert.IsTrue(result == errorCode);
                 Assert.IsNotNull(output);
             }
-        }
-
-        [Test]
-        public void GetCancellationAtRunProcessAsyncTest()
-        {
-            // I need a binary multiOS to run at loop
-            Assert.Ignore("Pending");
         }
     }
 }

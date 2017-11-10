@@ -1,12 +1,12 @@
-﻿using System;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Unosquare.Swan.Networking;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using System;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading.Tasks;
+    using NUnit.Framework;
+    using Unosquare.Swan.Networking;
+
     [TestFixture]
     public class ConnectionTest
     {

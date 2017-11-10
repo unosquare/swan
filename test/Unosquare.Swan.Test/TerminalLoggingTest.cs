@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.TerminalLoggingTests
+﻿namespace Unosquare.Swan.Test.TerminalLoggingTests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using NUnit.Framework;
+    using Unosquare.Swan.Test.Mocks;
+
     public abstract class TerminalLoggingTest : TestFixtureBase
     {
         protected List<LoggingEntryMock> messages = new List<LoggingEntryMock>();
