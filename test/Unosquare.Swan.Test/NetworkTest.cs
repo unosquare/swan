@@ -292,6 +292,12 @@
 
             Assert.AreEqual(dnsPointer, GoogleDnsFqdn);
         }
+
+        [Test]
+        public void WithNullIPAddress_ReturnsDnsHost()
+        {
+            Assert.Throws<ArgumentNullException>(() => Network.GetDnsPointerEntry(NullIP));
+        }
     }
 
     [TestFixture]
