@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-using Unosquare.Swan.Networking;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+    using Networking;
+
     [TestFixture]
     public class ConnectionListenerTest
     {

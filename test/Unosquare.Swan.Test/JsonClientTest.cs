@@ -14,7 +14,7 @@
 
     public abstract class JsonClientTest
     {
-        protected static int _port = 8080;
+        protected static int Port = 8080;
         protected int _defaultPort;
         protected string _defaultHttp;
 
@@ -24,8 +24,8 @@
         [SetUp]
         public void SetupWebServer()
         {
-            _port++;
-            _defaultPort = _port;
+            Port++;
+            _defaultPort = Port;
             _defaultHttp = "http://localhost:" + _defaultPort;
         }
     }
@@ -72,7 +72,7 @@
                     webserver.RunAsync();
                     await Task.Delay(100);
 
-                    var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
+                    await JsonClient.Authenticate(_defaultHttp, "admin", "password");
                 }
             });
         }
@@ -203,7 +203,7 @@
         }
 
         [Test]
-        public async Task WithInvalidParam_ThrowsHttpRequestException()
+        public void WithInvalidParam_ThrowsHttpRequestException()
         {
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
                 await JsonClient.GetString(_defaultHttp));
@@ -397,14 +397,14 @@
     public class GetBinary : JsonClientTest
     {
         [Test]
-        public async Task WithInvalidParams_ThrowsHttpRequestException()
+        public void WithInvalidParams_ThrowsHttpRequestException()
         {
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
                 await JsonClient.GetBinary(_defaultHttp));
         }
 
         [Test]
-        public async Task WithNullUrl_ThrowsArgumentNullException()
+        public void WithNullUrl_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
                 await JsonClient.GetBinary(null));
@@ -434,12 +434,10 @@
         }
 
         [Test]
-        public async Task WithInvalidUrl_ThrowsJsonRequestException()
+        public void WithInvalidUrl_ThrowsJsonRequestException()
         {
             Assert.ThrowsAsync<JsonRequestException>(async () =>
-            {
-                var data = await JsonClient.GetBinary("https://accesscore.azurewebsites.net/api/token");
-            });
+                await JsonClient.GetBinary("https://accesscore.azurewebsites.net/api/token"));
         }
     }
 
@@ -476,8 +474,7 @@
 
                 webserver.RunAsync();
                 await Task.Delay(100);
-
-                var arc = await JsonClient.Get<BasicJson>(_defaultHttp);
+                await JsonClient.Get<BasicJson>(_defaultHttp);
 
                 Assert.IsTrue(ctxHeaders.Any());
             }
