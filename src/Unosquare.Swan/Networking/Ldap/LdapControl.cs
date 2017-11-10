@@ -40,31 +40,23 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the identifier of the control.
+        /// Returns the identifier of the control.
         /// </summary>
-        /// <returns>
-        ///     The object ID of the control.
-        /// </returns>
-        public string ID => Asn1Object.ControlType.StringValue();
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public string Id => Asn1Object.ControlType.StringValue();
 
         /// <summary>
-        ///     Returns whether the control is critical for the operation.
+        /// Returns whether the control is critical for the operation.
         /// </summary>
-        /// <returns>
-        ///     Returns true if the control must be supported for an associated
-        ///     operation to be executed, and false if the control is not required for
-        ///     the operation.
-        /// </returns>
+        /// <value>
+        ///   <c>true</c> if critical; otherwise, <c>false</c>.
+        /// </value>
         public bool Critical => Asn1Object.Criticality.BooleanValue();
 
         internal static RespControlVector RegisteredControls { get; } = new RespControlVector(5);
-
-        /// <summary>
-        ///     Returns the RFC 2251 Control object.
-        /// </summary>
-        /// <returns>
-        ///     An ASN.1 RFC 2251 Control.
-        /// </returns>
+        
         internal RfcControl Asn1Object { get; private set; }
         
         /// <summary>
@@ -79,10 +71,10 @@ namespace Unosquare.Swan.Networking.Ldap
             => RegisteredControls.RegisterResponseControl(oid, controlClass);
 
         /// <summary>
-        ///     Returns a copy of the current LdapControl object.
+        /// Returns a copy of the current LdapControl object.
         /// </summary>
         /// <returns>
-        ///     A copy of the current LdapControl object.
+        /// A copy of the current LdapControl object.
         /// </returns>
         public object Clone()
         {
@@ -101,7 +93,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     twin[i] = vals[i];
                 }
 
-                cont.Asn1Object = new RfcControl(ID, new Asn1Boolean(Critical), new Asn1OctetString(twin));
+                cont.Asn1Object = new RfcControl(Id, new Asn1Boolean(Critical), new Asn1OctetString(twin));
             }
 
             return cont;
@@ -220,16 +212,15 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Retrieves the Authentication DN for a bind request.
+        /// Retrieves the Authentication DN for a bind request.
         /// </summary>
-        /// <returns>
-        ///     the Authentication DN for a bind request
-        /// </returns>
+        /// <value>
+        /// The authentication dn.
+        /// </value>
         public string AuthenticationDN => Asn1Object.RequestDn;
 
         /// <summary>
         /// Return an Asn1 representation of this add request.
-        /// #return an Asn1 representation of this object.
         /// </summary>
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.

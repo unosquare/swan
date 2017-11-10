@@ -14,6 +14,8 @@
 
         protected List<string> NullStringList = null;
 
+        protected Type NullType = null;
+
         protected Action NullAction = null;
 
         protected DateBasicJson DefaultObject = new DateBasicJson

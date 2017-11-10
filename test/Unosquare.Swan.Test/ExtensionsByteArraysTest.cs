@@ -563,9 +563,7 @@
             var stream = new FileStream(sampleFile, FileMode.Open);
             sbyte[] lber = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                stream.ReadInput(ref lber, 0, 0)
-            );
+            Assert.Throws<ArgumentNullException>(() => stream.ReadInput(ref lber, 0, 0));
         }
     }
 }

@@ -1,12 +1,7 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.TerminalTests
+﻿namespace Unosquare.Swan.Test.TerminalTests
 {
+    using NUnit.Framework;
+
     [TestFixture]
     public class IsConsolePresent
     {

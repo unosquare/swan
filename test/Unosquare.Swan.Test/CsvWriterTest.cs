@@ -9,7 +9,7 @@
     using System.Linq;
     using System.Text;
 
-    public abstract class CsvWriterTest
+    public abstract class CsvWriterTest : TestFixtureBase
     {
         protected const int TotalRows = 100;
 
@@ -172,13 +172,8 @@
         [Test]
         public void DynamicObject_ReturnsAreEqual()
         {
-            dynamic dynObject = new Dictionary<string, object>
-            {
-                {"A", new {Name = "Florencia"}},
-                {"B", new {Name = "Camila"}},
-                {"C", new {Name = "Florencia"}},
-                {"D", new {Name = "Mónica"}}
-            };
+            dynamic dynObject = new System.Dynamic.ExpandoObject();
+            dynObject.A = nameof(MemoryStream);
 
             using (var stream = new MemoryStream())
             {
@@ -203,10 +198,7 @@
             {
                 using (var writer = new CsvWriter(stream))
                 {
-                    Assert.Throws<ArgumentNullException>(() =>
-                    {
-                        writer.WriteHeadings(null as Type);
-                    });
+                    Assert.Throws<ArgumentNullException>(() => writer.WriteHeadings(NullType));
                 }
             }
         }

@@ -39,7 +39,7 @@
             if (int.TryParse(responseCode.ToString(CultureInfo.InvariantCulture).Substring(1, 1), out var middleDigit))
             {
                 if (middleDigit >= 0 && middleDigit <= 5)
-                    ReplyCodeCategory = (SmtpReplyCodeCategories)middleDigit;
+                    ReplyCodeCategory = (SmtpReplyCodeCategories) middleDigit;
             }
         }
 
@@ -59,7 +59,7 @@
         /// <param name="statusCode">The status code.</param>
         /// <param name="content">The content.</param>
         public SmtpServerReply(int responseCode, string statusCode, string content)
-            : this(responseCode, statusCode, new[] { content })
+            : this(responseCode, statusCode, new[] {content})
         {
         }
 
@@ -72,6 +72,64 @@
             : this(responseCode, string.Empty, content)
         {
         }
+
+        #endregion
+
+        #region Pre-built responses (https://tools.ietf.org/html/rfc5321#section-4.2.2)
+
+        /// <summary>
+        /// Gets the command unrecognized reply.
+        /// </summary>
+        public static SmtpServerReply CommandUnrecognized =>
+            new SmtpServerReply(500, "Syntax error, command unrecognized");
+
+        /// <summary>
+        /// Gets the syntax error arguments reply.
+        /// </summary>
+        public static SmtpServerReply SyntaxErrorArguments =>
+            new SmtpServerReply(501, "Syntax error in parameters or arguments");
+
+        /// <summary>
+        /// Gets the command not implemented reply.
+        /// </summary>
+        public static SmtpServerReply CommandNotImplemented => new SmtpServerReply(502, "Command not implemented");
+
+        /// <summary>
+        /// Gets the bad sequence of commands reply.
+        /// </summary>
+        public static SmtpServerReply BadSequenceOfCommands => new SmtpServerReply(503, "Bad sequence of commands");
+
+        /// <summary>
+        /// Gets the protocol violation reply.
+        /// </summary>=
+        public static SmtpServerReply ProtocolViolation =>
+            new SmtpServerReply(451, "Requested action aborted: error in processing");
+
+        /// <summary>
+        /// Gets the system status bye reply.
+        /// </summary>
+        public static SmtpServerReply SystemStatusBye =>
+            new SmtpServerReply(221, "Service closing transmission channel");
+
+        /// <summary>
+        /// Gets the system status help reply.
+        /// </summary>=
+        public static SmtpServerReply SystemStatusHelp => new SmtpServerReply(221, "Refer to RFC 5321");
+
+        /// <summary>
+        /// Gets the bad syntax command empty reply.
+        /// </summary>
+        public static SmtpServerReply BadSyntaxCommandEmpty => new SmtpServerReply(400, "Error: bad syntax");
+
+        /// <summary>
+        /// Gets the OK reply.
+        /// </summary>
+        public static SmtpServerReply Ok => new SmtpServerReply(250, "OK");
+
+        /// <summary>
+        /// Gets the authorization required reply.
+        /// </summary>
+        public static SmtpServerReply AuthorizationRequired => new SmtpServerReply(530, "Authorization Required");
 
         #endregion
 
@@ -117,6 +175,42 @@
         #region Methods
 
         /// <summary>
+        /// Parses the specified text into a Server Reply for thorough analysis.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>A new instance of SMTP server response object</returns>
+        public static SmtpServerReply Parse(string text)
+        {
+            var lines = text.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+            if (lines.Length == 0) return new SmtpServerReply();
+
+            var lastLineParts = lines.Last().Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            var enhancedStatusCode = string.Empty;
+            int.TryParse(lastLineParts[0], out var responseCode);
+            if (lastLineParts.Length > 1)
+            {
+                if (lastLineParts[1].Split('.').Length == 3)
+                    enhancedStatusCode = lastLineParts[1];
+            }
+
+            var content = new List<string>();
+
+            for (var i = 0; i < lines.Length; i++)
+            {
+                var splitChar = i == lines.Length - 1 ? " " : "-";
+
+                var lineParts = lines[i].Split(new[] {splitChar}, 2, StringSplitOptions.None);
+                var lineContent = lineParts.Last();
+                if (string.IsNullOrWhiteSpace(enhancedStatusCode) == false)
+                    lineContent = lineContent.Replace(enhancedStatusCode, string.Empty).Trim();
+
+                content.Add(lineContent);
+            }
+
+            return new SmtpServerReply(responseCode, enhancedStatusCode, content.ToArray());
+        }
+
+        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
@@ -125,7 +219,9 @@
         public override string ToString()
         {
             var responseCodeText = ReplyCode.ToString(CultureInfo.InvariantCulture);
-            var statusCodeText = string.IsNullOrWhiteSpace(EnhancedStatusCode) ? string.Empty : $" {EnhancedStatusCode.Trim()}";
+            var statusCodeText = string.IsNullOrWhiteSpace(EnhancedStatusCode)
+                ? string.Empty
+                : $" {EnhancedStatusCode.Trim()}";
             if (Content.Count == 0) return $"{responseCodeText}{statusCodeText}";
 
             var builder = new StringBuilder();
@@ -141,96 +237,6 @@
 
             return builder.ToString();
         }
-
-        /// <summary>
-        /// Parses the specified text into a Server Reply for thorough analysis.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns>A new instance of SMTP server response object</returns>
-        public static SmtpServerReply Parse(string text)
-        {
-            var lines = text.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            if (lines.Length == 0) return new SmtpServerReply();
-
-            var lastLineParts = lines.Last().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-            var enhancedStatusCode = string.Empty;
-            int.TryParse(lastLineParts[0], out var responseCode);
-            if (lastLineParts.Length > 1)
-            {
-                if (lastLineParts[1].Split('.').Length == 3)
-                    enhancedStatusCode = lastLineParts[1];
-            }
-
-            var content = new List<string>();
-
-            for (var i = 0; i < lines.Length; i++)
-            {
-                var splitChar = i == lines.Length - 1 ? " " : "-";
-
-                var lineParts = lines[i].Split(new[] { splitChar }, 2, StringSplitOptions.None);
-                var lineContent = lineParts.Last();
-                if (string.IsNullOrWhiteSpace(enhancedStatusCode) == false)
-                    lineContent = lineContent.Replace(enhancedStatusCode, string.Empty).Trim();
-
-                content.Add(lineContent);
-            }
-            
-            return new SmtpServerReply(responseCode, enhancedStatusCode, content.ToArray());
-        }
-
-        #endregion
-
-        #region Pre-built responses (https://tools.ietf.org/html/rfc5321#section-4.2.2)
-
-        /// <summary>
-        /// Gets the command unrecognized reply.
-        /// </summary>
-        public static SmtpServerReply CommandUnrecognized => new SmtpServerReply(500, "Syntax error, command unrecognized");
-        
-        /// <summary>
-        /// Gets the syntax error arguments reply.
-        /// </summary>
-        public static SmtpServerReply SyntaxErrorArguments => new SmtpServerReply(501, "Syntax error in parameters or arguments");
-        
-        /// <summary>
-        /// Gets the command not implemented reply.
-        /// </summary>
-        public static SmtpServerReply CommandNotImplemented => new SmtpServerReply(502, "Command not implemented");
-        
-        /// <summary>
-        /// Gets the bad sequence of commands reply.
-        /// </summary>
-        public static SmtpServerReply BadSequenceOfCommands => new SmtpServerReply(503, "Bad sequence of commands");
-        
-        /// <summary>
-        /// Gets the protocol violation reply.
-        /// </summary>=
-        public static SmtpServerReply ProtocolViolation => new SmtpServerReply(451, "Requested action aborted: error in processing");
-        
-        /// <summary>
-        /// Gets the system status bye reply.
-        /// </summary>
-        public static SmtpServerReply SystemStatusBye => new SmtpServerReply(221, "Service closing transmission channel");
-        
-        /// <summary>
-        /// Gets the system status help reply.
-        /// </summary>=
-        public static SmtpServerReply SystemStatusHelp => new SmtpServerReply(221, "Refer to RFC 5321");
-        
-        /// <summary>
-        /// Gets the bad syntax command empty reply.
-        /// </summary>
-        public static SmtpServerReply BadSyntaxCommandEmpty => new SmtpServerReply(400, "Error: bad syntax");
-        
-        /// <summary>
-        /// Gets the OK reply.
-        /// </summary>
-        public static SmtpServerReply Ok => new SmtpServerReply(250, "OK");
-        
-        /// <summary>
-        /// Gets the authorization required reply.
-        /// </summary>
-        public static SmtpServerReply AuthorizationRequired => new SmtpServerReply(530, "Authorization Required");
 
         #endregion
     }
