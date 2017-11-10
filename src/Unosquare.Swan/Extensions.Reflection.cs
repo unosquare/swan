@@ -101,10 +101,10 @@
         /// binding criteria. This class cannot be inherited
         /// </exception>
         public static MethodInfo GetMethod(
-            this Type sourceType, 
-            BindingFlags bindingFlags, 
+            this Type sourceType,
+            BindingFlags bindingFlags,
             string methodName,
-            Type[] genericTypes, 
+            Type[] genericTypes,
             Type[] parameterTypes)
         {
             if (sourceType == null)
@@ -126,7 +126,8 @@
                     .Where(mi => mi.GetGenericArguments().Length == genericTypes.Length)
                     .Where(mi => mi.GetParameters().Length == parameterTypes.Length)
                     .Select(mi => mi.MakeGenericMethod(genericTypes))
-                    .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes)).ToList();
+                    .Where(mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes))
+                    .ToList();
 
             if (methods.Count > 1)
             {
@@ -282,5 +283,23 @@
         /// </returns>
         public static bool TryParseBasicType(this Type type, string value, out object result)
             => Definitions.BasicTypesInfo[type].TryParse(value, out result);
+
+        /// <summary>
+        /// Gets property value or null.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>The property value or null</returns>
+        public static object GetValueOrNull(this PropertyInfo propertyInfo, object obj)
+        {
+            try
+            {
+                return propertyInfo.GetValue(obj);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

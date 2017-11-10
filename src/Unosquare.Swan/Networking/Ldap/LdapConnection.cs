@@ -127,9 +127,9 @@ namespace Unosquare.Swan.Networking.Ldap
         public const string StartTlsOid = "1.3.6.1.4.1.1466.20037";
 
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
-        
-        private LdapControl[] _responseCtls;
         private readonly object _responseCtlSemaphore = new object();
+
+        private LdapControl[] _responseCtls;
         private Connection _conn;
         
         /// <summary>

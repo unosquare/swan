@@ -33,17 +33,17 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class LBERDecoder
         : IAsn1Decoder
     {
-        public LBERDecoder()
-        {
-            _asn1Id = new Asn1Identifier();
-            _asn1Len = new Asn1Length();
-        }
-
         // used to speed up decode, so it doesn't need to recreate an identifier every time
         // instead just reset is called CANNOT be static for multiple connections
         private readonly Asn1Identifier _asn1Id;
 
         private readonly Asn1Length _asn1Len;
+
+        public LBERDecoder()
+        {
+            _asn1Id = new Asn1Identifier();
+            _asn1Len = new Asn1Length();
+        }
 
         /// <summary>
         /// Decode an LBER encoded value into an Asn1Object from an InputStream.

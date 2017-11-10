@@ -150,6 +150,47 @@
 
         #endregion
 
+        #region Helpers
+
+        /// <summary>
+        /// Saves the items to a stream.
+        /// It uses the Windows 1252 text encoding for output
+        /// </summary>
+        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="stream">The stream.</param>
+        /// <param name="truncateData"><c>true</c> if stream is truncated, default <c>false</c>.</param>
+        /// <returns>Number of item saved</returns>
+        public static int SaveRecords<T>(IEnumerable<T> items, Stream stream, bool truncateData = false)
+        {
+            // truncate the file if it had data
+            if (truncateData && stream.Length > 0)
+                stream.SetLength(0);
+
+            using (var writer = new CsvWriter(stream))
+            {
+                writer.WriteHeadings<T>();
+                writer.WriteObjects(items);
+                return (int)writer.Count;
+            }
+        }
+
+        /// <summary>
+        /// Saves the items to a CSV file.
+        /// If the file exits, it overwrites it. If it does not, it creates it.
+        /// It uses the Windows 1252 text encoding for output
+        /// </summary>
+        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>Number of item saved</returns>
+        public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
+        {
+            return SaveRecords(items, File.OpenWrite(filePath), true);
+        }
+
+        #endregion
+
         #region Generic, main Write Line Method
 
         /// <summary>
@@ -285,45 +326,6 @@
             }
         }
 
-        /// <summary>
-        /// Writes the object values.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        private void WriteObjectValues(object item)
-        {
-            var properties = GetFilteredTypeProperties(item.GetType());
-            var values = new List<object>();
-            foreach (var property in properties)
-            {
-                try
-                {
-                    var value = property.GetValue(item);
-                    values.Add(value);
-                }
-                catch
-                {
-                    values.Add(null);
-                }
-            }
-
-            WriteLine(values.ToArray());
-        }
-
-        /// <summary>
-        /// Writes the collection values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteCollectionValues(ICollection typedItem) => WriteLine(typedItem.Cast<object>().ToArray());
-
-        /// <summary>
-        /// Writes the dictionary values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteDictionaryValues(IDictionary typedItem)
-        {
-            WriteLine(GetFilteredDictionaryValues(typedItem));
-        }
-        
         #endregion
 
         #region Write Headings Methods
@@ -461,46 +463,33 @@
 
         #endregion
 
-        #region Helpers
-
         /// <summary>
-        /// Saves the items to a stream.
-        /// It uses the Windows 1252 text encoding for output
+        /// Writes the object values.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
-        /// <param name="items">The items.</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="truncateData"><c>true</c> if stream is truncated, default <c>false</c>.</param>
-        /// <returns>Number of item saved</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, Stream stream, bool truncateData = false)
+        /// <param name="item">The item.</param>
+        private void WriteObjectValues(object item)
         {
-            // truncate the file if it had data
-            if (truncateData && stream.Length > 0)
-                stream.SetLength(0);
+            var values = GetFilteredTypeProperties(item.GetType())
+                .Select(x => x.GetValueOrNull(item))
+                .ToArray();
 
-            using (var writer = new CsvWriter(stream))
-            {
-                writer.WriteHeadings<T>();
-                writer.WriteObjects(items);
-                return (int) writer.Count;
-            }
+            WriteLine(values.ToArray());
         }
 
         /// <summary>
-        /// Saves the items to a CSV file.
-        /// If the file exits, it overwrites it. If it does not, it creates it.
-        /// It uses the Windows 1252 text encoding for output
+        /// Writes the collection values.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
-        /// <param name="items">The items.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <returns>Number of item saved</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
-        {
-            return SaveRecords(items, File.OpenWrite(filePath), true);
-        }
+        /// <param name="typedItem">The typed item.</param>
+        private void WriteCollectionValues(ICollection typedItem) => WriteLine(typedItem.Cast<object>().ToArray());
 
-        #endregion
+        /// <summary>
+        /// Writes the dictionary values.
+        /// </summary>
+        /// <param name="typedItem">The typed item.</param>
+        private void WriteDictionaryValues(IDictionary typedItem)
+        {
+            WriteLine(GetFilteredDictionaryValues(typedItem));
+        }
 
         #region IDisposable Support
 
@@ -530,6 +519,5 @@
         }
 
         #endregion
-
     }
 }

@@ -60,7 +60,8 @@
         [Test]
         public void NullType_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreObjectsEqual(DefaultObject, DefaultObject, null));
+            Assert.Throws<ArgumentNullException>(() =>
+                ObjectComparer.AreObjectsEqual(DefaultObject, DefaultObject, null));
         }
     }
 
@@ -143,29 +144,16 @@
         [Test]
         public void EnumsWithDifferentLengths_ReturnsFalse()
         {
-            var leftListEnum = new List<string>
-            {
-                "ArCiGo",
-                "ElCiGo",
-                "WizardexC137",
-                "DCOW"
-            };
+            var right = new List<string> {"Unosquare"};
 
-            var rightListEnum = new List<string>
-            {
-                "Kadosh"
-            };
-
-            Assert.IsFalse(ObjectComparer.AreEnumerationsEquals(leftListEnum.AsEnumerable(), rightListEnum.AsEnumerable()));
+            Assert.IsFalse(
+                ObjectComparer.AreEnumerationsEquals(DefaultStringList.AsEnumerable(), right.AsEnumerable()));
         }
 
         [Test]
         public void LeftEnumNull_ThrowsArgumentNullException()
         {
-            var right = new List<string>
-            {
-                "UnoSquare"
-            };
+            var right = new List<string> {"Unosquare"};
 
             Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumerationsEquals(NullStringList, right));
         }
@@ -173,11 +161,8 @@
         [Test]
         public void RightEnumNull_ThrowsArgumentNullException()
         {
-            var left = new List<string>
-            {
-                "UnoSquare"
-            };
-            
+            var left = new List<string> {"Unosquare"};
+
             Assert.Throws<ArgumentNullException>(() => ObjectComparer.AreEnumerationsEquals(left, NullStringList));
         }
     }

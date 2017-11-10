@@ -9,7 +9,7 @@
     using Mocks;
 
     [TestFixture]
-    public class GetDefault
+    public class GetDefault : TestFixtureBase
     {
         [TestCase(null, typeof(Fish))]
         [TestCase(0, typeof(int))]
@@ -21,9 +21,7 @@
         [Test]
         public void WithNullType_ThrowsArgumentNullException()
         {
-            Type input = null;
-
-            Assert.Throws<ArgumentNullException>(() => input.GetDefault());
+            Assert.Throws<ArgumentNullException>(() => NullType.GetDefault());
         }
     }
 
@@ -164,7 +162,7 @@
     }
 
     [TestFixture]
-    public class IsIEnumerable
+    public class IsIEnumerable : TestFixtureBase
     {
         [TestCase(true, typeof(IEnumerable<Fish>))]
         [TestCase(false, typeof(string))]
@@ -176,9 +174,7 @@
         [Test]
         public void WithNullType_ThrowsArgumentNullException()
         {
-            Type input = null;
-
-            Assert.Throws<ArgumentNullException>(() => input.IsIEnumerable());
+            Assert.Throws<ArgumentNullException>(() => NullType.IsIEnumerable());
         }
     }
 
@@ -212,7 +208,7 @@
     }
 
     [TestFixture]
-    public class GetMethod
+    public class GetMethod : TestFixtureBase
     {
         readonly Type _type = typeof(JsonClient);
         readonly string _methodName = "PostFile";
@@ -234,10 +230,8 @@
         [Test]
         public void WithNullSourceType_ThrowsArgumentNullException()
         {
-            Type type = null;
-
             Assert.Throws<ArgumentNullException>(() =>
-                type.GetMethod(_bindingFlags, _methodName, _genericTypes, _parameterTypes));
+                NullType.GetMethod(_bindingFlags, _methodName, _genericTypes, _parameterTypes));
         }
 
         [Test]

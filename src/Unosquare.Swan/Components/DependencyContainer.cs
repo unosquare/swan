@@ -33,9 +33,10 @@ namespace Unosquare.Swan.Components
         private readonly DependencyContainer _parent;
         private readonly object _autoRegisterLock = new object();
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
-        private delegate object ObjectConstructor(params object[] parameters);
         private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
         private bool _disposed;
+
+        private delegate object ObjectConstructor(params object[] parameters);
 
         static DependencyContainer()
         {
