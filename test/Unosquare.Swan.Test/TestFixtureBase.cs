@@ -35,5 +35,14 @@
         };
 
         protected readonly List<string> DefaultStringList = new List<string> { "A", "B", "C" };
+
+        protected Dictionary<int, string> DefaultDictionary = new Dictionary<int, string>
+        {
+            {1, "A"},
+            {2, "B"},
+            {3, "C"},
+            {4, "D"},
+            {5, "E"}
+        };
     }
 }

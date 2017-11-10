@@ -128,12 +128,10 @@
         [Test]
         public void Dictionary_ReturnsAreNotEqual()
         {
-            var item = new Dictionary<string, string> {{"A", "A"}, {"B", "B"}, {"C", "C"}};
-
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvWriter(stream);
-                reader.WriteObject(item);
+                reader.WriteObject(DefaultDictionary);
 
                 Assert.AreNotEqual(0, reader.Count);
             }
@@ -142,12 +140,10 @@
         [Test]
         public void Array_ReturnsAreNotEqual()
         {
-            var item = new[] {"A", "B", "C"};
-
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
             {
                 var reader = new CsvWriter(stream);
-                reader.WriteObject(item);
+                reader.WriteObject(DefaultStringList.ToArray());
 
                 Assert.AreNotEqual(0, reader.Count);
             }
@@ -210,10 +206,8 @@
             {
                 using (var writer = new CsvWriter(stream))
                 {
-                    Assert.Throws<ArgumentNullException>(() =>
-                    {
-                        writer.WriteHeadings(null as Dictionary<string, string>);
-                    });
+                    Assert.Throws<ArgumentNullException>(() => 
+                        writer.WriteHeadings(null as Dictionary<string, string>));
                 }
             }
         }
