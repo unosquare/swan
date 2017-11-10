@@ -7086,18 +7086,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapEntry.#ctor
   fullName: Unosquare.Swan.Networking.Ldap.LdapEntry.LdapEntry
   nameWithType: LdapEntry.LdapEntry
-- uid: Unosquare.Swan.Networking.Ldap.LdapEntry.Attrs
-  name: Attrs
-  href: api/Unosquare.Swan.Networking.Ldap.LdapEntry.html#Unosquare_Swan_Networking_Ldap_LdapEntry_Attrs
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapEntry.Attrs
-  fullName: Unosquare.Swan.Networking.Ldap.LdapEntry.Attrs
-  nameWithType: LdapEntry.Attrs
-- uid: Unosquare.Swan.Networking.Ldap.LdapEntry.Dn
-  name: Dn
-  href: api/Unosquare.Swan.Networking.Ldap.LdapEntry.html#Unosquare_Swan_Networking_Ldap_LdapEntry_Dn
-  commentId: F:Unosquare.Swan.Networking.Ldap.LdapEntry.Dn
-  fullName: Unosquare.Swan.Networking.Ldap.LdapEntry.Dn
-  nameWithType: LdapEntry.Dn
 - uid: Unosquare.Swan.Networking.Ldap.LdapEntry.DN
   name: DN
   href: api/Unosquare.Swan.Networking.Ldap.LdapEntry.html#Unosquare_Swan_Networking_Ldap_LdapEntry_DN
