@@ -260,5 +260,17 @@ namespace Unosquare.Swan.Test.TerminalLoggingTests
 
             Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
         }
+
+        [Test]
+        public void NotNullObject_MessageLogged()
+        {
+            messages.Clear();
+
+            object consultant = new { Name = "Alejandro" };
+
+            consultant.Dump("Unosquare Américas");
+
+            Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
+        }
     }
 }
