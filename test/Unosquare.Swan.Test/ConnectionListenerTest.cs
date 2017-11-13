@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.Swan.Test
 {
+    using System;
     using NUnit.Framework;
     using System.Net.Sockets;
     using System.Threading.Tasks;
@@ -81,6 +82,9 @@
         [Test]
         public async Task OnConnectionFailureTest()
         {
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                Assert.Inconclusive("Can not test in AppVeyor");
+
             const int port = 12348;
             
             using (var connectionListener = new ConnectionListener(port))

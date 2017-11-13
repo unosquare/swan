@@ -5,7 +5,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using NUnit.Framework;
-    using Unosquare.Swan.Networking;
+    using Networking;
 
     [TestFixture]
     public class ConnectionTest
@@ -52,7 +52,7 @@
                     };
 
                     await client.ConnectAsync("localhost", port);
-                    await Task.Delay(400);
+                    await Task.Delay(500);
 
                     var connection = new Connection(client, Encoding.ASCII, "\r\n", true, 0);
                     var response = await connection.ReadTextAsync();
