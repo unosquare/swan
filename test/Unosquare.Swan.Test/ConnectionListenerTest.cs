@@ -11,7 +11,9 @@
         [Test]
         public async Task OnConnectionAcceptingTest()
         {
-            using (var connectionListener = new ConnectionListener(12345))
+            const int port = 12345;
+
+            using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
                 {
@@ -24,7 +26,7 @@
                         isAccepting = true;
                     };
 
-                    await client.ConnectAsync("localhost", 12345);
+                    await client.ConnectAsync("localhost", port);
                     await Task.Delay(100);
 
                     Assert.IsTrue(connectionListener.IsListening);
@@ -37,12 +39,14 @@
         [Test]
         public async Task UsingLoopback_CanListen()
         {
-            using (var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), 12346))
+            const int port = 12346;
+
+            using (var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), port))
             {
                 using (var client = new TcpClient())
                 {
                     connectionListener.Start();
-                    await client.ConnectAsync("localhost", 12345);
+                    await client.ConnectAsync("localhost", port);
                     await Task.Delay(100);
                     Assert.IsTrue(connectionListener.IsListening);
                     Assert.IsTrue(client.Connected);
@@ -53,7 +57,9 @@
         [Test]
         public async Task OnConnectionAcceptedTest()
         {
-            using (var connectionListener = new ConnectionListener(12347))
+            const int port = 12347;
+
+            using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
                 {
@@ -63,7 +69,7 @@
                         isAccepted = true;
                     };
                     connectionListener.Start();
-                    await client.ConnectAsync("localhost", 12345);
+                    await client.ConnectAsync("localhost", port);
                     await Task.Delay(100);
                     Assert.IsTrue(connectionListener.IsListening, "Connection Listerner is listening");
                     Assert.IsTrue(client.Connected, "Client is connected");
@@ -75,9 +81,11 @@
         [Test]
         public async Task OnConnectionFailureTest()
         {
+            const int port = 12348;
+
             Assert.Inconclusive("How to throw a failure?");
 
-            using (var connectionListener = new ConnectionListener(12348))
+            using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
                 {
@@ -88,7 +96,7 @@
                     };
 
                     connectionListener.Start();
-                    await client.ConnectAsync("localhost", 12345);
+                    await client.ConnectAsync("localhost", port);
                     Assert.IsTrue(isFailure);
                 }
             }
@@ -97,7 +105,9 @@
         [Test]
         public void OnListenerStoppedTest()
         {
-            using (var connectionListener = new ConnectionListener(12349))
+            const int port = 12349;
+
+            using (var connectionListener = new ConnectionListener(port))
             {
                 var isStopped = false;
                 connectionListener.Start();
@@ -105,6 +115,7 @@
                 {
                     isStopped = true;
                 };
+
                 Assert.IsTrue(connectionListener.IsListening);
                 connectionListener.Stop();
                 Assert.IsFalse(connectionListener.IsListening);
