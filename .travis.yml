@@ -9,6 +9,7 @@ matrix:
       dist: trusty
       sudo: false
     - os: osx
+      osx_image: xcode9.1
 install:
   - npm install maildev
   - npm install ldapjs
