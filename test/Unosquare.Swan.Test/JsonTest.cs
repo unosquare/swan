@@ -402,7 +402,7 @@
         }
         
         [Test]
-        public void WithEnumProperty_RetrunValidObject()
+        public void WithEnumProperty_ReturnValidObject()
         {
             var obj = Json.Deserialize<ObjectEnum>("{ \"Id\": 1, \"MyEnum\": \"Three\" }");
 
