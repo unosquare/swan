@@ -28,6 +28,12 @@
     public class RunProcessAsync
     {
         [Test]
+        public void WithInValidParams_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ProcessRunner.RunProcessAsync(null, null, null, null));
+        }
+
+        [Test]
         public async Task WithNullonErrorData_ValidRunProcess()
         {
             const int okCode = 0;

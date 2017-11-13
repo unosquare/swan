@@ -82,14 +82,16 @@
         public async Task OnConnectionFailureTest()
         {
             const int port = 12348;
-
-            Assert.Inconclusive("How to throw a failure?");
-
+            
             using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
                 {
                     var isFailure = false;
+                    connectionListener.OnConnectionAccepting += (s, e) =>
+                    {
+                        e.Cancel = true;
+                    };
                     connectionListener.OnConnectionFailure += (s, e) =>
                     {
                         isFailure = true;
@@ -97,6 +99,8 @@
 
                     connectionListener.Start();
                     await client.ConnectAsync("localhost", port);
+                    connectionListener.Stop();
+                    
                     Assert.IsTrue(isFailure);
                 }
             }

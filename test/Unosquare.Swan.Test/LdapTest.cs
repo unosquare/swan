@@ -128,7 +128,9 @@
         public async Task SingleSearchResult()
         {
             var cn = await GetDefaultConnection();
-            var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub,
+            var lsc = await cn.Search(
+                "ou=scientists,dc=example,dc=com", 
+                LdapConnection.ScopeSub,
                 "(uniqueMember=uid=tesla,dc=example,dc=com)");
 
             if (lsc.HasMore())
@@ -160,7 +162,9 @@
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 var cn = await GetDefaultConnection();
-                var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub,
+                var lsc = await cn.Search(
+                    "ou=scientists,dc=example,dc=com", 
+                    LdapConnection.ScopeSub,
                     "(uniqueMember=uid=tesla,dc=example,dc=com)");
 
                 while (lsc.HasMore())
@@ -182,11 +186,9 @@
                 var ex = Assert.ThrowsAsync<LdapException>(async () =>
                 {
                     var cn = await GetDefaultConnection();
-                    await cn.Modify("uid=euclid,dc=example,dc=com",
-                        new[]
-                        {
-                            new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")
-                        });
+                    await cn.Modify(
+                        "uid=euclid,dc=example,dc=com",
+                        new[] { new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")});
 
                     cn.Disconnect();
                 });
