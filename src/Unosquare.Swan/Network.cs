@@ -345,7 +345,9 @@
         /// <param name="recordType">Type of the record.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>Queries the DNS server for the specified record type of the result produced by this Task</returns>
-        public static Task<DnsQueryResult> QueryDnsAsync(string query, DnsRecordType recordType,
+        public static Task<DnsQueryResult> QueryDnsAsync(
+            string query, 
+            DnsRecordType recordType,
             CancellationToken ct = default(CancellationToken))
         {
             return Task.Factory.StartNew(() => QueryDns(query, recordType), ct);

@@ -27,9 +27,6 @@
         [Test]
         public void InvalidDnsAsParam_ThrowsDnsQueryException()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
 
@@ -66,9 +63,6 @@
         [Test]
         public void WithNullFqdn_ReturnsQueryDns()
         {
-            if (Runtime.OS != Swan.OperatingSystem.Windows)
-                Assert.Ignore("Ignored");
-
             Assert.Throws<ArgumentNullException>(() => Network.QueryDns(null, DnsRecordType.TXT));
         }
     }
