@@ -1,8 +1,8 @@
-﻿using System;
-using NUnit.Framework;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using System;
+    using NUnit.Framework;
+
     [TestFixture]
     public class CurrentAppTest
     {
@@ -15,7 +15,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void IsOsDifferentUnknownTest()
         {
-            Assert.AreNotEqual(Runtime.OS, OperatingSystem.Unknown, $"Retrieving a OS: {Runtime.OS}");
+            Assert.AreNotEqual(Runtime.OS, Swan.OperatingSystem.Unknown, $"Retrieving a OS: {Runtime.OS}");
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Unosquare.Swan.Test
 
             Assert.IsNotNull(Runtime.Process);
             Assert.AreEqual(Runtime.Process.ProcessName,
-#if NET452
+#if NET46
                 "dotnet-test-nunit"
 #else
                 "dotnet"

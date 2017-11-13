@@ -11,6 +11,9 @@
     }
   ],
   "build": {
+    "template": [
+      "best-practices/templates/default"
+    ],
     "content": [
       {
         "files": [ "**/*.yml" ],
@@ -23,12 +26,14 @@
     ],
     "resource": [
       {
-        "files": [ ]
+        "files": [ "best-practices/resources/**", "swan-logo-256.png"]
       }
     ],
     "globalMetadata": {
       "_appTitle": "Unosquare SWAN",
-      "_enableSearch": true
+      "_enableSearch": true,
+      "_docLogo":  "swan-logo-256.png",
+      "_appLogoPath": "best-practices/resources/images/logo.png"
     },
     "dest": "_site"
   }

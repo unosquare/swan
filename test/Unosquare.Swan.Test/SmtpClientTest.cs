@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Unosquare.Swan.Formatters;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using Formatters;
+    using Mocks;
+    using Networking;
+    using NUnit.Framework;
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     [TestFixture]
     public class SmtpClientntTest
     {
@@ -61,10 +61,10 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
             Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
 
-            Assert.AreEqual("hh", smtpMock.headers.First().Key);
+            Assert.AreEqual("hh", smtpMock.Headers.First().Key);
         }
 
-#if NET452
+#if NET46
         [Test]
         public async Task SendLocalEmailWithMailMessage()
         {
@@ -90,8 +90,8 @@ namespace Unosquare.Swan.Test
             Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
             Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
 
-            Assert.AreEqual("x-sender", smtpMock.headers.First().Key);
-            Assert.AreEqual(SenderEmail, smtpMock.headers.First().Value);
+            Assert.AreEqual("x-sender", smtpMock.Headers.First().Key);
+            Assert.AreEqual(SenderEmail, smtpMock.Headers.First().Value);
         }
 #endif
 

@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using System;
-using System.Linq;
-using Unosquare.Swan.Components;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ArgumentParserTests
+﻿namespace Unosquare.Swan.Test.ArgumentParserTests
 {
+    using NUnit.Framework;
+    using System;
+    using System.Linq;
+    using Components;
+    using Mocks;
+
     [TestFixture]
-    public class ParseArguments
+    public class ParseArguments : TestFixtureBase
     {
         [Test]
         public void BasicArguments_ReturnsEquals()
@@ -95,62 +95,47 @@ namespace Unosquare.Swan.Test.ArgumentParserTests
         {
             var options = new OptionMock();
             Assert.IsNull(options.Options);
-            var collection = new[] {"ok", "xor", "zzz"};
 
-            var dumpArgs = new[] {"-n", "babu", "--options", string.Join(",", collection)};
+            var dumpArgs = new[] {"-n", "babu", "--options", string.Join(",", DefaultStringList)};
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
             Assert.IsNotNull(options.Options);
             Assert.IsTrue(options.Options.Any());
 
-            Assert.AreEqual(collection.Length, options.Options.Length);
-            Assert.AreEqual(collection.First(), options.Options.First());
-            Assert.AreEqual(collection.Last(), options.Options.Last());
+            Assert.AreEqual(DefaultStringList.Count, options.Options.Length);
+            Assert.AreEqual(DefaultStringList.First(), options.Options.First());
+            Assert.AreEqual(DefaultStringList.Last(), options.Options.Last());
         }
 
         [Test]
         public void UnavailableArguments_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-            {
-                var parser = new ArgumentParser();
-                
-                parser.ParseArguments(null, new OptionMock());
-            });
+                Runtime.ArgumentParser.ParseArguments(null, new OptionMock()));
         }
 
         [Test]
         public void TypeInvalid_ThrowsInvalidOperationException()
         {
             Assert.Throws<InvalidOperationException>(() =>
-            {
-                var parser = new ArgumentParser();
-                parser.ParseArguments(new[] {"Alejandro", "Mariana", "Federico", "Víctor"}, 1);
-            });
+                Runtime.ArgumentParser.ParseArguments(DefaultStringList, 1));
         }
 
         [Test]
         public void PropertiesEmpty_ThrowsInvalidOperationException()
         {
-            var options = new OptionMockEmpty();
-            var collection = new[] {"v", "n", "color"};
-            var dumpArgs = new[] {"--options", string.Join(",", collection)};
+            var dumpArgs = new[] {"--options", string.Join(",", DefaultStringList)};
 
-            Assert.Throws<InvalidOperationException>(
-                () => { Runtime.ArgumentParser.ParseArguments(dumpArgs, options); });
+            Assert.Throws<InvalidOperationException>(() =>
+                Runtime.ArgumentParser.ParseArguments(dumpArgs, new OptionMockEmpty()));
         }
 
         [Test]
         public void InstanceNull_ThrowsArgumentNullException()
         {
-            OptionMock options = null;
-            var dumpArgs = new[] { "-N", "babu", "-V" };
-
             Assert.Throws<ArgumentNullException>(() =>
-            {
-                Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
-            });
+                Runtime.ArgumentParser.ParseArguments<OptionMock>(DefaultStringList, null));
         }
     }
 }

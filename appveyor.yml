@@ -34,7 +34,7 @@ build_script:
 - msbuild /p:Configuration=%CONFIGURATION%
 test_script:
 - dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c %CONFIGURATION% -f netcoreapp2.0
-- tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c %CONFIGURATION% -f net452" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
+- tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c %CONFIGURATION% -f net46" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
@@ -44,13 +44,14 @@ after_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
-            docfx docfx.json --logLevel Error
             git config --global credential.helper store
             Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
             git config --global core.autocrlf false 
             git config --global user.email $env:op_build_user_email
             git config --global user.name $env:op_build_user
             git clone https://github.com/unosquare/swan.git -b gh-pages origin_site -q
+            git clone -b documentation https://github.com/unosquare/best-practices.git -q
+            docfx docfx.json --logLevel Error
             Copy-Item origin_site/.git _site -recurse
             CD _site
             Copy-Item README.html index.html -force

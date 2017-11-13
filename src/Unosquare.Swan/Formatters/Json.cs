@@ -56,7 +56,10 @@
         /// <param name="includeNonPublic">if set to <c>true</c> non-public getters will be also read.</param>
         /// <param name="includedNames">The included property names.</param>
         /// <param name="excludedNames">The excluded property names.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents the current object
+        /// </returns>
+        /// <exception cref="ArgumentException">You need to provide an object or array</exception>
         public static string Serialize(
             object obj,
             bool format = false,
@@ -64,6 +67,32 @@
             bool includeNonPublic = false,
             string[] includedNames = null,
             string[] excludedNames = null)
+        {
+            return Serialize(obj, format, typeSpecifier, includeNonPublic, includedNames, excludedNames, null);
+        }
+
+        /// <summary>
+        /// Serializes the specified object into a JSON string.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
+        /// <param name="typeSpecifier">The type specifier. Leave null or empty to avoid setting.</param>
+        /// <param name="includeNonPublic">if set to <c>true</c> non-public getters will be also read.</param>
+        /// <param name="includedNames">The included property names.</param>
+        /// <param name="excludedNames">The excluded property names.</param>
+        /// <param name="parentReferences">The parent references.</param>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents the current object
+        /// </returns>
+        /// <exception cref="ArgumentException">You need to provide an object or array</exception>
+        public static string Serialize(
+            object obj,
+            bool format,
+            string typeSpecifier,
+            bool includeNonPublic,
+            string[] includedNames,
+            string[] excludedNames,
+            List<WeakReference> parentReferences)
         {
             if (obj != null && Definitions.AllBasicValueTypes.Contains(obj.GetType()))
                 throw new ArgumentException("You need to provide an object or array", nameof(obj));
@@ -76,7 +105,7 @@
                 excludedNames = excludedNames == null ? excludedByAttr.ToArray() : excludedByAttr.Intersect(excludedNames).ToArray();
             }
 
-            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic);
+            return Serializer.Serialize(obj, 0, format, typeSpecifier, includedNames, excludedNames, includeNonPublic, parentReferences);
         }
 
         /// <summary>
@@ -85,7 +114,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="includeNames">The include names.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, includeNames, null, true);
@@ -97,7 +126,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="excludeNames">The exclude names.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false);

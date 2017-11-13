@@ -176,7 +176,7 @@
         /// overload exists.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string ToStringInvariant(this object item)
         {
             if (item == null)
@@ -199,7 +199,7 @@
         /// </summary>
         /// <typeparam name="T">The type to get the string</typeparam>
         /// <param name="item">The item.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string ToStringInvariant<T>(this T item)
         {
             if (typeof(string) == typeof(T))
@@ -234,7 +234,7 @@
         /// Removes all control characters from a string, including new line sequences.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         /// <exception cref="ArgumentNullException">input</exception>
         public static string RemoveControlChars(this string input) => input.RemoveControlCharsExcept(null);
 
@@ -243,7 +243,7 @@
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string ToJson(this object obj, bool format = true)
         {
             return obj == null ? string.Empty : Json.Serialize(obj, format);
@@ -255,7 +255,7 @@
         /// examine objects.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string Stringify(this object obj)
         {
             if (obj == null)
@@ -332,7 +332,7 @@
         /// Camel Case and Snake_Case will be converted to Snake Case.
         /// </summary>
         /// <param name="identifierString">The identifier-style string.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string Humanize(this string identifierString)
         {
             var returnValue = identifierString ?? string.Empty;
@@ -347,7 +347,7 @@
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="spaces">The spaces.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string Indent(this string text, int spaces = 4)
         {
             if (text == null) text = string.Empty;
@@ -456,15 +456,30 @@
         /// <param name="value">The value.</param>
         /// <param name="maximumLength">The maximum length.</param>
         /// <returns>
-        /// Retrieves a substring from this instance. 
+        /// Retrieves a substring from this instance.
         /// The substring starts at a specified character position and has a specified length
         /// </returns>
-        public static string Truncate(this string value, int maximumLength)
+        public static string Truncate(this string value, int maximumLength) =>
+            Truncate(value, maximumLength, string.Empty);
+
+        /// <summary>
+        /// Truncates the specified value and append the ommision last.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="maximumLength">The maximum length.</param>
+        /// <param name="omission">The omission.</param>
+        /// <returns>
+        /// Retrieves a substring from this instance.
+        /// The substring starts at a specified character position and has a specified length
+        /// </returns>
+        public static string Truncate(this string value, int maximumLength, string omission)
         {
             if (value == null)
                 return null;
 
-            return value.Length > maximumLength ? value.Substring(0, maximumLength) : value;
+            return value.Length > maximumLength
+                ? value.Substring(0, maximumLength) + (omission ?? string.Empty)
+                : value;
         }
 
         /// <summary>
@@ -509,7 +524,7 @@
         /// </summary>
         /// <param name="jsonResult">The json result.</param>
         /// <param name="indent">The indent.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         private static string HumanizeJson(object jsonResult, int indent)
         {
             if (jsonResult == null)

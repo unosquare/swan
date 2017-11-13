@@ -2,7 +2,7 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The class performs token processing from strings
@@ -10,13 +10,13 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class Tokenizer
     {
         // Element list identified
-        private ArrayList elements;
+        private List<string> elements;
 
         // Source string to use
         private string source;
 
         // The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character
-        private readonly string delimiters = " \t\n\r";
+        private readonly string _delimiters = " \t\n\r";
 
         private readonly bool _returnDelims;
 
@@ -30,14 +30,14 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="retDel">if set to <c>true</c> [ret delete].</param>
         public Tokenizer(string source, string delimiters, bool retDel = false)
         {
-            elements = new ArrayList();
-            this.delimiters = delimiters ?? this.delimiters;
+            elements = new List<string>();
+            _delimiters = delimiters ?? _delimiters;
             this.source = source;
             _returnDelims = retDel;
             if (_returnDelims)
                 Tokenize();
             else
-                elements.AddRange(source.Split(this.delimiters.ToCharArray()));
+                elements.AddRange(source.Split(_delimiters.ToCharArray()));
             RemoveEmptyStrings();
         }
 
@@ -46,52 +46,10 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         public int Count => elements.Count;
 
-        private void Tokenize()
-        {
-            var tempstr = source;
-            if (tempstr.IndexOfAny(delimiters.ToCharArray()) < 0 && tempstr.Length > 0)
-            {
-                elements.Add(tempstr);
-            }
-            else if (tempstr.IndexOfAny(delimiters.ToCharArray()) < 0 && tempstr.Length <= 0)
-            {
-                return;
-            }
-
-            while (tempstr.IndexOfAny(delimiters.ToCharArray()) >= 0)
-            {
-                if (tempstr.IndexOfAny(delimiters.ToCharArray()) == 0)
-                {
-                    if (tempstr.Length > 1)
-                    {
-                        elements.Add(tempstr.Substring(0, 1));
-                        tempstr = tempstr.Substring(1);
-                    }
-                    else
-                    {
-                        tempstr = string.Empty;
-                    }
-                }
-                else
-                {
-                    var toks = tempstr.Substring(0, tempstr.IndexOfAny(delimiters.ToCharArray()));
-                    elements.Add(toks);
-                    elements.Add(tempstr.Substring(toks.Length, 1));
-
-                    tempstr = tempstr.Length > toks.Length + 1 ? tempstr.Substring(toks.Length + 1) : string.Empty;
-                }
-            }
-
-            if (tempstr.Length > 0)
-            {
-                elements.Add(tempstr);
-            }
-        }
-
         /// <summary>
         ///     Determines if there are more tokens to return from the source string
         /// </summary>
-        /// <returns>True or false, depending if there are more tokens</returns>
+        /// <returns><c>true</c> or false, depending if there are more tokens</returns>
         public bool HasMoreTokens() => elements.Count > 0;
 
         /// <summary>
@@ -106,18 +64,18 @@ namespace Unosquare.Swan.Networking.Ldap
             if (_returnDelims)
             {
                 RemoveEmptyStrings();
-                result = (string) elements[0];
+                result = elements[0];
                 elements.RemoveAt(0);
                 return result;
             }
 
-            elements = new ArrayList();
-            elements.AddRange(source.Split(delimiters.ToCharArray()));
+            elements = new List<string>();
+            elements.AddRange(source.Split(_delimiters.ToCharArray()));
             RemoveEmptyStrings();
-            result = (string) elements[0];
+            result = elements[0];
             elements.RemoveAt(0);
             source = source.Remove(source.IndexOf(result), result.Length);
-            source = source.TrimStart(delimiters.ToCharArray());
+            source = source.TrimStart(_delimiters.ToCharArray());
             return result;
         }
 
@@ -128,10 +86,52 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             for (var index = 0; index < elements.Count; index++)
             {
-                if ((string) elements[index] != string.Empty) continue;
+                if (elements[index] != string.Empty) continue;
 
                 elements.RemoveAt(index);
                 index--;
+            }
+        }
+
+        private void Tokenize()
+        {
+            var tempstr = source;
+            if (tempstr.IndexOfAny(_delimiters.ToCharArray()) < 0 && tempstr.Length > 0)
+            {
+                elements.Add(tempstr);
+            }
+            else if (tempstr.IndexOfAny(_delimiters.ToCharArray()) < 0 && tempstr.Length <= 0)
+            {
+                return;
+            }
+
+            while (tempstr.IndexOfAny(_delimiters.ToCharArray()) >= 0)
+            {
+                if (tempstr.IndexOfAny(_delimiters.ToCharArray()) == 0)
+                {
+                    if (tempstr.Length > 1)
+                    {
+                        elements.Add(tempstr.Substring(0, 1));
+                        tempstr = tempstr.Substring(1);
+                    }
+                    else
+                    {
+                        tempstr = string.Empty;
+                    }
+                }
+                else
+                {
+                    var toks = tempstr.Substring(0, tempstr.IndexOfAny(_delimiters.ToCharArray()));
+                    elements.Add(toks);
+                    elements.Add(tempstr.Substring(toks.Length, 1));
+
+                    tempstr = tempstr.Length > toks.Length + 1 ? tempstr.Substring(toks.Length + 1) : string.Empty;
+                }
+            }
+
+            if (tempstr.Length > 0)
+            {
+                elements.Add(tempstr);
             }
         }
     }

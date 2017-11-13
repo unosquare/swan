@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using Attributes;
+    using System.Collections.Generic;
+
     public class From
     {
         public string address { get; set; }
@@ -24,7 +25,9 @@ namespace Unosquare.Swan.Test.Mocks
 
     public class SmtpMock
     {
-        public Dictionary<string, string> headers { get; set; }
+        [JsonProperty("headers")]
+        public Dictionary<string, string> Headers { get; set; }
+
         public string priority { get; set; }
         public string id { get; set; }
         public string time { get; set; }

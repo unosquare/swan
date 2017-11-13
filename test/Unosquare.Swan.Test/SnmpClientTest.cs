@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using Unosquare.Swan.Networking;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using Networking;
+
     [TestFixture]
     public class SnmpClientTest
     {

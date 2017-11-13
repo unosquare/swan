@@ -127,12 +127,11 @@ namespace Unosquare.Swan.Networking.Ldap
         public const string StartTlsOid = "1.3.6.1.4.1.1466.20037";
 
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
-        
-        private LdapControl[] _responseCtls;
         private readonly object _responseCtlSemaphore = new object();
-        private Connection _conn;
 
-        /// <
+        private LdapControl[] _responseCtls;
+        private Connection _conn;
+        
         /// <summary>
         /// Returns the protocol version uses to authenticate.
         /// 0 is returned if no authentication has been performed.
@@ -144,7 +143,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Returns the distinguished name (DN) used for as the bind name during
-        /// the last successful bind operation.  <code>null</code> is returned
+        /// the last successful bind operation.  null is returned
         /// if no authentication has been performed or if the bind resulted in
         /// an anonymous connection.
         /// </summary>

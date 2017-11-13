@@ -1,11 +1,11 @@
-﻿#if NET452
-using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
-using Unosquare.Swan.Test.Mocks;
-
+﻿#if NET46
 namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System;
+    using System.Threading.Tasks;
+    using Mocks;
+
     [TestFixture]
     public class ExtensionsWindowsServicesTest
     {

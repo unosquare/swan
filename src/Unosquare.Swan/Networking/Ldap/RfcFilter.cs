@@ -3,6 +3,7 @@ namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Text;
     using Exceptions;
 
@@ -38,7 +39,7 @@ namespace Unosquare.Swan.Networking.Ldap
         // Private variables for Filter
         private FilterTokenizer _ft;
 
-        private Stack _filterStack;
+        private Stack<Asn1Object> _filterStack;
         private bool _finalFound;
 
         /// <summary>
@@ -456,7 +457,7 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (_filterStack == null)
             {
-                _filterStack = new Stack();
+                _filterStack = new Stack<Asn1Object>();
             }
 
             if (ChoiceValue == null)
@@ -576,7 +577,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Completes a SubString filter component.
         /// </summary>
-        /// <exception cref="Unosquare.Swan.Networking.Ldap.LdapException">
+        /// <exception cref="LdapException">
         /// Empty substring filter
         /// or
         /// Missmatched ending of substrings
@@ -694,7 +695,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 _filterStack.Pop();
             }
 
-            var topOfStackType = ((Asn1Object) _filterStack.Peek()).GetIdentifier().Tag;
+            var topOfStackType = _filterStack.Peek().GetIdentifier().Tag;
             if (topOfStackType != (int) rfcType)
             {
                 throw new LdapException("Mismatched ending of nested filter", LdapStatusCode.FilterError);

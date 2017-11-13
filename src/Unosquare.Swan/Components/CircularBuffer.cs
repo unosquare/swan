@@ -12,8 +12,6 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class CircularBuffer : IDisposable
     {
-        #region Private State Variables
-
         /// <summary>
         /// The locking object to perform synchronization.
         /// </summary>
@@ -23,11 +21,7 @@
         /// The unmanaged buffer
         /// </summary>
         private IntPtr _buffer = IntPtr.Zero;
-
-        #endregion
-
-        #region Constructors
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularBuffer"/> class.
         /// </summary>
@@ -42,53 +36,63 @@
             Length = bufferLength;
             _buffer = Marshal.AllocHGlobal(Length);
         }
-
-        #endregion
-
-        /// <summary>
-        /// Fast pointer memory block copy function
-        /// </summary>
-        /// <param name="destination">The destination.</param>
-        /// <param name="source">The source.</param>
-        /// <param name="length">The length.</param>
-        [DllImport("kernel32")]
-        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
-
+        
         #region Properties
 
         /// <summary>
         /// Gets the capacity of this buffer.
         /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
         public int Length { get; private set; }
 
         /// <summary>
         /// Gets the current, 0-based read index
         /// </summary>
+        /// <value>
+        /// The index of the read.
+        /// </value>
         public int ReadIndex { get; private set; }
 
         /// <summary>
         /// Gets the current, 0-based write index.
         /// </summary>
+        /// <value>
+        /// The index of the write.
+        /// </value>
         public int WriteIndex { get; private set; }
 
         /// <summary>
         /// Gets an the object associated with the last write
         /// </summary>
+        /// <value>
+        /// The write tag.
+        /// </value>
         public TimeSpan WriteTag { get; private set; } = TimeSpan.MinValue;
 
         /// <summary>
         /// Gets the available bytes to read.
         /// </summary>
+        /// <value>
+        /// The readable count.
+        /// </value>
         public int ReadableCount { get; private set; }
 
         /// <summary>
         /// Gets the number of bytes that can be written.
         /// </summary>
+        /// <value>
+        /// The writable count.
+        /// </value>
         public int WritableCount => Length - ReadableCount;
 
         /// <summary>
         /// Gets percentage of used bytes (readbale/available, from 0.0 to 1.0).
         /// </summary>
+        /// <value>
+        /// The capacity percent.
+        /// </value>
         public double CapacityPercent => 1.0 * ReadableCount / Length;
 
         #endregion
@@ -194,6 +198,15 @@
             _buffer = IntPtr.Zero;
             Length = 0;
         }
+
+        /// <summary>
+        /// Fast pointer memory block copy function
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="length">The length.</param>
+        [DllImport("kernel32")]
+        public static extern void CopyMemory(IntPtr destination, IntPtr source, uint length);
 
         #endregion
     }

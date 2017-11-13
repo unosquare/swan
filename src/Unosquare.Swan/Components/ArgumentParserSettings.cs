@@ -21,12 +21,18 @@
         /// Note that case insensitivity only applies to <i>parameters</i>, not the values
         /// assigned to them (for example, enum parsing).
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [case sensitive]; otherwise, <c>false</c>.
+        /// </value>
         public bool CaseSensitive { get; set; } = false;
 
         /// <summary>
         /// Gets or sets a value indicating whether perform case sensitive comparisons of <i>values</i>.
         /// Note that case insensitivity only applies to <i>values</i>, not the parameters.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [case insensitive enum values]; otherwise, <c>false</c>.
+        /// </value>
         public bool CaseInsensitiveEnumValues { get; set; } = true;
 
         /// <summary>
@@ -34,7 +40,7 @@
         /// encounter an unknown arguments
         /// </summary>
         /// <value>
-        /// <c>true</c> to allow parsing the arguments with different class options that do not have all the arguments.
+        ///   <c>true</c> to allow parsing the arguments with different class options that do not have all the arguments.
         /// </value>
         /// <remarks>
         /// This allows fragmented version class parsing, useful for project with add-on where add-ons also requires command line arguments but

@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using System;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-using Unosquare.Swan.Exceptions;
-using Unosquare.Swan.Networking.Ldap;
-
-namespace Unosquare.Swan.Test
+﻿namespace Unosquare.Swan.Test
 {
+    using NUnit.Framework;
+    using System;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+    using Exceptions;
+    using Networking.Ldap;
+
     public abstract class LdapTest
     {
         protected const string LdapServer = "ldap.forumsys.com";
@@ -115,8 +115,8 @@ namespace Unosquare.Swan.Test
             {
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
-                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsNotNull(obj);
+
+                Assert.IsNotNull(ldapAttributes.GetAttribute("uniqueMember")?.StringValue);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -135,8 +135,8 @@ namespace Unosquare.Swan.Test
             {
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
-                var obj = ldapAttributes.GetAttribute("uniqueMember")?.StringValue;
-                Assert.IsNotNull(obj);
+                
+                Assert.IsNotNull(ldapAttributes.GetAttribute("uniqueMember")?.StringValue);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -153,7 +153,6 @@ namespace Unosquare.Swan.Test
                 cn.Disconnect();
             });
         }
-
 
         [Test]
         public void SearchForMore_ThrowsLdapException()
@@ -182,10 +181,12 @@ namespace Unosquare.Swan.Test
             {
                 var ex = Assert.ThrowsAsync<LdapException>(async () =>
                 {
-
                     var cn = await GetDefaultConnection();
                     await cn.Modify("uid=euclid,dc=example,dc=com",
-                        new[] { new LdapModification(LdapModificationOp.Replace, new LdapAttribute("mail", "new@ldap.forumsys.com")) });
+                        new[]
+                        {
+                            new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")
+                        });
 
                     cn.Disconnect();
                 });
@@ -199,10 +200,13 @@ namespace Unosquare.Swan.Test
             [Test]
             public async Task ReadUserProperties()
             {
+                if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                    Assert.Inconclusive("Can not test in AppVeyor");
+
                 var cn = new LdapConnection();
-                await cn.Connect("127.0.0.1", 389);
+                await cn.Connect("127.0.0.1", 1089);
                 await cn.Bind("cn=root", "secret");
-                var properties = await cn.Read("cn=Simio,o=joyent");
+                var properties = await cn.Read("cn=Simio, o=joyent");
                 var mail = properties.GetAttribute("email");
                 Assert.AreEqual(mail.StringValue, "gperez@unosquare.com");
                 cn.Disconnect();

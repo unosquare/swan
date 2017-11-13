@@ -26,13 +26,16 @@
         {
             return new BasicJson
             {
-                StringData = "string",
+                StringData = "string,\r\ndata",
                 IntData = 1,
                 NegativeInt = -1,
                 DecimalData = 10.33M,
                 BoolData = true
             };
         }
+
+        public static string GetControlValue() =>
+            "\"StringData\": \"string,\\r\\ndata\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null";
     }
 
     public class BasicJsonWithNewProperty : BasicJson
@@ -43,19 +46,6 @@
     public class DateBasicJson : BasicJson
     {
         public DateTime Date { get; set; }
-
-        public static DateBasicJson GetDateDefault()
-        {
-            return new DateBasicJson
-            {
-                StringData = "string",
-                IntData = 1,
-                NegativeInt = -1,
-                DecimalData = 10.33M,
-                BoolData = true,
-                Date = new DateTime(2017, 10, 10)
-            };
-        }
     }
 
     public class EmptyJson

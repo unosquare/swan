@@ -35,70 +35,15 @@
         /// </summary>
         public event EventHandler<AppWorkerStateChangedEventArgs> StateChanged;
 
-        #region Abstract and Virtual Methods
-
-        /// <summary>
-        /// Creates the worker task.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Worker Thread seems to be still running.</exception>
-        private void CreateWorker()
-        {
-            _tokenSource = new CancellationTokenSource();
-            _tokenSource.Token.Register(() =>
-            {
-                IsBusy = false;
-                OnWorkerThreadExit();
-            });
-
-            Task.Factory.StartNew(() =>
-            {
-                IsBusy = true;
-
-                try
-                {
-                    WorkerThreadLoop();
-                }
-                catch (AggregateException)
-                {
-                    // Ignored
-                }
-                catch (Exception ex)
-                {
-                    ex.Log(GetType().Name);
-                    OnWorkerThreadLoopException(ex);
-
-                    if (_tokenSource.IsCancellationRequested == false)
-                        _tokenSource.Cancel();
-                }
-            }, _tokenSource.Token);
-        }
-
-        /// <summary>
-        /// Called when an unhandled exception is thrown.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        protected virtual void OnWorkerThreadLoopException(Exception ex)
-            => "Service exception detected.".Debug(GetType().Name, ex);
-
-        /// <summary>
-        /// This method is called when the user loop has exited
-        /// </summary>
-        protected virtual void OnWorkerThreadExit() => "Service thread is stopping.".Debug(GetType().Name);
-
-        /// <summary>
-        /// Implement this method as a loop that checks whether CancellationPending has been set to true
-        /// If so, immediately exit the loop.
-        /// </summary>
-        protected abstract void WorkerThreadLoop();
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets the state of the application service.
         /// In other words, useful to know whether the service is running.
         /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
         public AppWorkerState State
         {
             get => _workerState;
@@ -122,11 +67,17 @@
         /// <summary>
         /// Gets the cancellation token.
         /// </summary>
+        /// <value>
+        /// The cancellation token.
+        /// </value>
         public CancellationToken CancellationToken => _tokenSource?.Token ?? default(CancellationToken);
 
         /// <summary>
         /// Gets a value indicating whether the thread is busy
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is busy; otherwise, <c>false</c>.
+        /// </value>
         public bool IsBusy { get; private set; }
 
         #endregion
@@ -174,5 +125,64 @@
         }
 
         #endregion
+
+        #region Abstract and Virtual Methods
+
+        /// <summary>
+        /// Called when an unhandled exception is thrown.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        protected virtual void OnWorkerThreadLoopException(Exception ex)
+            => "Service exception detected.".Debug(GetType().Name, ex);
+
+        /// <summary>
+        /// This method is called when the user loop has exited
+        /// </summary>
+        protected virtual void OnWorkerThreadExit() => "Service thread is stopping.".Debug(GetType().Name);
+
+        /// <summary>
+        /// Implement this method as a loop that checks whether CancellationPending has been set to true
+        /// If so, immediately exit the loop.
+        /// </summary>
+        protected abstract void WorkerThreadLoop();
+
+        /// <summary>
+        /// Creates the worker task.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Worker Thread seems to be still running.</exception>
+        private void CreateWorker()
+        {
+            _tokenSource = new CancellationTokenSource();
+            _tokenSource.Token.Register(() =>
+            {
+                IsBusy = false;
+                OnWorkerThreadExit();
+            });
+
+            Task.Factory.StartNew(() =>
+            {
+                IsBusy = true;
+
+                try
+                {
+                    WorkerThreadLoop();
+                }
+                catch (AggregateException)
+                {
+                    // Ignored
+                }
+                catch (Exception ex)
+                {
+                    ex.Log(GetType().Name);
+                    OnWorkerThreadLoopException(ex);
+
+                    if (_tokenSource.IsCancellationRequested == false)
+                        _tokenSource.Cancel();
+                }
+            }, _tokenSource.Token);
+        }
+
+        #endregion
+
     }
 }

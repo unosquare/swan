@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
     public interface IAnimal
     {
         string Name { get; }
@@ -91,5 +91,9 @@ namespace Unosquare.Swan.Test.Mocks
         public string GetName() => "Lenny";
 
         public override string GetFeeding() => "Seals";
+    }
+
+    public abstract class DependencyContainerTest<T>
+    {
     }
 }

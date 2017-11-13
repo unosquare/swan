@@ -1,18 +1,18 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Unosquare.Swan.Formatters;
-using Unosquare.Swan.Reflection;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.JsonTests
+﻿namespace Unosquare.Swan.Test.JsonTests
 {
-    public abstract class JsonTest
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Formatters;
+    using Reflection;
+    using Mocks;
+
+    public abstract class JsonTest : TestFixtureBase
     {
         protected static readonly AdvJson AdvObj = new AdvJson
         {
-            StringData = "string",
+            StringData = "string,\r\ndata",
             IntData = 1,
             NegativeInt = -1,
             DecimalData = 10.33M,
@@ -21,15 +21,11 @@ namespace Unosquare.Swan.Test.JsonTests
         };
 
         protected const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
+        
+        protected static string BasicStr = "{" + BasicJson.GetControlValue() + "}";
 
-        protected const string BasicStrWithoutWrap =
-                "\"StringData\": \"string\",\"IntData\": 1,\"NegativeInt\": -1,\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null"
-            ;
-
-        protected const string BasicStr = "{" + BasicStrWithoutWrap + "}";
-
-        protected const string AdvStr =
-            "{\"InnerChild\": " + BasicStr + "," + BasicStrWithoutWrap + "}";
+        protected string AdvStr =
+            "{\"InnerChild\": " + BasicStr + "," + BasicJson.GetControlValue() + "}";
 
         protected readonly string[] BasicArray = {"One", "Two", "Three"};
         protected string BasicAStr = "[\"One\",\"Two\",\"Three\"]";
@@ -82,9 +78,7 @@ namespace Unosquare.Swan.Test.JsonTests
         [Test]
         public void NullObjectAndEmptyString_ValidatesIfTheyAreEquals()
         {
-            object nullObj = null;
-
-            Assert.AreEqual(string.Empty, nullObj.ToJson());
+            Assert.AreEqual(string.Empty, NullObj.ToJson());
         }
     }
 
@@ -98,6 +92,16 @@ namespace Unosquare.Swan.Test.JsonTests
 
             Assert.IsNotNull(data);
             Assert.AreEqual(BasicAStr, data);
+        }
+
+        [Test]
+        public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
+        {
+            var reference = new List<WeakReference> { new WeakReference(BasicArray)};
+
+            var data = Json.Serialize(BasicArray, false, null, false, null, null, reference);
+            
+            Assert.AreEqual("{ \"$circref\":", data.Substring(0, 13));
         }
 
         [Test]
@@ -201,17 +205,30 @@ namespace Unosquare.Swan.Test.JsonTests
         [Test]
         public void WithStructure_ReturnsStructureSerialized()
         {
-            var result = new SampleStruct {Value = 1, Name = "A"};
-            var data = Json.Serialize(result);
+            var data = Json.Serialize(DefaultStruct);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Value\": 1,\"Name\": \"A\"}", data);
+            Assert.AreEqual("{\"Value\": 1,\"Name\": \"string\"}", data);
         }
     }
 
     [TestFixture]
     public class Deserialize : JsonTest
     {
+        [Test]
+        public void WithIncludeNonPublic_ReturnsObjectDeserialized()
+        {
+            var obj = Json.Deserialize<BasicJson>(BasicStr, false);
+            
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
+            Assert.AreEqual(obj.IntData, BasicJson.GetDefault().IntData);
+            Assert.AreEqual(obj.NegativeInt, BasicJson.GetDefault().NegativeInt);
+            Assert.AreEqual(obj.BoolData, BasicJson.GetDefault().BoolData);
+            Assert.AreEqual(obj.DecimalData, BasicJson.GetDefault().DecimalData);
+            Assert.AreEqual(obj.StringNull, BasicJson.GetDefault().StringNull);
+        }
+
         [Test]
         public void BasicObject_ReturnsObjectDeserialized()
         {
@@ -376,11 +393,80 @@ namespace Unosquare.Swan.Test.JsonTests
                 nameof(BasicJson.NegativeInt)
             };
 
-            var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), true, includeNames);
+            var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), false, includeNames);
 
             Assert.AreEqual(
-                "{\r\n    \"StringData\": \"string\",\r\n    \"IntData\": 1,\r\n    \"NegativeInt\": -1\r\n}",
+                "{\"StringData\": \"string,\\r\\ndata\",\"IntData\": 1,\"NegativeInt\": -1}",
                 dataSerialized);
+        }
+
+        [Test]
+        public void WithString_ReturnsString()
+        {
+            var sdsdas = Json.SerializeOnly("\b\t\f\0", true, null);
+            
+            Assert.AreEqual("\"\\b\\t\\f\\u0000\"", sdsdas);
+        }
+
+        [Test]
+        public void WithEmptyString_ReturnsEmptyString()
+        {
+            var dataSerialized = Json.SerializeOnly("", true, null);
+
+            Assert.AreEqual("\"\"", dataSerialized);
+        }
+
+        [Test]
+        public void WithType_ReturnsString()
+        {
+            var dataSerialized = Json.SerializeOnly(typeof(string), true, null);
+
+            Assert.AreEqual("\"System.String\"", dataSerialized);
+        }
+
+        [Test]
+        public void WithEmptyEnumerable_ReturnsEmptyArrayLiteral()
+        {
+            var emptyEnumerable = Enumerable.Empty<int>();
+
+            var dataSerialized = Json.SerializeOnly(emptyEnumerable, true, null);
+
+            Assert.AreEqual("[ ]", dataSerialized);
+        }
+
+        [Test]
+        public void WithEmptyDictionary_ReturnsEmptyObjectLiteral()
+        {
+            var emptyDictionary = new Dictionary<string, string>();
+
+            var dataSerialized = Json.SerializeOnly(emptyDictionary, true, null);
+            
+            Assert.AreEqual("{ }", dataSerialized);
+        }
+
+        [Test]
+        public void WithDictionaryOfDictionaries_ReturnsString()
+        {
+            var persons = new Dictionary<string, Dictionary<string, string>>
+                {
+                    { "Tyrande", new Dictionary<string, string> {  } },
+                    { "Jaina", new Dictionary<string, string> { { "Race", "Human" }, { "Affiliation", "Alliance" } } }
+                };
+
+            var dataSerialized = Json.SerializeOnly(persons, false, null);
+            
+            Assert.AreEqual("{\"Tyrande\": { },\"Jaina\": {\"Race\": \"Human\",\"Affiliation\": \"Alliance\"}}", dataSerialized);
+        }
+
+        [Test]
+        public void WithDictionaryOfArrays_ReturnsString()
+        {
+            var wordDictionary =
+                new Dictionary<string, string[][]> { { "Horde Capitals", new[] { new string[] { } , new[] {"Orgrimmar", "Thunder Bluff"} } } };
+
+            var dataSerialized = Json.SerializeOnly(wordDictionary, false, null);
+            
+            Assert.AreEqual("{\"Horde Capitals\": [[ ],[\"Orgrimmar\",\"Thunder Bluff\"]]}", dataSerialized);
         }
     }
 
@@ -397,10 +483,10 @@ namespace Unosquare.Swan.Test.JsonTests
                 nameof(BasicJson.NegativeInt)
             };
 
-            var dataSerialized = Json.SerializeExcluding(BasicJson.GetDefault(), true, excludeNames);
+            var dataSerialized = Json.SerializeExcluding(BasicJson.GetDefault(), false, excludeNames);
 
             Assert.AreEqual(
-                "{\r\n    \"DecimalData\": 10.33,\r\n    \"BoolData\": true,\r\n    \"StringNull\": null\r\n}",
+                "{\"DecimalData\": 10.33,\"BoolData\": true,\"StringNull\": null}",
                 dataSerialized);
         }
     }

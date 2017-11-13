@@ -1,16 +1,16 @@
-﻿using System;
-using System.IO;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
-    internal class Helper
+    using System;
+    using System.IO;
+
+    internal static class Helper
     {
         /// <summary>
         /// Creates the temporary binary file.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="sizeInMb">The size in mb.</param>
-        internal static void CreateTempBinaryFile(string fileName, int sizeInMb)
+        internal static void CreateTempBinaryFile(string fileName, int sizeInMb = 1)
         {
             const int blockSize = 1024 * 8;
             const int blocksPerMb = (1024 * 1024) / blockSize;

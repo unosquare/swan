@@ -23,6 +23,9 @@
         /// <summary>
         /// Gets the client.
         /// </summary>
+        /// <value>
+        /// The client.
+        /// </value>
         public TcpClient Client { get; }
     }
 
@@ -44,6 +47,9 @@
         /// <summary>
         /// Setting Cancel to true rejects the new TcpClient
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if cancel; otherwise, <c>false</c>.
+        /// </value>
         public bool Cancel { get; set; }
     }
 
@@ -66,6 +72,9 @@
         /// <summary>
         /// Gets the end point.
         /// </summary>
+        /// <value>
+        /// The end point.
+        /// </value>
         public IPEndPoint EndPoint { get; }
     }
 
@@ -94,11 +103,17 @@
         /// <summary>
         /// Gets the end point.
         /// </summary>
+        /// <value>
+        /// The end point.
+        /// </value>
         public IPEndPoint EndPoint { get; }
 
         /// <summary>
         /// Gets the error.
         /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
         public Exception Error { get; }
     }
 
@@ -127,11 +142,17 @@
         /// <summary>
         /// Gets the end point.
         /// </summary>
+        /// <value>
+        /// The end point.
+        /// </value>
         public IPEndPoint EndPoint { get; }
 
         /// <summary>
         /// Gets the error.
         /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
         public Exception Error { get; }
     }
 }

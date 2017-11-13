@@ -4,6 +4,7 @@ namespace Unosquare.Swan.Networking.Ldap
     using System.Linq;
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Text;
 
     /// <summary>
@@ -16,18 +17,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapAttribute"></seealso>
     /// <seealso cref="LdapAttributeSet"></seealso>
-    public sealed class LdapEntry
+    public class LdapEntry
     {
-        /// <summary>
-        /// Returns the distinguished name of the entry.
-        /// </summary>
-        /// <value>
-        /// The dn.
-        /// </value>
-        public string DN => Dn;
-
-        protected internal string Dn;
-        protected internal LdapAttributeSet Attrs;
+        private readonly LdapAttributeSet _attrs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapEntry" /> class.
@@ -41,56 +33,59 @@ namespace Unosquare.Swan.Networking.Ldap
         /// entry.</param>
         public LdapEntry(string dn = null, LdapAttributeSet attrs = null)
         {
-            Dn = dn ?? string.Empty;
-            Attrs = attrs ?? new LdapAttributeSet();
+            DN = dn ?? string.Empty;
+            _attrs = attrs ?? new LdapAttributeSet();
         }
 
         /// <summary>
-        ///     Returns the attributes matching the specified attrName.
+        /// Returns the distinguished name of the entry.
         /// </summary>
-        /// <param name="attrName">
-        ///     The name of the attribute or attributes to return.
-        /// </param>
-        /// <returns>
-        ///     An array of LdapAttribute objects.
-        /// </returns>
-        public LdapAttribute GetAttribute(string attrName)
-            => Attrs.GetAttribute(attrName);
+        /// <value>
+        /// The dn.
+        /// </value>
+        public string DN { get; }
 
         /// <summary>
-        ///     Returns the attribute set of the entry.
-        ///     All base and subtype variants of all attributes are
-        ///     returned. The LdapAttributeSet returned may be
-        ///     empty if there are no attributes in the entry.
+        /// Returns the attributes matching the specified attrName.
         /// </summary>
+        /// <param name="attrName">The name of the attribute or attributes to return.</param>
         /// <returns>
-        ///     The attribute set of the entry.
+        /// An array of LdapAttribute objects.
         /// </returns>
-        public LdapAttributeSet GetAttributeSet() => Attrs;
+        public LdapAttribute GetAttribute(string attrName) => _attrs.GetAttribute(attrName);
 
         /// <summary>
-        ///     Returns an attribute set from the entry, consisting of only those
-        ///     attributes matching the specified subtypes.
-        ///     The getAttributeSet method can be used to extract only
-        ///     a particular language variant subtype of each attribute,
-        ///     if it exists. The "subtype" may be, for example, "lang-ja", "binary",
-        ///     or "lang-ja;phonetic". If more than one subtype is specified, separated
-        ///     with a semicolon, only those attributes with all of the named
-        ///     subtypes will be returned. The LdapAttributeSet returned may be
-        ///     empty if there are no matching attributes in the entry.
+        /// Returns the attribute set of the entry.
+        /// All base and subtype variants of all attributes are
+        /// returned. The LdapAttributeSet returned may be
+        /// empty if there are no attributes in the entry.
         /// </summary>
-        /// <param name="subtype">
-        ///     One or more subtype specification(s), separated
-        ///     with semicolons. The "lang-ja" and
-        ///     "lang-en;phonetic" are valid subtype
-        ///     specifications.
-        /// </param>
         /// <returns>
-        ///     An attribute set from the entry with the attributes that
-        ///     match the specified subtypes or an empty set if no attributes
-        ///     match.
+        /// The attribute set of the entry.
         /// </returns>
-        public LdapAttributeSet GetAttributeSet(string subtype) => Attrs.GetSubset(subtype);
+        public LdapAttributeSet GetAttributeSet() => _attrs;
+
+        /// <summary>
+        /// Returns an attribute set from the entry, consisting of only those
+        /// attributes matching the specified subtypes.
+        /// The getAttributeSet method can be used to extract only
+        /// a particular language variant subtype of each attribute,
+        /// if it exists. The "subtype" may be, for example, "lang-ja", "binary",
+        /// or "lang-ja;phonetic". If more than one subtype is specified, separated
+        /// with a semicolon, only those attributes with all of the named
+        /// subtypes will be returned. The LdapAttributeSet returned may be
+        /// empty if there are no matching attributes in the entry.
+        /// </summary>
+        /// <param name="subtype">One or more subtype specification(s), separated
+        /// with semicolons. The "lang-ja" and
+        /// "lang-en;phonetic" are valid subtype
+        /// specifications.</param>
+        /// <returns>
+        /// An attribute set from the entry with the attributes that
+        /// match the specified subtypes or an empty set if no attributes
+        /// match.
+        /// </returns>
+        public LdapAttributeSet GetAttributeSet(string subtype) => _attrs.GetSubset(subtype);
     }
 
     /// <summary>
@@ -122,7 +117,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapAttribute" /> class.
-        /// Constructs an attribute with a single string value.
+        /// Constructs an attribute with a single <see cref="System.String" /> value.
         /// </summary>
         /// <param name="attrName">Name of the attribute.</param>
         /// <param name="attrString">Value of the attribute as a string.</param>
@@ -153,8 +148,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 // Deep copy so application cannot change values
                 for (int i = 0, u = size; i < u; i++)
                 {
-                    bva[i] = new sbyte[((sbyte[])_values[i]).Length];
-                    Array.Copy((Array)_values[i], 0, bva[i], 0, bva[i].Length);
+                    bva[i] = new sbyte[((sbyte[]) _values[i]).Length];
+                    Array.Copy((Array) _values[i], 0, bva[i], 0, bva[i].Length);
                 }
 
                 return bva;
@@ -180,7 +175,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 for (var j = 0; j < size; j++)
                 {
-                    sva[j] = Encoding.UTF8.GetString((sbyte[])_values[j]);
+                    sva[j] = Encoding.UTF8.GetString((sbyte[]) _values[j]);
                 }
 
                 return sva;
@@ -188,30 +183,28 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the the first value of the attribute as a <code>String</code>.
+        ///     Returns the the first value of the attribute as a string.
         /// </summary>
         /// <returns>
-        ///     The UTF-8 encoded<code>String</code> value of the attribute's
-        ///     value.  If the value wasn't a UTF-8 encoded <code>String</code>
-        ///     to begin with the value of the returned <code>String</code> is
+        ///     The UTF-8 encoded <see cref="System.String" /> value of the attribute's
+        ///     value.  If the value wasn't a UTF-8 encoded string
+        ///     to begin with the value of the returned <see cref="System.String" /> is
         ///     non deterministic.
-        ///     If <code>this</code> attribute has more than one value the
-        ///     first value is converted to a UTF-8 encoded <code>String</code>
+        ///     If this attribute has more than one value the
+        ///     first value is converted to a UTF-8 encoded string
         ///     and returned. It should be noted, that the directory may
         ///     return attribute values in any order, so that the first
         ///     value may vary from one call to another.
-        ///     If the attribute has no values <code>null</code> is returned
+        ///     If the attribute has no values null is returned
         /// </returns>
-        public string StringValue => _values == null ? null : Encoding.UTF8.GetString((sbyte[])_values[0]);
+        public string StringValue => _values == null ? null : Encoding.UTF8.GetString((sbyte[]) _values[0]);
 
         /// <summary>
-        ///     Returns the the first value of the attribute as a byte array.
+        /// Returns the first value of the attribute as a byte array or null.
         /// </summary>
-        /// <returns>
-        ///     The binary value of <code>this</code> attribute or
-        ///     <code>null</code> if <code>this</code> attribute doesn't have a value.
-        ///     If the attribute has no values <code>null</code> is returned
-        /// </returns>
+        /// <value>
+        /// The byte value.
+        /// </value>
         public sbyte[] ByteValue
         {
             get
@@ -219,8 +212,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 if (_values == null) return null;
 
                 // Deep copy so app can't change the value
-                var bva = new sbyte[((sbyte[])_values[0]).Length];
-                Array.Copy((Array)_values[0], 0, bva, 0, bva.Length);
+                var bva = new sbyte[((sbyte[]) _values[0]).Length];
+                Array.Copy((Array) _values[0], 0, bva, 0, bva.Length);
 
                 return bva;
             }
@@ -291,14 +284,14 @@ namespace Unosquare.Swan.Networking.Ldap
             var newObj = MemberwiseClone();
             if (_values != null)
             {
-                Array.Copy(_values, 0, ((LdapAttribute)newObj)._values, 0, _values.Length);
+                Array.Copy(_values, 0, ((LdapAttribute) newObj)._values, 0, _values.Length);
             }
 
             return newObj;
         }
 
         /// <summary>
-        ///     Adds a string value to the attribute.
+        ///     Adds a <see cref="System.String" /> value to the attribute.
         /// </summary>
         /// <param name="attrString">
         ///     Value of the attribute as a String.
@@ -550,7 +543,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             for (var i = 0; i < _values.Length; i++)
             {
-                if (!Equals(attrBytes, (sbyte[])_values[i])) continue;
+                if (!Equals(attrBytes, (sbyte[]) _values[i])) continue;
 
                 if (i == 0 && _values.Length == 1)
                 {
@@ -606,10 +599,10 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     specified object.
         /// </returns>
         public int CompareTo(object attribute)
-            => Name.CompareTo(((LdapAttribute)attribute).Name);
+            => Name.CompareTo(((LdapAttribute) attribute).Name);
 
         /// <summary>
-        ///     Adds an object to <code>this</code> object's list of attribute values
+        ///     Adds an object to this object's list of attribute values
         /// </summary>
         /// <param name="bytes">
         ///     Ultimately all of this attribute's values are treated
@@ -621,12 +614,12 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             if (_values == null)
             {
-                _values = new object[] { bytes };
+                _values = new object[] {bytes};
             }
             else
             {
                 // Duplicate attribute values not allowed
-                if (_values.Any(t => Equals(bytes, (sbyte[])t)))
+                if (_values.Any(t => Equals(bytes, (sbyte[]) t)))
                 {
                     return; // Duplicate, don't add
                 }
@@ -702,12 +695,12 @@ namespace Unosquare.Swan.Networking.Ldap
                         result.Append("','");
                     }
 
-                    if (((sbyte[])_values[i]).Length == 0)
+                    if (((sbyte[]) _values[i]).Length == 0)
                     {
                         continue;
                     }
 
-                    var sval = Encoding.UTF8.GetString((sbyte[])_values[i]);
+                    var sval = Encoding.UTF8.GetString((sbyte[]) _values[i]);
                     if (sval.Length == 0)
                     {
                         // didn't decode well, must be binary
@@ -734,75 +727,50 @@ namespace Unosquare.Swan.Networking.Ldap
     /// operation. LdapAttributeSet may be also used to construct an entry
     /// to be added to a directory.  
     /// </summary>
-    /// <seealso cref="System.Collections.ArrayList" />
     /// <seealso cref="LdapAttribute"></seealso>
     /// <seealso cref="LdapEntry"></seealso>
-    public sealed class LdapAttributeSet : ArrayList
+    public sealed class LdapAttributeSet : Dictionary<string, LdapAttribute>
     {
-        /// <summary>
-        ///     This is the underlying data structure for this set.
-        ///     HashSet is similar to the functionality of this set.  The difference
-        ///     is we use the name of an attribute as keys in the Map and LdapAttributes
-        ///     as the values.  We also do not declare the map as transient, making the
-        ///     map serializable.
-        /// </summary>
-        private readonly Hashtable _map = new Hashtable();
-
-        /// <summary>
-        ///     Returns the number of attributes in this set.
-        /// </summary>
-        /// <returns>
-        ///     number of attributes in this set.
-        /// </returns>
-        public override int Count => _map.Count;
-
         /// <summary>
         ///     Returns a deep copy of this attribute set.
         /// </summary>
         /// <returns>
         ///     A deep copy of this attribute set.
         /// </returns>
-        public override object Clone()
+        public object Clone()
         {
             var newObj = MemberwiseClone();
             var i = GetEnumerator();
             while (i.MoveNext())
             {
-                ((LdapAttributeSet)newObj).Add(((LdapAttribute)i.Current).Clone());
+                ((LdapAttributeSet) newObj).Add(((LdapAttribute) i.Current).Clone());
             }
 
             return newObj;
         }
 
         /// <summary>
-        ///     Returns the attribute matching the specified attrName.
-        ///     For example:
-        ///     <ul>
-        ///         <li><code>getAttribute("cn")</code>      returns only the "cn" attribute</li>
-        ///         <li>
-        ///             <code>getAttribute("cn;lang-en")</code> returns only the "cn;lang-en"
-        ///             attribute.
-        ///         </li>
-        ///     </ul>
-        ///     In both cases, <code>null</code> is returned if there is no exact match to
-        ///     the specified attrName.
-        ///     Note: Novell eDirectory does not currently support language subtypes.
-        ///     It does support the "binary" subtype.
+        /// Returns the attribute matching the specified attrName.
+        /// For example:
+        /// <ul><li><code>getAttribute("cn")</code>      returns only the "cn" attribute</li><li><code>getAttribute("cn;lang-en")</code> returns only the "cn;lang-en"
+        /// attribute.
+        /// </li></ul>
+        /// In both cases, null is returned if there is no exact match to
+        /// the specified attrName.
+        /// Note: Novell eDirectory does not currently support language subtypes.
+        /// It does support the "binary" subtype.
         /// </summary>
-        /// <param name="attrName">
-        ///     The name of an attribute to retrieve, with or without
-        ///     subtype specifications. For example, "cn", "cn;phonetic", and
-        ///     "cn;binary" are valid attribute names.
-        /// </param>
+        /// <param name="attrName">The name of an attribute to retrieve, with or without
+        /// subtype specifications. For example, "cn", "cn;phonetic", and
+        /// "cn;binary" are valid attribute names.</param>
         /// <returns>
-        ///     The attribute matching the specified attrName, or <code>null</code>
-        ///     if there is no exact match.
+        /// The attribute matching the specified attrName, or null
+        /// if there is no exact match.
         /// </returns>
-        public LdapAttribute GetAttribute(string attrName)
-            => (LdapAttribute)_map[attrName.ToUpper()];
+        public LdapAttribute GetAttribute(string attrName) => this[attrName.ToUpper()];
 
         /// <summary>
-        ///     Returns a single best-match attribute, or <code>null</code> if no match is
+        ///     Returns a single best-match attribute, or null if no match is
         ///     available in the entry.
         ///     Ldap version 3 allows adding a subtype specification to an attribute
         ///     name. For example, "cn;lang-ja" indicates a Japanese language
@@ -816,9 +784,9 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     best matches lang.
         ///     If there are subtypes other than "lang" subtypes included
         ///     in attrName, for example, "cn;binary", only attributes with all of
-        ///     those subtypes are returned. If lang is <code>null</code> or empty, the
+        ///     those subtypes are returned. If lang is null or empty, the
         ///     method behaves as getAttribute(attrName). If there are no matching
-        ///     attributes, <code>null</code> is returned.
+        ///     attributes, null is returned.
         ///     Assume the entry contains only the following attributes:
         ///     <ul>
         ///         <li>cn;lang-en</li>
@@ -827,7 +795,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     </ul>
         ///     Examples:
         ///     <ul>
-        ///         <li><code>getAttribute( "cn" )</code>       returns <code>null</code>.</li>
+        ///         <li><code>getAttribute( "cn" )</code>       returns null.</li>
         ///         <li><code>getAttribute( "sn" )</code>       returns the "sn" attribute.</li>
         ///         <li>
         ///             <code>getAttribute( "cn", "lang-en-us" )</code>
@@ -839,7 +807,7 @@ namespace Unosquare.Swan.Networking.Ldap
         ///         </li>
         ///         <li>
         ///             <code>getAttribute( "cn", "lang-ja" )</code>
-        ///             returns <code>null</code>.
+        ///             returns null.
         ///         </li>
         ///         <li>
         ///             <code>getAttribute( "sn", "lang-en" )</code>
@@ -860,11 +828,10 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     "lang-ja", and "lang-ja-JP-kanji" are valid language specification.
         /// </param>
         /// <returns>
-        ///     A single best-match <code>LdapAttribute</code>, or <code>null</code>
+        ///     A single best-match <code>LdapAttribute</code>, or null
         ///     if no match is found in the entry.
         /// </returns>
-        public LdapAttribute GetAttribute(string attrName, string lang)
-            => (LdapAttribute)_map[(attrName + ";" + lang).ToUpper()];
+        public LdapAttribute GetAttribute(string attrName, string lang) => this[(attrName + ";" + lang).ToUpper()];
 
         /// <summary>
         ///     Creates a new attribute set containing only the attributes that have
@@ -912,7 +879,7 @@ namespace Unosquare.Swan.Networking.Ldap
             // Cycle throught this.attributeSet
             while (i.MoveNext())
             {
-                var attr = (LdapAttribute)i.Current;
+                var attr = (LdapAttribute) i.Current;
 
                 // Does this attribute have the subtype we are looking for. If
                 // yes then add it to our AttributeSet, else next attribute
@@ -930,15 +897,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         /// iterator over the attributes in this set
         /// </returns>
-        public IEnumerator GetEnumerator() => _map.Values.GetEnumerator();
-
-        /// <summary>
-        ///     Returns <code>true</code> if this set contains no elements
-        /// </summary>
-        /// <returns>
-        ///     <code>true</code> if this set contains no elements
-        /// </returns>
-        public bool IsEmpty() => _map.Count == 0;
+        public new IEnumerator GetEnumerator() => Values.GetEnumerator();
 
         /// <summary>
         ///     Returns <code>true</code> if this set contains an attribute of the same name
@@ -950,8 +909,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>
         ///     true if this set contains the specified attribute
         /// </returns>
-        public override bool Contains(object attr)
-            => _map.ContainsKey(((LdapAttribute)attr).Name.ToUpper());
+        public bool Contains(object attr) => ContainsKey(((LdapAttribute) attr).Name.ToUpper());
 
         /// <summary>
         ///     Adds the specified attribute to this set if it is not already present.
@@ -966,12 +924,12 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public bool Add(object attr)
         {
-            var attribute = (LdapAttribute)attr;
+            var attribute = (LdapAttribute) attr;
             var name = attribute.Name.ToUpper();
-            if (_map.ContainsKey(name))
+            if (ContainsKey(name))
                 return false;
 
-            _map[name] = attribute;
+            this[name] = attribute;
             return true;
         }
 
@@ -979,7 +937,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Removes the specified object from this set if it is present.
         /// If the specified object is of type <code>LdapAttribute</code>, the
         /// specified attribute will be removed.  If the specified object is of type
-        /// <code>String</code>, the attribute with a name that matches the string will
+        /// string, the attribute with a name that matches the string will
         /// be removed.
         /// </summary>
         /// <param name="entry">The entry.</param>
@@ -988,29 +946,24 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </returns>
         public bool Remove(object entry)
         {
-            var attributeName = entry is string s ? s : ((LdapAttribute)entry).Name;
+            var attributeName = entry is string s ? s : ((LdapAttribute) entry).Name;
 
             if (attributeName == null)
             {
                 return false;
             }
 
-            var e = _map[attributeName.ToUpper()];
-            _map.Remove(e);
+            var e = this[attributeName.ToUpper()];
+            Remove(e);
 
             return true;
         }
 
         /// <summary>
-        /// Removes all of the elements from this set.
-        /// </summary>
-        public override void Clear() => _map.Clear();
-
-        /// <summary>
-        ///     Returns a string representation of this LdapAttributeSet
+        /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        ///     a string representation of this LdapAttributeSet
+        /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
@@ -1025,7 +978,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 }
 
                 first = false;
-                var attr = (LdapAttribute)attrs.Current;
+                var attr = (LdapAttribute) attrs.Current;
                 retValue.Append(attr);
             }
 

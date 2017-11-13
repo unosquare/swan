@@ -1,83 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
-using System.Linq;
-
-namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
+﻿namespace Unosquare.Swan.Test.ExtensionsDictionariesTests
 {
-    public abstract class ExtensionsDictionariesTest
-    {
-        protected Dictionary<int, string> Dict = new Dictionary<int, string>
-        {
-            {1, "Armando"},
-            {2, "Alexey"},
-            {3, "Alejandro"},
-            {4, "Florencia"},
-            {5, "Israel"}
-        };
-    }
+    using System;
+    using System.Linq;
+    using NUnit.Framework;
 
     [TestFixture]
-    public class GetValueOrDefault : ExtensionsDictionariesTest
+    public class GetValueOrDefault : TestFixtureBase
     {
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<object, object> dict = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                dict.GetValueOrDefault(1);
-            });
+            Assert.Throws<ArgumentNullException>(() => NullDict.GetValueOrDefault(1));
         }
 
         [Test]
         public void DictionaryWithExistingKey_ReturnsValue()
         {
-            Assert.AreEqual(Dict.GetValueOrDefault(3), "Alejandro");
+            Assert.AreEqual(DefaultDictionary.GetValueOrDefault(3), "C");
         }
 
         [Test]
         public void DictionaryWithoutExistingKey_ReturnsNull()
         {
-            Assert.IsNull(Dict.GetValueOrDefault(7), null);
+            Assert.IsNull(DefaultDictionary.GetValueOrDefault(7));
         }
     }
 
     [TestFixture]
-    public class ForEach : ExtensionsDictionariesTest
+    public class ForEach : TestFixtureBase
     {
         [Test]
         public void NullDictionary_ThrowsArgumentNullException()
         {
-            Dictionary<int, int> originalDictionary = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                originalDictionary.ForEach((key, value) => { });
-            });
+            Assert.Throws<ArgumentNullException>(() => NullDict.ForEach((key, value) => { }));
         }
 
         [Test]
         public void NotNullDictionary_DoesForEach()
         {
-            var dict = new Dictionary<int, int>
-            {
-                {1, 1},
-                {2, 2},
-                {3, 3},
-                {4, 4},
-                {5, 5}
-            };
-
             var result = 0;
 
-            dict.ForEach((key, value) =>
-            {
-                result += value * 2;
-            });
+            DefaultDictionary.ForEach((key, value) => result += key * 2);
 
-            Assert.AreEqual(dict.Sum(y => y.Key * 2), result);
+            Assert.AreEqual(DefaultDictionary.Sum(y => y.Key * 2), result);
         }
     }
 }

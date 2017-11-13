@@ -27,5 +27,4 @@
         /// </value>
         public Endianness Endianness { get; }
     }
-
 }

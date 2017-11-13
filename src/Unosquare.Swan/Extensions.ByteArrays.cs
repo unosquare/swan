@@ -71,7 +71,7 @@
         /// Converts an array of bytes to a base-64 encoded string
         /// </summary>
         /// <param name="bytes">The bytes.</param>
-        /// <returns>A string converted from an array of bytes</returns>
+        /// <returns>A <see cref="System.String" /> converted from an array of bytes</returns>
         public static string ToBase64(this byte[] bytes) => Convert.ToBase64String(bytes);
 
         /// <summary>
@@ -284,7 +284,7 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="sequence">The sequence.</param>
-        /// <returns>True if the specified buffer starts; otherwise, false.</returns>
+        /// <returns><c>true</c> if the specified buffer starts; otherwise, <c>false</c>.</returns>
         public static bool StartsWith(this byte[] buffer, params byte[] sequence) => buffer.GetIndexOf(sequence) == 0;
 
         /// <summary>
@@ -425,14 +425,14 @@
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
         public static string ToText(this byte[] buffer, Encoding encoding) => encoding.GetString(buffer);
 
         /// <summary>
         /// Converts an array of bytes into text with UTF8 encoding
         /// </summary>
         /// <param name="buffer">The buffer.</param>
-        /// <returns>A string that contains the results of decoding the specified sequence of bytes</returns>
+        /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
         public static string ToText(this byte[] buffer) => buffer.ToText(Encoding.UTF8);
 
         /// <summary>

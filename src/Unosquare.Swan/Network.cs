@@ -22,11 +22,17 @@
         /// <summary>
         /// Gets the name of the host.
         /// </summary>
+        /// <value>
+        /// The name of the host.
+        /// </value>
         public static string HostName => IPGlobalProperties.GetIPGlobalProperties().HostName;
 
         /// <summary>
-        /// Gets the name of the domain.
+        /// Gets the name of the network domain.
         /// </summary>
+        /// <value>
+        /// The name of the network domain.
+        /// </value>
         public static string DomainName => IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
         #endregion
@@ -240,7 +246,7 @@
         /// <param name="query">The query.</param>
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string GetDnsPointerEntry(IPAddress query, IPAddress dnsServer, int port)
         {
             var client = new DnsClient(dnsServer, port);
@@ -254,7 +260,7 @@
         /// <param name="dnsServer">The DNS server.</param>
         /// <param name="port">The port.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port,
             CancellationToken ct = default(CancellationToken))
         {
@@ -265,7 +271,7 @@
         /// Gets the reverse lookup FQDN of the given IP Address.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static string GetDnsPointerEntry(IPAddress query)
         {
             return new DnsClient(GetIPv4DnsServers().FirstOrDefault()).Reverse(query);
@@ -276,7 +282,7 @@
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns>A string that represents the current object</returns>
+        /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static Task<string> GetDnsPointerEntryAsync(IPAddress query,
             CancellationToken ct = default(CancellationToken))
         {

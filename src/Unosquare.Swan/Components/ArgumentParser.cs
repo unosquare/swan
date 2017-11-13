@@ -34,8 +34,11 @@
         }
 
         /// <summary>
-        /// Gets the instance that implements <see cref="ArgumentParserSettings"/> in use.
+        /// Gets the instance that implements <see cref="ArgumentParserSettings" /> in use.
         /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
         public ArgumentParserSettings Settings { get; }
 
         /// <summary>
@@ -44,7 +47,9 @@
         /// <typeparam name="T">The type of the options</typeparam>
         /// <param name="args">The arguments.</param>
         /// <param name="instance">The instance.</param>
-        /// <returns>True if was converted successfully; otherwise, false</returns>
+        /// <returns>
+        /// <c>true</c> if was converted successfully; otherwise,  <c>false</c>.
+        /// </returns>
         /// <exception cref="ArgumentNullException">
         /// The exception that is thrown when a null reference (Nothing in Visual Basic) 
         /// is passed to a method that does not accept it as a valid argument
@@ -205,7 +210,7 @@
                     throw new InvalidOperationException(
                         $"The option collection {optionAttr.ShortName ?? optionAttr.LongName} should be an array");
                 }
-                
+
                 var propertyArrayValue = propertyValueString.Split(optionAttr.Separator);
                 var arr = Array.CreateInstance(itemType, propertyArrayValue.Cast<object>().Count());
 

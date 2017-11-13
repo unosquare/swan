@@ -13,8 +13,6 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 // ===============================================================================
 
-#define USE_OBJECT_CONSTRUCTOR
-
 namespace Unosquare.Swan.Components
 {
     using System;
@@ -25,252 +23,51 @@ namespace Unosquare.Swan.Components
     using System.Reflection;
     using Exceptions;
 
-    #region Enumerations
-
-    /// <summary>
-    /// Defines Resolution actions
-    /// </summary>
-    public enum DependencyContainerUnregisteredResolutionActions
-    {
-        /// <summary>
-        /// Attempt to resolve type, even if the type isn't registered.
-        /// 
-        /// Registered types/options will always take precedence.
-        /// </summary>
-        AttemptResolve,
-
-        /// <summary>
-        /// Fail resolution if type not explicitly registered
-        /// </summary>
-        Fail,
-
-        /// <summary>
-        /// Attempt to resolve unregistered type if requested type is generic
-        /// and no registration exists for the specific generic parameters used.
-        /// 
-        /// Registered types/options will always take precedence.
-        /// </summary>
-        GenericsOnly
-    }
-
-    /// <summary>
-    /// Enumerates failure actions
-    /// </summary>
-    public enum DependencyContainerNamedResolutionFailureActions
-    {
-        /// <summary>
-        /// The attempt unnamed resolution
-        /// </summary>
-        AttemptUnnamedResolution,
-
-        /// <summary>
-        /// The fail
-        /// </summary>
-        Fail
-    }
-
-    /// <summary>
-    /// Enumerates duplicate definition actions
-    /// </summary>
-    public enum DependencyContainerDuplicateImplementationActions
-    {
-        /// <summary>
-        /// The register single
-        /// </summary>
-        RegisterSingle,
-
-        /// <summary>
-        /// The register multiple
-        /// </summary>
-        RegisterMultiple,
-
-        /// <summary>
-        /// The fail
-        /// </summary>
-        Fail
-    }
-
-    #endregion
-
-    #region Support Classes
-    
-    /// <summary>
-    /// Resolution settings
-    /// </summary>
-    public sealed class DependencyContainerResolveOptions
-    {
-        /// <summary>
-        /// Gets the default options (attempt resolution of unregistered types, fail on named resolution if name not found)
-        /// </summary>
-        public static DependencyContainerResolveOptions Default { get; } = new DependencyContainerResolveOptions();
-
-        /// <summary>
-        /// Gets or sets the unregistered resolution action.
-        /// </summary>
-        /// <value>
-        /// The unregistered resolution action.
-        /// </value>
-        public DependencyContainerUnregisteredResolutionActions UnregisteredResolutionAction { get; set; } = DependencyContainerUnregisteredResolutionActions.AttemptResolve;
-
-        /// <summary>
-        /// Gets or sets the named resolution failure action.
-        /// </summary>
-        /// <value>
-        /// The named resolution failure action.
-        /// </value>
-        public DependencyContainerNamedResolutionFailureActions NamedResolutionFailureAction { get; set; } = DependencyContainerNamedResolutionFailureActions.Fail;
-    }
-
-    #endregion
-
     /// <summary>
     /// The concrete implementation of a simple IoC container
     /// based largely on TinyIoC
     /// </summary>
     /// <seealso cref="System.IDisposable" />
-    public sealed class DependencyContainer : IDisposable
+    public partial class DependencyContainer : IDisposable
     {
-        #region "Fluent" API
+        private readonly DependencyContainer _parent;
+        private readonly object _autoRegisterLock = new object();
+        private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
+        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
+        private bool _disposed;
 
-        /// <summary>
-        /// Registration options for "fluent" API
-        /// </summary>
-        public sealed class RegisterOptions
+        private delegate object ObjectConstructor(params object[] parameters);
+
+        static DependencyContainer()
         {
-            private readonly DependencyContainer _container;
-            private readonly TypeRegistration _registration;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="RegisterOptions"/> class.
-            /// </summary>
-            /// <param name="container">The container.</param>
-            /// <param name="registration">The registration.</param>
-            public RegisterOptions(DependencyContainer container, TypeRegistration registration)
-            {
-                _container = container;
-                _registration = registration;
-            }
-
-            /// <summary>
-            /// Make registration a singleton (single instance) if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions AsSingleton()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "singleton");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.SingletonVariant);
-            }
-
-            /// <summary>
-            /// Make registration multi-instance if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions AsMultiInstance()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "multi-instance");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.MultiInstanceVariant);
-            }
-
-            /// <summary>
-            /// Make registration hold a weak reference if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions WithWeakReference()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "weak reference");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.WeakReferenceVariant);
-            }
-
-            /// <summary>
-            /// Make registration hold a strong reference if possible
-            /// </summary>
-            /// <returns>A registration options  for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic constraint registration exception</exception>
-            public RegisterOptions WithStrongReference()
-            {
-                var currentFactory = _container.GetCurrentFactory(_registration);
-
-                if (currentFactory == null)
-                    throw new DependencyContainerRegistrationException(_registration.Type, "strong reference");
-
-                return _container.AddUpdateRegistration(_registration, currentFactory.StrongReferenceVariant);
-            }
         }
 
         /// <summary>
-        /// Registration options for "fluent" API when registering multiple implementations
+        /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
         /// </summary>
-        public sealed class MultiRegisterOptions
+        public DependencyContainer()
         {
-            private IEnumerable<RegisterOptions> _registerOptions;
+            _registeredTypes = new ConcurrentDictionary<TypeRegistration, ObjectFactoryBase>();
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MultiRegisterOptions"/> class.
-            /// </summary>
-            /// <param name="registerOptions">The register options.</param>
-            public MultiRegisterOptions(IEnumerable<RegisterOptions> registerOptions)
-            {
-                _registerOptions = registerOptions;
-            }
-            
-            /// <summary>
-            /// Make registration a singleton (single instance) if possible
-            /// </summary>
-            /// <returns>A registration multi-instance for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
-            public MultiRegisterOptions AsSingleton()
-            {
-                _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsSingleton());
-                return this;
-            }
-
-            /// <summary>
-            /// Make registration multi-instance if possible
-            /// </summary>
-            /// <returns>A registration multi-instance for fluent API</returns>
-            /// <exception cref="DependencyContainerRegistrationException">Generic Constraint Registration Exception</exception>
-            public MultiRegisterOptions AsMultiInstance()
-            {
-                _registerOptions = ExecuteOnAllRegisterOptions(ro => ro.AsMultiInstance());
-                return this;
-            }
-
-            private IEnumerable<RegisterOptions> ExecuteOnAllRegisterOptions(Func<RegisterOptions, RegisterOptions> action)
-            {
-                return _registerOptions.Select(action).ToList();
-            }
+            RegisterDefaultTypes();
         }
-        #endregion
 
-        #region Public API
+        private DependencyContainer(DependencyContainer parent)
+            : this()
+        {
+            _parent = parent;
+        }
 
-        #region Child Containers
+        /// <summary>
+        /// Lazy created Singleton instance of the container for simple scenarios
+        /// </summary>
+        public static DependencyContainer Current { get; } = new DependencyContainer();
 
         /// <summary>
         /// Gets the child container.
         /// </summary>
         /// <returns>A new instance of the <see cref="DependencyContainer"/> class</returns>
-        public DependencyContainer GetChildContainer()
-        {
-            return new DependencyContainer(this);
-        }
-
-        #endregion
+        public DependencyContainer GetChildContainer() => new DependencyContainer(this);
 
         #region Registration
 
@@ -281,9 +78,13 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        public void AutoRegister(DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
+        public void AutoRegister(
+            DependencyContainerDuplicateImplementationActions duplicateAction =
+                DependencyContainerDuplicateImplementationActions.RegisterSingle,
+            Func<Type, bool> registrationPredicate = null)
         {
-            AutoRegisterInternal(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction, registrationPredicate);
+            AutoRegister(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction,
+                registrationPredicate);
         }
 #endif
 
@@ -294,9 +95,70 @@ namespace Unosquare.Swan.Components
         /// <param name="assemblies">Assemblies to process</param>
         /// <param name="duplicateAction">What action to take when encountering duplicate implementations of an interface/base class.</param>
         /// <param name="registrationPredicate">Predicate to determine if a particular type should be registered</param>
-        public void AutoRegister(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle, Func<Type, bool> registrationPredicate = null)
+        public void AutoRegister(
+            IEnumerable<Assembly> assemblies,
+            DependencyContainerDuplicateImplementationActions duplicateAction = DependencyContainerDuplicateImplementationActions.RegisterSingle,
+            Func<Type, bool> registrationPredicate = null)
         {
-            AutoRegisterInternal(assemblies, duplicateAction, registrationPredicate);
+            lock (_autoRegisterLock)
+            {
+                var types = assemblies.SelectMany(a => a.GetAllTypes())
+                    .Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
+
+                var concreteTypes = types
+                    .Where(type =>
+                        type.IsClass() && (type.IsAbstract() == false) &&
+                        (type != GetType() && (type.DeclaringType != GetType()) && (!type.IsGenericTypeDefinition())))
+                    .ToList();
+
+                foreach (var type in concreteTypes)
+                {
+                    try
+                    {
+                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, type));
+                    }
+                    catch (MethodAccessException)
+                    {
+                        // Ignore methods we can't access - added for Silverlight
+                    }
+                }
+
+                var abstractInterfaceTypes = types.Where(
+                    type =>
+                        ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
+                         (!type.IsGenericTypeDefinition())));
+
+                foreach (var type in abstractInterfaceTypes)
+                {
+                    var localType = type;
+                    var implementations = concreteTypes
+                        .Where(implementationType => localType.IsAssignableFrom(implementationType)).ToList();
+
+                    if (implementations.Skip(1).Any())
+                    {
+                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.Fail)
+                            throw new DependencyContainerRegistrationException(type, implementations);
+
+                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.RegisterMultiple)
+                        {
+                            RegisterMultiple(type, implementations);
+                        }
+                    }
+
+                    var firstImplementation = implementations.FirstOrDefault();
+
+                    if (firstImplementation == null) continue;
+
+                    try
+                    {
+                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, firstImplementation));
+                    }
+                    catch (MethodAccessException)
+                    {
+                        // Ignore methods we can't access - added for Silverlight
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -362,73 +224,73 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Creates/replaces a named container class registration with default options.
         /// </summary>
-        /// <typeparam name="RegisterType">Type to register</typeparam>
+        /// <typeparam name="TRegister">Type to register</typeparam>
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
-        public RegisterOptions Register<RegisterType>(string name = "")
-            where RegisterType : class
+        public RegisterOptions Register<TRegister>(string name = "")
+            where TRegister : class
         {
-            return Register(typeof(RegisterType), name);
+            return Register(typeof(TRegister), name);
         }
 
         /// <summary>
         /// Creates/replaces a named container class registration with a given implementation and default options.
         /// </summary>
-        /// <typeparam name="RegisterType">Type to register</typeparam>
-        /// <typeparam name="RegisterImplementation">Type to instantiate that implements RegisterType</typeparam>
+        /// <typeparam name="TRegister">Type to register</typeparam>
+        /// <typeparam name="TRegisterImplementation">Type to instantiate that implements RegisterType</typeparam>
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
-        public RegisterOptions Register<RegisterType, RegisterImplementation>(string name = "")
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType
+        public RegisterOptions Register<TRegister, TRegisterImplementation>(string name = "")
+            where TRegister : class
+            where TRegisterImplementation : class, TRegister
         {
-            return Register(typeof(RegisterType), typeof(RegisterImplementation), name);
+            return Register(typeof(TRegister), typeof(TRegisterImplementation), name);
         }
 
         /// <summary>
         /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
         /// </summary>
-        /// <typeparam name="RegisterType">Type to register</typeparam>
+        /// <typeparam name="TRegister">Type to register</typeparam>
         /// <param name="instance">Instance of RegisterType to register</param>
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
-        public RegisterOptions Register<RegisterType>(RegisterType instance, string name = "")
-            where RegisterType : class
+        public RegisterOptions Register<TRegister>(TRegister instance, string name = "")
+            where TRegister : class
         {
-            return Register(typeof(RegisterType), instance, name);
+            return Register(typeof(TRegister), instance, name);
         }
 
         /// <summary>
         /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
         /// </summary>
-        /// <typeparam name="RegisterType">Type to register</typeparam>
-        /// <typeparam name="RegisterImplementation">Type of instance to register that implements RegisterType</typeparam>
+        /// <typeparam name="TRegister">Type to register</typeparam>
+        /// <typeparam name="TRegisterImplementation">Type of instance to register that implements RegisterType</typeparam>
         /// <param name="instance">Instance of RegisterImplementation to register</param>
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
-        public RegisterOptions Register<RegisterType, RegisterImplementation>(RegisterImplementation instance, string name = "")
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType
+        public RegisterOptions Register<TRegister, TRegisterImplementation>(TRegisterImplementation instance, string name = "")
+            where TRegister : class
+            where TRegisterImplementation : class, TRegister
         {
-            return Register(typeof(RegisterType), typeof(RegisterImplementation), instance, name);
+            return Register(typeof(TRegister), typeof(TRegisterImplementation), instance, name);
         }
 
         /// <summary>
         /// Creates/replaces a named container class registration with a user specified factory
         /// </summary>
-        /// <typeparam name="RegisterType">Type to register</typeparam>
+        /// <typeparam name="TRegister">Type to register</typeparam>
         /// <param name="factory">Factory/lambda that returns an instance of RegisterType</param>
         /// <param name="name">Name of registation</param>
         /// <returns>RegisterOptions for fluent API</returns>
-        public RegisterOptions Register<RegisterType>(Func<DependencyContainer, Dictionary<string, object>, RegisterType> factory, string name = "")
-            where RegisterType : class
+        public RegisterOptions Register<TRegister>(Func<DependencyContainer, Dictionary<string, object>, TRegister> factory, string name = "")
+            where TRegister : class
         {
             if (factory == null)
             {
                 throw new ArgumentNullException(nameof(factory));
             }
 
-            return Register(typeof(RegisterType), factory, name);
+            return Register(typeof(TRegister), factory, name);
         }
 
         /// <summary>
@@ -436,12 +298,12 @@ namespace Unosquare.Swan.Components
         /// 
         /// Internally this registers each implementation using the full name of the class as its registration name.
         /// </summary>
-        /// <typeparam name="RegisterType">Type that each implementation implements</typeparam>
+        /// <typeparam name="TRegister">Type that each implementation implements</typeparam>
         /// <param name="implementationTypes">Types that implement RegisterType</param>
         /// <returns>MultiRegisterOptions for the fluent API</returns>
-        public MultiRegisterOptions RegisterMultiple<RegisterType>(IEnumerable<Type> implementationTypes)
+        public MultiRegisterOptions RegisterMultiple<TRegister>(IEnumerable<Type> implementationTypes)
         {
-            return RegisterMultiple(typeof(RegisterType), implementationTypes);
+            return RegisterMultiple(typeof(TRegister), implementationTypes);
         }
 
         /// <summary>
@@ -485,12 +347,12 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Remove a named container class registration.
         /// </summary>
-        /// <typeparam name="RegisterType">Type to unregister</typeparam>
+        /// <typeparam name="TRegister">Type to unregister</typeparam>
         /// <param name="name">Name of registration</param>
-        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
-        public bool Unregister<RegisterType>(string name = "")
+        /// <returns><c>true</c> if the registration is successfully found and removed; otherwise, <c>false</c>.</returns>
+        public bool Unregister<TRegister>(string name = "")
         {
-            return Unregister(typeof(RegisterType), name);
+            return Unregister(typeof(TRegister), name);
         }
 
         /// <summary>
@@ -498,7 +360,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="registerType">Type to unregister</param>
         /// <param name="name">Name of registration</param>
-        /// <returns>True if the registration is successfully found and removed; otherwise, false.</returns>
+        /// <returns><c>true</c> if the registration is successfully found and removed; otherwise, <c>false</c>.</returns>
         public bool Unregister(Type registerType, string name = "")
         {
             var typeRegistration = new TypeRegistration(registerType, name);
@@ -546,14 +408,14 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using specified options.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="options">Resolution options</param>
         /// <returns>Instance of type</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
-        public ResolveType Resolve<ResolveType>(DependencyContainerResolveOptions options = null)
-            where ResolveType : class
+        public TResolveType Resolve<TResolveType>(DependencyContainerResolveOptions options = null)
+            where TResolveType : class
         {
-            return (ResolveType)Resolve(typeof(ResolveType), null, options);
+            return (TResolveType)Resolve(typeof(TResolveType), null, options);
         }
 
         /// <summary>
@@ -562,15 +424,15 @@ namespace Unosquare.Swan.Components
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Instance of type</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
-        public ResolveType Resolve<ResolveType>(string name, DependencyContainerResolveOptions options = null)
-            where ResolveType : class
+        public TResolveType Resolve<TResolveType>(string name, DependencyContainerResolveOptions options = null)
+            where TResolveType : class
         {
-            return (ResolveType)Resolve(typeof(ResolveType), name, null, options);
+            return (TResolveType)Resolve(typeof(TResolveType), name, null, options);
         }
 
         /// <summary>
@@ -579,15 +441,15 @@ namespace Unosquare.Swan.Components
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Instance of type</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
-        public ResolveType Resolve<ResolveType>(Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
-            where ResolveType : class
+        public TResolveType Resolve<TResolveType>(Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
+            where TResolveType : class
         {
-            return (ResolveType)Resolve(typeof(ResolveType), parameters, options);
+            return (TResolveType)Resolve(typeof(TResolveType), parameters, options);
         }
 
         /// <summary>
@@ -596,31 +458,18 @@ namespace Unosquare.Swan.Components
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Instance of type</returns>
         /// <exception cref="DependencyContainerResolutionException">Unable to resolve the type.</exception>
-        public ResolveType Resolve<ResolveType>(string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
-            where ResolveType : class
+        public TResolveType Resolve<TResolveType>(string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
+            where TResolveType : class
         {
-            return (ResolveType)Resolve(typeof(ResolveType), name, parameters, options);
+            return (TResolveType)Resolve(typeof(TResolveType), name, parameters, options);
         }
-
-        /// <summary>
-        /// Attempts to predict whether a given type can be resolved with the specified options.
-        ///
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <param name="resolveType">Type to resolve</param>
-        /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve(Type resolveType, DependencyContainerResolveOptions options)
-        {
-            return CanResolveInternal(new TypeRegistration(resolveType), null, options);
-        }
-
+        
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
@@ -644,30 +493,15 @@ namespace Unosquare.Swan.Components
         ///
         /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(DependencyContainerResolveOptions options)
-            where ResolveType : class
+        public bool CanResolve<TResolveType>(DependencyContainerResolveOptions options = null)
+            where TResolveType : class
         {
-            return CanResolve(typeof(ResolveType), options);
+            return CanResolve(typeof(TResolveType), null, null, options);
         }
-
-        /// <summary>
-        /// Attempts to predict whether a given named type can be resolved with the specified options.
-        ///
-        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
-        /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <param name="name">Name of registration</param>
-        /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(string name = null, DependencyContainerResolveOptions options = null)
-            where ResolveType : class
-        {
-            return CanResolve(typeof(ResolveType), null, name, options);
-        }
-
+        
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the supplied constructor parameters options.
         ///
@@ -676,14 +510,14 @@ namespace Unosquare.Swan.Components
         /// 
         /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
-            where ResolveType : class
+        public bool CanResolve<TResolveType>(Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
+            where TResolveType : class
         {
-            return CanResolve(typeof(ResolveType), parameters, string.Empty, options);
+            return CanResolve(typeof(TResolveType), parameters, string.Empty, options);
         }
 
         /// <summary>
@@ -694,15 +528,15 @@ namespace Unosquare.Swan.Components
         /// 
         /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
-        public bool CanResolve<ResolveType>(string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options = null)
-            where ResolveType : class
+        public bool CanResolve<TResolveType>(string name, Dictionary<string, object> parameters = null, DependencyContainerResolveOptions options = null)
+            where TResolveType : class
         {
-            return CanResolve(typeof(ResolveType), parameters, name, options);
+            return CanResolve(typeof(TResolveType), parameters, name, options);
         }
 
         /// <summary>
@@ -710,7 +544,7 @@ namespace Unosquare.Swan.Components
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, out object resolvedType)
         {
             try
@@ -731,7 +565,7 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -752,7 +586,7 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, out object resolvedType)
         {
             try
@@ -774,7 +608,7 @@ namespace Unosquare.Swan.Components
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -795,7 +629,7 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, Dictionary<string, object> parameters, out object resolvedType)
         {
             try
@@ -817,7 +651,7 @@ namespace Unosquare.Swan.Components
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, Dictionary<string, object> parameters, out object resolvedType)
         {
             try
@@ -839,7 +673,7 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -862,7 +696,7 @@ namespace Unosquare.Swan.Components
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out object resolvedType)
         {
             try
@@ -880,20 +714,20 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the default options
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>();
+                resolvedType = Resolve<TResolveType>();
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -901,21 +735,21 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the given options
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(DependencyContainerResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(DependencyContainerResolveOptions options, out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>(options);
+                resolvedType = Resolve<TResolveType>(options);
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -923,21 +757,21 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the default options and given name
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(string name, out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(string name, out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>(name);
+                resolvedType = Resolve<TResolveType>(name);
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -945,22 +779,22 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the given options and name
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(string name, DependencyContainerResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(string name, DependencyContainerResolveOptions options, out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>(name, options);
+                resolvedType = Resolve<TResolveType>(name, options);
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -968,21 +802,21 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the default options and supplied constructor parameters
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(Dictionary<string, object> parameters, out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(Dictionary<string, object> parameters, out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>(parameters);
+                resolvedType = Resolve<TResolveType>(parameters);
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -990,22 +824,22 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the default options and supplied name and constructor parameters
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(string name, Dictionary<string, object> parameters, out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(string name, Dictionary<string, object> parameters, out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>(name, parameters);
+                resolvedType = Resolve<TResolveType>(name, parameters);
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -1013,22 +847,22 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the supplied options and constructor parameters
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>(parameters, options);
+                resolvedType = Resolve<TResolveType>(parameters, options);
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -1036,23 +870,23 @@ namespace Unosquare.Swan.Components
         /// <summary>
         /// Attempts to resolve a type using the supplied name, options and constructor parameters
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
-        /// <returns>True if resolved successfully, false otherwise</returns>
-        public bool TryResolve<ResolveType>(string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
+        /// <returns><c>true</c> if resolved successfully, false otherwise</returns>
+        public bool TryResolve<TResolveType>(string name, Dictionary<string, object> parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)
+            where TResolveType : class
         {
             try
             {
-                resolvedType = Resolve<ResolveType>(name, parameters, options);
+                resolvedType = Resolve<TResolveType>(name, parameters, options);
                 return true;
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(ResolveType);
+                resolvedType = default(TResolveType);
                 return false;
             }
         }
@@ -1065,19 +899,24 @@ namespace Unosquare.Swan.Components
         /// <returns>IEnumerable</returns>
         public IEnumerable<object> ResolveAll(Type resolveType, bool includeUnnamed = false)
         {
-            return ResolveAllInternal(resolveType, includeUnnamed);
+            var registrations = _registeredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(GetParentRegistrationsForType(resolveType)).Distinct();
+
+            if (!includeUnnamed)
+                registrations = registrations.Where(tr => tr.Name != string.Empty);
+
+            return registrations.Select(registration => ResolveInternal(registration, null, DependencyContainerResolveOptions.Default));
         }
 
         /// <summary>
         /// Returns all registrations of a type
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolveAll</typeparam>
+        /// <typeparam name="TResolveType">Type to resolveAll</typeparam>
         /// <param name="includeUnnamed">Whether to include un-named (default) registrations</param>
         /// <returns>IEnumerable</returns>
-        public IEnumerable<ResolveType> ResolveAll<ResolveType>(bool includeUnnamed = true)
-            where ResolveType : class
+        public IEnumerable<TResolveType> ResolveAll<TResolveType>(bool includeUnnamed = true)
+            where TResolveType : class
         {
-            return ResolveAll(typeof(ResolveType), includeUnnamed).Cast<ResolveType>();
+            return ResolveAll(typeof(TResolveType), includeUnnamed).Cast<TResolveType>();
         }
 
         /// <summary>
@@ -1087,352 +926,28 @@ namespace Unosquare.Swan.Components
         /// <param name="resolveOptions">Resolve options to use</param>
         public void BuildUp(object input, DependencyContainerResolveOptions resolveOptions = null)
         {
-            BuildUpInternal(input, resolveOptions ?? DependencyContainerResolveOptions.Default);
+            if (resolveOptions == null)
+                resolveOptions = DependencyContainerResolveOptions.Default;
+
+            var properties = input.GetType()
+                .GetProperties()
+                .Where(property => (property.GetGetMethod() != null) && (property.GetSetMethod() != null) &&
+                                   !property.PropertyType.IsValueType());
+
+            foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
+            {
+                try
+                {
+                    property.SetValue(input, ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions), null);
+                }
+                catch (DependencyContainerResolutionException)
+                {
+                    // Catch any resolution errors and ignore them
+                }
+            }
         }
         #endregion
-        #endregion
-
-        #region Object Factories
         
-        private abstract class ObjectFactoryBase
-        {
-            /// <summary>
-            /// Whether to assume this factory successfully constructs its objects
-            /// 
-            /// Generally set to true for delegate style factories as CanResolve cannot delve
-            /// into the delegates they contain.
-            /// </summary>
-            public virtual bool AssumeConstruction => false;
-
-            /// <summary>
-            /// The type the factory instantiates
-            /// </summary>
-            public abstract Type CreatesType { get; }
-
-            /// <summary>
-            /// Constructor to use, if specified
-            /// </summary>
-            public ConstructorInfo Constructor { get; private set; }
-
-            public virtual ObjectFactoryBase SingletonVariant => throw new DependencyContainerRegistrationException(GetType(), "singleton");
-
-            public virtual ObjectFactoryBase MultiInstanceVariant => throw new DependencyContainerRegistrationException(GetType(), "multi-instance");
-
-            public virtual ObjectFactoryBase StrongReferenceVariant => throw new DependencyContainerRegistrationException(GetType(), "strong reference");
-
-            public virtual ObjectFactoryBase WeakReferenceVariant => throw new DependencyContainerRegistrationException(GetType(), "weak reference");
-
-            /// <summary>
-            /// Create the type
-            /// </summary>
-            /// <param name="requestedType">Type user requested to be resolved</param>
-            /// <param name="container">Container that requested the creation</param>
-            /// <param name="parameters">Any user parameters passed</param>
-            /// <param name="options">The options.</param>
-            /// <returns> Instance of type </returns>
-            public abstract object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options);
-            
-            public virtual ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// IObjectFactory that creates new instances of types for each resolution
-        /// </summary>
-        private class MultiInstanceFactory : ObjectFactoryBase
-        {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            public override Type CreatesType => registerImplementation;
-
-            public MultiInstanceFactory(Type registerType, Type registerImplementation)
-            {
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory", true);
-
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, "MultiInstanceFactory", true);
-
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
-            }
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                try
-                {
-                    return container.ConstructType(registerImplementation, Constructor, parameters, options);
-                }
-                catch (DependencyContainerResolutionException ex)
-                {
-                    throw new DependencyContainerResolutionException(registerType, ex);
-                }
-            }
-
-            public override ObjectFactoryBase SingletonVariant => new SingletonFactory(registerType, registerImplementation);
-            
-            public override ObjectFactoryBase MultiInstanceVariant => this;
-        }
-
-        /// <summary>
-        /// IObjectFactory that invokes a specified delegate to construct the object
-        /// </summary>
-        private class DelegateFactory : ObjectFactoryBase
-        {
-            private readonly Type registerType;
-
-            private readonly Func<DependencyContainer, Dictionary<string, object>, object> _factory;
-
-            public override bool AssumeConstruction => true;
-
-            public override Type CreatesType => registerType;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                try
-                {
-                    return _factory.Invoke(container, parameters);
-                }
-                catch (Exception ex)
-                {
-                    throw new DependencyContainerResolutionException(registerType, ex);
-                }
-            }
-
-            public DelegateFactory(Type registerType, Func<DependencyContainer, Dictionary<string, object>, object> factory)
-            {
-                _factory = factory ?? throw new ArgumentNullException(nameof(factory));
-
-                this.registerType = registerType;
-            }
-
-            public override ObjectFactoryBase WeakReferenceVariant => new WeakDelegateFactory(registerType, _factory);
-
-            public override ObjectFactoryBase StrongReferenceVariant => this;
-        }
-
-        /// <summary>
-        /// IObjectFactory that invokes a specified delegate to construct the object
-        /// Holds the delegate using a weak reference
-        /// </summary>
-        private class WeakDelegateFactory : ObjectFactoryBase
-        {
-            private readonly Type registerType;
-
-            private readonly WeakReference _factory;
-
-            public override bool AssumeConstruction => true;
-
-            public override Type CreatesType => registerType;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
-                    throw new DependencyContainerWeakReferenceException(registerType);
-
-                try
-                {
-                    return factory.Invoke(container, parameters);
-                }
-                catch (Exception ex)
-                {
-                    throw new DependencyContainerResolutionException(registerType, ex);
-                }
-            }
-
-            public WeakDelegateFactory(Type registerType, Func<DependencyContainer, Dictionary<string, object>, object> factory)
-            {
-                if (factory == null)
-                    throw new ArgumentNullException(nameof(factory));
-
-                _factory = new WeakReference(factory);
-
-                this.registerType = registerType;
-            }
-
-            public override ObjectFactoryBase StrongReferenceVariant
-            {
-                get
-                {
-                    if (!(_factory.Target is Func<DependencyContainer, Dictionary<string, object>, object> factory))
-                        throw new DependencyContainerWeakReferenceException(registerType);
-
-                    return new DelegateFactory(registerType, factory);
-                }
-            }
-
-            public override ObjectFactoryBase WeakReferenceVariant => this;
-        }
-
-        /// <summary>
-        /// Stores an particular instance to return for a type
-        /// </summary>
-        private class InstanceFactory : ObjectFactoryBase, IDisposable
-        {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            private readonly object _instance;
-
-            public override bool AssumeConstruction => true;
-
-            public InstanceFactory(Type registerType, Type registerImplementation, object instance)
-            {
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, "InstanceFactory", true);
-
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
-                _instance = instance;
-            }
-
-            public override Type CreatesType => registerImplementation;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                return _instance;
-            }
-
-            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(registerType, registerImplementation);
-
-            public override ObjectFactoryBase WeakReferenceVariant => new WeakInstanceFactory(registerType, registerImplementation, _instance);
-
-            public override ObjectFactoryBase StrongReferenceVariant => this;
-            
-            public void Dispose()
-            {
-                var disposable = _instance as IDisposable;
-
-                disposable?.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Stores an particular instance to return for a type
-        /// 
-        /// Stores the instance with a weak reference
-        /// </summary>
-        private class WeakInstanceFactory : ObjectFactoryBase, IDisposable
-        {
-            private readonly Type registerType;
-            private readonly Type registerImplementation;
-            private readonly WeakReference _instance;
-
-            public WeakInstanceFactory(Type registerType, Type registerImplementation, object instance)
-            {
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, "WeakInstanceFactory",
-                        true);
-
-                this.registerType = registerType;
-                this.registerImplementation = registerImplementation;
-                _instance = new WeakReference(instance);
-            }
-
-            public override Type CreatesType => registerImplementation;
-
-            public override object GetObject(Type requestedType, DependencyContainer container,
-                Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                var instance = _instance.Target;
-
-                if (instance == null)
-                    throw new DependencyContainerWeakReferenceException(registerType);
-
-                return instance;
-            }
-
-            public override ObjectFactoryBase MultiInstanceVariant =>
-                new MultiInstanceFactory(registerType, registerImplementation);
-
-            public override ObjectFactoryBase WeakReferenceVariant => this;
-
-            public override ObjectFactoryBase StrongReferenceVariant
-            {
-                get
-                {
-                    var instance = _instance.Target;
-
-                    if (instance == null)
-                        throw new DependencyContainerWeakReferenceException(registerType);
-
-                    return new InstanceFactory(registerType, registerImplementation, instance);
-                }
-            }
-
-            public void Dispose() => (_instance.Target as IDisposable)?.Dispose();
-        }
-
-        /// <summary>
-        /// A factory that lazy instantiates a type and always returns the same instance
-        /// </summary>
-        private class SingletonFactory : ObjectFactoryBase, IDisposable
-        {
-            private readonly Type _registerType;
-            private readonly Type _registerImplementation;
-            private readonly object _singletonLock = new object();
-            private object _current;
-
-            public SingletonFactory(Type registerType, Type registerImplementation)
-            {
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    throw new DependencyContainerRegistrationException(registerImplementation, nameof(SingletonFactory), true);
-
-                if (!IsValidAssignment(registerType, registerImplementation))
-                    throw new DependencyContainerRegistrationException(registerImplementation, nameof(SingletonFactory), true);
-
-                _registerType = registerType;
-                _registerImplementation = registerImplementation;
-            }
-
-            public override Type CreatesType => _registerImplementation;
-
-            public override object GetObject(Type requestedType, DependencyContainer container, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
-            {
-                if (parameters.Count != 0)
-                    throw new ArgumentException("Cannot specify parameters for singleton types");
-
-                lock (_singletonLock)
-                {
-                    if (_current == null)
-                        _current = container.ConstructType(_registerImplementation, Constructor, null, options);
-                }
-
-                return _current;
-            }
-
-            public override ObjectFactoryBase SingletonVariant => this;
-            
-            public override ObjectFactoryBase MultiInstanceVariant => new MultiInstanceFactory(_registerType, _registerImplementation);
-
-            public override ObjectFactoryBase GetFactoryForChildContainer(Type type, DependencyContainer parent, DependencyContainer child)
-            {
-                // We make sure that the singleton is constructed before the child container takes the factory.
-                // Otherwise the results would vary depending on whether or not the parent container had resolved
-                // the type before the child container does.
-                GetObject(type, parent, null, DependencyContainerResolveOptions.Default);
-                return this;
-            }
-
-            public void Dispose() =>(_current as IDisposable)?.Dispose();
-            }
-
-        #endregion
-
-        #region Singleton Container
-
-        static DependencyContainer()
-        {
-        }
-
-        /// <summary>
-        /// Lazy created Singleton instance of the container for simple scenarios
-        /// </summary>
-        public static DependencyContainer Current { get; } = new DependencyContainer();
-
-        #endregion
-
         #region Type Registrations
 
         /// <summary>
@@ -1494,95 +1009,11 @@ namespace Unosquare.Swan.Components
             /// </returns>
             public override int GetHashCode() => _hashCode;
         }
-
-        private readonly DependencyContainer _parent;
-
-        private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
-        private delegate object ObjectConstructor(params object[] parameters);
-#if USE_OBJECT_CONSTRUCTOR
-        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache
-            = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
-#endif
+        
         #endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
-        /// </summary>
-        public DependencyContainer()
-        {
-            _registeredTypes = new ConcurrentDictionary<TypeRegistration, ObjectFactoryBase>();
-
-            RegisterDefaultTypes();
-        }
-
-        private DependencyContainer(DependencyContainer parent)
-            : this()
-        {
-            _parent = parent;
-        }
-
         #region Internal Methods
-        private readonly object _autoRegisterLock = new object();
-
-        private void AutoRegisterInternal(IEnumerable<Assembly> assemblies, DependencyContainerDuplicateImplementationActions duplicateAction, Func<Type, bool> registrationPredicate)
-        {
-            lock (_autoRegisterLock)
-            {
-                var types = assemblies.SelectMany(a => a.GetAllTypes()).Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
-
-                var concreteTypes = types
-                    .Where(type => type.IsClass() && (type.IsAbstract() == false) && (type != GetType() && (type.DeclaringType != GetType()) && (!type.IsGenericTypeDefinition())))
-                    .ToList();
-
-                foreach (var type in concreteTypes)
-                {
-                    try
-                    {
-                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, type));
-                    }
-                    catch (MethodAccessException)
-                    {
-                        // Ignore methods we can't access - added for Silverlight
-                    }
-                }
-
-                var abstractInterfaceTypes = types.Where(
-                        type =>
-                            ((type.IsInterface() || type.IsAbstract()) && (type.DeclaringType != GetType()) &&
-                             (!type.IsGenericTypeDefinition())));
-
-                foreach (var type in abstractInterfaceTypes)
-                {
-                    var localType = type;
-                    var implementations = concreteTypes.Where(implementationType => localType.IsAssignableFrom(implementationType)).ToList();
-
-                    if (implementations.Skip(1).Any())
-                    {
-                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.Fail)
-                            throw new DependencyContainerRegistrationException(type, implementations);
-
-                        if (duplicateAction == DependencyContainerDuplicateImplementationActions.RegisterMultiple)
-                        {
-                            RegisterMultiple(type, implementations);
-                        }
-                    }
-
-                    var firstImplementation = implementations.FirstOrDefault();
-
-                    if (firstImplementation == null) continue;
-
-                    try
-                    {
-                        RegisterInternal(type, string.Empty, GetDefaultObjectFactory(type, firstImplementation));
-                    }
-                    catch (MethodAccessException)
-                    {
-                        // Ignore methods we can't access - added for Silverlight
-                    }
-                }
-            }
-        }
-
+        
 #if !NETSTANDARD1_3 && !UWP
         private static bool IsIgnoredAssembly(Assembly assembly)
         {
@@ -1870,7 +1301,11 @@ namespace Unosquare.Swan.Components
             return type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
         }
         
-        private object ConstructType(Type implementationType, ConstructorInfo constructor, Dictionary<string, object> parameters, DependencyContainerResolveOptions options)
+        private object ConstructType(
+            Type implementationType, 
+            ConstructorInfo constructor, 
+            Dictionary<string, object> parameters, 
+            DependencyContainerResolveOptions options = null)
         {
             var typeToConstruct = implementationType;
 
@@ -1914,20 +1349,15 @@ namespace Unosquare.Swan.Components
 
             try
             {
-#if USE_OBJECT_CONSTRUCTOR
                 var constructionDelegate = CreateObjectConstructionDelegateWithCache(constructor);
                 return constructionDelegate.Invoke(args);
-#else
-                return constructor.Invoke(args);
-#endif
             }
             catch (Exception ex)
             {
                 throw new DependencyContainerResolutionException(typeToConstruct, ex);
             }
         }
-
-#if USE_OBJECT_CONSTRUCTOR
+        
         private static ObjectConstructor CreateObjectConstructionDelegateWithCache(ConstructorInfo constructor)
         {
             if (ObjectConstructorCache.TryGetValue(constructor, out var objectConstructor))
@@ -1957,7 +1387,6 @@ namespace Unosquare.Swan.Components
             ObjectConstructorCache[constructor] = objectConstructor;
             return objectConstructor;
         }
-#endif
 
         private static bool IsValidAssignment(Type registerType, Type registerImplementation)
         {
@@ -1981,27 +1410,7 @@ namespace Unosquare.Swan.Components
 
             return true;
         }
-
-        private void BuildUpInternal(object input, DependencyContainerResolveOptions resolveOptions)
-        {
-            var properties = input.GetType()
-                .GetProperties()
-                .Where(property => (property.GetGetMethod() != null) && (property.GetSetMethod() != null) &&
-                                   !property.PropertyType.IsValueType());
-
-            foreach (var property in properties.Where(property => property.GetValue(input, null) == null))
-            {
-                try
-                {
-                    property.SetValue(input, ResolveInternal(new TypeRegistration(property.PropertyType), null, resolveOptions), null);
-                }
-                catch (DependencyContainerResolutionException)
-                {
-                    // Catch any resolution errors and ignore them
-                }
-            }
-        }
-
+        
         private IEnumerable<TypeRegistration> GetParentRegistrationsForType(Type resolveType)
         {
             if (_parent == null)
@@ -2011,22 +1420,10 @@ namespace Unosquare.Swan.Components
 
             return registrations.Concat(_parent.GetParentRegistrationsForType(resolveType));
         }
-
-        private IEnumerable<object> ResolveAllInternal(Type resolveType, bool includeUnnamed)
-        {
-            var registrations = _registeredTypes.Keys.Where(tr => tr.Type == resolveType).Concat(GetParentRegistrationsForType(resolveType)).Distinct();
-
-            if (!includeUnnamed)
-                registrations = registrations.Where(tr => tr.Name != string.Empty);
-
-            return registrations.Select(registration => ResolveInternal(registration, null, DependencyContainerResolveOptions.Default));
-        }
-
+        
         #endregion
 
         #region IDisposable Members
-
-        private bool _disposed;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

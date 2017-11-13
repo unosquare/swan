@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
+﻿namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Mocks;
+
     public abstract class ExtensionsByteArraysTest
     {
         protected const int Value = 123456789;
@@ -27,9 +27,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.ToLowerHex()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.ToLowerHex());
         }
     }
 
@@ -46,9 +44,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.ToUpperHex()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.ToUpperHex());
         }
     }
 
@@ -90,6 +86,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         {
             var expected = new List<byte[]> {new byte[] {91, 7}};
             var sequence = BitConverter.GetBytes(456);
+
             Assert.AreEqual(expected, Bytes.Split(2, sequence), "Get Split value");
         }
 
@@ -107,17 +104,13 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         {
             var sequence = BitConverter.GetBytes(456);
 
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.Split(2, sequence)
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.Split(2, sequence));
         }
 
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                Bytes.Split(2, null)
-            );
+            Assert.Throws<ArgumentNullException>(() => Bytes.Split(2, null));
         }
     }
 
@@ -133,17 +126,13 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullSequence_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                Bytes.GetIndexOf(null)
-            );
+            Assert.Throws<ArgumentNullException>(() => Bytes.GetIndexOf(null));
         }
 
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.GetIndexOf(null)
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.GetIndexOf(null));
         }
 
         [Test]
@@ -219,9 +208,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.TrimEnd(7)
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.TrimEnd(7));
         }
     }
 
@@ -238,9 +225,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.EndsWith(7)
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.EndsWith(7));
         }
     }
 
@@ -280,8 +265,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public void WithNullBytes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.IsEqualTo(BitConverter.GetBytes(Value))
-            );
+                NullBytes.IsEqualTo(BitConverter.GetBytes(Value)));
         }
     }
 
@@ -314,8 +298,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             using (var stream = new MemoryStream(10))
             {
                 Assert.Throws<ArgumentNullException>(() =>
-                    stream.Append(NullBytes)
-                );
+                    stream.Append(NullBytes));
             }
         }
 
@@ -350,9 +333,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
 
             using (var stream = new MemoryStream(10))
             {
-                Assert.Throws<ArgumentNullException>(() =>
-                    stream.Append(enumerableByte)
-                );
+                Assert.Throws<ArgumentNullException>(() => stream.Append(enumerableByte));
             }
         }
 
@@ -363,9 +344,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
 
             using (var stream = new MemoryStream(10))
             {
-                Assert.Throws<ArgumentNullException>(() =>
-                    stream.Append(enumerableByte)
-                );
+                Assert.Throws<ArgumentNullException>(() => stream.Append(enumerableByte));
             }
         }
     }
@@ -377,7 +356,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithoutBufferSize_ReturnsArray()
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var currentAssembly = new FileStream(sampleFile, FileMode.Open);
@@ -393,7 +372,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithoutBufferSizeAndBuffer_ReturnsArray()
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var buffer = File.ReadAllBytes(sampleFile);
@@ -408,7 +387,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithBufferSizeAndBuffer_ReturnsArray()
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var currentAssembly = new FileStream(sampleFile, FileMode.Open);
@@ -425,7 +404,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public async Task WithBufferSize_ReturnsArray(int bufferLength)
         {
             var sampleFile = Path.GetTempFileName();
-            Helper.CreateTempBinaryFile(sampleFile, 1);
+            Helper.CreateTempBinaryFile(sampleFile);
             Assert.IsTrue(File.Exists(sampleFile));
 
             var buffer = File.ReadAllBytes(sampleFile);
@@ -442,9 +421,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             FileStream currentAssembly = null;
 
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-
-                await currentAssembly.ReadBytesAsync(23, 256)
-            );
+                await currentAssembly.ReadBytesAsync(23, 256));
         }
 
         [Test]
@@ -453,11 +430,8 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             FileStream currentAssembly = null;
 
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-
-                await currentAssembly.ReadBytesAsync(23)
-            );
+                await currentAssembly.ReadBytesAsync(23));
         }
-
     }
 
     [TestFixture]
@@ -467,7 +441,6 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         public void WithOffsetAndValue_ReturnsBitValue()
         {
             byte input = 201;
-
             var result = input.SetBitValueAt(2, 1);
 
             Assert.AreEqual(205, result);
@@ -491,8 +464,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             const string hex = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                hex.ConvertHexadecimalToBytes()
-            );
+                hex.ConvertHexadecimalToBytes());
         }
     }
 
@@ -521,12 +493,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullArray_ReturnsEmpty()
         {
-            long startIndex = 0;
-            long length = 0;
-
-            var sub = NullBytes.SubArray(startIndex, length);
-
-            Assert.IsEmpty(sub);
+            Assert.IsEmpty(NullBytes.SubArray(0, 0));
         }
     }
 
@@ -538,9 +505,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         {
             sbyte[] input = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                input.ToByteArray()
-            );
+            Assert.Throws<ArgumentNullException>(() => input.ToByteArray());
         }
     }
 
@@ -550,9 +515,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
         [Test]
         public void WithNullArray_ReturnsByteArray()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.ToSByteArray()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullBytes.ToSByteArray());
         }
     }
 
@@ -566,8 +529,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             var lber = new sbyte[23];
 
             Assert.Throws<ArgumentNullException>(() =>
-                stream.ReadInput(ref lber, 0, lber.Length)
-            );
+                stream.ReadInput(ref lber, 0, lber.Length));
         }
 
         [Test]
@@ -593,7 +555,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
 
             Assert.AreEqual(-1, result);
         }
-        
+
         [Test]
         public void WithNullTarget_ThrowsArgumentNullException()
         {
@@ -601,9 +563,7 @@ namespace Unosquare.Swan.Test.ExtensionsByteArraysTest
             var stream = new FileStream(sampleFile, FileMode.Open);
             sbyte[] lber = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                stream.ReadInput(ref lber, 0, 0)
-            );
+            Assert.Throws<ArgumentNullException>(() => stream.ReadInput(ref lber, 0, 0));
         }
     }
 }

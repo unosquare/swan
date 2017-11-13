@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ExtensionsStringTest
+﻿namespace Unosquare.Swan.Test.ExtensionsStringTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Mocks;
+
     [TestFixture]
     public class Humanize
     {
@@ -42,10 +42,8 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         public void WithNull_ReturnsMD5()
         {
             MemoryStream input = null;
-            
-            Assert.Throws<ArgumentNullException>(() =>
-                input.ComputeMD5()
-            );
+
+            Assert.Throws<ArgumentNullException>(() => input.ComputeMD5());
         }
     }
 
@@ -69,16 +67,21 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         {
             const string input = "HOLA";
 
-            Assert.AreEqual("73C3DE4175449987EF6047F6E0BEA91C1036A8599B43113B3F990104AB294A47".ConvertHexadecimalToBytes(), input.ComputeSha256(), "Get Sha256");
+            Assert.AreEqual(
+                "73C3DE4175449987EF6047F6E0BEA91C1036A8599B43113B3F990104AB294A47".ConvertHexadecimalToBytes(),
+                input.ComputeSha256());
         }
     }
 
     [TestFixture]
     public class ComputeSha512
     {
-        [TestCase("uG16jy5/N+hPwel+4xRVtOfyCZ56K9Ds0SF4GE9oQgYRBGzTeAD+h94cIgc6ROyNjbK6wBFVhgqqjDDh01f4rg==", "Eastern Kingdoms")]
-        [TestCase("rDh3voP2/h+S/mDAjnsf8MFRM+Hst6mTxB+rxehSA2KW5fUR2hSBNO9AGGifOzUuWPrO0OOpE0nskGPUw2q+iQ==", "Northrend")]
-        [TestCase("f1WQUrni0kEMcQ0u8tYkvC17zWphJYzQqdWHsrXRuUBoSG+MUrLx3urczB+zkJ9OFbCqUyjCV6NqMEViv7drqg==", "Pandaria")]
+        [TestCase("uG16jy5/N+hPwel+4xRVtOfyCZ56K9Ds0SF4GE9oQgYRBGzTeAD+h94cIgc6ROyNjbK6wBFVhgqqjDDh01f4rg==",
+            "Eastern Kingdoms")]
+        [TestCase("rDh3voP2/h+S/mDAjnsf8MFRM+Hst6mTxB+rxehSA2KW5fUR2hSBNO9AGGifOzUuWPrO0OOpE0nskGPUw2q+iQ==",
+            "Northrend")]
+        [TestCase("f1WQUrni0kEMcQ0u8tYkvC17zWphJYzQqdWHsrXRuUBoSG+MUrLx3urczB+zkJ9OFbCqUyjCV6NqMEViv7drqg==",
+            "Pandaria")]
         public void WithValidString_ReturnsSha512(string expected, string input)
         {
             Assert.AreEqual(expected, input.ComputeSha512().ToBase64(), "Get Sha512");
@@ -100,10 +103,9 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         {
             var objectInfoLines = BasicJson.GetDefault().Stringify().ToLines();
 
-            Assert.Greater(7, objectInfoLines.Length);
+            Assert.GreaterOrEqual(8, objectInfoLines.Length);
             Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.BasicJson", objectInfoLines[0]);
-            Assert.AreEqual("StringData      : string", objectInfoLines[1]);
-            Assert.AreEqual("IntData         : 1", objectInfoLines[2]);
+            Assert.AreEqual("    string,", objectInfoLines[2]);
         }
 
         [Test]
@@ -114,17 +116,17 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
 
             Assert.AreEqual("$type           : Unosquare.Swan.Test.Mocks.EmptyJson", objectInfoLines[0]);
         }
-        
+
         [Test]
         public void WithListOfArraysAsParam_ReturnsStringifiedArray()
         {
-            var arrayInt = new[] { 1234, 4321 };
+            var arrayInt = new[] {1234, 4321};
 
             var arrayList = new List<int[]>
-                {
-                    arrayInt,
-                    arrayInt
-                };
+            {
+                arrayInt,
+                arrayInt
+            };
 
             var objectInfoLines = arrayList.Stringify().ToLines();
 
@@ -136,7 +138,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithDictionaryOfArraysAsParam_ReturnsStringifiedArray()
         {
-            string[] arrayString = { "Orgrimmar", "Thuder Bluff", "Undercity", "Silvermoon", null };
+            string[] arrayString = {"Orgrimmar", "Thuder Bluff", "Undercity", "Silvermoon", null};
 
             var wordDictionary =
                 new Dictionary<string, string[][]> {{"Horde Capitals", new[] {arrayString, arrayString}}};
@@ -152,11 +154,11 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         public void WithDictionaryOfDictionariesAsParam_ReturnsStringifiedArray()
         {
             var persons = new Dictionary<string, Dictionary<string, string>>
-                {
-                    { "Tyrande", new Dictionary<string, string> { { "Race", "Night Elf\r" }, { "Affiliation", "Alliance\r" } } },
-                    { "Jaina", new Dictionary<string, string> { { "Race", "Human\r" }, { "Affiliation", "Alliance\r" } } },
-                    { "Liadrin", new Dictionary<string, string> { { "Race", "Blood Elf\n" }, { "Affiliation", "Horde\n" } } }
-                };
+            {
+                {"Tyrande", new Dictionary<string, string> {{"Race", "Night Elf\r"}, {"Affiliation", "Alliance\r"}}},
+                {"Jaina", new Dictionary<string, string> {{"Race", "Human\r"}, {"Affiliation", "Alliance\r"}}},
+                {"Liadrin", new Dictionary<string, string> {{"Race", "Blood Elf\n"}, {"Affiliation", "Horde\n"}}}
+            };
 
             var objectInfoLines = persons.Stringify().ToLines();
 
@@ -164,11 +166,11 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             Assert.AreEqual("Jaina           : object", objectInfoLines[5]);
             Assert.AreEqual("Liadrin         : object", objectInfoLines[10]);
         }
-        
+
     }
-    
+
     [TestFixture]
-    public class ToStringInvariant
+    public class ToStringInvariant : TestFixtureBase
     {
         [TestCase("", null)]
         [TestCase("Test", "Test")]
@@ -187,13 +189,14 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class RemoveControlCharsExcept
+    public class RemoveControlCharsExcept : TestFixtureBase
     {
         [TestCase("Test", "Test", null)]
         [TestCase("Test", "\0Test\0", null)]
-        [TestCase("\0Test", "\0Test", new[] { '\0' })]
-        [TestCase("\0Test", "\0Test\t", new[] { '\0' })]
-        public void WithValidString_ReturnsStringWithoutControlCharacters(string expected, string input, char[] excludeChars)
+        [TestCase("\0Test", "\0Test", new[] {'\0'})]
+        [TestCase("\0Test", "\0Test\t", new[] {'\0'})]
+        public void WithValidString_ReturnsStringWithoutControlCharacters(string expected, string input,
+            char[] excludeChars)
         {
             Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");
         }
@@ -201,11 +204,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
-            string input = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-                input.RemoveControlCharsExcept(null)
-            );
+            Assert.Throws<ArgumentNullException>(() => NullString.RemoveControlCharsExcept(null));
         }
     }
 
@@ -271,32 +270,27 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
     }
 
     [TestFixture]
-    public class ToSafeFilename
+    public class ToSafeFilename : TestFixtureBase
     {
         [TestCase("FileName", ":File|Name*")]
-        [TestCase("LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongF", "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
+        [TestCase(
+            "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongF",
+            "LongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileNameLongFileName")]
         public void WithValidParams_ReturnsASafeFileName(string expected, string input)
         {
-            if(Runtime.OS != OperatingSystem.Windows)
-            {
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
-            }
-            else
-            {
-                Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
-            }
+
+            Assert.AreEqual(expected, input.ToSafeFilename(), $"Testing with {input}");
         }
 
         [Test]
         public void WithNullString_ThrowsArgumentNullException()
         {
-            if (Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
 
-            string input = null;
-            Assert.Throws<ArgumentNullException>(() =>
-                input.ToSafeFilename()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullString.ToSafeFilename());
         }
     }
 
@@ -309,9 +303,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [TestCase("4.94 TB", 5432675475323)]
         public void WithUlongAsParam_ReturnsFormatedBytes(string expected, long input)
         {
-            var inputByte = Convert.ToUInt64(input);
-
-            Assert.AreEqual(expected, inputByte.FormatBytes(), $"Testing with {input}");
+            Assert.AreEqual(expected, ((ulong) input).FormatBytes(), $"Testing with {input}");
         }
 
         [TestCase("3 KB", 3072)]
@@ -320,8 +312,6 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [TestCase("80.72 MB", 84645653)]
         public void WithLongParam_ReturnsFormatedBytes(string expected, long input)
         {
-            //long inputByte = Convert.ToUInt64(input);
-
             Assert.AreEqual(expected, input.FormatBytes(), $"Testing with {input}");
         }
     }
@@ -345,8 +335,7 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
         [TestCase(new[] {'l', 'W'})]
         public void WithValidString_ReturnsTrue(params char[] chars)
         {
-            const string input = "Hello World";
-            Assert.IsTrue(input.Contains(chars));
+            Assert.IsTrue("Hello World".Contains(chars));
         }
     }
 
@@ -361,5 +350,4 @@ namespace Unosquare.Swan.Test.ExtensionsStringTest
             Assert.AreEqual(expected, input.Hex2Int(), $"Testing with {input}");
         }
     }
-
 }

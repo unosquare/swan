@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ExtensionsTest
+﻿namespace Unosquare.Swan.Test.ExtensionsTest
 {
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using Networking;
+    using Mocks;
+
     [TestFixture]
-    public class Benchmark
+    public class Benchmark : TestFixtureBase
     {
         [Test]
         public void WithAction_ReturnsTimeSpan()
@@ -15,11 +15,11 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             var total = 0;
             var action = new Action(() =>
             {
-                if(total < 2)
+                if (total < 2)
                     throw new Exception();
-                
+
             });
-            
+
             var result = action.Benchmark();
 
             Assert.IsNotNull(result);
@@ -28,8 +28,8 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         [Test]
         public void WithEmptyAction_ReturnsTimeSpan()
         {
-            var action = new Action(() =>{ });
-            
+            var action = new Action(() => { });
+
             var result = action.Benchmark();
 
             Assert.IsNotNull(result);
@@ -38,16 +38,12 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         [Test]
         public void WithNullAction_ThrowsArgumentNullException()
         {
-            Action action = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-                action.Benchmark()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullAction.Benchmark());
         }
     }
 
     [TestFixture]
-    public class Retry
+    public class Retry : TestFixtureBase
     {
         [Test]
         public void WithNewFunction_RetryAction()
@@ -56,12 +52,12 @@ namespace Unosquare.Swan.Test.ExtensionsTest
 
             var action = new Func<int>(() =>
             {
-                if(total++ < 2)
+                if (total++ < 2)
                     throw new Exception();
 
                 return total;
             });
-            
+
             var result = action.Retry();
             Assert.AreEqual(3, result);
         }
@@ -87,7 +83,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             {
                 var action = new Action(() =>
                 {
-                    if(total++ < 2)
+                    if (total++ < 2)
                         throw new Exception();
                 });
 
@@ -98,11 +94,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         [Test]
         public void WithNullAction_ThrowsArgumentNullException()
         {
-            Action action = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-                action.Retry()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullAction.Retry());
         }
 
         [Test]
@@ -110,9 +102,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         {
             Func<int> action = null;
 
-            Assert.Throws<ArgumentNullException>(() =>
-                action.Retry()
-            );
+            Assert.Throws<ArgumentNullException>(() => action.Retry());
         }
     }
 
@@ -130,7 +120,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             Assert.AreEqual(source.Name, target.Name);
             Assert.AreEqual(source.IsActive, target.IsActive);
         }
-        
+
         [Test]
         public void WithValidBasicJson_CopyPropertiesToTarget()
         {
@@ -148,12 +138,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         [Test]
         public void WithNullObjectAttr_CopyPropertiesToTarget()
         {
-            var source = ObjectAttr.Get();
-            ObjectAttr target = null;
-
-            Assert.Throws<ArgumentNullException>(() =>
-                source.CopyPropertiesTo(target)
-            );
+            Assert.Throws<ArgumentNullException>(() => ObjectAttr.Get().CopyPropertiesTo(null));
         }
 
         [Test]
@@ -178,7 +163,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             var source = BasicJson.GetDefault();
             var destination = new BasicJson();
 
-            source.CopyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData) });
+            source.CopyPropertiesTo(destination, new[] {nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData)});
 
             Assert.AreNotEqual(source.BoolData, destination.BoolData);
             Assert.AreNotEqual(source.NegativeInt, destination.NegativeInt);
@@ -190,20 +175,20 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         {
             var source = new Dictionary<string, object>
             {
-                { "Name", "Thrall" },
-                { "Email", "Warchief.Thrall@horde.com" },
-                { "Role", "Warchief" }
+                {"Name", "Thrall"},
+                {"Email", "Warchief.Thrall@horde.com"},
+                {"Role", "Warchief"}
             };
 
             var target = new UserDto();
 
-            source.CopyPropertiesTo(target, null);
+            source.CopyKeyValuePairTo(target);
 
             Assert.AreEqual(source["Name"].ToString(), target.Name);
             Assert.AreEqual(source["Email"].ToString(), target.Email);
         }
     }
-    
+
     [TestFixture]
     public class CopyPropertiesToNew
     {
@@ -211,9 +196,9 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         public void WithObjectWithCopyableAttribute_CopyPropertiesToNewObjectAttr()
         {
             var source = ObjectAttr.Get();
-            
+
             var destination = source.CopyPropertiesToNew<ObjectAttr>();
-            
+
             Assert.IsNotNull(destination);
             Assert.AreSame(source.GetType(), destination.GetType());
             Assert.AreEqual(source.Id, destination.Id);
@@ -265,8 +250,8 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         public void WithValidBasicJson_CopyOnlyPropertiesToTarget()
         {
             var source = BasicJson.GetDefault();
-            var destination = new BasicJson { NegativeInt = 800, BoolData = false };
-            source.CopyOnlyPropertiesTo(destination, new[] { nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData) });
+            var destination = new BasicJson {NegativeInt = 800, BoolData = false};
+            source.CopyOnlyPropertiesTo(destination, new[] {nameof(BasicJson.NegativeInt), nameof(BasicJson.BoolData)});
 
             Assert.AreEqual(source.BoolData, destination.BoolData);
             Assert.AreEqual(source.NegativeInt, destination.NegativeInt);
@@ -285,7 +270,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             Assert.AreEqual(source.IsActive, target.IsActive);
         }
     }
-    
+
     [TestFixture]
     public class CopyOnlyPropertiesToNew
     {
@@ -293,7 +278,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         public void WithValidParams_CopyOnlyPropertiesToNewObject()
         {
             var source = ObjectAttr.Get();
-            var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] { nameof(ObjectAttr.Name) });
+            var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)});
             Assert.AreEqual(source.Name, target.Name);
         }
 
@@ -303,8 +288,7 @@ namespace Unosquare.Swan.Test.ExtensionsTest
             ObjectAttr source = null;
 
             Assert.Throws<ArgumentNullException>(() =>
-                source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] { nameof(ObjectAttr.Name) })
-            );
+                source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)}));
         }
 
         [Test]
@@ -322,4 +306,15 @@ namespace Unosquare.Swan.Test.ExtensionsTest
         }
     }
 
+    [TestFixture]
+    public class ExceptionMessage
+    {
+        [Test]
+        public void WithNullException_ThrowsArgumentNullException()
+        {
+            Exception ex = null;
+
+            Assert.Throws<ArgumentNullException>(() => ex.ExceptionMessage());
+        }
+    }
 }

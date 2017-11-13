@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using System;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
-using Unosquare.Swan.Networking;
-using Unosquare.Swan.Exceptions;
-
-namespace Unosquare.Swan.Test.NetworkTests
+﻿namespace Unosquare.Swan.Test.NetworkTests
 {
+    using NUnit.Framework;
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Net.NetworkInformation;
+    using System.Threading.Tasks;
+    using Networking;
+    using Exceptions;
+
     public abstract class NetworkTest
     {
         protected const string GoogleDnsFqdn = "google-public-dns-a.google.com";
@@ -27,55 +27,50 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void InvalidDnsAsParam_ThrowsDnsQueryException()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
 
-        [TestCase(DnsRecordType.MX)]
-        [TestCase(DnsRecordType.NS)]
-        [TestCase(DnsRecordType.CNAME)]
-        public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType)
+        [TestCase(DnsRecordType.TXT, true, false)]
+        [TestCase(DnsRecordType.MX, false, false)]
+        [TestCase(DnsRecordType.NS, false, false)]
+        [TestCase(DnsRecordType.SOA, false, false)]
+        [TestCase(DnsRecordType.SRV, false, false)]
+        [TestCase(DnsRecordType.WKS, false, false)]
+        [TestCase(DnsRecordType.CNAME, false, false)]
+        public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType, bool answerRecords, bool additionalRecords)
         {
-            if (Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
             {
                 Assert.Ignore("Ignored");
             }
             else
             {
-                var mxRecord = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+                var record = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+                var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
 
-                Assert.AreEqual(DnsResponseCode.NoError, mxRecord.ResponseCode,
+                Assert.AreNotEqual(records.Id, record.Id, $"Id, Testing with {dnsRecordType}");
+                Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");
+                Assert.IsFalse(records.IsTruncated, $"IsTruncated, Testing with {dnsRecordType}");
+                Assert.IsTrue(records.IsRecursionAvailable, $"IsRecursionAvailable, Testing with {dnsRecordType}");
+                Assert.AreEqual("Query", records.OperationCode.ToString(),
+                    $"OperationCode, Testing with {dnsRecordType}");
+                Assert.AreEqual(DnsResponseCode.NoError, records.ResponseCode,
                     $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
-            }
-        }
-
-        [Test]
-        public void ValidDnsAndTXTAsDnsRecordType_ReturnsQueryDns()
-        {
-            if (Runtime.OS != OperatingSystem.Windows)
-            {
-                Assert.Ignore("Ignored");
-            }
-            else
-            {
-                var txtRecords = Network.QueryDns(GoogleDnsFqdn, DnsRecordType.TXT);
-
-                Assert.IsTrue(txtRecords.AnswerRecords.Any());
+                Assert.AreEqual(answerRecords, records.AnswerRecords.Any(),
+                    $"AnswerRecords, Testing with {dnsRecordType}");
             }
         }
 
         [Test]
         public void WithNullFqdn_ReturnsQueryDns()
         {
-            if(Runtime.OS != OperatingSystem.Windows)
+            if (Runtime.OS != Swan.OperatingSystem.Windows)
                 Assert.Ignore("Ignored");
-            
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Network.QueryDns(null, DnsRecordType.TXT);
-            });
+
+            Assert.Throws<ArgumentNullException>(() => Network.QueryDns(null, DnsRecordType.TXT));
         }
     }
 
@@ -85,7 +80,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithValidDns_ReturnsDnsEntry()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             var googleDnsIPAddresses = Network.GetDnsHostEntry(GoogleDnsFqdn);
@@ -110,7 +105,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithValidDnsAndFinalDot_ReturnsDnsEntry()
         {
-            if (Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
             var googleDnsIPAddressesWithFinalDot = Network.GetDnsHostEntry(GoogleDnsFqdn + ".");
@@ -121,13 +116,10 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithNullFqdn_ThrowsArgumentNullException()
         {
-            if(Runtime.OS == OperatingSystem.Osx)
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Inconclusive("OSX is returning time out");
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                Network.GetDnsHostEntry(null);
-            });
+            Assert.Throws<ArgumentNullException>(() => Network.GetDnsHostEntry(null));
         }
     }
 
@@ -149,9 +141,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithNullAddress_ReturnsFalse()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullIP.IsPrivateAddress()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullIP.IsPrivateAddress());
         }
     }
 
@@ -173,9 +163,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithNullAddress_ReturnsFalse()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                NullIP.ToUInt32()
-            );
+            Assert.Throws<ArgumentNullException>(() => NullIP.ToUInt32());
         }
 
         [Test]
@@ -183,10 +171,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         {
             var privateIP = IPAddress.Parse("2001:0db8:85a3:0000:1319:8a2e:0370:7344");
 
-            Assert.Throws<ArgumentException>(() =>
-            {
-                privateIP.ToUInt32();
-            });
+            Assert.Throws<ArgumentException>(() => privateIP.ToUInt32());
         }
     }
 
@@ -243,9 +228,7 @@ namespace Unosquare.Swan.Test.NetworkTests
         [Test]
         public void WithNullNtpServerName_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                Network.GetNetworkTimeUtc(NullIP)
-            );
+            Assert.Throws<ArgumentNullException>(() => Network.GetNetworkTimeUtc(NullIP));
         }
     }
 
@@ -253,7 +236,7 @@ namespace Unosquare.Swan.Test.NetworkTests
     public class GetNetworkTimeUtcAsync : NetworkTest
     {
         [Test]
-        public async Task WitDefaulthNtpServerName_ReturnsDateTime()
+        public async Task WithDefaulthNtpServerName_ReturnsDateTime()
         {
             var publicIPAddress = await Network.GetNetworkTimeUtcAsync();
 
@@ -308,6 +291,12 @@ namespace Unosquare.Swan.Test.NetworkTests
             var dnsPointer = await Network.GetDnsPointerEntryAsync(GoogleDns);
 
             Assert.AreEqual(dnsPointer, GoogleDnsFqdn);
+        }
+
+        [Test]
+        public void WithNullIPAddress_ReturnsDnsHost()
+        {
+            Assert.Throws<ArgumentNullException>(() => Network.GetDnsPointerEntry(NullIP));
         }
     }
 

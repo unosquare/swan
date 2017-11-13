@@ -150,6 +150,47 @@
 
         #endregion
 
+        #region Helpers
+
+        /// <summary>
+        /// Saves the items to a stream.
+        /// It uses the Windows 1252 text encoding for output
+        /// </summary>
+        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="stream">The stream.</param>
+        /// <param name="truncateData"><c>true</c> if stream is truncated, default <c>false</c>.</param>
+        /// <returns>Number of item saved</returns>
+        public static int SaveRecords<T>(IEnumerable<T> items, Stream stream, bool truncateData = false)
+        {
+            // truncate the file if it had data
+            if (truncateData && stream.Length > 0)
+                stream.SetLength(0);
+
+            using (var writer = new CsvWriter(stream))
+            {
+                writer.WriteHeadings<T>();
+                writer.WriteObjects(items);
+                return (int)writer.Count;
+            }
+        }
+
+        /// <summary>
+        /// Saves the items to a CSV file.
+        /// If the file exits, it overwrites it. If it does not, it creates it.
+        /// It uses the Windows 1252 text encoding for output
+        /// </summary>
+        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>Number of item saved</returns>
+        public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
+        {
+            return SaveRecords(items, File.OpenWrite(filePath), true);
+        }
+
+        #endregion
+
         #region Generic, main Write Line Method
 
         /// <summary>
@@ -159,7 +200,7 @@
         /// </summary>
         /// <param name="items">The items.</param>
         public void WriteLine(params object[] items)
-            => WriteLine(items.Select(x=> x == null ? string.Empty : x.ToStringInvariant()).ToArray());
+            => WriteLine(items.Select(x => x == null ? string.Empty : x.ToStringInvariant()).ToArray());
 
         /// <summary>
         /// Writes a line of CSV text.
@@ -187,9 +228,9 @@
                     // Determine if we need the string to be enclosed 
                     // (it either contains an escape, new line, or separator char)
                     needsEnclosing = textValue.IndexOf(SeparatorCharacter) >= 0
-                        || textValue.IndexOf(EscapeCharacter) >= 0
-                        || textValue.IndexOf('\r') >= 0
-                        || textValue.IndexOf('\n') >= 0;
+                                     || textValue.IndexOf(EscapeCharacter) >= 0
+                                     || textValue.IndexOf('\r') >= 0
+                                     || textValue.IndexOf('\n') >= 0;
 
                     // Escape the escape characters by repeating them twice for every instance
                     textValue = textValue.Replace($"{EscapeCharacter}",
@@ -234,15 +275,8 @@
 
             lock (_syncLock)
             {
-                { // Handling as Dynamic Object
-                    if (item is IDictionary<string, object> typedItem)
-                    {
-                        WriteDynamicObjectValues(typedItem);
-                        return;
-                    }
-                }
-
-                { // Handling as Dictionary
+                {
+                    // Handling as Dictionary
                     if (item is IDictionary typedItem)
                     {
                         WriteDictionaryValues(typedItem);
@@ -250,7 +284,8 @@
                     }
                 }
 
-                { // Handling as array
+                {
+                    // Handling as array
                     if (item is ICollection typedItem)
                     {
                         WriteCollectionValues(typedItem);
@@ -258,7 +293,8 @@
                     }
                 }
 
-                { // Handling as a regular type
+                {
+                    // Handling as a regular type
                     WriteObjectValues(item);
                 }
             }
@@ -290,54 +326,6 @@
             }
         }
 
-        /// <summary>
-        /// Writes the object values.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        private void WriteObjectValues(object item)
-        {
-            var properties = GetFilteredTypeProperties(item.GetType());
-            var values = new List<object>();
-            foreach (var property in properties)
-            {
-                try
-                {
-                    var value = property.GetValue(item);
-                    values.Add(value);
-                }
-                catch
-                {
-                    values.Add(null);
-                }
-            }
-
-            WriteLine(values.ToArray());
-        }
-
-        /// <summary>
-        /// Writes the collection values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteCollectionValues(ICollection typedItem) => WriteLine(typedItem.Cast<object>().ToArray());
-
-        /// <summary>
-        /// Writes the dictionary values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteDictionaryValues(IDictionary typedItem)
-        {
-            WriteLine(GetFilteredDictionaryValues(typedItem));
-        }
-
-        /// <summary>
-        /// Writes the dynamic object values.
-        /// </summary>
-        /// <param name="typedItem">The typed item.</param>
-        private void WriteDynamicObjectValues(IDictionary<string, object> typedItem)
-        {
-            WriteLine(GetFilteredDictionaryValues(typedItem));
-        }
-
         #endregion
 
         #region Write Headings Methods
@@ -345,7 +333,7 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <param name="type">The type of object to extract heads.</param>
+        /// <param name="type">The type of object to extract headings.</param>
         /// <exception cref="System.ArgumentNullException">type</exception>
         public void WriteHeadings(Type type)
         {
@@ -359,28 +347,15 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <typeparam name="T">The type of object to extract heads</typeparam>
+        /// <typeparam name="T">The type of object to extract headings</typeparam>
         public void WriteHeadings<T>() => WriteHeadings(typeof(T));
 
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
+        /// <param name="dictionary">The dictionary to extract headings.</param>
         /// <exception cref="System.ArgumentNullException">dictionary</exception>
         public void WriteHeadings(IDictionary dictionary)
-        {
-            if (dictionary == null)
-                throw new ArgumentNullException(nameof(dictionary));
-
-            WriteLine(GetFilteredDictionaryKeys(dictionary));
-        }
-
-        /// <summary>
-        /// Writes the headings.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <exception cref="System.ArgumentNullException">dictionary</exception>
-        public void WriteHeadings(IDictionary<string, object> dictionary)
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary));
@@ -392,9 +367,9 @@
         /// <summary>
         /// Writes the headings.
         /// </summary>
-        /// <param name="item">The item.</param>
-        /// <exception cref="System.ArgumentNullException">item</exception>
-        /// <exception cref="System.ArgumentException">Unable to cast dynamic object to a suitable dictionary - item</exception>
+        /// <param name="item">The object to extract headings.</param>
+        /// <exception cref="ArgumentNullException">item</exception>
+        /// <exception cref="ArgumentException">Unable to cast dynamic object to a suitable dictionary - item</exception>
         public void WriteHeadings(dynamic item)
         {
             if (item == null)
@@ -404,6 +379,19 @@
                 throw new ArgumentException("Unable to cast dynamic object to a suitable dictionary", nameof(item));
 
             WriteHeadings(dictionary);
+        }
+#else
+        /// <summary>
+        /// Writes the headings.
+        /// </summary>
+        /// <param name="obj">The object to extract headings.</param>
+        /// <exception cref="ArgumentNullException">obj</exception>
+        public void WriteHeadings(object obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException(nameof(obj));
+
+            WriteHeadings(obj.GetType());
         }
 #endif
 
@@ -416,9 +404,9 @@
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
         /// <returns>An array containing copies of the elements of the dictionary</returns>
-        private object[] GetFilteredDictionaryKeys(IDictionary dictionary)
+        private string[] GetFilteredDictionaryKeys(IDictionary dictionary)
         {
-            var keys = new List<object>();
+            var keys = new List<string>();
 
             foreach (var key in dictionary.Keys)
             {
@@ -431,28 +419,7 @@
 
             return keys.ToArray();
         }
-
-        /// <summary>
-        /// Gets the filtered dictionary keys using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary</returns>
-        private object[] GetFilteredDictionaryKeys(IDictionary<string, object> dictionary)
-        {
-            var keys = new List<object>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key ?? string.Empty;
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                keys.Add(stringKey);
-            }
-
-            return keys.ToArray();
-        }
-
+        
         /// <summary>
         /// Gets the filtered dictionary values using the IgnoreProperties list.
         /// </summary>
@@ -473,28 +440,7 @@
 
             return values.ToArray();
         }
-
-        /// <summary>
-        /// Gets the filtered dictionary values using the IgnoreProperties list.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns>An array containing copies of the elements of the dictionary</returns>
-        private object[] GetFilteredDictionaryValues(IDictionary<string, object> dictionary)
-        {
-            var values = new List<object>();
-
-            foreach (var key in dictionary.Keys)
-            {
-                var stringKey = key ?? string.Empty;
-                if (IgnorePropertyNames.Contains(stringKey))
-                    continue;
-
-                values.Add(dictionary[key]);
-            }
-
-            return values.ToArray();
-        }
-
+        
         /// <summary>
         /// Gets the filtered type properties using the IgnoreProperties list.
         /// </summary>
@@ -517,37 +463,33 @@
 
         #endregion
 
-        #region Helpers
-
         /// <summary>
-        /// Saves the items to a CSV file.
-        /// If the file exits, it overwrites it. If it does not, it creates it.
-        /// It uses the Windows 1252 text encoding for output
+        /// Writes the object values.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
-        /// <param name="items">The items.</param>
-        /// <param name="filePath">The file path.</param>
-        /// <returns>Number of item of CsvWriter</returns>
-        public static int SaveRecords<T>(IEnumerable<T> items, string filePath)
+        /// <param name="item">The item.</param>
+        private void WriteObjectValues(object item)
         {
-            var fullPath = Path.GetFullPath(filePath);
+            var values = GetFilteredTypeProperties(item.GetType())
+                .Select(x => x.GetValueOrNull(item))
+                .ToArray();
 
-            using (var stream = File.OpenWrite(fullPath))
-            {
-                // truncate the file if it had data
-                if (stream.Length > 0)
-                    stream.SetLength(0);
-
-                using (var writer = new CsvWriter(stream))
-                {
-                    writer.WriteHeadings<T>();
-                    writer.WriteObjects(items);
-                    return (int)writer.Count;
-                }
-            }
+            WriteLine(values.ToArray());
         }
 
-        #endregion
+        /// <summary>
+        /// Writes the collection values.
+        /// </summary>
+        /// <param name="typedItem">The typed item.</param>
+        private void WriteCollectionValues(ICollection typedItem) => WriteLine(typedItem.Cast<object>().ToArray());
+
+        /// <summary>
+        /// Writes the dictionary values.
+        /// </summary>
+        /// <param name="typedItem">The typed item.</param>
+        private void WriteDictionaryValues(IDictionary typedItem)
+        {
+            WriteLine(GetFilteredDictionaryValues(typedItem));
+        }
 
         #region IDisposable Support
 
@@ -577,6 +519,5 @@
         }
 
         #endregion
-
     }
 }

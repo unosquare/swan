@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class SampleCsvRecord
     {
         public int Id { get; set; }
@@ -41,7 +40,7 @@ namespace Unosquare.Swan.Test.Mocks
             StringSplitOptions.None);
 
         private static readonly string[] RandomNames = {"Alpha", "Beta", "Gamma", "Delta"};
-        
+
         public static List<SampleCsvRecord> CreateSampleSet(int size)
         {
             var result = new List<SampleCsvRecord>();
@@ -59,8 +58,8 @@ namespace Unosquare.Swan.Test.Mocks
 
                 var record = new SampleCsvRecord
                 {
-                    AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : new DateTime?(),
-                    AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : new int?(),
+                    AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : (DateTime?) null,
+                    AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : (int?) null,
                     CreationDate = random.NextDouble() > 0.5d ? DateTime.Now : DateTime.MinValue,
                     Description = descriptionSb.ToString(),
                     Id = i,
@@ -75,49 +74,7 @@ namespace Unosquare.Swan.Test.Mocks
 
             return result;
         }
-
-        public static Stream GenerateStreamFromString(string s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
-
-        public static Stream GenerateStreamFromList(IList<SampleCsvRecord> s, int maxSize = 10)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-
-            for (var i = 0; i < maxSize; i++)
-            {
-                writer.Write(s[i]);
-            }
-
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
-
-        public static SampleCsvRecord GetItem()
-        {
-            var random = new Random();
-            return new SampleCsvRecord
-            {
-                AccessDate = random.NextDouble() > 0.5d ? DateTime.Now : new DateTime?(),
-                AlternateId = random.NextDouble() > 0.5d ? random.Next(10, 9999999) : new int?(),
-                CreationDate = random.NextDouble() > 0.5d ? DateTime.Now : DateTime.MinValue,
-                Description = $"{RandomWords[random.Next(0, RandomWords.Length - 1)]} ",
-                Id = 1000,
-                IsValidated = random.NextDouble() > 0.5d,
-                Name = "WriteobjectTTest",
-                Score = Convert.ToSingle(random.NextDouble() * random.Next(10, 1000)),
-                ValidationResult = random.NextDouble() > 0.5d
-            };
-        }
-
+        
         public static List<string[]> SampleStringList()
             => new List<string[]>
             {
@@ -137,13 +94,5 @@ namespace Unosquare.Swan.Test.Mocks
                     "true"
                 }
             };
-    }
-
-    public class SampleDto
-    {
-        public string Company { get; set; }
-        public int OpenPositions { get; set; }
-        public string MainTechnology { get; set; }
-        public string Revenue { get; set; }
     }
 }

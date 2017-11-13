@@ -1,18 +1,25 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using Unosquare.Swan.Components;
-using Unosquare.Swan.Test.Mocks;
-
-namespace Unosquare.Swan.Test.ObjectMapperTests
+﻿namespace Unosquare.Swan.Test.ObjectMapperTests
 {
-    public abstract class ObjectMapperTest
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using Components;
+    using Mocks;
+
+    public abstract class ObjectMapperTest : TestFixtureBase
     {
         protected readonly User SourceUser = new User
         {
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
             Role = new Role {Name = "Admin"}
+        };
+
+        protected readonly Dictionary<string, object> SourceDict = new Dictionary<string, object>
+        {
+            {"Name", "Armando"},
+            {"Email", "armando.cifuentes@unosquare.com"},
+            {"Role", "Intern tester"}
         };
     }
 
@@ -47,23 +54,13 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
         [Test]
         public void MapWithoutSouce_ThrowsArgumentNullException()
         {
-            var mapper = new ObjectMapper();
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                mapper.Map<UserDto>(null);
-            });
+            Assert.Throws<ArgumentNullException>(() => Runtime.ObjectMapper.Map<UserDto>(null));
         }
 
         [Test]
         public void WithAutoresolveFalse_ThrowsInvalidOperationException()
         {
-            var mapper = new ObjectMapper();
-
-            Assert.Throws<InvalidOperationException>(() =>
-            {
-                mapper.Map<UserDto>(SourceUser, false);
-            });
+            Assert.Throws<InvalidOperationException>(() => new ObjectMapper().Map<UserDto>(SourceUser, false));
         }
     }
 
@@ -87,34 +84,21 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
         [Test]
         public void PropertyDestinationWithInvalidPropertySource_ThrowsException()
         {
-            var mapper = new ObjectMapper();
-
             Assert.Throws<Exception>(() =>
-            {
-                mapper.CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name);
-            });
+                new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t, s => s.Role.Name));
         }
 
         [Test]
         public void PropertySourceWithInvalidPropertyDestination_ThrowsException()
         {
-            var mapper = new ObjectMapper();
-
             Assert.Throws<Exception>(() =>
-            {
-                mapper.CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s);
-            });
+                new ObjectMapper().CreateMap<User, UserDto>().MapProperty(t => t.Role, s => s));
         }
 
         [Test]
         public void PropertiesTypeNotMatchInMaps_ThrowsInvalidOperationException()
         {
-            var mapper = new ObjectMapper();
-
-            Assert.Throws<InvalidOperationException>(() =>
-            {
-                mapper.CreateMap<User, AdminDto>();
-            });
+            Assert.Throws<InvalidOperationException>(() => Runtime.ObjectMapper.CreateMap<User, ErrorJson>());
         }
     }
 
@@ -139,21 +123,14 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
         public void RemoveInvalidProperty_ThrowsException()
         {
             Assert.Throws<Exception>(() =>
-            {
-                var mapper = new ObjectMapper();
-                mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t);
-            });
+                new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(t => t));
         }
 
         [Test]
         public void PropertyDestionationInfoNull_ReturnsException()
         {
-            var mapper = new ObjectMapper();
-
-            Assert.Throws<Exception>(() =>
-            {
-                mapper.CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null);
-            });
+            Assert.Throws<Exception>(() => 
+                new ObjectMapper().CreateMap<User, UserDto>().RemoveMapProperty(x => x.Name == null));
         }
     }
 
@@ -179,19 +156,13 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
         [Test]
         public void SourceNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectMapper.Copy((object) null, new UserDto());
-            });
+            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(NullObj, new UserDto()));
         }
 
         [Test]
         public void TargetNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectMapper.Copy(new UserDto(), null);
-            });
+            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(new UserDto(), null));
         }
 
         [Test]
@@ -199,47 +170,27 @@ namespace Unosquare.Swan.Test.ObjectMapperTests
         {
             var target = new UserDto();
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectMapper.Copy(null, target);
-            });
+            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(null, target));
         }
 
         [Test]
         public void TargetDictionaryNull_ThrowsArgumentNullException()
         {
-            var source = new Dictionary<string, object>
-            {
-                {"Mario", 1},
-                {"Arturo", 2},
-                {"Fernanda", 3}
-            };
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ObjectMapper.Copy(source, null);
-            });
+            Assert.Throws<ArgumentNullException>(() => ObjectMapper.Copy(SourceDict, null));
         }
 
         [Test]
         public void SourceAndTargetNotNull_ReturnsCopy()
         {
-            var source = new Dictionary<string, object>
-            {
-                {"Name", "Armando"},
-                {"Email", "armando.cifuentes@unosquare.com"},
-                {"Role", "Intern tester"}
-            };
-
             var target = new UserDto();
 
             var propertiesToCopy = new[] {"Name", "Email"};
             var ignoreProperties = new[] {"Role"};
 
-            ObjectMapper.Copy(source, target, propertiesToCopy, ignoreProperties);
+            ObjectMapper.Copy(SourceDict, target, propertiesToCopy, ignoreProperties);
 
-            Assert.AreEqual(source["Name"].ToString(), target.Name);
-            Assert.AreEqual(source["Email"].ToString(), target.Email);
+            Assert.AreEqual(SourceDict["Name"].ToString(), target.Name);
+            Assert.AreEqual(SourceDict["Email"].ToString(), target.Email);
         }
     }
 }
