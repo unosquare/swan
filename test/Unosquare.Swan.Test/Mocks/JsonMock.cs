@@ -8,6 +8,14 @@
         public string Message { get; set; }
     }
 
+    public class BasicJsonWithoutCtor
+    {
+        protected BasicJsonWithoutCtor()
+        {
+            // Ignore
+        }
+    }
+
     public class BasicJson
     {
         public string StringData { get; set; }

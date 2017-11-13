@@ -30,13 +30,13 @@ namespace Unosquare.Swan.Components
     /// <seealso cref="System.IDisposable" />
     public partial class DependencyContainer : IDisposable
     {
+        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
+
         private readonly DependencyContainer _parent;
         private readonly object _autoRegisterLock = new object();
         private readonly ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
-        private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache = new ConcurrentDictionary<ConstructorInfo, ObjectConstructor>();
+        
         private bool _disposed;
-
-        private delegate object ObjectConstructor(params object[] parameters);
 
         static DependencyContainer()
         {
@@ -57,6 +57,8 @@ namespace Unosquare.Swan.Components
         {
             _parent = parent;
         }
+
+        private delegate object ObjectConstructor(params object[] parameters);
 
         /// <summary>
         /// Lazy created Singleton instance of the container for simple scenarios
@@ -83,7 +85,8 @@ namespace Unosquare.Swan.Components
                 DependencyContainerDuplicateImplementationActions.RegisterSingle,
             Func<Type, bool> registrationPredicate = null)
         {
-            AutoRegister(Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction,
+            AutoRegister(
+                Runtime.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), duplicateAction,
                 registrationPredicate);
         }
 #endif
@@ -948,70 +951,6 @@ namespace Unosquare.Swan.Components
         }
         #endregion
         
-        #region Type Registrations
-
-        /// <summary>
-        /// Represents a Type Registration within the IoC Container
-        /// </summary>
-        public sealed class TypeRegistration
-        {
-            private readonly int _hashCode;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="TypeRegistration"/> class.
-            /// </summary>
-            /// <param name="type">The type.</param>
-            /// <param name="name">The name.</param>
-            public TypeRegistration(Type type, string name = null)
-            {
-                Type = type;
-                Name = name ?? string.Empty;
-
-                _hashCode = string.Concat(Type.FullName, "|", Name).GetHashCode();
-            }
-
-            /// <summary>
-            /// Gets the type.
-            /// </summary>
-            /// <value>
-            /// The type.
-            /// </value>
-            public Type Type { get; }
-
-            /// <summary>
-            /// Gets the name.
-            /// </summary>
-            /// <value>
-            /// The name.
-            /// </value>
-            public string Name { get; }
-
-            /// <summary>
-            /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
-            /// </summary>
-            /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-            /// <returns>
-            ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
-            /// </returns>
-            public override bool Equals(object obj)
-            {
-                if (!(obj is TypeRegistration typeRegistration) || typeRegistration.Type != Type)
-                    return false;
-
-                return string.Compare(Name, typeRegistration.Name, StringComparison.Ordinal) == 0;
-            }
-
-            /// <summary>
-            /// Returns a hash code for this instance.
-            /// </summary>
-            /// <returns>
-            /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
-            /// </returns>
-            public override int GetHashCode() => _hashCode;
-        }
-        
-        #endregion
-
         #region Internal Methods
         
 #if !NETSTANDARD1_3 && !UWP
@@ -1056,10 +995,35 @@ namespace Unosquare.Swan.Components
 
         private static ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
         {
-            if (registerType.IsInterface() || registerType.IsAbstract())
-                return new SingletonFactory(registerType, registerImplementation);
+            return registerType.IsInterface() || registerType.IsAbstract()
+                ? (ObjectFactoryBase) new SingletonFactory(registerType, registerImplementation)
+                : new MultiInstanceFactory(registerType, registerImplementation);
+        }
 
-            return new MultiInstanceFactory(registerType, registerImplementation);
+        private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
+            => type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
+
+        private static bool IsAutomaticLazyFactoryRequest(Type type)
+        {
+            if (!type.IsGenericType())
+                return false;
+
+            var genericType = type.GetGenericTypeDefinition();
+
+            // Just a func
+            if (genericType == typeof(Func<>))
+                return true;
+
+            // 2 parameter func with string as first parameter (name)
+            if (genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string))
+                return true;
+
+            // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
+            if (genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
+                type.GetGenericArguments()[1] == typeof(IDictionary<string, object>))
+                return true;
+
+            return false;
         }
 
         private void RegisterDefaultTypes()
@@ -1146,29 +1110,6 @@ namespace Unosquare.Swan.Components
 
             // Bubble resolution up the container tree if we have a parent
             return _parent != null && _parent.CanResolveInternal(registration, parameters, options);
-        }
-
-        private static bool IsAutomaticLazyFactoryRequest(Type type)
-        {
-            if (!type.IsGenericType())
-                return false;
-
-            var genericType = type.GetGenericTypeDefinition();
-
-            // Just a func
-            if (genericType == typeof(Func<>))
-                return true;
-
-            // 2 parameter func with string as first parameter (name)
-            if (genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string))
-                return true;
-
-            // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-            if (genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) &&
-                type.GetGenericArguments()[1] == typeof(IDictionary<string, object>))
-                return true;
-
-            return false;
         }
 
         private ObjectFactoryBase GetParentObjectFactory(TypeRegistration registration)
@@ -1296,11 +1237,6 @@ namespace Unosquare.Swan.Components
             return ctors.FirstOrDefault(ctor => CanConstruct(ctor, parameters, options));
         }
 
-        private static IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
-        {
-            return type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Length);
-        }
-        
         private object ConstructType(
             Type implementationType, 
             ConstructorInfo constructor, 
@@ -1440,6 +1376,70 @@ namespace Unosquare.Swan.Components
             }
 
             GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region Type Registrations
+
+        /// <summary>
+        /// Represents a Type Registration within the IoC Container
+        /// </summary>
+        public sealed class TypeRegistration
+        {
+            private readonly int _hashCode;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="TypeRegistration"/> class.
+            /// </summary>
+            /// <param name="type">The type.</param>
+            /// <param name="name">The name.</param>
+            public TypeRegistration(Type type, string name = null)
+            {
+                Type = type;
+                Name = name ?? string.Empty;
+
+                _hashCode = string.Concat(Type.FullName, "|", Name).GetHashCode();
+            }
+
+            /// <summary>
+            /// Gets the type.
+            /// </summary>
+            /// <value>
+            /// The type.
+            /// </value>
+            public Type Type { get; }
+
+            /// <summary>
+            /// Gets the name.
+            /// </summary>
+            /// <value>
+            /// The name.
+            /// </value>
+            public string Name { get; }
+
+            /// <summary>
+            /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+            /// </summary>
+            /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+            /// <returns>
+            ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+            /// </returns>
+            public override bool Equals(object obj)
+            {
+                if (!(obj is TypeRegistration typeRegistration) || typeRegistration.Type != Type)
+                    return false;
+
+                return string.Compare(Name, typeRegistration.Name, StringComparison.Ordinal) == 0;
+            }
+
+            /// <summary>
+            /// Returns a hash code for this instance.
+            /// </summary>
+            /// <returns>
+            /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+            /// </returns>
+            public override int GetHashCode() => _hashCode;
         }
 
         #endregion
