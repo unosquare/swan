@@ -275,7 +275,9 @@
             InitLog(messages);
 
             nameof(Dump).Dump(typeof(string).Name);
-            
+
+            Task.Delay(150).Wait();
+
             Assert.AreEqual(nameof(Dump), messages.Last(x => x.ExtendedData != null).ExtendedData);
             Assert.AreEqual(typeof(string).Name, messages.Last(x => x.ExtendedData != null).Source);
         }
