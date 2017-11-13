@@ -6771,15 +6771,6 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationMethod
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.AuthenticationMethod
   nameWithType: LdapConnection.AuthenticationMethod
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.SByte[])
-  name: Bind(Int32, String, SByte[])
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_SByte___
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.SByte[])
-  name.vb: Bind(Int32, String, SByte())
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.SByte[])
-  fullName.vb: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32, System.String, System.SByte())
-  nameWithType: LdapConnection.Bind(Int32, String, SByte[])
-  nameWithType.vb: LdapConnection.Bind(Int32, String, SByte())
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Bind(System.Int32,System.String,System.String)
   name: Bind(Int32, String, String)
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Bind_System_Int32_System_String_System_String_
