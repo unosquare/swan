@@ -35,7 +35,7 @@
 
             // Mock increase count by one every 100 ms, wait a little bit
             await Task.Delay(TimeSpan.FromMilliseconds(600));
-            Assert.GreaterOrEqual(mock.Count, 5);
+            Assert.GreaterOrEqual(5, mock.Count);
         }
 
         [Test]

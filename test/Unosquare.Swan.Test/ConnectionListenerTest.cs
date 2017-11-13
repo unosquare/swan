@@ -82,7 +82,7 @@
         [Test]
         public async Task OnConnectionFailureTest()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True" || Runtime.OS == Swan.OperatingSystem.Osx) 
                 Assert.Inconclusive("Can not test in AppVeyor");
 
             const int port = 12348;
