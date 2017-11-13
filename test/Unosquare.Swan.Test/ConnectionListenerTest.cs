@@ -37,7 +37,7 @@
         [Test]
         public async Task UsingLoopback_CanListen()
         {
-            using (var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), 12345))
+            using (var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), 12346))
             {
                 using (var client = new TcpClient())
                 {
@@ -53,7 +53,7 @@
         [Test]
         public async Task OnConnectionAcceptedTest()
         {
-            using (var connectionListener = new ConnectionListener(12345))
+            using (var connectionListener = new ConnectionListener(12347))
             {
                 using (var client = new TcpClient())
                 {
@@ -77,7 +77,7 @@
         {
             Assert.Inconclusive("How to throw a failure?");
 
-            using (var connectionListener = new ConnectionListener(12345))
+            using (var connectionListener = new ConnectionListener(12348))
             {
                 using (var client = new TcpClient())
                 {
@@ -97,7 +97,7 @@
         [Test]
         public void OnListenerStoppedTest()
         {
-            using (var connectionListener = new ConnectionListener(12345))
+            using (var connectionListener = new ConnectionListener(12349))
             {
                 var isStopped = false;
                 connectionListener.Start();
