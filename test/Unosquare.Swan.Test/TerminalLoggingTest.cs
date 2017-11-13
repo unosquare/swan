@@ -5,10 +5,11 @@
     using System.Linq;
     using System.Threading.Tasks;
     using NUnit.Framework;
-    using Unosquare.Swan.Test.Mocks;
+    using Mocks;
 
     public abstract class TerminalLoggingTest : TestFixtureBase
     {
+        // TODO: Bad design, since some test may run at parallel!
         protected List<LoggingEntryMock> messages = new List<LoggingEntryMock>();
         protected string extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
 
@@ -27,7 +28,7 @@
                     ExtendedData = e.ExtendedData
                 });
             };
-            
+
             Terminal.Flush();
         }
     }
@@ -76,7 +77,7 @@
             new Exception().Error("Unosquare Américas", "Error del sistema");
 
             Task.Delay(150).Wait();
-            
+
             messages.Clear();
 
             nameof(LogMessageType.None).Log("Unosquare Labs", LogMessageType.None, 1);
@@ -128,12 +129,12 @@
 
             Task.Delay(200).Wait();
 
-            new Exception().Debug("Unosquare Américas", "Unosquare Labs");
+            new Exception().Debug("Unosquare Américas", nameof(Debug));
 
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(nameof(Debug), messages.First(x => x.ExtendedData != null).Message);
             Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
 
         }
@@ -149,12 +150,12 @@
 
             Task.Delay(200).Wait();
 
-            new Exception().Trace("Unosquare Américas", "Unosquare Labs");
+            new Exception().Trace("Unosquare Américas", nameof(Trace));
 
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(nameof(Trace), messages.First(x => x.ExtendedData != null).Message);
             Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
 
@@ -197,12 +198,12 @@
 
             Task.Delay(200).Wait();
 
-            new Exception().Warn("Unosquare Américas", "Unosquare Labs");
+            new Exception().Warn("Unosquare Américas", nameof(Warn));
 
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(nameof(Warn), messages.First(x => x.ExtendedData != null).Message);
             Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
     }
@@ -217,12 +218,12 @@
 
             Task.Delay(200).Wait();
 
-            new Exception().Info("Unosquare Américas", "Unosquare Labs");
+            new Exception().Info("Unosquare Américas", nameof(Info));
 
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual("Unosquare Labs", messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(nameof(Info), messages.First(x => x.ExtendedData != null).Message);
             Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
     }
@@ -253,22 +254,9 @@
         {
             messages.Clear();
 
-            NullObj.Dump("Unosquare Américas");
+            NullObj.Dump(typeof(string).Name);
 
             Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
-        }
-
-        [Test]
-        public void NotNullObject_MessageLogged()
-        {
-            messages.Clear();
-
-            object consultant = "Alejandro";
-
-            consultant.Dump("Unosquare Américas");
-
-            Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual("Unosquare Américas", messages.First(x => x.ExtendedData != null).Source);
         }
 
         [Test]
@@ -286,13 +274,10 @@
         {
             messages.Clear();
 
-            object consultant = "Alejandro";
-
-            consultant.Dump(typeof(string));
-
-            Assert.IsFalse(messages.Any(x => x.ExtendedData != null));
-            Assert.AreEqual("Alejandro", messages.First(x => x.ExtendedData != null).ExtendedData);
-            Assert.AreEqual("System.String", messages.First(x => x.ExtendedData != null).Source);
+            nameof(Dump).Dump(typeof(string).Name);
+            
+            Assert.AreEqual(nameof(Dump), messages.Last(x => x.ExtendedData != null).ExtendedData);
+            Assert.AreEqual(typeof(string).Name, messages.Last(x => x.ExtendedData != null).Source);
         }
     }
 }
