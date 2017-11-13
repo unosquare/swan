@@ -9,12 +9,15 @@
 
     public abstract class TerminalLoggingTest : TestFixtureBase
     {
-        // TODO: Bad design, since some test may run at parallel!
-        protected List<LoggingEntryMock> messages = new List<LoggingEntryMock>();
         protected string extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
 
         [SetUp]
         public void SetupLoggingMessages()
+        {
+            Terminal.Flush();
+        }
+
+        protected void InitLog(List<LoggingEntryMock> messages)
         {
             Terminal.OnLogMessageReceived += (s, e) =>
             {
@@ -28,8 +31,6 @@
                     ExtendedData = e.ExtendedData
                 });
             };
-
-            Terminal.Flush();
         }
     }
 
@@ -39,6 +40,9 @@
         [Test]
         public void Logging()
         {
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
+
             nameof(LogMessageType.Info).Info();
             nameof(LogMessageType.Debug).Debug();
             nameof(LogMessageType.Error).Error();
@@ -72,14 +76,9 @@
         [Test]
         public void Message_MessageLogged()
         {
-            Task.Delay(200).Wait();
-
-            new Exception().Error("Unosquare Américas", "Error del sistema");
-
-            Task.Delay(150).Wait();
-
-            messages.Clear();
-
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
+            
             nameof(LogMessageType.None).Log("Unosquare Labs", LogMessageType.None, 1);
 
             Task.Delay(150).Wait();
@@ -92,7 +91,8 @@
         [Test]
         public void MessageWithType_MessageLogged()
         {
-            messages.Clear();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             nameof(LogMessageType.None).Log(typeof(string), LogMessageType.None, 1);
 
@@ -106,10 +106,9 @@
         [Test]
         public void MessageWithException_MessageLogged()
         {
-            nameof(LogMessageType.None).Log("Test", LogMessageType.None);
-
-            Task.Delay(200).Wait();
-
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
+            
             new Exception().Log(typeof(string));
 
             Task.Delay(150).Wait();
@@ -125,9 +124,8 @@
         [Test]
         public void MessageWithException_MessageLogged()
         {
-            nameof(LogMessageType.Trace).Trace();
-
-            Task.Delay(200).Wait();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             new Exception().Debug("Unosquare Américas", nameof(Debug));
 
@@ -146,9 +144,8 @@
         [Test]
         public void MessageWithException_MessageLogged()
         {
-            nameof(LogMessageType.Trace).Trace();
-
-            Task.Delay(200).Wait();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             new Exception().Trace("Unosquare Américas", nameof(Trace));
 
@@ -162,10 +159,10 @@
         [Test]
         public void MessageWithType_MessageLogged()
         {
-            messages.Clear();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             nameof(LogMessageType.Trace).Trace(typeof(string), 1);
-
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
@@ -180,23 +177,23 @@
         [Test]
         public void MessageWithType_MessageLogged()
         {
-            messages.Clear();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
-            nameof(LogMessageType.Warning).Warn(typeof(string), 1);
+            nameof(LogMessageType.Trace).Warn(typeof(string), 1);
 
             Task.Delay(150).Wait();
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(1, messages.First(x => x.ExtendedData != null).ExtendedData);
-            Assert.AreEqual(nameof(LogMessageType.Warning), messages.First(x => x.ExtendedData != null).Message);
+            Assert.AreEqual(nameof(LogMessageType.Trace), messages.First(x => x.ExtendedData != null).Message);
         }
 
         [Test]
         public void MessageWithException_MessageLogged()
         {
-            nameof(LogMessageType.Warning).Warn();
-
-            Task.Delay(200).Wait();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             new Exception().Warn("Unosquare Américas", nameof(Warn));
 
@@ -214,9 +211,8 @@
         [Test]
         public void MessageWithException_MessageLogged()
         {
-            nameof(LogMessageType.Info).Info();
-
-            Task.Delay(200).Wait();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             new Exception().Info("Unosquare Américas", nameof(Info));
 
@@ -234,7 +230,8 @@
         [Test]
         public void MessageWithType_MessageLogged()
         {
-            messages.Clear();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             nameof(LogMessageType.Error).Error(typeof(string), 1);
 
@@ -252,7 +249,8 @@
         [Test]
         public void NullObject_ReturnsNothing()
         {
-            messages.Clear();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             NullObj.Dump(typeof(string).Name);
 
@@ -262,7 +260,8 @@
         [Test]
         public void NullObjectAcceptingType_ReturnsNothing()
         {
-            messages.Clear();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             NullObj.Dump(typeof(string));
 
@@ -272,7 +271,8 @@
         [Test]
         public void NotNullObjectAcceptingType_ReturnsNothing()
         {
-            messages.Clear();
+            var messages = new List<LoggingEntryMock>();
+            InitLog(messages);
 
             nameof(Dump).Dump(typeof(string).Name);
             
