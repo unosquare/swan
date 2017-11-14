@@ -202,6 +202,9 @@
             [Test]
             public async Task ReadUserProperties()
             {
+                if (Runtime.OS == Swan.OperatingSystem.Osx)
+                    Assert.Ignore("OSX can't load LDAP.js");
+
                 if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
                     Assert.Inconclusive("Can not test in AppVeyor");
 

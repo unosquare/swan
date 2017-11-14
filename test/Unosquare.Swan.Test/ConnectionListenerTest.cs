@@ -23,7 +23,7 @@
                     connectionListener.OnConnectionAccepting += (s, e) =>
                     {
                         Assert.IsTrue(e.Client.Connected);
-                        
+
                         isAccepting = true;
                     };
 
@@ -33,7 +33,11 @@
                     Assert.IsTrue(connectionListener.IsListening);
                     Assert.IsTrue(client.Connected);
                     Assert.IsTrue(isAccepting);
+
+                    client.Close();
                 }
+
+                connectionListener.Stop();
             }
         }
 
@@ -44,14 +48,10 @@
 
             using (var connectionListener = new ConnectionListener(System.Net.IPAddress.Parse("127.0.0.1"), port))
             {
-                using (var client = new TcpClient())
-                {
-                    connectionListener.Start();
-                    await client.ConnectAsync("localhost", port);
-                    await Task.Delay(100);
-                    Assert.IsTrue(connectionListener.IsListening);
-                    Assert.IsTrue(client.Connected);
-                }
+                connectionListener.Start();
+                Assert.IsTrue(connectionListener.IsListening);
+
+                connectionListener.Stop();
             }
         }
 
@@ -69,13 +69,17 @@
                     {
                         isAccepted = true;
                     };
+
                     connectionListener.Start();
                     await client.ConnectAsync("localhost", port);
                     await Task.Delay(100);
                     Assert.IsTrue(connectionListener.IsListening, "Connection Listerner is listening");
                     Assert.IsTrue(client.Connected, "Client is connected");
                     Assert.IsTrue(isAccepted, "The flag was set");
+                    client.Close();
                 }
+
+                connectionListener.Stop();
             }
         }
 
@@ -85,7 +89,7 @@
             Assert.Inconclusive("Fix");
 
             const int port = 12348;
-            
+
             using (var connectionListener = new ConnectionListener(port))
             {
                 using (var client = new TcpClient())
@@ -103,7 +107,7 @@
                     connectionListener.Start();
                     await client.ConnectAsync("localhost", port);
                     connectionListener.Stop();
-                    
+
                     Assert.IsTrue(isFailure);
                 }
             }
@@ -127,6 +131,7 @@
                 connectionListener.Stop();
                 Assert.IsFalse(connectionListener.IsListening);
                 Assert.IsTrue(isStopped);
+                connectionListener.Stop();
             }
         }
     }
