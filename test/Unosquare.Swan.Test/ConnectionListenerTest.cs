@@ -42,7 +42,7 @@
         }
 
         [Test]
-        public async Task UsingLoopback_CanListen()
+        public void UsingLoopback_CanListen()
         {
             const int port = 12346;
 
@@ -86,7 +86,7 @@
         [Test]
         public async Task OnConnectionFailureTest()
         {
-            Assert.Inconclusive("Fix");
+            Assert.Ignore("Fix");
 
             const int port = 12348;
 
