@@ -4,11 +4,17 @@
     using System;
     using System.Text;
     using System.Threading.Tasks;
-    using Unosquare.Swan.Components;
+    using Components;
 
     [TestFixture]
     public class GetProcessOutputAsync
     {
+        [Test]
+        public void WithInValidParams_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ProcessRunner.GetProcessOutputAsync(null));
+        }
+
         [Test]
         public async Task WithValidParams_ReturnsProcessOutput()
         {
@@ -22,6 +28,12 @@
     public class RunProcessAsync
     {
         [Test]
+        public void WithInValidParams_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ProcessRunner.RunProcessAsync(null, null, null, null));
+        }
+
+        [Test]
         public async Task WithNullonErrorData_ValidRunProcess()
         {
             const int okCode = 0;
@@ -31,7 +43,8 @@
             {
                 if (output == null)
                     output = Encoding.GetEncoding(0).GetString(data);
-            }, null);
+            }, 
+            null);
 
             Assert.IsTrue(result == okCode);
             Assert.IsNotNull(output);
@@ -40,24 +53,17 @@
         [Test]
         public async Task WithNullOnOutputData_InvalidRunProcess()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-            {
-                Assert.Ignore("Pending");
-            }
-            else
-            {
-                const int errorCode = 1;
-                string output = null;
+            const int errorCode = 1;
+            string output = null;
 
-                var result = await ProcessRunner.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
-                {
-                    if (output == null)
-                        output = Encoding.GetEncoding(0).GetString(data);
-                });
+            var result = await ProcessRunner.RunProcessAsync("dotnet", "lol", null, (data, proc) =>
+            {
+                if (output == null)
+                    output = Encoding.GetEncoding(0).GetString(data);
+            });
 
-                Assert.IsTrue(result == errorCode);
-                Assert.IsNotNull(output);
-            }
+            Assert.IsTrue(result == errorCode);
+            Assert.IsNotNull(output);
         }
     }
 }

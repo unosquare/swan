@@ -27,49 +27,42 @@
         [Test]
         public void InvalidDnsAsParam_ThrowsDnsQueryException()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Inconclusive("OSX is returning time out");
-
             Assert.Throws<DnsQueryException>(() => Network.QueryDns("invalid.local", DnsRecordType.MX));
         }
 
-        [TestCase(DnsRecordType.TXT, true, false)]
-        [TestCase(DnsRecordType.MX, false, false)]
-        [TestCase(DnsRecordType.NS, false, false)]
-        [TestCase(DnsRecordType.SOA, false, false)]
-        [TestCase(DnsRecordType.SRV, false, false)]
-        [TestCase(DnsRecordType.WKS, false, false)]
-        [TestCase(DnsRecordType.CNAME, false, false)]
-        public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType, bool answerRecords, bool additionalRecords)
+        [TestCase(DnsRecordType.TXT)]
+        [TestCase(DnsRecordType.MX)]
+        [TestCase(DnsRecordType.NS)]
+        [TestCase(DnsRecordType.SOA)]
+        [TestCase(DnsRecordType.SRV)]
+        [TestCase(DnsRecordType.WKS)]
+        [TestCase(DnsRecordType.CNAME)]
+        public void ValidDns_ReturnsQueryDns(DnsRecordType dnsRecordType)
         {
             if (Runtime.OS != Swan.OperatingSystem.Windows)
-            {
                 Assert.Ignore("Ignored");
-            }
-            else
-            {
-                var record = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
-                var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
 
-                Assert.AreNotEqual(records.Id, record.Id, $"Id, Testing with {dnsRecordType}");
-                Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");
-                Assert.IsFalse(records.IsTruncated, $"IsTruncated, Testing with {dnsRecordType}");
-                Assert.IsTrue(records.IsRecursionAvailable, $"IsRecursionAvailable, Testing with {dnsRecordType}");
-                Assert.AreEqual("Query", records.OperationCode.ToString(),
-                    $"OperationCode, Testing with {dnsRecordType}");
-                Assert.AreEqual(DnsResponseCode.NoError, records.ResponseCode,
-                    $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
-                Assert.AreEqual(answerRecords, records.AnswerRecords.Any(),
-                    $"AnswerRecords, Testing with {dnsRecordType}");
-            }
+            var record = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+            var records = Network.QueryDns(GoogleDnsFqdn, dnsRecordType);
+
+            Assert.AreNotEqual(records.Id, record.Id, $"Id, Testing with {dnsRecordType}");
+            Assert.IsFalse(records.IsAuthoritativeServer, $"IsAuthoritativeServer, Testing with {dnsRecordType}");
+            Assert.IsFalse(records.IsTruncated, $"IsTruncated, Testing with {dnsRecordType}");
+            Assert.IsTrue(records.IsRecursionAvailable, $"IsRecursionAvailable, Testing with {dnsRecordType}");
+            Assert.AreEqual("Query", 
+                records.OperationCode.ToString(),
+                $"OperationCode, Testing with {dnsRecordType}");
+            Assert.AreEqual(DnsResponseCode.NoError, 
+                records.ResponseCode,
+                $"{GoogleDnsFqdn} {dnsRecordType} Record has no error");
+            Assert.AreEqual(dnsRecordType == DnsRecordType.TXT, 
+                records.AnswerRecords.Any(),
+                $"AnswerRecords, Testing with {dnsRecordType}");
         }
 
         [Test]
         public void WithNullFqdn_ReturnsQueryDns()
         {
-            if (Runtime.OS != Swan.OperatingSystem.Windows)
-                Assert.Ignore("Ignored");
-
             Assert.Throws<ArgumentNullException>(() => Network.QueryDns(null, DnsRecordType.TXT));
         }
     }

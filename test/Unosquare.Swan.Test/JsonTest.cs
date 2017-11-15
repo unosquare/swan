@@ -378,6 +378,46 @@
         {
             Assert.IsNotNull(Json.Deserialize<EmptyJson>("{ }"));
         }
+        
+        [Test]
+        public void WithEmptyType_ResolveType()
+        {
+            Assert.IsNotNull(Json.Deserialize(BasicStr, null));
+        }
+
+        [Test]
+        public void WithClasswithoutPublicCtor_ReturnDefault()
+        {
+            // Default value is null
+            Assert.IsNull(Json.Deserialize<BasicJsonWithoutCtor>(BasicStr));
+        }
+        
+        [Test]
+        public void WithInvalidProperty_ReturnDefaultValueProperty()
+        {
+            var obj = Json.Deserialize<BasicJson>(BasicStr.Replace("\"NegativeInt\": -1", "\"NegativeInt\": \"OK\""));
+            
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(default(int), obj.NegativeInt);
+        }
+        
+        [Test]
+        public void WithEnumProperty_ReturnValidObject()
+        {
+            var obj = Json.Deserialize<ObjectEnum>("{ \"Id\": 1, \"MyEnum\": \"Three\" }");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(MyEnum.Three, obj.MyEnum);
+        }
+        
+        [Test]
+        public void WithByteArrayProperty_ReturnValidObject()
+        {
+            var obj = Json.Deserialize<JsonFile>("{ \"Data\": \"DATA1\", \"Filename\": \"Three\" }");
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual("DATA1", System.Text.Encoding.UTF8.GetString(obj.Data));
+        }
     }
 
     [TestFixture]

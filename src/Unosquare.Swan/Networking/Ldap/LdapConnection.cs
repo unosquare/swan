@@ -284,54 +284,20 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task Bind(int version, string dn, string passwd)
         {
-            sbyte[] pw = null;
-            if (string.IsNullOrWhiteSpace(passwd) == false)
-            {
-                pw = Encoding.UTF8.GetSBytes(passwd);
-            }
-
-            return Bind(version, dn, pw);
-        }
-
-        /// <summary>
-        /// Asynchronously authenticates to the Ldap server (that the object is
-        /// currently connected to) using the specified name, password, Ldap
-        /// version, queue, and constraints.
-        /// If the object has been disconnected from an Ldap server,
-        /// this method attempts to reconnect to the server. If the object
-        /// had already authenticated, the old authentication is discarded.
-        /// </summary>
-        /// <param name="version">The Ldap protocol version, use Ldap_V3.
-        /// Ldap_V2 is not supported.</param>
-        /// <param name="dn">If non-null and non-empty, specifies that the
-        /// connection and all operations through it should
-        /// be authenticated with dn as the distinguished
-        /// name.</param>
-        /// <param name="passwd">If non-null and non-empty, specifies that the
-        /// connection and all operations through it should
-        /// be authenticated with dn as the distinguished
-        /// name and passwd as password.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task Bind(int version, string dn, sbyte[] passwd)
-        {
             dn = string.IsNullOrEmpty(dn) ? string.Empty : dn.Trim();
-
-            if (passwd == null)
-                passwd = new sbyte[] {};
+            var passwdData = string.IsNullOrWhiteSpace(passwd) ? new sbyte[] { } : Encoding.UTF8.GetSBytes(passwd);
 
             var anonymous = false;
 
-            if (passwd.Length == 0)
+            if (passwdData.Length == 0)
             {
                 anonymous = true; // anonymous, passwd length zero with simple bind
                 dn = string.Empty; // set to null if anonymous
             }
-
-            var msg = new LdapBindRequest(version, dn, passwd);
-
+            
             BindProperties = new BindProperties(version, dn, "simple", anonymous);
 
-            return RequestLdapMessage(msg);
+            return RequestLdapMessage(new LdapBindRequest(version, dn, passwdData));
         }
         
         /// <summary>
