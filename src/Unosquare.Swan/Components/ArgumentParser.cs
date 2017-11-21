@@ -66,18 +66,23 @@
                 throw new ArgumentNullException(nameof(instance));
             
             var properties = GetTypeProperties(typeof(T)).ToArray();
-            string verbName = string.Empty;
-            if (properties.Where(x => x.GetCustomAttributes(typeof(VerbOptionAttribute),false).Count() > 0).Any())
+            var verbName = string.Empty;
+            if (properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute),false).Count() > 0))
             {
-                var selectedVerb = properties.Where(x => x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.ToArray()[0])).FirstOrDefault();
+                var selectedVerb = properties.FirstOrDefault(x => x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.ToArray()[0]));
                 if (selectedVerb == null)
                 {
-                    "No verb was specified:".WriteLine();
+                    "No verb was specified".WriteLine();
                     return false;
                 }
 
                 verbName = selectedVerb.Name;
-              
+                if (instance.GetType().GetProperty(verbName).GetValue(instance) == null)
+                {
+                    var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
+                    instance.GetType().GetProperty(verbName).SetValue(instance, propertyInstance);
+                }
+                     
                 properties = GetTypeProperties(selectedVerb.PropertyType).ToArray();
             }
 
@@ -127,9 +132,9 @@
                     }
                     else    
                     {
-                        PropertyInfo prop = instance.GetType().GetProperty(verbName);
+                        var property = instance.GetType().GetProperty(verbName);
                         instance.GetType().GetProperty(verbName);
-                        if (SetPropertyValue(targetProperty, true.ToString(),prop.GetValue(instance,null)))
+                        if (SetPropertyValue(targetProperty, true.ToString(),property.GetValue(instance,null)))
                             updatedList.Add(targetProperty);
                     }
 
@@ -154,8 +159,8 @@
                 }
                 else
                 {
-                    PropertyInfo prop = instance.GetType().GetProperty(verbName);
-                    if (SetPropertyValue(targetProperty, defaultValue.ToString(), prop.GetValue(instance, null)))
+                    var property = instance.GetType().GetProperty(verbName);
+                    if (SetPropertyValue(targetProperty, defaultValue.ToString(), property.GetValue(instance, null)))
                         updatedList.Add(targetProperty);
                 }
             }
