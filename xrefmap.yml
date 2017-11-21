@@ -642,36 +642,6 @@ references:
   commentId: Overload:Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
   fullName: Unosquare.Swan.Attributes.StructEndiannessAttribute.Endianness
   nameWithType: StructEndiannessAttribute.Endianness
-- uid: Unosquare.Swan.Attributes.VerbOptionAttribute
-  name: VerbOptionAttribute
-  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html
-  commentId: T:Unosquare.Swan.Attributes.VerbOptionAttribute
-  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute
-  nameWithType: VerbOptionAttribute
-- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.#ctor(System.String)
-  name: VerbOptionAttribute(String)
-  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute__ctor_System_String_
-  commentId: M:Unosquare.Swan.Attributes.VerbOptionAttribute.#ctor(System.String)
-  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.VerbOptionAttribute(System.String)
-  nameWithType: VerbOptionAttribute.VerbOptionAttribute(String)
-- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.#ctor*
-  name: VerbOptionAttribute
-  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute__ctor_
-  commentId: Overload:Unosquare.Swan.Attributes.VerbOptionAttribute.#ctor
-  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.VerbOptionAttribute
-  nameWithType: VerbOptionAttribute.VerbOptionAttribute
-- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.Name
-  name: Name
-  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute_Name
-  commentId: P:Unosquare.Swan.Attributes.VerbOptionAttribute.Name
-  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.Name
-  nameWithType: VerbOptionAttribute.Name
-- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.Name*
-  name: Name
-  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute_Name_
-  commentId: Overload:Unosquare.Swan.Attributes.VerbOptionAttribute.Name
-  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.Name
-  nameWithType: VerbOptionAttribute.Name
 - uid: Unosquare.Swan.ByteArrayExtensions
   name: ByteArrayExtensions
   href: api/Unosquare.Swan.ByteArrayExtensions.html

@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "CODE_OF_CONDUCT.html",
-          "hash": "Fy+5c3BUsiugD11ej4fCsw=="
+          "hash": "THvthtIAtVZoBdj6ft1dcw=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "7CgAKytr8P4cCvhqOxoHlw=="
+          "hash": "s+KCmTA8HIpN0vnI6OdMxg=="
         }
       },
       "is_incremental": false,
@@ -203,23 +203,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Attributes.VerbOptionAttribute.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Attributes.VerbOptionAttribute.html",
-          "hash": "51XMIcC1c2GxnpfshGD5oA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Attributes.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Attributes.html",
-          "hash": "mi3Gpoe0zWjT1vqimLU+fg=="
+          "hash": "llG/Wc4REOOms+E/PkmJcQ=="
         }
       },
       "is_incremental": false,
@@ -1563,7 +1551,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "6cY2ZNmsEpVQ4qggCoIIqw=="
+          "hash": "l7yf24qARsAibH+IuN9AJA=="
         }
       },
       "is_incremental": false,
@@ -1606,10 +1594,6 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
@@ -1617,6 +1601,10 @@
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
