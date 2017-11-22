@@ -10,7 +10,7 @@
     <PackageId>Unosquare.Swan</PackageId>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
     <DebugType>Full</DebugType>
-    <Version>0.20.0</Version>
+    <Version>0.21.0</Version>
     <Authors>Unosquare</Authors>
     <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>

@@ -1,7 +1,7 @@
-﻿using System;
- 
-namespace Unosquare.Swan.Attributes
+﻿namespace Unosquare.Swan.Attributes
 {
+    using System;
+
     /// <summary>
     /// Models a verb option
     /// </summary>
@@ -9,9 +9,10 @@ namespace Unosquare.Swan.Attributes
     public sealed class VerbOptionAttribute : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VerbOptionAttribute"/> class.
-        /// <param name="name">The name of the option verb.</param>
+        /// Initializes a new instance of the <see cref="VerbOptionAttribute" /> class.
         /// </summary>
+        /// <param name="name">The name.</param>
+        /// <exception cref="ArgumentNullException">name</exception>
         public VerbOptionAttribute(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));

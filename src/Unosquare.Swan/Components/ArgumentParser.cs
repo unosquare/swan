@@ -91,9 +91,75 @@
             if (properties.Any() == false)
                 throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
 
-            var unknownList = new List<string>();
             var requiredList = new List<string>();
             var updatedList = new List<PropertyInfo>();
+            var unknownList = PopulateInstance(args, instance, properties, verbName, updatedList);
+
+            foreach (var targetProperty in properties.Except(updatedList))
+            {
+                var defaultValue = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>()?.DefaultValue;
+
+                if (defaultValue == null)
+                    continue;
+
+                if (string.IsNullOrEmpty(verbName))
+                {
+                    SetPropertyValue(targetProperty, defaultValue.ToString(), instance);
+                }
+                else
+                {
+                    var property = instance.GetType().GetProperty(verbName);
+                    if (SetPropertyValue(targetProperty, defaultValue.ToString(), property.GetValue(instance, null)))
+                        updatedList.Add(targetProperty);
+                }
+            }
+
+            foreach (var targetProperty in properties)
+            {
+                var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
+
+                if (optionAttr == null || optionAttr.Required == false)
+                    continue;
+
+                if (string.IsNullOrWhiteSpace(verbName))
+                {
+                    if (targetProperty.GetValue(instance) == null)
+                    {
+                        requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                    }
+                }
+                else
+                {
+                    var property = instance.GetType().GetProperty(verbName);
+
+                    if (targetProperty.GetValue(property.GetValue(instance)) == null)
+                    {
+                        requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                    }
+                }
+            }
+
+            if ((Settings.IgnoreUnknownArguments || !unknownList.Any()) && !requiredList.Any()) return true;
+
+#if !NETSTANDARD1_3 && !UWP
+            if (Settings.WriteBanner)
+                Runtime.WriteWelcomeBanner();
+#endif
+
+            WriteUsage(properties);
+
+            if (unknownList.Any())
+                $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine(ConsoleColor.Red);
+
+            if (requiredList.Any())
+                $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
+
+            return false;
+        }
+
+        private List<string> PopulateInstance<T>(IEnumerable<string> args, T instance, PropertyInfo[] properties, string verbName, List<PropertyInfo> updatedList)
+        {
+            var unknownList = new List<string>();
             var propertyName = string.Empty;
 
             foreach (var arg in args)
@@ -161,66 +227,7 @@
                 unknownList.Add(propertyName);
             }
 
-            foreach (var targetProperty in properties.Except(updatedList))
-            {
-                var defaultValue = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>()?.DefaultValue;
-
-                if (defaultValue == null)
-                    continue;
-
-                if (string.IsNullOrEmpty(verbName))
-                {
-                    SetPropertyValue(targetProperty, defaultValue.ToString(), instance);
-                }
-                else
-                {
-                    var property = instance.GetType().GetProperty(verbName);
-                    if (SetPropertyValue(targetProperty, defaultValue.ToString(), property.GetValue(instance, null)))
-                        updatedList.Add(targetProperty);
-                }
-            }
-
-            foreach (var targetProperty in properties)
-            {
-                var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
-
-                if (optionAttr == null || optionAttr.Required == false)
-                    continue;
-
-                if (string.IsNullOrWhiteSpace(verbName))
-                {
-                    if (targetProperty.GetValue(instance) == null)
-                    {
-                        requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
-                    }
-                }
-                else
-                {
-                    var property = instance.GetType().GetProperty(verbName);
-
-                    if (targetProperty.GetValue(property.GetValue(instance)) == null)
-                    {
-                        requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
-                    }
-                }
-            }
-
-            if ((Settings.IgnoreUnknownArguments || !unknownList.Any()) && !requiredList.Any()) return true;
-
-#if !NETSTANDARD1_3 && !UWP
-            if (Settings.WriteBanner)
-                Runtime.WriteWelcomeBanner();
-#endif
-
-            WriteUsage(properties);
-
-            if (unknownList.Any())
-                $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine(ConsoleColor.Red);
-
-            if (requiredList.Any())
-                $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
-
-            return false;
+            return unknownList;
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
