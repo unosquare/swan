@@ -64,12 +64,14 @@
 
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
-            
+
             var properties = GetTypeProperties(typeof(T)).ToArray();
             var verbName = string.Empty;
-            if (properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute),false).Count() > 0))
+
+            if (properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
             {
-                var selectedVerb = properties.FirstOrDefault(x => x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.ToArray()[0]));
+                var selectedVerb = properties.FirstOrDefault(x =>
+                    x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.ToArray()[0]));
                 if (selectedVerb == null)
                 {
                     "No verb was specified".WriteLine();
@@ -82,7 +84,7 @@
                     var propertyInstance = Activator.CreateInstance(selectedVerb.PropertyType);
                     instance.GetType().GetProperty(verbName).SetValue(instance, propertyInstance);
                 }
-                     
+
                 properties = GetTypeProperties(selectedVerb.PropertyType).ToArray();
             }
 
@@ -107,7 +109,7 @@
                         propertyName = string.Empty;
                         continue;
                     }
-                
+
                     if (SetPropertyValue(targetProperty, arg, instance))
                         updatedList.Add(targetProperty);
 
@@ -130,11 +132,12 @@
                         if (SetPropertyValue(targetProperty, true.ToString(), instance))
                             updatedList.Add(targetProperty);
                     }
-                    else    
+                    else
                     {
                         var property = instance.GetType().GetProperty(verbName);
                         instance.GetType().GetProperty(verbName);
-                        if (SetPropertyValue(targetProperty, true.ToString(),property.GetValue(instance,null)))
+
+                        if (SetPropertyValue(targetProperty, true.ToString(), property.GetValue(instance, null)))
                             updatedList.Add(targetProperty);
                     }
 
@@ -153,6 +156,7 @@
 
                 if (defaultValue == null)
                     continue;
+
                 if (string.IsNullOrEmpty(verbName))
                 {
                     SetPropertyValue(targetProperty, defaultValue.ToString(), instance);
@@ -172,9 +176,21 @@
                 if (optionAttr == null || optionAttr.Required == false)
                     continue;
 
-                if (targetProperty.GetValue(instance) == null)
+                if (string.IsNullOrWhiteSpace(verbName))
                 {
-                    requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                    if (targetProperty.GetValue(instance) == null)
+                    {
+                        requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                    }
+                }
+                else
+                {
+                    var property = instance.GetType().GetProperty(verbName);
+
+                    if (targetProperty.GetValue(property.GetValue(instance)) == null)
+                    {
+                        requiredList.Add(optionAttr.LongName ?? optionAttr.ShortName);
+                    }
                 }
             }
 
@@ -188,10 +204,10 @@
             WriteUsage(properties);
 
             if (unknownList.Any())
-                $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine();
+                $"Unknown arguments: {string.Join(", ", unknownList)}".WriteLine(ConsoleColor.Red);
 
             if (requiredList.Any())
-                $"Required arguments: {string.Join(", ", requiredList)}".WriteLine();
+                $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
 
             return false;
         }
@@ -263,14 +279,11 @@
                 return true;
             }
 
-            if (targetProperty.PropertyType.TryParseBasicType(propertyValueString,
-                out var propertyValue))
-            {
-                targetProperty.SetValue(result, propertyValue);
-                return true;
-            }
+            if (!targetProperty.PropertyType.TryParseBasicType(propertyValueString, out var propertyValue))
+                return false;
 
-            return false;
+            targetProperty.SetValue(result, propertyValue);
+            return true;
         }
 
         private PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)
