@@ -74,7 +74,7 @@
                     x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.ToArray()[0]));
                 if (selectedVerb == null)
                 {
-                    "No verb was specified".WriteLine();
+                    WriteVerbsUsage(properties);
                     return false;
                 }
 
@@ -110,8 +110,19 @@
                         continue;
                     }
 
-                    if (SetPropertyValue(targetProperty, arg, instance))
-                        updatedList.Add(targetProperty);
+                    if (string.IsNullOrEmpty(verbName))
+                    {
+                        if (SetPropertyValue(targetProperty, arg, instance))
+                            updatedList.Add(targetProperty);
+                    }
+                    else
+                    {
+                        var property = instance.GetType().GetProperty(verbName);
+                        instance.GetType().GetProperty(verbName);
+
+                        if (SetPropertyValue(targetProperty, arg, property.GetValue(instance, null)))
+                            updatedList.Add(targetProperty);
+                    }
 
                     propertyName = string.Empty;
                 }
@@ -214,6 +225,19 @@
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
             => Runtime.PropertyTypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
+
+        private static void WriteVerbsUsage( IEnumerable<PropertyInfo> verbs)
+        {
+            var options = verbs.Select(p => p.GetCustomAttribute<VerbOptionAttribute>())
+           .Where(x => x != null);
+
+            foreach (var option in options)
+            {
+                string.Empty.WriteLine();
+
+                $"  {option.Name}\t\t{option.HelpText}".WriteLine(ConsoleColor.Cyan);
+            }
+        }
 
         private static void WriteUsage(IEnumerable<PropertyInfo> properties)
         {
