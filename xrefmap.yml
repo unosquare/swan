@@ -660,18 +660,6 @@ references:
   commentId: Overload:Unosquare.Swan.Attributes.VerbOptionAttribute.#ctor
   fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.VerbOptionAttribute
   nameWithType: VerbOptionAttribute.VerbOptionAttribute
-- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.HelpText
-  name: HelpText
-  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute_HelpText
-  commentId: P:Unosquare.Swan.Attributes.VerbOptionAttribute.HelpText
-  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.HelpText
-  nameWithType: VerbOptionAttribute.HelpText
-- uid: Unosquare.Swan.Attributes.VerbOptionAttribute.HelpText*
-  name: HelpText
-  href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute_HelpText_
-  commentId: Overload:Unosquare.Swan.Attributes.VerbOptionAttribute.HelpText
-  fullName: Unosquare.Swan.Attributes.VerbOptionAttribute.HelpText
-  nameWithType: VerbOptionAttribute.HelpText
 - uid: Unosquare.Swan.Attributes.VerbOptionAttribute.Name
   name: Name
   href: api/Unosquare.Swan.Attributes.VerbOptionAttribute.html#Unosquare_Swan_Attributes_VerbOptionAttribute_Name
