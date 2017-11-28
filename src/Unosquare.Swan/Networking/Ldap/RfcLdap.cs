@@ -8,9 +8,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// search operation.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
-    internal sealed class LdapSearchResult : LdapMessage
+    internal class LdapSearchResult : LdapMessage
     {
-        private LdapEntry entry;
+        private LdapEntry _entry;
         
         internal LdapSearchResult(RfcLdapMessage message)
             : base(message)
@@ -21,13 +21,12 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             get
             {
-                if (entry != null) return entry;
+                if (_entry != null) return _entry;
 
                 var attrs = new LdapAttributeSet();
                 var attrList = ((RfcSearchResultEntry)Message.Response).Attributes;
-                var seqArray = attrList.ToArray();
-
-                foreach (Asn1Sequence seq in seqArray)
+                
+                foreach (Asn1Sequence seq in attrList.ToArray())
                 {
                     var attr = new LdapAttribute(((Asn1OctetString)seq.Get(0)).StringValue());
                     var set = (Asn1Set)seq.Get(1);
@@ -40,13 +39,13 @@ namespace Unosquare.Swan.Networking.Ldap
                     attrs.Add(attr);
                 }
 
-                entry = new LdapEntry(((RfcSearchResultEntry)Message.Response).ObjectName.StringValue(), attrs);
+                _entry = new LdapEntry(((RfcSearchResultEntry)Message.Response).ObjectName.StringValue(), attrs);
 
-                return entry;
+                return _entry;
             }
         }
         
-        public override string ToString() => entry?.ToString() ?? base.ToString();
+        public override string ToString() => _entry?.ToString() ?? base.ToString();
     }
 
     /// <summary>
@@ -144,13 +143,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         public Asn1SequenceOf GetReferral()
             => _referralIndex != 0 ? (Asn1SequenceOf) Get(_referralIndex) : null;
-
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
+        
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.ExtendedResponse);
     }
 
@@ -184,15 +177,13 @@ namespace Unosquare.Swan.Networking.Ldap
 
             var obj = (Asn1Tagged) Get(3);
 
-            if (obj.GetIdentifier().Tag == RfcLdapResult.REFERRAL)
-            {
-                var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
-                var bais = new MemoryStream(content.ToByteArray());
-                Set(3, new Asn1SequenceOf(dec, bais, content.Length));
-            }
-        }
+            if (obj.GetIdentifier().Tag != RfcLdapResult.REFERRAL) return;
 
-        // Accessors
+            var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
+            var bais = new MemoryStream(content.ToByteArray());
+            Set(3, new Asn1SequenceOf(dec, bais, content.Length));
+        }
+        
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
 
         public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString) Get(1)).ByteValue());

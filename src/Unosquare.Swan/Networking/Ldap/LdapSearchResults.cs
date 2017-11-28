@@ -40,7 +40,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// The count.
         /// </value>
         public int Count => new List<RfcLdapMessage>(_conn.Messages)
-            .Count(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
+            .Count(x => x.MessageId == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
         /// Reports if there are more search results.
@@ -49,7 +49,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// true if there are more search results.
         /// </returns>
         public bool HasMore() => new List<RfcLdapMessage>(_conn.Messages)
-            .Any(x => x.MessageID == _messageId && GetResponse(x) is LdapSearchResult);
+            .Any(x => x.MessageId == _messageId && GetResponse(x) is LdapSearchResult);
 
         /// <summary>
         /// Returns the next result as an LdapEntry.
@@ -64,7 +64,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public LdapEntry Next()
         {
             var list = new List<RfcLdapMessage>(_conn.Messages)
-                .Where(x => x.MessageID == _messageId);
+                .Where(x => x.MessageId == _messageId);
 
             foreach (var item in list)
             {

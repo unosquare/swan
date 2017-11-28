@@ -401,7 +401,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             await RequestLdapMessage(msg, ct);
             
-            return new LdapSearchResults(this, msg.MessageID);
+            return new LdapSearchResults(this, msg.MessageId);
         }
 
         /// <summary>
@@ -435,10 +435,10 @@ namespace Unosquare.Swan.Networking.Ldap
             var ber = msg.Asn1Object.GetEncoding(encoder);
             await _conn.WriteDataAsync(ber.ToByteArray(), true, ct);
 
-            while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageID == msg.MessageID) == false)
+            while (new List<RfcLdapMessage>(Messages).Any(x => x.MessageId == msg.MessageId) == false)
                 await Task.Delay(100, ct);
 
-            var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageID == msg.MessageID);
+            var first = new List<RfcLdapMessage>(Messages).FirstOrDefault(x => x.MessageId == msg.MessageId);
 
             if (first != null)
             {
@@ -465,6 +465,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 Messages.Add(new RfcLdapMessage(decoder, _conn.ActiveStream, asn1Len.Length));
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         /// <summary>
