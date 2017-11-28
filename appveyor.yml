@@ -19,7 +19,6 @@ environment:
        secure: HzWdswNyfQbQ0vLk9IQyO+Ei9mxoPYp9rvv6HPhtC9J/Fm7EHRzyV953pbPRXI9I
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
-- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 before_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
@@ -29,7 +28,9 @@ before_build:
         }
 - ps: Install-Product node 8
 - npm install ldapjs
+- npm install maildev
 - ps: $LDAP = Start-Process node ldap.js -PassThru
+- ps: $SMTP = Start-Process node mail.js -PassThru
 - netstat -ab
 - node LdapClient.js
 - appveyor-retry dotnet restore -v Minimal
@@ -68,4 +69,4 @@ after_build:
         }
 on_finish:
 - ps: Stop-Process -Id $LDAP.Id
-- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: Stop-Process -Id $SMTP.Id

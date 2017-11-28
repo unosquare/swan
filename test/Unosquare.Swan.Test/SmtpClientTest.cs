@@ -36,9 +36,6 @@
         [Test]
         public async Task SendLocalEmail()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             var filename = Path.Combine(Path.GetTempPath(), EmailFile);
 
             if (File.Exists(filename))
@@ -68,9 +65,6 @@
         [Test]
         public async Task SendLocalEmailWithMailMessage()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             var filename = Path.Combine(Path.GetTempPath(), EmailFile);
 
             if (File.Exists(filename))
@@ -98,9 +92,6 @@
         [Test]
         public async Task CancelSendEmail()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             var filename = Path.Combine(Path.GetTempPath(), EmailFile);
 
             if (File.Exists(filename))
