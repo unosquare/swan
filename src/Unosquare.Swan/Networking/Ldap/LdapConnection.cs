@@ -351,7 +351,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="LdapException">Read response is ambiguous, multiple entries returned</exception>
         public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default(CancellationToken))
         {
-            var sr = await Search(dn, ScopeBase, null, attrs, false, ct);
+            var sr = await Search(dn, ScopeSub, null, attrs, false, ct);
             LdapEntry ret = null;
 
             if (sr.HasMore())
