@@ -301,10 +301,7 @@
             {
                 if (Runtime.OS == Swan.OperatingSystem.Osx)
                     Assert.Ignore("OSX can't load LDAP.js");
-
-                if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                    Assert.Inconclusive("Can not test in AppVeyor");
-
+                
                 var cn = new LdapConnection();
                 await cn.Connect("127.0.0.1", 1089);
                 await cn.Bind("cn=root", "secret");
