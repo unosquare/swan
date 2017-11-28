@@ -29,7 +29,7 @@
         {
             var cn = await GetDefaultConnection();
             Assert.IsNotNull(cn.AuthenticationDn);
-            cn.Disconnect();
+            cn.Dispose();
         }
 
         [Test]
@@ -40,7 +40,7 @@
                 var cn = new LdapConnection();
                 await cn.Connect(LdapServer, 389);
                 await cn.Bind("uid=riemann,dc=example", "password");
-                cn.Disconnect();
+                cn.Dispose();
             });
         }
 
@@ -51,7 +51,7 @@
             await cn.Connect(LdapServer, 389);
             await cn.Bind("uid=riemann,dc=example,dc=com", null);
             Assert.IsNull(cn.AuthenticationDn);
-            cn.Disconnect();
+            cn.Dispose();
 
         }
     }
@@ -65,7 +65,7 @@
             var cn = new LdapConnection();
             await cn.Connect(LdapServer, 389);
             Assert.IsTrue(cn.Connected);
-            cn.Disconnect();
+            cn.Dispose();
         }
 
         [Test]
@@ -76,7 +76,7 @@
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 389);
                 await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-                cn.Disconnect();
+                cn.Dispose();
             });
         }
 
@@ -88,7 +88,7 @@
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 388);
                 await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-                cn.Disconnect();
+                cn.Dispose();
             });
         }
 
@@ -97,8 +97,105 @@
         {
             var cn = await GetDefaultConnection();
             Assert.IsTrue(cn.Connected);
-            cn.Disconnect();
+            cn.Dispose();
             Assert.IsFalse(cn.Connected);
+        }
+
+        [Test]
+        public async Task Default_ProtocolVersion()
+        {
+            var cn = await GetDefaultConnection();
+
+            Assert.AreEqual(3, cn.ProtocolVersion, "The default protocol version is 3");
+
+            cn.Dispose();
+        }
+
+        [Test]
+        public async Task Default_AuthenticationMethod()
+        {
+            var cn = await GetDefaultConnection();
+
+            Assert.AreEqual("simple", cn.AuthenticationMethod, "The default Authentication Method is simple");
+
+            cn.Dispose();
+        }
+
+        [Test]
+        public async Task Dispose()
+        {
+            var cn = await GetDefaultConnection();
+            cn.Dispose();
+
+            Assert.IsFalse(cn.Connected);
+        }
+
+    }
+
+    [TestFixture]
+    public class Controls : LdapTest
+    {
+        [Test]
+        public async Task Controls_Null()
+        {
+            var cn = await GetDefaultConnection();
+
+            Assert.IsNull(cn.ResponseControls);
+
+            cn.Dispose();
+        }
+
+        [Test]
+        public async Task Controls_Something()
+        {
+            // TODO: LDAP server with controls
+        }
+    }
+
+    [TestFixture]
+    public class Modify : LdapTest
+    {
+
+        [Test]
+        public async Task Modify_DNNull()
+        {
+            var cn = await GetDefaultConnection();
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                var mods = new LdapModification(LdapModificationOp.Replace, new LdapAttribute("ui"));
+                await cn.Modify(null, new[] { mods });
+            });
+        }
+    }
+
+    [TestFixture]
+    public class Read : LdapTest
+    {
+        [Test]
+        public async Task Read_DN()
+        {
+            var cn = await GetDefaultConnection();
+            var dn = "uid=riemann,dc=example,dc=com";
+            var entry = await cn.Read(dn);
+
+            Assert.AreEqual(dn, entry.DN);
+
+            cn.Dispose();
+        }
+
+        [Test]
+        public async Task Read_LdapException()
+        {
+            var cn = await GetDefaultConnection();
+            var dn = "ou=scientists,dc=example,dc=com";
+
+            Assert.ThrowsAsync<LdapException>(async () =>
+            {
+                await cn.Read(dn);
+            });
+
+            cn.Dispose();
         }
     }
 
@@ -121,7 +218,7 @@
 
             Assert.AreNotEqual(lsc.Count, 0);
             Assert.IsTrue(lsc.HasMore());
-            cn.Disconnect();
+            cn.Dispose();
         }
 
         [Test]
@@ -142,7 +239,7 @@
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
-            cn.Disconnect();
+            cn.Dispose();
         }
 
         [Test]
@@ -152,7 +249,7 @@
             {
                 var cn = await GetDefaultConnection();
                 await cn.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
-                cn.Disconnect();
+                cn.Dispose();
             });
         }
 
@@ -174,7 +271,7 @@
 
                 lsc.Next();
 
-                cn.Disconnect();
+                cn.Dispose();
             });
         }
 
@@ -190,7 +287,7 @@
                         "uid=euclid,dc=example,dc=com",
                         new[] { new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")});
 
-                    cn.Disconnect();
+                    cn.Dispose();
                 });
 
                 Assert.AreEqual(ex.ResultCode, LdapStatusCode.InsufficientAccessRights);
@@ -214,7 +311,7 @@
                 var properties = await cn.Read("cn=Simio, o=joyent");
                 var mail = properties.GetAttribute("email");
                 Assert.AreEqual(mail.StringValue, "gperez@unosquare.com");
-                cn.Disconnect();
+                cn.Dispose();
             }
         }
     }
