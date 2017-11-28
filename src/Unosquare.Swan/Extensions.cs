@@ -72,9 +72,25 @@
         }
 
         /// <summary>
-        /// Copies the properties to new.
+        /// Copies the properties to new instance of T.
         /// </summary>
-        /// <typeparam name="T">Object Type</typeparam>
+        /// <typeparam name="T">The new object type</typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="ignoreProperties">The ignore properties.</param>
+        /// <returns>
+        /// The specified type with properties copied
+        /// </returns>
+        /// <exception cref="ArgumentNullException">source</exception>
+        public static T DeepClone<T>(this T source, string[] ignoreProperties = null)
+            where T : class
+        {
+            return source.CopyPropertiesToNew<T>(ignoreProperties);
+        }
+
+        /// <summary>
+        /// Copies the properties to new instance of T.
+        /// </summary>
+        /// <typeparam name="T">The new object type</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
@@ -87,17 +103,18 @@
                 throw new ArgumentNullException(nameof(source));
 
             var target = Activator.CreateInstance<T>();
-            var copyable = GetCopyableProperties(target);
+            var copyable = target.GetCopyableProperties();
 
             if (copyable.Any())
                 source.CopyOnlyPropertiesTo(target, copyable);
+            else
+                source.CopyPropertiesTo(target, ignoreProperties);
 
-            source.CopyPropertiesTo(target, ignoreProperties);
             return target;
         }
 
         /// <summary>
-        /// Copies the only properties to new.
+        /// Copies the only properties to new instance of T.
         /// </summary>
         /// <typeparam name="T">Object Type</typeparam>
         /// <param name="source">The source.</param>

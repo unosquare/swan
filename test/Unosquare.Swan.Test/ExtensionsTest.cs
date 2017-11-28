@@ -112,7 +112,7 @@
         [Test]
         public void WithValidObjectAttr_CopyPropertiesToTarget()
         {
-            var source = ObjectAttr.Get();
+            var source = ObjectAttr.GetDefault();
             var target = new ObjectAttr();
 
             source.CopyPropertiesTo(target);
@@ -138,7 +138,7 @@
         [Test]
         public void WithNullObjectAttr_CopyPropertiesToTarget()
         {
-            Assert.Throws<ArgumentNullException>(() => ObjectAttr.Get().CopyPropertiesTo(null));
+            Assert.Throws<ArgumentNullException>(() => ObjectAttr.GetDefault().CopyPropertiesTo(null));
         }
 
         [Test]
@@ -175,17 +175,17 @@
         {
             var source = new Dictionary<string, object>
             {
-                {"Name", "Thrall"},
-                {"Email", "Warchief.Thrall@horde.com"},
-                {"Role", "Warchief"}
+                {nameof(UserDto.Name), "Thrall"},
+                {nameof(UserDto.Email), "Warchief.Thrall@horde.com"},
+                {nameof(UserDto.Role), "Warchief"}
             };
 
             var target = new UserDto();
 
             source.CopyKeyValuePairTo(target);
 
-            Assert.AreEqual(source["Name"].ToString(), target.Name);
-            Assert.AreEqual(source["Email"].ToString(), target.Email);
+            Assert.AreEqual(source[nameof(UserDto.Name)].ToString(), target.Name);
+            Assert.AreEqual(source[nameof(UserDto.Email)], target.Email);
         }
     }
 
@@ -195,16 +195,15 @@
         [Test]
         public void WithObjectWithCopyableAttribute_CopyPropertiesToNewObjectAttr()
         {
-            var source = ObjectAttr.Get();
+            var source = ObjectAttr.GetDefault();
 
             var destination = source.CopyPropertiesToNew<ObjectAttr>();
 
             Assert.IsNotNull(destination);
             Assert.AreSame(source.GetType(), destination.GetType());
-            Assert.AreEqual(source.Id, destination.Id);
+            Assert.AreNotEqual(source.Id, destination.Id);
             Assert.AreEqual(source.Name, destination.Name);
             Assert.AreEqual(source.IsActive, destination.IsActive);
-            Assert.AreEqual(source.Owner, destination.Owner);
         }
 
         [Test]
@@ -244,6 +243,26 @@
     }
 
     [TestFixture]
+    public class DeepClone
+    {
+        [Test]
+        public void WithSmtpState_CloneProperly()
+        {
+            var sampleBuffer = System.Text.Encoding.UTF8.GetBytes("HOLA");
+            var source = new SmtpSessionState();
+            source.DataBuffer.AddRange(sampleBuffer);
+
+            var target = source.DeepClone();
+
+            Assert.AreEqual(source.DataBuffer.Count, target.DataBuffer.Count);
+            source.ResetEmail();
+
+            Assert.AreEqual(0, source.DataBuffer.Count);
+            Assert.AreEqual(sampleBuffer.Length, target.DataBuffer.Count);
+        }
+    }
+
+    [TestFixture]
     public class CopyOnlyPropertiesTo
     {
         [Test]
@@ -261,7 +280,7 @@
         [Test]
         public void WithValidObjectAttr_CopyOnlyPropertiesToTarget()
         {
-            var source = ObjectAttr.Get();
+            var source = ObjectAttr.GetDefault();
             var target = new ObjectAttr();
 
             source.CopyOnlyPropertiesTo(target);
@@ -277,7 +296,7 @@
         [Test]
         public void WithValidParams_CopyOnlyPropertiesToNewObject()
         {
-            var source = ObjectAttr.Get();
+            var source = ObjectAttr.GetDefault();
             var target = source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)});
             Assert.AreEqual(source.Name, target.Name);
         }

@@ -147,7 +147,7 @@
 
         public string Owner { get; set; }
 
-        public static ObjectAttr Get()
+        public static ObjectAttr GetDefault()
         {
             return new ObjectAttr
             {
