@@ -1,4 +1,5 @@
-﻿namespace Unosquare.Swan.Networking
+﻿// ReSharper disable InconsistentNaming
+namespace Unosquare.Swan.Networking
 {
 #if NETSTANDARD1_3 || UWP
 

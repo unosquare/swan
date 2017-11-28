@@ -11,29 +11,11 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre>
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    internal sealed class RfcControl : Asn1Sequence
+    internal class RfcControl : Asn1Sequence
     {
         public Asn1OctetString ControlType => (Asn1OctetString)Get(0);
-
-        /// <summary>
-        ///     Returns criticality.
-        ///     If no value present, return the default value of FALSE.
-        /// </summary>
-        public Asn1Boolean Criticality
-        {
-            get
-            {
-                if (Size() > 1)
-                {
-                    // MAY be a criticality
-                    var obj = Get(1);
-                    if (obj is Asn1Boolean boolean)
-                        return boolean;
-                }
-
-                return new Asn1Boolean(false);
-            }
-        }
+        
+        public Asn1Boolean Criticality => Size() > 1 && Get(1) is Asn1Boolean boolean ? boolean : new Asn1Boolean(false);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcControl"/> class.
@@ -44,35 +26,23 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="controlType">Type of the control.</param>
         /// <param name="criticality">The criticality.</param>
         /// <param name="controlValue">The control value.</param>
-        public RfcControl(string controlType, Asn1Boolean criticality = null, Asn1OctetString controlValue = null)
+        public RfcControl(string controlType, Asn1Boolean criticality = null, Asn1Object controlValue = null)
             : base(3)
         {
             Add(controlType);
             Add(criticality ?? new Asn1Boolean(false));
+
             if (controlValue != null)
                 Add(controlValue);
         }
         
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControl"/> class.
-        /// </summary>
-        /// <param name="seqObj">The seq object.</param>
-        public RfcControl(Asn1Sequence seqObj)
+        public RfcControl(Asn1Structured seqObj)
             : base(3)
         {
             for (var i = 0; i < seqObj.Size(); i++)
                 Add(seqObj.Get(i));
         }
-
-        /// <summary>
-        ///     Since controlValue is an OPTIONAL component, we need to check
-        ///     to see if one is available. Remember that if criticality is of default
-        ///     value, it will not be present.
-        /// </summary>
-        /// <summary>
-        ///     Called to set/replace the ControlValue.  Will normally be called by
-        ///     the child classes after the parent has been instantiated.
-        /// </summary>
+        
         public Asn1OctetString ControlValue
         {
             get
@@ -83,15 +53,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     return (Asn1OctetString)Get(2);
                 }
 
-                if (Size() > 1)
-                {
-                    // MAY be a control value
-                    var obj = Get(1);
-                    if (obj is Asn1OctetString s)
-                        return s;
-                }
-
-                return null;
+                return Size() > 1 && Get(1) is Asn1OctetString s ? s : null;
             }
             set
             {
@@ -134,7 +96,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// credentials             OCTET STRING OPTIONAL }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    internal sealed class RfcSaslCredentials : Asn1Sequence
+    internal class RfcSaslCredentials : Asn1Sequence
     {
         public RfcSaslCredentials(string mechanism, sbyte[] credentials = null) 
             : base(2)
@@ -154,9 +116,9 @@ namespace Unosquare.Swan.Networking.Ldap
     /// sasl                    [3] SaslCredentials }
     /// </pre></summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Choice" />
-    internal sealed class RfcAuthenticationChoice : Asn1Choice
+    internal class RfcAuthenticationChoice : Asn1Choice
     {
-        public RfcAuthenticationChoice(Asn1Tagged choice)
+        public RfcAuthenticationChoice(Asn1Object choice)
             : base(choice)
         {
         }

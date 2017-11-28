@@ -39,7 +39,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// An LdapModification contains information on the type of modification
     /// being performed, the name of the attribute to be replaced, and the new
     /// value.  Multiple modifications are expressed as an array of modifications,
-    /// i.e., <code>LdapModification[]</code>.
+    /// i.e., <c>LdapModification[]</c>.
     /// An LdapModification or an LdapModification array enable you to modify
     /// an attribute of an Ldap entry. The entire array of modifications must
     /// be performed by the server as a single atomic operation in the order they

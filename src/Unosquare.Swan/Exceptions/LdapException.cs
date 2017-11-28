@@ -29,7 +29,7 @@ namespace Unosquare.Swan.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="LdapException" /> class.
         /// Constructs an exception with a detailed message obtained from the
-        /// specified <code>MessageOrKey</code> String.
+        /// specified <c>MessageOrKey</c> String.
         /// Additional parameters specify the result code, the message returned
         /// from the server, and a matchedDN returned from the server.
         /// The String is used either as a message key to obtain a localized
@@ -80,7 +80,7 @@ namespace Unosquare.Swan.Exceptions
 
         /// <summary>
         /// Returns the result code from the exception.
-        /// The codes are defined as <code>public final static int</code> members
+        /// The codes are defined as <c>public final static int</c> members
         /// of the Ldap Exception class. If the exception is a
         /// result of error information returned from a directory operation, the
         /// code will be one of those defined for the class. Otherwise, a local error

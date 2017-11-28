@@ -17,27 +17,12 @@ namespace Unosquare.Swan.Networking.Ldap
         public const int Tag = 0x11;
 
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1IdentifierTag.Universal, true, Tag);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1SetOf"/> class.
-        ///     Constructs an Asn1SetOf object with the specified
-        ///     number of placeholders for Asn1Objects. However there
-        ///     are no actual Asn1Objects in this SequenceOf object.
-        /// </summary>
-        /// <param name="size">
-        ///     Specifies the initial size of the collection.
-        /// </param>
+        
         public Asn1SetOf(int size = 10)
             : base(Id, size)
         {
         }
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        
         public override string ToString() => ToString("SET OF: { ");
     }
 
@@ -50,67 +35,24 @@ namespace Unosquare.Swan.Networking.Ldap
         : Asn1Object
     {
         private Asn1Object _content;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Choice" /> class.
-        /// Constructs an Asn1Choice object using an Asn1Object value.
-        /// </summary>
-        /// <param name="content">The Asn1Object that this Asn1Choice will
-        /// encode.  Since all Asn1 objects are derived from Asn1Object
-        /// any basic type can be passed in.</param>
+        
         public Asn1Choice(Asn1Object content = null)
         {
             _content = content;
         }
-
-        /// <summary>
-        /// Sets the CHOICE value stored in this Asn1Choice.
-        /// </summary>
-        /// <value>
-        /// The choice value.
-        /// </value>
+        
         protected internal virtual Asn1Object ChoiceValue
         {
             get => _content;
             set => _content = value;
         }
-
-        /// <summary>
-        /// Call this method to encode the contents of this Asn1Choice
-        /// instance into the specified output stream using the
-        /// specified encoder object.
-        /// </summary>
-        /// <param name="enc">Encoder object to use when encoding self.</param>
-        /// <param name="stream">The stream.</param>
+        
         public override void Encode(IAsn1Encoder enc, Stream stream) => _content.Encode(enc, stream);
-
-        /// <summary>
-        /// This method will return the Asn1Identifier of the
-        /// encoded Asn1Object.We  override the parent method
-        /// as the identifier of an Asn1Choice depends on the
-        /// type of the object encoded by this Asn1Choice.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
+        
         public override Asn1Identifier GetIdentifier() => _content.GetIdentifier();
-
-        /// <summary>
-        /// Sets the identifier of the contained Asn1Object. We
-        /// override the parent method as the identifier of
-        /// an Asn1Choice depends on the type of the object
-        /// encoded by this Asn1Choice.
-        /// </summary>
-        /// <param name="id">An Asn1Identifier object representing the CLASS,
-        /// FORM and TAG)</param>
+        
         public override void SetIdentifier(Asn1Identifier id) => _content.SetIdentifier(id);
-
-        /// <summary>
-        /// Return a String representation of this Asn1Object.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        
         public override string ToString() => _content.ToString();
     }
 
@@ -147,50 +89,23 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </pre></summary>
     internal sealed class Asn1Identifier
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class using the classtype, form and tag.
-        /// </summary>
-        /// <param name="tagClass">
-        ///     As defined above.
-        /// </param>
-        /// <param name="constructed">
-        ///     Set to true if constructed and false if primitive.
-        /// </param>
-        /// <param name="tag">
-        ///     The tag of this identifier
-        /// </param>
         public Asn1Identifier(Asn1IdentifierTag tagClass, bool constructed, int tag)
         {
             Asn1Class = tagClass;
             Constructed = constructed;
             Tag = tag;
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class.
-        /// </summary>
-        /// <param name="tag">The tag.</param>
+        
         public Asn1Identifier(LdapOperation tag)
             : this(Asn1IdentifierTag.Application, true, (int) tag)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class.
-        /// </summary>
-        /// <param name="contextTag">The context tag.</param>
-        /// <param name="constructed">if set to <c>true</c> [constructed].</param>
+        
         public Asn1Identifier(int contextTag, bool constructed = false)
             : this(Asn1IdentifierTag.Context, constructed, contextTag)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Identifier"/> class.
-        /// Decode an Asn1Identifier directly from an InputStream and
-        /// save the encoded length of the Asn1Identifier.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
+        
         public Asn1Identifier(Stream stream)
         {
             var r = stream.ReadByte();
@@ -208,84 +123,17 @@ namespace Unosquare.Swan.Networking.Ldap
                 Tag = DecodeTagNumber(stream);
             }
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Asn1Identifier" /> class.
-        /// </summary>
-        public Asn1Identifier()
-        {
-        }
-
-        /// <summary>
-        ///     Returns the CLASS of this Asn1Identifier as an int value.
-        /// </summary>
-        public Asn1IdentifierTag Asn1Class { get; private set; }
-
-        /// <summary>
-        ///     Return a boolean indicating if the constructed bit is set.
-        /// </summary>
-        /// <returns>
-        ///     true if constructed and false if primitive.
-        /// </returns>
-        public bool Constructed { get; private set; }
-
-        /// <summary> Returns the TAG of this Asn1Identifier.</summary>
-        public int Tag { get; private set; }
-
-        /// <summary> Returns the encoded length of this Asn1Identifier.</summary>
+        
+        public Asn1IdentifierTag Asn1Class { get; }
+        
+        public bool Constructed { get; }
+        
+        public int Tag { get; }
+        
         public int EncodedLength { get; private set; }
-
-        /// <summary>
-        ///     Returns a boolean value indicating whether or not this Asn1Identifier
-        ///     has a TAG CLASS of UNIVERSAL.
-        /// </summary>
+        
         public bool Universal => Asn1Class == Asn1IdentifierTag.Universal;
-
-        /// <summary>
-        ///     Returns a boolean value indicating whether or not this Asn1Identifier
-        ///     has a TAG CLASS of APPLICATION.
-        /// </summary>
-        public bool Application => Asn1Class == Asn1IdentifierTag.Application;
-
-        /// <summary>
-        /// Returns a boolean value indicating whether or not this Asn1Identifier
-        /// has a TAG CLASS of CONTEXT-SPECIFIC.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if context; otherwise, <c>false</c>.
-        /// </value>
-        public bool Context => Asn1Class == Asn1IdentifierTag.Context;
-
-        /// <summary>
-        ///     Returns a boolean value indicating whether or not this Asn1Identifier
-        ///     has a TAG CLASS of PRIVATE.
-        /// </summary>
-        public bool Private => Asn1Class == Asn1IdentifierTag.Private;
-
-        /// <summary>
-        /// Decode an Asn1Identifier directly from an InputStream and
-        /// save the encoded length of the Asn1Identifier, but reuse the object.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        public void Reset(Stream stream)
-        {
-            EncodedLength = 0;
-            var r = stream.ReadByte();
-            EncodedLength++;
-            if (r < 0)
-                throw new EndOfStreamException("BERDecoder: decode: EOF in Identifier");
-
-            Asn1Class = (Asn1IdentifierTag) (r >> 6);
-            Constructed = (r & 0x20) != 0;
-            Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
-
-            if (Tag == 0x1F)
-            {
-                // if true, its a multiple octet identifier.
-                Tag = DecodeTagNumber(stream);
-            }
-        }
-
+        
         /// <summary>
         /// Creates a duplicate, not a true clone, of this object and returns
         /// a reference to the duplicate.

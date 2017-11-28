@@ -96,7 +96,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// LdapAttributeSet when retrieving or adding multiple
     /// attributes to an entry.
     /// </summary>
-    public sealed class LdapAttribute
+    public class LdapAttribute
     {
         private readonly string _baseName; // cn of cn;lang-ja;phonetic
         private readonly string[] _subTypes; // lang-ja of cn;lang-ja
@@ -129,12 +129,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the values of the attribute as an array of bytes.
+        /// Returns the values of the attribute as an array of bytes.
         /// </summary>
-        /// <returns>
-        ///     The values as an array of bytes or an empty array if there are
-        ///     no values.
-        /// </returns>
+        /// <value>
+        /// The byte value array.
+        /// </value>
         public sbyte[][] ByteValueArray
         {
             get
@@ -157,12 +156,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the values of the attribute as an array of strings.
+        /// Returns the values of the attribute as an array of strings.
         /// </summary>
-        /// <returns>
-        ///     The values as an array of strings or an empty array if there are
-        ///     no values
-        /// </returns>
+        /// <value>
+        /// The string value array.
+        /// </value>
         public string[] StringValueArray
         {
             get
@@ -183,20 +181,11 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the the first value of the attribute as a string.
+        /// Returns the the first value of the attribute as an UTF-8 string.
         /// </summary>
-        /// <returns>
-        ///     The UTF-8 encoded <see cref="System.String" /> value of the attribute's
-        ///     value.  If the value wasn't a UTF-8 encoded string
-        ///     to begin with the value of the returned <see cref="System.String" /> is
-        ///     non deterministic.
-        ///     If this attribute has more than one value the
-        ///     first value is converted to a UTF-8 encoded string
-        ///     and returned. It should be noted, that the directory may
-        ///     return attribute values in any order, so that the first
-        ///     value may vary from one call to another.
-        ///     If the attribute has no values null is returned
-        /// </returns>
+        /// <value>
+        /// The string value.
+        /// </value>
         public string StringValue => _values == null ? null : Encoding.UTF8.GetString((sbyte[]) _values[0]);
 
         /// <summary>
@@ -220,14 +209,13 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the language subtype of the attribute, if any.
-        ///     For example, if the attribute name is cn;lang-ja;phonetic,
-        ///     this method returns the string, lang-ja.
+        /// Returns the language subtype of the attribute, if any.
+        /// For example, if the attribute name is cn;lang-ja;phonetic,
+        /// this method returns the string, lang-ja.
         /// </summary>
-        /// <returns>
-        ///     The language subtype of the attribute or null if the attribute
-        ///     has none.
-        /// </returns>
+        /// <value>
+        /// The language subtype.
+        /// </value>
         public string LangSubtype => _subTypes?.FirstOrDefault(t => t.StartsWith("lang-"));
 
         /// <summary>
@@ -238,11 +226,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </value>
         public string Name { get; }
 
-        /// <summary>
-        ///     Replaces all values with the specified value. This protected method is
-        ///     used by sub-classes of LdapSchemaElement because the value cannot be set
-        ///     with a contructor.
-        /// </summary>
         internal string Value
         {
             set
@@ -252,157 +235,6 @@ namespace Unosquare.Swan.Networking.Ldap
                 Add(Encoding.UTF8.GetSBytes(value));
             }
         }
-
-        /// <summary>
-        /// Returns the base name of the specified attribute name.
-        /// For example, if the attribute name is cn;lang-ja;phonetic,
-        /// this method returns cn.
-        /// </summary>
-        /// <param name="attrName">Name of the attribute from which to extract the
-        /// base name.</param>
-        /// <returns> The base name of the attribute. </returns>
-        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
-        public static string GetBaseName(string attrName)
-        {
-            if (attrName == null)
-            {
-                throw new ArgumentException("Attribute name cannot be null");
-            }
-
-            var idx = attrName.IndexOf(';');
-            return idx == -1 ? attrName : attrName.Substring(0, idx - 0);
-        }
-
-        /// <summary>
-        ///     Returns a clone of this LdapAttribute.
-        /// </summary>
-        /// <returns>
-        ///     clone of this LdapAttribute.
-        /// </returns>
-        public object Clone()
-        {
-            var newObj = MemberwiseClone();
-            if (_values != null)
-            {
-                Array.Copy(_values, 0, ((LdapAttribute) newObj)._values, 0, _values.Length);
-            }
-
-            return newObj;
-        }
-
-        /// <summary>
-        ///     Adds a <see cref="System.String" /> value to the attribute.
-        /// </summary>
-        /// <param name="attrString">
-        ///     Value of the attribute as a String.
-        /// </param>
-        public void AddValue(string attrString)
-        {
-            if (attrString == null)
-            {
-                throw new ArgumentException("Attribute value cannot be null");
-            }
-
-            Add(Encoding.UTF8.GetSBytes(attrString));
-        }
-
-        /// <summary>
-        ///     Adds a byte-formatted value to the attribute.
-        /// </summary>
-        /// <param name="attrBytes">
-        ///     Value of the attribute as raw bytes.
-        ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
-        /// </param>
-        public void AddValue(sbyte[] attrBytes)
-        {
-            if (attrBytes == null)
-            {
-                throw new ArgumentException("Attribute value cannot be null");
-            }
-
-            Add(attrBytes);
-        }
-
-        /// <summary>
-        ///     Adds a base64 encoded value to the attribute.
-        ///     The value will be decoded and stored as bytes.  String
-        ///     data encoded as a base64 value must be UTF-8 characters.
-        /// </summary>
-        /// <param name="attrString">
-        ///     The base64 value of the attribute as a String.
-        /// </param>
-        public void AddBase64Value(string attrString)
-        {
-            if (attrString == null)
-            {
-                throw new ArgumentException("Attribute value cannot be null");
-            }
-
-            Add(Convert.FromBase64String(attrString).ToSByteArray());
-        }
-
-        /// <summary>
-        ///     Adds a base64 encoded value to the attribute.
-        ///     The value will be decoded and stored as bytes.  Character
-        ///     data encoded as a base64 value must be UTF-8 characters.
-        /// </summary>
-        /// <param name="attrString">
-        ///     The base64 value of the attribute as a StringBuffer.
-        /// </param>
-        /// <param name="start">
-        ///     The start index of base64 encoded part, inclusive.
-        /// </param>
-        /// <param name="end">
-        ///     The end index of base encoded part, exclusive.
-        /// </param>
-        public void AddBase64Value(StringBuilder attrString, int start, int end)
-        {
-            if (attrString == null)
-            {
-                throw new ArgumentException("Attribute value cannot be null");
-            }
-
-            Add(Convert.FromBase64String(attrString.ToString(start, end)).ToSByteArray());
-        }
-
-        /// <summary>
-        ///     Adds a base64 encoded value to the attribute.
-        ///     The value will be decoded and stored as bytes.  Character
-        ///     data encoded as a base64 value must be UTF-8 characters.
-        /// </summary>
-        /// <param name="attrChars">
-        ///     The base64 value of the attribute as an array of
-        ///     characters.
-        /// </param>
-        public void AddBase64Value(char[] attrChars)
-        {
-            if (attrChars == null)
-            {
-                throw new ArgumentException("Attribute value cannot be null");
-            }
-
-            Add(Convert.FromBase64CharArray(attrChars, 0, attrChars.Length).ToSByteArray());
-        }
-
-        /// <summary>
-        ///     Returns the base name of the attribute.
-        ///     For example, if the attribute name is cn;lang-ja;phonetic,
-        ///     this method returns cn.
-        /// </summary>
-        /// <returns>
-        ///     The base name of the attribute.
-        /// </returns>
-        public string GetBaseName() => _baseName;
-
-        /// <summary>
-        ///     Extracts the subtypes from the attribute name.
-        ///     For example, if the attribute name is cn;lang-ja;phonetic,
-        ///     this method returns an array containing lang-ja and phonetic.
-        /// </summary>
-        /// <returns>
-        ///     An array subtypes or null if the attribute has none.
-        /// </returns>
-        public string[] GetSubtypes() => _subTypes;
 
         /// <summary>
         /// Extracts the subtypes from the specified attribute name.
@@ -439,6 +271,146 @@ namespace Unosquare.Swan.Networking.Ldap
 
             return subTypes;
         }
+
+        /// <summary>
+        /// Returns the base name of the specified attribute name.
+        /// For example, if the attribute name is cn;lang-ja;phonetic,
+        /// this method returns cn.
+        /// </summary>
+        /// <param name="attrName">Name of the attribute from which to extract the
+        /// base name.</param>
+        /// <returns> The base name of the attribute. </returns>
+        /// <exception cref="ArgumentException">Attribute name cannot be null</exception>
+        public static string GetBaseName(string attrName)
+        {
+            if (attrName == null)
+            {
+                throw new ArgumentException("Attribute name cannot be null");
+            }
+
+            var idx = attrName.IndexOf(';');
+            return idx == -1 ? attrName : attrName.Substring(0, idx - 0);
+        }
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>A cloned instance</returns>
+        public object Clone()
+        {
+            var newObj = MemberwiseClone();
+            if (_values != null)
+            {
+                Array.Copy(_values, 0, ((LdapAttribute) newObj)._values, 0, _values.Length);
+            }
+
+            return newObj;
+        }
+
+        /// <summary>
+        /// Adds a <see cref="System.String" /> value to the attribute.
+        /// </summary>
+        /// <param name="attrString">Value of the attribute as a String.</param>
+        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        public void AddValue(string attrString)
+        {
+            if (attrString == null)
+            {
+                throw new ArgumentException("Attribute value cannot be null");
+            }
+
+            Add(Encoding.UTF8.GetSBytes(attrString));
+        }
+
+        /// <summary>
+        /// Adds a byte-formatted value to the attribute.
+        /// </summary>
+        /// <param name="attrBytes">Value of the attribute as raw bytes.
+        /// Note: If attrBytes represents a string it should be UTF-8 encoded.</param>
+        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        public void AddValue(sbyte[] attrBytes)
+        {
+            if (attrBytes == null)
+            {
+                throw new ArgumentException("Attribute value cannot be null");
+            }
+
+            Add(attrBytes);
+        }
+
+        /// <summary>
+        /// Adds a base64 encoded value to the attribute.
+        /// The value will be decoded and stored as bytes.  String
+        /// data encoded as a base64 value must be UTF-8 characters.
+        /// </summary>
+        /// <param name="attrString">The base64 value of the attribute as a String.</param>
+        /// <exception cref="ArgumentException">Attribute value cannot be null</exception>
+        public void AddBase64Value(string attrString)
+        {
+            if (attrString == null)
+            {
+                throw new ArgumentException("Attribute value cannot be null");
+            }
+
+            Add(Convert.FromBase64String(attrString).ToSByteArray());
+        }
+
+        /// <summary>
+        /// Adds a base64 encoded value to the attribute.
+        /// The value will be decoded and stored as bytes.  Character
+        /// data encoded as a base64 value must be UTF-8 characters.
+        /// </summary>
+        /// <param name="attrString">The base64 value of the attribute as a StringBuffer.</param>
+        /// <param name="start">The start index of base64 encoded part, inclusive.</param>
+        /// <param name="end">The end index of base encoded part, exclusive.</param>
+        /// <exception cref="ArgumentNullException">attrString</exception>
+        public void AddBase64Value(StringBuilder attrString, int start, int end)
+        {
+            if (attrString == null)
+            {
+                throw new ArgumentNullException(nameof(attrString));
+            }
+
+            Add(Convert.FromBase64String(attrString.ToString(start, end)).ToSByteArray());
+        }
+
+        /// <summary>
+        /// Adds a base64 encoded value to the attribute.
+        /// The value will be decoded and stored as bytes.  Character
+        /// data encoded as a base64 value must be UTF-8 characters.
+        /// </summary>
+        /// <param name="attrChars">The base64 value of the attribute as an array of
+        /// characters.</param>
+        /// <exception cref="ArgumentNullException">attrChars</exception>
+        public void AddBase64Value(char[] attrChars)
+        {
+            if (attrChars == null)
+            {
+                throw new ArgumentNullException(nameof(attrChars));
+            }
+
+            Add(Convert.FromBase64CharArray(attrChars, 0, attrChars.Length).ToSByteArray());
+        }
+
+        /// <summary>
+        /// Returns the base name of the attribute.
+        /// For example, if the attribute name is cn;lang-ja;phonetic,
+        /// this method returns cn.
+        /// </summary>
+        /// <returns>
+        /// The base name of the attribute.
+        /// </returns>
+        public string GetBaseName() => _baseName;
+
+        /// <summary>
+        /// Extracts the subtypes from the attribute name.
+        /// For example, if the attribute name is cn;lang-ja;phonetic,
+        /// this method returns an array containing lang-ja and phonetic.
+        /// </summary>
+        /// <returns>
+        /// An array subtypes or null if the attribute has none.
+        /// </returns>
+        public string[] GetSubtypes() => _subTypes;
 
         /// <summary>
         ///     Reports if the attribute name contains the specified subtype.
@@ -507,38 +479,35 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Removes a string value from the attribute.
+        /// Removes a string value from the attribute.
         /// </summary>
-        /// <param name="attrString">
-        ///     Value of the attribute as a string.
-        ///     Note: Removing a value which is not present in the attribute has
-        ///     no effect.
-        /// </param>
+        /// <param name="attrString">Value of the attribute as a string.
+        /// Note: Removing a value which is not present in the attribute has
+        /// no effect.</param>
+        /// <exception cref="ArgumentNullException">attrString</exception>
         public void RemoveValue(string attrString)
         {
             if (attrString == null)
             {
-                throw new ArgumentException("Attribute value cannot be null");
+                throw new ArgumentNullException(nameof(attrString));
             }
 
             RemoveValue(Encoding.UTF8.GetSBytes(attrString));
         }
 
         /// <summary>
-        ///     Removes a byte-formatted value from the attribute.
+        /// Removes a byte-formatted value from the attribute.
         /// </summary>
-        /// <param name="attrBytes">
-        ///     Value of the attribute as raw bytes.
-        ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
-        ///     Example: <code>String.getBytes("UTF-8");</code>
-        ///     Note: Removing a value which is not present in the attribute has
-        ///     no effect.
-        /// </param>
+        /// <param name="attrBytes">Value of the attribute as raw bytes.
+        /// Note: If attrBytes represents a string it should be UTF-8 encoded.
+        /// Note: Removing a value which is not present in the attribute has
+        /// no effect.</param>
+        /// <exception cref="ArgumentNullException">attrBytes</exception>
         public void RemoveValue(sbyte[] attrBytes)
         {
             if (attrBytes == null)
             {
-                throw new ArgumentException("Attribute value cannot be null");
+                throw new ArgumentNullException(nameof(attrBytes));
             }
 
             for (var i = 0; i < _values.Length; i++)
@@ -578,38 +547,33 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the number of values in the attribute.
+        /// Returns the number of values in the attribute.
         /// </summary>
         /// <returns>
-        ///     The number of values in the attribute.
+        /// The number of values in the attribute.
         /// </returns>
         public int Size() => _values?.Length ?? 0;
 
         /// <summary>
-        ///     Compares this object with the specified object for order.
-        ///     Ordering is determined by comparing attribute names (see
-        ///     {getName() }) using the method compareTo() of the String class.
+        /// Compares this object with the specified object for order.
+        /// Ordering is determined by comparing attribute names using the method Compare() of the String class.
         /// </summary>
-        /// <param name="attribute">
-        ///     The LdapAttribute to be compared to this object.
-        /// </param>
+        /// <param name="attribute">The LdapAttribute to be compared to this object.</param>
         /// <returns>
-        ///     Returns a negative integer, zero, or a positive
-        ///     integer as this object is less than, equal to, or greater than the
-        ///     specified object.
+        /// Returns a negative integer, zero, or a positive
+        /// integer as this object is less than, equal to, or greater than the
+        /// specified object.
         /// </returns>
         public int CompareTo(object attribute)
-            => Name.CompareTo(((LdapAttribute) attribute).Name);
+            => string.Compare(Name, ((LdapAttribute) attribute).Name, StringComparison.Ordinal);
 
         /// <summary>
-        ///     Adds an object to this object's list of attribute values
+        /// Adds an object to this object's list of attribute values
         /// </summary>
-        /// <param name="bytes">
-        ///     Ultimately all of this attribute's values are treated
-        ///     as binary data so we simplify the process by requiring
-        ///     that all data added to our list is in binary form.
-        ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
-        /// </param>
+        /// <param name="bytes">Ultimately all of this attribute's values are treated
+        /// as binary data so we simplify the process by requiring
+        /// that all data added to our list is in binary form.
+        /// Note: If attrBytes represents a string it should be UTF-8 encoded.</param>
         private void Add(sbyte[] bytes)
         {
             if (_values == null)
@@ -632,18 +596,13 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns true if the two specified arrays of bytes are equal to each
-        ///     another.  Matches the logic of Arrays.equals which is not available
-        ///     in jdk 1.1.x.
+        /// Returns true if the two specified arrays of bytes are equal to each
+        /// another. 
         /// </summary>
-        /// <param name="e1">
-        ///     the first array to be tested
-        /// </param>
-        /// <param name="e2">
-        ///     the second array to be tested
-        /// </param>
+        /// <param name="e1">the first array to be tested</param>
+        /// <param name="e2">the second array to be tested</param>
         /// <returns>
-        ///     true if the two arrays are equal
+        /// true if the two arrays are equal
         /// </returns>
         private bool Equals(sbyte[] e1, sbyte[] e2)
         {
@@ -729,7 +688,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="LdapAttribute"></seealso>
     /// <seealso cref="LdapEntry"></seealso>
-    public sealed class LdapAttributeSet : Dictionary<string, LdapAttribute>
+    public class LdapAttributeSet : Dictionary<string, LdapAttribute>
     {
         /// <summary>
         ///     Returns a deep copy of this attribute set.
@@ -752,7 +711,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         /// Returns the attribute matching the specified attrName.
         /// For example:
-        /// <ul><li><code>getAttribute("cn")</code>      returns only the "cn" attribute</li><li><code>getAttribute("cn;lang-en")</code> returns only the "cn;lang-en"
+        /// <ul><li><c>getAttribute("cn")</c>      returns only the "cn" attribute</li><li><c>getAttribute("cn;lang-en")</c> returns only the "cn;lang-en"
         /// attribute.
         /// </li></ul>
         /// In both cases, null is returned if there is no exact match to
@@ -779,8 +738,8 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     localizations in the same directory. For attributes which do not vary
         ///     among localizations, only the base attribute may be stored, whereas
         ///     for others there may be varying degrees of specialization.
-        ///     For example, <code>getAttribute(attrName,lang)</code> returns the
-        ///     <code>LdapAttribute</code> that exactly matches attrName and that
+        ///     For example, <c>getAttribute(attrName,lang)</c> returns the
+        ///     <c>LdapAttribute</c> that exactly matches attrName and that
         ///     best matches lang.
         ///     If there are subtypes other than "lang" subtypes included
         ///     in attrName, for example, "cn;binary", only attributes with all of
@@ -795,22 +754,22 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     </ul>
         ///     Examples:
         ///     <ul>
-        ///         <li><code>getAttribute( "cn" )</code>       returns null.</li>
-        ///         <li><code>getAttribute( "sn" )</code>       returns the "sn" attribute.</li>
+        ///         <li><c>getAttribute( "cn" )</c>       returns null.</li>
+        ///         <li><c>getAttribute( "sn" )</c>       returns the "sn" attribute.</li>
         ///         <li>
-        ///             <code>getAttribute( "cn", "lang-en-us" )</code>
+        ///             <c>getAttribute( "cn", "lang-en-us" )</c>
         ///             returns the "cn;lang-en" attribute.
         ///         </li>
         ///         <li>
-        ///             <code>getAttribute( "cn", "lang-en" )</code>
+        ///             <c>getAttribute( "cn", "lang-en" )</c>
         ///             returns the "cn;lang-en" attribute.
         ///         </li>
         ///         <li>
-        ///             <code>getAttribute( "cn", "lang-ja" )</code>
+        ///             <c>getAttribute( "cn", "lang-ja" )</c>
         ///             returns null.
         ///         </li>
         ///         <li>
-        ///             <code>getAttribute( "sn", "lang-en" )</code>
+        ///             <c>getAttribute( "sn", "lang-en" )</c>
         ///             returns the "sn" attribute.
         ///         </li>
         ///     </ul>
@@ -828,47 +787,33 @@ namespace Unosquare.Swan.Networking.Ldap
         ///     "lang-ja", and "lang-ja-JP-kanji" are valid language specification.
         /// </param>
         /// <returns>
-        ///     A single best-match <code>LdapAttribute</code>, or null
+        ///     A single best-match <c>LdapAttribute</c>, or null
         ///     if no match is found in the entry.
         /// </returns>
         public LdapAttribute GetAttribute(string attrName, string lang) => this[(attrName + ";" + lang).ToUpper()];
 
         /// <summary>
-        ///     Creates a new attribute set containing only the attributes that have
-        ///     the specified subtypes.
-        ///     For example, suppose an attribute set contains the following
-        ///     attributes:
-        ///     <ul>
-        ///         <li>    cn</li>
-        ///         <li>    cn;lang-ja</li>
-        ///         <li>    sn;phonetic;lang-ja</li>
-        ///         <li>    sn;lang-us</li>
-        ///     </ul>
-        ///     Calling the <code>getSubset</code> method and passing lang-ja as the
-        ///     argument, the method returns an attribute set containing the following
-        ///     attributes:
-        ///     <ul>
-        ///         <li>cn;lang-ja</li>
-        ///         <li>sn;phonetic;lang-ja</li>
-        ///     </ul>
+        /// Creates a new attribute set containing only the attributes that have
+        /// the specified subtypes.
+        /// For example, suppose an attribute set contains the following
+        /// attributes:
+        /// <ul><li>    cn</li><li>    cn;lang-ja</li><li>    sn;phonetic;lang-ja</li><li>    sn;lang-us</li></ul>
+        /// Calling the <c>getSubset</c> method and passing lang-ja as the
+        /// argument, the method returns an attribute set containing the following
+        /// attributes:
+        /// <ul><li>cn;lang-ja</li><li>sn;phonetic;lang-ja</li></ul>
         /// </summary>
-        /// <param name="subtype">
-        ///     Semi-colon delimited list of subtypes to include. For
-        ///     example:
-        ///     <ul>
-        ///         <li> "lang-ja" specifies only Japanese language subtypes</li>
-        ///         <li> "binary" specifies only binary subtypes</li>
-        ///         <li>
-        ///             "binary;lang-ja" specifies only Japanese language subtypes
-        ///             which also are binary
-        ///         </li>
-        ///     </ul>
-        ///     Note: Novell eDirectory does not currently support language subtypes.
-        ///     It does support the "binary" subtype.
-        /// </param>
+        /// <param name="subtype">Semi-colon delimited list of subtypes to include. For
+        /// example:
+        /// <ul><li> "lang-ja" specifies only Japanese language subtypes</li><li> "binary" specifies only binary subtypes</li><li>
+        /// "binary;lang-ja" specifies only Japanese language subtypes
+        /// which also are binary
+        /// </li></ul>
+        /// Note: Novell eDirectory does not currently support language subtypes.
+        /// It does support the "binary" subtype.</param>
         /// <returns>
-        ///     An attribute set containing the attributes that match the
-        ///     specified subtype.
+        /// An attribute set containing the attributes that match the
+        /// specified subtype.
         /// </returns>
         public LdapAttributeSet GetSubset(string subtype)
         {
@@ -900,27 +845,23 @@ namespace Unosquare.Swan.Networking.Ldap
         public new IEnumerator GetEnumerator() => Values.GetEnumerator();
 
         /// <summary>
-        ///     Returns <code>true</code> if this set contains an attribute of the same name
-        ///     as the specified attribute.
+        /// Returns <c>true</c> if this set contains an attribute of the same name
+        /// as the specified attribute.
         /// </summary>
-        /// <param name="attr">
-        ///     Object of type <code>LdapAttribute</code>
-        /// </param>
+        /// <param name="attr">Object of type <c>LdapAttribute</c></param>
         /// <returns>
-        ///     true if this set contains the specified attribute
+        /// true if this set contains the specified attribute
         /// </returns>
         public bool Contains(object attr) => ContainsKey(((LdapAttribute) attr).Name.ToUpper());
 
         /// <summary>
-        ///     Adds the specified attribute to this set if it is not already present.
-        ///     If an attribute with the same name already exists in the set then the
-        ///     specified attribute will not be added.
+        /// Adds the specified attribute to this set if it is not already present.
+        /// If an attribute with the same name already exists in the set then the
+        /// specified attribute will not be added.
         /// </summary>
-        /// <param name="attr">
-        ///     Object of type <code>LdapAttribute</code>
-        /// </param>
+        /// <param name="attr">Object of type <c>LdapAttribute</c></param>
         /// <returns>
-        ///     true if the attribute was added.
+        /// <c>true</c> if the attribute was added.
         /// </returns>
         public bool Add(object attr)
         {
@@ -935,7 +876,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         /// <summary>
         /// Removes the specified object from this set if it is present.
-        /// If the specified object is of type <code>LdapAttribute</code>, the
+        /// If the specified object is of type <c>LdapAttribute</c>, the
         /// specified attribute will be removed.  If the specified object is of type
         /// string, the attribute with a name that matches the string will
         /// be removed.
@@ -970,6 +911,7 @@ namespace Unosquare.Swan.Networking.Ldap
             var retValue = new StringBuilder("LdapAttributeSet: ");
             var attrs = GetEnumerator();
             var first = true;
+
             while (attrs.MoveNext())
             {
                 if (!first)

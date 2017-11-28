@@ -152,9 +152,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <summary>
         ///     Retrieves the identifier tag for this message.
         ///     An identifier can be associated with a message with the
-        ///     <code>setTag</code> method.
+        ///     <c>setTag</c> method.
         ///     Tags are set by the application and not by the API or the server.
-        ///     If a server response <code>isRequest() == false</code> has no tag,
+        ///     If a server response <c>isRequest() == false</c> has no tag,
         ///     the tag associated with the corresponding server request is used.
         /// </summary>
         /// <returns>

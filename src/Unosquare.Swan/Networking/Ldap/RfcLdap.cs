@@ -11,23 +11,12 @@ namespace Unosquare.Swan.Networking.Ldap
     internal sealed class LdapSearchResult : LdapMessage
     {
         private LdapEntry entry;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LdapSearchResult"/> class.
-        /// Constructs an LdapSearchResult object.
-        /// </summary>
-        /// <param name="message">The RfcLdapMessage with a search result.</param>
+        
         internal LdapSearchResult(RfcLdapMessage message)
             : base(message)
         {
         }
-
-        /// <summary>
-        /// Returns the entry of a server's search response.
-        /// </summary>
-        /// <value>
-        /// The entry.
-        /// </value>
+        
         public LdapEntry Entry
         {
             get
@@ -81,13 +70,7 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(dec, stream, len)
         {
         }
-
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
+        
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchResultReference);
     }
     
@@ -102,15 +85,15 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />
-    internal sealed class RfcExtendedResponse : Asn1Sequence, IRfcResponse
+    internal class RfcExtendedResponse : Asn1Sequence, IRfcResponse
     {
         public const int RESPONSE_NAME = 10;
         
         public const int RESPONSE = 11;
 
-        private readonly int referralIndex;
-        private readonly int responseNameIndex;
-        private readonly int responseIndex;
+        private readonly int _referralIndex;
+        private readonly int _responseNameIndex;
+        private readonly int _responseIndex;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcExtendedResponse"/> class.
@@ -135,23 +118,23 @@ namespace Unosquare.Swan.Networking.Ldap
                         var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
                         var bais = new MemoryStream(content.ToByteArray());
                         Set(i, new Asn1SequenceOf(dec, bais, content.Length));
-                        referralIndex = i;
+                        _referralIndex = i;
                         break;
                     case RESPONSE_NAME:
                         Set(i, new Asn1OctetString(((Asn1OctetString) obj.TaggedValue).ByteValue()));
-                        responseNameIndex = i;
+                        _responseNameIndex = i;
                         break;
                     case RESPONSE:
                         Set(i, obj.TaggedValue);
-                        responseIndex = i;
+                        _responseIndex = i;
                         break;
                 }
             }
         }
 
-        public Asn1OctetString ResponseName => responseNameIndex != 0 ? (Asn1OctetString) Get(responseNameIndex) : null;
+        public Asn1OctetString ResponseName => _responseNameIndex != 0 ? (Asn1OctetString) Get(_responseNameIndex) : null;
 
-        public Asn1OctetString Response => responseIndex != 0 ? (Asn1OctetString) Get(responseIndex) : null;
+        public Asn1OctetString Response => _responseIndex != 0 ? (Asn1OctetString) Get(_responseIndex) : null;
         
         public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
 
@@ -160,7 +143,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral()
-            => referralIndex != 0 ? (Asn1SequenceOf) Get(referralIndex) : null;
+            => _referralIndex != 0 ? (Asn1SequenceOf) Get(_referralIndex) : null;
 
         /// <summary>
         /// Override getIdentifier to return an application-wide id.
@@ -217,13 +200,7 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue());
 
         public Asn1SequenceOf GetReferral() => Size() > 3 && Get(3) is Asn1SequenceOf ? (Asn1SequenceOf) Get(3) : null;
-
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
+        
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.BindResponse);
     }
 
@@ -241,13 +218,7 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         public const int TagResponseName = 0;
         public const int TagResponse = 1;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcIntermediateResponse"/> class.
-        /// </summary>
-        /// <param name="dec">The decimal.</param>
-        /// <param name="stream">The in renamed.</param>
-        /// <param name="len">The length.</param>
+        
         public RfcIntermediateResponse(IAsn1Decoder dec, Stream stream, int len)
             : base(dec, stream, len)
         {
@@ -277,15 +248,7 @@ namespace Unosquare.Swan.Networking.Ldap
             Size() > 3 ? new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue()) : null;
 
         public Asn1SequenceOf GetReferral() => Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
-
-        /// <summary>
-        /// Returns the identifier for this Asn1Object as an Asn1Identifier.
-        /// This Asn1Identifier object will include the CLASS, FORM and TAG
-        /// for this Asn1Object.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
+        
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.IntermediateResponse);
     }
 }

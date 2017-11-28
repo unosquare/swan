@@ -480,7 +480,7 @@
 
         public class DnsDomain : IComparable<DnsDomain>
         {
-            private readonly string[] labels;
+            private readonly string[] _labels;
 
             public DnsDomain(string domain) 
                 : this(domain.Split('.'))
@@ -489,12 +489,12 @@
 
             public DnsDomain(string[] labels)
             {
-                this.labels = labels;
+                _labels = labels;
             }
 
             public int Size
             {
-                get { return labels.Sum(l => l.Length) + labels.Length + 1; }
+                get { return _labels.Sum(l => l.Length) + _labels.Length + 1; }
             }
             
             public static DnsDomain FromArray(byte[] message, int offset)
@@ -551,6 +551,34 @@
             public static DnsDomain PointerName(IPAddress ip)
                 => new DnsDomain(FormatReverseIP(ip));
 
+            public byte[] ToArray()
+            {
+                var result = new byte[Size];
+                var offset = 0;
+
+                foreach (var l in _labels.Select(label => Encoding.ASCII.GetBytes(label)))
+                {
+                    result[offset++] = (byte)l.Length;
+                    l.CopyTo(result, offset);
+
+                    offset += l.Length;
+                }
+
+                result[offset] = 0;
+
+                return result;
+            }
+
+            public override string ToString()
+                => string.Join(".", _labels);
+
+            public int CompareTo(DnsDomain other) 
+                => string.Compare(ToString(), other.ToString(), StringComparison.Ordinal);
+
+            public override bool Equals(object obj)
+                => obj is DnsDomain && CompareTo((DnsDomain) obj) == 0;
+
+            public override int GetHashCode() => ToString().GetHashCode();
             private static string FormatReverseIP(IPAddress ip)
             {
                 var address = ip.GetAddressBytes();
@@ -573,34 +601,6 @@
                 return string.Join(".", nibbles.Reverse().Select(b => b.ToString("x"))) + ".ip6.arpa";
             }
 
-            public byte[] ToArray()
-            {
-                var result = new byte[Size];
-                var offset = 0;
-
-                foreach (var l in labels.Select(label => Encoding.ASCII.GetBytes(label)))
-                {
-                    result[offset++] = (byte)l.Length;
-                    l.CopyTo(result, offset);
-
-                    offset += l.Length;
-                }
-
-                result[offset] = 0;
-
-                return result;
-            }
-
-            public override string ToString()
-                => string.Join(".", labels);
-
-            public int CompareTo(DnsDomain other) 
-                => string.Compare(ToString(), other.ToString(), StringComparison.Ordinal);
-
-            public override bool Equals(object obj)
-                => obj is DnsDomain && CompareTo((DnsDomain) obj) == 0;
-
-            public override int GetHashCode() => ToString().GetHashCode();
         }
 
         public class DnsQuestion : IDnsMessageEntry
@@ -633,29 +633,29 @@
                 return new DnsQuestion(domain, tail.Type, tail.Class);
             }
 
-            private readonly DnsDomain domain;
-            private readonly DnsRecordType type;
-            private readonly DnsRecordClass klass;
+            private readonly DnsDomain _domain;
+            private readonly DnsRecordType _type;
+            private readonly DnsRecordClass _klass;
 
             public DnsQuestion(DnsDomain domain, DnsRecordType type = DnsRecordType.A, DnsRecordClass klass = DnsRecordClass.IN)
             {
-                this.domain = domain;
-                this.type = type;
-                this.klass = klass;
+                _domain = domain;
+                _type = type;
+                _klass = klass;
             }
 
-            public DnsDomain Name => domain;
+            public DnsDomain Name => _domain;
 
-            public DnsRecordType Type => type;
+            public DnsRecordType Type => _type;
 
-            public DnsRecordClass Class => klass;
+            public DnsRecordClass Class => _klass;
 
-            public int Size => domain.Size + Tail.SIZE;
+            public int Size => _domain.Size + Tail.SIZE;
 
             public byte[] ToArray()
             {
                 return new MemoryStream(Size)
-                    .Append(domain.ToArray())
+                    .Append(_domain.ToArray())
                     .Append(new Tail { Type = Type, Class = Class }.ToBytes())
                     .ToArray();
             }
