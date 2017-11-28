@@ -35,4 +35,4 @@ entries.forEach(function (entry) {
 });
 
 client.unbind();
-process.exit(1);
+process.exit();
