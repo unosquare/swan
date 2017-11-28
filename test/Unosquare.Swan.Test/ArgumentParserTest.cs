@@ -137,7 +137,6 @@
             Assert.Throws<ArgumentNullException>(() =>
                 Runtime.ArgumentParser.ParseArguments<OptionMock>(DefaultStringList, null));
         }
-        
     }
 
     [TestFixture]
@@ -157,12 +156,12 @@
         public void BasicVerbParsing_InstantiatesSelectedVerbOptionProperty()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[] { "monitor", "-v" };
+            var arguments = new string[] { "verb", "-u", "user", "--host", "129.168.1.1", "-p", "5556" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
             Assert.AreEqual(expected, true);
-            Assert.IsNotNull(verbOptions.MonitorVerboptions);
-            Assert.IsNull(verbOptions.PushVerbOptions);
+            Assert.IsNull(verbOptions.MonitorVerboptions);
+            Assert.IsNotNull(verbOptions.PushVerbOptions);
         }
 
         [Test]
