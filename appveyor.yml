@@ -29,6 +29,7 @@ before_build:
 - ps: Install-Product node 8
 - npm install ldapjs
 - ps: $LDAP = Start-Process node ldap.js -PassThru
+- netstat -ab
 - node LdapClient.js
 - appveyor-retry dotnet restore -v Minimal
 - mkdir tools
