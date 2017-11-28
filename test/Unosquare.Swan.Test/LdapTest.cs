@@ -10,12 +10,13 @@
     public abstract class LdapTest
     {
         protected const string LdapServer = "ldap.forumsys.com";
-
+        protected const string DefaultDn = "uid=riemann,dc=example,dc=com";
+        
         protected async Task<LdapConnection> GetDefaultConnection()
         {
             var cn = new LdapConnection();
             await cn.Connect(LdapServer, 389);
-            await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+            await cn.Bind(DefaultDn, "password");
 
             return cn;
         }
@@ -49,7 +50,7 @@
         {
             var cn = new LdapConnection();
             await cn.Connect(LdapServer, 389);
-            await cn.Bind("uid=riemann,dc=example,dc=com", null);
+            await cn.Bind(DefaultDn, null);
             Assert.IsNull(cn.AuthenticationDn);
             cn.Dispose();
 
@@ -75,7 +76,7 @@
             {
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 389);
-                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+                await cn.Bind(DefaultDn, "password");
                 cn.Dispose();
             });
         }
@@ -87,7 +88,7 @@
             {
                 var cn = new LdapConnection();
                 await cn.Connect("ldap.forumsys", 388);
-                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+                await cn.Bind(DefaultDn, "password");
                 cn.Dispose();
             });
         }
@@ -176,10 +177,9 @@
         public async Task Read_DN()
         {
             var cn = await GetDefaultConnection();
-            var dn = "uid=riemann,dc=example,dc=com";
-            var entry = await cn.Read(dn);
+            var entry = await cn.Read(DefaultDn);
 
-            Assert.AreEqual(dn, entry.DN);
+            Assert.AreEqual(DefaultDn, entry.DN);
 
             cn.Dispose();
         }
