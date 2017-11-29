@@ -21,11 +21,10 @@
         public void TestConnectGmailSmtpException()
         {
 #if !NETSTANDARD1_3 && !UWP
-            Assert.ThrowsAsync<System.Net.Mail.SmtpException>
+            Assert.ThrowsAsync<System.Net.Mail.SmtpException>(async () =>
 #else
-            Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>
+            Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>(async () =>
 #endif
-            (async () =>
             {
                 var client = new SmtpClient("smtp.gmail.com", 587);
 
@@ -81,8 +80,8 @@
             var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
             Assert.IsNotNull(smtpMock);
 
-            Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
-            Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
+            Assert.AreEqual(SenderEmail, smtpMock.Envelope.From.Address);
+            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.To.First().Address);
 
             Assert.AreEqual("x-sender", smtpMock.Headers.First().Key);
             Assert.AreEqual(SenderEmail, smtpMock.Headers.First().Value);

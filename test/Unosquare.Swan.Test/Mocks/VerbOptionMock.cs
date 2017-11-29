@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unosquare.Swan.Attributes;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using Attributes;
+
     public class CliVerbs
     {
         [VerbOption("verb")]

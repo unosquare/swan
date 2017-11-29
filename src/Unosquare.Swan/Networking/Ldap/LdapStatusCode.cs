@@ -538,6 +538,5 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         SslProviderNotFound = 114
     }
-
 }
 #endif

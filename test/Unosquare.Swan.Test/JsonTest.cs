@@ -168,8 +168,7 @@
             var data = Json.Serialize(obj);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data,
-                "Date must be formatted as ISO");
+            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data, "Date must be formatted as ISO");
 
             var dict = Json.Deserialize<Dictionary<string, DateTime>>(data);
 
@@ -426,7 +425,7 @@
         [Test]
         public void WithObject_ReturnsObjectSerialized()
         {
-            var includeNames = new []
+            var includeNames = new[]
             {
                 nameof(BasicJson.StringData),
                 nameof(BasicJson.IntData),
@@ -451,7 +450,7 @@
         [Test]
         public void WithEmptyString_ReturnsEmptyString()
         {
-            var dataSerialized = Json.SerializeOnly("", true, null);
+            var dataSerialized = Json.SerializeOnly(string.Empty, true, null);
 
             Assert.AreEqual("\"\"", dataSerialized);
         }
@@ -489,7 +488,7 @@
         {
             var persons = new Dictionary<string, Dictionary<string, string>>
                 {
-                    { "Tyrande", new Dictionary<string, string> {  } },
+                    { "Tyrande", new Dictionary<string, string>()},
                     { "Jaina", new Dictionary<string, string> { { "Race", "Human" }, { "Affiliation", "Alliance" } } }
                 };
 

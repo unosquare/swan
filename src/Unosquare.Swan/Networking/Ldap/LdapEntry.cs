@@ -568,68 +568,6 @@ namespace Unosquare.Swan.Networking.Ldap
             => string.Compare(Name, ((LdapAttribute) attribute).Name, StringComparison.Ordinal);
 
         /// <summary>
-        /// Adds an object to this object's list of attribute values
-        /// </summary>
-        /// <param name="bytes">Ultimately all of this attribute's values are treated
-        /// as binary data so we simplify the process by requiring
-        /// that all data added to our list is in binary form.
-        /// Note: If attrBytes represents a string it should be UTF-8 encoded.</param>
-        private void Add(sbyte[] bytes)
-        {
-            if (_values == null)
-            {
-                _values = new object[] {bytes};
-            }
-            else
-            {
-                // Duplicate attribute values not allowed
-                if (_values.Any(t => Equals(bytes, (sbyte[]) t)))
-                {
-                    return; // Duplicate, don't add
-                }
-
-                var tmp = new object[_values.Length + 1];
-                Array.Copy(_values, 0, tmp, 0, _values.Length);
-                tmp[_values.Length] = bytes;
-                _values = tmp;
-            }
-        }
-
-        /// <summary>
-        /// Returns true if the two specified arrays of bytes are equal to each
-        /// another. 
-        /// </summary>
-        /// <param name="e1">the first array to be tested</param>
-        /// <param name="e2">the second array to be tested</param>
-        /// <returns>
-        /// true if the two arrays are equal
-        /// </returns>
-        private bool Equals(sbyte[] e1, sbyte[] e2)
-        {
-            // If same object, they compare true
-            if (e1 == e2)
-                return true;
-
-            // If either but not both are null, they compare false
-            if (e1 == null || e2 == null)
-                return false;
-
-            // If arrays have different length, they compare false
-            var length = e1.Length;
-            if (e2.Length != length)
-                return false;
-
-            // If any of the bytes are different, they compare false
-            for (var i = 0; i < length; i++)
-            {
-                if (e1[i] != e2[i])
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Returns a string representation of this LdapAttribute
         /// </summary>
         /// <returns>
@@ -676,6 +614,68 @@ namespace Unosquare.Swan.Networking.Ldap
             result.Append("}");
 
             return result.ToString();
+        }
+
+        /// <summary>
+        /// Adds an object to this object's list of attribute values
+        /// </summary>
+        /// <param name="bytes">Ultimately all of this attribute's values are treated
+        /// as binary data so we simplify the process by requiring
+        /// that all data added to our list is in binary form.
+        /// Note: If attrBytes represents a string it should be UTF-8 encoded.</param>
+        private void Add(sbyte[] bytes)
+        {
+            if (_values == null)
+            {
+                _values = new object[] { bytes };
+            }
+            else
+            {
+                // Duplicate attribute values not allowed
+                if (_values.Any(t => Equals(bytes, (sbyte[])t)))
+                {
+                    return; // Duplicate, don't add
+                }
+
+                var tmp = new object[_values.Length + 1];
+                Array.Copy(_values, 0, tmp, 0, _values.Length);
+                tmp[_values.Length] = bytes;
+                _values = tmp;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the two specified arrays of bytes are equal to each
+        /// another. 
+        /// </summary>
+        /// <param name="e1">the first array to be tested</param>
+        /// <param name="e2">the second array to be tested</param>
+        /// <returns>
+        /// true if the two arrays are equal
+        /// </returns>
+        private bool Equals(sbyte[] e1, sbyte[] e2)
+        {
+            // If same object, they compare true
+            if (e1 == e2)
+                return true;
+
+            // If either but not both are null, they compare false
+            if (e1 == null || e2 == null)
+                return false;
+
+            // If arrays have different length, they compare false
+            var length = e1.Length;
+            if (e2.Length != length)
+                return false;
+
+            // If any of the bytes are different, they compare false
+            for (var i = 0; i < length; i++)
+            {
+                if (e1[i] != e2[i])
+                    return false;
+            }
+
+            return true;
         }
     }
 

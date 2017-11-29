@@ -1,7 +1,6 @@
 ﻿#if !UWP
 namespace Unosquare.Swan.Networking.Ldap
 {
-
     /// <summary>
     /// Ldap Modification Operators
     /// </summary>

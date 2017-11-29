@@ -134,7 +134,6 @@
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(nameof(Debug), messages.First(x => x.ExtendedData != null).Message);
             Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
-
         }
     }
 

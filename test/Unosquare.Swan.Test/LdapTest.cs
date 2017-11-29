@@ -57,7 +57,6 @@
             await cn.Bind(DefaultDn, null);
             Assert.IsNull(cn.AuthenticationDn);
             cn.Dispose();
-
         }
     }
 
@@ -135,7 +134,6 @@
     [TestFixture]
     public class Modify : LdapTest
     {
-
         [Test]
         public void Modify_DNNull()
         {

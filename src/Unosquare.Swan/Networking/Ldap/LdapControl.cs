@@ -115,72 +115,6 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    /// Represents and Ldap Bind Request.
-    /// <pre>
-    /// BindRequest ::= [APPLICATION 0] SEQUENCE {
-    /// version                 INTEGER (1 .. 127),
-    /// name                    LdapDN,
-    /// authentication          AuthenticationChoice }
-    /// </pre></summary>
-    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
-    /// <seealso cref="IRfcRequest" />
-    internal sealed class RfcBindRequest
-        : Asn1Sequence, IRfcRequest
-    {
-        /// <summary>
-        /// ID is added for Optimization.
-        /// ID needs only be one Value for every instance,
-        /// thus we create it only once.
-        /// </summary>
-        private static readonly Asn1Identifier Id = new Asn1Identifier(LdapOperation.BindRequest);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcBindRequest"/> class.
-        /// </summary>
-        /// <param name="version">The version.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="auth">The authentication.</param>
-        public RfcBindRequest(int version, string name, Asn1Object auth)
-            : base(3)
-        {
-            Add(new Asn1Integer(version));
-            Add(name);
-            Add(auth);
-        }
-
-        public Asn1Integer Version
-        {
-            get => (Asn1Integer)Get(0);
-            set => Set(0, value);
-        }
-
-        public Asn1OctetString Name
-        {
-            get => (Asn1OctetString)Get(1);
-            set => Set(1, value);
-        }
-
-        public RfcAuthenticationChoice AuthenticationChoice
-        {
-            get => (RfcAuthenticationChoice)Get(2);
-            set => Set(2, value);
-        }
-
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// <pre>
-        /// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 0. (0x60)
-        /// </pre>
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
-        public override Asn1Identifier GetIdentifier() => Id;
-
-        public string GetRequestDN() => ((Asn1OctetString) Get(1)).StringValue();
-    }
-
-    /// <summary>
     /// Represents a simple bind request.
     /// </summary>
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.LdapMessage" />
@@ -763,6 +697,7 @@ namespace Unosquare.Swan.Networking.Ldap
             get
             {
                 LdapException ex = null;
+
                 switch (ResultCode)
                 {
                     case LdapStatusCode.Success:
@@ -869,6 +804,67 @@ namespace Unosquare.Swan.Networking.Ldap
 
             private RespControlVector EnclosingInstance { get; }
         }
+    }
+
+    /// <summary>
+    /// Represents and Ldap Bind Request.
+    /// <pre>
+    /// BindRequest ::= [APPLICATION 0] SEQUENCE {
+    /// version                 INTEGER (1 .. 127),
+    /// name                    LdapDN,
+    /// authentication          AuthenticationChoice }
+    /// </pre></summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
+    /// <seealso cref="IRfcRequest" />
+    internal sealed class RfcBindRequest
+        : Asn1Sequence, IRfcRequest
+    {
+        private static readonly Asn1Identifier Id = new Asn1Identifier(LdapOperation.BindRequest);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RfcBindRequest"/> class.
+        /// </summary>
+        /// <param name="version">The version.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="auth">The authentication.</param>
+        public RfcBindRequest(int version, string name, Asn1Object auth)
+            : base(3)
+        {
+            Add(new Asn1Integer(version));
+            Add(name);
+            Add(auth);
+        }
+
+        public Asn1Integer Version
+        {
+            get => (Asn1Integer)Get(0);
+            set => Set(0, value);
+        }
+
+        public Asn1OctetString Name
+        {
+            get => (Asn1OctetString)Get(1);
+            set => Set(1, value);
+        }
+
+        public RfcAuthenticationChoice AuthenticationChoice
+        {
+            get => (RfcAuthenticationChoice)Get(2);
+            set => Set(2, value);
+        }
+
+        /// <summary>
+        /// Override getIdentifier to return an application-wide id.
+        /// <pre>
+        /// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 0. (0x60)
+        /// </pre>
+        /// </summary>
+        /// <returns>
+        /// Asn1 Identifier
+        /// </returns>
+        public override Asn1Identifier GetIdentifier() => Id;
+
+        public string GetRequestDN() => ((Asn1OctetString)Get(1)).StringValue();
     }
 }
 #endif

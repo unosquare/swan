@@ -14,18 +14,19 @@
 
     public abstract class JsonClientTest
     {
-        protected static int Port = 8080;
-        protected int _defaultPort;
-        protected string _defaultHttp;
-
         protected const string Authorization = "Authorization";
         protected const string AuthorizationToken = "Token";
+
+        private static int _port = 8080;
+
+        protected int _defaultPort;
+        protected string _defaultHttp;
 
         [SetUp]
         public void SetupWebServer()
         {
-            Port++;
-            _defaultPort = Port;
+            _port++;
+            _defaultPort = _port;
             _defaultHttp = "http://localhost:" + _defaultPort;
         }
     }
@@ -319,7 +320,6 @@
                 Assert.IsNotNull(data);
             }
         }
-
     }
 
     [TestFixture]
@@ -355,7 +355,6 @@
     [TestFixture]
     public class PostOrError : JsonClientTest
     {
-
         [TestCase(1, 500, true)]
         [TestCase(2, 500, false)]
         [TestCase(4678, 404, false)]
@@ -383,12 +382,13 @@
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(_defaultHttp,
-                    new BasicJson {IntData = input}, error);
+                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(
+                    _defaultHttp,
+                    new BasicJson {IntData = input}, 
+                    error);
 
                 Assert.IsNotNull(data);
                 Assert.AreEqual(expected, data.IsOk);
-
             }
         }
     }
@@ -445,14 +445,14 @@
     public class Get : JsonClientTest
     {
         [Test]
-        public async Task WithInvalidParams_ThrowsHttpRequestException()
+        public void WithInvalidParams_ThrowsHttpRequestException()
         {
             Assert.ThrowsAsync<System.Net.Http.HttpRequestException>(async () =>
                 await JsonClient.Get<BasicJson>(_defaultHttp));
         }
 
         [Test]
-        public async Task WithNullUrl_ThrowsArgumentNullException()
+        public void WithNullUrl_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
                 await JsonClient.Get<BasicJson>(null));

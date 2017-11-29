@@ -166,7 +166,6 @@
             Assert.AreEqual("Jaina           : object", objectInfoLines[5]);
             Assert.AreEqual("Liadrin         : object", objectInfoLines[10]);
         }
-
     }
 
     [TestFixture]
@@ -195,7 +194,9 @@
         [TestCase("Test", "\0Test\0", null)]
         [TestCase("\0Test", "\0Test", new[] {'\0'})]
         [TestCase("\0Test", "\0Test\t", new[] {'\0'})]
-        public void WithValidString_ReturnsStringWithoutControlCharacters(string expected, string input,
+        public void WithValidString_ReturnsStringWithoutControlCharacters(
+            string expected, 
+            string input,
             char[] excludeChars)
         {
             Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");

@@ -236,7 +236,7 @@
         public void NullType_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                ObjectComparer.AreEqual(new SampleStruct(), new SampleStruct(), null));
+                ObjectComparer.AreEqual(default(SampleStruct), default(SampleStruct), null));
         }
     }
 }

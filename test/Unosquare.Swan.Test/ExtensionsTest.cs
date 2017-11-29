@@ -17,7 +17,6 @@
             {
                 if (total < 2)
                     throw new Exception();
-
             });
 
             var result = action.Benchmark();

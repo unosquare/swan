@@ -137,7 +137,6 @@
             Assert.Throws<ArgumentNullException>(() =>
                 Runtime.ArgumentParser.ParseArguments<OptionMock>(DefaultStringList, null));
         }
-        
     }
 
     [TestFixture]

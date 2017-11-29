@@ -60,9 +60,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="message">A response message.</param>
         internal LdapMessage(RfcLdapMessage message) => Message = message;
 
-        /// <summary> Returns the LdapMessage request associated with this response</summary>
-        internal virtual LdapMessage RequestingMessage => Message.RequestingMessage;
-
         /// <summary>
         /// Returns any controls in the message.
         /// </summary>
@@ -139,8 +136,8 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         internal virtual RfcLdapMessage Asn1Object => Message;
-
-        private string Name => Type.ToString();
+        
+        internal virtual LdapMessage RequestingMessage => Message.RequestingMessage;
 
         /// <summary>
         /// Retrieves the identifier tag for this message.
@@ -167,6 +164,8 @@ namespace Unosquare.Swan.Networking.Ldap
 
             set => _stringTag = value;
         }
+
+        private string Name => Type.ToString();
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
