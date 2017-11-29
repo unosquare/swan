@@ -15,22 +15,28 @@
         public ConnectionListener connectionListener;
         public TcpClient client;
         public readonly int port = 12345;
+        public CancellationToken ct;
+        public byte[] message = Encoding.ASCII.GetBytes("Hello World!\r\n");
 
         [SetUp]
         public async Task Setup()
         {
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                Assert.Inconclusive("Can not test in AppVeyor");
+
             connectionListener = new ConnectionListener(port);
             client = new TcpClient();
-                
-            connectionListener.Start();
-            await client.ConnectAsync("localhost", port);
+            ct = default(CancellationToken);           
         }
 
         [TearDown]
         public void GlobalTeardown()
         {
-            connectionListener.Stop();
-            client.Close();
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+                Assert.Inconclusive("Can not test in AppVeyor");
+
+            connectionListener.Dispose();
+            client.Dispose();
         }
     }
 
@@ -38,18 +44,25 @@
     public class ConnectionsTests : ConnectionTest
     {
         [Test]
-        public void Connection_Test()
+        public async Task Connection_OpenTest()
         {
-            using (var cn = new Connection(client))
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
             {
+                Assert.IsTrue(connectionListener.IsListening);
                 Assert.IsTrue(cn.IsConnected);
             }
         }
 
         [Test]
-        public void Connection_LocalAddress()
+        public async Task Connection_LocalAddress()
         {
-            using (var cn = new Connection(client))
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
             {
                 Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
             }
@@ -59,16 +72,112 @@
     [TestFixture]
     public class ReadTest : ConnectionTest
     {
-        private CancellationToken ct = new CancellationToken();
+        [Test]
+        public async Task Read_TextAsync()
+        {
+            connectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(message, 0, message.Length);
+            };
+
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadTextAsync();
+
+                Assert.IsNotNull(response);
+                Assert.AreEqual(message, response);
+            }
+        }
 
         [Test]
-        public async Task Read_DataAsync()
+        public async Task Read_LineAsync()
         {
-            var byteArray = Enumerable.Repeat<byte>(0x20, 100).ToArray();
-
-            using (var cn = new Connection(client))
+            connectionListener.OnConnectionAccepting += (s, e) =>
             {
-                // TODO: Read tests
+                e.Client?.GetStream().Write(message, 0, message.Length);
+            };
+
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadLineAsync(ct);
+
+                Assert.IsNotNull(response);
+                Assert.AreEqual(Encoding.ASCII.GetString(message).Remove(message.Length - 2), response);
+            }
+        }
+
+        [Test]
+        public async Task Read_LineAsync_ThrowsInvalidOperationException()
+        {
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.ASCII, "\r\n", false, 0))
+            {
+                Assert.ThrowsAsync<InvalidOperationException>(async () => 
+                {
+                    await cn.ReadLineAsync(ct);
+                });
+            }
+        }
+
+        [Test]
+        public async Task Read_DataAsync_ThrowsInvalidOperationException()
+        {
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.UTF8, "\r\n", false, 0))
+            {
+                Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                {
+                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100), ct);
+                });
+            }
+        }
+
+        [Test]
+        public async Task Read_DataAsync_ThrowsTimeOutException()
+        {
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client,Encoding.UTF8, "\r\n", true, 0))
+            {
+                Assert.ThrowsAsync<TimeoutException>(async () => 
+                {
+                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100), ct);
+                });
+            }
+        }
+    }
+
+    [TestFixture]
+    public class WriteTest : ConnectionTest
+    {
+        [Test]
+        public async Task Connection_WriteTest()
+        {
+            connectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(message, 0, message.Length);
+            };
+
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadTextAsync();
+
+                Assert.IsNotNull(response);
+                Assert.AreEqual(message, response);
             }
         }
     }
