@@ -455,17 +455,17 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             // Determine the URL scheme and set appropriate default port
-            if (url.ToUpper().StartsWith("URL:".ToUpper()))
+            if (url.StartsWith("URL:", StringComparison.OrdinalIgnoreCase))
             {
                 scanStart += 4;
             }
 
-            if (url.ToUpper().StartsWith("ldap://".ToUpper()))
+            if (url.StartsWith("ldap://", StringComparison.OrdinalIgnoreCase))
             {
                 scanStart += 7;
                 _port = LdapConnection.DefaultPort;
             }
-            else if (url.ToUpper().StartsWith("ldaps://".ToUpper()))
+            else if (url.StartsWith("ldaps://", StringComparison.OrdinalIgnoreCase))
             {
                 Secure = true;
                 scanStart += 8;
@@ -573,15 +573,15 @@ namespace Unosquare.Swan.Networking.Ldap
                 ? url.Substring(scanStart, scanEnd - scanStart)
                 : url.Substring(scanStart, filterStart - scanStart);
 
-            if (scopeStr.ToUpper().Equals(string.Empty.ToUpper()) || scopeStr.ToUpper().Equals("base".ToUpper()))
+            if (string.IsNullOrWhiteSpace(scopeStr) || string.Equals(scopeStr, "base", StringComparison.OrdinalIgnoreCase))
             {
                 Scope = LdapConnection.ScopeBase;
             }
-            else if (scopeStr.ToUpper().Equals("one".ToUpper()))
+            else if (string.Equals(scopeStr, "one", StringComparison.OrdinalIgnoreCase))
             {
                 Scope = LdapConnection.ScopeOne;
             }
-            else if (scopeStr.ToUpper().Equals("sub".ToUpper()))
+            else if (string.Equals(scopeStr,"sub", StringComparison.OrdinalIgnoreCase))
             {
                 Scope = LdapConnection.ScopeSub;
             }

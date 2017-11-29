@@ -413,7 +413,7 @@
             var obj = Json.Deserialize<JsonFile>("{ \"Data\": \"DATA1\", \"Filename\": \"Three\" }");
 
             Assert.IsNotNull(obj);
-            Assert.AreEqual("DATA1", System.Text.Encoding.UTF8.GetString(obj.Data));
+            Assert.AreEqual("DATA1", obj.Data.ToText());
         }
     }
 

@@ -3,6 +3,9 @@
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// DnsClient public interfaces
+    /// </summary>
     internal partial class DnsClient
     {
         public interface IDnsMessage

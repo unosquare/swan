@@ -29,6 +29,7 @@
                 throw new ArgumentNullException(nameof(bytes));
 
             var sb = new StringBuilder(bytes.Length * 2);
+
             foreach (var item in bytes)
                 sb.Append(item.ToString("x2", CultureInfo.InvariantCulture));
 

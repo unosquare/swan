@@ -98,7 +98,7 @@ namespace Unosquare.Swan.Networking
                 if (response.Content.Count > 0)
                     responseContent = string.Join(";", response.Content.ToArray());
 
-                throw new SmtpException((SmtpStatusCode)response.ReplyCode, responseContent);
+                throw new SmtpException((SmtpStatusCode) response.ReplyCode, responseContent);
             }
             catch
             {
@@ -106,13 +106,12 @@ namespace Unosquare.Swan.Networking
             }
         }
 
-#if NET452
-        /// <summary>
-        /// Sends an email message asynchronously.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="sessionId">The session identifier.</param>
-        /// <returns>A task that represents the asynchronous of send email operation</returns>
+#if NET452 /// <summary>
+/// Sends an email message asynchronously.
+/// </summary>
+/// <param name="message">The message.</param>
+/// <param name="sessionId">The session identifier.</param>
+/// <returns>A task that represents the asynchronous of send email operation</returns>
         public Task SendMailAsync(MailMessage message, string sessionId = null)
         {
             var state = new SmtpSessionState
@@ -162,7 +161,7 @@ namespace Unosquare.Swan.Networking
 
             $"Sending new email from {sessionState.SenderAddress} to {string.Join(";", sessionState.Recipients)}".Info(
                 typeof(SmtpClient));
-            return SendMailAsync(new[] { sessionState }, sessionId, ct);
+            return SendMailAsync(new[] {sessionState}, sessionId, ct);
         }
 
         /// <summary>
@@ -208,8 +207,7 @@ namespace Unosquare.Swan.Networking
                         do
                         {
                             replyText = await connection.ReadLineAsync(ct);
-                        }
-                        while (replyText.StartsWith("250 ") == false);
+                        } while (replyText.StartsWith("250 ") == false);
 
                         ValidateReply(replyText, sessionId);
 
@@ -236,8 +234,7 @@ namespace Unosquare.Swan.Networking
                             do
                             {
                                 replyText = await connection.ReadLineAsync(ct);
-                            }
-                            while (replyText.StartsWith("250 ") == false);
+                            } while (replyText.StartsWith("250 ") == false);
 
                             ValidateReply(replyText, sessionId);
                         }
@@ -295,9 +292,8 @@ namespace Unosquare.Swan.Networking
 
                             {
                                 // CONTENT
-                                var dataTerminator =
-                                    Encoding.UTF8.GetString(
-                                        sessionState.DataBuffer.Skip(sessionState.DataBuffer.Count - 5).ToArray());
+                                var dataTerminator = sessionState.DataBuffer.Skip(sessionState.DataBuffer.Count - 5)
+                                    .ToArray().ToText();
 
                                 requestText = $"Buffer ({sessionState.DataBuffer.Count} bytes)";
                                 $"  TX {requestText}".Debug(typeof(SmtpClient), sessionId);

@@ -431,7 +431,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 throw new ArgumentNullException(nameof(subtype));
             }
 
-            return _subTypes != null && _subTypes.Any(t => t.ToUpper().Equals(subtype.ToUpper()));
+            return _subTypes != null && _subTypes.Any(t => string.Equals(t, subtype, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -464,18 +464,14 @@ namespace Unosquare.Swan.Networking.Ldap
                         throw new ArgumentException($"subtype at array index {i} cannot be null");
                     }
 
-                    if (sub.ToUpper().Equals(subtypes[i].ToUpper()))
+                    if (string.Equals(sub, subtypes[i], StringComparison.OrdinalIgnoreCase))
                     {
-                        goto gotSubType;
+                        return true;
                     }
                 }
-
-                return false;
-                gotSubType:
-                ;
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -582,8 +578,9 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (_values != null)
             {
-                result.Append(", ");
-                result.Append(_values.Length == 1 ? "value='" : "values='");
+                result
+                    .Append(", ")
+                    .Append(_values.Length == 1 ? "value='" : "values='");
 
                 for (var i = 0; i < _values.Length; i++)
                 {
