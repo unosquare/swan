@@ -27,35 +27,41 @@
         {
             var endpoints = new List<IPEndPoint>();
 
-            Task.WaitAny(new Task(async () =>
+            Task[] tasks =
             {
-                using (var udp = new UdpClient(IPAddress.Broadcast.AddressFamily))
+                Task.Factory.StartNew(async () =>
                 {
-                    udp.EnableBroadcast = true;
-                    await udp.SendAsync(
-                        DiscoverMessage, 
-                        DiscoverMessage.Length,
-                        new IPEndPoint(IPAddress.Broadcast, 161));
-
-                    while (true)
+                    using (var udp = new UdpClient(IPAddress.Broadcast.AddressFamily))
                     {
-                        try
+                        udp.EnableBroadcast = true;
+                        await udp.SendAsync(
+                            DiscoverMessage,
+                            DiscoverMessage.Length,
+                            new IPEndPoint(IPAddress.Broadcast, 161));
+
+                        while (true)
                         {
-                            var buffer = new byte[udp.Client.ReceiveBufferSize];
-                            EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
-                            udp.Client.ReceiveFrom(buffer, ref remote);
-                            endpoints.Add(remote as IPEndPoint);
+                            try
+                            {
+                                var buffer = new byte[udp.Client.ReceiveBufferSize];
+                                EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
+                                udp.Client.ReceiveFrom(buffer, ref remote);
+                                endpoints.Add(remote as IPEndPoint);
+                            }
+                            catch
+                            {
+                                break;
+                            }
                         }
-                        catch
-                        {
-                            break;
-                        }
-                    }
 #if NET452
-                    udp.Close();
+                        udp.Close();
 #endif
-                }
-            }), Task.Delay(snmpTimeOut));
+                    }
+                }),
+                Task.Delay(snmpTimeOut)
+            };
+
+            Task.WaitAny(tasks);
 
             return endpoints.ToArray();
         }
