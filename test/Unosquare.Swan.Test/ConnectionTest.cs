@@ -19,7 +19,7 @@
         public byte[] message = Encoding.ASCII.GetBytes("Hello World!\r\n");
 
         [SetUp]
-        public async Task Setup()
+        public void Setup()
         {
             if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
                 Assert.Inconclusive("Can not test in AppVeyor");

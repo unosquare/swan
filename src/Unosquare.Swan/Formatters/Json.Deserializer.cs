@@ -18,18 +18,6 @@
         /// </summary>
         private class Deserializer
         {
-            /// <summary>
-            /// Defines the different JSOn read states
-            /// </summary>
-            private enum ReadState
-            {
-                WaitingForRootOpen,
-                WaitingForField,
-                WaitingForColon,
-                WaitingForValue,
-                WaitingForNextOrRootClose,
-            }
-
             #region State Variables
 
             private readonly object _result;
@@ -47,6 +35,7 @@
                 for (var i = startIndex; i < json.Length; i++)
                 {
                     #region Wait for { or [
+
                     if (_state == ReadState.WaitingForRootOpen)
                     {
                         if (char.IsWhiteSpace(json, i)) continue;
@@ -132,59 +121,59 @@
                         switch (json[i])
                         {
                             case StringQuotedChar: // expect a string
-                                {
-                                    // Update state variables
-                                    i = ExtractStringQuoted(json, i);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                            {
+                                // Update state variables
+                                i = ExtractStringQuoted(json, i);
+                                _currentFieldName = null;
+                                _state = ReadState.WaitingForNextOrRootClose;
+                                continue;
+                            }
 
                             case OpenObjectChar: // expect object
                             case OpenArrayChar: // expect array
-                                {
-                                    // Update state variables
-                                    i = ExtractObject(json, i);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                            {
+                                // Update state variables
+                                i = ExtractObject(json, i);
+                                _currentFieldName = null;
+                                _state = ReadState.WaitingForNextOrRootClose;
+                                continue;
+                            }
 
                             case 't': // expect true
-                                {
-                                    // Update state variables
-                                    i = ExtractTrueValue(json, i);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                            {
+                                // Update state variables
+                                i = ExtractTrueValue(json, i);
+                                _currentFieldName = null;
+                                _state = ReadState.WaitingForNextOrRootClose;
+                                continue;
+                            }
 
                             case 'f': // expect false
-                                {
-                                    // Update state variables
-                                    i = ExtractFalseValue(json, i);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                            {
+                                // Update state variables
+                                i = ExtractFalseValue(json, i);
+                                _currentFieldName = null;
+                                _state = ReadState.WaitingForNextOrRootClose;
+                                continue;
+                            }
 
                             case 'n': // expect null
-                                {
-                                    // Update state variables
-                                    i = ExtractNullValue(json, i);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                            {
+                                // Update state variables
+                                i = ExtractNullValue(json, i);
+                                _currentFieldName = null;
+                                _state = ReadState.WaitingForNextOrRootClose;
+                                continue;
+                            }
 
                             default: // expect number
-                                {
-                                    // Update state variables
-                                    i = ExtractNumber(json, i);
-                                    _currentFieldName = null;
-                                    _state = ReadState.WaitingForNextOrRootClose;
-                                    continue;
-                                }
+                            {
+                                // Update state variables
+                                i = ExtractNumber(json, i);
+                                _currentFieldName = null;
+                                _state = ReadState.WaitingForNextOrRootClose;
+                                continue;
+                            }
                         }
                     }
 
@@ -209,14 +198,16 @@
                         continue;
                     }
 
-                    if ((_resultObject != null && json[i] == CloseObjectChar) || (_resultArray != null && json[i] == CloseArrayChar))
+                    if ((_resultObject != null && json[i] == CloseObjectChar) ||
+                        (_resultArray != null && json[i] == CloseArrayChar))
                     {
                         _endIndex = i;
                         _result = _resultObject ?? _resultArray as object;
                         return;
                     }
 
-                    throw CreateParserException(json, i, _state, $"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
+                    throw CreateParserException(json, i, _state,
+                        $"'{FieldSeparatorChar}' '{CloseObjectChar}' or '{CloseArrayChar}'");
 
                     #endregion
                 }
@@ -233,10 +224,15 @@
                 return deserializer._result;
             }
 
-            private static FormatException CreateParserException(string json, int charIndex, ReadState state, string expected)
+            private static FormatException CreateParserException(
+                string json, 
+                int charIndex, 
+                ReadState state,
+                string expected)
             {
                 var textPosition = json.TextPositionAt(charIndex);
-                return new FormatException($"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {state}): Expected {expected} but got '{json[charIndex]}'.");
+                return new FormatException(
+                    $"Parser error (Line {textPosition.Item1}, Col {textPosition.Item2}, State {state}): Expected {expected} but got '{json[charIndex]}'.");
             }
 
             private static string Unescape(string str)
@@ -261,21 +257,21 @@
                     switch (str[i + 1])
                     {
                         case 'u':
+                        {
+                            var startIndex = i + 2;
+                            var endIndex = i + 5;
+                            if (endIndex > str.Length - 1)
                             {
-                                var startIndex = i + 2;
-                                var endIndex = i + 5;
-                                if (endIndex > str.Length - 1)
-                                {
-                                    builder.Append(str[i + 1]);
-                                    i += 1;
-                                    break;
-                                }
-
-                                var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
-                                builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
-                                i += 5;
+                                builder.Append(str[i + 1]);
+                                i += 1;
                                 break;
                             }
+
+                            var hexCode = str.Slice(startIndex, endIndex).ConvertHexadecimalToBytes();
+                            builder.Append(Encoding.BigEndianUnicode.GetChars(hexCode));
+                            i += 5;
+                            break;
+                        }
 
                         case 'b':
                             builder.Append('\b');
@@ -427,6 +423,18 @@
 
                 i += charCount + 1;
                 return i;
+            }
+
+            /// <summary>
+            /// Defines the different JSON read states
+            /// </summary>
+            private enum ReadState
+            {
+                WaitingForRootOpen,
+                WaitingForField,
+                WaitingForColon,
+                WaitingForValue,
+                WaitingForNextOrRootClose,
             }
         }
     }

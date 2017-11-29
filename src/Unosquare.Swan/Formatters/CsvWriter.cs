@@ -14,23 +14,15 @@
     /// </summary>
     public class CsvWriter : IDisposable
     {
-        #region Static Variables
-
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
-
-        #endregion
-
-        #region State Variables
-
+        
         private readonly object _syncLock = new object();
         private readonly Stream _outputStream;
         private readonly Encoding _encoding;
         private readonly bool _leaveStreamOpen;
         private bool _isDisposing;
         private ulong _mCount;
-
-        #endregion
-
+        
         #region Constructors
 
         /// <summary>
@@ -473,23 +465,22 @@
                 .Select(x => x.GetValueOrNull(item))
                 .ToArray();
 
-            WriteLine(values.ToArray());
+            WriteLine(values);
         }
 
         /// <summary>
         /// Writes the collection values.
         /// </summary>
         /// <param name="typedItem">The typed item.</param>
-        private void WriteCollectionValues(ICollection typedItem) => WriteLine(typedItem.Cast<object>().ToArray());
+        private void WriteCollectionValues(ICollection typedItem) 
+            => WriteLine(typedItem.Cast<object>().ToArray());
 
         /// <summary>
         /// Writes the dictionary values.
         /// </summary>
         /// <param name="typedItem">The typed item.</param>
         private void WriteDictionaryValues(IDictionary typedItem)
-        {
-            WriteLine(GetFilteredDictionaryValues(typedItem));
-        }
+            => WriteLine(GetFilteredDictionaryValues(typedItem));
 
         #region IDisposable Support
 
