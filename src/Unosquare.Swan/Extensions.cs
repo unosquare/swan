@@ -292,5 +292,29 @@
                 .Select(x => x.Name)
                 .ToArray();
         }
+
+        /// <summary>
+        /// Creates a target object using the defined type and source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="targetType">Type of the target.</param>
+        /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
+        /// <param name="target">The target.</param>
+        public static void CreateTarget(this object source, Type targetType, bool includeNonPublic, ref object target)
+        {
+            // When using arrays, there is no default constructor, attempt to build a compatible array
+            if (source is List<object> sourceObjectList && targetType.IsArray)
+            {
+                target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
+            }
+            else if (source is string && targetType == typeof(byte[]))
+            {
+                // do nothing. Simply skip creation
+            }
+            else
+            {
+                target = Activator.CreateInstance(targetType, includeNonPublic);
+            }
+        }
     }
 }
