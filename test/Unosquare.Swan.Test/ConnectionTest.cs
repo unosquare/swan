@@ -21,9 +21,6 @@
         [SetUp]
         public void Setup()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             connectionListener = new ConnectionListener(port);
             client = new TcpClient();
             ct = default(CancellationToken);           
@@ -32,9 +29,6 @@
         [TearDown]
         public void GlobalTeardown()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             connectionListener.Dispose();
             client.Dispose();
         }
@@ -137,7 +131,7 @@
             {
                 Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 {
-                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100), ct);
+                    await cn.ReadDataAsync(ct);
                 });
             }
         }
@@ -178,6 +172,20 @@
 
                 Assert.IsNotNull(response);
                 Assert.AreEqual(message, response);
+            }
+        }
+
+        [Test]
+        public async Task Connection_WriteDataAsync()
+        {
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+
+            using (var cn = new Connection(client, Encoding.ASCII, "\r\n", false, 0))
+            {
+                await cn.WriteDataAsync(message, false, ct);
+
+                // TODO: Check response
             }
         }
     }

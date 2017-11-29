@@ -261,12 +261,9 @@
                 if (Runtime.OS == Swan.OperatingSystem.Osx)
                     Assert.Ignore("OSX can't load LDAP.js");
                 
-                var cn = new LdapConnection();
-                await cn.Connect("127.0.0.1", 1089);
-                await cn.Bind("cn=root", "secret");
-                var properties = await cn.Read("cn=Simio, o=joyent");
-                var mail = properties.GetAttribute("email");
-                Assert.AreEqual(mail.StringValue, "gperez@unosquare.com");
+                var properties = await cn.Read("uid=einstein,dc=example,dc=com");
+                var mail = properties.GetAttribute("MAIL");
+                Assert.AreEqual(mail.StringValue, "einstein@ldap.forumsys.com");
                 cn.Dispose();
             }
         }
