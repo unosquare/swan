@@ -16,7 +16,10 @@
         {
             var content = new SimpleMessageMock(this);
 
-            Assert.Throws<ArgumentNullException>(() => new MessageHubGenericMessage<string>(null, content.Content));
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var result = new MessageHubGenericMessage<string>(null, content.Content);
+            });
         }
 
         [Test]

@@ -47,16 +47,6 @@
         protected string _basicAObjStr = "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
 
         protected string _advAStr = "{\"Id\": 1,\"Properties\": [" + BasicStr + "," + BasicStr + "]}";
-
-        protected readonly List<ExtendedPropertyInfo> _arrayOfObj = new List<ExtendedPropertyInfo>
-        {
-            new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerPort)),
-            new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerHostname))
-        };
-
-        protected string _arrayOfObjStr =
-                "[{\"Property\": \"WebServerPort\",\"DataType\": \"Int32\",\"Value\": null,\"DefaultValue\": 9898,\"Name\": \"Web Server Port\",\"Description\": \"The port on which the web server listens for requests\",\"GroupName\": \"Administration\"},{\"Property\": \"WebServerHostname\",\"DataType\": \"String\",\"Value\": null,\"DefaultValue\": \"localhost\",\"Name\": \"Web Server Host Name\",\"Description\": \"The hostname to which the web server binds, it can be localhost, a specific IP address or a '+' sign to bind to all IP addresses\",\"GroupName\": \"Administration\"}]"
-            ;
     }
 
     [TestFixture]
@@ -124,10 +114,14 @@
         [Test]
         public void ArrayOfObjects_ReturnsArrayOfObjectsSerialized()
         {
-            var data = Json.Serialize(_arrayOfObj);
+            var data = Json.Serialize(new List<BasicJson>
+            {
+                BasicJson.GetDefault(),
+                BasicJson.GetDefault()
+            });
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_arrayOfObjStr, data);
+            Assert.AreEqual("[" + BasicStr + "," + BasicStr + "]", data);
         }
 
         [Test]

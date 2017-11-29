@@ -146,7 +146,7 @@
         public void BasicVerbParsing_ReturnsTrue()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[] { "monitor", "-v" };
+            var arguments = new[] { "monitor", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
             Assert.AreEqual(expected, true);
@@ -156,7 +156,7 @@
         public void BasicVerbParsing_InstantiatesSelectedVerbOptionProperty()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[] { "monitor", "-v" };
+            var arguments = new[] { "monitor", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
             Assert.AreEqual(expected, true);
@@ -168,7 +168,7 @@
         public void NoValidVerbOptionSelected_ReturnsFalse()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[] { "option", "-v" };
+            var arguments = new[] { "option", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
             Assert.AreEqual(expected, false);
