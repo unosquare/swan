@@ -3819,21 +3819,6 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.CopyPropertiesToNew(Of T)(System.Object, System.String())
   nameWithType: Extensions.CopyPropertiesToNew<T>(Object, String[])
   nameWithType.vb: Extensions.CopyPropertiesToNew(Of T)(Object, String())
-- uid: Unosquare.Swan.Extensions.CreateTarget(System.Object,System.Type,System.Boolean,System.Object@)
-  name: CreateTarget(Object, Type, Boolean, ref Object)
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CreateTarget_System_Object_System_Type_System_Boolean_System_Object__
-  commentId: M:Unosquare.Swan.Extensions.CreateTarget(System.Object,System.Type,System.Boolean,System.Object@)
-  name.vb: CreateTarget(Object, Type, Boolean, ByRef Object)
-  fullName: Unosquare.Swan.Extensions.CreateTarget(System.Object, System.Type, System.Boolean, ref System.Object)
-  fullName.vb: Unosquare.Swan.Extensions.CreateTarget(System.Object, System.Type, System.Boolean, ByRef System.Object)
-  nameWithType: Extensions.CreateTarget(Object, Type, Boolean, ref Object)
-  nameWithType.vb: Extensions.CreateTarget(Object, Type, Boolean, ByRef Object)
-- uid: Unosquare.Swan.Extensions.CreateTarget*
-  name: CreateTarget
-  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_CreateTarget_
-  commentId: Overload:Unosquare.Swan.Extensions.CreateTarget
-  fullName: Unosquare.Swan.Extensions.CreateTarget
-  nameWithType: Extensions.CreateTarget
 - uid: Unosquare.Swan.Extensions.DeepClone*
   name: DeepClone
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DeepClone_
