@@ -233,12 +233,16 @@
                     if (!valueType.Type.IsValueType())
                     {
                         // Direct Copy
-                        if (targetProperty.PropertyType == valueType.Type)
+                        if (valueType.Value != null)
                         {
                             targetProperty.SetValue(target, GetValue(valueType.Value, targetProperty.PropertyType));
-
+                            copiedProperties++;
                             continue;
                         }
+
+                        targetProperty.SetValue(target, null);
+                        copiedProperties++;
+                        continue;
                     }
 
                     // String to target type conversion
