@@ -264,7 +264,11 @@
 
             source.CreateTarget(targetType, false, ref target);
 
-            if (source is IList sourceList)
+            if (source is string)
+            {
+                target = source;
+            }
+            else if (source is IList sourceList)
             {
                 var targetArray = target as Array;
                 var targetList = target as IList;

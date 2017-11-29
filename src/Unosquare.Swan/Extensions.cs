@@ -3,6 +3,7 @@
     using Attributes;
     using Reflection;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -25,7 +26,9 @@
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             var copyable = GetCopyableProperties(target);
-            return copyable.Any() ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target, null);
+            return copyable.Any()
+                ? CopyOnlyPropertiesTo(source, target, copyable)
+                : CopyPropertiesTo(source, target, null);
         }
 
         /// <summary>
@@ -141,7 +144,8 @@
         /// <param name="target">The target.</param>
         /// <param name="ignoreKeys">The ignore keys.</param>
         /// <returns>Number of properties that was copied successful</returns>
-        public static int CopyKeyValuePairTo(this IDictionary<string, object> source, object target, string[] ignoreKeys = null)
+        public static int CopyKeyValuePairTo(this IDictionary<string, object> source, object target,
+            string[] ignoreKeys = null)
         {
             return Components.ObjectMapper.Copy(source, target, null, ignoreKeys);
         }
@@ -221,7 +225,7 @@
         {
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
-            
+
             if (retryInterval == default(TimeSpan))
                 retryInterval = TimeSpan.FromSeconds(1);
 
@@ -293,23 +297,20 @@
                 .ToArray();
         }
 
-        /// <summary>
-        /// Creates a target object using the defined type and source.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="targetType">Type of the target.</param>
-        /// <param name="includeNonPublic">if set to <c>true</c> [include non public].</param>
-        /// <param name="target">The target.</param>
-        public static void CreateTarget(this object source, Type targetType, bool includeNonPublic, ref object target)
+        internal static void CreateTarget(
+            this object source, 
+            Type targetType, 
+            bool includeNonPublic, 
+            ref object target)
         {
             // When using arrays, there is no default constructor, attempt to build a compatible array
-            if (source is List<object> sourceObjectList && targetType.IsArray)
-            {
-                target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
-            }
-            else if (source is string && targetType == typeof(byte[]))
+            if (source is string)
             {
                 // do nothing. Simply skip creation
+            }
+            else if (source is IList sourceObjectList && targetType.IsArray)
+            {
+                target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
             }
             else
             {

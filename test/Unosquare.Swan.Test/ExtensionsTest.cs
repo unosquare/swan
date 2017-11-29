@@ -290,7 +290,7 @@
     }
 
     [TestFixture]
-    public class CopyOnlyPropertiesToNew
+    public class CopyOnlyPropertiesToNew : TestFixtureBase
     {
         [Test]
         public void WithValidParams_CopyOnlyPropertiesToNewObject()
@@ -303,10 +303,8 @@
         [Test]
         public void WithNullSource_ThrowsArgumentNullException()
         {
-            ObjectAttr source = null;
-
             Assert.Throws<ArgumentNullException>(() =>
-                source.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)}));
+                NullObj.CopyOnlyPropertiesToNew<ObjectAttr>(new[] {nameof(ObjectAttr.Name)}));
         }
 
         [Test]
@@ -325,14 +323,46 @@
     }
 
     [TestFixture]
-    public class ExceptionMessage
+    public class ExceptionMessage : TestFixtureBase
     {
         [Test]
         public void WithNullException_ThrowsArgumentNullException()
         {
-            Exception ex = null;
+            Assert.Throws<ArgumentNullException>(() => NullException.ExceptionMessage());
+        }
 
-            Assert.Throws<ArgumentNullException>(() => ex.ExceptionMessage());
+        [Test]
+        public void ExceptionMessageTest()
+        {
+            try
+            {
+                throw new Exception("Random message");
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.ExceptionMessage();
+                Assert.IsNotNull(msg);
+                Assert.AreEqual(msg, ex.Message);
+            }
+        }
+
+        [Test]
+        public void InnerExceptionTest()
+        {
+            string[] splits = {"\r\n"};
+            var exceptions = new List<Exception>
+            {
+                new TimeoutException("It timed out", new ArgumentException("ID missing")),
+                new NotImplementedException("Somethings not implemented", new ArgumentNullException())
+            };
+
+            var ex = new AggregateException(exceptions);
+
+            var msg = ex.ExceptionMessage();
+            Assert.IsNotNull(msg);
+
+            var lines = msg.Split(splits, StringSplitOptions.None);
+            Assert.AreEqual(lines.Length - 1, ex.InnerExceptions.Count);
         }
     }
 }

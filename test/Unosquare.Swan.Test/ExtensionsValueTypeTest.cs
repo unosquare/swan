@@ -2,13 +2,7 @@
 {
     using NUnit.Framework;
     using System;
-
-    [TestFixture]
-    public class ExtensionsValueTypeTest
-    {
-        protected byte[] NullByteArray = null;
-    }
-
+    
     [TestFixture]
     public class Clamp
     {
@@ -39,7 +33,7 @@
     }
 
     [TestFixture]
-    public class ToStruct : ExtensionsValueTypeTest
+    public class ToStruct : TestFixtureBase
     {
         [Test]
         public void WithArrayOfBytes_ReturnsStruct()
