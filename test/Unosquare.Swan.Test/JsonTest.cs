@@ -87,11 +87,12 @@
         [Test]
         public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
         {
-            var reference = new List<WeakReference> {new WeakReference(DefaultStringList)};
+            var instance = BasicJson.GetDefault();
+            var reference = new List<WeakReference> {new WeakReference(instance)};
 
-            var data = Json.Serialize(DefaultStringList, false, null, false, null, null, reference);
+            var data = Json.Serialize(instance, false, null, false, null, null, reference);
 
-            Assert.AreEqual("{ \"$circref\":", data.Substring(0, 13));
+            Assert.IsTrue(data.StartsWith("{ \"$circref\":"));
         }
 
         [Test]
