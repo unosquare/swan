@@ -7,15 +7,39 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-
+    
     [TestFixture]
-    public class SmtpClientntTest
+    public class SendMailAsync
     {
         private const string SenderEmail = "test@test.com";
         private const string RecipientEmail = "me@test.com";
         private const string EmailFile = "tempFile.msg";
+
+        [Test]
+        public void NullState_ThrowsArgumentException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                var client = new SmtpClient("smtp.gmail.com", 587);
+
+                await client.SendMailAsync((SmtpSessionState) null);
+            });
+        }
+
+        [Test]
+        public void NullStateEnumeration_ThrowsArgumentException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                var client = new SmtpClient("smtp.gmail.com", 587);
+                IEnumerable<SmtpSessionState> sessions = null;
+
+                await client.SendMailAsync(sessions);
+            });
+        }
 
         [Test]
         public void TestConnectGmailSmtpException()
