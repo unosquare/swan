@@ -11,6 +11,7 @@ matrix:
     - os: osx
       osx_image: xcode9.1
 install:
+  - pip install 'requests[security]'
   - pip install snmpsim
   - npm install maildev
   - npm install ldapjs
