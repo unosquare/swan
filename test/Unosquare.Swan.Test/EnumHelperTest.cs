@@ -13,9 +13,9 @@
         {
             var items = EnumHelper.GetItemsWithIndex<MyEnum>();
 
-            Assert.AreEqual(items[0].ToString(), "(0, One)");
-            Assert.AreEqual(items[1].ToString(), "(1, Two)");
-            Assert.AreEqual(items[2].ToString(), "(2, Three)");
+            Assert.AreEqual("(0, One)", items[0].ToString());
+            Assert.AreEqual("(1, Two)", items[1].ToString());
+            Assert.AreEqual("(2, Three)", items[2].ToString());
         }
 
         [Test]
@@ -33,9 +33,9 @@
         {
             var items = EnumHelper.GetItemsWithValue<MyEnum>();
 
-            Assert.AreEqual(items[0].ToString(), "(0, One)");
-            Assert.AreEqual(items[1].ToString(), "(1, Two)");
-            Assert.AreEqual(items[2].ToString(), "(2, Three)");
+            Assert.AreEqual("(1, One)", items[0].ToString());
+            Assert.AreEqual("(2, Two)", items[1].ToString());
+            Assert.AreEqual("(3, Three)", items[2].ToString());
         }
 
         [Test]

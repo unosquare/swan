@@ -29,10 +29,12 @@
             {
                 if (Cache.ContainsKey(typeof(T)) == false)
                 {
-                    Cache.Add(typeof(T), Enum.GetNames(typeof(T))
-                        .Select(x => new Tuple<int, string>((int)Enum.Parse(typeof(T), x), humanize ? x.Humanize() : x))
-                        .ToArray());
+                    Cache.Add(typeof(T), null);
                 }
+
+                Cache[typeof(T)] = Enum.GetNames(typeof(T))
+                        .Select(x => new Tuple<int, string>((int)Enum.Parse(typeof(T), x), humanize ? x.Humanize() : x))
+                        .ToArray();
 
                 return Cache[typeof(T)];
             }
@@ -52,12 +54,14 @@
             {
                 if (Cache.ContainsKey(typeof(T)) == false)
                 {
-                    var i = 0;
-
-                    Cache.Add(typeof(T), Enum.GetNames(typeof(T))
-                        .Select(x => new Tuple<int, string>(i++, humanize ? x.Humanize() : x))
-                        .ToArray());
+                    Cache.Add(typeof(T), null);
                 }
+
+                var i = 0;
+
+                Cache[typeof(T)] = Enum.GetNames(typeof(T))
+                        .Select(x => new Tuple<int, string>(i++, humanize ? x.Humanize() : x))
+                        .ToArray();
 
                 return Cache[typeof(T)];
             }
