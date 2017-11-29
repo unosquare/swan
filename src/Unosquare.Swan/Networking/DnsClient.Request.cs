@@ -51,17 +51,11 @@
 
             public int Size => _request.Size;
 
-            public byte[] ToArray()
-            {
-                return _request.ToArray();
-            }
-
-            public override string ToString()
-            {
-                return _request.ToString();
-            }
-
             public IPEndPoint Dns { get; set; }
+
+            public byte[] ToArray() => _request.ToArray();
+
+            public override string ToString() => _request.ToString();
 
             /// <summary>
             /// Resolves this request into a response using the provided DNS information. The given
@@ -265,12 +259,14 @@
                     udp.Client.Send(request.ToArray());
 
                     var bufferList = new List<byte>();
+
                     do
                     {
                         var tempBuffer = new byte[1024];
                         var receiveCount = udp.Client.Receive(tempBuffer);
                         bufferList.AddRange(tempBuffer.Skip(0).Take(receiveCount));
-                    } while (udp.Client.Available > 0 || bufferList.Count == 0);
+                    }
+                    while (udp.Client.Available > 0 || bufferList.Count == 0);
 
                     var buffer = bufferList.ToArray();
                     var response = DnsResponse.FromArray(buffer);

@@ -17,46 +17,19 @@
     /// <seealso cref="System.IDisposable" />
     public class CsvReader : IDisposable
     {
+        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
+
         private readonly object _syncLock = new object();
-
-        #region Static Declarations
-
-        private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();        
-
-        #endregion
-
-        #region Property Backing
-
+        
         private ulong _count;
         private char _escapeCharacter = '"';
         private char _separatorCharacter = ',';
-
-        #endregion
-
-        #region State Variables
         
         private bool _hasDisposed; // To detect redundant calls
         private string[] _headings;
         private Dictionary<string, string> _defaultMap;
         private StreamReader _reader;
-
-        #endregion
-
-        #region Enumerations
-
-        /// <summary>
-        /// Defines the 3 different read states
-        /// for the parsing state machine
-        /// </summary>
-        private enum ReadState
-        {
-            WaitingForNewField,
-            PushingNormal,
-            PushingQuoted,
-        }
-
-        #endregion
-
+        
         #region Constructors
 
         /// <summary>
@@ -629,6 +602,16 @@
         }
 
         #endregion
-
+        
+        /// <summary>
+        /// Defines the 3 different read states
+        /// for the parsing state machine
+        /// </summary>
+        private enum ReadState
+        {
+            WaitingForNewField,
+            PushingNormal,
+            PushingQuoted,
+        }
     }
 }

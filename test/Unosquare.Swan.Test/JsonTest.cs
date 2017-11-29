@@ -26,9 +26,8 @@
 
         protected string AdvStr =
             "{\"InnerChild\": " + BasicStr + "," + BasicJson.GetControlValue() + "}";
-
-        protected readonly string[] BasicArray = {"One", "Two", "Three"};
-        protected string BasicAStr = "[\"One\",\"Two\",\"Three\"]";
+        
+        protected string BasicAStr = "[\"A\",\"B\",\"C\"]";
 
         protected readonly int[] _numericArray = {1, 2, 3};
         protected string _numericAStr = "[1,2,3]";
@@ -88,7 +87,7 @@
         [Test]
         public void StringArray_ReturnsArraySerialized()
         {
-            var data = Json.Serialize(BasicArray);
+            var data = Json.Serialize(DefaultStringList);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(BasicAStr, data);
@@ -97,9 +96,9 @@
         [Test]
         public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
         {
-            var reference = new List<WeakReference> { new WeakReference(BasicArray)};
+            var reference = new List<WeakReference> { new WeakReference(DefaultStringList) };
 
-            var data = Json.Serialize(BasicArray, false, null, false, null, null, reference);
+            var data = Json.Serialize(DefaultStringList, false, null, false, null, null, reference);
             
             Assert.AreEqual("{ \"$circref\":", data.Substring(0, 13));
         }
@@ -248,7 +247,7 @@
             var arr = Json.Deserialize<List<string>>(BasicAStr);
 
             Assert.IsNotNull(arr);
-            Assert.AreEqual(string.Join(",", BasicArray), string.Join(",", arr));
+            Assert.AreEqual(string.Join(",", DefaultStringList), string.Join(",", arr));
         }
 
         [Test]
