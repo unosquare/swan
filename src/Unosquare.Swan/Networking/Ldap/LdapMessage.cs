@@ -2,6 +2,7 @@
 namespace Unosquare.Swan.Networking.Ldap
 {
     using System;
+    using System.Reflection;
 
     /// <summary>
     /// The base class for Ldap request and response messages.

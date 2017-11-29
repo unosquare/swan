@@ -6,63 +6,69 @@
     using System.Threading.Tasks;
     using NUnit.Framework;
     using Networking;
+    using System.Linq;
+    using System.Threading;
+    using System.Net;
+
+    public abstract class ConnectionTest
+    {
+        public ConnectionListener connectionListener;
+        public TcpClient client;
+        public readonly int port = 12345;
+
+        [SetUp]
+        public async Task Setup()
+        {
+            connectionListener = new ConnectionListener(port);
+            client = new TcpClient();
+                
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", port);
+        }
+
+        [TearDown]
+        public void GlobalTeardown()
+        {
+            connectionListener.Stop();
+            client.Close();
+        }
+    }
 
     [TestFixture]
-    public class ConnectionTest
+    public class ConnectionsTests : ConnectionTest
     {
-        [TestCase(13245)]
-        public async Task ConnectionOpenTest(int port)
+        [Test]
+        public void Connection_Test()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
-            using (var connectionListener = new ConnectionListener(port))
+            using (var cn = new Connection(client))
             {
-                using (var client = new TcpClient())
-                {
-                    connectionListener.Start();
-
-                    await client.ConnectAsync("localhost", port);
-                    await Task.Delay(400);
-
-                    using (var connection = new Connection(client))
-                    {
-                        Assert.IsTrue(connectionListener.IsListening);
-                        Assert.IsTrue(connection.IsConnected);
-                    }
-                }
+                Assert.IsTrue(cn.IsConnected);
             }
         }
 
-        [TestCase(13246)]
-        public async Task ConnectionWriteTest(int port)
+        [Test]
+        public void Connection_LocalAddress()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
-            var message = Encoding.ASCII.GetBytes("HOLA");
-
-            using (var connectionListener = new ConnectionListener(port))
+            using (var cn = new Connection(client))
             {
-                using (var client = new TcpClient())
-                {
-                    connectionListener.Start();
-                    connectionListener.OnConnectionAccepting += (s, e) =>
-                    {
-                        e.Client?.GetStream().Write(message, 0, message.Length);
-                    };
+                Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
+            }
+        }
+    }
 
-                    await client.ConnectAsync("localhost", port);
-                    await Task.Delay(500);
+    [TestFixture]
+    public class ReadTest : ConnectionTest
+    {
+        private CancellationToken ct = new CancellationToken();
 
-                    using (var connection = new Connection(client, Encoding.ASCII, "\r\n", true, 0))
-                    {
-                        var response = await connection.ReadTextAsync();
+        [Test]
+        public async Task Read_DataAsync()
+        {
+            var byteArray = Enumerable.Repeat<byte>(0x20, 100).ToArray();
 
-                        Assert.IsNotNull(response);
-                        Assert.AreEqual("HOLA", response);
-                    }
-                }
+            using (var cn = new Connection(client))
+            {
+                // TODO: Read tests
             }
         }
     }
