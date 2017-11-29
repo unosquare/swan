@@ -7188,18 +7188,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   nameWithType: LdapMessage.Controls
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  name: MessageID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  nameWithType: LdapMessage.MessageID
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID*
-  name: MessageID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  nameWithType: LdapMessage.MessageID
+- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  name: MessageId
+  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId
+  commentId: P:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  nameWithType: LdapMessage.MessageId
+- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId*
+  name: MessageId
+  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  nameWithType: LdapMessage.MessageId
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Request
   name: Request
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request
