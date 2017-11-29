@@ -7,11 +7,12 @@
     using System.Threading.Tasks;
     using Mocks;
 
-    public abstract class ExtensionsByteArraysTest
+    public abstract class ExtensionsByteArraysTest : TestFixtureBase
     {
         protected const int Value = 123456789;
         protected readonly byte[] Bytes = BitConverter.GetBytes(Value);
         protected readonly byte[] NullBytes = null;
+        protected readonly MemoryStream NullMemoryStream = null;
     }
 
     [TestFixture]
@@ -191,8 +192,7 @@
         public void WithNullBytes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.TrimStart(21)
-            );
+                NullBytes.TrimStart(21));
         }
     }
 
@@ -305,12 +305,8 @@
         [Test]
         public void WithNullStream_ThrowsArgumentNullException()
         {
-            using (MemoryStream stream = null)
-            {
-                Assert.Throws<ArgumentNullException>(() =>
-                    stream.Append(NullBytes)
-                );
-            }
+            Assert.Throws<ArgumentNullException>(() =>
+                NullMemoryStream.Append(NullBytes));
         }
 
         [Test]
@@ -350,7 +346,7 @@
     }
 
     [TestFixture]
-    public class ReadBytesAsync
+    public class ReadBytesAsync : ExtensionsByteArraysTest
     {
         [Test]
         public async Task WithoutBufferSize_ReturnsArray()
@@ -418,19 +414,15 @@
         [Test]
         public void WithNullStreamAndBufferLength_ThrowsArgumentNullException()
         {
-            FileStream currentAssembly = null;
-
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                await currentAssembly.ReadBytesAsync(23, 256));
+                await NullMemoryStream.ReadBytesAsync(23, 256));
         }
 
         [Test]
         public void WithNullStream_ThrowsArgumentNullException()
         {
-            FileStream currentAssembly = null;
-
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                await currentAssembly.ReadBytesAsync(23));
+                await NullMemoryStream.ReadBytesAsync(23));
         }
     }
 
@@ -461,10 +453,8 @@
         [Test]
         public void WithNullHex_ThrowsArgumentNullException()
         {
-            const string hex = null;
-
             Assert.Throws<ArgumentNullException>(() =>
-                hex.ConvertHexadecimalToBytes());
+                NullString.ConvertHexadecimalToBytes());
         }
     }
 
@@ -520,16 +510,15 @@
     }
 
     [TestFixture]
-    public class ReadInput
+    public class ReadInput : ExtensionsByteArraysTest
     {
         [Test]
         public void WithNullStream_ThrowsArgumentNullException()
         {
-            FileStream stream = null;
             var lber = new sbyte[23];
 
             Assert.Throws<ArgumentNullException>(() =>
-                stream.ReadInput(ref lber, 0, lber.Length));
+                NullMemoryStream.ReadInput(ref lber, 0, lber.Length));
         }
 
         [Test]

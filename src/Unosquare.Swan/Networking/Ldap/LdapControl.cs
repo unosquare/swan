@@ -521,17 +521,17 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             // Determine the URL scheme and set appropriate default port
-            if (url.Substring(scanStart, scanStart + 4 - scanStart).ToUpper().Equals("URL:".ToUpper()))
+            if (url.ToUpper().StartsWith("URL:".ToUpper()))
             {
                 scanStart += 4;
             }
 
-            if (url.Substring(scanStart, scanStart + 7 - scanStart).ToUpper().Equals("ldap://".ToUpper()))
+            if (url.ToUpper().StartsWith("ldap://".ToUpper()))
             {
                 scanStart += 7;
                 _port = LdapConnection.DefaultPort;
             }
-            else if (url.Substring(scanStart, scanStart + 8 - scanStart).ToUpper().Equals("ldaps://".ToUpper()))
+            else if (url.ToUpper().StartsWith("ldaps://".ToUpper()))
             {
                 Secure = true;
                 scanStart += 8;
@@ -639,11 +639,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 ? url.Substring(scanStart, scanEnd - scanStart)
                 : url.Substring(scanStart, filterStart - scanStart);
 
-            if (scopeStr.ToUpper().Equals(string.Empty.ToUpper()))
-            {
-                Scope = LdapConnection.ScopeBase;
-            }
-            else if (scopeStr.ToUpper().Equals("base".ToUpper()))
+            if (scopeStr.ToUpper().Equals(string.Empty.ToUpper()) || scopeStr.ToUpper().Equals("base".ToUpper()))
             {
                 Scope = LdapConnection.ScopeBase;
             }

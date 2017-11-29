@@ -55,8 +55,8 @@
             var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
             Assert.IsNotNull(smtpMock);
 
-            Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
-            Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
+            Assert.AreEqual(SenderEmail, smtpMock.Envelope.From.Address);
+            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.To.First().Address);
 
             Assert.AreEqual("hh", smtpMock.Headers.First().Key);
         }
