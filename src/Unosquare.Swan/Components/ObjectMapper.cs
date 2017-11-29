@@ -231,9 +231,27 @@
                             continue;
                         }
 
-                        targetProperty.SetValue(target, valueType.Value);
-                        copiedProperties++;
-                        continue;
+                        if (!targetProperty.PropertyType.IsValueType())
+                        {
+                            var arc = sourceProperty.Value.Value.GetType().Name;
+                            var arc2 = new TypeValuePair(sourceProperty.Value.Value.GetType(), sourceProperty.Value.Value);
+                            
+                            var dictionary = new Dictionary<string, TypeValuePair>() { { arc, arc2 } };
+
+                            Type typeSource = target.GetType();
+                            object objTarget = Activator.CreateInstance(typeSource);
+
+                            targetProperty.SetValue(target, Copy(objTarget, propertiesToCopy, ignoreProperties, dictionary), null);
+
+                            continue;
+                        }
+                        else
+                        {
+                            targetProperty.SetValue(target, valueType.Value);
+                            copiedProperties++;
+
+                            continue;
+                        }
                     }
 
                     // String to target type conversion
