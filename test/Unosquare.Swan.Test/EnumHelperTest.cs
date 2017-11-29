@@ -9,7 +9,7 @@
     public class GetItemsWithIndex
     {
         [Test]
-        public void WithValidEnum_ReturnsTuple()
+        public void WithValidIndexEnum_ReturnsTuple()
         {
             var items = EnumHelper.GetItemsWithIndex<MyEnum>();
 
@@ -29,13 +29,13 @@
     public class GetItemsWithValue
     {
         [Test]
-        public void WithValidEnum_ReturnsTuple()
+        public void WithValidValueEnum_ReturnsTuple()
         {
             var items = EnumHelper.GetItemsWithValue<MyEnum>();
 
-            Assert.AreEqual(items[0].ToString(), "(1, One)");
-            Assert.AreEqual(items[1].ToString(), "(2, Two)");
-            Assert.AreEqual(items[2].ToString(), "(3, Three)");
+            Assert.AreEqual(items[0].ToString(), "(0, One)");
+            Assert.AreEqual(items[1].ToString(), "(1, Two)");
+            Assert.AreEqual(items[2].ToString(), "(2, Three)");
         }
 
         [Test]

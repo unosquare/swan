@@ -160,7 +160,7 @@
 
             Assert.AreEqual("Tyrande         : object", objectInfoLines[0]);
             Assert.AreEqual("Jaina           : object", objectInfoLines[6]);
-            Assert.AreEqual("Liadrin         : object", objectInfoLines[8]);
+            Assert.AreEqual("Liadrin         : object", objectInfoLines[12]);
         }
     }
 

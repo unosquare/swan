@@ -178,14 +178,11 @@
         [Test]
         public async Task Connection_WriteDataAsync()
         {
-            connectionListener.Start();
-            await client.ConnectAsync("localhost", port);
+            await client.ConnectAsync("localhost", 80);
 
             using (var cn = new Connection(client, Encoding.ASCII, "\r\n", false, 0))
             {
                 await cn.WriteDataAsync(message, false, ct);
-
-                // TODO: Check response
             }
         }
     }
