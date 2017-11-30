@@ -9,7 +9,9 @@
     /// </summary>
     public static class EnumHelper
     {
-        private static readonly Dictionary<Type, Tuple<int, string>[]> Cache =
+        private static readonly Dictionary<Type, Tuple<int, string>[]> ValueCache =
+            new Dictionary<Type, Tuple<int, string>[]>();
+        private static readonly Dictionary<Type, Tuple<int, string>[]> IndexCache =
             new Dictionary<Type, Tuple<int, string>[]>();
 
         private static readonly object LockObject = new object();
@@ -28,21 +30,15 @@
             lock (LockObject)
             {
                 var tupleName = typeof(T);
-                var tuple = Enum.GetNames(tupleName)
-                       .Select(x => new Tuple<int, string>((int)Enum.Parse(tupleName, x), humanize ? x.Humanize() : x))
-                       .ToArray();
 
-                if (Cache.ContainsKey(tupleName) == false)
+                if (ValueCache.ContainsKey(tupleName) == false)
                 {
-                    Cache.Add(tupleName, tuple);
+                    ValueCache.Add(tupleName, Enum.GetNames(tupleName)
+                    .Select(x => new Tuple<int, string>((int)Enum.Parse(tupleName, x), humanize ? x.Humanize() : x))
+                    .ToArray());
                 }
 
-                if (Cache.GetValueOrDefault(tupleName) != tuple)
-                {
-                    Cache[tupleName] = tuple;
-                }
-
-                return Cache[tupleName];
+                return ValueCache[tupleName];
             }
         }
 
@@ -58,23 +54,18 @@
         {
             lock (LockObject)
             {
-                var i = 0;
                 var tupleName = typeof(T);
-                var tuple = Enum.GetNames(tupleName)
+
+                if (IndexCache.ContainsKey(tupleName) == false)
+                {
+                    var i = 0;
+
+                    IndexCache.Add(tupleName, Enum.GetNames(tupleName)
                         .Select(x => new Tuple<int, string>(i++, humanize ? x.Humanize() : x))
-                        .ToArray();
-
-                if (Cache.ContainsKey(tupleName) == false)
-                {
-                    Cache.Add(tupleName, tuple);
+                        .ToArray());
                 }
 
-                if (Cache.GetValueOrDefault(tupleName) != tuple)
-                {
-                    Cache[tupleName] = tuple;
-                }
-
-                return Cache[tupleName];
+                return IndexCache[tupleName];
             }
         }
     }
