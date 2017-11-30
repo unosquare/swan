@@ -66,15 +66,27 @@
                 throw new ArgumentNullException(nameof(instance));
 
             var properties = GetTypeProperties(typeof(T)).ToArray();
+
+            if (properties.Any() == false)
+                throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
+
             var verbName = string.Empty;
 
             if (properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
             {
-                var selectedVerb = properties.FirstOrDefault(x =>
-                    x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.ToArray()[0]));
+                var selectedVerb = !args.Any()
+                    ? null
+                    : properties.FirstOrDefault(x =>
+                        x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.First()));
+
                 if (selectedVerb == null)
                 {
-                    "No verb was specified".WriteLine();
+                    var validVerbs = string.Join(", ",
+                        properties.Select(x => x.GetCustomAttribute<VerbOptionAttribute>()).Where(x => x != null)
+                            .Select(x => x.Name + " " + x.HelpText));
+
+                    "No verb was specified".WriteLine(ConsoleColor.Red);
+                    $"Valid verbs: {validVerbs}".WriteLine(ConsoleColor.Red);
                     return false;
                 }
 
@@ -87,9 +99,6 @@
 
                 properties = GetTypeProperties(selectedVerb.PropertyType).ToArray();
             }
-
-            if (properties.Any() == false)
-                throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
 
             var unknownList = new List<string>();
             var requiredList = new List<string>();

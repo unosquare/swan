@@ -143,13 +143,23 @@
     public class ParseVerbs : TestFixtureBase
     {
         [Test]
+        public void EmptyArray_ReturnsFalse()
+        {
+            var verbOptions = new CliVerbs();
+            var arguments = new string[0];
+            var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
+
+            Assert.IsFalse(expected);
+        }
+
+        [Test]
         public void BasicVerbParsing_ReturnsTrue()
         {
             var verbOptions = new CliVerbs();
             var arguments = new[] { "monitor", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
-            Assert.AreEqual(expected, true);
+            Assert.IsTrue(expected);
         }
 
         [Test]
@@ -159,7 +169,7 @@
             var arguments = new[] { "monitor", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
-            Assert.AreEqual(expected, true);
+            Assert.IsTrue(expected);
             Assert.IsNotNull(verbOptions.MonitorVerboptions);
             Assert.IsNull(verbOptions.PushVerbOptions);
         }
@@ -171,7 +181,7 @@
             var arguments = new[] { "option", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
-            Assert.AreEqual(expected, false);
+            Assert.IsFalse(expected);
             Assert.IsNull(verbOptions.MonitorVerboptions);
             Assert.IsNull(verbOptions.PushVerbOptions);
         }
