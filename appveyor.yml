@@ -31,7 +31,6 @@ before_build:
 - npm install maildev
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
-- netstat -ab
 - node LdapClient.js
 - appveyor-retry dotnet restore -v Minimal
 - mkdir tools
