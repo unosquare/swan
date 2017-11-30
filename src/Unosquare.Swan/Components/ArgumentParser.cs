@@ -81,12 +81,13 @@
 
                 if (selectedVerb == null)
                 {
-                    var validVerbs = string.Join(", ",
-                        properties.Select(x => x.GetCustomAttribute<VerbOptionAttribute>()).Where(x => x != null)
-                            .Select(x => x.Name + " " + x.HelpText));
-
                     "No verb was specified".WriteLine(ConsoleColor.Red);
-                    $"Valid verbs: {validVerbs}".WriteLine(ConsoleColor.Red);
+                    "Valid verbs:".WriteLine(ConsoleColor.Cyan);
+                    properties.Select(x => x.GetCustomAttribute<VerbOptionAttribute>()).Where(x => x != null)
+                        .Select(x => $"  {x.Name}\t\t{x.HelpText}")
+                        .ToList()
+                        .ForEach(x => x.WriteLine(ConsoleColor.Cyan));
+
                     return false;
                 }
 
