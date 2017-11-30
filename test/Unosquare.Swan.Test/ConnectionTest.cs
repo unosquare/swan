@@ -213,7 +213,18 @@
         [Test]
         public async Task WriteDataAsync_MessageEqualsResponse()
         {
-            // TODO: Write Data
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            using (var connection = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var otherMessage = Encoding.ASCII.GetBytes("Other Message!\r\n");
+                await connection.WriteLineAsync(Encoding.ASCII.GetString(otherMessage), ct);
+
+                var response = await connection.ReadDataAsync(TimeSpan.FromSeconds(5),ct);
+
+                Assert.IsNotNull(response);
+            }
         }
     }
 }
