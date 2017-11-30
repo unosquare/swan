@@ -41,7 +41,7 @@
     public class ConnectionsTests : ConnectionTest
     {
         [Test]
-        public async Task Connection_OpenTest()
+        public async Task OpenConnection_Connected()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -54,7 +54,7 @@
         }
 
         [Test]
-        public async Task Connection_LocalAddress()
+        public async Task OpenConnection_LocalAddress()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -67,10 +67,10 @@
     }
 
     [TestFixture]
-    public class ReadTest : ConnectionTest
+    public class ReadTextAsyncTest : ConnectionTest
     {
         [Test]
-        public async Task Read_TextAsync()
+        public async Task ReadTextAsync_MessageEqualsResponse()
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
@@ -88,9 +88,13 @@
                 Assert.AreEqual(Message, response);
             }
         }
+    }
 
+    [TestFixture]
+    public class ReadLineAsyncTest : ConnectionTest
+    {
         [Test]
-        public async Task Read_LineAsync()
+        public async Task ReadLineAsync_MessageEqualsResponse()
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
@@ -110,22 +114,46 @@
         }
 
         [Test]
-        public async Task Read_LineAsync_ThrowsInvalidOperationException()
+        public async Task ReadLineAsync_ThrowsInvalidOperationException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
 
             using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", false, 0))
             {
-                Assert.ThrowsAsync<InvalidOperationException>(async () => 
+                Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 {
                     await cn.ReadLineAsync(ct);
                 });
             }
         }
+    }
+
+    [TestFixture]
+    public class ReadDataAsyncTest : ConnectionTest
+    {
+        [Test]
+        public async Task ReadDataAsync_MessageEqualsResponse()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(Message, 0, Message.Length);
+            };
+
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadDataAsync(ct);
+
+                Assert.IsNotNull(response);
+                Assert.AreEqual(Message, response);
+            }
+        }
 
         [Test]
-        public async Task Read_DataAsync_ThrowsInvalidOperationException()
+        public async Task ReadDataAsync_ThrowsInvalidOperationException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -134,13 +162,13 @@
             {
                 Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 {
-                    await cn.ReadDataAsync(ct);
+                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100),ct);
                 });
             }
         }
 
         [Test]
-        public async Task Read_DataAsync_ThrowsTimeOutException()
+        public async Task ReadDataAsync_ThrowsTimeOutException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -177,9 +205,13 @@
                 Assert.AreEqual(Message, response);
             }
         }
+    }
 
+    [TestFixture]
+    public class WriteDataAsyncTest : ConnectionTest
+    {
         [Test]
-        public async Task Connection_WriteDataAsync()
+        public async Task WriteDataAsync_MessageEqualsResponse()
         {
             // TODO: Write Data
         }

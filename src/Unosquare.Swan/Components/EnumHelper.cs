@@ -34,8 +34,8 @@
                 if (ValueCache.ContainsKey(tupleName) == false)
                 {
                     ValueCache.Add(tupleName, Enum.GetNames(tupleName)
-                    .Select(x => new Tuple<int, string>((int)Enum.Parse(tupleName, x), humanize ? x.Humanize() : x))
-                    .ToArray());
+                        .Select(x => new Tuple<int, string>((int)Enum.Parse(tupleName, x), humanize ? x.Humanize() : x))
+                        .ToArray());
                 }
 
                 return ValueCache[tupleName];
