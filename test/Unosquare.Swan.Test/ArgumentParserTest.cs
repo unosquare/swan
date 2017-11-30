@@ -15,7 +15,7 @@
             var options = new OptionMock();
             Assert.IsFalse(options.Verbose);
 
-            var dumpArgs = new[] {"-n", "babu", "--verbose"};
+            var dumpArgs = new[] { "-n", "babu", "--verbose" };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -28,7 +28,7 @@
         public void InvalidDataConversion_ReturnsFalse()
         {
             var options = new OptionIntRequiredMock();
-            var result = Runtime.ArgumentParser.ParseArguments(new[] {"-n", "babu"}, options);
+            var result = Runtime.ArgumentParser.ParseArguments(new[] { "-n", "babu" }, options);
 
             Assert.IsFalse(result);
         }
@@ -39,7 +39,7 @@
             Assert.Throws<InvalidOperationException>(() =>
             {
                 var options = new OptionObjectCollectionMock();
-                Runtime.ArgumentParser.ParseArguments(new[] {"--options", "1", null, "0"}, options);
+                Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1", null, "0" }, options);
             });
         }
 
@@ -47,7 +47,7 @@
         public void ObjectArray_ReturnsTrue()
         {
             var options = new OptionObjectArrayMock();
-            var result = Runtime.ArgumentParser.ParseArguments(new[] {"--options", "1,null,0"}, options);
+            var result = Runtime.ArgumentParser.ParseArguments(new[] { "--options", "1,null,0" }, options);
 
             Assert.IsTrue(result);
             Assert.AreEqual(3, options.Options.Length);
@@ -57,8 +57,8 @@
         public void CaseSensitiveArguments_ReturnsFalse()
         {
             var options = new OptionMock();
-            var dumpArgs = new[] {"-N", "babu", "-V"};
-            var parser = new ArgumentParser(new ArgumentParserSettings {CaseSensitive = true});
+            var dumpArgs = new[] { "-N", "babu", "-V" };
+            var parser = new ArgumentParser(new ArgumentParserSettings { CaseSensitive = true });
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Parsing is not valid");
@@ -68,8 +68,8 @@
         public void UnknwownArguments_ReturnsFalse()
         {
             var options = new OptionMock();
-            var dumpArgs = new[] {"-XOR"};
-            var parser = new ArgumentParser(new ArgumentParserSettings {IgnoreUnknownArguments = false});
+            var dumpArgs = new[] { "-XOR" };
+            var parser = new ArgumentParser(new ArgumentParserSettings { IgnoreUnknownArguments = false });
             var result = parser.ParseArguments(dumpArgs, options);
 
             Assert.IsFalse(result, "Argument is unknown");
@@ -83,7 +83,7 @@
 
             const ConsoleColor newColor = ConsoleColor.White;
 
-            var dumpArgs = new[] {"-n", "babu", "--color", newColor.ToString().ToLowerInvariant()};
+            var dumpArgs = new[] { "-n", "babu", "--color", newColor.ToString().ToLowerInvariant() };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -96,7 +96,7 @@
             var options = new OptionMock();
             Assert.IsNull(options.Options);
 
-            var dumpArgs = new[] {"-n", "babu", "--options", string.Join(",", DefaultStringList)};
+            var dumpArgs = new[] { "-n", "babu", "--options", string.Join(",", DefaultStringList) };
             var result = Runtime.ArgumentParser.ParseArguments(dumpArgs, options);
 
             Assert.IsTrue(result);
@@ -125,7 +125,7 @@
         [Test]
         public void PropertiesEmpty_ThrowsInvalidOperationException()
         {
-            var dumpArgs = new[] {"--options", string.Join(",", DefaultStringList)};
+            var dumpArgs = new[] { "--options", string.Join(",", DefaultStringList) };
 
             Assert.Throws<InvalidOperationException>(() =>
                 Runtime.ArgumentParser.ParseArguments(dumpArgs, new OptionMockEmpty()));
@@ -143,35 +143,45 @@
     public class ParseVerbs : TestFixtureBase
     {
         [Test]
+        public void EmptyArray_ReturnsFalse()
+        {
+            var verbOptions = new CliVerbs();
+            var arguments = new string[0];
+            var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
+
+            Assert.IsFalse(expected);
+        }
+
+        [Test]
         public void BasicVerbParsing_ReturnsTrue()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[] { "monitor", "-v" };
+            var arguments = new[] { "monitor", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
-            Assert.AreEqual(expected, true);
+            Assert.IsTrue(expected);
         }
 
         [Test]
         public void BasicVerbParsing_InstantiatesSelectedVerbOptionProperty()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[] { "verb", "-u", "user", "--host", "129.168.1.1", "-p", "5556" };
+            var arguments = new[] { "monitor", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
-            Assert.AreEqual(expected, true);
-            Assert.IsNull(verbOptions.MonitorVerboptions);
-            Assert.IsNotNull(verbOptions.PushVerbOptions);
+            Assert.IsTrue(expected);
+            Assert.IsNotNull(verbOptions.MonitorVerboptions);
+            Assert.IsNull(verbOptions.PushVerbOptions);
         }
 
         [Test]
         public void NoValidVerbOptionSelected_ReturnsFalse()
         {
             var verbOptions = new CliVerbs();
-            var arguments = new string[] { "option", "-v" };
+            var arguments = new[] { "option", "-v" };
             var expected = Runtime.ArgumentParser.ParseArguments(arguments, verbOptions);
 
-            Assert.AreEqual(expected, false);
+            Assert.IsFalse(expected);
             Assert.IsNull(verbOptions.MonitorVerboptions);
             Assert.IsNull(verbOptions.PushVerbOptions);
         }
