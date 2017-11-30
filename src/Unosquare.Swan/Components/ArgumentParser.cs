@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Components
+namespace Unosquare.Swan.Components
 {
     using Reflection;
     using System;
@@ -66,10 +66,6 @@
                 throw new ArgumentNullException(nameof(instance));
 
             var properties = GetTypeProperties(typeof(T)).ToArray();
-
-            if (properties.Any() == false)
-                throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
-
             var verbName = string.Empty;
 
             if (properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
@@ -101,64 +97,12 @@
                 properties = GetTypeProperties(selectedVerb.PropertyType).ToArray();
             }
 
-            var unknownList = new List<string>();
+            if (properties.Any() == false)
+                throw new InvalidOperationException($"Type {typeof(T).Name} is not valid");
+
             var requiredList = new List<string>();
             var updatedList = new List<PropertyInfo>();
-            var propertyName = string.Empty;
-
-            foreach (var arg in args)
-            {
-                if (string.IsNullOrWhiteSpace(propertyName) == false)
-                {
-                    var targetProperty = TryGetProperty(properties, propertyName);
-
-                    // Skip if the property is not found
-                    if (targetProperty == null)
-                    {
-                        unknownList.Add(propertyName);
-                        propertyName = string.Empty;
-                        continue;
-                    }
-
-                    if (SetPropertyValue(targetProperty, arg, instance))
-                        updatedList.Add(targetProperty);
-
-                    propertyName = string.Empty;
-                }
-                else
-                {
-                    if (string.IsNullOrWhiteSpace(arg) || arg[0] != Dash) continue;
-
-                    propertyName = arg.Substring(1);
-                    if (propertyName[0] == Dash) propertyName = propertyName.Substring(1);
-
-                    var targetProperty = TryGetProperty(properties, propertyName);
-
-                    // If the arg is a boolean property set it to true.
-                    if (targetProperty == null || targetProperty.PropertyType != typeof(bool)) continue;
-
-                    if (string.IsNullOrEmpty(verbName))
-                    {
-                        if (SetPropertyValue(targetProperty, true.ToString(), instance))
-                            updatedList.Add(targetProperty);
-                    }
-                    else
-                    {
-                        var property = instance.GetType().GetProperty(verbName);
-                        instance.GetType().GetProperty(verbName);
-
-                        if (SetPropertyValue(targetProperty, true.ToString(), property.GetValue(instance, null)))
-                            updatedList.Add(targetProperty);
-                    }
-
-                    propertyName = string.Empty;
-                }
-            }
-
-            if (string.IsNullOrEmpty(propertyName) == false)
-            {
-                unknownList.Add(propertyName);
-            }
+            var unknownList = PopulateInstance(args, instance, properties, verbName, updatedList);
 
             foreach (var targetProperty in properties.Except(updatedList))
             {
@@ -220,6 +164,79 @@
                 $"Required arguments: {string.Join(", ", requiredList)}".WriteLine(ConsoleColor.Red);
 
             return false;
+        }
+
+        private List<string> PopulateInstance<T>(IEnumerable<string> args, T instance, PropertyInfo[] properties, string verbName, List<PropertyInfo> updatedList)
+        {
+            var unknownList = new List<string>();
+            var propertyName = string.Empty;
+
+            foreach (var arg in args)
+            {
+                if (string.IsNullOrWhiteSpace(propertyName) == false)
+                {
+                    var targetProperty = TryGetProperty(properties, propertyName);
+
+                    // Skip if the property is not found
+                    if (targetProperty == null)
+                    {
+                        unknownList.Add(propertyName);
+                        propertyName = string.Empty;
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(verbName))
+                    {
+                        if (SetPropertyValue(targetProperty, arg, instance))
+                            updatedList.Add(targetProperty);
+                    }
+                    else
+                    {
+                        var property = instance.GetType().GetProperty(verbName);
+                        instance.GetType().GetProperty(verbName);
+
+                        if (SetPropertyValue(targetProperty, arg, property.GetValue(instance, null)))
+                            updatedList.Add(targetProperty);
+                    }
+
+                    propertyName = string.Empty;
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(arg) || arg[0] != Dash) continue;
+
+                    propertyName = arg.Substring(1);
+                    if (propertyName[0] == Dash) propertyName = propertyName.Substring(1);
+
+                    var targetProperty = TryGetProperty(properties, propertyName);
+
+                    // If the arg is a boolean property set it to true.
+                    if (targetProperty == null || targetProperty.PropertyType != typeof(bool)) continue;
+
+                    if (string.IsNullOrEmpty(verbName))
+                    {
+                        if (SetPropertyValue(targetProperty, true.ToString(), instance))
+                            updatedList.Add(targetProperty);
+                    }
+                    else
+                    {
+                        var property = instance.GetType().GetProperty(verbName);
+                        instance.GetType().GetProperty(verbName);
+
+                        if (SetPropertyValue(targetProperty, true.ToString(), property.GetValue(instance, null)))
+                            updatedList.Add(targetProperty);
+                    }
+
+                    propertyName = string.Empty;
+                }
+            }
+
+            if (string.IsNullOrEmpty(propertyName) == false)
+            {
+                unknownList.Add(propertyName);
+            }
+
+            return unknownList;
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
