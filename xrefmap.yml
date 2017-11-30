@@ -3819,6 +3819,21 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.CopyPropertiesToNew(Of T)(System.Object, System.String())
   nameWithType: Extensions.CopyPropertiesToNew<T>(Object, String[])
   nameWithType.vb: Extensions.CopyPropertiesToNew(Of T)(Object, String())
+- uid: Unosquare.Swan.Extensions.DeepClone*
+  name: DeepClone
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DeepClone_
+  commentId: Overload:Unosquare.Swan.Extensions.DeepClone
+  fullName: Unosquare.Swan.Extensions.DeepClone
+  nameWithType: Extensions.DeepClone
+- uid: Unosquare.Swan.Extensions.DeepClone``1(``0,System.String[])
+  name: DeepClone<T>(T, String[])
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DeepClone__1___0_System_String___
+  commentId: M:Unosquare.Swan.Extensions.DeepClone``1(``0,System.String[])
+  name.vb: DeepClone(Of T)(T, String())
+  fullName: Unosquare.Swan.Extensions.DeepClone<T>(T, System.String[])
+  fullName.vb: Unosquare.Swan.Extensions.DeepClone(Of T)(T, System.String())
+  nameWithType: Extensions.DeepClone<T>(T, String[])
+  nameWithType.vb: Extensions.DeepClone(Of T)(T, String())
 - uid: Unosquare.Swan.Extensions.ExceptionMessage(System.Exception,System.String)
   name: ExceptionMessage(Exception, String)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ExceptionMessage_System_Exception_System_String_
@@ -7185,18 +7200,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   nameWithType: LdapMessage.Controls
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  name: MessageID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  nameWithType: LdapMessage.MessageID
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID*
-  name: MessageID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  nameWithType: LdapMessage.MessageID
+- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  name: MessageId
+  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId
+  commentId: P:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  nameWithType: LdapMessage.MessageId
+- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId*
+  name: MessageId
+  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  nameWithType: LdapMessage.MessageId
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Request
   name: Request
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request
