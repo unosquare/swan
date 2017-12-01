@@ -20,3 +20,5 @@ script:
   - node ./LdapClient.js
   - cd ./test/Unosquare.Swan.Test/
   - dotnet test Unosquare.Swan.Test.csproj -s .runsettings -f netcoreapp2.0
+after_script:
+  - killall -9 node
