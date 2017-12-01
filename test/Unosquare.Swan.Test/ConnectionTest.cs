@@ -191,7 +191,7 @@
         }
 
         [Test]
-        public async Task ReadLineAsyncStreamWithoutWrite_ThrowsInvalidOperationException()
+        public async Task StreamWithoutWrite_ThrowsInvalidOperationException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -230,7 +230,7 @@
         }
 
         [Test]
-        public async Task ReadDataAsyncStreamWithoutWrite_ThrowsInvalidOperationException()
+        public async Task StreamWithoutWrite_ThrowsInvalidOperationException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
