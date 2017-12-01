@@ -11,19 +11,24 @@
     using System.Threading;
     using System.Threading.Tasks;
     
-    [TestFixture]
-    public class SendMailAsync
+    public class SmtpClientTest
     {
-        private const string SenderEmail = "test@test.com";
-        private const string RecipientEmail = "me@test.com";
-        private const string EmailFile = "tempFile.msg";
+        public const string SenderEmail = "test@test.com";
+        public const string RecipientEmail = "me@test.com";
+        public const string EmailFile = "tempFile.msg";
+        public const string Host = "smtp.gmail.com";
+        public const string LocalHost = "localhost";
+    }
 
+    [TestFixture]
+    public class SendMailAsync : SmtpClientTest
+    {
         [Test]
         public void NullState_ThrowsArgumentException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                var client = new SmtpClient("smtp.gmail.com", 587);
+                var client = new SmtpClient(Host, 587);
 
                 await client.SendMailAsync((SmtpSessionState) null);
             });
@@ -34,7 +39,7 @@
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                var client = new SmtpClient("smtp.gmail.com", 587);
+                var client = new SmtpClient(Host, 587);
                 IEnumerable<SmtpSessionState> sessions = null;
 
                 await client.SendMailAsync(sessions);
@@ -50,7 +55,7 @@
             Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>(async () =>
 #endif
             {
-                var client = new SmtpClient("smtp.gmail.com", 587);
+                var client = new SmtpClient(Host, 587);
 
                 await client.SendMailAsync(new SmtpSessionState());
             });
@@ -65,7 +70,7 @@
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var email = new SmtpClient("localhost", 1030);
+            var email = new SmtpClient(LocalHost, 1030);
             var session = new SmtpSessionState {SenderAddress = SenderEmail};
 
             session.Recipients.Add(RecipientEmail);
@@ -94,7 +99,7 @@
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var email = new SmtpClient("localhost", 1030);
+            var email = new SmtpClient(LocalHost, 1030);
             var emailMessage = new System.Net.Mail.MailMessage(SenderEmail, RecipientEmail, "Test", "Sure");
 
             await email.SendMailAsync(emailMessage);
@@ -122,7 +127,7 @@
 
             Assert.IsFalse(File.Exists(filename));
             var cts = new CancellationTokenSource();
-            var email = new SmtpClient("localhost", 1030);
+            var email = new SmtpClient(LocalHost, 1030);
             var session = new SmtpSessionState {SenderAddress = SenderEmail};
 
             session.Recipients.Add(RecipientEmail);
