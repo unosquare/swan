@@ -1389,192 +1389,6 @@ references:
   commentId: Overload:Unosquare.Swan.Components.CircularBuffer.WriteTag
   fullName: Unosquare.Swan.Components.CircularBuffer.WriteTag
   nameWithType: CircularBuffer.WriteTag
-- uid: Unosquare.Swan.Components.CsProjFile`1
-  name: CsProjFile<T>
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html
-  commentId: T:Unosquare.Swan.Components.CsProjFile`1
-  name.vb: CsProjFile(Of T)
-  fullName: Unosquare.Swan.Components.CsProjFile<T>
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T)
-  nameWithType: CsProjFile<T>
-  nameWithType.vb: CsProjFile(Of T)
-- uid: Unosquare.Swan.Components.CsProjFile`1.#ctor(System.IO.Stream,System.Boolean)
-  name: CsProjFile(Stream, Boolean)
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1__ctor_System_IO_Stream_System_Boolean_
-  commentId: M:Unosquare.Swan.Components.CsProjFile`1.#ctor(System.IO.Stream,System.Boolean)
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.CsProjFile(System.IO.Stream, System.Boolean)
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).CsProjFile(System.IO.Stream, System.Boolean)
-  nameWithType: CsProjFile<T>.CsProjFile(Stream, Boolean)
-  nameWithType.vb: CsProjFile(Of T).CsProjFile(Stream, Boolean)
-- uid: Unosquare.Swan.Components.CsProjFile`1.#ctor(System.String)
-  name: CsProjFile(String)
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1__ctor_System_String_
-  commentId: M:Unosquare.Swan.Components.CsProjFile`1.#ctor(System.String)
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.CsProjFile(System.String)
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).CsProjFile(System.String)
-  nameWithType: CsProjFile<T>.CsProjFile(String)
-  nameWithType.vb: CsProjFile(Of T).CsProjFile(String)
-- uid: Unosquare.Swan.Components.CsProjFile`1.#ctor*
-  name: CsProjFile
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1__ctor_
-  commentId: Overload:Unosquare.Swan.Components.CsProjFile`1.#ctor
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.CsProjFile
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).CsProjFile
-  nameWithType: CsProjFile<T>.CsProjFile
-  nameWithType.vb: CsProjFile(Of T).CsProjFile
-- uid: Unosquare.Swan.Components.CsProjFile`1.Dispose
-  name: Dispose()
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1_Dispose
-  commentId: M:Unosquare.Swan.Components.CsProjFile`1.Dispose
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.Dispose()
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).Dispose()
-  nameWithType: CsProjFile<T>.Dispose()
-  nameWithType.vb: CsProjFile(Of T).Dispose()
-- uid: Unosquare.Swan.Components.CsProjFile`1.Dispose*
-  name: Dispose
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1_Dispose_
-  commentId: Overload:Unosquare.Swan.Components.CsProjFile`1.Dispose
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.Dispose
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).Dispose
-  nameWithType: CsProjFile<T>.Dispose
-  nameWithType.vb: CsProjFile(Of T).Dispose
-- uid: Unosquare.Swan.Components.CsProjFile`1.Metadata
-  name: Metadata
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1_Metadata
-  commentId: P:Unosquare.Swan.Components.CsProjFile`1.Metadata
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.Metadata
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).Metadata
-  nameWithType: CsProjFile<T>.Metadata
-  nameWithType.vb: CsProjFile(Of T).Metadata
-- uid: Unosquare.Swan.Components.CsProjFile`1.Metadata*
-  name: Metadata
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1_Metadata_
-  commentId: Overload:Unosquare.Swan.Components.CsProjFile`1.Metadata
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.Metadata
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).Metadata
-  nameWithType: CsProjFile<T>.Metadata
-  nameWithType.vb: CsProjFile(Of T).Metadata
-- uid: Unosquare.Swan.Components.CsProjFile`1.Save
-  name: Save()
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1_Save
-  commentId: M:Unosquare.Swan.Components.CsProjFile`1.Save
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.Save()
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).Save()
-  nameWithType: CsProjFile<T>.Save()
-  nameWithType.vb: CsProjFile(Of T).Save()
-- uid: Unosquare.Swan.Components.CsProjFile`1.Save*
-  name: Save
-  href: api/Unosquare.Swan.Components.CsProjFile-1.html#Unosquare_Swan_Components_CsProjFile_1_Save_
-  commentId: Overload:Unosquare.Swan.Components.CsProjFile`1.Save
-  fullName: Unosquare.Swan.Components.CsProjFile<T>.Save
-  fullName.vb: Unosquare.Swan.Components.CsProjFile(Of T).Save
-  nameWithType: CsProjFile<T>.Save
-  nameWithType.vb: CsProjFile(Of T).Save
-- uid: Unosquare.Swan.Components.CsProjMetadataBase
-  name: CsProjMetadataBase
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html
-  commentId: T:Unosquare.Swan.Components.CsProjMetadataBase
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase
-  nameWithType: CsProjMetadataBase
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName
-  name: AssemblyName
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_AssemblyName
-  commentId: P:Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName
-  nameWithType: CsProjMetadataBase.AssemblyName
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName*
-  name: AssemblyName
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_AssemblyName_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName
-  nameWithType: CsProjMetadataBase.AssemblyName
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.FindElement(System.String)
-  name: FindElement(String)
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_FindElement_System_String_
-  commentId: M:Unosquare.Swan.Components.CsProjMetadataBase.FindElement(System.String)
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.FindElement(System.String)
-  nameWithType: CsProjMetadataBase.FindElement(String)
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.FindElement*
-  name: FindElement
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_FindElement_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.FindElement
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.FindElement
-  nameWithType: CsProjMetadataBase.FindElement
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.PackageId
-  name: PackageId
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_PackageId
-  commentId: P:Unosquare.Swan.Components.CsProjMetadataBase.PackageId
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.PackageId
-  nameWithType: CsProjMetadataBase.PackageId
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.PackageId*
-  name: PackageId
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_PackageId_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.PackageId
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.PackageId
-  nameWithType: CsProjMetadataBase.PackageId
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags(System.String[]@)
-  name: ParseCsProjTags(ref String[])
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_ParseCsProjTags_System_String____
-  commentId: M:Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags(System.String[]@)
-  name.vb: ParseCsProjTags(ByRef String())
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags(ref System.String[])
-  fullName.vb: Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags(ByRef System.String())
-  nameWithType: CsProjMetadataBase.ParseCsProjTags(ref String[])
-  nameWithType.vb: CsProjMetadataBase.ParseCsProjTags(ByRef String())
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags*
-  name: ParseCsProjTags
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_ParseCsProjTags_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags
-  nameWithType: CsProjMetadataBase.ParseCsProjTags
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.SetData(XDocument)
-  name: SetData(XDocument)
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_SetData_XDocument_
-  commentId: M:Unosquare.Swan.Components.CsProjMetadataBase.SetData(XDocument)
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.SetData(XDocument)
-  nameWithType: CsProjMetadataBase.SetData(XDocument)
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.SetData*
-  name: SetData
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_SetData_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.SetData
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.SetData
-  nameWithType: CsProjMetadataBase.SetData
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework
-  name: TargetFramework
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_TargetFramework
-  commentId: P:Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework
-  nameWithType: CsProjMetadataBase.TargetFramework
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework*
-  name: TargetFramework
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_TargetFramework_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework
-  nameWithType: CsProjMetadataBase.TargetFramework
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks
-  name: TargetFrameworks
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_TargetFrameworks
-  commentId: P:Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks
-  nameWithType: CsProjMetadataBase.TargetFrameworks
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks*
-  name: TargetFrameworks
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_TargetFrameworks_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks
-  nameWithType: CsProjMetadataBase.TargetFrameworks
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.Version
-  name: Version
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_Version
-  commentId: P:Unosquare.Swan.Components.CsProjMetadataBase.Version
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.Version
-  nameWithType: CsProjMetadataBase.Version
-- uid: Unosquare.Swan.Components.CsProjMetadataBase.Version*
-  name: Version
-  href: api/Unosquare.Swan.Components.CsProjMetadataBase.html#Unosquare_Swan_Components_CsProjMetadataBase_Version_
-  commentId: Overload:Unosquare.Swan.Components.CsProjMetadataBase.Version
-  fullName: Unosquare.Swan.Components.CsProjMetadataBase.Version
-  nameWithType: CsProjMetadataBase.Version
 - uid: Unosquare.Swan.Components.DependencyContainer
   name: DependencyContainer
   href: api/Unosquare.Swan.Components.DependencyContainer.html
@@ -4005,6 +3819,21 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.CopyPropertiesToNew(Of T)(System.Object, System.String())
   nameWithType: Extensions.CopyPropertiesToNew<T>(Object, String[])
   nameWithType.vb: Extensions.CopyPropertiesToNew(Of T)(Object, String())
+- uid: Unosquare.Swan.Extensions.DeepClone*
+  name: DeepClone
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DeepClone_
+  commentId: Overload:Unosquare.Swan.Extensions.DeepClone
+  fullName: Unosquare.Swan.Extensions.DeepClone
+  nameWithType: Extensions.DeepClone
+- uid: Unosquare.Swan.Extensions.DeepClone``1(``0,System.String[])
+  name: DeepClone<T>(T, String[])
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_DeepClone__1___0_System_String___
+  commentId: M:Unosquare.Swan.Extensions.DeepClone``1(``0,System.String[])
+  name.vb: DeepClone(Of T)(T, String())
+  fullName: Unosquare.Swan.Extensions.DeepClone<T>(T, System.String[])
+  fullName.vb: Unosquare.Swan.Extensions.DeepClone(Of T)(T, System.String())
+  nameWithType: Extensions.DeepClone<T>(T, String[])
+  nameWithType.vb: Extensions.DeepClone(Of T)(T, String())
 - uid: Unosquare.Swan.Extensions.ExceptionMessage(System.Exception,System.String)
   name: ExceptionMessage(Exception, String)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_ExceptionMessage_System_Exception_System_String_
@@ -7371,18 +7200,18 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.Controls
   nameWithType: LdapMessage.Controls
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  name: MessageID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID
-  commentId: P:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  nameWithType: LdapMessage.MessageID
-- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID*
-  name: MessageID
-  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID_
-  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID
-  nameWithType: LdapMessage.MessageID
+- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  name: MessageId
+  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId
+  commentId: P:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  nameWithType: LdapMessage.MessageId
+- uid: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId*
+  name: MessageId
+  href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_MessageId_
+  commentId: Overload:Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  fullName: Unosquare.Swan.Networking.Ldap.LdapMessage.MessageId
+  nameWithType: LdapMessage.MessageId
 - uid: Unosquare.Swan.Networking.Ldap.LdapMessage.Request
   name: Request
   href: api/Unosquare.Swan.Networking.Ldap.LdapMessage.html#Unosquare_Swan_Networking_Ldap_LdapMessage_Request
