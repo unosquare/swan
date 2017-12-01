@@ -135,6 +135,24 @@
     public class Modify : LdapTest
     {
         [Test]
+        public void ChangeUserProperty()
+        {
+            var ex = Assert.CatchAsync(async () =>
+            {
+                await cn.Modify(
+                    "uid=euclid,dc=example,dc=com",
+                    new[] { new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com") });
+
+                cn.Disconnect();
+            });
+
+            if (ex is LdapException ldapEx)
+                Assert.AreEqual(ldapEx.ResultCode, LdapStatusCode.InsufficientAccessRights);
+            else
+                Assert.IsNotNull(ex);
+        }
+
+        [Test]
         public void Modify_DNNull()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
@@ -148,6 +166,18 @@
     [TestFixture]
     public class Read : LdapTest
     {
+        [Test]
+        public async Task ReadUserProperties()
+        {
+            if (Runtime.OS == Swan.OperatingSystem.Osx)
+                Assert.Ignore("OSX can't load LDAP.js");
+
+            var properties = await cn.Read("uid=einstein,dc=example,dc=com");
+            var mail = properties.GetAttribute("MAIL");
+            Assert.AreEqual(mail.StringValue, "einstein@ldap.forumsys.com");
+            cn.Dispose();
+        }
+
         [Test]
         public async Task Read_DN()
         {
@@ -233,43 +263,6 @@
 
                 lsc.Next();
             });
-        }
-
-        public class ModifyTest : LdapTest
-        {
-            [Test]
-            public void ChangeUserProperty()
-            {
-                var ex = Assert.CatchAsync(async () =>
-                {
-                    var cn = await GetDefaultConnection();
-                    await cn.Modify(
-                        "uid=euclid,dc=example,dc=com",
-                        new[] {new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")});
-
-                    cn.Disconnect();
-                });
-
-                if (ex is LdapException ldapEx)
-                    Assert.AreEqual(ldapEx.ResultCode, LdapStatusCode.InsufficientAccessRights);
-                else
-                    Assert.IsNotNull(ex);
-            }
-        }
-
-        public class ReadTest : LdapTest
-        {
-            [Test]
-            public async Task ReadUserProperties()
-            {
-                if (Runtime.OS == Swan.OperatingSystem.Osx)
-                    Assert.Ignore("OSX can't load LDAP.js");
-                
-                var properties = await cn.Read("uid=einstein,dc=example,dc=com");
-                var mail = properties.GetAttribute("MAIL");
-                Assert.AreEqual(mail.StringValue, "einstein@ldap.forumsys.com");
-                cn.Dispose();
-            }
         }
     }
 }
