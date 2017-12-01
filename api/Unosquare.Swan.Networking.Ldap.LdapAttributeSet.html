@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class LdapAttributeSet
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.28.0.0">
+    <meta name="generator" content="docfx 2.28.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -249,7 +249,7 @@ to be added to a directory.  </p>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
   <h5 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapAttributeSet : Dictionary&lt;string, LdapAttribute&gt;, IDictionary&lt;string, LdapAttribute&gt;, ICollection&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IDictionary, ICollection, IReadOnlyDictionary&lt;string, LdapAttribute&gt;, IReadOnlyCollection&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IEnumerable, ISerializable, IDeserializationCallback</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class LdapAttributeSet : Dictionary&lt;string, LdapAttribute&gt;, IDictionary&lt;string, LdapAttribute&gt;, ICollection&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IDictionary, ICollection, IReadOnlyDictionary&lt;string, LdapAttribute&gt;, IReadOnlyCollection&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, LdapAttribute&gt;&gt;, IEnumerable, ISerializable, IDeserializationCallback</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -279,7 +279,7 @@ specified attribute will not be added.</p>
       <tr>
         <td><span class="xref">System.Object</span></td>
         <td><span class="parametername">attr</span></td>
-        <td><p>Object of type <code>LdapAttribute</code></p>
+        <td><p>Object of type <pre><code>LdapAttribute</code></pre></p>
 </td>
       </tr>
     </tbody>
@@ -295,7 +295,7 @@ specified attribute will not be added.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if the attribute was added.</p>
+        <td><p>true if the attribute was added.</p>
 </td>
       </tr>
     </tbody>
@@ -331,7 +331,7 @@ specified attribute will not be added.</p>
   
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Contains_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Contains_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Contains(System.Object)">Contains(Object)</h4>
-  <div class="markdown level1 summary"><p>Returns <code>true</code> if this set contains an attribute of the same name
+  <div class="markdown level1 summary"><p>Returns <pre><code>true</code></pre> if this set contains an attribute of the same name
 as the specified attribute.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -352,7 +352,7 @@ as the specified attribute.</p>
       <tr>
         <td><span class="xref">System.Object</span></td>
         <td><span class="parametername">attr</span></td>
-        <td><p>Object of type <code>LdapAttribute</code></p>
+        <td><p>Object of type <pre><code>LdapAttribute</code></pre></p>
 </td>
       </tr>
     </tbody>
@@ -379,7 +379,7 @@ as the specified attribute.</p>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_GetAttribute_System_String_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.GetAttribute(System.String)">GetAttribute(String)</h4>
   <div class="markdown level1 summary"><p>Returns the attribute matching the specified attrName.
 For example:
-<ul><li><code>getAttribute(&quot;cn&quot;)</code>      returns only the &quot;cn&quot; attribute</li><li><code>getAttribute(&quot;cn;lang-en&quot;)</code> returns only the &quot;cn;lang-en&quot;
+<ul><li><pre><code>getAttribute(&quot;cn&quot;)</code></pre>      returns only the &quot;cn&quot; attribute</li><li><pre><code>getAttribute(&quot;cn;lang-en&quot;)</code></pre> returns only the &quot;cn;lang-en&quot;
 attribute.
 </li></ul>
 In both cases, null is returned if there is no exact match to
@@ -442,9 +442,9 @@ of &quot;cn;lang-ja&quot;. This feature may be used to provide multiple
 localizations in the same directory. For attributes which do not vary
 among localizations, only the base attribute may be stored, whereas
 for others there may be varying degrees of specialization.
-For example, <code>getAttribute(attrName,lang)</code> returns the
-<code>LdapAttribute</code> that exactly matches attrName and that
-best matches lang.
+For example, <pre><code>getAttribute(attrName,lang)</code></pre> returns the</p>
+<pre><code>LdapAttribute</code></pre> that exactly matches attrName and that
+<p>best matches lang.
 If there are subtypes other than &quot;lang&quot; subtypes included
 in attrName, for example, &quot;cn;binary&quot;, only attributes with all of
 those subtypes are returned. If lang is null or empty, the
@@ -458,23 +458,23 @@ Assume the entry contains only the following attributes:
 </ul>
 Examples:
 <ul>
-<li><code>getAttribute( &quot;cn&quot; )</code>       returns null.</li>
-<li><code>getAttribute( &quot;sn&quot; )</code>       returns the &quot;sn&quot; attribute.</li>
-<li>
-<code>getAttribute( &quot;cn&quot;, &quot;lang-en-us&quot; )</code>
-returns the &quot;cn;lang-en&quot; attribute.
+<li><pre><code>getAttribute( &quot;cn&quot; )</code></pre>       returns null.</li>
+<li><pre><code>getAttribute( &quot;sn&quot; )</code></pre>       returns the &quot;sn&quot; attribute.</li>
+<li><p>
+<pre><code>getAttribute( &quot;cn&quot;, &quot;lang-en-us&quot; )</code></pre>
+<p>returns the &quot;cn;lang-en&quot; attribute.
 </li>
-<li>
-<code>getAttribute( &quot;cn&quot;, &quot;lang-en&quot; )</code>
-returns the &quot;cn;lang-en&quot; attribute.
+<li><p>
+<pre><code>getAttribute( &quot;cn&quot;, &quot;lang-en&quot; )</code></pre>
+<p>returns the &quot;cn;lang-en&quot; attribute.
 </li>
-<li>
-<code>getAttribute( &quot;cn&quot;, &quot;lang-ja&quot; )</code>
-returns null.
+<li><p>
+<pre><code>getAttribute( &quot;cn&quot;, &quot;lang-ja&quot; )</code></pre>
+<p>returns null.
 </li>
-<li>
-<code>getAttribute( &quot;sn&quot;, &quot;lang-en&quot; )</code>
-returns the &quot;sn&quot; attribute.
+<li><p>
+<pre><code>getAttribute( &quot;sn&quot;, &quot;lang-en&quot; )</code></pre>
+<p>returns the &quot;sn&quot; attribute.
 </li>
 </ul>
 Note: Novell eDirectory does not currently support language subtypes.
@@ -524,7 +524,7 @@ appended using &quot;-&quot; as separator. For example, &quot;lang-en&quot;, &qu
     <tbody>
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapAttribute.html">LdapAttribute</a></td>
-        <td><p>A single best-match <code>LdapAttribute</code>, or null
+        <td><p>A single best-match <pre><code>LdapAttribute</code></pre>, or null
 if no match is found in the entry.</p>
 </td>
       </tr>
@@ -566,11 +566,19 @@ returned from this iterator are not in any particular order.</p>
 the specified subtypes.
 For example, suppose an attribute set contains the following
 attributes:
-<ul><li>    cn</li><li>    cn;lang-ja</li><li>    sn;phonetic;lang-ja</li><li>    sn;lang-us</li></ul>
-Calling the <code>getSubset</code> method and passing lang-ja as the
+<ul>
+<li>    cn</li>
+<li>    cn;lang-ja</li>
+<li>    sn;phonetic;lang-ja</li>
+<li>    sn;lang-us</li>
+</ul>
+Calling the <pre><code>getSubset</code></pre> method and passing lang-ja as the
 argument, the method returns an attribute set containing the following
 attributes:
-<ul><li>cn;lang-ja</li><li>sn;phonetic;lang-ja</li></ul></p>
+<ul>
+<li>cn;lang-ja</li>
+<li>sn;phonetic;lang-ja</li>
+</ul></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -592,10 +600,14 @@ attributes:
         <td><span class="parametername">subtype</span></td>
         <td><p>Semi-colon delimited list of subtypes to include. For
 example:
-<ul><li> &quot;lang-ja&quot; specifies only Japanese language subtypes</li><li> &quot;binary&quot; specifies only binary subtypes</li><li>
-&quot;binary;lang-ja&quot; specifies only Japanese language subtypes
-which also are binary
-</li></ul>
+<ul>
+<li> &quot;lang-ja&quot; specifies only Japanese language subtypes</li>
+<li> &quot;binary&quot; specifies only binary subtypes</li>
+<li>
+    &quot;binary;lang-ja&quot; specifies only Japanese language subtypes
+    which also are binary
+</li>
+</ul>
 Note: Novell eDirectory does not currently support language subtypes.
 It does support the &quot;binary&quot; subtype.</p>
 </td>
@@ -624,7 +636,7 @@ specified subtype.</p>
   <a id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove*"></a>
   <h4 id="Unosquare_Swan_Networking_Ldap_LdapAttributeSet_Remove_System_Object_" data-uid="Unosquare.Swan.Networking.Ldap.LdapAttributeSet.Remove(System.Object)">Remove(Object)</h4>
   <div class="markdown level1 summary"><p>Removes the specified object from this set if it is present.
-If the specified object is of type <code>LdapAttribute</code>, the
+If the specified object is of type <pre><code>LdapAttribute</code></pre>, the
 specified attribute will be removed.  If the specified object is of type
 string, the attribute with a name that matches the string will
 be removed.</p>
