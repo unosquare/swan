@@ -89,7 +89,7 @@
         [Test]
         public void GivingADate_ConvertItIntoTicks()
         {
-            var date = new DateTime(2017, 10, 27);
+            var date = new DateTime(2017, 10, 27).Date;
 
             Assert.AreEqual(1509062400, date.ToUnixEpochDate());
         }
