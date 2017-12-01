@@ -50,7 +50,6 @@
         [Test]
         public void ValidCancel_ReturnsSuccess()
         {
-            // TODO: Rewrite this action to really check the cancel
             var cancel = false;
             var message = new SimpleMessageMockCancellable(this, "Unosquare Americas", () =>
             {
@@ -59,9 +58,7 @@
 
             message.Cancel();
 
-            var token = Runtime.Messages.Subscribe<SimpleMessageMockCancellable>(_messagesToSend.Add, x => cancel);
-
-            Assert.IsNotNull(token);
+            var token = Runtime.Messages.Subscribe<SimpleMessageMockCancellable>(_messagesToSend.Add, x => false);
 
             Runtime.Messages.Publish(message);
 
