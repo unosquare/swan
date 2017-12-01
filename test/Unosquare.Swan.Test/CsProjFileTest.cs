@@ -97,16 +97,5 @@
                 using (var csproj = new CsProjFile<CsAbstractMetadataMock>(null)) { }
             });
         }
-
-        [Test]
-        public void IfFileIsNotFound_ThrowsXmlException()
-        {
-            var fileName = "filename";
-            Assert.Throws<XmlException>(() =>
-            {
-                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
-                using (var csproj = new CsProjFile<CsAbstractMetadataMock>(fileName)) { }
-            });
-        }
     }
 }
