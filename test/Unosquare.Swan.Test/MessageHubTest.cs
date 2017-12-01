@@ -36,6 +36,8 @@
     [TestFixture]
     public class MessageHubCancellableGenericMessageConstructor
     {
+        private readonly List<SimpleMessageMockCancellable> _messagesToSend = new List<SimpleMessageMockCancellable>();
+
         [Test]
         public void NullCancel_ThrowsArgumentNullException()
         {
@@ -49,10 +51,21 @@
         public void ValidCancel_ReturnsSuccess()
         {
             // TODO: Rewrite this action to really check the cancel
-            bool cancel;
-            var message =
-                new MessageHubCancellableGenericMessage<string>(this, "Unosquare Américas", () => cancel = true);
+            var cancel = false;
+            var message = new SimpleMessageMockCancellable(this, "Unosquare Americas", () =>
+            {
+                cancel = true;
+            });
 
+            message.Cancel();
+
+            var token = Runtime.Messages.Subscribe<SimpleMessageMockCancellable>(_messagesToSend.Add, x => cancel);
+
+            Assert.IsNotNull(token);
+
+            Runtime.Messages.Publish(message);
+
+            Assert.IsTrue(cancel);
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
         }
