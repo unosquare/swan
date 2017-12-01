@@ -240,16 +240,20 @@
             [Test]
             public void ChangeUserProperty()
             {
-                var ex = Assert.ThrowsAsync<LdapException>(async () =>
+                var ex = Assert.CatchAsync(async () =>
                 {
+                    var cn = await GetDefaultConnection();
                     await cn.Modify(
                         "uid=euclid,dc=example,dc=com",
-                        new[] { new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")});
+                        new[] {new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")});
 
-                    cn.Dispose();
+                    cn.Disconnect();
                 });
 
-                Assert.AreEqual(ex.ResultCode, LdapStatusCode.InsufficientAccessRights);
+                if (ex is LdapException ldapEx)
+                    Assert.AreEqual(ldapEx.ResultCode, LdapStatusCode.InsufficientAccessRights);
+                else
+                    Assert.IsNotNull(ex);
             }
         }
 
