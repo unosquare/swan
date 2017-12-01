@@ -275,6 +275,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.CsProjFile-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.CsProjFile-1.html",
+          "hash": "ee5ClhWwLMUVBplGJG+LPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.CsProjMetadataBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.CsProjMetadataBase.html",
+          "hash": "uBZrCac4B3cW92uQBVoKQg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Components.DependencyContainer.MultiRegisterOptions.yml",
       "output": {
         ".html": {
@@ -591,7 +615,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.html",
-          "hash": "VwbQ5gc7WKzTFP5UYerxDg=="
+          "hash": "JSXSHfco6T0W7RbNxI6Btg=="
         }
       },
       "is_incremental": false,
@@ -1563,7 +1587,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "6cY2ZNmsEpVQ4qggCoIIqw=="
+          "hash": "y3H1/UHfxmZTsTANjRpgTA=="
         }
       },
       "is_incremental": false,
@@ -1606,11 +1630,11 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
