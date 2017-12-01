@@ -58,4 +58,21 @@
             Assert.AreEqual(message, serverReply.Content[0]?.ToString());
         }
     }
+
+    [TestFixture]
+    public class ToString
+    {
+        [Test]
+        public void ReplyCode_ToString()
+        {
+            var content = "Hello World!";
+            var status = 500;
+
+            var serverReply = new SmtpServerReply(status, content);
+
+            Assert.IsNotNull(serverReply);
+            Assert.AreEqual(status + " " + content, serverReply.ToString());
+            Assert.AreEqual(content, serverReply.Content[0]?.ToString());
+        }
+    }
 }
