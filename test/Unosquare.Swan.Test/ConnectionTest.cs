@@ -39,7 +39,7 @@
     }
 
     [TestFixture]
-    public class ConnectionsTests : ConnectionTest
+    public class Connections : ConnectionTest
     {
         [Test]
         public async Task OpenConnection_Connected()
@@ -104,7 +104,7 @@
     }
 
     [TestFixture]
-    public class ReadTextAsyncTest : ConnectionTest
+    public class ReadTextAsync : ConnectionTest
     {
         [Test]
         public async Task ReadTextAsync_MessageEqualsResponse()
@@ -168,7 +168,7 @@
     }
 
     [TestFixture]
-    public class ReadLineAsyncTest : ConnectionTest
+    public class ReadLineAsync : ConnectionTest
     {
         [Test]
         public async Task ReadLineAsync_MessageEqualsResponse()
@@ -207,7 +207,7 @@
     }
 
     [TestFixture]
-    public class ReadDataAsyncTest : ConnectionTest
+    public class ReadDataAsync : ConnectionTest
     {
         [Test]
         public async Task ReadDataAsync_MessageEqualsResponse()
@@ -261,7 +261,7 @@
     }
 
     [TestFixture]
-    public class WriteTest : ConnectionTest
+    public class Write : ConnectionTest
     {
         [Test]
         public async Task Connection_WriteTest()
@@ -285,7 +285,7 @@
     }
 
     [TestFixture]
-    public class WriteDataAsyncTest : ConnectionTest
+    public class WriteDataAsync : ConnectionTest
     {
         [Test]
         public async Task WriteDataAsync_MessageEqualsResponse()
@@ -305,10 +305,11 @@
         }
     }
 
+#if NET461
     [TestFixture]
     public class UpgradeToSecureAsServerAsync : ConnectionTest
     {
-#if NET461
+
         [Test]
         public async Task UpgradeToSecureAsServerAsync_true()
         {
@@ -330,6 +331,7 @@
                 Assert.IsTrue(result);
             }
         }
-#endif
+
     }
+#endif
 }

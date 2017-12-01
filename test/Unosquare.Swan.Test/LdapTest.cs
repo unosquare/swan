@@ -135,7 +135,7 @@
     public class Modify : LdapTest
     {
         [Test]
-        public void ChangeUserProperty()
+        public void ChangeUserProperty_LdapException()
         {
             var ex = Assert.CatchAsync(async () =>
             {
@@ -167,7 +167,7 @@
     public class Read : LdapTest
     {
         [Test]
-        public async Task ReadUserProperties()
+        public async Task ReadUserProperties_MailAttributeEqualsEinsteinMail()
         {
             if (Runtime.OS == Swan.OperatingSystem.Osx)
                 Assert.Ignore("OSX can't load LDAP.js");
