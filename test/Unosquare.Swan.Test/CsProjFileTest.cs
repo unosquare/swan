@@ -66,7 +66,6 @@
                 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_wrongSDK)))
                 using (var csproj = new CsProjFile<CsMetadataMock>(stream)){}
             });
-           
         }
 
         [Test]
@@ -76,6 +75,37 @@
             {
                 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
                 using (var csproj = new CsProjFile<CsAbstractMetadataMock>(stream)) { }
+            });
+        }
+
+        [Test]
+        public void WithEmptyStringAsFileName_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+                using (var csproj = new CsProjFile<CsAbstractMetadataMock>(string.Empty)) { }
+            });
+        }
+
+        [Test]
+        public void WithNullAsFileName_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+                using (var csproj = new CsProjFile<CsAbstractMetadataMock>(null)) { }
+            });
+        }
+
+        [Test]
+        public void IfFileIsNotFound_ThrowsXmlException()
+        {
+            var fileName = "filename";
+            Assert.Throws<XmlException>(() =>
+            {
+                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+                using (var csproj = new CsProjFile<CsAbstractMetadataMock>(fileName)) { }
             });
         }
     }
