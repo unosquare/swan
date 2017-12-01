@@ -6,9 +6,10 @@
     using System.Threading.Tasks;
     using NUnit.Framework;
     using Networking;
-    using System.Linq;
     using System.Threading;
     using System.Net;
+    using Unosquare.Swan.Test.Mocks;
+    using System.IO;
 
     public abstract class ConnectionTest
     {
@@ -64,6 +65,44 @@
                 Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
             }
         }
+
+        [Test]
+        public async Task OpenConnection_ConnectionStartTime()
+        {
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+            var dateNow = DateTime.UtcNow.Ticks;
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
+            {
+                Assert.GreaterOrEqual(cn.ConnectionStartTime.Ticks, dateNow);
+            }
+        }
+
+        [Test]
+        public async Task OpenConnection_ConnectionDuration()
+        {
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+            var dateNow = DateTime.UtcNow.Ticks;
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
+            {
+                Assert.GreaterOrEqual(cn.ConnectionDuration, dateNow);
+            }
+        }
+
+        [Test]
+        public async Task OpenConnection_ArgumentException()
+        {
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var cn = new Connection(Client, Encoding.UTF8, null, true, 0);
+            });
+        }
     }
 
     [TestFixture]
@@ -86,6 +125,48 @@
 
                 Assert.IsNotNull(response);
                 Assert.AreEqual(Message, response);
+            }
+        }
+
+        [Test]
+        public async Task ReadTextAsync_DataSentIdleDuration()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(Message, 0, Message.Length);
+            };
+
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadTextAsync();
+                var duration = TimeSpan.FromSeconds(5);
+
+                Assert.AreEqual(Message, response);
+                Assert.NotNull(cn.DataSentIdleDuration);
+            }
+        }
+
+        [Test]
+        public async Task ReadTextAsync_DataReceivedIdleDuration()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(Message, 0, Message.Length);
+            };
+
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadTextAsync();
+                var duration = TimeSpan.FromSeconds(5);
+
+                Assert.AreEqual(Message, response);
+                Assert.IsNotNull(cn.DataReceivedIdleDuration);
             }
         }
     }
@@ -224,6 +305,32 @@
                 var response = await connection.ReadDataAsync(TimeSpan.FromSeconds(5),ct);
 
                 Assert.IsNotNull(response);
+            }
+        }
+    }
+
+    [TestFixture]
+    public class UpgradeToSecureAsServerAsync : ConnectionTest
+    {
+        [Test]
+        public async Task UpgradeToSecureAsServerAsync_true()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(Message, 0, Message.Length);
+            };
+
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            var tempPath = Path.GetTempPath() + "certificate.pfx";
+            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");
+
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", false, 0))
+            {
+                var result = await cn.UpgradeToSecureAsServerAsync(certificate);
+
+                Assert.IsTrue(result);
             }
         }
     }
