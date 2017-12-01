@@ -305,11 +305,10 @@
         }
     }
 
-#if NET461
+#if NET46
     [TestFixture]
     public class UpgradeToSecureAsServerAsync : ConnectionTest
     {
-
         [Test]
         public async Task UpgradeToSecureAsServerAsync_true()
         {
@@ -331,7 +330,32 @@
                 Assert.IsTrue(result);
             }
         }
+    }
 
+    [TestFixture]
+    public class UpgradeToSecureAsClientAsync : ConnectionTest
+    {
+        [Test]
+        public async Task UpgradeToSecureAsClientAsync_true()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(Message, 0, Message.Length);
+            };
+
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            var tempPath = Path.GetTempPath() + "certificate.pfx";
+            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");
+
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var result = await cn.UpgradeToSecureAsClientAsync();
+
+                Assert.IsTrue(result);
+            }
+        }
     }
 #endif
 }
