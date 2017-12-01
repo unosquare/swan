@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LdapMessage
+    <title>Class CsProjMetadataBase
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LdapMessage
+    <meta name="title" content="Class CsProjMetadataBase
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.28.1.0">
     
@@ -77,25 +77,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.CsProjMetadataBase">
   
   
-  <h1 id="Unosquare_Swan_Networking_Ldap_LdapMessage" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage" class="text-break">Class LdapMessage
+  <h1 id="Unosquare_Swan_Components_CsProjMetadataBase" data-uid="Unosquare.Swan.Components.CsProjMetadataBase" class="text-break">Class CsProjMetadataBase
   </h1>
-  <div class="markdown level0 summary"><p>The base class for Ldap request and response messages.
-Subclassed by response messages used in asynchronous operations.</p>
+  <div class="markdown level0 summary"><p>Represents a CsProj metadata abstract class
+to use with <code>CsProjFile</code> parser.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">LdapMessage</span></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapBindRequest.html">LdapBindRequest</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModification.html">LdapModification</a></div>
-      <div class="level2"><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html">LdapModifyRequest</a></div>
+    <div class="level1"><span class="xref">CsProjMetadataBase</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
@@ -115,110 +115,23 @@ Subclassed by response messages used in asynchronous operations.</p>
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Networking.Ldap.html">Unosquare.Swan.Networking.Ldap</a></h6>
-  <h5 id="Unosquare_Swan_Networking_Ldap_LdapMessage_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h5 id="Unosquare_Swan_Components_CsProjMetadataBase_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LdapMessage</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class CsProjMetadataBase</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_Controls_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Controls*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_Controls" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Controls">Controls</h4>
-  <div class="markdown level1 summary"><p>Returns any controls in the message.</p>
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_AssemblyName_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_AssemblyName" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.AssemblyName">AssemblyName</h4>
+  <div class="markdown level1 summary"><p>Gets the name of the assembly.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual LdapControl[] Controls { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.Networking.Ldap.LdapControl.html">LdapControl</a>[]</td>
-        <td><p>The controls.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_MessageID" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.MessageID">MessageID</h4>
-  <div class="markdown level1 summary"><p>Returns the message ID.  The message ID is an integer value
-identifying the Ldap request and its response.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int MessageID { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_Request_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Request*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_Request" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Request">Request</h4>
-  <div class="markdown level1 summary"><p>Indicates whether the message is a request or a response</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool Request { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p>true if the message is a request, false if it is a response,
-a search result, or a search result reference.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_Tag_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Tag*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_Tag" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.Tag">Tag</h4>
-  <div class="markdown level1 summary"><p>Retrieves the identifier tag for this message.
-An identifier can be associated with a message with the</p>
-<pre><code>setTag</code></pre> method.
-<p>Tags are set by the application and not by the API or the server.
-If a server response <pre><code>isRequest() == false</code></pre> has no tag,
-the tag associated with the corresponding server request is used.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual string Tag { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string AssemblyName { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -231,8 +144,115 @@ the tag associated with the corresponding server request is used.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>the identifier associated with this message or null
-if none.</p>
+        <td><p>The name of the assembly.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_PackageId_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.PackageId*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_PackageId" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.PackageId">PackageId</h4>
+  <div class="markdown level1 summary"><p>Gets the package identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PackageId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The package identifier.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_TargetFramework_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_TargetFramework" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.TargetFramework">TargetFramework</h4>
+  <div class="markdown level1 summary"><p>Gets the target framework.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TargetFramework { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The target framework.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_TargetFrameworks_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_TargetFrameworks" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.TargetFrameworks">TargetFrameworks</h4>
+  <div class="markdown level1 summary"><p>Gets the target frameworks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TargetFrameworks { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The target frameworks.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_Version_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.Version*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_Version" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.Version">Version</h4>
+  <div class="markdown level1 summary"><p>Gets the version.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Version { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The version.</p>
 </td>
       </tr>
     </tbody>
@@ -241,15 +261,33 @@ if none.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Networking_Ldap_LdapMessage_ToString_" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.ToString*"></a>
-  <h4 id="Unosquare_Swan_Networking_Ldap_LdapMessage_ToString" data-uid="Unosquare.Swan.Networking.Ldap.LdapMessage.ToString">ToString()</h4>
-  <div class="markdown level1 summary"><p>Returns a <span class="xref">System.String</span> that represents this instance.</p>
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_FindElement_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.FindElement*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_FindElement_System_String_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.FindElement(System.String)">FindElement(String)</h4>
+  <div class="markdown level1 summary"><p>Finds the element.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+    <pre><code class="lang-csharp hljs">protected XElement FindElement(string elementName)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">elementName</span></td>
+        <td><p>Name of the element.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -260,14 +298,70 @@ if none.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>A <span class="xref">System.String</span> that represents this instance.</p>
+        <td><span class="xref">XElement</span></td>
+        <td><p>A XElement.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">System.Object.ToString()</span></div>
+  
+  
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_ParseCsProjTags_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_ParseCsProjTags_System_String____" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.ParseCsProjTags(System.String[]@)">ParseCsProjTags(ref String[])</h4>
+  <div class="markdown level1 summary"><p>Parses the cs proj tags.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void ParseCsProjTags(ref string[] args)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">args</span></td>
+        <td><p>The arguments.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_CsProjMetadataBase_SetData_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.SetData*"></a>
+  <h4 id="Unosquare_Swan_Components_CsProjMetadataBase_SetData_XDocument_" data-uid="Unosquare.Swan.Components.CsProjMetadataBase.SetData(XDocument)">SetData(XDocument)</h4>
+  <div class="markdown level1 summary"><p>Sets the data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetData(XDocument xmlDocument)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">XDocument</span></td>
+        <td><span class="parametername">xmlDocument</span></td>
+        <td><p>The XML document.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
