@@ -22,6 +22,16 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CsProjFile{T}"/> class.
         /// </summary>
+        /// <param name="filename">The filename.</param>
+        public CsProjFile(string filename = null)
+            : this(OpenFile(filename))
+        {
+            // placeholder
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsProjFile{T}"/> class.
+        /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="leaveOpen">if set to <c>true</c> [leave open].</param>
         /// <exception cref="ArgumentException">Project file is not of the new .csproj type.</exception>
@@ -70,6 +80,21 @@
             {
                 _stream?.Dispose();
             }
+        }
+
+        private static FileStream OpenFile(string filename)
+        {
+            if (filename == null)
+            {
+                filename = Directory
+                    .EnumerateFiles(Directory.GetCurrentDirectory(), "*.csproj", SearchOption.TopDirectoryOnly)
+                    .FirstOrDefault();
+            }
+
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentNullException(nameof(filename));
+
+            return File.Open(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
         }
     }
 }
