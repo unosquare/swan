@@ -71,11 +71,10 @@
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
-            var dateNow = DateTime.UtcNow.Ticks;
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                Assert.GreaterOrEqual(cn.ConnectionStartTime.Ticks, dateNow);
+                Assert.IsNotNull(cn.ConnectionStartTime);
             }
         }
 
@@ -84,16 +83,15 @@
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
-            var dateNow = DateTime.UtcNow.Ticks;
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                Assert.GreaterOrEqual(cn.ConnectionDuration, dateNow);
+                Assert.IsNotNull(cn.ConnectionDuration);
             }
         }
 
         [Test]
-        public async Task OpenConnection_ArgumentException()
+        public async Task NullNewLineSequence_ArgumentException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -142,7 +140,6 @@
             using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
             {
                 var response = await cn.ReadTextAsync();
-                var duration = TimeSpan.FromSeconds(5);
 
                 Assert.AreEqual(Message, response);
                 Assert.NotNull(cn.DataSentIdleDuration);
@@ -163,7 +160,6 @@
             using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
             {
                 var response = await cn.ReadTextAsync();
-                var duration = TimeSpan.FromSeconds(5);
 
                 Assert.AreEqual(Message, response);
                 Assert.IsNotNull(cn.DataReceivedIdleDuration);
@@ -195,7 +191,7 @@
         }
 
         [Test]
-        public async Task ReadLineAsync_ThrowsInvalidOperationException()
+        public async Task ReadLineAsyncStreamWithoutWrite_ThrowsInvalidOperationException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -234,7 +230,7 @@
         }
 
         [Test]
-        public async Task ReadDataAsync_ThrowsInvalidOperationException()
+        public async Task ReadDataAsyncStreamWithoutWrite_ThrowsInvalidOperationException()
         {
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
@@ -243,7 +239,7 @@
             {
                 Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 {
-                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100),ct);
+                    await cn.ReadDataAsync(TimeSpan.FromSeconds(5),ct);
                 });
             }
         }
@@ -312,6 +308,7 @@
     [TestFixture]
     public class UpgradeToSecureAsServerAsync : ConnectionTest
     {
+#if NET461
         [Test]
         public async Task UpgradeToSecureAsServerAsync_true()
         {
@@ -326,12 +323,13 @@
             var tempPath = Path.GetTempPath() + "certificate.pfx";
             var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");
 
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", false, 0))
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
             {
                 var result = await cn.UpgradeToSecureAsServerAsync(certificate);
 
                 Assert.IsTrue(result);
             }
         }
+#endif
     }
 }
