@@ -94,7 +94,7 @@
             Assert.Throws<ArgumentNullException>(() =>
             {
                 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
-                using (var csproj = new CsProjFile<CsAbstractMetadataMock>(null)) { }
+                using (var csproj = new CsProjFile<CsMetadataMock>(null)) { }
             });
         }
     }
