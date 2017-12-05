@@ -165,7 +165,7 @@ duplicate entry, the server returns a result code.</p>
   <h4 id="Unosquare_Swan_Exceptions_LdapException__ctor_System_String_Unosquare_Swan_Networking_Ldap_LdapStatusCode_System_String_System_String_System_Exception_" data-uid="Unosquare.Swan.Exceptions.LdapException.#ctor(System.String,Unosquare.Swan.Networking.Ldap.LdapStatusCode,System.String,System.String,System.Exception)">LdapException(String, LdapStatusCode, String, String, Exception)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Exceptions.LdapException.html">LdapException</a> class.
 Constructs an exception with a detailed message obtained from the
-specified <pre><code>MessageOrKey</code></pre> String.
+specified <code>MessageOrKey</code> String.
 Additional parameters specify the result code, the message returned
 from the server, and a matchedDN returned from the server.
 The String is used either as a message key to obtain a localized
@@ -347,7 +347,7 @@ except when the result of the operation was one of the following:
   <a id="Unosquare_Swan_Exceptions_LdapException_ResultCode_" data-uid="Unosquare.Swan.Exceptions.LdapException.ResultCode*"></a>
   <h4 id="Unosquare_Swan_Exceptions_LdapException_ResultCode" data-uid="Unosquare.Swan.Exceptions.LdapException.ResultCode">ResultCode</h4>
   <div class="markdown level1 summary"><p>Returns the result code from the exception.
-The codes are defined as <pre><code>public final static int</code></pre> members
+The codes are defined as <code>public final static int</code> members
 of the Ldap Exception class. If the exception is a
 result of error information returned from a directory operation, the
 code will be one of those defined for the class. Otherwise, a local error
