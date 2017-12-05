@@ -396,6 +396,8 @@
         [Test]
         public async Task UpgradeToSecureAsServerAndClientAsync_ReturnTrue()
         {
+            Assert.Ignore();
+
             var tempPath = Path.GetTempPath() + "certificate.pfx";
             var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");     
 
