@@ -1,7 +1,6 @@
 #if NET46
 namespace Unosquare.Swan.Test.Mocks
 {
-    using Swan;
     using System;
     using System.IO;
     using Org.BouncyCastle.Asn1.X509;
@@ -13,7 +12,6 @@ namespace Unosquare.Swan.Test.Mocks
     using Org.BouncyCastle.Pkcs;
     using Org.BouncyCastle.Security;
     using Org.BouncyCastle.X509;
-    using System.Net;
 
     /// <summary>
     /// Provides static methods to create, save and load certificate files
@@ -32,7 +30,7 @@ namespace Unosquare.Swan.Test.Mocks
 
             // certificate strength 2048 bits
             keyPairGenerator.Init(new KeyGenerationParameters(
-                  new SecureRandom(new CryptoApiRandomGenerator()), 2048));
+                new SecureRandom(new CryptoApiRandomGenerator()), 2048));
 
             keyPair = keyPairGenerator.GenerateKeyPair();
 
@@ -69,7 +67,7 @@ namespace Unosquare.Swan.Test.Mocks
             certGenerator.AddExtension(
                 X509Extensions.ExtendedKeyUsage.Id,
                 false,
-                new ExtendedKeyUsage(new[] { KeyPurposeID.IdKPServerAuth }));
+                new ExtendedKeyUsage(new[] {KeyPurposeID.IdKPServerAuth}));
 
             var signatureFactory = new Asn1SignatureFactory("SHA256withRSA", keyPair.Private);
             var generatedCertificate = certGenerator.Generate(signatureFactory);
@@ -85,17 +83,20 @@ namespace Unosquare.Swan.Test.Mocks
         /// <param name="outputFilePath">The output file path.</param>
         /// <param name="certificateAlias">The certificate alias.</param>
         /// <param name="certificatePassword">The certificate password.</param>
-        public static void SaveToFile(this X509Certificate certificate, AsymmetricCipherKeyPair keyPair, string outputFilePath, string certificateAlias, string certificatePassword)
+        public static void SaveToFile(this X509Certificate certificate, AsymmetricCipherKeyPair keyPair,
+            string outputFilePath, string certificateAlias, string certificatePassword)
         {
             var certificateStore = new Pkcs12Store();
             var certificateEntry = new X509CertificateEntry(certificate);
 
             certificateStore.SetCertificateEntry(certificateAlias, certificateEntry);
-            certificateStore.SetKeyEntry(certificateAlias, new AsymmetricKeyEntry(keyPair.Private), new[] { certificateEntry });
+            certificateStore.SetKeyEntry(certificateAlias, new AsymmetricKeyEntry(keyPair.Private),
+                new[] {certificateEntry});
 
             using (var outputFileStream = File.Create(outputFilePath))
             {
-                certificateStore.Save(outputFileStream, certificatePassword.ToCharArray(), new SecureRandom(new CryptoApiRandomGenerator()));
+                certificateStore.Save(outputFileStream, certificatePassword.ToCharArray(),
+                    new SecureRandom(new CryptoApiRandomGenerator()));
             }
         }
 
@@ -106,7 +107,8 @@ namespace Unosquare.Swan.Test.Mocks
         /// <param name="hostname">The hostname.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        public static System.Security.Cryptography.X509Certificates.X509Certificate2 CreateOrLoadCertificate(string pfxFilePath, string hostname, string password)
+        public static System.Security.Cryptography.X509Certificates.X509Certificate2 CreateOrLoadCertificate(
+            string pfxFilePath, string hostname = "localhost", string password = "password")
         {
             try
             {
@@ -114,12 +116,12 @@ namespace Unosquare.Swan.Test.Mocks
 
                 if (File.Exists(certificateFilePath) == false)
                 {
-                    AsymmetricCipherKeyPair keyPair;
-                    var certificate = GenerateCertificate(hostname, out keyPair);
+                    var certificate = GenerateCertificate(hostname, out var keyPair);
                     certificate.SaveToFile(keyPair, certificateFilePath, hostname, password);
                 }
 
-                return new System.Security.Cryptography.X509Certificates.X509Certificate2(certificateFilePath, password);
+                return new System.Security.Cryptography.X509Certificates.X509Certificate2(certificateFilePath,
+                    password);
             }
             catch (Exception ex)
             {
