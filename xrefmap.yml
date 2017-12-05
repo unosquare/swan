@@ -3573,6 +3573,120 @@ references:
   commentId: Overload:Unosquare.Swan.DateExtensions.ToUnixEpochDate
   fullName: Unosquare.Swan.DateExtensions.ToUnixEpochDate
   nameWithType: DateExtensions.ToUnixEpochDate
+- uid: Unosquare.Swan.DateTimeSpan
+  name: DateTimeSpan
+  href: api/Unosquare.Swan.DateTimeSpan.html
+  commentId: T:Unosquare.Swan.DateTimeSpan
+  fullName: Unosquare.Swan.DateTimeSpan
+  nameWithType: DateTimeSpan
+- uid: Unosquare.Swan.DateTimeSpan.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+  name: DateTimeSpan(Int32, Int32, Int32, Int32, Int32, Int32, Int32)
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.DateTimeSpan.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+  fullName: Unosquare.Swan.DateTimeSpan.DateTimeSpan(System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32)
+  nameWithType: DateTimeSpan.DateTimeSpan(Int32, Int32, Int32, Int32, Int32, Int32, Int32)
+- uid: Unosquare.Swan.DateTimeSpan.#ctor*
+  name: DateTimeSpan
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan__ctor_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.#ctor
+  fullName: Unosquare.Swan.DateTimeSpan.DateTimeSpan
+  nameWithType: DateTimeSpan.DateTimeSpan
+- uid: Unosquare.Swan.DateTimeSpan.CompareDates(System.DateTime,System.DateTime)
+  name: CompareDates(DateTime, DateTime)
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_CompareDates_System_DateTime_System_DateTime_
+  commentId: M:Unosquare.Swan.DateTimeSpan.CompareDates(System.DateTime,System.DateTime)
+  fullName: Unosquare.Swan.DateTimeSpan.CompareDates(System.DateTime, System.DateTime)
+  nameWithType: DateTimeSpan.CompareDates(DateTime, DateTime)
+- uid: Unosquare.Swan.DateTimeSpan.CompareDates*
+  name: CompareDates
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_CompareDates_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.CompareDates
+  fullName: Unosquare.Swan.DateTimeSpan.CompareDates
+  nameWithType: DateTimeSpan.CompareDates
+- uid: Unosquare.Swan.DateTimeSpan.Days
+  name: Days
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Days
+  commentId: P:Unosquare.Swan.DateTimeSpan.Days
+  fullName: Unosquare.Swan.DateTimeSpan.Days
+  nameWithType: DateTimeSpan.Days
+- uid: Unosquare.Swan.DateTimeSpan.Days*
+  name: Days
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Days_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.Days
+  fullName: Unosquare.Swan.DateTimeSpan.Days
+  nameWithType: DateTimeSpan.Days
+- uid: Unosquare.Swan.DateTimeSpan.Hours
+  name: Hours
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Hours
+  commentId: P:Unosquare.Swan.DateTimeSpan.Hours
+  fullName: Unosquare.Swan.DateTimeSpan.Hours
+  nameWithType: DateTimeSpan.Hours
+- uid: Unosquare.Swan.DateTimeSpan.Hours*
+  name: Hours
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Hours_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.Hours
+  fullName: Unosquare.Swan.DateTimeSpan.Hours
+  nameWithType: DateTimeSpan.Hours
+- uid: Unosquare.Swan.DateTimeSpan.Milliseconds
+  name: Milliseconds
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Milliseconds
+  commentId: P:Unosquare.Swan.DateTimeSpan.Milliseconds
+  fullName: Unosquare.Swan.DateTimeSpan.Milliseconds
+  nameWithType: DateTimeSpan.Milliseconds
+- uid: Unosquare.Swan.DateTimeSpan.Milliseconds*
+  name: Milliseconds
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Milliseconds_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.Milliseconds
+  fullName: Unosquare.Swan.DateTimeSpan.Milliseconds
+  nameWithType: DateTimeSpan.Milliseconds
+- uid: Unosquare.Swan.DateTimeSpan.Minutes
+  name: Minutes
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Minutes
+  commentId: P:Unosquare.Swan.DateTimeSpan.Minutes
+  fullName: Unosquare.Swan.DateTimeSpan.Minutes
+  nameWithType: DateTimeSpan.Minutes
+- uid: Unosquare.Swan.DateTimeSpan.Minutes*
+  name: Minutes
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Minutes_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.Minutes
+  fullName: Unosquare.Swan.DateTimeSpan.Minutes
+  nameWithType: DateTimeSpan.Minutes
+- uid: Unosquare.Swan.DateTimeSpan.Months
+  name: Months
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Months
+  commentId: P:Unosquare.Swan.DateTimeSpan.Months
+  fullName: Unosquare.Swan.DateTimeSpan.Months
+  nameWithType: DateTimeSpan.Months
+- uid: Unosquare.Swan.DateTimeSpan.Months*
+  name: Months
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Months_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.Months
+  fullName: Unosquare.Swan.DateTimeSpan.Months
+  nameWithType: DateTimeSpan.Months
+- uid: Unosquare.Swan.DateTimeSpan.Seconds
+  name: Seconds
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Seconds
+  commentId: P:Unosquare.Swan.DateTimeSpan.Seconds
+  fullName: Unosquare.Swan.DateTimeSpan.Seconds
+  nameWithType: DateTimeSpan.Seconds
+- uid: Unosquare.Swan.DateTimeSpan.Seconds*
+  name: Seconds
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Seconds_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.Seconds
+  fullName: Unosquare.Swan.DateTimeSpan.Seconds
+  nameWithType: DateTimeSpan.Seconds
+- uid: Unosquare.Swan.DateTimeSpan.Years
+  name: Years
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Years
+  commentId: P:Unosquare.Swan.DateTimeSpan.Years
+  fullName: Unosquare.Swan.DateTimeSpan.Years
+  nameWithType: DateTimeSpan.Years
+- uid: Unosquare.Swan.DateTimeSpan.Years*
+  name: Years
+  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Years_
+  commentId: Overload:Unosquare.Swan.DateTimeSpan.Years
+  fullName: Unosquare.Swan.DateTimeSpan.Years
+  nameWithType: DateTimeSpan.Years
 - uid: Unosquare.Swan.Definitions
   name: Definitions
   href: api/Unosquare.Swan.Definitions.html

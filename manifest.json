@@ -731,6 +731,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.DateTimeSpan.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.DateTimeSpan.html",
+          "hash": "eVOr0/WHAWTRTYiFk9Hmag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Definitions.yml",
       "output": {
         ".html": {
@@ -1575,7 +1587,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "U8gHxEvx0aTHfznzVI/dkA=="
+          "hash": "pKPgK9HwgLz3liwSPWtDVQ=="
         }
       },
       "is_incremental": false,
@@ -1587,7 +1599,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "y3H1/UHfxmZTsTANjRpgTA=="
+          "hash": "cKWJz+V6NjKd7wg58NB5zQ=="
         }
       },
       "is_incremental": false,
@@ -1634,13 +1646,13 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
