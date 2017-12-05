@@ -27,7 +27,7 @@
             Port = _defaultPort;
             ConnectionListener = new ConnectionListener(Port);
             Client = new TcpClient();
-            ct = default(CancellationToken);           
+            ct = default(CancellationToken);
         }
 
         [TearDown]
@@ -244,7 +244,7 @@
             {
                 Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 {
-                    await cn.ReadDataAsync(TimeSpan.FromSeconds(5),ct);
+                    await cn.ReadDataAsync(TimeSpan.FromSeconds(5), ct);
                 });
             }
         }
@@ -255,9 +255,9 @@
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client,Encoding.UTF8, "\r\n", true, 0))
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                Assert.ThrowsAsync<TimeoutException>(async () => 
+                Assert.ThrowsAsync<TimeoutException>(async () =>
                 {
                     await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100), ct);
                 });
@@ -295,20 +295,96 @@
         [Test]
         public async Task WriteDataAsync_MessageEqualsResponse()
         {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                {
+                    cn.WriteDataAsync(Message, false, ct).Wait();
+                }
+            };
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
 
-            using (var connection = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
             {
-                var otherMessage = Encoding.ASCII.GetBytes("Other Message!\r\n");
-                
-                // TODO: Check this test
+                var response = await cn.ReadDataAsync(ct);
 
-                //await connection.WriteLineAsync(Encoding.ASCII.GetString(otherMessage), ct);
+                Assert.IsNotNull(response);
+                Assert.AreEqual(Message, response);
+            }
+        }
 
-                //var response = await connection.ReadDataAsync(TimeSpan.FromSeconds(5),ct);
+        [Test]
+        public async Task WriteDataAsyncFlushEnabled_MessageEqualsResponse()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                {
+                    cn.WriteDataAsync(Message, true, ct).Wait();
+                }
+            };
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
 
-                //Assert.IsNotNull(response);
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadDataAsync(ct);
+
+                Assert.IsNotNull(response);
+                Assert.AreEqual(Message, response);
+            }
+        }
+    }
+
+    [TestFixture]
+    public class WriteTextAsync : ConnectionTest
+    {
+        [Test]
+        public async Task WriteTextAsync_MessageEqualResponse()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                {
+                    cn.WriteTextAsync(Encoding.ASCII.GetString(Message), ct).Wait();
+                }
+            };
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadDataAsync(ct);
+
+                Assert.IsNotNull(response);
+                Assert.AreEqual(Message, response);
+            }
+        }
+    }
+
+    [TestFixture]
+    public class WriteLineAsync : ConnectionTest
+    {
+        [Test]
+        public async Task WriteLineAsync_MessageEqualResponse()
+        {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                {
+                    cn.WriteLineAsync(Encoding.ASCII.GetString(Message), ct).Wait();
+                }
+            };
+            ConnectionListener.Start();
+            await Client.ConnectAsync("localhost", Port);
+
+            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            {
+                var response = await cn.ReadLineAsync(ct);
+
+                Assert.IsNotNull(response);
+                Assert.AreEqual(Encoding.ASCII.GetString(Message).Remove(Message.Length - 2), response);
             }
         }
     }
