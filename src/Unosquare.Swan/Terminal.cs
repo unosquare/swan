@@ -20,7 +20,7 @@
         private static readonly ManualResetEvent OutputDone = new ManualResetEvent(false);
         private static readonly ManualResetEvent InputDone = new ManualResetEvent(true);
 
-        private static bool? m_IsConsolePresent;        
+        private static bool? m_IsConsolePresent;
 
         #endregion
 
@@ -86,7 +86,7 @@
         }
 
         #endregion
-        
+
         #region Synchronized Cursor Movement
 
         /// <summary>
@@ -160,6 +160,8 @@
         {
             get
             {
+                if (Settings.OverrideIsConsolePresent) return true;
+
                 if (m_IsConsolePresent == null)
                 {
                     m_IsConsolePresent = true;
@@ -333,7 +335,7 @@
                         if (OutputQueue.TryDequeue(out var context) == false) continue;
 
                         // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                        if (IsConsolePresent && OutputQueue.Count <= Console.BufferHeight)
+                        if (IsConsolePresent && (Settings.OverrideIsConsolePresent || OutputQueue.Count <= Console.BufferHeight))
                         {
                             // Output to the standard output
                             if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))

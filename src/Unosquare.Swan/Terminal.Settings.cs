@@ -154,6 +154,14 @@
             /// The console options.
             /// </value>
             public static LogMessageType DisplayLoggingMessageType { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether [override is console present].
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if [override is console present]; otherwise, <c>false</c>.
+            /// </value>
+            public static bool OverrideIsConsolePresent { get; set; }
         }
     }
 }
