@@ -3,6 +3,7 @@
     using System;
 
     /// <summary>
+    /// Represents a struct of DateTimeSpan to compare dates and get in separate fields the amount of time between those dates.
     /// Base on https://stackoverflow.com/a/9216404/1096693
     /// </summary>
     public struct DateTimeSpan
@@ -92,9 +93,6 @@
         /// </value>
         public int Milliseconds => milliseconds;
 
-        /// <summary>
-        /// 
-        /// </summary>
         enum Phase { Years, Months, Days, Done }
 
         /// <summary>
@@ -102,7 +100,7 @@
         /// </summary>
         /// <param name="date1">The date1.</param>
         /// <param name="date2">The date2.</param>
-        /// <returns></returns>
+        /// <returns>A DateTimeSpan with the Years, Months, Days, Hours, Minutes, Seconds and Milliseconds between the dates</returns>
         public static DateTimeSpan CompareDates(DateTime date1, DateTime date2)
         {
             if (date2 < date1)
