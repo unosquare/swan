@@ -10610,6 +10610,18 @@ references:
   commentId: Overload:Unosquare.Swan.Terminal.Settings.LoggingTimeFormat
   fullName: Unosquare.Swan.Terminal.Settings.LoggingTimeFormat
   nameWithType: Terminal.Settings.LoggingTimeFormat
+- uid: Unosquare.Swan.Terminal.Settings.OverrideIsConsolePresent
+  name: OverrideIsConsolePresent
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_OverrideIsConsolePresent
+  commentId: P:Unosquare.Swan.Terminal.Settings.OverrideIsConsolePresent
+  fullName: Unosquare.Swan.Terminal.Settings.OverrideIsConsolePresent
+  nameWithType: Terminal.Settings.OverrideIsConsolePresent
+- uid: Unosquare.Swan.Terminal.Settings.OverrideIsConsolePresent*
+  name: OverrideIsConsolePresent
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_OverrideIsConsolePresent_
+  commentId: Overload:Unosquare.Swan.Terminal.Settings.OverrideIsConsolePresent
+  fullName: Unosquare.Swan.Terminal.Settings.OverrideIsConsolePresent
+  nameWithType: Terminal.Settings.OverrideIsConsolePresent
 - uid: Unosquare.Swan.Terminal.Settings.TraceColor
   name: TraceColor
   href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_TraceColor
