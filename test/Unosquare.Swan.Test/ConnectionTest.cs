@@ -42,10 +42,10 @@
     public class Connections : ConnectionTest
     {
         [Test]
-        public async Task OpenConnection_Connected()
+        public void OpenConnection_Connected()
         {
             ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            Client.Connect("localhost", Port);
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
@@ -230,8 +230,13 @@
         }
 
         [Test]
-        public async Task StreamWithoutWrite_ThrowsInvalidOperationException()
+        public async Task ContinuousReadingEnabled_ThrowsInvalidOperationException()
         {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                e.Client?.GetStream().Write(Message, 0, Message.Length);
+            };
+
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
 
