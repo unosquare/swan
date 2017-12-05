@@ -47,7 +47,7 @@
             ConnectionListener.Start();
             Client.Connect("localhost", Port);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", false, 0))
             {
                 Assert.IsTrue(ConnectionListener.IsListening);
                 Assert.IsTrue(cn.IsConnected);
