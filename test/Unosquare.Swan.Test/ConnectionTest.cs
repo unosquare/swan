@@ -313,49 +313,28 @@
     public class UpgradeToSecureAsServerAsync : ConnectionTest
     {
         [Test]
-        public async Task UpgradeToSecureAsServerAsync_ReturnTrue()
+        public async Task UpgradeToSecureAsServerAndClientAsync_ReturnTrue()
         {
             var tempPath = Path.GetTempPath() + "certificate.pfx";
-            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");
-            var connectionListener = new ConnectionListener(Port);
-            var client = new TcpClient();
-            var isSecure = false;          
-
-            connectionListener.Start();
-            await client.ConnectAsync("localhost", Port);
-
-            connectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                using (var cn = new Connection(e.Client))
-                {
-                    cn.UpgradeToSecureAsServerAsync(certificate).Wait();
-                    isSecure = cn.IsActiveStreamSecure;
-                }
-            };
-            
-            Assert.IsTrue(isSecure);
-        }
-    }
-
-    [TestFixture]
-    public class UpgradeToSecureAsClientAsync : ConnectionTest
-    {
-        [Test]
-        public async Task UpgradeToSecureAsClientAsync_ReturnTrue()
-        {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
+            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");     
 
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
+
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", true, 0))
+                {
+                    cn.UpgradeToSecureAsServerAsync(certificate).Wait();
+                }
+            };
 
             using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
             {
                 var result = await cn.UpgradeToSecureAsClientAsync();
 
                 Assert.IsTrue(result);
+                Assert.IsTrue(cn.IsActiveStreamSecure);
             }
         }
     }
