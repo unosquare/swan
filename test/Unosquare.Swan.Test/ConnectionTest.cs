@@ -396,6 +396,9 @@
         [Test]
         public async Task UpgradeToSecureAsServerAndClientAsync_ReturnTrue()
         {
+            ServicePointManager.ServerCertificateValidationCallback +=
+                        (sender, cert, chain, sslPolicyErrors) => true;
+
             var tempPath = Path.GetTempPath() + "certificate.pfx";
             var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");     
 
