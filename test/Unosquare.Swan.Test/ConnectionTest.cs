@@ -313,25 +313,27 @@
     public class UpgradeToSecureAsServerAsync : ConnectionTest
     {
         [Test]
-        public async Task UpgradeToSecureAsServerAsync_true()
+        public async Task UpgradeToSecureAsServerAsync_ReturnTrue()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
-
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
             var tempPath = Path.GetTempPath() + "certificate.pfx";
             var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");
+            var connectionListener = new ConnectionListener(Port);
+            var client = new TcpClient();
+            var isSecure = false;          
 
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            connectionListener.Start();
+            await client.ConnectAsync("localhost", Port);
+
+            connectionListener.OnConnectionAccepting += (s, e) =>
             {
-                var result = await cn.UpgradeToSecureAsServerAsync(certificate);
-
-                Assert.IsTrue(result);
-            }
+                using (var cn = new Connection(e.Client))
+                {
+                    cn.UpgradeToSecureAsServerAsync(certificate).Wait();
+                    isSecure = cn.IsActiveStreamSecure;
+                }
+            };
+            
+            Assert.IsTrue(isSecure);
         }
     }
 
@@ -339,7 +341,7 @@
     public class UpgradeToSecureAsClientAsync : ConnectionTest
     {
         [Test]
-        public async Task UpgradeToSecureAsClientAsync_true()
+        public async Task UpgradeToSecureAsClientAsync_ReturnTrue()
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
@@ -348,9 +350,6 @@
 
             ConnectionListener.Start();
             await Client.ConnectAsync("localhost", Port);
-
-            var tempPath = Path.GetTempPath() + "certificate.pfx";
-            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");
 
             using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
             {
