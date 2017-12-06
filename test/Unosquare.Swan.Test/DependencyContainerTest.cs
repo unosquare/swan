@@ -3,9 +3,9 @@
     using System;
     using NUnit.Framework;
     using System.Collections.Generic;
-    using Unosquare.Swan.Components;
-    using Unosquare.Swan.Exceptions;
-    using Unosquare.Swan.Test.Mocks;
+    using Components;
+    using Exceptions;
+    using Mocks;
     using System.Linq;
 
     [TestFixture]
@@ -100,8 +100,10 @@
 
             container.Register(typeof(Shark));
 
-            var resolveOptions = new DependencyContainerResolveOptions();
-            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+            var resolveOptions = new DependencyContainerResolveOptions
+            {
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+            };
 
             Assert.IsNotNull(container.Resolve(
                 typeof(Shark), new Shark().GetName(), new Dictionary<string, object>(), resolveOptions));
@@ -114,8 +116,10 @@
 
             container.Register(typeof(Human));
 
-            var resolveOptions = new DependencyContainerResolveOptions();
-            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+            var resolveOptions = new DependencyContainerResolveOptions
+            {
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+            };
 
             Assert.Throws<DependencyContainerResolutionException>(() =>
                 container.Resolve(typeof(Human), "B. B. King", new Dictionary<string, object>(), resolveOptions));
@@ -686,8 +690,10 @@
         {
             var container = new DependencyContainer();
 
-            var resolveOptions = new DependencyContainerResolveOptions();
-            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+            var resolveOptions = new DependencyContainerResolveOptions
+            {
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+            };
 
             container.Register<IAnimal>(new Human("George"), registerName);
             
@@ -718,8 +724,10 @@
         {
             var container = new DependencyContainer();
 
-            var resolveOptions = new DependencyContainerResolveOptions();
-            resolveOptions.UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.Fail;
+            var resolveOptions = new DependencyContainerResolveOptions
+            {
+                UnregisteredResolutionAction = DependencyContainerUnregisteredResolutionActions.Fail
+            };
 
             Assert.IsFalse(container.CanResolve<Shark>(new Dictionary<string, object>(), resolveOptions));
         }
@@ -748,8 +756,10 @@
 
             container.Register(typeof(Shark));
 
-            var resolveOptions = new DependencyContainerResolveOptions();
-            resolveOptions.NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution;
+            var resolveOptions = new DependencyContainerResolveOptions
+            {
+                NamedResolutionFailureAction = DependencyContainerNamedResolutionFailureActions.AttemptUnnamedResolution
+            };
 
             Assert.IsTrue(container.CanResolve(
                 typeof(Shark), new Dictionary<string, object>(), new Shark().Name, resolveOptions));

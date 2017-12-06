@@ -18,7 +18,7 @@
     }
 
     [TestFixture]
-    public class ComputeMD5
+    public class ComputeMD5 : ExtensionsByteArraysTest.ExtensionsByteArraysTest
     {
         [TestCase("6B-F9-5A-48-F3-66-BD-F8-AF-3A-19-8C-7B-72-3C-77", 5000)]
         [TestCase("9B-4C-8A-5E-36-D3-BE-7E-2C-4B-1D-75-DE-D8-C8-A1", 1234)]
@@ -41,9 +41,7 @@
         [Test]
         public void WithNull_ReturnsMD5()
         {
-            MemoryStream input = null;
-
-            Assert.Throws<ArgumentNullException>(() => input.ComputeMD5());
+            Assert.Throws<ArgumentNullException>(() => NullMemoryStream.ComputeMD5());
         }
     }
 
@@ -89,7 +87,7 @@
     }
 
     [TestFixture]
-    public class Stringify
+    public class Stringify : TestFixtureBase
     {
         [TestCase("string", "string")]
         [TestCase("(null)", null)]
@@ -138,35 +136,32 @@
         [Test]
         public void WithDictionaryOfArraysAsParam_ReturnsStringifiedArray()
         {
-            string[] arrayString = {"Orgrimmar", "Thuder Bluff", "Undercity", "Silvermoon", null};
-
             var wordDictionary =
-                new Dictionary<string, string[][]> {{"Horde Capitals", new[] {arrayString, arrayString}}};
+                new Dictionary<string, string[][]> {{"Horde Capitals", new[] { DefaultStringList.ToArray(), DefaultStringList.ToArray() } }};
 
             var objectInfoLines = wordDictionary.Stringify().ToLines();
 
             Assert.AreEqual("Horde Capitals  : array[2]", objectInfoLines[0]);
-            Assert.AreEqual("        [0]: Orgrimmar", objectInfoLines[2]);
-            Assert.AreEqual("        [1]: Thuder Bluff", objectInfoLines[3]);
+            Assert.AreEqual("        [0]: A", objectInfoLines[2]);
+            Assert.AreEqual("        [1]: B", objectInfoLines[3]);
         }
 
         [Test]
         public void WithDictionaryOfDictionariesAsParam_ReturnsStringifiedArray()
         {
-            var persons = new Dictionary<string, Dictionary<string, string>>
+            var persons = new Dictionary<string, Dictionary<int, string>>
             {
-                {"Tyrande", new Dictionary<string, string> {{"Race", "Night Elf\r"}, {"Affiliation", "Alliance\r"}}},
-                {"Jaina", new Dictionary<string, string> {{"Race", "Human\r"}, {"Affiliation", "Alliance\r"}}},
-                {"Liadrin", new Dictionary<string, string> {{"Race", "Blood Elf\n"}, {"Affiliation", "Horde\n"}}}
+                {"Tyrande", DefaultDictionary },
+                {"Jaina", DefaultDictionary },
+                {"Liadrin", DefaultDictionary }
             };
 
             var objectInfoLines = persons.Stringify().ToLines();
 
             Assert.AreEqual("Tyrande         : object", objectInfoLines[0]);
-            Assert.AreEqual("Jaina           : object", objectInfoLines[5]);
-            Assert.AreEqual("Liadrin         : object", objectInfoLines[10]);
+            Assert.AreEqual("Jaina           : object", objectInfoLines[6]);
+            Assert.AreEqual("Liadrin         : object", objectInfoLines[12]);
         }
-
     }
 
     [TestFixture]
@@ -195,7 +190,9 @@
         [TestCase("Test", "\0Test\0", null)]
         [TestCase("\0Test", "\0Test", new[] {'\0'})]
         [TestCase("\0Test", "\0Test\t", new[] {'\0'})]
-        public void WithValidString_ReturnsStringWithoutControlCharacters(string expected, string input,
+        public void WithValidString_ReturnsStringWithoutControlCharacters(
+            string expected, 
+            string input,
             char[] excludeChars)
         {
             Assert.AreEqual(expected, input.RemoveControlCharsExcept(excludeChars), $"Testing with {input}");

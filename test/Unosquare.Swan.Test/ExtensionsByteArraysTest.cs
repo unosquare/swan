@@ -7,11 +7,12 @@
     using System.Threading.Tasks;
     using Mocks;
 
-    public abstract class ExtensionsByteArraysTest
+    public abstract class ExtensionsByteArraysTest : TestFixtureBase
     {
         protected const int Value = 123456789;
-        protected readonly byte[] Bytes = BitConverter.GetBytes(Value);
-        protected readonly byte[] NullBytes = null;
+
+        protected byte[] Bytes => BitConverter.GetBytes(Value);
+        protected MemoryStream NullMemoryStream => null;
     }
 
     [TestFixture]
@@ -27,7 +28,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullBytes.ToLowerHex());
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToLowerHex());
         }
     }
 
@@ -44,7 +45,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullBytes.ToUpperHex());
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToUpperHex());
         }
     }
 
@@ -104,7 +105,7 @@
         {
             var sequence = BitConverter.GetBytes(456);
 
-            Assert.Throws<ArgumentNullException>(() => NullBytes.Split(2, sequence));
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.Split(2, sequence));
         }
 
         [Test]
@@ -132,7 +133,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullBytes.GetIndexOf(null));
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.GetIndexOf(null));
         }
 
         [Test]
@@ -164,7 +165,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.IsNull(NullBytes.DeepClone());
+            Assert.IsNull(NullByteArray.DeepClone());
         }
     }
 
@@ -191,8 +192,7 @@
         public void WithNullBytes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.TrimStart(21)
-            );
+                NullByteArray.TrimStart(21));
         }
     }
 
@@ -208,7 +208,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullBytes.TrimEnd(7));
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.TrimEnd(7));
         }
     }
 
@@ -225,7 +225,7 @@
         [Test]
         public void WithNullBytes_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => NullBytes.EndsWith(7));
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.EndsWith(7));
         }
     }
 
@@ -265,7 +265,7 @@
         public void WithNullBytes_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                NullBytes.IsEqualTo(BitConverter.GetBytes(Value)));
+                NullByteArray.IsEqualTo(BitConverter.GetBytes(Value)));
         }
     }
 
@@ -297,20 +297,15 @@
         {
             using (var stream = new MemoryStream(10))
             {
-                Assert.Throws<ArgumentNullException>(() =>
-                    stream.Append(NullBytes));
+                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
             }
         }
 
         [Test]
         public void WithNullStream_ThrowsArgumentNullException()
         {
-            using (MemoryStream stream = null)
-            {
-                Assert.Throws<ArgumentNullException>(() =>
-                    stream.Append(NullBytes)
-                );
-            }
+            Assert.Throws<ArgumentNullException>(() =>
+                NullMemoryStream.Append(NullByteArray));
         }
 
         [Test]
@@ -329,28 +324,24 @@
         [Test]
         public void WithNullIEnumerable_AppendBytes()
         {
-            IEnumerable<byte> enumerableByte = null;
-
             using (var stream = new MemoryStream(10))
             {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(enumerableByte));
+                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
             }
         }
 
         [Test]
         public void WithValidIEnumerableArray_AppendBytes()
         {
-            IEnumerable<byte[]> enumerableByte = null;
-
             using (var stream = new MemoryStream(10))
             {
-                Assert.Throws<ArgumentNullException>(() => stream.Append(enumerableByte));
+                Assert.Throws<ArgumentNullException>(() => stream.Append(NullByteArray));
             }
         }
     }
 
     [TestFixture]
-    public class ReadBytesAsync
+    public class ReadBytesAsync : ExtensionsByteArraysTest
     {
         [Test]
         public async Task WithoutBufferSize_ReturnsArray()
@@ -418,19 +409,15 @@
         [Test]
         public void WithNullStreamAndBufferLength_ThrowsArgumentNullException()
         {
-            FileStream currentAssembly = null;
-
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                await currentAssembly.ReadBytesAsync(23, 256));
+                await NullMemoryStream.ReadBytesAsync(23, 256));
         }
 
         [Test]
         public void WithNullStream_ThrowsArgumentNullException()
         {
-            FileStream currentAssembly = null;
-
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
-                await currentAssembly.ReadBytesAsync(23));
+                await NullMemoryStream.ReadBytesAsync(23));
         }
     }
 
@@ -453,18 +440,14 @@
         [Test]
         public void WithValidHex_ReturnsString()
         {
-            const string hex = "15CD5B07";
-
-            Assert.AreEqual(Bytes, hex.ConvertHexadecimalToBytes(), "Get ConvertHexadecimalToBytes value");
+            Assert.AreEqual(Bytes, "15CD5B07".ConvertHexadecimalToBytes(), "Get ConvertHexadecimalToBytes value");
         }
 
         [Test]
         public void WithNullHex_ThrowsArgumentNullException()
         {
-            const string hex = null;
-
             Assert.Throws<ArgumentNullException>(() =>
-                hex.ConvertHexadecimalToBytes());
+                NullString.ConvertHexadecimalToBytes());
         }
     }
 
@@ -493,7 +476,7 @@
         [Test]
         public void WithNullArray_ReturnsEmpty()
         {
-            Assert.IsEmpty(NullBytes.SubArray(0, 0));
+            Assert.IsEmpty(NullByteArray.SubArray(0, 0));
         }
     }
 
@@ -515,28 +498,26 @@
         [Test]
         public void WithNullArray_ReturnsByteArray()
         {
-            Assert.Throws<ArgumentNullException>(() => NullBytes.ToSByteArray());
+            Assert.Throws<ArgumentNullException>(() => NullByteArray.ToSByteArray());
         }
     }
 
     [TestFixture]
-    public class ReadInput
+    public class ReadInput : ExtensionsByteArraysTest
     {
         [Test]
         public void WithNullStream_ThrowsArgumentNullException()
         {
-            FileStream stream = null;
             var lber = new sbyte[23];
 
             Assert.Throws<ArgumentNullException>(() =>
-                stream.ReadInput(ref lber, 0, lber.Length));
+                NullMemoryStream.ReadInput(ref lber, 0, lber.Length));
         }
 
         [Test]
         public void WithTargetLengthEqualsZero_ReturnsZeroBytes()
         {
-            var sampleFile = Path.GetTempFileName();
-            var stream = new FileStream(sampleFile, FileMode.Open);
+            var stream = new MemoryStream();
             var lber = new sbyte[0];
 
             var result = stream.ReadInput(ref lber, 0, lber.Length);
@@ -559,8 +540,7 @@
         [Test]
         public void WithNullTarget_ThrowsArgumentNullException()
         {
-            var sampleFile = Path.GetTempFileName();
-            var stream = new FileStream(sampleFile, FileMode.Open);
+            var stream = new MemoryStream();
             sbyte[] lber = null;
 
             Assert.Throws<ArgumentNullException>(() => stream.ReadInput(ref lber, 0, 0));

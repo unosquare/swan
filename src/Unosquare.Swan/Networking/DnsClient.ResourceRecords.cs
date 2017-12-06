@@ -12,31 +12,31 @@
     {
         public abstract class DnsResourceRecordBase : IDnsResourceRecord
         {
-            private readonly IDnsResourceRecord record;
+            private readonly IDnsResourceRecord _record;
 
-            public DnsResourceRecordBase(IDnsResourceRecord record)
+            protected DnsResourceRecordBase(IDnsResourceRecord record)
             {
-                this.record = record;
+                _record = record;
             }
 
-            public DnsDomain Name => record.Name;
+            public DnsDomain Name => _record.Name;
 
-            public DnsRecordType Type => record.Type;
+            public DnsRecordType Type => _record.Type;
 
-            public DnsRecordClass Class => record.Class;
+            public DnsRecordClass Class => _record.Class;
 
-            public TimeSpan TimeToLive => record.TimeToLive;
+            public TimeSpan TimeToLive => _record.TimeToLive;
 
-            public int DataLength => record.DataLength;
+            public int DataLength => _record.DataLength;
 
-            public byte[] Data => record.Data;
+            public byte[] Data => _record.Data;
 
-            public int Size => record.Size;
+            public int Size => _record.Size;
 
             protected virtual string[] IncludedProperties
                 => new[] {nameof(Name), nameof(Type), nameof(Class), nameof(TimeToLive), nameof(DataLength)};
 
-            public byte[] ToArray() => record.ToArray();
+            public byte[] ToArray() => _record.ToArray();
 
             public override string ToString()
                 => Json.SerializeOnly(this, true, IncludedProperties);
@@ -247,7 +247,7 @@
         public class DnsMailExchangeResourceRecord : DnsResourceRecordBase
         {
             private const int PreferenceSize = 2;
-            
+
             public DnsMailExchangeResourceRecord(
                 IDnsResourceRecord record,
                 byte[] message,
@@ -272,48 +272,15 @@
 
             public DnsDomain ExchangeDomainName { get; }
 
-            protected override string[] IncludedProperties
+            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
             {
-                get
-                {
-                    var temp = new List<string>(base.IncludedProperties)
-                    {
-                        nameof(Preference),
-                        nameof(ExchangeDomainName)
-                    };
-                    return temp.ToArray();
-                }
-            }
+                nameof(Preference),
+                nameof(ExchangeDomainName)
+            }.ToArray();
         }
 
         public class DnsStartOfAuthorityResourceRecord : DnsResourceRecordBase
         {
-            private static IDnsResourceRecord Create(
-                DnsDomain domain,
-                DnsDomain master,
-                DnsDomain responsible,
-                long serial,
-                TimeSpan refresh,
-                TimeSpan retry,
-                TimeSpan expire,
-                TimeSpan minTtl,
-                TimeSpan ttl)
-            {
-                var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
-                var tail = new Options()
-                {
-                    SerialNumber = serial,
-                    RefreshInterval = refresh,
-                    RetryInterval = retry,
-                    ExpireInterval = expire,
-                    MinimumTimeToLive = minTtl
-                };
-
-                data.Append(master.ToArray()).Append(responsible.ToArray()).Append(tail.ToBytes());
-
-                return new DnsResourceRecord(domain, data.ToArray(), DnsRecordType.SOA, DnsRecordClass.IN, ttl);
-            }
-
             public DnsStartOfAuthorityResourceRecord(IDnsResourceRecord record, byte[] message, int dataOffset)
                 : base(record)
             {
@@ -365,19 +332,38 @@
 
             public TimeSpan MinimumTimeToLive { get; }
 
-            protected override string[] IncludedProperties
+            private static IDnsResourceRecord Create(
+                DnsDomain domain,
+                DnsDomain master,
+                DnsDomain responsible,
+                long serial,
+                TimeSpan refresh,
+                TimeSpan retry,
+                TimeSpan expire,
+                TimeSpan minTtl,
+                TimeSpan ttl)
             {
-                get
+                var data = new MemoryStream(Options.SIZE + master.Size + responsible.Size);
+                var tail = new Options()
                 {
-                    var temp = new List<string>(base.IncludedProperties)
-                    {
-                        nameof(MasterDomainName),
-                        nameof(ResponsibleDomainName),
-                        nameof(SerialNumber)
-                    };
-                    return temp.ToArray();
-                }
+                    SerialNumber = serial,
+                    RefreshInterval = refresh,
+                    RetryInterval = retry,
+                    ExpireInterval = expire,
+                    MinimumTimeToLive = minTtl
+                };
+
+                data.Append(master.ToArray()).Append(responsible.ToArray()).Append(tail.ToBytes());
+
+                return new DnsResourceRecord(domain, data.ToArray(), DnsRecordType.SOA, DnsRecordClass.IN, ttl);
             }
+
+            protected override string[] IncludedProperties => new List<string>(base.IncludedProperties)
+            {
+                nameof(MasterDomainName),
+                nameof(ResponsibleDomainName),
+                nameof(SerialNumber)
+            }.ToArray();
 
             [StructEndianness(Endianness.Big)]
             [StructLayout(LayoutKind.Sequential, Pack = 4)]

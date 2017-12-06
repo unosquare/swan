@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Components
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -54,11 +55,12 @@
                 propertiesToCopy,
                 ignoreProperties,
                 sourceProperties
-                .Select(x => x.Name)
-                .Distinct()
-                .ToDictionary(
-                    x => x.ToLowerInvariant(), 
-                    x => new TypeValuePair(sourceProperties.First(y => y.Name ==x).PropertyType, sourceProperties.First(y => y.Name == x).GetValue(source))));
+                    .Select(x => x.Name)
+                    .Distinct()
+                    .ToDictionary(
+                        x => x.ToLowerInvariant(),
+                        x => new TypeValuePair(sourceProperties.First(y => y.Name == x).PropertyType,
+                            sourceProperties.First(y => y.Name == x).GetValue(source))));
         }
 
         /// <summary>
@@ -221,23 +223,35 @@
                 {
                     var valueType = sourceProperty.Value;
 
-                    // Direct Copy
-                    if (targetProperty.PropertyType == valueType.Type)
+                    if (valueType.Type.GetTypeInfo().IsEnum)
                     {
-                        if (valueType.Type.GetTypeInfo().IsEnum)
-                        {
-                            targetProperty.SetValue(target,
-                                Enum.ToObject(targetProperty.PropertyType, valueType.Value));
-                            continue;
-                        }
-
-                        targetProperty.SetValue(target, valueType.Value);
-                        copiedProperties++;
+                        targetProperty.SetValue(target,
+                            Enum.ToObject(targetProperty.PropertyType, valueType.Value));
                         continue;
                     }
 
+                    if (!valueType.Type.IsValueType())
+                    {
+                        // Direct Copy
+                        if(targetProperty.PropertyType == valueType.Type)
+                        {
+                            if(valueType.Value != null)
+                            {
+                                targetProperty.SetValue(target, GetValue(valueType.Value, targetProperty.PropertyType));
+                            }
+                            else
+                            {
+                                targetProperty.SetValue(target, null);
+                            }
+
+                            copiedProperties++;
+                            continue;
+                        }
+                    }
+
                     // String to target type conversion
-                    if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(), out var targetValue))
+                    if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(),
+                        out var targetValue))
                     {
                         targetProperty.SetValue(target, targetValue);
                         copiedProperties++;
@@ -250,6 +264,71 @@
             }
 
             return copiedProperties;
+        }
+
+        private static object GetValue(object source, Type targetType)
+        {
+            object target = null;
+
+            source.CreateTarget(targetType, false, ref target);
+
+            if (source is string)
+            {
+                target = source;
+            }
+            else if (source is IList sourceList)
+            {
+                var targetArray = target as Array;
+                var targetList = target as IList;
+
+                // Case 2.1: Source is List, Target is Array
+                if (targetArray != null)
+                {
+                    for (var i = 0; i < sourceList.Count; i++)
+                    {
+                        try
+                        {
+                            targetArray.SetValue(
+                                sourceList[i].GetType().IsValueType()
+                                    ? sourceList[i]
+                                    : sourceList[i].CopyPropertiesToNew<object>(), i);
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
+                    }
+                }
+                else if (targetList != null)
+                {
+                    // Case 2.2: Source is List,  Target is IList
+                    // find the add method of the target list
+                    var addMethod = targetType.GetMethods()
+                        .FirstOrDefault(
+                            m => m.Name.Equals(Formatters.Json.AddMethodName) && m.IsPublic &&
+                                 m.GetParameters().Length == 1);
+
+                    if (addMethod == null) return target;
+
+                    foreach (var item in sourceList)
+                    {
+                        try
+                        {
+                            targetList.Add(item.GetType().IsValueType() ? item : item.CopyPropertiesToNew<object>());
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
+                    }
+                }
+            }
+            else
+            {
+                source.CopyPropertiesTo(target);
+            }
+
+            return target;
         }
 
         private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)

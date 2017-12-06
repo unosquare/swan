@@ -6,19 +6,23 @@
 
     public abstract class TestFixtureBase
     {
-        protected Dictionary<object, object> NullDict = null;
+        protected Dictionary<object, object> NullDict => null;
 
-        protected object NullObj = null;
+        protected object NullObj => null;
 
-        protected string NullString = null;
+        protected string NullString => null;
 
-        protected List<string> NullStringList = null;
+        protected byte[] NullByteArray => null;
 
-        protected Type NullType = null;
+        protected List<string> NullStringList => null;
 
-        protected Action NullAction = null;
+        protected Type NullType => null;
 
-        protected DateBasicJson DefaultObject = new DateBasicJson
+        protected Action NullAction => null;
+
+        protected Exception NullException => null;
+
+        protected DateBasicJson DefaultObject => new DateBasicJson
         {
             StringData = "string",
             IntData = 1,
@@ -28,15 +32,15 @@
             Date = new DateTime(2017, 10, 10)
         };
 
-        protected SampleStruct DefaultStruct = new SampleStruct
+        protected SampleStruct DefaultStruct => new SampleStruct
         {
             Name = "string",
             Value = 1
         };
 
-        protected readonly List<string> DefaultStringList = new List<string> { "A", "B", "C" };
+        protected List<string> DefaultStringList => new List<string> { "A", "B", "C" };
 
-        protected Dictionary<int, string> DefaultDictionary = new Dictionary<int, string>
+        protected Dictionary<int, string> DefaultDictionary => new Dictionary<int, string>
         {
             {1, "A"},
             {2, "B"},

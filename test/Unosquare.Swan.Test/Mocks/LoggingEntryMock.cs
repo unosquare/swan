@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Unosquare.Swan.Test.Mocks
+﻿namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+
     public class LoggingEntryMock
     {
         public LogMessageType Type { get; set; }

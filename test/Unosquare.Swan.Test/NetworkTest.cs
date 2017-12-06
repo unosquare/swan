@@ -194,7 +194,6 @@
 
             Assert.IsNotNull(networkType);
         }
-
     }
 
     [TestFixture]

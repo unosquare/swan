@@ -3,6 +3,7 @@
     using Attributes;
     using Reflection;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -25,7 +26,9 @@
         public static int CopyPropertiesTo<T>(this T source, object target)
         {
             var copyable = GetCopyableProperties(target);
-            return copyable.Any() ? CopyOnlyPropertiesTo(source, target, copyable) : CopyPropertiesTo(source, target, null);
+            return copyable.Any()
+                ? CopyOnlyPropertiesTo(source, target, copyable)
+                : CopyPropertiesTo(source, target, null);
         }
 
         /// <summary>
@@ -72,9 +75,25 @@
         }
 
         /// <summary>
-        /// Copies the properties to new.
+        /// Copies the properties to new instance of T.
         /// </summary>
-        /// <typeparam name="T">Object Type</typeparam>
+        /// <typeparam name="T">The new object type</typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="ignoreProperties">The ignore properties.</param>
+        /// <returns>
+        /// The specified type with properties copied
+        /// </returns>
+        /// <exception cref="ArgumentNullException">source</exception>
+        public static T DeepClone<T>(this T source, string[] ignoreProperties = null)
+            where T : class
+        {
+            return source.CopyPropertiesToNew<T>(ignoreProperties);
+        }
+
+        /// <summary>
+        /// Copies the properties to new instance of T.
+        /// </summary>
+        /// <typeparam name="T">The new object type</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="ignoreProperties">The ignore properties.</param>
         /// <returns>
@@ -87,17 +106,18 @@
                 throw new ArgumentNullException(nameof(source));
 
             var target = Activator.CreateInstance<T>();
-            var copyable = GetCopyableProperties(target);
+            var copyable = target.GetCopyableProperties();
 
             if (copyable.Any())
                 source.CopyOnlyPropertiesTo(target, copyable);
+            else
+                source.CopyPropertiesTo(target, ignoreProperties);
 
-            source.CopyPropertiesTo(target, ignoreProperties);
             return target;
         }
 
         /// <summary>
-        /// Copies the only properties to new.
+        /// Copies the only properties to new instance of T.
         /// </summary>
         /// <typeparam name="T">Object Type</typeparam>
         /// <param name="source">The source.</param>
@@ -124,7 +144,10 @@
         /// <param name="target">The target.</param>
         /// <param name="ignoreKeys">The ignore keys.</param>
         /// <returns>Number of properties that was copied successful</returns>
-        public static int CopyKeyValuePairTo(this IDictionary<string, object> source, object target, string[] ignoreKeys = null)
+        public static int CopyKeyValuePairTo(
+            this IDictionary<string, object> source, 
+            object target,
+            string[] ignoreKeys = null)
         {
             return Components.ObjectMapper.Copy(source, target, null, ignoreKeys);
         }
@@ -204,7 +227,7 @@
         {
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
-            
+
             if (retryInterval == default(TimeSpan))
                 retryInterval = TimeSpan.FromSeconds(1);
 
@@ -274,6 +297,27 @@
                 .Where(x => x.HasAttribute)
                 .Select(x => x.Name)
                 .ToArray();
+        }
+
+        internal static void CreateTarget(
+            this object source, 
+            Type targetType, 
+            bool includeNonPublic, 
+            ref object target)
+        {
+            // When using arrays, there is no default constructor, attempt to build a compatible array
+            if (source is string)
+            {
+                // do nothing. Simply skip creation
+            }
+            else if (source is IList sourceObjectList && targetType.IsArray)
+            {
+                target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
+            }
+            else
+            {
+                target = Activator.CreateInstance(targetType, includeNonPublic);
+            }
         }
     }
 }

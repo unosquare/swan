@@ -6,15 +6,18 @@
     using System.Net;
     using Exceptions;
 
+    /// <summary>
+    /// DnsClient public methods
+    /// </summary>
     internal partial class DnsClient
     {
-        private readonly IPEndPoint dns;
-        private readonly IDnsRequestResolver resolver;
+        private readonly IPEndPoint _dns;
+        private readonly IDnsRequestResolver _resolver;
 
         public DnsClient(IPEndPoint dns, IDnsRequestResolver resolver = null)
         {
-            this.dns = dns;
-            this.resolver = resolver ?? new DnsUdpRequestResolver(new DnsTcpRequestResolver());
+            _dns = dns;
+            _resolver = resolver ?? new DnsUdpRequestResolver(new DnsTcpRequestResolver());
         }
 
         public DnsClient(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
@@ -24,7 +27,7 @@
         
         public DnsClientRequest Create(IDnsRequest request = null)
         {
-            return new DnsClientRequest(dns, request, resolver);
+            return new DnsClientRequest(_dns, request, _resolver);
         }
 
         public IList<IPAddress> Lookup(string domain, DnsRecordType type = DnsRecordType.A)

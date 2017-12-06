@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
     using System;
-    using Unosquare.Swan.Attributes;
+    using Attributes;
 
     public class CliVerbs
     {

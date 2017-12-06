@@ -20,7 +20,7 @@
     {
         #region Constants 
 
-        private const string AddMethodName = "Add";
+        internal const string AddMethodName = "Add";
 
         private const char OpenObjectChar = '{';
         private const char CloseObjectChar = '}';
@@ -227,7 +227,7 @@
                 // Try to create a default instance
                 try
                 {
-                    CreateTarget(source, targetType, includeNonPublic, ref target);
+                    source.CreateTarget(targetType, includeNonPublic, ref target);
                 }
                 catch
                 {
@@ -397,24 +397,7 @@
                 return Encoding.UTF8.GetBytes(sourceString);
             } // Get the string bytes in UTF8
         }
-
-        private static void CreateTarget(object source, Type targetType, bool includeNonPublic, ref object target)
-        {
-            // When using arrays, there is no default constructor, attempt to build a compatible array
-            if (source is List<object> sourceObjectList && targetType.IsArray)
-            {
-                target = Array.CreateInstance(targetType.GetElementType(), sourceObjectList.Count);
-            }
-            else if (source is string && targetType == typeof(byte[]))
-            {
-                // do nothing. Simply skip creation
-            }
-            else
-            {
-                target = Activator.CreateInstance(targetType, includeNonPublic);
-            }
-        }
-
+        
         private static void PopulateObject(Type targetType, bool includeNonPublic, Dictionary<string, object> sourceProperties, object target)
         {
             var fields = new List<MemberInfo>();

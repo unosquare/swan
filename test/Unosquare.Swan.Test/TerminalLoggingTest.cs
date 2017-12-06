@@ -9,7 +9,7 @@
 
     public abstract class TerminalLoggingTest : TestFixtureBase
     {
-        protected string extendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
+        protected const string ExtendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
 
         [SetUp]
         public void SetupLoggingMessages()
@@ -133,8 +133,7 @@
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(nameof(Debug), messages.First(x => x.ExtendedData != null).Message);
-            Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
-
+            Assert.AreEqual(ExtendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
     }
 
@@ -153,7 +152,7 @@
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(nameof(Trace), messages.First(x => x.ExtendedData != null).Message);
-            Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
+            Assert.AreEqual(ExtendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
 
         [Test]
@@ -201,7 +200,7 @@
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(nameof(Warn), messages.First(x => x.ExtendedData != null).Message);
-            Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
+            Assert.AreEqual(ExtendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
     }
 
@@ -220,7 +219,7 @@
 
             Assert.IsTrue(messages.Any(x => x.ExtendedData != null));
             Assert.AreEqual(nameof(Info), messages.First(x => x.ExtendedData != null).Message);
-            Assert.AreEqual(extendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
+            Assert.AreEqual(ExtendedDataExpected, messages.First(x => x.ExtendedData != null).ExtendedData.ToString());
         }
     }
 

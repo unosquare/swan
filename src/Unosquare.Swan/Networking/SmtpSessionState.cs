@@ -139,7 +139,7 @@
             SupportsExtensions = false;
             ClientHostname = string.Empty;
             ResetEmail();
-            
+
             if (clearExtensionData)
                 ExtendedData = null;
         }
@@ -150,15 +150,11 @@
         /// <returns>A clone</returns>
         public virtual SmtpSessionState Clone()
         {
-            // TODO: Use a binary formatter or something similar when it comes out in .net core/standard
-            // Binary Formatter is not good (https://github.com/force-net/DeepCloner)
-            var result = new SmtpSessionState();
-            this.CopyPropertiesTo(result);
+            var clonedState = this.CopyPropertiesToNew<SmtpSessionState>(new[] {nameof(DataBuffer)});
+            clonedState.DataBuffer.AddRange(DataBuffer);
+            clonedState.Recipients.AddRange(Recipients);
 
-            result.Recipients.AddRange(Recipients);
-            result.DataBuffer.AddRange(DataBuffer);
-
-            return result;
+            return clonedState;
         }
 
         #endregion

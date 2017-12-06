@@ -83,8 +83,7 @@
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
-                using (var csproj = new CsProjFile<CsAbstractMetadataMock>(string.Empty)) { }
+                var csproj = new CsProjFile<CsAbstractMetadataMock>(string.Empty);
             });
         }
 
@@ -93,8 +92,10 @@
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
-                using (var csproj = new CsProjFile<CsAbstractMetadataMock>(null)) { }
+                var currentDirectory = Directory.GetCurrentDirectory();
+                Directory.SetCurrentDirectory(Path.GetTempPath());
+                var csproj = new CsProjFile<CsMetadataMock>();
+                Directory.SetCurrentDirectory(currentDirectory);
             });
         }
     }

@@ -43,7 +43,7 @@ namespace Unosquare.Swan.Networking.Ldap
     internal sealed class RfcLdapMessage : Asn1Sequence
     {
         private readonly Asn1Object _op;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Create an RfcLdapMessage request from input parameters.
@@ -53,16 +53,16 @@ namespace Unosquare.Swan.Networking.Ldap
         public RfcLdapMessage(IRfcRequest op, RfcControls controls)
             : base(3)
         {
-            _op = (Asn1Object)op;
+            _op = (Asn1Object) op;
 
             Add(new RfcMessageID()); // MessageID has static counter
-            Add((Asn1Object)op);
+            Add((Asn1Object) op);
             if (controls != null)
             {
                 Add(controls);
             }
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RfcLdapMessage"/> class.
         /// Will decode an RfcLdapMessage directly from an InputStream.
@@ -76,9 +76,9 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             // Decode implicitly tagged protocol operation from an Asn1Tagged type
             // to its appropriate application type.
-            var protocolOp = (Asn1Tagged)Get(1);
+            var protocolOp = (Asn1Tagged) Get(1);
             var protocolOpId = protocolOp.GetIdentifier();
-            var content = ((Asn1OctetString)protocolOp.TaggedValue).ByteValue();
+            var content = ((Asn1OctetString) protocolOp.TaggedValue).ByteValue();
             var bais = new MemoryStream(content.ToByteArray());
 
             switch ((LdapOperation) protocolOpId.Tag)
@@ -118,15 +118,14 @@ namespace Unosquare.Swan.Networking.Ldap
             // to RFC 2251 types.
             if (Size() > 2)
             {
-                var controls = (Asn1Tagged)Get(2);
-                content = ((Asn1OctetString)controls.TaggedValue).ByteValue();
+                var controls = (Asn1Tagged) Get(2);
+                content = ((Asn1OctetString) controls.TaggedValue).ByteValue();
                 bais = new MemoryStream(content.ToByteArray());
                 Set(2, new RfcControls(dec, bais, content.Length));
             }
         }
-        
-        /// <summary> Returns this RfcLdapMessage's messageID as an int.</summary>
-        public int MessageID => ((Asn1Integer)Get(0)).IntValue();
+
+        public int MessageId => ((Asn1Integer) Get(0)).IntValue();
 
         /// <summary> Returns this RfcLdapMessage's message type</summary>
         public LdapOperation Type => (LdapOperation) Get(1).GetIdentifier().Tag;
@@ -143,10 +142,10 @@ namespace Unosquare.Swan.Networking.Ldap
         public Asn1Object Response => Get(1);
 
         /// <summary> Returns the optional Controls for this RfcLdapMessage.</summary>
-        public RfcControls Controls => Size() > 2 ? (RfcControls)Get(2) : null;
+        public RfcControls Controls => Size() > 2 ? (RfcControls) Get(2) : null;
 
         /// <summary> Returns the dn of the request, may be null</summary>
-        public string RequestDn => ((IRfcRequest)_op).GetRequestDN();
+        public string RequestDn => ((IRfcRequest) _op).GetRequestDN();
 
         /// <summary>
         /// returns the original request in this message
@@ -161,7 +160,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Throws a class cast exception if the RfcLdapMessage is not a request.
         /// </summary>
         /// <returns>The RFC request</returns>
-        public IRfcRequest GetRequest() => (IRfcRequest)Get(1);
+        public IRfcRequest GetRequest() => (IRfcRequest) Get(1);
 
         /// <summary>
         /// Determines whether this instance is request.
@@ -183,56 +182,27 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         public const int CONTROLS = 0;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControls"/> class.
-        /// Constructs a Controls object. This constructor is used in combination
-        /// with the add() method to construct a set of Controls to send to the
-        /// server.
-        /// </summary>
         public RfcControls()
             : base(5)
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcControls" /> class.
-        /// Constructs a Controls object by decoding it from an InputStream.
-        /// </summary>
-        /// <param name="dec">The decimal.</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">The length.</param>
-        public RfcControls(IAsn1Decoder dec, Stream stream, int len) 
+        public RfcControls(IAsn1Decoder dec, Stream stream, int len)
             : base(dec, stream, len)
         {
             // Convert each SEQUENCE element to a Control
             for (var i = 0; i < Size(); i++)
             {
-                var tempControl = new RfcControl((Asn1Sequence)Get(i));
+                var tempControl = new RfcControl((Asn1Sequence) Get(i));
                 Set(i, tempControl);
             }
         }
 
-        /// <summary>
-        /// Override add() of Asn1SequenceOf to only accept a Control type.
-        /// </summary>
-        /// <param name="control">The control.</param>
         public void Add(RfcControl control) => base.Add(control);
 
-        /// <summary>
-        /// Override set() of Asn1SequenceOf to only accept a Control type.
-        /// </summary>
-        /// <param name="index">The index.</param>
-        /// <param name="control">The control.</param>
         public void Set(int index, RfcControl control) => base.Set(index, control);
 
-        /// <summary>
-        /// Override getIdentifier to return a context specific id.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
-        public override Asn1Identifier GetIdentifier()
-            => new Asn1Identifier(CONTROLS, true);
+        public override Asn1Identifier GetIdentifier() => new Asn1Identifier(CONTROLS, true);
     }
 
     /// <summary>
@@ -280,194 +250,132 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <returns>A <see cref="System.String" /></returns>
         string GetRequestDN();
     }
-    
+
     /// <summary>
-    ///     Represents an LdapResult.
-    ///     <pre>
-    ///         LdapResult ::= SEQUENCE {
-    ///         resultCode      ENUMERATED {
-    ///         success                      (0),
-    ///         operationsError              (1),
-    ///         protocolError                (2),
-    ///         timeLimitExceeded            (3),
-    ///         sizeLimitExceeded            (4),
-    ///         compareFalse                 (5),
-    ///         compareTrue                  (6),
-    ///         authMethodNotSupported       (7),
-    ///         strongAuthRequired           (8),
-    ///         -- 9 reserved --
-    ///         referral                     (10),  -- new
-    ///         adminLimitExceeded           (11),  -- new
-    ///         unavailableCriticalExtension (12),  -- new
-    ///         confidentialityRequired      (13),  -- new
-    ///         saslBindInProgress           (14),  -- new
-    ///         noSuchAttribute              (16),
-    ///         undefinedAttributeType       (17),
-    ///         inappropriateMatching        (18),
-    ///         constraintViolation          (19),
-    ///         attributeOrValueExists       (20),
-    ///         invalidAttributeSyntax       (21),
-    ///         -- 22-31 unused --
-    ///         noSuchObject                 (32),
-    ///         aliasProblem                 (33),
-    ///         invalidDNSyntax              (34),
-    ///         -- 35 reserved for undefined isLeaf --
-    ///         aliasDereferencingProblem    (36),
-    ///         -- 37-47 unused --
-    ///         inappropriateAuthentication  (48),
-    ///         invalidCredentials           (49),
-    ///         insufficientAccessRights     (50),
-    ///         busy                         (51),
-    ///         unavailable                  (52),
-    ///         unwillingToPerform           (53),
-    ///         loopDetect                   (54),
-    ///         -- 55-63 unused --
-    ///         namingViolation              (64),
-    ///         objectClassViolation         (65),
-    ///         notAllowedOnNonLeaf          (66),
-    ///         notAllowedOnRDN              (67),
-    ///         entryAlreadyExists           (68),
-    ///         objectClassModsProhibited    (69),
-    ///         -- 70 reserved for CLdap --
-    ///         affectsMultipleDSAs          (71), -- new
-    ///         -- 72-79 unused --
-    ///         other                        (80) },
-    ///         -- 81-90 reserved for APIs --
-    ///         matchedDN       LdapDN,
-    ///         errorMessage    LdapString,
-    ///         referral        [3] Referral OPTIONAL }
-    ///     </pre>
+    /// Represents an LdapResult.
+    /// <pre>
+    /// LdapResult ::= SEQUENCE {
+    /// resultCode      ENUMERATED {
+    /// success                      (0),
+    /// operationsError              (1),
+    /// protocolError                (2),
+    /// timeLimitExceeded            (3),
+    /// sizeLimitExceeded            (4),
+    /// compareFalse                 (5),
+    /// compareTrue                  (6),
+    /// authMethodNotSupported       (7),
+    /// strongAuthRequired           (8),
+    /// -- 9 reserved --
+    /// referral                     (10),  -- new
+    /// adminLimitExceeded           (11),  -- new
+    /// unavailableCriticalExtension (12),  -- new
+    /// confidentialityRequired      (13),  -- new
+    /// saslBindInProgress           (14),  -- new
+    /// noSuchAttribute              (16),
+    /// undefinedAttributeType       (17),
+    /// inappropriateMatching        (18),
+    /// constraintViolation          (19),
+    /// attributeOrValueExists       (20),
+    /// invalidAttributeSyntax       (21),
+    /// -- 22-31 unused --
+    /// noSuchObject                 (32),
+    /// aliasProblem                 (33),
+    /// invalidDNSyntax              (34),
+    /// -- 35 reserved for undefined isLeaf --
+    /// aliasDereferencingProblem    (36),
+    /// -- 37-47 unused --
+    /// inappropriateAuthentication  (48),
+    /// invalidCredentials           (49),
+    /// insufficientAccessRights     (50),
+    /// busy                         (51),
+    /// unavailable                  (52),
+    /// unwillingToPerform           (53),
+    /// loopDetect                   (54),
+    /// -- 55-63 unused --
+    /// namingViolation              (64),
+    /// objectClassViolation         (65),
+    /// notAllowedOnNonLeaf          (66),
+    /// notAllowedOnRDN              (67),
+    /// entryAlreadyExists           (68),
+    /// objectClassModsProhibited    (69),
+    /// -- 70 reserved for CLdap --
+    /// affectsMultipleDSAs          (71), -- new
+    /// -- 72-79 unused --
+    /// other                        (80) },
+    /// -- 81-90 reserved for APIs --
+    /// matchedDN       LdapDN,
+    /// errorMessage    LdapString,
+    /// referral        [3] Referral OPTIONAL }
+    /// </pre>
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.IRfcResponse" />
     internal class RfcLdapResult : Asn1Sequence, IRfcResponse
     {
-        /// <summary> Context-specific TAG for optional Referral.</summary>
         public const int REFERRAL = 3;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcLdapResult"/> class.
-        /// Constructs an RfcLdapResult from the inputstream
-        /// </summary>
-        /// <param name="dec">The decimal.</param>
-        /// <param name="stream">The in renamed.</param>
-        /// <param name="len">The length.</param>
+
         public RfcLdapResult(IAsn1Decoder dec, Stream stream, int len)
             : base(dec, stream, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() <= 3) return;
 
-            var obj = (Asn1Tagged)Get(3);
+            var obj = (Asn1Tagged) Get(3);
             var id = obj.GetIdentifier();
-            if (id.Tag == REFERRAL)
-            {
-                var content = ((Asn1OctetString)obj.TaggedValue).ByteValue();
-                var bais = new MemoryStream(content.ToByteArray());
-                Set(3, new Asn1SequenceOf(dec, bais, content.Length));
-            }
+
+            if (id.Tag != REFERRAL) return;
+
+            var content = ((Asn1OctetString) obj.TaggedValue).ByteValue();
+            var bais = new MemoryStream(content.ToByteArray());
+            Set(3, new Asn1SequenceOf(dec, bais, content.Length));
         }
 
-        /// <summary>
-        ///     Returns the result code from the server
-        /// </summary>
-        /// <returns>
-        ///     the result code
-        /// </returns>
-        public Asn1Enumerated GetResultCode() => (Asn1Enumerated)Get(0);
+        public Asn1Enumerated GetResultCode() => (Asn1Enumerated) Get(0);
 
-        /// <summary>
-        ///     Returns the matched DN from the server
-        /// </summary>
-        /// <returns>
-        ///     the matched DN
-        /// </returns>
-        public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString)Get(1)).ByteValue());
+        public Asn1OctetString GetMatchedDN() => new Asn1OctetString(((Asn1OctetString) Get(1)).ByteValue());
 
-        /// <summary>
-        ///     Returns the error message from the server
-        /// </summary>
-        /// <returns>
-        ///     the server error message
-        /// </returns>
-        public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString)Get(2)).ByteValue());
+        public Asn1OctetString GetErrorMessage() => new Asn1OctetString(((Asn1OctetString) Get(2)).ByteValue());
 
-        /// <summary>
-        ///     Returns the referral(s) from the server
-        /// </summary>
-        /// <returns>
-        ///     the referral(s)
-        /// </returns>
-        public Asn1SequenceOf GetReferral() => Size() > 3 ? (Asn1SequenceOf)Get(3) : null;
+        public Asn1SequenceOf GetReferral() => Size() > 3 ? (Asn1SequenceOf) Get(3) : null;
     }
 
     /// <summary>
-    ///     Represents an Ldap Search Result Done Response.
-    ///     <pre>
-    ///         SearchResultDone ::= [APPLICATION 5] LdapResult
-    ///     </pre>
+    /// Represents an Ldap Search Result Done Response.
+    /// <pre>
+    /// SearchResultDone ::= [APPLICATION 5] LdapResult
+    /// </pre>
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.RfcLdapResult" />
     internal class RfcSearchResultDone : RfcLdapResult
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcSearchResultDone"/> class.
-        /// Decode a search result done from the input stream.
-        /// </summary>
-        /// <param name="dec">The decimal.</param>
-        /// <param name="stream">The in renamed.</param>
-        /// <param name="len">The length.</param>
         public RfcSearchResultDone(IAsn1Decoder dec, Stream stream, int len)
             : base(dec, stream, len)
         {
         }
-        
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
+
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchResult);
     }
 
     /// <summary>
-    ///     Represents an Ldap Search Result Entry.
-    ///     <pre>
-    ///         SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
-    ///         objectName      LdapDN,
-    ///         attributes      PartialAttributeList }
-    ///     </pre>
+    /// Represents an Ldap Search Result Entry.
+    /// <pre>
+    /// SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
+    /// objectName      LdapDN,
+    /// attributes      PartialAttributeList }
+    /// </pre>
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal sealed class RfcSearchResultEntry : Asn1Sequence
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcSearchResultEntry" /> class.
-        /// The only time a client will create a SearchResultEntry is when it is
-        /// decoding it from an InputStream
-        /// </summary>
-        /// <param name="dec">The decimal.</param>
-        /// <param name="stream">The stream.</param>
-        /// <param name="len">The length.</param>
         public RfcSearchResultEntry(IAsn1Decoder dec, Stream stream, int len)
             : base(dec, stream, len)
         {
         }
 
-        /// <summary>
-        /// Gets the name of the object.
-        /// </summary>
-        /// <value>
-        /// The name of the object.
-        /// </value>
-        public Asn1OctetString ObjectName => (Asn1OctetString)Get(0);
+        public Asn1OctetString ObjectName => (Asn1OctetString) Get(0);
 
-        /// <summary> </summary>
-        public Asn1Sequence Attributes => (Asn1Sequence)Get(1);
+        public Asn1Sequence Attributes => (Asn1Sequence) Get(1);
 
-        /// <summary>
-        /// Override getIdentifier to return an application-wide id.
-        /// </summary>
-        /// <returns>
-        /// Asn1 Identifier
-        /// </returns>
         public override Asn1Identifier GetIdentifier() => new Asn1Identifier(LdapOperation.SearchResponse);
     }
 
@@ -497,17 +405,11 @@ namespace Unosquare.Swan.Networking.Ldap
         /// start the messages with one.
         /// </summary>
         protected internal RfcMessageID()
-            : base(MessageID)
+            : base(MessageId)
         {
         }
-        
-        /// <summary>
-        ///     Increments the message number atomically
-        /// </summary>
-        /// <returns>
-        ///     the new message number
-        /// </returns>
-        private static int MessageID
+
+        private static int MessageId
         {
             get
             {

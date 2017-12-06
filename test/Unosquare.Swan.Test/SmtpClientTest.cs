@@ -7,27 +7,55 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    
+    public class SmtpClientTest
+    {
+        public const string SenderEmail = "test@test.com";
+        public const string RecipientEmail = "me@test.com";
+        public const string EmailFile = "tempFile.msg";
+        public const string Host = "smtp.gmail.com";
+        public const string LocalHost = "localhost";
+    }
 
     [TestFixture]
-    public class SmtpClientntTest
+    public class SendMailAsync : SmtpClientTest
     {
-        private const string SenderEmail = "test@test.com";
-        private const string RecipientEmail = "me@test.com";
-        private const string EmailFile = "tempFile.msg";
+        [Test]
+        public void NullState_ThrowsArgumentException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                var client = new SmtpClient(Host, 587);
+
+                await client.SendMailAsync((SmtpSessionState) null);
+            });
+        }
+
+        [Test]
+        public void NullStateEnumeration_ThrowsArgumentException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                var client = new SmtpClient(Host, 587);
+                IEnumerable<SmtpSessionState> sessions = null;
+
+                await client.SendMailAsync(sessions);
+            });
+        }
 
         [Test]
         public void TestConnectGmailSmtpException()
         {
 #if !NETSTANDARD1_3 && !UWP
-            Assert.ThrowsAsync<System.Net.Mail.SmtpException>
+            Assert.ThrowsAsync<System.Net.Mail.SmtpException>(async () =>
 #else
-            Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>
+            Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>(async () =>
 #endif
-            (async () =>
             {
-                var client = new SmtpClient("smtp.gmail.com", 587);
+                var client = new SmtpClient(Host, 587);
 
                 await client.SendMailAsync(new SmtpSessionState());
             });
@@ -36,16 +64,13 @@
         [Test]
         public async Task SendLocalEmail()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             var filename = Path.Combine(Path.GetTempPath(), EmailFile);
 
             if (File.Exists(filename))
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var email = new SmtpClient("localhost", 1030);
+            var email = new SmtpClient(LocalHost, 1030);
             var session = new SmtpSessionState {SenderAddress = SenderEmail};
 
             session.Recipients.Add(RecipientEmail);
@@ -58,8 +83,8 @@
             var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
             Assert.IsNotNull(smtpMock);
 
-            Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
-            Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
+            Assert.AreEqual(SenderEmail, smtpMock.Envelope.From.Address);
+            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.To.First().Address);
 
             Assert.AreEqual("hh", smtpMock.Headers.First().Key);
         }
@@ -68,16 +93,13 @@
         [Test]
         public async Task SendLocalEmailWithMailMessage()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             var filename = Path.Combine(Path.GetTempPath(), EmailFile);
 
             if (File.Exists(filename))
                 File.Delete(filename);
 
             Assert.IsFalse(File.Exists(filename));
-            var email = new SmtpClient("localhost", 1030);
+            var email = new SmtpClient(LocalHost, 1030);
             var emailMessage = new System.Net.Mail.MailMessage(SenderEmail, RecipientEmail, "Test", "Sure");
 
             await email.SendMailAsync(emailMessage);
@@ -87,8 +109,8 @@
             var smtpMock = Json.Deserialize<SmtpMock>(File.ReadAllText(filename));
             Assert.IsNotNull(smtpMock);
 
-            Assert.AreEqual(SenderEmail, smtpMock.envelope.from.address);
-            Assert.AreEqual(RecipientEmail, smtpMock.envelope.to.First().address);
+            Assert.AreEqual(SenderEmail, smtpMock.Envelope.From.Address);
+            Assert.AreEqual(RecipientEmail, smtpMock.Envelope.To.First().Address);
 
             Assert.AreEqual("x-sender", smtpMock.Headers.First().Key);
             Assert.AreEqual(SenderEmail, smtpMock.Headers.First().Value);
@@ -98,9 +120,6 @@
         [Test]
         public async Task CancelSendEmail()
         {
-            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
-                Assert.Inconclusive("Can not test in AppVeyor");
-
             var filename = Path.Combine(Path.GetTempPath(), EmailFile);
 
             if (File.Exists(filename))
@@ -108,7 +127,7 @@
 
             Assert.IsFalse(File.Exists(filename));
             var cts = new CancellationTokenSource();
-            var email = new SmtpClient("localhost", 1030);
+            var email = new SmtpClient(LocalHost, 1030);
             var session = new SmtpSessionState {SenderAddress = SenderEmail};
 
             session.Recipients.Add(RecipientEmail);

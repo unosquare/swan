@@ -9,7 +9,9 @@
     /// </summary>
     public static class EnumHelper
     {
-        private static readonly Dictionary<Type, Tuple<int, string>[]> Cache =
+        private static readonly Dictionary<Type, Tuple<int, string>[]> ValueCache =
+            new Dictionary<Type, Tuple<int, string>[]>();
+        private static readonly Dictionary<Type, Tuple<int, string>[]> IndexCache =
             new Dictionary<Type, Tuple<int, string>[]>();
 
         private static readonly object LockObject = new object();
@@ -27,14 +29,16 @@
         {
             lock (LockObject)
             {
-                if (Cache.ContainsKey(typeof(T)) == false)
+                var tupleName = typeof(T);
+
+                if (ValueCache.ContainsKey(tupleName) == false)
                 {
-                    Cache.Add(typeof(T), Enum.GetNames(typeof(T))
-                        .Select(x => new Tuple<int, string>((int)Enum.Parse(typeof(T), x), humanize ? x.Humanize() : x))
+                    ValueCache.Add(tupleName, Enum.GetNames(tupleName)
+                        .Select(x => new Tuple<int, string>((int)Enum.Parse(tupleName, x), humanize ? x.Humanize() : x))
                         .ToArray());
                 }
 
-                return Cache[typeof(T)];
+                return ValueCache[tupleName];
             }
         }
 
@@ -50,16 +54,18 @@
         {
             lock (LockObject)
             {
-                if (Cache.ContainsKey(typeof(T)) == false)
+                var tupleName = typeof(T);
+
+                if (IndexCache.ContainsKey(tupleName) == false)
                 {
                     var i = 0;
 
-                    Cache.Add(typeof(T), Enum.GetNames(typeof(T))
+                    IndexCache.Add(tupleName, Enum.GetNames(tupleName)
                         .Select(x => new Tuple<int, string>(i++, humanize ? x.Humanize() : x))
                         .ToArray());
                 }
 
-                return Cache[typeof(T)];
+                return IndexCache[tupleName];
             }
         }
     }

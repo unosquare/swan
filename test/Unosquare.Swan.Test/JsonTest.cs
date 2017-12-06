@@ -10,6 +10,8 @@
 
     public abstract class JsonTest : TestFixtureBase
     {
+        protected const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
+
         protected static readonly AdvJson AdvObj = new AdvJson
         {
             StringData = "string,\r\ndata",
@@ -20,44 +22,32 @@
             InnerChild = BasicJson.GetDefault()
         };
 
-        protected const string ArrayStruct = "[{\"Value\": 1,\"Name\": \"A\"},{\"Value\": 2,\"Name\": \"B\"}]";
-        
-        protected static string BasicStr = "{" + BasicJson.GetControlValue() + "}";
+        protected static string BasicStr => "{" + BasicJson.GetControlValue() + "}";
 
-        protected string AdvStr =
+        protected string AdvStr =>
             "{\"InnerChild\": " + BasicStr + "," + BasicJson.GetControlValue() + "}";
 
-        protected readonly string[] BasicArray = {"One", "Two", "Three"};
-        protected string BasicAStr = "[\"One\",\"Two\",\"Three\"]";
+        protected string BasicAStr => "[\"A\",\"B\",\"C\"]";
 
-        protected readonly int[] _numericArray = {1, 2, 3};
-        protected string _numericAStr = "[1,2,3]";
+        protected int[] NumericArray => new[] {1, 2, 3};
 
-        protected readonly BasicArrayJson _basicAObj = new BasicArrayJson
+        protected string NumericAStr => "[1,2,3]";
+
+        protected BasicArrayJson BasicAObj => new BasicArrayJson
         {
             Id = 1,
             Properties = new[] {"One", "Two", "Babu"}
         };
 
-        protected readonly AdvArrayJson _advAObj = new AdvArrayJson
+        protected AdvArrayJson AdvAObj => new AdvArrayJson
         {
             Id = 1,
             Properties = new[] {BasicJson.GetDefault(), BasicJson.GetDefault()}
         };
 
-        protected string _basicAObjStr = "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
+        protected string BasicAObjStr => "{\"Id\": 1,\"Properties\": [\"One\",\"Two\",\"Babu\"]}";
 
-        protected string _advAStr = "{\"Id\": 1,\"Properties\": [" + BasicStr + "," + BasicStr + "]}";
-
-        protected readonly List<ExtendedPropertyInfo> _arrayOfObj = new List<ExtendedPropertyInfo>
-        {
-            new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerPort)),
-            new ExtendedPropertyInfo<AppSettingMock>(nameof(AppSettingMock.WebServerHostname))
-        };
-
-        protected string _arrayOfObjStr =
-                "[{\"Property\": \"WebServerPort\",\"DataType\": \"Int32\",\"Value\": null,\"DefaultValue\": 9898,\"Name\": \"Web Server Port\",\"Description\": \"The port on which the web server listens for requests\",\"GroupName\": \"Administration\"},{\"Property\": \"WebServerHostname\",\"DataType\": \"String\",\"Value\": null,\"DefaultValue\": \"localhost\",\"Name\": \"Web Server Host Name\",\"Description\": \"The hostname to which the web server binds, it can be localhost, a specific IP address or a '+' sign to bind to all IP addresses\",\"GroupName\": \"Administration\"}]"
-            ;
+        protected string AdvAStr => "{\"Id\": 1,\"Properties\": [" + BasicStr + "," + BasicStr + "]}";
     }
 
     [TestFixture]
@@ -88,7 +78,7 @@
         [Test]
         public void StringArray_ReturnsArraySerialized()
         {
-            var data = Json.Serialize(BasicArray);
+            var data = Json.Serialize(DefaultStringList);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(BasicAStr, data);
@@ -97,38 +87,43 @@
         [Test]
         public void WithStringsArrayAndWeakReference_ReturnsArraySerialized()
         {
-            var reference = new List<WeakReference> { new WeakReference(BasicArray)};
+            var instance = BasicJson.GetDefault();
+            var reference = new List<WeakReference> {new WeakReference(instance)};
 
-            var data = Json.Serialize(BasicArray, false, null, false, null, null, reference);
-            
-            Assert.AreEqual("{ \"$circref\":", data.Substring(0, 13));
+            var data = Json.Serialize(instance, false, null, false, null, null, reference);
+
+            Assert.IsTrue(data.StartsWith("{ \"$circref\":"));
         }
 
         [Test]
         public void NumericArray_ReturnsArraySerialized()
         {
-            var data = Json.Serialize(_numericArray);
+            var data = Json.Serialize(NumericArray);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_numericAStr, data);
+            Assert.AreEqual(NumericAStr, data);
         }
 
         [Test]
         public void BasicObjectWithArray_ReturnsObjectWithArraySerialized()
         {
-            var data = Json.Serialize(_basicAObj);
+            var data = Json.Serialize(BasicAObj);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_basicAObjStr, data);
+            Assert.AreEqual(BasicAObjStr, data);
         }
 
         [Test]
         public void ArrayOfObjects_ReturnsArrayOfObjectsSerialized()
         {
-            var data = Json.Serialize(_arrayOfObj);
+            var data = Json.Serialize(new List<BasicJson>
+            {
+                BasicJson.GetDefault(),
+                BasicJson.GetDefault()
+            });
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_arrayOfObjStr, data);
+            Assert.AreEqual("[" + BasicStr + "," + BasicStr + "]", data);
         }
 
         [Test]
@@ -143,10 +138,10 @@
         [Test]
         public void AdvObjectArray_ReturnsAdvObjectArraySerialized()
         {
-            var data = Json.Serialize(_advAObj);
+            var data = Json.Serialize(AdvAObj);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_advAStr, data);
+            Assert.AreEqual(AdvAStr, data);
         }
 
         [Test]
@@ -168,7 +163,9 @@
             var data = Json.Serialize(obj);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual("{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", data,
+            Assert.AreEqual(
+                "{\"Date\": \"" + obj.Date.Value.ToString("s") + "\"}", 
+                data,
                 "Date must be formatted as ISO");
 
             var dict = Json.Deserialize<Dictionary<string, DateTime>>(data);
@@ -219,7 +216,7 @@
         public void WithIncludeNonPublic_ReturnsObjectDeserialized()
         {
             var obj = Json.Deserialize<BasicJson>(BasicStr, false);
-            
+
             Assert.IsNotNull(obj);
             Assert.AreEqual(obj.StringData, BasicJson.GetDefault().StringData);
             Assert.AreEqual(obj.IntData, BasicJson.GetDefault().IntData);
@@ -249,24 +246,24 @@
             var arr = Json.Deserialize<List<string>>(BasicAStr);
 
             Assert.IsNotNull(arr);
-            Assert.AreEqual(string.Join(",", BasicArray), string.Join(",", arr));
+            Assert.AreEqual(string.Join(",", DefaultStringList), string.Join(",", arr));
         }
 
         [Test]
         public void BasicObjectWithArray_ReturnsBasicObjectWithArrayDeserialized()
         {
-            var data = Json.Deserialize<BasicArrayJson>(_basicAObjStr);
+            var data = Json.Deserialize<BasicArrayJson>(BasicAObjStr);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_basicAObj.Id, data.Id);
+            Assert.AreEqual(BasicAObj.Id, data.Id);
             Assert.IsNotNull(data.Properties);
-            Assert.AreEqual(string.Join(",", _basicAObj.Properties), string.Join(",", data.Properties));
+            Assert.AreEqual(string.Join(",", BasicAObj.Properties), string.Join(",", data.Properties));
         }
 
         [Test]
         public void ArrayOfObjects_ReturnsArrayOfObjectsDeserialized()
         {
-            var data = Json.Deserialize<List<ExtendedPropertyInfo>>(_basicAObjStr);
+            var data = Json.Deserialize<List<ExtendedPropertyInfo>>(BasicAObjStr);
 
             Assert.IsNotNull(data);
         }
@@ -293,10 +290,10 @@
         [Test]
         public void AdvObjectArray_ReturnsAdvObjectArray()
         {
-            var data = Json.Deserialize<AdvArrayJson>(_advAStr);
+            var data = Json.Deserialize<AdvArrayJson>(AdvAStr);
 
             Assert.IsNotNull(data);
-            Assert.AreEqual(_basicAObj.Id, data.Id);
+            Assert.AreEqual(BasicAObj.Id, data.Id);
             Assert.IsNotNull(data.Properties);
 
             foreach (var obj in data.Properties)
@@ -378,7 +375,7 @@
         {
             Assert.IsNotNull(Json.Deserialize<EmptyJson>("{ }"));
         }
-        
+
         [Test]
         public void WithEmptyType_ResolveType()
         {
@@ -391,16 +388,16 @@
             // Default value is null
             Assert.IsNull(Json.Deserialize<BasicJsonWithoutCtor>(BasicStr));
         }
-        
+
         [Test]
         public void WithInvalidProperty_ReturnDefaultValueProperty()
         {
             var obj = Json.Deserialize<BasicJson>(BasicStr.Replace("\"NegativeInt\": -1", "\"NegativeInt\": \"OK\""));
-            
+
             Assert.IsNotNull(obj);
             Assert.AreEqual(default(int), obj.NegativeInt);
         }
-        
+
         [Test]
         public void WithEnumProperty_ReturnValidObject()
         {
@@ -409,14 +406,14 @@
             Assert.IsNotNull(obj);
             Assert.AreEqual(MyEnum.Three, obj.MyEnum);
         }
-        
+
         [Test]
         public void WithByteArrayProperty_ReturnValidObject()
         {
             var obj = Json.Deserialize<JsonFile>("{ \"Data\": \"DATA1\", \"Filename\": \"Three\" }");
 
             Assert.IsNotNull(obj);
-            Assert.AreEqual("DATA1", System.Text.Encoding.UTF8.GetString(obj.Data));
+            Assert.AreEqual("DATA1", obj.Data.ToText());
         }
     }
 
@@ -426,7 +423,7 @@
         [Test]
         public void WithObject_ReturnsObjectSerialized()
         {
-            var includeNames = new []
+            var includeNames = new[]
             {
                 nameof(BasicJson.StringData),
                 nameof(BasicJson.IntData),
@@ -444,14 +441,14 @@
         public void WithString_ReturnsString()
         {
             var sdsdas = Json.SerializeOnly("\b\t\f\0", true, null);
-            
+
             Assert.AreEqual("\"\\b\\t\\f\\u0000\"", sdsdas);
         }
 
         [Test]
         public void WithEmptyString_ReturnsEmptyString()
         {
-            var dataSerialized = Json.SerializeOnly("", true, null);
+            var dataSerialized = Json.SerializeOnly(string.Empty, true, null);
 
             Assert.AreEqual("\"\"", dataSerialized);
         }
@@ -477,36 +474,38 @@
         [Test]
         public void WithEmptyDictionary_ReturnsEmptyObjectLiteral()
         {
-            var emptyDictionary = new Dictionary<string, string>();
+            var dataSerialized = Json.SerializeOnly(new Dictionary<string, string>(), true, null);
 
-            var dataSerialized = Json.SerializeOnly(emptyDictionary, true, null);
-            
             Assert.AreEqual("{ }", dataSerialized);
         }
 
         [Test]
         public void WithDictionaryOfDictionaries_ReturnsString()
         {
-            var persons = new Dictionary<string, Dictionary<string, string>>
-                {
-                    { "Tyrande", new Dictionary<string, string> {  } },
-                    { "Jaina", new Dictionary<string, string> { { "Race", "Human" }, { "Affiliation", "Alliance" } } }
-                };
+            var persons = new Dictionary<string, Dictionary<int, string>>
+            {
+                {"Tyrande", new Dictionary<int, string>()},
+                {"Jaina", DefaultDictionary }
+            };
 
             var dataSerialized = Json.SerializeOnly(persons, false, null);
-            
-            Assert.AreEqual("{\"Tyrande\": { },\"Jaina\": {\"Race\": \"Human\",\"Affiliation\": \"Alliance\"}}", dataSerialized);
+
+            Assert.AreEqual("{\"Tyrande\": { },\"Jaina\": {\"1\": \"A\",\"2\": \"B\",\"3\": \"C\",\"4\": \"D\",\"5\": \"E\"}}",
+                dataSerialized);
         }
 
         [Test]
         public void WithDictionaryOfArrays_ReturnsString()
         {
             var wordDictionary =
-                new Dictionary<string, string[][]> { { "Horde Capitals", new[] { new string[] { } , new[] {"Orgrimmar", "Thunder Bluff"} } } };
+                new Dictionary<string, string[][]>
+                {
+                    {"Horde Capitals", new[] {new string[] { }, DefaultStringList.ToArray() }}
+                };
 
             var dataSerialized = Json.SerializeOnly(wordDictionary, false, null);
-            
-            Assert.AreEqual("{\"Horde Capitals\": [[ ],[\"Orgrimmar\",\"Thunder Bluff\"]]}", dataSerialized);
+
+            Assert.AreEqual("{\"Horde Capitals\": [[ ],[\"A\",\"B\",\"C\"]]}", dataSerialized);
         }
     }
 

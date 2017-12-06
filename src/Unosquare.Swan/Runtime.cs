@@ -22,44 +22,34 @@
     public static class Runtime
 #endif
     {
-        #region Property Backing
-
 #if NET452
-        private static readonly Lazy<Assembly> m_EntryAssembly =
-            new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
+        private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 #endif
 
 #if NETSTANDARD2_0
-        private static readonly Lazy<Assembly> m_EntryAssembly = new Lazy<Assembly>(Assembly.GetEntryAssembly);
+        private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
-
-#if !NETSTANDARD1_3 && !UWP
-        private static readonly Lazy<AssemblyName> m_EntryAssemblyName =
-            new Lazy<AssemblyName>(() => m_EntryAssembly.Value.GetName());
-#endif
-
+       
 #if !UWP
-        private static readonly Lazy<Process> m_Process = new Lazy<Process>(Process.GetCurrentProcess);
+        private static readonly Lazy<Process> ProcessLazy = new Lazy<Process>(Process.GetCurrentProcess);
 #endif
-        private static readonly Lazy<bool?> m_IsUsingMonoRuntime =
-            new Lazy<bool?>(() => Type.GetType("Mono.Runtime") != null);
 
 #if !NETSTANDARD1_3 && !UWP
-        private static readonly Lazy<string> m_CompanyName = new Lazy<string>(() =>
+        private static readonly Lazy<string> CompanyNameLazy = new Lazy<string>(() =>
         {
             var attribute =
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute;
             return attribute?.Company ?? string.Empty;
         });
 
-        private static readonly Lazy<string> m_ProductName = new Lazy<string>(() =>
+        private static readonly Lazy<string> ProductNameLazy = new Lazy<string>(() =>
         {
             var attribute =
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute;
             return attribute?.Product ?? string.Empty;
         });
 
-        private static readonly Lazy<string> m_ProductTrademark = new Lazy<string>(() =>
+        private static readonly Lazy<string> ProductTrademarkLazy = new Lazy<string>(() =>
         {
             var attribute =
                 EntryAssembly.GetCustomAttribute(typeof(AssemblyTrademarkAttribute)) as AssemblyTrademarkAttribute;
@@ -71,12 +61,8 @@
             new Lazy<ArgumentParser>(() => new ArgumentParser());
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
-
-        #endregion
-
-        #region State Variables
-
-        private static OperatingSystem? m_OS = new OperatingSystem?();
+        
+        private static OperatingSystem? _oS = default(OperatingSystem?);
 
 #if !NETSTANDARD1_3 && !UWP
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
@@ -85,9 +71,7 @@
 #endif
 
         private static readonly object SyncLock = new object();
-
-        #endregion
-
+        
         #region Properties
 
         /// <summary>
@@ -100,22 +84,22 @@
         {
             get
             {
-                if (m_OS.HasValue == false)
+                if (_oS.HasValue == false)
                 {
                     var windowsDirectory = Environment.GetEnvironmentVariable("windir");
                     if (string.IsNullOrEmpty(windowsDirectory) == false
                         && windowsDirectory.Contains(@"\")
                         && Directory.Exists(windowsDirectory))
                     {
-                        m_OS = OperatingSystem.Windows;
+                        _oS = OperatingSystem.Windows;
                     }
                     else
                     {
-                        m_OS = File.Exists(@"/proc/sys/kernel/ostype") ? OperatingSystem.Unix : OperatingSystem.Osx;
+                        _oS = File.Exists(@"/proc/sys/kernel/ostype") ? OperatingSystem.Unix : OperatingSystem.Osx;
                     }
                 }
 
-                return m_OS ?? OperatingSystem.Unknown;
+                return _oS ?? OperatingSystem.Unknown;
             }
         }
 
@@ -126,7 +110,7 @@
         /// <value>
         /// The process.
         /// </value>
-        public static Process Process => m_Process.Value;
+        public static Process Process => ProcessLazy.Value;
 #endif
 
         /// <summary>
@@ -176,7 +160,7 @@
         /// <value>
         ///   <c>true</c> if this instance is using mono runtime; otherwise, <c>false</c>.
         /// </value>
-        public static bool IsUsingMonoRuntime => m_IsUsingMonoRuntime.Value ?? false;
+        public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
 
         /// <summary>
         /// The property type cache
@@ -203,7 +187,7 @@
         /// <value>
         /// The entry assembly.
         /// </value>
-        public static Assembly EntryAssembly => m_EntryAssembly.Value;
+        public static Assembly EntryAssembly => EntryAssemblyLazy.Value;
 
         /// <summary>
         /// Gets the name of the entry assembly.
@@ -211,7 +195,7 @@
         /// <value>
         /// The name of the entry assembly.
         /// </value>
-        public static AssemblyName EntryAssemblyName => m_EntryAssemblyName.Value;
+        public static AssemblyName EntryAssemblyName => EntryAssemblyLazy.Value.GetName();
 
         /// <summary>
         /// Gets the entry assembly version.
@@ -240,7 +224,7 @@
         /// <value>
         /// The name of the company.
         /// </value>
-        public static string CompanyName => m_CompanyName.Value;
+        public static string CompanyName => CompanyNameLazy.Value;
 
         /// <summary>
         /// Gets the name of the product.
@@ -248,7 +232,7 @@
         /// <value>
         /// The name of the product.
         /// </value>
-        public static string ProductName => m_ProductName.Value;
+        public static string ProductName => ProductNameLazy.Value;
 
         /// <summary>
         /// Gets the trademark.
@@ -256,7 +240,7 @@
         /// <value>
         /// The product trademark.
         /// </value>
-        public static string ProductTrademark => m_ProductTrademark.Value;
+        public static string ProductTrademark => ProductTrademarkLazy.Value;
 #endif
 
         /// <summary>

@@ -6,19 +6,6 @@
 
     public class SampleCsvRecord
     {
-        public int Id { get; set; }
-        public int? AlternateId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-
-        public bool IsValidated { get; set; }
-        public bool? ValidationResult { get; set; }
-
-        public float Score { get; set; }
-
-        public DateTime CreationDate { get; set; }
-        public DateTime? AccessDate { get; set; }
-
         private static readonly string[] RandomWords = (
             "Hello, this is a test of the beautiful SWAN library. \r \r \r \r "
             +
@@ -40,6 +27,19 @@
             StringSplitOptions.None);
 
         private static readonly string[] RandomNames = {"Alpha", "Beta", "Gamma", "Delta"};
+
+        public int Id { get; set; }
+        public int? AlternateId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public bool IsValidated { get; set; }
+        public bool? ValidationResult { get; set; }
+
+        public float Score { get; set; }
+
+        public DateTime CreationDate { get; set; }
+        public DateTime? AccessDate { get; set; }
 
         public static List<SampleCsvRecord> CreateSampleSet(int size)
         {

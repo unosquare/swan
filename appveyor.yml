@@ -26,6 +26,12 @@ before_build:
             git checkout $env:APPVEYOR_REPO_BRANCH -q
             cinst docfx -y
         }
+- ps: Install-Product node 8
+- npm install ldapjs
+- npm install maildev
+- ps: $LDAP = Start-Process node ldap.js -PassThru
+- ps: $SMTP = Start-Process node mail.js -PassThru
+- node LdapClient.js
 - appveyor-retry dotnet restore -v Minimal
 - mkdir tools
 - nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
@@ -60,3 +66,6 @@ after_build:
             git push origin gh-pages -q
             CD ..
         }
+on_finish:
+- ps: Stop-Process -Id $LDAP.Id
+- ps: Stop-Process -Id $SMTP.Id

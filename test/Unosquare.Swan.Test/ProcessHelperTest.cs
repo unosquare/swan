@@ -39,12 +39,15 @@
             const int okCode = 0;
             string output = null;
 
-            var result = await ProcessRunner.RunProcessAsync("dotnet", "--help", (data, proc) =>
-            {
-                if (output == null)
-                    output = Encoding.GetEncoding(0).GetString(data);
-            }, 
-            null);
+            var result = await ProcessRunner.RunProcessAsync(
+                "dotnet",
+                "--help",
+                (data, proc) =>
+                {
+                    if (output == null)
+                        output = Encoding.GetEncoding(0).GetString(data);
+                },
+                null);
 
             Assert.IsTrue(result == okCode);
             Assert.IsNotNull(output);

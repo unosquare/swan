@@ -9,16 +9,14 @@ namespace Unosquare.Swan.Networking.Ldap
     /// </summary>
     internal class Tokenizer
     {
-        // Element list identified
-        private List<string> elements;
-
-        // Source string to use
-        private string source;
-
         // The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character
         private readonly string _delimiters = " \t\n\r";
 
         private readonly bool _returnDelims;
+
+        private List<string> _elements;
+
+        private string _source;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenizer" /> class.
@@ -30,75 +28,61 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="retDel">if set to <c>true</c> [ret delete].</param>
         public Tokenizer(string source, string delimiters, bool retDel = false)
         {
-            elements = new List<string>();
+            _elements = new List<string>();
             _delimiters = delimiters ?? _delimiters;
-            this.source = source;
+            _source = source;
             _returnDelims = retDel;
             if (_returnDelims)
                 Tokenize();
             else
-                elements.AddRange(source.Split(_delimiters.ToCharArray()));
+                _elements.AddRange(source.Split(_delimiters.ToCharArray()));
             RemoveEmptyStrings();
         }
 
-        /// <summary>
-        ///     Current token count for the source string
-        /// </summary>
-        public int Count => elements.Count;
+        public int Count => _elements.Count;
 
-        /// <summary>
-        ///     Determines if there are more tokens to return from the source string
-        /// </summary>
-        /// <returns><c>true</c> or false, depending if there are more tokens</returns>
-        public bool HasMoreTokens() => elements.Count > 0;
+        public bool HasMoreTokens() => _elements.Count > 0;
 
-        /// <summary>
-        ///     Returns the next token from the token list
-        /// </summary>
-        /// <returns>The string value of the token</returns>
         public string NextToken()
         {
-            if (source == string.Empty) throw new Exception();
+            if (_source == string.Empty) throw new Exception();
 
             string result;
             if (_returnDelims)
             {
                 RemoveEmptyStrings();
-                result = elements[0];
-                elements.RemoveAt(0);
+                result = _elements[0];
+                _elements.RemoveAt(0);
                 return result;
             }
 
-            elements = new List<string>();
-            elements.AddRange(source.Split(_delimiters.ToCharArray()));
+            _elements = new List<string>();
+            _elements.AddRange(_source.Split(_delimiters.ToCharArray()));
             RemoveEmptyStrings();
-            result = elements[0];
-            elements.RemoveAt(0);
-            source = source.Remove(source.IndexOf(result), result.Length);
-            source = source.TrimStart(_delimiters.ToCharArray());
+            result = _elements[0];
+            _elements.RemoveAt(0);
+            _source = _source.Remove(_source.IndexOf(result, StringComparison.Ordinal), result.Length);
+            _source = _source.TrimStart(_delimiters.ToCharArray());
             return result;
         }
 
-        /// <summary>
-        ///     Removes all empty strings from the token list
-        /// </summary>
         private void RemoveEmptyStrings()
         {
-            for (var index = 0; index < elements.Count; index++)
+            for (var index = 0; index < _elements.Count; index++)
             {
-                if (elements[index] != string.Empty) continue;
+                if (_elements[index] != string.Empty) continue;
 
-                elements.RemoveAt(index);
+                _elements.RemoveAt(index);
                 index--;
             }
         }
 
         private void Tokenize()
         {
-            var tempstr = source;
+            var tempstr = _source;
             if (tempstr.IndexOfAny(_delimiters.ToCharArray()) < 0 && tempstr.Length > 0)
             {
-                elements.Add(tempstr);
+                _elements.Add(tempstr);
             }
             else if (tempstr.IndexOfAny(_delimiters.ToCharArray()) < 0 && tempstr.Length <= 0)
             {
@@ -111,7 +95,7 @@ namespace Unosquare.Swan.Networking.Ldap
                 {
                     if (tempstr.Length > 1)
                     {
-                        elements.Add(tempstr.Substring(0, 1));
+                        _elements.Add(tempstr.Substring(0, 1));
                         tempstr = tempstr.Substring(1);
                     }
                     else
@@ -122,8 +106,8 @@ namespace Unosquare.Swan.Networking.Ldap
                 else
                 {
                     var toks = tempstr.Substring(0, tempstr.IndexOfAny(_delimiters.ToCharArray()));
-                    elements.Add(toks);
-                    elements.Add(tempstr.Substring(toks.Length, 1));
+                    _elements.Add(toks);
+                    _elements.Add(tempstr.Substring(toks.Length, 1));
 
                     tempstr = tempstr.Length > toks.Length + 1 ? tempstr.Substring(toks.Length + 1) : string.Empty;
                 }
@@ -131,7 +115,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             if (tempstr.Length > 0)
             {
-                elements.Add(tempstr);
+                _elements.Add(tempstr);
             }
         }
     }
@@ -148,28 +132,19 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcMatchingRuleAssertion : Asn1Sequence
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcMatchingRuleAssertion"/> class.
-        /// Creates a MatchingRuleAssertion.
-        /// The value null may be passed for an optional value that is not used.
-        /// </summary>
-        /// <param name="matchingRule">Optional matching rule.</param>
-        /// <param name="type">Optional attribute description.</param>
-        /// <param name="matchValue">The assertion value.</param>
-        /// <param name="dnAttributes">Asn1Boolean value. (default false)</param>
         public RfcMatchingRuleAssertion(
-            Asn1OctetString matchingRule,
-            Asn1OctetString type, 
-            Asn1OctetString matchValue,
+            string matchingRule,
+            string type,
+            sbyte[] matchValue,
             Asn1Boolean dnAttributes = null)
             : base(4)
         {
             if (matchingRule != null)
-                Add(new Asn1Tagged(new Asn1Identifier(1), matchingRule, false));
+                Add(new Asn1Tagged(new Asn1Identifier(1), new Asn1OctetString(matchingRule), false));
             if (type != null)
-                Add(new Asn1Tagged(new Asn1Identifier(2), type, false));
+                Add(new Asn1Tagged(new Asn1Identifier(2), new Asn1OctetString(type), false));
 
-            Add(new Asn1Tagged(new Asn1Identifier(3), matchValue, false));
+            Add(new Asn1Tagged(new Asn1Identifier(3), new Asn1OctetString(matchValue), false));
 
             // if dnAttributes if false, that is the default value and we must not
             // encode it. (See RFC 2251 5.1 number 4)
@@ -188,12 +163,6 @@ namespace Unosquare.Swan.Networking.Ldap
     /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1SequenceOf" />
     internal class RfcAttributeDescriptionList : Asn1SequenceOf
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcAttributeDescriptionList" /> class.
-        /// Convenience constructor. This constructor will construct an
-        /// AttributeDescriptionList using the supplied array of Strings.
-        /// </summary>
-        /// <param name="attrs">The attrs.</param>
         public RfcAttributeDescriptionList(string[] attrs)
             : base(attrs?.Length ?? 0)
         {
@@ -267,20 +236,21 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an Ldap Substring Filter.
-    ///     <pre>
-    ///         SubstringFilter ::= SEQUENCE {
-    ///         type            AttributeDescription,
-    ///         -- at least one must be present
-    ///         substrings      SEQUENCE OF CHOICE {
-    ///         initial [0] LdapString,
-    ///         any     [1] LdapString,
-    ///         final   [2] LdapString } }
-    ///     </pre>
+    /// Represents an Ldap Substring Filter.
+    /// <pre>
+    /// SubstringFilter ::= SEQUENCE {
+    /// type            AttributeDescription,
+    /// -- at least one must be present
+    /// substrings      SEQUENCE OF CHOICE {
+    /// initial [0] LdapString,
+    /// any     [1] LdapString,
+    /// final   [2] LdapString } }
+    /// </pre>
     /// </summary>
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
     internal class RfcSubstringFilter : Asn1Sequence
     {
-        public RfcSubstringFilter(string type, Asn1SequenceOf substrings)
+        public RfcSubstringFilter(string type, Asn1Object substrings)
             : base(2)
         {
             Add(type);
@@ -289,21 +259,16 @@ namespace Unosquare.Swan.Networking.Ldap
     }
 
     /// <summary>
-    ///     Represents an Ldap Attribute Value Assertion.
-    ///     <pre>
-    ///         AttributeValueAssertion ::= SEQUENCE {
-    ///         attributeDesc   AttributeDescription,
-    ///         assertionValue  AssertionValue }
-    ///     </pre>
+    /// Represents an Ldap Attribute Value Assertion.
+    /// <pre>
+    /// AttributeValueAssertion ::= SEQUENCE {
+    /// attributeDesc   AttributeDescription,
+    /// assertionValue  AssertionValue }
+    /// </pre>
     /// </summary>
-    internal sealed class RfcAttributeValueAssertion : Asn1Sequence
+    /// <seealso cref="Unosquare.Swan.Networking.Ldap.Asn1Sequence" />
+    internal class RfcAttributeValueAssertion : Asn1Sequence
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RfcAttributeValueAssertion" /> class.
-        /// Creates an Attribute Value Assertion.
-        /// </summary>
-        /// <param name="ad">The assertion description</param>
-        /// <param name="av">The assertion value</param>
         public RfcAttributeValueAssertion(string ad, sbyte[] av)
             : base(2)
         {
@@ -311,20 +276,8 @@ namespace Unosquare.Swan.Networking.Ldap
             Add(new Asn1OctetString(av));
         }
 
-        /// <summary>
-        ///     Returns the attribute description.
-        /// </summary>
-        /// <returns>
-        ///     the attribute description
-        /// </returns>
         public string AttributeDescription => ((Asn1OctetString) Get(0)).StringValue();
 
-        /// <summary>
-        ///     Returns the assertion value.
-        /// </summary>
-        /// <returns>
-        ///     the assertion value.
-        /// </returns>
         public sbyte[] AssertionValue => ((Asn1OctetString) Get(1)).ByteValue();
     }
 
@@ -419,9 +372,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="method">The method.</param>
         /// <param name="anonymous">if set to <c>true</c> [anonymous].</param>
         public BindProperties(
-            int version, 
-            string dn, 
-            string method, 
+            int version,
+            string dn,
+            string method,
             bool anonymous)
         {
             ProtocolVersion = version;
@@ -429,15 +382,14 @@ namespace Unosquare.Swan.Networking.Ldap
             AuthenticationMethod = method;
             Anonymous = anonymous;
         }
-        
+
         public int ProtocolVersion { get; }
-        
+
         public string AuthenticationDN { get; }
-        
+
         public string AuthenticationMethod { get; }
-        
+
         public bool Anonymous { get; }
     }
 }
-
 #endif

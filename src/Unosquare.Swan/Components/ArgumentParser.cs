@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Components
+namespace Unosquare.Swan.Components
 {
     using Reflection;
     using System;

@@ -33,18 +33,6 @@ namespace Unosquare.Swan.Networking.Ldap
     internal class LBERDecoder
         : IAsn1Decoder
     {
-        // used to speed up decode, so it doesn't need to recreate an identifier every time
-        // instead just reset is called CANNOT be static for multiple connections
-        private readonly Asn1Identifier _asn1Id;
-
-        private readonly Asn1Length _asn1Len;
-
-        public LBERDecoder()
-        {
-            _asn1Id = new Asn1Identifier();
-            _asn1Len = new Asn1Length();
-        }
-
         /// <summary>
         /// Decode an LBER encoded value into an Asn1Object from an InputStream.
         /// This method also returns the total length of this encoded
@@ -60,16 +48,16 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <exception cref="EndOfStreamException">Unknown tag</exception>
         public Asn1Object Decode(Stream stream, int[] len)
         {
-            _asn1Id.Reset(stream);
-            _asn1Len.Reset(stream);
+            var asn1Id = new Asn1Identifier(stream);
+            var asn1Len = new Asn1Length(stream);
 
-            var length = _asn1Len.Length;
-            len[0] = _asn1Id.EncodedLength + _asn1Len.EncodedLength + length;
+            var length = asn1Len.Length;
+            len[0] = asn1Id.EncodedLength + asn1Len.EncodedLength + length;
 
-            if (_asn1Id.Universal == false)
-                return new Asn1Tagged(this, stream, length, (Asn1Identifier) _asn1Id.Clone());
+            if (asn1Id.Universal == false)
+                return new Asn1Tagged(this, stream, length, (Asn1Identifier) asn1Id.Clone());
 
-            switch (_asn1Id.Tag)
+            switch (asn1Id.Tag)
             {
                 case Asn1Sequence.Tag:
                     return new Asn1Sequence(this, stream, length);

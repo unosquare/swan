@@ -24,96 +24,6 @@ namespace Unosquare.Swan.Components
         public delegate void ProcessDataReceivedCallback(byte[] processData, Process process);
 
         /// <summary>
-        /// Copies the stream asynchronously.
-        /// </summary>
-        /// <param name="process">The process.</param>
-        /// <param name="baseStream">The source stream.</param>
-        /// <param name="onDataCallback">The on data callback.</param>
-        /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
-        /// <param name="ct">The ct.</param>
-        /// <returns>Total copies stream</returns>
-        private static Task<ulong> CopyStreamAsync(
-            Process process, 
-            Stream baseStream, 
-            ProcessDataReceivedCallback onDataCallback, 
-            bool syncEvents, 
-            CancellationToken ct)
-        {
-            return Task.Factory.StartNew(async () =>
-            {
-                // define some state variables
-                var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
-                ulong totalCount = 0; // the total amount of bytes read
-                var hasExited = false;
-
-                while (ct.IsCancellationRequested == false)
-                {
-                    try
-                    {
-                        // Check if process is no longer valid
-                        // if this condition holds, simply read the last bits of data available.
-                        int readCount; // the bytes read in any given event
-                        if (process.HasExited || process.WaitForExit(1))
-                        {
-                            while (true)
-                            {
-                                try
-                                {
-                                    readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
-                                    if (readCount > 0)
-                                    {
-                                        totalCount += (ulong)readCount;
-                                        onDataCallback?.Invoke(swapBuffer, process);
-                                    }
-                                    else
-                                    {
-                                        hasExited = true;
-                                        break;
-                                    }
-                                }
-                                catch
-                                {
-                                    hasExited = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (hasExited) break;
-
-                        // Try reading from the stream. < 0 means no read occurred.
-                        readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
-
-                        // When no read is done, we need to let is rest for a bit
-                        if (readCount <= 0)
-                        {
-                            await Task.Delay(1, ct); // do not hog CPU cycles doing nothing.
-                            continue;
-                        }
-                            
-                        totalCount += (ulong)readCount;
-                        if (onDataCallback == null) continue;
-
-                        // Create the buffer to pass to the callback
-                        var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
-
-                        // Create the data processing callback invocation
-                        var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); }, ct);
-                            
-                        // wait for the event to process before the next read occurs
-                        if (syncEvents) eventTask.Wait(ct);
-                    }
-                    catch
-                    {
-                        break;
-                    }
-                }
-
-                return totalCount;
-            }, ct).Unwrap();
-        }
-
-        /// <summary>
         /// Runs the process asynchronously and if the exit code is 0,
         /// returns all of the standard output text. If the exit code is something other than 0
         /// it returns the contents of standard error.
@@ -250,6 +160,96 @@ namespace Unosquare.Swan.Components
                     return -1;
                 }
             }, ct);
+        }
+
+        /// <summary>
+        /// Copies the stream asynchronously.
+        /// </summary>
+        /// <param name="process">The process.</param>
+        /// <param name="baseStream">The source stream.</param>
+        /// <param name="onDataCallback">The on data callback.</param>
+        /// <param name="syncEvents">if set to <c>true</c> [synchronize events].</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>Total copies stream</returns>
+        private static Task<ulong> CopyStreamAsync(
+            Process process,
+            Stream baseStream,
+            ProcessDataReceivedCallback onDataCallback,
+            bool syncEvents,
+            CancellationToken ct)
+        {
+            return Task.Factory.StartNew(async () =>
+            {
+                // define some state variables
+                var swapBuffer = new byte[2048]; // the buffer to copy data from one stream to the next
+                ulong totalCount = 0; // the total amount of bytes read
+                var hasExited = false;
+
+                while (ct.IsCancellationRequested == false)
+                {
+                    try
+                    {
+                        // Check if process is no longer valid
+                        // if this condition holds, simply read the last bits of data available.
+                        int readCount; // the bytes read in any given event
+                        if (process.HasExited || process.WaitForExit(1))
+                        {
+                            while (true)
+                            {
+                                try
+                                {
+                                    readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
+                                    if (readCount > 0)
+                                    {
+                                        totalCount += (ulong)readCount;
+                                        onDataCallback?.Invoke(swapBuffer, process);
+                                    }
+                                    else
+                                    {
+                                        hasExited = true;
+                                        break;
+                                    }
+                                }
+                                catch
+                                {
+                                    hasExited = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (hasExited) break;
+
+                        // Try reading from the stream. < 0 means no read occurred.
+                        readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
+
+                        // When no read is done, we need to let is rest for a bit
+                        if (readCount <= 0)
+                        {
+                            await Task.Delay(1, ct); // do not hog CPU cycles doing nothing.
+                            continue;
+                        }
+
+                        totalCount += (ulong)readCount;
+                        if (onDataCallback == null) continue;
+
+                        // Create the buffer to pass to the callback
+                        var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
+
+                        // Create the data processing callback invocation
+                        var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); }, ct);
+
+                        // wait for the event to process before the next read occurs
+                        if (syncEvents) eventTask.Wait(ct);
+                    }
+                    catch
+                    {
+                        break;
+                    }
+                }
+
+                return totalCount;
+            }, ct).Unwrap();
         }
     }
 }

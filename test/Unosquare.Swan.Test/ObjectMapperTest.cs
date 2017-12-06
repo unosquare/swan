@@ -8,14 +8,14 @@
 
     public abstract class ObjectMapperTest : TestFixtureBase
     {
-        protected readonly User SourceUser = new User
+        protected User SourceUser => new User
         {
             Email = "geovanni.perez@unosquare.com",
             Name = "Geo",
             Role = new Role {Name = "Admin"}
         };
 
-        protected readonly Dictionary<string, object> SourceDict = new Dictionary<string, object>
+        protected Dictionary<string, object> SourceDict => new Dictionary<string, object>
         {
             {"Name", "Armando"},
             {"Email", "armando.cifuentes@unosquare.com"},

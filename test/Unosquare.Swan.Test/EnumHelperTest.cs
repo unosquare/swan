@@ -5,28 +5,17 @@
     using Components;
     using Mocks;
 
-    public abstract class EnumHelperTest
-    {
-        public enum City
-        {
-            Stormwind = 1,
-            Suramar,
-            Orgrimmar,
-            Dalaran
-        }
-    }
-
     [TestFixture]
     public class GetItemsWithIndex
     {
         [Test]
-        public void WithValidEnum_ReturnsTuple()
+        public void WithValidIndexEnum_ReturnsTuple()
         {
             var items = EnumHelper.GetItemsWithIndex<MyEnum>();
 
-            Assert.AreEqual(items[0].ToString(), "(0, One)");
-            Assert.AreEqual(items[1].ToString(), "(1, Two)");
-            Assert.AreEqual(items[2].ToString(), "(2, Three)");
+            Assert.AreEqual("(0, One)", items[0].ToString());
+            Assert.AreEqual("(1, Two)", items[1].ToString());
+            Assert.AreEqual("(2, Three)", items[2].ToString());
         }
 
         [Test]
@@ -37,17 +26,16 @@
     }
 
     [TestFixture]
-    public class GetItemsWithValue : EnumHelperTest
+    public class GetItemsWithValue
     {
         [Test]
-        public void WithValidEnum_ReturnsTuple()
+        public void WithValidValueEnum_ReturnsTuple()
         {
-            var items = EnumHelper.GetItemsWithValue<City>();
+            var items = EnumHelper.GetItemsWithValue<MyEnum>();
 
-            Assert.AreEqual(items[0].ToString(), "(1, Stormwind)");
-            Assert.AreEqual(items[1].ToString(), "(2, Suramar)");
-            Assert.AreEqual(items[2].ToString(), "(3, Orgrimmar)");
-            Assert.AreEqual(items[3].ToString(), "(4, Dalaran)");
+            Assert.AreEqual("(1, One)", items[0].ToString());
+            Assert.AreEqual("(2, Two)", items[1].ToString());
+            Assert.AreEqual("(3, Three)", items[2].ToString());
         }
 
         [Test]

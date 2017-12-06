@@ -1,15 +1,15 @@
 ﻿#if NET46
-using System;
-using System.ServiceProcess;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Unosquare.Swan.Test.Mocks
 {
+    using System;
+    using System.ServiceProcess;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class WinServiceMock : ServiceBase
     {
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
-        
+
         public WinServiceMock()
         {
             ServiceName = nameof(WinServiceMock);
@@ -17,15 +17,7 @@ namespace Unosquare.Swan.Test.Mocks
             AutoLog = true;
         }
 
-        protected override void OnStart(string[] args)
-        {
-            Task.Factory.StartNew(ProcessTask, _cts.Token);
-        }
-
-        protected override void OnStop()
-        {
-            _cts.Cancel();
-        }
+        public int Counter { get; internal set; }
 
         internal async Task ProcessTask()
         {
@@ -36,7 +28,12 @@ namespace Unosquare.Swan.Test.Mocks
             }
         }
 
-        public int Counter { get; internal set; }
+        protected override void OnStart(string[] args)
+        {
+            Task.Factory.StartNew(ProcessTask, _cts.Token);
+        }
+
+        protected override void OnStop() => _cts.Cancel();
     }
 }
 #endif

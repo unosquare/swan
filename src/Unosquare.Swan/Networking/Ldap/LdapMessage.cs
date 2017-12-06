@@ -12,7 +12,7 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         internal RfcLdapMessage Message;
 
-        private int imsgNum = -1; // This instance LdapMessage number
+        private int _imsgNum = -1; // This instance LdapMessage number
 
         private LdapOperation _messageType = LdapOperation.Unknown;
 
@@ -60,9 +60,6 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="message">A response message.</param>
         internal LdapMessage(RfcLdapMessage message) => Message = message;
 
-        /// <summary> Returns the LdapMessage request associated with this response</summary>
-        internal virtual LdapMessage RequestingMessage => Message.RequestingMessage;
-
         /// <summary>
         /// Returns any controls in the message.
         /// </summary>
@@ -82,7 +79,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 for (var i = 0; i < asn1Ctrls.Size(); i++)
                 {
-                    var rfcCtl = (RfcControl)asn1Ctrls.Get(i);
+                    var rfcCtl = (RfcControl) asn1Ctrls.Get(i);
                     var oid = rfcCtl.ControlType.StringValue();
                     var arrayValue = rfcCtl.ControlValue.ByteValue();
                     var critical = rfcCtl.Criticality.BooleanValue();
@@ -98,39 +95,33 @@ namespace Unosquare.Swan.Networking.Ldap
         }
 
         /// <summary>
-        ///     Returns the message ID.  The message ID is an integer value
-        ///     identifying the Ldap request and its response.
+        /// Returns the message ID.  The message ID is an integer value
+        /// identifying the Ldap request and its response.
         /// </summary>
-        public virtual int MessageID
+        /// <value>
+        /// The message identifier.
+        /// </value>
+        public virtual int MessageId
         {
             get
             {
-                if (imsgNum == -1)
+                if (_imsgNum == -1)
                 {
-                    imsgNum = Message.MessageID;
+                    _imsgNum = Message.MessageId;
                 }
 
-                return imsgNum;
+                return _imsgNum;
             }
         }
 
         /// <summary>
-        ///     Indicates whether the message is a request or a response
-        /// </summary>
-        /// <returns>
-        ///     true if the message is a request, false if it is a response,
-        ///     a search result, or a search result reference.
-        /// </returns>
-        public virtual bool Request => Message.IsRequest();
-
-        /// <summary>
-        /// Returns the Ldap operation type of the message.
-        /// The type is one of the following:
-        /// <ul><li>BIND_REQUEST            = 0;</li><li>BIND_RESPONSE           = 1;</li><li>UNBIND_REQUEST          = 2;</li><li>SEARCH_REQUEST          = 3;</li><li>SEARCH_RESPONSE         = 4;</li><li>SEARCH_RESULT           = 5;</li><li>MODIFY_REQUEST          = 6;</li><li>MODIFY_RESPONSE         = 7;</li><li>ADD_REQUEST             = 8;</li><li>ADD_RESPONSE            = 9;</li><li>DEL_REQUEST             = 10;</li><li>DEL_RESPONSE            = 11;</li><li>MODIFY_RDN_REQUEST      = 12;</li><li>MODIFY_RDN_RESPONSE     = 13;</li><li>COMPARE_REQUEST         = 14;</li><li>COMPARE_RESPONSE        = 15;</li><li>ABANDON_REQUEST         = 16;</li><li>SEARCH_RESULT_REFERENCE = 19;</li><li>EXTENDED_REQUEST        = 23;</li><li>EXTENDED_RESPONSE       = 24;</li><li>INTERMEDIATE_RESPONSE   = 25;</li></ul>
+        /// Indicates whether the message is a request or a response
         /// </summary>
         /// <value>
-        /// The type.
+        ///   <c>true</c> if request; otherwise, <c>false</c>.
         /// </value>
+        public virtual bool Request => Message.IsRequest();
+
         internal LdapOperation Type
         {
             get
@@ -144,41 +135,21 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary> Returns the RFC 2251 LdapMessage composed in this object.</summary>
         internal virtual RfcLdapMessage Asn1Object => Message;
-
-        private string Name => Type.ToString();
+        
+        internal virtual LdapMessage RequestingMessage => Message.RequestingMessage;
 
         /// <summary>
-        ///     Retrieves the identifier tag for this message.
-        ///     An identifier can be associated with a message with the
-        ///     <code>setTag</code> method.
-        ///     Tags are set by the application and not by the API or the server.
-        ///     If a server response <code>isRequest() == false</code> has no tag,
-        ///     the tag associated with the corresponding server request is used.
+        /// Retrieves the identifier tag for this message.
+        /// An identifier can be associated with a message with the
+        /// <c>setTag</c> method.
+        /// Tags are set by the application and not by the API or the server.
+        /// If a server response <c>isRequest() == false</c> has no tag,
+        /// the tag associated with the corresponding server request is used.
         /// </summary>
-        /// <returns>
-        ///     the identifier associated with this message or null
-        ///     if none.
-        /// </returns>
-        /// <summary>
-        ///     Sets a string identifier tag for this message.
-        ///     This method allows an API to set a tag and later identify messages
-        ///     by retrieving the tag associated with the message.
-        ///     Tags are set by the application and not by the API or the server.
-        ///     Message tags are not included with any message sent to or received
-        ///     from the server.
-        ///     Tags set on a request to the server
-        ///     are automatically associated with the response messages when they are
-        ///     received by the API and transferred to the application.
-        ///     The application can explicitly set a different value in a
-        ///     response message.
-        ///     To set a value in a server request, for example an
-        ///     {@link LdapSearchRequest}, you must create the object,
-        ///     set the tag, and use the
-        ///     {@link LdapConnection.SendRequest LdapConnection.sendRequest()}
-        ///     method to send it to the server.
-        /// </summary>
+        /// <value>
+        /// The tag.
+        /// </value>
         public virtual string Tag
         {
             get
@@ -194,67 +165,33 @@ namespace Unosquare.Swan.Networking.Ldap
             set => _stringTag = value;
         }
 
+        private string Name => Type.ToString();
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => Name + "(" + MessageID + "): " + Message;
+        public override string ToString() => $"{Name}({MessageId}): {Message}";
 
-        /// <summary>
-        /// Instantiates an LdapControl.  We search through our list of
-        /// registered controls.  If we find a matchiing OID we instantiate
-        /// that control by calling its contructor.  Otherwise we default to
-        /// returning a regular LdapControl object
-        /// </summary>
-        /// <param name="oid">The oid.</param>
-        /// <param name="critical">if set to <c>true</c> [critical].</param>
-        /// <param name="values">The value renamed.</param>
-        /// <returns>LdapControl</returns>
-        private LdapControl ControlFactory(string oid, bool critical, sbyte[] values)
+        private static LdapControl ControlFactory(string oid, bool critical, sbyte[] values)
         {
-            var regControls = LdapControl.RegisteredControls;
-
             try
             {
-                var respCtlClass = regControls.FindResponseControl(oid);
+                var respCtlClass = LdapControl.RegisteredControls.FindResponseControl(oid);
 
                 // Did not find a match so return default LDAPControl
                 if (respCtlClass == null)
                     return new LdapControl(oid, critical, values);
 
-                /* If found, get LDAPControl constructor */
-                Type[] argsClass = { typeof(string), typeof(bool), typeof(sbyte[]) };
-                object[] args = { oid, critical, values };
-                try
-                {
-                    var ctlConstructor = respCtlClass.GetConstructor(argsClass);
+                Type[] argsClass = {typeof(string), typeof(bool), typeof(sbyte[])};
 
-                    try
-                    {
-                        return (LdapControl)ctlConstructor.Invoke(args);
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                    }
-                    catch (TargetInvocationException)
-                    {
-                    }
-                    catch (Exception)
-                    {
-                        // Could not create the ResponseControl object
-                        // All possible exceptions are ignored. We fall through
-                        // and create a default LDAPControl object
-                    }
-                }
-                catch (MethodAccessException)
-                {
-                    // bad class was specified, fall through and return a
-                    // default LDAPControl object
-                }
+                var ctlConstructor = respCtlClass.GetConstructor(argsClass);
+
+                return (LdapControl) ctlConstructor.Invoke(new object[] {oid, critical, values});
             }
-            catch (FieldAccessException)
+            catch (Exception)
             {
                 // No match with the OID
                 // Do nothing. Fall through and construct a default LDAPControl object.
