@@ -3,19 +3,13 @@
     using System;
 
     /// <summary>
-    /// Represents a struct of DateTimeSpan to compare dates and get in separate fields the amount of time between those dates.
+    /// Represents a struct of DateTimeSpan to compare dates and get in 
+    /// separate fields the amount of time between those dates.
+    /// 
     /// Base on https://stackoverflow.com/a/9216404/1096693
     /// </summary>
     public struct DateTimeSpan
     {
-        private readonly int years;
-        private readonly int months;
-        private readonly int days;
-        private readonly int hours;
-        private readonly int minutes;
-        private readonly int seconds;
-        private readonly int milliseconds;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeSpan"/> struct.
         /// </summary>
@@ -28,13 +22,13 @@
         /// <param name="milliseconds">The milliseconds.</param>
         public DateTimeSpan(int years, int months, int days, int hours, int minutes, int seconds, int milliseconds)
         {
-            this.years = years;
-            this.months = months;
-            this.days = days;
-            this.hours = hours;
-            this.minutes = minutes;
-            this.seconds = seconds;
-            this.milliseconds = milliseconds;
+            Years = years;
+            Months = months;
+            Days = days;
+            Hours = hours;
+            Minutes = minutes;
+            Seconds = seconds;
+            Milliseconds = milliseconds;
         }
 
         /// <summary>
@@ -43,7 +37,7 @@
         /// <value>
         /// The years.
         /// </value>
-        public int Years => years;
+        public int Years { get; }
 
         /// <summary>
         /// Gets the months.
@@ -51,7 +45,7 @@
         /// <value>
         /// The months.
         /// </value>
-        public int Months => months;
+        public int Months { get; }
 
         /// <summary>
         /// Gets the days.
@@ -59,7 +53,7 @@
         /// <value>
         /// The days.
         /// </value>
-        public int Days => days;
+        public int Days { get; }
 
         /// <summary>
         /// Gets the hours.
@@ -67,7 +61,7 @@
         /// <value>
         /// The hours.
         /// </value>
-        public int Hours => hours;
+        public int Hours { get; }
 
         /// <summary>
         /// Gets the minutes.
@@ -75,7 +69,7 @@
         /// <value>
         /// The minutes.
         /// </value>
-        public int Minutes => minutes;
+        public int Minutes { get; }
 
         /// <summary>
         /// Gets the seconds.
@@ -83,7 +77,7 @@
         /// <value>
         /// The seconds.
         /// </value>
-        public int Seconds => seconds;
+        public int Seconds { get; }
 
         /// <summary>
         /// Gets the milliseconds.
@@ -91,17 +85,9 @@
         /// <value>
         /// The milliseconds.
         /// </value>
-        public int Milliseconds => milliseconds;
-
-        enum Phase { Years, Months, Days, Done }
-
-        /// <summary>
-        /// Compares the dates.
-        /// </summary>
-        /// <param name="date1">The date1.</param>
-        /// <param name="date2">The date2.</param>
-        /// <returns>A DateTimeSpan with the Years, Months, Days, Hours, Minutes, Seconds and Milliseconds between the dates</returns>
-        public static DateTimeSpan CompareDates(DateTime date1, DateTime date2)
+        public int Milliseconds { get; }
+        
+        internal static DateTimeSpan CompareDates(DateTime date1, DateTime date2)
         {
             if (date2 < date1)
             {
@@ -140,7 +126,8 @@
                         {
                             phase = Phase.Days;
                             current = current.AddMonths(months);
-                            if (current.Day < officialDay && officialDay <= DateTime.DaysInMonth(current.Year, current.Month))
+                            if (current.Day < officialDay &&
+                                officialDay <= DateTime.DaysInMonth(current.Year, current.Month))
                                 current = current.AddDays(officialDay - current.Day);
                         }
                         else
@@ -154,7 +141,8 @@
                         {
                             current = current.AddDays(days);
                             var timespan = date2 - current;
-                            span = new DateTimeSpan(years, months, days, timespan.Hours, timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
+                            span = new DateTimeSpan(years, months, days, timespan.Hours, timespan.Minutes,
+                                timespan.Seconds, timespan.Milliseconds);
                             phase = Phase.Done;
                         }
                         else
@@ -167,6 +155,14 @@
             }
 
             return span;
+        }
+
+        private enum Phase
+        {
+            Years,
+            Months,
+            Days,
+            Done
         }
     }
 }

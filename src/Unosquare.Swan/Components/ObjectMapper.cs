@@ -230,23 +230,15 @@
                         continue;
                     }
 
-                    if (!valueType.Type.IsValueType())
+                    if (!valueType.Type.IsValueType() && targetProperty.PropertyType == valueType.Type)
                     {
-                        // Direct Copy
-                        if(targetProperty.PropertyType == valueType.Type)
-                        {
-                            if(valueType.Value != null)
-                            {
-                                targetProperty.SetValue(target, GetValue(valueType.Value, targetProperty.PropertyType));
-                            }
-                            else
-                            {
-                                targetProperty.SetValue(target, null);
-                            }
+                        targetProperty.SetValue(target,
+                            valueType.Value != null
+                                ? GetValue(valueType.Value, targetProperty.PropertyType)
+                                : null);
 
-                            copiedProperties++;
-                            continue;
-                        }
+                        copiedProperties++;
+                        continue;
                     }
 
                     // String to target type conversion

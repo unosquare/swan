@@ -6,14 +6,12 @@
     [TestFixture]
     public class CompareDates
     {
-        private DateTime date = new DateTime(2002, 7, 3, 12, 0, 0, 200);
+        private readonly DateTime _date = new DateTime(2002, 7, 3, 12, 0, 0, 200);
 
         [Test]
         public void WithFullDateTimes_ReturnsDateTimeSpan()
         {
-            var result = DateTimeSpan.CompareDates(
-                date,
-                new DateTime(1969, 8, 15, 5, 7, 10, 100));
+            var result = _date.GetDateTimeSpan(new DateTime(1969, 8, 15, 5, 7, 10, 100));
 
             Assert.AreEqual(result.Years, 32);
             Assert.AreEqual(result.Months, 10);
@@ -26,9 +24,7 @@
         [Test]
         public void WithPartialDateTimes_ReturnsDateTimeSpan()
         {
-            var result = DateTimeSpan.CompareDates(
-                new DateTime(1969, 8, 15),
-                date);
+            var result = new DateTime(1969, 8, 15).GetDateTimeSpan(_date);
 
             Assert.AreEqual(result.Years, 32);
             Assert.AreEqual(result.Months, 10);

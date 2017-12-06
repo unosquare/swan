@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Unosquare.Swan\Unosquare.Swan.csproj" />
+    <PackageReference Include="EmbedIO" Version="1.11.3" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">

@@ -20,7 +20,7 @@
         private static readonly ManualResetEvent OutputDone = new ManualResetEvent(false);
         private static readonly ManualResetEvent InputDone = new ManualResetEvent(true);
 
-        private static bool? m_IsConsolePresent;
+        private static bool? _isConsolePresent;
 
         #endregion
 
@@ -162,21 +162,21 @@
             {
                 if (Settings.OverrideIsConsolePresent) return true;
 
-                if (m_IsConsolePresent == null)
+                if (_isConsolePresent == null)
                 {
-                    m_IsConsolePresent = true;
+                    _isConsolePresent = true;
                     try
                     {
                         var windowHeight = Console.WindowHeight;
-                        m_IsConsolePresent = windowHeight >= 0;
+                        _isConsolePresent = windowHeight >= 0;
                     }
                     catch
                     {
-                        m_IsConsolePresent = false;
+                        _isConsolePresent = false;
                     }
                 }
 
-                return m_IsConsolePresent.Value;
+                return _isConsolePresent.Value;
             }
         }
 
