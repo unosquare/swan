@@ -3513,6 +3513,18 @@ references:
   commentId: Overload:Unosquare.Swan.DateExtensions.DateRange
   fullName: Unosquare.Swan.DateExtensions.DateRange
   nameWithType: DateExtensions.DateRange
+- uid: Unosquare.Swan.DateExtensions.GetDateTimeSpan(System.DateTime,System.DateTime)
+  name: GetDateTimeSpan(DateTime, DateTime)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_GetDateTimeSpan_System_DateTime_System_DateTime_
+  commentId: M:Unosquare.Swan.DateExtensions.GetDateTimeSpan(System.DateTime,System.DateTime)
+  fullName: Unosquare.Swan.DateExtensions.GetDateTimeSpan(System.DateTime, System.DateTime)
+  nameWithType: DateExtensions.GetDateTimeSpan(DateTime, DateTime)
+- uid: Unosquare.Swan.DateExtensions.GetDateTimeSpan*
+  name: GetDateTimeSpan
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_GetDateTimeSpan_
+  commentId: Overload:Unosquare.Swan.DateExtensions.GetDateTimeSpan
+  fullName: Unosquare.Swan.DateExtensions.GetDateTimeSpan
+  nameWithType: DateExtensions.GetDateTimeSpan
 - uid: Unosquare.Swan.DateExtensions.RoundUp(System.DateTime,System.TimeSpan)
   name: RoundUp(DateTime, TimeSpan)
   href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_RoundUp_System_DateTime_System_TimeSpan_
@@ -3591,18 +3603,6 @@ references:
   commentId: Overload:Unosquare.Swan.DateTimeSpan.#ctor
   fullName: Unosquare.Swan.DateTimeSpan.DateTimeSpan
   nameWithType: DateTimeSpan.DateTimeSpan
-- uid: Unosquare.Swan.DateTimeSpan.CompareDates(System.DateTime,System.DateTime)
-  name: CompareDates(DateTime, DateTime)
-  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_CompareDates_System_DateTime_System_DateTime_
-  commentId: M:Unosquare.Swan.DateTimeSpan.CompareDates(System.DateTime,System.DateTime)
-  fullName: Unosquare.Swan.DateTimeSpan.CompareDates(System.DateTime, System.DateTime)
-  nameWithType: DateTimeSpan.CompareDates(DateTime, DateTime)
-- uid: Unosquare.Swan.DateTimeSpan.CompareDates*
-  name: CompareDates
-  href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_CompareDates_
-  commentId: Overload:Unosquare.Swan.DateTimeSpan.CompareDates
-  fullName: Unosquare.Swan.DateTimeSpan.CompareDates
-  nameWithType: DateTimeSpan.CompareDates
 - uid: Unosquare.Swan.DateTimeSpan.Days
   name: Days
   href: api/Unosquare.Swan.DateTimeSpan.html#Unosquare_Swan_DateTimeSpan_Days
