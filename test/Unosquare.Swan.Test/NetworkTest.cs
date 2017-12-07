@@ -260,7 +260,7 @@
         [Test]
         public async Task WithValidFqdnAndIPAddress_ReturnsDnsHost()
         {
-            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, GoogleDns, Definitions.DnsDefaultPort);
+            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, GoogleDns, Network.DnsDefaultPort);
 
             Assert.IsNotEmpty(dnsHost.ToString());
         }
@@ -272,7 +272,7 @@
         [Test]
         public async Task WithValidFqdnAndIPAddress_ReturnsDnsHost()
         {
-            var dnsPointer = await Network.GetDnsPointerEntryAsync(GoogleDns, GoogleDns, Definitions.DnsDefaultPort);
+            var dnsPointer = await Network.GetDnsPointerEntryAsync(GoogleDns, GoogleDns, Network.DnsDefaultPort);
 
             Assert.AreEqual(dnsPointer, GoogleDnsFqdn);
         }
@@ -299,7 +299,7 @@
         public async Task ValidDnsAsDnsServer_ReturnsQueryDns()
         {
             var dnsPointer =
-                await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, GoogleDns, Definitions.DnsDefaultPort);
+                await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, GoogleDns, Network.DnsDefaultPort);
 
             Assert.AreEqual(DnsResponseCode.NoError, dnsPointer.ResponseCode);
         }

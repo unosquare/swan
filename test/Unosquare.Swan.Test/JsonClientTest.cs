@@ -27,7 +27,7 @@
         {
             _port++;
             _defaultPort = _port;
-            _defaultHttp = "http://localhost:" + _defaultPort;
+            _defaultHttp = $"http://localhost:{_defaultPort}";
         }
     }
 
@@ -66,16 +66,7 @@
         public void WithInvalidParams_ThrowsSecurityException()
         {
             Assert.ThrowsAsync<SecurityException>(async () =>
-            {
-                using (var webserver = new WebServer(_defaultPort))
-                {
-                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
-                    webserver.RunAsync();
-                    await Task.Delay(100);
-
-                    await JsonClient.Authenticate(_defaultHttp, "admin", "password");
-                }
-            });
+                await JsonClient.Authenticate("https://google.com", "admin", "password"));
         }
 
         [Test]
@@ -154,18 +145,10 @@
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                using (var webserver = new WebServer(_defaultPort))
-                {
-                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
-
-                    webserver.RunAsync();
-                    await Task.Delay(100);
-
-                    await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
-                }
+                await JsonClient.Post<BasicJson>("https://unosquare.github.io/swan/invalid", BasicJson.GetDefault());
             });
 
-            Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+            Assert.AreEqual(405, exception.HttpErrorCode, "EmebedIO should return 404 error code");
         }
 
         [Test]

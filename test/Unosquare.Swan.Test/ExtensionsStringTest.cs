@@ -330,7 +330,7 @@
     {
         [TestCase(new[] {'l'})]
         [TestCase(new[] {'l', 'W'})]
-        public void WithValidString_ReturnsTrue(params char[] chars)
+        public void WithValid_ReturnsTrue(params char[] chars)
         {
             Assert.IsTrue("Hello World".Contains(chars));
         }

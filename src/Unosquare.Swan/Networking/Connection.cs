@@ -96,7 +96,7 @@ namespace Unosquare.Swan.Networking
             // Setup continuous reading mode if enabled
             if (disableContinuousReading) return;
 
-#if NETSTANDARD1_3 || UWP
+#if NETSTANDARD1_3
             ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
 #else
             ThreadPool.GetAvailableThreads(out var availableWorkerThreads, out _);

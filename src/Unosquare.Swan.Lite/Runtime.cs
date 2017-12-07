@@ -10,7 +10,6 @@
 #endif
 #if !UWP
     using System.Diagnostics;
-
 #endif
 
     /// <summary>
@@ -29,8 +28,8 @@
 #if NETSTANDARD2_0
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
-       
-#if !UWP
+
+#if NET452
         private static readonly Lazy<Process> ProcessLazy = new Lazy<Process>(Process.GetCurrentProcess);
 #endif
 
@@ -103,7 +102,7 @@
             }
         }
 
-#if !UWP
+#if NET452
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
@@ -275,24 +274,7 @@
                 return returnPath;
             }
         }
-
-        /// <summary>
-        /// Provides a simple IoC Container based on TinyIoC
-        /// </summary>
-        /// <value>
-        /// The container.
-        /// </value>
-        public static DependencyContainer Container => DependencyContainer.Current;
-
-        /// <summary>
-        /// Provides a Message Hub with the Publish/Subscribe pattern
-        /// The implementation is based on TinyIoC Messenger
-        /// </summary>
-        /// <value>
-        /// The messages.
-        /// </value>
-        public static MessageHub Messages => Container.Resolve<IMessageHub>() as MessageHub;
-
+        
         /// <summary>
         /// Gets the singleton instance created with basic defaults.
         /// </summary>

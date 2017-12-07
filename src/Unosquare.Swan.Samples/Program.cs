@@ -106,7 +106,6 @@
             Runtime.WriteWelcomeBanner();
             $"Operating System Type: {Runtime.OS}    CLR Type: {(Runtime.IsUsingMonoRuntime ? "Mono" : ".NET")}".Info();
             $"Local Storage Path: {Runtime.LocalStoragePath}".Info();
-            $"Process Id: {Runtime.Process.Id}".Info();
         }
 
         static void TestJson()

@@ -20,7 +20,7 @@
             _resolver = resolver ?? new DnsUdpRequestResolver(new DnsTcpRequestResolver());
         }
 
-        public DnsClient(IPAddress ip, int port = Definitions.DnsDefaultPort, IDnsRequestResolver resolver = null) 
+        public DnsClient(IPAddress ip, int port = Network.DnsDefaultPort, IDnsRequestResolver resolver = null) 
             : this(new IPEndPoint(ip, port), resolver)
         {
         }
