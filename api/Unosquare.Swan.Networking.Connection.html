@@ -753,7 +753,7 @@ determined by this property has been received. Useful for fixed-length message p
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -798,7 +798,7 @@ determined by this property has been received. Useful for fixed-length message p
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadDataAsync(TimeSpan timeout, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -870,7 +870,7 @@ determined by this property has been received. Useful for fixed-length message p
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -920,7 +920,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadLineAsync(TimeSpan timeout, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1032,7 +1032,7 @@ and the rest of the read methods are not called.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ReadTextAsync(TimeSpan timeout, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1207,7 +1207,7 @@ Remarks: DO NOT use this method in production. It accepts ALL server certificate
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1265,7 +1265,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1323,7 +1323,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string line, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1374,7 +1374,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1431,7 +1431,7 @@ The new line sequence is added automatically at the end of the line.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, CancellationToken ct)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteTextAsync(string text, CancellationToken ct = default (CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
