@@ -8,7 +8,7 @@
     using Networking;
     using System.Threading;
     using System.Net;
-    using Unosquare.Swan.Test.Mocks;
+    using Mocks;
     using System.IO;
 
     public abstract class ConnectionTest
@@ -18,7 +18,7 @@
         public int Port;
         public CancellationToken ct;
         public byte[] Message = Encoding.ASCII.GetBytes("Hello World!\r\n");
-        private int _defaultPort = 12345;
+        private int _defaultPort = 12445;
 
         [SetUp]
         public void Setup()
