@@ -33,6 +33,7 @@ before_build:
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
+- ps: $TCP = Start-Process node tcp.js -PassThru
 - node LdapClient.js
 - appveyor-retry dotnet restore -v Minimal
 - mkdir tools
@@ -72,3 +73,4 @@ on_finish:
 - ps: Stop-Process -Id $LDAP.Id
 - ps: Stop-Process -Id $SMTP.Id
 - ps: Stop-Process -Id $WEB.Id
+- ps: Stop-Process -Id $TCP.Id
