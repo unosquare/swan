@@ -13,6 +13,8 @@
 
     public abstract class ConnectionTest
     {
+        public const int HttpPort = 3000;
+
         public ConnectionListener ConnectionListener;
         public TcpClient Client;
         public int Port;
@@ -23,8 +25,7 @@
         [SetUp]
         public void Setup()
         {
-            _defaultPort++;
-            Port = _defaultPort;
+            Port = _defaultPort++;
             ConnectionListener = new ConnectionListener(Port);
             Client = new TcpClient();
             ct = default(CancellationToken);
@@ -44,52 +45,18 @@
         [Test]
         public void OpenConnection_Connected()
         {
-            ConnectionListener.Start();
-            Client.Connect("localhost", Port);
+            Client.Connect("localhost", HttpPort);
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", false, 0))
             {
                 Assert.IsTrue(ConnectionListener.IsListening);
                 Assert.IsTrue(cn.IsConnected);
-            }
-        }
-
-        [Test]
-        public async Task OpenConnection_LocalAddress()
-        {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
                 Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
-            }
-        }
-
-        [Test]
-        public async Task OpenConnection_ConnectionStartTime()
-        {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
                 Assert.IsNotNull(cn.ConnectionStartTime);
-            }
-        }
-
-        [Test]
-        public async Task OpenConnection_ConnectionDuration()
-        {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
                 Assert.IsNotNull(cn.ConnectionDuration);
             }
         }
-
+        
         [Test]
         public async Task NullNewLineSequence_ArgumentException()
         {
