@@ -1,11 +1,9 @@
 ﻿namespace Unosquare.Swan.Test
 {
-    using System;
+    using Networking;
     using NUnit.Framework;
     using System.Net.Sockets;
     using System.Threading.Tasks;
-    using Networking;
-    using System.Text;
 
     [TestFixture]
     public class ConnectionListenerTest

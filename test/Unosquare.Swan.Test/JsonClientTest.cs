@@ -344,10 +344,10 @@
                 webserver.RunAsync();
                 await Task.Delay(100);
 
-                var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, "Paco De Lucia");
+                var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, nameof(WithValidParams_ReturnsTrue));
 
                 Assert.IsNotNull(data);
-                Assert.AreEqual(data.Filename, "Paco De Lucia");
+                Assert.AreEqual(data.Filename, nameof(WithValidParams_ReturnsTrue));
             }
         }
     }
