@@ -49,11 +49,10 @@
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", false, 0))
             {
-                Assert.IsTrue(ConnectionListener.IsListening);
-                Assert.IsTrue(cn.IsConnected);
+                Assert.IsTrue(cn.IsConnected, "It's connected");
                 Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
-                Assert.IsNotNull(cn.ConnectionStartTime);
-                Assert.IsNotNull(cn.ConnectionDuration);
+                Assert.IsNotNull(cn.ConnectionStartTime, "Connection Start Time");
+                Assert.IsNotNull(cn.ConnectionDuration, "Connection Duration");
             }
         }
         
