@@ -30,7 +30,7 @@
                 container.AutoRegister();
 
                 Assert.IsTrue(container.CanResolve<ICar>());
-                Assert.AreEqual(new TheOnlyCar().Name, Runtime.Container.Resolve<ICar>().Name);
+                Assert.AreEqual(new TheOnlyCar().Name, DependencyContainer.Current.Resolve<ICar>().Name);
             });
         }
 #endif

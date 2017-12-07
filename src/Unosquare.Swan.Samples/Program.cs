@@ -1,6 +1,7 @@
 ﻿namespace Unosquare.Swan.Samples
 {
     using System.Threading.Tasks;
+    using Components;
     using Networking.Ldap;
     using Formatters;
     using System;
@@ -152,17 +153,18 @@
         
         static void TestContainerAndMessageHub()
         {
-            Runtime.Container.Register<ISampleAnimal, SampleFish>();
-            $"The concrete type ended up being: {Runtime.Container.Resolve<ISampleAnimal>().Name}".Warn();
-            Runtime.Container.Unregister<ISampleAnimal>();
-            Runtime.Container.Register<ISampleAnimal, SampleMonkey>();
-            $"The concrete type ended up being: {Runtime.Container.Resolve<ISampleAnimal>().Name}".Warn();
+            DependencyContainer.Current.Register<ISampleAnimal, SampleFish>();
+            $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
+            DependencyContainer.Current.Unregister<ISampleAnimal>();
+            DependencyContainer.Current.Register<ISampleAnimal, SampleMonkey>();
+            $"The concrete type ended up being: {DependencyContainer.Current.Resolve<ISampleAnimal>().Name}".Warn();
 
-            Runtime.Messages.Subscribe<SampleMessage>((m) =>
+            var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
+            messageHub.Subscribe<SampleMessage>((m) =>
             {
                 $"Received the following message from '{m.Sender}': '{m.Content}'".Trace();
             });
-            Runtime.Messages.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
+            messageHub.Publish(new SampleMessage("SENDER HERE", "This is some sample text"));
         }
 
         static void TestFastOutputAndReadPrompt()

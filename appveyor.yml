@@ -29,8 +29,10 @@ before_build:
 - ps: Install-Product node 8
 - npm install ldapjs
 - npm install maildev
+- npm install express
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
+- ps: $WEB = Start-Process node web.js -PassThru
 - node LdapClient.js
 - appveyor-retry dotnet restore -v Minimal
 - mkdir tools
@@ -69,3 +71,4 @@ after_build:
 on_finish:
 - ps: Stop-Process -Id $LDAP.Id
 - ps: Stop-Process -Id $SMTP.Id
+- ps: Stop-Process -Id $WEB.Id

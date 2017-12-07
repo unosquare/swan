@@ -6,8 +6,6 @@
     using System.Linq;
     using System.Security;
     using System.Threading.Tasks;
-    using Labs.EmbedIO;
-    using Labs.EmbedIO.Modules;
     using Exceptions;
     using Networking;
     using Mocks;
@@ -37,29 +35,23 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                var responseObj = new Dictionary<string, object> {{AuthorizationToken, "123"}};
+            var responseObj = new Dictionary<string, object> {{AuthorizationToken, "123"}};
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    if (ctx.RequestFormDataDictionary().ContainsKey("grant_type"))
-                    {
-                        ctx.JsonResponse(responseObj);
-                    }
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    if (ctx.RequestFormDataDictionary().ContainsKey("grant_type"))
+            //    {
+            //        ctx.JsonResponse(responseObj);
+            //    }
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
 
-                var data = await JsonClient.Authenticate(_defaultHttp, "admin", "password");
-
-                Assert.IsNotNull(data);
-                Assert.IsTrue(data.ContainsKey(AuthorizationToken));
-                Assert.AreEqual(responseObj[AuthorizationToken], data[AuthorizationToken]);
-            }
+            Assert.IsNotNull(data);
+            Assert.IsTrue(data.ContainsKey(AuthorizationToken));
+            Assert.AreEqual(responseObj[AuthorizationToken], data[AuthorizationToken]);
         }
 
         [Test]
@@ -90,54 +82,42 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                const string status = "OK";
+            const string status = "OK";
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    var obj = ctx.ParseJson<BasicJson>();
-                    Assert.IsNotNull(obj);
-                    obj.StringData = status;
-                    ctx.JsonResponse(obj);
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    var obj = ctx.ParseJson<BasicJson>();
+            //    Assert.IsNotNull(obj);
+            //    obj.StringData = status;
+            //    ctx.JsonResponse(obj);
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            var data = await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
 
-                var data = await JsonClient.Post<BasicJson>(_defaultHttp, BasicJson.GetDefault());
-
-                Assert.IsNotNull(data);
-                Assert.AreEqual(status, data.StringData);
-            }
+            Assert.IsNotNull(data);
+            Assert.AreEqual(status, data.StringData);
         }
 
         [Test]
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    ctx.JsonResponse(new Dictionary<string, string>
-                    {
-                        {Authorization, ctx.RequestHeader(Authorization)}
-                    });
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    ctx.JsonResponse(new Dictionary<string, string>
+            //    {
+            //        {Authorization, ctx.RequestHeader(Authorization)}
+            //    });
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(500);
+            var data = await JsonClient.Post(_defaultHttp, BasicJson.GetDefault(), AuthorizationToken);
 
-                var data = await JsonClient.Post(_defaultHttp, BasicJson.GetDefault(), AuthorizationToken);
-
-                Assert.IsNotNull(data);
-                Assert.IsTrue(data.ContainsKey(Authorization));
-                Assert.AreEqual($"Bearer {AuthorizationToken}", data[Authorization]);
-            }
+            Assert.IsNotNull(data);
+            Assert.IsTrue(data.ContainsKey(Authorization));
+            Assert.AreEqual($"Bearer {AuthorizationToken}", data[Authorization]);
         }
 
         [Test]
@@ -165,25 +145,19 @@
         [Test]
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                var ctxHeaders = new List<string>();
+            var ctxHeaders = new List<string>();
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            await JsonClient.GetString(_defaultHttp, AuthorizationToken);
 
-                await JsonClient.GetString(_defaultHttp, AuthorizationToken);
-
-                Assert.IsTrue(ctxHeaders.Any());
-                Assert.IsTrue(ctxHeaders.Any(x => x.StartsWith(Authorization)));
-            }
+            Assert.IsTrue(ctxHeaders.Any());
+            Assert.IsTrue(ctxHeaders.Any(x => x.StartsWith(Authorization)));
         }
 
         [Test]
@@ -200,54 +174,42 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                const string status = "OK";
+            const string status = "OK";
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    var obj = ctx.ParseJson<BasicJson>();
-                    Assert.IsNotNull(obj);
-                    obj.StringData = status;
-                    ctx.JsonResponse(obj);
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    var obj = ctx.ParseJson<BasicJson>();
+            //    Assert.IsNotNull(obj);
+            //    obj.StringData = status;
+            //    ctx.JsonResponse(obj);
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            var data = await JsonClient.Put<BasicJson>(_defaultHttp, BasicJson.GetDefault());
 
-                var data = await JsonClient.Put<BasicJson>(_defaultHttp, BasicJson.GetDefault());
-
-                Assert.IsNotNull(data);
-                Assert.AreEqual(status, data.StringData);
-            }
+            Assert.IsNotNull(data);
+            Assert.AreEqual(status, data.StringData);
         }
 
         [Test]
         public async Task WithValidParamsAndAuthorizationToken_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    ctx.JsonResponse(new Dictionary<string, string>
-                    {
-                        {Authorization, ctx.RequestHeader(Authorization)}
-                    });
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    ctx.JsonResponse(new Dictionary<string, string>
+            //    {
+            //        {Authorization, ctx.RequestHeader(Authorization)}
+            //    });
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(500);
+            var data = await JsonClient.Put(_defaultHttp, BasicJson.GetDefault(), AuthorizationToken);
 
-                var data = await JsonClient.Put(_defaultHttp, BasicJson.GetDefault(), AuthorizationToken);
-
-                Assert.IsNotNull(data);
-                Assert.IsTrue(data.ContainsKey(Authorization));
-                Assert.AreEqual($"Bearer {AuthorizationToken}", data[Authorization]);
-            }
+            Assert.IsNotNull(data);
+            Assert.IsTrue(data.ContainsKey(Authorization));
+            Assert.AreEqual($"Bearer {AuthorizationToken}", data[Authorization]);
         }
 
         [Test]
@@ -255,17 +217,10 @@
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                using (var webserver = new WebServer(_defaultPort))
-                {
-                    webserver.RegisterModule(new FallbackModule((ctx, ct) => false));
-                    webserver.RunAsync();
-                    await Task.Delay(100);
-
-                    await JsonClient.Put<BasicJson>(_defaultHttp, BasicJson.GetDefault());
-                }
+                await JsonClient.Put<BasicJson>("https://unosquare.github.io/swan/invalid", BasicJson.GetDefault());
             });
 
-            Assert.AreEqual(404, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+            Assert.AreEqual(405, exception.HttpErrorCode, "EmebedIO should return 404 error code");
         }
 
         [Test]
@@ -282,26 +237,20 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                var buffer = new byte[20];
-                new Random().NextBytes(buffer);
+            var buffer = new byte[20];
+            new Random().NextBytes(buffer);
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    var obj = ctx.ParseJson<JsonFile>();
-                    Assert.IsNotNull(obj);
-                    ctx.JsonResponse(obj);
-                    return true;
-                }));
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    var obj = ctx.ParseJson<JsonFile>();
+            //    Assert.IsNotNull(obj);
+            //    ctx.JsonResponse(obj);
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            var data = await JsonClient.PostFileString(_defaultHttp, buffer, nameof(WithValidParams_ReturnsTrue));
 
-                var data = await JsonClient.PostFileString(_defaultHttp, buffer, nameof(WithValidParams_ReturnsTrue));
-
-                Assert.IsNotNull(data);
-            }
+            Assert.IsNotNull(data);
         }
     }
 
@@ -311,27 +260,21 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                var buffer = new byte[20];
-                new Random().NextBytes(buffer);
+            var buffer = new byte[20];
+            new Random().NextBytes(buffer);
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    var obj = ctx.ParseJson<JsonFile>();
-                    Assert.IsNotNull(obj);
-                    ctx.JsonResponse(obj);
-                    return true;
-                }));
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    var obj = ctx.ParseJson<JsonFile>();
+            //    Assert.IsNotNull(obj);
+            //    ctx.JsonResponse(obj);
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, nameof(WithValidParams_ReturnsTrue));
 
-                var data = await JsonClient.PostFile<JsonFile>(_defaultHttp, buffer, nameof(WithValidParams_ReturnsTrue));
-
-                Assert.IsNotNull(data);
-                Assert.AreEqual(data.Filename, nameof(WithValidParams_ReturnsTrue));
-            }
+            Assert.IsNotNull(data);
+            Assert.AreEqual(data.Filename, nameof(WithValidParams_ReturnsTrue));
         }
     }
 
@@ -343,36 +286,30 @@
         [TestCase(4678, 404, false)]
         public async Task PostOrErrorTest(int input, int error, bool expected)
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    var obj = ctx.ParseJson<BasicJson>();
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    var obj = ctx.ParseJson<BasicJson>();
 
-                    if (obj.IntData == 1)
-                    {
-                        ctx.JsonResponse(obj);
-                    }
-                    else
-                    {
-                        ctx.Response.StatusCode = 500;
-                        ctx.JsonResponse(new ErrorJson {Message = "ERROR"});
-                    }
+            //    if (obj.IntData == 1)
+            //    {
+            //        ctx.JsonResponse(obj);
+            //    }
+            //    else
+            //    {
+            //        ctx.Response.StatusCode = 500;
+            //        ctx.JsonResponse(new ErrorJson {Message = "ERROR"});
+            //    }
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(
+                _defaultHttp,
+                new BasicJson {IntData = input},
+                error);
 
-                var data = await JsonClient.PostOrError<BasicJson, ErrorJson>(
-                    _defaultHttp,
-                    new BasicJson {IntData = input}, 
-                    error);
-
-                Assert.IsNotNull(data);
-                Assert.AreEqual(expected, data.IsOk);
-            }
+            Assert.IsNotNull(data);
+            Assert.AreEqual(expected, data.IsOk);
         }
     }
 
@@ -396,24 +333,18 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                var ctxHeaders = new List<string>();
+            var ctxHeaders = new List<string>();
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
+            await JsonClient.GetBinary(_defaultHttp);
 
-                await JsonClient.GetBinary(_defaultHttp);
-
-                Assert.IsTrue(ctxHeaders.Any());
-            }
+            Assert.IsTrue(ctxHeaders.Any());
         }
 
         [Test]
@@ -444,23 +375,18 @@
         [Test]
         public async Task WithValidParams_ReturnsTrue()
         {
-            using (var webserver = new WebServer(_defaultPort))
-            {
-                var ctxHeaders = new List<string>();
+            var ctxHeaders = new List<string>();
 
-                webserver.RegisterModule(new FallbackModule((ctx, ct) =>
-                {
-                    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
+            //webserver.RegisterModule(new FallbackModule((ctx, ct) =>
+            //{
+            //    ctxHeaders.AddRange(ctx.Request.Headers.Cast<object>().Select(header => header.ToString()));
 
-                    return true;
-                }));
+            //    return true;
+            //}));
 
-                webserver.RunAsync();
-                await Task.Delay(100);
-                await JsonClient.Get<BasicJson>(_defaultHttp);
+            await JsonClient.Get<BasicJson>(_defaultHttp);
 
-                Assert.IsTrue(ctxHeaders.Any());
-            }
+            Assert.IsTrue(ctxHeaders.Any());
         }
     }
 }
