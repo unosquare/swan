@@ -232,10 +232,9 @@
 
                     if (!valueType.Type.IsValueType() && targetProperty.PropertyType == valueType.Type)
                     {
-                        targetProperty.SetValue(target,
-                            valueType.Value != null
-                                ? GetValue(valueType.Value, targetProperty.PropertyType)
-                                : null);
+                        targetProperty.SetValue(
+                            target,
+                            valueType.Value != null ? GetValue(valueType.Value, targetProperty.PropertyType) : null);
 
                         copiedProperties++;
                         continue;

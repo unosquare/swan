@@ -142,6 +142,8 @@
             {
                 using (var cn = new Connection(Client))
                 {
+                    await Task.Delay(100);
+
                     Assert.IsTrue(cn.IsContinuousReadingEnabled);
                     await cn.ReadLineAsync();
                 }

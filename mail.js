@@ -13,9 +13,10 @@ maildev.listen(function() {
 });
 
 // Print new emails to the console as they come in
-maildev.on('new', function(email){
-    const fileDir = path.join(os.tmpdir(), 'tempFile.msg');
+maildev.on('new',
+    function(email) {
+        const fileDir = path.join(os.tmpdir(), 'tempFile.msg');
 
-    console.log('New email saving at ' + fileDir);
-    fs.writeFile(fileDir, JSON.stringify(email), () => {});
-})
+        console.log('New email saving at ' + fileDir);
+        fs.writeFile(fileDir, JSON.stringify(email), () => {});
+    });
