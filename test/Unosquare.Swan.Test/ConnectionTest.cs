@@ -14,6 +14,8 @@
     {
         public const int DefaultPort = 1337;
         public const string Message = "Hello World!\r\n";
+        public const string Localhost = "localhost";
+
         public ConnectionListener ConnectionListener;
         public TcpClient Client;
         public int Port;
@@ -42,7 +44,7 @@
         [Test]
         public void OpenConnection_Connected()
         {
-            Client.Connect("localhost", DefaultPort);
+            Client.Connect(Localhost, DefaultPort);
 
             using (var cn = new Connection(Client))
             {
@@ -52,7 +54,7 @@
                 Assert.IsNotNull(cn.ConnectionDuration, "Connection Duration");
             }
         }
-        
+
         [Test]
         public void NullNewLineSequence_ArgumentException()
         {
@@ -69,12 +71,12 @@
         [Test]
         public async Task ReadTextAsync_MessageEqualsResponse()
         {
-            await Client.ConnectAsync("localhost", DefaultPort);
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 var response = await cn.ReadTextAsync();
-                
+
                 Assert.AreEqual(Message, response);
             }
         }
@@ -82,12 +84,12 @@
         [Test]
         public async Task ReadTextAsync_DataSentIdleDuration()
         {
-            await Client.ConnectAsync("localhost", DefaultPort);
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 await cn.ReadTextAsync();
-                
+
                 Assert.NotNull(cn.DataSentIdleDuration);
             }
         }
@@ -95,12 +97,12 @@
         [Test]
         public async Task ReadTextAsync_DataReceivedIdleDuration()
         {
-            await Client.ConnectAsync("localhost", DefaultPort);
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 await cn.ReadTextAsync();
-                
+
                 Assert.IsNotNull(cn.DataReceivedIdleDuration);
             }
         }
@@ -112,7 +114,7 @@
         [Test]
         public async Task ReadLineAsync_MessageEqualsResponse()
         {
-            await Client.ConnectAsync("localhost", DefaultPort);
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
@@ -123,15 +125,24 @@
         }
 
         [Test]
-        public async Task StreamWithoutWrite_ThrowsInvalidOperationException()
+        public async Task EnableContinousReading_ThrowsInvalidOperationException()
         {
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                using (var cn = new Connection(e.Client))
+                {
+                    cn.WriteDataAsync(MessageBytes, true).Wait();
+                }
+            };
+
             ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            await Client.ConnectAsync(Localhost, Port);
 
             Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
-                using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", false, 0))
+                using (var cn = new Connection(Client))
                 {
+                    Assert.IsTrue(cn.IsContinuousReadingEnabled);
                     await cn.ReadLineAsync();
                 }
             });
@@ -142,17 +153,11 @@
     public class ReadDataAsync : ConnectionTest
     {
         [Test]
-        public async Task ReadDataAsync_MessageEqualsResponse()
+        public async Task ValidConnection_MessageEqualsResponse()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(MessageBytes, 0, MessageBytes.Length);
-            };
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client))
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 var response = await cn.ReadDataAsync();
 
@@ -164,60 +169,29 @@
         [Test]
         public async Task ContinuousReadingEnabled_ThrowsInvalidOperationException()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(MessageBytes, 0, MessageBytes.Length);
-            };
-
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
             Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
                 using (var cn = new Connection(Client))
                 {
-                    await cn.ReadDataAsync(TimeSpan.FromSeconds(5));
+                    await cn.ReadDataAsync();
                 }
             });
         }
 
         [Test]
-        public async Task ReadDataAsync_ThrowsTimeOutException()
+        public async Task SmallTimeOut_ThrowsTimeOutException()
         {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
             Assert.ThrowsAsync<TimeoutException>(async () =>
             {
                 using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
                 {
-                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100));
+                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(1));
                 }
             });
-        }
-    }
-
-    [TestFixture]
-    public class Write : ConnectionTest
-    {
-        [Test]
-        public async Task Connection_WriteTest()
-        {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(MessageBytes, 0, MessageBytes.Length);
-            };
-
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client))
-            {
-                var response = await cn.ReadTextAsync();
-
-                Assert.IsNotNull(response);
-                Assert.AreEqual(MessageBytes, response);
-            }
         }
     }
 
@@ -229,15 +203,16 @@
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                using (var cn = new Connection(e.Client))
                 {
                     cn.WriteDataAsync(MessageBytes, false).Wait();
                 }
             };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, Port);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 var response = await cn.ReadDataAsync();
 
@@ -251,15 +226,16 @@
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                using (var cn = new Connection(e.Client))
                 {
                     cn.WriteDataAsync(MessageBytes, true).Wait();
                 }
             };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, Port);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 var response = await cn.ReadDataAsync();
 
@@ -282,10 +258,11 @@
                     cn.WriteTextAsync(Message).Wait();
                 }
             };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, Port);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 var response = await cn.ReadDataAsync();
 
@@ -308,10 +285,11 @@
                     cn.WriteLineAsync(Message).Wait();
                 }
             };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, Port);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 var response = await cn.ReadLineAsync();
 
@@ -331,10 +309,10 @@
             Assert.Ignore();
 
             var tempPath = Path.GetTempPath() + "certificate.pfx";
-            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");     
+            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, Localhost, "password");
 
             ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            await Client.ConnectAsync(Localhost, Port);
 
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
