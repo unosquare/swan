@@ -140,16 +140,13 @@
             ConnectionListener.Start();
             await Client.ConnectAsync(Localhost, Port);
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            using (var cn = new Connection(Client))
             {
-                using (var cn = new Connection(Client))
+                Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 {
-                    await Task.Delay(100);
-
-                    Assert.IsTrue(cn.IsContinuousReadingEnabled);
                     await cn.ReadLineAsync();
-                }
-            });
+                });
+            }
         }
 
         public override int Port { get; } = 12445;
