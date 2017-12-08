@@ -7,8 +7,6 @@
     using NUnit.Framework;
     using Networking;
     using System.Net;
-    using Mocks;
-    using System.IO;
 
     public abstract class ConnectionTest
     {
@@ -16,16 +14,16 @@
         public const string Message = "Hello World!\r\n";
         public const string Localhost = "localhost";
 
+        public abstract int Port { get; }
+
         public ConnectionListener ConnectionListener;
         public TcpClient Client;
-        public int Port;
+
         public byte[] MessageBytes = Encoding.UTF8.GetBytes(Message);
-        private int _defaultPort = 12445;
 
         [SetUp]
         public void Setup()
         {
-            Port = _defaultPort++;
             ConnectionListener = new ConnectionListener(Port);
             Client = new TcpClient();
         }
@@ -63,6 +61,8 @@
                 var cn = new Connection(Client, Encoding.UTF8, null, true, 0);
             });
         }
+
+        public override int Port { get; }
     }
 
     [TestFixture]
@@ -106,6 +106,8 @@
                 Assert.IsNotNull(cn.DataReceivedIdleDuration);
             }
         }
+
+        public override int Port { get; }
     }
 
     [TestFixture]
@@ -149,6 +151,8 @@
                 }
             });
         }
+
+        public override int Port { get; } = 12445;
     }
 
     [TestFixture]
@@ -195,6 +199,8 @@
                 }
             });
         }
+
+        public override int Port { get; } = 12446;
     }
 
     [TestFixture]
@@ -245,6 +251,8 @@
                 Assert.AreEqual(MessageBytes, response);
             }
         }
+
+        public override int Port { get; } = 12447;
     }
 
     [TestFixture]
@@ -272,6 +280,8 @@
                 Assert.AreEqual(MessageBytes, response);
             }
         }
+
+        public override int Port { get; } = 12448;
     }
 
     [TestFixture]
@@ -299,6 +309,8 @@
                 Assert.AreEqual(Message.Remove(MessageBytes.Length - 2), response);
             }
         }
+
+        public override int Port { get; } = 12449;
     }
 
 #if NET46
@@ -310,8 +322,8 @@
         {
             Assert.Ignore();
 
-            var tempPath = Path.GetTempPath() + "certificate.pfx";
-            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, Localhost, "password");
+            var tempPath = System.IO.Path.GetTempPath() + "certificate.pfx";
+            var certificate = Mocks.CertificateHelper.CreateOrLoadCertificate(tempPath, Localhost, "password");
 
             ConnectionListener.Start();
             await Client.ConnectAsync(Localhost, Port);
@@ -332,6 +344,8 @@
                 Assert.IsTrue(cn.IsActiveStreamSecure);
             }
         }
+
+        public override int Port { get; } = 12450;
     }
 #endif
 }
