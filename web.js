@@ -3,6 +3,12 @@ const app = express();
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
+/* #region Error responses */
+    app.get('/511', (req, res) => res.statusCode = 511 );
+
+    app.get('/404', (req, res) => res.statusCode = 404 );
+/* #endregion Error responses */
+
 /* #region Authentication Tests */
     app.get('/Authenticate', (req, res) => res.send(JSON.stringify({ Token : '123'})));
 
@@ -11,8 +17,15 @@ app.get('/', (req, res) => res.send('Hello World!'));
 
 /* #region Post Tests */
     app.post('/Post/WithValidParams', (req, res) => {
-        var data = { StringData: 'OK' };
-        res.send(JSON.stringify(data));
+        var data = '';
+        req.on("data", (chunk) => {
+            data += chunk.toString();
+        })
+        req.on("end", () => {
+            var obj = JSON.parse(data);
+            obj.StringData = "OK";
+            res.send(obj);
+        });
     });
 
     app.post('/Post/WithValidParamsAndAuthorizationToken', (req, res) => res.send(JSON.stringify({ Authorization : 'Bearer Token'})));
@@ -24,8 +37,15 @@ app.get('/', (req, res) => res.send('Hello World!'));
 
 /* #region Put */
     app.put('/Put/WithValidParams', (req, res) => {
-        var data = { StringData: 'OK' };
-        res.send(JSON.stringify(data));
+        var data = '';
+        req.on("data", (chunk) => {
+            data += chunk.toString();
+        })
+        req.on("end", () => {
+            var obj = JSON.parse(data);
+            obj.StringData = "OK";
+            res.send(obj);
+        });
     });
 
     app.put('/Put/WithValidParamsAndAuthorizationToken', (req, res) => res.send(JSON.stringify({ Authorization : 'Bearer Token'})));
@@ -50,7 +70,8 @@ app.get('/', (req, res) => res.send('Hello World!'));
             data += chunk.toString();
         })
         req.on("end", () => {
-            res.send(data);
+            var obj = JSON.parse(data);
+            res.send(obj);
         });
     });
 /* #endregion PostFile */

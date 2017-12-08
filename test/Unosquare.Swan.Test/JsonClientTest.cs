@@ -14,10 +14,7 @@
     {
         protected const string Authorization = "Authorization";
         protected const string AuthorizationToken = "Token";
-
-        private static int _port = 3000;
-
-        protected string _defaultHttp = $"http://localhost:{_port}";
+        protected string _defaultHttp = "http://localhost:3000";
     }
 
     [TestFixture]
@@ -39,7 +36,7 @@
         public void WithInvalidParams_ThrowsSecurityException()
         {
             Assert.ThrowsAsync<SecurityException>(async () =>
-                await JsonClient.Authenticate("https://google.com", "admin", "password"));
+                await JsonClient.Authenticate(_defaultHttp + "/511", "admin", "password"));
         }
 
         [Test]
@@ -66,8 +63,9 @@
         public async Task WithValidParams_ReturnsTrue()
         {
             const string status = "OK";
+            var basicJson = BasicJson.GetDefault();
 
-            var data = await JsonClient.Post<BasicJson>(_defaultHttp +_api + "/WithValidParams", BasicJson.GetDefault());
+            var data = await JsonClient.Post<BasicJson>(_defaultHttp +_api + "/WithValidParams", basicJson);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(status, data.StringData);
@@ -88,10 +86,10 @@
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                await JsonClient.Post<BasicJson>("https://unosquare.github.io/swan/invalid", BasicJson.GetDefault());
+                await JsonClient.Post<BasicJson>(_defaultHttp + "/404", BasicJson.GetDefault());
             });
 
-            Assert.AreEqual(405, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+            Assert.AreEqual(404, exception.HttpErrorCode);
         }
 
         [Test]
@@ -155,10 +153,10 @@
         {
             var exception = Assert.ThrowsAsync<JsonRequestException>(async () =>
             {
-                await JsonClient.Put<BasicJson>("https://unosquare.github.io/swan/invalid", BasicJson.GetDefault());
+                await JsonClient.Put<BasicJson>(_defaultHttp + "/404", BasicJson.GetDefault());
             });
 
-            Assert.AreEqual(405, exception.HttpErrorCode, "EmebedIO should return 404 error code");
+            Assert.AreEqual(404, exception.HttpErrorCode);
         }
 
         [Test]
@@ -248,7 +246,7 @@
         public void WithInvalidUrl_ThrowsJsonRequestException()
         {
             Assert.ThrowsAsync<JsonRequestException>(async () =>
-                await JsonClient.GetBinary("https://accesscore.azurewebsites.net/api/token"));
+                await JsonClient.GetBinary(_defaultHttp + "/InvalidParam"));
         }
     }
 
