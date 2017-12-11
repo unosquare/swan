@@ -203,14 +203,15 @@
     [TestFixture]
     public class WriteDataAsync : ConnectionTest
     {
-        [Test]
-        public async Task WriteDataAsync_MessageEqualsResponse()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task WriteDataAsync_MessageEqualsResponse(bool forceFlush)
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
                 using (var cn = new Connection(e.Client))
                 {
-                    cn.WriteDataAsync(MessageBytes, false).Wait();
+                    cn.WriteDataAsync(MessageBytes, forceFlush).Wait();
                 }
             };
 
@@ -222,30 +223,7 @@
                 var response = await cn.ReadDataAsync();
 
                 Assert.IsNotNull(response);
-                Assert.AreEqual(MessageBytes, response);
-            }
-        }
-
-        [Test]
-        public async Task WriteDataAsyncFlushEnabled_MessageEqualsResponse()
-        {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                using (var cn = new Connection(e.Client))
-                {
-                    cn.WriteDataAsync(MessageBytes, true).Wait();
-                }
-            };
-
-            ConnectionListener.Start();
-            await Client.ConnectAsync(Localhost, Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                var response = await cn.ReadDataAsync();
-
-                Assert.IsNotNull(response);
-                Assert.AreEqual(MessageBytes, response);
+                Assert.AreEqual(MessageBytes, response, $"Using forceFlush: {forceFlush}");
             }
         }
 
