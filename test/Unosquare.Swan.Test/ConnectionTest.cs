@@ -205,7 +205,7 @@
     public class WriteDataAsync : ConnectionTest
     {
         [TestCase(true, 13447)]
-        [TestCase(false, 13447)]
+        [TestCase(false, 13448)]
         public async Task WriteDataAsync_MessageEqualsResponse(bool forceFlush, int port)
         {
             ConnectionListener = new ConnectionListener(Port);
