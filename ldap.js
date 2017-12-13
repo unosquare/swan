@@ -1,7 +1,6 @@
 var ldap = require('ldapjs');
 
 function authorize(req, res, next) {
-    /* Any user may search after bind, only cn=root has full power */
     var isSearch = (req instanceof ldap.SearchRequest);
     if (!req.connection.ldap.bindDN.equals('cn=root') && !isSearch)
         return next(new ldap.InsufficientAccessRightsError());
@@ -9,8 +8,36 @@ function authorize(req, res, next) {
     return next();
 }
 
-var SUFFIX = 'o=joyent';
-var db = {};
+var SUFFIX = 'o=unosquare';
+var db = {
+    'dn=sample, o=unosquare':
+        {
+            'cn=nsoto@unosquare.com, dn=sample, o=unosquare': {
+                cn: 'Nestor',
+                sn: 'Soto',
+                email: 'nsoto@unosquare.com',
+                objectClass: 'Person'
+            },
+            'cn=iramos@unosquare.com, dn=sample, o=unosquare': {
+                cn: 'Israel',
+                sn: 'Ramos',
+                email: 'iramos@unosquare.com',
+                objectClass: 'Person'
+            },
+            'cn=gperez@unosquare.com, dn=sample, o=unosquare': {
+                cn: 'Simio',
+                sn: 'Perez',
+                email: 'gperez@unosquare.com',
+                objectClass: 'Person'
+            },
+            'cn=mdivece@unosquare.com, dn=sample, o=unosquare': {
+                cn: 'Mario',
+                sn: 'DiVece',
+                email: 'mdivece@unosquare.com',
+                objectClass: 'Person'
+            }
+        }
+};
 var server = ldap.createServer();
 
 server.bind('cn=root', function (req, res, next) {
@@ -166,14 +193,14 @@ server.search(SUFFIX, authorize, function (req, res, next) {
             break;
     }
 
-    Object.keys(db).forEach(function (key) {
-        if (!scopeCheck(key))
-            return;
+    Object.keys(db[dn]).forEach(function (key) {
+        //if (!scopeCheck(key))
+            //return;
 
-        if (req.filter.matches(db[key])) {
+        if (req.filter.matches(db[dn][key])) {
             res.send({
                 dn: key,
-                attributes: db[key]
+                attributes: db[dn][key]
             });
         }
     });

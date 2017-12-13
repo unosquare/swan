@@ -11,7 +11,7 @@
     {
         protected const string LdapServer = "localhost";
         protected const string DefaultDn = "cn=root";
-        protected const string DefaultOrgDn = "o=joyent";
+        protected const string DefaultOrgDn = "dn=sample, o=unosquare";
         protected const string DefaultPassword = "secret";
         protected const int DefaultPort = 1089;
         protected const string DefaultUserDn = "cn=Simio, o=joyent";

@@ -31,14 +31,14 @@ namespace Unosquare.Swan.Networking.Ldap
     {
         /// <summary>
         /// Used with search to specify that the scope of entrys to search is to
-        /// search only the base obect.
+        /// search only the base object.
         /// SCOPE_BASE = 0
         /// </summary>
         public const int ScopeBase = 0;
 
         /// <summary>
         /// Used with search to specify that the scope of entrys to search is to
-        /// search only the immediate subordinates of the base obect.
+        /// search only the immediate subordinates of the base object.
         /// SCOPE_ONE = 1
         /// </summary>
         public const int ScopeOne = 1;
@@ -453,19 +453,26 @@ namespace Unosquare.Swan.Networking.Ldap
         {
             var decoder = new LBERDecoder();
 
-            while (true)
+            while (!_cts.IsCancellationRequested)
             {
-                var asn1Id = new Asn1Identifier(_conn.ActiveStream);
-
-                if (asn1Id.Tag != Asn1Sequence.Tag)
+                try
                 {
-                    continue; // loop looking for an RfcLdapMessage identifier
+                    var asn1Id = new Asn1Identifier(_conn.ActiveStream);
+
+                    if (asn1Id.Tag != Asn1Sequence.Tag)
+                    {
+                        continue; // loop looking for an RfcLdapMessage identifier
+                    }
+
+                    // Turn the message into an RfcMessage class
+                    var asn1Len = new Asn1Length(_conn.ActiveStream);
+
+                    Messages.Add(new RfcLdapMessage(decoder, _conn.ActiveStream, asn1Len.Length));
                 }
-
-                // Turn the message into an RfcMessage class
-                var asn1Len = new Asn1Length(_conn.ActiveStream);
-
-                Messages.Add(new RfcLdapMessage(decoder, _conn.ActiveStream, asn1Len.Length));
+                catch (System.IO.IOException)
+                {
+                    // ignore
+                }
             }
 
             // ReSharper disable once FunctionNeverReturns
@@ -475,7 +482,8 @@ namespace Unosquare.Swan.Networking.Ldap
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="isDisposing">
-        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
+        /// </param>
         protected void Dispose(bool isDisposing)
         {
             if (isDisposing)
