@@ -218,7 +218,7 @@
             };
 
             ConnectionListener.Start();
-            await Client.ConnectAsync(Localhost, Port);
+            await Client.ConnectAsync(Localhost, port);
 
             using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
