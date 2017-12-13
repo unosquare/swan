@@ -8,9 +8,6 @@
 #if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
 #endif
-#if !UWP
-    using System.Diagnostics;
-#endif
 
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
@@ -30,7 +27,7 @@
 #endif
 
 #if NET452
-        private static readonly Lazy<Process> ProcessLazy = new Lazy<Process>(Process.GetCurrentProcess);
+        private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
 #endif
 
 #if !NETSTANDARD1_3 && !UWP
@@ -109,7 +106,7 @@
         /// <value>
         /// The process.
         /// </value>
-        public static Process Process => ProcessLazy.Value;
+        public static System.Diagnostics.Process Process => ProcessLazy.Value;
 #endif
 
         /// <summary>
@@ -154,10 +151,10 @@
         }
 
         /// <summary>
-        /// Gets a value indicating whether this application instance is using the Mono runtime.
+        /// Gets a value indicating whether this application instance is using the MONO runtime.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is using mono runtime; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance is using MONO runtime; otherwise, <c>false</c>.
         /// </value>
         public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
 
