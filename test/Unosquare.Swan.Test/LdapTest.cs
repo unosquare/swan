@@ -11,6 +11,7 @@
     {
         protected const string LdapServer = "localhost";
         protected const string DefaultDn = "cn=root";
+        protected const string DefaultOrgDn = "o=joyent";
         protected const string DefaultPassword = "secret";
         protected const int DefaultPort = 1089;
         protected const string DefaultUserDn = "cn=Simio, o=joyent";
@@ -165,22 +166,13 @@
     public class Read : LdapTest
     {
         [Test]
-        public async Task ReadUserProperties_MailAttributeEqualsEinsteinMail()
+        public async Task WithDefaultUser_MailAttributeEqualsEinsteinMail()
         {
             var properties = await Connection.Read(DefaultUserDn);
             var mail = properties.GetAttribute("email");
             Assert.AreEqual(mail.StringValue, "gperez@unosquare.com");
-            Connection.Dispose();
         }
-
-        [Test]
-        public async Task Read_DN()
-        {
-            var entry = await Connection.Read(DefaultDn);
-
-            Assert.AreEqual(DefaultDn, entry.DN);
-        }
-
+        
         [Test]
         public void Read_LdapException()
         {
@@ -197,7 +189,7 @@
         [Test]
         public async Task MultipleSearchResults()
         {
-            var lsc = await Connection.Search(DefaultDn, LdapConnection.ScopeSub);
+            var lsc = await Connection.Search(DefaultOrgDn, LdapConnection.ScopeSub);
 
             if (lsc.HasMore())
             {
@@ -215,7 +207,7 @@
         public async Task SingleSearchResult()
         {
             var lsc = await Connection.Search(
-                DefaultDn,
+                DefaultOrgDn,
                 LdapConnection.ScopeSub,
                 $"(uniqueMember={DefaultUserDn})");
 
@@ -245,7 +237,7 @@
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 var lsc = await Connection.Search(
-                    DefaultDn,
+                    DefaultOrgDn,
                     LdapConnection.ScopeSub,
                     $"(uniqueMember={DefaultUserDn})");
 
