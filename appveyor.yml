@@ -27,9 +27,7 @@ before_build:
             cinst docfx -y
         }
 - ps: Install-Product node 8
-- npm install ldapjs
-- npm install maildev
-- npm install express
+- npm install
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
