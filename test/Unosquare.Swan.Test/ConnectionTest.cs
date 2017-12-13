@@ -204,10 +204,11 @@
     [TestFixture]
     public class WriteDataAsync : ConnectionTest
     {
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task WriteDataAsync_MessageEqualsResponse(bool forceFlush)
+        [TestCase(true, 13447)]
+        [TestCase(false, 13447)]
+        public async Task WriteDataAsync_MessageEqualsResponse(bool forceFlush, int port)
         {
+            ConnectionListener = new ConnectionListener(Port);
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
                 using (var cn = new Connection(e.Client))
