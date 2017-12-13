@@ -9,6 +9,13 @@ function authorize(req, res, next) {
 }
 
 var SUFFIX = 'o=unosquare';
+var simioEntry = {
+    cn: 'Simio',
+    sn: 'Perez',
+    email: 'gperez@unosquare.com',
+    objectClass: 'Person'
+};
+
 var db = {
     'dn=sample, o=unosquare':
         {
@@ -24,19 +31,15 @@ var db = {
                 email: 'iramos@unosquare.com',
                 objectClass: 'Person'
             },
-            'cn=gperez@unosquare.com, dn=sample, o=unosquare': {
-                cn: 'Simio',
-                sn: 'Perez',
-                email: 'gperez@unosquare.com',
-                objectClass: 'Person'
-            },
+            'cn=gperez@unosquare.com, dn=sample, o=unosquare': simioEntry,
             'cn=mdivece@unosquare.com, dn=sample, o=unosquare': {
                 cn: 'Mario',
                 sn: 'DiVece',
                 email: 'mdivece@unosquare.com',
                 objectClass: 'Person'
             }
-        }
+    },
+    'cn=Simio, dn=sample, o=unosquare': simioEntry
 };
 var server = ldap.createServer();
 
@@ -160,6 +163,16 @@ server.search(SUFFIX, authorize, function (req, res, next) {
     var dn = req.dn.toString();
     if (!db[dn])
         return next(new ldap.NoSuchObjectError(dn));
+
+    if (dn.substring(0, 3) === 'cn=') {
+        res.send({
+            dn: dn,
+            attributes: db[dn]
+        });
+
+        res.end();
+        return next();
+    }
 
     var scopeCheck;
 

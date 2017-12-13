@@ -14,7 +14,7 @@
         protected const string DefaultOrgDn = "dn=sample, o=unosquare";
         protected const string DefaultPassword = "secret";
         protected const int DefaultPort = 1089;
-        protected const string DefaultUserDn = "cn=Simio, o=joyent";
+        protected const string DefaultUserDn = "cn=Simio, dn=sample, o=unosquare";
 
         public LdapConnection Connection { get; private set; }
 
@@ -139,8 +139,8 @@
             var ex = Assert.CatchAsync(async () =>
             {
                 await Connection.Modify(
-                    "cn=Invalid, o=joyent",
-                    new[] {new LdapModification(LdapModificationOp.Replace, "email", "new@ldap.forumsys.com")});
+                    "cn=Invalid, o=unosquare",
+                    new[] {new LdapModification(LdapModificationOp.Replace, "email", "new@unosquare.com")});
 
                 Connection.Disconnect();
             });
@@ -166,7 +166,7 @@
     public class Read : LdapTest
     {
         [Test]
-        public async Task WithDefaultUser_MailAttributeEqualsEinsteinMail()
+        public async Task WithDefaultUser_MailShouldMatch()
         {
             var properties = await Connection.Read(DefaultUserDn);
             var mail = properties.GetAttribute("email");
@@ -209,17 +209,17 @@
             var lsc = await Connection.Search(
                 DefaultOrgDn,
                 LdapConnection.ScopeSub,
-                $"(uniqueMember={DefaultUserDn})");
+                "(email=gperez@unosquare.com)");
 
             if (lsc.HasMore())
             {
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
 
-                Assert.IsNotNull(ldapAttributes.GetAttribute("email")?.StringValue);
+                Assert.AreEqual("gperez@unosquare.com", ldapAttributes.GetAttribute("email")?.StringValue);
             }
 
-            Assert.AreNotEqual(lsc.Count, 0);
+            Assert.IsFalse(lsc.HasMore());
         }
 
         [Test]
