@@ -208,7 +208,7 @@
         [TestCase(false, 13448)]
         public async Task WriteDataAsync_MessageEqualsResponse(bool forceFlush, int port)
         {
-            ConnectionListener = new ConnectionListener(Port);
+            ConnectionListener = new ConnectionListener(port);
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
                 using (var cn = new Connection(e.Client))
