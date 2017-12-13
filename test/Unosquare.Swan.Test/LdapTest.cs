@@ -9,22 +9,26 @@
 
     public abstract class LdapTest
     {
-        public LdapConnection Cn;
-        protected const string LdapServer = "ldap.forumsys.com";
-        protected const string DefaultDn = "uid=riemann,dc=example,dc=com";
+        protected const string LdapServer = "localhost";
+        protected const string DefaultDn = "cn=root";
+        protected const string DefaultPassword = "secret";
+        protected const int DefaultPort = 1089;
+        protected const string DefaultUserDn = "cn=Simio, o=joyent";
+
+        public LdapConnection Connection { get; private set; }
 
         [SetUp]
         public async Task Setup()
         {
-            Cn = new LdapConnection();
-            await Cn.Connect(LdapServer, 389);
-            await Cn.Bind(DefaultDn, "password");
+            Connection = new LdapConnection();
+            await Connection.Connect(LdapServer, DefaultPort);
+            await Connection.Bind(DefaultDn, DefaultPassword);
         }
 
         [TearDown]
         public void GlobalTeardown()
         {
-            Cn.Dispose();
+            Connection.Dispose();
         }
     }
 
@@ -34,7 +38,7 @@
         [Test]
         public void ValidCredentials_ReturnsTrue()
         {
-            Assert.IsNotNull(Cn.AuthenticationDn);
+            Assert.IsNotNull(Connection.AuthenticationDn);
         }
 
         [Test]
@@ -43,8 +47,8 @@
             Assert.ThrowsAsync<LdapException>(async () =>
             {
                 var cn = new LdapConnection();
-                await cn.Connect(LdapServer, 389);
-                await cn.Bind("uid=riemann,dc=example", "password");
+                await cn.Connect(LdapServer, DefaultPort);
+                await cn.Bind("cn=invalid", DefaultPassword);
                 cn.Dispose();
             });
         }
@@ -53,7 +57,7 @@
         public async Task NullPassword_ReturnsNullAuthenticationDnProperty()
         {
             var cn = new LdapConnection();
-            await cn.Connect(LdapServer, 389);
+            await cn.Connect(LdapServer, DefaultPort);
             await cn.Bind(DefaultDn, null);
             Assert.IsNull(cn.AuthenticationDn);
             cn.Dispose();
@@ -66,8 +70,8 @@
         [Test]
         public async Task ValidHost_ReturnsTrue()
         {
-            await Cn.Connect(LdapServer, 389);
-            Assert.IsTrue(Cn.Connected);
+            await Connection.Connect(LdapServer, DefaultPort);
+            Assert.IsTrue(Connection.Connected);
         }
 
         [Test]
@@ -76,8 +80,8 @@
             Assert.CatchAsync<SocketException>(async () =>
             {
                 var cn = new LdapConnection();
-                await cn.Connect("ldap.forumsys", 389);
-                await cn.Bind(DefaultDn, "password");
+                await cn.Connect("invalid.local", DefaultPort);
+                await cn.Bind(DefaultDn, DefaultPassword);
                 cn.Dispose();
             });
         }
@@ -88,8 +92,8 @@
             Assert.CatchAsync<SocketException>(async () =>
             {
                 var cn = new LdapConnection();
-                await cn.Connect("ldap.forumsys", 388);
-                await cn.Bind(DefaultDn, "password");
+                await cn.Connect(LdapServer, 388);
+                await cn.Bind(DefaultDn, DefaultPassword);
                 cn.Dispose();
             });
         }
@@ -97,21 +101,21 @@
         [Test]
         public void Connected_ResetConnection()
         {
-            Assert.IsTrue(Cn.Connected);
-            Cn.Dispose();
-            Assert.IsFalse(Cn.Connected);
+            Assert.IsTrue(Connection.Connected);
+            Connection.Dispose();
+            Assert.IsFalse(Connection.Connected);
         }
 
         [Test]
         public void Default_ProtocolVersion()
         {
-            Assert.AreEqual(3, Cn.ProtocolVersion, "The default protocol version is 3");
+            Assert.AreEqual(3, Connection.ProtocolVersion, "The default protocol version is 3");
         }
 
         [Test]
         public void Default_AuthenticationMethod()
         {
-            Assert.AreEqual("simple", Cn.AuthenticationMethod, "The default Authentication Method is simple");
+            Assert.AreEqual("simple", Connection.AuthenticationMethod, "The default Authentication Method is simple");
         }
     }
 
@@ -121,13 +125,7 @@
         [Test]
         public void Controls_Null()
         {
-            Assert.IsNull(Cn.ResponseControls);
-        }
-
-        [Test]
-        public void Controls_Something()
-        {
-            // TODO: LDAP server with controls
+            Assert.IsNull(Connection.ResponseControls);
         }
     }
 
@@ -139,15 +137,15 @@
         {
             var ex = Assert.CatchAsync(async () =>
             {
-                await Cn.Modify(
-                    "uid=euclid,dc=example,dc=com",
-                    new[] {new LdapModification(LdapModificationOp.Replace, "mail", "new@ldap.forumsys.com")});
+                await Connection.Modify(
+                    "cn=Invalid, o=joyent",
+                    new[] {new LdapModification(LdapModificationOp.Replace, "email", "new@ldap.forumsys.com")});
 
-                Cn.Disconnect();
+                Connection.Disconnect();
             });
 
             if (ex is LdapException ldapEx)
-                Assert.AreEqual(ldapEx.ResultCode, LdapStatusCode.InsufficientAccessRights);
+                Assert.AreEqual(LdapStatusCode.NoSuchObject, ldapEx.ResultCode);
             else
                 Assert.IsNotNull(ex);
         }
@@ -158,7 +156,7 @@
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 var mods = new LdapModification(LdapModificationOp.Replace, new LdapAttribute("ui"));
-                await Cn.Modify(null, new[] {mods});
+                await Connection.Modify(null, new[] {mods});
             });
         }
     }
@@ -169,19 +167,16 @@
         [Test]
         public async Task ReadUserProperties_MailAttributeEqualsEinsteinMail()
         {
-            if (Runtime.OS == Swan.OperatingSystem.Osx)
-                Assert.Ignore("OSX can't load LDAP.js");
-
-            var properties = await Cn.Read("uid=einstein,dc=example,dc=com");
-            var mail = properties.GetAttribute("MAIL");
-            Assert.AreEqual(mail.StringValue, "einstein@ldap.forumsys.com");
-            Cn.Dispose();
+            var properties = await Connection.Read(DefaultUserDn);
+            var mail = properties.GetAttribute("email");
+            Assert.AreEqual(mail.StringValue, "gperez@unosquare.com");
+            Connection.Dispose();
         }
 
         [Test]
         public async Task Read_DN()
         {
-            var entry = await Cn.Read(DefaultDn);
+            var entry = await Connection.Read(DefaultDn);
 
             Assert.AreEqual(DefaultDn, entry.DN);
         }
@@ -191,7 +186,7 @@
         {
             Assert.ThrowsAsync<LdapException>(async () =>
             {
-                await Cn.Read("ou=scientists,dc=example,dc=com");
+                await Connection.Read("ou=scientists,dc=example,dc=com");
             });
         }
     }
@@ -202,14 +197,14 @@
         [Test]
         public async Task MultipleSearchResults()
         {
-            var lsc = await Cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
+            var lsc = await Connection.Search(DefaultDn, LdapConnection.ScopeSub);
 
             if (lsc.HasMore())
             {
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
 
-                Assert.IsNotNull(ldapAttributes.GetAttribute("uniqueMember")?.StringValue);
+                Assert.IsNotNull(ldapAttributes.GetAttribute("email")?.StringValue);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -219,17 +214,17 @@
         [Test]
         public async Task SingleSearchResult()
         {
-            var lsc = await Cn.Search(
-                "ou=scientists,dc=example,dc=com",
+            var lsc = await Connection.Search(
+                DefaultDn,
                 LdapConnection.ScopeSub,
-                "(uniqueMember=uid=tesla,dc=example,dc=com)");
+                $"(uniqueMember={DefaultUserDn})");
 
             if (lsc.HasMore())
             {
                 var entry = lsc.Next();
                 var ldapAttributes = entry.GetAttributeSet();
 
-                Assert.IsNotNull(ldapAttributes.GetAttribute("uniqueMember")?.StringValue);
+                Assert.IsNotNull(ldapAttributes.GetAttribute("email")?.StringValue);
             }
 
             Assert.AreNotEqual(lsc.Count, 0);
@@ -240,7 +235,7 @@
         {
             Assert.ThrowsAsync<LdapException>(async () =>
             {
-                await Cn.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
+                await Connection.Search("ou=scientists,dc=com", LdapConnection.ScopeSub);
             });
         }
 
@@ -249,10 +244,10 @@
         {
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                var lsc = await Cn.Search(
-                    "ou=scientists,dc=example,dc=com",
+                var lsc = await Connection.Search(
+                    DefaultDn,
                     LdapConnection.ScopeSub,
-                    "(uniqueMember=uid=tesla,dc=example,dc=com)");
+                    $"(uniqueMember={DefaultUserDn})");
 
                 while (lsc.HasMore())
                 {

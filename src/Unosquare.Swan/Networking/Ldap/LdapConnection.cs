@@ -410,7 +410,9 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="dn">The dn.</param>
         /// <param name="mods">The mods.</param>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="Task" /> representing the asynchronous operation.
+        /// </returns>
         /// <exception cref="ArgumentNullException">dn</exception>
         public Task Modify(string dn, LdapModification[] mods, CancellationToken ct = default(CancellationToken))
         {
@@ -465,6 +467,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 Messages.Add(new RfcLdapMessage(decoder, _conn.ActiveStream, asn1Len.Length));
             }
+
             // ReSharper disable once FunctionNeverReturns
         }
 

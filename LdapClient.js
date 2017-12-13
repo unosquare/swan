@@ -24,15 +24,13 @@ var entries = [
     },
     {
         cn: 'Mario',
-        sn: 'DiVecce',
-        email: 'gperez@unosquare.com',
+        sn: 'DiVece',
+        email: 'mdivece@unosquare.com',
         objectClass: 'Person'
     }
 ];
 
 entries.forEach(function (entry) {
-    client.add(`cn=${entry.cn}, o=joyent`, entry, function (err) { console.log(err); });
+    const dn = `cn=${entry.cn}, o=joyent`;
+    client.add(dn, entry, function (err) { console.log(err); });
 });
-
-client.unbind();
-process.exit();

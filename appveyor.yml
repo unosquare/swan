@@ -32,7 +32,7 @@ before_build:
 - ps: $SMTP = Start-Process node mail.js -PassThru
 - ps: $WEB = Start-Process node web.js -PassThru
 - ps: $TCP = Start-Process node tcp.js -PassThru
-- node LdapClient.js
+- ps: $LDAPCLIENT = Start-Process node LdapClient.js -PassThru
 - appveyor-retry dotnet restore -v Minimal
 - mkdir tools
 - nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
@@ -68,6 +68,7 @@ after_build:
             CD ..
         }
 on_finish:
+- ps: Stop-Process -Id $LDAPCLIENT.Id
 - ps: Stop-Process -Id $LDAP.Id
 - ps: Stop-Process -Id $SMTP.Id
 - ps: Stop-Process -Id $WEB.Id
