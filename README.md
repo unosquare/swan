@@ -17,9 +17,41 @@ helpful classes. Check the following table to know where each component is locat
 
 | Component | SWAN Lite | SWAN |
 |---|---|---|
+| [AppWorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html) | :x: | :heavy_check_mark: |
+| [ArgumentParser](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ByteArrayExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ByteArrayExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [CircularBuffer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.CircularBuffer.html) | :x: | :heavy_check_mark: |
+| [Connection](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html) | :x: | :heavy_check_mark: |
+| [ConnectionListener](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html) | :x: | :heavy_check_mark: |
+| [CsProjFile<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.CsProjFile-1.html) | :x: | :heavy_check_mark: |
+| [CsvReader](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html) | :x: | :heavy_check_mark: |
+| [CsvWriter](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html) | :x: | :heavy_check_mark: |
+| [DateExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.DateExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [DateTimeSpan](https://unosquare.github.io/swan/api/Unosquare.Swan.DateTimeSpan.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Definitions](https://unosquare.github.io/swan/api/Unosquare.Swan.Definitions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [DependencyContainer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html) | :x: | :heavy_check_mark: |
+| [EnumHelper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.EnumHelper.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Extensions](https://unosquare.github.io/swan/api/Unosquare.Swan.Extensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [FunctionalExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.FunctionalExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Json](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [JsonClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html) | :x: | :heavy_check_mark: |
+| [LdapConnection](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html) | :x: | :heavy_check_mark: |
+| [MessageHub](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHub.html) | :x: | :heavy_check_mark: |
 | [Network](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html) | :x: | :heavy_check_mark: |
 | [NetworkExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
-| [AppWorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html) | :x: | :heavy_check_mark: |
+| [ObjectComparer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ObjectMapper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ProcessRunner](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html) | :x: | :heavy_check_mark: |
+| [ReflectionExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ReflectionExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Runtime](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SettingsProvider<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SingletonBase<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SingletonBase-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [SmtpClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html) | :x: | :heavy_check_mark: |
+| [SnmpClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SnmpClient.html) | :x: | :heavy_check_mark: |
+| [StringExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.StringExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [Terminal](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [TypeCache<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |
+| [ValueTypeExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 
 NuGet Installation:
 -------------------
