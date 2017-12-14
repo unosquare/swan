@@ -16,6 +16,7 @@ We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic cl
 helpful classes. Check the following table to know where each component is located.
 
 | Component | SWAN Lite | SWAN |
+|---|---|---|
 | [Network](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html) | :x: | :heavy_check_mark: |
 | [NetworkExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
 | [AppWorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html) | :x: | :heavy_check_mark: |
