@@ -18,26 +18,26 @@ var simioEntry = {
 
 var db = {
     'dn=sample, o=unosquare':
-        {
-            'cn=nsoto@unosquare.com, dn=sample, o=unosquare': {
-                cn: 'Nestor',
-                sn: 'Soto',
-                email: 'nsoto@unosquare.com',
-                objectClass: 'Person'
-            },
-            'cn=iramos@unosquare.com, dn=sample, o=unosquare': {
-                cn: 'Israel',
-                sn: 'Ramos',
-                email: 'iramos@unosquare.com',
-                objectClass: 'Person'
-            },
-            'cn=gperez@unosquare.com, dn=sample, o=unosquare': simioEntry,
-            'cn=mdivece@unosquare.com, dn=sample, o=unosquare': {
-                cn: 'Mario',
-                sn: 'DiVece',
-                email: 'mdivece@unosquare.com',
-                objectClass: 'Person'
-            }
+    {
+        'cn=nsoto@unosquare.com, dn=sample, o=unosquare': {
+            cn: 'Nestor',
+            sn: 'Soto',
+            email: 'nsoto@unosquare.com',
+            objectClass: 'Person'
+        },
+        'cn=iramos@unosquare.com, dn=sample, o=unosquare': {
+            cn: 'Israel',
+            sn: 'Ramos',
+            email: 'iramos@unosquare.com',
+            objectClass: 'Person'
+        },
+        'cn=gperez@unosquare.com, dn=sample, o=unosquare': simioEntry,
+        'cn=mdivece@unosquare.com, dn=sample, o=unosquare': {
+            cn: 'Mario',
+            sn: 'DiVece',
+            email: 'mdivece@unosquare.com',
+            objectClass: 'Person'
+        }
     },
     'cn=Simio, dn=sample, o=unosquare': simioEntry
 };
@@ -208,7 +208,7 @@ server.search(SUFFIX, authorize, function (req, res, next) {
 
     Object.keys(db[dn]).forEach(function (key) {
         //if (!scopeCheck(key))
-            //return;
+        //return;
 
         if (req.filter.matches(db[dn][key])) {
             res.send({

@@ -8,15 +8,15 @@ const maildev = new MailDev({
     ip: '127.0.0.1'
 });
 
-maildev.listen(function() {
+maildev.listen(function () {
     console.log('We can now sent emails to port 1030!');
 });
 
 // Print new emails to the console as they come in
 maildev.on('new',
-    function(email) {
+    function (email) {
         const fileDir = path.join(os.tmpdir(), 'tempFile.msg');
 
         console.log('New email saving at ' + fileDir);
-        fs.writeFile(fileDir, JSON.stringify(email), () => {});
+        fs.writeFile(fileDir, JSON.stringify(email), () => { });
     });
