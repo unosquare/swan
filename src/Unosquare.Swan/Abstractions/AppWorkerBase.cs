@@ -7,7 +7,8 @@
     /// <summary>
     /// A base implementation of an Application service containing a worker task that performs background processing.
     /// </summary>
-    public abstract class AppWorkerBase
+    public abstract class AppWorkerBase 
+        : IWorker
     {
         #region Property Backing
 
