@@ -80,9 +80,17 @@
 Swan is a collection of classes and extension methods that we and other good developers have developed and evolved over the years. We found ourselves copying and pasting 
 the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea.
 Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.</p>
+<p>We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
+helpful classes. Check the following table to know where each component is located.</p>
+<p>| Component | SWAN Lite | SWAN |
+| <a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html">Network</a> | <span class="emoji" shortcode="x">❌</span> | <span class="emoji" shortcode="heavy_check_mark">✔️</span> |
+| <a href="https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html">NetworkExtensions</a> | <span class="emoji" shortcode="x">❌</span> | <span class="emoji" shortcode="heavy_check_mark">✔️</span> |
+| <a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a> | <span class="emoji" shortcode="x">❌</span> | <span class="emoji" shortcode="heavy_check_mark">✔️</span> |</p>
 <h2 id="nuget-installation">NuGet Installation:</h2>
 <p><a href="https://badge.fury.io/nu/Unosquare.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.svg" alt="NuGet version"></a></p>
 <pre><code>PM&gt; Install-Package Unosquare.Swan
+</code></pre><p><a href="https://badge.fury.io/nu/Unosquare.Swan.Lite"><img src="https://badge.fury.io/nu/Unosquare.Swan.Lite.svg" alt="NuGet version"></a></p>
+<pre><code>PM&gt; Install-Package Unosquare.Swan.Lite
 </code></pre><h2 id="whats-in-the-library">What&#39;s in the library</h2>
 <p>In this section, we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
 SWAN won&#39;t force you to use any of its components, classes or methods.</p>
