@@ -12,6 +12,14 @@ Swan is a collection of classes and extension methods that we and other good dev
 the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea.
 Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.
 
+We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
+helpful classes. Check the following table to know where each component is located.
+
+| Component | SWAN Lite | SWAN |
+| [Network](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html) | :x: | :heavy_check_mark: |
+| [NetworkExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
+| [AppWorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html) | :x: | :heavy_check_mark: |
+
 NuGet Installation:
 -------------------
 
@@ -19,6 +27,12 @@ NuGet Installation:
 
 ```
 PM> Install-Package Unosquare.Swan
+```
+
+[![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.Lite.svg)](https://badge.fury.io/nu/Unosquare.Swan.Lite)
+
+```
+PM> Install-Package Unosquare.Swan.Lite
 ```
 
 ## What's in the library
