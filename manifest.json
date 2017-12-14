@@ -75,7 +75,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.AppWorkerBase.html",
-          "hash": "vwMyPvvy+NxZ0VoVnTUw8A=="
+          "hash": "2llcPLt7hnEiVZKOXavkXA=="
         }
       },
       "is_incremental": false,
@@ -88,6 +88,18 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html",
           "hash": "dhD1X1r6bSbIdmS+VAz36A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.IWorker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.IWorker.html",
+          "hash": "culNjYBY1ZVQXOjXKcBD9g=="
         }
       },
       "is_incremental": false,
@@ -123,7 +135,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.html",
-          "hash": "BnuKfPItpJ+a2jcEJXcsTg=="
+          "hash": "/gasAYtNBvMD9fIyjWt2eQ=="
         }
       },
       "is_incremental": false,
@@ -1599,7 +1611,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "cKWJz+V6NjKd7wg58NB5zQ=="
+          "hash": "p9pLlpa3Xm5OHx+z7XcDJA=="
         }
       },
       "is_incremental": false,

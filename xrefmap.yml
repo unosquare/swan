@@ -187,6 +187,36 @@ references:
   commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState
   fullName: Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState
   nameWithType: AppWorkerStateChangedEventArgs.OldState
+- uid: Unosquare.Swan.Abstractions.IWorker
+  name: IWorker
+  href: api/Unosquare.Swan.Abstractions.IWorker.html
+  commentId: T:Unosquare.Swan.Abstractions.IWorker
+  fullName: Unosquare.Swan.Abstractions.IWorker
+  nameWithType: IWorker
+- uid: Unosquare.Swan.Abstractions.IWorker.Start
+  name: Start()
+  href: api/Unosquare.Swan.Abstractions.IWorker.html#Unosquare_Swan_Abstractions_IWorker_Start
+  commentId: M:Unosquare.Swan.Abstractions.IWorker.Start
+  fullName: Unosquare.Swan.Abstractions.IWorker.Start()
+  nameWithType: IWorker.Start()
+- uid: Unosquare.Swan.Abstractions.IWorker.Start*
+  name: Start
+  href: api/Unosquare.Swan.Abstractions.IWorker.html#Unosquare_Swan_Abstractions_IWorker_Start_
+  commentId: Overload:Unosquare.Swan.Abstractions.IWorker.Start
+  fullName: Unosquare.Swan.Abstractions.IWorker.Start
+  nameWithType: IWorker.Start
+- uid: Unosquare.Swan.Abstractions.IWorker.Stop
+  name: Stop()
+  href: api/Unosquare.Swan.Abstractions.IWorker.html#Unosquare_Swan_Abstractions_IWorker_Stop
+  commentId: M:Unosquare.Swan.Abstractions.IWorker.Stop
+  fullName: Unosquare.Swan.Abstractions.IWorker.Stop()
+  nameWithType: IWorker.Stop()
+- uid: Unosquare.Swan.Abstractions.IWorker.Stop*
+  name: Stop
+  href: api/Unosquare.Swan.Abstractions.IWorker.html#Unosquare_Swan_Abstractions_IWorker_Stop_
+  commentId: Overload:Unosquare.Swan.Abstractions.IWorker.Stop
+  fullName: Unosquare.Swan.Abstractions.IWorker.Stop
+  nameWithType: IWorker.Stop
 - uid: Unosquare.Swan.Abstractions.SettingsProvider`1
   name: SettingsProvider<T>
   href: api/Unosquare.Swan.Abstractions.SettingsProvider-1.html

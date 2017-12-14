@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Unosquare.Swan.Abstractions
+    <title>Interface IWorker
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Unosquare.Swan.Abstractions
+    <meta name="title" content="Interface IWorker
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.28.3.0">
     
@@ -77,32 +77,43 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.IWorker">
   
-  <h1 id="Unosquare_Swan_Abstractions" data-uid="Unosquare.Swan.Abstractions" class="text-break">Namespace Unosquare.Swan.Abstractions
+  
+  <h1 id="Unosquare_Swan_Abstractions_IWorker" data-uid="Unosquare.Swan.Abstractions.IWorker" class="text-break">Interface IWorker
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>A simple interface for application workers</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_IWorker_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IWorker</code></pre>
+  </div>
+  <h3 id="methods">Methods
   </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a></h4>
-      <section><p>A base implementation of an Application service containing a worker task that performs background processing.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a></h4>
-      <section><p>Represents event arguments whenever the state of an application service changes</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider&lt;T&gt;</a></h4>
-      <section><p>Represents a provider to save and load settings using a plain JSON file</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase&lt;T&gt;</a></h4>
-      <section><p>Represents a singleton pattern abstract class</p>
-</section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a></h4>
-      <section><p>A simple interface for application workers</p>
-</section>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_IWorker_Start_" data-uid="Unosquare.Swan.Abstractions.IWorker.Start*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_IWorker_Start" data-uid="Unosquare.Swan.Abstractions.IWorker.Start">Start()</h4>
+  <div class="markdown level1 summary"><p>Should start the task immediately and asynchronously</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Start()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_IWorker_Stop_" data-uid="Unosquare.Swan.Abstractions.IWorker.Stop*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_IWorker_Stop" data-uid="Unosquare.Swan.Abstractions.IWorker.Stop">Stop()</h4>
+  <div class="markdown level1 summary"><p>Should stop the task immediately and synchronously</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Stop()</code></pre>
+  </div>
 <div id="disqus_thread"></div>
 <script>
 
