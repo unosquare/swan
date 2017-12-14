@@ -82,10 +82,32 @@ the same code for every project every time we started it. We decide to kill that
 Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.</p>
 <p>We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
 helpful classes. Check the following table to know where each component is located.</p>
-<p>| Component | SWAN Lite | SWAN |
-| <a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html">Network</a> | <span class="emoji" shortcode="x">❌</span> | <span class="emoji" shortcode="heavy_check_mark">✔️</span> |
-| <a href="https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html">NetworkExtensions</a> | <span class="emoji" shortcode="x">❌</span> | <span class="emoji" shortcode="heavy_check_mark">✔️</span> |
-| <a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a> | <span class="emoji" shortcode="x">❌</span> | <span class="emoji" shortcode="heavy_check_mark">✔️</span> |</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>SWAN Lite</th>
+<th>SWAN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html">Network</a></td>
+<td><span class="emoji" shortcode="x">❌</span></td>
+<td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
+</tr>
+<tr>
+<td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html">NetworkExtensions</a></td>
+<td><span class="emoji" shortcode="x">❌</span></td>
+<td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
+</tr>
+<tr>
+<td><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a></td>
+<td><span class="emoji" shortcode="x">❌</span></td>
+<td><span class="emoji" shortcode="heavy_check_mark">✔️</span></td>
+</tr>
+</tbody>
+</table>
 <h2 id="nuget-installation">NuGet Installation:</h2>
 <p><a href="https://badge.fury.io/nu/Unosquare.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.svg" alt="NuGet version"></a></p>
 <pre><code>PM&gt; Install-Package Unosquare.Swan

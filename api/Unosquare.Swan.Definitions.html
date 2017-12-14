@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class AppWorkerBase
+    <title>Class Definitions
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class AppWorkerBase
+    <meta name="title" content="Class Definitions
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.28.3.0">
     
@@ -77,18 +77,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Definitions">
   
   
-  <h1 id="Unosquare_Swan_Abstractions_AppWorkerBase" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase" class="text-break">Class AppWorkerBase
+  <h1 id="Unosquare_Swan_Definitions" data-uid="Unosquare.Swan.Definitions" class="text-break">Class Definitions
   </h1>
-  <div class="markdown level0 summary"><p>A base implementation of an Application service containing a worker task that performs background processing.</p>
+  <div class="markdown level0 summary"><p>Contains useful constants and definitions</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">AppWorkerBase</span></div>
+    <div class="level1"><span class="xref">Definitions</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,36 +114,102 @@
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Abstractions_AppWorkerBase_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
+  <h5 id="Unosquare_Swan_Definitions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class AppWorkerBase</code></pre>
+    <pre><code class="lang-csharp hljs">public static class Definitions</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h3 id="fields">Fields
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase__ctor_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase__ctor" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.#ctor">AppWorkerBase()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a> class.</p>
+  <h4 id="Unosquare_Swan_Definitions_BasicTypesInfo" data-uid="Unosquare.Swan.Definitions.BasicTypesInfo">BasicTypesInfo</h4>
+  <div class="markdown level1 summary"><p>The basic types information</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected AppWorkerBase()</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;Type, ExtendedTypeInfo&gt; BasicTypesInfo</code></pre>
   </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Type</span>, <a class="xref" href="Unosquare.Swan.Reflection.ExtendedTypeInfo.html">ExtendedTypeInfo</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Definitions_CurrentAnsiEncoding" data-uid="Unosquare.Swan.Definitions.CurrentAnsiEncoding">CurrentAnsiEncoding</h4>
+  <div class="markdown level1 summary"><p>The encoding associated with the default ANSI code page in the operating 
+system&apos;s regional and language settings</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Encoding CurrentAnsiEncoding</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Text.Encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unosquare_Swan_Definitions_Windows1252Encoding" data-uid="Unosquare.Swan.Definitions.Windows1252Encoding">Windows1252Encoding</h4>
+  <div class="markdown level1 summary"><p>The MS Windows codepage 1252 encoding used in some legacy scenarios
+such as default CSV text encoding from Excel</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly Encoding Windows1252Encoding</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Text.Encoding</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_CancellationToken_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_CancellationToken" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken">CancellationToken</h4>
-  <div class="markdown level1 summary"><p>Gets the cancellation token.</p>
+  <a id="Unosquare_Swan_Definitions_AllBasicNullableValueTypes_" data-uid="Unosquare.Swan.Definitions.AllBasicNullableValueTypes*"></a>
+  <h4 id="Unosquare_Swan_Definitions_AllBasicNullableValueTypes" data-uid="Unosquare.Swan.Definitions.AllBasicNullableValueTypes">AllBasicNullableValueTypes</h4>
+  <div class="markdown level1 summary"><p>Gets all nullable value types. i.e. excludes string and all basic value types</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CancellationToken CancellationToken { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static List&lt;Type&gt; AllBasicNullableValueTypes { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -155,22 +221,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
-        <td><p>The cancellation token.</p>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><p>All basic nullable value types.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_IsBusy_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.IsBusy*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_IsBusy" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.IsBusy">IsBusy</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether the thread is busy</p>
+  <a id="Unosquare_Swan_Definitions_AllBasicTypes_" data-uid="Unosquare.Swan.Definitions.AllBasicTypes*"></a>
+  <h4 id="Unosquare_Swan_Definitions_AllBasicTypes" data-uid="Unosquare.Swan.Definitions.AllBasicTypes">AllBasicTypes</h4>
+  <div class="markdown level1 summary"><p>Contains all basic types, including string, date time, and all of their nullable counterparts</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsBusy { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static List&lt;Type&gt; AllBasicTypes { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -182,23 +248,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if this instance is busy; otherwise, <code>false</code>.</p>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><p>All basic types.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_State_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.State*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_State" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.State">State</h4>
-  <div class="markdown level1 summary"><p>Gets the state of the application service.
-In other words, useful to know whether the service is running.</p>
+  <a id="Unosquare_Swan_Definitions_AllBasicValueAndStringTypes_" data-uid="Unosquare.Swan.Definitions.AllBasicValueAndStringTypes*"></a>
+  <h4 id="Unosquare_Swan_Definitions_AllBasicValueAndStringTypes" data-uid="Unosquare.Swan.Definitions.AllBasicValueAndStringTypes">AllBasicValueAndStringTypes</h4>
+  <div class="markdown level1 summary"><p>Contains all basic value types including the string type. i.e. excludes nullables</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AppWorkerState State { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static List&lt;Type&gt; AllBasicValueAndStringTypes { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -210,161 +275,24 @@ In other words, useful to know whether the service is running.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.AppWorkerState.html">AppWorkerState</a></td>
-        <td><p>The state.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Initialize_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Initialize*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Initialize" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Initialize">Initialize()</h4>
-  <div class="markdown level1 summary"><p>Performs internal service initialization tasks required before starting the service.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Initialize()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be initialized because it seems to be currently running</p>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><p>All basic value and string types.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadExit_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadExit*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadExit" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadExit">OnWorkerThreadExit()</h4>
-  <div class="markdown level1 summary"><p>This method is called when the user loop has exited</p>
+  <a id="Unosquare_Swan_Definitions_AllBasicValueTypes_" data-uid="Unosquare.Swan.Definitions.AllBasicValueTypes*"></a>
+  <h4 id="Unosquare_Swan_Definitions_AllBasicValueTypes" data-uid="Unosquare.Swan.Definitions.AllBasicValueTypes">AllBasicValueTypes</h4>
+  <div class="markdown level1 summary"><p>Contains all basic value types. i.e. excludes string and nullables</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnWorkerThreadExit()</code></pre>
+    <pre><code class="lang-csharp hljs">public static List&lt;Type&gt; AllBasicValueTypes { get; }</code></pre>
   </div>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadLoopException_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadLoopException*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadLoopException_System_Exception_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadLoopException(System.Exception)">OnWorkerThreadLoopException(Exception)</h4>
-  <div class="markdown level1 summary"><p>Called when an unhandled exception is thrown.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnWorkerThreadLoopException(Exception ex)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">ex</span></td>
-        <td><p>The ex.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Start_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Start*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Start" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Start">Start()</h4>
-  <div class="markdown level1 summary"><p>Starts the application service. This call must not block the calling thread and must
-run on its own resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Start()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be started because it seems to be currently running</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Stop_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Stop*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Stop" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Stop">Stop()</h4>
-  <div class="markdown level1 summary"><p>Stops and disposes service resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Stop()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be stopped because it is not running.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_WorkerThreadLoop_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_WorkerThreadLoop" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop">WorkerThreadLoop()</h4>
-  <div class="markdown level1 summary"><p>Implement this method as a loop that checks whether CancellationPending has been set to true
-If so, immediately exit the loop.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void WorkerThreadLoop()</code></pre>
-  </div>
-  <h3 id="events">Events
-  </h3>
-  
-  
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_StateChanged" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.StateChanged">StateChanged</h4>
-  <div class="markdown level1 summary"><p>Occurs when [state changed].</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event EventHandler&lt;AppWorkerStateChangedEventArgs&gt; StateChanged</code></pre>
-  </div>
-  <h5 class="eventType">Event Type</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -374,8 +302,65 @@ If so, immediately exit the loop.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a>&gt;</td>
-        <td></td>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><p>All basic value types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Definitions_AllNumericTypes_" data-uid="Unosquare.Swan.Definitions.AllNumericTypes*"></a>
+  <h4 id="Unosquare_Swan_Definitions_AllNumericTypes" data-uid="Unosquare.Swan.Definitions.AllNumericTypes">AllNumericTypes</h4>
+  <div class="markdown level1 summary"><p>Gets all numeric types including their nullable counterparts.
+Note that Booleans and Guids are not considered numeric types</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;Type&gt; AllNumericTypes { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><p>All numeric types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Definitions_AllNumericValueTypes_" data-uid="Unosquare.Swan.Definitions.AllNumericValueTypes*"></a>
+  <h4 id="Unosquare_Swan_Definitions_AllNumericValueTypes" data-uid="Unosquare.Swan.Definitions.AllNumericValueTypes">AllNumericValueTypes</h4>
+  <div class="markdown level1 summary"><p>Gets all numeric types without their nullable counterparts.
+Note that Booleans and Guids are not considered numeric types</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;Type&gt; AllNumericValueTypes { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><p>All numeric value types.</p>
+</td>
       </tr>
     </tbody>
   </table>

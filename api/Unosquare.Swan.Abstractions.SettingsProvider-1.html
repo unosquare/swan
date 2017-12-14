@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class AppWorkerBase
+    <title>Class SettingsProvider&lt;T&gt;
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class AppWorkerBase
+    <meta name="title" content="Class SettingsProvider&lt;T&gt;
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.28.3.0">
     
@@ -77,21 +77,38 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1">
   
   
-  <h1 id="Unosquare_Swan_Abstractions_AppWorkerBase" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase" class="text-break">Class AppWorkerBase
+  <h1 id="Unosquare_Swan_Abstractions_SettingsProvider_1" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1" class="text-break">Class SettingsProvider&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>A base implementation of an Application service containing a worker task that performs background processing.</p>
+  <div class="markdown level0 summary"><p>Represents a provider to save and load settings using a plain JSON file</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">AppWorkerBase</span></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase</a>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider</a>&lt;T&gt;&gt;</div>
+    <div class="level2"><span class="xref">SettingsProvider&lt;T&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.IDisposable</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_LazyInstance">SingletonBase&lt;SettingsProvider&lt;T&gt;&gt;.LazyInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_Instance">SingletonBase&lt;SettingsProvider&lt;T&gt;&gt;.Instance</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_Dispose">SingletonBase&lt;SettingsProvider&lt;T&gt;&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html#Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_System_Boolean_">SingletonBase&lt;SettingsProvider&lt;T&gt;&gt;.Dispose(Boolean)</a>
+    </div>
     <div>
       <span class="xref">System.Object.ToString()</span>
     </div>
@@ -115,35 +132,39 @@
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Abstractions_AppWorkerBase_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Abstractions_SettingsProvider_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class AppWorkerBase</code></pre>
+    <pre><code class="lang-csharp hljs">public class SettingsProvider&lt;T&gt; : SingletonBase&lt;SettingsProvider&lt;T&gt;&gt;, IDisposable</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase__ctor_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase__ctor" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.#ctor">AppWorkerBase()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected AppWorkerBase()</code></pre>
-  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of settings model</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_CancellationToken_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_CancellationToken" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken">CancellationToken</h4>
-  <div class="markdown level1 summary"><p>Gets the cancellation token.</p>
+  <a id="Unosquare_Swan_Abstractions_SettingsProvider_1_ConfigurationFilePath_" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.ConfigurationFilePath*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SettingsProvider_1_ConfigurationFilePath" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.ConfigurationFilePath">ConfigurationFilePath</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the configuration file path. By default the entry assembly directory is used
+and the filename is appsettings.json.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CancellationToken CancellationToken { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual string ConfigurationFilePath { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -155,22 +176,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
-        <td><p>The cancellation token.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The configuration file path.</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_IsBusy_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.IsBusy*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_IsBusy" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.IsBusy">IsBusy</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether the thread is busy</p>
+  <a id="Unosquare_Swan_Abstractions_SettingsProvider_1_Global_" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.Global*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SettingsProvider_1_Global" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.Global">Global</h4>
+  <div class="markdown level1 summary"><p>Gets the global settings object</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsBusy { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public T Global { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -182,36 +203,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if this instance is busy; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_State_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.State*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_State" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.State">State</h4>
-  <div class="markdown level1 summary"><p>Gets the state of the application service.
-In other words, useful to know whether the service is running.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AppWorkerState State { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.AppWorkerState.html">AppWorkerState</a></td>
-        <td><p>The state.</p>
+        <td><span class="xref">T</span></td>
+        <td><p>The global settings object.</p>
 </td>
       </tr>
     </tbody>
@@ -220,52 +213,52 @@ In other words, useful to know whether the service is running.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Initialize_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Initialize*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Initialize" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Initialize">Initialize()</h4>
-  <div class="markdown level1 summary"><p>Performs internal service initialization tasks required before starting the service.</p>
+  <a id="Unosquare_Swan_Abstractions_SettingsProvider_1_GetList_" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.GetList*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SettingsProvider_1_GetList" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.GetList">GetList()</h4>
+  <div class="markdown level1 summary"><p>Gets the list.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Initialize()</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;ExtendedPropertyInfo&lt;T&gt;&gt; GetList()</code></pre>
   </div>
-  <h5 class="exceptions">Exceptions</h5>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Condition</th>
+        <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be initialized because it seems to be currently running</p>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Unosquare.Swan.Reflection.ExtendedPropertyInfo-1.html">ExtendedPropertyInfo</a>&lt;T&gt;&gt;</td>
+        <td><p>A List of ExtendedPropertyInfo of the type T</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadExit_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadExit*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadExit" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadExit">OnWorkerThreadExit()</h4>
-  <div class="markdown level1 summary"><p>This method is called when the user loop has exited</p>
+  <a id="Unosquare_Swan_Abstractions_SettingsProvider_1_PersistGlobalSettings_" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.PersistGlobalSettings*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SettingsProvider_1_PersistGlobalSettings" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.PersistGlobalSettings">PersistGlobalSettings()</h4>
+  <div class="markdown level1 summary"><p>Persists the global settings.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnWorkerThreadExit()</code></pre>
+    <pre><code class="lang-csharp hljs">public void PersistGlobalSettings()</code></pre>
   </div>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadLoopException_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadLoopException*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadLoopException_System_Exception_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadLoopException(System.Exception)">OnWorkerThreadLoopException(Exception)</h4>
-  <div class="markdown level1 summary"><p>Called when an unhandled exception is thrown.</p>
+  <a id="Unosquare_Swan_Abstractions_SettingsProvider_1_RefreshFromList_" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.RefreshFromList*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SettingsProvider_1_RefreshFromList_System_Collections_Generic_List_Unosquare_Swan_Reflection_ExtendedPropertyInfo__0___" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.RefreshFromList(System.Collections.Generic.List{Unosquare.Swan.Reflection.ExtendedPropertyInfo{`0}})">RefreshFromList(List&lt;ExtendedPropertyInfo&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Updates settings from list.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnWorkerThreadLoopException(Exception ex)</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;string&gt; RefreshFromList(List&lt;ExtendedPropertyInfo&lt;T&gt;&gt; propertyList)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -278,93 +271,14 @@ In other words, useful to know whether the service is running.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">ex</span></td>
-        <td><p>The ex.</p>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Unosquare.Swan.Reflection.ExtendedPropertyInfo-1.html">ExtendedPropertyInfo</a>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">propertyList</span></td>
+        <td><p>The list.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Start_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Start*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Start" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Start">Start()</h4>
-  <div class="markdown level1 summary"><p>Starts the application service. This call must not block the calling thread and must
-run on its own resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Start()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be started because it seems to be currently running</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Stop_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Stop*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Stop" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Stop">Stop()</h4>
-  <div class="markdown level1 summary"><p>Stops and disposes service resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Stop()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be stopped because it is not running.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_WorkerThreadLoop_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_WorkerThreadLoop" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop">WorkerThreadLoop()</h4>
-  <div class="markdown level1 summary"><p>Implement this method as a loop that checks whether CancellationPending has been set to true
-If so, immediately exit the loop.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void WorkerThreadLoop()</code></pre>
-  </div>
-  <h3 id="events">Events
-  </h3>
-  
-  
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_StateChanged" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.StateChanged">StateChanged</h4>
-  <div class="markdown level1 summary"><p>Occurs when [state changed].</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event EventHandler&lt;AppWorkerStateChangedEventArgs&gt; StateChanged</code></pre>
-  </div>
-  <h5 class="eventType">Event Type</h5>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -374,11 +288,54 @@ If so, immediately exit the loop.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a>&gt;</td>
-        <td></td>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>A list of settings of type ref=&quot;ExtendedPropertyInfo&quot;</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>propertyList</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_SettingsProvider_1_ReloadGlobalSettings_" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.ReloadGlobalSettings*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SettingsProvider_1_ReloadGlobalSettings" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.ReloadGlobalSettings">ReloadGlobalSettings()</h4>
+  <div class="markdown level1 summary"><p>Reloads the global settings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReloadGlobalSettings()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_SettingsProvider_1_ResetGlobalSettings_" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.ResetGlobalSettings*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SettingsProvider_1_ResetGlobalSettings" data-uid="Unosquare.Swan.Abstractions.SettingsProvider`1.ResetGlobalSettings">ResetGlobalSettings()</h4>
+  <div class="markdown level1 summary"><p>Resets the global settings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetGlobalSettings()</code></pre>
+  </div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.IDisposable</span>
+  </div>
 <div id="disqus_thread"></div>
 <script>
 

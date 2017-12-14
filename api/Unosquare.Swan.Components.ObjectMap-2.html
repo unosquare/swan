@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class AppWorkerBase
+    <title>Class ObjectMap&lt;TSource, TDestination&gt;
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class AppWorkerBase
+    <meta name="title" content="Class ObjectMap&lt;TSource, TDestination&gt;
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.28.3.0">
     
@@ -77,18 +77,22 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.ObjectMap`2">
   
   
-  <h1 id="Unosquare_Swan_Abstractions_AppWorkerBase" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase" class="text-break">Class AppWorkerBase
+  <h1 id="Unosquare_Swan_Components_ObjectMap_2" data-uid="Unosquare.Swan.Components.ObjectMap`2" class="text-break">Class ObjectMap&lt;TSource, TDestination&gt;
   </h1>
-  <div class="markdown level0 summary"><p>A base implementation of an Application service containing a worker task that performs background processing.</p>
+  <div class="markdown level0 summary"><p>Represents an object map</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">AppWorkerBase</span></div>
+    <div class="level1"><span class="xref">ObjectMap&lt;TSource, TDestination&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Unosquare.Swan.Components.IObjectMap.html">IObjectMap</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,36 +118,44 @@
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Abstractions_AppWorkerBase_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h5 id="Unosquare_Swan_Components_ObjectMap_2_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class AppWorkerBase</code></pre>
+    <pre><code class="lang-csharp hljs">public class ObjectMap&lt;TSource, TDestination&gt; : IObjectMap</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase__ctor_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase__ctor" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.#ctor">AppWorkerBase()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected AppWorkerBase()</code></pre>
-  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TSource</span></td>
+        <td><p>The type of the source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TDestination</span></td>
+        <td><p>The type of the destination.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_CancellationToken_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_CancellationToken" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken">CancellationToken</h4>
-  <div class="markdown level1 summary"><p>Gets the cancellation token.</p>
+  <a id="Unosquare_Swan_Components_ObjectMap_2_DestinationType_" data-uid="Unosquare.Swan.Components.ObjectMap`2.DestinationType*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectMap_2_DestinationType" data-uid="Unosquare.Swan.Components.ObjectMap`2.DestinationType">DestinationType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the type of the destination.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CancellationToken CancellationToken { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Type DestinationType { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -155,22 +167,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
-        <td><p>The cancellation token.</p>
-</td>
+        <td><span class="xref">System.Type</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_IsBusy_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.IsBusy*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_IsBusy" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.IsBusy">IsBusy</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether the thread is busy</p>
+  <a id="Unosquare_Swan_Components_ObjectMap_2_Map_" data-uid="Unosquare.Swan.Components.ObjectMap`2.Map*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectMap_2_Map" data-uid="Unosquare.Swan.Components.ObjectMap`2.Map">Map</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the map.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsBusy { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;PropertyInfo, List&lt;PropertyInfo&gt;&gt; Map { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -182,23 +193,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if this instance is busy; otherwise, <code>false</code>.</p>
-</td>
+        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>, <span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;&gt;</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_State_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.State*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_State" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.State">State</h4>
-  <div class="markdown level1 summary"><p>Gets the state of the application service.
-In other words, useful to know whether the service is running.</p>
+  <a id="Unosquare_Swan_Components_ObjectMap_2_SourceType_" data-uid="Unosquare.Swan.Components.ObjectMap`2.SourceType*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectMap_2_SourceType" data-uid="Unosquare.Swan.Components.ObjectMap`2.SourceType">SourceType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the type of the source.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AppWorkerState State { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Type SourceType { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -210,9 +219,8 @@ In other words, useful to know whether the service is running.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.AppWorkerState.html">AppWorkerState</a></td>
-        <td><p>The state.</p>
-</td>
+        <td><span class="xref">System.Type</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -220,52 +228,14 @@ In other words, useful to know whether the service is running.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Initialize_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Initialize*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Initialize" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Initialize">Initialize()</h4>
-  <div class="markdown level1 summary"><p>Performs internal service initialization tasks required before starting the service.</p>
+  <a id="Unosquare_Swan_Components_ObjectMap_2_MapProperty_" data-uid="Unosquare.Swan.Components.ObjectMap`2.MapProperty*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectMap_2_MapProperty__2_Expression_System_Func__1___0___Expression_System_Func__0___1___" data-uid="Unosquare.Swan.Components.ObjectMap`2.MapProperty``2(Expression{System.Func{`1,``0}},Expression{System.Func{`0,``1}})">MapProperty&lt;TDestinationProperty, TSourceProperty&gt;(Expression&lt;Func&lt;TDestination, TDestinationProperty&gt;&gt;, Expression&lt;Func&lt;TSource, TSourceProperty&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Maps the property.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Initialize()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be initialized because it seems to be currently running</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadExit_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadExit*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadExit" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadExit">OnWorkerThreadExit()</h4>
-  <div class="markdown level1 summary"><p>This method is called when the user loop has exited</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnWorkerThreadExit()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadLoopException_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadLoopException*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_OnWorkerThreadLoopException_System_Exception_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.OnWorkerThreadLoopException(System.Exception)">OnWorkerThreadLoopException(Exception)</h4>
-  <div class="markdown level1 summary"><p>Called when an unhandled exception is thrown.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnWorkerThreadLoopException(Exception ex)</code></pre>
+    <pre><code class="lang-csharp hljs">public ObjectMap&lt;TSource, TDestination&gt; MapProperty&lt;TDestinationProperty, TSourceProperty&gt;(Expression&lt;Func&lt;TDestination, TDestinationProperty&gt;&gt; destinationProperty, Expression&lt;Func&lt;TSource, TSourceProperty&gt;&gt; sourceProperty)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -278,93 +248,20 @@ In other words, useful to know whether the service is running.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">ex</span></td>
-        <td><p>The ex.</p>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">System.Func</span>&lt;TDestination, TDestinationProperty&gt;&gt;</td>
+        <td><span class="parametername">destinationProperty</span></td>
+        <td><p>The destination property.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">System.Func</span>&lt;TSource, TSourceProperty&gt;&gt;</td>
+        <td><span class="parametername">sourceProperty</span></td>
+        <td><p>The source property.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Start_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Start*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Start" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Start">Start()</h4>
-  <div class="markdown level1 summary"><p>Starts the application service. This call must not block the calling thread and must
-run on its own resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Start()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be started because it seems to be currently running</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_Stop_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Stop*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_Stop" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.Stop">Stop()</h4>
-  <div class="markdown level1 summary"><p>Stops and disposes service resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Stop()</code></pre>
-  </div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Service cannot be stopped because it is not running.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerBase_WorkerThreadLoop_" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_WorkerThreadLoop" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.WorkerThreadLoop">WorkerThreadLoop()</h4>
-  <div class="markdown level1 summary"><p>Implement this method as a loop that checks whether CancellationPending has been set to true
-If so, immediately exit the loop.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected abstract void WorkerThreadLoop()</code></pre>
-  </div>
-  <h3 id="events">Events
-  </h3>
-  
-  
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerBase_StateChanged" data-uid="Unosquare.Swan.Abstractions.AppWorkerBase.StateChanged">StateChanged</h4>
-  <div class="markdown level1 summary"><p>Occurs when [state changed].</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event EventHandler&lt;AppWorkerStateChangedEventArgs&gt; StateChanged</code></pre>
-  </div>
-  <h5 class="eventType">Event Type</h5>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -374,11 +271,120 @@ If so, immediately exit the loop.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a>&gt;</td>
-        <td></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.ObjectMap-2.html">ObjectMap</a>&lt;TSource, TDestination&gt;</td>
+        <td><p>An object map representation of type of the destination property 
+and type of the source property</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TDestinationProperty</span></td>
+        <td><p>The type of the destination property.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TSourceProperty</span></td>
+        <td><p>The type of the source property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_ObjectMap_2_RemoveMapProperty_" data-uid="Unosquare.Swan.Components.ObjectMap`2.RemoveMapProperty*"></a>
+  <h4 id="Unosquare_Swan_Components_ObjectMap_2_RemoveMapProperty__1_Expression_System_Func__1___0___" data-uid="Unosquare.Swan.Components.ObjectMap`2.RemoveMapProperty``1(Expression{System.Func{`1,``0}})">RemoveMapProperty&lt;TDestinationProperty&gt;(Expression&lt;Func&lt;TDestination, TDestinationProperty&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes the map property.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObjectMap&lt;TSource, TDestination&gt; RemoveMapProperty&lt;TDestinationProperty&gt;(Expression&lt;Func&lt;TDestination, TDestinationProperty&gt;&gt; destinationProperty)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">System.Func</span>&lt;TDestination, TDestinationProperty&gt;&gt;</td>
+        <td><span class="parametername">destinationProperty</span></td>
+        <td><p>The destination property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unosquare.Swan.Components.ObjectMap-2.html">ObjectMap</a>&lt;TSource, TDestination&gt;</td>
+        <td><p>An object map representation of type of the destination property 
+and type of the source property </p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TDestinationProperty</span></td>
+        <td><p>The type of the destination property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><p>Invalid destination expression</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Unosquare.Swan.Components.IObjectMap.html">IObjectMap</a>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unosquare.Swan.Components.IObjectMap.html">IObjectMap</a></div>
+  </div>
 <div id="disqus_thread"></div>
 <script>
 

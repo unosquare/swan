@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class AppWorkerStateChangedEventArgs
+    <title>Class SingletonBase&lt;T&gt;
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class AppWorkerStateChangedEventArgs
+    <meta name="title" content="Class SingletonBase&lt;T&gt;
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.28.3.0">
     
@@ -77,25 +77,26 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1">
   
   
-  <h1 id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs" class="text-break">Class AppWorkerStateChangedEventArgs
+  <h1 id="Unosquare_Swan_Abstractions_SingletonBase_1" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1" class="text-break">Class SingletonBase&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>Represents event arguments whenever the state of an application service changes</p>
+  <div class="markdown level0 summary"><p>Represents a singleton pattern abstract class</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">System.EventArgs</span></div>
-    <div class="level2"><span class="xref">AppWorkerStateChangedEventArgs</span></div>
+    <div class="level1"><span class="xref">SingletonBase&lt;T&gt;</span></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider&lt;T&gt;</a></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.IDisposable</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.EventArgs.Empty</span>
-    </div>
     <div>
       <span class="xref">System.Object.ToString()</span>
     </div>
@@ -119,22 +120,108 @@
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Abstractions_SingletonBase_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class AppWorkerStateChangedEventArgs : EventArgs</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class SingletonBase&lt;T&gt; : IDisposable where T : class</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of class</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
   </h3>
   
   
-  <a id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs__ctor_" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs__ctor_Unosquare_Swan_AppWorkerState_Unosquare_Swan_AppWorkerState_" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.#ctor(Unosquare.Swan.AppWorkerState,Unosquare.Swan.AppWorkerState)">AppWorkerStateChangedEventArgs(AppWorkerState, AppWorkerState)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a> class.</p>
+  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_LazyInstance" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.LazyInstance">LazyInstance</h4>
+  <div class="markdown level1 summary"><p>The static, singleton instance reference.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AppWorkerStateChangedEventArgs(AppWorkerState oldState, AppWorkerState newState)</code></pre>
+    <pre><code class="lang-csharp hljs">protected static readonly Lazy&lt;T&gt; LazyInstance</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Lazy</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_SingletonBase_1_Instance_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Instance*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_Instance" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Instance">Instance</h4>
+  <div class="markdown level1 summary"><p>Gets the instance that this singleton represents.
+If the instance is null, it is constructed and assigned when this member is accessed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T Instance { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Disposes the internal singleton instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_SingletonBase_1_Dispose_System_Boolean_" data-uid="Unosquare.Swan.Abstractions.SingletonBase`1.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.
+Call the GC.SuppressFinalize if you override this method and use
+a non-default class finalizer (destructor)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposeManaged)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -147,75 +234,17 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.AppWorkerState.html">AppWorkerState</a></td>
-        <td><span class="parametername">oldState</span></td>
-        <td><p>The old state.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.AppWorkerState.html">AppWorkerState</a></td>
-        <td><span class="parametername">newState</span></td>
-        <td><p>The new state.</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">disposeManaged</span></td>
+        <td><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_NewState_" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_NewState" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.NewState">NewState</h4>
-  <div class="markdown level1 summary"><p>Gets the state to which the application service changed.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AppWorkerState NewState { get; }</code></pre>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.IDisposable</span>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.AppWorkerState.html">AppWorkerState</a></td>
-        <td><p>The new state.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_OldState_" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState*"></a>
-  <h4 id="Unosquare_Swan_Abstractions_AppWorkerStateChangedEventArgs_OldState" data-uid="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.OldState">OldState</h4>
-  <div class="markdown level1 summary"><p>Gets the old state.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AppWorkerState OldState { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.AppWorkerState.html">AppWorkerState</a></td>
-        <td><p>The old state.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
 <div id="disqus_thread"></div>
 <script>
 
