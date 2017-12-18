@@ -7,20 +7,6 @@
     /// </summary>
     public static partial class Definitions
     {
-        #region Network
-
-        /// <summary>
-        /// The DNS default port
-        /// </summary>
-        public const int DnsDefaultPort = 53;
-
-        /// <summary>
-        /// The NTP default port
-        /// </summary>
-        public const int NtpDefaultPort = 123;
-
-        #endregion
-
         /// <summary>
         /// The MS Windows codepage 1252 encoding used in some legacy scenarios
         /// such as default CSV text encoding from Excel

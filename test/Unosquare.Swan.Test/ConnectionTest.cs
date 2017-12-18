@@ -6,28 +6,26 @@
     using System.Threading.Tasks;
     using NUnit.Framework;
     using Networking;
-    using System.Threading;
     using System.Net;
-    using Unosquare.Swan.Test.Mocks;
-    using System.IO;
 
     public abstract class ConnectionTest
     {
+        public const int DefaultPort = 1337;
+        public const string Message = "Hello World!\r\n";
+        public const string Localhost = "localhost";
+
+        public abstract int Port { get; }
+
         public ConnectionListener ConnectionListener;
         public TcpClient Client;
-        public int Port;
-        public CancellationToken ct;
-        public byte[] Message = Encoding.ASCII.GetBytes("Hello World!\r\n");
-        private int _defaultPort = 12345;
+
+        public byte[] MessageBytes = Encoding.UTF8.GetBytes(Message);
 
         [SetUp]
         public void Setup()
         {
-            _defaultPort++;
-            Port = _defaultPort;
             ConnectionListener = new ConnectionListener(Port);
             Client = new TcpClient();
-            ct = default(CancellationToken);
         }
 
         [TearDown]
@@ -44,63 +42,27 @@
         [Test]
         public void OpenConnection_Connected()
         {
-            ConnectionListener.Start();
-            Client.Connect("localhost", Port);
+            Client.Connect(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", false, 0))
+            using (var cn = new Connection(Client))
             {
-                Assert.IsTrue(ConnectionListener.IsListening);
-                Assert.IsTrue(cn.IsConnected);
-            }
-        }
-
-        [Test]
-        public async Task OpenConnection_LocalAddress()
-        {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
+                Assert.IsTrue(cn.IsConnected, "It's connected");
                 Assert.AreEqual(IPAddress.Parse("127.0.0.1"), cn.LocalEndPoint.Address, "Local Address");
+                Assert.IsNotNull(cn.ConnectionStartTime, "Connection Start Time");
+                Assert.IsNotNull(cn.ConnectionDuration, "Connection Duration");
             }
         }
 
         [Test]
-        public async Task OpenConnection_ConnectionStartTime()
+        public void NullNewLineSequence_ArgumentException()
         {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                Assert.IsNotNull(cn.ConnectionStartTime);
-            }
-        }
-
-        [Test]
-        public async Task OpenConnection_ConnectionDuration()
-        {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-            {
-                Assert.IsNotNull(cn.ConnectionDuration);
-            }
-        }
-
-        [Test]
-        public async Task NullNewLineSequence_ArgumentException()
-        {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
             Assert.Throws<ArgumentException>(() =>
             {
                 var cn = new Connection(Client, Encoding.UTF8, null, true, 0);
             });
         }
+
+        public override int Port { get; }
     }
 
     [TestFixture]
@@ -109,19 +71,12 @@
         [Test]
         public async Task ReadTextAsync_MessageEqualsResponse()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
                 var response = await cn.ReadTextAsync();
 
-                Assert.IsNotNull(response);
                 Assert.AreEqual(Message, response);
             }
         }
@@ -129,19 +84,12 @@
         [Test]
         public async Task ReadTextAsync_DataSentIdleDuration()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            await Client.ConnectAsync(Localhost, DefaultPort);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
+                await cn.ReadTextAsync();
 
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
-            {
-                var response = await cn.ReadTextAsync();
-
-                Assert.AreEqual(Message, response);
                 Assert.NotNull(cn.DataSentIdleDuration);
             }
         }
@@ -149,22 +97,17 @@
         [Test]
         public async Task ReadTextAsync_DataReceivedIdleDuration()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            await Client.ConnectAsync(Localhost, DefaultPort);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
+                await cn.ReadTextAsync();
 
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
-            {
-                var response = await cn.ReadTextAsync();
-
-                Assert.AreEqual(Message, response);
                 Assert.IsNotNull(cn.DataReceivedIdleDuration);
             }
         }
+
+        public override int Port { get; }
     }
 
     [TestFixture]
@@ -173,168 +116,120 @@
         [Test]
         public async Task ReadLineAsync_MessageEqualsResponse()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            await Client.ConnectAsync(Localhost, DefaultPort);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
+                var response = await cn.ReadLineAsync();
 
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
-            {
-                var response = await cn.ReadLineAsync(ct);
-
-                Assert.IsNotNull(response);
-                Assert.AreEqual(Encoding.ASCII.GetString(Message).Remove(Message.Length - 2), response);
+                Assert.AreEqual(Message.Trim(), response);
             }
         }
 
         [Test]
-        public async Task StreamWithoutWrite_ThrowsInvalidOperationException()
+        public async Task EnableContinousReading_ThrowsInvalidOperationException()
         {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            ConnectionListener.OnConnectionAccepting += (s, e) =>
+            {
+                using (var cn = new Connection(e.Client))
+                {
+                    cn.WriteDataAsync(MessageBytes, true).Wait();
+                }
+            };
 
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", false, 0))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, Port);
+
+            using (var cn = new Connection(Client))
             {
                 Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 {
-                    await cn.ReadLineAsync(ct);
+                    await cn.ReadLineAsync();
                 });
             }
         }
+
+        public override int Port { get; } = 12445;
     }
 
     [TestFixture]
     public class ReadDataAsync : ConnectionTest
     {
         [Test]
-        public async Task ReadDataAsync_MessageEqualsResponse()
+        public async Task ValidConnection_MessageEqualsResponse()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                var response = await cn.ReadDataAsync(ct);
+                var response = await cn.ReadDataAsync();
 
                 Assert.IsNotNull(response);
-                Assert.AreEqual(Message, response);
+                Assert.AreEqual(MessageBytes, response);
             }
         }
 
         [Test]
         public async Task ContinuousReadingEnabled_ThrowsInvalidOperationException()
         {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
+            await Client.ConnectAsync(Localhost, DefaultPort);
+            await Task.Delay(TimeSpan.FromSeconds(1));
 
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", false, 0))
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
-                Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                using (var cn = new Connection(Client))
                 {
-                    await cn.ReadDataAsync(TimeSpan.FromSeconds(5), ct);
-                });
-            }
+                    await cn.ReadDataAsync();
+                }
+            });
         }
 
         [Test]
-        public async Task ReadDataAsync_ThrowsTimeOutException()
+        public async Task SmallTimeOut_ThrowsTimeOutException()
         {
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            await Client.ConnectAsync(Localhost, DefaultPort);
 
-            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
+            Assert.ThrowsAsync<TimeoutException>(async () =>
             {
-                Assert.ThrowsAsync<TimeoutException>(async () =>
+                using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
                 {
-                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(100), ct);
-                });
-            }
+                    await cn.ReadDataAsync(TimeSpan.FromMilliseconds(1));
+                }
+            });
         }
-    }
 
-    [TestFixture]
-    public class Write : ConnectionTest
-    {
-        [Test]
-        public async Task Connection_WriteTest()
-        {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                e.Client?.GetStream().Write(Message, 0, Message.Length);
-            };
-
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
-            {
-                var response = await cn.ReadTextAsync();
-
-                Assert.IsNotNull(response);
-                Assert.AreEqual(Message, response);
-            }
-        }
+        public override int Port { get; } = 12446;
     }
 
     [TestFixture]
     public class WriteDataAsync : ConnectionTest
     {
-        [Test]
-        public async Task WriteDataAsync_MessageEqualsResponse()
+        [TestCase(true, 13447)]
+        [TestCase(false, 13448)]
+        public async Task WriteDataAsync_MessageEqualsResponse(bool forceFlush, int port)
         {
+            ConnectionListener = new ConnectionListener(port);
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                using (var cn = new Connection(e.Client))
                 {
-                    cn.WriteDataAsync(Message, false, ct).Wait();
+                    cn.WriteDataAsync(MessageBytes, forceFlush).Wait();
                 }
             };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, port);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                var response = await cn.ReadDataAsync(ct);
+                var response = await cn.ReadDataAsync();
 
                 Assert.IsNotNull(response);
-                Assert.AreEqual(Message, response);
+                Assert.AreEqual(MessageBytes, response, $"Using forceFlush: {forceFlush}");
             }
         }
 
-        [Test]
-        public async Task WriteDataAsyncFlushEnabled_MessageEqualsResponse()
-        {
-            ConnectionListener.OnConnectionAccepting += (s, e) =>
-            {
-                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
-                {
-                    cn.WriteDataAsync(Message, true, ct).Wait();
-                }
-            };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
-
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
-            {
-                var response = await cn.ReadDataAsync(ct);
-
-                Assert.IsNotNull(response);
-                Assert.AreEqual(Message, response);
-            }
-        }
+        public override int Port { get; } = 12447;
     }
 
     [TestFixture]
@@ -345,22 +240,25 @@
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                using (var cn = new Connection(e.Client))
                 {
-                    cn.WriteTextAsync(Encoding.ASCII.GetString(Message), ct).Wait();
+                    cn.WriteTextAsync(Message).Wait();
                 }
             };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, Port);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                var response = await cn.ReadDataAsync(ct);
+                var response = await cn.ReadDataAsync();
 
                 Assert.IsNotNull(response);
-                Assert.AreEqual(Message, response);
+                Assert.AreEqual(MessageBytes, response);
             }
         }
+
+        public override int Port { get; } = 12448;
     }
 
     [TestFixture]
@@ -371,22 +269,25 @@
         {
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", false, 0))
+                using (var cn = new Connection(e.Client))
                 {
-                    cn.WriteLineAsync(Encoding.ASCII.GetString(Message), ct).Wait();
+                    cn.WriteLineAsync(Message).Wait();
                 }
             };
-            ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
 
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            ConnectionListener.Start();
+            await Client.ConnectAsync(Localhost, Port);
+
+            using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
             {
-                var response = await cn.ReadLineAsync(ct);
+                var response = await cn.ReadLineAsync();
 
                 Assert.IsNotNull(response);
-                Assert.AreEqual(Encoding.ASCII.GetString(Message).Remove(Message.Length - 2), response);
+                Assert.AreEqual(Message.Remove(MessageBytes.Length - 2), response);
             }
         }
+
+        public override int Port { get; } = 12449;
     }
 
 #if NET46
@@ -398,21 +299,21 @@
         {
             Assert.Ignore();
 
-            var tempPath = Path.GetTempPath() + "certificate.pfx";
-            var certificate = CertificateHelper.CreateOrLoadCertificate(tempPath, "localhost", "password");     
+            var tempPath = System.IO.Path.GetTempPath() + "certificate.pfx";
+            var certificate = Mocks.CertificateHelper.CreateOrLoadCertificate(tempPath, Localhost, "password");
 
             ConnectionListener.Start();
-            await Client.ConnectAsync("localhost", Port);
+            await Client.ConnectAsync(Localhost, Port);
 
             ConnectionListener.OnConnectionAccepting += (s, e) =>
             {
-                using (var cn = new Connection(e.Client, Encoding.ASCII, "\r\n", true, 0))
+                using (var cn = new Connection(e.Client))
                 {
                     cn.UpgradeToSecureAsServerAsync(certificate).Wait();
                 }
             };
 
-            using (var cn = new Connection(Client, Encoding.ASCII, "\r\n", true, 0))
+            using (var cn = new Connection(Client))
             {
                 var result = await cn.UpgradeToSecureAsClientAsync();
 
@@ -420,6 +321,8 @@
                 Assert.IsTrue(cn.IsActiveStreamSecure);
             }
         }
+
+        public override int Port { get; } = 12450;
     }
 #endif
 }

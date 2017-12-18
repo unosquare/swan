@@ -264,10 +264,7 @@
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            if (!type.IsGenericType())
-                return false;
-
-            return type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+            return type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
 
         #endregion

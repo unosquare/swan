@@ -16,7 +16,7 @@
         /// <summary>
         /// The basic types information
         /// </summary>
-        internal static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
+        public static readonly Dictionary<Type, ExtendedTypeInfo> BasicTypesInfo =
             new Dictionary<Type, ExtendedTypeInfo>
             {
                 // Non-Nullables

@@ -117,7 +117,7 @@
         /// A 32-bit unsigned integer equivalent to the ulong 
         /// contained in longBytes
         /// </returns>
-        internal static uint SwapEndianness(this ulong longBytes)
+        public static uint SwapEndianness(this ulong longBytes)
         {
             return (uint)(((longBytes & 0x000000ff) << 24) +
                            ((longBytes & 0x0000ff00) << 8) +

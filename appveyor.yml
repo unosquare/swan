@@ -27,11 +27,11 @@ before_build:
             cinst docfx -y
         }
 - ps: Install-Product node 8
-- npm install ldapjs
-- npm install maildev
+- npm install
 - ps: $LDAP = Start-Process node ldap.js -PassThru
 - ps: $SMTP = Start-Process node mail.js -PassThru
-- node LdapClient.js
+- ps: $WEB = Start-Process node web.js -PassThru
+- ps: $TCP = Start-Process node tcp.js -PassThru
 - appveyor-retry dotnet restore -v Minimal
 - mkdir tools
 - nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
@@ -69,3 +69,5 @@ after_build:
 on_finish:
 - ps: Stop-Process -Id $LDAP.Id
 - ps: Stop-Process -Id $SMTP.Id
+- ps: Stop-Process -Id $WEB.Id
+- ps: Stop-Process -Id $TCP.Id

@@ -10,7 +10,7 @@ namespace Unosquare.Swan
     /// <summary>
     /// Extension methods
     /// </summary>
-    public partial class Extensions
+    public static class WindowsServicesExtensions
     {
         /// <summary>
         /// Runs a service in console mode.

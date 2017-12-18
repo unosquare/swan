@@ -9,7 +9,7 @@ namespace Unosquare.Swan
     /// <summary>
     /// Extension methods
     /// </summary>
-    public partial class Extensions
+    public static class SmtpExtensions
     {
         /// <summary>
         /// The raw contents of this MailMessage as a MemoryStream.

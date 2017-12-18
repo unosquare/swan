@@ -15,10 +15,11 @@
 
         protected const string Fqdn = "pool.ntp.org";
 
-        protected readonly IPAddress PrivateIP = IPAddress.Parse("192.168.1.1");
-        protected readonly IPAddress PublicIP = IPAddress.Parse("200.1.1.1");
-        protected readonly IPAddress GoogleDns = IPAddress.Parse("8.8.8.8");
-        protected readonly IPAddress NullIP = null;
+        protected IPAddress PrivateIP { get; } = IPAddress.Parse("192.168.1.1");
+
+        protected IPAddress PublicIP { get; } = IPAddress.Parse("200.1.1.1");
+        protected IPAddress GoogleDns { get; } = IPAddress.Parse("8.8.8.8");
+        protected IPAddress NullIP { get; } = null;
     }
 
     [TestFixture]
@@ -260,7 +261,7 @@
         [Test]
         public async Task WithValidFqdnAndIPAddress_ReturnsDnsHost()
         {
-            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, GoogleDns, Definitions.DnsDefaultPort);
+            var dnsHost = await Network.GetDnsHostEntryAsync(Fqdn, GoogleDns, Network.DnsDefaultPort);
 
             Assert.IsNotEmpty(dnsHost.ToString());
         }
@@ -272,7 +273,7 @@
         [Test]
         public async Task WithValidFqdnAndIPAddress_ReturnsDnsHost()
         {
-            var dnsPointer = await Network.GetDnsPointerEntryAsync(GoogleDns, GoogleDns, Definitions.DnsDefaultPort);
+            var dnsPointer = await Network.GetDnsPointerEntryAsync(GoogleDns, GoogleDns, Network.DnsDefaultPort);
 
             Assert.AreEqual(dnsPointer, GoogleDnsFqdn);
         }
@@ -299,7 +300,7 @@
         public async Task ValidDnsAsDnsServer_ReturnsQueryDns()
         {
             var dnsPointer =
-                await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, GoogleDns, Definitions.DnsDefaultPort);
+                await Network.QueryDnsAsync(GoogleDnsFqdn, DnsRecordType.MX, GoogleDns, Network.DnsDefaultPort);
 
             Assert.AreEqual(DnsResponseCode.NoError, dnsPointer.ResponseCode);
         }

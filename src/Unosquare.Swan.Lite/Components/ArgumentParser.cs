@@ -315,9 +315,7 @@ namespace Unosquare.Swan.Components
 
         private PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)
             => properties.FirstOrDefault(p =>
-                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName, propertyName,
-                    Settings.NameComparer) ||
-                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName, propertyName,
-                    Settings.NameComparer));
+                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName, propertyName, Settings.NameComparer) ||
+                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName, propertyName, Settings.NameComparer));
     }
 }

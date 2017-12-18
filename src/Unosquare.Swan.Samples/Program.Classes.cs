@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan.Samples
 {
-    using Abstractions;
     using Components;
     using System;
     using System.Collections.Generic;
@@ -36,7 +35,7 @@
         
         internal class SampleCopyTarget
         {
-            public float ID { get; set; }
+            public float Id { get; set; }
             public decimal AlternateId { get; set; }
             public string Score { get; set; }
             public DateTime CreationDate { get; set; }

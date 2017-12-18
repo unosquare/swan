@@ -16,15 +16,9 @@ namespace Unosquare.Swan.Test.Mocks
     /// <summary>
     /// Provides static methods to create, save and load certificate files
     /// </summary>
-    public static class CertificateHelper
+    internal static class CertificateHelper
     {
-        /// <summary>
-        /// Generates an X.509 Certificate
-        /// </summary>
-        /// <param name="subjectName">Name of the subject.</param>
-        /// <param name="keyPair">The key pair.</param>
-        /// <returns></returns>
-        public static X509Certificate GenerateCertificate(string subjectName, out AsymmetricCipherKeyPair keyPair)
+        internal static X509Certificate GenerateCertificate(string subjectName, out AsymmetricCipherKeyPair keyPair)
         {
             var keyPairGenerator = new RsaKeyPairGenerator();
 
@@ -45,13 +39,15 @@ namespace Unosquare.Swan.Test.Mocks
             certGenerator.SetNotBefore(DateTime.Now.Subtract(TimeSpan.FromHours(8)));
             certGenerator.SetPublicKey(keyPair.Public);
 
+            var key = new AuthorityKeyIdentifier(
+                SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keyPair.Public),
+                new GeneralNames(new GeneralName(certName)),
+                serialNo);
+
             certGenerator.AddExtension(
                 X509Extensions.AuthorityKeyIdentifier.Id,
                 false,
-                new AuthorityKeyIdentifier(
-                    SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keyPair.Public),
-                    new GeneralNames(new GeneralName(certName)),
-                    serialNo));
+                key);
 
             /* 
              1.3.6.1.5.5.7.3.1 - id_kp_serverAuth 
@@ -75,39 +71,32 @@ namespace Unosquare.Swan.Test.Mocks
             return generatedCertificate;
         }
 
-        /// <summary>
-        /// Saves the given X.509 certificate to a file.
-        /// </summary>
-        /// <param name="certificate">The certificate.</param>
-        /// <param name="keyPair">The key pair.</param>
-        /// <param name="outputFilePath">The output file path.</param>
-        /// <param name="certificateAlias">The certificate alias.</param>
-        /// <param name="certificatePassword">The certificate password.</param>
-        public static void SaveToFile(this X509Certificate certificate, AsymmetricCipherKeyPair keyPair,
-            string outputFilePath, string certificateAlias, string certificatePassword)
+        internal static void SaveToFile(
+            this X509Certificate certificate,
+            AsymmetricCipherKeyPair keyPair,
+            string outputFilePath,
+            string certificateAlias,
+            string certificatePassword)
         {
             var certificateStore = new Pkcs12Store();
             var certificateEntry = new X509CertificateEntry(certificate);
 
             certificateStore.SetCertificateEntry(certificateAlias, certificateEntry);
-            certificateStore.SetKeyEntry(certificateAlias, new AsymmetricKeyEntry(keyPair.Private),
+            certificateStore.SetKeyEntry(
+                certificateAlias, 
+                new AsymmetricKeyEntry(keyPair.Private),
                 new[] {certificateEntry});
 
             using (var outputFileStream = File.Create(outputFilePath))
             {
-                certificateStore.Save(outputFileStream, certificatePassword.ToCharArray(),
+                certificateStore.Save(
+                    outputFileStream, 
+                    certificatePassword.ToCharArray(),
                     new SecureRandom(new CryptoApiRandomGenerator()));
             }
         }
 
-        /// <summary>
-        /// Creates or loads a PFX certificate.
-        /// </summary>
-        /// <param name="pfxFilePath">The PFX file path.</param>
-        /// <param name="hostname">The hostname.</param>
-        /// <param name="password">The password.</param>
-        /// <returns></returns>
-        public static System.Security.Cryptography.X509Certificates.X509Certificate2 CreateOrLoadCertificate(
+        internal static System.Security.Cryptography.X509Certificates.X509Certificate2 CreateOrLoadCertificate(
             string pfxFilePath, string hostname = "localhost", string password = "password")
         {
             try

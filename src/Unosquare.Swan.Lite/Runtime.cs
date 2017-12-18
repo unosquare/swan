@@ -8,10 +8,6 @@
 #if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
 #endif
-#if !UWP
-    using System.Diagnostics;
-
-#endif
 
     /// <summary>
     /// Provides utility methods to retrieve information about the current application
@@ -29,9 +25,9 @@
 #if NETSTANDARD2_0
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(Assembly.GetEntryAssembly);
 #endif
-       
-#if !UWP
-        private static readonly Lazy<Process> ProcessLazy = new Lazy<Process>(Process.GetCurrentProcess);
+
+#if NET452
+        private static readonly Lazy<System.Diagnostics.Process> ProcessLazy = new Lazy<System.Diagnostics.Process>(System.Diagnostics.Process.GetCurrentProcess);
 #endif
 
 #if !NETSTANDARD1_3 && !UWP
@@ -103,14 +99,14 @@
             }
         }
 
-#if !UWP
+#if NET452
         /// <summary>
         /// Gets the process associated with the current application.
         /// </summary>
         /// <value>
         /// The process.
         /// </value>
-        public static Process Process => ProcessLazy.Value;
+        public static System.Diagnostics.Process Process => ProcessLazy.Value;
 #endif
 
         /// <summary>
@@ -155,10 +151,10 @@
         }
 
         /// <summary>
-        /// Gets a value indicating whether this application instance is using the Mono runtime.
+        /// Gets a value indicating whether this application instance is using the MONO runtime.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is using mono runtime; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance is using MONO runtime; otherwise, <c>false</c>.
         /// </value>
         public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
 
@@ -275,24 +271,7 @@
                 return returnPath;
             }
         }
-
-        /// <summary>
-        /// Provides a simple IoC Container based on TinyIoC
-        /// </summary>
-        /// <value>
-        /// The container.
-        /// </value>
-        public static DependencyContainer Container => DependencyContainer.Current;
-
-        /// <summary>
-        /// Provides a Message Hub with the Publish/Subscribe pattern
-        /// The implementation is based on TinyIoC Messenger
-        /// </summary>
-        /// <value>
-        /// The messages.
-        /// </value>
-        public static MessageHub Messages => Container.Resolve<IMessageHub>() as MessageHub;
-
+        
         /// <summary>
         /// Gets the singleton instance created with basic defaults.
         /// </summary>

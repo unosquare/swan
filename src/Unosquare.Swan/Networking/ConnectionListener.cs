@@ -14,6 +14,17 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class ConnectionListener : IDisposable
     {
+        #region Private Declarations
+
+        private readonly object _stateLock = new object();
+        private TcpListener _listenerSocket;
+        private bool _cancellationPending;
+        private CancellationTokenSource _cancelListening;
+        private Task _backgroundWorkerTask;
+        private bool _hasDisposed;
+
+        #endregion
+
         #region Events
 
         /// <summary>
@@ -36,45 +47,6 @@
         /// Occurs when the listener stops.
         /// </summary>
         public event EventHandler<ConnectionListenerStoppedEventArgs> OnListenerStopped = (s, e) => { };
-
-        #endregion
-
-        #region Private Declarations
-
-        private readonly object _stateLock = new object();
-        private TcpListener _listenerSocket;
-        private bool _cancellationPending;
-        private CancellationTokenSource _cancelListening;
-        private Task _backgroundWorkerTask;
-        private bool _hasDisposed;
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets the local end point on which we are listening.
-        /// </summary>
-        /// <value>
-        /// The local end point.
-        /// </value>
-        public IPEndPoint LocalEndPoint { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether this listener is active
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is listening; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsListening => _backgroundWorkerTask != null;
-
-        /// <summary>
-        /// Gets a unique identifier that gets automatically assigned upon instantiation of this class.
-        /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public Guid Id { get; }
 
         #endregion
 
@@ -109,6 +81,42 @@
             : this(new IPEndPoint(listenAddress, listenPort))
         {
         }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="ConnectionListener"/> class.
+        /// </summary>
+        ~ConnectionListener()
+        {
+            Dispose(false);
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the local end point on which we are listening.
+        /// </summary>
+        /// <value>
+        /// The local end point.
+        /// </value>
+        public IPEndPoint LocalEndPoint { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether this listener is active
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is listening; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsListening => _backgroundWorkerTask != null;
+
+        /// <summary>
+        /// Gets a unique identifier that gets automatically assigned upon instantiation of this class.
+        /// </summary>
+        /// <value>
+        /// The unique identifier.
+        /// </value>
+        public Guid Id { get; }
 
         #endregion
 
@@ -231,14 +239,6 @@
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Finalizes an instance of the <see cref="ConnectionListener"/> class.
-        /// </summary>
-        ~ConnectionListener()
-        {
-            Dispose(false);
         }
 
         /// <summary>
