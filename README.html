@@ -563,6 +563,11 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 </code></pre><h3 id="the-messagehub">The <code>MessageHub</code></h3>
 <p>A simple implementation of the publish-suscribe pattern, a good alternative to events. Easier to write and maintain. SWAN provides a interface called IMessageHubMessage which you can implement to create your custom Message. Furthermore SWAN has 
 its own classes for a simple message and a cancellable message which again you can extend.</p>
+<p>SWAN&#39;s Message classes inside SWAN.Components:</p>
+<ol>
+<li><strong>MessageHubGenericMessage</strong>: a generic message with custom content</li>
+<li><strong>MessageHubCancellableGenericMessage</strong>: a basic cancellable message with custom content and its own <code>Cancel</code> action</li>
+</ol>
 <h4 id="example-1-simplemessage">Example 1: <code>SimpleMessage</code></h4>
 <p>A simple example using the DependencyContainer discussed above.</p>
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
