@@ -561,14 +561,20 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
     Runtime.Container.Resolve&lt;IAnimal&gt;();
 }
 </code></pre><h3 id="the-messagehub">The <code>MessageHub</code></h3>
-<p>A simple implementation of the publish-suscribe pattern, a good alternative to events. Easier to write and maintain.</p>
+<p>A simple implementation of the publish-suscribe pattern, a good alternative to events. Easier to write and maintain. SWAN provides a interface called IMessageHubMessage which you can implement to create your custom Message. Furthermore SWAN has 
+its own classes for a simple message and a cancellable message which again you can extend.</p>
 <h4 id="example-1-simplemessage">Example 1: <code>SimpleMessage</code></h4>
 <p>A simple example using the DependencyContainer discussed above.</p>
-<pre><code class="lang-csharp"> var MessageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
+<pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
+ var MessageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
+ // A list that contains all messages sent
  var Messages = new List&lt;MessageHubGenericMessage&lt;string&gt;&gt;();
 
+ // Here we create a simple message using a that has a string as its content
  var message = new MessageHubGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;);
+ // We suscribe our message hub to the list add method and save its token if we need to unsuscribe later
  var token = MessageHub.Subscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(Messages.Add);
+ //And lastly we publish a message
  MessageHub.Publish(message);
 </code></pre><p>You can as well unsubscribe calling <code>MessageHub.Unsubscribe&lt;SimpleMessage&gt;(token);</code> using the token we saved previously.</p>
 <h4 id="example-2-cancellablemessage">Example 2: <code>CancellableMessage</code></h4>
