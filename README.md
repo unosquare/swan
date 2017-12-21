@@ -532,7 +532,7 @@ A simple example using the DependencyContainer discussed above.
 // Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
- // Here we create a simple message using a that has a string as its content
+ // Here we create a simple message that has a string as its content
  var message = new MessageHubGenericMessage<string>(this, "SWAN");
  
  // We suscribe to our message hub
@@ -547,7 +547,7 @@ You can unsubscribe at any time by calling `MessageHub.Unsubscribe<MessageHubGen
 // Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
- // Here we create a simple message using a that has a string as its content and a custom cancel action
+ // Here we create a simple message that has a string as its content and a custom cancel action
   var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => Console.WriteLine("Cancelled"));
   
   // We suscribe to our message hub
