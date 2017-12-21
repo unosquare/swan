@@ -554,7 +554,7 @@ You can as well unsubscribe calling `MessageHub.Unsubscribe<SimpleMessage>(token
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
   // A list that contains all messages sent
  var messages = new List<MessageHubCancellableGenericMessage<string>>();
- / Here we create a simple message using a that has a string as its content and a custom action
+ // Here we create a simple message using a that has a string as its content and a custom action
   var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => Console.WriteLine("Cancelled"));
   // Execute the cancel action
   message.Cancel();
