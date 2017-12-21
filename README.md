@@ -547,7 +547,7 @@ You can unsubscribe at any time by calling `MessageHub.Unsubscribe<MessageHubGen
 // Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
- // Here we create a simple message using a that has a string as its content and a custom action
+ // Here we create a simple message using a that has a string as its content and a custom cancel action
   var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => Console.WriteLine("Cancelled"));
   
   // We suscribe to our message hub
