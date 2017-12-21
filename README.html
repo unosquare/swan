@@ -573,20 +573,12 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 </code></pre><p>You can as well unsubscribe calling <code>MessageHub.Unsubscribe&lt;SimpleMessage&gt;(token);</code> using the token we saved previously.</p>
 <h4 id="example-2-cancellablemessage">Example 2: <code>CancellableMessage</code></h4>
 <pre><code class="lang-csharp"> var MessageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
- var Messages = new List&lt;SimpleMessageCancellable&gt;();
+ var Messages = new List&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;();
 
-  var message = new SimpleMessageCancellable(this, &quot;SWAN&quot;,() =&gt; Console.WriteLine(&quot;Cancelled&quot;));
+  var message = new MessageHubCancellableGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;,() =&gt; Console.WriteLine(&quot;Cancelled&quot;));
   message.Cancel();
-  MessageHub.Subscribe&lt;SimpleMessageCancellable&gt;(Messages.Add);
+  MessageHub.Subscribe&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;(Messages.Add);
   MessageHub.Publish(message);
-</code></pre><p>And the SimpleMessageCancellable class</p>
-<pre><code class="lang-csharp">public class SimpleMessageCancellable : MessageHubCancellableGenericMessage&lt;string&gt;
-        {
-            public SimpleMessageCancellable(object sender, string content, Action cancelAction)
-                : base(sender, content, cancelAction)
-            {
-            }
-        }
 </code></pre></article>
           </div>
           
