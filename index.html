@@ -561,7 +561,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
     Runtime.Container.Resolve&lt;IAnimal&gt;();
 }
 </code></pre><h3 id="the-messagehub">The <code>MessageHub</code></h3>
-<p> simple Publisher-Subscriber pattern implementation. It&#39;s a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. </p>
+<p>A simple Publisher-Subscriber pattern implementation. It&#39;s a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. </p>
 <h4 id="example-1-subscribing-to-a-messagehub">Example 1: <code>Subscribing to a MessageHub</code></h4>
 <p>A simple example using the DependencyContainer discussed above.</p>
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
@@ -575,7 +575,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 
  //And lastly we publish a message
  messageHub.Publish(message);
-</code></pre><p>You can unsuscribe by calling <code>MessageHub.Unsubscribe&lt;&gt;(token);</code> using the token we saved previously.</p>
+</code></pre><p>You can unsubscribe at any time by calling <code>MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);</code> using the token we saved previously.</p>
 <h4 id="example-2-using-a-cancellable-message">Example 2: <code>Using a cancellable message</code></h4>
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
@@ -588,7 +588,8 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 
    //And lastly we publish a message
   messageHub.Publish(message);
-</code></pre></article>
+</code></pre><p>You can execute the message&#39;s cancel action with <code>message.Cancel();</code></p>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
