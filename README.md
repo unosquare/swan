@@ -529,8 +529,8 @@ A simple implementation of the publish-suscribe pattern, a good alternative to e
 #### Example 1: `SimpleMessage`
 A simple example using the DependencyContainer discussed above.
 ``` csharp
- MessageHub MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
- List<SimpleMessage> Messages = new List<SimpleMessage>();
+ var MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
+ var Messages = new List<SimpleMessage>();
  
  var message = new SimpleMessage(this, "SWAN");
  var token = MessageHub.Subscribe<SimpleMessage>(Messages.Add);
@@ -549,15 +549,15 @@ public class SimpleMessage : MessageHubGenericMessage<string>
 You can as well unsubscribe calling `MessageHub.Unsubscribe<SimpleMessage>(token);` using the token we saved previously.
 #### Example 2: `CancellableMessage`
 ``` csharp
- MessageHub MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
- List<SimpleMessageCancellable> Messages = new List<SimpleMessageCancellable>();
+ var MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
+ var Messages = new List<SimpleMessageCancellable>();
  
   var message = new SimpleMessageCancellable(this, "SWAN",() => Console.WriteLine("Cancelled"));
   message.Cancel();
   MessageHub.Subscribe<SimpleMessageCancellable>(Messages.Add);
   MessageHub.Publish(message);
 ```
-And the SimpleMessageCancellable
+And the SimpleMessageCancellable class
 ``` csharp
 public class SimpleMessageCancellable : MessageHubCancellableGenericMessage<string>
         {
