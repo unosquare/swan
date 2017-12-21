@@ -544,6 +544,6 @@ You can as well unsubscribe calling `MessageHub.Unsubscribe<SimpleMessage>(token
  
   var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => Console.WriteLine("Cancelled"));
   message.Cancel();
-  MessageHub.Subscribe<MessageHubCancellableGenericMessage<string>(Messages.Add);
+  MessageHub.Subscribe<MessageHubCancellableGenericMessage<string>>(Messages.Add);
   MessageHub.Publish(message);
 ```
