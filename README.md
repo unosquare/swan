@@ -522,3 +522,49 @@ if (Runtime.Container.CanResolve<IAnimal>())
     Runtime.Container.Resolve<IAnimal>();
 }
 ```
+
+### The `MessageHub`
+A simple implementation of the publish-suscribe pattern, a good alternative to events. Easier to write and maintain.
+
+#### Example 1: `SimpleMessage`
+A simple example using the DependencyContainer discussed above.
+``` csharp
+ MessageHub MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
+ List<SimpleMessage> Messages = new List<SimpleMessage>();
+ 
+ var message = new SimpleMessage(this, "SWAN");
+ var token = MessageHub.Subscribe<SimpleMessage>(Messages.Add);
+ MessageHub.Publish(message);
+```
+Here's the SimpleMessage class
+``` csharp
+public class SimpleMessage : MessageHubGenericMessage<string>
+        {
+            public SimpleMessage(object sender, string content = "Stuff we all need")
+                : base(sender, content)
+            {
+            }
+        }
+``` 
+You can as well unsubscribe calling `MessageHub.Unsubscribe<SimpleMessage>(token);` using the token we saved previously.
+#### Example 2: `CancellableMessage`
+``` csharp
+ MessageHub MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
+ List<SimpleMessageCancellable> Messages = new List<SimpleMessageCancellable>();
+ 
+  var message = new SimpleMessageCancellable(this, "SWAN",() => Console.WriteLine("Cancelled"));
+  message.Cancel();
+  MessageHub.Subscribe<SimpleMessageCancellable>(Messages.Add);
+  MessageHub.Publish(message);
+```
+And the SimpleMessageCancellable
+``` csharp
+public class SimpleMessageCancellable : MessageHubCancellableGenericMessage<string>
+        {
+            public SimpleMessageCancellable(object sender, string content, Action cancelAction)
+                : base(sender, content, cancelAction)
+            {
+            }
+        }
+
+```
