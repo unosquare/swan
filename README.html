@@ -560,6 +560,41 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
     // Attempts to resolve a type using specified options.
     Runtime.Container.Resolve&lt;IAnimal&gt;();
 }
+</code></pre><h3 id="the-messagehub">The <code>MessageHub</code></h3>
+<p>A simple implementation of the publish-suscribe pattern, a good alternative to events. Easier to write and maintain.</p>
+<h4 id="example-1-simplemessage">Example 1: <code>SimpleMessage</code></h4>
+<p>A simple example using the DependencyContainer discussed above.</p>
+<pre><code class="lang-csharp"> MessageHub MessageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
+ List&lt;SimpleMessage&gt; Messages = new List&lt;SimpleMessage&gt;();
+
+ var message = new SimpleMessage(this, &quot;SWAN&quot;);
+ var token = MessageHub.Subscribe&lt;SimpleMessage&gt;(Messages.Add);
+ MessageHub.Publish(message);
+</code></pre><p>Here&#39;s the SimpleMessage class</p>
+<pre><code class="lang-csharp">public class SimpleMessage : MessageHubGenericMessage&lt;string&gt;
+        {
+            public SimpleMessage(object sender, string content = &quot;Stuff we all need&quot;)
+                : base(sender, content)
+            {
+            }
+        }
+</code></pre><p>You can as well unsubscribe calling <code>MessageHub.Unsubscribe&lt;SimpleMessage&gt;(token);</code> using the token we saved previously.</p>
+<h4 id="example-2-cancellablemessage">Example 2: <code>CancellableMessage</code></h4>
+<pre><code class="lang-csharp"> MessageHub MessageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
+ List&lt;SimpleMessageCancellable&gt; Messages = new List&lt;SimpleMessageCancellable&gt;();
+
+  var message = new SimpleMessageCancellable(this, &quot;SWAN&quot;,() =&gt; Console.WriteLine(&quot;Cancelled&quot;));
+  message.Cancel();
+  MessageHub.Subscribe&lt;SimpleMessageCancellable&gt;(Messages.Add);
+  MessageHub.Publish(message);
+</code></pre><p>And the SimpleMessageCancellable</p>
+<pre><code class="lang-csharp">public class SimpleMessageCancellable : MessageHubCancellableGenericMessage&lt;string&gt;
+        {
+            public SimpleMessageCancellable(object sender, string content, Action cancelAction)
+                : base(sender, content, cancelAction)
+            {
+            }
+        }
 </code></pre></article>
           </div>
           
