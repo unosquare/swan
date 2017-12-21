@@ -571,7 +571,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  var message = new MessageHubGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;);
 
  // We suscribe to our message hub
- var token = messageHub.Subscribe((MessageHubGenericMessage&lt;string&gt; m) =&gt; Console.WriteLine(m.Content));
+ var token = messageHub.Subscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(m =&gt; m.Content.Info());
 
  //And lastly we publish a message
  messageHub.Publish(message);
@@ -581,10 +581,10 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
 
  // Here we create a simple message that has a string as its content and a custom cancel action
-  var message = new MessageHubCancellableGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;,() =&gt; Console.WriteLine(&quot;Cancelled&quot;));
+  var message = new MessageHubCancellableGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;,() =&gt; $&quot;Cancelled&quot;.Info());
 
   // We suscribe to our message hub
-  var token = messageHub.Subscribe((MessageHubCancellableGenericMessage&lt;string&gt; m) =&gt; Console.WriteLine(m.Content));
+  var token = messageHub.Subscribe&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;( m =&gt; m.Content.Info());
 
    //And lastly we publish a message
   messageHub.Publish(message);
