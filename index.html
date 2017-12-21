@@ -567,7 +567,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
 
- // Here we create a simple message using a that has a string as its content
+ // Here we create a simple message that has a string as its content
  var message = new MessageHubGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;);
 
  // We suscribe to our message hub
@@ -580,7 +580,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
 
- // Here we create a simple message using a that has a string as its content and a custom action
+ // Here we create a simple message that has a string as its content and a custom cancel action
   var message = new MessageHubCancellableGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;,() =&gt; Console.WriteLine(&quot;Cancelled&quot;));
 
   // We suscribe to our message hub
