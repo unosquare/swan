@@ -571,25 +571,38 @@ its own classes for a simple message and a cancellable message which again you c
 <h4 id="example-1-simplemessage">Example 1: <code>SimpleMessage</code></h4>
 <p>A simple example using the DependencyContainer discussed above.</p>
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
- var MessageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
+ var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
+
  // A list that contains all messages sent
- var Messages = new List&lt;MessageHubGenericMessage&lt;string&gt;&gt;();
+ var messages = new List&lt;MessageHubGenericMessage&lt;string&gt;&gt;();
 
  // Here we create a simple message using a that has a string as its content
  var message = new MessageHubGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;);
+
  // We suscribe our message hub to the list add method and save its token if we need to unsuscribe later
- var token = MessageHub.Subscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(Messages.Add);
+ var token = MessageHub.Subscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(messages.Add);
+
  //And lastly we publish a message
- MessageHub.Publish(message);
+ messageHub.Publish(message);
 </code></pre><p>You can as well unsubscribe calling <code>MessageHub.Unsubscribe&lt;SimpleMessage&gt;(token);</code> using the token we saved previously.</p>
 <h4 id="example-2-cancellablemessage">Example 2: <code>CancellableMessage</code></h4>
-<pre><code class="lang-csharp"> var MessageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
- var Messages = new List&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;();
+<pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
+ var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
 
+  // A list that contains all messages sent
+ var messages = new List&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;();
+
+ // Here we create a simple message using a that has a string as its content and a custom action
   var message = new MessageHubCancellableGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;,() =&gt; Console.WriteLine(&quot;Cancelled&quot;));
+
+  // Execute the cancel action
   message.Cancel();
-  MessageHub.Subscribe&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;(Messages.Add);
-  MessageHub.Publish(message);
+
+  // We suscribe our message hub to the list add method 
+  messageHub.Subscribe&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;(messages.Add);
+
+   //And lastly we publish a message
+  messageHub.Publish(message);
 </code></pre></article>
           </div>
           
