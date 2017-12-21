@@ -540,21 +540,10 @@ You can as well unsubscribe calling `MessageHub.Unsubscribe<SimpleMessage>(token
 #### Example 2: `CancellableMessage`
 ``` csharp
  var MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
- var Messages = new List<SimpleMessageCancellable>();
+ var Messages = new List<MessageHubCancellableGenericMessage<string>>();
  
-  var message = new SimpleMessageCancellable(this, "SWAN",() => Console.WriteLine("Cancelled"));
+  var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => Console.WriteLine("Cancelled"));
   message.Cancel();
-  MessageHub.Subscribe<SimpleMessageCancellable>(Messages.Add);
+  MessageHub.Subscribe<MessageHubCancellableGenericMessage<string>(Messages.Add);
   MessageHub.Publish(message);
-```
-And the SimpleMessageCancellable class
-``` csharp
-public class SimpleMessageCancellable : MessageHubCancellableGenericMessage<string>
-        {
-            public SimpleMessageCancellable(object sender, string content, Action cancelAction)
-                : base(sender, content, cancelAction)
-            {
-            }
-        }
-
 ```
