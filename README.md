@@ -524,7 +524,7 @@ if (Runtime.Container.CanResolve<IAnimal>())
 ```
 
 ### The `MessageHub`
- simple Publisher-Subscriber pattern implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
+A simple Publisher-Subscriber pattern implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
 
 #### Example 1: `Subscribing to a MessageHub`
 A simple example using the DependencyContainer discussed above.
@@ -541,7 +541,7 @@ A simple example using the DependencyContainer discussed above.
  //And lastly we publish a message
  messageHub.Publish(message);
 ``` 
-You can unsuscribe by calling `MessageHub.Unsubscribe<>(token);` using the token we saved previously.
+You can unsubscribe at any time by calling `MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);` using the token we saved previously.
 #### Example 2: `Using a cancellable message`
 ``` csharp
 // Using DependencyContainer to create an instance of MessageHub
@@ -556,3 +556,4 @@ You can unsuscribe by calling `MessageHub.Unsubscribe<>(token);` using the token
    //And lastly we publish a message
   messageHub.Publish(message);
 ```
+You can execute the message's cancel action with `message.Cancel();`
