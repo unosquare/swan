@@ -530,21 +530,11 @@ A simple implementation of the publish-suscribe pattern, a good alternative to e
 A simple example using the DependencyContainer discussed above.
 ``` csharp
  var MessageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
- var Messages = new List<SimpleMessage>();
+ var Messages = new List<MessageHubGenericMessage<string>>();
  
- var message = new SimpleMessage(this, "SWAN");
- var token = MessageHub.Subscribe<SimpleMessage>(Messages.Add);
+ var message = new MessageHubGenericMessage<string>(this, "SWAN");
+ var token = MessageHub.Subscribe<MessageHubGenericMessage<string>>(Messages.Add);
  MessageHub.Publish(message);
-```
-Here's the SimpleMessage class
-``` csharp
-public class SimpleMessage : MessageHubGenericMessage<string>
-        {
-            public SimpleMessage(object sender, string content = "Stuff we all need")
-                : base(sender, content)
-            {
-            }
-        }
 ``` 
 You can as well unsubscribe calling `MessageHub.Unsubscribe<SimpleMessage>(token);` using the token we saved previously.
 #### Example 2: `CancellableMessage`
