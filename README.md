@@ -16,7 +16,7 @@ Our philosophy is that SWAN should have no external dependencies, it should be c
  Table of contents
 =================
   * [Libraries](#libraries)
-  * [Nuget Installation](#nuget-installation)
+  * [Installation](#installation)
   * [Whats in the library](#whats-in-the-library)
     * [Terminal](#the-terminal)
     * [Runtime](#the-runtime)
@@ -74,7 +74,7 @@ helpful classes. Check the following table to know where each component is locat
 | [ValueTypeExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 
 
-## NuGet Installation:
+## Installation:
 -------------------
 
 [![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.svg)](https://badge.fury.io/nu/Unosquare.Swan)
