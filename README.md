@@ -12,6 +12,26 @@ Swan is a collection of classes and extension methods that we and other good dev
 the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea.
 Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.
 
+ 
+ Table of contents
+=================
+  * [Libraries](#libraries)
+  * [Nuget Installation](#nuget-installation)
+  * [Whats in the library](#whats-in-the-library)
+    * [Terminal](#the-terminal)
+    * [Runtime](#the-runtime)
+    * [Json](#the-json)
+    * [CsvWriter](#the-csvwriter)
+    * [CsvReader](#the-csvreader)
+    * [JsonClient](#the-jsonclient)
+    * [SmtpClient](#the-smtpclient)
+    * [ObjectMapper](#the-objectmapper)
+    * [Network](#the-network)
+    * [ObjectComparer](#the-objectcomparer)
+    * [DependencyContainer](#the-dependencycontainer)
+    * [MessageHub](#the-messagehub)
+
+## Libraries
 We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
 helpful classes. Check the following table to know where each component is located.
 
@@ -53,7 +73,8 @@ helpful classes. Check the following table to know where each component is locat
 | [TypeCache<T>](https://unosquare.github.io/swan/api/Unosquare.Swan.Reflection.TypeCache-1.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ValueTypeExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ValueTypeExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 
-NuGet Installation:
+
+## NuGet Installation:
 -------------------
 
 [![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.svg)](https://badge.fury.io/nu/Unosquare.Swan)
