@@ -566,13 +566,13 @@ container.Unregister&lt;IAnimal&gt;();
 </code></pre><h4 id="example-2-using-runtime-class">Example 2: Using <code>Runtime</code> class</h4>
 <p>It&#39;s a easy usage of the <code>Runtime</code> class to access the <code>Container</code> to quickly use the <code>DependencyContainer</code>.</p>
 <pre><code class="lang-csharp">// Creates/replaces a named container class registration with a given implementation and default options. 
-Runtime.Container.Register&lt;IAnimal, Dog&gt;();
+DependencyContainer.Current.Register&lt;IAnimal, Dog&gt;();
 
 // Attempts to resolve a type using specified options.
-var resolve = Runtime.Container.Resolve&lt;IAnimal&gt;();
+var resolve = DependencyContainer.Current.Resolve&lt;IAnimal&gt;();
 
 // Remove a named container class registration.
-Runtime.Container.Unregister&lt;IAnimal&gt;();    
+DependencyContainer.Current.Unregister&lt;IAnimal&gt;();    
 </code></pre><h4 id="example-3-canresolve">Example 3: <code>CanResolve</code></h4>
 <p>A very handy method to determine if a type can be resolve.</p>
 <pre><code class="lang-csharp">// Using CanResolve to check if type can be resolve
