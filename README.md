@@ -514,9 +514,7 @@ var resolve = container.Resolve<IAnimal>();
 container.Unregister<IAnimal>();            
 ```
 
-#### Example 2: Using `Runtime` class
-
-It's a easy usage of the `Runtime` class to access the `Container` to quickly use the `DependencyContainer`.
+#### Example 2: Using the DependencyContainer `Current` singleton
 
 ```csharp
 // Creates/replaces a named container class registration with a given implementation and default options. 
