@@ -98,7 +98,7 @@ SWAN won't force you to use any of its components, classes or methods.
 
 `Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan as `ObjectMapper`.
 
-[Runtime Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html)
+[Runtime API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html)
 
 ### The `Terminal`
 
@@ -120,7 +120,7 @@ The Swan `Terminal` is __all__ of the following:
 It is also very easy to use, it's thread-safe, and it does not require you to learn anything new. In fact, it simplifies logging
 messages and displaying `Console` messages by providing `string` extension methods.
 
-[Terminal Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html)
+[Terminal API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html)
 
 #### Example 1: Writing to the Terminal
 
@@ -201,7 +201,7 @@ the current thread until the entire output queue becomes empty.
 
 You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
 
-[Json Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
+[Json API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
 
 #### Example 1: Serialize
 
@@ -265,7 +265,7 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 
 Many projects require the use of CSV files to export the information, with `CsvWriter` you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.
 
-[CsvWriter Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
+[CsvWriter API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
 
 #### Example 1: Writing a List of objects
 
@@ -297,7 +297,7 @@ CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
 
 When you use, and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of `CsvReader` to read and load CSV files.
 
-[CsvReader Documentation](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html)
+[CsvReader API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html)
 
 #### Example 1: Reading a CSV data format
 
@@ -333,7 +333,7 @@ var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/Cs
 
 Represents a wrapper `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
 
-[JsonClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html)
+[JsonClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html)
 
 #### Example 1: Authentication
 
@@ -375,7 +375,7 @@ var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { fil
 
 It's a Swan's basic SMTP client that can submit messages to an SMTP server. It's very easy to manage and provide a very handy way to make use of SMTP in your application to send mails to any registered user.
 
-[SmtpClient](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
+[SmtpClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
 #### Example 1: Sending mails
 
@@ -393,7 +393,7 @@ await client.SendMailAsync(new SmtpSessionState());
 
 It's a very handy component of Swan that maps objects. You can access a default instance of `ObjectMapper` by `Runtime` class.
 
-[ObjectMapper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html)
+[ObjectMapper API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html)
 
 #### Example 1: Mapping with default map
 
@@ -434,7 +434,7 @@ var destination = mapper.Map<UserDto>(user);
 
 When you are working with projects related to network or you want to extend your application to use some network functionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
 
-[Network](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html)
+[Network API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html)
 
 #### Example 1: IPv4 and adapters information
 
@@ -476,7 +476,7 @@ var dateTime = Network.GetNetworkTimeUtc();
 
 Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
 
-[ObjectComparer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html)
+[ObjectComparer API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html)
 
 ```csharp
 // Compare if two variables of the same type are equal.
@@ -496,7 +496,7 @@ ObjectComparer.AreEnumsEqual(first, second)
 
 It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a default instance of `DependencyContainer` called `Container` by `Runtime` class.
 
-[TiniIoC](https://github.com/grumpydev/TinyIoC)
+[TiniIoC API Doc](https://github.com/grumpydev/TinyIoC)
 
 [DependencyContainer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html)
 
@@ -547,11 +547,7 @@ if (Runtime.Container.CanResolve<IAnimal>())
 ### The `MessageHub`
 A simple Publisher-Subscriber pattern implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
 
-[MessageHub](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
-
-[MessageHubGenericMessage](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHubGenericMessage-1.html)
-
-[MessageHubCancellableGenericMessage](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHubCancellableGenericMessage-1.html)
+[MessageHub API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
 
 #### Example 1: `Subscribing to a MessageHub`
 A simple example using the DependencyContainer discussed above.
