@@ -557,10 +557,11 @@ A simple example using the DependencyContainer discussed above.
  // We suscribe to our message hub
  var token = messageHub.Subscribe<MessageHubGenericMessage<string>>(m => m.Content.Info());
  
- //And lastly we publish a message
+ // We publish a message
  messageHub.Publish(message);
+ // And lastly unsuscribe  
+ MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
-You can unsubscribe at any time by calling `MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);` using the token we saved previously.
 #### Example 2: `Using a cancellable message`
 ``` csharp
 // Using DependencyContainer to create an instance of MessageHub
