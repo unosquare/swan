@@ -526,6 +526,12 @@ if (Runtime.Container.CanResolve<IAnimal>())
 ### The `MessageHub`
 A simple Publisher-Subscriber pattern implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
 
+[MessageHub](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
+
+[MessageHubGenericMessage](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHubGenericMessage-1.html)
+
+[MessageHubCancellableGenericMessage](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.MessageHubCancellableGenericMessage-1.html)
+
 #### Example 1: `Subscribing to a MessageHub`
 A simple example using the DependencyContainer discussed above.
 ``` csharp
