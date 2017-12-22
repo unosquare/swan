@@ -563,8 +563,7 @@ var resolve = container.Resolve&lt;IAnimal&gt;();
 
 // Remove a named container class registration.
 container.Unregister&lt;IAnimal&gt;();            
-</code></pre><h4 id="example-2-using-runtime-class">Example 2: Using <code>Runtime</code> class</h4>
-<p>It&#39;s a easy usage of the <code>Runtime</code> class to access the <code>Container</code> to quickly use the <code>DependencyContainer</code>.</p>
+</code></pre><h4 id="example-2-using-the-dependencycontainer-current-singleton">Example 2: Using the DependencyContainer <code>Current</code> singleton</h4>
 <pre><code class="lang-csharp">// Creates/replaces a named container class registration with a given implementation and default options. 
 DependencyContainer.Current.Register&lt;IAnimal, Dog&gt;();
 
