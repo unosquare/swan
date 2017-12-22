@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "8x522MHGm4iBRBqSAwWGCA=="
+          "hash": "QfHTonFj4zolfebZ6Fs0wg=="
         }
       },
       "is_incremental": false,
@@ -1649,11 +1649,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
