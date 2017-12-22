@@ -494,7 +494,7 @@ ObjectComparer.AreEnumsEqual(first, second)
 
 ### The `DependencyContainer`
 
-It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a default instance of `DependencyContainer` called `Container` by `Runtime` class.
+It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
 
 [DependencyContainer API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html)
 
