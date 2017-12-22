@@ -520,13 +520,13 @@ It's a easy usage of the `Runtime` class to access the `Container` to quickly us
 
 ```csharp
 // Creates/replaces a named container class registration with a given implementation and default options. 
-Runtime.Container.Register<IAnimal, Dog>();
+DependencyContainer.Current.Register<IAnimal, Dog>();
 
 // Attempts to resolve a type using specified options.
-var resolve = Runtime.Container.Resolve<IAnimal>();
+var resolve = DependencyContainer.Current.Resolve<IAnimal>();
 
 // Remove a named container class registration.
-Runtime.Container.Unregister<IAnimal>();    
+DependencyContainer.Current.Unregister<IAnimal>();    
 ```
 
 #### Example 3: `CanResolve`
