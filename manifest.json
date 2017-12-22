@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "xunc5W9U8s52TIF4n2wflQ=="
+          "hash": "dCgcKGvWYshqhVukXipkfA=="
         }
       },
       "is_incremental": false,
@@ -1649,9 +1649,8 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
@@ -1663,8 +1662,9 @@
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
