@@ -594,10 +594,11 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  // We suscribe to our message hub
  var token = messageHub.Subscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(m =&gt; m.Content.Info());
 
- //And lastly we publish a message
+ // We publish a message
  messageHub.Publish(message);
-</code></pre><p>You can unsubscribe at any time by calling <code>MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);</code> using the token we saved previously.</p>
-<h4 id="example-2-using-a-cancellable-message">Example 2: <code>Using a cancellable message</code></h4>
+ // And lastly unsuscribe  
+ MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
+</code></pre><h4 id="example-2-using-a-cancellable-message">Example 2: <code>Using a cancellable message</code></h4>
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
 
