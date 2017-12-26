@@ -601,31 +601,6 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 
  // And lastly unsuscribe, we will no longer receive any messages 
  MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
-</code></pre><h4 id="example-2-using-a-cancellable-message">Example 2: <code>Using a cancellable message</code></h4>
-<pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
- var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
-
-//we set up a variable to know if some message was cancelled 
- var cancel = false;
-
- // Here we create an instance of the publisher class which has a string as its content and 
- // a cancellation action which sets our variable cancel as true
-  var message = new MessageHubCancellableGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;,() =&gt; cancel = true);
-
- //Our message is cancelled
-  message.Cancel();
-
-  if(cancel)
-  {
-     // in here we can add some logic if a message is cancelled
-  }
-
-  // This object subscribes to the publisher&#39;s event and again just prints out its content which is a string
-  // a token is returned which can be used to unsuscribe later on
-  var token = messageHub.Subscribe&lt;MessageHubCancellableGenericMessage&lt;string&gt;&gt;( m =&gt; m.Content.Info());
-
-   //And lastly we publish a message
-  messageHub.Publish(message);
 </code></pre></article>
           </div>
           
