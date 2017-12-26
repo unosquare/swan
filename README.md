@@ -548,31 +548,36 @@ A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2
 In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern any object can "subscribe" to another object's event, if the other object "publishes" a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
 #### Example 1: `Subscribing to a MessageHub`
-A simple example using the DependencyContainer discussed above.
+A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.
 ``` csharp
 // Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
- // Here we create an instance of the publisher class
+ // Here we create an instance of the publisher class which has a string as its content
  var message = new MessageHubGenericMessage<string>(this, "SWAN");
  
- // Then this object subscribes to the publisher's event
+ // Then this object subscribes to the publisher's event and just prints its content which is a string 
+ // a token is returned which can be used to unsubscribe later on
  var token = messageHub.Subscribe<MessageHubGenericMessage<string>>(m => m.Content.Info());
  
- // We publish a message
+ // We publish a message and SWAN should be printed on the console
  messageHub.Publish(message);
- // And lastly unsuscribe  
+ 
+ // And lastly unsuscribe, we will no longer receive any messages 
  MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
+
 #### Example 2: `Using a cancellable message`
 ``` csharp
 // Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
- // Here we create a simple message that has a string as its content and a custom cancel action
+ // Here we create an instance of the publisher class which has a string as its content and 
+ // a cancellation action which only prints "Cancelled"
   var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => $"Cancelled".Info());
   
-  // We suscribe to our message hub
+  // This object subscribes to the publisher's event and again just prints out its content which is a string
+  // a token is returned which can be used to unsuscribe later on
   var token = messageHub.Subscribe<MessageHubCancellableGenericMessage<string>>( m => m.Content.Info());
   
    //And lastly we publish a message
