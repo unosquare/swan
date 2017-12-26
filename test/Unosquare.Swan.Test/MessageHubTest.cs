@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan.Test.MessageHubTests
 {
+    using Components;
+    using Mocks;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Components;
-    using Mocks;
 
     [TestFixture]
     public class MessageHubMessageBaseConstructor
