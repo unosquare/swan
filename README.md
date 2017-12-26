@@ -572,9 +572,20 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
 // Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
+//we set up a variable to know if some message was cancelled 
+ var cancel = false;
+ 
  // Here we create an instance of the publisher class which has a string as its content and 
- // a cancellation action which only prints "Cancelled"
-  var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => $"Cancelled".Info());
+ // a cancellation action which sets our variable cancel as true
+  var message = new MessageHubCancellableGenericMessage<string>(this, "SWAN",() => cancel = true);
+
+ //Our message is cancelled
+  message.Cancel();
+  
+  if(cancel)
+  {
+     // in here we can add some logic if a message is cancelled
+  }
   
   // This object subscribes to the publisher's event and again just prints out its content which is a string
   // a token is returned which can be used to unsuscribe later on
@@ -583,4 +594,3 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
    //And lastly we publish a message
   messageHub.Publish(message);
 ```
-You can execute the message's cancel action with `message.Cancel();`
