@@ -623,10 +623,10 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  var connection = new LdapConnection();
 
  // Connect to a server with a deafult port 
- await Connection.Connect(&quot;localhost&quot;, 1089);
+ await connection.Connect(&quot;localhost&quot;, 1089);
 
  // Set up the credentials 
- await Connection.Bind(&quot;cn=root&quot;, &quot;password&quot;);
+ await connection.Bind(&quot;cn=root&quot;, &quot;password&quot;);
 </code></pre><h4 id="example-2-adding-an-entry">Example 2: <code>Adding an entry</code></h4>
 <h4 id="example-3-reading-properties-of-an-entry">Example 3: <code>Reading properties of an entry</code></h4>
 <p>After establishing a connection you can use the connection&#39;s Read method to retrieve all properties of an entry</p>
@@ -656,7 +656,15 @@ var searchResult = await Connection.Search(&quot;ou=People&quot;,LdapConnection.
 <ol>
 <li><strong>ScopeBase</strong>: searches only at the base dn</li>
 <li><strong>ScopeOne</strong>: searches all entries one level under the specified dn</li>
-<li><strong>ScopeSub</strong>: as mentioned above this allows to search entries at all levels</li>
+<li><p><strong>ScopeSub</strong>: as mentioned above this allows to search entries at all levels</p>
+<h4 id="example-5-modifying-an-entry">Example 5: Modifying an entry</h4>
+<pre><code class="lang-csharp">// Modify Person and sets its email as another@email.com
+connection.Modify(&quot;cn=Person, ou=People, o=unosquare&quot;, 
+ new[] { new LdapModification(LdapModificationOp.Replace, &quot;email&quot;, &quot;another@email.com&quot;) });
+
+// disconnect from the LDAP server
+connection.Disconnect();
+</code></pre></li>
 </ol>
 </article>
           </div>
