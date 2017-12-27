@@ -603,6 +603,15 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
 </code></pre><h3 id="the-ldap-client">The <code>LDAP Client</code></h3>
 <p>The <strong>Lightweight Directory Access Protocol</strong> or LDAP is a network protocol for querying and modifying items in directory service providers like <a href="https://en.wikipedia.org/wiki/Active_Directory">Active Directory</a> which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a <code>domain</code>.</p>
+<h4 id="ldif">LDIF</h4>
+<p>The LDAP Data Interchange Format is used as a text format for  presenting commands and data.</p>
+<h5 id="fields">Fields</h5>
+<ul>
+<li><strong>dn (distinguished name)</strong>: a unique name that identifies a directory&#39;s entry</li>
+<li><strong>dc (domain component)</strong>: refers to each component of the domain. . For example www.github.com would be written as DC=www,DC=github,DC=com</li>
+<li><strong>ou (organizational unit)</strong>: refers to the organizational unit or the group that the user is part of. </li>
+<li><strong>cn (common name)</strong>: refers to the name of an individual object (ie the individual entity name) for whom/which you are querying. </li>
+</ul>
 <h4 id="operations">Operations</h4>
 <p>LDAP has a couple of operations that can be executed</p>
 <ul>
