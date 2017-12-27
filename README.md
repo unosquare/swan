@@ -572,7 +572,16 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
 ### The `LDAP Client`
 The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
 
+#### Operations
+LDAP has a couple of operations that can be executed
 
+
+* **Bind**: binds the current connection to a set of  credentials
+* **Unbind**: signals the server that the connection is about to close then the server proceeds to close the connection to the client
+* **Modify**: this operation is used by LDAP clients to request a change to be performed to the already existing database. This operation is used in combination with one of following :
+  * **Add**: inserts a new entry into the directory 
+  * **Delete**: deletes an entry from the directory
+   * **Replace**: modifies an existing property value
 #### Example 1: `Connecting to a LDAP Server`
 A connection to a LDAP server is a two step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. 
 
