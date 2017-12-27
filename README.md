@@ -572,9 +572,6 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
 ### The `LDAP Client`
 The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
 
-#### LDIF
-The LDAP Data Interchange Format is used as a text format for  presenting commands and data.
-
 #### Operations
 LDAP has a couple of operations that can be executed
 
