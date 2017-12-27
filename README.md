@@ -568,3 +568,21 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
  // And lastly unsuscribe, we will no longer receive any messages 
  MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
+
+### The `LDAP Client`
+The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
+
+
+#### Example 1: `Connecting to a LDAP Server`
+A connection to a LDAP server is a two step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. 
+
+```csharp
+ // Creating a  LdapConnection variable
+ var connection = new LdapConnection();
+ 
+ // Connecting to a server with a deafult port 
+ await Connection.Connect("localhost", 1089);
+ 
+ // Setting up the credentials 
+ await Connection.Bind("cn=root", "password");
+```
