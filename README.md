@@ -591,10 +591,10 @@ A connection to a LDAP server is a two step process, first we `connect` to a ser
  var connection = new LdapConnection();
  
  // Connect to a server with a deafult port 
- await connection.Connect("localhost", 1089);
+ await connection.Connect("ldap.forumsys.com", 389);
  
  // Set up the credentials 
- await connection.Bind("cn=root", "password");
+ await connection.Bind("cn=read-only-admin,dc=example,dc=com", "password");
 ```
 #### Example 2: `Adding an entry`
 
@@ -602,29 +602,29 @@ A connection to a LDAP server is a two step process, first we `connect` to a ser
 #### Example 3: `Reading properties of an entry`
 After establishing a connection you can use the connection's Read method to retrieve all properties of an entry
 ```csharp
-// Get all properties of 'Person'
- var properties = await connection.Read("cn=Person, ou=People, o=unosquare");
+// Get all properties of 'tesla'
+ var properties = await connection.Read("uid=tesla,dc=example,dc=com");
  
- // After getting all properties from an entry you can select one like this
- var mail = properties.GetAttribute("email");
+ // After getting all properties from an entry select its email and print it
+ properties.GetAttribute("mail").StringValue.Info();
 ```
 #### Example 4: `Searching entries`
 ```csharp
 // Retrieve all entries that have the specified email using ScopeSub 
 // which searches all entries at all levels under and including the specified base DN
-var searchResult = await Connection.Search("ou=People",LdapConnection.ScopeSub,"(email=person@email.com)");
+var searchResult = await connection.Search("dc=example,dc=com",LdapConnection.ScopeSub,"(cn=Isaac Newton)");
 
-// If there are more results remaining
-  if (searchResult.HasMore())
+// If there are more entries remaining
+  while (searchResult.HasMore())
   {
-      // Point to the next result
+      // Point to the next entry
       var entry = searchResult.Next();
       
       // Get all attributes 
       var entryAttributes = entry.GetAttributeSet();
       
       // Select its email and print it
-      entryAttributes.GetAttribute("email").StringValue.Info();
+      entryAttributes.GetAttribute("cn").StringValue.Info();
   }
 ```
 There are three scopes for searching entries :
@@ -633,9 +633,9 @@ There are three scopes for searching entries :
 3. **ScopeSub**: as mentioned above this allows to search entries at all levels
  #### Example 5: Modifying an entry
  ```csharp
- // Modify Person and sets its email as another@email.com
- connection.Modify("cn=Person, ou=People, o=unosquare", 
-    new[] { new LdapModification(LdapModificationOp.Replace, "email", "another@email.com") });
+ // Modify Tesla and sets its email as tesla@email.com
+ connection.Modify("uid=tesla,dc=example,dc=com", 
+    new[] { new LdapModification(LdapModificationOp.Replace, "mail", "tesla@email.com") });
     
  // disconnect from the LDAP server
  connection.Disconnect();
