@@ -611,23 +611,54 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 <li><strong>Modify</strong>: this operation is used by LDAP clients to request a change to be performed to the already existing database. This operation is used in combination with one of following :<ul>
 <li><strong>Add</strong>: inserts a new entry into the directory </li>
 <li><strong>Delete</strong>: deletes an entry from the directory<ul>
-<li><strong>Replace</strong>: modifies an existing property value
-#### Example 1: <code>Connecting to a LDAP Server</code>
-A connection to a LDAP server is a two step process, first we <code>connect</code> to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. </li>
+<li><strong>Replace</strong>: modifies an existing property value</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<pre><code class="lang-csharp"> // Creating a  LdapConnection variable
+<h4 id="example-1-connecting-to-a-ldap-server">Example 1: <code>Connecting to a LDAP Server</code></h4>
+<p>A connection to a LDAP server is a two step process, first we <code>connect</code> to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. </p>
+<pre><code class="lang-csharp"> // Create a  LdapConnection variable
  var connection = new LdapConnection();
 
- // Connecting to a server with a deafult port 
+ // Connect to a server with a deafult port 
  await Connection.Connect(&quot;localhost&quot;, 1089);
 
- // Setting up the credentials 
+ // Set up the credentials 
  await Connection.Bind(&quot;cn=root&quot;, &quot;password&quot;);
-</code></pre></article>
+</code></pre><h4 id="example-2-adding-an-entry">Example 2: <code>Adding an entry</code></h4>
+<h4 id="example-3-reading-properties-of-an-entry">Example 3: <code>Reading properties of an entry</code></h4>
+<p>After establishing a connection you can use the connection&#39;s Read method to retrieve all properties of an entry</p>
+<pre><code class="lang-csharp">// Get all properties of &#39;Person&#39;
+ var properties = await connection.Read(&quot;cn=Person, ou=People, o=unosquare&quot;);
+
+ // After getting all properties from an entry you can select one like this
+ var mail = properties.GetAttribute(&quot;email&quot;);
+</code></pre><h4 id="example-4-searching-entries">Example 4: <code>Searching entries</code></h4>
+<pre><code class="lang-csharp">// Retrieve all entries that have the specified email using ScopeSub 
+// which searches all entries at all levels under and including the specified base DN
+var searchResult = await Connection.Search(&quot;ou=People&quot;,LdapConnection.ScopeSub,&quot;(email=person@email.com)&quot;);
+
+// If there are more results remaining
+  if (searchResult.HasMore())
+  {
+      // Point to the next result
+      var entry = searchResult.Next();
+
+      // Get all attributes 
+      var entryAttributes = entry.GetAttributeSet();
+
+      // Select its email and print it
+      entryAttributes.GetAttribute(&quot;email&quot;).StringValue.Info();
+  }
+</code></pre><p>There are three scopes for searching entries :</p>
+<ol>
+<li><strong>ScopeBase</strong>: searches only at the base dn</li>
+<li><strong>ScopeOne</strong>: searches all entries one level under the specified dn</li>
+<li><strong>ScopeSub</strong>: as mentioned above this allows to search entries at all levels</li>
+</ol>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
