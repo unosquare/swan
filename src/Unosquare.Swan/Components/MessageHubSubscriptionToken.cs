@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents an active subscription to a message
     /// </summary>
-    public sealed class MessageHubSubscriptionToken 
+    public sealed class MessageHubSubscriptionToken
         : IDisposable
     {
         private readonly WeakReference _hub;
@@ -42,15 +42,12 @@
         /// </summary>
         public void Dispose()
         {
-            if (_hub.IsAlive)
+            if (_hub.IsAlive && _hub.Target is IMessageHub hub)
             {
-                if (_hub.Target is IMessageHub hub)
-                {
-                    var unsubscribeMethod = typeof(IMessageHub).GetMethod("Unsubscribe",
-                        new[] { typeof(MessageHubSubscriptionToken) });
-                    unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_messageType);
-                    unsubscribeMethod.Invoke(hub, new object[] { this });
-                }
+                var unsubscribeMethod = typeof(IMessageHub).GetMethod(nameof(IMessageHub.Unsubscribe),
+                    new[] {typeof(MessageHubSubscriptionToken)});
+                unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_messageType);
+                unsubscribeMethod.Invoke(hub, new object[] {this});
             }
 
             GC.SuppressFinalize(this);

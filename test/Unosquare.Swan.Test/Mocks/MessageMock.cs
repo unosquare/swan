@@ -10,13 +10,4 @@
             // placeholder
         }
     }
-
-    public class SimpleMessageMockCancellable : Components.MessageHubCancellableGenericMessage<string>
-    {
-        public SimpleMessageMockCancellable(object sender, string content, Action cancelAction)
-            : base(sender, content, cancelAction)
-        {
-            // placeholder
-        }
-    }
 }

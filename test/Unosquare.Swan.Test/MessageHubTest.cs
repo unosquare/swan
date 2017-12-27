@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan.Test.MessageHubTests
 {
+    using Components;
+    using Mocks;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Components;
-    using Mocks;
 
     [TestFixture]
     public class MessageHubMessageBaseConstructor
@@ -28,41 +28,6 @@
             var content = new SimpleMessageMock(this);
             var message = new MessageHubGenericMessage<string>(this, content.Content);
 
-            Assert.IsNotNull(message.Sender);
-            Assert.IsNotNull(message.Content);
-        }
-    }
-
-    [TestFixture]
-    public class MessageHubCancellableGenericMessageConstructor
-    {
-        private readonly List<SimpleMessageMockCancellable> _messagesToSend = new List<SimpleMessageMockCancellable>();
-        private readonly MessageHub _messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
-
-        [Test]
-        public void NullCancel_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                var message = new MessageHubCancellableGenericMessage<string>(this, "Unosquare Américas", null);
-            });
-        }
-
-        [Test]
-        public void ValidCancel_ReturnsSuccess()
-        {
-            var cancel = false;
-            var message = new SimpleMessageMockCancellable(this, "Unosquare Americas", () =>
-            {
-                cancel = true;
-            });
-
-            message.Cancel();
-
-            _messageHub.Subscribe<SimpleMessageMockCancellable>(_messagesToSend.Add, x => false);
-            _messageHub.Publish(message);
-
-            Assert.IsTrue(cancel);
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
         }
