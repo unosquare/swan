@@ -591,10 +591,10 @@ A connection to a LDAP server is a two step process, first we `connect` to a ser
  var connection = new LdapConnection();
  
  // Connect to a server with a deafult port 
- await Connection.Connect("localhost", 1089);
+ await connection.Connect("localhost", 1089);
  
  // Set up the credentials 
- await Connection.Bind("cn=root", "password");
+ await connection.Bind("cn=root", "password");
 ```
 #### Example 2: `Adding an entry`
 
@@ -631,3 +631,12 @@ There are three scopes for searching entries :
 1. **ScopeBase**: searches only at the base dn
 2. **ScopeOne**: searches all entries one level under the specified dn
 3. **ScopeSub**: as mentioned above this allows to search entries at all levels
+ #### Example 5: Modifying an entry
+ ```csharp
+ // Modify Person and sets its email as another@email.com
+ connection.Modify("cn=Person, ou=People, o=unosquare", 
+    new[] { new LdapModification(LdapModificationOp.Replace, "email", "another@email.com") });
+    
+ // disconnect from the LDAP server
+ connection.Disconnect();
+ ```
