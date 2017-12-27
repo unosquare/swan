@@ -575,13 +575,6 @@ The **Lightweight Directory Access Protocol** or LDAP is a network protocol for 
 #### LDIF
 The LDAP Data Interchange Format is used as a text format for  presenting commands and data.
 
-##### Fields
-
-* **dn (distinguished name)**: a unique name that identifies a directory's entry
-* **dc (domain component)**: refers to each component of the domain. . For example www.github.com would be written as DC=www,DC=github,DC=com
-* **ou (organizational unit)**: refers to the organizational unit or the group that the user is part of. 
-* **cn (common name)**: refers to the name of an individual object (ie the individual entity name) for whom/which you are querying. 
-
 #### Operations
 LDAP has a couple of operations that can be executed
 
