@@ -601,6 +601,18 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 
  // And lastly unsuscribe, we will no longer receive any messages 
  MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
+</code></pre><h3 id="the-ldap-client">The <code>LDAP Client</code></h3>
+<p>The <strong>Lightweight Directory Access Protocol</strong> or LDAP is a network protocol for querying and modifying items in directory service providers like <a href="https://en.wikipedia.org/wiki/Active_Directory">Active Directory</a> which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a <code>domain</code>.</p>
+<h4 id="example-1-connecting-to-a-ldap-server">Example 1: <code>Connecting to a LDAP Server</code></h4>
+<p>A connection to a LDAP server is a two step process, first we <code>connect</code> to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. </p>
+<pre><code class="lang-csharp"> // Creating a  LdapConnection variable
+ var connection = new LdapConnection();
+
+ // Connecting to a server with a deafult port 
+ await Connection.Connect(&quot;localhost&quot;, 1089);
+
+ // Setting up the credentials 
+ await Connection.Bind(&quot;cn=root&quot;, &quot;password&quot;);
 </code></pre></article>
           </div>
           
