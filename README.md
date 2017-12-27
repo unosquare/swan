@@ -582,16 +582,52 @@ LDAP has a couple of operations that can be executed
   * **Add**: inserts a new entry into the directory 
   * **Delete**: deletes an entry from the directory
    * **Replace**: modifies an existing property value
+   
 #### Example 1: `Connecting to a LDAP Server`
 A connection to a LDAP server is a two step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. 
 
 ```csharp
- // Creating a  LdapConnection variable
+ // Create a  LdapConnection variable
  var connection = new LdapConnection();
  
- // Connecting to a server with a deafult port 
+ // Connect to a server with a deafult port 
  await Connection.Connect("localhost", 1089);
  
- // Setting up the credentials 
+ // Set up the credentials 
  await Connection.Bind("cn=root", "password");
 ```
+#### Example 2: `Adding an entry`
+
+
+#### Example 3: `Reading properties of an entry`
+After establishing a connection you can use the connection's Read method to retrieve all properties of an entry
+```csharp
+// Get all properties of 'Person'
+ var properties = await connection.Read("cn=Person, ou=People, o=unosquare");
+ 
+ // After getting all properties from an entry you can select one like this
+ var mail = properties.GetAttribute("email");
+```
+#### Example 4: `Searching entries`
+```csharp
+// Retrieve all entries that have the specified email using ScopeSub 
+// which searches all entries at all levels under and including the specified base DN
+var searchResult = await Connection.Search("ou=People",LdapConnection.ScopeSub,"(email=person@email.com)");
+
+// If there are more results remaining
+  if (searchResult.HasMore())
+  {
+      // Point to the next result
+      var entry = searchResult.Next();
+      
+      // Get all attributes 
+      var entryAttributes = entry.GetAttributeSet();
+      
+      // Select its email and print it
+      entryAttributes.GetAttribute("email").StringValue.Info();
+  }
+```
+There are three scopes for searching entries :
+1. **ScopeBase**: searches only at the base dn
+2. **ScopeOne**: searches all entries one level under the specified dn
+3. **ScopeSub**: as mentioned above this allows to search entries at all levels
