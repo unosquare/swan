@@ -623,34 +623,34 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  var connection = new LdapConnection();
 
  // Connect to a server with a deafult port 
- await connection.Connect(&quot;localhost&quot;, 1089);
+ await connection.Connect(&quot;ldap.forumsys.com&quot;, 389);
 
  // Set up the credentials 
- await connection.Bind(&quot;cn=root&quot;, &quot;password&quot;);
+ await connection.Bind(&quot;cn=read-only-admin,dc=example,dc=com&quot;, &quot;password&quot;);
 </code></pre><h4 id="example-2-adding-an-entry">Example 2: <code>Adding an entry</code></h4>
 <h4 id="example-3-reading-properties-of-an-entry">Example 3: <code>Reading properties of an entry</code></h4>
 <p>After establishing a connection you can use the connection&#39;s Read method to retrieve all properties of an entry</p>
-<pre><code class="lang-csharp">// Get all properties of &#39;Person&#39;
- var properties = await connection.Read(&quot;cn=Person, ou=People, o=unosquare&quot;);
+<pre><code class="lang-csharp">// Get all properties of &#39;tesla&#39;
+ var properties = await connection.Read(&quot;uid=tesla,dc=example,dc=com&quot;);
 
- // After getting all properties from an entry you can select one like this
- var mail = properties.GetAttribute(&quot;email&quot;);
+ // After getting all properties from an entry select its email and print it
+ properties.GetAttribute(&quot;mail&quot;).StringValue.Info();
 </code></pre><h4 id="example-4-searching-entries">Example 4: <code>Searching entries</code></h4>
 <pre><code class="lang-csharp">// Retrieve all entries that have the specified email using ScopeSub 
 // which searches all entries at all levels under and including the specified base DN
-var searchResult = await Connection.Search(&quot;ou=People&quot;,LdapConnection.ScopeSub,&quot;(email=person@email.com)&quot;);
+var searchResult = await connection.Search(&quot;dc=example,dc=com&quot;,LdapConnection.ScopeSub,&quot;(cn=Isaac Newton)&quot;);
 
-// If there are more results remaining
-  if (searchResult.HasMore())
+// If there are more entries remaining
+  while (searchResult.HasMore())
   {
-      // Point to the next result
+      // Point to the next entry
       var entry = searchResult.Next();
 
       // Get all attributes 
       var entryAttributes = entry.GetAttributeSet();
 
       // Select its email and print it
-      entryAttributes.GetAttribute(&quot;email&quot;).StringValue.Info();
+      entryAttributes.GetAttribute(&quot;cn&quot;).StringValue.Info();
   }
 </code></pre><p>There are three scopes for searching entries :</p>
 <ol>
@@ -658,9 +658,9 @@ var searchResult = await Connection.Search(&quot;ou=People&quot;,LdapConnection.
 <li><strong>ScopeOne</strong>: searches all entries one level under the specified dn</li>
 <li><p><strong>ScopeSub</strong>: as mentioned above this allows to search entries at all levels</p>
 <h4 id="example-5-modifying-an-entry">Example 5: Modifying an entry</h4>
-<pre><code class="lang-csharp">// Modify Person and sets its email as another@email.com
-connection.Modify(&quot;cn=Person, ou=People, o=unosquare&quot;, 
- new[] { new LdapModification(LdapModificationOp.Replace, &quot;email&quot;, &quot;another@email.com&quot;) });
+<pre><code class="lang-csharp">// Modify Tesla and sets its email as tesla@email.com
+connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;, 
+ new[] { new LdapModification(LdapModificationOp.Replace, &quot;mail&quot;, &quot;tesla@email.com&quot;) });
 
 // disconnect from the LDAP server
 connection.Disconnect();
