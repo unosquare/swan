@@ -603,8 +603,22 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
 </code></pre><h3 id="the-ldap-client">The <code>LDAP Client</code></h3>
 <p>The <strong>Lightweight Directory Access Protocol</strong> or LDAP is a network protocol for querying and modifying items in directory service providers like <a href="https://en.wikipedia.org/wiki/Active_Directory">Active Directory</a> which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a <code>domain</code>.</p>
-<h4 id="example-1-connecting-to-a-ldap-server">Example 1: <code>Connecting to a LDAP Server</code></h4>
-<p>A connection to a LDAP server is a two step process, first we <code>connect</code> to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. </p>
+<h4 id="operations">Operations</h4>
+<p>LDAP has a couple of operations that can be executed</p>
+<ul>
+<li><strong>Bind</strong>: binds the current connection to a set of  credentials</li>
+<li><strong>Unbind</strong>: signals the server that the connection is about to close then the server proceeds to close the connection to the client</li>
+<li><strong>Modify</strong>: this operation is used by LDAP clients to request a change to be performed to the already existing database. This operation is used in combination with one of following :<ul>
+<li><strong>Add</strong>: inserts a new entry into the directory </li>
+<li><strong>Delete</strong>: deletes an entry from the directory<ul>
+<li><strong>Replace</strong>: modifies an existing property value
+#### Example 1: <code>Connecting to a LDAP Server</code>
+A connection to a LDAP server is a two step process, first we <code>connect</code> to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <pre><code class="lang-csharp"> // Creating a  LdapConnection variable
  var connection = new LdapConnection();
 
