@@ -577,7 +577,7 @@ LDAP has a couple of operations that can be executed
 
 
 * **Bind**: binds the current connection to a set of  credentials
-* **Unbind**: signals the server that the connection is about to close then the server proceeds to close the connection to the client
+* **Unbind or Disconnect**: signals the server that the connection is about to close then the server proceeds to close the connection to the client
 * **Modify**: this operation is used by LDAP clients to request a change to be performed to the already existing database. This operation is used in combination with one of following :
   * **Add**: inserts a new entry into the directory 
   * **Delete**: deletes an entry from the directory
@@ -599,7 +599,7 @@ A connection to a LDAP server is a two step process, first we `connect` to a ser
 #### Example 2: `Adding an entry`
 
 
-#### Example 3: `Reading properties of an entry`
+#### Example 3: `Reading all the properties of an entry`
 After establishing a connection you can use the connection's Read method to retrieve all properties of an entry
 ```csharp
 // Get all properties of 'tesla'
@@ -631,12 +631,32 @@ There are three scopes for searching entries :
 1. **ScopeBase**: searches only at the base dn
 2. **ScopeOne**: searches all entries one level under the specified dn
 3. **ScopeSub**: as mentioned above this allows to search entries at all levels
- #### Example 5: Modifying an entry
+
+#### Modifying an entry attribute
+An easy way to deal with attributes modification is by calling the Modify method with a `LdapModificationOp` such as:
+* **Replace**: overrides an attribute value. 
+   * If the attribute does not exist it creates a new one
+   * If no value is passed the entire attribute is deleted
+* **Delete** : deletes a value from an attribute.
+   * If no values are listed or if all of them are the entire attribute is removed
+* **Add**: adds a new value to an attribute 
+   * If the attribute does not exist a new one is created
+
+ ##### Example 5: Modifying properties
  ```csharp
  // Modify Tesla and sets its email as tesla@email.com
  connection.Modify("uid=tesla,dc=example,dc=com", 
     new[] { new LdapModification(LdapModificationOp.Replace, "mail", "tesla@email.com") });
     
+   // Deletes the listed values from the given attribute
+ connection.Modify("uid=tesla,dc=example,dc=com", 
+    new[] { new LdapModification(LdapModificationOp.Delete, "mail", "tesla@email.com") });
+
+ // Add back the recently deleted property
+ connection.Modify("uid=tesla,dc=example,dc=com", 
+    new[] { new LdapModification(LdapModificationOp.Add, "mail", "tesla@email.com") });
+
+
  // disconnect from the LDAP server
  connection.Disconnect();
  ```
