@@ -76,7 +76,10 @@
 <h1 id="img-srchttpsgithubcomunosquareswanrawmasterswan-logo-32pngimg-swan-stuff-we-all-need"><img src="https://github.com/unosquare/swan/raw/master/swan-logo-32.png"> SWAN: Stuff We All Need</h1>
 <p><em><span class="emoji" shortcode="star">⭐</span> Please star this project if you find it useful!</em></p>
 <p>SWAN stands for Stuff We All Need</p>
-<p>Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. Swan is a collection of classes and extension methods that we (and other good developers) have written and evolved over the years. We found ourselves copying and pasting the same code for every project every time we started them. We decided to kill that cycle once and for all. This is the result of that idea. Our philosophy is that Swan should have no external dependencies, it should be cross-platform, and it should be useful.</p>
+<p>Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. 
+Swan is a collection of classes and extension methods that we and other good developers have developed and evolved over the years. We found ourselves copying and pasting 
+the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea.
+Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.</p>
 <h1 id="-table-of-contents"> Table of contents</h1>
 <ul>
 <li><a href="#libraries">Libraries</a></li>
@@ -99,13 +102,14 @@
 </li>
 </ul>
 <h2 id="libraries">Libraries</h2>
-<p>We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.</p>
+<p>We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
+helpful classes. Check the following table to know where each component is located.</p>
 <table>
 <thead>
 <tr>
 <th>Component</th>
-<th>Swan Lite</th>
-<th>Swan Standard</th>
+<th>SWAN Lite</th>
+<th>SWAN</th>
 </tr>
 </thead>
 <tbody>
@@ -288,20 +292,19 @@
 </table>
 <h2 id="installation">Installation:</h2>
 <hr>
-<p>Swan Standard Installation:</p>
 <p><a href="https://badge.fury.io/nu/Unosquare.Swan"><img src="https://badge.fury.io/nu/Unosquare.Swan.svg" alt="NuGet version"></a></p>
 <pre><code>PM&gt; Install-Package Unosquare.Swan
-</code></pre><p>Swan Lite Installation:</p>
-<p><a href="https://badge.fury.io/nu/Unosquare.Swan.Lite"><img src="https://badge.fury.io/nu/Unosquare.Swan.Lite.svg" alt="NuGet version"></a></p>
+</code></pre><p><a href="https://badge.fury.io/nu/Unosquare.Swan.Lite"><img src="https://badge.fury.io/nu/Unosquare.Swan.Lite.svg" alt="NuGet version"></a></p>
 <pre><code>PM&gt; Install-Package Unosquare.Swan.Lite
 </code></pre><h2 id="whats-in-the-library">What&#39;s in the library</h2>
-<p>In this section, we present the different components that are available in the Swan library. Please keep in mind that everything in the library is opt-in. Swan is completely opt-in. It won&#39;t force you to use any of its components, classes or methods.</p>
-<h3 id="the-runtime-class">The <code>Runtime</code> class</h3>
-<p><code>Runtime</code> provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan such as <code>ObjectMapper</code>.</p>
+<p>In this section, we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
+SWAN won&#39;t force you to use any of its components, classes or methods.</p>
+<h3 id="the-runtime">The <code>Runtime</code></h3>
+<p><code>Runtime</code> provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan as <code>ObjectMapper</code>.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html">Runtime API Doc</a></p>
-<h3 id="the-terminal-class">The <code>Terminal</code> class</h3>
-<p>Many times, we find ourselves implementing <code>Console</code> output code as some <code>NLog</code> or <code>Log4Net</code> logger or adapter, especially 
-when writing console applications, daemons and Windows services or Linux daemons. We also tend to write <code>Console</code> code for reading user 
+<h3 id="the-terminal">The <code>Terminal</code></h3>
+<p>Many times, we find ourselves implementing <code>Console</code> output code as some NLog or Log4Net logger or adapter, especially 
+when writing console applications, daemons and windows services. We also tend to write <code>Console</code> code for reading user 
 input because it can&#39;t be some logger or adapter. And then you have the <code>System.Diagnostics.Debug</code> class to write 
 to the debugger output. And finally, all your <code>Console</code> user interaction looks primitive and unprofessional. In other 
 words, you end up with 3 things you are unsure of how to put together in the different configurations and runtime environments:
@@ -319,7 +322,7 @@ code everywhere in your application and it makes it look silly, bloated and writ
 messages and displaying <code>Console</code> messages by providing <code>string</code> extension methods.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Terminal.html">Terminal API Doc</a></p>
 <h4 id="example-1-writing-to-the-terminal">Example 1: Writing to the Terminal</h4>
-<p>This only writes messages out to the <code>TerminalWriters</code> if there are any available. In practice, we typically <strong>DO NOT</strong> use
+<p>This only writes messages out to the <code>TerminalWriters</code> if they are available. In practice, we typically <strong>DO NOT</strong> use
 the <code>Write</code> and <code>WriteLine</code> methods but they are provided for convenience, extensibility and customization. Please note
 that these methods do not forward messages as logging events and therefore whatever is written via these methods
 will not show up in you logging subsystem.</p>
@@ -342,10 +345,6 @@ $&quot;Hello, today is {DateTime.Today}&quot;.WriteLine(null, TerminalWriters.St
 methods that are intended for logging. These methods have different purposes and distinct functionality. Please
 refer to the example below and its comments.</p>
 <pre><code class="lang-csharp">$&quot;Hello, today is {DateTime.Today}&quot;.Info();
-$&quot;Hello, today is {DateTime.Today}&quot;.Debug();
-$&quot;Hello, today is {DateTime.Today}&quot;.Warn();
-$&quot;Hello, today is {DateTime.Today}&quot;.Error();
-$&quot;Hello, today is {DateTime.Today}&quot;.Trace();
 </code></pre><h4 id="example-3-forwarding-logging-messages">Example 3: Forwarding Logging Messages</h4>
 <p>Suppose you have various calls to <code>Terminal</code>&#39;s logging methods such as <code>Info()</code>, <code>Warn()</code>, <code>Error()</code>, <code>Trace()</code>
 and <code>Debug()</code>. You wish to forward those messages to a logging subsystem in addition to using the <code>Console</code>&#39;s
@@ -376,7 +375,7 @@ is an asynchronous, thread-safe output queue, we might under certain situations 
 out to the <code>Console</code> before the program exits. For example, when we write a console application that requires its usage
 to be fully printed out before the process is terminated. In these scenarios, we use <code>Terminal.Flush</code> which blocks
 the current thread until the entire output queue becomes empty.</p>
-<h3 id="the-json-formatter">The <code>Json</code> Formatter</h3>
+<h3 id="the-json">The <code>Json</code></h3>
 <p>You can serialize and deserialize strings and objects using Swan&#39;s <code>Json</code> Formatter. It&#39;s a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and when arrives it&#39;s necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html">Json API Doc</a></p>
 <h4 id="example-1-serialize">Example 1: Serialize</h4>
@@ -413,8 +412,8 @@ var data = Json.Deserialize(basicJson);
 var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
 // Deserializes the specified string in a new instance of the type BasicJson.
 var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
-</code></pre><h3 id="the-csvwriter-class">The <code>CsvWriter</code> class</h3>
-<p>Many projects require the use of CSV files to export and import data. With <code>CsvWriter</code> you can easily write objects and data to CSV format. It also provides a useful way to save the data to a file.</p>
+</code></pre><h3 id="the-csvwriter">The <code>CsvWriter</code></h3>
+<p>Many projects require the use of CSV files to export the information, with <code>CsvWriter</code> you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter API Doc</a></p>
 <h4 id="example-1-writing-a-list-of-objects">Example 1: Writing a List of objects</h4>
 <p>This is the way to write a list of objects into a CSV format.</p>
@@ -432,11 +431,11 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString()
 var basicObj = new List&lt;BasicJson&gt;();
 // This is where the object is save into a file
 CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
-</code></pre><h3 id="the-csvreader-class">The <code>CsvReader</code> class</h3>
-<p>When you need to parse data in CSV files you&#39;ll always need an easy way to read and load their contents into lists and classes that are usable by your application. Swan provides the <code>CsvReader</code> class to read and load CSV files into objects.</p>
+</code></pre><h3 id="the-csvreader">The <code>CsvReader</code></h3>
+<p>When you use, and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of <code>CsvReader</code> to read and load CSV files.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html">CsvReader API Doc</a></p>
-<h4 id="example-1-reading-a-csv-data-string">Example 1: Reading a CSV data string</h4>
-<p>This is a way to read CSV formatted string.</p>
+<h4 id="example-1-reading-a-csv-data-format">Example 1: Reading a CSV data format</h4>
+<p>This is a way to read CSV format data.</p>
 <pre><code class="lang-csharp"> // The data to be readed
 var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
     Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;500&quot; 
@@ -448,44 +447,82 @@ using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
     var reader = new CsvReader(stream, true, Encoding.UTF8);
 };
 </code></pre><h4 id="example-2-reading-a-csv-file">Example 2: Reading a CSV file</h4>
-<p>From a CSV file, you can read and load the information into a generic list.</p>
+<p>From a CSV file, you can read and load the information to a generic list.</p>
 <pre><code class="lang-csharp">// The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
 // This is where the object is save into a file
 CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
 // This is how you can load the records of the CSV file
 var loadedRecords = CsvReader.LoadRecords&lt;BasicJson&gt;(&quot;C:/Users/user/Documents/CsvFile&quot;);
-</code></pre><h3 id="the-jsonclient-class">The <code>JsonClient</code> class</h3>
+</code></pre><h3 id="the-jsonclient">The <code>JsonClient</code></h3>
 <p>Represents a wrapper <code>HttpClient</code> with extended methods to use with JSON payloads and bearer tokens authentication.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.JsonClient.html">JsonClient API Doc</a></p>
 <h4 id="example-1-authentication">Example 1: Authentication</h4>
-<p>You can add Authentication to your requests easily.</p>
+<p>You can Authentication into your application.</p>
 <pre><code class="lang-csharp">// The Authenticate
 var data = JsonClient.Authenticate(&quot;https://mywebsite.com/api/token&quot;, &quot;admin&quot;, &quot;password&quot;);
-</code></pre><h4 id="example-2-an-http-get-request">Example 2: An HTTP GET request</h4>
-<p>Easy way to HTTP GET using <code>JsonClient</code>.</p>
+</code></pre><h4 id="example-2-making-a-get">Example 2: Making a GET</h4>
+<p>Easy way to make a HTTP GET using <code>JsonClient</code>.</p>
 <pre><code class="lang-csharp">// The GET
 var data = JsonClient.Get&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;);
-</code></pre><h4 id="example-3-an-http-post-request">Example 3: An HTTP POST request</h4>
-<p>Easy way to HTTP POST using <code>JsonClient</code>.</p>
+</code></pre><h4 id="example-3-making-a-post">Example 3: Making a POST</h4>
+<p>Easy way to make a POST using <code>JsonClient</code>.</p>
 <pre><code class="lang-csharp">// The POST
 var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
 </code></pre><h4 id="example-4-making-a-put">Example 4: Making a PUT</h4>
-<p>Easy way to HTTP PUT using <code>JsonClient</code>.</p>
+<p>Easy way to make a PUT using <code>JsonClient</code>.</p>
 <pre><code class="lang-csharp">// The PUT
 var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
 </code></pre><h3 id="the-smtpclient">The <code>SmtpClient</code></h3>
-<p>It&#39;s a basic SMTP client that can submit messages to an SMTP server. It&#39;s very easy to cvonfigure and it provides a very handy way to make send email messages in your application.</p>
+<p>It&#39;s a Swan&#39;s basic SMTP client that can submit messages to an SMTP server. It&#39;s very easy to manage and provide a very handy way to make use of SMTP in your application to send mails to any registered user.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html">SmtpClient API Doc</a></p>
-<h4 id="example-1-sending-emails">Example 1: Sending emails</h4>
+<h4 id="example-1-sending-a-mail">Example 1: Sending a mail</h4>
 <p>The mails are sent asynchronously.</p>
-<pre><code class="lang-csharp">// Sending mails async
-await client.SendMailAsync(new MailMessage());
+<pre><code class="lang-csharp">// Create a new smtp client using google&#39;s smtp server
+var client = new SmtpClient(&quot;smtp.gmail.com&quot;, 587);
 
-// Or send the mail based on a saved SMTP session state
-await client.SendMailAsync(new SmtpSessionState());
-</code></pre><h3 id="the-objectmapper-component">The <code>ObjectMapper</code> component</h3>
-<p>The <code>ObjectMapper</code> is a component to translate and copy property data from one type to another. You can access a default instance of <code>ObjectMapper</code> through the <code>Runtime</code> class.</p>
+// Send an email 
+client.SendMailAsync(new MailMessage(&quot;sender@test.com&quot;, &quot;recipient@test.cm&quot;, &quot;Subject&quot;, &quot;Body&quot;));
+</code></pre><h4 id="example-2-using-a-smtp-session-state">Example 2: Using a SMTP session state</h4>
+<pre><code class="lang-csharp">// Create a new session state with a sender address
+var session = new SmtpSessionState {SenderAddress = &quot;sender@test.com&quot;};
+
+// Add a recipient
+session.Recipients.Add(&quot;recipient@test.cm&quot;);
+
+// Send
+client.SendMailAsync(session);
+</code></pre><h4 id="example-2-adding-an-attatchment-with-smtp-session-state">Example 2: Adding an attatchment with SMTP session state</h4>
+<p>When using <code>SmtpSessionState</code> you have to deal with raw data manipulation, in order to parse MIME attachments <a href="https://www.nuget.org/packages/MimeKit/">MimeKit</a> is recommended.</p>
+<pre><code class="lang-csharp">// Create a new session state with a sender address
+var session = new SmtpSessionState { SenderAddress = &quot;sender@test.com&quot; };
+
+// Add a recipient
+session.Recipients.Add(&quot;recipient@test.cm&quot;);
+
+// load a file as an attachment
+var attachment = new MimePart(&quot;image&quot;, &quot;gif&quot;)
+{
+    Content = new MimeContent(File.OpenRead(&quot;meme.gif&quot;), ContentEncoding.Default),
+    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+    ContentTransferEncoding = ContentEncoding.Base64,
+    FileName = Path.GetFileName(&quot;meme.gif&quot;)
+};
+
+
+using (var memory = new MemoryStream())
+{
+    //Decode the attachment content
+    attachment.Content.DecodeTo(memory);
+
+    //Convert it into a byte array and add it to the session DataBuffer
+    session.DataBuffer.AddRange(memory.ToArray());
+}
+
+// Send
+client.SendMailAsync(session);
+</code></pre><h3 id="the-objectmapper">The <code>ObjectMapper</code></h3>
+<p>It&#39;s a very handy component of Swan that maps objects. You can access a default instance of <code>ObjectMapper</code> by <code>Runtime</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html">ObjectMapper API Doc</a></p>
 <h4 id="example-1-mapping-with-default-map">Example 1: Mapping with default map</h4>
 <p>The conversion generates a map automatically between the properties in base of the properties names.</p>
@@ -707,7 +744,7 @@ connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;,
               <div class="contribution">
                 <ul class="nav">
                   <li class="top-sep">
-                    <a href="https://github.com/unosquare/swan/blob/master/README.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/unosquare/swan/blob/Issue57-SMTPClientDoc/README.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
