@@ -390,7 +390,6 @@ var client = new SmtpClient("smtp.gmail.com", 587);
 
 // Send an email 
 client.SendMailAsync(new MailMessage("sender@test.com", "recipient@test.cm", "Subject", "Body"));
-
 ```
 #### Example 2: Using a SMTP session state
 ```csharp
