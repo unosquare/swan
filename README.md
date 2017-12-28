@@ -380,9 +380,8 @@ It's a basic SMTP client that can submit messages to an SMTP server. It's very e
 
 [SmtpClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
-#### Example 1: Using a MailMessage
-
-The mails are sent asynchronously.
+#### Example 1: Using `System.Net.Mail.MailMessage`
+`SmtpClient` uses the classic  `System.Net.Mail.MailMessage` provided by .NET to send emails asynchronously.
 
 ```csharp
 // Create a new smtp client using google's smtp server
