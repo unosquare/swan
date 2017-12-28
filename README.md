@@ -30,6 +30,7 @@ Our philosophy is that SWAN should have no external dependencies, it should be c
     * [ObjectComparer](#the-objectcomparer)
     * [DependencyContainer](#the-dependencycontainer)
     * [MessageHub](#the-messagehub)
+    * [LDAP](#the-ldap-connection)
 
 ## Libraries
 We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
@@ -569,7 +570,7 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
  MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
 
-### The `LDAP Client`
+### The `LDAP Connection`
 The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
 
 #### Operations
