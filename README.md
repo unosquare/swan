@@ -7,12 +7,8 @@
 
 SWAN stands for Stuff We All Need
 
-Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. 
-Swan is a collection of classes and extension methods that we and other good developers have developed and evolved over the years. We found ourselves copying and pasting 
-the same code for every project every time we started it. We decide to kill that cycle once and for all. This is the result of that idea.
-Our philosophy is that SWAN should have no external dependencies, it should be cross-platform, and it should be useful.
+Repeating code and reinventing the wheel is generally considered bad practice. At Unosquare we are committed to beautiful code and great software. Swan is a collection of classes and extension methods that we (and other good developers) have written and evolved over the years. We found ourselves copying and pasting the same code for every project every time we started them. We decided to kill that cycle once and for all. This is the result of that idea. Our philosophy is that Swan should have no external dependencies, it should be cross-platform, and it should be useful.
 
- 
  Table of contents
 =================
   * [Libraries](#libraries)
@@ -33,10 +29,9 @@ Our philosophy is that SWAN should have no external dependencies, it should be c
     * [LdapConnection](#the-ldapconnection)
 
 ## Libraries
-We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
-helpful classes. Check the following table to know where each component is located.
+We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
 
-| Component | SWAN Lite | SWAN |
+| Component | Swan Lite | Swan Standard |
 |---|---|---|
 | [AppWorkerBase](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html) | :x: | :heavy_check_mark: |
 | [ArgumentParser](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html) | :heavy_check_mark: | :heavy_check_mark: |
@@ -76,13 +71,17 @@ helpful classes. Check the following table to know where each component is locat
 
 
 ## Installation:
--------------------
+----------------
+
+Swan Standard Installation:
 
 [![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.svg)](https://badge.fury.io/nu/Unosquare.Swan)
 
 ```
 PM> Install-Package Unosquare.Swan
 ```
+
+Swan Lite Installation:
 
 [![NuGet version](https://badge.fury.io/nu/Unosquare.Swan.Lite.svg)](https://badge.fury.io/nu/Unosquare.Swan.Lite)
 
@@ -92,19 +91,18 @@ PM> Install-Package Unosquare.Swan.Lite
 
 ## What's in the library
 
-In this section, we present the different components that are available in the SWAN library. Please keep in mind that everything in the library is opt-in.
-SWAN won't force you to use any of its components, classes or methods.
+In this section, we present the different components that are available in the Swan library. Please keep in mind that everything in the library is opt-in. Swan is completely opt-in. It won't force you to use any of its components, classes or methods.
 
-### The `Runtime`
+### The `Runtime` class
 
-`Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan as `ObjectMapper`.
+`Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan such as `ObjectMapper`.
 
 [Runtime API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html)
 
-### The `Terminal`
+### The `Terminal` class
 
-Many times, we find ourselves implementing `Console` output code as some NLog or Log4Net logger or adapter, especially 
-when writing console applications, daemons and windows services. We also tend to write `Console` code for reading user 
+Many times, we find ourselves implementing `Console` output code as some `NLog` or `Log4Net` logger or adapter, especially 
+when writing console applications, daemons and Windows services or Linux daemons. We also tend to write `Console` code for reading user 
 input because it can't be some logger or adapter. And then you have the `System.Diagnostics.Debug` class to write 
 to the debugger output. And finally, all your `Console` user interaction looks primitive and unprofessional. In other 
 words, you end up with 3 things you are unsure of how to put together in the different configurations and runtime environments:
@@ -125,7 +123,7 @@ messages and displaying `Console` messages by providing `string` extension metho
 
 #### Example 1: Writing to the Terminal
 
-This only writes messages out to the `TerminalWriters` if they are available. In practice, we typically **DO NOT** use
+This only writes messages out to the `TerminalWriters` if there are any available. In practice, we typically **DO NOT** use
 the `Write` and `WriteLine` methods but they are provided for convenience, extensibility and customization. Please note
 that these methods do not forward messages as logging events and therefore whatever is written via these methods
 will not show up in you logging subsystem.
@@ -155,6 +153,10 @@ refer to the example below and its comments.
 
 ```csharp
 $"Hello, today is {DateTime.Today}".Info();
+$"Hello, today is {DateTime.Today}".Debug();
+$"Hello, today is {DateTime.Today}".Warn();
+$"Hello, today is {DateTime.Today}".Error();
+$"Hello, today is {DateTime.Today}".Trace();
 ```
 
 #### Example 3: Forwarding Logging Messages
@@ -198,7 +200,7 @@ out to the `Console` before the program exits. For example, when we write a cons
 to be fully printed out before the process is terminated. In these scenarios, we use `Terminal.Flush` which blocks
 the current thread until the entire output queue becomes empty.
 
-### The `Json`
+### The `Json` Formatter
 
 You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
 
@@ -262,9 +264,9 @@ var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
 var data = Json.Deserialize<BasicJson>(basicJson);
 ``` 
 
-### The `CsvWriter`
+### The `CsvWriter` class
 
-Many projects require the use of CSV files to export the information, with `CsvWriter` you can easily write objects and data to CSV format, also gives a useful way to save the information into a file.
+Many projects require the use of CSV files to export and import data. With `CsvWriter` you can easily write objects and data to CSV format. It also provides a useful way to save the data to a file.
 
 [CsvWriter API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
 
@@ -294,15 +296,15 @@ var basicObj = new List<BasicJson>();
 CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
 ```
 
-### The `CsvReader`
+### The `CsvReader` class
 
-When you use, and manage the information through CSV files you need to have an easy way to read and load the data into lists and information usable by the application. Swan makes use of `CsvReader` to read and load CSV files.
+When you need to parse data in CSV files you'll always need an easy way to read and load their contents into lists and classes that are usable by your application. Swan provides the `CsvReader` class to read and load CSV files into objects.
 
 [CsvReader API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html)
 
-#### Example 1: Reading a CSV data format
+#### Example 1: Reading a CSV data string
 
-This is a way to read CSV format data.
+This is a way to read CSV formatted string.
 
 ```csharp
  // The data to be readed
@@ -319,7 +321,7 @@ using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
 
 #### Example 2: Reading a CSV file
 
-From a CSV file, you can read and load the information to a generic list.
+From a CSV file, you can read and load the information into a generic list.
 
 ```csharp
 // The list of object to be written as CSV
@@ -330,7 +332,7 @@ CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
 var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/CsvFile");
 ``` 
 
-### The `JsonClient`
+### The `JsonClient` class
 
 Represents a wrapper `HttpClient` with extended methods to use with JSON payloads and bearer tokens authentication.
 
@@ -338,25 +340,25 @@ Represents a wrapper `HttpClient` with extended methods to use with JSON payload
 
 #### Example 1: Authentication
 
-You can Authentication into your application.
+You can add Authentication to your requests easily.
 
 ```csharp
 // The Authenticate
 var data = JsonClient.Authenticate("https://mywebsite.com/api/token", "admin", "password");
 ```
 
-#### Example 2: Making a GET
+#### Example 2: An HTTP GET request
 
-Easy way to make a HTTP GET using `JsonClient`.
+Easy way to HTTP GET using `JsonClient`.
 
 ```csharp
 // The GET
 var data = JsonClient.Get<BasicJson>("https://mywebsite.com/api/data");
 ```
 
-#### Example 3: Making a POST 
+#### Example 3: An HTTP POST request
 
-Easy way to make a POST using `JsonClient`.
+Easy way to HTTP POST using `JsonClient`.
 
 ```csharp
 // The POST
@@ -365,20 +367,20 @@ var data = JsonClient.Post<BasicJson>("https://mywebsite.com/api/data", new { fi
 
 #### Example 4: Making a PUT
 
-Easy way to make a PUT using `JsonClient`.
+Easy way to HTTP PUT using `JsonClient`.
 
 ```csharp
 // The PUT
 var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { filter = true });
 ```
 
-### The `SmtpClient`
+### The `SmtpClient` class
 
-It's a Swan's basic SMTP client that can submit messages to an SMTP server. It's very easy to manage and provide a very handy way to make use of SMTP in your application to send mails to any registered user.
+It's a basic SMTP client that can submit messages to an SMTP server. It's very easy to cvonfigure and it provides a very handy way to make send email messages in your application.
 
 [SmtpClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
-#### Example 1: Sending a mail
+#### Example 1: Using a MailMessage
 
 The mails are sent asynchronously.
 
@@ -434,9 +436,9 @@ using (var memory = new MemoryStream())
 client.SendMailAsync(session);
 
 ```
-### The `ObjectMapper`
+### The `ObjectMapper` component
 
-It's a very handy component of Swan that maps objects. You can access a default instance of `ObjectMapper` by `Runtime` class.
+The `ObjectMapper` is a component to translate and copy property data from one type to another. You can access a default instance of `ObjectMapper` through the `Runtime` class.
 
 [ObjectMapper API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html)
 
