@@ -570,8 +570,10 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
  MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
 
-### The `LDAP Connection`
+### The `LDAPConnection`
 The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
+
+[LdapConnection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html)
 
 #### Operations
 LDAP has a couple of operations that can be executed
@@ -597,10 +599,7 @@ A connection to a LDAP server is a two step process, first we `connect` to a ser
  // Set up the credentials 
  await connection.Bind("cn=read-only-admin,dc=example,dc=com", "password");
 ```
-#### Example 2: `Adding an entry`
-
-
-#### Example 3: `Reading all the properties of an entry`
+#### Example 2: `Reading all the properties of an entry`
 After establishing a connection you can use the connection's Read method to retrieve all properties of an entry
 ```csharp
 // Get all properties of 'tesla'
@@ -609,7 +608,7 @@ After establishing a connection you can use the connection's Read method to retr
  // After getting all properties from an entry select its email and print it
  properties.GetAttribute("mail").StringValue.Info();
 ```
-#### Example 4: `Searching entries`
+#### Example 3: `Searching entries`
 ```csharp
 // Retrieve all entries that have the specified email using ScopeSub 
 // which searches all entries at all levels under and including the specified base DN
@@ -628,12 +627,14 @@ var searchResult = await connection.Search("dc=example,dc=com",LdapConnection.Sc
       entryAttributes.GetAttribute("cn").StringValue.Info();
   }
 ```
-There are three scopes for searching entries :
+ ##### Example 4: Modifying an entry attribute
+ 
+ There are three scopes for searching entries :
 1. **ScopeBase**: searches only at the base dn
 2. **ScopeOne**: searches all entries one level under the specified dn
 3. **ScopeSub**: as mentioned above this allows to search entries at all levels
 
-#### Modifying an entry attribute
+ 
 An easy way to deal with attributes modification is by calling the Modify method with a `LdapModificationOp` such as:
 * **Replace**: overrides an attribute value. 
    * If the attribute does not exist it creates a new one
@@ -642,8 +643,6 @@ An easy way to deal with attributes modification is by calling the Modify method
    * If no values are listed or if all of them are the entire attribute is removed
 * **Add**: adds a new value to an attribute 
    * If the attribute does not exist a new one is created
-
- ##### Example 5: Modifying properties
  ```csharp
  // Modify Tesla and sets its email as tesla@email.com
  connection.Modify("uid=tesla,dc=example,dc=com", 
