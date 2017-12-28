@@ -14,14 +14,14 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
   * [Libraries](#libraries)
   * [Installation](#installation)
   * [Whats in the library](#whats-in-the-library)
-    * [Runtime](#the-runtime)
-    * [Terminal](#the-terminal)
-    * [Json](#the-json)
-    * [CsvWriter](#the-csvwriter)
-    * [CsvReader](#the-csvreader)
-    * [JsonClient](#the-jsonclient)
-    * [SmtpClient](#the-smtpclient)
-    * [ObjectMapper](#the-objectmapper)
+    * [The Runtime class](#the-runtime-class)
+    * [The Terminal class](#the-terminal-class)
+    * [The Json formatter](#the-json-formatter)
+    * [The CsvWriter class](#the-csvwriter-class)
+    * [The CsvReader class](#the-csvreader-class)
+    * [The JsonClient class](#the-jsonclient-class)
+    * [The SmtpClient class](#the-smtpclient-class)
+    * [The ObjectMapper component](#the-objectmapper-component)
     * [Network](#the-network)
     * [ObjectComparer](#the-objectcomparer)
     * [DependencyContainer](#the-dependencycontainer)
@@ -374,24 +374,66 @@ Easy way to HTTP PUT using `JsonClient`.
 var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { filter = true });
 ```
 
-### The `SmtpClient`
+### The `SmtpClient` class
 
 It's a basic SMTP client that can submit messages to an SMTP server. It's very easy to cvonfigure and it provides a very handy way to make send email messages in your application.
 
 [SmtpClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
-#### Example 1: Sending emails
-
-The mails are sent asynchronously.
+#### Example 1: Using `System.Net.Mail.MailMessage`
+`SmtpClient` uses the classic  `System.Net.Mail.MailMessage` provided by .NET to send emails asynchronously.
 
 ```csharp
-// Sending mails async
-await client.SendMailAsync(new MailMessage());
+// Create a new smtp client using google's smtp server
+var client = new SmtpClient("smtp.gmail.com", 587);
 
-// Or send the mail based on a saved SMTP session state
-await client.SendMailAsync(new SmtpSessionState());
+// Send an email 
+client.SendMailAsync(new MailMessage("sender@test.com", "recipient@test.cm", "Subject", "Body"));
 ```
+#### Example 2: Using a SMTP session state
+```csharp
+// Create a new session state with a sender address
+var session = new SmtpSessionState {SenderAddress = "sender@test.com"};
 
+// Add a recipient
+session.Recipients.Add("recipient@test.cm");
+
+// Send
+client.SendMailAsync(session);
+
+```
+#### Example 3: Adding an attatchment with SMTP session state
+When using `SmtpSessionState` you have to deal with raw data manipulation, in order to parse MIME attachments [MimeKit](https://www.nuget.org/packages/MimeKit/) is recommended.
+```csharp
+// Create a new session state with a sender address
+var session = new SmtpSessionState { SenderAddress = "sender@test.com" };
+
+// Add a recipient
+session.Recipients.Add("recipient@test.cm");
+
+// load a file as an attachment
+var attachment = new MimePart("image", "gif")
+{
+    Content = new MimeContent(File.OpenRead("meme.gif"), ContentEncoding.Default),
+    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+    ContentTransferEncoding = ContentEncoding.Base64,
+    FileName = Path.GetFileName("meme.gif")
+};
+
+
+using (var memory = new MemoryStream())
+{
+    //Decode the attachment content
+    attachment.Content.DecodeTo(memory);
+    
+    //Convert it into a byte array and add it to the session DataBuffer
+    session.DataBuffer.AddRange(memory.ToArray());
+}
+
+// Send
+client.SendMailAsync(session);
+
+```
 ### The `ObjectMapper` component
 
 The `ObjectMapper` is a component to translate and copy property data from one type to another. You can access a default instance of `ObjectMapper` through the `Runtime` class.
@@ -550,7 +592,7 @@ A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2
 
 In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern any object can "subscribe" to another object's event, if the other object "publishes" a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
-#### Example 1: `Subscribing to a MessageHub`
+#### Example 1: Subscribing to a MessageHub
 
 A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.
 
@@ -588,7 +630,7 @@ LDAP has a couple of operations that can be executed
   * **Delete**: deletes an entry from the directory
    * **Replace**: modifies an existing property value
    
-#### Example 1: `Connecting to a LDAP Server`
+#### Example 1: Connecting to a LDAP Server
 A connection to a LDAP server is a two step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. 
 
 ```csharp
@@ -601,7 +643,7 @@ A connection to a LDAP server is a two step process, first we `connect` to a ser
  // Set up the credentials 
  await connection.Bind("cn=read-only-admin,dc=example,dc=com", "password");
 ```
-#### Example 2: `Reading all the properties of an entry`
+#### Example 2: Reading all the properties of an entry
 After establishing a connection you can use the connection's Read method to retrieve all properties of an entry
 ```csharp
 // Get all properties of 'tesla'
@@ -610,7 +652,7 @@ After establishing a connection you can use the connection's Read method to retr
  // After getting all properties from an entry select its email and print it
  properties.GetAttribute("mail").StringValue.Info();
 ```
-#### Example 3: `Searching entries`
+#### Example 3: Searching entries
  There are three scopes for searching entries :
 1. **ScopeBase**: searches only at the base dn
 2. **ScopeOne**: searches all entries one level under the specified dn
