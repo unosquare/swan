@@ -402,7 +402,7 @@ session.Recipients.Add("recipient@test.cm");
 client.SendMailAsync(session);
 
 ```
-#### Example 2: Adding an attatchment with SMTP session state
+#### Example 3: Adding an attatchment with SMTP session state
 When using `SmtpSessionState` you have to deal with raw data manipulation, in order to parse MIME attachments [MimeKit](https://www.nuget.org/packages/MimeKit/) is recommended.
 ```csharp
 // Create a new session state with a sender address
