@@ -30,7 +30,7 @@ Our philosophy is that SWAN should have no external dependencies, it should be c
     * [ObjectComparer](#the-objectcomparer)
     * [DependencyContainer](#the-dependencycontainer)
     * [MessageHub](#the-messagehub)
-    * [LDAP](#the-ldap-connection)
+    * [LdapConnection](#the-ldap-connection)
 
 ## Libraries
 We offer SWAN, since version 0.24, in two libraries. SWAN Lite provides basic classes and extension methods and SWAN (Full) additionally provide Network, WinServices, DI and more 
