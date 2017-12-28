@@ -637,6 +637,12 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
  // After getting all properties from an entry select its email and print it
  properties.GetAttribute(&quot;mail&quot;).StringValue.Info();
 </code></pre><h4 id="example-3-searching-entries">Example 3: <code>Searching entries</code></h4>
+<p> There are three scopes for searching entries :</p>
+<ol>
+<li><strong>ScopeBase</strong>: searches only at the base dn</li>
+<li><strong>ScopeOne</strong>: searches all entries one level under the specified dn</li>
+<li><strong>ScopeSub</strong>: as mentioned above this allows to search entries at all levels</li>
+</ol>
 <pre><code class="lang-csharp">// Retrieve all entries that have the specified email using ScopeSub 
 // which searches all entries at all levels under and including the specified base DN
 var searchResult = await connection.Search(&quot;dc=example,dc=com&quot;,LdapConnection.ScopeSub,&quot;(cn=Isaac Newton)&quot;);
@@ -653,13 +659,7 @@ var searchResult = await connection.Search(&quot;dc=example,dc=com&quot;,LdapCon
       // Select its email and print it
       entryAttributes.GetAttribute(&quot;cn&quot;).StringValue.Info();
   }
-</code></pre><h5 id="example-4-modifying-an-entry-attribute">Example 4: Modifying an entry attribute</h5>
-<p> There are three scopes for searching entries :</p>
-<ol>
-<li><strong>ScopeBase</strong>: searches only at the base dn</li>
-<li><strong>ScopeOne</strong>: searches all entries one level under the specified dn</li>
-<li><strong>ScopeSub</strong>: as mentioned above this allows to search entries at all levels</li>
-</ol>
+</code></pre><h4 id="example-4-modifying-an-entry-attribute">Example 4: Modifying an entry attribute</h4>
 <p>An easy way to deal with attributes modification is by calling the Modify method with a <code>LdapModificationOp</code> such as:</p>
 <ul>
 <li><strong>Replace</strong>: overrides an attribute value. <ul>
