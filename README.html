@@ -474,54 +474,16 @@ var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data
 <p>Easy way to HTTP PUT using <code>JsonClient</code>.</p>
 <pre><code class="lang-csharp">// The PUT
 var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
-</code></pre><h3 id="the-smtpclient-class">The <code>SmtpClient</code> class</h3>
+</code></pre><h3 id="the-smtpclient">The <code>SmtpClient</code></h3>
 <p>It&#39;s a basic SMTP client that can submit messages to an SMTP server. It&#39;s very easy to cvonfigure and it provides a very handy way to make send email messages in your application.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html">SmtpClient API Doc</a></p>
-<h4 id="example-1-using-a-mailmessage">Example 1: Using a MailMessage</h4>
+<h4 id="example-1-sending-emails">Example 1: Sending emails</h4>
 <p>The mails are sent asynchronously.</p>
-<pre><code class="lang-csharp">// Create a new smtp client using google&#39;s smtp server
-var client = new SmtpClient(&quot;smtp.gmail.com&quot;, 587);
+<pre><code class="lang-csharp">// Sending mails async
+await client.SendMailAsync(new MailMessage());
 
-// Send an email 
-client.SendMailAsync(new MailMessage(&quot;sender@test.com&quot;, &quot;recipient@test.cm&quot;, &quot;Subject&quot;, &quot;Body&quot;));
-</code></pre><h4 id="example-2-using-a-smtp-session-state">Example 2: Using a SMTP session state</h4>
-<pre><code class="lang-csharp">// Create a new session state with a sender address
-var session = new SmtpSessionState {SenderAddress = &quot;sender@test.com&quot;};
-
-// Add a recipient
-session.Recipients.Add(&quot;recipient@test.cm&quot;);
-
-// Send
-client.SendMailAsync(session);
-</code></pre><h4 id="example-3-adding-an-attatchment-with-smtp-session-state">Example 3: Adding an attatchment with SMTP session state</h4>
-<p>When using <code>SmtpSessionState</code> you have to deal with raw data manipulation, in order to parse MIME attachments <a href="https://www.nuget.org/packages/MimeKit/">MimeKit</a> is recommended.</p>
-<pre><code class="lang-csharp">// Create a new session state with a sender address
-var session = new SmtpSessionState { SenderAddress = &quot;sender@test.com&quot; };
-
-// Add a recipient
-session.Recipients.Add(&quot;recipient@test.cm&quot;);
-
-// load a file as an attachment
-var attachment = new MimePart(&quot;image&quot;, &quot;gif&quot;)
-{
-    Content = new MimeContent(File.OpenRead(&quot;meme.gif&quot;), ContentEncoding.Default),
-    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-    ContentTransferEncoding = ContentEncoding.Base64,
-    FileName = Path.GetFileName(&quot;meme.gif&quot;)
-};
-
-
-using (var memory = new MemoryStream())
-{
-    //Decode the attachment content
-    attachment.Content.DecodeTo(memory);
-
-    //Convert it into a byte array and add it to the session DataBuffer
-    session.DataBuffer.AddRange(memory.ToArray());
-}
-
-// Send
-client.SendMailAsync(session);
+// Or send the mail based on a saved SMTP session state
+await client.SendMailAsync(new SmtpSessionState());
 </code></pre><h3 id="the-objectmapper-component">The <code>ObjectMapper</code> component</h3>
 <p>The <code>ObjectMapper</code> is a component to translate and copy property data from one type to another. You can access a default instance of <code>ObjectMapper</code> through the <code>Runtime</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html">ObjectMapper API Doc</a></p>
@@ -745,7 +707,7 @@ connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;,
               <div class="contribution">
                 <ul class="nav">
                   <li class="top-sep">
-                    <a href="https://github.com/unosquare/swan/blob/Issue57-SMTPClientDoc/README.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/unosquare/swan/blob/master/README.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
