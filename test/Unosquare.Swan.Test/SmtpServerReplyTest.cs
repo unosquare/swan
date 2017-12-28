@@ -1,14 +1,10 @@
 ﻿namespace Unosquare.Swan.Test
 {
     using NUnit.Framework;
-    using Unosquare.Swan.Networking;
-
-    public class SmtpServerReplyTest
-    {
-    }
+    using Networking;
 
     [TestFixture]
-    public class Constructor : SmtpServerReplyTest
+    public class Constructor
     {
         [Test]
         public void StatusCode_ReturnZeroReplyCode()
@@ -22,21 +18,21 @@
         [Test]
         public void StatusCode_Return()
         {
-            var content = "Hello World!";
-            var status = 600; // TODO: Is it really going to hit line 37?
+            const string content = "Hello World!";
+            const int status = 600; // TODO: Is it really going to hit line 37?
 
             var serverReply = new SmtpServerReply(status, content);
 
             Assert.IsNotNull(serverReply);
             Assert.AreEqual(status, serverReply.ReplyCode);
-            Assert.AreEqual(content, serverReply.Content[0]?.ToString());
+            Assert.AreEqual(content, serverReply.Content[0]);
         }
     }
 
     [TestFixture]
     public class PreBuildsResponses
     {
-        static object[] ServerReplyCases =
+        private static readonly object[] ServerReplyCases =
         {
             new object[] { SmtpServerReply.CommandUnrecognized, 500, "Syntax error, command unrecognized" },
             new object[] { SmtpServerReply.SyntaxErrorArguments, 501, "Syntax error in parameters or arguments" },
@@ -50,12 +46,13 @@
             new object[] { SmtpServerReply.AuthorizationRequired, 530, "Authorization Required" }
         };
 
-        [Test, TestCaseSource("ServerReplyCases")]
+        [Test]
+        [TestCaseSource(nameof(ServerReplyCases))]
         public void CommandUnrecognized_SmtpServerReply(SmtpServerReply serverReply, int responseCode, string message)
         {
             Assert.IsNotNull(serverReply);
             Assert.AreEqual(responseCode, serverReply.ReplyCode);
-            Assert.AreEqual(message, serverReply.Content[0]?.ToString());
+            Assert.AreEqual(message, serverReply.Content[0]);
         }
     }
 
@@ -65,14 +62,14 @@
         [Test]
         public void ReplyCode_ToString()
         {
-            var content = "Hello World!";
-            var status = 500;
+            const string content = "Hello World!";
+            const int status = 500;
 
             var serverReply = new SmtpServerReply(status, content);
 
             Assert.IsNotNull(serverReply);
             Assert.AreEqual(status + " " + content, serverReply.ToString());
-            Assert.AreEqual(content, serverReply.Content[0]?.ToString());
+            Assert.AreEqual(content, serverReply.Content[0]);
         }
     }
 }

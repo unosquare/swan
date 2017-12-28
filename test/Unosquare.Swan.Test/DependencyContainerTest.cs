@@ -1,11 +1,11 @@
 ﻿namespace Unosquare.Swan.Test.DependencyContainerTest
 {
-    using System;
-    using NUnit.Framework;
-    using System.Collections.Generic;
     using Components;
     using Exceptions;
     using Mocks;
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     [TestFixture]
@@ -30,7 +30,7 @@
                 container.AutoRegister();
 
                 Assert.IsTrue(container.CanResolve<ICar>());
-                Assert.AreEqual(new TheOnlyCar().Name, Runtime.Container.Resolve<ICar>().Name);
+                Assert.AreEqual(new TheOnlyCar().Name, DependencyContainer.Current.Resolve<ICar>().Name);
             });
         }
 #endif
@@ -43,7 +43,7 @@
 
             Assert.IsTrue(container.CanResolve<ICar>());
         }
-        
+
         [Test]
         public void WithAssembliesAndFunc_ResolvesICar()
         {
@@ -124,7 +124,7 @@
             Assert.Throws<DependencyContainerResolutionException>(() =>
                 container.Resolve(typeof(Human), "B. B. King", new Dictionary<string, object>(), resolveOptions));
         }
-        
+
         [Test]
         public void WithInterface_ThrowsDependencyContainerResolutionException()
         {
@@ -281,7 +281,7 @@
         [TestCase(typeof(Shark), typeof(Shark), true)]
         [TestCase(typeof(IAnimal), typeof(Shark), false)]
         [TestCase(typeof(ICar), typeof(Shark), false)]
-        [TestCase(typeof(MyEnum), typeof(Shark),false)]
+        [TestCase(typeof(MyEnum), typeof(Shark), false)]
         public void WithTypeAndParent_ResolveType(Type resolveType, Type register, bool expected)
         {
             var containerParent = new DependencyContainer();
@@ -292,7 +292,7 @@
             Assert.AreEqual(expected, container.TryResolve(
                 resolveType, out var obj));
         }
-        
+
         [TestCase(typeof(IAnimal), "Warsong", false)]
         [TestCase(typeof(Shark), "", true)]
         [TestCase(typeof(Shark), "Warsong", false)]
@@ -322,7 +322,8 @@
             var container = new DependencyContainer();
 
             Assert.AreEqual(expected, container.TryResolve(
-                resolveType, name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default, out var obj));
+                resolveType, name, new Dictionary<string, object>(), DependencyContainerResolveOptions.Default,
+                out var obj));
         }
 
         [Test]
@@ -537,7 +538,7 @@
             Assert.Throws<DependencyContainerRegistrationException>(() =>
                 container.Register<IAnimal, Fish>().WithWeakReference());
         }
-        
+
         [Test]
         public void RegisterInterfaceWithInstanceStrongReference_CanDestroy()
         {
@@ -587,7 +588,7 @@
         {
             var container = new DependencyContainer();
             Assert.Throws<DependencyContainerRegistrationException>(() => container.Register(
-                    typeof(Shark), registerImplementation).AsMultiInstance());
+                typeof(Shark), registerImplementation).AsMultiInstance());
         }
 
         [Test]
@@ -647,10 +648,10 @@
             var instance = new Human("George");
 
             Assert.Throws<DependencyContainerRegistrationException>(() => container.Register(
-                    registerType.GetGenericTypeDefinition(), typeof(string), instance));
+                registerType.GetGenericTypeDefinition(), typeof(string), instance));
         }
     }
-    
+
     [TestFixture]
     public class Dispose
     {
@@ -696,10 +697,10 @@
             };
 
             container.Register<IAnimal>(new Human("George"), registerName);
-            
+
             Assert.IsTrue(container.CanResolve<IAnimal>(resolveName, null, resolveOptions));
         }
-        
+
         [Test]
         public void WithIEnumerable_ResolveContainer()
         {
@@ -744,7 +745,7 @@
         public void WithRegister_ResolveContainer()
         {
             var container = new DependencyContainer();
-            container.Register(typeof(Shark),new Shark().Name);
+            container.Register(typeof(Shark), new Shark().Name);
 
             Assert.IsTrue(container.CanResolve<Shark>(new Shark().Name));
         }
@@ -806,7 +807,7 @@
             var container = containerParent.GetChildContainer();
 
             var resolve = container.ResolveAll<Fish>(includeUnnamed);
-            
+
             Assert.IsTrue(resolve.Any(x => x.GetType() == typeof(Shark)));
             Assert.AreEqual(includeUnnamed, resolve.Any(x => x.GetType() == typeof(Clown)));
         }

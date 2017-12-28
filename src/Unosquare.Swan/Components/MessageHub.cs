@@ -3,7 +3,7 @@
 //
 // A simple messenger/event aggregator.
 //
-// http://hg.grumpydev.com/tinyioc
+// https://github.com/grumpydev/TinyIoC/blob/master/src/TinyIoC/TinyMessenger.cs
 // ===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
@@ -20,7 +20,7 @@ namespace Unosquare.Swan.Components
     using System.Linq;
 
     #region Message Types / Interfaces
-    
+
     /// <summary>
     /// Represents a message subscription
     /// </summary>
@@ -112,7 +112,7 @@ namespace Unosquare.Swan.Components
             bool useStrongReferences,
             IMessageHubProxy proxy)
             where TMessage : class, IMessageHubMessage;
-        
+
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// Messages will be delivered via the specified proxy.
@@ -209,20 +209,16 @@ namespace Unosquare.Swan.Components
 
             public bool ShouldAttemptDelivery(IMessageHubMessage message)
             {
-                if (!_deliveryAction.IsAlive || !_messageFilter.IsAlive)
-                    return false;
-
-                return ((Func<TMessage, bool>) _messageFilter.Target).Invoke((TMessage) message);
+                return _deliveryAction.IsAlive && _messageFilter.IsAlive &&
+                       ((Func<TMessage, bool>) _messageFilter.Target).Invoke((TMessage) message);
             }
 
             public void Deliver(IMessageHubMessage message)
             {
-                if (!_deliveryAction.IsAlive)
+                if (_deliveryAction.IsAlive)
                 {
-                    return;
+                    ((Action<TMessage>) _deliveryAction.Target).Invoke((TMessage) message);
                 }
-
-                ((Action<TMessage>) _deliveryAction.Target).Invoke((TMessage) message);
             }
         }
 
@@ -279,7 +275,7 @@ namespace Unosquare.Swan.Components
         #endregion
 
         #region Public API
-        
+
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
         /// Messages will be delivered via the specified proxy.
@@ -297,9 +293,9 @@ namespace Unosquare.Swan.Components
             IMessageHubProxy proxy = null)
             where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal(deliveryAction, m => true, useStrongReferences, proxy ?? MessageHubDefaultProxy.Instance);
+            return Subscribe(deliveryAction, m => true, useStrongReferences, proxy);
         }
-        
+
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// Messages will be delivered via the specified proxy.
@@ -321,65 +317,12 @@ namespace Unosquare.Swan.Components
             IMessageHubProxy proxy = null)
             where TMessage : class, IMessageHubMessage
         {
-            return AddSubscriptionInternal(deliveryAction, messageFilter, useStrongReferences, proxy ?? MessageHubDefaultProxy.Instance);
-        }
-
-        /// <summary>
-        /// Unsubscribe from a particular message type.
-        /// 
-        /// Does not throw an exception if the subscription is not found.
-        /// </summary>
-        /// <typeparam name="TMessage">Type of message</typeparam>
-        /// <param name="subscriptionToken">Subscription token received from Subscribe</param>
-        public void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken)
-            where TMessage : class, IMessageHubMessage
-        {
-            RemoveSubscriptionInternal<TMessage>(subscriptionToken);
-        }
-
-        /// <summary>
-        /// Publish a message to any subscribers
-        /// </summary>
-        /// <typeparam name="TMessage">Type of message</typeparam>
-        /// <param name="message">Message to deliver</param>
-        public void Publish<TMessage>(TMessage message)
-            where TMessage : class, IMessageHubMessage
-        {
-            PublishInternal(message);
-        }
-
-        /// <summary>
-        /// Publish a message to any subscribers asynchronously
-        /// </summary>
-        /// <typeparam name="TMessage">Type of message</typeparam>
-        /// <param name="message">Message to deliver</param>
-        /// <returns>A task with the publish</returns>
-        public Task PublishAsync<TMessage>(TMessage message)
-            where TMessage : class, IMessageHubMessage
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                PublishInternal(message);
-            });
-        }
-
-        #endregion
-
-        #region Internal Methods
-
-        private MessageHubSubscriptionToken AddSubscriptionInternal<TMessage>(
-            Action<TMessage> deliveryAction,
-            Func<TMessage, bool> messageFilter,
-            bool strongReference,
-            IMessageHubProxy proxy)
-            where TMessage : class, IMessageHubMessage
-        {
             if (deliveryAction == null)
                 throw new ArgumentNullException(nameof(deliveryAction));
 
             if (messageFilter == null)
                 throw new ArgumentNullException(nameof(messageFilter));
-            
+
             lock (_subscriptionsPadlock)
             {
                 if (!_subscriptions.TryGetValue(typeof(TMessage), out var currentSubscriptions))
@@ -391,7 +334,7 @@ namespace Unosquare.Swan.Components
                 var subscriptionToken = new MessageHubSubscriptionToken(this, typeof(TMessage));
 
                 IMessageHubSubscription subscription;
-                if (strongReference)
+                if (useStrongReferences)
                 {
                     subscription = new StrongMessageSubscription<TMessage>(
                         subscriptionToken,
@@ -406,13 +349,20 @@ namespace Unosquare.Swan.Components
                         messageFilter);
                 }
 
-                currentSubscriptions.Add(new SubscriptionItem(proxy, subscription));
+                currentSubscriptions.Add(new SubscriptionItem(proxy ?? MessageHubDefaultProxy.Instance, subscription));
 
                 return subscriptionToken;
             }
         }
 
-        private void RemoveSubscriptionInternal<TMessage>(MessageHubSubscriptionToken subscriptionToken)
+        /// <summary>
+        /// Unsubscribe from a particular message type.
+        /// 
+        /// Does not throw an exception if the subscription is not found.
+        /// </summary>
+        /// <typeparam name="TMessage">Type of message</typeparam>
+        /// <param name="subscriptionToken">Subscription token received from Subscribe</param>
+        public void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken)
             where TMessage : class, IMessageHubMessage
         {
             if (subscriptionToken == null)
@@ -431,7 +381,12 @@ namespace Unosquare.Swan.Components
             }
         }
 
-        private void PublishInternal<TMessage>(TMessage message)
+        /// <summary>
+        /// Publish a message to any subscribers
+        /// </summary>
+        /// <typeparam name="TMessage">Type of message</typeparam>
+        /// <param name="message">Message to deliver</param>
+        public void Publish<TMessage>(TMessage message)
             where TMessage : class, IMessageHubMessage
         {
             if (message == null)
@@ -459,6 +414,18 @@ namespace Unosquare.Swan.Components
                     // Ignore any errors and carry on
                 }
             });
+        }
+
+        /// <summary>
+        /// Publish a message to any subscribers asynchronously
+        /// </summary>
+        /// <typeparam name="TMessage">Type of message</typeparam>
+        /// <param name="message">Message to deliver</param>
+        /// <returns>A task with the publish</returns>
+        public Task PublishAsync<TMessage>(TMessage message)
+            where TMessage : class, IMessageHubMessage
+        {
+            return Task.Factory.StartNew(() => Publish(message));
         }
 
         #endregion

@@ -114,9 +114,18 @@
             return new DateTimeOffset(date).ToUniversalTime().ToUnixTimeSeconds();
 #else
             var epochTicks = new DateTime(1970, 1, 1).Ticks;
-
+            
             return (date.Ticks - epochTicks) / TimeSpan.TicksPerSecond;
 #endif
         }
+
+        /// <summary>
+        /// Compares a Date to another and returns a <c>DateTimeSpan</c>.
+        /// </summary>
+        /// <param name="dateStart">The date start.</param>
+        /// <param name="dateEnd">The date end.</param>
+        /// <returns>A DateTimeSpan with the Years, Months, Days, Hours, Minutes, Seconds and Milliseconds between the dates</returns>
+        public static DateTimeSpan GetDateTimeSpan(this DateTime dateStart, DateTime dateEnd)
+            => DateTimeSpan.CompareDates(dateStart, dateEnd);
     }
 }

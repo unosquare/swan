@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET452 || NETSTANDARD2_0 
 namespace Unosquare.Swan
 {
     using System;
@@ -9,7 +9,7 @@ namespace Unosquare.Swan
     /// <summary>
     /// Extension methods
     /// </summary>
-    public partial class Extensions
+    public static class SmtpExtensions
     {
         /// <summary>
         /// The raw contents of this MailMessage as a MemoryStream.

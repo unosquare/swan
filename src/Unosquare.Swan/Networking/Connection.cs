@@ -96,7 +96,7 @@ namespace Unosquare.Swan.Networking
             // Setup continuous reading mode if enabled
             if (disableContinuousReading) return;
 
-#if NETSTANDARD1_3 || UWP
+#if NETSTANDARD1_3
             ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
 #else
             ThreadPool.GetAvailableThreads(out var availableWorkerThreads, out _);
@@ -332,164 +332,6 @@ namespace Unosquare.Swan.Networking
 
         #endregion
 
-        #region Continuous Read Methods
-
-        /// <summary>
-        /// Raises the receive buffer events.
-        /// </summary>
-        /// <param name="receivedData">The received data.</param>
-        /// <exception cref="Exception">Split function failed! This is terribly wrong!</exception>
-        private void RaiseReceiveBufferEvents(byte[] receivedData)
-        {
-            var moreAvailable = RemoteClient.Available > 0;
-
-            for (var i = 0; i < receivedData.Length; i++)
-            {
-                ProcessReceivedBlock(receivedData, i, moreAvailable);
-            }
-
-            // Check if we are left with some more stuff to handle
-            if (_receiveBufferPointer <= 0)
-                return;
-
-            // Extract the segments split by newline terminated bytes
-            var sequences = _receiveBuffer.Skip(0).Take(_receiveBufferPointer).ToArray()
-                .Split(0, _newLineSequenceBytes);
-
-            // Something really wrong happened
-            if (sequences.Count == 0)
-                throw new Exception("Split function failed! This is terribly wrong!");
-
-            // We only have one sequence and it is not newline-terminated
-            // we don't have to do anything.
-            if (sequences.Count == 1 && sequences[0].EndsWith(_newLineSequenceBytes) == false)
-                return;
-            
-            // Process the events for each sequence
-            for (var i = 0; i < sequences.Count; i++)
-            {
-                var sequenceBytes = sequences[i];
-                var isNewLineTerminated = sequences[i].EndsWith(_newLineSequenceBytes);
-                var isLast = i == sequences.Count - 1;
-
-                // Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");
-
-                if (isNewLineTerminated)
-                {
-                    var eventArgs = new ConnectionDataReceivedEventArgs(
-                        sequenceBytes,
-                        ConnectionDataReceivedTrigger.NewLineSequenceEncountered,
-                        isLast == false);
-                    DataReceived(this, eventArgs);
-                }
-
-                // Depending on the last segment determine what to do with the receive buffer
-                if (!isLast) continue;
-
-                if (isNewLineTerminated)
-                {
-                    // Simply reset the buffer pointer if the last segment was also terminated
-                    _receiveBufferPointer = 0;
-                }
-                else
-                {
-                    // If we have not received the termination sequence, then just shift the receive buffer to the left
-                    // and adjust the pointer
-                    Array.Copy(sequenceBytes, _receiveBuffer, sequenceBytes.Length);
-                    _receiveBufferPointer = sequenceBytes.Length;
-                }
-            }
-        }
-
-        private void ProcessReceivedBlock(byte[] receivedData, int i, bool moreAvailable)
-        {
-            _receiveBuffer[_receiveBufferPointer] = receivedData[i];
-            _receiveBufferPointer++;
-
-            // Block size reached
-            if (ProtocolBlockSize > 0 && _receiveBufferPointer >= ProtocolBlockSize)
-            {
-                var eventBuffer = new byte[_receiveBuffer.Length];
-                Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
-
-                DataReceived(this,
-                    new ConnectionDataReceivedEventArgs(
-                        eventBuffer,
-                        ConnectionDataReceivedTrigger.BlockSizeReached,
-                        moreAvailable));
-                _receiveBufferPointer = 0;
-                return;
-            }
-
-            // The receive buffer is full. Time to flush
-            if (_receiveBufferPointer >= _receiveBuffer.Length)
-            {
-                var eventBuffer = new byte[_receiveBuffer.Length];
-                Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
-
-                DataReceived(this,
-                    new ConnectionDataReceivedEventArgs(
-                        eventBuffer,
-                        ConnectionDataReceivedTrigger.BufferFull,
-                        moreAvailable));
-                _receiveBufferPointer = 0;
-            }
-        }
-
-        /// <summary>
-        /// This is the body of the thread when performing continuous reading
-        /// </summary>
-        /// <param name="threadContext">The thread context.</param>
-        private void PerformContinuousReading(object threadContext)
-        {
-            _continuousReadingThread = Thread.CurrentThread;
-
-            // Check if the RemoteClient is still there
-            if (RemoteClient == null) return;
-
-            var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
-
-            while (IsConnected && _disconnectCalls <= 0)
-            {
-                var doThreadSleep = false;
-
-                try
-                {
-                    if (_readTask == null)
-                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
-
-                    if (_readTask.Wait(_continuousReadingInterval))
-                    {
-                        var bytesReceivedCount = _readTask.Result;
-                        if (bytesReceivedCount > 0)
-                        {
-                            DataReceivedLastTimeUtc = DateTime.UtcNow;
-                            var buffer = new byte[bytesReceivedCount];
-                            Array.Copy(receiveBuffer, 0, buffer, 0, bytesReceivedCount);
-                            RaiseReceiveBufferEvents(buffer);
-                        }
-
-                        _readTask = null;
-                    }
-                    else
-                    {
-                        doThreadSleep = _disconnectCalls <= 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ex.Log(nameof(Connection), "Continuous Read operation errored");
-                }
-                finally
-                {
-                    if (doThreadSleep)
-                        Thread.Sleep(_continuousReadingInterval);
-                }
-            }
-        }
-
-        #endregion
-
         #region Read Methods
 
         /// <summary>
@@ -500,12 +342,17 @@ namespace Unosquare.Swan.Networking
         /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         /// <exception cref="TimeoutException">Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m</exception>
-        public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct)
+        public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
         {
             if (IsContinuousReadingEnabled)
             {
                 throw new InvalidOperationException(
                     "Read methods have been disabled because continuous reading is enabled.");
+            }
+
+            if (RemoteClient == null)
+            {
+                throw new InvalidOperationException("An open connection is required");
             }
 
             var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
@@ -559,7 +406,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A byte array containing the results the specified sequence of bytes</returns>
-        public Task<byte[]> ReadDataAsync(CancellationToken ct) 
+        public Task<byte[]> ReadDataAsync(CancellationToken ct = default(CancellationToken)) 
             => ReadDataAsync(TimeSpan.FromSeconds(5), ct);
 
         /// <summary>
@@ -568,7 +415,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
-        public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct)
+        public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
         {
             var buffer = await ReadDataAsync(timeout, ct);
             return buffer == null ? null : TextEncoding.GetString(buffer);
@@ -590,7 +437,7 @@ namespace Unosquare.Swan.Networking
         /// A task that represents the asynchronous read operation. The value of the TResult parameter 
         /// contains the next line from the stream, or is null if all the characters have been read
         /// </returns>
-        public Task<string> ReadLineAsync(CancellationToken ct)
+        public Task<string> ReadLineAsync(CancellationToken ct = default(CancellationToken))
             => ReadLineAsync(TimeSpan.FromSeconds(30), ct);
 
         /// <summary>
@@ -604,7 +451,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a string line from the queue</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
-        public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct)
+        public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
         {
             if (IsContinuousReadingEnabled)
             {
@@ -649,7 +496,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="forceFlush">if set to <c>true</c> [force flush].</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct)
+        public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct = default(CancellationToken))
         {
             try
             {
@@ -673,7 +520,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="text">The text.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public Task WriteTextAsync(string text, CancellationToken ct)
+        public Task WriteTextAsync(string text, CancellationToken ct = default(CancellationToken))
             => WriteTextAsync(text, TextEncoding, ct);
 
         /// <summary>
@@ -683,7 +530,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct)
+        public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct = default(CancellationToken))
             => WriteDataAsync(encoding.GetBytes(text), true, ct);
 
         /// <summary>
@@ -694,7 +541,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct)
+        public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default(CancellationToken))
         {
             var buffer = encoding.GetBytes($"{line}{_newLineSequence}");
             await WriteDataAsync(buffer, true, ct);
@@ -707,7 +554,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="line">The line.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public Task WriteLineAsync(string line, CancellationToken ct)
+        public Task WriteLineAsync(string line, CancellationToken ct = default(CancellationToken))
             => WriteLineAsync(line, TextEncoding, ct);
 
         #endregion
@@ -845,6 +692,164 @@ namespace Unosquare.Swan.Networking
             _writeDone.Dispose();
 
             _hasDisposed = true;
+        }
+
+        #endregion
+
+        #region Continuous Read Methods
+
+        /// <summary>
+        /// Raises the receive buffer events.
+        /// </summary>
+        /// <param name="receivedData">The received data.</param>
+        /// <exception cref="Exception">Split function failed! This is terribly wrong!</exception>
+        private void RaiseReceiveBufferEvents(byte[] receivedData)
+        {
+            var moreAvailable = RemoteClient.Available > 0;
+
+            for (var i = 0; i < receivedData.Length; i++)
+            {
+                ProcessReceivedBlock(receivedData, i, moreAvailable);
+            }
+
+            // Check if we are left with some more stuff to handle
+            if (_receiveBufferPointer <= 0)
+                return;
+
+            // Extract the segments split by newline terminated bytes
+            var sequences = _receiveBuffer.Skip(0).Take(_receiveBufferPointer).ToArray()
+                .Split(0, _newLineSequenceBytes);
+
+            // Something really wrong happened
+            if (sequences.Count == 0)
+                throw new Exception("Split function failed! This is terribly wrong!");
+
+            // We only have one sequence and it is not newline-terminated
+            // we don't have to do anything.
+            if (sequences.Count == 1 && sequences[0].EndsWith(_newLineSequenceBytes) == false)
+                return;
+
+            // Process the events for each sequence
+            for (var i = 0; i < sequences.Count; i++)
+            {
+                var sequenceBytes = sequences[i];
+                var isNewLineTerminated = sequences[i].EndsWith(_newLineSequenceBytes);
+                var isLast = i == sequences.Count - 1;
+
+                // Log.Trace($"    ~ {i:00} ~ TERM: {isNewLineTerminated,-6} LAST: {isLast,-6} LEN: {sequenceBytes.Length,-4} {TextEncoding.GetString(sequenceBytes).TrimEnd(NewLineSequenceChars)}");
+
+                if (isNewLineTerminated)
+                {
+                    var eventArgs = new ConnectionDataReceivedEventArgs(
+                        sequenceBytes,
+                        ConnectionDataReceivedTrigger.NewLineSequenceEncountered,
+                        isLast == false);
+                    DataReceived(this, eventArgs);
+                }
+
+                // Depending on the last segment determine what to do with the receive buffer
+                if (!isLast) continue;
+
+                if (isNewLineTerminated)
+                {
+                    // Simply reset the buffer pointer if the last segment was also terminated
+                    _receiveBufferPointer = 0;
+                }
+                else
+                {
+                    // If we have not received the termination sequence, then just shift the receive buffer to the left
+                    // and adjust the pointer
+                    Array.Copy(sequenceBytes, _receiveBuffer, sequenceBytes.Length);
+                    _receiveBufferPointer = sequenceBytes.Length;
+                }
+            }
+        }
+
+        private void ProcessReceivedBlock(byte[] receivedData, int i, bool moreAvailable)
+        {
+            _receiveBuffer[_receiveBufferPointer] = receivedData[i];
+            _receiveBufferPointer++;
+
+            // Block size reached
+            if (ProtocolBlockSize > 0 && _receiveBufferPointer >= ProtocolBlockSize)
+            {
+                var eventBuffer = new byte[_receiveBuffer.Length];
+                Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
+
+                DataReceived(this,
+                    new ConnectionDataReceivedEventArgs(
+                        eventBuffer,
+                        ConnectionDataReceivedTrigger.BlockSizeReached,
+                        moreAvailable));
+                _receiveBufferPointer = 0;
+                return;
+            }
+
+            // The receive buffer is full. Time to flush
+            if (_receiveBufferPointer >= _receiveBuffer.Length)
+            {
+                var eventBuffer = new byte[_receiveBuffer.Length];
+                Array.Copy(_receiveBuffer, eventBuffer, eventBuffer.Length);
+
+                DataReceived(this,
+                    new ConnectionDataReceivedEventArgs(
+                        eventBuffer,
+                        ConnectionDataReceivedTrigger.BufferFull,
+                        moreAvailable));
+                _receiveBufferPointer = 0;
+            }
+        }
+
+        /// <summary>
+        /// This is the body of the thread when performing continuous reading
+        /// </summary>
+        /// <param name="threadContext">The thread context.</param>
+        private void PerformContinuousReading(object threadContext)
+        {
+            _continuousReadingThread = Thread.CurrentThread;
+
+            // Check if the RemoteClient is still there
+            if (RemoteClient == null) return;
+
+            var receiveBuffer = new byte[RemoteClient.ReceiveBufferSize * 2];
+
+            while (IsConnected && _disconnectCalls <= 0)
+            {
+                var doThreadSleep = false;
+
+                try
+                {
+                    if (_readTask == null)
+                        _readTask = ActiveStream.ReadAsync(receiveBuffer, 0, receiveBuffer.Length);
+
+                    if (_readTask.Wait(_continuousReadingInterval))
+                    {
+                        var bytesReceivedCount = _readTask.Result;
+                        if (bytesReceivedCount > 0)
+                        {
+                            DataReceivedLastTimeUtc = DateTime.UtcNow;
+                            var buffer = new byte[bytesReceivedCount];
+                            Array.Copy(receiveBuffer, 0, buffer, 0, bytesReceivedCount);
+                            RaiseReceiveBufferEvents(buffer);
+                        }
+
+                        _readTask = null;
+                    }
+                    else
+                    {
+                        doThreadSleep = _disconnectCalls <= 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.Log(nameof(Connection), "Continuous Read operation errored");
+                }
+                finally
+                {
+                    if (doThreadSleep)
+                        Thread.Sleep(_continuousReadingInterval);
+                }
+            }
         }
 
         #endregion

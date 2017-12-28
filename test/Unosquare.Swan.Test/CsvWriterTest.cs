@@ -13,7 +13,7 @@
     {
         protected const int TotalRows = 100;
 
-        protected string _data = @"Company,OpenPositions,MainTechnology,Revenue
+        protected string Data = @"Company,OpenPositions,MainTechnology,Revenue
                 Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 "" 
                 Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","" $1,359,885 """;
     }
@@ -128,7 +128,7 @@
         [Test]
         public void Dictionary_ReturnsAreNotEqual()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
             {
                 var reader = new CsvWriter(stream);
                 reader.WriteObject(DefaultDictionary);
@@ -140,7 +140,7 @@
         [Test]
         public void Array_ReturnsAreNotEqual()
         {
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(_data)))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(Data)))
             {
                 var reader = new CsvWriter(stream);
                 reader.WriteObject(DefaultStringList.ToArray());

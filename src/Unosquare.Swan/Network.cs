@@ -17,6 +17,16 @@
     /// </summary>
     public static class Network
     {
+        /// <summary>
+        /// The DNS default port
+        /// </summary>
+        public const int DnsDefaultPort = 53;
+
+        /// <summary>
+        /// The NTP default port
+        /// </summary>
+        public const int NtpDefaultPort = 123;
+
         #region Properties
 
         /// <summary>
@@ -176,7 +186,7 @@
         public static IPAddress[] GetDnsHostEntry(string fqdn)
         {
             var dnsServer = GetIPv4DnsServers().FirstOrDefault() ?? IPAddress.Parse("8.8.8.8");
-            return GetDnsHostEntry(fqdn, dnsServer, Definitions.DnsDefaultPort);
+            return GetDnsHostEntry(fqdn, dnsServer, DnsDefaultPort);
         }
 
         /// <summary>
@@ -335,7 +345,7 @@
         /// <returns>Appropriate DNS server for the specified record type</returns>
         public static DnsQueryResult QueryDns(string query, DnsRecordType recordType)
         {
-            return QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), Definitions.DnsDefaultPort);
+            return QueryDns(query, recordType, GetIPv4DnsServers().FirstOrDefault(), DnsDefaultPort);
         }
 
         /// <summary>
@@ -362,7 +372,7 @@
         /// A new instance of the DateTime structure to 
         /// the specified year, month, day, hour, minute and second
         /// </returns>
-        public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = Definitions.NtpDefaultPort)
+        public static DateTime GetNetworkTimeUtc(IPAddress ntpServerAddress, int port = NtpDefaultPort)
         {
             if (ntpServerAddress == null)
                 throw new ArgumentNullException(nameof(ntpServerAddress));
@@ -413,7 +423,7 @@
         /// <param name="port">The port, by default NTP 123.</param>
         /// <returns>The UTC time by querying from an NTP server</returns>
         public static DateTime GetNetworkTimeUtc(string ntpServerName = "pool.ntp.org",
-            int port = Definitions.NtpDefaultPort)
+            int port = NtpDefaultPort)
         {
             var addresses = GetDnsHostEntry(ntpServerName);
             return GetNetworkTimeUtc(addresses.First(), port);
@@ -428,7 +438,7 @@
         /// <returns>The UTC time by querying from an NTP server of the result produced by this Task</returns>
         public static Task<DateTime> GetNetworkTimeUtcAsync(
             IPAddress ntpServerAddress,
-            int port = Definitions.NtpDefaultPort,
+            int port = NtpDefaultPort,
             CancellationToken ct = default(CancellationToken))
         {
             return Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerAddress, port), ct);
@@ -443,7 +453,7 @@
         /// <returns>The UTC time by querying from an NTP server of the result produced by this Task</returns>
         public static Task<DateTime> GetNetworkTimeUtcAsync(
             string ntpServerName = "pool.ntp.org",
-            int port = Definitions.NtpDefaultPort,
+            int port = NtpDefaultPort,
             CancellationToken ct = default(CancellationToken))
         {
             return Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerName, port), ct);

@@ -1,0 +1,28 @@
+{
+  "name": "swan-unittest",
+  "version": "1.0.0",
+  "description": "Support packages for SWAN Unit Testing",
+  "main": "LdapClient.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "ldapjs": "^1.0.1",
+    "maildev": "^1.0.0-rc3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unosquare/swan.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unosquare/swan/issues"
+  },
+  "homepage": "https://github.com/unosquare/swan#readme"
+}

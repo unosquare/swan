@@ -1,12 +1,12 @@
 ﻿namespace Unosquare.Swan.Test.MessageHubTests
 {
+    using Components;
+    using Mocks;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Components;
-    using Mocks;
 
     [TestFixture]
     public class MessageHubMessageBaseConstructor
@@ -28,41 +28,6 @@
             var content = new SimpleMessageMock(this);
             var message = new MessageHubGenericMessage<string>(this, content.Content);
 
-            Assert.IsNotNull(message.Sender);
-            Assert.IsNotNull(message.Content);
-        }
-    }
-
-    [TestFixture]
-    public class MessageHubCancellableGenericMessageConstructor
-    {
-        private readonly List<SimpleMessageMockCancellable> _messagesToSend = new List<SimpleMessageMockCancellable>();
-
-        [Test]
-        public void NullCancel_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                var message = new MessageHubCancellableGenericMessage<string>(this, "Unosquare Américas", null);
-            });
-        }
-
-        [Test]
-        public void ValidCancel_ReturnsSuccess()
-        {
-            var cancel = false;
-            var message = new SimpleMessageMockCancellable(this, "Unosquare Americas", () =>
-            {
-                cancel = true;
-            });
-
-            message.Cancel();
-
-            var token = Runtime.Messages.Subscribe<SimpleMessageMockCancellable>(_messagesToSend.Add, x => false);
-
-            Runtime.Messages.Publish(message);
-
-            Assert.IsTrue(cancel);
             Assert.IsNotNull(message.Sender);
             Assert.IsNotNull(message.Content);
         }
@@ -93,29 +58,20 @@
     }
 
     [TestFixture]
-    public class Messages
-    {
-        [Test]
-        public void GetMessagesHub_ReturnsMessage()
-        {
-            Assert.IsNotNull(Runtime.Messages);
-        }
-    }
-
-    [TestFixture]
     public class SendMessage
     {
         private readonly List<SimpleMessageMock> _messagesToSend = new List<SimpleMessageMock>();
+        private readonly MessageHub _messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
 
         [Test]
         public void PublishMessage_MessagePublished()
         {
             var message = new SimpleMessageMock(this);
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
+            var token = _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
 
             Assert.IsNotNull(token);
 
-            Runtime.Messages.Publish(message);
+            _messageHub.Publish(message);
 
             Assert.IsTrue(_messagesToSend.Any());
             Assert.AreEqual(message, _messagesToSend.First());
@@ -125,12 +81,12 @@
         public void PublishMessageWhenUnsubscribed_MessageNotPublished()
         {
             var message = new SimpleMessageMock(this);
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
+            var token = _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
 
             Assert.IsNotNull(token);
 
-            Runtime.Messages.Unsubscribe<SimpleMessageMock>(token);
-            Runtime.Messages.Publish(message);
+            _messageHub.Unsubscribe<SimpleMessageMock>(token);
+            _messageHub.Publish(message);
 
             Assert.IsTrue(_messagesToSend.Any());
         }
@@ -140,12 +96,12 @@
         {
             var messagesToSend = new List<SimpleMessageMock>();
 
-            var token = Runtime.Messages.Subscribe<SimpleMessageMock>(messagesToSend.Add);
+            var token = _messageHub.Subscribe<SimpleMessageMock>(messagesToSend.Add);
             Assert.IsNotNull(token);
 
             var message = new SimpleMessageMock(this);
 
-            await Runtime.Messages.PublishAsync(message);
+            await _messageHub.PublishAsync(message);
 
             Assert.IsTrue(messagesToSend.Any());
             Assert.AreEqual(message, messagesToSend.First());
@@ -155,7 +111,7 @@
         public void NullMessage_ThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                Runtime.Messages.Publish((SimpleMessageMock) null));
+                _messageHub.Publish((SimpleMessageMock) null));
         }
 
         [Test]
@@ -171,25 +127,26 @@
         public class Subscribe
         {
             private readonly List<SimpleMessageMock> _messagesToSend = new List<SimpleMessageMock>();
+            private readonly MessageHub _messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
 
             [Test]
             public void NullDeliveryAction_ThrowsArgumentNullException()
             {
                 Assert.Throws<ArgumentNullException>(() =>
-                    Runtime.Messages.Subscribe<SimpleMessageMock>(null, x => true));
+                    _messageHub.Subscribe<SimpleMessageMock>(null, x => true));
             }
 
             [Test]
             public void NullMessageFilter_ThrowsArgumentNullException()
             {
                 Assert.Throws<ArgumentNullException>(() =>
-                    Runtime.Messages.Subscribe<SimpleMessageMock>(_messagesToSend.Add, null));
+                    _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add, null));
             }
 
             [Test]
             public void StrongReferenceFalse_ReturnsToken()
             {
-                var token = Runtime.Messages.Subscribe<SimpleMessageMock>(
+                var token = _messageHub.Subscribe<SimpleMessageMock>(
                     _messagesToSend.Add, x => false,
                     false,
                     MessageHubDefaultProxy.Instance);
@@ -200,7 +157,7 @@
             [Test]
             public void DeliveryActionAndStrongReferencesTrue_ReturnsToken()
             {
-                var token = Runtime.Messages.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
+                var token = _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add);
 
                 Assert.IsNotNull(token);
             }
@@ -208,7 +165,7 @@
             [Test]
             public void DeliveryActionAndStrongReferencesFalse_ReturnsToken()
             {
-                var token = Runtime.Messages.Subscribe<SimpleMessageMock>(_messagesToSend.Add, false);
+                var token = _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add, false);
 
                 Assert.IsNotNull(token);
             }
@@ -216,7 +173,7 @@
             [Test]
             public void DeliveryActionWithStrongReferencesTrueAndProxy_ReturnsToken()
             {
-                var token = Runtime.Messages.Subscribe<SimpleMessageMock>(
+                var token = _messageHub.Subscribe<SimpleMessageMock>(
                     _messagesToSend.Add,
                     true,
                     MessageHubDefaultProxy.Instance);
@@ -227,7 +184,7 @@
             [Test]
             public void DeliveryActionWithStrongReferencesFalseAndProxy_ReturnsToken()
             {
-                var token = Runtime.Messages.Subscribe<SimpleMessageMock>(
+                var token = _messageHub.Subscribe<SimpleMessageMock>(
                     _messagesToSend.Add,
                     false,
                     MessageHubDefaultProxy.Instance);
@@ -238,7 +195,7 @@
             [Test]
             public void DeliveryActionAndMessageFilter_ReturnsToken()
             {
-                var token = Runtime.Messages.Subscribe<SimpleMessageMock>(_messagesToSend.Add, x => true);
+                var token = _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add, x => true);
 
                 Assert.IsNotNull(token);
             }
@@ -246,7 +203,7 @@
             [Test]
             public void DeliveryActionWithFuncAndStrongReferencesTrue_ReturnsToken()
             {
-                var token = Runtime.Messages.Subscribe<SimpleMessageMock>(_messagesToSend.Add, x => true);
+                var token = _messageHub.Subscribe<SimpleMessageMock>(_messagesToSend.Add, x => true);
 
                 Assert.IsNotNull(token);
             }
@@ -255,17 +212,17 @@
             public void NullToken_ThrowsArgumentNullException()
             {
                 Assert.Throws<ArgumentNullException>(() =>
-                    Runtime.Messages.Unsubscribe<SimpleMessageMock>(null));
+                    _messageHub.Unsubscribe<SimpleMessageMock>(null));
             }
 
             [Test]
             public void PublishWithStrongReference_ReturnsMessagePublished()
             {
                 var messages = new List<SimpleMessageMock>();
-                Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add);
+                _messageHub.Subscribe<SimpleMessageMock>(messages.Add);
                 var message = new SimpleMessageMock(this);
 
-                Runtime.Messages.Publish(message);
+                _messageHub.Publish(message);
 
                 Assert.IsTrue(messages.Any());
                 Assert.AreEqual(message, messages.First());
@@ -275,10 +232,10 @@
             public void PublishWithWeakReference_ReturnsMessagePublished()
             {
                 var messages = new List<SimpleMessageMock>();
-                Runtime.Messages.Subscribe<SimpleMessageMock>(messages.Add, false);
+                _messageHub.Subscribe<SimpleMessageMock>(messages.Add, false);
                 var message = new SimpleMessageMock(this);
 
-                Runtime.Messages.Publish(message);
+                _messageHub.Publish(message);
 
                 Assert.IsTrue(messages.Any());
                 Assert.AreEqual(message, messages.First());
