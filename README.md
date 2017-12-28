@@ -378,7 +378,7 @@ It's a Swan's basic SMTP client that can submit messages to an SMTP server. It's
 
 [SmtpClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
-#### Example 1: Sending mails
+#### Example 1: Sending a mail
 
 The mails are sent asynchronously.
 
@@ -390,22 +390,48 @@ var client = new SmtpClient("smtp.gmail.com", 587);
 client.SendMailAsync(new MailMessage("sender@test.com", "recipient@test.cm", "Subject", "Body"));
 
 ```
-or using a SMTP session state
+#### Example 2: Using a SMTP session state
 ```csharp
 // Create a new session state with a sender address
 var session = new SmtpSessionState {SenderAddress = "sender@test.com"};
-
-// A token in case we want to cancel it
-var cts = new CancellationTokenSource();
 
 // Add a recipient
 session.Recipients.Add("recipient@test.cm");
 
 // Send
-client.SendMailAsync(session, ct: cts.Token);
+client.SendMailAsync(session);
 
-// And if we decide to cancel it
-cts.Cancel();
+```
+#### Example 2: Adding an attatchment with SMTP session state
+When using `SmtpSessionState` you have to deal with raw data manipulation, in order to parse MIME attachments [MimeKit](https://www.nuget.org/packages/MimeKit/) is recommended.
+```csharp
+// Create a new session state with a sender address
+var session = new SmtpSessionState { SenderAddress = "sender@test.com" };
+
+// Add a recipient
+session.Recipients.Add("recipient@test.cm");
+
+// load a file as an attachment
+var attachment = new MimePart("image", "gif")
+{
+    Content = new MimeContent(File.OpenRead("meme.gif"), ContentEncoding.Default),
+    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+    ContentTransferEncoding = ContentEncoding.Base64,
+    FileName = Path.GetFileName("meme.gif")
+};
+
+
+using (var memory = new MemoryStream())
+{
+    //Decode the attachment content
+    attachment.Content.DecodeTo(memory);
+    
+    //Convert it into a byte array and add it to the session DataBuffer
+    session.DataBuffer.AddRange(memory.ToArray());
+}
+
+// Send
+client.SendMailAsync(session);
 
 ```
 ### The `ObjectMapper`
