@@ -106,6 +106,7 @@ namespace Unosquare.Swan.Networking
             }
         }
 
+#if !NETSTANDARD1_3
         /// <summary>
         /// Sends an email message asynchronously.
         /// </summary>
@@ -137,6 +138,7 @@ namespace Unosquare.Swan.Networking
 
             return SendMailAsync(state, sessionId);
         }
+#endif
 
         /// <summary>
         /// Sends an email message using a session state object.
