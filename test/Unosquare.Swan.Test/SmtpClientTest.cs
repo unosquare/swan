@@ -49,11 +49,7 @@
         [Test]
         public void TestConnectGmailSmtpException()
         {
-#if !NETSTANDARD1_3 && !UWP
             Assert.ThrowsAsync<System.Net.Mail.SmtpException>(async () =>
-#else
-            Assert.ThrowsAsync<Unosquare.Swan.Exceptions.SmtpException>(async () =>
-#endif
             {
                 var client = new SmtpClient(Host, 587);
 
@@ -89,7 +85,6 @@
             Assert.AreEqual("hh", smtpMock.Headers.First().Key);
         }
 
-#if NET46
         [Test]
         public async Task SendLocalEmailWithMailMessage()
         {
@@ -115,7 +110,6 @@
             Assert.AreEqual("x-sender", smtpMock.Headers.First().Key);
             Assert.AreEqual(SenderEmail, smtpMock.Headers.First().Value);
         }
-#endif
 
         [Test]
         public async Task CancelSendEmail()
