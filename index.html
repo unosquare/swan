@@ -97,6 +97,7 @@ Our philosophy is that SWAN should have no external dependencies, it should be c
 <li><a href="#the-objectcomparer">ObjectComparer</a></li>
 <li><a href="#the-dependencycontainer">DependencyContainer</a></li>
 <li><a href="#the-messagehub">MessageHub</a></li>
+<li><a href="#the-ldap-connection">LDAP</a></li>
 </ul>
 </li>
 </ul>
@@ -601,7 +602,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 
  // And lastly unsuscribe, we will no longer receive any messages 
  MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
-</code></pre><h3 id="the-ldap-client">The <code>LDAP Client</code></h3>
+</code></pre><h3 id="the-ldap-connection">The <code>LDAP Connection</code></h3>
 <p>The <strong>Lightweight Directory Access Protocol</strong> or LDAP is a network protocol for querying and modifying items in directory service providers like <a href="https://en.wikipedia.org/wiki/Active_Directory">Active Directory</a> which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a <code>domain</code>.</p>
 <h4 id="operations">Operations</h4>
 <p>LDAP has a couple of operations that can be executed</p>
