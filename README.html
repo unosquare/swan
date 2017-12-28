@@ -478,11 +478,26 @@ var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html">SmtpClient API Doc</a></p>
 <h4 id="example-1-sending-mails">Example 1: Sending mails</h4>
 <p>The mails are sent asynchronously.</p>
-<pre><code class="lang-csharp">// Sending mails async
-await client.SendMailAsync(new MailMessage());
+<pre><code class="lang-csharp">// Create a new smtp client using google&#39;s smtp server
+var client = new SmtpClient(&quot;smtp.gmail.com&quot;, 587);
 
-// Or sent the mail based on the Smtp session state
-await client.SendMailAsync(new SmtpSessionState());
+// Send an email 
+client.SendMailAsync(new MailMessage(&quot;sender@test.com&quot;, &quot;recipient@test.cm&quot;, &quot;Subject&quot;, &quot;Body&quot;));
+</code></pre><p>or using a SMTP session state</p>
+<pre><code class="lang-csharp">// Create a new session state with a sender address
+var session = new SmtpSessionState {SenderAddress = &quot;sender@test.com&quot;};
+
+// A token in case we want to cancel it
+var cts = new CancellationTokenSource();
+
+// Add a recipient
+session.Recipients.Add(&quot;recipient@test.cm&quot;);
+
+// Send
+client.SendMailAsync(session, ct: cts.Token);
+
+// And if we decide to cancel it
+cts.Cancel();
 </code></pre><h3 id="the-objectmapper">The <code>ObjectMapper</code></h3>
 <p>It&#39;s a very handy component of Swan that maps objects. You can access a default instance of <code>ObjectMapper</code> by <code>Runtime</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html">ObjectMapper API Doc</a></p>
@@ -706,7 +721,7 @@ connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;,
               <div class="contribution">
                 <ul class="nav">
                   <li class="top-sep">
-                    <a href="https://github.com/unosquare/swan/blob/master/README.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/unosquare/swan/blob/Issue57-SMTPClientDoc/README.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
