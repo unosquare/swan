@@ -10,7 +10,7 @@ namespace Unosquare.Swan.Networking
     using System.Text;
     using System.Threading.Tasks;
     using System.Collections.Generic;
-#if !NETSTANDARD1_3 && !UWP
+#if !NETSTANDARD1_3
     using System.Net.Mail;
 #else
     using Exceptions;
@@ -106,13 +106,12 @@ namespace Unosquare.Swan.Networking
             }
         }
 
-#if NET452 || NETSTANDARD2_0 
-/// <summary>
-/// Sends an email message asynchronously.
-/// </summary>
-/// <param name="message">The message.</param>
-/// <param name="sessionId">The session identifier.</param>
-/// <returns>A task that represents the asynchronous of send email operation</returns>
+        /// <summary>
+        /// Sends an email message asynchronously.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="sessionId">The session identifier.</param>
+        /// <returns>A task that represents the asynchronous of send email operation</returns>
         public Task SendMailAsync(MailMessage message, string sessionId = null)
         {
             var state = new SmtpSessionState
@@ -138,7 +137,6 @@ namespace Unosquare.Swan.Networking
 
             return SendMailAsync(state, sessionId);
         }
-#endif
 
         /// <summary>
         /// Sends an email message using a session state object.
