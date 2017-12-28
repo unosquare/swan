@@ -8154,6 +8154,12 @@ references:
   commentId: Overload:Unosquare.Swan.Networking.SmtpClient.Port
   fullName: Unosquare.Swan.Networking.SmtpClient.Port
   nameWithType: SmtpClient.Port
+- uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String)
+  name: SendMailAsync(MailMessage, String)
+  href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_MailMessage_System_String_
+  commentId: M:Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage,System.String)
+  fullName: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(MailMessage, System.String)
+  nameWithType: SmtpClient.SendMailAsync(MailMessage, String)
 - uid: Unosquare.Swan.Networking.SmtpClient.SendMailAsync(System.Collections.Generic.IEnumerable{Unosquare.Swan.Networking.SmtpSessionState},System.String,System.Threading.CancellationToken)
   name: SendMailAsync(IEnumerable<SmtpSessionState>, String, CancellationToken)
   href: api/Unosquare.Swan.Networking.SmtpClient.html#Unosquare_Swan_Networking_SmtpClient_SendMailAsync_System_Collections_Generic_IEnumerable_Unosquare_Swan_Networking_SmtpSessionState__System_String_System_Threading_CancellationToken_
