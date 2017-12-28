@@ -82,14 +82,14 @@
 <li><a href="#libraries">Libraries</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#whats-in-the-library">Whats in the library</a><ul>
-<li><a href="#the-runtime">Runtime</a></li>
-<li><a href="#the-terminal">Terminal</a></li>
-<li><a href="#the-json">Json</a></li>
-<li><a href="#the-csvwriter">CsvWriter</a></li>
-<li><a href="#the-csvreader">CsvReader</a></li>
-<li><a href="#the-jsonclient">JsonClient</a></li>
-<li><a href="#the-smtpclient">SmtpClient</a></li>
-<li><a href="#the-objectmapper">ObjectMapper</a></li>
+<li><a href="#the-runtime-class">Runtime</a></li>
+<li><a href="#the-terminal-class">Terminal</a></li>
+<li><a href="#the-json-formatter">Json</a></li>
+<li><a href="#the-csvwriter-class">CsvWriter</a></li>
+<li><a href="#the-csvreader-class">CsvReader</a></li>
+<li><a href="#the-jsonclient-class">JsonClient</a></li>
+<li><a href="#the-smtpclient-class">SmtpClient</a></li>
+<li><a href="#the-objectmapper-component">ObjectMapper</a></li>
 <li><a href="#the-network">Network</a></li>
 <li><a href="#the-objectcomparer">ObjectComparer</a></li>
 <li><a href="#the-dependencycontainer">DependencyContainer</a></li>
@@ -474,16 +474,54 @@ var data = JsonClient.Post&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data
 <p>Easy way to HTTP PUT using <code>JsonClient</code>.</p>
 <pre><code class="lang-csharp">// The PUT
 var data = JsonClient.Put&lt;BasicJson&gt;(&quot;https://mywebsite.com/api/data&quot;, new { filter = true });
-</code></pre><h3 id="the-smtpclient">The <code>SmtpClient</code></h3>
+</code></pre><h3 id="the-smtpclient-class">The <code>SmtpClient</code> class</h3>
 <p>It&#39;s a basic SMTP client that can submit messages to an SMTP server. It&#39;s very easy to cvonfigure and it provides a very handy way to make send email messages in your application.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html">SmtpClient API Doc</a></p>
-<h4 id="example-1-sending-emails">Example 1: Sending emails</h4>
-<p>The mails are sent asynchronously.</p>
-<pre><code class="lang-csharp">// Sending mails async
-await client.SendMailAsync(new MailMessage());
+<h4 id="example-1-using-systemnetmailmailmessage">Example 1: Using <code>System.Net.Mail.MailMessage</code></h4>
+<p><code>SmtpClient</code> uses the classic  <code>System.Net.Mail.MailMessage</code> provided by .NET to send emails asynchronously.</p>
+<pre><code class="lang-csharp">// Create a new smtp client using google&#39;s smtp server
+var client = new SmtpClient(&quot;smtp.gmail.com&quot;, 587);
 
-// Or send the mail based on a saved SMTP session state
-await client.SendMailAsync(new SmtpSessionState());
+// Send an email 
+client.SendMailAsync(new MailMessage(&quot;sender@test.com&quot;, &quot;recipient@test.cm&quot;, &quot;Subject&quot;, &quot;Body&quot;));
+</code></pre><h4 id="example-2-using-a-smtp-session-state">Example 2: Using a SMTP session state</h4>
+<pre><code class="lang-csharp">// Create a new session state with a sender address
+var session = new SmtpSessionState {SenderAddress = &quot;sender@test.com&quot;};
+
+// Add a recipient
+session.Recipients.Add(&quot;recipient@test.cm&quot;);
+
+// Send
+client.SendMailAsync(session);
+</code></pre><h4 id="example-3-adding-an-attatchment-with-smtp-session-state">Example 3: Adding an attatchment with SMTP session state</h4>
+<p>When using <code>SmtpSessionState</code> you have to deal with raw data manipulation, in order to parse MIME attachments <a href="https://www.nuget.org/packages/MimeKit/">MimeKit</a> is recommended.</p>
+<pre><code class="lang-csharp">// Create a new session state with a sender address
+var session = new SmtpSessionState { SenderAddress = &quot;sender@test.com&quot; };
+
+// Add a recipient
+session.Recipients.Add(&quot;recipient@test.cm&quot;);
+
+// load a file as an attachment
+var attachment = new MimePart(&quot;image&quot;, &quot;gif&quot;)
+{
+    Content = new MimeContent(File.OpenRead(&quot;meme.gif&quot;), ContentEncoding.Default),
+    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+    ContentTransferEncoding = ContentEncoding.Base64,
+    FileName = Path.GetFileName(&quot;meme.gif&quot;)
+};
+
+
+using (var memory = new MemoryStream())
+{
+    //Decode the attachment content
+    attachment.Content.DecodeTo(memory);
+
+    //Convert it into a byte array and add it to the session DataBuffer
+    session.DataBuffer.AddRange(memory.ToArray());
+}
+
+// Send
+client.SendMailAsync(session);
 </code></pre><h3 id="the-objectmapper-component">The <code>ObjectMapper</code> component</h3>
 <p>The <code>ObjectMapper</code> is a component to translate and copy property data from one type to another. You can access a default instance of <code>ObjectMapper</code> through the <code>Runtime</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html">ObjectMapper API Doc</a></p>
@@ -586,7 +624,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 <p>A simple <a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Publisher-Subscriber pattern</a> implementation. It&#39;s a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. </p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html">MessageHub API Doc</a></p>
 <p>In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object&#39;s properties or using the pub-sub pattern. To avoid any problems caused by the former method like possible modification of the object&#39;s properties it is a good practice to use the latter. With the pub-sub pattern any object can &quot;subscribe&quot; to another object&#39;s event, if the other object &quot;publishes&quot; a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.</p>
-<h4 id="example-1-subscribing-to-a-messagehub">Example 1: <code>Subscribing to a MessageHub</code></h4>
+<h4 id="example-1-subscribing-to-a-messagehub">Example 1: Subscribing to a MessageHub</h4>
 <p>A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.</p>
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
@@ -620,7 +658,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 </ul>
 </li>
 </ul>
-<h4 id="example-1-connecting-to-a-ldap-server">Example 1: <code>Connecting to a LDAP Server</code></h4>
+<h4 id="example-1-connecting-to-a-ldap-server">Example 1: Connecting to a LDAP Server</h4>
 <p>A connection to a LDAP server is a two step process, first we <code>connect</code> to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. </p>
 <pre><code class="lang-csharp"> // Create a  LdapConnection variable
  var connection = new LdapConnection();
@@ -630,14 +668,14 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 
  // Set up the credentials 
  await connection.Bind(&quot;cn=read-only-admin,dc=example,dc=com&quot;, &quot;password&quot;);
-</code></pre><h4 id="example-2-reading-all-the-properties-of-an-entry">Example 2: <code>Reading all the properties of an entry</code></h4>
+</code></pre><h4 id="example-2-reading-all-the-properties-of-an-entry">Example 2: Reading all the properties of an entry</h4>
 <p>After establishing a connection you can use the connection&#39;s Read method to retrieve all properties of an entry</p>
 <pre><code class="lang-csharp">// Get all properties of &#39;tesla&#39;
  var properties = await connection.Read(&quot;uid=tesla,dc=example,dc=com&quot;);
 
  // After getting all properties from an entry select its email and print it
  properties.GetAttribute(&quot;mail&quot;).StringValue.Info();
-</code></pre><h4 id="example-3-searching-entries">Example 3: <code>Searching entries</code></h4>
+</code></pre><h4 id="example-3-searching-entries">Example 3: Searching entries</h4>
 <p> There are three scopes for searching entries :</p>
 <ol>
 <li><strong>ScopeBase</strong>: searches only at the base dn</li>
@@ -707,7 +745,7 @@ connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;,
               <div class="contribution">
                 <ul class="nav">
                   <li class="top-sep">
-                    <a href="https://github.com/unosquare/swan/blob/master/README.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/unosquare/swan/blob/Issue57-SMTPClientDoc/README.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
