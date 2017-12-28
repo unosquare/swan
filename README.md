@@ -593,7 +593,7 @@ A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2
 
 In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern any object can "subscribe" to another object's event, if the other object "publishes" a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
-#### Example 1: `Subscribing to a MessageHub`
+#### Example 1: Subscribing to a MessageHub
 
 A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.
 
@@ -631,7 +631,7 @@ LDAP has a couple of operations that can be executed
   * **Delete**: deletes an entry from the directory
    * **Replace**: modifies an existing property value
    
-#### Example 1: `Connecting to a LDAP Server`
+#### Example 1: Connecting to a LDAP Server
 A connection to a LDAP server is a two step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. 
 
 ```csharp
@@ -644,7 +644,7 @@ A connection to a LDAP server is a two step process, first we `connect` to a ser
  // Set up the credentials 
  await connection.Bind("cn=read-only-admin,dc=example,dc=com", "password");
 ```
-#### Example 2: `Reading all the properties of an entry`
+#### Example 2: Reading all the properties of an entry
 After establishing a connection you can use the connection's Read method to retrieve all properties of an entry
 ```csharp
 // Get all properties of 'tesla'
@@ -653,7 +653,7 @@ After establishing a connection you can use the connection's Read method to retr
  // After getting all properties from an entry select its email and print it
  properties.GetAttribute("mail").StringValue.Info();
 ```
-#### Example 3: `Searching entries`
+#### Example 3: Searching entries
  There are three scopes for searching entries :
 1. **ScopeBase**: searches only at the base dn
 2. **ScopeOne**: searches all entries one level under the specified dn
