@@ -627,7 +627,7 @@ var searchResult = await connection.Search("dc=example,dc=com",LdapConnection.Sc
       entryAttributes.GetAttribute("cn").StringValue.Info();
   }
 ```
- ##### Example 4: Modifying an entry attribute
+ #### Example 4: Modifying an entry attribute
  
  There are three scopes for searching entries :
 1. **ScopeBase**: searches only at the base dn
