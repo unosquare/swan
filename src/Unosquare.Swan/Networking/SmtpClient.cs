@@ -106,7 +106,8 @@ namespace Unosquare.Swan.Networking
             }
         }
 
-#if NET452 /// <summary>
+#if NET452 || NETSTANDARD2_0 
+/// <summary>
 /// Sends an email message asynchronously.
 /// </summary>
 /// <param name="message">The message.</param>
