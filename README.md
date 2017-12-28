@@ -383,13 +383,31 @@ It's a Swan's basic SMTP client that can submit messages to an SMTP server. It's
 The mails are sent asynchronously.
 
 ```csharp
-// Sending mails async
-await client.SendMailAsync(new MailMessage());
+// Create a new smtp client using google's smtp server
+var client = new SmtpClient("smtp.gmail.com", 587);
 
-// Or sent the mail based on the Smtp session state
-await client.SendMailAsync(new SmtpSessionState());
+// Send an email 
+client.SendMailAsync(new MailMessage("sender@test.com", "recipient@test.cm", "Subject", "Body"));
+
 ```
+or using a SMTP session state
+```csharp
+// Create a new session state with a sender address
+var session = new SmtpSessionState {SenderAddress = "sender@test.com"};
 
+// A token in case we want to cancel it
+var cts = new CancellationTokenSource();
+
+// Add a recipient
+session.Recipients.Add("recipient@test.cm");
+
+// Send
+client.SendMailAsync(session, ct: cts.Token);
+
+// And if we decide to cancel it
+cts.Cancel();
+
+```
 ### The `ObjectMapper`
 
 It's a very handy component of Swan that maps objects. You can access a default instance of `ObjectMapper` by `Runtime` class.
