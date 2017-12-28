@@ -16,7 +16,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
   * [Whats in the library](#whats-in-the-library)
     * [Runtime](#the-runtime-class)
     * [Terminal](#the-terminal-class)
-    * [Json](#the-json-class)
+    * [Json](#the-json-formatter)
     * [CsvWriter](#the-csvwriter-class)
     * [CsvReader](#the-csvreader-class)
     * [JsonClient](#the-jsonclient-class)
