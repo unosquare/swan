@@ -609,6 +609,11 @@ After establishing a connection you can use the connection's Read method to retr
  properties.GetAttribute("mail").StringValue.Info();
 ```
 #### Example 3: `Searching entries`
+ There are three scopes for searching entries :
+1. **ScopeBase**: searches only at the base dn
+2. **ScopeOne**: searches all entries one level under the specified dn
+3. **ScopeSub**: as mentioned above this allows to search entries at all levels
+
 ```csharp
 // Retrieve all entries that have the specified email using ScopeSub 
 // which searches all entries at all levels under and including the specified base DN
@@ -627,14 +632,7 @@ var searchResult = await connection.Search("dc=example,dc=com",LdapConnection.Sc
       entryAttributes.GetAttribute("cn").StringValue.Info();
   }
 ```
- #### Example 4: Modifying an entry attribute
- 
- There are three scopes for searching entries :
-1. **ScopeBase**: searches only at the base dn
-2. **ScopeOne**: searches all entries one level under the specified dn
-3. **ScopeSub**: as mentioned above this allows to search entries at all levels
-
- 
+ #### Example 4: Modifying an entry attribute 
 An easy way to deal with attributes modification is by calling the Modify method with a `LdapModificationOp` such as:
 * **Replace**: overrides an attribute value. 
    * If the attribute does not exist it creates a new one
