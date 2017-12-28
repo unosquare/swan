@@ -46,7 +46,8 @@
             new object[] { SmtpServerReply.AuthorizationRequired, 530, "Authorization Required" }
         };
 
-        [Test, TestCaseSource(nameof(ServerReplyCases))]
+        [Test]
+        [TestCaseSource(nameof(ServerReplyCases))]
         public void CommandUnrecognized_SmtpServerReply(SmtpServerReply serverReply, int responseCode, string message)
         {
             Assert.IsNotNull(serverReply);
