@@ -784,7 +784,7 @@ data.StandardError.WriteLine();
 <h3 id="the-appworkerbase-class">The <code>AppWorkerBase</code> class</h3>
 <p>An implementation of the IWorker interface that creates an application service capable of performing some background processing.</p>
 <h4 id="example-1-inherit-from-appworkerbase">Example 1: Inherit from AppWorkerBase</h4>
-<p>The AppWorkerBase has many methods that can be overwritten such as:</p>
+<p>The <code>AppWorkerBase</code> class has many methods that can be overwritten such as:</p>
 <ul>
 <li><strong>OnWorkerThreadLoopException</strong>: which is called when an unhandled exception is thrown</li>
 <li><strong>OnWorkerThreadExit</strong>: executed when the user loop has exited</li>
@@ -801,17 +801,11 @@ data.StandardError.WriteLine();
             // While the worker hasn&#39;t been stopped
             while (CancellationToken.IsCancellationRequested == false)
             {
-                try
-                {
-                    // Delay a second and then proceed
-                    Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
+               // Delay a second and then proceed
+                Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
 
-                    // Just print this
-                    $&quot;Working...&quot;.WriteLine();
-                }
-                catch
-                {
-                }
+                // Just print this
+                $&quot;Working...&quot;.WriteLine();
             }
 
         }
@@ -827,7 +821,7 @@ data.StandardError.WriteLine();
         }
     }
 </code></pre><h4 id="example-2-using-an-appworker">Example 2: Using an AppWorker</h4>
-<p>The Worker&#39;s base class also includes properties like:</p>
+<p>The <code>Worker</code>&#39;s base class also includes properties like:</p>
 <ul>
 <li><strong>isBusy</strong>: indicates if the thread is busy</li>
 <li><strong>State</strong>: shows the current state of the app service, based on the AppWorkerState enum (Stopped, Running)</li>
