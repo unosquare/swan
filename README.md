@@ -780,17 +780,11 @@ The `AppWorkerBase` class has many methods that can be overwritten such as:
             // While the worker hasn't been stopped
             while (CancellationToken.IsCancellationRequested == false)
             {
-                try
-                {
-                    // Delay a second and then proceed
-                    Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
-                    
-                    // Just print this
-                    $"Working...".WriteLine();
-                }
-                catch
-                {
-                }
+               // Delay a second and then proceed
+                Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
+
+                // Just print this
+                $"Working...".WriteLine();
             }
            
         }
