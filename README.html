@@ -96,6 +96,7 @@
 <li><a href="#the-messagehub">MessageHub</a></li>
 <li><a href="#the-ldapconnection">LdapConnection</a></li>
 <li><a href="#the-processrunner-class">The ProcessRunner class</a></li>
+<li><a href="#the-appworkerbase-class">The AppWorkerBase class</a></li>
 </ul>
 </li>
 </ul>
@@ -782,7 +783,8 @@ data.StandardOutput.WriteLine();
 data.StandardError.WriteLine();
 </code></pre><p><em>Keep in mind that both <code>GetProcessOutputAsync</code> and <code>GetProcessResultAsync</code> are meant to be used for programs that output a relatively small amount of text</em></p>
 <h3 id="the-appworkerbase-class">The <code>AppWorkerBase</code> class</h3>
-<p>An implementation of the IWorker interface that creates an application service capable of performing some background processing.</p>
+<p>An implementation of the <code>IWorker</code> interface that creates an application service capable of performing some background processing.
+<a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase API Doc</a></p>
 <h4 id="example-1-inherit-from-appworkerbase">Example 1: Inherit from AppWorkerBase</h4>
 <p>The <code>AppWorkerBase</code> class has many methods that can be overwritten such as:</p>
 <ul>
