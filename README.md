@@ -761,7 +761,7 @@ data.StandardError.WriteLine();
 
 ### The `AppWorkerBase` class
 An implementation of the `IWorker` interface that creates an application service capable of performing some background processing.
-
+[AppWorkerBase API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html)
 #### Example 1: Inherit from AppWorkerBase
 The `AppWorkerBase` class has many methods that can be overwritten such as:
 
