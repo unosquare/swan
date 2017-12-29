@@ -27,6 +27,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [DependencyContainer](#the-dependencycontainer)
     * [MessageHub](#the-messagehub)
     * [LdapConnection](#the-ldapconnection)
+    * [The ProcessRunner class](#the-processrunner-class)
 
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -702,3 +703,58 @@ An easy way to deal with attributes modification is by calling the Modify method
  // disconnect from the LDAP server
  connection.Disconnect();
  ```
+### The `ProcessRunner` class
+A class that provides methods that helps us create external process and capture their output. 
+
+[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
+
+#### Example 1: Running a process async
+`RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the ouput and error stream.
+
+```csharp
+// executes a process and returns the exit code
+var result = await ProcessRunner.RunProcessAsync(
+               // The path of the program to be executed
+               "dotnet",
+               //Parameters
+               "--help",
+               // A success callback with a reference to the output and the process itself
+               (data, proc) =>
+               {
+               // If it executes correctly, print the output
+                 Encoding.GetEncoding(0).GetString(data).WriteLine();
+               },
+               // An error callback with a reference to the error and the process itself
+               (data, proc) =>
+               {
+               // If an error ocurred, print out the error
+                   Encoding.GetEncoding(0).GetString(data).WriteLine();
+               }
+              );
+ ```
+#### Example 2: Getting a process output
+If you are more concern about the output than the process itself, you can use `GetProcessOutputAsync` to get just a string containing either the output or the error text.
+```csharp
+// Execute a process asynchronously and return either the ouput or the error
+var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help");
+
+// Print the result
+data.WriteLine();
+ ```
+#### Example 3: Getting a process result
+If you don't want to deal with callbacks but you need more information after running an external process, you can use `GetProcessResultAsync` to get not just the output and error texts but also the exit code.
+```csharp
+// Execute a process asynchronously and returns a ProcessResult object
+var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
+
+// Print out the exit code
+$"{data.ExitCode}".WriteLine();
+
+// The output
+data.StandardOutput.WriteLine();
+
+// And the error
+data.StandardError.WriteLine();
+```
+*Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` are meant to be used for programs that output a relatively small amount of text*
+
