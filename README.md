@@ -705,9 +705,28 @@ An easy way to deal with attributes modification is by calling the Modify method
 ### The `ProcessRunner`
 A class that provides methods that helps us create external process and capture their output. The following methods are found inside `ProcessRunner`:
 
-* **RunProcessAsync**: runs an external process asynchronously and provides callbacks to retrieve binary data from the standard error and output stream.
-   * All Callbacks contain a reference to the process
-   * The exit code will be -1 for a forceful termination of a process
+#### Example 1: Running a process async
+```csharp
+// executes a process and returns the exit code
+var result = await ProcessRunner.RunProcessAsync(
+               // The path of the program to be executed
+               "dotnet",
+               //Parameters
+               "--help",
+               // A success callback with a reference to the output and the process itself
+               (data, proc) =>
+               {
+               // If it executes correctly, print the output
+                 Encoding.GetEncoding(0).GetString(data).WriteLine();
+               },
+               // An error callback with a reference to the error and the process itself
+               (data, proc) =>
+               {
+               // If an error ocurred, print out the error
+                   Encoding.GetEncoding(0).GetString(data).WriteLine();
+               }
+              );
+ ```
 
 * **GetProcessOutputAsync**: runs a process asynchronously. If the exit code is 0, it returns all the standard output text else returns the contents of a standard error.
 
