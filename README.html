@@ -784,6 +784,12 @@ data.StandardError.WriteLine();
 <h3 id="the-appworkerbase-class">The <code>AppWorkerBase</code> class</h3>
 <p>An implementation of the IWorker interface that creates an application service capable of performing some background processing.</p>
 <h4 id="example-1-inherit-from-appworkerbase">Example 1: Inherit from AppWorkerBase</h4>
+<p>The AppWorkerBase has many methods that can be overwritten such as:</p>
+<ul>
+<li><strong>OnWorkerThreadLoopException</strong>: which is called when an unhandled exception is thrown</li>
+<li><strong>OnWorkerThreadExit</strong>: executed when the user loop has exited</li>
+<li><strong>WorkerThreadLoop</strong>: a custom loop that checks wheter a cancellation has been requested if so it exits the loop</li>
+</ul>
 <pre><code class="lang-csharp"> class Worker : AppWorkerBase
     {
         // An action that will be executed if the worker is stopped
@@ -821,23 +827,28 @@ data.StandardError.WriteLine();
         }
     }
 </code></pre><h4 id="example-2-using-an-appworker">Example 2: Using an AppWorker</h4>
-<pre><code class="lang-csharp">// Create a new AppWorker using the class explained above
+<p>The Worker&#39;s base class also includes properties like:</p>
+<ul>
+<li><strong>isBusy</strong>: indicates if the thread is busy</li>
+<li><strong>State</strong>: shows the current state of the app service, based on the AppWorkerState enum (Stopped, Running)</li>
+<li><strong>CancellationToken</strong>: gets the cancellation token
+```csharp
+// Create a new AppWorker using the class explained above
 var worker = new Worker
-            {
-            // Setting an OnExit Action that just prints &#39;Exited&#39;
-                OnExit = () =&gt;
-                {
-                    $&quot;Exited&quot;.WriteLine();
-                }
-            };
+          {
+          // Setting an OnExit Action that just prints &#39;Exited&#39;
+              OnExit = () =&gt;
+              {
+                  $&quot;Exited&quot;.WriteLine();
+              }
+          };
 // Start the worker
-worker.Start();
-
-// Wait 2 seconds
-Task.Delay(2000).Wait();
-
-// Stop the worker         
-worker.Stop();
+worker.Start();</li>
+</ul>
+<p>// Wait 2 seconds in order to see some output
+Task.Delay(2000).Wait();</p>
+<p>// Stop the worker<br>worker.Stop();</p>
+<pre><code>
 </code></pre></article>
           </div>
           
