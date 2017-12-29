@@ -758,3 +758,65 @@ data.StandardError.WriteLine();
 ```
 *Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` are meant to be used for programs that output a relatively small amount of text*
 
+### The `AppWorkerBase` class
+An implementation of the IWorker interface that creates an application service capable of performing some background processing.
+
+#### Example 1: Inherit from AppWorkerBase
+```csharp
+ class Worker : AppWorkerBase
+    {
+        // An action that will be executed if the worker is stopped
+        public Action OnExit { get; set; }
+        
+        // Override the base loop method, this is the code that'll be run once the worker is started
+        protected override void WorkerThreadLoop()
+        {
+            // While the worker hasn't been stopped
+            while (CancellationToken.IsCancellationRequested == false)
+            {
+                try
+                {
+                    // Delay a second and then proceed
+                    Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
+                    
+                    // Just print this
+                    $"Working...".WriteLine();
+                }
+                catch
+                {
+                }
+            }
+           
+        }
+        
+        // Once the worker is stopped this code will be executed
+        protected override void OnWorkerThreadExit()
+        {          
+            // Execute the base method
+            base.OnWorkerThreadExit();
+            
+            // Then if the OnExit Action is not null execute it
+            OnExit?.Invoke();
+        }
+    }
+```
+#### Example 2: Using an AppWorker
+```csharp
+// Create a new AppWorker using the class explained above
+var worker = new Worker
+            {
+            // Setting an OnExit Action that just prints 'Exited'
+                OnExit = () =>
+                {
+                    $"Exited".WriteLine();
+                }
+            };
+// Start the worker
+worker.Start();
+
+// Wait 2 seconds
+Task.Delay(2000).Wait();
+
+// Stop the worker         
+worker.Stop();
+```
