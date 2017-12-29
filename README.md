@@ -27,6 +27,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [DependencyContainer](#the-dependencycontainer)
     * [MessageHub](#the-messagehub)
     * [LdapConnection](#the-ldapconnection)
+    * [The ProcessRunner class](#the-processrunner-class)
 
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -702,11 +703,14 @@ An easy way to deal with attributes modification is by calling the Modify method
  // disconnect from the LDAP server
  connection.Disconnect();
  ```
-### The `ProcessRunner`
+### The `ProcessRunner` class
 A class that provides methods that helps us create external process and capture their output. 
+
+[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html
 
 #### Example 1: Running a process async
 `RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the ouput and error stream.
+
 ```csharp
 // executes a process and returns the exit code
 var result = await ProcessRunner.RunProcessAsync(
