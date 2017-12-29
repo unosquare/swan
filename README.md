@@ -762,7 +762,7 @@ data.StandardError.WriteLine();
 An implementation of the IWorker interface that creates an application service capable of performing some background processing.
 
 #### Example 1: Inherit from AppWorkerBase
-The AppWorkerBase has many methods that can be overwritten such as:
+The `AppWorkerBase` class has many methods that can be overwritten such as:
 
 * **OnWorkerThreadLoopException**: which is called when an unhandled exception is thrown
 * **OnWorkerThreadExit**: executed when the user loop has exited
@@ -807,7 +807,7 @@ The AppWorkerBase has many methods that can be overwritten such as:
     }
 ```
 #### Example 2: Using an AppWorker
-The Worker's base class also includes properties like:
+The `Worker`'s base class also includes properties like:
 * **isBusy**: indicates if the thread is busy
 * **State**: shows the current state of the app service, based on the AppWorkerState enum (Stopped, Running)
 * **CancellationToken**: gets the cancellation token
