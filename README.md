@@ -703,9 +703,10 @@ An easy way to deal with attributes modification is by calling the Modify method
  connection.Disconnect();
  ```
 ### The `ProcessRunner`
-A class that provides methods that helps us create external process and capture their output. The following methods are found inside `ProcessRunner`:
+A class that provides methods that helps us create external process and capture their output. 
 
 #### Example 1: Running a process async
+`RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the ouput and error stream.
 ```csharp
 // executes a process and returns the exit code
 var result = await ProcessRunner.RunProcessAsync(
@@ -727,10 +728,29 @@ var result = await ProcessRunner.RunProcessAsync(
                }
               );
  ```
+#### Example 2: Getting a process output
+If you are more concern about the output than the process itself, you can use `GetProcessOutputAsync` to get just a string containing either the output or the error text.
+```csharp
+// Execute a process asynchronously and return either the ouput or the error
+var data = await ProcessRunner.GetProcessOutputAsync("dotnet", "--help");
 
-* **GetProcessOutputAsync**: runs a process asynchronously. If the exit code is 0, it returns all the standard output text else returns the contents of a standard error.
+// Print the result
+data.WriteLine();
+ ```
+#### Example 3: Getting a process result
+If you don't want to deal with callbacks but you need more information after running an external process, you can use `GetProcessResultAsync` to get not just the output and error texts but also the exit code.
+```csharp
+// Execute a process asynchronously and returns a ProcessResult object
+var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
 
-* **GetProcessResultAsync**: executes a process asynchronously and returns the text from the standard output and standard error streams along with the exit code.
+// Print out the exit code
+$"{data.ExitCode}".WriteLine();
 
+// The output
+data.StandardOutput.WriteLine();
+
+// And the error
+data.StandardError.WriteLine();
+```
 *Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` method are meant to be used for programs that output a relatively small amount of text*
 
