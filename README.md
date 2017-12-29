@@ -760,7 +760,7 @@ data.StandardError.WriteLine();
 *Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` are meant to be used for programs that output a relatively small amount of text*
 
 ### The `AppWorkerBase` class
-An implementation of the IWorker interface that creates an application service capable of performing some background processing.
+An implementation of the `IWorker` interface that creates an application service capable of performing some background processing.
 
 #### Example 1: Inherit from AppWorkerBase
 The `AppWorkerBase` class has many methods that can be overwritten such as:
