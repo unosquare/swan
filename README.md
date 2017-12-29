@@ -702,3 +702,16 @@ An easy way to deal with attributes modification is by calling the Modify method
  // disconnect from the LDAP server
  connection.Disconnect();
  ```
+### The `ProcessRunner`
+A class that provides methods that helps us create external process and capture their output. The following methods are found inside `ProcessRunner`:
+
+* **RunProcessAsync**: runs an external process asynchronously and provides callbacks to retrieve binary data from the standard error and output stream.
+   * All Callbacks contain a reference to the process
+   * The exit code will be -1 for a forceful termination of a process
+
+* **GetProcessOutputAsync**: runs a process asynchronously. If the exit code is 0, it returns all the standard output text else returns the contents of a standard error.
+
+* **GetProcessResultAsync**: executes a process asynchronously and returns the text from the standard output and standard error streams along with the exit code.
+
+*Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` method are meant to be used for programs that output a relatively small amount of text*
+
