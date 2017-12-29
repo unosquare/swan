@@ -762,6 +762,12 @@ data.StandardError.WriteLine();
 An implementation of the IWorker interface that creates an application service capable of performing some background processing.
 
 #### Example 1: Inherit from AppWorkerBase
+The AppWorkerBase has many methods that can be overwritten such as:
+
+* **OnWorkerThreadLoopException**: which is called when an unhandled exception is thrown
+* **OnWorkerThreadExit**: executed when the user loop has exited
+* **WorkerThreadLoop**: a custom loop that checks wheter a cancellation has been requested if so it exits the loop
+
 ```csharp
  class Worker : AppWorkerBase
     {
@@ -801,6 +807,10 @@ An implementation of the IWorker interface that creates an application service c
     }
 ```
 #### Example 2: Using an AppWorker
+The Worker's base class also includes properties like:
+* **isBusy**: indicates if the thread is busy
+* **State**: shows the current state of the app service, based on the AppWorkerState enum (Stopped, Running)
+* **CancellationToken**: gets the cancellation token
 ```csharp
 // Create a new AppWorker using the class explained above
 var worker = new Worker
@@ -814,7 +824,7 @@ var worker = new Worker
 // Start the worker
 worker.Start();
 
-// Wait 2 seconds
+// Wait 2 seconds in order to see some output
 Task.Delay(2000).Wait();
 
 // Stop the worker         
