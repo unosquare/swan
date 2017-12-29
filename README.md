@@ -706,7 +706,7 @@ An easy way to deal with attributes modification is by calling the Modify method
 ### The `ProcessRunner` class
 A class that provides methods that helps us create external process and capture their output. 
 
-[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html
+[ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
 
 #### Example 1: Running a process async
 `RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the ouput and error stream.
