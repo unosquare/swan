@@ -752,5 +752,5 @@ data.StandardOutput.WriteLine();
 // And the error
 data.StandardError.WriteLine();
 ```
-*Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` method are meant to be used for programs that output a relatively small amount of text*
+*Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` are meant to be used for programs that output a relatively small amount of text*
 
