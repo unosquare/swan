@@ -22,11 +22,11 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The JsonClient class](#the-jsonclient-class)
     * [The SmtpClient class](#the-smtpclient-class)
     * [The ObjectMapper component](#the-objectmapper-component)
-    * [Network](#the-network)
-    * [ObjectComparer](#the-objectcomparer)
-    * [DependencyContainer](#the-dependencycontainer)
-    * [MessageHub](#the-messagehub)
-    * [LdapConnection](#the-ldapconnection)
+    * [The Network component](#the-network-component)
+    * [The ObjectComparer component](#the-objectcomparer-component)
+    * [The DependencyContainer component](#the-dependencycontainer-component)
+    * [The MessageHub component](#the-messagehub-component)
+    * [The LdapConnection class](#the-ldapconnection-class)
     * [The ProcessRunner class](#the-processrunner-class)
     * [The AppWorkerBase class](#the-appworkerbase-class)
 
@@ -477,7 +477,7 @@ mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t.Name);
 var destination = mapper.Map<UserDto>(user);
 ```
 
-### The `Network`
+### The `Network` component
 
 When you are working with projects related to network or you want to extend your application to use some network functionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
 
@@ -519,7 +519,7 @@ var mxRecord = Network.QueryDns("google-public-dns-a.google.com", DnsRecordType.
 var dateTime = Network.GetNetworkTimeUtc();
 ```
 
-### The `ObjectComparer`
+### The `ObjectComparer` component
 
 Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
 
@@ -539,7 +539,7 @@ ObjectComparer.AreStructsEqual(first, second)
 ObjectComparer.AreEnumsEqual(first, second)
 ```
 
-### The `DependencyContainer`
+### The `DependencyContainer` component
 
 It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
 
@@ -587,7 +587,7 @@ if (Runtime.Container.CanResolve<IAnimal>())
 }
 ```
 
-### The `MessageHub`
+### The `MessageHub` component
 A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
 
 [MessageHub API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
@@ -616,7 +616,7 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
  MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
 
-### The `LDAPConnection`
+### The `LDAPConnection` class
 The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
 
 [LdapConnection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html)
