@@ -90,11 +90,11 @@
 <li><a href="#the-jsonclient-class">The JsonClient class</a></li>
 <li><a href="#the-smtpclient-class">The SmtpClient class</a></li>
 <li><a href="#the-objectmapper-component">The ObjectMapper component</a></li>
-<li><a href="#the-network">Network</a></li>
-<li><a href="#the-objectcomparer">ObjectComparer</a></li>
-<li><a href="#the-dependencycontainer">DependencyContainer</a></li>
-<li><a href="#the-messagehub">MessageHub</a></li>
-<li><a href="#the-ldapconnection">LdapConnection</a></li>
+<li><a href="#the-network-component">The Network component</a></li>
+<li><a href="#the-objectcomparer-component">The ObjectComparer component</a></li>
+<li><a href="#the-dependencycontainer-component">The DependencyContainer component</a></li>
+<li><a href="#the-messagehub-component">The MessageHub component</a></li>
+<li><a href="#the-ldapconnection-class">The LdapConnection class</a></li>
 <li><a href="#the-processrunner-class">The ProcessRunner class</a></li>
 <li><a href="#the-appworkerbase-class">The AppWorkerBase class</a></li>
 </ul>
@@ -547,7 +547,7 @@ var mapper = new ObjectMapper();
 mapper.CreateMap&lt;User, UserDto&gt;().RemoveMapProperty(t =&gt; t.Name);
 // Then you map the custom map to a destination
 var destination = mapper.Map&lt;UserDto&gt;(user);
-</code></pre><h3 id="the-network">The <code>Network</code></h3>
+</code></pre><h3 id="the-network-component">The <code>Network</code> component</h3>
 <p>When you are working with projects related to network or you want to extend your application to use some network functionality the Swan&#39;s <code>Network</code> provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Network.html">Network API Doc</a></p>
 <h4 id="example-1-ipv4-and-adapters-information">Example 1: IPv4 and adapters information</h4>
@@ -576,7 +576,7 @@ var mxRecord = Network.QueryDns(&quot;google-public-dns-a.google.com&quot;, DnsR
 
 // Gets the UTC time by querying from an NTP server
 var dateTime = Network.GetNetworkTimeUtc();
-</code></pre><h3 id="the-objectcomparer">The <code>ObjectComparer</code></h3>
+</code></pre><h3 id="the-objectcomparer-component">The <code>ObjectComparer</code> component</h3>
 <p>Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With <code>ObjectComparer</code> you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html">ObjectComparer API Doc</a></p>
 <pre><code class="lang-csharp">// Compare if two variables of the same type are equal.
@@ -590,7 +590,7 @@ ObjectComparer.AreStructsEqual(first, second)
 
 // Compare if two enumerables are equal.
 ObjectComparer.AreEnumsEqual(first, second)
-</code></pre><h3 id="the-dependencycontainer">The <code>DependencyContainer</code></h3>
+</code></pre><h3 id="the-dependencycontainer-component">The <code>DependencyContainer</code> component</h3>
 <p>It&#39;s an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a singleton instance of <code>DependencyContainer</code> called <code>Current</code> by <code>DependencyContainer</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer API Doc</a></p>
 <h4 id="example-1-basic-example">Example 1: Basic Example</h4>
@@ -622,7 +622,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
     // Attempts to resolve a type using specified options.
     Runtime.Container.Resolve&lt;IAnimal&gt;();
 }
-</code></pre><h3 id="the-messagehub">The <code>MessageHub</code></h3>
+</code></pre><h3 id="the-messagehub-component">The <code>MessageHub</code> component</h3>
 <p>A simple <a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Publisher-Subscriber pattern</a> implementation. It&#39;s a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. </p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html">MessageHub API Doc</a></p>
 <p>In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object&#39;s properties or using the pub-sub pattern. To avoid any problems caused by the former method like possible modification of the object&#39;s properties it is a good practice to use the latter. With the pub-sub pattern any object can &quot;subscribe&quot; to another object&#39;s event, if the other object &quot;publishes&quot; a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.</p>
@@ -643,7 +643,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 
  // And lastly unsuscribe, we will no longer receive any messages 
  MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
-</code></pre><h3 id="the-ldapconnection">The <code>LDAPConnection</code></h3>
+</code></pre><h3 id="the-ldapconnection-class">The <code>LDAPConnection</code> class</h3>
 <p>The <strong>Lightweight Directory Access Protocol</strong> or LDAP is a network protocol for querying and modifying items in directory service providers like <a href="https://en.wikipedia.org/wiki/Active_Directory">Active Directory</a> which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a <code>domain</code>.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html">LdapConnection API Doc</a></p>
 <h4 id="operations">Operations</h4>
