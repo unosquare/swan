@@ -757,7 +757,9 @@ data.StandardError.WriteLine();
 
 ### The `AppWorkerBase` class
 An implementation of the `IWorker` interface that creates an application service capable of performing some background processing.
+
 [AppWorkerBase API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html)
+
 #### Example 1: Inherit from AppWorkerBase
 The `AppWorkerBase` class has many methods that can be overwritten such as:
 
@@ -798,20 +800,17 @@ The `AppWorkerBase` class has many methods that can be overwritten such as:
     }
 ```
 #### Example 2: Using an AppWorker
-The `Worker`'s base class also includes properties like:
-* **isBusy**: indicates if the thread is busy
-* **State**: shows the current state of the app service, based on the AppWorkerState enum (Stopped, Running)
-* **CancellationToken**: gets the cancellation token
+In this example we use the worker class described above
 ```csharp
 // Create a new AppWorker using the class explained above
-var worker = new Worker
-            {
-            // Setting an OnExit Action that just prints 'Exited'
-                OnExit = () =>
-                {
-                    $"Exited".WriteLine();
-                }
-            };
+var worker = new Worker();
+
+// Setting an OnExit Action that just prints 'Exited'
+worker.OnExit = () =>
+    {
+        $"Exited".WriteLine();
+    };
+
 // Start the worker
 worker.Start();
 
