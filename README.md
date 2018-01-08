@@ -14,7 +14,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
   * [Libraries](#libraries)
   * [Installation](#installation)
   * [Whats in the library](#whats-in-the-library)
-    * [The Runtime class](#the-runtime-class)
+    * [The Runtime component](#the-runtime-component)
     * [The Terminal class](#the-terminal-class)
     * [The Json formatter](#the-json-formatter)
     * [The CsvWriter class](#the-csvwriter-class)
@@ -22,12 +22,13 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The JsonClient class](#the-jsonclient-class)
     * [The SmtpClient class](#the-smtpclient-class)
     * [The ObjectMapper component](#the-objectmapper-component)
-    * [Network](#the-network)
-    * [ObjectComparer](#the-objectcomparer)
-    * [DependencyContainer](#the-dependencycontainer)
-    * [MessageHub](#the-messagehub)
-    * [LdapConnection](#the-ldapconnection)
+    * [The Network component](#the-network-component)
+    * [The ObjectComparer component](#the-objectcomparer-component)
+    * [The DependencyContainer component](#the-dependencycontainer-component)
+    * [The MessageHub component](#the-messagehub-component)
+    * [The LdapConnection class](#the-ldapconnection-class)
     * [The ProcessRunner class](#the-processrunner-class)
+    * [The AppWorkerBase class](#the-appworkerbase-class)
 
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -94,7 +95,7 @@ PM> Install-Package Unosquare.Swan.Lite
 
 In this section, we present the different components that are available in the Swan library. Please keep in mind that everything in the library is opt-in. Swan is completely opt-in. It won't force you to use any of its components, classes or methods.
 
-### The `Runtime` class
+### The `Runtime` component
 
 `Runtime` provides properties and methods that provide information about the application environment (including Assemblies and OS) and access to singleton instance of other components inside Swan such as `ObjectMapper`.
 
@@ -102,10 +103,7 @@ In this section, we present the different components that are available in the S
 
 ### The `Terminal` class
 
-Many times, we find ourselves implementing `Console` output code as some `NLog` or `Log4Net` logger or adapter, especially 
-when writing console applications, daemons and Windows services or Linux daemons. We also tend to write `Console` code for reading user 
-input because it can't be some logger or adapter. And then you have the `System.Diagnostics.Debug` class to write 
-to the debugger output. And finally, all your `Console` user interaction looks primitive and unprofessional. In other 
+Many times, we find ourselves implementing `Console` output code as some `NLog` or `Log4Net` logger or adapter, especially when writing console applications, daemons, and Windows services or Linux daemons. We also tend to write `Console` code for reading user input because it can't be some logger or adapter. And then you have the `System.Diagnostics.Debug` class to write to the debugger output. And finally, all your `Console` user interaction looks primitive and unprofessional. In other 
 words, you end up with 3 things you are unsure of how to put together in the different configurations and runtime environments:
 `Console`, `Debug` and some logging mechanism. In return you have placed unintended logging code, `Console` code, and `Debug` 
 code everywhere in your application and it makes it look silly, bloated and written by an amateur.  
@@ -148,8 +146,7 @@ $"Hello, today is {DateTime.Today}".WriteLine(null, TerminalWriters.StandardOutp
 
 #### Example 2: Basic Logging
 
-This is where `Terminal` really shines. Instead of using the `Write` and `WriteLine` methods, you can use the 
-methods that are intended for logging. These methods have different purposes and distinct functionality. Please
+This is where `Terminal` really shines. Instead of using the `Write` and `WriteLine` methods, you can use the methods that are intended for logging. These methods have different purposes and distinct functionality. Please
 refer to the example below and its comments.
 
 ```csharp
@@ -196,14 +193,14 @@ var keyResult = Terminal.ReadKey("Read Key");
 #### Example 6: Other Useful Functions
 
 Swan's `Terminal` also provides additional methods to accomplish very specific tasks. Given the fact that `Terminal`
-is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queue to be written
+is an asynchronous, thread-safe output queue, we might under certain situations require all of the output queues to be written
 out to the `Console` before the program exits. For example, when we write a console application that requires its usage
 to be fully printed out before the process is terminated. In these scenarios, we use `Terminal.Flush` which blocks
 the current thread until the entire output queue becomes empty.
 
 ### The `Json` Formatter
 
-You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to other point of your application and when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
+You can serialize and deserialize strings and objects using Swan's `Json` Formatter. It's a great way to transform objects to JSON format and vice versa. For example, you need to send information as JSON format to another point of your application and when arrives it's necessary to get back to the object that is going to be used, and thanks to JSON format the data can interchange in a lightweight way.
 
 [Json API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.Json.html)
 
@@ -256,7 +253,7 @@ var data = Json.Deserialize(basicJson);
 
 #### Example 5: Deserialize a generic type `<T>`
 
-Deserializes the specified json `string` and converts it to the specified object type. Non-public constructors and property setters are ignored.
+Deserializes the specified JSON `string` and converts it to the specified object type. Non-public constructors and property setters are ignored.
 
 ```csharp 
 // The json Type BasicJson to be deserialize
@@ -350,7 +347,7 @@ var data = JsonClient.Authenticate("https://mywebsite.com/api/token", "admin", "
 
 #### Example 2: An HTTP GET request
 
-Easy way to HTTP GET using `JsonClient`.
+An easy way to HTTP GET using `JsonClient`.
 
 ```csharp
 // The GET
@@ -359,7 +356,7 @@ var data = JsonClient.Get<BasicJson>("https://mywebsite.com/api/data");
 
 #### Example 3: An HTTP POST request
 
-Easy way to HTTP POST using `JsonClient`.
+An easy way to HTTP POST using `JsonClient`.
 
 ```csharp
 // The POST
@@ -368,7 +365,7 @@ var data = JsonClient.Post<BasicJson>("https://mywebsite.com/api/data", new { fi
 
 #### Example 4: Making a PUT
 
-Easy way to HTTP PUT using `JsonClient`.
+An easy way to HTTP PUT using `JsonClient`.
 
 ```csharp
 // The PUT
@@ -377,7 +374,7 @@ var data = JsonClient.Put<BasicJson>("https://mywebsite.com/api/data", new { fil
 
 ### The `SmtpClient` class
 
-It's a basic SMTP client that can submit messages to an SMTP server. It's very easy to cvonfigure and it provides a very handy way to make send email messages in your application.
+It's a basic SMTP client that can submit messages to an SMTP server. It's very easy to configure and it provides a very handy way to make send email messages in your application.
 
 [SmtpClient API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.SmtpClient.html)
 
@@ -443,7 +440,7 @@ The `ObjectMapper` is a component to translate and copy property data from one t
 
 #### Example 1: Mapping with default map
 
-The conversion generates a map automatically between the properties in base of the properties names.
+The conversion generates a map automatically between the properties in the base of the properties names.
 
 ```csharp
 // Here is mapping the specific user to a destination
@@ -465,7 +462,7 @@ var destination = mapper.Map<UserDto>(user);
 
 #### Example 3: Removing a property from the map
 
-To remove a custom property, you also use `CreateMap` and then remove the custome property of the mapping.
+To remove a custom property, you also use `CreateMap` and then remove the custom property of the mapping.
 
 ```csharp
 // Create an Object Mapper
@@ -476,7 +473,7 @@ mapper.CreateMap<User, UserDto>().RemoveMapProperty(t => t.Name);
 var destination = mapper.Map<UserDto>(user);
 ```
 
-### The `Network`
+### The `Network` component
 
 When you are working with projects related to network or you want to extend your application to use some network functionality the Swan's `Network` provides miscellaneous network utilities such as a Public IP finder, a DNS client to query DNS records of any kind, and an NTP client.
 
@@ -518,9 +515,9 @@ var mxRecord = Network.QueryDns("google-public-dns-a.google.com", DnsRecordType.
 var dateTime = Network.GetNetworkTimeUtc();
 ```
 
-### The `ObjectComparer`
+### The `ObjectComparer` component
 
-Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your on code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
+Many times, you need to compare the values inside of an object, array, struct or enum, to do so you need to implement your own code or iterate to find if the values are equals. With `ObjectComparer` you easily compare the properties. It represents a quick object comparer using the public properties of an object or the public members in a structure.
 
 [ObjectComparer API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html)
 
@@ -538,9 +535,9 @@ ObjectComparer.AreStructsEqual(first, second)
 ObjectComparer.AreEnumsEqual(first, second)
 ```
 
-### The `DependencyContainer`
+### The `DependencyContainer` component
 
-It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to be use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
+It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
 
 [DependencyContainer API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html)
 
@@ -575,7 +572,7 @@ DependencyContainer.Current.Unregister<IAnimal>();
 
 #### Example 3: `CanResolve`
 
-A very handy method to determine if a type can be resolve.
+A very handy method to determine if a type can be resolved.
 
 ```csharp
 // Using CanResolve to check if type can be resolve
@@ -586,12 +583,12 @@ if (Runtime.Container.CanResolve<IAnimal>())
 }
 ```
 
-### The `MessageHub`
+### The `MessageHub` component
 A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) implementation. It's a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. 
 
 [MessageHub API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
 
-In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern any object can "subscribe" to another object's event, if the other object "publishes" a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
+In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern, any object can "subscribe" to another object's event if the other object "publishes" a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
 #### Example 1: Subscribing to a MessageHub
 
@@ -615,7 +612,7 @@ A simple example using the DependencyContainer discussed above. Keep in mind tha
  MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
 
-### The `LDAPConnection`
+### The `LDAPConnection` class
 The **Lightweight Directory Access Protocol** or LDAP is a network protocol for querying and modifying items in directory service providers like [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a `domain`.
 
 [LdapConnection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html)
@@ -632,7 +629,7 @@ LDAP has a couple of operations that can be executed
    * **Replace**: modifies an existing property value
    
 #### Example 1: Connecting to a LDAP Server
-A connection to a LDAP server is a two step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two step action allows us to reset the authorization state using the same connection. 
+A connection to a LDAP server is a two-step process, first we `connect` to a server but that connection is unauthenticated so we need to bind it to a set of credentials. The reason for breaking down the connection process into a two-step action allows us to reset the authorization state using the same connection. 
 
 ```csharp
  // Create a  LdapConnection variable
@@ -709,7 +706,7 @@ A class that provides methods that helps us create external process and capture 
 [ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
 
 #### Example 1: Running a process async
-`RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the ouput and error stream.
+`RunProcessAsync` runs an external process asynchronously and returns the exit code. It provides error and success callbacks to capture binary data from the output and error stream.
 
 ```csharp
 // executes a process and returns the exit code
@@ -758,3 +755,68 @@ data.StandardError.WriteLine();
 ```
 *Keep in mind that both `GetProcessOutputAsync` and `GetProcessResultAsync` are meant to be used for programs that output a relatively small amount of text*
 
+### The `AppWorkerBase` class
+An implementation of the `IWorker` interface that creates an application service capable of performing some background processing.
+
+[AppWorkerBase API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.AppWorkerBase.html)
+
+#### Example 1: Inherit from AppWorkerBase
+The `AppWorkerBase` class has many methods that can be overwritten such as:
+
+* **OnWorkerThreadLoopException**: which is called when an unhandled exception is thrown
+* **OnWorkerThreadExit**: executed when the user loop has exited
+* **WorkerThreadLoop**: a custom loop that checks whether a cancellation has been requested if so it exits the loop
+
+```csharp
+ class Worker : AppWorkerBase
+    {
+        // An action that will be executed if the worker is stopped
+        public Action OnExit { get; set; }
+        
+        // Override the base loop method, this is the code that'll be run once the worker is started
+        protected override void WorkerThreadLoop()
+        {
+            // While the worker hasn't been stopped
+            while (CancellationToken.IsCancellationRequested == false)
+            {
+               // Delay a second and then proceed
+                Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();                    
+
+                // Just print this
+                $"Working...".WriteLine();
+            }
+           
+        }
+        
+        // Once the worker is stopped this code will be executed
+        protected override void OnWorkerThreadExit()
+        {          
+            // Execute the base method
+            base.OnWorkerThreadExit();
+            
+            // Then if the OnExit Action is not null execute it
+            OnExit?.Invoke();
+        }
+    }
+```
+#### Example 2: Using an AppWorker
+In this example we use the worker class described above
+```csharp
+// Create a new AppWorker using the class explained above
+var worker = new Worker();
+
+// Setting an OnExit Action that just prints 'Exited'
+worker.OnExit = () =>
+    {
+        $"Exited".WriteLine();
+    };
+
+// Start the worker
+worker.Start();
+
+// Wait 2 seconds in order to see some output
+Task.Delay(2000).Wait();
+
+// Stop the worker         
+worker.Stop();
+```
