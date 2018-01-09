@@ -823,4 +823,38 @@ worker.Stop();
 ```
 ### The `ArgumentParser` component
 
+This component allows us to parse command line arguments and reconstruct those values into an instance of type T, 
+making them much easier to manipulate .
+
 [ArgumentParser API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html)
+
+#### Example 1: Parsing Arguments
+
+In order to parse arguments first we need to create a class which the arguments will be parsed into using the `ArgumentOption` attribute.
+
+`ArgumentOption` has the following properties:
+* **Required**: A value indicating whether a command line option is required
+* **DefaultValue**: The default property value
+* **Separator**: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence
+* **HelpText**: A short description of a command line option, usually a summary.
+
+In order to set an `ArgumentOption` we need to supply at least a short name, a long name or both
+
+```csharp
+  public class Options
+    {
+        // This attribute maps a command line option to a property 
+        // with 'v' as tis short name and 'verbose' as its long name
+        [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]
+        public bool Verbose { get; set; }
+        
+        [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set background color.")]
+        public ConsoleColor Color { get; set; }
+ 
+        [ArgumentOption('u', Required = true, HelpText = "Set user name.")]
+        public string Username { get; set; }
+
+        [ArgumentOption('o', "options", Separator = ',', HelpText = "Additional options.")]
+        public string[] Options { get; set; }
+    }
+```
