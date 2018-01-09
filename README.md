@@ -828,15 +828,9 @@ making them much easier to manipulate .
 
 [ArgumentParser API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html)
 
-#### Example 1: Parsing Arguments
+#### Example 1: Using basic options
 
 In order to parse arguments first we need to create a class which the arguments will be parsed into using the `ArgumentOption` attribute.
-
-`ArgumentOption` has the following properties:
-* **Required**: A value indicating whether a command line option is required.
-* **DefaultValue**: The default property value.
-* **Separator**: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence.
-* **HelpText**: A short description of a command line option, usually a summary.
 
 In order to set an `ArgumentOption` we need to supply at least a short name, a long name or both
 
@@ -847,39 +841,51 @@ In order to set an `ArgumentOption` we need to supply at least a short name, a l
         // with 'v' as tis short name and 'verbose' as its long name
         [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]
         public bool Verbose { get; set; }
-        
-        [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set background color.")]
-        public ConsoleColor Color { get; set; }
- 
+       
         [ArgumentOption('u', Required = true, HelpText = "Set user name.")]
         public string Username { get; set; }
-
-        [ArgumentOption('o', "options", Separator = ',', HelpText = "Additional options.")]
-        public string[] Options { get; set; }
     }
 ```
-Now we can use this class to parse some arguments:
+
+When a program is executed using an command line shell the OS usually allows passing aditional information provided along the program name for instance this `dotnet --help` will execute `dotnet` and the additional text will be passed to it. Making it accesible to the program. 
 
 ```csharp
-// create a new instance of the class that we want to parse the arguments into
-var options = new Options();
+// the variable args contains all the additional information(arguments)
+// that were passed during the execution
+static void Main(string[] args)
+  {
+    // create a new instance of the class that we want to parse the arguments into
+    var options = new Options();
 
-//a list of arguments soon to be parsed
-var args = new[] { "-u", "user", "--verbose" };
+    // if everything went out fine the ParseArguments method will return true
+    Runtime.ArgumentParser.ParseArguments(args, options);
 
-// if everything went out fine the ParseArguments method will return true
-Runtime.ArgumentParser.ParseArguments(args, options);
-
+  }
 ```
 
-After executing ParseArguments the option variable's properties should look like this:
+#### Example 2: Using an Array
 
 ```csharp
-{
- Verbose = true,
- Color = Red,
- Username = "user",
- Options = null
-}
+  public class Options
+    {   
+        //This will map the argument -n or --names to this property.
+        //The argument will split the complete string into an array
+        //using the separator provided
+        [ArgumentOption('n', "names", Separator=',', 
+        Required = true, HelpText = "A list of names separated by a comma")]
+        public string Names[] { get; set; }
+    }
+```
 
+#### Example 3: Using a Enum
+
+```csharp
+  public class Options
+    {        
+        //This maps the argument --color to a Enum which acceps any of
+        // the colors defined inside ConsoleColor
+        // and sets Red as a default value
+        [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set a color.")]
+        public ConsoleColor Color { get; set; }
+    }
 ```
