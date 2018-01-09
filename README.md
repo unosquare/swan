@@ -835,10 +835,10 @@ In order to parse arguments first we need to create a class which the arguments 
 In order to set an `ArgumentOption` we need to supply at least a short name, a long name or both
 
 ```csharp
-  public class Options
+  internal class Options
     {
         // This attribute maps a command line option to a property 
-        // with 'v' as tis short name and 'verbose' as its long name
+        // with 'v' as its short name and 'verbose' as its long name
         [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]
         public bool Verbose { get; set; }
        
@@ -864,13 +864,11 @@ static void Main(string[] args)
 ```
 
 #### Example 2: Using an Array
+In here the complete argument string will be split into an array using the separator provided.
 
 ```csharp
-  public class Options
+  internal class Options
     {   
-        //This will map the argument -n or --names to this property.
-        //The argument will split the complete string into an array
-        //using the separator provided
         [ArgumentOption('n', "names", Separator=',', 
         Required = true, HelpText = "A list of names separated by a comma")]
         public string Names[] { get; set; }
@@ -878,13 +876,11 @@ static void Main(string[] args)
 ```
 
 #### Example 3: Using a Enum
+This maps the argument `--color` to a `Enum` which accepts any of the colors defined in `ConsoleColor` and sets `Red` as the default value.
 
 ```csharp
-  public class Options
+  internal class Options
     {        
-        //This maps the argument --color to a Enum which acceps any of
-        // the colors defined inside ConsoleColor
-        // and sets Red as a default value
         [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set a color.")]
         public ConsoleColor Color { get; set; }
     }
