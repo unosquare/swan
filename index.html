@@ -855,7 +855,7 @@ making them much easier to manipulate .</p>
         [ArgumentOption(&#39;u&#39;, Required = true, HelpText = &quot;Set user name.&quot;)]
         public string Username { get; set; }
     }
-</code></pre><p>When a program is executed using an command line shell the OS usually allows passing aditional information provided along the program name for instance this <code>dotnet --help</code> will execute <code>dotnet</code> and the additional text will be passed to it. Making it accesible to the program. </p>
+</code></pre><p>When a program is executed using an command line shell the OS usually allows passing aditional information provided along the program name for instance this <code>example.exe -u user</code> will execute <code>example.exe</code> and the additional text will be passed to it, making the additional arguments accesible to the program. </p>
 <pre><code class="lang-csharp">// the variable args contains all the additional information(arguments)
 // that were passed during the execution
 static void Main(string[] args)
@@ -875,7 +875,7 @@ static void Main(string[] args)
       Required = true, HelpText = &quot;A list of names separated by a comma&quot;)]
       public string Names[] { get; set; }
   }
-</code></pre><h4 id="example-3-using-a-enum">Example 3: Using a Enum</h4>
+</code></pre><h4 id="example-3-using-an-enum">Example 3: Using an Enum</h4>
 <p>This maps the argument <code>--color</code> to a <code>Enum</code> which accepts any of the colors defined in <code>ConsoleColor</code> and sets <code>Red</code> as the default value.</p>
 <pre><code class="lang-csharp">internal class Options
   {        
