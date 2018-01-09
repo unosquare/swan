@@ -29,7 +29,8 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The LdapConnection class](#the-ldapconnection-class)
     * [The ProcessRunner class](#the-processrunner-class)
     * [The AppWorkerBase class](#the-appworkerbase-class)
-
+    * [The ArgumentParser component](#the-argumentparser-component)
+    
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
 
@@ -820,3 +821,6 @@ Task.Delay(2000).Wait();
 // Stop the worker         
 worker.Stop();
 ```
+### The `ArgumentParser` component
+
+[ArgumentParser API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html)
