@@ -842,15 +842,8 @@ worker.Stop();
 <p>This component allows us to parse command line arguments and reconstruct those values into an instance of type T, 
 making them much easier to manipulate .</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html">ArgumentParser API Doc</a></p>
-<h4 id="example-1-parsing-arguments">Example 1: Parsing Arguments</h4>
+<h4 id="example-1-using-basic-options">Example 1: Using basic options</h4>
 <p>In order to parse arguments first we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
-<p><code>ArgumentOption</code> has the following properties:</p>
-<ul>
-<li><strong>Required</strong>: A value indicating whether a command line option is required.</li>
-<li><strong>DefaultValue</strong>: The default property value.</li>
-<li><strong>Separator</strong>: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence.</li>
-<li><strong>HelpText</strong>: A short description of a command line option, usually a summary.</li>
-</ul>
 <p>In order to set an <code>ArgumentOption</code> we need to supply at least a short name, a long name or both</p>
 <pre><code class="lang-csharp">  public class Options
     {
@@ -859,31 +852,40 @@ making them much easier to manipulate .</p>
         [ArgumentOption(&#39;v&#39;, &quot;verbose&quot;, HelpText = &quot;Set verbose mode.&quot;)]
         public bool Verbose { get; set; }
 
-        [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red, HelpText = &quot;Set background color.&quot;)]
-        public ConsoleColor Color { get; set; }
-
         [ArgumentOption(&#39;u&#39;, Required = true, HelpText = &quot;Set user name.&quot;)]
         public string Username { get; set; }
-
-        [ArgumentOption(&#39;o&#39;, &quot;options&quot;, Separator = &#39;,&#39;, HelpText = &quot;Additional options.&quot;)]
-        public string[] Options { get; set; }
     }
-</code></pre><p>Now we can use this class to parse some arguments:</p>
-<pre><code class="lang-csharp">// create a new instance of the class that we want to parse the arguments into
-var options = new Options();
+</code></pre><p>When a program is executed using an command line shell the OS usually allows passing aditional information provided along the program name for instance this <code>dotnet --help</code> will execute <code>dotnet</code> and the additional text will be passed to it. Making it accesible to the program. </p>
+<pre><code class="lang-csharp">// the variable args contains all the additional information(arguments)
+// that were passed during the execution
+static void Main(string[] args)
+  {
+    // create a new instance of the class that we want to parse the arguments into
+    var options = new Options();
 
-//a list of arguments soon to be parsed
-var args = new[] { &quot;-u&quot;, &quot;user&quot;, &quot;--verbose&quot; };
+    // if everything went out fine the ParseArguments method will return true
+    Runtime.ArgumentParser.ParseArguments(args, options);
 
-// if everything went out fine the ParseArguments method will return true
-Runtime.ArgumentParser.ParseArguments(args, options);
-</code></pre><p>After executing ParseArguments the option variable&#39;s properties should look like this:</p>
-<pre><code class="lang-csharp">{
- Verbose = true,
- Color = Red,
- Username = &quot;user&quot;,
- Options = null
-}
+  }
+</code></pre><h4 id="example-2-using-an-array">Example 2: Using an Array</h4>
+<pre><code class="lang-csharp">  public class Options
+    {   
+        //This will map the argument -n or --names to this property.
+        //The argument will split the complete string into an array
+        //using the separator provided
+        [ArgumentOption(&#39;n&#39;, &quot;names&quot;, Separator=&#39;,&#39;, 
+        Required = true, HelpText = &quot;A list of names separated by a comma&quot;)]
+        public string Names[] { get; set; }
+    }
+</code></pre><h4 id="example-3-using-a-enum">Example 3: Using a Enum</h4>
+<pre><code class="lang-csharp">  public class Options
+    {        
+        //This maps the argument --color to a Enum which acceps any of
+        // the colors defined inside ConsoleColor
+        // and sets Red as a default value
+        [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red, HelpText = &quot;Set a color.&quot;)]
+        public ConsoleColor Color { get; set; }
+    }
 </code></pre></article>
           </div>
           
