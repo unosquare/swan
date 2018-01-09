@@ -833,9 +833,9 @@ making them much easier to manipulate .
 In order to parse arguments first we need to create a class which the arguments will be parsed into using the `ArgumentOption` attribute.
 
 `ArgumentOption` has the following properties:
-* **Required**: A value indicating whether a command line option is required
-* **DefaultValue**: The default property value
-* **Separator**: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence
+* **Required**: A value indicating whether a command line option is required.
+* **DefaultValue**: The default property value.
+* **Separator**: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence.
 * **HelpText**: A short description of a command line option, usually a summary.
 
 In order to set an `ArgumentOption` we need to supply at least a short name, a long name or both
@@ -857,4 +857,29 @@ In order to set an `ArgumentOption` we need to supply at least a short name, a l
         [ArgumentOption('o', "options", Separator = ',', HelpText = "Additional options.")]
         public string[] Options { get; set; }
     }
+```
+Now we can use this class to parse some arguments:
+
+```csharp
+// create a new instance of the class that we want to parse the arguments into
+var options = new Options();
+
+//a list of arguments soon to be parsed
+var args = new[] { "-u", "user", "--verbose" };
+
+// if everything went out fine the ParseArguments method will return true
+Runtime.ArgumentParser.ParseArguments(args, options);
+
+```
+
+After executing ParseArguments the option variable's properties should look like this:
+
+```csharp
+{
+ Verbose = true,
+ Color = Red,
+ Username = "user",
+ Options = null
+}
+
 ```
