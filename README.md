@@ -823,8 +823,7 @@ worker.Stop();
 ```
 ### The `ArgumentParser` component
 
-This component allows us to parse command line arguments and reconstruct those values into an instance of type T, 
-making them much easier to manipulate .
+This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate .
 
 [ArgumentParser API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html)
 
@@ -847,7 +846,7 @@ In order to set an `ArgumentOption` we need to supply at least a short name, a l
     }
 ```
 
-When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance `example.exe -u user` will execute `example.exe` and the additional text will be passed to it, making the additional arguments accesible to the program using the `args` parameter in the *main* method.
+When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance `example.exe -u user` will execute `example.exe` and the additional text will be passed to it, making the additional arguments accesible to the program using the `args` parameter in the *Main* method.
 
 ```csharp
 // the variable args contains all the additional information(arguments)
