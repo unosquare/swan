@@ -867,21 +867,21 @@ static void Main(string[] args)
 In here the complete argument string will be split into an array using the separator provided.
 
 ```csharp
-  internal class Options
-    {   
-        [ArgumentOption('n', "names", Separator=',', 
-        Required = true, HelpText = "A list of names separated by a comma")]
-        public string Names[] { get; set; }
-    }
+internal class Options
+  {   
+      [ArgumentOption('n', "names", Separator=',', 
+      Required = true, HelpText = "A list of names separated by a comma")]
+      public string Names[] { get; set; }
+  }
 ```
 
 #### Example 3: Using a Enum
 This maps the argument `--color` to a `Enum` which accepts any of the colors defined in `ConsoleColor` and sets `Red` as the default value.
 
 ```csharp
-  internal class Options
-    {        
-        [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set a color.")]
-        public ConsoleColor Color { get; set; }
-    }
+internal class Options
+  {        
+      [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set a color.")]
+      public ConsoleColor Color { get; set; }
+  }
 ```
