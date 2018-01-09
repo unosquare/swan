@@ -839,8 +839,7 @@ Task.Delay(2000).Wait();
 // Stop the worker         
 worker.Stop();
 </code></pre><h3 id="the-argumentparser-component">The <code>ArgumentParser</code> component</h3>
-<p>This component allows us to parse command line arguments and reconstruct those values into an instance of type T, 
-making them much easier to manipulate .</p>
+<p>This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate .</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html">ArgumentParser API Doc</a></p>
 <h4 id="example-1-using-basic-options">Example 1: Using basic options</h4>
 <p>In order to parse arguments first we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
@@ -855,7 +854,7 @@ making them much easier to manipulate .</p>
         [ArgumentOption(&#39;u&#39;, Required = true, HelpText = &quot;Set user name.&quot;)]
         public string Username { get; set; }
     }
-</code></pre><p>When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance <code>example.exe -u user</code> will execute <code>example.exe</code> and the additional text will be passed to it, making the additional arguments accesible to the program using the <code>args</code> parameter in the <em>main</em> method.</p>
+</code></pre><p>When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance <code>example.exe -u user</code> will execute <code>example.exe</code> and the additional text will be passed to it, making the additional arguments accesible to the program using the <code>args</code> parameter in the <em>Main</em> method.</p>
 <pre><code class="lang-csharp">// the variable args contains all the additional information(arguments)
 // that were passed during the execution
 static void Main(string[] args)
