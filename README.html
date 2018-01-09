@@ -839,11 +839,11 @@ Task.Delay(2000).Wait();
 // Stop the worker         
 worker.Stop();
 </code></pre><h3 id="the-argumentparser-component">The <code>ArgumentParser</code> component</h3>
-<p>This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate .</p>
+<p>This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html">ArgumentParser API Doc</a></p>
 <h4 id="example-1-using-basic-options">Example 1: Using basic options</h4>
-<p>In order to parse arguments first we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
-<p>In order to set an <code>ArgumentOption</code> we need to supply at least a short name, a long name or both</p>
+<p>In order to parse arguments first, we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
+<p>In order to set an <code>ArgumentOption</code>, we need to supply at least a short name, a long name or both</p>
 <pre><code class="lang-csharp">  internal class Options
     {
         // This attribute maps a command line option to a property 
@@ -854,7 +854,7 @@ worker.Stop();
         [ArgumentOption(&#39;u&#39;, Required = true, HelpText = &quot;Set user name.&quot;)]
         public string Username { get; set; }
     }
-</code></pre><p>When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance <code>example.exe -u user</code> will execute <code>example.exe</code> and the additional text will be passed to it, making the additional arguments accesible to the program using the <code>args</code> parameter in the <em>Main</em> method.</p>
+</code></pre><p>When a program is executed using a command line shell, the OS usually allows passing additional information provided along the program name. For instance <code>example.exe -u user</code> will execute <code>example.exe</code> and the additional text will be passed to it, making the additional arguments accessible to the program using the <code>args</code> parameter in the <em>Main</em> method.</p>
 <pre><code class="lang-csharp">// the variable args contains all the additional information(arguments)
 // that were passed during the execution
 static void Main(string[] args)
@@ -875,7 +875,7 @@ static void Main(string[] args)
       public string Names[] { get; set; }
   }
 </code></pre><h4 id="example-3-using-an-enum">Example 3: Using an Enum</h4>
-<p>This maps the argument <code>--color</code> to a <code>Enum</code> which accepts any of the colors defined in <code>ConsoleColor</code> and sets <code>Red</code> as the default value.</p>
+<p>This maps the argument <code>--color</code> to an <code>Enum</code> which accepts any of the colors defined in <code>ConsoleColor</code> and sets <code>Red</code> as the default value.</p>
 <pre><code class="lang-csharp">internal class Options
   {        
       [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red, HelpText = &quot;Set a color.&quot;)]
