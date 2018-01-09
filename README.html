@@ -845,10 +845,10 @@ making them much easier to manipulate .</p>
 <h4 id="example-1-using-basic-options">Example 1: Using basic options</h4>
 <p>In order to parse arguments first we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
 <p>In order to set an <code>ArgumentOption</code> we need to supply at least a short name, a long name or both</p>
-<pre><code class="lang-csharp">  public class Options
+<pre><code class="lang-csharp">  internal class Options
     {
         // This attribute maps a command line option to a property 
-        // with &#39;v&#39; as tis short name and &#39;verbose&#39; as its long name
+        // with &#39;v&#39; as its short name and &#39;verbose&#39; as its long name
         [ArgumentOption(&#39;v&#39;, &quot;verbose&quot;, HelpText = &quot;Set verbose mode.&quot;)]
         public bool Verbose { get; set; }
 
@@ -868,24 +868,20 @@ static void Main(string[] args)
 
   }
 </code></pre><h4 id="example-2-using-an-array">Example 2: Using an Array</h4>
-<pre><code class="lang-csharp">  public class Options
-    {   
-        //This will map the argument -n or --names to this property.
-        //The argument will split the complete string into an array
-        //using the separator provided
-        [ArgumentOption(&#39;n&#39;, &quot;names&quot;, Separator=&#39;,&#39;, 
-        Required = true, HelpText = &quot;A list of names separated by a comma&quot;)]
-        public string Names[] { get; set; }
-    }
+<p>In here the complete argument string will be split into an array using the separator provided.</p>
+<pre><code class="lang-csharp">internal class Options
+  {   
+      [ArgumentOption(&#39;n&#39;, &quot;names&quot;, Separator=&#39;,&#39;, 
+      Required = true, HelpText = &quot;A list of names separated by a comma&quot;)]
+      public string Names[] { get; set; }
+  }
 </code></pre><h4 id="example-3-using-a-enum">Example 3: Using a Enum</h4>
-<pre><code class="lang-csharp">  public class Options
-    {        
-        //This maps the argument --color to a Enum which acceps any of
-        // the colors defined inside ConsoleColor
-        // and sets Red as a default value
-        [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red, HelpText = &quot;Set a color.&quot;)]
-        public ConsoleColor Color { get; set; }
-    }
+<p>This maps the argument <code>--color</code> to a <code>Enum</code> which accepts any of the colors defined in <code>ConsoleColor</code> and sets <code>Red</code> as the default value.</p>
+<pre><code class="lang-csharp">internal class Options
+  {        
+      [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red, HelpText = &quot;Set a color.&quot;)]
+      public ConsoleColor Color { get; set; }
+  }
 </code></pre></article>
           </div>
           
