@@ -839,8 +839,36 @@ Task.Delay(2000).Wait();
 // Stop the worker         
 worker.Stop();
 </code></pre><h3 id="the-argumentparser-component">The <code>ArgumentParser</code> component</h3>
+<p>This component allows us to parse command line arguments and reconstruct those values into an instance of type T, 
+making them much easier to manipulate .</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html">ArgumentParser API Doc</a></p>
-</article>
+<h4 id="example-1-parsing-arguments">Example 1: Parsing Arguments</h4>
+<p>In order to parse arguments first we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
+<p><code>ArgumentOption</code> has the following properties:</p>
+<ul>
+<li><strong>Required</strong>: A value indicating whether a command line option is required</li>
+<li><strong>DefaultValue</strong>: The default property value</li>
+<li><strong>Separator</strong>: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence</li>
+<li><strong>HelpText</strong>: A short description of a command line option, usually a summary.</li>
+</ul>
+<p>In order to set an <code>ArgumentOption</code> we need to supply at least a short name, a long name or both</p>
+<pre><code class="lang-csharp">  public class Options
+    {
+        // This attribute maps a command line option to a property 
+        // with &#39;v&#39; as tis short name and &#39;verbose&#39; as its long name
+        [ArgumentOption(&#39;v&#39;, &quot;verbose&quot;, HelpText = &quot;Set verbose mode.&quot;)]
+        public bool Verbose { get; set; }
+
+        [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red, HelpText = &quot;Set background color.&quot;)]
+        public ConsoleColor Color { get; set; }
+
+        [ArgumentOption(&#39;u&#39;, Required = true, HelpText = &quot;Set user name.&quot;)]
+        public string Username { get; set; }
+
+        [ArgumentOption(&#39;o&#39;, &quot;options&quot;, Separator = &#39;,&#39;, HelpText = &quot;Additional options.&quot;)]
+        public string[] Options { get; set; }
+    }
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
