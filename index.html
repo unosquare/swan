@@ -855,7 +855,7 @@ making them much easier to manipulate .</p>
         [ArgumentOption(&#39;u&#39;, Required = true, HelpText = &quot;Set user name.&quot;)]
         public string Username { get; set; }
     }
-</code></pre><p>When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance <code>example.exe -u user</code> will execute <code>example.exe</code> and the additional text will be passed to it, making the additional arguments accesible to the program. </p>
+</code></pre><p>When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance <code>example.exe -u user</code> will execute <code>example.exe</code> and the additional text will be passed to it, making the additional arguments accesible to the program using the <code>args</code> in the <em>main</em> method.</p>
 <pre><code class="lang-csharp">// the variable args contains all the additional information(arguments)
 // that were passed during the execution
 static void Main(string[] args)
