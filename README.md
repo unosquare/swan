@@ -821,17 +821,18 @@ Task.Delay(2000).Wait();
 // Stop the worker         
 worker.Stop();
 ```
+
 ### The `ArgumentParser` component
 
-This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate .
+This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate.
 
 [ArgumentParser API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html)
 
 #### Example 1: Using basic options
 
-In order to parse arguments first we need to create a class which the arguments will be parsed into using the `ArgumentOption` attribute.
+In order to parse arguments first, we need to create a class which the arguments will be parsed into using the `ArgumentOption` attribute.
 
-In order to set an `ArgumentOption` we need to supply at least a short name, a long name or both
+In order to set an `ArgumentOption`, we need to supply at least a short name, a long name or both
 
 ```csharp
   internal class Options
@@ -846,7 +847,7 @@ In order to set an `ArgumentOption` we need to supply at least a short name, a l
     }
 ```
 
-When a program is executed using a command line shell, the OS usually allows passing aditional information provided along the program name. For instance `example.exe -u user` will execute `example.exe` and the additional text will be passed to it, making the additional arguments accesible to the program using the `args` parameter in the *Main* method.
+When a program is executed using a command line shell, the OS usually allows passing additional information provided along the program name. For instance `example.exe -u user` will execute `example.exe` and the additional text will be passed to it, making the additional arguments accessible to the program using the `args` parameter in the *Main* method.
 
 ```csharp
 // the variable args contains all the additional information(arguments)
@@ -875,7 +876,7 @@ internal class Options
 ```
 
 #### Example 3: Using an Enum
-This maps the argument `--color` to a `Enum` which accepts any of the colors defined in `ConsoleColor` and sets `Red` as the default value.
+This maps the argument `--color` to an `Enum` which accepts any of the colors defined in `ConsoleColor` and sets `Red` as the default value.
 
 ```csharp
 internal class Options
