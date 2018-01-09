@@ -846,9 +846,9 @@ making them much easier to manipulate .</p>
 <p>In order to parse arguments first we need to create a class which the arguments will be parsed into using the <code>ArgumentOption</code> attribute.</p>
 <p><code>ArgumentOption</code> has the following properties:</p>
 <ul>
-<li><strong>Required</strong>: A value indicating whether a command line option is required</li>
-<li><strong>DefaultValue</strong>: The default property value</li>
-<li><strong>Separator</strong>: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence</li>
+<li><strong>Required</strong>: A value indicating whether a command line option is required.</li>
+<li><strong>DefaultValue</strong>: The default property value.</li>
+<li><strong>Separator</strong>: When applied to a IEnumerable property, it allows you to split an argument and use its content as a sequence.</li>
 <li><strong>HelpText</strong>: A short description of a command line option, usually a summary.</li>
 </ul>
 <p>In order to set an <code>ArgumentOption</code> we need to supply at least a short name, a long name or both</p>
@@ -868,6 +868,22 @@ making them much easier to manipulate .</p>
         [ArgumentOption(&#39;o&#39;, &quot;options&quot;, Separator = &#39;,&#39;, HelpText = &quot;Additional options.&quot;)]
         public string[] Options { get; set; }
     }
+</code></pre><p>Now we can use this class to parse some arguments:</p>
+<pre><code class="lang-csharp">// create a new instance of the class that we want to parse the arguments into
+var options = new Options();
+
+//a list of arguments soon to be parsed
+var args = new[] { &quot;-u&quot;, &quot;user&quot;, &quot;--verbose&quot; };
+
+// if everything went out fine the ParseArguments method will return true
+Runtime.ArgumentParser.ParseArguments(args, options);
+</code></pre><p>After executing ParseArguments the option variable&#39;s properties should look like this:</p>
+<pre><code class="lang-csharp">{
+ Verbose = true,
+ Color = Red,
+ Username = &quot;user&quot;,
+ Options = null
+}
 </code></pre></article>
           </div>
           
