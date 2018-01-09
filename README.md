@@ -875,7 +875,7 @@ internal class Options
   }
 ```
 
-#### Example 3: Using a Enum
+#### Example 3: Using an Enum
 This maps the argument `--color` to a `Enum` which accepts any of the colors defined in `ConsoleColor` and sets `Red` as the default value.
 
 ```csharp
