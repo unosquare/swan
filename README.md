@@ -29,7 +29,8 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The LdapConnection class](#the-ldapconnection-class)
     * [The ProcessRunner class](#the-processrunner-class)
     * [The AppWorkerBase class](#the-appworkerbase-class)
-
+    * [The ArgumentParser component](#the-argumentparser-component)
+    
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
 
@@ -819,4 +820,68 @@ Task.Delay(2000).Wait();
 
 // Stop the worker         
 worker.Stop();
+```
+
+### The `ArgumentParser` component
+
+This component allows us to parse command line arguments and reconstruct those values into an object, making them much easier to manipulate.
+
+[ArgumentParser API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ArgumentParser.html)
+
+#### Example 1: Using basic options
+
+In order to parse arguments first, we need to create a class which the arguments will be parsed into using the `ArgumentOption` attribute.
+
+In order to set an `ArgumentOption`, we need to supply at least a short name, a long name or both
+
+```csharp
+  internal class Options
+    {
+        // This attribute maps a command line option to a property 
+        // with 'v' as its short name and 'verbose' as its long name
+        [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]
+        public bool Verbose { get; set; }
+       
+        [ArgumentOption('u', Required = true, HelpText = "Set user name.")]
+        public string Username { get; set; }
+    }
+```
+
+When a program is executed using a command line shell, the OS usually allows passing additional information provided along the program name. For instance `example.exe -u user` will execute `example.exe` and the additional text will be passed to it, making the additional arguments accessible to the program using the `args` parameter in the *Main* method.
+
+```csharp
+// the variable args contains all the additional information(arguments)
+// that were passed during the execution
+static void Main(string[] args)
+  {
+    // create a new instance of the class that we want to parse the arguments into
+    var options = new Options();
+
+    // if everything went out fine the ParseArguments method will return true
+    Runtime.ArgumentParser.ParseArguments(args, options);
+
+  }
+```
+
+#### Example 2: Using an Array
+In here the complete argument string will be split into an array using the separator provided.
+
+```csharp
+internal class Options
+  {   
+      [ArgumentOption('n', "names", Separator=',', 
+      Required = true, HelpText = "A list of names separated by a comma")]
+      public string Names[] { get; set; }
+  }
+```
+
+#### Example 3: Using an Enum
+This maps the argument `--color` to an `Enum` which accepts any of the colors defined in `ConsoleColor` and sets `Red` as the default value.
+
+```csharp
+internal class Options
+  {        
+      [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set a color.")]
+      public ConsoleColor Color { get; set; }
+  }
 ```
