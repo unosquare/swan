@@ -847,7 +847,7 @@ In order to set an `ArgumentOption` we need to supply at least a short name, a l
     }
 ```
 
-When a program is executed using an command line shell the OS usually allows passing aditional information provided along the program name for instance this `dotnet --help` will execute `dotnet` and the additional text will be passed to it. Making it accesible to the program. 
+When a program is executed using an command line shell the OS usually allows passing aditional information provided along the program name for instance this `example.exe -u user` will execute `example.exe` and the additional text will be passed to it, making the additional arguments accesible to the program. 
 
 ```csharp
 // the variable args contains all the additional information(arguments)
