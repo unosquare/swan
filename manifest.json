@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "CODE_OF_CONDUCT.html",
-          "hash": "hBrA6FThzDdty+emJlyQ9g=="
+          "hash": "bWTHkzJGP9NMHpwc2VITcQ=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "QFdrCdfokPezM+syfZXngA=="
+          "hash": "0JSHOzZPoDGHbU/zTpjOvg=="
         }
       },
       "is_incremental": false,
@@ -75,7 +75,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.AppWorkerBase.html",
-          "hash": "29ViLLszexgeySbR26fHdQ=="
+          "hash": "68mJxPeZpIli3DkX9ZBwnQ=="
         }
       },
       "is_incremental": false,
@@ -483,7 +483,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.MessageHub.html",
-          "hash": "kTwxIWa5ROWcn5uINTDzgg=="
+          "hash": "1QyKPCONhF3kLJllEqDomg=="
         }
       },
       "is_incremental": false,
