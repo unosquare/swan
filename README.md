@@ -887,5 +887,32 @@ internal class Options
   }
 ```
 ### The `SettingsProvider` abstraction
+Represents a provider that helps you save and load settings using plain JSON file.
 
 [SettingsProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html)
+
+#### Example 1: Loading and saving settings
+Here we define a `Settings` class, each property that we want to save/load has a PropertyDisplay attribute which provides aditional information for serialization.
+
+```csharp
+internal class Settings 
+    {
+       [PropertyDisplay(Name = "Port", Description = "Port")]
+       public int Port { get; set; } = 9696;
+
+       [PropertyDisplay(Name = "User", Description = "User")]
+       public string User { get; set; } = "User";    
+    }
+```
+
+Once we define our settings we can access them using the `Global` property inside `Instance`.
+```csharp
+//if no instance exists a new one is constructed
+SettingsProvider<Settings>.Instance.Global.User.WriteLine();
+
+ //Modify the port 
+ SettingsProvider<Settings>.Instance.Global.Port = 20;
+ 
+ //And we save our settings
+ SettingsProvider<Settings>.Instance.PersistGlobalSettings();
+```
