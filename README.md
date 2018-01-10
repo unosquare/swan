@@ -913,6 +913,6 @@ SettingsProvider<Settings>.Instance.Global.User.WriteLine();
  //Modify the port 
  SettingsProvider<Settings>.Instance.Global.Port = 20;
  
- //And we save our settings
+ //if we want those settings to persist
  SettingsProvider<Settings>.Instance.PersistGlobalSettings();
 ```
