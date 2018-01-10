@@ -30,6 +30,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The ProcessRunner class](#the-processrunner-class)
     * [The AppWorkerBase class](#the-appworkerbase-class)
     * [The ArgumentParser component](#the-argumentparser-component)
+    * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
     
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -884,4 +885,32 @@ internal class Options
       [ArgumentOption("color", DefaultValue = ConsoleColor.Red, HelpText = "Set a color.")]
       public ConsoleColor Color { get; set; }
   }
+```
+### The `SettingsProvider` abstraction
+Represents a provider that helps you save and load settings using plain JSON file.
+
+[SettingsProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html)
+
+#### Example 1: Loading and saving settings
+Here we define a `Settings` class that contains all the properties we want.
+
+```csharp
+internal class Settings 
+    {
+       public int Port { get; set; } = 9696;
+
+       public string User { get; set; } = "User";    
+    }
+```
+
+Once we define our settings we can access them using the `Global` property inside `Instance`.
+```csharp
+//Get user from settings
+var user = SettingsProvider<Settings>.Instance.Global.User
+
+ //Modify the port 
+ SettingsProvider<Settings>.Instance.Global.Port = 20;
+ 
+ //if we want those settings to persist
+ SettingsProvider<Settings>.Instance.PersistGlobalSettings();
 ```
