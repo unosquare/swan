@@ -30,6 +30,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The ProcessRunner class](#the-processrunner-class)
     * [The AppWorkerBase class](#the-appworkerbase-class)
     * [The ArgumentParser component](#the-argumentparser-component)
+    * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
     
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -885,3 +886,6 @@ internal class Options
       public ConsoleColor Color { get; set; }
   }
 ```
+### The `SettingsProvider` abstraction
+
+[SettingsProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html)
