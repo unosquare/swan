@@ -98,6 +98,7 @@
 <li><a href="#the-processrunner-class">The ProcessRunner class</a></li>
 <li><a href="#the-appworkerbase-class">The AppWorkerBase class</a></li>
 <li><a href="#the-argumentparser-component">The ArgumentParser component</a></li>
+<li><a href="#the-settingsprovider-abstraction">The SettingsProvider abstraction</a></li>
 </ul>
 </li>
 </ul>
@@ -881,6 +882,26 @@ static void Main(string[] args)
       [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red, HelpText = &quot;Set a color.&quot;)]
       public ConsoleColor Color { get; set; }
   }
+</code></pre><h3 id="the-settingsprovider-abstraction">The <code>SettingsProvider</code> abstraction</h3>
+<p>Represents a provider that helps you save and load settings using plain JSON file.</p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider API Doc</a></p>
+<h4 id="example-1-loading-and-saving-settings">Example 1: Loading and saving settings</h4>
+<p>Here we define a <code>Settings</code> class that contains all the properties we want.</p>
+<pre><code class="lang-csharp">internal class Settings 
+    {
+       public int Port { get; set; } = 9696;
+
+       public string User { get; set; } = &quot;User&quot;;    
+    }
+</code></pre><p>Once we define our settings we can access them using the <code>Global</code> property inside <code>Instance</code>.</p>
+<pre><code class="lang-csharp">//Get user from settings
+var user = SettingsProvider&lt;Settings&gt;.Instance.Global.User
+
+ //Modify the port 
+ SettingsProvider&lt;Settings&gt;.Instance.Global.Port = 20;
+
+ //if we want those settings to persist
+ SettingsProvider&lt;Settings&gt;.Instance.PersistGlobalSettings();
 </code></pre></article>
           </div>
           
