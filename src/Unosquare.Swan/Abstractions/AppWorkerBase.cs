@@ -98,10 +98,7 @@
             }
         }
 
-        /// <summary>
-        /// Starts the application service. This call must not block the calling thread and must
-        /// run on its own resources.
-        /// </summary>
+        /// <inheritdoc/>
         /// <exception cref="InvalidOperationException">Service cannot be started because it seems to be currently running</exception>
         public virtual void Start()
         {
@@ -112,9 +109,7 @@
             State = AppWorkerState.Running;
         }
 
-        /// <summary>
-        /// Stops and disposes service resources.
-        /// </summary>
+        /// <inheritdoc/>
         /// <exception cref="InvalidOperationException">Service cannot be stopped because it is not running.</exception>
         public virtual void Stop()
         {

@@ -23,19 +23,13 @@
                 property => new List<PropertyInfo> {SourceType.GetProperty(property.Name)});
         }
 
-        /// <summary>
-        /// Gets or sets the map.
-        /// </summary>
+        /// <inheritdoc/>
         public Dictionary<PropertyInfo, List<PropertyInfo>> Map { get; }
 
-        /// <summary>
-        /// Gets or sets the type of the source.
-        /// </summary>
+        /// <inheritdoc/>
         public Type SourceType { get; }
 
-        /// <summary>
-        /// Gets or sets the type of the destination.
-        /// </summary>
+        /// <inheritdoc/>
         public Type DestinationType { get; }
 
         /// <summary>

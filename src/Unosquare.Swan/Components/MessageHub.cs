@@ -166,9 +166,7 @@ namespace Unosquare.Swan.Components
 
     #region Hub Implementation
 
-    /// <summary>
-    /// Messenger hub responsible for taking subscriptions/publications and delivering of messages.
-    /// </summary>
+    /// <inheritdoc />
     public sealed class MessageHub : IMessageHub
     {
         #region Private Types and Interfaces
@@ -355,13 +353,7 @@ namespace Unosquare.Swan.Components
             }
         }
 
-        /// <summary>
-        /// Unsubscribe from a particular message type.
-        /// 
-        /// Does not throw an exception if the subscription is not found.
-        /// </summary>
-        /// <typeparam name="TMessage">Type of message</typeparam>
-        /// <param name="subscriptionToken">Subscription token received from Subscribe</param>
+        /// <inheritdoc />
         public void Unsubscribe<TMessage>(MessageHubSubscriptionToken subscriptionToken)
             where TMessage : class, IMessageHubMessage
         {
