@@ -1622,7 +1622,19 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "EsgYfEWFML1tlXt8lLXBTw=="
+          "hash": "HJy+pSYcGg/mPB325X6X0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Home.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Home.html",
+          "hash": "ikWQCtpAjsKUfmU45OOv0Q=="
         }
       },
       "is_incremental": false,
