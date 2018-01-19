@@ -57,6 +57,7 @@ after_build:
             git config --global user.name $env:op_build_user
             git clone https://github.com/unosquare/swan.git -b gh-pages origin_site -q
             git clone -b documentation https://github.com/unosquare/best-practices.git -q
+            git clone https://github.com/unosquare/swan.wiki.git -q wiki
             docfx docfx.json --logLevel Error
             Copy-Item origin_site/.git _site -recurse
             CD _site
