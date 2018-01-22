@@ -888,7 +888,7 @@ internal class Options
   }
 ```
 ### The `SettingsProvider` abstraction
-Represents a provider that helps you save and load settings using plain JSON file.
+It represents a provider that helps you save and load settings using plain JSON file.
 
 [SettingsProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html)
 
@@ -907,7 +907,7 @@ internal class Settings
 Once we define our settings we can access them using the `Global` property inside `Instance`.
 ```csharp
 //Get user from settings
-var user = SettingsProvider<Settings>.Instance.Global.User
+var user = SettingsProvider<Settings>.Instance.Global.User;
 
  //Modify the port 
  SettingsProvider<Settings>.Instance.Global.Port = 20;
@@ -917,5 +917,40 @@ var user = SettingsProvider<Settings>.Instance.Global.User
 ```
 
 ### The `Connection` class
+It represents a network connection with 2 operation modes (server or client side). It wraps a TcpClient and its corresponding network streams.
 
 [Connection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html)
+
+#### Example 1: Creating a connection on the client side
+Continuous  reading is usually used on the server side so, you may want to disable them on the client side.
+
+```csharp
+// create a new TcpCLient object
+var client = new TcpClient();
+
+// connect to a specific address and port
+client.Connect("localhost",1337);
+
+//create a new connection with specific encoding, new line sequence and continous reading disabled
+using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
+  {
+      var response = await cn.ReadTextAsync();
+  }
+```
+
+#### Example 2: Creating a connection on the server side
+When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown 
+
+```csharp
+// create a new connection listener on a specific port
+var connectionListener = new ConnectionListener(1337);
+
+// handle the OnConnectionAccepting event
+connectionListener.OnConnectionAccepting += (s, e) =>
+  {
+      using (var cn = new Connection(e.Client))
+      {
+          cn.WriteLineAsync('Hello world').Wait();
+      }
+  };
+```
