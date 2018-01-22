@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "CODE_OF_CONDUCT.html",
-          "hash": "Kq7Sx2SXnUrJSYQRk2chmg=="
+          "hash": "8Zoabyqi5M4r6J266ghaLg=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "MW/SlwunuX4AInemvde0Wg=="
+          "hash": "uDRHht7gwF7wFt5G+tpmMg=="
         }
       },
       "is_incremental": false,
@@ -75,7 +75,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.AppWorkerBase.html",
-          "hash": "MUoNX58MObIC3XsRvUNnGA=="
+          "hash": "M7D00DE0XTV9WuibKuWQvg=="
         }
       },
       "is_incremental": false,
@@ -1622,19 +1622,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "HJy+pSYcGg/mPB325X6X0w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "wiki/Home.md",
-      "output": {
-        ".html": {
-          "relative_path": "wiki/Home.html",
-          "hash": "ikWQCtpAjsKUfmU45OOv0Q=="
+          "hash": "xJbazZ3jKI9mwhXWxPh4dQ=="
         }
       },
       "is_incremental": false,
@@ -1658,13 +1646,13 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
