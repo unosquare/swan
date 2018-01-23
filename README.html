@@ -906,6 +906,7 @@ var user = SettingsProvider&lt;Settings&gt;.Instance.Global.User;
 </code></pre><h3 id="the-connection-class">The <code>Connection</code> class</h3>
 <p>It represents a network connection with 2 operation modes (server or client side). It wraps a TcpClient and its corresponding network streams.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html">Connection API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html">ConnectionListener API Doc</a></p>
 <h4 id="example-1-creating-a-connection-on-the-server-side">Example 1: Creating a connection on the server side</h4>
 <p>When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a <code>ConnectionListener</code> which is a TCP listener manager with built-in events and asynchronous functionality.</p>
 <pre><code class="lang-csharp">// create a new connection listener on a specific port
