@@ -31,7 +31,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The AppWorkerBase class](#the-appworkerbase-class)
     * [The ArgumentParser component](#the-argumentparser-component)
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
-    * [The Connection class](#the-conenction-class)
+    * [The Connection class](#the-connection-class)
     
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -921,25 +921,8 @@ It represents a network connection with 2 operation modes (server or client side
 
 [Connection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html)
 
-#### Example 1: Creating a connection on the client side
-Continuous  reading is usually used on the server side so, you may want to disable them on the client side.
-
-```csharp
-// create a new TcpCLient object
-var client = new TcpClient();
-
-// connect to a specific address and port
-client.Connect("localhost",1337);
-
-//create a new connection with specific encoding, new line sequence and continous reading disabled
-using (var cn = new Connection(Client, Encoding.UTF8, "\r\n", true, 0))
-  {
-      var response = await cn.ReadTextAsync();
-  }
-```
-
-#### Example 2: Creating a connection on the server side
-When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown 
+#### Example 1: Creating a connection on the server side
+When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a `ConnectionListener` which is a TCP listener manager with built-in events and asynchronous functionality.
 
 ```csharp
 // create a new connection listener on a specific port
@@ -954,3 +937,22 @@ connectionListener.OnConnectionAccepting += (s, e) =>
       }
   };
 ```
+
+#### Example 2: Creating a connection on the client side
+Continuous  reading is usually used on the server side so, you may want to disable them on the client side.
+
+```csharp
+// create a new TcpCLient object
+var client = new TcpClient();
+
+// connect to a specific address and port
+client.Connect("localhost",1337);
+
+//create a new connection with specific encoding, new line sequence and continous reading disabled
+using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
+  {
+      var response = await cn.ReadTextAsync();
+  }
+```
+
+
