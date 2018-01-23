@@ -921,6 +921,8 @@ It represents a network connection with 2 operation modes (server or client side
 
 [Connection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html)
 
+[ConnectionListener API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html)
+
 #### Example 1: Creating a connection on the server side
 When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a `ConnectionListener` which is a TCP listener manager with built-in events and asynchronous functionality.
 
