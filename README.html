@@ -904,10 +904,10 @@ var user = SettingsProvider&lt;Settings&gt;.Instance.Global.User;
  //if we want those settings to persist
  SettingsProvider&lt;Settings&gt;.Instance.PersistGlobalSettings();
 </code></pre><h3 id="the-connection-class">The <code>Connection</code> class</h3>
-<p>It represents a network connection with 2 operation modes (server or client side). It wraps a TcpClient and its corresponding network streams.</p>
+<p>It represents a wrapper for TcpClient (a TCP network connection) either on the server or on the client. It provides access to the input and output network streams. It is capable of working in 2 modes.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html">Connection API Doc</a></p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html">ConnectionListener API Doc</a></p>
-<h4 id="example-1-creating-a-connection-on-the-server-side">Example 1: Creating a connection on the server side</h4>
+<h4 id="example-1-creating-an-echo-server">Example 1: Creating an echo server</h4>
 <p>When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a <code>ConnectionListener</code> which is a TCP listener manager with built-in events and asynchronous functionality.</p>
 <pre><code class="lang-csharp">// create a new connection listener on a specific port
 var connectionListener = new ConnectionListener(1337);
@@ -920,7 +920,9 @@ connectionListener.OnConnectionAccepting += (s, e) =&gt;
           cn.WriteLineAsync(&#39;Hello world&#39;).Wait();
       }
   };
-</code></pre><h4 id="example-2-creating-a-connection-on-the-client-side">Example 2: Creating a connection on the client side</h4>
+
+  connectionListener.Start();
+</code></pre><h4 id="example-2-creating-an-echo-client">Example 2: Creating an echo client</h4>
 <p>Continuous  reading is usually used on the server side so, you may want to disable them on the client side.</p>
 <pre><code class="lang-csharp">// create a new TcpCLient object
 var client = new TcpClient();
