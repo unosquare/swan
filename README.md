@@ -933,8 +933,10 @@ var connectionListener = new ConnectionListener(1337);
 // handle the OnConnectionAccepting event
 connectionListener.OnConnectionAccepted += (s, e) =>
 {
+// create a new connection with a blocksize of 6
     using (var con = new Connection(e.Client,6))
     {
+      // an event which will be raised when data is received
         con.DataReceived += (o, y) =>
         {
             var response = Encoding.UTF8.GetChars(y.Buffer);
