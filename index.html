@@ -908,7 +908,7 @@ var user = SettingsProvider&lt;Settings&gt;.Instance.Global.User;
 <p>It represents a wrapper for TcpClient (a TCP network connection) either on the server or on the client. It provides access to the input and output network streams. It is capable of working in 2 modes.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html">Connection API Doc</a></p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html">ConnectionListener API Doc</a></p>
-<h4 id="example-1-creating-an-echo-server">Example 1: Creating an echo server</h4>
+<h4 id="example-1-creating-an-tcp-server">Example 1: Creating an TCP server</h4>
 <p>When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a <code>ConnectionListener</code> which is a TCP listener manager with built-in events and asynchronous functionality.</p>
 <pre><code class="lang-csharp">// create a new connection listener on a specific port
 var connectionListener = new ConnectionListener(1337);
@@ -929,7 +929,7 @@ connectionListener.OnConnectionAccepted += (s, e) =&gt;
     }                
 };
 connectionListener.Start();
-</code></pre><h4 id="example-2-creating-an-echo-client">Example 2: Creating an echo client</h4>
+</code></pre><h4 id="example-2-creating-an-tcp-client">Example 2: Creating an TCP client</h4>
 <p>Continuous  reading is usually used on the server side so, you may want to disable them on the client side.</p>
 <pre><code class="lang-csharp">// create a new TcpCLient object
 var client = new TcpClient();
@@ -939,10 +939,10 @@ client.Connect(&quot;localhost&quot;,1337);
 
 //create a new connection with specific encoding, new line sequence and continous reading disabled
 using (var cn = new Connection(client, Encoding.UTF8, &quot;\r\n&quot;, true, 0))
-  {
+{
      await cn.WriteDataAsync(Encoding.UTF8.GetBytes(&quot;Hello &quot;), true);
      var response = await cn.ReadTextAsync();
-  }
+}
 </code></pre></article>
           </div>
           
