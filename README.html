@@ -913,15 +913,19 @@ var user = SettingsProvider&lt;Settings&gt;.Instance.Global.User;
 var connectionListener = new ConnectionListener(1337);
 
 // handle the OnConnectionAccepting event
-connectionListener.OnConnectionAccepting += (s, e) =&gt;
-  {
-      using (var cn = new Connection(e.Client))
-      {
-          cn.WriteLineAsync(&#39;Hello world&#39;).Wait();
-      }
-  };
+connectionListener.OnConnectionAccepted += (s, e) =&gt;
+{
+    using (var con = new Connection(e.Client,6))
+    {
+        con.DataReceived += (o, y) =&gt;
+        {
+            var response = Encoding.UTF8.GetChars(y.Buffer);
+        };
 
-  connectionListener.Start();
+      con.WriteLineAsync(&quot;world!&quot;).Wait();
+    }                
+};
+connectionListener.Start();
 </code></pre><h4 id="example-2-creating-an-echo-client">Example 2: Creating an echo client</h4>
 <p>Continuous  reading is usually used on the server side so, you may want to disable them on the client side.</p>
 <pre><code class="lang-csharp">// create a new TcpCLient object
@@ -933,7 +937,8 @@ client.Connect(&quot;localhost&quot;,1337);
 //create a new connection with specific encoding, new line sequence and continous reading disabled
 using (var cn = new Connection(client, Encoding.UTF8, &quot;\r\n&quot;, true, 0))
   {
-      var response = await cn.ReadTextAsync();
+     await cn.WriteDataAsync(Encoding.UTF8.GetBytes(&quot;Hello &quot;), true);
+     var response = await cn.ReadTextAsync();
   }
 </code></pre></article>
           </div>
