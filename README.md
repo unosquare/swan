@@ -917,13 +917,13 @@ var user = SettingsProvider<Settings>.Instance.Global.User;
 ```
 
 ### The `Connection` class
-It represents a network connection with 2 operation modes (server or client side). It wraps a TcpClient and its corresponding network streams.
+It represents a wrapper for TcpClient (a TCP network connection) either on the server or on the client. It provides access to the input and output network streams. It is capable of working in 2 modes.
 
 [Connection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html)
 
 [ConnectionListener API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html)
 
-#### Example 1: Creating a connection on the server side
+#### Example 1: Creating an echo server
 When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a `ConnectionListener` which is a TCP listener manager with built-in events and asynchronous functionality.
 
 ```csharp
@@ -938,9 +938,11 @@ connectionListener.OnConnectionAccepting += (s, e) =>
           cn.WriteLineAsync('Hello world').Wait();
       }
   };
+  
+  connectionListener.Start();
 ```
 
-#### Example 2: Creating a connection on the client side
+#### Example 2: Creating an echo client
 Continuous  reading is usually used on the server side so, you may want to disable them on the client side.
 
 ```csharp
