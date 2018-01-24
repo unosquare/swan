@@ -924,7 +924,8 @@ It represents a wrapper for TcpClient (a TCP network connection) either on the s
 
 [ConnectionListener API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html)
 
-#### Example 1: Creating an echo server
+#### Example 1: Creating an TCP server
+
 When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a `ConnectionListener` which is a TCP listener manager with built-in events and asynchronous functionality.
 
 ```csharp
@@ -947,10 +948,9 @@ connectionListener.OnConnectionAccepted += (s, e) =>
     }                
 };
 connectionListener.Start();
-
 ```
 
-#### Example 2: Creating an echo client
+#### Example 2: Creating an TCP client
 Continuous  reading is usually used on the server side so, you may want to disable them on the client side.
 
 ```csharp
@@ -962,10 +962,8 @@ client.Connect("localhost",1337);
 
 //create a new connection with specific encoding, new line sequence and continous reading disabled
 using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
-  {
+{
      await cn.WriteDataAsync(Encoding.UTF8.GetBytes("Hello "), true);
      var response = await cn.ReadTextAsync();
-  }
+}
 ```
-
-
