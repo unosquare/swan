@@ -931,15 +931,20 @@ When dealing with a connection on the server side, continuous reading must be en
 var connectionListener = new ConnectionListener(1337);
 
 // handle the OnConnectionAccepting event
-connectionListener.OnConnectionAccepting += (s, e) =>
-  {
-      using (var cn = new Connection(e.Client))
-      {
-          cn.WriteLineAsync('Hello world').Wait();
-      }
-  };
-  
-  connectionListener.Start();
+connectionListener.OnConnectionAccepted += (s, e) =>
+{
+    using (var con = new Connection(e.Client,6))
+    {
+        con.DataReceived += (o, y) =>
+        {
+            var response = Encoding.UTF8.GetChars(y.Buffer);
+        };
+
+      con.WriteLineAsync("world!").Wait();
+    }                
+};
+connectionListener.Start();
+
 ```
 
 #### Example 2: Creating an echo client
@@ -955,7 +960,8 @@ client.Connect("localhost",1337);
 //create a new connection with specific encoding, new line sequence and continous reading disabled
 using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
   {
-      var response = await cn.ReadTextAsync();
+     await cn.WriteDataAsync(Encoding.UTF8.GetBytes("Hello "), true);
+     var response = await cn.ReadTextAsync();
   }
 ```
 
