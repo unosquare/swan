@@ -32,6 +32,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The AppWorkerBase class](#the-appworkerbase-class)
     * [The ArgumentParser component](#the-argumentparser-component)
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
+    * [The Connection class](#the-connection-class)
     
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -888,7 +889,7 @@ internal class Options
   }
 ```
 ### The `SettingsProvider` abstraction
-Represents a provider that helps you save and load settings using plain JSON file.
+It represents a provider that helps you save and load settings using plain JSON file.
 
 [SettingsProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Abstractions.SettingsProvider-1.html)
 
@@ -907,7 +908,7 @@ internal class Settings
 Once we define our settings we can access them using the `Global` property inside `Instance`.
 ```csharp
 //Get user from settings
-var user = SettingsProvider<Settings>.Instance.Global.User
+var user = SettingsProvider<Settings>.Instance.Global.User;
 
  //Modify the port 
  SettingsProvider<Settings>.Instance.Global.Port = 20;
@@ -915,3 +916,56 @@ var user = SettingsProvider<Settings>.Instance.Global.User
  //if we want those settings to persist
  SettingsProvider<Settings>.Instance.PersistGlobalSettings();
 ```
+
+### The `Connection` class
+It represents a wrapper for TcpClient (a TCP network connection) either on the server or on the client. It provides access to the input and output network streams. It is capable of working in 2 modes.
+
+[Connection API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Connection.html)
+
+[ConnectionListener API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.ConnectionListener.html)
+
+#### Example 1: Creating an echo server
+When dealing with a connection on the server side, continuous reading must be enabled, thus deactivating Read methods. If these methods are used an invalid operation exception will be thrown. This example uses a `ConnectionListener` which is a TCP listener manager with built-in events and asynchronous functionality.
+
+```csharp
+// create a new connection listener on a specific port
+var connectionListener = new ConnectionListener(1337);
+
+// handle the OnConnectionAccepting event
+connectionListener.OnConnectionAccepted += (s, e) =>
+{
+// create a new connection with a blocksize of 6
+    using (var con = new Connection(e.Client,6))
+    {
+      // an event which will be raised when data is received
+        con.DataReceived += (o, y) =>
+        {
+            var response = Encoding.UTF8.GetChars(y.Buffer);
+        };
+
+      con.WriteLineAsync("world!").Wait();
+    }                
+};
+connectionListener.Start();
+
+```
+
+#### Example 2: Creating an echo client
+Continuous  reading is usually used on the server side so, you may want to disable them on the client side.
+
+```csharp
+// create a new TcpCLient object
+var client = new TcpClient();
+
+// connect to a specific address and port
+client.Connect("localhost",1337);
+
+//create a new connection with specific encoding, new line sequence and continous reading disabled
+using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
+  {
+     await cn.WriteDataAsync(Encoding.UTF8.GetBytes("Hello "), true);
+     var response = await cn.ReadTextAsync();
+  }
+```
+
+
