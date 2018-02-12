@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Unosquare.Swan.Abstractions
+    <title>Class AtomicLong
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Unosquare.Swan.Abstractions
+    <meta name="title" content="Class AtomicLong
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -77,38 +77,91 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.AtomicLong">
   
-  <h1 id="Unosquare_Swan_Abstractions" data-uid="Unosquare.Swan.Abstractions" class="text-break">Namespace Unosquare.Swan.Abstractions
+  
+  <h1 id="Unosquare_Swan_AtomicLong" data-uid="Unosquare.Swan.AtomicLong" class="text-break">Class AtomicLong
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Fast, atomioc long combining interlocked to write value and volatile to read values
+Idea taken from Memory model and .NET operations in article:
+<a href="http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/">http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/</a></p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">AtomicLong</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
+  <h5 id="Unosquare_Swan_AtomicLong_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class AtomicLong</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
   </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a></h4>
-      <section><p>A base implementation of an Application service containing a worker task that performs background processing.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a></h4>
-      <section><p>Represents event arguments whenever the state of an application service changes</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider&lt;T&gt;</a></h4>
-      <section><p>Represents a provider to save and load settings using a plain JSON file</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase&lt;T&gt;</a></h4>
-      <section><p>Represents a singleton pattern abstract class</p>
-</section>
-    <h3 id="interfaces">Interfaces
+  
+  
+  <a id="Unosquare_Swan_AtomicLong__ctor_" data-uid="Unosquare.Swan.AtomicLong.#ctor*"></a>
+  <h4 id="Unosquare_Swan_AtomicLong__ctor" data-uid="Unosquare.Swan.AtomicLong.#ctor">AtomicLong()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.AtomicLong.html">AtomicLong</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AtomicLong()</code></pre>
+  </div>
+  <h3 id="properties">Properties
   </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ISyncLocker.html">ISyncLocker</a></h4>
-      <section><p>Defines a generic interface for synchronized locking mechanisms</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWaitEvent.html">IWaitEvent</a></h4>
-      <section><p>Provides a generalized API for ManualResetEvent and ManualResetEventSlim</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a></h4>
-      <section><p>A simple interface for application workers</p>
-</section>
+  
+  
+  <a id="Unosquare_Swan_AtomicLong_Value_" data-uid="Unosquare.Swan.AtomicLong.Value*"></a>
+  <h4 id="Unosquare_Swan_AtomicLong_Value" data-uid="Unosquare.Swan.AtomicLong.Value">Value</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the latest value written by any of the processors in the machine</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long Value { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 <div id="disqus_thread"></div>
 <script>
 

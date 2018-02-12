@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Unosquare.Swan.Abstractions
+    <title>Interface ISyncLocker
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Unosquare.Swan.Abstractions
+    <meta name="title" content="Interface ISyncLocker
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.31.0.0">
     
@@ -77,38 +77,83 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.ISyncLocker">
   
-  <h1 id="Unosquare_Swan_Abstractions" data-uid="Unosquare.Swan.Abstractions" class="text-break">Namespace Unosquare.Swan.Abstractions
+  
+  <h1 id="Unosquare_Swan_Abstractions_ISyncLocker" data-uid="Unosquare.Swan.Abstractions.ISyncLocker" class="text-break">Interface ISyncLocker
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Defines a generic interface for synchronized locking mechanisms</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_ISyncLocker_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISyncLocker : IDisposable</code></pre>
+  </div>
+  <h3 id="methods">Methods
   </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a></h4>
-      <section><p>A base implementation of an Application service containing a worker task that performs background processing.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a></h4>
-      <section><p>Represents event arguments whenever the state of an application service changes</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider&lt;T&gt;</a></h4>
-      <section><p>Represents a provider to save and load settings using a plain JSON file</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase&lt;T&gt;</a></h4>
-      <section><p>Represents a singleton pattern abstract class</p>
-</section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ISyncLocker.html">ISyncLocker</a></h4>
-      <section><p>Defines a generic interface for synchronized locking mechanisms</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWaitEvent.html">IWaitEvent</a></h4>
-      <section><p>Provides a generalized API for ManualResetEvent and ManualResetEventSlim</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a></h4>
-      <section><p>A simple interface for application workers</p>
-</section>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ISyncLocker_AcquireReaderLock_" data-uid="Unosquare.Swan.Abstractions.ISyncLocker.AcquireReaderLock*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ISyncLocker_AcquireReaderLock" data-uid="Unosquare.Swan.Abstractions.ISyncLocker.AcquireReaderLock">AcquireReaderLock()</h4>
+  <div class="markdown level1 summary"><p>Acquires a reader lock.
+The lock is released when the returned locking object is disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IDisposable AcquireReaderLock()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IDisposable</span></td>
+        <td><p>A disposable locking object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_ISyncLocker_AcquireWriterLock_" data-uid="Unosquare.Swan.Abstractions.ISyncLocker.AcquireWriterLock*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_ISyncLocker_AcquireWriterLock" data-uid="Unosquare.Swan.Abstractions.ISyncLocker.AcquireWriterLock">AcquireWriterLock()</h4>
+  <div class="markdown level1 summary"><p>Acquires a writer lock.
+The lock is released when the returned locking object is disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IDisposable AcquireWriterLock()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IDisposable</span></td>
+        <td><p>A disposable locking object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 <div id="disqus_thread"></div>
 <script>
 
