@@ -342,7 +342,7 @@ namespace Unosquare.Swan.Networking
         /// <returns>A byte array containing the results of encoding the specified set of characters</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
         /// <exception cref="TimeoutException">Reading data from {ActiveStream} timed out in {timeout.TotalMilliseconds} m</exception>
-        public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
+        public async Task<byte[]> ReadDataAsync(TimeSpan timeout, CancellationToken ct = default)
         {
             if (IsContinuousReadingEnabled)
             {
@@ -406,7 +406,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A byte array containing the results the specified sequence of bytes</returns>
-        public Task<byte[]> ReadDataAsync(CancellationToken ct = default(CancellationToken)) 
+        public Task<byte[]> ReadDataAsync(CancellationToken ct = default) 
             => ReadDataAsync(TimeSpan.FromSeconds(5), ct);
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A <see cref="System.String" /> that contains the results of decoding the specified sequence of bytes</returns>
-        public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
+        public async Task<string> ReadTextAsync(TimeSpan timeout, CancellationToken ct = default)
         {
             var buffer = await ReadDataAsync(timeout, ct);
             return buffer == null ? null : TextEncoding.GetString(buffer);
@@ -426,7 +426,7 @@ namespace Unosquare.Swan.Networking
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string</returns>
-        public Task<string> ReadTextAsync(CancellationToken ct = default(CancellationToken))
+        public Task<string> ReadTextAsync(CancellationToken ct = default)
             => ReadTextAsync(TimeSpan.FromSeconds(5), ct);
 
         /// <summary>
@@ -437,7 +437,7 @@ namespace Unosquare.Swan.Networking
         /// A task that represents the asynchronous read operation. The value of the TResult parameter 
         /// contains the next line from the stream, or is null if all the characters have been read
         /// </returns>
-        public Task<string> ReadLineAsync(CancellationToken ct = default(CancellationToken))
+        public Task<string> ReadLineAsync(CancellationToken ct = default)
             => ReadLineAsync(TimeSpan.FromSeconds(30), ct);
 
         /// <summary>
@@ -451,7 +451,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a string line from the queue</returns>
         /// <exception cref="InvalidOperationException">Read methods have been disabled because continuous reading is enabled.</exception>
-        public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
+        public async Task<string> ReadLineAsync(TimeSpan timeout, CancellationToken ct = default)
         {
             if (IsContinuousReadingEnabled)
             {
@@ -496,7 +496,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="forceFlush">if set to <c>true</c> [force flush].</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct = default(CancellationToken))
+        public async Task WriteDataAsync(byte[] buffer, bool forceFlush, CancellationToken ct = default)
         {
             try
             {
@@ -520,7 +520,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="text">The text.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public Task WriteTextAsync(string text, CancellationToken ct = default(CancellationToken))
+        public Task WriteTextAsync(string text, CancellationToken ct = default)
             => WriteTextAsync(text, TextEncoding, ct);
 
         /// <summary>
@@ -530,7 +530,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct = default(CancellationToken))
+        public Task WriteTextAsync(string text, Encoding encoding, CancellationToken ct = default)
             => WriteDataAsync(encoding.GetBytes(text), true, ct);
 
         /// <summary>
@@ -541,7 +541,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="encoding">The encoding.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default(CancellationToken))
+        public async Task WriteLineAsync(string line, Encoding encoding, CancellationToken ct = default)
         {
             var buffer = encoding.GetBytes($"{line}{_newLineSequence}");
             await WriteDataAsync(buffer, true, ct);
@@ -554,7 +554,7 @@ namespace Unosquare.Swan.Networking
         /// <param name="line">The line.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task that represents the asynchronous write operation</returns>
-        public Task WriteLineAsync(string line, CancellationToken ct = default(CancellationToken))
+        public Task WriteLineAsync(string line, CancellationToken ct = default)
             => WriteLineAsync(line, TextEncoding, ct);
 
         #endregion

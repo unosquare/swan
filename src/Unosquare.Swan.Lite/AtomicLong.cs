@@ -9,16 +9,13 @@
     /// </summary>
     public sealed class AtomicLong
     {
-        private long _value = 0;
+        private long _value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicLong" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public AtomicLong(long value = default(long))
-        {
-            Value = value;
-        }
+        public AtomicLong(long value = default) => Value = value;
 
         /// <summary>
         /// Gets or sets the latest value written by any of the processors in the machine

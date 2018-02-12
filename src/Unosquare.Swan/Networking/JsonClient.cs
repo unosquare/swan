@@ -34,11 +34,11 @@
             string url, 
             object payload, 
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var jsonString = await PostString(url, payload, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
+            return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@
             object payload,
             int httpStatusError = 500, 
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
             {
@@ -73,7 +73,7 @@
                     return new OkOrError<T, TE>
                     {
                         IsOk = true,
-                        Ok = string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString)
+                        Ok = string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString)
                     };
                 }
 
@@ -81,7 +81,7 @@
                 {
                     return new OkOrError<T, TE>
                     {
-                        Error = string.IsNullOrEmpty(jsonString) ? default(TE) : Json.Deserialize<TE>(jsonString)
+                        Error = string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<TE>(jsonString)
                     };
                 }
 
@@ -101,12 +101,12 @@
             string url, 
             object payload,
             string authorization = null, 
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var jsonString = await PostString(url, payload, authorization, ct);
 
             return string.IsNullOrWhiteSpace(jsonString)
-                ? default(IDictionary<string, object>)
+                ? default
                 : Json.Deserialize(jsonString) as IDictionary<string, object>;
         }
 
@@ -127,7 +127,7 @@
             string url, 
             object payload, 
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -158,11 +158,11 @@
             string url, 
             object payload, 
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var jsonString = await PutString(url, payload, authorization, ct);
 
-            return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
+            return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
         }
 
         /// <summary>
@@ -177,12 +177,12 @@
             string url, 
             object payload,
             string authorization = null, 
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var jsonString = await PutString(url, payload, authorization, ct);
 
             return string.IsNullOrEmpty(jsonString)
-                ? default(IDictionary<string, object>)
+                ? default
                 : Json.Deserialize(jsonString) as IDictionary<string, object>;
         }
 
@@ -202,7 +202,7 @@
             string url, 
             object payload, 
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -234,7 +234,7 @@
         public static async Task<string> GetString(
             string url, 
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -262,10 +262,10 @@
         public static async Task<T> Get<T>(
             string url, 
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var jsonString = await GetString(url, authorization, ct);
-            return string.IsNullOrEmpty(jsonString) ? default(T) : Json.Deserialize<T>(jsonString);
+            return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
         }
 
         /// <summary>
@@ -282,7 +282,7 @@
         public static async Task<byte[]> GetBinary(
             string url,
             string authorization = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -318,7 +318,7 @@
             string url,
             string username,
             string password,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));

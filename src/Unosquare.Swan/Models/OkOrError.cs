@@ -21,7 +21,7 @@
         /// <value>
         /// The ok.
         /// </value>
-        public T Ok { get; set; } = default(T);
+        public T Ok { get; set; } = default;
 
         /// <summary>
         /// Gets or sets the error.
@@ -29,6 +29,6 @@
         /// <value>
         /// The error.
         /// </value>
-        public TError Error { get; set; } = default(TError);
+        public TError Error { get; set; } = default;
     }
 }

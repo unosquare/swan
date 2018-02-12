@@ -730,7 +730,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }
@@ -752,7 +752,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }
@@ -774,7 +774,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }
@@ -797,7 +797,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }
@@ -819,7 +819,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }
@@ -842,7 +842,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }
@@ -865,7 +865,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }
@@ -889,7 +889,7 @@ namespace Unosquare.Swan.Components
             }
             catch (DependencyContainerResolutionException)
             {
-                resolvedType = default(TResolveType);
+                resolvedType = default;
                 return false;
             }
         }

@@ -49,7 +49,7 @@
                 byte[] data,
                 DnsRecordType type,
                 DnsRecordClass klass = DnsRecordClass.IN,
-                TimeSpan ttl = default(TimeSpan))
+                TimeSpan ttl = default)
             {
                 Name = domain;
                 Type = type;
@@ -305,7 +305,7 @@
                 TimeSpan retry,
                 TimeSpan expire,
                 TimeSpan minTtl,
-                TimeSpan ttl = default(TimeSpan))
+                TimeSpan ttl = default)
                 : base(Create(domain, master, responsible, serial, refresh, retry, expire, minTtl, ttl))
             {
                 MasterDomainName = master;

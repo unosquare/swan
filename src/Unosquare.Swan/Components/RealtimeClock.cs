@@ -3,7 +3,6 @@
     using System;
     using System.Diagnostics;
     using Abstractions;
-    using Components;
 
     /// <summary>
     /// A time measurement artifact.

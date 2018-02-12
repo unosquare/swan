@@ -5,9 +5,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Abstractions;
-#if !NETSTANDARD1_3 && !UWP
-    using Components;
-#endif
 
     /// <summary>
     /// Represents logic providing several delay mechanisms
@@ -17,7 +14,7 @@
         private readonly object _syncRoot = new object();
         private bool _isDisposed;
         private IWaitEvent _delayEvent;
-        private readonly Stopwatch DelayStopwatch = new Stopwatch();
+        private readonly Stopwatch _delayStopwatch = new Stopwatch();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelayProvider"/> class.
@@ -66,7 +63,7 @@
             {
                 if (_isDisposed) return TimeSpan.Zero;
 
-                DelayStopwatch.Restart();
+                _delayStopwatch.Restart();
 
                 switch (Strategy)
                 {
@@ -83,7 +80,7 @@
 #endif
                 }
 
-                return DelayStopwatch.Elapsed;
+                return _delayStopwatch.Elapsed;
             }
         }
 

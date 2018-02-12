@@ -513,7 +513,7 @@
         /// A byte array containing the results of encoding the specified set of characters
         /// </returns>
         /// <exception cref="ArgumentNullException">stream</exception>
-        public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken ct = default(CancellationToken))
+        public static async Task<byte[]> ReadBytesAsync(this Stream stream, long length, int bufferLength, CancellationToken ct = default)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -555,7 +555,7 @@
         /// A byte array containing the results of encoding the specified set of characters
         /// </returns>
         /// <exception cref="ArgumentNullException">stream</exception>
-        public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken ct = default(CancellationToken))
+        public static async Task<byte[]> ReadBytesAsync(this Stream stream, int length, CancellationToken ct = default)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -598,6 +598,7 @@
             var byteArray = new byte[sbyteArray.Length];
             for (var index = 0; index < sbyteArray.Length; index++)
                 byteArray[index] = (byte)sbyteArray[index];
+
             return byteArray;
         }
 

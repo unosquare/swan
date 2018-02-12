@@ -20,7 +20,7 @@
         /// A dictionary of generic types
         /// </returns>
         /// <exception cref="ArgumentNullException">dict</exception>
-        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default(TValue))
+        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default)
         {
             if (dict == null)
                 throw new ArgumentNullException(nameof(dict));

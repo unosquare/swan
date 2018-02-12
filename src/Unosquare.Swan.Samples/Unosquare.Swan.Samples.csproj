@@ -8,6 +8,7 @@
     <AssemblyName>Unosquare.Swan.Samples</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Unosquare.Swan.Samples</PackageId>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

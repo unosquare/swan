@@ -155,7 +155,7 @@ namespace Unosquare.Swan.Networking
         public Task SendMailAsync(
             SmtpSessionState sessionState,
             string sessionId = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (sessionState == null)
                 throw new ArgumentNullException(nameof(sessionState));
@@ -182,7 +182,7 @@ namespace Unosquare.Swan.Networking
         public async Task SendMailAsync(
             IEnumerable<SmtpSessionState> sessionStates,
             string sessionId = null,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             if (sessionStates == null)
                 throw new ArgumentNullException(nameof(sessionStates));

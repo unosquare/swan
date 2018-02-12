@@ -54,9 +54,9 @@
             {
                 if (Measures.ContainsKey(identifier) == false)
                     Measures[identifier] = new List<TimeSpan>(1024 * 1024);
-            }
 
-            Measures[identifier].Add(elapsed);
+                Measures[identifier].Add(elapsed);
+            }
         }
 
         /// <summary>

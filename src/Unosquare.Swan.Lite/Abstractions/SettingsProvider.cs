@@ -7,7 +7,9 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+#if NETSTANDARD1_3 || UWP
     using System.Reflection;
+#endif
 
     /// <summary>
     /// Represents a provider to save and load settings using a plain JSON file

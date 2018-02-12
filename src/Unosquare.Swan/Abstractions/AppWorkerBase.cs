@@ -71,7 +71,7 @@
         /// <value>
         /// The cancellation token.
         /// </value>
-        public CancellationToken CancellationToken => _tokenSource?.Token ?? default(CancellationToken);
+        public CancellationToken CancellationToken => _tokenSource?.Token ?? default;
 
         /// <summary>
         /// Gets a value indicating whether the thread is busy

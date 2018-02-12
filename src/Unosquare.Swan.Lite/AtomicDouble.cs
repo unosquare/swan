@@ -9,16 +9,13 @@
     /// </summary>
     public sealed class AtomicDouble
     {
-        private double _value = default(double);
-        
+        private double _value;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicDouble"/> class.
         /// </summary>
         /// <param name="initialValue">The initial value.</param>
-        public AtomicDouble(double initialValue = default(double))
-        {
-            Value = initialValue;
-        }
+        public AtomicDouble(double initialValue = default) => Value = initialValue;
 
         /// <summary>
         /// Gets or sets the latest value written by any of the processors in the machine

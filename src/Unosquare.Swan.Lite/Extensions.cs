@@ -193,7 +193,7 @@
         /// <param name="retryCount">The retry count.</param>
         public static void Retry(
             this Action action,
-            TimeSpan retryInterval = default(TimeSpan),
+            TimeSpan retryInterval = default,
             int retryCount = 3)
         {
             if (action == null)
@@ -222,13 +222,13 @@
         /// <exception cref="AggregateException">Represents one or many errors that occur during application execution</exception>
         public static T Retry<T>(
             this Func<T> action,
-            TimeSpan retryInterval = default(TimeSpan),
+            TimeSpan retryInterval = default,
             int retryCount = 3)
         {
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
 
-            if (retryInterval == default(TimeSpan))
+            if (retryInterval == default)
                 retryInterval = TimeSpan.FromSeconds(1);
 
             var exceptions = new List<Exception>();
