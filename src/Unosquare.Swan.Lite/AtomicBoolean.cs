@@ -9,13 +9,13 @@
     /// </summary>
     public sealed class AtomicBoolean
     {
-        private int _value = 0;
+        private int _value;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicBoolean"/> class.
         /// </summary>
         /// <param name="initialValue">if set to <c>true</c> [initial value].</param>
-        public AtomicBoolean(bool initialValue = default(bool))
+        public AtomicBoolean(bool initialValue = default)
         {
             Value = initialValue;
         }

@@ -30,6 +30,7 @@
             lock (SyncLock)
             {
                 var builder = new StringBuilder();
+
                 foreach (var kvp in Measures)
                 {
                     builder.AppendLine($"BID: {kvp.Key,-30} | CNT: {kvp.Value.Count,6} | " +

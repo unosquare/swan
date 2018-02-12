@@ -17,6 +17,7 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
+	<LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
