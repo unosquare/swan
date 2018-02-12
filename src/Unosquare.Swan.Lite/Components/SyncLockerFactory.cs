@@ -1,8 +1,8 @@
-﻿namespace Unosquare.Swan.Lite.Components
+﻿namespace Unosquare.Swan.Components
 {
     using System;
     using System.Threading;
-    using Unosquare.Swan.Lite.Abstractions;
+    using Abstractions;
 
     /// <summary>
     /// Provides factory methods to create synchronized reader-writer locks
@@ -10,7 +10,7 @@
     /// </summary>
     public static class SyncLockerFactory
     {
-#region Enums and Interfaces
+        #region Enums and Interfaces
 
         /// <summary>
         /// Enumerates the locking operations
@@ -37,15 +37,24 @@
             void ReleaseReaderLock();
         }
 
-#endregion
+        #endregion
 
-#region Factory Methods
-
+        #region Factory Methods
+        
+#if !NETSTANDARD1_3 && !UWP
         /// <summary>
         /// Creates a reader-writer lock backed by a standard ReaderWriterLock
         /// </summary>
         /// <returns>The synchronized locker</returns>
         public static ISyncLocker Create() => new SyncLocker();
+#else
+        /// <summary>
+        /// Creates a reader-writer lock backed by a standard ReaderWriterLockSlim when
+        /// running at NETSTANDARD 1.3 or UWP.
+        /// </summary>
+        /// <returns>The synchronized locker</returns>
+        public static ISyncLocker Create() => new SyncLockerSlim();
+#endif
 
         /// <summary>
         /// Creates a reader-writer lock backed by a ReaderWriterLockSlim
@@ -60,9 +69,9 @@
         /// <returns>The Sync Locker</returns>
         public static ISyncLocker Create(bool useSlim) => useSlim ? CreateSlim() : Create();
 
-#endregion
+        #endregion
 
-#region Private Classes
+        #region Private Classes
 
         /// <summary>
         /// The lock releaser. Calling the dispose method releases the lock entered by the parent SyncLocker.
@@ -70,9 +79,10 @@
         /// <seealso cref="System.IDisposable" />
         private sealed class SyncLockReleaser : IDisposable
         {
-            private bool IsDisposed = false;
-            private ISyncReleasable Parent = null;
-            private LockHolderType Operation;
+            private readonly ISyncReleasable _parent;
+            private readonly LockHolderType _operation;
+
+            private bool _isDisposed;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SyncLockReleaser"/> class.
@@ -81,31 +91,24 @@
             /// <param name="operation">The operation.</param>
             public SyncLockReleaser(ISyncReleasable parent, LockHolderType operation)
             {
-                Parent = parent;
-                Operation = operation;
+                _parent = parent;
+                _operation = operation;
             }
 
-            /// <summary>
-            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-            /// </summary>
-            public void Dispose() => Dispose(true);
-
-            /// <summary>
-            /// Releases unmanaged and - optionally - managed resources.
-            /// </summary>
-            /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-            private void Dispose(bool alsoManaged)
+            /// <inheritdoc />
+            public void Dispose()
             {
-                if (IsDisposed) return;
-                IsDisposed = true;
+                if (_isDisposed) return;
+                _isDisposed = true;
 
-                if (Operation == LockHolderType.Read)
-                    Parent.ReleaseReaderLock();
+                if (_operation == LockHolderType.Read)
+                    _parent.ReleaseReaderLock();
                 else
-                    Parent.ReleaseWriterLock();
+                    _parent.ReleaseWriterLock();
             }
         }
 
+#if !NETSTANDARD1_3 && !UWP
         /// <summary>
         /// The Sync Locker backed by a ReaderWriterLock
         /// </summary>
@@ -113,62 +116,39 @@
         /// <seealso cref="ISyncReleasable" />
         private sealed class SyncLocker : ISyncLocker, ISyncReleasable
         {
-            private bool IsDisposed = false;
-            private ReaderWriterLock Locker = new ReaderWriterLock();
+            private bool _isDisposed;
+            private ReaderWriterLock _locker = new ReaderWriterLock();
 
-            /// <summary>
-            /// Acquires a reader lock.
-            /// The lock is released when the returned locking object is disposed.
-            /// </summary>
-            /// <returns>
-            /// A disposable locking object.
-            /// </returns>
+            /// <inheritdoc />
             public IDisposable AcquireReaderLock()
             {
-                Locker?.AcquireReaderLock(Timeout.Infinite);
+                _locker?.AcquireReaderLock(Timeout.Infinite);
                 return new SyncLockReleaser(this, LockHolderType.Read);
             }
 
-            /// <summary>
-            /// Acquires a writer lock.
-            /// The lock is released when the returned locking object is disposed.
-            /// </summary>
-            /// <returns>
-            /// A disposable locking object.
-            /// </returns>
+            /// <inheritdoc />
             public IDisposable AcquireWriterLock()
             {
-                Locker?.AcquireWriterLock(Timeout.Infinite);
+                _locker?.AcquireWriterLock(Timeout.Infinite);
                 return new SyncLockReleaser(this, LockHolderType.Write);
             }
 
-            /// <summary>
-            /// Releases the writer lock.
-            /// </summary>
-            public void ReleaseWriterLock() => Locker?.ReleaseWriterLock();
+            /// <inheritdoc />
+            public void ReleaseWriterLock() => _locker?.ReleaseWriterLock();
 
-            /// <summary>
-            /// Releases the reader lock.
-            /// </summary>
-            public void ReleaseReaderLock() => Locker?.ReleaseReaderLock();
+            /// <inheritdoc />
+            public void ReleaseReaderLock() => _locker?.ReleaseReaderLock();
 
-            /// <summary>
-            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-            /// </summary>
-            public void Dispose() => Dispose(true);
-
-            /// <summary>
-            /// Releases unmanaged and - optionally - managed resources.
-            /// </summary>
-            /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-            private void Dispose(bool alsoManaged)
+            /// <inheritdoc />
+            public void Dispose()
             {
-                if (IsDisposed) return;
-                IsDisposed = true;
-                Locker?.ReleaseLock();
-                Locker = null;
+                if (_isDisposed) return;
+                _isDisposed = true;
+                _locker?.ReleaseLock();
+                _locker = null;
             }
         }
+#endif
 
         /// <summary>
         /// The Sync Locker backed by ReaderWriterLockSlim
@@ -177,64 +157,41 @@
         /// <seealso cref="ISyncReleasable" />
         private sealed class SyncLockerSlim : ISyncLocker, ISyncReleasable
         {
-            private bool IsDisposed = false;
-            private ReaderWriterLockSlim Locker
+            private bool _isDisposed;
+
+            private ReaderWriterLockSlim _locker
                 = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
-            /// <summary>
-            /// Acquires a reader lock.
-            /// The lock is released when the returned locking object is disposed.
-            /// </summary>
-            /// <returns>
-            /// A disposable locking object.
-            /// </returns>
+            /// <inheritdoc />
             public IDisposable AcquireReaderLock()
             {
-                Locker?.EnterReadLock();
+                _locker?.EnterReadLock();
                 return new SyncLockReleaser(this, LockHolderType.Read);
             }
 
-            /// <summary>
-            /// Acquires a writer lock.
-            /// The lock is released when the returned locking object is disposed.
-            /// </summary>
-            /// <returns>
-            /// A disposable locking object.
-            /// </returns>
+            /// <inheritdoc />
             public IDisposable AcquireWriterLock()
             {
-                Locker?.EnterWriteLock();
+                _locker?.EnterWriteLock();
                 return new SyncLockReleaser(this, LockHolderType.Write);
             }
 
-            /// <summary>
-            /// Releases the writer lock.
-            /// </summary>
-            public void ReleaseWriterLock() => Locker?.ExitWriteLock();
+            /// <inheritdoc />
+            public void ReleaseWriterLock() => _locker?.ExitWriteLock();
 
-            /// <summary>
-            /// Releases the reader lock.
-            /// </summary>
-            public void ReleaseReaderLock() => Locker?.ExitReadLock();
+            /// <inheritdoc />
+            public void ReleaseReaderLock() => _locker?.ExitReadLock();
 
-            /// <summary>
-            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-            /// </summary>
-            public void Dispose() => Dispose(true);
-
-            /// <summary>
-            /// Releases unmanaged and - optionally - managed resources.
-            /// </summary>
-            /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-            private void Dispose(bool alsoManaged)
+            /// <inheritdoc />
+            public void Dispose()
             {
-                if (IsDisposed) return;
-                IsDisposed = true;
-                Locker?.Dispose();
-                Locker = null;
+                if (_isDisposed) return;
+                _isDisposed = true;
+                _locker?.Dispose();
+                _locker = null;
             }
         }
 
-#endregion
+        #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Lite.Components
+﻿namespace Unosquare.Swan.Components
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@
     public static class Benchmark
     {
         private static readonly object SyncLock = new object();
-        private static Dictionary<string, List<TimeSpan>> Measures = new Dictionary<string, List<TimeSpan>>();
+        private static readonly Dictionary<string, List<TimeSpan>> Measures = new Dictionary<string, List<TimeSpan>>();
 
         /// <summary>
         /// Starts measuring with the given identifier.
@@ -67,9 +67,9 @@
         /// <seealso cref="IDisposable" />
         private sealed class BenchmarkUnit : IDisposable
         {
-            private bool IsDisposed = false; // To detect redundant calls
-            private Stopwatch Stopwatch = new Stopwatch();
-            private string Identifier = null;
+            private readonly string _identifier;
+            private bool _isDisposed; // To detect redundant calls
+            private Stopwatch _stopwatch = new Stopwatch();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="BenchmarkUnit" /> class.
@@ -77,17 +77,12 @@
             /// <param name="identifier">The identifier.</param>
             public BenchmarkUnit(string identifier)
             {
-                Identifier = identifier;
-                Stopwatch.Start();
+                _identifier = identifier;
+                _stopwatch.Start();
             }
 
-            /// <summary>
-            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-            /// </summary>
-            public void Dispose()
-            {
-                Dispose(true);
-            }
+            /// <inheritdoc />
+            public void Dispose() => Dispose(true);
 
             /// <summary>
             /// Releases unmanaged and - optionally - managed resources.
@@ -95,17 +90,16 @@
             /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
             private void Dispose(bool alsoManaged)
             {
-                if (!IsDisposed)
-                {
-                    if (alsoManaged)
-                    {
-                        Add(Identifier, Stopwatch.Elapsed);
-                        Stopwatch?.Stop();
-                    }
+                if (_isDisposed) return;
 
-                    Stopwatch = null;
-                    IsDisposed = true;
+                if (alsoManaged)
+                {
+                    Add(_identifier, _stopwatch.Elapsed);
+                    _stopwatch?.Stop();
                 }
+
+                _stopwatch = null;
+                _isDisposed = true;
             }
         }
     }

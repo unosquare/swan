@@ -2,19 +2,19 @@
 {
     using System;
     using System.Diagnostics;
-    using Unosquare.Swan.Lite.Abstractions;
-    using Unosquare.Swan.Lite.Components;
+    using Abstractions;
+    using Components;
 
     /// <summary>
     /// A time measurement artifact.
     /// </summary>
     internal sealed class RealTimeClock : IDisposable
     {
-        private readonly Stopwatch Chrono = new Stopwatch();
-        private ISyncLocker Locker = SyncLockerFactory.Create(useSlim: true);
-        private long OffsetTicks = 0;
-        private double m_SpeedRatio = 1.0d;
-        private bool IsDisposed = false;
+        private readonly Stopwatch _chrono = new Stopwatch();
+        private ISyncLocker _locker = SyncLockerFactory.Create(useSlim: true);
+        private long _offsetTicks;
+        private double _speedRatio = 1.0d;
+        private bool _isDisposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RealTimeClock"/> class.
@@ -32,10 +32,10 @@
         {
             get
             {
-                using (Locker.AcquireReaderLock())
+                using (_locker.AcquireReaderLock())
                 {
                     return TimeSpan.FromTicks(
-                        OffsetTicks + Convert.ToInt64(Chrono.Elapsed.Ticks * SpeedRatio));
+                        _offsetTicks + Convert.ToInt64(_chrono.Elapsed.Ticks * SpeedRatio));
                 }
             }
         }
@@ -47,9 +47,9 @@
         {
             get
             {
-                using (Locker.AcquireReaderLock())
+                using (_locker.AcquireReaderLock())
                 {
-                    return Chrono.IsRunning;
+                    return _chrono.IsRunning;
                 }
             }
         }
@@ -61,21 +61,21 @@
         {
             get
             {
-                using (Locker.AcquireReaderLock())
+                using (_locker.AcquireReaderLock())
                 {
-                    return m_SpeedRatio;
+                    return _speedRatio;
                 }
             }
             set
             {
-                using (Locker.AcquireWriterLock())
+                using (_locker.AcquireWriterLock())
                 {
                     if (value < 0d) value = 0d;
 
                     // Capture the initial position se we set it even after the speedratio has changed
                     // this ensures a smooth position transition
                     var initialPosition = Position;
-                    m_SpeedRatio = value;
+                    _speedRatio = value;
                     Update(initialPosition);
                 }
             }
@@ -87,12 +87,12 @@
         /// <param name="value">The new value that the position porperty will hold.</param>
         public void Update(TimeSpan value)
         {
-            using (Locker.AcquireWriterLock())
+            using (_locker.AcquireWriterLock())
             {
-                var resume = Chrono.IsRunning;
-                Chrono.Reset();
-                OffsetTicks = value.Ticks;
-                if (resume) Chrono.Start();
+                var resume = _chrono.IsRunning;
+                _chrono.Reset();
+                _offsetTicks = value.Ticks;
+                if (resume) _chrono.Start();
             }
         }
 
@@ -101,10 +101,10 @@
         /// </summary>
         public void Play()
         {
-            using (Locker.AcquireWriterLock())
+            using (_locker.AcquireWriterLock())
             {
-                if (Chrono.IsRunning) return;
-                Chrono.Start();
+                if (_chrono.IsRunning) return;
+                _chrono.Start();
             }
         }
 
@@ -113,9 +113,9 @@
         /// </summary>
         public void Pause()
         {
-            using (Locker.AcquireWriterLock())
+            using (_locker.AcquireWriterLock())
             {
-                Chrono.Stop();
+                _chrono.Stop();
             }
         }
 
@@ -125,28 +125,20 @@
         /// </summary>
         public void Reset()
         {
-            using (Locker.AcquireWriterLock())
+            using (_locker.AcquireWriterLock())
             {
-                OffsetTicks = 0;
-                Chrono.Reset();
+                _offsetTicks = 0;
+                _chrono.Reset();
             }
         }
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose() => Dispose(true);
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        private void Dispose(bool alsoManaged)
+        /// <inheritdoc />
+        public void Dispose()
         {
-            if (IsDisposed) return;
-            IsDisposed = true;
-            Locker?.Dispose();
-            Locker = null;
+            if (_isDisposed) return;
+            _isDisposed = true;
+            _locker?.Dispose();
+            _locker = null;
         }
     }
 }

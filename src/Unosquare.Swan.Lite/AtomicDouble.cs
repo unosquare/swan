@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Lite
+﻿namespace Unosquare.Swan
 {
     using System.Threading;
 
@@ -9,7 +9,7 @@
     /// </summary>
     public sealed class AtomicDouble
     {
-        private double m_Value = default(double);
+        private double _value = default(double);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicDouble"/> class.
@@ -33,8 +33,8 @@
         /// </summary>
         public double Value
         {
-            get => Volatile.Read(ref m_Value);
-            set => Interlocked.Exchange(ref m_Value, value);
+            get => Volatile.Read(ref _value);
+            set => Interlocked.Exchange(ref _value, value);
         }
     }
 }

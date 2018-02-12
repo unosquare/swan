@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Lite
+﻿namespace Unosquare.Swan
 {
     using System.Threading;
 
@@ -9,7 +9,7 @@
     /// </summary>
     public sealed class AtomicLong
     {
-        private long m_Value = 0;
+        private long _value = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicLong"/> class.
@@ -24,8 +24,8 @@
         /// </summary>
         public long Value
         {
-            get => Volatile.Read(ref m_Value);
-            set => Interlocked.Exchange(ref m_Value, value);
+            get => Volatile.Read(ref _value);
+            set => Interlocked.Exchange(ref _value, value);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Lite
+﻿namespace Unosquare.Swan
 {
     using System.Threading;
 
@@ -9,7 +9,7 @@
     /// </summary>
     public sealed class AtomicBoolean
     {
-        private int m_Value = 0;
+        private int _value = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicBoolean"/> class.
@@ -34,8 +34,8 @@
         /// </summary>
         public bool Value
         {
-            get => Volatile.Read(ref m_Value) != 0;
-            set => Interlocked.Exchange(ref m_Value, value ? 1 : 0);
+            get => Volatile.Read(ref _value) != 0;
+            set => Interlocked.Exchange(ref _value, value ? 1 : 0);
         }
     }
 }
