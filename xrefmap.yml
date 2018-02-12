@@ -546,12 +546,6 @@ references:
   commentId: T:Unosquare.Swan.AtomicBoolean
   fullName: Unosquare.Swan.AtomicBoolean
   nameWithType: AtomicBoolean
-- uid: Unosquare.Swan.AtomicBoolean.#ctor
-  name: AtomicBoolean()
-  href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean__ctor
-  commentId: M:Unosquare.Swan.AtomicBoolean.#ctor
-  fullName: Unosquare.Swan.AtomicBoolean.AtomicBoolean()
-  nameWithType: AtomicBoolean.AtomicBoolean()
 - uid: Unosquare.Swan.AtomicBoolean.#ctor(System.Boolean)
   name: AtomicBoolean(Boolean)
   href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean__ctor_System_Boolean_
@@ -582,12 +576,6 @@ references:
   commentId: T:Unosquare.Swan.AtomicDouble
   fullName: Unosquare.Swan.AtomicDouble
   nameWithType: AtomicDouble
-- uid: Unosquare.Swan.AtomicDouble.#ctor
-  name: AtomicDouble()
-  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble__ctor
-  commentId: M:Unosquare.Swan.AtomicDouble.#ctor
-  fullName: Unosquare.Swan.AtomicDouble.AtomicDouble()
-  nameWithType: AtomicDouble.AtomicDouble()
 - uid: Unosquare.Swan.AtomicDouble.#ctor(System.Double)
   name: AtomicDouble(Double)
   href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble__ctor_System_Double_
@@ -618,12 +606,12 @@ references:
   commentId: T:Unosquare.Swan.AtomicLong
   fullName: Unosquare.Swan.AtomicLong
   nameWithType: AtomicLong
-- uid: Unosquare.Swan.AtomicLong.#ctor
-  name: AtomicLong()
-  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong__ctor
-  commentId: M:Unosquare.Swan.AtomicLong.#ctor
-  fullName: Unosquare.Swan.AtomicLong.AtomicLong()
-  nameWithType: AtomicLong.AtomicLong()
+- uid: Unosquare.Swan.AtomicLong.#ctor(System.Int64)
+  name: AtomicLong(Int64)
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong__ctor_System_Int64_
+  commentId: M:Unosquare.Swan.AtomicLong.#ctor(System.Int64)
+  fullName: Unosquare.Swan.AtomicLong.AtomicLong(System.Int64)
+  nameWithType: AtomicLong.AtomicLong(Int64)
 - uid: Unosquare.Swan.AtomicLong.#ctor*
   name: AtomicLong
   href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong__ctor_

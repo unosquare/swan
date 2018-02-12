@@ -183,7 +183,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.AtomicBoolean.html",
-          "hash": "HGxVbrl/LG2AmnD/D/0oVA=="
+          "hash": "pgnC3TB2oUXYOv6H9dd0vw=="
         }
       },
       "is_incremental": false,
@@ -195,7 +195,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.AtomicDouble.html",
-          "hash": "+2yKLGXLVoHWTrThRKS+ag=="
+          "hash": "cUki4+aNTjzZ4TMjinKWZw=="
         }
       },
       "is_incremental": false,
@@ -207,7 +207,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.AtomicLong.html",
-          "hash": "zoIwnlhCsKbRyjN1TrGdrQ=="
+          "hash": "H6hl1SBPNbVL1skJX+Mkcg=="
         }
       },
       "is_incremental": false,
@@ -1769,17 +1769,17 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {
