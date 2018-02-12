@@ -10,20 +10,12 @@
     public sealed class AtomicBoolean
     {
         private int _value = 0;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AtomicBoolean"/> class.
-        /// </summary>
-        public AtomicBoolean()
-        {
-            Value = default(bool); // false
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicBoolean"/> class.
         /// </summary>
         /// <param name="initialValue">if set to <c>true</c> [initial value].</param>
-        public AtomicBoolean(bool initialValue)
+        public AtomicBoolean(bool initialValue = default(bool))
         {
             Value = initialValue;
         }

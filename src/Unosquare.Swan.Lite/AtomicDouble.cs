@@ -10,20 +10,12 @@
     public sealed class AtomicDouble
     {
         private double _value = default(double);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AtomicDouble"/> class.
-        /// </summary>
-        public AtomicDouble()
-        {
-            Value = default(double);
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicDouble"/> class.
         /// </summary>
         /// <param name="initialValue">The initial value.</param>
-        public AtomicDouble(double initialValue)
+        public AtomicDouble(double initialValue = default(double))
         {
             Value = initialValue;
         }

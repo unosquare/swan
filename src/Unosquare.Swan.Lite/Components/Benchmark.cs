@@ -19,10 +19,7 @@
         /// </summary>
         /// <param name="identifier">The identifier.</param>
         /// <returns>A disposable object that when disposed, adds a benchmark result.</returns>
-        public static IDisposable Start(string identifier)
-        {
-            return new BenchmarkUnit(identifier);
-        }
+        public static IDisposable Start(string identifier) => new BenchmarkUnit(identifier);
 
         /// <summary>
         /// Outputs the benchmark statistics.

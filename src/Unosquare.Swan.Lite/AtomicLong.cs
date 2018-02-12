@@ -12,11 +12,12 @@
         private long _value = 0;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AtomicLong"/> class.
+        /// Initializes a new instance of the <see cref="AtomicLong" /> class.
         /// </summary>
-        public AtomicLong()
+        /// <param name="value">The value.</param>
+        public AtomicLong(long value = default(long))
         {
-            Value = default(long);
+            Value = value;
         }
 
         /// <summary>
