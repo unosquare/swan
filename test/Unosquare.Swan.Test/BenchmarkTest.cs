@@ -12,14 +12,14 @@
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                using (Benchmark.Start(null as string));
+                using (Benchmark.Start(null as string)) { }
             });
         }
 
         [Test]
         public void ValidIdentifier_DumpsResult()
         {
-            using (Benchmark.Start("Benchmark1"));
+            using (Benchmark.Start("Benchmark")) { }
             var res = Benchmark.Dump();
             Assert.IsNotNull(res);
         }
@@ -27,9 +27,9 @@
         [Test]
         public void WithDiferentIdentifiers_DumpMultipleResults()
         {
-            using (Benchmark.Start("Benchmark"));
+            using (Benchmark.Start("Benchmark")) { }
 
-            using (Benchmark.Start("Another benchmark"));
+            using (Benchmark.Start("Another benchmark")) { }
 
             var res = Benchmark.Dump();
 
