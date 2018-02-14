@@ -13,7 +13,7 @@
             {
                 var time = delay.WaitOne();
                 var mil = time.Milliseconds;
-                Assert.Greater(mil, 1);
+                Assert.GreaterOrEqual(mil, 1);
             }               
         }
     }
@@ -28,7 +28,7 @@
             {
                 var time = delay.WaitOne();
                 var mil = time.Milliseconds;
-                Assert.Greater(mil, 1);
+                Assert.GreaterOrEqual(mil, 1);
             }
         }
     }
@@ -43,7 +43,7 @@
             {
                 var time = delay.WaitOne();
                 var mil = time.Milliseconds;
-                Assert.Greater(mil, 1);
+                Assert.GreaterOrEqual(mil, 1);
             }
         }
     }
