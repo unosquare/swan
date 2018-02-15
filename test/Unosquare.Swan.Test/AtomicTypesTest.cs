@@ -57,7 +57,7 @@
         {
             for (int x = 0; x < 300; x++)
             {
-                atomic.Value = atomic.Value + 1;
+                atomic.Value++;
             }
         }
     }
