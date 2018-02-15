@@ -1,15 +1,16 @@
 ﻿namespace Unosquare.Swan
 {
+    using System;
     using System.Threading;
 
     /// <summary>
-    /// Fast, atomioc double combining interlocked to write value and volatile to read values
+    /// Fast, atomic double combining interlocked to write value and volatile to read values
     /// Idea taken from Memory model and .NET operations in article:
     /// http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/
     /// </summary>
     public sealed class AtomicDouble
     {
-        private double _value;
+        private long _value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicDouble"/> class.
@@ -22,8 +23,8 @@
         /// </summary>
         public double Value
         {
-            get => Interlocked.CompareExchange(ref _value, 0d, 0d);
-            set => Interlocked.Exchange(ref _value, value);
+            get => BitConverter.Int64BitsToDouble(Interlocked.Read(ref _value));
+            set => Interlocked.Exchange(ref _value, BitConverter.DoubleToInt64Bits(value));
         }
     }
 }
