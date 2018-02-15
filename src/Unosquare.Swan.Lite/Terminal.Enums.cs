@@ -80,5 +80,10 @@
         /// The warning message type
         /// </summary>
         Warning = 16,
+        
+        /// <summary>
+        /// The fatal message type
+        /// </summary>
+        Fatal = 32,
     }
 }
