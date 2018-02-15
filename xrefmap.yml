@@ -588,6 +588,30 @@ references:
   commentId: Overload:Unosquare.Swan.AtomicDouble.#ctor
   fullName: Unosquare.Swan.AtomicDouble.AtomicDouble
   nameWithType: AtomicDouble.AtomicDouble
+- uid: Unosquare.Swan.AtomicDouble.op_Decrement(Unosquare.Swan.AtomicDouble)
+  name: Decrement(AtomicDouble)
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Decrement_Unosquare_Swan_AtomicDouble_
+  commentId: M:Unosquare.Swan.AtomicDouble.op_Decrement(Unosquare.Swan.AtomicDouble)
+  fullName: Unosquare.Swan.AtomicDouble.Decrement(Unosquare.Swan.AtomicDouble)
+  nameWithType: AtomicDouble.Decrement(AtomicDouble)
+- uid: Unosquare.Swan.AtomicDouble.op_Decrement*
+  name: Decrement
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Decrement_
+  commentId: Overload:Unosquare.Swan.AtomicDouble.op_Decrement
+  fullName: Unosquare.Swan.AtomicDouble.Decrement
+  nameWithType: AtomicDouble.Decrement
+- uid: Unosquare.Swan.AtomicDouble.op_Increment(Unosquare.Swan.AtomicDouble)
+  name: Increment(AtomicDouble)
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Increment_Unosquare_Swan_AtomicDouble_
+  commentId: M:Unosquare.Swan.AtomicDouble.op_Increment(Unosquare.Swan.AtomicDouble)
+  fullName: Unosquare.Swan.AtomicDouble.Increment(Unosquare.Swan.AtomicDouble)
+  nameWithType: AtomicDouble.Increment(AtomicDouble)
+- uid: Unosquare.Swan.AtomicDouble.op_Increment*
+  name: Increment
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Increment_
+  commentId: Overload:Unosquare.Swan.AtomicDouble.op_Increment
+  fullName: Unosquare.Swan.AtomicDouble.Increment
+  nameWithType: AtomicDouble.Increment
 - uid: Unosquare.Swan.AtomicDouble.Value
   name: Value
   href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_Value
@@ -618,6 +642,30 @@ references:
   commentId: Overload:Unosquare.Swan.AtomicLong.#ctor
   fullName: Unosquare.Swan.AtomicLong.AtomicLong
   nameWithType: AtomicLong.AtomicLong
+- uid: Unosquare.Swan.AtomicLong.op_Decrement(Unosquare.Swan.AtomicLong)
+  name: Decrement(AtomicLong)
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Decrement_Unosquare_Swan_AtomicLong_
+  commentId: M:Unosquare.Swan.AtomicLong.op_Decrement(Unosquare.Swan.AtomicLong)
+  fullName: Unosquare.Swan.AtomicLong.Decrement(Unosquare.Swan.AtomicLong)
+  nameWithType: AtomicLong.Decrement(AtomicLong)
+- uid: Unosquare.Swan.AtomicLong.op_Decrement*
+  name: Decrement
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Decrement_
+  commentId: Overload:Unosquare.Swan.AtomicLong.op_Decrement
+  fullName: Unosquare.Swan.AtomicLong.Decrement
+  nameWithType: AtomicLong.Decrement
+- uid: Unosquare.Swan.AtomicLong.op_Increment(Unosquare.Swan.AtomicLong)
+  name: Increment(AtomicLong)
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Increment_Unosquare_Swan_AtomicLong_
+  commentId: M:Unosquare.Swan.AtomicLong.op_Increment(Unosquare.Swan.AtomicLong)
+  fullName: Unosquare.Swan.AtomicLong.Increment(Unosquare.Swan.AtomicLong)
+  nameWithType: AtomicLong.Increment(AtomicLong)
+- uid: Unosquare.Swan.AtomicLong.op_Increment*
+  name: Increment
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Increment_
+  commentId: Overload:Unosquare.Swan.AtomicLong.op_Increment
+  fullName: Unosquare.Swan.AtomicLong.Increment
+  nameWithType: AtomicLong.Increment
 - uid: Unosquare.Swan.AtomicLong.Value
   name: Value
   href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_Value
