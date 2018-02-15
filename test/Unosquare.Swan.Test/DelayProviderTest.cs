@@ -4,47 +4,20 @@
     using Unosquare.Swan.Components;
 
     [TestFixture]
-    public class DelayProviderThreadSleep
+    public class DelayProviderTest
     {
         [Test]
-        public void WaitOne_TakesCertainTime()
+        [TestCase(DelayProvider.DelayStrategy.ThreadSleep)]
+        [TestCase(DelayProvider.DelayStrategy.TaskDelay)]
+        [TestCase(DelayProvider.DelayStrategy.ThreadPool)]
+        public void WaitOne_TakesCertainTime(DelayProvider.DelayStrategy strategy)
         {
-            using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
+            using (var delay = new DelayProvider(strategy))
             {
                 var time = delay.WaitOne();
                 var mil = time.Milliseconds;
                 Assert.GreaterOrEqual(mil, 1);
             }               
-        }
-    }
-
-    [TestFixture]
-    public class DelayProviderTaskWait
-    {
-        [Test]
-        public void WaitOne_TakesCertainTime()
-        {
-            using (var delay = new DelayProvider(DelayProvider.DelayStrategy.TaskDelay))
-            {
-                var time = delay.WaitOne();
-                var mil = time.Milliseconds;
-                Assert.GreaterOrEqual(mil, 1);
-            }
-        }
-    }
-
-    [TestFixture]
-    public class DelayProviderThreadPool
-    {
-        [Test]
-        public void WaitOne_TakesCertainTime()
-        {
-            using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadPool))
-            {
-                var time = delay.WaitOne();
-                var mil = time.Milliseconds;
-                Assert.GreaterOrEqual(mil, 1);
-            }
         }
     }
 }
