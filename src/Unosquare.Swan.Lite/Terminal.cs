@@ -1,369 +1,721 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using System.Collections.Concurrent;
-    using System.Text;
-    using System.Threading;
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// A console terminal helper to create nicer output and receive input from the user
     /// This class is thread-safe :)
     /// </summary>
-    public static partial class Terminal
+    public partial class Terminal
     {
         #region Private Declarations
 
-        private static readonly Thread DequeueOutputTask;
-        private static readonly object SyncLock = new object();
-        private static readonly ConcurrentQueue<OutputContext> OutputQueue = new ConcurrentQueue<OutputContext>();
-
-        private static readonly ManualResetEvent OutputDone = new ManualResetEvent(false);
-        private static readonly ManualResetEvent InputDone = new ManualResetEvent(true);
-
-        private static bool? _isConsolePresent;
+        private static ulong _loggingSequence;
 
         #endregion
 
-        #region Output Context
+        #region Events
 
         /// <summary>
-        /// Represents an asynchronous output context
+        /// Occurs asynchronously, whenever a logging message is received by the terminal.
+        /// Only called when Terminal writes data via Info, Error, Trace, Warn, Fatal, Debug methods, regardless of whether or not
+        /// the console is present. Subscribe to this event to pass data on to your own logger.
         /// </summary>
-        private class OutputContext
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="OutputContext"/> class.
-            /// </summary>
-            public OutputContext()
-            {
-                OriginalColor = Settings.DefaultColor;
-                OutputWriters = IsConsolePresent
-                    ? TerminalWriters.StandardOutput
-                    : IsDebuggerAttached
-                        ? TerminalWriters.Diagnostics
-                        : TerminalWriters.None;
-            }
+        public static event EventHandler<LogMessageReceivedEventArgs> OnLogMessageReceived;
 
-            public ConsoleColor OriginalColor { get; }
-            public ConsoleColor OutputColor { get; set; }
-            public char[] OutputText { get; set; }
-            public TerminalWriters OutputWriters { get; set; }
-        }
+        /// <summary>
+        /// Occurs synchronously (so handle quickly), whenever a logging message is about to be enqueued to the
+        /// console output. Setting the CancelOutput to true in the event arguments prevents the
+        /// logging message to be written out to the console.
+        /// Message filtering only works with logging methods such as Trace, Debug, Info, Warn, Fatal Error and Dump
+        /// Standard Write methods do not get filtering capabilities.
+        /// </summary>
+        public static event EventHandler<LogMessageDisplayingEventArgs> OnLogMessageDisplaying;
 
         #endregion
 
-        #region Constructors
+        #region Main Logging Method
 
         /// <summary>
-        /// Initializes the <see cref="Terminal"/> class.
+        /// Logs a message
         /// </summary>
-        static Terminal()
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="message">The text.</param>
+        /// <param name="sourceName">Name of the source.</param>
+        /// <param name="extendedData">The extended data. Could be an exception, or a dictionary of properties or anything the user specifies.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        private static void LogMessage(
+            LogMessageType messageType, 
+            string message, 
+            string sourceName, 
+            object extendedData,
+            string callerMemberName,
+            string callerFilePath,
+            int callerLineNumber)
         {
             lock (SyncLock)
             {
-                if (DequeueOutputTask != null) return;
+                #region Color and Prefix
 
-                if (IsConsolePresent)
+                ConsoleColor color;
+                string prefix;
+
+                // Select color and prefix based on message type
+                // and settings
+                switch (messageType)
                 {
-#if !NET452
-                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-#endif
-                    Console.CursorVisible = false;
+                    case LogMessageType.Debug:
+                        color = Settings.DebugColor;
+                        prefix = Settings.DebugPrefix;
+                        break;
+                    case LogMessageType.Error:
+                        color = Settings.ErrorColor;
+                        prefix = Settings.ErrorPrefix;
+                        break;
+                    case LogMessageType.Info:
+                        color = Settings.InfoColor;
+                        prefix = Settings.InfoPrefix;
+                        break;
+                    case LogMessageType.Trace:
+                        color = Settings.TraceColor;
+                        prefix = Settings.TracePrefix;
+                        break;
+                    case LogMessageType.Warning:
+                        color = Settings.WarnColor;
+                        prefix = Settings.WarnPrefix;
+                        break;
+                    case LogMessageType.Fatal:
+                        color = Settings.FatalColor;
+                        prefix = Settings.FatalPrefix;
+                        break;
+                    default:
+                        color = Settings.DefaultColor;
+                        prefix = new string(' ', Settings.InfoPrefix.Length);
+                        break;
                 }
 
-                // Here we start the output task, fire-and-forget
-                DequeueOutputTask = new Thread(DequeueOutputAsync)
+                #endregion
+
+                #region Create and Format the Output
+
+                var sequence = _loggingSequence;
+                var date = DateTime.UtcNow;
+                _loggingSequence++;
+
+                var loggerMessage = string.IsNullOrWhiteSpace(message) ?
+                    string.Empty : message.RemoveControlCharsExcept('\n');
+
+                var friendlySourceName = string.IsNullOrWhiteSpace(sourceName)
+                    ? string.Empty
+                    : sourceName.SliceLength(sourceName.LastIndexOf('.') + 1, sourceName.Length);
+
+                var outputMessage = string.IsNullOrWhiteSpace(sourceName) ? loggerMessage : $"[{friendlySourceName}] {loggerMessage}";
+                outputMessage = string.IsNullOrWhiteSpace(Settings.LoggingTimeFormat) ?
+                    $" {prefix} >> {outputMessage}" :
+                    $" {date.ToLocalTime().ToString(Settings.LoggingTimeFormat)} {prefix} >> {outputMessage}";
+
+                // Log the message asynchronously with the appropriate event args
+                var eventArgs = new LogMessageReceivedEventArgs(
+                    sequence, 
+                    messageType, 
+                    date, 
+                    sourceName, 
+                    loggerMessage, 
+                    extendedData, 
+                    callerMemberName,
+                    callerFilePath, 
+                    callerLineNumber);
+
+                #endregion
+
+                #region Fire Up External Logging Logic (Asynchronously)
+
+                if (OnLogMessageReceived != null)
                 {
-                    IsBackground = true,
-                    Name = nameof(DequeueOutputTask),
-#if NET452
-                    Priority = ThreadPriority.BelowNormal
-#endif
-                };
-
-                DequeueOutputTask.Start();
-            }
-        }
-
-        #endregion
-
-        #region Synchronized Cursor Movement
-
-        /// <summary>
-        /// Gets or sets the cursor left position.
-        /// </summary>
-        /// <value>
-        /// The cursor left.
-        /// </value>
-        public static int CursorLeft
-        {
-            get
-            {
-                if (IsConsolePresent == false) return -1;
-                lock (SyncLock)
-                {
-                    Flush();
-                    return Console.CursorLeft;
+                    Task.Factory.StartNew(() =>
+                    {
+                        try
+                        {
+                            OnLogMessageReceived?.Invoke(sourceName, eventArgs);
+                        }
+                        catch
+                        {
+                            // Ignore
+                        }
+                    });
                 }
-            }
-            set
-            {
-                if (IsConsolePresent == false) return;
-                lock (SyncLock)
+
+                #endregion
+
+                #region Display the Message by Writing to the Output Queue
+
+                // Check if we are skipping these messages to be displayed based on settings
+                if (Settings.DisplayLoggingMessageType.HasFlag(messageType) == false)
+                    return;
+
+                // Select the writer based on the message type
+                var writer = IsConsolePresent ?
+                    messageType.HasFlag(LogMessageType.Error) ?
+                        TerminalWriters.StandardError : TerminalWriters.StandardOutput
+                    : TerminalWriters.None;
+
+                // Set the writer to Diagnostics if appropriate (Error and Debugging data go to the Diagnostics debugger
+                // if it is attached at all
+                if (IsDebuggerAttached
+                    && (IsConsolePresent == false || messageType.HasFlag(LogMessageType.Debug) || messageType.HasFlag(LogMessageType.Error)))
+                    writer = writer | TerminalWriters.Diagnostics;
+
+                // Check if we really need to write this out
+                if (writer == TerminalWriters.None) return;
+
+                // Further format the output in the case there is an exception being logged
+                if (writer.HasFlag(TerminalWriters.StandardError) && eventArgs.Exception != null)
                 {
-                    Flush();
-                    Console.CursorLeft = value;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the cursor top position.
-        /// </summary>
-        /// <value>
-        /// The cursor top.
-        /// </value>
-        public static int CursorTop
-        {
-            get
-            {
-                if (IsConsolePresent == false) return -1;
-                lock (SyncLock)
-                {
-                    Flush();
-                    return Console.CursorTop;
-                }
-            }
-            set
-            {
-                if (IsConsolePresent == false) return;
-
-                lock (SyncLock)
-                {
-                    Flush();
-                    Console.CursorTop = value;
-                }
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets a value indicating whether the Console is present
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is console present; otherwise, <c>false</c>.
-        /// </value>
-        public static bool IsConsolePresent
-        {
-            get
-            {
-                if (Settings.OverrideIsConsolePresent) return true;
-
-                if (_isConsolePresent == null)
-                {
-                    _isConsolePresent = true;
                     try
                     {
-                        var windowHeight = Console.WindowHeight;
-                        _isConsolePresent = windowHeight >= 0;
+                        outputMessage =
+                            $"{outputMessage}{Environment.NewLine}{eventArgs.Exception.Stringify().Indent()}";
                     }
                     catch
                     {
-                        _isConsolePresent = false;
+                        // Ignore  
                     }
                 }
 
-                return _isConsolePresent.Value;
+                // Filter output messages via events
+                var displayingEventArgs = new LogMessageDisplayingEventArgs(eventArgs);
+                OnLogMessageDisplaying?.Invoke(sourceName, displayingEventArgs);
+                if (displayingEventArgs.CancelOutput == false)
+                    outputMessage.WriteLine(color, writer);
+
+                #endregion
             }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether a debugger is attached.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is debugger attached; otherwise, <c>false</c>.
-        /// </value>
-        public static bool IsDebuggerAttached => System.Diagnostics.Debugger.IsAttached;
-
-        /// <summary>
-        /// Gets the available output writers in a bitwise mask.
-        /// </summary>
-        /// <value>
-        /// The available writers.
-        /// </value>
-        public static TerminalWriters AvailableWriters
-        {
-            get
-            {
-                var writers = TerminalWriters.None;
-                if (IsConsolePresent)
-                    writers = TerminalWriters.StandardError | TerminalWriters.StandardOutput;
-
-                if (IsDebuggerAttached)
-                    writers = writers | TerminalWriters.Diagnostics;
-
-                return writers;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the output encoding for the current console.
-        /// </summary>
-        /// <value>
-        /// The output encoding.
-        /// </value>
-        public static Encoding OutputEncoding
-        {
-            get => Console.OutputEncoding;
-            set => Console.OutputEncoding = value;
         }
 
         #endregion
 
-        #region Methods
+        #region Standard Public API
+
+        #region Debug
 
         /// <summary>
-        /// Waits for all of the queued output messages to be written out to the console.
-        /// Call this method if it is important to display console text before
-        /// quitting the application such as showing usage or help.
-        /// Set the timeout to null or TimeSpan.Zero to wait indefinitely.
+        /// Logs a debug message to the console
         /// </summary>
-        /// <param name="timeout">The timeout. Set the amount of time to black before this method exits.</param>
-        public static void Flush(TimeSpan? timeout = null)
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Debug(
+            this string message, 
+            string source = null, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
         {
-            if (OutputDone.WaitOne(0)) return;
-            if (timeout == null) timeout = TimeSpan.Zero;
-            var startTime = DateTime.UtcNow;
-
-            while (true)
-            {
-                if (OutputDone.WaitOne(1))
-                    break;
-
-                if (timeout.Value == TimeSpan.Zero)
-                    continue;
-
-                if (DateTime.UtcNow.Subtract(startTime) >= timeout.Value)
-                    break;
-            }
+            LogMessage(LogMessageType.Debug, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
-        /// Sets the cursor position.
+        /// Logs a debug message to the console
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="top">The top.</param>
-        public static void SetCursorPosition(int left, int top)
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Debug(
+            this string message, 
+            Type source, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
         {
-            if (IsConsolePresent == false) return;
-
-            if (left < 0) left = 0;
-            if (top < 0) top = 0;
-
-            lock (SyncLock)
-            {
-                Flush();
-                Console.SetCursorPosition(left, top);
-            }
+            LogMessage(LogMessageType.Debug, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
-        /// Moves the output cursor one line up starting at left position 0
-        /// Please note that backlining the cursor does not clear the contents of the 
-        /// previous line so you might need to clear it by writing an empty string the 
-        /// length of the console width
+        /// Logs a debug message to the console
         /// </summary>
-        public static void BacklineCursor() => SetCursorPosition(0, CursorTop - 1);
+        /// <param name="extendedData">The exception.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Debug(
+            this Exception extendedData, 
+            string source, 
+            string message,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Debug, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        #endregion
+
+        #region Trace
 
         /// <summary>
-        /// Enqueues the output to be written to the console
-        /// This is the only method that should enqueue to the output
-        /// Please note that if AvailableWriters is None, then no output will be enqueued
+        /// Logs a trace message to the console
         /// </summary>
-        /// <param name="context">The context.</param>
-        private static void EnqueueOutput(OutputContext context)
+        /// <param name="message">The text.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Trace(
+            this string message, 
+            string source = null, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
         {
-            lock (SyncLock)
-            {
-                var availableWriters = AvailableWriters;
-
-                if (availableWriters == TerminalWriters.None || context.OutputWriters == TerminalWriters.None)
-                {
-                    OutputDone.Set();
-                    return;
-                }
-
-                if ((context.OutputWriters & availableWriters) == TerminalWriters.None)
-                    return;
-
-                OutputDone.Reset();
-                OutputQueue.Enqueue(context);
-            }
+            LogMessage(LogMessageType.Trace, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         /// <summary>
-        /// Dequeues the output asynchronously.
+        /// Logs a trace message to the console
         /// </summary>
-        private static void DequeueOutputAsync()
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Trace(
+            this string message, 
+            Type source, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
         {
-            if (AvailableWriters == TerminalWriters.None)
-            {
-                OutputDone.Set();
-                return;
-            }
+            LogMessage(LogMessageType.Trace, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
 
-            using (var tickLock = new ManualResetEvent(false))
-            {
-                while (true)
-                {
-                    InputDone.WaitOne();
+        /// <summary>
+        /// Logs a trace message to the console
+        /// </summary>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Trace(
+            this Exception extendedData, 
+            string source, 
+            string message,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Trace, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
 
-                    if (OutputQueue.Count <= 0)
-                    {
-                        OutputDone.Set();
-                        tickLock.WaitOne(10);
-                        continue;
-                    }
+        #endregion
 
-                    OutputDone.Reset();
+        #region Warn
 
-                    while (OutputQueue.Count > 0)
-                    {
-                        if (OutputQueue.TryDequeue(out var context) == false) continue;
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
+        /// <param name="message">The text.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Warn(
+            this string message, 
+            string source = null, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Warning, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
 
-                        // Process Console output and Skip over stuff we can't display so we don't stress the output too much.
-                        if (IsConsolePresent && (Settings.OverrideIsConsolePresent || OutputQueue.Count <= Console.BufferHeight))
-                        {
-                            // Output to the standard output
-                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardOutput))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Out.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Warn(
+            this string message, 
+            Type source, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Warning, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
 
-                            // output to the standard error
-                            if (context.OutputWriters.HasFlag(TerminalWriters.StandardError))
-                            {
-                                Console.ForegroundColor = context.OutputColor;
-                                Console.Error.Write(context.OutputText);
-                                Console.ResetColor();
-                                Console.ForegroundColor = context.OriginalColor;
-                            }
-                        }
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Warn(
+            this Exception extendedData, 
+            string source, 
+            string message,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Warning, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
 
-                        // Process Debugger output
-                        if (IsDebuggerAttached && context.OutputWriters.HasFlag(TerminalWriters.Diagnostics))
-                        {
-                            System.Diagnostics.Debug.Write(new string(context.OutputText));
-                        }
-                    }
-                }
-            }
+        #endregion
+
+        #region Fatal
+
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
+        /// <param name="message">The text.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Fatal(
+            this string message, 
+            string source = null, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Fatal, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Fatal(
+            this string message, 
+            Type source, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Fatal, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a warning message to the console
+        /// </summary>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Fatal(
+            this Exception extendedData, 
+            string source, 
+            string message,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Fatal, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        #endregion
+
+        #region Info
+
+        /// <summary>
+        /// Logs an info message to the console
+        /// </summary>
+        /// <param name="message">The text.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Info(
+            this string message, 
+            string source = null, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Info, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an info message to the console
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Info(
+            this string message, 
+            Type source, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Info, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an info message to the console
+        /// </summary>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Info(
+            this Exception extendedData, 
+            string source, 
+            string message,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Info, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        #endregion
+
+        #region Error
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="message">The text.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Error(
+            this string message, 
+            string source = null, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Error, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Error(
+            this string message, 
+            Type source, 
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Error, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Error(
+            this Exception ex, 
+            string source, 
+            string message,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Error, message, source, ex, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Extended Public API
+
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Log(
+            this string message, 
+            string source, 
+            LogMessageType messageType,
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(messageType, message, source, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="extendedData">The extended data.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Log(
+            this string message, 
+            Type source, 
+            LogMessageType messageType,
+            object extendedData = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(messageType, message, source?.FullName, extendedData, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Log(
+            this Exception ex, 
+            string source = null, 
+            string message = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Error, message ?? ex.Message, source ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs an error message to the console's standard error
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Log(
+            this Exception ex, 
+            Type source = null, 
+            string message = null,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            LogMessage(LogMessageType.Error, message ?? ex.Message, source?.FullName ?? ex.Source, ex, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a trace message showing all possible non-null properties of the given object
+        /// This method is expensive as it uses Stringify internally
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="text">The title.</param>
+        /// <param name="callerMemberName">Name of the caller member. This is automatically populated.</param>
+        /// <param name="callerFilePath">The caller file path. This is automatically populated.</param>
+        /// <param name="callerLineNumber">The caller line number. This is automatically populated.</param>
+        public static void Dump(
+            this object obj, 
+            string source, 
+            string text = "Object Dump",
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            if (obj == null) return;
+            var message = $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}";
+            LogMessage(LogMessageType.Trace, message, source, obj, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        /// <summary>
+        /// Logs a trace message showing all possible non-null properties of the given object
+        /// This method is expensive as it uses Stringify internally
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="callerMemberName">Name of the caller member.</param>
+        /// <param name="callerFilePath">The caller file path.</param>
+        /// <param name="callerLineNumber">The caller line number.</param>
+        public static void Dump(
+            this object obj, 
+            Type source, 
+            string text = "Object Dump",
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0)
+        {
+            if (obj == null) return;
+            var message = $"{text} ({obj.GetType()}): {Environment.NewLine}{obj.Stringify().Indent(5)}";
+            LogMessage(LogMessageType.Trace, message, source?.FullName, obj, callerMemberName, callerFilePath, callerLineNumber);
         }
 
         #endregion
