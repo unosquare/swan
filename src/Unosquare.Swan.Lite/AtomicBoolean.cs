@@ -26,7 +26,7 @@
         /// </summary>
         public bool Value
         {
-            get => Volatile.Read(ref _value) != 0;
+            get => Interlocked.CompareExchange(ref _value, 0, 0) != 0;
             set => Interlocked.Exchange(ref _value, value ? 1 : 0);
         }
     }

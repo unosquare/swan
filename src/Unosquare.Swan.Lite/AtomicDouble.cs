@@ -22,7 +22,7 @@
         /// </summary>
         public double Value
         {
-            get => Volatile.Read(ref _value);
+            get => Interlocked.CompareExchange(ref _value, 0d, 0d);
             set => Interlocked.Exchange(ref _value, value);
         }
     }
