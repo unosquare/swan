@@ -349,7 +349,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// the LdapEntry read from the server
         /// </returns>
         /// <exception cref="LdapException">Read response is ambiguous, multiple entries returned</exception>
-        public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default(CancellationToken))
+        public async Task<LdapEntry> Read(string dn, string[] attrs = null, CancellationToken ct = default)
         {
             var sr = await Search(dn, ScopeSub, null, attrs, false, ct);
             LdapEntry ret = null;
@@ -394,7 +394,7 @@ namespace Unosquare.Swan.Networking.Ldap
             string filter = "objectClass=*", 
             string[] attrs = null,
             bool typesOnly = false, 
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             // TODO: Add Search options
             var msg = new LdapSearchRequest(@base, scope, filter, attrs, 0, 1000, 0, typesOnly, null);
@@ -414,7 +414,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// A <see cref="Task" /> representing the asynchronous operation.
         /// </returns>
         /// <exception cref="ArgumentNullException">dn</exception>
-        public Task Modify(string dn, LdapModification[] mods, CancellationToken ct = default(CancellationToken))
+        public Task Modify(string dn, LdapModification[] mods, CancellationToken ct = default)
         {
             if (dn == null)
             {
@@ -431,7 +431,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="ct">The ct.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         internal async Task RequestLdapMessage(LdapMessage msg,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             var encoder = new LBEREncoder();
             var ber = msg.Asn1Object.GetEncoding(encoder);

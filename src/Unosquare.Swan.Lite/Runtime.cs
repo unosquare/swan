@@ -58,7 +58,7 @@
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
         
-        private static OperatingSystem? _oS = default(OperatingSystem?);
+        private static OperatingSystem? _oS = default;
 
 #if !NETSTANDARD1_3 && !UWP
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";

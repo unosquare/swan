@@ -33,7 +33,7 @@ namespace Unosquare.Swan.Components
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task</returns>
-        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
+        public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default)
         {
             var result = await GetProcessResultAsync(filename, arguments, ct);
             return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
@@ -51,7 +51,7 @@ namespace Unosquare.Swan.Components
         /// Text of the standard output and standard error streams along with the exit code
         /// </returns>
         /// <exception cref="ArgumentNullException">filename</exception>
-        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default(CancellationToken))
+        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -84,7 +84,7 @@ namespace Unosquare.Swan.Components
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
         /// <returns>Value type will be -1 for forceful termination of the process</returns>
-        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default(CancellationToken))
+        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));

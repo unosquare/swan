@@ -12,10 +12,7 @@
         protected const string ExtendedDataExpected = "System.Exception: Exception of type 'System.Exception' was thrown.";
 
         [SetUp]
-        public void SetupLoggingMessages()
-        {
-            Terminal.Flush();
-        }
+        public void SetupLoggingMessages() => Terminal.Flush();
 
         protected void InitLog(List<LoggingEntryMock> messages)
         {
@@ -127,7 +124,7 @@
             var messages = new List<LoggingEntryMock>();
             InitLog(messages);
 
-            new Exception().Debug("Unosquare Américas", nameof(Debug));
+            new Exception().Debug(nameof(Debug), nameof(Debug));
 
             Task.Delay(150).Wait();
 
@@ -146,7 +143,7 @@
             var messages = new List<LoggingEntryMock>();
             InitLog(messages);
 
-            new Exception().Trace("Unosquare Américas", nameof(Trace));
+            new Exception().Trace(nameof(Trace), nameof(Trace));
 
             Task.Delay(150).Wait();
 
@@ -194,7 +191,7 @@
             var messages = new List<LoggingEntryMock>();
             InitLog(messages);
 
-            new Exception().Warn("Unosquare Américas", nameof(Warn));
+            new Exception().Warn(nameof(Warn), nameof(Warn));
 
             Task.Delay(150).Wait();
 
@@ -213,7 +210,7 @@
             var messages = new List<LoggingEntryMock>();
             InitLog(messages);
 
-            new Exception().Info("Unosquare Américas", nameof(Info));
+            new Exception().Info(nameof(Info), nameof(Info));
 
             Task.Delay(150).Wait();
 

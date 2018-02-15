@@ -27,9 +27,7 @@
         /// </value>
         public static T Instance => LazyInstance.Value;
 
-        /// <summary>
-        /// Disposes the internal singleton instance.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose() => Dispose(true);
         
         /// <summary>

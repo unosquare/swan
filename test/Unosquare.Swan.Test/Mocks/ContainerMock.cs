@@ -92,8 +92,4 @@
 
         public override string GetFeeding() => "Seals";
     }
-
-    public abstract class DependencyContainerTest<T>
-    {
-    }
 }

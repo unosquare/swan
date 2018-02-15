@@ -20,7 +20,7 @@
         /// <returns>The console key information</returns>
         public static ConsoleKeyInfo ReadKey(bool intercept, bool disableLocking = false)
         {
-            if (IsConsolePresent == false) return default(ConsoleKeyInfo);
+            if (IsConsolePresent == false) return default;
             if (disableLocking) return Console.ReadKey(intercept);
 
             lock (SyncLock)
@@ -48,7 +48,7 @@
         /// <returns>The console key information</returns>
         public static ConsoleKeyInfo ReadKey(this string prompt, bool preventEcho)
         {
-            if (IsConsolePresent == false) return default(ConsoleKeyInfo);
+            if (IsConsolePresent == false) return default;
 
             lock (SyncLock)
             {
@@ -82,7 +82,7 @@
         /// <returns>The read line</returns>
         public static string ReadLine()
         {
-            if (IsConsolePresent == false) return default(string);
+            if (IsConsolePresent == false) return default;
 
             lock (SyncLock)
             {
@@ -137,7 +137,7 @@
         /// <returns>A value that identifies the console key that was pressed</returns>
         public static ConsoleKeyInfo ReadPrompt(this string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
-            if (IsConsolePresent == false) return default(ConsoleKeyInfo);
+            if (IsConsolePresent == false) return default;
 
             const ConsoleColor textColor = ConsoleColor.White;
             var lineLength = Console.BufferWidth;

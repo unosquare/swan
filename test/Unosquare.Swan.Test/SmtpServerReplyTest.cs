@@ -19,7 +19,7 @@
         public void StatusCode_Return()
         {
             const string content = "Hello World!";
-            const int status = 600; // TODO: Is it really going to hit line 37?
+            const int status = 600; 
 
             var serverReply = new SmtpServerReply(status, content);
 
@@ -68,7 +68,7 @@
             var serverReply = new SmtpServerReply(status, content);
 
             Assert.IsNotNull(serverReply);
-            Assert.AreEqual(status + " " + content, serverReply.ToString());
+            Assert.AreEqual($"{status} {content}", serverReply.ToString());
             Assert.AreEqual(content, serverReply.Content[0]);
         }
     }

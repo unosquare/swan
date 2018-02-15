@@ -18,76 +18,72 @@
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <exception cref="SampleException"></exception>
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Runtime.WriteWelcomeBanner(ConsoleColor.Green);
+            TestApplicationInfo();
+            await TestTerminalOutputs();
+
 #if !NET46
             TestLdapModify();
             TestLdapSearch();
 #endif
-            //TestApplicationInfo();
             TestNetworkUtilities();
             //TestContainerAndMessageHub();
             //TestJson();
             //TestExceptionLogging();
-            //TestTerminalOutputs();
+
             //TestFastOutputAndReadPrompt();
             // TestCsvFormatters();
             //Terminal.Flush();
             "Enter any key to exit . . .".ReadKey();
         }
 
-        static void TestLdapSearch()
+        static async Task TestLdapSearch()
         {
-            Task.Factory.StartNew(async () =>
+            try
             {
-                try
+                var cn = new LdapConnection();
+
+                await cn.Connect("ldap.forumsys.com", 389);
+                await cn.Bind("uid=riemann,dc=example,dc=com", "password");
+                var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
+
+                while (lsc.HasMore())
                 {
-                    var cn = new LdapConnection();
-
-                    await cn.Connect("ldap.forumsys.com", 389);
-                    await cn.Bind("uid=riemann,dc=example,dc=com", "password");
-                    var lsc = await cn.Search("ou=scientists,dc=example,dc=com", LdapConnection.ScopeSub);
-
-                    while (lsc.HasMore())
-                    {
-                        var entry = lsc.Next();
-                        var ldapAttributes = entry.GetAttributeSet();
+                    var entry = lsc.Next();
+                    var ldapAttributes = entry.GetAttributeSet();
 
 
-                        Console.WriteLine(
-                            $"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
-                    }
-
-                    //While all the entries are parsed, disconnect
-                    cn.Disconnect();
+                    Console.WriteLine(
+                        $"{ldapAttributes.GetAttribute("uniqueMember")?.StringValue ?? string.Empty}");
                 }
-                catch (Exception ex)
-                {
-                    ex.Error(nameof(Main), "Error LDAP");
-                }
-            });
+
+                //While all the entries are parsed, disconnect
+                cn.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                ex.Error(nameof(Main), "Error LDAP");
+            }
         }
 
-        static void TestLdapModify()
+        static async Task TestLdapModify()
         {
-            Task.Factory.StartNew(async () =>
+            try
             {
-                try
-                {
-                    var cn = new LdapConnection();
+                var cn = new LdapConnection();
 
-                    await cn.Connect("ad.unosquare.com", 389);
-                    await cn.Bind("@unosquare.com", "password");
-                    await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com",
-                        new[] {new LdapModification(LdapModificationOp.Replace, "mobile", "33366669999")});
-                    cn.Disconnect();
-                }
-                catch (Exception ex)
-                {
-                    ex.Error(nameof(Main), "Error LDAP");
-                }
-            });
+                await cn.Connect("ad.unosquare.com", 389);
+                await cn.Bind("@unosquare.com", "password");
+                await cn.Modify("cn=,ou=Employees,dc=ad,dc=unosquare,dc=com",
+                    new[] {new LdapModification(LdapModificationOp.Replace, "mobile", "33366669999")});
+                cn.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                ex.Error(nameof(Main), "Error LDAP");
+            }
         }
 
         static void TestExceptionLogging()
@@ -150,7 +146,7 @@
             $"Query TXT  : [{domainName}]: [{string.Join("; ", txtRecords.AnswerRecords.Select(t => t.DataText))}]"
                 .Info(nameof(Network));
         }
-        
+
         static void TestContainerAndMessageHub()
         {
             DependencyContainer.Current.Register<ISampleAnimal, SampleFish>();
@@ -185,11 +181,11 @@
             "Please provide an option".ReadPrompt(sampleOptions, "Exit this program");
         }
 
-        static void TestTerminalOutputs()
+        static async Task TestTerminalOutputs()
         {
             for (var i = 0; i <= 100; i++)
             {
-                System.Threading.Thread.Sleep(20);
+                await Task.Delay(20);
                 $"Current Progress: {(i + "%"),-10}".OverwriteLine();
             }
 

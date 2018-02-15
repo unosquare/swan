@@ -12,7 +12,7 @@
         [Test]
         public void WithAction_ReturnsTimeSpan()
         {
-            var total = 0;
+            const int total = 0;
             var action = new Action(() =>
             {
                 if (total < 2)
@@ -99,9 +99,7 @@
         [Test]
         public void WithNullFunction_ThrowsArgumentNullException()
         {
-            Func<int> action = null;
-
-            Assert.Throws<ArgumentNullException>(() => action.Retry());
+            Assert.Throws<ArgumentNullException>(() => ((Func<int>) null).Retry());
         }
     }
 

@@ -641,7 +641,7 @@
         }
 
         [TestCase(typeof(IEnumerator<>))]
-        [TestCase(typeof(DependencyContainerTest<>))]
+        [TestCase(typeof(IList<>))]
         public void RegisterTypeWithInstance_ThrowsDependencyContainerRegistrationException(Type registerType)
         {
             var container = new DependencyContainer();
