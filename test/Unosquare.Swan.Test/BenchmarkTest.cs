@@ -2,7 +2,7 @@
 {
     using NUnit.Framework;
     using System;
-    using Unosquare.Swan.Components;
+    using Components;
 
     [TestFixture]
     public class BenchmarkTest
@@ -12,7 +12,7 @@
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                using (Benchmark.Start(null as string)) { }
+                using (Benchmark.Start(null)) { }
             });
         }
 

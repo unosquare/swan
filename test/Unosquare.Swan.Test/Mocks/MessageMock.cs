@@ -1,10 +1,8 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
-    using System;
-
     public class SimpleMessageMock : Components.MessageHubGenericMessage<string>
     {
-        public SimpleMessageMock(object sender, string content = "Unosquare Américas") 
+        public SimpleMessageMock(object sender, string content = nameof(SimpleMessageMock))
             : base(sender, content)
         {
             // placeholder

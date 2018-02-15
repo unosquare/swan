@@ -147,7 +147,8 @@
             public void StrongReferenceFalse_ReturnsToken()
             {
                 var token = _messageHub.Subscribe<SimpleMessageMock>(
-                    _messagesToSend.Add, x => false,
+                    _messagesToSend.Add,
+                    x => false,
                     false,
                     MessageHubDefaultProxy.Instance);
 

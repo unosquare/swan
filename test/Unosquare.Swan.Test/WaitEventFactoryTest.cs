@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Test
 {
     using NUnit.Framework;
-    using Unosquare.Swan.Components;
+    using Components;
 
     [TestFixture]
     public class WaitEvent
