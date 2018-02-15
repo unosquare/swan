@@ -25,5 +25,35 @@
             get => Interlocked.Read(ref _value);
             set => Interlocked.Exchange(ref _value, value);
         }
+
+        /// <summary>
+        /// Implements the operator ++.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static AtomicLong operator ++(AtomicLong instance)
+        {
+            instance.IncreaseOne();
+            return instance;
+        }
+
+        /// <summary>
+        /// Implements the operator --.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static AtomicLong operator --(AtomicLong instance)
+        {
+            instance.DecreaseOne();
+            return instance;
+        }
+
+        internal void IncreaseOne() => Interlocked.Increment(ref _value);
+
+        internal void DecreaseOne() => Interlocked.Decrement(ref _value);
     }
 }

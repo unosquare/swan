@@ -26,5 +26,31 @@
             get => BitConverter.Int64BitsToDouble(Interlocked.Read(ref _value));
             set => Interlocked.Exchange(ref _value, BitConverter.DoubleToInt64Bits(value));
         }
+
+        /// <summary>
+        /// Implements the operator ++.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static AtomicDouble operator ++(AtomicDouble instance)
+        {
+            instance.Value++;
+            return instance;
+        }
+
+        /// <summary>
+        /// Implements the operator --.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static AtomicDouble operator --(AtomicDouble instance)
+        {
+            instance.Value--;
+            return instance;
+        }
     }
 }
