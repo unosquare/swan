@@ -22,14 +22,16 @@
                         LogMessageType.Error |
                         LogMessageType.Info |
                         LogMessageType.Trace |
-                        LogMessageType.Warning;
+                        LogMessageType.Warning |
+                        LogMessageType.Fatal;
                 }
                 else
                 {
                     DisplayLoggingMessageType =
                         LogMessageType.Error |
                         LogMessageType.Info |
-                        LogMessageType.Warning;
+                        LogMessageType.Warning |
+                        LogMessageType.Fatal;
                 }
             }
 
@@ -79,8 +81,16 @@
             /// <value>
             /// The color of the error.
             /// </value>
-            public static ConsoleColor ErrorColor { get; set; } = ConsoleColor.Red;
+            public static ConsoleColor ErrorColor { get; set; } = ConsoleColor.DarkRed;
 
+            /// <summary>
+            /// Gets or sets the color of the error logging.
+            /// </summary>
+            /// <value>
+            /// The color of the error.
+            /// </value>
+            public static ConsoleColor FatalColor { get; set; } = ConsoleColor.Red;
+            
             /// <summary>
             /// Gets or sets the information logging prefix.
             /// </summary>
@@ -128,6 +138,14 @@
             /// The warn prefix.
             /// </value>
             public static string WarnPrefix { get; set; } = "WRN";
+            
+            /// <summary>
+            /// Gets or sets the fatal logging prefix.
+            /// </summary>
+            /// <value>
+            /// The fatal prefix.
+            /// </value>
+            public static string FatalPrefix { get; set; } = "FAT";
 
             /// <summary>
             /// Gets or sets the error logging prefix.
