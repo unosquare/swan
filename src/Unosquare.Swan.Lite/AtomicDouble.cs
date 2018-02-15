@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.Swan
 {
-    using System;
     using System.Threading;
 
     /// <summary>
@@ -10,7 +9,7 @@
     /// </summary>
     public sealed class AtomicDouble
     {
-        private long _value;
+        private double _value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicDouble"/> class.
@@ -23,8 +22,8 @@
         /// </summary>
         public double Value
         {
-            get => BitConverter.Int64BitsToDouble(Interlocked.Read(ref _value));
-            set => Interlocked.Exchange(ref _value, BitConverter.DoubleToInt64Bits(value));
+            get => Interlocked.CompareExchange(ref _value, 0d, 0d);
+            set => Interlocked.Exchange(ref _value, value);
         }
     }
 }
