@@ -34,6 +34,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
     * [The Connection class](#the-connection-class)
     * [The Benchmark component](#the-benchmark-component)
+    * [The DelayProvider component](#the-delayprovider-component)
     
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -986,3 +987,29 @@ using (Benchmark.Start("Test"))
 // dump results into a string
 var results = Benchmark.Dump();
 ```
+### The `DelayProvider` component
+A useful component that implements several delay mechanisms.
+
+#### Example 1: Creating a delay
+```csharp
+// by default DelayProvider uses the TaskDelay strategy
+var delay = new DelayProvider();
+
+//wait
+delay.WaitOne();
+
+//dispose
+delay.Dispose();
+```
+
+or with the `using` statement
+
+```csharp
+// this time use the ThreadSleep strategy
+using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
+ {
+     // retrieve how much time we delayed
+     var time = delay.WaitOne();
+ }  
+```
+
