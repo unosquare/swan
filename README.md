@@ -1019,7 +1019,7 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
  }  
 ```
 ### Atomic types
-Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like bool, long, and double. When dealing with lots of threads performing writes on these variables this is quite useful because we can assure that none of this theads will come in the middle of an operation and perform a `torn write`.
+Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: bool, long, and double. When dealing with lots of threads performing writes on these variables this is quite useful because we can assure that none of this threads will come in the middle of an operation and perform a `torn write`.
 
 [AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html)
 
