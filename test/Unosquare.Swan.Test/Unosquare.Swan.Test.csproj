@@ -2,21 +2,18 @@
 
   <PropertyGroup>
     <Description>Unit Testing project</Description>
-    <Copyright>Copyright (c) 2016-2017 - Unosquare</Copyright>
+    <Copyright>Copyright (c) 2016-2018 - Unosquare</Copyright>
     <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
     <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
     <AssemblyName>Unosquare.Swan.Test</AssemblyName>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net46' ">
     <DebugType>Full</DebugType>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net46' ">
-    <DebugType>Full</DebugType>
-  </PropertyGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\..\src\Unosquare.Swan\Unosquare.Swan.csproj" />
   </ItemGroup>
