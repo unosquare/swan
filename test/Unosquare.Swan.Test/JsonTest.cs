@@ -147,7 +147,7 @@
         [Test]
         public void EmptyObject_ReturnsEmptyObjectSerialized()
         {
-            Assert.AreEqual("{ }", Json.Serialize(default(object)));
+            Assert.AreEqual("{ }", Json.Serialize(default));
         }
 
         [Test]
