@@ -32,6 +32,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The AppWorkerBase class](#the-appworkerbase-class)
     * [The ArgumentParser component](#the-argumentparser-component)
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
+    * [Atomic Types](#atomic-types)
     * [The Connection class](#the-connection-class)
     * [The Benchmark component](#the-benchmark-component)
     * [The DelayProvider component](#the-delayprovider-component)
@@ -974,6 +975,9 @@ using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
 ### The `Benchmark` component
 A simple benchmarking tool that provides useful statistics about a certain piece of code.
 
+
+[Benchmark API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.Benchmark.html)
+
 #### Example 1: A simple benchmark test
 ```csharp
 //starts a test with a custom name identifier
@@ -989,6 +993,8 @@ var results = Benchmark.Dump();
 ```
 ### The `DelayProvider` component
 A useful component that implements several delay mechanisms.
+
+[DelayProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DelayProvider.html)
 
 #### Example 1: Creating a delay
 ```csharp
@@ -1012,4 +1018,12 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
      var time = delay.WaitOne();
  }  
 ```
+### Atomic types
+Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like bool, long, and double. When dealing with lots of threads performing writes on these variables this is quite useful because we can assure that none of this theads will come in the middle of an operation and perform a `torn write`.
+
+[AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html)
+
+[AtomicLong API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicLong.html)
+
+[AtomicDouble API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicDouble.html)
 
