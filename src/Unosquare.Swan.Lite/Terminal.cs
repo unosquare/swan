@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan
+namespace Unosquare.Swan
 {
     using System;
     using System.Collections.Concurrent;
