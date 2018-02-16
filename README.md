@@ -35,6 +35,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The Connection class](#the-connection-class)
     * [The Benchmark component](#the-benchmark-component)
     * [The DelayProvider component](#the-delayprovider-component)
+    * [The WaitEventFactory component](#the-waiteventfactory-component)
     * [Atomic Types](#atomic-types)
     
 ## Libraries
@@ -1018,8 +1019,16 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
      var time = delay.WaitOne();
  }  
 ```
+
+### The `WaitEventFactory` component
+`WaitEventFactory` provides a standard [ManualResetEvent](https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1) factory with a unified API.
+
+[WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html)
+
+#### Example 1:
+
 ### Atomic types
-Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: bool, long, and double. When dealing with lots of threads performing writes on these variables this is quite useful because we can assure that none of this threads will come in the middle of an operation and perform a `torn write`.
+Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: bool, long, and double. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that no thread will interrupt another in the middle of an operation and perform a `torn write`.
 
 [AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html)
 
