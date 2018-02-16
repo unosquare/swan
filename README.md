@@ -33,6 +33,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The ArgumentParser component](#the-argumentparser-component)
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
     * [The Connection class](#the-connection-class)
+    * [The Benchmark component](#the-benchmark-component)
     
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -967,4 +968,21 @@ using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
      await cn.WriteDataAsync(Encoding.UTF8.GetBytes("Hello "), true);
      var response = await cn.ReadTextAsync();
 }
+```
+
+### The `Benchmark` component
+A simple benchmarking tool that provides useful statistics about a certain piece of code.
+
+#### Example 1: A simple benchmark test
+```csharp
+//starts a test with a custom name identifier
+using (Benchmark.Start("Test")) 
+{
+
+  // do some logic in here
+  
+}
+
+// dump results into a string
+var results = Benchmark.Dump();
 ```
