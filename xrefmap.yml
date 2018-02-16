@@ -5430,6 +5430,12 @@ references:
   commentId: F:Unosquare.Swan.LogMessageType.Error
   fullName: Unosquare.Swan.LogMessageType.Error
   nameWithType: LogMessageType.Error
+- uid: Unosquare.Swan.LogMessageType.Fatal
+  name: Fatal
+  href: api/Unosquare.Swan.LogMessageType.html#Unosquare_Swan_LogMessageType_Fatal
+  commentId: F:Unosquare.Swan.LogMessageType.Fatal
+  fullName: Unosquare.Swan.LogMessageType.Fatal
+  nameWithType: LogMessageType.Fatal
 - uid: Unosquare.Swan.LogMessageType.Info
   name: Info
   href: api/Unosquare.Swan.LogMessageType.html#Unosquare_Swan_LogMessageType_Info
@@ -10784,6 +10790,30 @@ references:
   commentId: Overload:Unosquare.Swan.Terminal.Error
   fullName: Unosquare.Swan.Terminal.Error
   nameWithType: Terminal.Error
+- uid: Unosquare.Swan.Terminal.Fatal(System.Exception,System.String,System.String,System.String,System.String,System.Int32)
+  name: Fatal(Exception, String, String, String, String, Int32)
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_Fatal_System_Exception_System_String_System_String_System_String_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Terminal.Fatal(System.Exception,System.String,System.String,System.String,System.String,System.Int32)
+  fullName: Unosquare.Swan.Terminal.Fatal(System.Exception, System.String, System.String, System.String, System.String, System.Int32)
+  nameWithType: Terminal.Fatal(Exception, String, String, String, String, Int32)
+- uid: Unosquare.Swan.Terminal.Fatal(System.String,System.String,System.Object,System.String,System.String,System.Int32)
+  name: Fatal(String, String, Object, String, String, Int32)
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_Fatal_System_String_System_String_System_Object_System_String_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Terminal.Fatal(System.String,System.String,System.Object,System.String,System.String,System.Int32)
+  fullName: Unosquare.Swan.Terminal.Fatal(System.String, System.String, System.Object, System.String, System.String, System.Int32)
+  nameWithType: Terminal.Fatal(String, String, Object, String, String, Int32)
+- uid: Unosquare.Swan.Terminal.Fatal(System.String,System.Type,System.Object,System.String,System.String,System.Int32)
+  name: Fatal(String, Type, Object, String, String, Int32)
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_Fatal_System_String_System_Type_System_Object_System_String_System_String_System_Int32_
+  commentId: M:Unosquare.Swan.Terminal.Fatal(System.String,System.Type,System.Object,System.String,System.String,System.Int32)
+  fullName: Unosquare.Swan.Terminal.Fatal(System.String, System.Type, System.Object, System.String, System.String, System.Int32)
+  nameWithType: Terminal.Fatal(String, Type, Object, String, String, Int32)
+- uid: Unosquare.Swan.Terminal.Fatal*
+  name: Fatal
+  href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_Fatal_
+  commentId: Overload:Unosquare.Swan.Terminal.Fatal
+  fullName: Unosquare.Swan.Terminal.Fatal
+  nameWithType: Terminal.Fatal
 - uid: Unosquare.Swan.Terminal.Flush(System.Nullable{System.TimeSpan})
   name: Flush(Nullable<TimeSpan>)
   href: api/Unosquare.Swan.Terminal.html#Unosquare_Swan_Terminal_Flush_System_Nullable_System_TimeSpan__
@@ -11081,6 +11111,30 @@ references:
   commentId: Overload:Unosquare.Swan.Terminal.Settings.ErrorPrefix
   fullName: Unosquare.Swan.Terminal.Settings.ErrorPrefix
   nameWithType: Terminal.Settings.ErrorPrefix
+- uid: Unosquare.Swan.Terminal.Settings.FatalColor
+  name: FatalColor
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_FatalColor
+  commentId: P:Unosquare.Swan.Terminal.Settings.FatalColor
+  fullName: Unosquare.Swan.Terminal.Settings.FatalColor
+  nameWithType: Terminal.Settings.FatalColor
+- uid: Unosquare.Swan.Terminal.Settings.FatalColor*
+  name: FatalColor
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_FatalColor_
+  commentId: Overload:Unosquare.Swan.Terminal.Settings.FatalColor
+  fullName: Unosquare.Swan.Terminal.Settings.FatalColor
+  nameWithType: Terminal.Settings.FatalColor
+- uid: Unosquare.Swan.Terminal.Settings.FatalPrefix
+  name: FatalPrefix
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_FatalPrefix
+  commentId: P:Unosquare.Swan.Terminal.Settings.FatalPrefix
+  fullName: Unosquare.Swan.Terminal.Settings.FatalPrefix
+  nameWithType: Terminal.Settings.FatalPrefix
+- uid: Unosquare.Swan.Terminal.Settings.FatalPrefix*
+  name: FatalPrefix
+  href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_FatalPrefix_
+  commentId: Overload:Unosquare.Swan.Terminal.Settings.FatalPrefix
+  fullName: Unosquare.Swan.Terminal.Settings.FatalPrefix
+  nameWithType: Terminal.Settings.FatalPrefix
 - uid: Unosquare.Swan.Terminal.Settings.InfoColor
   name: InfoColor
   href: api/Unosquare.Swan.Terminal.Settings.html#Unosquare_Swan_Terminal_Settings_InfoColor

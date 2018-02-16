@@ -1071,7 +1071,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.LogMessageType.html",
-          "hash": "RosHx0pH1lY7p14dUaIcHg=="
+          "hash": "UeCmWSS8UbZMtik/kp0lSg=="
         }
       },
       "is_incremental": false,
@@ -1659,7 +1659,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Terminal.Settings.html",
-          "hash": "ElQ10tNLQyiCr8bX+54rZQ=="
+          "hash": "eihPeC7GFAy3KWhFXRfCFw=="
         }
       },
       "is_incremental": false,
@@ -1671,7 +1671,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Terminal.html",
-          "hash": "kIohlOBuQFs3QuZ1hjFoYg=="
+          "hash": "Hz23fmTgEvHzsG/Iorqouw=="
         }
       },
       "is_incremental": false,
@@ -1769,22 +1769,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

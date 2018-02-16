@@ -776,6 +776,183 @@ This method is expensive as it uses Stringify internally</p>
   </table>
   
   
+  <a id="Unosquare_Swan_Terminal_Fatal_" data-uid="Unosquare.Swan.Terminal.Fatal*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Fatal_System_Exception_System_String_System_String_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Fatal(System.Exception,System.String,System.String,System.String,System.String,System.Int32)">Fatal(Exception, String, String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this Exception extendedData, string source, string message, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Fatal_" data-uid="Unosquare.Swan.Terminal.Fatal*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Fatal_System_String_System_String_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Fatal(System.String,System.String,System.Object,System.String,System.String,System.Int32)">Fatal(String, String, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this string message, string source = null, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path. This is automatically populated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number. This is automatically populated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Terminal_Fatal_" data-uid="Unosquare.Swan.Terminal.Fatal*"></a>
+  <h4 id="Unosquare_Swan_Terminal_Fatal_System_String_System_Type_System_Object_System_String_System_String_System_Int32_" data-uid="Unosquare.Swan.Terminal.Fatal(System.String,System.Type,System.Object,System.String,System.String,System.Int32)">Fatal(String, Type, Object, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Logs a warning message to the console</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Fatal(this string message, Type source, object extendedData = null, string callerMemberName = &quot;&quot;, string callerFilePath = &quot;&quot;, int callerLineNumber = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>The extended data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">callerMemberName</span></td>
+        <td><p>Name of the caller member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">callerFilePath</span></td>
+        <td><p>The caller file path.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">callerLineNumber</span></td>
+        <td><p>The caller line number.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Unosquare_Swan_Terminal_Flush_" data-uid="Unosquare.Swan.Terminal.Flush*"></a>
   <h4 id="Unosquare_Swan_Terminal_Flush_System_Nullable_System_TimeSpan__" data-uid="Unosquare.Swan.Terminal.Flush(System.Nullable{System.TimeSpan})">Flush(Nullable&lt;TimeSpan&gt;)</h4>
   <div class="markdown level1 summary"><p>Waits for all of the queued output messages to be written out to the console.
@@ -2171,7 +2348,7 @@ to the standard output</p>
   <div class="markdown level1 summary"><p>Occurs synchronously (so handle quickly), whenever a logging message is about to be enqueued to the
 console output. Setting the CancelOutput to true in the event arguments prevents the
 logging message to be written out to the console.
-Message filtering only works with logging methods such as Trace, Debug, Info, Warn, Error and Dump
+Message filtering only works with logging methods such as Trace, Debug, Info, Warn, Fatal, Error and Dump
 Standard Write methods do not get filtering capabilities.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -2198,7 +2375,7 @@ Standard Write methods do not get filtering capabilities.</p>
   
   <h4 id="Unosquare_Swan_Terminal_OnLogMessageReceived" data-uid="Unosquare.Swan.Terminal.OnLogMessageReceived">OnLogMessageReceived</h4>
   <div class="markdown level1 summary"><p>Occurs asynchronously, whenever a logging message is received by the terminal.
-Only called when Terminal writes data via Info, Error, Trace, Warn, Debug methods, regardless of whether or not
+Only called when Terminal writes data via Info, Error, Trace, Warn, Fatal, Debug methods, regardless of whether or not
 the console is present. Subscribe to this event to pass data on to your own logger.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
