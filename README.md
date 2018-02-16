@@ -14,7 +14,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
 =================
   * [Libraries](#libraries)
   * [Installation](#installation)
-  * [Whats in the library](#whats-in-the-library)
+  * [What's in the library](#whats-in-the-library)
     * [The Runtime component](#the-runtime-component)
     * [The Terminal class](#the-terminal-class)
     * [The Json formatter](#the-json-formatter)
