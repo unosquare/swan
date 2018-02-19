@@ -974,7 +974,7 @@ using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
 ```
 
 ### The `Benchmark` component
-A simple benchmarking tool that provides useful statistics about a certain piece of code.
+A simple benchmarking class used as an `IDisposable` that provides useful statistics about a certain piece of code.
 
 
 [Benchmark API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.Benchmark.html)
@@ -999,20 +999,7 @@ A useful component that implements several delay mechanisms.
 
 #### Example 1: Creating a delay
 ```csharp
-// by default DelayProvider uses the TaskDelay strategy
-var delay = new DelayProvider();
-
-//wait
-delay.WaitOne();
-
-//dispose
-delay.Dispose();
-```
-
-or with the `using` statement
-
-```csharp
-// this time use the ThreadSleep strategy
+// using the ThreadSleep strategy
 using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
  {
      // retrieve how much time we delayed
@@ -1021,7 +1008,8 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
 ```
 
 ### The `WaitEventFactory` component
-`WaitEventFactory` provides a standard [ManualResetEvent](https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1) factory with a unified API.
+`WaitEventFactory` provides a standard [ManualResetEvent](https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1) factory with a unified API. 
+`ManualResetEvent` is a variation of `AutoResetEvent` that doesn't automatically reset after a thread is let through on a WaitOne call. Calling `Set` on a `ManualResetEvent` serves like an open gate, allowing any number of threads that `WaitOne` pass through, calling Reset closes this gate.
 
 [WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html)
 
