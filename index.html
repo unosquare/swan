@@ -974,7 +974,7 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
  }  
 </code></pre><h3 id="the-waiteventfactory-component">The <code>WaitEventFactory</code> component</h3>
 <p><code>WaitEventFactory</code> provides a standard <a href="https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1">ManualResetEvent</a> factory with a unified API. 
-<code>ManualResetEvent</code> is a variation of <code>AutoResetEvent</code> that doesn&#39;t automatically reset after a thread is let through on a WaitOne call. Calling <code>Set</code> on a <code>ManualResetEvent</code> serves like an open gate, allowing any number of threads that <code>WaitOne</code> pass through, calling Reset closes this gate.</p>
+<code>ManualResetEvent</code> is a variation of <code>AutoResetEvent</code> that doesn&#39;t automatically reset after a thread is let through on a <code>WaitOne</code> call. Calling <code>Set</code> on a <code>ManualResetEvent</code> serves like an open gate allowing any number of threads that <code>WaitOne</code> pass throughCalling and <code>Reset</code> closes this gate. This type of event is usually used to signal that a certain operation has completed.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html">WaitEventFactory API Doc</a></p>
 <h4 id="example-1-using-the-waiteventfactory">Example 1: Using the <code>WaitEventFactory</code></h4>
 <pre><code class="lang-csharp">// creates a WaitEvent using the slim version of ManualResetEvent
