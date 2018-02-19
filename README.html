@@ -949,7 +949,7 @@ using (var cn = new Connection(client, Encoding.UTF8, &quot;\r\n&quot;, true, 0)
      var response = await cn.ReadTextAsync();
 }
 </code></pre><h3 id="the-benchmark-component">The <code>Benchmark</code> component</h3>
-<p>A simple benchmarking tool that provides useful statistics about a certain piece of code.</p>
+<p>A simple benchmarking class used as an <code>IDisposable</code> that provides useful statistics about a certain piece of code.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.Benchmark.html">Benchmark API Doc</a></p>
 <h4 id="example-1-a-simple-benchmark-test">Example 1: A simple benchmark test</h4>
 <pre><code class="lang-csharp">//starts a test with a custom name identifier
@@ -966,23 +966,15 @@ var results = Benchmark.Dump();
 <p>A useful component that implements several delay mechanisms.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DelayProvider.html">DelayProvider API Doc</a></p>
 <h4 id="example-1-creating-a-delay">Example 1: Creating a delay</h4>
-<pre><code class="lang-csharp">// by default DelayProvider uses the TaskDelay strategy
-var delay = new DelayProvider();
-
-//wait
-delay.WaitOne();
-
-//dispose
-delay.Dispose();
-</code></pre><p>or with the <code>using</code> statement</p>
-<pre><code class="lang-csharp">// this time use the ThreadSleep strategy
+<pre><code class="lang-csharp">// using the ThreadSleep strategy
 using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
  {
      // retrieve how much time we delayed
      var time = delay.WaitOne();
  }  
 </code></pre><h3 id="the-waiteventfactory-component">The <code>WaitEventFactory</code> component</h3>
-<p><code>WaitEventFactory</code> provides a standard <a href="https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1">ManualResetEvent</a> factory with a unified API.</p>
+<p><code>WaitEventFactory</code> provides a standard <a href="https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1">ManualResetEvent</a> factory with a unified API. 
+<code>ManualResetEvent</code> is a variation of <code>AutoResetEvent</code> that doesn&#39;t automatically reset after a thread is let through on a WaitOne call. Calling <code>Set</code> on a <code>ManualResetEvent</code> serves like an open gate, allowing any number of threads that <code>WaitOne</code> pass through, calling Reset closes this gate.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html">WaitEventFactory API Doc</a></p>
 <h4 id="example-1-using-the-waiteventfactory">Example 1: Using the <code>WaitEventFactory</code></h4>
 <pre><code class="lang-csharp">// creates a WaitEvent using the slim version of ManualResetEvent
