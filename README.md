@@ -1025,10 +1025,49 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
 
 [WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html)
 
+```csharp
+// creates a WaitEvent using the slim version of ManualResetEvent
+private static readonly IWaitEvent waitEvent = WaitEventFactory.CreateSlim(false);
+
+static void Main()
+{
+ // start two tasks
+    Task.Factory.StartNew(() =>
+    {
+        Work(1);
+    });
+
+    Task.Factory.StartNew(() =>
+    {
+        Work(2);
+    });
+
+    //Send first signal to retrieve data
+    waitEvent.Complete();
+    waitEvent.Begin();
+
+    Thread.Sleep(TimeSpan.FromSeconds(2));
+
+    // Send second signal
+    waitEvent.Complete();
+
+    Console.ReadLine();
+}
+```
+```csharp
+static void Work(int taskNumber)
+ {
+     $"Data retrieved:{taskNumber}".WriteLine();
+     waitEvent.Wait();
+
+     Thread.Sleep(TimeSpan.FromSeconds(2));
+     $"All finished up {taskNumber}".WriteLine();
+ }
+```
 #### Example 1:
 
 ### Atomic types
-Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: bool, long, and double. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that no thread will interrupt another in the middle of an operation and perform a `torn write`.
+Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: bool, long, and double. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that threads will not interrupt each other in the middle of an operation and perform a `torn write`.
 
 [AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html)
 
