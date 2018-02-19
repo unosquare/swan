@@ -33,6 +33,10 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The ArgumentParser component](#the-argumentparser-component)
     * [The SettingsProvider abstraction](#the-settingsprovider-abstraction)
     * [The Connection class](#the-connection-class)
+    * [The Benchmark component](#the-benchmark-component)
+    * [The DelayProvider component](#the-delayprovider-component)
+    * [The WaitEventFactory component](#the-waiteventfactory-component)
+    * [Atomic Types](#atomic-types)
     
 ## Libraries
 We offer the Swan library in two flavors since version 0.24. Swan Lite provides basic classes and extension methods and Swan Standard (we call it Fat Swan) provides everything in Swan Lite plus Network, WinServices, DI and more. See the following table to understand the components available to these flavors of Swan.
@@ -968,3 +972,96 @@ using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
      var response = await cn.ReadTextAsync();
 }
 ```
+
+### The `Benchmark` component
+A simple benchmarking class used as an `IDisposable` that provides useful statistics about a certain piece of code.
+
+
+[Benchmark API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.Benchmark.html)
+
+#### Example 1: A simple benchmark test
+```csharp
+//starts a test with a custom name identifier
+using (Benchmark.Start("Test")) 
+{
+
+  // do some logic in here
+  
+}
+
+// dump results into a string
+var results = Benchmark.Dump();
+```
+### The `DelayProvider` component
+A useful component that implements several delay mechanisms.
+
+[DelayProvider API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DelayProvider.html)
+
+#### Example 1: Creating a delay
+```csharp
+// using the ThreadSleep strategy
+using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
+ {
+     // retrieve how much time we delayed
+     var time = delay.WaitOne();
+ }  
+```
+
+### The `WaitEventFactory` component
+`WaitEventFactory` provides a standard [ManualResetEvent](https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1) factory with a unified API. 
+`ManualResetEvent` is a variation of `AutoResetEvent` that doesn't automatically reset after a thread is let through on a `WaitOne` call. Calling `Set` on a `ManualResetEvent` serves like an open gate allowing any number of threads that `WaitOne` pass throughCalling and `Reset` closes this gate. This type of event is usually used to signal that a certain operation has completed.
+
+[WaitEventFactory API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html)
+
+#### Example 1: Using the `WaitEventFactory`
+
+```csharp
+// creates a WaitEvent using the slim version of ManualResetEvent
+private static readonly IWaitEvent waitEvent = WaitEventFactory.CreateSlim(false);
+
+static void Main()
+{
+ // start two tasks
+    Task.Factory.StartNew(() =>
+    {
+        Work(1);
+    });
+
+    Task.Factory.StartNew(() =>
+    {
+        Work(2);
+    });
+
+    //Send first signal to retrieve data
+    waitEvent.Complete();
+    waitEvent.Begin();
+
+    Thread.Sleep(TimeSpan.FromSeconds(2));
+
+    // Send second signal
+    waitEvent.Complete();
+
+    Console.ReadLine();
+}
+```
+```csharp
+static void Work(int taskNumber)
+ {
+     $"Data retrieved:{taskNumber}".WriteLine();
+     waitEvent.Wait();
+
+     Thread.Sleep(TimeSpan.FromSeconds(2));
+     $"All finished up {taskNumber}".WriteLine();
+ }
+```
+
+
+### Atomic types
+Atomic operations are indivisible which means that they cannot interrupted partway through. `SWAN` provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: `bool`, `long`, and `double`. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that threads will not interrupt each other in the middle of an operation and perform a `torn write`.
+
+[AtomicBoolean API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html)
+
+[AtomicLong API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicLong.html)
+
+[AtomicDouble API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicDouble.html)
+
