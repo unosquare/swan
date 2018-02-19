@@ -984,9 +984,44 @@ using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
 </code></pre><h3 id="the-waiteventfactory-component">The <code>WaitEventFactory</code> component</h3>
 <p><code>WaitEventFactory</code> provides a standard <a href="https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.7.1">ManualResetEvent</a> factory with a unified API.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.WaitEventFactory.html">WaitEventFactory API Doc</a></p>
-<h4 id="example-1">Example 1:</h4>
+<pre><code class="lang-csharp">// creates a WaitEvent using the slim version of ManualResetEvent
+private static readonly IWaitEvent waitEvent = WaitEventFactory.CreateSlim(false);
+
+static void Main()
+{
+ // start two tasks
+    Task.Factory.StartNew(() =&gt;
+    {
+        Work(1);
+    });
+
+    Task.Factory.StartNew(() =&gt;
+    {
+        Work(2);
+    });
+
+    //Send first signal to retrieve data
+    waitEvent.Complete();
+    waitEvent.Begin();
+
+    Thread.Sleep(TimeSpan.FromSeconds(2));
+
+    // Send second signal
+    waitEvent.Complete();
+
+    Console.ReadLine();
+}
+</code></pre><pre><code class="lang-csharp">static void Work(int taskNumber)
+ {
+     $&quot;Data retrieved:{taskNumber}&quot;.WriteLine();
+     waitEvent.Wait();
+
+     Thread.Sleep(TimeSpan.FromSeconds(2));
+     $&quot;All finished up {taskNumber}&quot;.WriteLine();
+ }
+</code></pre><h4 id="example-1">Example 1:</h4>
 <h3 id="atomic-types">Atomic types</h3>
-<p>Atomic operations are indivisible which means that they cannot interrupted partway through. <code>SWAN</code> provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: bool, long, and double. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that no thread will interrupt another in the middle of an operation and perform a <code>torn write</code>.</p>
+<p>Atomic operations are indivisible which means that they cannot interrupted partway through. <code>SWAN</code> provides Atomic types which include mechanisms to perform these kinds of operations on Built-In types like: bool, long, and double. This is quite useful in situations where we have to deal with lots of threads performing writes on variables because we can assure that threads will not interrupt each other in the middle of an operation and perform a <code>torn write</code>.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicBoolean.html">AtomicBoolean API Doc</a></p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicLong.html">AtomicLong API Doc</a></p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.AtomicDouble.html">AtomicDouble API Doc</a></p>
