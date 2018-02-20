@@ -2,6 +2,7 @@
 {
     using NUnit.Framework;
     using System.Threading.Tasks;
+    using Unosquare.Swan.Lite.Abstractions;
 
     [TestFixture]
     public class AtomicTypeTest
@@ -9,11 +10,11 @@
         [Test]
         public void AtomicityLong()
         {
-            var atomic = new AtomicLong();
+            AtomicTypeBase<long> atomic = new AtomicLong();
 
             void SumTask()
             {
-                for (var x = 0; x < 3000; x++) 
+                for (var x = 0; x < 3000; x++)
                     atomic++;
             }
 
@@ -28,7 +29,7 @@
         [Test]
         public void AtomicityDouble()
         {
-            var atomic = new AtomicDouble();
+            AtomicTypeBase<double> atomic = new AtomicDouble();
 
             void SumTask()
             {
@@ -50,7 +51,7 @@
         [Test]
         public void AtomicityBoolean()
         {
-            var atomic = new AtomicBoolean();
+            AtomicTypeBase<bool> atomic = new AtomicBoolean();
 
             void ToggleValueTask()
             {
@@ -64,6 +65,25 @@
                 Task.Factory.StartNew(ToggleValueTask));
             
             Assert.IsFalse(atomic.Value);
+        }
+
+        [Test]
+        public void AtomicityInt()
+        {
+            AtomicTypeBase<int> atomic = new AtomicInteger();
+
+            void SumTask()
+            {
+                for (var x = 0; x < 300; x++)
+                    atomic++;
+            }
+
+            Task.WaitAll(
+                Task.Factory.StartNew(SumTask),
+                Task.Factory.StartNew(SumTask),
+                Task.Factory.StartNew(SumTask));
+
+            Assert.That(atomic.Value, Is.EqualTo(900));
         }
     }
 }
