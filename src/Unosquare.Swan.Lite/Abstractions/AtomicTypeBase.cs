@@ -219,7 +219,7 @@
         /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
         /// </returns>
         public bool Equals(AtomicTypeBase<T> other) => 
-            BackingValue == (other?.BackingValue ?? default(long));
+            BackingValue == (other?.BackingValue ?? default);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -231,7 +231,7 @@
         public bool Equals(T other) => Equals(Value, other);
 
         /// <summary>
-        /// COnverts froma long value to the target type.
+        /// Converts froma long value to the target type.
         /// </summary>
         /// <param name="backingValue">The backing value.</param>
         /// <returns>The value converted form a long value</returns>

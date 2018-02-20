@@ -19,37 +19,11 @@
            // placeholder
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AtomicBoolean"/> class.
-        /// </summary>
-        public AtomicBoolean()
-            : base(0)
-        {
-            // placeholder
-        }
+        /// <inheritdoc/>
+        protected override bool FromLong(long backingValue) =>
+        backingValue != 0;
 
-        /// <summary>
-        /// Converts froma long value to the target type.
-        /// </summary>
-        /// <param name="backingValue">The backing value.</param>
-        /// <returns>
-        /// The value converted form a long value
-        /// </returns>
-        protected override bool FromLong(long backingValue)
-        {
-            return backingValue == 0 ? false : true;
-        }
-
-        /// <summary>
-        /// Converts from the target type to a long value
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The value converted to a long value
-        /// </returns>
-        protected override long ToLong(bool value)
-        {
-            return value ? 1 : 0;
-        }
+        /// <inheritdoc/>
+        protected override long ToLong(bool value) => value ? 1 : 0;
     }
 }

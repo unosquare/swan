@@ -13,32 +13,20 @@
         /// Initializes a new instance of the <see cref="AtomicLong"/> class.
         /// </summary>
         /// <param name="initialValue">if set to <c>true</c> [initial value].</param>
-        public AtomicLong(long initialValue)
+        public AtomicLong(long initialValue = default)
             : base(initialValue)
         {
             // placeholder
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AtomicLong"/> class.
-        /// </summary>
-        public AtomicLong()
-            : base(0)
-        {
-            // placeholder
-        }
-
-        /// <summary>
-        /// COnverts froma long value to the target type.
+        /// Converts froma long value to the target type.
         /// </summary>
         /// <param name="backingValue">The backing value.</param>
         /// <returns>
         /// The value converted form a long value
         /// </returns>
-        protected override long FromLong(long backingValue)
-        {
-            return backingValue;
-        }
+        protected override long FromLong(long backingValue) => backingValue;
 
         /// <summary>
         /// Converts from the target type to a long value
@@ -47,9 +35,6 @@
         /// <returns>
         /// The value converted to a long value
         /// </returns>
-        protected override long ToLong(long value)
-        {
-            return value;
-        }
+        protected override long ToLong(long value) => value;
     }
 }
