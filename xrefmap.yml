@@ -558,18 +558,30 @@ references:
   commentId: Overload:Unosquare.Swan.AtomicBoolean.#ctor
   fullName: Unosquare.Swan.AtomicBoolean.AtomicBoolean
   nameWithType: AtomicBoolean.AtomicBoolean
-- uid: Unosquare.Swan.AtomicBoolean.Value
-  name: Value
-  href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean_Value
-  commentId: P:Unosquare.Swan.AtomicBoolean.Value
-  fullName: Unosquare.Swan.AtomicBoolean.Value
-  nameWithType: AtomicBoolean.Value
-- uid: Unosquare.Swan.AtomicBoolean.Value*
-  name: Value
-  href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean_Value_
-  commentId: Overload:Unosquare.Swan.AtomicBoolean.Value
-  fullName: Unosquare.Swan.AtomicBoolean.Value
-  nameWithType: AtomicBoolean.Value
+- uid: Unosquare.Swan.AtomicBoolean.FromLong(System.Int64)
+  name: FromLong(Int64)
+  href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean_FromLong_System_Int64_
+  commentId: M:Unosquare.Swan.AtomicBoolean.FromLong(System.Int64)
+  fullName: Unosquare.Swan.AtomicBoolean.FromLong(System.Int64)
+  nameWithType: AtomicBoolean.FromLong(Int64)
+- uid: Unosquare.Swan.AtomicBoolean.FromLong*
+  name: FromLong
+  href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean_FromLong_
+  commentId: Overload:Unosquare.Swan.AtomicBoolean.FromLong
+  fullName: Unosquare.Swan.AtomicBoolean.FromLong
+  nameWithType: AtomicBoolean.FromLong
+- uid: Unosquare.Swan.AtomicBoolean.ToLong(System.Boolean)
+  name: ToLong(Boolean)
+  href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean_ToLong_System_Boolean_
+  commentId: M:Unosquare.Swan.AtomicBoolean.ToLong(System.Boolean)
+  fullName: Unosquare.Swan.AtomicBoolean.ToLong(System.Boolean)
+  nameWithType: AtomicBoolean.ToLong(Boolean)
+- uid: Unosquare.Swan.AtomicBoolean.ToLong*
+  name: ToLong
+  href: api/Unosquare.Swan.AtomicBoolean.html#Unosquare_Swan_AtomicBoolean_ToLong_
+  commentId: Overload:Unosquare.Swan.AtomicBoolean.ToLong
+  fullName: Unosquare.Swan.AtomicBoolean.ToLong
+  nameWithType: AtomicBoolean.ToLong
 - uid: Unosquare.Swan.AtomicDouble
   name: AtomicDouble
   href: api/Unosquare.Swan.AtomicDouble.html
@@ -588,42 +600,72 @@ references:
   commentId: Overload:Unosquare.Swan.AtomicDouble.#ctor
   fullName: Unosquare.Swan.AtomicDouble.AtomicDouble
   nameWithType: AtomicDouble.AtomicDouble
-- uid: Unosquare.Swan.AtomicDouble.op_Decrement(Unosquare.Swan.AtomicDouble)
-  name: Decrement(AtomicDouble)
-  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Decrement_Unosquare_Swan_AtomicDouble_
-  commentId: M:Unosquare.Swan.AtomicDouble.op_Decrement(Unosquare.Swan.AtomicDouble)
-  fullName: Unosquare.Swan.AtomicDouble.Decrement(Unosquare.Swan.AtomicDouble)
-  nameWithType: AtomicDouble.Decrement(AtomicDouble)
-- uid: Unosquare.Swan.AtomicDouble.op_Decrement*
-  name: Decrement
-  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Decrement_
-  commentId: Overload:Unosquare.Swan.AtomicDouble.op_Decrement
-  fullName: Unosquare.Swan.AtomicDouble.Decrement
-  nameWithType: AtomicDouble.Decrement
-- uid: Unosquare.Swan.AtomicDouble.op_Increment(Unosquare.Swan.AtomicDouble)
-  name: Increment(AtomicDouble)
-  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Increment_Unosquare_Swan_AtomicDouble_
-  commentId: M:Unosquare.Swan.AtomicDouble.op_Increment(Unosquare.Swan.AtomicDouble)
-  fullName: Unosquare.Swan.AtomicDouble.Increment(Unosquare.Swan.AtomicDouble)
-  nameWithType: AtomicDouble.Increment(AtomicDouble)
-- uid: Unosquare.Swan.AtomicDouble.op_Increment*
-  name: Increment
-  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_op_Increment_
-  commentId: Overload:Unosquare.Swan.AtomicDouble.op_Increment
-  fullName: Unosquare.Swan.AtomicDouble.Increment
-  nameWithType: AtomicDouble.Increment
-- uid: Unosquare.Swan.AtomicDouble.Value
-  name: Value
-  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_Value
-  commentId: P:Unosquare.Swan.AtomicDouble.Value
-  fullName: Unosquare.Swan.AtomicDouble.Value
-  nameWithType: AtomicDouble.Value
-- uid: Unosquare.Swan.AtomicDouble.Value*
-  name: Value
-  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_Value_
-  commentId: Overload:Unosquare.Swan.AtomicDouble.Value
-  fullName: Unosquare.Swan.AtomicDouble.Value
-  nameWithType: AtomicDouble.Value
+- uid: Unosquare.Swan.AtomicDouble.FromLong(System.Int64)
+  name: FromLong(Int64)
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_FromLong_System_Int64_
+  commentId: M:Unosquare.Swan.AtomicDouble.FromLong(System.Int64)
+  fullName: Unosquare.Swan.AtomicDouble.FromLong(System.Int64)
+  nameWithType: AtomicDouble.FromLong(Int64)
+- uid: Unosquare.Swan.AtomicDouble.FromLong*
+  name: FromLong
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_FromLong_
+  commentId: Overload:Unosquare.Swan.AtomicDouble.FromLong
+  fullName: Unosquare.Swan.AtomicDouble.FromLong
+  nameWithType: AtomicDouble.FromLong
+- uid: Unosquare.Swan.AtomicDouble.ToLong(System.Double)
+  name: ToLong(Double)
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_ToLong_System_Double_
+  commentId: M:Unosquare.Swan.AtomicDouble.ToLong(System.Double)
+  fullName: Unosquare.Swan.AtomicDouble.ToLong(System.Double)
+  nameWithType: AtomicDouble.ToLong(Double)
+- uid: Unosquare.Swan.AtomicDouble.ToLong*
+  name: ToLong
+  href: api/Unosquare.Swan.AtomicDouble.html#Unosquare_Swan_AtomicDouble_ToLong_
+  commentId: Overload:Unosquare.Swan.AtomicDouble.ToLong
+  fullName: Unosquare.Swan.AtomicDouble.ToLong
+  nameWithType: AtomicDouble.ToLong
+- uid: Unosquare.Swan.AtomicInteger
+  name: AtomicInteger
+  href: api/Unosquare.Swan.AtomicInteger.html
+  commentId: T:Unosquare.Swan.AtomicInteger
+  fullName: Unosquare.Swan.AtomicInteger
+  nameWithType: AtomicInteger
+- uid: Unosquare.Swan.AtomicInteger.#ctor(System.Int32)
+  name: AtomicInteger(Int32)
+  href: api/Unosquare.Swan.AtomicInteger.html#Unosquare_Swan_AtomicInteger__ctor_System_Int32_
+  commentId: M:Unosquare.Swan.AtomicInteger.#ctor(System.Int32)
+  fullName: Unosquare.Swan.AtomicInteger.AtomicInteger(System.Int32)
+  nameWithType: AtomicInteger.AtomicInteger(Int32)
+- uid: Unosquare.Swan.AtomicInteger.#ctor*
+  name: AtomicInteger
+  href: api/Unosquare.Swan.AtomicInteger.html#Unosquare_Swan_AtomicInteger__ctor_
+  commentId: Overload:Unosquare.Swan.AtomicInteger.#ctor
+  fullName: Unosquare.Swan.AtomicInteger.AtomicInteger
+  nameWithType: AtomicInteger.AtomicInteger
+- uid: Unosquare.Swan.AtomicInteger.FromLong(System.Int64)
+  name: FromLong(Int64)
+  href: api/Unosquare.Swan.AtomicInteger.html#Unosquare_Swan_AtomicInteger_FromLong_System_Int64_
+  commentId: M:Unosquare.Swan.AtomicInteger.FromLong(System.Int64)
+  fullName: Unosquare.Swan.AtomicInteger.FromLong(System.Int64)
+  nameWithType: AtomicInteger.FromLong(Int64)
+- uid: Unosquare.Swan.AtomicInteger.FromLong*
+  name: FromLong
+  href: api/Unosquare.Swan.AtomicInteger.html#Unosquare_Swan_AtomicInteger_FromLong_
+  commentId: Overload:Unosquare.Swan.AtomicInteger.FromLong
+  fullName: Unosquare.Swan.AtomicInteger.FromLong
+  nameWithType: AtomicInteger.FromLong
+- uid: Unosquare.Swan.AtomicInteger.ToLong(System.Int32)
+  name: ToLong(Int32)
+  href: api/Unosquare.Swan.AtomicInteger.html#Unosquare_Swan_AtomicInteger_ToLong_System_Int32_
+  commentId: M:Unosquare.Swan.AtomicInteger.ToLong(System.Int32)
+  fullName: Unosquare.Swan.AtomicInteger.ToLong(System.Int32)
+  nameWithType: AtomicInteger.ToLong(Int32)
+- uid: Unosquare.Swan.AtomicInteger.ToLong*
+  name: ToLong
+  href: api/Unosquare.Swan.AtomicInteger.html#Unosquare_Swan_AtomicInteger_ToLong_
+  commentId: Overload:Unosquare.Swan.AtomicInteger.ToLong
+  fullName: Unosquare.Swan.AtomicInteger.ToLong
+  nameWithType: AtomicInteger.ToLong
 - uid: Unosquare.Swan.AtomicLong
   name: AtomicLong
   href: api/Unosquare.Swan.AtomicLong.html
@@ -642,42 +684,30 @@ references:
   commentId: Overload:Unosquare.Swan.AtomicLong.#ctor
   fullName: Unosquare.Swan.AtomicLong.AtomicLong
   nameWithType: AtomicLong.AtomicLong
-- uid: Unosquare.Swan.AtomicLong.op_Decrement(Unosquare.Swan.AtomicLong)
-  name: Decrement(AtomicLong)
-  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Decrement_Unosquare_Swan_AtomicLong_
-  commentId: M:Unosquare.Swan.AtomicLong.op_Decrement(Unosquare.Swan.AtomicLong)
-  fullName: Unosquare.Swan.AtomicLong.Decrement(Unosquare.Swan.AtomicLong)
-  nameWithType: AtomicLong.Decrement(AtomicLong)
-- uid: Unosquare.Swan.AtomicLong.op_Decrement*
-  name: Decrement
-  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Decrement_
-  commentId: Overload:Unosquare.Swan.AtomicLong.op_Decrement
-  fullName: Unosquare.Swan.AtomicLong.Decrement
-  nameWithType: AtomicLong.Decrement
-- uid: Unosquare.Swan.AtomicLong.op_Increment(Unosquare.Swan.AtomicLong)
-  name: Increment(AtomicLong)
-  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Increment_Unosquare_Swan_AtomicLong_
-  commentId: M:Unosquare.Swan.AtomicLong.op_Increment(Unosquare.Swan.AtomicLong)
-  fullName: Unosquare.Swan.AtomicLong.Increment(Unosquare.Swan.AtomicLong)
-  nameWithType: AtomicLong.Increment(AtomicLong)
-- uid: Unosquare.Swan.AtomicLong.op_Increment*
-  name: Increment
-  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_op_Increment_
-  commentId: Overload:Unosquare.Swan.AtomicLong.op_Increment
-  fullName: Unosquare.Swan.AtomicLong.Increment
-  nameWithType: AtomicLong.Increment
-- uid: Unosquare.Swan.AtomicLong.Value
-  name: Value
-  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_Value
-  commentId: P:Unosquare.Swan.AtomicLong.Value
-  fullName: Unosquare.Swan.AtomicLong.Value
-  nameWithType: AtomicLong.Value
-- uid: Unosquare.Swan.AtomicLong.Value*
-  name: Value
-  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_Value_
-  commentId: Overload:Unosquare.Swan.AtomicLong.Value
-  fullName: Unosquare.Swan.AtomicLong.Value
-  nameWithType: AtomicLong.Value
+- uid: Unosquare.Swan.AtomicLong.FromLong(System.Int64)
+  name: FromLong(Int64)
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_FromLong_System_Int64_
+  commentId: M:Unosquare.Swan.AtomicLong.FromLong(System.Int64)
+  fullName: Unosquare.Swan.AtomicLong.FromLong(System.Int64)
+  nameWithType: AtomicLong.FromLong(Int64)
+- uid: Unosquare.Swan.AtomicLong.FromLong*
+  name: FromLong
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_FromLong_
+  commentId: Overload:Unosquare.Swan.AtomicLong.FromLong
+  fullName: Unosquare.Swan.AtomicLong.FromLong
+  nameWithType: AtomicLong.FromLong
+- uid: Unosquare.Swan.AtomicLong.ToLong(System.Int64)
+  name: ToLong(Int64)
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_ToLong_System_Int64_
+  commentId: M:Unosquare.Swan.AtomicLong.ToLong(System.Int64)
+  fullName: Unosquare.Swan.AtomicLong.ToLong(System.Int64)
+  nameWithType: AtomicLong.ToLong(Int64)
+- uid: Unosquare.Swan.AtomicLong.ToLong*
+  name: ToLong
+  href: api/Unosquare.Swan.AtomicLong.html#Unosquare_Swan_AtomicLong_ToLong_
+  commentId: Overload:Unosquare.Swan.AtomicLong.ToLong
+  fullName: Unosquare.Swan.AtomicLong.ToLong
+  nameWithType: AtomicLong.ToLong
 - uid: Unosquare.Swan.Attributes
   name: Unosquare.Swan.Attributes
   href: api/Unosquare.Swan.Attributes.html
@@ -5244,6 +5274,353 @@ references:
   fullName.vb: Unosquare.Swan.FunctionalExtensions.When(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of T)))
   nameWithType: FunctionalExtensions.When<T>(IEnumerable<T>, Func<Boolean>, Func<IEnumerable<T>, IEnumerable<T>>)
   nameWithType.vb: FunctionalExtensions.When(Of T)(IEnumerable(Of T), Func(Of Boolean), Func(Of IEnumerable(Of T), IEnumerable(Of T)))
+- uid: Unosquare.Swan.Lite.Abstractions
+  name: Unosquare.Swan.Lite.Abstractions
+  href: api/Unosquare.Swan.Lite.Abstractions.html
+  commentId: N:Unosquare.Swan.Lite.Abstractions
+  fullName: Unosquare.Swan.Lite.Abstractions
+  nameWithType: Unosquare.Swan.Lite.Abstractions
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1
+  name: AtomicTypeBase<T>
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html
+  commentId: T:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1
+  name.vb: AtomicTypeBase(Of T)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T)
+  nameWithType: AtomicTypeBase<T>
+  nameWithType.vb: AtomicTypeBase(Of T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.#ctor(System.Int64)
+  name: AtomicTypeBase(Int64)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1__ctor_System_Int64_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.#ctor(System.Int64)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.AtomicTypeBase(System.Int64)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).AtomicTypeBase(System.Int64)
+  nameWithType: AtomicTypeBase<T>.AtomicTypeBase(Int64)
+  nameWithType.vb: AtomicTypeBase(Of T).AtomicTypeBase(Int64)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.#ctor*
+  name: AtomicTypeBase
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.#ctor
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.AtomicTypeBase
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).AtomicTypeBase
+  nameWithType: AtomicTypeBase<T>.AtomicTypeBase
+  nameWithType.vb: AtomicTypeBase(Of T).AtomicTypeBase
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.BackingValue
+  name: BackingValue
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_BackingValue
+  commentId: P:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.BackingValue
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.BackingValue
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).BackingValue
+  nameWithType: AtomicTypeBase<T>.BackingValue
+  nameWithType.vb: AtomicTypeBase(Of T).BackingValue
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.BackingValue*
+  name: BackingValue
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_BackingValue_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.BackingValue
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.BackingValue
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).BackingValue
+  nameWithType: AtomicTypeBase<T>.BackingValue
+  nameWithType.vb: AtomicTypeBase(Of T).BackingValue
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo(`0)
+  name: CompareTo(T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_CompareTo__0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo(`0)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.CompareTo(T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).CompareTo(T)
+  nameWithType: AtomicTypeBase<T>.CompareTo(T)
+  nameWithType.vb: AtomicTypeBase(Of T).CompareTo(T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo(System.Object)
+  name: CompareTo(Object)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_CompareTo_System_Object_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo(System.Object)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.CompareTo(System.Object)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).CompareTo(System.Object)
+  nameWithType: AtomicTypeBase<T>.CompareTo(Object)
+  nameWithType.vb: AtomicTypeBase(Of T).CompareTo(Object)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name: CompareTo(AtomicTypeBase<T>)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_CompareTo_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name.vb: CompareTo(AtomicTypeBase(Of T))
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.CompareTo(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).CompareTo(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T))
+  nameWithType: AtomicTypeBase<T>.CompareTo(AtomicTypeBase<T>)
+  nameWithType.vb: AtomicTypeBase(Of T).CompareTo(AtomicTypeBase(Of T))
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo*
+  name: CompareTo
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_CompareTo_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.CompareTo
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.CompareTo
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).CompareTo
+  nameWithType: AtomicTypeBase<T>.CompareTo
+  nameWithType.vb: AtomicTypeBase(Of T).CompareTo
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals(`0)
+  name: Equals(T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Equals__0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals(`0)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Equals(T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Equals(T)
+  nameWithType: AtomicTypeBase<T>.Equals(T)
+  nameWithType.vb: AtomicTypeBase(Of T).Equals(T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals(System.Object)
+  name: Equals(Object)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Equals_System_Object_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals(System.Object)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Equals(System.Object)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Equals(System.Object)
+  nameWithType: AtomicTypeBase<T>.Equals(Object)
+  nameWithType.vb: AtomicTypeBase(Of T).Equals(Object)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name: Equals(AtomicTypeBase<T>)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Equals_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name.vb: Equals(AtomicTypeBase(Of T))
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Equals(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Equals(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T))
+  nameWithType: AtomicTypeBase<T>.Equals(AtomicTypeBase<T>)
+  nameWithType.vb: AtomicTypeBase(Of T).Equals(AtomicTypeBase(Of T))
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals*
+  name: Equals
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Equals_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Equals
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Equals
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Equals
+  nameWithType: AtomicTypeBase<T>.Equals
+  nameWithType.vb: AtomicTypeBase(Of T).Equals
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.FromLong(System.Int64)
+  name: FromLong(Int64)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_FromLong_System_Int64_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.FromLong(System.Int64)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.FromLong(System.Int64)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).FromLong(System.Int64)
+  nameWithType: AtomicTypeBase<T>.FromLong(Int64)
+  nameWithType.vb: AtomicTypeBase(Of T).FromLong(Int64)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.FromLong*
+  name: FromLong
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_FromLong_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.FromLong
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.FromLong
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).FromLong
+  nameWithType: AtomicTypeBase<T>.FromLong
+  nameWithType.vb: AtomicTypeBase(Of T).FromLong
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.GetHashCode
+  name: GetHashCode()
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_GetHashCode
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.GetHashCode
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.GetHashCode()
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).GetHashCode()
+  nameWithType: AtomicTypeBase<T>.GetHashCode()
+  nameWithType.vb: AtomicTypeBase(Of T).GetHashCode()
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.GetHashCode*
+  name: GetHashCode
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_GetHashCode_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.GetHashCode
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.GetHashCode
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).GetHashCode
+  nameWithType: AtomicTypeBase<T>.GetHashCode
+  nameWithType.vb: AtomicTypeBase(Of T).GetHashCode
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Addition(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},System.Int64)
+  name: Addition(AtomicTypeBase<T>, Int64)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Addition_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__System_Int64_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Addition(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},System.Int64)
+  name.vb: Addition(AtomicTypeBase(Of T), Int64)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Addition(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, System.Int64)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Addition(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), System.Int64)
+  nameWithType: AtomicTypeBase<T>.Addition(AtomicTypeBase<T>, Int64)
+  nameWithType.vb: AtomicTypeBase(Of T).Addition(AtomicTypeBase(Of T), Int64)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Addition*
+  name: Addition
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Addition_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Addition
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Addition
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Addition
+  nameWithType: AtomicTypeBase<T>.Addition
+  nameWithType.vb: AtomicTypeBase(Of T).Addition
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Decrement(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name: Decrement(AtomicTypeBase<T>)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Decrement_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Decrement(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name.vb: Decrement(AtomicTypeBase(Of T))
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Decrement(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Decrement(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T))
+  nameWithType: AtomicTypeBase<T>.Decrement(AtomicTypeBase<T>)
+  nameWithType.vb: AtomicTypeBase(Of T).Decrement(AtomicTypeBase(Of T))
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Decrement*
+  name: Decrement
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Decrement_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Decrement
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Decrement
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Decrement
+  nameWithType: AtomicTypeBase<T>.Decrement
+  nameWithType.vb: AtomicTypeBase(Of T).Decrement
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Equality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name: Equality(AtomicTypeBase<T>, T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Equality_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0___0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Equality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name.vb: Equality(AtomicTypeBase(Of T), T)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Equality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Equality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), T)
+  nameWithType: AtomicTypeBase<T>.Equality(AtomicTypeBase<T>, T)
+  nameWithType.vb: AtomicTypeBase(Of T).Equality(AtomicTypeBase(Of T), T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Equality*
+  name: Equality
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Equality_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Equality
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Equality
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Equality
+  nameWithType: AtomicTypeBase<T>.Equality
+  nameWithType.vb: AtomicTypeBase(Of T).Equality
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name: GreaterThan(AtomicTypeBase<T>, T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_GreaterThan_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0___0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name.vb: GreaterThan(AtomicTypeBase(Of T), T)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.GreaterThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).GreaterThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), T)
+  nameWithType: AtomicTypeBase<T>.GreaterThan(AtomicTypeBase<T>, T)
+  nameWithType.vb: AtomicTypeBase(Of T).GreaterThan(AtomicTypeBase(Of T), T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThan*
+  name: GreaterThan
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_GreaterThan_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThan
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.GreaterThan
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).GreaterThan
+  nameWithType: AtomicTypeBase<T>.GreaterThan
+  nameWithType.vb: AtomicTypeBase(Of T).GreaterThan
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name: GreaterThanOrEqual(AtomicTypeBase<T>, T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_GreaterThanOrEqual_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0___0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name.vb: GreaterThanOrEqual(AtomicTypeBase(Of T), T)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.GreaterThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).GreaterThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), T)
+  nameWithType: AtomicTypeBase<T>.GreaterThanOrEqual(AtomicTypeBase<T>, T)
+  nameWithType.vb: AtomicTypeBase(Of T).GreaterThanOrEqual(AtomicTypeBase(Of T), T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThanOrEqual*
+  name: GreaterThanOrEqual
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_GreaterThanOrEqual_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_GreaterThanOrEqual
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.GreaterThanOrEqual
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).GreaterThanOrEqual
+  nameWithType: AtomicTypeBase<T>.GreaterThanOrEqual
+  nameWithType.vb: AtomicTypeBase(Of T).GreaterThanOrEqual
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Increment(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name: Increment(AtomicTypeBase<T>)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Increment_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Increment(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0})
+  name.vb: Increment(AtomicTypeBase(Of T))
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Increment(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Increment(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T))
+  nameWithType: AtomicTypeBase<T>.Increment(AtomicTypeBase<T>)
+  nameWithType.vb: AtomicTypeBase(Of T).Increment(AtomicTypeBase(Of T))
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Increment*
+  name: Increment
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Increment_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Increment
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Increment
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Increment
+  nameWithType: AtomicTypeBase<T>.Increment
+  nameWithType.vb: AtomicTypeBase(Of T).Increment
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Inequality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name: Inequality(AtomicTypeBase<T>, T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Inequality_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0___0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Inequality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name.vb: Inequality(AtomicTypeBase(Of T), T)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Inequality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Inequality(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), T)
+  nameWithType: AtomicTypeBase<T>.Inequality(AtomicTypeBase<T>, T)
+  nameWithType.vb: AtomicTypeBase(Of T).Inequality(AtomicTypeBase(Of T), T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Inequality*
+  name: Inequality
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Inequality_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Inequality
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Inequality
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Inequality
+  nameWithType: AtomicTypeBase<T>.Inequality
+  nameWithType.vb: AtomicTypeBase(Of T).Inequality
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name: LessThan(AtomicTypeBase<T>, T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_LessThan_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0___0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name.vb: LessThan(AtomicTypeBase(Of T), T)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.LessThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).LessThan(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), T)
+  nameWithType: AtomicTypeBase<T>.LessThan(AtomicTypeBase<T>, T)
+  nameWithType.vb: AtomicTypeBase(Of T).LessThan(AtomicTypeBase(Of T), T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThan*
+  name: LessThan
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_LessThan_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThan
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.LessThan
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).LessThan
+  nameWithType: AtomicTypeBase<T>.LessThan
+  nameWithType.vb: AtomicTypeBase(Of T).LessThan
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name: LessThanOrEqual(AtomicTypeBase<T>, T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_LessThanOrEqual_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0___0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},`0)
+  name.vb: LessThanOrEqual(AtomicTypeBase(Of T), T)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.LessThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).LessThanOrEqual(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), T)
+  nameWithType: AtomicTypeBase<T>.LessThanOrEqual(AtomicTypeBase<T>, T)
+  nameWithType.vb: AtomicTypeBase(Of T).LessThanOrEqual(AtomicTypeBase(Of T), T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThanOrEqual*
+  name: LessThanOrEqual
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_LessThanOrEqual_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_LessThanOrEqual
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.LessThanOrEqual
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).LessThanOrEqual
+  nameWithType: AtomicTypeBase<T>.LessThanOrEqual
+  nameWithType.vb: AtomicTypeBase(Of T).LessThanOrEqual
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Subtraction(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},System.Int64)
+  name: Subtraction(AtomicTypeBase<T>, Int64)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Subtraction_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__System_Int64_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Subtraction(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase{`0},System.Int64)
+  name.vb: Subtraction(AtomicTypeBase(Of T), Int64)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Subtraction(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>, System.Int64)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Subtraction(Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T), System.Int64)
+  nameWithType: AtomicTypeBase<T>.Subtraction(AtomicTypeBase<T>, Int64)
+  nameWithType.vb: AtomicTypeBase(Of T).Subtraction(AtomicTypeBase(Of T), Int64)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Subtraction*
+  name: Subtraction
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_op_Subtraction_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.op_Subtraction
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Subtraction
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Subtraction
+  nameWithType: AtomicTypeBase<T>.Subtraction
+  nameWithType.vb: AtomicTypeBase(Of T).Subtraction
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.ToLong(`0)
+  name: ToLong(T)
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_ToLong__0_
+  commentId: M:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.ToLong(`0)
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.ToLong(T)
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).ToLong(T)
+  nameWithType: AtomicTypeBase<T>.ToLong(T)
+  nameWithType.vb: AtomicTypeBase(Of T).ToLong(T)
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.ToLong*
+  name: ToLong
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_ToLong_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.ToLong
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.ToLong
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).ToLong
+  nameWithType: AtomicTypeBase<T>.ToLong
+  nameWithType.vb: AtomicTypeBase(Of T).ToLong
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Value
+  name: Value
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Value
+  commentId: P:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Value
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Value
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Value
+  nameWithType: AtomicTypeBase<T>.Value
+  nameWithType.vb: AtomicTypeBase(Of T).Value
+- uid: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Value*
+  name: Value
+  href: api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Value_
+  commentId: Overload:Unosquare.Swan.Lite.Abstractions.AtomicTypeBase`1.Value
+  fullName: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase<T>.Value
+  fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Value
+  nameWithType: AtomicTypeBase<T>.Value
+  nameWithType.vb: AtomicTypeBase(Of T).Value
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html

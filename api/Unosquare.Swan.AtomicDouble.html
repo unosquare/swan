@@ -90,24 +90,54 @@ Idea taken from Memory model and .NET operations in article:
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">AtomicDouble</span></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;<span class="xref">System.Double</span>&gt;</div>
+    <div class="level2"><span class="xref">AtomicDouble</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.IComparable</span></div>
+    <div><span class="xref">System.IComparable</span>&lt;<span class="xref">System.Double</span>&gt;</div>
+    <div><span class="xref">System.IComparable</span>&lt;<a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;<span class="xref">System.Double</span>&gt;&gt;</div>
+    <div><span class="xref">System.IEquatable</span>&lt;<span class="xref">System.Double</span>&gt;</div>
+    <div><span class="xref">System.IEquatable</span>&lt;<a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html">AtomicTypeBase</a>&lt;<span class="xref">System.Double</span>&gt;&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Value">AtomicTypeBase&lt;Double&gt;.Value</a>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_BackingValue">AtomicTypeBase&lt;Double&gt;.BackingValue</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_CompareTo_System_Object_">AtomicTypeBase&lt;Double&gt;.CompareTo(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_CompareTo__0_">AtomicTypeBase&lt;Double&gt;.CompareTo(Double)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_CompareTo_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__">AtomicTypeBase&lt;Double&gt;.CompareTo(AtomicTypeBase&lt;Double&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Equals_System_Object_">AtomicTypeBase&lt;Double&gt;.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_GetHashCode">AtomicTypeBase&lt;Double&gt;.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Equals_Unosquare_Swan_Lite_Abstractions_AtomicTypeBase__0__">AtomicTypeBase&lt;Double&gt;.Equals(AtomicTypeBase&lt;Double&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html#Unosquare_Swan_Lite_Abstractions_AtomicTypeBase_1_Equals__0_">AtomicTypeBase&lt;Double&gt;.Equals(Double)</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
     </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
     </div>
     <div>
       <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
     </div>
     <div>
       <span class="xref">System.Object.GetType()</span>
@@ -119,7 +149,7 @@ Idea taken from Memory model and .NET operations in article:
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.html">Unosquare.Swan</a></h6>
   <h5 id="Unosquare_Swan_AtomicDouble_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class AtomicDouble</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class AtomicDouble : AtomicTypeBase&lt;double&gt;, IComparable, IComparable&lt;double&gt;, IComparable&lt;AtomicTypeBase&lt;double&gt;&gt;, IEquatable&lt;double&gt;, IEquatable&lt;AtomicTypeBase&lt;double&gt;&gt;</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -147,25 +177,41 @@ Idea taken from Memory model and .NET operations in article:
       <tr>
         <td><span class="xref">System.Double</span></td>
         <td><span class="parametername">initialValue</span></td>
-        <td><p>The initial value.</p>
+        <td><p>if set to <code>true</code> [initial value].</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
+  <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Unosquare_Swan_AtomicDouble_Value_" data-uid="Unosquare.Swan.AtomicDouble.Value*"></a>
-  <h4 id="Unosquare_Swan_AtomicDouble_Value" data-uid="Unosquare.Swan.AtomicDouble.Value">Value</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the latest value written by any of the processors in the machine</p>
-</div>
+  <a id="Unosquare_Swan_AtomicDouble_FromLong_" data-uid="Unosquare.Swan.AtomicDouble.FromLong*"></a>
+  <h4 id="Unosquare_Swan_AtomicDouble_FromLong_System_Int64_" data-uid="Unosquare.Swan.AtomicDouble.FromLong(System.Int64)">FromLong(Int64)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public double Value { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">protected override double FromLong(long backingValue)</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">backingValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -180,18 +226,17 @@ Idea taken from Memory model and .NET operations in article:
       </tr>
     </tbody>
   </table>
-  <h3 id="operators">Operators
-  </h3>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Unosquare.Swan.Lite.Abstractions.AtomicTypeBase&lt;System.Double&gt;.FromLong(System.Int64)</span></div>
   
   
-  <a id="Unosquare_Swan_AtomicDouble_op_Decrement_" data-uid="Unosquare.Swan.AtomicDouble.op_Decrement*"></a>
-  <h4 id="Unosquare_Swan_AtomicDouble_op_Decrement_Unosquare_Swan_AtomicDouble_" data-uid="Unosquare.Swan.AtomicDouble.op_Decrement(Unosquare.Swan.AtomicDouble)">Decrement(AtomicDouble)</h4>
-  <div class="markdown level1 summary"><p>Implements the operator --.</p>
-</div>
+  <a id="Unosquare_Swan_AtomicDouble_ToLong_" data-uid="Unosquare.Swan.AtomicDouble.ToLong*"></a>
+  <h4 id="Unosquare_Swan_AtomicDouble_ToLong_System_Double_" data-uid="Unosquare.Swan.AtomicDouble.ToLong(System.Double)">ToLong(Double)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static AtomicDouble operator --(AtomicDouble instance)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override long ToLong(double value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -204,10 +249,9 @@ Idea taken from Memory model and .NET operations in article:
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.AtomicDouble.html">AtomicDouble</a></td>
-        <td><span class="parametername">instance</span></td>
-        <td><p>The instance.</p>
-</td>
+        <td><span class="xref">System.Double</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -221,57 +265,29 @@ Idea taken from Memory model and .NET operations in article:
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.AtomicDouble.html">AtomicDouble</a></td>
-        <td><p>The result of the operator.</p>
-</td>
+        <td><span class="xref">System.Int64</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Unosquare_Swan_AtomicDouble_op_Increment_" data-uid="Unosquare.Swan.AtomicDouble.op_Increment*"></a>
-  <h4 id="Unosquare_Swan_AtomicDouble_op_Increment_Unosquare_Swan_AtomicDouble_" data-uid="Unosquare.Swan.AtomicDouble.op_Increment(Unosquare.Swan.AtomicDouble)">Increment(AtomicDouble)</h4>
-  <div class="markdown level1 summary"><p>Implements the operator ++.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static AtomicDouble operator ++(AtomicDouble instance)</code></pre>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Unosquare.Swan.Lite.Abstractions.AtomicTypeBase&lt;System.Double&gt;.ToLong(System.Double)</span></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.IComparable</span>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.AtomicDouble.html">AtomicDouble</a></td>
-        <td><span class="parametername">instance</span></td>
-        <td><p>The instance.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.Swan.AtomicDouble.html">AtomicDouble</a></td>
-        <td><p>The result of the operator.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+      <span class="xref">System.IComparable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.IComparable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.IEquatable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.IEquatable&lt;T&gt;</span>
+  </div>
 <div id="disqus_thread"></div>
 <script>
 

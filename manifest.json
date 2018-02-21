@@ -183,7 +183,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.AtomicBoolean.html",
-          "hash": "kLud4NgGMpr1NrE2G30UvA=="
+          "hash": "PiKOmJ5nRvmBbXLr54O4uA=="
         }
       },
       "is_incremental": false,
@@ -195,7 +195,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.AtomicDouble.html",
-          "hash": "/wiy9Utte9BAHtBwgj6R6w=="
+          "hash": "8JVuPEE3MYfq5ViCU70AfQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.AtomicInteger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.AtomicInteger.html",
+          "hash": "qb2P/UuJDSXvxDMTZyrggA=="
         }
       },
       "is_incremental": false,
@@ -207,7 +219,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.AtomicLong.html",
-          "hash": "CnWamIvRntotmYYKZtYD9w=="
+          "hash": "kaZrVN70uTWptH6rSbGZCA=="
         }
       },
       "is_incremental": false,
@@ -1043,6 +1055,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Abstractions.AtomicTypeBase-1.html",
+          "hash": "TtsSxgVl5m7FxL0EYa44sg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Abstractions.html",
+          "hash": "SJ0OK7xwj3uubo/j2bUL9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.LogMessageDisplayingEventArgs.yml",
       "output": {
         ".html": {
@@ -1707,7 +1743,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "dq8RGjosvjbf3F/Or2ze1Q=="
+          "hash": "lQMtElYNvMt2Akw44Fww5g=="
         }
       },
       "is_incremental": false,
@@ -1719,7 +1755,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "KPtw2niEgYQPEtzS/sTeuw=="
+          "hash": "bOl14FtX0ndjqow+Dl39qw=="
         }
       },
       "is_incremental": false,
@@ -1769,11 +1805,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
