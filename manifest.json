@@ -1079,6 +1079,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.ObjectValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.ObjectValidator.html",
+          "hash": "YF7C58zii7ZrxuyW1MAa7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.html",
+          "hash": "9bVnRRRIIRbEBjq32qsYtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.LogMessageDisplayingEventArgs.yml",
       "output": {
         ".html": {
@@ -1755,7 +1779,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "bOl14FtX0ndjqow+Dl39qw=="
+          "hash": "85LxrhI1hubSW9ryC9R+Zw=="
         }
       },
       "is_incremental": false,

@@ -5621,6 +5621,48 @@ references:
   fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Value
   nameWithType: AtomicTypeBase<T>.Value
   nameWithType.vb: AtomicTypeBase(Of T).Value
+- uid: Unosquare.Swan.Lite.Components
+  name: Unosquare.Swan.Lite.Components
+  href: api/Unosquare.Swan.Lite.Components.html
+  commentId: N:Unosquare.Swan.Lite.Components
+  fullName: Unosquare.Swan.Lite.Components
+  nameWithType: Unosquare.Swan.Lite.Components
+- uid: Unosquare.Swan.Lite.Components.ObjectValidator
+  name: ObjectValidator
+  href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html
+  commentId: T:Unosquare.Swan.Lite.Components.ObjectValidator
+  fullName: Unosquare.Swan.Lite.Components.ObjectValidator
+  nameWithType: ObjectValidator
+- uid: Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator*
+  name: AddValidator
+  href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html#Unosquare_Swan_Lite_Components_ObjectValidator_AddValidator_
+  commentId: Overload:Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator
+  fullName: Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator
+  nameWithType: ObjectValidator.AddValidator
+- uid: Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator``1(System.Predicate{``0})
+  name: AddValidator<T>(Predicate<T>)
+  href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html#Unosquare_Swan_Lite_Components_ObjectValidator_AddValidator__1_System_Predicate___0__
+  commentId: M:Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator``1(System.Predicate{``0})
+  name.vb: AddValidator(Of T)(Predicate(Of T))
+  fullName: Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator<T>(System.Predicate<T>)
+  fullName.vb: Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator(Of T)(System.Predicate(Of T))
+  nameWithType: ObjectValidator.AddValidator<T>(Predicate<T>)
+  nameWithType.vb: ObjectValidator.AddValidator(Of T)(Predicate(Of T))
+- uid: Unosquare.Swan.Lite.Components.ObjectValidator.Validate*
+  name: Validate
+  href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html#Unosquare_Swan_Lite_Components_ObjectValidator_Validate_
+  commentId: Overload:Unosquare.Swan.Lite.Components.ObjectValidator.Validate
+  fullName: Unosquare.Swan.Lite.Components.ObjectValidator.Validate
+  nameWithType: ObjectValidator.Validate
+- uid: Unosquare.Swan.Lite.Components.ObjectValidator.Validate``1(``0)
+  name: Validate<T>(T)
+  href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html#Unosquare_Swan_Lite_Components_ObjectValidator_Validate__1___0_
+  commentId: M:Unosquare.Swan.Lite.Components.ObjectValidator.Validate``1(``0)
+  name.vb: Validate(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Components.ObjectValidator.Validate<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Components.ObjectValidator.Validate(Of T)(T)
+  nameWithType: ObjectValidator.Validate<T>(T)
+  nameWithType.vb: ObjectValidator.Validate(Of T)(T)
 - uid: Unosquare.Swan.LogMessageDisplayingEventArgs
   name: LogMessageDisplayingEventArgs
   href: api/Unosquare.Swan.LogMessageDisplayingEventArgs.html
