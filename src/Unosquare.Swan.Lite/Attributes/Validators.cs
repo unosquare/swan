@@ -6,10 +6,16 @@
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Validator interface
+    /// A simple Validator interface
     /// </summary>
     public interface IValidator
     {
+        /// <summary>
+        /// Checks if a value is valid
+        /// </summary>
+        /// <typeparam name="T">The type</typeparam>
+        /// <param name="value"> The value</param>
+        /// <returns>True if it is valid.False if it is not</returns>
         bool IsValid<T>(T value);
     }
     
@@ -19,15 +25,20 @@
     public class MatchAttribute : Attribute, IValidator
     {
         /// <summary>
-        /// the string regex used to find a match
+        /// The string regex used to find a match
         /// </summary>
         public string Expression { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchAttribute"/> class.
+        /// </summary>
+        /// <param name="rgx"> A regex string</param>
         public MatchAttribute(string rgx)
         {
             Expression = rgx?? throw new ArgumentNullException(nameof(Expression));
         }
 
+        /// <inheritdoc/>
         public bool IsValid<T>(T value) 
         {
             if (!(value is string))
@@ -58,6 +69,7 @@
     /// </summary>
     public class NotNullAttribute : Attribute, IValidator
     {
+        /// <inheritdoc/>
         public bool IsValid<T>(T value)
         {
             if (typeof(T).IsValueType())
@@ -67,11 +79,32 @@
         }
     }
 
+    /// <summary>
+    /// A range constraint validator
+    /// </summary>
     public class RangeAttribute : Attribute, IValidator
     {
+        /// <summary>
+        /// Maximum value for the range
+        /// </summary>
         public object Maximum { get; }
+
+        /// <summary>
+        /// Minimum value for the range
+        /// </summary>
         public object Minimum { get; }
+
+        /// <summary>
+        ///  Gets the type of the <see cref="Minimum"/> and <see cref="Maximum"/> values
+        /// </summary>
         public Type OperandType { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
+        /// Constructor that takes integer minimum and maximum values
+        /// </summary>
+        /// <param name="min">The minimum value</param>
+        /// <param name="max">The maximum value</param>
         public RangeAttribute(int min, int max)
         {
             this.Maximum = max;
@@ -79,6 +112,12 @@
             this.OperandType = typeof(int);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
+        /// Constructor that takes double minimum and maximum values
+        /// </summary>
+        /// <param name="min">The minimum value</param>
+        /// <param name="max">The maximum value</param>
         public RangeAttribute(double min, double max)
         {
             this.Maximum = max;
@@ -86,6 +125,7 @@
             this.OperandType = typeof(double);
         }
 
+        /// <inheritdoc/>
         public bool IsValid<T>(T value)
         {
             if (Equals(value, null))
