@@ -10867,6 +10867,18 @@ references:
   commentId: Overload:Unosquare.Swan.Runtime.ObjectMapper
   fullName: Unosquare.Swan.Runtime.ObjectMapper
   nameWithType: Runtime.ObjectMapper
+- uid: Unosquare.Swan.Runtime.ObjectValidator
+  name: ObjectValidator
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_ObjectValidator
+  commentId: P:Unosquare.Swan.Runtime.ObjectValidator
+  fullName: Unosquare.Swan.Runtime.ObjectValidator
+  nameWithType: Runtime.ObjectValidator
+- uid: Unosquare.Swan.Runtime.ObjectValidator*
+  name: ObjectValidator
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_ObjectValidator_
+  commentId: Overload:Unosquare.Swan.Runtime.ObjectValidator
+  fullName: Unosquare.Swan.Runtime.ObjectValidator
+  nameWithType: Runtime.ObjectValidator
 - uid: Unosquare.Swan.Runtime.OS
   name: OS
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_OS
