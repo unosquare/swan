@@ -4,18 +4,22 @@
 
     public class SimpleValidationMock
     {
-        [Email]
         public string Name { get; set; }
         public int Age { get; set; }
     }
 
-    public class AttributeValidatorMock
+    public class NotNullMock
     {
         [NotNull]
+        public int? Number { get; set; }
+    }
+
+    public class RangeMock
+    {
         [Range(1, 10)]
         public int Age { get; set; }
 
-        [Range(1.2, 5.5)]
-        public string Temperature { get; set; }
+        [Range(0.2, 1)]
+        public double Kilograms { get; set; }
     }
 }

@@ -107,6 +107,9 @@
         /// <param name="max">The maximum value</param>
         public RangeAttribute(int min, int max)
         {
+            if (min >= max)
+                throw new InvalidOperationException("Maximum value must be greater than minimum");
+
             this.Maximum = max;
             this.Minimum = min;
             this.OperandType = typeof(int);
@@ -120,6 +123,9 @@
         /// <param name="max">The maximum value</param>
         public RangeAttribute(double min, double max)
         {
+            if (min >= max)
+                throw new InvalidOperationException("Maximum value must be greater than minimum");
+
             this.Maximum = max;
             this.Minimum = min;
             this.OperandType = typeof(double);

@@ -48,4 +48,40 @@
             Assert.Throws<ArgumentNullException>(() => ObjectValidator.IsValid(null as SimpleValidationMock));            
         }
     }
+
+    [TestFixture]
+    public class NotNullAttribute
+    {
+        [Test]
+        public void NullProperty_ReturnsFalse()
+        {
+            var res = ObjectValidator.IsValid(new NotNullMock());
+            Assert.IsFalse(res);
+        }
+
+        [Test]
+        public void NotNullProperty_ReturnsTrue()
+        {
+            var res = ObjectValidator.IsValid(new NotNullMock { Number = 12});
+            Assert.IsTrue(res);
+        }
+    }
+
+    [TestFixture]
+    public class RangeAttribute
+    {
+        [Test]
+        public void ValueWithinRange_ReturnsTrue()
+        {
+            var res = ObjectValidator.IsValid(new RangeMock { Age = 5 , Kilograms = 0.5});
+            Assert.IsTrue(res);
+        }
+
+        [Test]
+        public void ValueOutsideRange_ReturnsFalse()
+        {
+            var res = ObjectValidator.IsValid(new RangeMock { Age = 0 });
+            Assert.IsFalse(res);
+        }
+    }
 }
