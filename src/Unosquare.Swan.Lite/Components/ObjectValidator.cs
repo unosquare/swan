@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Unosquare.Swan.Lite.Attributes;
     using Unosquare.Swan.Reflection;
+    using System.Reflection;
 
     /// <summary>
     /// Represents an object validator 
@@ -25,8 +26,8 @@
                 PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)));
 
             foreach (var pi in properties)
-            {
-                foreach (var attribute in pi.GetCustomAttributes(typeof(IValidator), true))
+            {   
+                foreach (var attribute in pi.PropertyType.GetTypeInfo().GetCustomAttributes(typeof(IValidator), true))
                 {
                     var val = (IValidator)attribute;
 
