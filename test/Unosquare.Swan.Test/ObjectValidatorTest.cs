@@ -47,12 +47,5 @@
         {
             Assert.Throws<ArgumentNullException>(() => ObjectValidator.IsValid(null as SimpleValidationMock));            
         }
-
-        [Test]
-        public void sdasdasd()
-        {
-            var res = ObjectValidator.IsValid(new AttributeValidatorMock { Age= 10 , Temperature = "he"});
-            Assert.IsTrue(res);
-        }
     }
 }
