@@ -1079,11 +1079,71 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Attributes.EmailAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Attributes.EmailAttribute.html",
+          "hash": "wKm3Im+QhU3LuzH880feuQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Attributes.IValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Attributes.IValidator.html",
+          "hash": "MlyoKvYr7aQY7LD9uFpMdA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Attributes.MatchAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html",
+          "hash": "24wLkTsoz0FHFOqu4zhrPQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html",
+          "hash": "aWAtEQ8HAX1tjaVoQa23AA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Attributes.html",
+          "hash": "gK4LwTu5WbHWt1imEPku1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.ObjectValidator.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Lite.Components.ObjectValidator.html",
-          "hash": "YF7C58zii7ZrxuyW1MAa7Q=="
+          "hash": "jYC4z6mZxt1f3dCFOTcB5g=="
         }
       },
       "is_incremental": false,
@@ -1779,7 +1839,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "85LxrhI1hubSW9ryC9R+Zw=="
+          "hash": "Nrcxeduz4r9AiBkSHQl0qA=="
         }
       },
       "is_incremental": false,
@@ -1829,22 +1889,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

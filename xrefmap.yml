@@ -5621,6 +5621,117 @@ references:
   fullName.vb: Unosquare.Swan.Lite.Abstractions.AtomicTypeBase(Of T).Value
   nameWithType: AtomicTypeBase<T>.Value
   nameWithType.vb: AtomicTypeBase(Of T).Value
+- uid: Unosquare.Swan.Lite.Attributes
+  name: Unosquare.Swan.Lite.Attributes
+  href: api/Unosquare.Swan.Lite.Attributes.html
+  commentId: N:Unosquare.Swan.Lite.Attributes
+  fullName: Unosquare.Swan.Lite.Attributes
+  nameWithType: Unosquare.Swan.Lite.Attributes
+- uid: Unosquare.Swan.Lite.Attributes.EmailAttribute
+  name: EmailAttribute
+  href: api/Unosquare.Swan.Lite.Attributes.EmailAttribute.html
+  commentId: T:Unosquare.Swan.Lite.Attributes.EmailAttribute
+  fullName: Unosquare.Swan.Lite.Attributes.EmailAttribute
+  nameWithType: EmailAttribute
+- uid: Unosquare.Swan.Lite.Attributes.EmailAttribute.#ctor
+  name: EmailAttribute()
+  href: api/Unosquare.Swan.Lite.Attributes.EmailAttribute.html#Unosquare_Swan_Lite_Attributes_EmailAttribute__ctor
+  commentId: M:Unosquare.Swan.Lite.Attributes.EmailAttribute.#ctor
+  fullName: Unosquare.Swan.Lite.Attributes.EmailAttribute.EmailAttribute()
+  nameWithType: EmailAttribute.EmailAttribute()
+- uid: Unosquare.Swan.Lite.Attributes.EmailAttribute.#ctor*
+  name: EmailAttribute
+  href: api/Unosquare.Swan.Lite.Attributes.EmailAttribute.html#Unosquare_Swan_Lite_Attributes_EmailAttribute__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.EmailAttribute.#ctor
+  fullName: Unosquare.Swan.Lite.Attributes.EmailAttribute.EmailAttribute
+  nameWithType: EmailAttribute.EmailAttribute
+- uid: Unosquare.Swan.Lite.Attributes.IValidator
+  name: IValidator
+  href: api/Unosquare.Swan.Lite.Attributes.IValidator.html
+  commentId: T:Unosquare.Swan.Lite.Attributes.IValidator
+  fullName: Unosquare.Swan.Lite.Attributes.IValidator
+  nameWithType: IValidator
+- uid: Unosquare.Swan.Lite.Attributes.IValidator.Validate*
+  name: Validate
+  href: api/Unosquare.Swan.Lite.Attributes.IValidator.html#Unosquare_Swan_Lite_Attributes_IValidator_Validate_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.IValidator.Validate
+  fullName: Unosquare.Swan.Lite.Attributes.IValidator.Validate
+  nameWithType: IValidator.Validate
+- uid: Unosquare.Swan.Lite.Attributes.IValidator.Validate``1(``0)
+  name: Validate<T>(T)
+  href: api/Unosquare.Swan.Lite.Attributes.IValidator.html#Unosquare_Swan_Lite_Attributes_IValidator_Validate__1___0_
+  commentId: M:Unosquare.Swan.Lite.Attributes.IValidator.Validate``1(``0)
+  name.vb: Validate(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Attributes.IValidator.Validate<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Attributes.IValidator.Validate(Of T)(T)
+  nameWithType: IValidator.Validate<T>(T)
+  nameWithType.vb: IValidator.Validate(Of T)(T)
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute
+  name: MatchAttribute
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html
+  commentId: T:Unosquare.Swan.Lite.Attributes.MatchAttribute
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute
+  nameWithType: MatchAttribute
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.#ctor(System.String)
+  name: MatchAttribute(String)
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute__ctor_System_String_
+  commentId: M:Unosquare.Swan.Lite.Attributes.MatchAttribute.#ctor(System.String)
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.MatchAttribute(System.String)
+  nameWithType: MatchAttribute.MatchAttribute(String)
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.#ctor*
+  name: MatchAttribute
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.MatchAttribute.#ctor
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.MatchAttribute
+  nameWithType: MatchAttribute.MatchAttribute
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression
+  name: Expression
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_Expression
+  commentId: P:Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression
+  nameWithType: MatchAttribute.Expression
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression*
+  name: Expression
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_Expression_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression
+  nameWithType: MatchAttribute.Expression
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate*
+  name: Validate
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_Validate_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate
+  nameWithType: MatchAttribute.Validate
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate``1(``0)
+  name: Validate<T>(T)
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_Validate__1___0_
+  commentId: M:Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate``1(``0)
+  name.vb: Validate(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate(Of T)(T)
+  nameWithType: MatchAttribute.Validate<T>(T)
+  nameWithType.vb: MatchAttribute.Validate(Of T)(T)
+- uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute
+  name: NotNullAttribute
+  href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html
+  commentId: T:Unosquare.Swan.Lite.Attributes.NotNullAttribute
+  fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute
+  nameWithType: NotNullAttribute
+- uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate*
+  name: Validate
+  href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html#Unosquare_Swan_Lite_Attributes_NotNullAttribute_Validate_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate
+  fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate
+  nameWithType: NotNullAttribute.Validate
+- uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate``1(``0)
+  name: Validate<T>(T)
+  href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html#Unosquare_Swan_Lite_Attributes_NotNullAttribute_Validate__1___0_
+  commentId: M:Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate``1(``0)
+  name.vb: Validate(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate(Of T)(T)
+  nameWithType: NotNullAttribute.Validate<T>(T)
+  nameWithType.vb: NotNullAttribute.Validate(Of T)(T)
 - uid: Unosquare.Swan.Lite.Components
   name: Unosquare.Swan.Lite.Components
   href: api/Unosquare.Swan.Lite.Components.html
@@ -5648,6 +5759,21 @@ references:
   fullName.vb: Unosquare.Swan.Lite.Components.ObjectValidator.AddValidator(Of T)(System.Predicate(Of T))
   nameWithType: ObjectValidator.AddValidator<T>(Predicate<T>)
   nameWithType.vb: ObjectValidator.AddValidator(Of T)(Predicate(Of T))
+- uid: Unosquare.Swan.Lite.Components.ObjectValidator.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html#Unosquare_Swan_Lite_Components_ObjectValidator_IsValid_
+  commentId: Overload:Unosquare.Swan.Lite.Components.ObjectValidator.IsValid
+  fullName: Unosquare.Swan.Lite.Components.ObjectValidator.IsValid
+  nameWithType: ObjectValidator.IsValid
+- uid: Unosquare.Swan.Lite.Components.ObjectValidator.IsValid``1(``0)
+  name: IsValid<T>(T)
+  href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html#Unosquare_Swan_Lite_Components_ObjectValidator_IsValid__1___0_
+  commentId: M:Unosquare.Swan.Lite.Components.ObjectValidator.IsValid``1(``0)
+  name.vb: IsValid(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Components.ObjectValidator.IsValid<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Components.ObjectValidator.IsValid(Of T)(T)
+  nameWithType: ObjectValidator.IsValid<T>(T)
+  nameWithType.vb: ObjectValidator.IsValid(Of T)(T)
 - uid: Unosquare.Swan.Lite.Components.ObjectValidator.Validate*
   name: Validate
   href: api/Unosquare.Swan.Lite.Components.ObjectValidator.html#Unosquare_Swan_Lite_Components_ObjectValidator_Validate_
