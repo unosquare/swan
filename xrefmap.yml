@@ -5651,21 +5651,21 @@ references:
   commentId: T:Unosquare.Swan.Lite.Attributes.IValidator
   fullName: Unosquare.Swan.Lite.Attributes.IValidator
   nameWithType: IValidator
-- uid: Unosquare.Swan.Lite.Attributes.IValidator.Validate*
-  name: Validate
-  href: api/Unosquare.Swan.Lite.Attributes.IValidator.html#Unosquare_Swan_Lite_Attributes_IValidator_Validate_
-  commentId: Overload:Unosquare.Swan.Lite.Attributes.IValidator.Validate
-  fullName: Unosquare.Swan.Lite.Attributes.IValidator.Validate
-  nameWithType: IValidator.Validate
-- uid: Unosquare.Swan.Lite.Attributes.IValidator.Validate``1(``0)
-  name: Validate<T>(T)
-  href: api/Unosquare.Swan.Lite.Attributes.IValidator.html#Unosquare_Swan_Lite_Attributes_IValidator_Validate__1___0_
-  commentId: M:Unosquare.Swan.Lite.Attributes.IValidator.Validate``1(``0)
-  name.vb: Validate(Of T)(T)
-  fullName: Unosquare.Swan.Lite.Attributes.IValidator.Validate<T>(T)
-  fullName.vb: Unosquare.Swan.Lite.Attributes.IValidator.Validate(Of T)(T)
-  nameWithType: IValidator.Validate<T>(T)
-  nameWithType.vb: IValidator.Validate(Of T)(T)
+- uid: Unosquare.Swan.Lite.Attributes.IValidator.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Lite.Attributes.IValidator.html#Unosquare_Swan_Lite_Attributes_IValidator_IsValid_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.IValidator.IsValid
+  fullName: Unosquare.Swan.Lite.Attributes.IValidator.IsValid
+  nameWithType: IValidator.IsValid
+- uid: Unosquare.Swan.Lite.Attributes.IValidator.IsValid``1(``0)
+  name: IsValid<T>(T)
+  href: api/Unosquare.Swan.Lite.Attributes.IValidator.html#Unosquare_Swan_Lite_Attributes_IValidator_IsValid__1___0_
+  commentId: M:Unosquare.Swan.Lite.Attributes.IValidator.IsValid``1(``0)
+  name.vb: IsValid(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Attributes.IValidator.IsValid<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Attributes.IValidator.IsValid(Of T)(T)
+  nameWithType: IValidator.IsValid<T>(T)
+  nameWithType.vb: IValidator.IsValid(Of T)(T)
 - uid: Unosquare.Swan.Lite.Attributes.MatchAttribute
   name: MatchAttribute
   href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html
@@ -5696,42 +5696,117 @@ references:
   commentId: Overload:Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression
   fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.Expression
   nameWithType: MatchAttribute.Expression
-- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate*
-  name: Validate
-  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_Validate_
-  commentId: Overload:Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate
-  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate
-  nameWithType: MatchAttribute.Validate
-- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate``1(``0)
-  name: Validate<T>(T)
-  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_Validate__1___0_
-  commentId: M:Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate``1(``0)
-  name.vb: Validate(Of T)(T)
-  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate<T>(T)
-  fullName.vb: Unosquare.Swan.Lite.Attributes.MatchAttribute.Validate(Of T)(T)
-  nameWithType: MatchAttribute.Validate<T>(T)
-  nameWithType.vb: MatchAttribute.Validate(Of T)(T)
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_IsValid_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.MatchAttribute.IsValid
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.IsValid
+  nameWithType: MatchAttribute.IsValid
+- uid: Unosquare.Swan.Lite.Attributes.MatchAttribute.IsValid``1(``0)
+  name: IsValid<T>(T)
+  href: api/Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_IsValid__1___0_
+  commentId: M:Unosquare.Swan.Lite.Attributes.MatchAttribute.IsValid``1(``0)
+  name.vb: IsValid(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Attributes.MatchAttribute.IsValid<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Attributes.MatchAttribute.IsValid(Of T)(T)
+  nameWithType: MatchAttribute.IsValid<T>(T)
+  nameWithType.vb: MatchAttribute.IsValid(Of T)(T)
 - uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute
   name: NotNullAttribute
   href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html
   commentId: T:Unosquare.Swan.Lite.Attributes.NotNullAttribute
   fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute
   nameWithType: NotNullAttribute
-- uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate*
-  name: Validate
-  href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html#Unosquare_Swan_Lite_Attributes_NotNullAttribute_Validate_
-  commentId: Overload:Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate
-  fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate
-  nameWithType: NotNullAttribute.Validate
-- uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate``1(``0)
-  name: Validate<T>(T)
-  href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html#Unosquare_Swan_Lite_Attributes_NotNullAttribute_Validate__1___0_
-  commentId: M:Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate``1(``0)
-  name.vb: Validate(Of T)(T)
-  fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate<T>(T)
-  fullName.vb: Unosquare.Swan.Lite.Attributes.NotNullAttribute.Validate(Of T)(T)
-  nameWithType: NotNullAttribute.Validate<T>(T)
-  nameWithType.vb: NotNullAttribute.Validate(Of T)(T)
+- uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html#Unosquare_Swan_Lite_Attributes_NotNullAttribute_IsValid_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.NotNullAttribute.IsValid
+  fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute.IsValid
+  nameWithType: NotNullAttribute.IsValid
+- uid: Unosquare.Swan.Lite.Attributes.NotNullAttribute.IsValid``1(``0)
+  name: IsValid<T>(T)
+  href: api/Unosquare.Swan.Lite.Attributes.NotNullAttribute.html#Unosquare_Swan_Lite_Attributes_NotNullAttribute_IsValid__1___0_
+  commentId: M:Unosquare.Swan.Lite.Attributes.NotNullAttribute.IsValid``1(``0)
+  name.vb: IsValid(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Attributes.NotNullAttribute.IsValid<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Attributes.NotNullAttribute.IsValid(Of T)(T)
+  nameWithType: NotNullAttribute.IsValid<T>(T)
+  nameWithType.vb: NotNullAttribute.IsValid(Of T)(T)
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute
+  name: RangeAttribute
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html
+  commentId: T:Unosquare.Swan.Lite.Attributes.RangeAttribute
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute
+  nameWithType: RangeAttribute
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor(System.Double,System.Double)
+  name: RangeAttribute(Double, Double)
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute__ctor_System_Double_System_Double_
+  commentId: M:Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor(System.Double,System.Double)
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.RangeAttribute(System.Double, System.Double)
+  nameWithType: RangeAttribute.RangeAttribute(Double, Double)
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor(System.Int32,System.Int32)
+  name: RangeAttribute(Int32, Int32)
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute__ctor_System_Int32_System_Int32_
+  commentId: M:Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor(System.Int32,System.Int32)
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.RangeAttribute(System.Int32, System.Int32)
+  nameWithType: RangeAttribute.RangeAttribute(Int32, Int32)
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor*
+  name: RangeAttribute
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute__ctor_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.RangeAttribute
+  nameWithType: RangeAttribute.RangeAttribute
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_IsValid_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid
+  nameWithType: RangeAttribute.IsValid
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid``1(``0)
+  name: IsValid<T>(T)
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_IsValid__1___0_
+  commentId: M:Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid``1(``0)
+  name.vb: IsValid(Of T)(T)
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid<T>(T)
+  fullName.vb: Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid(Of T)(T)
+  nameWithType: RangeAttribute.IsValid<T>(T)
+  nameWithType.vb: RangeAttribute.IsValid(Of T)(T)
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum
+  name: Maximum
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_Maximum
+  commentId: P:Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum
+  nameWithType: RangeAttribute.Maximum
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum*
+  name: Maximum
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_Maximum_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum
+  nameWithType: RangeAttribute.Maximum
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum
+  name: Minimum
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_Minimum
+  commentId: P:Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum
+  nameWithType: RangeAttribute.Minimum
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum*
+  name: Minimum
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_Minimum_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum
+  nameWithType: RangeAttribute.Minimum
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType
+  name: OperandType
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_OperandType
+  commentId: P:Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType
+  nameWithType: RangeAttribute.OperandType
+- uid: Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType*
+  name: OperandType
+  href: api/Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_OperandType_
+  commentId: Overload:Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType
+  fullName: Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType
+  nameWithType: RangeAttribute.OperandType
 - uid: Unosquare.Swan.Lite.Components
   name: Unosquare.Swan.Lite.Components
   href: api/Unosquare.Swan.Lite.Components.html
