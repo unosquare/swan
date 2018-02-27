@@ -14,11 +14,11 @@
     /// <summary>
     /// Regex validator
     /// </summary>
-    public class Match : Attribute, IValidator
+    public class MatchAttribute : Attribute, IValidator
     {
         public string Expression { get; }
 
-        public Match(string rgx)
+        public MatchAttribute(string rgx)
         {
             Expression = rgx?? throw new ArgumentNullException(nameof(Expression));
         }
@@ -37,12 +37,12 @@
     /// <summary>
     /// Email validator
     /// </summary>
-    public class Email : Match
+    public class EmailAttribute : MatchAttribute
     {
         private static readonly string _emailRegExp = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                 @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
-        public Email()
+        public EmailAttribute()
             : base(_emailRegExp)
         {
         }
