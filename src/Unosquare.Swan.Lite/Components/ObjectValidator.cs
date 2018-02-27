@@ -15,7 +15,7 @@
             new Dictionary<Type, List<Delegate>>();
 
         /// <summary>
-        /// Check if an object is valid based on the custom validator attributes
+        /// Checks if an object is valid based on the custom validator attributes
         /// </summary>
         /// <typeparam name="T">The type of the object</typeparam>
         /// <param name="obj">The object</param>
@@ -30,11 +30,11 @@
 
             foreach (var pi in properties)
             {   
-                foreach (var attribute in pi.PropertyType.GetTypeInfo().GetCustomAttributes(typeof(IValidator), true))
+                foreach (var attribute in pi.GetCustomAttributes(typeof(IValidator), true))
                 {
                     var val = (IValidator)attribute;
 
-                    if (!val.Validate(pi.GetValue(obj, null)))
+                    if (!val.IsValid(pi.GetValue(obj, null)))
                         return false;
                 }
             }

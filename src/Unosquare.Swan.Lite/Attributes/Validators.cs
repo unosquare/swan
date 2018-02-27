@@ -1,6 +1,8 @@
 ﻿namespace Unosquare.Swan.Lite.Attributes
 {
     using System;
+    using System.ComponentModel;
+    using System.Globalization;
     using System.Text.RegularExpressions;
 
     /// <summary>
@@ -8,7 +10,7 @@
     /// </summary>
     public interface IValidator
     {
-        bool Validate<T>(T value);
+        bool IsValid<T>(T value);
     }
     
     /// <summary>
@@ -26,7 +28,7 @@
             Expression = rgx?? throw new ArgumentNullException(nameof(Expression));
         }
 
-        public bool Validate<T>(T value)
+        public bool IsValid<T>(T value) 
         {
             if (!(value is string))
             {
@@ -56,12 +58,58 @@
     /// </summary>
     public class NotNullAttribute : Attribute, IValidator
     {
-        public bool Validate<T>(T value)
+        public bool IsValid<T>(T value)
         {
             if (typeof(T).IsValueType())
                 return !default(T).Equals(value);
 
             return !Equals(null, value);
+        }
+    }
+
+    public class RangeAttribute : Attribute, IValidator
+    {
+        public object Maximum { get; }
+        public object Minimum { get; }
+        public Type OperandType { get; }
+        public RangeAttribute(int min, int max)
+        {
+            this.Maximum = max;
+            this.Minimum = min;
+            this.OperandType = typeof(int);
+        }
+
+        public RangeAttribute(double min, double max)
+        {
+            this.Maximum = max;
+            this.Minimum = min;
+            this.OperandType = typeof(double);
+        }
+
+        public bool IsValid<T>(T value)
+        {
+            if (Equals(value, null))
+                throw new ArgumentNullException(nameof(value));
+            
+            var max = (IComparable)Maximum;
+            var min = (IComparable)Minimum;
+            try
+            {
+                var val = (IComparable)Convert.ChangeType(value, OperandType, CultureInfo.InvariantCulture);
+                return min.CompareTo(val) <= 0 && max.CompareTo(val) >= 0;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            catch (InvalidCastException)
+            {
+                return false;
+            }
+            catch (NotSupportedException)
+            {
+                return false;
+            }
         }
     }
 }
