@@ -47,4 +47,15 @@
         {
         }
     }
+
+    public class NotNullAttribute : Attribute, IValidator
+    {
+        public bool Validate<T>(T value)
+        {
+            if (typeof(T).IsValueType())
+                return !default(T).Equals(value);
+
+            return !Equals(null, value);
+        }
+    }
 }
