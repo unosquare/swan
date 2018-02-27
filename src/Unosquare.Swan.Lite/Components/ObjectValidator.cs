@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Unosquare.Swan.Lite.Attributes;
+    using Unosquare.Swan.Reflection;
 
     /// <summary>
     /// Represents an object validator 
@@ -20,7 +21,10 @@
         /// <returns>A bool indicating if it is a valid object</returns>
         public static bool IsValid<T>(T obj)
         {
-            foreach (var pi in obj.GetType().GetProperties())
+            var properties = Runtime.PropertyTypeCache.Value.Retrieve(typeof(T), 
+                PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)));
+
+            foreach (var pi in properties)
             {
                 foreach (var attribute in pi.GetCustomAttributes(typeof(IValidator), true))
                 {
@@ -34,12 +38,12 @@
             return true;
         }
 
-        /// <summary>
-        /// Adds a validator to a specific class
-        /// </summary>
-        /// <typeparam name="T">The type of the object</typeparam>
-        /// <param name="predicate">The predicate that will be evaluated</param>
-        public void AddValidator<T>(Predicate<T> predicate)
+            /// <summary>
+            /// Adds a validator to a specific class
+            /// </summary>
+            /// <typeparam name="T">The type of the object</typeparam>
+            /// <param name="predicate">The predicate that will be evaluated</param>
+            public void AddValidator<T>(Predicate<T> predicate)
             where T : class
         {
             if (predicate == null)
@@ -75,6 +79,5 @@
 
             return true;          
         }
-
     }
 }
