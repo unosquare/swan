@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading;
     using Reflection;
+    using Unosquare.Swan.Lite.Components;
 #if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
 #endif
@@ -166,6 +167,15 @@
         /// </value>
         public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } =
             new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+
+        /// <summary>
+        /// The object validator.
+        /// </summary>
+        /// <value>
+        /// The object validator.
+        /// </value>
+        public static Lazy<ObjectValidator> ObjectValidator { get; } =
+            new Lazy<ObjectValidator>(() => new ObjectValidator());
 
         /// <summary>
         /// Gets the field type cache.
