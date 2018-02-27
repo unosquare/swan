@@ -22,6 +22,9 @@
         /// <returns>A bool indicating if it is a valid object</returns>
         public static bool IsValid<T>(T obj)
         {
+            if (Equals(obj, null))
+                throw new ArgumentNullException(nameof(obj));
+
             var properties = Runtime.PropertyTypeCache.Value.Retrieve(typeof(T), 
                 PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)));
 
@@ -69,6 +72,9 @@
         /// <returns>The result of the predicate</returns>
         public bool Validate<T>(T obj)
         {
+            if (Equals(obj, null))
+                throw new ArgumentNullException(nameof(obj));
+
             if (!_predicates.ContainsKey(typeof(T)))
                 throw new InvalidOperationException("There are no validators for this type");
 

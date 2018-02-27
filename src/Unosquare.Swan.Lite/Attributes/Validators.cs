@@ -16,6 +16,9 @@
     /// </summary>
     public class MatchAttribute : Attribute, IValidator
     {
+        /// <summary>
+        /// the string regex used to find a match
+        /// </summary>
         public string Expression { get; }
 
         public MatchAttribute(string rgx)
@@ -48,6 +51,9 @@
         }
     }
 
+    /// <summary>
+    /// A not null validator
+    /// </summary>
     public class NotNullAttribute : Attribute, IValidator
     {
         public bool Validate<T>(T value)
