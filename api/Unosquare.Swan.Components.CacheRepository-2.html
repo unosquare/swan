@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class TypeCache&lt;T&gt;
+    <title>Class CacheRepository&lt;TType, T&gt;
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class TypeCache&lt;T&gt;
+    <meta name="title" content="Class CacheRepository&lt;TType, T&gt;
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.32.0.0">
     
@@ -77,36 +77,23 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Reflection.TypeCache`1">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.CacheRepository`2">
   
   
-  <h1 id="Unosquare_Swan_Reflection_TypeCache_1" data-uid="Unosquare.Swan.Reflection.TypeCache`1" class="text-break">Class TypeCache&lt;T&gt;
+  <h1 id="Unosquare_Swan_Components_CacheRepository_2" data-uid="Unosquare.Swan.Components.CacheRepository`2" class="text-break">Class CacheRepository&lt;TType, T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>A thread-safe cache of members belonging to a given type
-The Retrieve method is the most useful one in this class as it
-calls the retrieval process if the type is not contained
-in the cache.</p>
+  <div class="markdown level0 summary"><p>A thread-safe cache repository</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html">CacheRepository</a>&lt;<span class="xref">System.Type</span>, T&gt;</div>
-    <div class="level2"><span class="xref">TypeCache&lt;T&gt;</span></div>
-      <div class="level3"><a class="xref" href="Unosquare.Swan.Reflection.FieldTypeCache.html">FieldTypeCache</a></div>
-      <div class="level3"><a class="xref" href="Unosquare.Swan.Reflection.PropertyTypeCache.html">PropertyTypeCache</a></div>
+    <div class="level1"><span class="xref">CacheRepository&lt;TType, T&gt;</span></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Reflection.AttributeCache.html">AttributeCache</a></div>
+      <div class="level2"><a class="xref" href="Unosquare.Swan.Reflection.TypeCache-1.html">TypeCache&lt;T&gt;</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Item__0_">CacheRepository&lt;Type, T&gt;.Item[Type]</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Contains__0_">CacheRepository&lt;Type, T&gt;.Contains(Type)</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___">CacheRepository&lt;Type, T&gt;.Retrieve(Type, Func&lt;IEnumerable&lt;T&gt;&gt;)</a>
-    </div>
     <div>
       <span class="xref">System.Object.ToString()</span>
     </div>
@@ -129,10 +116,10 @@ in the cache.</p>
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Reflection.html">Unosquare.Swan.Reflection</a></h6>
-  <h5 id="Unosquare_Swan_Reflection_TypeCache_1_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h5 id="Unosquare_Swan_Components_CacheRepository_2_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class TypeCache&lt;T&gt; : CacheRepository&lt;Type, T&gt; where T : MemberInfo</code></pre>
+    <pre><code class="lang-csharp hljs">public class CacheRepository&lt;TType, T&gt;</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -144,69 +131,29 @@ in the cache.</p>
     </thead>
     <tbody>
       <tr>
+        <td><span class="parametername">TType</span></td>
+        <td><p>The type of parent class.</p>
+</td>
+      </tr>
+      <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>The type of Member to be cached</p>
+        <td><p>The type of member to cache.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
+  <h3 id="properties">Properties
   </h3>
   
   
-  <a id="Unosquare_Swan_Reflection_TypeCache_1_Contains_" data-uid="Unosquare.Swan.Reflection.TypeCache`1.Contains*"></a>
-  <h4 id="Unosquare_Swan_Reflection_TypeCache_1_Contains__1" data-uid="Unosquare.Swan.Reflection.TypeCache`1.Contains``1">Contains&lt;TOut&gt;()</h4>
-  <div class="markdown level1 summary"><p>Determines whether the cache contains the specified type.</p>
+  <a id="Unosquare_Swan_Components_CacheRepository_2_Item_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Item*"></a>
+  <h4 id="Unosquare_Swan_Components_CacheRepository_2_Item__0_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Item(`0)">Item[TType]</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span> with the specified type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Contains&lt;TOut&gt;()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if [contains]; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TOut</span></td>
-        <td><p>The type of the out.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Reflection_TypeCache_1_Retrieve_" data-uid="Unosquare.Swan.Reflection.TypeCache`1.Retrieve*"></a>
-  <h4 id="Unosquare_Swan_Reflection_TypeCache_1_Retrieve__1_System_Func_System_Collections_Generic_IEnumerable__0___" data-uid="Unosquare.Swan.Reflection.TypeCache`1.Retrieve``1(System.Func{System.Collections.Generic.IEnumerable{`0}})">Retrieve&lt;TOut&gt;(Func&lt;IEnumerable&lt;T&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
-If the properties are not available, it calls the factory method to retrieve them
-and returns them as an array of PropertyInfo</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T[] Retrieve&lt;TOut&gt;(Func&lt;IEnumerable&lt;T&gt;&gt; factory)</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;T&gt; this[TType type] { get; set; }</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -218,6 +165,106 @@ and returns them as an array of PropertyInfo</p>
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td><span class="xref">TType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><p>The <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_CacheRepository_2_Contains_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Contains*"></a>
+  <h4 id="Unosquare_Swan_Components_CacheRepository_2_Contains__0_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Contains(`0)">Contains(TType)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the cache contains the specified type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(TType type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if [contains] [the specified type]; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_CacheRepository_2_Retrieve_" data-uid="Unosquare.Swan.Components.CacheRepository`2.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Components_CacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___" data-uid="Unosquare.Swan.Components.CacheRepository`2.Retrieve(`0,System.Func{System.Collections.Generic.IEnumerable{`1}})">Retrieve(TType, Func&lt;IEnumerable&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the properties stored for the specified type.
+If the properties are not available, it calls the factory method to retrieve them
+and returns them as an array of PropertyInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T[] Retrieve(TType type, Func&lt;IEnumerable&lt;T&gt;&gt; factory)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
+</td>
+      </tr>
       <tr>
         <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">factory</span></td>
@@ -242,18 +289,18 @@ and returns them as an array of PropertyInfo</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="typeParameters">Type Parameters</h5>
+  <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
+        <th>Type</th>
+        <th>Condition</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TOut</span></td>
-        <td><p>The type of the out.</p>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>type</p>
 </td>
       </tr>
     </tbody>
