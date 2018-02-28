@@ -83,5 +83,43 @@
             var res = ObjectValidator.IsValid(new RangeMock { Age = 0 });
             Assert.IsFalse(res);
         }
+
+        [Test]
+        public void InvalidType_ReturnsFalse()
+        {
+            var res = ObjectValidator.IsValid(new InvalidRangeMock { Invalid = "inv" });
+            Assert.IsFalse(res);
+        }
+    }
+
+    [TestFixture]
+    public class RegexAttribute
+    {
+        [Test]
+        public void ValidString_ReturnsTrue()
+        {
+            var res = ObjectValidator.IsValid(new RegexMock { Salute = "hi" });
+            Assert.IsTrue(res);
+        }
+
+        [Test]
+        public void InvalidString_ReturnsFalse()
+        {
+            var res = ObjectValidator.IsValid(new RegexMock { Salute = "Hi" });
+            Assert.IsFalse(res);
+        }
+
+        [Test]
+        public void NullString_ReturnsFalse()
+        {
+            var res = ObjectValidator.IsValid(new RegexMock { Salute = null });
+            Assert.IsFalse(res);
+        }
+
+        [Test]
+        public void NotStringType_ThrowsInvalidOperationException()
+        {
+            Assert.Throws<InvalidOperationException>(() => ObjectValidator.IsValid(new InvalidRegexMock { Salute = 1 }));
+        }
     }
 }

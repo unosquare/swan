@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using Unosquare.Swan.Lite.Attributes;
     using Unosquare.Swan.Reflection;
+#if NETSTANDARD1_3 || UWP
     using System.Reflection;
+#endif
 
     /// <summary>
     /// Represents an object validator 
@@ -29,7 +31,7 @@
                 PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)));
 
             foreach (var pi in properties)
-            {   
+            {
                 foreach (var attribute in pi.GetCustomAttributes(typeof(IValidator), true))
                 {
                     var val = (IValidator)attribute;
@@ -42,12 +44,12 @@
             return true;
         }
 
-            /// <summary>
-            /// Adds a validator to a specific class
-            /// </summary>
-            /// <typeparam name="T">The type of the object</typeparam>
-            /// <param name="predicate">The predicate that will be evaluated</param>
-            public void AddValidator<T>(Predicate<T> predicate)
+        /// <summary>
+        /// Adds a validator to a specific class
+        /// </summary>
+        /// <typeparam name="T">The type of the object</typeparam>
+        /// <param name="predicate">The predicate that will be evaluated</param>
+        public void AddValidator<T>(Predicate<T> predicate)
             where T : class
         {
             if (predicate == null)

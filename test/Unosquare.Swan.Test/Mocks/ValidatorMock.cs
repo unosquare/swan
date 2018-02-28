@@ -22,4 +22,22 @@
         [Range(0.2, 1)]
         public double Kilograms { get; set; }
     }
+
+    public class InvalidRangeMock
+    {
+        [Range(1,10)]
+        public string Invalid { get; set; }
+    }
+
+    public class RegexMock
+    {
+        [Match(@"hi|hello")]
+        public string Salute { get; set; }
+    }
+
+    public class InvalidRegexMock
+    {
+        [Match(@"hi|hello")]
+        public int Salute { get; set; }
+    }
 }

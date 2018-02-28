@@ -39,12 +39,13 @@
         }
 
         /// <inheritdoc/>
-        public bool IsValid<T>(T value) 
+        public bool IsValid<T>(T value)
         {
+            if (value == null)
+                return false;
+
             if (!(value is string))
-            {
                 throw new InvalidOperationException("Property is not a string");
-            }
             
             return Regex.IsMatch(value.ToString(), Expression);
         }
