@@ -626,7 +626,7 @@ var res = obj.Validate(new Simple { Name = &quot;Name&quot; });
         [Email]
         public string Email { get; set; }
     }
-</code></pre><p>and almost the same steps to validate</p>
+</code></pre><p>and a complete validation in a single line using the attributes shown above</p>
 <pre><code class="lang-csharp">var res = ObjectValidator.IsValid(new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;})
 </code></pre><h3 id="the-dependencycontainer-component">The <code>DependencyContainer</code> component</h3>
 <p>It&#39;s an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of <code>DependencyContainer</code> called <code>Current</code> by <code>DependencyContainer</code> class.</p>
