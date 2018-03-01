@@ -583,7 +583,7 @@ Our `Simple` class to validate
         public string Email { get; set; }
     }
 ```
-and almost the same steps to validate
+and a complete validation in a single line using the attributes shown above
 
 ```csharp
 var res = ObjectValidator.IsValid(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
