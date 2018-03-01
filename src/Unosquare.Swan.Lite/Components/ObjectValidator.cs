@@ -27,16 +27,14 @@
             if (Equals(obj, null))
                 throw new ArgumentNullException(nameof(obj));
 
-            var properties = Runtime.PropertyTypeCache.Value.Retrieve(typeof(T), 
-                PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)));
-
-            foreach (var pi in properties)
+            var properties = Runtime.AttributeCache.Value.RetrieveFromType<T>(typeof(IValidator), false);
+            foreach (var prop in properties)
             {
-                foreach (var attribute in pi.GetCustomAttributes(typeof(IValidator), true))
+                foreach (var attribute in prop.Value)
                 {
                     var val = (IValidator)attribute;
 
-                    if (!val.IsValid(pi.GetValue(obj, null)))
+                    if (!val.IsValid(prop.Key.GetValue(obj, null)))
                         return false;
                 }
             }

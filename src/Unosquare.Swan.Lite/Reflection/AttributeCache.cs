@@ -22,6 +22,13 @@
             return Retrieve(member, () => member.GetCustomAttributes<T>(inherit));
         }
 
+        public object[] Retrieve(MemberInfo member, Type type, bool inherit = false)
+        {
+            if (member == null)
+                throw new ArgumentNullException(nameof(member));
+            return Retrieve(member, () => member.GetCustomAttributes(type, inherit));
+        }
+
         public Dictionary<PropertyInfo, object[]> Retrieve<T>(Type type, bool inherit = false)
             where T : Attribute
         {
@@ -30,6 +37,15 @@
 
             return PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type))
                 .ToDictionary(x => x as PropertyInfo, x => Retrieve<T>(x, inherit));
+        }
+
+        public Dictionary<PropertyInfo, object[]> RetrieveFromType<T>(Type type, bool inherit = false)
+        {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
+            return PropertyTypeCache.Retrieve(typeof(T), PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)))
+                .ToDictionary(x => x as PropertyInfo, x => Retrieve(x,type, inherit));
         }
     }
 }
