@@ -25,6 +25,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The ObjectMapper component](#the-objectmapper-component)
     * [The Network component](#the-network-component)
     * [The ObjectComparer component](#the-objectcomparer-component)
+    * [The ObjectValidator component](#the-objectvalidator-component)
     * [The DependencyContainer component](#the-dependencycontainer-component)
     * [The MessageHub component](#the-messagehub-component)
     * [The LdapConnection class](#the-ldapconnection-class)
@@ -543,6 +544,31 @@ ObjectComparer.AreStructsEqual(first, second)
 // Compare if two enumerables are equal.
 ObjectComparer.AreEnumsEqual(first, second)
 ```
+### The `ObjectValidator` component
+A simple object validator that allows you to set custom validations and identify if an object satisfies them.
+
+### Example 1: Simple object validation
+Our `Simple` class to validate
+```csharp
+  public class Simple
+    {
+        public string Name { get; set; }
+    }
+```
+Now the validation process
+```csharp
+// create an instance of ObjectValidator
+var obj = new ObjectValidator();
+
+// Add a validation to the 'Simple' class
+obj.AddValidator<Simple>(x => !string.IsNullOrEmpty(x.Name));
+
+// evaluate
+var res = obj.Validate(new Simple { Name = "Name" });
+```
+
+### Example 2: Using Attributes
+
 
 ### The `DependencyContainer` component
 
