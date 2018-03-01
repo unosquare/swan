@@ -77,10 +77,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Attributes.RangeAttribute">
   
   
-  <h1 id="Unosquare_Swan_Lite_Attributes_RangeAttribute" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute" class="text-break">Class RangeAttribute
+  <h1 id="Unosquare_Swan_Attributes_RangeAttribute" data-uid="Unosquare.Swan.Attributes.RangeAttribute" class="text-break">Class RangeAttribute
   </h1>
   <div class="markdown level0 summary"><p>A range constraint validator</p>
 </div>
@@ -94,7 +94,7 @@
   <div classs="implements">
     <h5>Implements</h5>
     <div><span class="xref">System.Runtime.InteropServices._Attribute</span></div>
-    <div><a class="xref" href="Unosquare.Swan.Lite.Attributes.IValidator.html">IValidator</a></div>
+    <div><a class="xref" href="Unosquare.Swan.Attributes.IValidator.html">IValidator</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -237,18 +237,19 @@
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Lite.Attributes.html">Unosquare.Swan.Lite.Attributes</a></h6>
-  <h5 id="Unosquare_Swan_Lite_Attributes_RangeAttribute_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Attributes.html">Unosquare.Swan.Attributes</a></h6>
+  <h5 id="Unosquare_Swan_Attributes_RangeAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RangeAttribute : Attribute, _Attribute, IValidator</code></pre>
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Property)]
+public class RangeAttribute : Attribute, _Attribute, IValidator</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Attributes_RangeAttribute__ctor_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Attributes_RangeAttribute__ctor_System_Double_System_Double_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor(System.Double,System.Double)">RangeAttribute(Double, Double)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Attributes.RangeAttribute.html">RangeAttribute</a> class.
+  <a id="Unosquare_Swan_Attributes_RangeAttribute__ctor_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Attributes_RangeAttribute__ctor_System_Double_System_Double_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.#ctor(System.Double,System.Double)">RangeAttribute(Double, Double)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Attributes.RangeAttribute.html">RangeAttribute</a> class.
 Constructor that takes double minimum and maximum values</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -282,9 +283,9 @@ Constructor that takes double minimum and maximum values</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Attributes_RangeAttribute__ctor_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Attributes_RangeAttribute__ctor_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.#ctor(System.Int32,System.Int32)">RangeAttribute(Int32, Int32)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Attributes.RangeAttribute.html">RangeAttribute</a> class.
+  <a id="Unosquare_Swan_Attributes_RangeAttribute__ctor_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Attributes_RangeAttribute__ctor_System_Int32_System_Int32_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.#ctor(System.Int32,System.Int32)">RangeAttribute(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Attributes.RangeAttribute.html">RangeAttribute</a> class.
 Constructor that takes integer minimum and maximum values</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -320,8 +321,8 @@ Constructor that takes integer minimum and maximum values</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Attributes_RangeAttribute_Maximum_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum*"></a>
-  <h4 id="Unosquare_Swan_Lite_Attributes_RangeAttribute_Maximum" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.Maximum">Maximum</h4>
+  <a id="Unosquare_Swan_Attributes_RangeAttribute_Maximum_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.Maximum*"></a>
+  <h4 id="Unosquare_Swan_Attributes_RangeAttribute_Maximum" data-uid="Unosquare.Swan.Attributes.RangeAttribute.Maximum">Maximum</h4>
   <div class="markdown level1 summary"><p>Maximum value for the range</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -346,8 +347,8 @@ Constructor that takes integer minimum and maximum values</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Attributes_RangeAttribute_Minimum_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum*"></a>
-  <h4 id="Unosquare_Swan_Lite_Attributes_RangeAttribute_Minimum" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.Minimum">Minimum</h4>
+  <a id="Unosquare_Swan_Attributes_RangeAttribute_Minimum_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.Minimum*"></a>
+  <h4 id="Unosquare_Swan_Attributes_RangeAttribute_Minimum" data-uid="Unosquare.Swan.Attributes.RangeAttribute.Minimum">Minimum</h4>
   <div class="markdown level1 summary"><p>Minimum value for the range</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -372,9 +373,9 @@ Constructor that takes integer minimum and maximum values</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Attributes_RangeAttribute_OperandType_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType*"></a>
-  <h4 id="Unosquare_Swan_Lite_Attributes_RangeAttribute_OperandType" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.OperandType">OperandType</h4>
-  <div class="markdown level1 summary"><p>Gets the type of the <a class="xref" href="Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_Minimum">Minimum</a> and <a class="xref" href="Unosquare.Swan.Lite.Attributes.RangeAttribute.html#Unosquare_Swan_Lite_Attributes_RangeAttribute_Maximum">Maximum</a> values</p>
+  <a id="Unosquare_Swan_Attributes_RangeAttribute_OperandType_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.OperandType*"></a>
+  <h4 id="Unosquare_Swan_Attributes_RangeAttribute_OperandType" data-uid="Unosquare.Swan.Attributes.RangeAttribute.OperandType">OperandType</h4>
+  <div class="markdown level1 summary"><p>Gets the type of the <a class="xref" href="Unosquare.Swan.Attributes.RangeAttribute.html#Unosquare_Swan_Attributes_RangeAttribute_Minimum">Minimum</a> and <a class="xref" href="Unosquare.Swan.Attributes.RangeAttribute.html#Unosquare_Swan_Attributes_RangeAttribute_Maximum">Maximum</a> values</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -400,8 +401,8 @@ Constructor that takes integer minimum and maximum values</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Attributes_RangeAttribute_IsValid_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid*"></a>
-  <h4 id="Unosquare_Swan_Lite_Attributes_RangeAttribute_IsValid__1___0_" data-uid="Unosquare.Swan.Lite.Attributes.RangeAttribute.IsValid``1(``0)">IsValid&lt;T&gt;(T)</h4>
+  <a id="Unosquare_Swan_Attributes_RangeAttribute_IsValid_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.IsValid*"></a>
+  <h4 id="Unosquare_Swan_Attributes_RangeAttribute_IsValid__1___0_" data-uid="Unosquare.Swan.Attributes.RangeAttribute.IsValid``1(``0)">IsValid&lt;T&gt;(T)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -460,7 +461,7 @@ Constructor that takes integer minimum and maximum values</p>
       <span class="xref">System.Runtime.InteropServices._Attribute</span>
   </div>
   <div>
-      <a class="xref" href="Unosquare.Swan.Lite.Attributes.IValidator.html">IValidator</a>
+      <a class="xref" href="Unosquare.Swan.Attributes.IValidator.html">IValidator</a>
   </div>
 <div id="disqus_thread"></div>
 <script>

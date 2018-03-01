@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class EmailAttribute
+    <title>Class MatchAttribute
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class EmailAttribute
+    <meta name="title" content="Class MatchAttribute
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.32.0.0">
     
@@ -77,34 +77,28 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Lite.Attributes.EmailAttribute">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Attributes.MatchAttribute">
   
   
-  <h1 id="Unosquare_Swan_Lite_Attributes_EmailAttribute" data-uid="Unosquare.Swan.Lite.Attributes.EmailAttribute" class="text-break">Class EmailAttribute
+  <h1 id="Unosquare_Swan_Attributes_MatchAttribute" data-uid="Unosquare.Swan.Attributes.MatchAttribute" class="text-break">Class MatchAttribute
   </h1>
-  <div class="markdown level0 summary"><p>Email validator</p>
+  <div class="markdown level0 summary"><p>Regex validator</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Attribute</span></div>
-    <div class="level2"><a class="xref" href="Unosquare.Swan.Lite.Attributes.MatchAttribute.html">MatchAttribute</a></div>
-    <div class="level3"><span class="xref">EmailAttribute</span></div>
+    <div class="level2"><span class="xref">MatchAttribute</span></div>
+      <div class="level3"><a class="xref" href="Unosquare.Swan.Attributes.EmailAttribute.html">EmailAttribute</a></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
     <div><span class="xref">System.Runtime.InteropServices._Attribute</span></div>
-    <div><a class="xref" href="Unosquare.Swan.Lite.Attributes.IValidator.html">IValidator</a></div>
+    <div><a class="xref" href="Unosquare.Swan.Attributes.IValidator.html">IValidator</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_Expression">MatchAttribute.Expression</a>
-    </div>
-    <div>
-      <a class="xref" href="Unosquare.Swan.Lite.Attributes.MatchAttribute.html#Unosquare_Swan_Lite_Attributes_MatchAttribute_IsValid__1___0_">MatchAttribute.IsValid&lt;T&gt;(T)</a>
-    </div>
     <div>
       <span class="xref">System.Attribute.GetCustomAttributes(System.Reflection.MemberInfo, System.Type)</span>
     </div>
@@ -244,29 +238,136 @@
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Lite.Attributes.html">Unosquare.Swan.Lite.Attributes</a></h6>
-  <h5 id="Unosquare_Swan_Lite_Attributes_EmailAttribute_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Attributes.html">Unosquare.Swan.Attributes</a></h6>
+  <h5 id="Unosquare_Swan_Attributes_MatchAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class EmailAttribute : MatchAttribute, _Attribute, IValidator</code></pre>
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Property)]
+public class MatchAttribute : Attribute, _Attribute, IValidator</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Attributes_EmailAttribute__ctor_" data-uid="Unosquare.Swan.Lite.Attributes.EmailAttribute.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Attributes_EmailAttribute__ctor" data-uid="Unosquare.Swan.Lite.Attributes.EmailAttribute.#ctor">EmailAttribute()</h4>
+  <a id="Unosquare_Swan_Attributes_MatchAttribute__ctor_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Attributes_MatchAttribute__ctor_System_String_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.#ctor(System.String)">MatchAttribute(String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Attributes.MatchAttribute.html">MatchAttribute</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MatchAttribute(string rgx)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">rgx</span></td>
+        <td><p>A regex string</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Attributes_MatchAttribute_Expression_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.Expression*"></a>
+  <h4 id="Unosquare_Swan_Attributes_MatchAttribute_Expression" data-uid="Unosquare.Swan.Attributes.MatchAttribute.Expression">Expression</h4>
+  <div class="markdown level1 summary"><p>The string regex used to find a match</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Expression { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Attributes_MatchAttribute_IsValid_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.IsValid*"></a>
+  <h4 id="Unosquare_Swan_Attributes_MatchAttribute_IsValid__1___0_" data-uid="Unosquare.Swan.Attributes.MatchAttribute.IsValid``1(``0)">IsValid&lt;T&gt;(T)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EmailAttribute()</code></pre>
+    <pre><code class="lang-csharp hljs">public bool IsValid&lt;T&gt;(T value)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="implements">Implements</h3>
   <div>
       <span class="xref">System.Runtime.InteropServices._Attribute</span>
   </div>
   <div>
-      <a class="xref" href="Unosquare.Swan.Lite.Attributes.IValidator.html">IValidator</a>
+      <a class="xref" href="Unosquare.Swan.Attributes.IValidator.html">IValidator</a>
   </div>
 <div id="disqus_thread"></div>
 <script>
