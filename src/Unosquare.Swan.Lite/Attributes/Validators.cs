@@ -1,7 +1,6 @@
-﻿namespace Unosquare.Swan.Lite.Attributes
+﻿namespace Unosquare.Swan.Attributes
 {
     using System;
-    using System.ComponentModel;
     using System.Globalization;
     using System.Text.RegularExpressions;
 
@@ -18,10 +17,11 @@
         /// <returns>True if it is valid.False if it is not</returns>
         bool IsValid<T>(T value);
     }
-    
+
     /// <summary>
     /// Regex validator
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
     public class MatchAttribute : Attribute, IValidator
     {
         /// <summary>
@@ -35,7 +35,7 @@
         /// <param name="rgx"> A regex string</param>
         public MatchAttribute(string rgx)
         {
-            Expression = rgx?? throw new ArgumentNullException(nameof(Expression));
+            Expression = rgx ?? throw new ArgumentNullException(nameof(Expression));
         }
 
         /// <inheritdoc/>
@@ -46,7 +46,7 @@
 
             if (!(value is string))
                 throw new InvalidOperationException("Property is not a string");
-            
+
             return Regex.IsMatch(value.ToString(), Expression);
         }
     }
@@ -54,11 +54,16 @@
     /// <summary>
     /// Email validator
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
     public class EmailAttribute : MatchAttribute
     {
-        private static readonly string _emailRegExp = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
+        private static readonly string _emailRegExp =
+            @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+            @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmailAttribute"/> class.
+        /// </summary>
         public EmailAttribute()
             : base(_emailRegExp)
         {
@@ -68,6 +73,7 @@
     /// <summary>
     /// A not null validator
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
     public class NotNullAttribute : Attribute, IValidator
     {
         /// <inheritdoc/>
@@ -83,6 +89,7 @@
     /// <summary>
     /// A range constraint validator
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
     public class RangeAttribute : Attribute, IValidator
     {
         /// <summary>
@@ -111,9 +118,9 @@
             if (min >= max)
                 throw new InvalidOperationException("Maximum value must be greater than minimum");
 
-            this.Maximum = max;
-            this.Minimum = min;
-            this.OperandType = typeof(int);
+            Maximum = max;
+            Minimum = min;
+            OperandType = typeof(int);
         }
 
         /// <summary>
@@ -127,9 +134,9 @@
             if (min >= max)
                 throw new InvalidOperationException("Maximum value must be greater than minimum");
 
-            this.Maximum = max;
-            this.Minimum = min;
-            this.OperandType = typeof(double);
+            Maximum = max;
+            Minimum = min;
+            OperandType = typeof(double);
         }
 
         /// <inheritdoc/>
@@ -137,12 +144,12 @@
         {
             if (Equals(value, null))
                 throw new ArgumentNullException(nameof(value));
-            
-            var max = (IComparable)Maximum;
-            var min = (IComparable)Minimum;
+
+            var max = (IComparable) Maximum;
+            var min = (IComparable) Minimum;
             try
             {
-                var val = (IComparable)Convert.ChangeType(value, OperandType, CultureInfo.InvariantCulture);
+                var val = (IComparable) Convert.ChangeType(value, OperandType, CultureInfo.InvariantCulture);
                 return min.CompareTo(val) <= 0 && max.CompareTo(val) >= 0;
             }
             catch (FormatException)

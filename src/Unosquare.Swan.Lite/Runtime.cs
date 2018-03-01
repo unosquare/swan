@@ -5,7 +5,7 @@
     using System.IO;
     using System.Threading;
     using Reflection;
-    using Unosquare.Swan.Lite.Components;
+    using Components;
 #if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
 #endif

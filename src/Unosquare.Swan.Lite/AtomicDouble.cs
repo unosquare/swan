@@ -1,12 +1,10 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using Unosquare.Swan.Lite.Abstractions;
+    using Abstractions;
 
     /// <summary>
-    /// Fast, atomic double combining interlocked to write value and volatile to read values
-    /// Idea taken from Memory model and .NET operations in article:
-    /// http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/
+    /// Fast, atomic double combining interlocked to write value and volatile to read values.
     /// </summary>
     public sealed class AtomicDouble : AtomicTypeBase<double>
     {
@@ -21,11 +19,11 @@
         }
 
         /// <inheritdoc/>
-        protected override double FromLong(long backingValue) => 
+        protected override double FromLong(long backingValue) =>
             BitConverter.Int64BitsToDouble(backingValue);
 
         /// <inheritdoc/>
-        protected override long ToLong(double value) => 
+        protected override long ToLong(double value) =>
             BitConverter.DoubleToInt64Bits(value);
     }
 }

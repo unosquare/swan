@@ -76,7 +76,7 @@
                 throw new ArgumentNullException(nameof(type));
 
             return PropertyTypeCache.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type))
-                .ToDictionary(x => x as PropertyInfo, x => Retrieve<T>(x, inherit));
+                .ToDictionary(x => x, x => Retrieve<T>(x, inherit));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@
                 throw new ArgumentNullException(nameof(type));
 
             return PropertyTypeCache.Retrieve(typeof(T), PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)))
-                .ToDictionary(x => x as PropertyInfo, x => Retrieve(x,type, inherit));
+                .ToDictionary(x => x, x => Retrieve(x,type, inherit));
         }
     }
 }

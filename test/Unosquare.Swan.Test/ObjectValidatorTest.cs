@@ -2,8 +2,8 @@
 {
     using NUnit.Framework;
     using System;
-    using Unosquare.Swan.Lite.Components;
-    using Unosquare.Swan.Test.Mocks;
+    using Components;
+    using Mocks;
 
     [TestFixture]
     public class ObjectValidatorInstance

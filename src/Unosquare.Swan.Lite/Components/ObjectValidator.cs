@@ -1,9 +1,8 @@
-﻿namespace Unosquare.Swan.Lite.Components
+﻿namespace Unosquare.Swan.Components
 {
     using System;
     using System.Collections.Generic;
-    using Unosquare.Swan.Lite.Attributes;
-    using Unosquare.Swan.Reflection;
+    using Attributes;
 #if NETSTANDARD1_3 || UWP
     using System.Reflection;
 #endif
@@ -27,7 +26,8 @@
             if (Equals(obj, null))
                 throw new ArgumentNullException(nameof(obj));
 
-            var properties = Runtime.AttributeCache.Value.RetrieveFromType<T>(typeof(IValidator), false);
+            var properties = Runtime.AttributeCache.Value.RetrieveFromType<T>(typeof(IValidator));
+
             foreach (var prop in properties)
             {
                 foreach (var attribute in prop.Value)
@@ -53,9 +53,7 @@
             if (predicate == null)
             throw new ArgumentNullException(nameof(predicate));
 
-            List<Delegate> existing;
-
-            if (!_predicates.TryGetValue(typeof(T), out existing))
+            if (!_predicates.TryGetValue(typeof(T), out var existing))
             {
                 existing = new List<Delegate>();
                 _predicates[typeof(T)] = existing;

@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.Swan.Test.Mocks
 {
-    using Unosquare.Swan.Lite.Attributes;
+    using Attributes;
 
     public class SimpleValidationMock
     {
