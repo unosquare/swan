@@ -55,6 +55,10 @@
         {
             if (member == null)
                 throw new ArgumentNullException(nameof(member));
+
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
             return Retrieve(member, () => member.GetCustomAttributes(type, inherit));
         }
 
