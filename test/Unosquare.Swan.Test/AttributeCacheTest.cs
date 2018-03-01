@@ -12,7 +12,7 @@ public abstract class AttributeCacheTest
 }
 
 [TestFixture]
-public class ContrainedRetrieve : AttributeCacheTest
+public class ConstrainedRetrieve : AttributeCacheTest
 {
     [Test]
     public void NullMemberInfo_ThrowsArgumentNullException()
@@ -39,6 +39,20 @@ public class ContrainedRetrieve : AttributeCacheTest
         Assert.That(attribs.Length, Is.EqualTo(0));
     }
 
+    [Test]
+    public void RetrievePropertiesWithNullType_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() => 
+        AttributeCache.RetrieveFromType<NotNullMock>(null));
+    }
+
+    [Test]
+    public void RetrievePropertiesWithValidType_ReturnsProperties()
+    {
+        var props = AttributeCache.RetrieveFromType<NotNullMock>(typeof(IValidator));
+
+        Assert.That(props.Count, Is.EqualTo(1));
+    }
 }
 
 [TestFixture]
@@ -75,5 +89,20 @@ public class Retrieve : AttributeCacheTest
         var attribs = AttributeCache.Retrieve(member, typeof(IReflect));
 
         Assert.That(attribs.Length, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void RetrievePropertiesWithNullType_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+        AttributeCache.Retrieve<NotNullAttribute>(null));
+    }
+
+    [Test]
+    public void RetrievePropertiesWithValidType_ReturnsProperties()
+    {
+        var props = AttributeCache.Retrieve<NotNullAttribute>(typeof(NotNullMock));
+
+        Assert.That(props.Count, Is.EqualTo(1));
     }
 }
