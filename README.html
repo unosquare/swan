@@ -93,6 +93,7 @@
 <li><a href="#the-objectmapper-component">The ObjectMapper component</a></li>
 <li><a href="#the-network-component">The Network component</a></li>
 <li><a href="#the-objectcomparer-component">The ObjectComparer component</a></li>
+<li><a href="#the-objectvalidator-component">The ObjectValidator component</a></li>
 <li><a href="#the-dependencycontainer-component">The DependencyContainer component</a></li>
 <li><a href="#the-messagehub-component">The MessageHub component</a></li>
 <li><a href="#the-ldapconnection-class">The LdapConnection class</a></li>
@@ -595,7 +596,25 @@ ObjectComparer.AreStructsEqual(first, second)
 
 // Compare if two enumerables are equal.
 ObjectComparer.AreEnumsEqual(first, second)
-</code></pre><h3 id="the-dependencycontainer-component">The <code>DependencyContainer</code> component</h3>
+</code></pre><h3 id="the-objectvalidator-component">The <code>ObjectValidator</code> component</h3>
+<p>A simple object validator that allows you to set custom validations and identify if an object satisfies them.</p>
+<h3 id="example-1-simple-object-validation">Example 1: Simple object validation</h3>
+<p>Our <code>Simple</code> class to validate</p>
+<pre><code class="lang-csharp">  public class Simple
+    {
+        public string Name { get; set; }
+    }
+</code></pre><p>Now the validation process</p>
+<pre><code class="lang-csharp">// create an instance of ObjectValidator
+var obj = new ObjectValidator();
+
+// Add a validation to the &#39;Simple&#39; class
+obj.AddValidator&lt;Simple&gt;(x =&gt; !string.IsNullOrEmpty(x.Name));
+
+// evaluate
+var res = obj.Validate(new Simple { Name = &quot;Name&quot; });
+</code></pre><h3 id="example-2-using-attributes">Example 2: Using Attributes</h3>
+<h3 id="the-dependencycontainer-component">The <code>DependencyContainer</code> component</h3>
 <p>It&#39;s an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of <code>DependencyContainer</code> called <code>Current</code> by <code>DependencyContainer</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer API Doc</a></p>
 <h4 id="example-1-basic-example">Example 1: Basic Example</h4>
