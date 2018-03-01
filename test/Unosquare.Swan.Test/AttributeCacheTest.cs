@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using Unosquare.Swan.Lite.Attributes;
 using Unosquare.Swan.Reflection;
@@ -40,12 +39,6 @@ public class ContrainedRetrieve : AttributeCacheTest
         Assert.That(attribs.Length, Is.EqualTo(0));
     }
 
-    //[Test]
-    //public void WithNullFactory_ThrowsArgumentNullException()
-    //{
-    //    Assert.Throws<ArgumentNullException>(() =>
-    //        TypeCache.Retrieve(typeof(string), null));
-    //}
 }
 
 [TestFixture]
