@@ -18,7 +18,7 @@ public class ConstrainedRetrieve : AttributeCacheTest
     public void NullMemberInfo_ThrowsArgumentNullException()
     {
         Assert.Throws<ArgumentNullException>(() =>
-            AttributeCache.Retrieve<MatchAttribute>(null as MemberInfo));
+            AttributeCache.Retrieve<MatchAttribute>(null));
     }
 
     [Test]
@@ -63,7 +63,7 @@ public class Retrieve : AttributeCacheTest
     {
         var member = typeof(RegexMock).GetProperty(nameof(RegexMock.Salute));
         Assert.Throws<ArgumentNullException>(() =>
-            AttributeCache.Retrieve(null as MemberInfo, typeof(IValidator)));
+            AttributeCache.Retrieve(null, typeof(IValidator)));
     }
 
     [Test]
