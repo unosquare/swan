@@ -569,7 +569,25 @@ var res = obj.Validate(new Simple { Name = "Name" });
 
 ### Example 2: Using Attributes
 
+Our `Simple` class to validate
+```csharp
+  public class Simple
+    {
+        [NotNull]
+        public string Name { get; set; }
+        
+        [Range(1, 10)]
+        public int Number { get; set; }
+        
+        [Email]
+        public string Email { get; set; }
+    }
+```
+and almost the same steps to validate
 
+```csharp
+var res = ObjectValidator.IsValid(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
+```
 ### The `DependencyContainer` component
 
 It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
