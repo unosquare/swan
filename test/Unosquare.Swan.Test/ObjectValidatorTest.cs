@@ -95,18 +95,12 @@
     [TestFixture]
     public class RegexAttribute
     {
-        [Test]
-        public void ValidString_ReturnsTrue()
+        [TestCase("hi", true)]
+        [TestCase("Hi", false)]
+        public void StringValidation(string salute,bool valid)
         {
-            var res = ObjectValidator.IsValid(new RegexMock { Salute = "hi" });
-            Assert.IsTrue(res);
-        }
-
-        [Test]
-        public void InvalidString_ReturnsFalse()
-        {
-            var res = ObjectValidator.IsValid(new RegexMock { Salute = "Hi" });
-            Assert.IsFalse(res);
+            var res = ObjectValidator.IsValid(new RegexMock { Salute = salute });
+            Assert.That(valid, Is.EqualTo(res));
         }
 
         [Test]
