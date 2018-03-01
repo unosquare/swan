@@ -82,7 +82,11 @@
   
   <h1 id="Unosquare_Swan_Reflection_AttributeCache" data-uid="Unosquare.Swan.Reflection.AttributeCache" class="text-break">Class AttributeCache
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>A thread-safe cache of attributes belonging to a given type
+The Retrieve method is the most useful one in this class as it
+calls the retrieval process if the type is not contained
+in the cache.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -134,7 +138,8 @@
   
   <a id="Unosquare_Swan_Reflection_AttributeCache__ctor_" data-uid="Unosquare.Swan.Reflection.AttributeCache.#ctor*"></a>
   <h4 id="Unosquare_Swan_Reflection_AttributeCache__ctor_Unosquare_Swan_Reflection_PropertyTypeCache_" data-uid="Unosquare.Swan.Reflection.AttributeCache.#ctor(Unosquare.Swan.Reflection.PropertyTypeCache)">AttributeCache(PropertyTypeCache)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Reflection.AttributeCache.html">AttributeCache</a> class.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -153,7 +158,8 @@
       <tr>
         <td><a class="xref" href="Unosquare.Swan.Reflection.PropertyTypeCache.html">PropertyTypeCache</a></td>
         <td><span class="parametername">propertyCache</span></td>
-        <td></td>
+        <td><p>The property cache object</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -163,7 +169,8 @@
   
   <a id="Unosquare_Swan_Reflection_AttributeCache_PropertyTypeCache_" data-uid="Unosquare.Swan.Reflection.AttributeCache.PropertyTypeCache*"></a>
   <h4 id="Unosquare_Swan_Reflection_AttributeCache_PropertyTypeCache" data-uid="Unosquare.Swan.Reflection.AttributeCache.PropertyTypeCache">PropertyTypeCache</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>A PropertyTypeCache object for caching properties and their attributes</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -190,7 +197,8 @@
   
   <a id="Unosquare_Swan_Reflection_AttributeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Retrieve*"></a>
   <h4 id="Unosquare_Swan_Reflection_AttributeCache_Retrieve_System_Reflection_MemberInfo_System_Type_System_Boolean_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Retrieve(System.Reflection.MemberInfo,System.Type,System.Boolean)">Retrieve(MemberInfo, Type, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets all attributes of a specific type from a Member</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -209,17 +217,20 @@
       <tr>
         <td><span class="xref">System.Reflection.MemberInfo</span></td>
         <td><span class="parametername">member</span></td>
-        <td></td>
+        <td><p>The member</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The attribute type</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">inherit</span></td>
-        <td></td>
+        <td><p>True to inspect the ancestors of element; otherwise, false.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -234,7 +245,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Object</span>[]</td>
-        <td></td>
+        <td><p>An array of the attributes stored for the specified type</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -242,7 +254,8 @@
   
   <a id="Unosquare_Swan_Reflection_AttributeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Retrieve*"></a>
   <h4 id="Unosquare_Swan_Reflection_AttributeCache_Retrieve__1_System_Reflection_MemberInfo_System_Boolean_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Retrieve``1(System.Reflection.MemberInfo,System.Boolean)">Retrieve&lt;T&gt;(MemberInfo, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets specific attributes from a member constrained to an attribute</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -261,12 +274,14 @@
       <tr>
         <td><span class="xref">System.Reflection.MemberInfo</span></td>
         <td><span class="parametername">member</span></td>
-        <td></td>
+        <td><p>The member</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">inherit</span></td>
-        <td></td>
+        <td><p>True to inspect the ancestors of element; otherwise, false.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -281,7 +296,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Object</span>[]</td>
-        <td></td>
+        <td><p>An array of the attributes stored for the specified type</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -296,7 +312,8 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td></td>
+        <td><p>The type of the attribute to be retrieved</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -304,7 +321,8 @@
   
   <a id="Unosquare_Swan_Reflection_AttributeCache_Retrieve_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Retrieve*"></a>
   <h4 id="Unosquare_Swan_Reflection_AttributeCache_Retrieve__1_System_Type_System_Boolean_" data-uid="Unosquare.Swan.Reflection.AttributeCache.Retrieve``1(System.Type,System.Boolean)">Retrieve&lt;T&gt;(Type, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets all properties an their attributes of a given type constrained to only attributes</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -323,12 +341,14 @@
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type of the object</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">inherit</span></td>
-        <td></td>
+        <td><p>True to inspect the ancestors of element; otherwise, false.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -343,7 +363,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>, <span class="xref">System.Object</span>[]&gt;</td>
-        <td></td>
+        <td><p>A dictionary of the properties and their attributes stored for the specified type</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -358,7 +379,8 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td></td>
+        <td><p>The type of the attribute to retrieve</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -366,7 +388,8 @@
   
   <a id="Unosquare_Swan_Reflection_AttributeCache_RetrieveFromType_" data-uid="Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType*"></a>
   <h4 id="Unosquare_Swan_Reflection_AttributeCache_RetrieveFromType__1_System_Type_System_Boolean_" data-uid="Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType``1(System.Type,System.Boolean)">RetrieveFromType&lt;T&gt;(Type, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets all properties and their attributes of a given type </p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -385,12 +408,14 @@
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type of the attribute</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">inherit</span></td>
-        <td></td>
+        <td><p>True to inspect the ancestors of element; otherwise, false.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -405,7 +430,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>, <span class="xref">System.Object</span>[]&gt;</td>
-        <td></td>
+        <td><p>A dictionary of the properties and their attributes stored for the specified type</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -420,7 +446,8 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td></td>
+        <td><p>The object type used to extract the properties from</p>
+</td>
       </tr>
     </tbody>
   </table>
