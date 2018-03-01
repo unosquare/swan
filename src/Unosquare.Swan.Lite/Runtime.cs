@@ -160,13 +160,22 @@
         public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
 
         /// <summary>
-        /// The property type cache
+        /// The property type cache.
         /// </summary>
         /// <value>
         /// The property type cache.
         /// </value>
         public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } =
             new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+
+        /// <summary>
+        /// The property attribute cache.
+        /// </summary>
+        /// <value>
+        /// The property attribute cache.
+        /// </value>
+        public static Lazy<AttributeCache> AttributeCache { get; } =
+           new Lazy<AttributeCache>(() => new AttributeCache());
 
         /// <summary>
         /// The object validator.
