@@ -10183,6 +10183,12 @@ references:
   commentId: Overload:Unosquare.Swan.Reflection.AttributeCache.PropertyTypeCache
   fullName: Unosquare.Swan.Reflection.AttributeCache.PropertyTypeCache
   nameWithType: AttributeCache.PropertyTypeCache
+- uid: Unosquare.Swan.Reflection.AttributeCache.Retrieve(System.Reflection.MemberInfo,System.Type,System.Boolean)
+  name: Retrieve(MemberInfo, Type, Boolean)
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_Retrieve_System_Reflection_MemberInfo_System_Type_System_Boolean_
+  commentId: M:Unosquare.Swan.Reflection.AttributeCache.Retrieve(System.Reflection.MemberInfo,System.Type,System.Boolean)
+  fullName: Unosquare.Swan.Reflection.AttributeCache.Retrieve(System.Reflection.MemberInfo, System.Type, System.Boolean)
+  nameWithType: AttributeCache.Retrieve(MemberInfo, Type, Boolean)
 - uid: Unosquare.Swan.Reflection.AttributeCache.Retrieve*
   name: Retrieve
   href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_Retrieve_
@@ -10207,6 +10213,21 @@ references:
   fullName.vb: Unosquare.Swan.Reflection.AttributeCache.Retrieve(Of T)(System.Type, System.Boolean)
   nameWithType: AttributeCache.Retrieve<T>(Type, Boolean)
   nameWithType.vb: AttributeCache.Retrieve(Of T)(Type, Boolean)
+- uid: Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType*
+  name: RetrieveFromType
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_RetrieveFromType_
+  commentId: Overload:Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType
+  fullName: Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType
+  nameWithType: AttributeCache.RetrieveFromType
+- uid: Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType``1(System.Type,System.Boolean)
+  name: RetrieveFromType<T>(Type, Boolean)
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_RetrieveFromType__1_System_Type_System_Boolean_
+  commentId: M:Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType``1(System.Type,System.Boolean)
+  name.vb: RetrieveFromType(Of T)(Type, Boolean)
+  fullName: Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType<T>(System.Type, System.Boolean)
+  fullName.vb: Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType(Of T)(System.Type, System.Boolean)
+  nameWithType: AttributeCache.RetrieveFromType<T>(Type, Boolean)
+  nameWithType.vb: AttributeCache.RetrieveFromType(Of T)(Type, Boolean)
 - uid: Unosquare.Swan.Reflection.ExtendedPropertyInfo
   name: ExtendedPropertyInfo
   href: api/Unosquare.Swan.Reflection.ExtendedPropertyInfo.html
