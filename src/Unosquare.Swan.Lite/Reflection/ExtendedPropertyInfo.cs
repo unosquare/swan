@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan.Reflection
 {
     using System;
-    using System.Linq;
     using System.Reflection;
     using Attributes;
 
@@ -24,7 +23,7 @@
             Property = propertyInfo.Name;
             DataType = propertyInfo.PropertyType.Name;
 
-            foreach (var display in propertyInfo.GetCustomAttributes(true).OfType<PropertyDisplayAttribute>())
+            foreach (PropertyDisplayAttribute display in Runtime.AttributeCache.Retrieve<PropertyDisplayAttribute>(propertyInfo, true))
             {
                 Name = display.Name;
                 Description = display.Description;
