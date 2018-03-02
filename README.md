@@ -560,7 +560,7 @@ Our `Simple` class to validate
         public string Name { get; set; }
     }
 ```
-Now the validation process
+
 ```csharp
 // create an instance of ObjectValidator
 var obj = new ObjectValidator();
@@ -568,11 +568,12 @@ var obj = new ObjectValidator();
 // Add a validation to the 'Simple' class with a custom error message
 obj.AddValidator<Simple>(x => !string.IsNullOrEmpty(x.Name), "Name must not be empty");
 
-// evaluate
-var res = obj.Validate(new Simple { Name = "Name" });
+// validate and return a boolean
+var res = obj.IsValid(new Simple { Name = "Name" });
 ```
 
 ### Example 2: Using Attributes
+Both `IsValid` and `Validate` methods verify that the object satisfies all custom validators and/or attributes, but instead of just returning a boolean, `Validate` returns a `ObjectValidatorResult` which includes all the errors with their properties.
 
 Our `Simple` class to validate
 ```csharp
@@ -588,13 +589,14 @@ Our `Simple` class to validate
         public string Email { get; set; }
     }
 ```
-keep in mind that the `Validate` method evaluates both custom validations and attributes
+This time we'll be using both custom validators and attributes 
 
 ```csharp
 // using the Runtime's ObjectValidator singleton
 Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
  
 var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
+
 ```
 ### The `DependencyContainer` component
 
