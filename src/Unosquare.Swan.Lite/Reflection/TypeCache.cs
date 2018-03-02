@@ -45,11 +45,28 @@
     public class PropertyTypeCache : TypeCache<PropertyInfo>
     {
         /// <summary>
-        /// Gets all properties function.
+        /// Retrieves all properties.
+        /// </summary>
+        /// <typeparam name="T">The type to inspect</typeparam>
+        /// <param name="onlyPublic">if set to <c>true</c> [only public].</param>
+        /// <returns>
+        /// A collection with all the properties in the given type
+        /// </returns>
+        public IEnumerable<PropertyInfo> RetrieveAllProperties<T>(bool onlyPublic = false)
+                    => Retrieve<T>(onlyPublic ? GetAllPublicPropertiesFunc(typeof(T)) : GetAllPropertiesFunc(typeof(T)));
+
+        /// <summary>
+        /// Retrieves all properties.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>A function to retrieve all properties</returns>
-        public static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
+        /// <param name="onlyPublic">if set to <c>true</c> [only public].</param>
+        /// <returns>
+        /// A collection with all the properties in the given type
+        /// </returns>
+        public IEnumerable<PropertyInfo> RetrieveAllProperties(Type type, bool onlyPublic = false)
+            => Retrieve(type, onlyPublic ? GetAllPublicPropertiesFunc(type) : GetAllPropertiesFunc(type));
+        
+        internal static Func<IEnumerable<PropertyInfo>> GetAllPropertiesFunc(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -58,13 +75,8 @@
                 .Where(p => p.CanRead || p.CanWrite)
                 .ToArray();
         }
-
-        /// <summary>
-        /// Gets all public properties function.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>A function to retrieve all public properties</returns>
-        public static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
+        
+        internal static Func<IEnumerable<PropertyInfo>> GetAllPublicPropertiesFunc(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -84,11 +96,26 @@
     public class FieldTypeCache : TypeCache<FieldInfo>
     {
         /// <summary>
-        /// Gets all fields function.
+        /// Retrieves all fields.
+        /// </summary>
+        /// <typeparam name="T">The type to inspect</typeparam>
+        /// <returns>
+        /// A collection with all the fields in the given type
+        /// </returns>
+        public IEnumerable<FieldInfo> RetrieveAllFields<T>()
+            => Retrieve<T>(GetAllFieldsFunc(typeof(T)));
+
+        /// <summary>
+        /// Retrieves all fields.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>A function to retrieve all fields</returns>
-        public static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
+        /// <returns>
+        /// A collection with all the fields in the given type
+        /// </returns>
+        public IEnumerable<FieldInfo> RetrieveAllFields(Type type)
+            => Retrieve(type, GetAllFieldsFunc(type));
+        
+        internal static Func<IEnumerable<FieldInfo>> GetAllFieldsFunc(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));

@@ -20,7 +20,7 @@
         /// <param name="propertyCache">The property cache object</param>
         public AttributeCache(PropertyTypeCache propertyCache = null)
         {
-            PropertyTypeCache = propertyCache ?? Runtime.PropertyTypeCache.Value;
+            PropertyTypeCache = propertyCache ?? Runtime.PropertyTypeCache;
         }
 
         /// <summary>

@@ -18,6 +18,14 @@
     public static class Runtime
 #endif
     {
+        private static readonly Lazy<PropertyTypeCache> _propertyTypeCache = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+        
+        private static readonly Lazy<AttributeCache> _attributeCache = new Lazy<AttributeCache>(() => new AttributeCache());
+        
+        private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
+
+        private static readonly Lazy<FieldTypeCache> _fieldTypeCache = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
+
 #if NET452
         private static readonly Lazy<Assembly> EntryAssemblyLazy = new Lazy<Assembly>(() => Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
 #endif
@@ -159,31 +167,28 @@
         public static bool IsUsingMonoRuntime => Type.GetType("Mono.Runtime") != null;
 
         /// <summary>
-        /// The property type cache.
+        /// Gets the property type cache.
         /// </summary>
         /// <value>
         /// The property type cache.
         /// </value>
-        public static Lazy<PropertyTypeCache> PropertyTypeCache { get; } =
-            new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
+        public static PropertyTypeCache PropertyTypeCache => _propertyTypeCache.Value;
 
         /// <summary>
-        /// The property attribute cache.
+        /// Gets the attribute cache.
         /// </summary>
         /// <value>
-        /// The property attribute cache.
+        /// The attribute cache.
         /// </value>
-        public static Lazy<AttributeCache> AttributeCache { get; } =
-           new Lazy<AttributeCache>(() => new AttributeCache());
+        public static AttributeCache AttributeCache => _attributeCache.Value;
 
         /// <summary>
-        /// The object validator.
+        /// Gets the object validator.
         /// </summary>
         /// <value>
         /// The object validator.
         /// </value>
-        public static Lazy<ObjectValidator> ObjectValidator { get; } =
-            new Lazy<ObjectValidator>(() => new ObjectValidator());
+        public static ObjectValidator ObjectValidator => _objectValidator.Value;
 
         /// <summary>
         /// Gets the field type cache.
@@ -191,8 +196,7 @@
         /// <value>
         /// The field type cache.
         /// </value>
-        public static Lazy<FieldTypeCache> FieldTypeCache { get; } =
-            new Lazy<FieldTypeCache>(() => new FieldTypeCache());
+        public static FieldTypeCache FieldTypeCache => _fieldTypeCache.Value;
 
 #if !NETSTANDARD1_3 && !UWP
         /// <summary>

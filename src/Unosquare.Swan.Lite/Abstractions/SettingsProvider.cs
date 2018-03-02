@@ -15,7 +15,7 @@
     /// Represents a provider to save and load settings using a plain JSON file
     /// </summary>
     /// <typeparam name="T">The type of settings model</typeparam>
-    public class SettingsProvider<T> 
+    public class SettingsProvider<T>
         : SingletonBase<SettingsProvider<T>>
     {
         /// <summary>
@@ -104,8 +104,7 @@
 
             var changedSettings = new List<string>();
             var globalType = Global.GetType();
-            var globalProps = Runtime.PropertyTypeCache.Value
-                .Retrieve(globalType, PropertyTypeCache.GetAllPropertiesFunc(globalType));
+            var globalProps = Runtime.PropertyTypeCache.RetrieveAllProperties(globalType);
 
             foreach (var property in propertyList)
             {

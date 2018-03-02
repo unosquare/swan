@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Reflection;
 
     /// <summary>
     /// Represents an AutoMapper-like object to map from one object type
@@ -46,7 +45,7 @@
                 throw new ArgumentNullException(nameof(target));
 
             // select distinct properties because they can be duplicated by inheritance
-            var sourceProperties = GetTypeProperties(source.GetType())
+            var sourceProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(source.GetType(), true)
                 .Where(x => x.CanRead)
                 .ToArray();
 
@@ -90,7 +89,8 @@
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            return Copy(target, propertiesToCopy, ignoreProperties, source.ToDictionary(x => x.Key.ToLowerInvariant(), x => new TypeValuePair(typeof(object), x.Value)));
+            return Copy(target, propertiesToCopy, ignoreProperties,
+                source.ToDictionary(x => x.Key.ToLowerInvariant(), x => new TypeValuePair(typeof(object), x.Value)));
         }
 
         /// <summary>
@@ -114,8 +114,8 @@
                 throw new InvalidOperationException("You can't create an existing map");
             }
 
-            var sourceType = GetTypeProperties(typeof(TSource));
-            var destinationType = GetTypeProperties(typeof(TDestination));
+            var sourceType = Runtime.PropertyTypeCache.RetrieveAllProperties<TSource>(true);
+            var destinationType = Runtime.PropertyTypeCache.RetrieveAllProperties<TDestination>(true);
 
             var intersect = sourceType.Intersect(destinationType, new PropertyInfoComparer()).ToArray();
 
@@ -157,7 +157,8 @@
             {
                 foreach (var property in map.Map)
                 {
-                    var finalSource = property.Value.Aggregate(source, (current, sourceProperty) => sourceProperty.GetValue(current));
+                    var finalSource = property.Value.Aggregate(source,
+                        (current, sourceProperty) => sourceProperty.GetValue(current));
 
                     property.Key.SetValue(destination, finalSource);
                 }
@@ -187,7 +188,7 @@
 
             // Targets
             var targetType = target.GetType();
-            var targetProperties = GetTypeProperties(targetType)
+            var targetProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(targetType, true)
                 .Where(x => x.CanWrite)
                 .ToList();
 
@@ -322,9 +323,6 @@
             return target;
         }
 
-        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
-            => Runtime.PropertyTypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
-
         internal class TypeValuePair
         {
             public TypeValuePair(Type type, object value)
@@ -333,7 +331,7 @@
                 Value = value;
             }
 
-            public Type Type { get; }    
+            public Type Type { get; }
 
             public object Value { get; }
         }
@@ -341,10 +339,7 @@
         internal class PropertyInfoComparer : IEqualityComparer<PropertyInfo>
         {
             public bool Equals(PropertyInfo x, PropertyInfo y)
-            {
-                // TODO: Include mapping matcher and types proximity
-                return x.Name == y.Name && x.PropertyType == y.PropertyType;
-            }
+                => x.Name == y.Name && x.PropertyType == y.PropertyType;
 
             public int GetHashCode(PropertyInfo obj)
                 => obj.Name.GetHashCode() + obj.PropertyType.Name.GetHashCode();

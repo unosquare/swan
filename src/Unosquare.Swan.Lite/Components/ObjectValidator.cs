@@ -86,7 +86,7 @@
                 }
             }
 
-            var properties = Runtime.AttributeCache.Value.RetrieveFromType<T>(typeof(IValidator));
+            var properties = Runtime.AttributeCache.RetrieveFromType<T>(typeof(IValidator));
 
             foreach (var prop in properties)
             {

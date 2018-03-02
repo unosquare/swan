@@ -289,8 +289,7 @@
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            var cachedProperties = Runtime.PropertyTypeCache.Value.Retrieve(model.GetType(),
-                PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
+            var cachedProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(model.GetType(), true);
 
             return cachedProperties
                 .Select(x => new {x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null})

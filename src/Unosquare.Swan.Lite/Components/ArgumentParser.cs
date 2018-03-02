@@ -65,7 +65,7 @@ namespace Unosquare.Swan.Components
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
 
-            var properties = GetTypeProperties(typeof(T)).ToArray();
+            var properties = Runtime.PropertyTypeCache.RetrieveAllProperties<T>(true).ToArray();
             var verbName = string.Empty;
 
             if (properties.Any(x => x.GetCustomAttributes(typeof(VerbOptionAttribute), false).Any()))
@@ -94,7 +94,7 @@ namespace Unosquare.Swan.Components
                     instance.GetType().GetProperty(verbName).SetValue(instance, propertyInstance);
                 }
 
-                properties = GetTypeProperties(selectedVerb.PropertyType).ToArray();
+                properties = Runtime.PropertyTypeCache.RetrieveAllProperties(selectedVerb.PropertyType, true).ToArray();
             }
 
             if (properties.Any() == false)
@@ -238,9 +238,6 @@ namespace Unosquare.Swan.Components
 
             return unknownList;
         }
-
-        private static IEnumerable<PropertyInfo> GetTypeProperties(Type type)
-            => Runtime.PropertyTypeCache.Value.Retrieve(type, PropertyTypeCache.GetAllPublicPropertiesFunc(type));
 
         private static void WriteUsage(IEnumerable<PropertyInfo> properties)
         {
