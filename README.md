@@ -68,6 +68,7 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [NetworkExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
 | [ObjectComparer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ObjectMapper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html) | :heavy_check_mark: | :heavy_check_mark: |
+ | [ObjectValidator](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ProcessRunner](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html) | :x: | :heavy_check_mark: |
 | [ReflectionExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ReflectionExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Runtime](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
@@ -546,6 +547,8 @@ ObjectComparer.AreEnumsEqual(first, second)
 ```
 ### The `ObjectValidator` component
 A simple object validator that allows you to set custom validations and identify if an object satisfies them.
+
+[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html)
 
 ### Example 1: Simple object validation
 Our `Simple` class to validate
