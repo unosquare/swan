@@ -1199,12 +1199,36 @@ references:
   commentId: Overload:Unosquare.Swan.Attributes.EmailAttribute.#ctor
   fullName: Unosquare.Swan.Attributes.EmailAttribute.EmailAttribute
   nameWithType: EmailAttribute.EmailAttribute
+- uid: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.EmailAttribute.html#Unosquare_Swan_Attributes_EmailAttribute_ErrorMessage
+  commentId: P:Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
+  nameWithType: EmailAttribute.ErrorMessage
+- uid: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage*
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.EmailAttribute.html#Unosquare_Swan_Attributes_EmailAttribute_ErrorMessage_
+  commentId: Overload:Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.EmailAttribute.ErrorMessage
+  nameWithType: EmailAttribute.ErrorMessage
 - uid: Unosquare.Swan.Attributes.IValidator
   name: IValidator
   href: api/Unosquare.Swan.Attributes.IValidator.html
   commentId: T:Unosquare.Swan.Attributes.IValidator
   fullName: Unosquare.Swan.Attributes.IValidator
   nameWithType: IValidator
+- uid: Unosquare.Swan.Attributes.IValidator.ErrorMessage
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.IValidator.html#Unosquare_Swan_Attributes_IValidator_ErrorMessage
+  commentId: P:Unosquare.Swan.Attributes.IValidator.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.IValidator.ErrorMessage
+  nameWithType: IValidator.ErrorMessage
+- uid: Unosquare.Swan.Attributes.IValidator.ErrorMessage*
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.IValidator.html#Unosquare_Swan_Attributes_IValidator_ErrorMessage_
+  commentId: Overload:Unosquare.Swan.Attributes.IValidator.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.IValidator.ErrorMessage
+  nameWithType: IValidator.ErrorMessage
 - uid: Unosquare.Swan.Attributes.IValidator.IsValid*
   name: IsValid
   href: api/Unosquare.Swan.Attributes.IValidator.html#Unosquare_Swan_Attributes_IValidator_IsValid_
@@ -1280,6 +1304,18 @@ references:
   commentId: Overload:Unosquare.Swan.Attributes.MatchAttribute.#ctor
   fullName: Unosquare.Swan.Attributes.MatchAttribute.MatchAttribute
   nameWithType: MatchAttribute.MatchAttribute
+- uid: Unosquare.Swan.Attributes.MatchAttribute.ErrorMessage
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute_ErrorMessage
+  commentId: P:Unosquare.Swan.Attributes.MatchAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.MatchAttribute.ErrorMessage
+  nameWithType: MatchAttribute.ErrorMessage
+- uid: Unosquare.Swan.Attributes.MatchAttribute.ErrorMessage*
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute_ErrorMessage_
+  commentId: Overload:Unosquare.Swan.Attributes.MatchAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.MatchAttribute.ErrorMessage
+  nameWithType: MatchAttribute.ErrorMessage
 - uid: Unosquare.Swan.Attributes.MatchAttribute.Expression
   name: Expression
   href: api/Unosquare.Swan.Attributes.MatchAttribute.html#Unosquare_Swan_Attributes_MatchAttribute_Expression
@@ -1313,6 +1349,18 @@ references:
   commentId: T:Unosquare.Swan.Attributes.NotNullAttribute
   fullName: Unosquare.Swan.Attributes.NotNullAttribute
   nameWithType: NotNullAttribute
+- uid: Unosquare.Swan.Attributes.NotNullAttribute.ErrorMessage
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.NotNullAttribute.html#Unosquare_Swan_Attributes_NotNullAttribute_ErrorMessage
+  commentId: P:Unosquare.Swan.Attributes.NotNullAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.NotNullAttribute.ErrorMessage
+  nameWithType: NotNullAttribute.ErrorMessage
+- uid: Unosquare.Swan.Attributes.NotNullAttribute.ErrorMessage*
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.NotNullAttribute.html#Unosquare_Swan_Attributes_NotNullAttribute_ErrorMessage_
+  commentId: Overload:Unosquare.Swan.Attributes.NotNullAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.NotNullAttribute.ErrorMessage
+  nameWithType: NotNullAttribute.ErrorMessage
 - uid: Unosquare.Swan.Attributes.NotNullAttribute.IsValid*
   name: IsValid
   href: api/Unosquare.Swan.Attributes.NotNullAttribute.html#Unosquare_Swan_Attributes_NotNullAttribute_IsValid_
@@ -1406,6 +1454,18 @@ references:
   commentId: Overload:Unosquare.Swan.Attributes.RangeAttribute.#ctor
   fullName: Unosquare.Swan.Attributes.RangeAttribute.RangeAttribute
   nameWithType: RangeAttribute.RangeAttribute
+- uid: Unosquare.Swan.Attributes.RangeAttribute.ErrorMessage
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.RangeAttribute.html#Unosquare_Swan_Attributes_RangeAttribute_ErrorMessage
+  commentId: P:Unosquare.Swan.Attributes.RangeAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.RangeAttribute.ErrorMessage
+  nameWithType: RangeAttribute.ErrorMessage
+- uid: Unosquare.Swan.Attributes.RangeAttribute.ErrorMessage*
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Attributes.RangeAttribute.html#Unosquare_Swan_Attributes_RangeAttribute_ErrorMessage_
+  commentId: Overload:Unosquare.Swan.Attributes.RangeAttribute.ErrorMessage
+  fullName: Unosquare.Swan.Attributes.RangeAttribute.ErrorMessage
+  nameWithType: RangeAttribute.ErrorMessage
 - uid: Unosquare.Swan.Attributes.RangeAttribute.IsValid*
   name: IsValid
   href: api/Unosquare.Swan.Attributes.RangeAttribute.html#Unosquare_Swan_Attributes_RangeAttribute_IsValid_
@@ -4048,15 +4108,15 @@ references:
   commentId: Overload:Unosquare.Swan.Components.ObjectValidator.AddValidator
   fullName: Unosquare.Swan.Components.ObjectValidator.AddValidator
   nameWithType: ObjectValidator.AddValidator
-- uid: Unosquare.Swan.Components.ObjectValidator.AddValidator``1(System.Predicate{``0})
-  name: AddValidator<T>(Predicate<T>)
-  href: api/Unosquare.Swan.Components.ObjectValidator.html#Unosquare_Swan_Components_ObjectValidator_AddValidator__1_System_Predicate___0__
-  commentId: M:Unosquare.Swan.Components.ObjectValidator.AddValidator``1(System.Predicate{``0})
-  name.vb: AddValidator(Of T)(Predicate(Of T))
-  fullName: Unosquare.Swan.Components.ObjectValidator.AddValidator<T>(System.Predicate<T>)
-  fullName.vb: Unosquare.Swan.Components.ObjectValidator.AddValidator(Of T)(System.Predicate(Of T))
-  nameWithType: ObjectValidator.AddValidator<T>(Predicate<T>)
-  nameWithType.vb: ObjectValidator.AddValidator(Of T)(Predicate(Of T))
+- uid: Unosquare.Swan.Components.ObjectValidator.AddValidator``1(System.Predicate{``0},System.String)
+  name: AddValidator<T>(Predicate<T>, String)
+  href: api/Unosquare.Swan.Components.ObjectValidator.html#Unosquare_Swan_Components_ObjectValidator_AddValidator__1_System_Predicate___0__System_String_
+  commentId: M:Unosquare.Swan.Components.ObjectValidator.AddValidator``1(System.Predicate{``0},System.String)
+  name.vb: AddValidator(Of T)(Predicate(Of T), String)
+  fullName: Unosquare.Swan.Components.ObjectValidator.AddValidator<T>(System.Predicate<T>, System.String)
+  fullName.vb: Unosquare.Swan.Components.ObjectValidator.AddValidator(Of T)(System.Predicate(Of T), System.String)
+  nameWithType: ObjectValidator.AddValidator<T>(Predicate<T>, String)
+  nameWithType.vb: ObjectValidator.AddValidator(Of T)(Predicate(Of T), String)
 - uid: Unosquare.Swan.Components.ObjectValidator.IsValid*
   name: IsValid
   href: api/Unosquare.Swan.Components.ObjectValidator.html#Unosquare_Swan_Components_ObjectValidator_IsValid_
