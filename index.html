@@ -634,7 +634,8 @@ var res = obj.Validate(new Simple { Name = &quot;Name&quot; });
         public string Email { get; set; }
     }
 </code></pre><p>keep in mind that the <code>Validate</code> method evaluates both custom validations and attributes</p>
-<pre><code class="lang-csharp"> Runtime.ObjectValidator.Value.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
+<pre><code class="lang-csharp">// using the Runtime&#39;s ObjectValidator singleton
+Runtime.ObjectValidator.Value.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
 
 var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;})
 </code></pre><h3 id="the-dependencycontainer-component">The <code>DependencyContainer</code> component</h3>
