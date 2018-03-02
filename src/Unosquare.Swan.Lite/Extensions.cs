@@ -298,6 +298,15 @@
                 .ToArray();
         }
 
+        /// <summary>
+        /// Returns true if the object is valid.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified model is valid; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsValid(this object model) => Runtime.ObjectValidator.IsValid(model);
+
         internal static void CreateTarget(
             this object source, 
             Type targetType, 
