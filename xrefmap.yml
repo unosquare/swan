@@ -5392,6 +5392,18 @@ references:
   fullName.vb: Unosquare.Swan.Extensions.GetValueOrDefault(Of TKey, TValue)(System.Collections.Generic.Dictionary(Of TKey, TValue), TKey, TValue)
   nameWithType: Extensions.GetValueOrDefault<TKey, TValue>(Dictionary<TKey, TValue>, TKey, TValue)
   nameWithType.vb: Extensions.GetValueOrDefault(Of TKey, TValue)(Dictionary(Of TKey, TValue), TKey, TValue)
+- uid: Unosquare.Swan.Extensions.IsValid(System.Object)
+  name: IsValid(Object)
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsValid_System_Object_
+  commentId: M:Unosquare.Swan.Extensions.IsValid(System.Object)
+  fullName: Unosquare.Swan.Extensions.IsValid(System.Object)
+  nameWithType: Extensions.IsValid(Object)
+- uid: Unosquare.Swan.Extensions.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_IsValid_
+  commentId: Overload:Unosquare.Swan.Extensions.IsValid
+  fullName: Unosquare.Swan.Extensions.IsValid
+  nameWithType: Extensions.IsValid
 - uid: Unosquare.Swan.Extensions.Retry(System.Action,System.TimeSpan,System.Int32)
   name: Retry(Action, TimeSpan, Int32)
   href: api/Unosquare.Swan.Extensions.html#Unosquare_Swan_Extensions_Retry_System_Action_System_TimeSpan_System_Int32_
