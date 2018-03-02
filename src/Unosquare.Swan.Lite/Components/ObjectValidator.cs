@@ -21,12 +21,9 @@
         /// </summary>
         /// <typeparam name="T">The type of the object</typeparam>
         /// <param name="obj">The object</param>
-        /// <returns>A bool indicating if it is a valid object</returns>
+        /// <returns cref="ObjectValidationResult">A validation result </returns>
         public ObjectValidationResult Validate<T>(T obj)
         {
-            if (Equals(obj, null))
-                throw new ArgumentNullException(nameof(obj));
-
             var errorList = new ObjectValidationResult();
             ValidateObject(obj, false, errorList.Add);
 
@@ -34,15 +31,14 @@
         }
 
         /// <summary>
-        /// Returns true if ... is valid.
+        /// Validates an object
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type</typeparam>
         /// <param name="obj">The object.</param>
         /// <returns>
         ///   <c>true</c> if the specified object is valid; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="ArgumentNullException">obj</exception>
-        /// <exception cref="InvalidOperationException">There are no validators for this type</exception>
         public bool IsValid<T>(T obj) => ValidateObject(obj);
 
         /// <summary>
@@ -54,6 +50,7 @@
         /// <exception cref="ArgumentNullException">
         /// predicate
         /// or
+        /// message
         /// </exception>
         public void AddValidator<T>(Predicate<T> predicate, string message)
             where T : class
@@ -108,18 +105,42 @@
         }
     }
 
+    /// <summary>
+    /// Defines a validation result containing all validation errors and their properties
+    /// </summary>
     public class ObjectValidationResult
     {
-        public List<ValidationError> Errors { get; set; }
+        /// <summary>
+        /// A list of errors
+        /// </summary>
+        public List<ValidationError> Errors { get; set; } = new List<ValidationError>();
 
+        /// <summary>
+        /// <c>true</c> if there are no errors; otherwise, <c>false</c>.
+        /// </summary>
         public bool IsValid => !Errors.Any();
 
+        /// <summary>
+        /// Adds an error with a specified property name
+        /// </summary>
+        /// <param name="propertyName">The property name</param>
+        /// <param name="errorMessage">The error message</param>
         public void Add(string propertyName, string errorMessage) =>
-            Errors.Add(new ValidationError {ErrorMessage = errorMessage, PropertyName = errorMessage});
+            Errors.Add(new ValidationError {ErrorMessage = errorMessage, PropertyName = propertyName});
 
+        /// <summary>
+        /// Defines a validation error
+        /// </summary>
         public class ValidationError
         {
+            /// <summary>
+            /// The property name
+            /// </summary>
             public string PropertyName { get; set; }
+
+            /// <summary>
+            /// The message error
+            /// </summary>
             public string ErrorMessage { get; set; }
         }
     }
