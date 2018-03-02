@@ -17,7 +17,7 @@
             new Dictionary<Type, List<Tuple<Delegate, string>>>();
 
         /// <summary>
-        /// Checks if an object is valid based on the custom validator attributes
+        /// Validates an object
         /// </summary>
         /// <typeparam name="T">The type of the object</typeparam>
         /// <param name="obj">The object</param>
