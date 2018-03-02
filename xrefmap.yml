@@ -4096,6 +4096,78 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectMapper.Map(Of TDestination)(System.Object, System.Boolean)
   nameWithType: ObjectMapper.Map<TDestination>(Object, Boolean)
   nameWithType.vb: ObjectMapper.Map(Of TDestination)(Object, Boolean)
+- uid: Unosquare.Swan.Components.ObjectValidationResult
+  name: ObjectValidationResult
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.html
+  commentId: T:Unosquare.Swan.Components.ObjectValidationResult
+  fullName: Unosquare.Swan.Components.ObjectValidationResult
+  nameWithType: ObjectValidationResult
+- uid: Unosquare.Swan.Components.ObjectValidationResult.Add(System.String,System.String)
+  name: Add(String, String)
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.html#Unosquare_Swan_Components_ObjectValidationResult_Add_System_String_System_String_
+  commentId: M:Unosquare.Swan.Components.ObjectValidationResult.Add(System.String,System.String)
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.Add(System.String, System.String)
+  nameWithType: ObjectValidationResult.Add(String, String)
+- uid: Unosquare.Swan.Components.ObjectValidationResult.Add*
+  name: Add
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.html#Unosquare_Swan_Components_ObjectValidationResult_Add_
+  commentId: Overload:Unosquare.Swan.Components.ObjectValidationResult.Add
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.Add
+  nameWithType: ObjectValidationResult.Add
+- uid: Unosquare.Swan.Components.ObjectValidationResult.Errors
+  name: Errors
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.html#Unosquare_Swan_Components_ObjectValidationResult_Errors
+  commentId: P:Unosquare.Swan.Components.ObjectValidationResult.Errors
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.Errors
+  nameWithType: ObjectValidationResult.Errors
+- uid: Unosquare.Swan.Components.ObjectValidationResult.Errors*
+  name: Errors
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.html#Unosquare_Swan_Components_ObjectValidationResult_Errors_
+  commentId: Overload:Unosquare.Swan.Components.ObjectValidationResult.Errors
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.Errors
+  nameWithType: ObjectValidationResult.Errors
+- uid: Unosquare.Swan.Components.ObjectValidationResult.IsValid
+  name: IsValid
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.html#Unosquare_Swan_Components_ObjectValidationResult_IsValid
+  commentId: P:Unosquare.Swan.Components.ObjectValidationResult.IsValid
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.IsValid
+  nameWithType: ObjectValidationResult.IsValid
+- uid: Unosquare.Swan.Components.ObjectValidationResult.IsValid*
+  name: IsValid
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.html#Unosquare_Swan_Components_ObjectValidationResult_IsValid_
+  commentId: Overload:Unosquare.Swan.Components.ObjectValidationResult.IsValid
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.IsValid
+  nameWithType: ObjectValidationResult.IsValid
+- uid: Unosquare.Swan.Components.ObjectValidationResult.ValidationError
+  name: ObjectValidationResult.ValidationError
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.ValidationError.html
+  commentId: T:Unosquare.Swan.Components.ObjectValidationResult.ValidationError
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.ValidationError
+  nameWithType: ObjectValidationResult.ValidationError
+- uid: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.ErrorMessage
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.ValidationError.html#Unosquare_Swan_Components_ObjectValidationResult_ValidationError_ErrorMessage
+  commentId: P:Unosquare.Swan.Components.ObjectValidationResult.ValidationError.ErrorMessage
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.ErrorMessage
+  nameWithType: ObjectValidationResult.ValidationError.ErrorMessage
+- uid: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.ErrorMessage*
+  name: ErrorMessage
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.ValidationError.html#Unosquare_Swan_Components_ObjectValidationResult_ValidationError_ErrorMessage_
+  commentId: Overload:Unosquare.Swan.Components.ObjectValidationResult.ValidationError.ErrorMessage
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.ErrorMessage
+  nameWithType: ObjectValidationResult.ValidationError.ErrorMessage
+- uid: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.PropertyName
+  name: PropertyName
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.ValidationError.html#Unosquare_Swan_Components_ObjectValidationResult_ValidationError_PropertyName
+  commentId: P:Unosquare.Swan.Components.ObjectValidationResult.ValidationError.PropertyName
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.PropertyName
+  nameWithType: ObjectValidationResult.ValidationError.PropertyName
+- uid: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.PropertyName*
+  name: PropertyName
+  href: api/Unosquare.Swan.Components.ObjectValidationResult.ValidationError.html#Unosquare_Swan_Components_ObjectValidationResult_ValidationError_PropertyName_
+  commentId: Overload:Unosquare.Swan.Components.ObjectValidationResult.ValidationError.PropertyName
+  fullName: Unosquare.Swan.Components.ObjectValidationResult.ValidationError.PropertyName
+  nameWithType: ObjectValidationResult.ValidationError.PropertyName
 - uid: Unosquare.Swan.Components.ObjectValidator
   name: ObjectValidator
   href: api/Unosquare.Swan.Components.ObjectValidator.html
