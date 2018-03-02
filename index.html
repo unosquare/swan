@@ -604,6 +604,7 @@ ObjectComparer.AreEnumsEqual(first, second)
 </code></pre><h3 id="the-objectvalidator-component">The <code>ObjectValidator</code> component</h3>
 <p>A simple object validator that allows you to set custom validations and identify if an object satisfies them.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html">ObjectValidator API Doc</a></p>
+<p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidationResult.html">ObjectValdiationResult API Doc</a></p>
 <h3 id="example-1-simple-object-validation">Example 1: Simple object validation</h3>
 <p>Our <code>Simple</code> class to validate</p>
 <pre><code class="lang-csharp">  public class Simple
@@ -614,8 +615,8 @@ ObjectComparer.AreEnumsEqual(first, second)
 <pre><code class="lang-csharp">// create an instance of ObjectValidator
 var obj = new ObjectValidator();
 
-// Add a validation to the &#39;Simple&#39; class
-obj.AddValidator&lt;Simple&gt;(x =&gt; !string.IsNullOrEmpty(x.Name));
+// Add a validation to the &#39;Simple&#39; class with a custom error message
+obj.AddValidator&lt;Simple&gt;(x =&gt; !string.IsNullOrEmpty(x.Name), &quot;Name must not be empty&quot;);
 
 // evaluate
 var res = obj.Validate(new Simple { Name = &quot;Name&quot; });
@@ -632,8 +633,10 @@ var res = obj.Validate(new Simple { Name = &quot;Name&quot; });
         [Email]
         public string Email { get; set; }
     }
-</code></pre><p>and a complete validation in a single line using the attributes shown above</p>
-<pre><code class="lang-csharp">var res = ObjectValidator.IsValid(new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;})
+</code></pre><p>keep in mind that the <code>Validate</code> method evaluates both custom validations and attributes</p>
+<pre><code class="lang-csharp"> Runtime.ObjectValidator.Value.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
+
+var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;})
 </code></pre><h3 id="the-dependencycontainer-component">The <code>DependencyContainer</code> component</h3>
 <p>It&#39;s an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of <code>DependencyContainer</code> called <code>Current</code> by <code>DependencyContainer</code> class.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.DependencyContainer.html">DependencyContainer API Doc</a></p>
