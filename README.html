@@ -611,16 +611,16 @@ ObjectComparer.AreEnumsEqual(first, second)
     {
         public string Name { get; set; }
     }
-</code></pre><p>Now the validation process</p>
-<pre><code class="lang-csharp">// create an instance of ObjectValidator
+</code></pre><pre><code class="lang-csharp">// create an instance of ObjectValidator
 var obj = new ObjectValidator();
 
 // Add a validation to the &#39;Simple&#39; class with a custom error message
 obj.AddValidator&lt;Simple&gt;(x =&gt; !string.IsNullOrEmpty(x.Name), &quot;Name must not be empty&quot;);
 
-// evaluate
-var res = obj.Validate(new Simple { Name = &quot;Name&quot; });
+// validate and return a boolean
+var res = obj.IsValid(new Simple { Name = &quot;Name&quot; });
 </code></pre><h3 id="example-2-using-attributes">Example 2: Using Attributes</h3>
+<p>Both <code>IsValid</code> and <code>Validate</code> methods verify that the object satisfies all custom validators and/or attributes, but instead of just returning a boolean, <code>Validate</code> returns a <code>ObjectValidatorResult</code> which includes all the errors with their properties.</p>
 <p>Our <code>Simple</code> class to validate</p>
 <pre><code class="lang-csharp">  public class Simple
     {
@@ -633,7 +633,7 @@ var res = obj.Validate(new Simple { Name = &quot;Name&quot; });
         [Email]
         public string Email { get; set; }
     }
-</code></pre><p>keep in mind that the <code>Validate</code> method evaluates both custom validations and attributes</p>
+</code></pre><p>This time we&#39;ll be using both custom validators and attributes </p>
 <pre><code class="lang-csharp">// using the Runtime&#39;s ObjectValidator singleton
 Runtime.ObjectValidator.Value.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
 
