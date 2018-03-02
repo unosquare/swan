@@ -17,7 +17,7 @@
             new Dictionary<Type, List<Tuple<Delegate, string>>>();
 
         /// <summary>
-        /// Validates an object
+        /// Validates an object given the specified validators and attributes
         /// </summary>
         /// <typeparam name="T">The type of the object</typeparam>
         /// <param name="obj">The object</param>
@@ -31,7 +31,7 @@
         }
 
         /// <summary>
-        /// Validates an object
+        /// Validates an object given the specified validators and attributes
         /// </summary>
         /// <typeparam name="T">The type</typeparam>
         /// <param name="obj">The object.</param>
