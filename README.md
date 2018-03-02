@@ -591,7 +591,8 @@ Our `Simple` class to validate
 keep in mind that the `Validate` method evaluates both custom validations and attributes
 
 ```csharp
- Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+// using the Runtime's ObjectValidator singleton
+Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
  
 var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
 ```
