@@ -89,7 +89,10 @@
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            return Copy(target, propertiesToCopy, ignoreProperties,
+            return Copy(
+                target, 
+                propertiesToCopy, 
+                ignoreProperties,
                 source.ToDictionary(x => x.Key.ToLowerInvariant(), x => new TypeValuePair(typeof(object), x.Value)));
         }
 

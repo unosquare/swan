@@ -24,7 +24,7 @@
         {
             Strategy = strategy;
         }
-        
+
         /// <summary>
         /// Enumerates the different ways of providing delays
         /// </summary>
@@ -40,12 +40,12 @@
             /// </summary>
             TaskDelay,
 
-            #if !UWP
+#if !UWP
             /// <summary>
             /// Using a wait event that completes in a background threadpool thread.
             /// </summary>
             ThreadPool
-                #endif
+#endif
         }
 
         /// <summary>
@@ -120,7 +120,7 @@
 
             _delayEvent.Wait();
         }
-        #endif
+#endif
         #endregion
     }
 }
