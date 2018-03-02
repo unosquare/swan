@@ -1719,7 +1719,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.FieldTypeCache.html",
-          "hash": "2oHNmdjREo5pDAqIoQKgfg=="
+          "hash": "SpJNALV5IK/yIayGo424DQ=="
         }
       },
       "is_incremental": false,
@@ -1731,7 +1731,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Reflection.PropertyTypeCache.html",
-          "hash": "Wfeh91gNqEWTDarjzD9MaA=="
+          "hash": "ny5ae86qZXlbhq752TEe9w=="
         }
       },
       "is_incremental": false,
@@ -1779,7 +1779,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Runtime.html",
-          "hash": "NY3RQ0VDv8MoKMxlWpoWbg=="
+          "hash": "0WXhcB9a2Iu4JI3bFmBdXw=="
         }
       },
       "is_incremental": false,
@@ -1913,11 +1913,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },

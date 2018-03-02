@@ -143,14 +143,14 @@ in the cache.</p>
   </h3>
   
   
-  <a id="Unosquare_Swan_Reflection_FieldTypeCache_GetAllFieldsFunc_" data-uid="Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc*"></a>
-  <h4 id="Unosquare_Swan_Reflection_FieldTypeCache_GetAllFieldsFunc_System_Type_" data-uid="Unosquare.Swan.Reflection.FieldTypeCache.GetAllFieldsFunc(System.Type)">GetAllFieldsFunc(Type)</h4>
-  <div class="markdown level1 summary"><p>Gets all fields function.</p>
+  <a id="Unosquare_Swan_Reflection_FieldTypeCache_RetrieveAllFields_" data-uid="Unosquare.Swan.Reflection.FieldTypeCache.RetrieveAllFields*"></a>
+  <h4 id="Unosquare_Swan_Reflection_FieldTypeCache_RetrieveAllFields_System_Type_" data-uid="Unosquare.Swan.Reflection.FieldTypeCache.RetrieveAllFields(System.Type)">RetrieveAllFields(Type)</h4>
+  <div class="markdown level1 summary"><p>Retrieves all fields.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Func&lt;IEnumerable&lt;FieldInfo&gt;&gt; GetAllFieldsFunc(Type type)</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;FieldInfo&gt; RetrieveAllFields(Type type)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -180,8 +180,51 @@ in the cache.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.FieldInfo</span>&gt;&gt;</td>
-        <td><p>A function to retrieve all fields</p>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.FieldInfo</span>&gt;</td>
+        <td><p>A collection with all the fields in the given type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Reflection_FieldTypeCache_RetrieveAllFields_" data-uid="Unosquare.Swan.Reflection.FieldTypeCache.RetrieveAllFields*"></a>
+  <h4 id="Unosquare_Swan_Reflection_FieldTypeCache_RetrieveAllFields__1" data-uid="Unosquare.Swan.Reflection.FieldTypeCache.RetrieveAllFields``1">RetrieveAllFields&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Retrieves all fields.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;FieldInfo&gt; RetrieveAllFields&lt;T&gt;()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.FieldInfo</span>&gt;</td>
+        <td><p>A collection with all the fields in the given type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type to inspect</p>
 </td>
       </tr>
     </tbody>
