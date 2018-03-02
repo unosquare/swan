@@ -10,14 +10,17 @@
     public interface IValidator
     {
         /// <summary>
+        /// The error message
+        /// </summary>
+        string ErrorMessage { get; }
+
+        /// <summary>
         /// Checks if a value is valid
         /// </summary>
         /// <typeparam name="T">The type</typeparam>
         /// <param name="value"> The value</param>
         /// <returns>True if it is valid.False if it is not</returns>
         bool IsValid<T>(T value);
-
-        string ErrorMessage { get; }
     }
 
     /// <summary>
@@ -31,6 +34,7 @@
         /// </summary>
         public string Expression { get; }
 
+        /// <inheritdoc/>
         public string ErrorMessage => "String does not match the specified regular expression";
 
         /// <summary>
@@ -61,6 +65,7 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class EmailAttribute : MatchAttribute
     {
+        /// <inheritdoc/>
         public new string ErrorMessage => "String is not an email";
 
         private static readonly string _emailRegExp =
@@ -82,6 +87,7 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class NotNullAttribute : Attribute, IValidator
     {
+        /// <inheritdoc/>
         public string ErrorMessage => "Value is null";
 
         /// <inheritdoc/>
@@ -100,6 +106,7 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class RangeAttribute : Attribute, IValidator
     {
+        /// <inheritdoc/>
         public string ErrorMessage => "Value is not within the specified range";
 
         /// <summary>
