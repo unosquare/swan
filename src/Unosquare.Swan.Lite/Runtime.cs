@@ -5,7 +5,6 @@
     using System.IO;
     using System.Threading;
     using Reflection;
-    using Components;
 #if !NETSTANDARD1_3 && !UWP
     using System.Reflection;
 #endif
@@ -59,8 +58,6 @@
 
         private static readonly Lazy<ObjectMapper> _objectMapper = new Lazy<ObjectMapper>(() => new ObjectMapper());
         
-        private static OperatingSystem? _oS = default;
-
 #if !NETSTANDARD1_3 && !UWP
         private static readonly string ApplicationMutexName = "Global\\{{" + EntryAssembly.FullName + "}}";
 #else
@@ -69,6 +66,8 @@
 
         private static readonly object SyncLock = new object();
         
+        private static OperatingSystem? _oS;
+
         #region Properties
 
         /// <summary>
