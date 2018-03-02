@@ -100,7 +100,7 @@ namespace Unosquare.Swan.Networking
             ThreadPool.QueueUserWorkItem(PerformContinuousReading, this);
 #else
             ThreadPool.GetAvailableThreads(out var availableWorkerThreads, out _);
-            ThreadPool.GetMaxThreads(out var maxWorkerThreads, out var maxCompletionPortThreads);
+            ThreadPool.GetMaxThreads(out var maxWorkerThreads, out var _);
 
             var activeThreadPoolTreads = maxWorkerThreads - availableWorkerThreads;
 
