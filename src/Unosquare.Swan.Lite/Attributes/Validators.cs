@@ -16,6 +16,8 @@
         /// <param name="value"> The value</param>
         /// <returns>True if it is valid.False if it is not</returns>
         bool IsValid<T>(T value);
+
+        string ErrorMessage { get; }
     }
 
     /// <summary>
@@ -28,6 +30,8 @@
         /// The string regex used to find a match
         /// </summary>
         public string Expression { get; }
+
+        public string ErrorMessage => "String does not match the specified regular expression";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchAttribute"/> class.
@@ -57,6 +61,8 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class EmailAttribute : MatchAttribute
     {
+        public new string ErrorMessage => "String is not an email";
+
         private static readonly string _emailRegExp =
             @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
@@ -76,6 +82,8 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class NotNullAttribute : Attribute, IValidator
     {
+        public string ErrorMessage => "Value is null";
+
         /// <inheritdoc/>
         public bool IsValid<T>(T value)
         {
@@ -92,6 +100,8 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class RangeAttribute : Attribute, IValidator
     {
+        public string ErrorMessage => "Value is not within the specified range";
+
         /// <summary>
         /// Maximum value for the range
         /// </summary>
@@ -145,11 +155,11 @@
             if (Equals(value, null))
                 throw new ArgumentNullException(nameof(value));
 
-            var max = (IComparable) Maximum;
-            var min = (IComparable) Minimum;
+            var max = (IComparable)Maximum;
+            var min = (IComparable)Minimum;
             try
             {
-                var val = (IComparable) Convert.ChangeType(value, OperandType, CultureInfo.InvariantCulture);
+                var val = (IComparable)Convert.ChangeType(value, OperandType, CultureInfo.InvariantCulture);
                 return min.CompareTo(val) <= 0 && max.CompareTo(val) >= 0;
             }
             catch (FormatException)
