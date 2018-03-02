@@ -550,6 +550,8 @@ A simple object validator that allows you to set custom validations and identify
 
 [ObjectValidator API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html)
 
+[ObjectValdiationResult API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidationResult.html)
+
 ### Example 1: Simple object validation
 Our `Simple` class to validate
 ```csharp
@@ -563,8 +565,8 @@ Now the validation process
 // create an instance of ObjectValidator
 var obj = new ObjectValidator();
 
-// Add a validation to the 'Simple' class
-obj.AddValidator<Simple>(x => !string.IsNullOrEmpty(x.Name));
+// Add a validation to the 'Simple' class with a custom error message
+obj.AddValidator<Simple>(x => !string.IsNullOrEmpty(x.Name), "Name must not be empty");
 
 // evaluate
 var res = obj.Validate(new Simple { Name = "Name" });
@@ -586,10 +588,12 @@ Our `Simple` class to validate
         public string Email { get; set; }
     }
 ```
-and a complete validation in a single line using the attributes shown above
+keep in mind that the `Validate` method evaluates both custom validations and attributes
 
 ```csharp
-var res = ObjectValidator.IsValid(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
+ Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+ 
+var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
 ```
 ### The `DependencyContainer` component
 
