@@ -10354,6 +10354,21 @@ references:
   fullName.vb: Unosquare.Swan.Reflection.AttributeCache.RetrieveFromType(Of T)(System.Type, System.Boolean)
   nameWithType: AttributeCache.RetrieveFromType<T>(Type, Boolean)
   nameWithType.vb: AttributeCache.RetrieveFromType(Of T)(Type, Boolean)
+- uid: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne*
+  name: RetrieveOne
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_RetrieveOne_
+  commentId: Overload:Unosquare.Swan.Reflection.AttributeCache.RetrieveOne
+  fullName: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne
+  nameWithType: AttributeCache.RetrieveOne
+- uid: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne``1(System.Reflection.MemberInfo,System.Boolean)
+  name: RetrieveOne<T>(MemberInfo, Boolean)
+  href: api/Unosquare.Swan.Reflection.AttributeCache.html#Unosquare_Swan_Reflection_AttributeCache_RetrieveOne__1_System_Reflection_MemberInfo_System_Boolean_
+  commentId: M:Unosquare.Swan.Reflection.AttributeCache.RetrieveOne``1(System.Reflection.MemberInfo,System.Boolean)
+  name.vb: RetrieveOne(Of T)(MemberInfo, Boolean)
+  fullName: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne<T>(System.Reflection.MemberInfo, System.Boolean)
+  fullName.vb: Unosquare.Swan.Reflection.AttributeCache.RetrieveOne(Of T)(System.Reflection.MemberInfo, System.Boolean)
+  nameWithType: AttributeCache.RetrieveOne<T>(MemberInfo, Boolean)
+  nameWithType.vb: AttributeCache.RetrieveOne(Of T)(MemberInfo, Boolean)
 - uid: Unosquare.Swan.Reflection.ExtendedPropertyInfo
   name: ExtendedPropertyInfo
   href: api/Unosquare.Swan.Reflection.ExtendedPropertyInfo.html
