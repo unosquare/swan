@@ -73,13 +73,13 @@ namespace Unosquare.Swan.Components
                 var selectedVerb = !args.Any()
                     ? null
                     : properties.FirstOrDefault(x =>
-                        x.GetCustomAttribute<VerbOptionAttribute>().Name.Equals(args.First()));
+                        Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x).Name.Equals(args.First()));
 
                 if (selectedVerb == null)
                 {
                     "No verb was specified".WriteLine(ConsoleColor.Red);
                     "Valid verbs:".WriteLine(ConsoleColor.Cyan);
-                    properties.Select(x => x.GetCustomAttribute<VerbOptionAttribute>()).Where(x => x != null)
+                    properties.Select(x => Runtime.AttributeCache.RetrieveOne<VerbOptionAttribute>(x)).Where(x => x != null)
                         .Select(x => $"  {x.Name}\t\t{x.HelpText}")
                         .ToList()
                         .ForEach(x => x.WriteLine(ConsoleColor.Cyan));
@@ -106,7 +106,7 @@ namespace Unosquare.Swan.Components
 
             foreach (var targetProperty in properties.Except(updatedList))
             {
-                var defaultValue = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>()?.DefaultValue;
+                var defaultValue = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty)?.DefaultValue;
 
                 if (defaultValue == null)
                     continue;
@@ -125,7 +125,7 @@ namespace Unosquare.Swan.Components
 
             foreach (var targetProperty in properties)
             {
-                var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
+                var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
                 if (optionAttr == null || optionAttr.Required == false)
                     continue;
@@ -241,7 +241,7 @@ namespace Unosquare.Swan.Components
 
         private static void WriteUsage(IEnumerable<PropertyInfo> properties)
         {
-            var options = properties.Select(p => p.GetCustomAttribute<ArgumentOptionAttribute>())
+            var options = properties.Select(p => Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p))
                 .Where(x => x != null);
 
             foreach (var option in options)
@@ -265,7 +265,7 @@ namespace Unosquare.Swan.Components
 
         private bool SetPropertyValue<T>(PropertyInfo targetProperty, string propertyValueString, T result)
         {
-            var optionAttr = targetProperty.GetCustomAttribute<ArgumentOptionAttribute>();
+            var optionAttr = Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(targetProperty);
 
             if (targetProperty.PropertyType.GetTypeInfo().IsEnum)
             {
@@ -312,7 +312,7 @@ namespace Unosquare.Swan.Components
 
         private PropertyInfo TryGetProperty(IEnumerable<PropertyInfo> properties, string propertyName)
             => properties.FirstOrDefault(p =>
-                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.LongName, propertyName, Settings.NameComparer) ||
-                string.Equals(p.GetCustomAttribute<ArgumentOptionAttribute>()?.ShortName, propertyName, Settings.NameComparer));
+                string.Equals(Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p)?.LongName, propertyName, Settings.NameComparer) ||
+                string.Equals(Runtime.AttributeCache.RetrieveOne<ArgumentOptionAttribute>(p)?.ShortName, propertyName, Settings.NameComparer));
     }
 }
