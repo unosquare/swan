@@ -598,6 +598,18 @@ Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), 
 var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
 
 ```
+
+### Example 3: Using the extension method
+In this example, we'll use the previous `Sample` class to validate an object using the built-in extension method which in turn uses the `Runtime`'s `ObjectValidator` singleton to validate our object.
+
+```csharp
+// using the Runtime's ObjectValidator singleton
+Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+
+// using the extension method
+var res = new Simple{ Name = "name", Number = 5, Email ="email@mail.com"}.IsValid();
+
+```
 ### The `DependencyContainer` component
 
 It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.
