@@ -45,7 +45,7 @@
         }
 
         /// <summary>
-        /// Gets all attributes of a specific type from a Member
+        /// Gets all attributes of a specific type from a member
         /// </summary>
         /// <param name="member">The member</param>
         /// <param name="type">The attribute type</param>
@@ -60,6 +60,27 @@
                 throw new ArgumentNullException(nameof(type));
 
             return Retrieve(member, () => member.GetCustomAttributes(type, inherit));
+        }
+
+        /// <summary>
+        /// Gets one attribute of a specific type from a member
+        /// </summary>
+        /// <typeparam name="T">The attribute type</typeparam>
+        /// <param name="member">The member</param>
+        /// <param name="inherit">True to inspect the ancestors of element; otherwise, false.</param>
+        /// <returns>An attribute stored for the specified type</returns>
+        public T RetrieveOne<T>(MemberInfo member, bool inherit = false)
+            where T : Attribute
+        {
+            var attrib = Retrieve(member, () => member.GetCustomAttributes(typeof(T), inherit));
+
+            if (attrib == null || attrib.Length == 0)
+                return default(T);
+
+            if (attrib.Length == 1)
+                return (T) Convert.ChangeType(attrib[0], typeof(T));
+
+            throw new AmbiguousMatchException("Multiple custom attributes of the same type found.");
         }
 
         /// <summary>
