@@ -75,7 +75,7 @@
             var attrib = Retrieve(member, () => member.GetCustomAttributes(typeof(T), inherit));
 
             if (attrib == null || attrib.Length == 0)
-                return default(T);
+                return default;
 
             if (attrib.Length == 1)
                 return (T) Convert.ChangeType(attrib[0], typeof(T));
@@ -101,19 +101,21 @@
         }
 
         /// <summary>
-        /// Gets all properties and their attributes of a given type 
+        /// Gets all properties and their attributes of a given type
         /// </summary>
         /// <typeparam name="T">The object type used to extract the properties from</typeparam>
-        /// <param name="type">The type of the attribute</param>
+        /// <param name="attributeType">Type of the attribute.</param>
         /// <param name="inherit">True to inspect the ancestors of element; otherwise, false.</param>
-        /// <returns>A dictionary of the properties and their attributes stored for the specified type</returns>
-        public Dictionary<PropertyInfo, object[]> RetrieveFromType<T>(Type type, bool inherit = false)
+        /// <returns>
+        /// A dictionary of the properties and their attributes stored for the specified type
+        /// </returns>
+        public Dictionary<PropertyInfo, object[]> RetrieveFromType<T>(Type attributeType, bool inherit = false)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
+            if (attributeType == null)
+                throw new ArgumentNullException(nameof(attributeType));
 
             return PropertyTypeCache.Retrieve(typeof(T), PropertyTypeCache.GetAllPublicPropertiesFunc(typeof(T)))
-                .ToDictionary(x => x, x => Retrieve(x,type, inherit));
+                .ToDictionary(x => x, x => Retrieve(x, attributeType, inherit));
         }
     }
 }

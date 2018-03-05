@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
     using Attributes;
-    using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;

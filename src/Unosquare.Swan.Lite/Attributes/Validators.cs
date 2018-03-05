@@ -65,18 +65,20 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class EmailAttribute : MatchAttribute
     {
-        /// <inheritdoc/>
-        public new string ErrorMessage => "String is not an email";
-
-        private static readonly string _emailRegExp =
+        private const string EmailRegExp =
             @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
+
+        /// <summary>
+        /// The error message
+        /// </summary>
+        public new string ErrorMessage => "String is not an email";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailAttribute"/> class.
         /// </summary>
         public EmailAttribute()
-            : base(_emailRegExp)
+            : base(EmailRegExp)
         {
         }
     }
