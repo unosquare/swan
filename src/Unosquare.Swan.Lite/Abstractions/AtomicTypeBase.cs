@@ -1,16 +1,19 @@
-﻿namespace Unosquare.Swan.Lite.Abstractions
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Threading;
 
     /// <summary>
     /// Provides a generic implementation of an Atomic (interlocked) type
+    /// 
+    /// Idea taken from Memory model and .NET operations in article:
+    /// http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/
     /// </summary>
     /// <typeparam name="T">The structure type backed by a 64-bit value</typeparam>
     public abstract class AtomicTypeBase<T> : IComparable, IComparable<T>, IComparable<AtomicTypeBase<T>>, IEquatable<T>, IEquatable<AtomicTypeBase<T>>
         where T : struct, IComparable, IComparable<T>, IEquatable<T>
     {
-        private long backingValue = default(long);
+        private long _backingValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AtomicTypeBase{T}"/> class.
@@ -35,8 +38,8 @@
         /// </summary>
         protected long BackingValue
         {
-            get => Interlocked.Read(ref backingValue);
-            set => Interlocked.Exchange(ref backingValue, value);
+            get => Interlocked.Read(ref _backingValue);
+            set => Interlocked.Exchange(ref _backingValue, value);
         }
 
         /// <summary>
@@ -47,7 +50,7 @@
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator ==(AtomicTypeBase<T> a, T b) => a.Equals(b);
+        public static bool operator ==(AtomicTypeBase<T> a, T b) => a?.Equals(b) == true;
 
         /// <summary>
         /// Implements the operator !=.
@@ -57,7 +60,7 @@
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator !=(AtomicTypeBase<T> a, T b) => a.Equals(b) == false;
+        public static bool operator !=(AtomicTypeBase<T> a, T b) => a?.Equals(b) == false;
 
         /// <summary>
         /// Implements the operator &gt;.
@@ -108,7 +111,7 @@
         /// </returns>
         public static AtomicTypeBase<T> operator ++(AtomicTypeBase<T> instance)
         {
-            Interlocked.Increment(ref instance.backingValue);
+            Interlocked.Increment(ref instance._backingValue);
             return instance;
         }
 
@@ -121,7 +124,7 @@
         /// </returns>
         public static AtomicTypeBase<T> operator --(AtomicTypeBase<T> instance)
         {
-            Interlocked.Decrement(ref instance.backingValue);
+            Interlocked.Decrement(ref instance._backingValue);
             return instance;
         }
 
@@ -161,16 +164,17 @@
         /// <exception cref="ArgumentException">When types are incompatible</exception>
         public int CompareTo(object other)
         {
-            if (other == null)
-                return 1;
+            switch (other)
+            {
+                case null:
+                    return 1;
+                case AtomicTypeBase<T> atomic:
+                    return BackingValue.CompareTo(atomic.BackingValue);
+                case T variable:
+                    return Value.CompareTo(variable);
+            }
 
-            if (other is AtomicTypeBase<T>)
-                return BackingValue.CompareTo((other as AtomicTypeBase<T>).BackingValue);
-
-            if (other is T)
-                return Value.CompareTo((T)other);
-
-            throw new ArgumentException($"Incompatible comparison types");
+            throw new ArgumentException("Incompatible comparison types");
         }
 
         /// <summary>
@@ -185,8 +189,7 @@
         /// </summary>
         /// <param name="other">The other instance.</param>
         /// <returns>0 if equal, 1 if this instance is greater, -1 if this instance is less than</returns>
-        public int CompareTo(AtomicTypeBase<T> other) =>
-            BackingValue.CompareTo(other?.BackingValue ?? default(long));
+        public int CompareTo(AtomicTypeBase<T> other) => BackingValue.CompareTo(other?.BackingValue ?? default);
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
@@ -197,8 +200,13 @@
         /// </returns>
         public override bool Equals(object other)
         {
-            if (other is AtomicTypeBase<T>) return Equals(other as AtomicTypeBase<T>);
-            if (other is T) return Equals((T)other);
+            switch (other)
+            {
+                case AtomicTypeBase<T> atomic:
+                    return Equals(atomic);
+                case T variable:
+                    return Equals(variable);
+            }
 
             return false;
         }
@@ -211,23 +219,11 @@
         /// </returns>
         public override int GetHashCode() => BackingValue.GetHashCode();
 
-        /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
-        /// </returns>
+        /// <inheritdoc />
         public bool Equals(AtomicTypeBase<T> other) => 
             BackingValue == (other?.BackingValue ?? default);
-
-        /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
-        /// </returns>
+        
+        /// <inheritdoc />
         public bool Equals(T other) => Equals(Value, other);
 
         /// <summary>

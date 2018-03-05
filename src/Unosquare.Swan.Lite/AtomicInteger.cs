@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan
 {
     using System;
-    using Unosquare.Swan.Lite.Abstractions;
+    using Abstractions;
 
     /// <summary>
     /// Represents an atomically readabl;e or writable integer.
@@ -19,11 +19,11 @@
         }
 
         /// <inheritdoc/>
-        protected override int FromLong(long backingValue) => 
+        protected override int FromLong(long backingValue) =>
             Convert.ToInt32(backingValue);
 
         /// <inheritdoc/>
-        protected override long ToLong(int value) => 
+        protected override long ToLong(int value) =>
             Convert.ToInt64(value);
     }
 }

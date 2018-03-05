@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.Swan
 {
     using Attributes;
-    using Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -289,8 +288,7 @@
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            var cachedProperties = Runtime.PropertyTypeCache.Value.Retrieve(model.GetType(),
-                PropertyTypeCache.GetAllPropertiesFunc(model.GetType()));
+            var cachedProperties = Runtime.PropertyTypeCache.RetrieveAllProperties(model.GetType(), true);
 
             return cachedProperties
                 .Select(x => new {x.Name, HasAttribute = x.GetCustomAttribute<CopyableAttribute>() != null})
@@ -298,6 +296,15 @@
                 .Select(x => x.Name)
                 .ToArray();
         }
+
+        /// <summary>
+        /// Returns true if the object is valid.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified model is valid; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsValid(this object model) => Runtime.ObjectValidator.IsValid(model);
 
         internal static void CreateTarget(
             this object source, 

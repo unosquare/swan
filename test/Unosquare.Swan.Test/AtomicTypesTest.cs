@@ -2,7 +2,7 @@
 {
     using NUnit.Framework;
     using System.Threading.Tasks;
-    using Unosquare.Swan.Lite.Abstractions;
+    using Abstractions;
 
     [TestFixture]
     public class AtomicTypeTest

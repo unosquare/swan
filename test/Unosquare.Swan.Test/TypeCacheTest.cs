@@ -53,34 +53,4 @@
                 TypeCache.Retrieve(typeof(string), null));
         }
     }
-
-    public class GetAllPropertiesFunc : TypeCacheTest
-    {
-        [Test]
-        public void WithNullType_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                PropertyTypeCache.GetAllPropertiesFunc(null));
-        }
-    }
-
-    public class GetAllPublicPropertiesFunc : TypeCacheTest
-    {
-        [Test]
-        public void WithNullType_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                PropertyTypeCache.GetAllPublicPropertiesFunc(null));
-        }
-    }
-
-    public class GetAllFieldsFunc : TypeCacheTest
-    {
-        [Test]
-        public void WithNullType_ThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-                FieldTypeCache.GetAllFieldsFunc(null));
-        }
-    }
 }

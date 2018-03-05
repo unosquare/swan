@@ -1,11 +1,9 @@
 ﻿namespace Unosquare.Swan
 {
-    using Unosquare.Swan.Lite.Abstractions;
+    using Abstractions;
 
     /// <summary>
-    /// Fast, atomic boolean combining interlocked to write value and volatile to read values
-    /// Idea taken from Memory model and .NET operations in article:
-    /// http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/
+    /// Fast, atomic boolean combining interlocked to write value and volatile to read values.
     /// </summary>
     public sealed class AtomicBoolean : AtomicTypeBase<bool>
     {

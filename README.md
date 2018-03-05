@@ -25,6 +25,7 @@ Repeating code and reinventing the wheel is generally considered bad practice. A
     * [The ObjectMapper component](#the-objectmapper-component)
     * [The Network component](#the-network-component)
     * [The ObjectComparer component](#the-objectcomparer-component)
+    * [The ObjectValidator component](#the-objectvalidator-component)
     * [The DependencyContainer component](#the-dependencycontainer-component)
     * [The MessageHub component](#the-messagehub-component)
     * [The LdapConnection class](#the-ldapconnection-class)
@@ -67,6 +68,7 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 | [NetworkExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.NetworkExtensions.html) | :x: | :heavy_check_mark: |
 | [ObjectComparer](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectComparer.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ObjectMapper](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectMapper.html) | :heavy_check_mark: | :heavy_check_mark: |
+ | [ObjectValidator](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [ProcessRunner](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html) | :x: | :heavy_check_mark: |
 | [ReflectionExtensions](https://unosquare.github.io/swan/api/Unosquare.Swan.ReflectionExtensions.html) | :heavy_check_mark: | :heavy_check_mark: |
 | [Runtime](https://unosquare.github.io/swan/api/Unosquare.Swan.Runtime.html) | :heavy_check_mark: | :heavy_check_mark: |
@@ -543,7 +545,71 @@ ObjectComparer.AreStructsEqual(first, second)
 // Compare if two enumerables are equal.
 ObjectComparer.AreEnumsEqual(first, second)
 ```
+### The `ObjectValidator` component
+A simple object validator that allows you to set custom validations and identify if an object satisfies them.
 
+[ObjectValidator API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidator.html)
+
+[ObjectValdiationResult API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ObjectValidationResult.html)
+
+### Example 1: Simple object validation
+Our `Simple` class to validate
+```csharp
+  public class Simple
+    {
+        public string Name { get; set; }
+    }
+```
+
+```csharp
+// create an instance of ObjectValidator
+var obj = new ObjectValidator();
+
+// Add a validation to the 'Simple' class with a custom error message
+obj.AddValidator<Simple>(x => !string.IsNullOrEmpty(x.Name), "Name must not be empty");
+
+// validate and return a boolean
+var res = obj.IsValid(new Simple { Name = "Name" });
+```
+
+### Example 2: Using Attributes
+Both `IsValid` and `Validate` methods verify that the object satisfies all custom validators and/or attributes, but instead of just returning a boolean, `Validate` returns a `ObjectValidatorResult` which includes all the errors with their properties.
+
+Our `Simple` class to validate
+```csharp
+  public class Simple
+    {
+        [NotNull]
+        public string Name { get; set; }
+        
+        [Range(1, 10)]
+        public int Number { get; set; }
+        
+        [Email]
+        public string Email { get; set; }
+    }
+```
+This time we'll be using both custom validators and attributes 
+
+```csharp
+// using the Runtime's ObjectValidator singleton
+Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+ 
+var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
+
+```
+
+### Example 3: Using the extension method
+In this example, we'll use the previous `Sample` class to validate an object using the built-in extension method which in turn uses the `Runtime`'s `ObjectValidator` singleton to validate our object.
+
+```csharp
+// using the Runtime's ObjectValidator singleton
+Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+
+// using the extension method
+var res = new Simple{ Name = "name", Number = 5, Email ="email@mail.com"}.IsValid();
+
+```
 ### The `DependencyContainer` component
 
 It's an easy to use IoC Inversion of Control Container of your classes and interfaces, you can register and associate your class with the interface that is going to use and then when you finish working with that you can unregister them. You can access a singleton instance of `DependencyContainer` called `Current` by `DependencyContainer` class.

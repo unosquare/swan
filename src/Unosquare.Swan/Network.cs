@@ -144,7 +144,7 @@
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A public ip address of the result produced by this Task</returns>
-        public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken ct = default(CancellationToken))
+        public static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken ct = default)
         {
             using (var client = new HttpClient())
             {
@@ -196,7 +196,7 @@
         /// <param name="ct">The ct.</param>
         /// <returns>An array of local ip addresses of the result produced by this task</returns>
         public static Task<IPAddress[]> GetDnsHostEntryAsync(string fqdn,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => GetDnsHostEntry(fqdn), ct);
         }
@@ -245,7 +245,7 @@
             string fqdn,
             IPAddress dnsServer,
             int port,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => GetDnsHostEntry(fqdn, dnsServer, port), ct);
         }
@@ -272,7 +272,7 @@
         /// <param name="ct">The ct.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static Task<string> GetDnsPointerEntryAsync(IPAddress query, IPAddress dnsServer, int port,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => GetDnsPointerEntry(query, dnsServer, port), ct);
         }
@@ -294,7 +294,7 @@
         /// <param name="ct">The ct.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         public static Task<string> GetDnsPointerEntryAsync(IPAddress query,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => GetDnsPointerEntry(query), ct);
         }
@@ -332,7 +332,7 @@
             DnsRecordType recordType,
             IPAddress dnsServer,
             int port,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => QueryDns(query, recordType, dnsServer, port), ct);
         }
@@ -358,7 +358,7 @@
         public static Task<DnsQueryResult> QueryDnsAsync(
             string query, 
             DnsRecordType recordType,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => QueryDns(query, recordType), ct);
         }
@@ -439,7 +439,7 @@
         public static Task<DateTime> GetNetworkTimeUtcAsync(
             IPAddress ntpServerAddress,
             int port = NtpDefaultPort,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerAddress, port), ct);
         }
@@ -454,7 +454,7 @@
         public static Task<DateTime> GetNetworkTimeUtcAsync(
             string ntpServerName = "pool.ntp.org",
             int port = NtpDefaultPort,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
         {
             return Task.Factory.StartNew(() => GetNetworkTimeUtc(ntpServerName, port), ct);
         }

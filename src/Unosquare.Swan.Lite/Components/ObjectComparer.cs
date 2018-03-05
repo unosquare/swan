@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Reflection;
 
     /// <summary>
     /// Represents a quick object comparer using the public properties of an object
@@ -72,7 +71,7 @@
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            var properties = RetrieveProperties(targetType).ToArray();
+            var properties = Runtime.PropertyTypeCache.RetrieveAllProperties(targetType).ToArray();
 
             foreach (var propertyTarget in properties)
             {
@@ -124,8 +123,8 @@
             if (targetType == null)
                 throw new ArgumentNullException(nameof(targetType));
 
-            var fields = new List<MemberInfo>(RetrieveFields(targetType))
-                .Union(RetrieveProperties(targetType));
+            var fields = new List<MemberInfo>(Runtime.FieldTypeCache.RetrieveAllFields(targetType))
+                .Union(Runtime.PropertyTypeCache.RetrieveAllProperties(targetType));
 
             foreach (var targetMember in fields)
             {
@@ -189,21 +188,5 @@
 
             return true;
         }
-
-        /// <summary>
-        /// Retrieves PropertyInfo[] (both public and non-public) for the given type
-        /// </summary>
-        /// <param name="targetType">Type of the target.</param>
-        /// <returns>Properties for the given type</returns>
-        private static PropertyInfo[] RetrieveProperties(Type targetType)
-            => Runtime.PropertyTypeCache.Value.Retrieve(targetType, PropertyTypeCache.GetAllPropertiesFunc(targetType));
-
-        /// <summary>
-        /// Retrieves FieldInfo[] (public) for the given type
-        /// </summary>
-        /// <param name="targetType">Type of the target.</param>
-        /// <returns>Value of a field supported by a given object</returns>
-        private static FieldInfo[] RetrieveFields(Type targetType)
-            => Runtime.FieldTypeCache.Value.Retrieve(targetType, FieldTypeCache.GetAllFieldsFunc(targetType));
     }
 }

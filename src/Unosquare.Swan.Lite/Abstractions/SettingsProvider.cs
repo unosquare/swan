@@ -15,7 +15,8 @@
     /// Represents a provider to save and load settings using a plain JSON file
     /// </summary>
     /// <typeparam name="T">The type of settings model</typeparam>
-    public class SettingsProvider<T> : SingletonBase<SettingsProvider<T>>
+    public class SettingsProvider<T>
+        : SingletonBase<SettingsProvider<T>>
     {
         /// <summary>
         /// A synchronization root that is commonly used for cross-thread operations.
@@ -102,10 +103,15 @@
                 throw new ArgumentNullException(nameof(propertyList));
 
             var changedSettings = new List<string>();
+            var globalType = Global.GetType();
+            var globalProps = Runtime.PropertyTypeCache.RetrieveAllProperties(globalType);
 
             foreach (var property in propertyList)
             {
-                var propertyInfo = Global.GetType().GetProperty(property.Property);
+                var propertyInfo = globalProps.FirstOrDefault(x => x.Name == property.Property);
+
+                if (propertyInfo == null) continue;
+
                 var originalValue = propertyInfo.GetValue(Global);
                 var isChanged = false;
 
@@ -182,7 +188,7 @@
             var jsonData = Json.Deserialize(Json.Serialize(Global)) as Dictionary<string, object>;
 
             return jsonData?.Keys
-                .Select(p => new ExtendedPropertyInfo<T>(p) {Value = jsonData[p]})
+                .Select(p => new ExtendedPropertyInfo<T>(p) { Value = jsonData[p] })
                 .ToList();
         }
 
