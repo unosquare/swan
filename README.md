@@ -84,7 +84,6 @@ We offer the Swan library in two flavors since version 0.24. Swan Lite provides 
 If you are developing an ASP.NET Core application, we recommend to use [SWAN AspNet.Core](https://github.com/unosquare/swan-aspnetcore).
 
 ## Installation:
-----------------
 
 Swan Standard Installation:
 
