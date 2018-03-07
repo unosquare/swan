@@ -2,7 +2,7 @@ version: '0.26.{build}'
 image: 
 - Visual Studio 2017
 - Ubuntu
-stack: node 8
+stack: node 9
 notifications:
 - provider: Slack
   auth_token:
