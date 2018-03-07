@@ -3,7 +3,6 @@ image:
 - Visual Studio 2017
 - Ubuntu
 stack: node 8
-platform: Any CPU
 notifications:
 - provider: Slack
   auth_token:
