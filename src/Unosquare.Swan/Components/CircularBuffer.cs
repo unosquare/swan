@@ -1,4 +1,5 @@
-﻿namespace Unosquare.Swan.Components
+#if !UWP
+namespace Unosquare.Swan.Components
 {
     using System;
     using System.Runtime.InteropServices;
@@ -211,3 +212,4 @@
         #endregion
     }
 }
+#endif
