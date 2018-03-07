@@ -2,8 +2,6 @@ version: '0.26.{build}'
 image: 
 - Visual Studio 2017
 - Ubuntu
-configuration:
-- Release
 stack: node 8
 platform: Any CPU
 notifications:
@@ -26,6 +24,7 @@ before_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {
+            echo Update DocFx
             git checkout $env:APPVEYOR_REPO_BRANCH -q
             cinst docfx -y
         }
@@ -44,10 +43,10 @@ before_build:
 - cmd: nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 - cmd: nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
 build_script:
-- msbuild /p:Configuration=%CONFIGURATION%
+- msbuild /p:Configuration=Release /verbosity:quiet
 test_script:
-- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c %CONFIGURATION% -f netcoreapp2.0
-- cmd: tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c %CONFIGURATION% -f net46" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
+- dotnet test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f netcoreapp2.0
+- cmd: tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"%ProgramFiles%\dotnet\dotnet.exe" -targetargs:"test test/Unosquare.Swan.Test/Unosquare.Swan.Test.csproj -c Release -f net46" -output:coverage.xml -filter:"+[Unosquare.Swan*]* -[Unosquare.Swan.Test*]*" -register:userdotnet
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {
