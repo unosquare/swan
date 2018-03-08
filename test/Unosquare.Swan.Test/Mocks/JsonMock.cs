@@ -135,6 +135,23 @@
         Three
     }
 
+    [Flags]
+    public enum MyFlag
+    {
+        None = 0,
+        One = 1,
+        Two = 2,
+        All = One | Two,
+    }
+
+    [Flags]
+    public enum MyFlag2
+    {
+        None = 0,
+        One = 1,
+        Two = 2
+    }
+
     public class ObjectAttr
     {
         public int Id { get; set; }

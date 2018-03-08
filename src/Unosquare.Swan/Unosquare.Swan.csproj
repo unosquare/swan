@@ -10,14 +10,14 @@
     <PackageId>Unosquare.Swan</PackageId>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
     <DebugType>Full</DebugType>
-    <Version>0.25.0</Version>
+    <Version>0.27.0</Version>
     <Authors>Unosquare</Authors>
     <PackageIconUrl>https://github.com/unosquare/swan/raw/master/swan-logo-32.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/unosquare/swan</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/unosquare/swan/master/LICENSE</PackageLicenseUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>best-practices netcore network objectmapper json-serialization</PackageTags>
-	<LangVersion>7.1</LangVersion>
+	  <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
