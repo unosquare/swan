@@ -42,7 +42,7 @@ build_script:
 - cmd: msbuild /p:Configuration=Release /verbosity:quiet
 - sh: |
         cd src/Unosquare.Swan
-        msbuild /p:Configuration=Release;TargetFrameworks="netstandard2.0;netstandard1.3;net452" /verbosity:quiet
+        msbuild /verbosity:quiet /p:Configuration=Release;TargetFrameworks="netstandard2.0;netstandard1.3;net452"
         cd ..
         cd ..
 test_script:
