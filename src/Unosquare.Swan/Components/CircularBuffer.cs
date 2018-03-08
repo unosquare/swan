@@ -1,4 +1,4 @@
-﻿#if !UWP
+#if !UWP
 namespace Unosquare.Swan.Components
 {
     using System;
