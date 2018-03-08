@@ -447,7 +447,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.CircularBuffer.html",
-          "hash": "hpsL21jdfwXkQpIZR5fysA=="
+          "hash": "A4Nmv82oOBdCvNk4gyYVjw=="
         }
       },
       "is_incremental": false,
@@ -603,7 +603,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.EnumHelper.html",
-          "hash": "8ZNYuppwuavBcX6luaDBRQ=="
+          "hash": "oH0PE/g//Ois+Alnwi623Q=="
         }
       },
       "is_incremental": false,
@@ -1913,17 +1913,17 @@
         "incrementalPhase": "build"
       },
       "processors": {
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "incrementalPhase": "build"
-        },
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {
