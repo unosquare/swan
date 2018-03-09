@@ -7,18 +7,28 @@
     /// <summary>
     /// Provide Enumerations helpers with internal cache
     /// </summary>
-    public static class EnumHelper
+    public class EnumHelper : CacheRepository<Type, Tuple<string, object>>
     {
-        private static readonly Dictionary<Type, Tuple<int, string>[]> ValueCache =
-            new Dictionary<Type, Tuple<int, string>[]>();
+        /// <summary>
+        /// Gets all the names and enumerators from a specific Enum type
+        /// </summary>
+        /// <typeparam name="T">The type of the attribute to be retrieved</typeparam>
+        /// <returns>A tuple of enumarator names and their value stored for the specified type</returns>
+        public Tuple<string, object>[] Retrieve<T>()
+            where T : struct, IConvertible
+        {
+            return Retrieve(typeof(T), () =>
+            {
+                var list = new List<Tuple<string, object>>();
+                var values = Enum.GetValues(typeof(T)).Cast<object>();
 
-        private static readonly Dictionary<Type, Tuple<int, string>[]> IndexCache =
-            new Dictionary<Type, Tuple<int, string>[]>();
-
-        private static readonly Dictionary<Type, Array> ArrayValueCache =
-            new Dictionary<Type, Array>();
-
-        private static readonly object LockObject = new object();
+                foreach (var item in values)
+                {
+                    list.Add(new Tuple<string, object>(Enum.GetName(typeof(T), item), item));
+                }
+                return list;
+            });
+        }
 
         /// <summary>
         /// Gets the cached items with the enum item value.
@@ -29,69 +39,12 @@
         /// A collection of Type/Tuple pairs 
         /// that represents items with the enum item value
         /// </returns>
-        public static Tuple<int, string>[] GetItemsWithValue<T>(bool humanize = true)
+        public Tuple<int, string>[] GetItemsWithValue<T>(bool humanize = true)
+             where T : struct, IConvertible
         {
-            lock (LockObject)
-            {
-                var tupleName = typeof(T);
-
-                if (ValueCache.ContainsKey(tupleName) == false)
-                {
-                    ValueCache.Add(tupleName, Enum.GetNames(tupleName)
-                        .Select(x =>
-                            new Tuple<int, string>((int) Enum.Parse(tupleName, x), humanize ? x.Humanize() : x))
-                        .ToArray());
-                }
-
-                return ValueCache[tupleName];
-            }
-        }
-
-        /// <summary>
-        /// Gets the cached items with the enum item index.
-        /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
-        /// <param name="humanize">if set to <c>true</c> [humanize].</param>
-        /// <returns>
-        /// A collection of Type/Tuple pairs that represents items with the enum item value
-        /// </returns>
-        public static Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
-        {
-            lock (LockObject)
-            {
-                var tupleName = typeof(T);
-
-                if (IndexCache.ContainsKey(tupleName) == false)
-                {
-                    var i = 0;
-
-                    IndexCache.Add(tupleName, Enum.GetNames(tupleName)
-                        .Select(x => new Tuple<int, string>(i++, humanize ? x.Humanize() : x))
-                        .ToArray());
-                }
-
-                return IndexCache[tupleName];
-            }
-        }
-
-        /// <summary>
-        /// Gets the cached values array.
-        /// </summary>
-        /// <typeparam name="TEnum">The type of the enum.</typeparam>
-        /// <returns>The array with values from the enumeration</returns>
-        public static Array GetValuesArray<TEnum>()
-        {
-            lock (LockObject)
-            {
-                var key = typeof(TEnum);
-
-                if (ArrayValueCache.ContainsKey(key) == false)
-                {
-                    ArrayValueCache.Add(key, Enum.GetValues(typeof(TEnum)));
-                }
-
-                return ArrayValueCache[key];
-            }
+            return Retrieve<T>()
+                .Select(x => new Tuple<int, string>((int)x.Item2,humanize ? x.Item1.Humanize() : x.Item1))
+                 .ToArray();
         }
 
         /// <summary>
@@ -103,14 +56,14 @@
         /// <returns>
         /// A list of values in the flag
         /// </returns>
-        public static List<int> GetFlagValues<TEnum>(int value, bool ignoreZero = false)
+        public List<int> GetFlagValues<TEnum>(int value, bool ignoreZero = false)
             where TEnum : struct, IConvertible
         {
-            return GetValuesArray<TEnum>()
-                .Cast<int>()
-                .When(() => ignoreZero, q => q.Where(f => f != 0))
-                .Where(f => (f & value) == f)
-                .ToList();
+            return Retrieve<TEnum>()
+               .Select(x => (int)x.Item2)
+               .When(() => ignoreZero, q => q.Where(f => f!= 0))
+               .Where(x => (x & value) == x)               
+               .ToList();
         }
 
         /// <summary>
@@ -119,13 +72,13 @@
         /// <typeparam name="TEnum">The type of the enum.</typeparam>
         /// <param name="value">The value.</param>
         /// <returns>A list of values in the flag</returns>
-        public static List<long> GetFlagValues<TEnum>(long value)
+        public List<long> GetFlagValues<TEnum>(long value)
             where TEnum : struct, IConvertible
         {
-            return GetValuesArray<TEnum>()
-                .Cast<long>()
-                .Where(f => (f & value) == f)
-                .ToList();
+            return Retrieve<TEnum>()
+               .Select(x => (long)x.Item2)
+               .Where(x => (x & value) == x)
+               .ToList();
         }
 
         /// <summary>
@@ -134,13 +87,13 @@
         /// <typeparam name="TEnum">The type of the enum.</typeparam>
         /// <param name="value">The value.</param>
         /// <returns>A list of values in the flag</returns>
-        public static List<byte> GetFlagValues<TEnum>(byte value)
+        public List<byte> GetFlagValues<TEnum>(byte value)
             where TEnum : struct, IConvertible
         {
-            return GetValuesArray<TEnum>()
-                .Cast<byte>()
-                .Where(f => (f & value) == f)
-                .ToList();
+            return Retrieve<TEnum>()
+               .Select(x => (byte)x.Item2)
+               .Where(x => (x & value) == x)
+               .ToList();
         }
 
         /// <summary>
@@ -150,13 +103,31 @@
         /// <param name="value">the value</param>
         /// <param name="humanize">if set to <c>true</c> [humanize].</param>
         /// <returns>A list of flag names</returns>
-        public static List<string> GetFlagNames<TEnum>(int value, bool humanize = false)
+        public List<string> GetFlagNames<TEnum>(int value, bool humanize = false)
             where TEnum : struct, IConvertible
         {
-            return GetItemsWithValue<TEnum>(humanize)
-                .Where(f => (f.Item1 & value) == f.Item1)
-                .Select(x => x.Item2)
-                .ToList();
+            return Retrieve<TEnum>()
+               .Where(x => ((int)x.Item2 & value) == (int)x.Item2)
+               .Select(x => humanize ? x.Item1.Humanize() : x.Item1)
+               .ToList();
+        }
+
+        /// <summary>
+        /// Gets the cached items with the enum item index.
+        /// </summary>
+        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <param name="humanize">if set to <c>true</c> [humanize].</param>
+        /// <returns>
+        /// A collection of Type/Tuple pairs that represents items with the enum item value
+        /// </returns>
+        public Tuple<int, string>[] GetItemsWithIndex<T>(bool humanize = true)
+            where T : struct, IConvertible
+        {
+            var i = 0;
+
+            return Retrieve<T>()
+                .Select(x => new Tuple<int, string>(i++, humanize ? x.Item1.Humanize() : x.Item1))
+                .ToArray();                
         }
     }
 }

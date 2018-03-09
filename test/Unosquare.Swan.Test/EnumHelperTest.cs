@@ -11,17 +11,11 @@
         [Test]
         public void WithValidIndexEnum_ReturnsTuple()
         {
-            var items = EnumHelper.GetItemsWithIndex<MyEnum>();
+            var items = Runtime.EnumHelper.GetItemsWithIndex<MyEnum>();
 
             Assert.AreEqual("(0, One)", items[0].ToString());
             Assert.AreEqual("(1, Two)", items[1].ToString());
             Assert.AreEqual("(2, Three)", items[2].ToString());
-        }
-
-        [Test]
-        public void WithInvalidType_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => EnumHelper.GetItemsWithIndex<string>());
         }
     }
 
@@ -31,17 +25,11 @@
         [Test]
         public void WithValidValueEnum_ReturnsTuple()
         {
-            var items = EnumHelper.GetItemsWithValue<MyEnum>();
+            var items = Runtime.EnumHelper.GetItemsWithValue<MyEnum>();
 
             Assert.AreEqual("(1, One)", items[0].ToString());
             Assert.AreEqual("(2, Two)", items[1].ToString());
             Assert.AreEqual("(3, Three)", items[2].ToString());
-        }
-
-        [Test]
-        public void WithInvalidType_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => EnumHelper.GetItemsWithValue<string>());
         }
     }
 
@@ -59,7 +47,7 @@
         [TestCase(MyFlag.One | MyFlag.Two, true, new[] {1, 2, 3})]
         public void WithFlag_ReturnsListofInt(MyFlag val, bool ignoreZero, int[] expected)
         {
-            Assert.AreEqual(expected, EnumHelper.GetFlagValues<MyFlag>((int) val, ignoreZero));
+            Assert.AreEqual(expected, Runtime.EnumHelper.GetFlagValues<MyFlag>((int) val, ignoreZero));
         }
 
         [TestCase(MyFlag2.None, false, new[] {0})]
@@ -71,13 +59,23 @@
         [TestCase(MyFlag2.One | MyFlag2.Two, true, new[] {1, 2})]
         public void WithFlag2_ReturnsListofInt(MyFlag2 val, bool ignoreZero, int[] expected)
         {
-            Assert.AreEqual(expected, EnumHelper.GetFlagValues<MyFlag2>((int) val, ignoreZero));
+            Assert.AreEqual(expected, Runtime.EnumHelper.GetFlagValues<MyFlag2>((int) val, ignoreZero));
         }
         
         [Test]
         public void WithInvalidType_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EnumHelper.GetFlagValues<int>(0));
+            Assert.Throws<ArgumentException>(() => Runtime.EnumHelper.GetFlagValues<int>(0));
+        }
+    }
+
+    [TestFixture]
+    public class GetFlagNames
+    {
+        [Test]
+        public void Tes()
+        {
+            var names = Runtime.EnumHelper.GetFlagValues<MyFlag>((int)MyFlag.All);
         }
     }
 }
