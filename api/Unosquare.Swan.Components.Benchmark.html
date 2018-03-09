@@ -119,28 +119,6 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class Benchmark</code></pre>
   </div>
-  <h5 id="Unosquare_Swan_Components_Benchmark_examples"><strong>Examples</strong></h5>
-  <p>The following code demonstrates how to create a simple benchmark.</p>
-<pre><code>namespace Examples.Benchmark.Simple
-{
-    using Unosquare.Swan.Components;
-
-    public class SimpleBenchmark
-    {
-        public static void Main()
-        {
-             using (Benchmark.Start(&quot;Test&quot;))
-             {
-                // do some logic in here
-             }
-
-            // dump results into a string
-            var results = Benchmark.Dump();
-        }
-    }
-
-}</code></pre>
-
   <h3 id="methods">Methods
   </h3>
   
