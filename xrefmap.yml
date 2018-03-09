@@ -3430,6 +3430,21 @@ references:
   commentId: T:Unosquare.Swan.Components.EnumHelper
   fullName: Unosquare.Swan.Components.EnumHelper
   nameWithType: EnumHelper
+- uid: Unosquare.Swan.Components.EnumHelper.GetFlagNames*
+  name: GetFlagNames
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetFlagNames_
+  commentId: Overload:Unosquare.Swan.Components.EnumHelper.GetFlagNames
+  fullName: Unosquare.Swan.Components.EnumHelper.GetFlagNames
+  nameWithType: EnumHelper.GetFlagNames
+- uid: Unosquare.Swan.Components.EnumHelper.GetFlagNames``1(System.Int32,System.Boolean)
+  name: GetFlagNames<TEnum>(Int32, Boolean)
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetFlagNames__1_System_Int32_System_Boolean_
+  commentId: M:Unosquare.Swan.Components.EnumHelper.GetFlagNames``1(System.Int32,System.Boolean)
+  name.vb: GetFlagNames(Of TEnum)(Int32, Boolean)
+  fullName: Unosquare.Swan.Components.EnumHelper.GetFlagNames<TEnum>(System.Int32, System.Boolean)
+  fullName.vb: Unosquare.Swan.Components.EnumHelper.GetFlagNames(Of TEnum)(System.Int32, System.Boolean)
+  nameWithType: EnumHelper.GetFlagNames<TEnum>(Int32, Boolean)
+  nameWithType.vb: EnumHelper.GetFlagNames(Of TEnum)(Int32, Boolean)
 - uid: Unosquare.Swan.Components.EnumHelper.GetFlagValues*
   name: GetFlagValues
   href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetFlagValues_
