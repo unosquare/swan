@@ -88,10 +88,20 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">EnumHelper</span></div>
+    <div class="level1"><a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html">CacheRepository</a>&lt;<span class="xref">System.Type</span>, <span class="xref">System.Tuple</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;&gt;</div>
+    <div class="level2"><span class="xref">EnumHelper</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Item__0_">CacheRepository&lt;Type, Tuple&lt;String, Object&gt;&gt;.Item[Type]</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Contains__0_">CacheRepository&lt;Type, Tuple&lt;String, Object&gt;&gt;.Contains(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unosquare.Swan.Components.CacheRepository-2.html#Unosquare_Swan_Components_CacheRepository_2_Retrieve__0_System_Func_System_Collections_Generic_IEnumerable__1___">CacheRepository&lt;Type, Tuple&lt;String, Object&gt;&gt;.Retrieve(Type, Func&lt;IEnumerable&lt;Tuple&lt;String, Object&gt;&gt;&gt;)</a>
+    </div>
     <div>
       <span class="xref">System.Object.ToString()</span>
     </div>
@@ -117,7 +127,7 @@
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
   <h5 id="Unosquare_Swan_Components_EnumHelper_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class EnumHelper</code></pre>
+    <pre><code class="lang-csharp hljs">public class EnumHelper : CacheRepository&lt;Type, Tuple&lt;string, object&gt;&gt;</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -130,7 +140,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static List&lt;string&gt; GetFlagNames&lt;TEnum&gt;(int value, bool humanize = false)where TEnum : struct, IConvertible</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;string&gt; GetFlagNames&lt;TEnum&gt;(int value, bool humanize = false)where TEnum : struct, IConvertible</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -197,7 +207,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static List&lt;byte&gt; GetFlagValues&lt;TEnum&gt;(byte value)where TEnum : struct, IConvertible</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;byte&gt; GetFlagValues&lt;TEnum&gt;(byte value)where TEnum : struct, IConvertible</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -258,7 +268,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static List&lt;int&gt; GetFlagValues&lt;TEnum&gt;(int value, bool ignoreZero = false)where TEnum : struct, IConvertible</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;int&gt; GetFlagValues&lt;TEnum&gt;(int value, bool ignoreZero = false)where TEnum : struct, IConvertible</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -325,7 +335,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static List&lt;long&gt; GetFlagValues&lt;TEnum&gt;(long value)where TEnum : struct, IConvertible</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;long&gt; GetFlagValues&lt;TEnum&gt;(long value)where TEnum : struct, IConvertible</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -386,7 +396,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Tuple&lt;int, string&gt;[] GetItemsWithIndex&lt;T&gt;(bool humanize = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public Tuple&lt;int, string&gt;[] GetItemsWithIndex&lt;T&gt;(bool humanize = true)where T : struct, IConvertible</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -447,7 +457,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Tuple&lt;int, string&gt;[] GetItemsWithValue&lt;T&gt;(bool humanize = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public Tuple&lt;int, string&gt;[] GetItemsWithValue&lt;T&gt;(bool humanize = true)where T : struct, IConvertible</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -502,14 +512,14 @@ that represents items with the enum item value</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Components_EnumHelper_GetValuesArray_" data-uid="Unosquare.Swan.Components.EnumHelper.GetValuesArray*"></a>
-  <h4 id="Unosquare_Swan_Components_EnumHelper_GetValuesArray__1" data-uid="Unosquare.Swan.Components.EnumHelper.GetValuesArray``1">GetValuesArray&lt;TEnum&gt;()</h4>
-  <div class="markdown level1 summary"><p>Gets the cached values array.</p>
+  <a id="Unosquare_Swan_Components_EnumHelper_Retrieve_" data-uid="Unosquare.Swan.Components.EnumHelper.Retrieve*"></a>
+  <h4 id="Unosquare_Swan_Components_EnumHelper_Retrieve__1" data-uid="Unosquare.Swan.Components.EnumHelper.Retrieve``1">Retrieve&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Gets all the names and enumerators from a specific Enum type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Array GetValuesArray&lt;TEnum&gt;()</code></pre>
+    <pre><code class="lang-csharp hljs">public Tuple&lt;string, object&gt;[] Retrieve&lt;T&gt;()where T : struct, IConvertible</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -521,8 +531,8 @@ that represents items with the enum item value</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Array</span></td>
-        <td><p>The array with values from the enumeration</p>
+        <td><span class="xref">System.Tuple</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;[]</td>
+        <td><p>A tuple of enumarator names and their value stored for the specified type</p>
 </td>
       </tr>
     </tbody>
@@ -537,8 +547,8 @@ that represents items with the enum item value</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TEnum</span></td>
-        <td><p>The type of the enum.</p>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the attribute to be retrieved</p>
 </td>
       </tr>
     </tbody>
