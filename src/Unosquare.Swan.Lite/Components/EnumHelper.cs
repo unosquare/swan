@@ -142,5 +142,21 @@
                 .Where(f => (f & value) == f)
                 .ToList();
         }
+
+        /// <summary>
+        /// Gets the flag names
+        /// </summary>
+        /// <typeparam name="TEnum">The type of the enum</typeparam>
+        /// <param name="value">the value</param>
+        /// <param name="humanize">if set to <c>true</c> [humanize].</param>
+        /// <returns>A list of flag names</returns>
+        public static List<string> GetFlagNames<TEnum>(int value, bool humanize = false)
+            where TEnum : struct, IConvertible
+        {
+            return GetItemsWithValue<TEnum>(humanize)
+                .Where(f => (f.Item1 & value) == f.Item1)
+                .Select(x => x.Item2)
+                .ToList();
+        }
     }
 }
