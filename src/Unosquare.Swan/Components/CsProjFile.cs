@@ -43,7 +43,9 @@
             _xmlDocument = XDocument.Load(stream);
 
             var projectElement = _xmlDocument.Descendants("Project").FirstOrDefault();
-            if (projectElement == null || projectElement.Attribute("Sdk")?.Value != "Microsoft.NET.Sdk")
+            var sdkAttribute = projectElement.Attribute("Sdk");
+            var sdk = sdkAttribute?.Value;
+            if (sdk != "Microsoft.NET.Sdk" && sdk != "Microsoft.NET.Sdk.Web")
             {
                 throw new ArgumentException("Project file is not of the new .csproj type.");
             }
