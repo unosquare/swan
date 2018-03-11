@@ -3430,21 +3430,6 @@ references:
   commentId: T:Unosquare.Swan.Components.EnumHelper
   fullName: Unosquare.Swan.Components.EnumHelper
   nameWithType: EnumHelper
-- uid: Unosquare.Swan.Components.EnumHelper.GetFlagNames*
-  name: GetFlagNames
-  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetFlagNames_
-  commentId: Overload:Unosquare.Swan.Components.EnumHelper.GetFlagNames
-  fullName: Unosquare.Swan.Components.EnumHelper.GetFlagNames
-  nameWithType: EnumHelper.GetFlagNames
-- uid: Unosquare.Swan.Components.EnumHelper.GetFlagNames``1(System.Int32,System.Boolean)
-  name: GetFlagNames<TEnum>(Int32, Boolean)
-  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetFlagNames__1_System_Int32_System_Boolean_
-  commentId: M:Unosquare.Swan.Components.EnumHelper.GetFlagNames``1(System.Int32,System.Boolean)
-  name.vb: GetFlagNames(Of TEnum)(Int32, Boolean)
-  fullName: Unosquare.Swan.Components.EnumHelper.GetFlagNames<TEnum>(System.Int32, System.Boolean)
-  fullName.vb: Unosquare.Swan.Components.EnumHelper.GetFlagNames(Of TEnum)(System.Int32, System.Boolean)
-  nameWithType: EnumHelper.GetFlagNames<TEnum>(Int32, Boolean)
-  nameWithType.vb: EnumHelper.GetFlagNames(Of TEnum)(Int32, Boolean)
 - uid: Unosquare.Swan.Components.EnumHelper.GetFlagValues*
   name: GetFlagValues
   href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetFlagValues_
@@ -3508,21 +3493,21 @@ references:
   fullName.vb: Unosquare.Swan.Components.EnumHelper.GetItemsWithValue(Of T)(System.Boolean)
   nameWithType: EnumHelper.GetItemsWithValue<T>(Boolean)
   nameWithType.vb: EnumHelper.GetItemsWithValue(Of T)(Boolean)
-- uid: Unosquare.Swan.Components.EnumHelper.Retrieve*
-  name: Retrieve
-  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_Retrieve_
-  commentId: Overload:Unosquare.Swan.Components.EnumHelper.Retrieve
-  fullName: Unosquare.Swan.Components.EnumHelper.Retrieve
-  nameWithType: EnumHelper.Retrieve
-- uid: Unosquare.Swan.Components.EnumHelper.Retrieve``1
-  name: Retrieve<T>()
-  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_Retrieve__1
-  commentId: M:Unosquare.Swan.Components.EnumHelper.Retrieve``1
-  name.vb: Retrieve(Of T)()
-  fullName: Unosquare.Swan.Components.EnumHelper.Retrieve<T>()
-  fullName.vb: Unosquare.Swan.Components.EnumHelper.Retrieve(Of T)()
-  nameWithType: EnumHelper.Retrieve<T>()
-  nameWithType.vb: EnumHelper.Retrieve(Of T)()
+- uid: Unosquare.Swan.Components.EnumHelper.GetValuesArray*
+  name: GetValuesArray
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetValuesArray_
+  commentId: Overload:Unosquare.Swan.Components.EnumHelper.GetValuesArray
+  fullName: Unosquare.Swan.Components.EnumHelper.GetValuesArray
+  nameWithType: EnumHelper.GetValuesArray
+- uid: Unosquare.Swan.Components.EnumHelper.GetValuesArray``1
+  name: GetValuesArray<TEnum>()
+  href: api/Unosquare.Swan.Components.EnumHelper.html#Unosquare_Swan_Components_EnumHelper_GetValuesArray__1
+  commentId: M:Unosquare.Swan.Components.EnumHelper.GetValuesArray``1
+  name.vb: GetValuesArray(Of TEnum)()
+  fullName: Unosquare.Swan.Components.EnumHelper.GetValuesArray<TEnum>()
+  fullName.vb: Unosquare.Swan.Components.EnumHelper.GetValuesArray(Of TEnum)()
+  nameWithType: EnumHelper.GetValuesArray<TEnum>()
+  nameWithType.vb: EnumHelper.GetValuesArray(Of TEnum)()
 - uid: Unosquare.Swan.Components.IMessageHub
   name: IMessageHub
   href: api/Unosquare.Swan.Components.IMessageHub.html
@@ -11180,18 +11165,6 @@ references:
   commentId: Overload:Unosquare.Swan.Runtime.EntryAssemblyVersion
   fullName: Unosquare.Swan.Runtime.EntryAssemblyVersion
   nameWithType: Runtime.EntryAssemblyVersion
-- uid: Unosquare.Swan.Runtime.EnumHelper
-  name: EnumHelper
-  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_EnumHelper
-  commentId: P:Unosquare.Swan.Runtime.EnumHelper
-  fullName: Unosquare.Swan.Runtime.EnumHelper
-  nameWithType: Runtime.EnumHelper
-- uid: Unosquare.Swan.Runtime.EnumHelper*
-  name: EnumHelper
-  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_EnumHelper_
-  commentId: Overload:Unosquare.Swan.Runtime.EnumHelper
-  fullName: Unosquare.Swan.Runtime.EnumHelper
-  nameWithType: Runtime.EnumHelper
 - uid: Unosquare.Swan.Runtime.FieldTypeCache
   name: FieldTypeCache
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_FieldTypeCache
