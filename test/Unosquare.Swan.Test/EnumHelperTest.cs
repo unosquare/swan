@@ -17,12 +17,6 @@
             Assert.AreEqual("(1, Two)", items[1].ToString());
             Assert.AreEqual("(2, Three)", items[2].ToString());
         }
-
-        [Test]
-        public void WithInvalidType_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => EnumHelper.GetItemsWithIndex<string>());
-        }
     }
 
     [TestFixture]
@@ -37,18 +31,12 @@
             Assert.AreEqual("(2, Two)", items[1].ToString());
             Assert.AreEqual("(3, Three)", items[2].ToString());
         }
-
-        [Test]
-        public void WithInvalidType_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => EnumHelper.GetItemsWithValue<string>());
-        }
     }
 
     [TestFixture]
     public class GetFlagValues
     {
-        [TestCase(MyFlag.None, false, new[] {0})]
+        [TestCase(MyFlag.NoneOrZero, false, new[] {0})]
         [TestCase(MyFlag.One, false, new[] {0, 1})]
         [TestCase(MyFlag.Two, false, new[] {0, 2})]
         [TestCase(MyFlag.All, false, new[] {0, 1, 2, 3})]
@@ -78,6 +66,27 @@
         public void WithInvalidType_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() => EnumHelper.GetFlagValues<int>(0));
+        }
+    }
+
+    [TestFixture]
+    public class GetFlagNames
+    {
+        [TestCase(false, false, "NoneOrZero", "One")]
+        [TestCase(false, true, "None Or Zero", "One")]
+        [TestCase(true, false, "One", "Two")]
+        public void WithFlag_ReturnsListofStrings(bool ignoreZero, bool humanize, string zeroIndexValue, string oneIndexValue)
+        {
+            var names = EnumHelper.GetFlagNames<MyFlag>((int)MyFlag.All, ignoreZero, humanize);
+
+            Assert.AreEqual(zeroIndexValue, names[0]);
+            Assert.AreEqual(oneIndexValue, names[1]);
+        }
+        
+        [Test]
+        public void WithInvalidType_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => EnumHelper.GetFlagNames<int>(0));
         }
     }
 }

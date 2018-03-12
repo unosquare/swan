@@ -21,7 +21,9 @@
         private static readonly Lazy<PropertyTypeCache> _propertyTypeCache = new Lazy<PropertyTypeCache>(() => new PropertyTypeCache());
         
         private static readonly Lazy<AttributeCache> _attributeCache = new Lazy<AttributeCache>(() => new AttributeCache());
-        
+
+        private static readonly Lazy<EnumHelper> _enumHelper = new Lazy<EnumHelper>(() => new EnumHelper());
+
         private static readonly Lazy<ObjectValidator> _objectValidator = new Lazy<ObjectValidator>(() => new ObjectValidator());
 
         private static readonly Lazy<FieldTypeCache> _fieldTypeCache = new Lazy<FieldTypeCache>(() => new FieldTypeCache());
@@ -181,7 +183,7 @@
         /// The attribute cache.
         /// </value>
         public static AttributeCache AttributeCache => _attributeCache.Value;
-
+        
         /// <summary>
         /// Gets the object validator.
         /// </summary>
