@@ -120,31 +120,6 @@ standard error and standard output streams.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class ProcessRunner</code></pre>
   </div>
-  <h5 id="Unosquare_Swan_Components_ProcessRunner_examples"><strong>Examples</strong></h5>
-  <p>This code explains how to run an external process and capture its output</p>
-<pre><code>class Example
-{
-    using System.Diagnostics;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Unosquare.Swan;
-    using Unosquare.Swan.Components;
-
-    static async Task Main()
-    {
-        // executes a process and returns the exit code
-        var result = await ProcessRunner
-        .RunProcessAsync(&quot;dotnet&quot;, &quot;--help&quot;, Print, Print);
-
-        // flush all messages
-        Terminal.Flush();
-    }
-
-    // a callback to print both output or errors
-    static void Print(byte[] data, Process proc) =>
-        Encoding.GetEncoding(0).GetString(data).WriteLine();
-}</code></pre>
-
   <h3 id="methods">Methods
   </h3>
   
@@ -207,6 +182,25 @@ This method is meant to be used for programs that output a relatively small amou
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_String_System_Threading_CancellationToken__examples">Examples</h5>
+  <p>This code explains how to run an external process using the 
+<a class="xref" href="Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_String_System_Threading_CancellationToken_">GetProcessOutputAsync(String, String, CancellationToken)</a> method</p>
+<pre><code>class Example
+{
+    using System.Threading.Tasks;
+    using Unosquare.Swan.Components;
+
+    static async Task Main()
+    {
+        // execute a process and save its output
+         var data = await ProcessRunner.
+         GetProcessOutputAsync(&quot;dotnet&quot;, &quot;--help&quot;);
+
+        // print the output
+        data.WriteLine();
+    }
+}</code></pre>
+
   
   
   <a id="Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_" data-uid="Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync*"></a>
@@ -261,11 +255,35 @@ amount of text.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.Swan.Components.ProcessResult.html">ProcessResult</a>&gt;</td>
-        <td><p>Text of the standard output and standard error streams along with the exit code</p>
+        <td><p>Text of the standard output and standard error streams along with the exit code as a <a class="xref" href="Unosquare.Swan.Components.ProcessResult.html">ProcessResult</a> instance</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Threading_CancellationToken__examples">Examples</h5>
+  <p>This code describes how to run an external process using the <a class="xref" href="Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Threading_CancellationToken_">GetProcessResultAsync(String, String, CancellationToken)</a> method.</p>
+<pre><code>class Example
+{
+    using System.Threading.Tasks;
+    using Unosquare.Swan.Components;
+
+    static async Task Main()
+    {
+        // Execute a process asynchronously 
+         var data = await ProcessRunner
+         .GetProcessResultAsync(&quot;dotnet&quot;, &quot;--help&quot;);
+
+        // print out the exit code
+        $&quot;{data.ExitCode}&quot;.WriteLine();
+
+        // print out the output
+        data.StandardOutput.WriteLine();
+
+        // and the error if exists
+        data.StandardError.Error();
+    }
+}</code></pre>
+
   <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -361,6 +379,33 @@ The exit code (return value) will be -1 for forceful termination of the process<
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_System_String_System_String_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_System_Boolean_System_Threading_CancellationToken__examples">Examples</h5>
+  <p>This code illustrates how to run an external process using the 
+<a class="xref" href="Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_RunProcessAsync_System_String_System_String_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_Unosquare_Swan_Components_ProcessRunner_ProcessDataReceivedCallback_System_Boolean_System_Threading_CancellationToken_">RunProcessAsync(String, String, ProcessRunner.ProcessDataReceivedCallback, ProcessRunner.ProcessDataReceivedCallback, Boolean, CancellationToken)</a>
+method</p>
+<pre><code>class Example
+{
+    using System.Diagnostics;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Unosquare.Swan;
+    using Unosquare.Swan.Components;
+
+    static async Task Main()
+    {
+        // Execute a process asynchronously 
+        var data = await ProcessRunner
+        .RunProcessAsync(&quot;dotnet&quot;, &quot;--help&quot;, Print, Print);
+
+        // flush all messages
+        Terminal.Flush();
+    }
+
+    // a callback to print both output or errors
+    static void Print(byte[] data, Process proc) =>
+        Encoding.GetEncoding(0).GetString(data).WriteLine();
+}</code></pre>
+
 <div id="disqus_thread"></div>
 <script>
 
