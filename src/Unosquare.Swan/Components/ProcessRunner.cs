@@ -13,6 +13,33 @@ namespace Unosquare.Swan.Components
     /// Provides methods to help create external processes, and efficiently capture the
     /// standard error and standard output streams.
     /// </summary>
+    /// <example>
+    /// This code explains how to run an external process and capture its output
+    /// <code>
+    /// class Example
+    /// {
+    ///     using System.Diagnostics;
+    ///     using System.Text;
+    ///     using System.Threading.Tasks;
+    ///     using Unosquare.Swan;
+    ///     using Unosquare.Swan.Components;
+    ///     
+    ///     static async Task Main()
+    ///     {
+    ///         // executes a process and returns the exit code
+    ///         var result = await ProcessRunner
+    ///         .RunProcessAsync("dotnet", "--help", Print, Print);
+    ///     
+    ///         // flush all messages
+    ///         Terminal.Flush();
+    ///     }
+    ///     
+    ///     // a callback to print both output or errors
+    ///     static void Print(byte[] data, Process proc) =>
+    ///         Encoding.GetEncoding(0).GetString(data).WriteLine();
+    /// }
+    /// </code>
+    /// </example>
     public static class ProcessRunner
     {
         /// <summary>
