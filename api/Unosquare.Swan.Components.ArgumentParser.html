@@ -120,6 +120,44 @@ Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributor
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class ArgumentParser</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Components_ArgumentParser_examples"><strong>Examples</strong></h5>
+  <p>This example shows how to parse CLI arguments into objects.</p>
+<pre><code>class Example 
+{
+    using System;
+    using Unosquare.Swan;
+    using Unosquare.Swan.Attributes;
+
+    static void Main(string[] args)
+    {
+        // create an isntance of the options class
+        var options = new Options();
+
+        // parse the supplied command-line arguments into the options object
+        var res = Runtime.ArgumentParser.ParseArguments(args, options);
+    }
+
+    class Options
+    {
+        [ArgumentOption(&apos;v&apos;, &quot;verbose&quot;, HelpText = &quot;Set verbose mode.&quot;)]
+        public bool Verbose { get; set; }
+
+        [ArgumentOption(&apos;u&apos;, Required = true, HelpText = &quot;Set user name.&quot;)]
+        public string Username { get; set; }
+
+        [ArgumentOption(&apos;n&apos;, &quot;names&quot;, Separator = &apos;,&apos;,
+        Required = true, HelpText = &quot;A list of files separated by a comma&quot;)]
+        public string[] Files { get; set; }
+
+        [ArgumentOption(&apos;p&apos;, &quot;port&quot;, DefaultValue = 22, HelpText = &quot;Set port.&quot;)]
+        public int Port { get; set; }
+
+        [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red,
+        HelpText = &quot;Set a color.&quot;)]
+        public ConsoleColor Color { get; set; }
+    }
+}</code></pre>
+
   <h3 id="constructors">Constructors
   </h3>
   

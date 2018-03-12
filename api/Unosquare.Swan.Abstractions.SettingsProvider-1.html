@@ -154,32 +154,28 @@
   </table>
   <h5 id="Unosquare_Swan_Abstractions_SettingsProvider_1_examples"><strong>Examples</strong></h5>
   <p>This example shows how to save and load settings.</p>
-<pre><code>namespace Examples.SettingsProvider.Example
-{
-    using Unosquare.Swan.Abstractions;
+<pre><code>using Unosquare.Swan.Abstractions;
 
-    public class SettingsProviderExample
-    { 
-        public static void Main()
-        {
-            // get user from settings
-            var user = SettingsProvider&lt;Settings>.Instance.Global.User;
+public class Example
+{ 
+    public static void Main()
+    {
+        // get user from settings
+        var user = SettingsProvider&lt;Settings>.Instance.Global.User;
 
-            // modify the port
-            SettingsProvider&lt;Settings>.Instance.Global.Port = 20;
+        // modify the port
+        SettingsProvider&lt;Settings>.Instance.Global.Port = 20;
 
-            // if we want these settings to persist
-            SettingsProvider&lt;Settings>.Instance.PersistGlobalSettings();
-        }
-
-        public class Settings
-        {
-            public int Port { get; set; } = 9696;
-
-            public string User { get; set; } = &quot;User&quot;;
-        }
+        // if we want these settings to persist
+        SettingsProvider&lt;Settings>.Instance.PersistGlobalSettings();
     }
 
+    public class Settings
+    {
+        public int Port { get; set; } = 9696;
+
+        public string User { get; set; } = &quot;User&quot;;
+    }
 }</code></pre>
 
   <h3 id="properties">Properties
