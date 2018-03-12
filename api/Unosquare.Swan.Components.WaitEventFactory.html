@@ -119,6 +119,53 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class WaitEventFactory</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Components_WaitEventFactory_examples"><strong>Examples</strong></h5>
+  <p>This example shows how to use the WaitEventFactory class</p>
+<pre><code>namespace Examples.WaitEventFactory.Example
+{
+    using Unosquare.Swan.Components;
+
+    public class WaitEventFactoryExample
+    {
+        // create a WaitEvent using the slim version
+        private static readonly IWaitEvent waitEvent = WaitEventFactory.CreateSlim(false);
+
+        public static void Main()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                DoWork(1);
+            });
+
+            Task.Factory.StartNew(() =>
+            {
+                DoWork(2);
+            });
+
+            // send first signal 
+            waitEvent.Complete();
+            waitEvent.Begin();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            // send second signal
+            waitEvent.Complete();
+
+            Console.Readline();
+        }
+
+        public static void DoWork(int taskNumber)
+        {
+            $&quot;Data retrieved:{taskNumber}&quot;.WriteLine();
+            waitEvent.Wait();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            $&quot;All finished up {taskNumber}&quot;.WriteLine();
+        }
+    }
+
+}</code></pre>
+
   <h3 id="methods">Methods
   </h3>
   

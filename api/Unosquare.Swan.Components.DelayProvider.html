@@ -123,6 +123,27 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class DelayProvider : IDisposable</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Components_DelayProvider_examples"><strong>Examples</strong></h5>
+  <p>This example shows how to implement delay mechanisms</p>
+<pre><code>namespace Examples.DelayProvider.Example
+{
+    using Unosquare.Swan.Components;
+
+    public class DelayProviderExample
+    {
+        public static void Main()
+        {
+            // using the ThreadSleep strategy
+             using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
+             {
+                // retrieve how much time was delayed
+                var time = delay.WaitOne();
+             }
+        }
+    }
+
+}</code></pre>
+
   <h3 id="constructors">Constructors
   </h3>
   
