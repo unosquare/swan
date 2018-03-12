@@ -183,15 +183,7 @@
         /// The attribute cache.
         /// </value>
         public static AttributeCache AttributeCache => _attributeCache.Value;
-
-        /// <summary>
-        /// Gets the enum helper.
-        /// </summary>
-        /// <value>
-        /// The attribute cache.
-        /// </value>
-        public static EnumHelper EnumHelper => _enumHelper.Value;
-
+        
         /// <summary>
         /// Gets the object validator.
         /// </summary>

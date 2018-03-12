@@ -138,7 +138,7 @@
     [Flags]
     public enum MyFlag
     {
-        None = 0,
+        NoneOrZero = 0,
         One = 1,
         Two = 2,
         All = One | Two,
