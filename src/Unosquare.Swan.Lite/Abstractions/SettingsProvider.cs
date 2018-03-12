@@ -17,32 +17,28 @@
     /// <example>
     /// This example shows how to save and load settings.
     /// <code>
-    /// namespace Examples.SettingsProvider.Example
-    /// {
-    ///     using Unosquare.Swan.Abstractions;
+    /// using Unosquare.Swan.Abstractions;
     /// 
-    ///     public class SettingsProviderExample
-    ///     { 
-    ///         public static void Main()
-    ///         {
-    ///             // get user from settings
-    ///             var user = SettingsProvider&lt;Settings&gt;.Instance.Global.User;
+    /// public class Example
+    /// { 
+    ///     public static void Main()
+    ///     {
+    ///         // get user from settings
+    ///         var user = SettingsProvider&lt;Settings&gt;.Instance.Global.User;
     ///             
-    ///             // modify the port
-    ///             SettingsProvider&lt;Settings&gt;.Instance.Global.Port = 20;
+    ///         // modify the port
+    ///         SettingsProvider&lt;Settings&gt;.Instance.Global.Port = 20;
     ///             
-    ///             // if we want these settings to persist
-    ///             SettingsProvider&lt;Settings&gt;.Instance.PersistGlobalSettings();
-    ///         }
-    ///         
-    ///         public class Settings
-    ///         {
-    ///             public int Port { get; set; } = 9696;
-    ///              
-    ///             public string User { get; set; } = "User";
-    ///         }
+    ///         // if we want these settings to persist
+    ///         SettingsProvider&lt;Settings&gt;.Instance.PersistGlobalSettings();
     ///     }
-    ///     
+    ///         
+    ///     public class Settings
+    ///     {
+    ///         public int Port { get; set; } = 9696;
+    ///              
+    ///         public string User { get; set; } = "User";
+    ///     }
     /// }
     /// </code>
     /// </example>

@@ -12,23 +12,19 @@
     /// <example>
     ///  This example shows how to implement delay mechanisms
     /// <code>
-    /// namespace Examples.DelayProvider.Example
-    /// {
-    ///     using Unosquare.Swan.Components;
+    /// using Unosquare.Swan.Components;
     /// 
-    ///     public class DelayProviderExample
+    /// public class Example
+    /// {
+    ///     public static void Main()
     ///     {
-    ///         public static void Main()
+    ///         // using the ThreadSleep strategy
+    ///         using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
     ///         {
-    ///             // using the ThreadSleep strategy
-    ///              using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
-    ///              {
-    ///                 // retrieve how much time was delayed
-    ///                 var time = delay.WaitOne();
-    ///              }
+    ///             // retrieve how much time was delayed
+    ///             var time = delay.WaitOne();
     ///         }
     ///     }
-    ///     
     /// }
     /// </code>
     /// </example>
