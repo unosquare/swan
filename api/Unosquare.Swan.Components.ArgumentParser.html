@@ -130,7 +130,7 @@ Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributor
 
     static void Main(string[] args)
     {
-        // create an isntance of the options class
+        // create an instance of the Options class
         var options = new Options();
 
         // parse the supplied command-line arguments into the options object
@@ -155,6 +155,61 @@ Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributor
         [ArgumentOption(&quot;color&quot;, DefaultValue = ConsoleColor.Red,
         HelpText = &quot;Set a color.&quot;)]
         public ConsoleColor Color { get; set; }
+    }
+}</code></pre>
+<p>The following code describes how to parse cli verbs.</p>
+<pre><code>class Example2 
+{
+    using Unosquare.Swan;
+    using Unosquare.Swan.Attributes;
+
+    static void Main(string[] args)
+    {
+        // create an instance of the VerbOptions class
+        var options = new VerbOptions();
+
+        // parse the supplied command-line arguments into the options object
+        var res = Runtime.ArgumentParser.ParseArguments(args, options);
+
+        // if there were no errors parsing
+        if (res)
+        {
+            if(options.Run != null)
+            {
+                // run verb was selected
+            }
+
+            if(options.Print != null)
+            {
+                // print verb was selected
+            }
+        }
+
+        // flush all error messages
+        Terminal.Flush();
+    }
+
+    class VerbOptions
+    {
+        [VerbOption(&quot;run&quot;, HelpText = &quot;Run verb.&quot;)]
+        public RunVerbOption Run { get; set; }
+
+        [VerbOption(&quot;print&quot;, HelpText = &quot;Print verb.&quot;)]
+        public PrintVerbOption Print { get; set; }
+    }
+
+    class RunVerbOption
+    {
+        [ArgumentOption(&apos;o&apos;, &quot;outdir&quot;, HelpText = &quot;Output directory&quot;,
+        DefaultValue = &quot;&quot;, Required = false)]
+        public string OutDir { get; set; }
+    }
+
+    class PrintVerbOption
+    {
+        [ArgumentOption(&apos;t&apos;, &quot;text&quot;, HelpText = &quot;Text to print&quot;,
+        DefaultValue = &quot;&quot;, Required = false)]
+        public string Text { get; set; }
     }
 }</code></pre>
 
