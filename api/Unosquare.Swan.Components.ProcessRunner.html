@@ -120,6 +120,31 @@ standard error and standard output streams.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class ProcessRunner</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Components_ProcessRunner_examples"><strong>Examples</strong></h5>
+  <p>This code explains how to run an external process and capture its output</p>
+<pre><code>class Example
+{
+    using System.Diagnostics;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Unosquare.Swan;
+    using Unosquare.Swan.Components;
+
+    static async Task Main()
+    {
+        // executes a process and returns the exit code
+        var result = await ProcessRunner
+        .RunProcessAsync(&quot;dotnet&quot;, &quot;--help&quot;, Print, Print);
+
+        // flush all messages
+        Terminal.Flush();
+    }
+
+    // a callback to print both output or errors
+    static void Print(byte[] data, Process proc) =>
+        Encoding.GetEncoding(0).GetString(data).WriteLine();
+}</code></pre>
+
   <h3 id="methods">Methods
   </h3>
   
