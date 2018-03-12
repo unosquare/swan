@@ -49,7 +49,7 @@ namespace Unosquare.Swan.Components
     ///     }
     /// }
     /// </code>
-    /// The following code describes how to parse cli verbs.
+    /// The following code describes how to parse CLI verbs.
     /// <code>
     /// class Example2 
     /// {
