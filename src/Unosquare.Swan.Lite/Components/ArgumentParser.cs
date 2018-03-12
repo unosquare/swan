@@ -10,6 +10,46 @@ namespace Unosquare.Swan.Components
     /// Provides methods to parse command line arguments.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
+    /// <example>
+    /// This example shows how to parse CLI arguments into objects.
+    /// <code>
+    /// class Example 
+    /// {
+    ///     using System;
+    ///     using Unosquare.Swan;
+    ///     using Unosquare.Swan.Attributes;
+    ///     
+    ///     static void Main(string[] args)
+    ///     {
+    ///         // create an isntance of the options class
+    ///         var options = new Options();
+    ///         
+    ///         // parse the supplied command-line arguments into the options object
+    ///         var res = Runtime.ArgumentParser.ParseArguments(args, options);
+    ///     }
+    ///     
+    ///     class Options
+    ///     {
+    ///         [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]
+    ///         public bool Verbose { get; set; }
+    ///
+    ///         [ArgumentOption('u', Required = true, HelpText = "Set user name.")]
+    ///         public string Username { get; set; }
+    ///
+    ///         [ArgumentOption('n', "names", Separator = ',',
+    ///         Required = true, HelpText = "A list of files separated by a comma")]
+    ///         public string[] Files { get; set; }
+    ///         
+    ///         [ArgumentOption('p', "port", DefaultValue = 22, HelpText = "Set port.")]
+    ///         public int Port { get; set; }
+    ///
+    ///         [ArgumentOption("color", DefaultValue = ConsoleColor.Red,
+    ///         HelpText = "Set a color.")]
+    ///         public ConsoleColor Color { get; set; }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class ArgumentParser
     {
         private const char Dash = '-';
