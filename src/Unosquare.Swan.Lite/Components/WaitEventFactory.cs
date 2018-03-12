@@ -8,6 +8,55 @@ namespace Unosquare.Swan.Components
     /// <summary>
     /// Provides a Manual Reset Event factory with a unified API
     /// </summary>
+    /// <example>
+    /// This example shows how to use the WaitEventFactory class
+    /// <code>
+    /// namespace Examples.WaitEventFactory.Example
+    /// {
+    ///     using Unosquare.Swan.Components;
+    /// 
+    ///     public class WaitEventFactoryExample
+    ///     {
+    ///         // create a WaitEvent using the slim version
+    ///         private static readonly IWaitEvent waitEvent = WaitEventFactory.CreateSlim(false);
+    ///     
+    ///         public static void Main()
+    ///         {
+    ///             Task.Factory.StartNew(() =>
+    ///             {
+    ///                 DoWork(1);
+    ///             });
+    ///             
+    ///             Task.Factory.StartNew(() =>
+    ///             {
+    ///                 DoWork(2);
+    ///             });
+    ///             
+    ///             // send first signal 
+    ///             waitEvent.Complete();
+    ///             waitEvent.Begin();
+    ///             
+    ///             Thread.Sleep(TimeSpan.FromSeconds(2));
+    ///             
+    ///             // send second signal
+    ///             waitEvent.Complete();
+    ///             
+    ///             Console.Readline();
+    ///         }
+    ///         
+    ///         public static void DoWork(int taskNumber)
+    ///         {
+    ///             $"Data retrieved:{taskNumber}".WriteLine();
+    ///             waitEvent.Wait();
+    ///              
+    ///             Thread.Sleep(TimeSpan.FromSeconds(2));
+    ///             $"All finished up {taskNumber}".WriteLine();
+    ///         }
+    ///     }
+    ///     
+    /// }
+    /// </code>
+    /// </example>
     public static class WaitEventFactory
     {
 #region Factory Methods
