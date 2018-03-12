@@ -21,7 +21,7 @@ namespace Unosquare.Swan.Components
     ///     
     ///     static void Main(string[] args)
     ///     {
-    ///         // create an isntance of the options class
+    ///         // create an instance of the Options class
     ///         var options = new Options();
     ///         
     ///         // parse the supplied command-line arguments into the options object
@@ -46,6 +46,63 @@ namespace Unosquare.Swan.Components
     ///         [ArgumentOption("color", DefaultValue = ConsoleColor.Red,
     ///         HelpText = "Set a color.")]
     ///         public ConsoleColor Color { get; set; }
+    ///     }
+    /// }
+    /// </code>
+    /// The following code describes how to parse cli verbs.
+    /// <code>
+    /// class Example2 
+    /// {
+    ///     using Unosquare.Swan;
+    ///     using Unosquare.Swan.Attributes;
+    ///     
+    ///     static void Main(string[] args)
+    ///     {
+    ///         // create an instance of the VerbOptions class
+    ///         var options = new VerbOptions();
+    ///         
+    ///         // parse the supplied command-line arguments into the options object
+    ///         var res = Runtime.ArgumentParser.ParseArguments(args, options);
+    ///         
+    ///         // if there were no errors parsing
+    ///         if (res)
+    ///         {
+    ///             if(options.Run != null)
+    ///             {
+    ///                 // run verb was selected
+    ///             }
+    ///             
+    ///             if(options.Print != null)
+    ///             {
+    ///                 // print verb was selected
+    ///             }
+    ///         }
+    ///         
+    ///         // flush all error messages
+    ///         Terminal.Flush();
+    ///     }
+    ///     
+    ///     class VerbOptions
+    ///     {
+    ///         [VerbOption("run", HelpText = "Run verb.")]
+    ///         public RunVerbOption Run { get; set; }
+    ///         
+    ///         [VerbOption("print", HelpText = "Print verb.")]
+    ///         public PrintVerbOption Print { get; set; }
+    ///     }
+    ///     
+    ///     class RunVerbOption
+    ///     {
+    ///         [ArgumentOption('o', "outdir", HelpText = "Output directory",
+    ///         DefaultValue = "", Required = false)]
+    ///         public string OutDir { get; set; }
+    ///     }
+    ///     
+    ///     class PrintVerbOption
+    ///     {
+    ///         [ArgumentOption('t', "text", HelpText = "Text to print",
+    ///         DefaultValue = "", Required = false)]
+    ///         public string Text { get; set; }
     ///     }
     /// }
     /// </code>
