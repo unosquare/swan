@@ -13,33 +13,6 @@ namespace Unosquare.Swan.Components
     /// Provides methods to help create external processes, and efficiently capture the
     /// standard error and standard output streams.
     /// </summary>
-    /// <example>
-    /// This code explains how to run an external process and capture its output
-    /// <code>
-    /// class Example
-    /// {
-    ///     using System.Diagnostics;
-    ///     using System.Text;
-    ///     using System.Threading.Tasks;
-    ///     using Unosquare.Swan;
-    ///     using Unosquare.Swan.Components;
-    ///     
-    ///     static async Task Main()
-    ///     {
-    ///         // executes a process and returns the exit code
-    ///         var result = await ProcessRunner
-    ///         .RunProcessAsync("dotnet", "--help", Print, Print);
-    ///     
-    ///         // flush all messages
-    ///         Terminal.Flush();
-    ///     }
-    ///     
-    ///     // a callback to print both output or errors
-    ///     static void Print(byte[] data, Process proc) =>
-    ///         Encoding.GetEncoding(0).GetString(data).WriteLine();
-    /// }
-    /// </code>
-    /// </example>
     public static class ProcessRunner
     {
         /// <summary>
@@ -60,6 +33,27 @@ namespace Unosquare.Swan.Components
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task</returns>
+        /// <example>
+        /// This code explains how to run an external process using the 
+        /// <see cref="GetProcessOutputAsync(string, string, CancellationToken)"/> method
+        /// <code>
+        /// class Example
+        /// {
+        ///     using System.Threading.Tasks;
+        ///     using Unosquare.Swan.Components;
+        ///     
+        ///     static async Task Main()
+        ///     {
+        ///         // execute a process and save its output
+        ///          var data = await ProcessRunner.
+        ///          GetProcessOutputAsync("dotnet", "--help");
+        ///     
+        ///         // print the output
+        ///         data.WriteLine();
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
         public static async Task<string> GetProcessOutputAsync(string filename, string arguments = "", CancellationToken ct = default)
         {
             var result = await GetProcessResultAsync(filename, arguments, ct);
@@ -75,9 +69,35 @@ namespace Unosquare.Swan.Components
         /// <param name="arguments">The arguments.</param>
         /// <param name="ct">The ct.</param>
         /// <returns>
-        /// Text of the standard output and standard error streams along with the exit code
+        /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult"/> instance
         /// </returns>
         /// <exception cref="ArgumentNullException">filename</exception>
+        /// <example>
+        /// This code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, CancellationToken)"/> method.
+        /// <code>
+        /// class Example
+        /// {
+        ///     using System.Threading.Tasks;
+        ///     using Unosquare.Swan.Components;
+        ///     
+        ///     static async Task Main()
+        ///     {
+        ///         // Execute a process asynchronously 
+        ///          var data = await ProcessRunner
+        ///          .GetProcessResultAsync("dotnet", "--help");
+        ///     
+        ///         // print out the exit code
+        ///         $"{data.ExitCode}".WriteLine();
+        ///         
+        ///         // print out the output
+        ///         data.StandardOutput.WriteLine();
+        ///         
+        ///         // and the error if exists
+        ///         data.StandardError.Error();
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
         public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default)
         {
             if (filename == null)
@@ -111,6 +131,35 @@ namespace Unosquare.Swan.Components
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
         /// <returns>Value type will be -1 for forceful termination of the process</returns>
+        /// <example>
+        /// This code illustrates how to run an external process using the 
+        /// <see cref="RunProcessAsync(string, string, ProcessDataReceivedCallback, ProcessDataReceivedCallback, bool, CancellationToken)"/>
+        /// method
+        /// <code>
+        /// class Example
+        /// {
+        ///     using System.Diagnostics;
+        ///     using System.Text;
+        ///     using System.Threading.Tasks;
+        ///     using Unosquare.Swan;
+        ///     using Unosquare.Swan.Components;
+        ///     
+        ///     static async Task Main()
+        ///     {
+        ///         // Execute a process asynchronously 
+        ///         var data = await ProcessRunner
+        ///         .RunProcessAsync("dotnet", "--help", Print, Print);
+        ///     
+        ///         // flush all messages
+        ///         Terminal.Flush();
+        ///     }
+        ///     
+        ///     // a callback to print both output or errors
+        ///     static void Print(byte[] data, Process proc) =>
+        ///         Encoding.GetEncoding(0).GetString(data).WriteLine();
+        /// }
+        /// </code>
+        /// </example>
         public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default)
         {
             if (filename == null)
