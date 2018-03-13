@@ -662,7 +662,7 @@ A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2
 
 [MessageHub API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
 
-In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern, any object can "subscribe" to another object's event if the other object "publishes" a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
+In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern, any object can "subscribe" to the publisher's publish event. When a message is "published" the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
 #### Example 1: Subscribing to a MessageHub
 
@@ -775,7 +775,7 @@ An easy way to deal with attributes modification is by calling the Modify method
  connection.Disconnect();
  ```
 ### The `ProcessRunner` class
-A class that provides methods that helps us create external process and capture their output. 
+A class that provides methods that helps us create external processes and capture their output. 
 
 [ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
 
