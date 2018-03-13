@@ -795,7 +795,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.ObjectValidator.html",
-          "hash": "7/DsssF4Gbzqq3uufOYo4Q=="
+          "hash": "BOC70UoMs92bVa3MSgzHCg=="
         }
       },
       "is_incremental": false,
@@ -1918,11 +1918,11 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
