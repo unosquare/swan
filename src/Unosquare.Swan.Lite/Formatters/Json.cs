@@ -60,6 +60,22 @@
         /// A <see cref="System.String" /> that represents the current object
         /// </returns>
         /// <exception cref="ArgumentException">You need to provide an object or array</exception>
+        /// <example>
+        /// This code shows how to serialize a simple object
+        /// <code>
+        /// using Unosquare.Swan.Formatters;
+        /// 
+        /// class Example
+        /// {
+        ///     static void Main()
+        ///     {
+        ///         var obj = new { One = "One", Two = "Two" };
+        ///         
+        ///         var serial = Json.Serialize(obj); // {"One": "One","Two": "Two"}
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
         public static string Serialize(
             object obj,
             bool format = false,
@@ -115,7 +131,29 @@
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="includeNames">The include names.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        public static string SerializeOnly(object obj, bool format, params string[] includeNames)
+        /// <example>
+        /// This code shows how to serialize a simple object including the specified properties
+        /// <code>
+        /// using Unosquare.Swan.Formatters;
+        /// 
+        /// class Example
+        /// {
+        ///     static void Main()
+        ///     {
+        ///         // object to serialize
+        ///         var obj = new { One = "One", Two = "Two", Three = "Three" };
+        ///         
+        ///         // the included names
+        ///         var includedNames  = new[] { "Two", "Three" };
+        ///         
+        ///         // serialize only the included names
+        ///         var data = Json.SerializeOnly(basicObject, true, includedNames); 
+        ///         // {"Two": "Two","Three": "Three" }
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
+    public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, includeNames, null, true);
         }
@@ -127,6 +165,29 @@
         /// <param name="format">if set to <c>true</c> it formats and indents the output.</param>
         /// <param name="excludeNames">The exclude names.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
+        /// <example>
+        /// This code shows how to serialize a simple object exluding the specified properties
+        /// <code>
+        /// using Unosquare.Swan.Formatters;
+        /// 
+        /// class Example
+        /// {
+        ///     static void Main()
+        ///     {
+        ///         // object to serialize
+        ///         var obj = new { One = "One", Two = "Two", Three = "Three" };
+        ///         
+        ///         // the excluded names
+        ///         var excludeNames = new[] { "Two", "Three" };
+        ///         
+        ///         // serialize excluding
+        ///         var data = Json.SerializeExcluding(basicObject, false, includedNames); 
+        ///         // {"One": "One"}
+        ///         
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
         public static string SerializeExcluding(object obj, bool format, params string[] excludeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, null, excludeNames, false);
@@ -138,6 +199,25 @@
         /// </summary>
         /// <param name="json">The json.</param>
         /// <returns>Type of the current deserializes</returns>
+        /// <example>
+        /// This code shows how to deserialize a JSON string into a Dictionary
+        /// <code>
+        /// using Unosquare.Swan.Formatters;
+        /// 
+        /// class Example
+        /// {
+        ///     static void Main()
+        ///     {
+        ///         // json to deserialize
+        ///         var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+        ///         
+        ///         // deserializes the specified json into a Dictionary&lt;string, object&gt;.
+        ///         var data = Json.Deserialize(basicJson);
+        ///         
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
         public static object Deserialize(string json) => Deserializer.DeserializeInternal(json);
 
         /// <summary>
@@ -147,6 +227,25 @@
         /// <typeparam name="T">The type of object to deserialize</typeparam>
         /// <param name="json">The json.</param>
         /// <returns>The deserialized specified type object</returns>
+        /// <example>
+        /// This code shows how to deserialize a JSON string into an object of type T
+        /// <code>
+        /// using Unosquare.Swan.Formatters;
+        /// 
+        /// class Example
+        /// {
+        ///     static void Main()
+        ///     {
+        ///         // json type BasicJson to serialize
+        ///         var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
+        ///         
+        ///         // deserializes the specified string in a new instance of the type BasicJson.
+        ///         var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
+        ///         
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
         public static T Deserialize<T>(string json)
         {
             return (T)Deserialize(json, typeof(T));
