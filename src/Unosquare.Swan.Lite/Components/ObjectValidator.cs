@@ -38,7 +38,7 @@
     /// }
     /// </code>
     /// 
-    /// This code shows of to validate an object with attributes using the Runtime ObjectValidator singleton
+    /// This code shows of to validate an object with a custom validator and some attributes using the Runtime ObjectValidator singleton
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
