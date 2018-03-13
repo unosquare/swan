@@ -679,7 +679,7 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 </code></pre><h3 id="the-messagehub-component">The <code>MessageHub</code> component</h3>
 <p>A simple <a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Publisher-Subscriber pattern</a> implementation. It&#39;s a good alternative when your application requires independent, long-running processes to communicate with each other without the need for events which can make code difficult to write and maintain. </p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html">MessageHub API Doc</a></p>
-<p>In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object&#39;s properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object&#39;s properties it is a good practice to use the latter. With the pub-sub pattern, any object can &quot;subscribe&quot; to another object&#39;s event if the other object &quot;publishes&quot; a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.</p>
+<p>In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object&#39;s properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object&#39;s properties it is a good practice to use the latter. With the pub-sub pattern, any object can &quot;subscribe&quot; to the publisher&#39;s publish event. When a message is &quot;published&quot; the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.</p>
 <h4 id="example-1-subscribing-to-a-messagehub">Example 1: Subscribing to a MessageHub</h4>
 <p>A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.</p>
 <pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
@@ -786,7 +786,7 @@ connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;,
 <p> // disconnect from the LDAP server
  connection.Disconnect();</p>
 <pre><code>### The `ProcessRunner` class
-A class that provides methods that helps us create external process and capture their output. 
+A class that provides methods that helps us create external processes and capture their output. 
 
 [ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
 
