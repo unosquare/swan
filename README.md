@@ -592,9 +592,9 @@ This time we'll be using both custom validators and attributes
 
 ```csharp
 // using the Runtime's ObjectValidator singleton
-Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+Runtime.ObjectValidator.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
  
-var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
+var res =  Runtime.ObjectValidator.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
 
 ```
 
@@ -603,7 +603,7 @@ In this example, we'll use the previous `Sample` class to validate an object usi
 
 ```csharp
 // using the Runtime's ObjectValidator singleton
-Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+Runtime.ObjectValidator.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
 
 // using the extension method
 var res = new Simple{ Name = "name", Number = 5, Email ="email@mail.com"}.IsValid();
