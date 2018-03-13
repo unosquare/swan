@@ -119,6 +119,74 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class SmtpClient</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Networking_SmtpClient_examples"><strong>Examples</strong></h5>
+  <p>The following code explains how to send a simple e-mail</p>
+<pre><code>using System.Net.Mail;
+
+class Example
+{
+    static void Main()
+    {
+        // create a new smtp client using google&apos;s smtp server
+        var client = new SmtpClient(&quot;smtp.gmail.com&quot;, 587);
+
+        // send an email 
+        client.SendMailAsync(
+        new MailMessage(&quot;sender@test.com&quot;, &quot;recipient@test.cm&quot;, &quot;Subject&quot;, &quot;Body&quot;));
+    }
+}</code></pre>
+<p>The following code demonstrates how to sent an e-mail using a SmtpSessionState</p>
+<pre><code>using System.Net.Mail;
+
+class Example
+{
+    static void Main()
+    {
+        // create a new smtp client using google&apos;s smtp server
+        var client = new SmtpClient(&quot;smtp.gmail.com&quot;, 587);
+
+        // create a new session state with a sender address 
+        var session = new SmtpSessionState { SenderAddress = &quot;sender@test.com&quot; };
+
+        // add a recipient
+        session.Recipients.Add(&quot;recipient@test.cm&quot;);
+
+        // send
+        client.SendMailAsync(session);
+    }
+}</code></pre>
+<p>The following code shows how to send an e-mail with an attachment</p>
+<pre><code>using System.Net.Mail;
+
+class Example
+{
+    static void Main()
+    {
+        // create a new smtp client using google&apos;s smtp server
+        var client = new SmtpClient(&quot;smtp.gmail.com&quot;, 587);
+
+        // create a new session state with a sender address 
+        var session = new SmtpSessionState { SenderAddress = &quot;sender@test.com&quot; };
+
+        // add a recipient
+        session.Recipients.Add(&quot;recipient@test.cm&quot;);
+
+        // load a file as an attachment
+        var attachment = new MimePart(&quot;image&quot;, &quot;gif&quot;)
+        {
+            Content = new 
+                MimeContent(File.OpenRead(&quot;meme.gif&quot;), ContentEncoding.Default),
+            ContentDisposition = 
+                new ContentDisposition(ContentDisposition.Attachment),
+            ContentTransferEncoding = ContentEncoding.Base64,
+            FileName = Path.GetFileName(&quot;meme.gif&quot;)
+        };
+
+        // send
+        client.SendMailAsync(session);
+    }
+}</code></pre>
+
   <h3 id="constructors">Constructors
   </h3>
   
