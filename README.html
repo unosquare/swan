@@ -634,13 +634,13 @@ var res = obj.IsValid(new Simple { Name = &quot;Name&quot; });
     }
 </code></pre><p>This time we&#39;ll be using both custom validators and attributes </p>
 <pre><code class="lang-csharp">// using the Runtime&#39;s ObjectValidator singleton
-Runtime.ObjectValidator.Value.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
+Runtime.ObjectValidator.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
 
-var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;})
+var res =  Runtime.ObjectValidator.Validate(new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;})
 </code></pre><h3 id="example-3-using-the-extension-method">Example 3: Using the extension method</h3>
 <p>In this example, we&#39;ll use the previous <code>Sample</code> class to validate an object using the built-in extension method which in turn uses the <code>Runtime</code>&#39;s <code>ObjectValidator</code> singleton to validate our object.</p>
 <pre><code class="lang-csharp">// using the Runtime&#39;s ObjectValidator singleton
-Runtime.ObjectValidator.Value.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
+Runtime.ObjectValidator.AddValidator&lt;Simple&gt;(x =&gt; !x.Name.Equals(&quot;Name&quot;), &quot;Name must not be &#39;Name&#39;&quot;);
 
 // using the extension method
 var res = new Simple{ Name = &quot;name&quot;, Number = 5, Email =&quot;email@mail.com&quot;}.IsValid();
