@@ -505,7 +505,7 @@ session.Recipients.Add(&quot;recipient@test.cm&quot;);
 
 // Send
 client.SendMailAsync(session);
-</code></pre><h4 id="example-3-adding-an-attatchment-with-smtp-session-state">Example 3: Adding an attatchment with SMTP session state</h4>
+</code></pre><h4 id="example-3-adding-an-attachment-with-smtp-session-state">Example 3: Adding an attachment with SMTP session state</h4>
 <p>When using <code>SmtpSessionState</code> you have to deal with raw data manipulation, in order to parse MIME attachments <a href="https://www.nuget.org/packages/MimeKit/">MimeKit</a> is recommended.</p>
 <pre><code class="lang-csharp">// Create a new session state with a sender address
 var session = new SmtpSessionState { SenderAddress = &quot;sender@test.com&quot; };
