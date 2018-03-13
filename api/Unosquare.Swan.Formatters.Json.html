@@ -170,6 +170,23 @@ depending on the syntax of the JSON string</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Formatters_Json_Deserialize_System_String__examples">Examples</h5>
+  <p>This code shows how to deserialize a JSON string into a Dictionary</p>
+<pre><code>using Unosquare.Swan.Formatters;
+
+class Example
+{
+    static void Main()
+    {
+        // json to deserialize
+        var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
+
+        // deserializes the specified json into a Dictionary&lt;string, object>.
+        var data = Json.Deserialize(basicJson);
+
+    }
+}</code></pre>
+
   
   
   <a id="Unosquare_Swan_Formatters_Json_Deserialize_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize*"></a>
@@ -289,6 +306,23 @@ Non-public constructors and property setters are ignored.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Formatters_Json_Deserialize__1_System_String__examples">Examples</h5>
+  <p>This code shows how to deserialize a JSON string into an object of type T</p>
+<pre><code>using Unosquare.Swan.Formatters;
+
+class Example
+{
+    static void Main()
+    {
+        // json type BasicJson to serialize
+        var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
+
+        // deserializes the specified string in a new instance of the type BasicJson.
+        var data = Json.Deserialize&lt;BasicJson>(basicJson);
+
+    }
+}</code></pre>
+
   
   
   <a id="Unosquare_Swan_Formatters_Json_Deserialize_" data-uid="Unosquare.Swan.Formatters.Json.Deserialize*"></a>
@@ -431,6 +465,20 @@ Non-public constructors and property setters are ignored.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String____examples">Examples</h5>
+  <p>This code shows how to serialize a simple object</p>
+<pre><code>using Unosquare.Swan.Formatters;
+
+class Example
+{
+    static void Main()
+    {
+        var obj = new { One = &quot;One&quot;, Two = &quot;Two&quot; };
+
+        var serial = Json.Serialize(obj); // {&quot;One&quot;: &quot;One&quot;,&quot;Two&quot;: &quot;Two&quot;}
+    }
+}</code></pre>
+
   <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -601,6 +649,27 @@ Non-public constructors and property setters are ignored.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Formatters_Json_SerializeExcluding_System_Object_System_Boolean_System_String____examples">Examples</h5>
+  <p>This code shows how to serialize a simple object exluding the specified properties</p>
+<pre><code>using Unosquare.Swan.Formatters;
+
+class Example
+{
+    static void Main()
+    {
+        // object to serialize
+        var obj = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+
+        // the excluded names
+        var excludeNames = new[] { &quot;Two&quot;, &quot;Three&quot; };
+
+        // serialize excluding
+        var data = Json.SerializeExcluding(basicObject, false, includedNames); 
+        // {&quot;One&quot;: &quot;One&quot;}
+
+    }
+}</code></pre>
+
   
   
   <a id="Unosquare_Swan_Formatters_Json_SerializeOnly_" data-uid="Unosquare.Swan.Formatters.Json.SerializeOnly*"></a>
@@ -658,6 +727,26 @@ Non-public constructors and property setters are ignored.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="Unosquare_Swan_Formatters_Json_SerializeOnly_System_Object_System_Boolean_System_String____examples">Examples</h5>
+  <p>This code shows how to serialize a simple object including the specified properties</p>
+<pre><code>using Unosquare.Swan.Formatters;
+
+class Example
+{
+    static void Main()
+    {
+        // object to serialize
+        var obj = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &quot;Three&quot; };
+
+        // the included names
+        var includedNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
+
+        // serialize only the included names
+        var data = Json.SerializeOnly(basicObject, true, includedNames); 
+        // {&quot;Two&quot;: &quot;Two&quot;,&quot;Three&quot;: &quot;Three&quot; }
+    }
+}</code></pre>
+
 <div id="disqus_thread"></div>
 <script>
 
