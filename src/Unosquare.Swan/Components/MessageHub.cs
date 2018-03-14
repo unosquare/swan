@@ -173,6 +173,9 @@ namespace Unosquare.Swan.Components
     /// <code>
     /// class Example
     /// {
+    ///     using Unosquare.Swan;
+    ///     using Unosquare.Swan.Components;
+    ///     
     ///     static void Main()
     ///     {
     ///         // using DependencyContainer to create an instance of MessageHub
