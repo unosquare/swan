@@ -301,7 +301,7 @@ You also can write the object into a file or a temporal file.
 // The list of objects to be written as CSV
 var basicObj = new List<BasicJson>();
 // This is where the object is save into a file
-CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
+CsvWriter.SaveRecords(basicObj, "C:/Users/user/Documents/CsvFile");
 ```
 
 ### The `CsvReader` class
@@ -335,7 +335,7 @@ From a CSV file, you can read and load the information into a generic list.
 // The list of object to be written as CSV
 var basicObj = new List<BasicJson>();
 // This is where the object is save into a file
-CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
+CsvWriter.SaveRecords(basicObj, "C:/Users/user/Documents/CsvFile");
 // This is how you can load the records of the CSV file
 var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/CsvFile");
 ``` 
