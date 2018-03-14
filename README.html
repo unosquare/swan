@@ -682,21 +682,21 @@ if (Runtime.Container.CanResolve&lt;IAnimal&gt;())
 <p>In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object&#39;s properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object&#39;s properties it is a good practice to use the latter. With the pub-sub pattern, any object can &quot;subscribe&quot; to the publisher&#39;s publish event. When a message is &quot;published&quot; the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.</p>
 <h4 id="example-1-subscribing-to-a-messagehub">Example 1: Subscribing to a MessageHub</h4>
 <p>A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.</p>
-<pre><code class="lang-csharp">// Using DependencyContainer to create an instance of MessageHub
+<pre><code class="lang-csharp">// use DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve&lt;IMessageHub&gt;() as MessageHub;
 
- // Here we create an instance of the publisher class which has a string as its content
+ // create an instance of the publisher class which has a string as its content
  var message = new MessageHubGenericMessage&lt;string&gt;(this, &quot;SWAN&quot;);
 
- // Then this object subscribes to the publisher&#39;s event and just prints its content which is a string 
+ // subscribe to the publisher&#39;s event and just print its content which is a string 
  // a token is returned which can be used to unsubscribe later on
  var token = messageHub.Subscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(m =&gt; m.Content.Info());
 
- // We publish a message and SWAN should be printed on the console
+ //publish a message and SWAN should be printed on the console
  messageHub.Publish(message);
 
- // And lastly unsuscribe, we will no longer receive any messages 
- MessageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
+ // unsuscribe, we will no longer receive any messages 
+ messageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
 </code></pre><h3 id="the-ldapconnection-class">The <code>LDAPConnection</code> class</h3>
 <p>The <strong>Lightweight Directory Access Protocol</strong> or LDAP is a network protocol for querying and modifying items in directory service providers like <a href="https://en.wikipedia.org/wiki/Active_Directory">Active Directory</a> which provide a systematic set of records organized in a hierarchical structure. Active Directory stores information about users, computers, groups and other objects that are part of a <code>domain</code>.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Networking.Ldap.LdapConnection.html">LdapConnection API Doc</a></p>
