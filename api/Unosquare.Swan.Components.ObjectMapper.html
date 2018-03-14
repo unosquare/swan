@@ -122,6 +122,65 @@ to copy same named properties from one object to another.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class ObjectMapper</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Components_ObjectMapper_examples"><strong>Examples</strong></h5>
+  <p>The following code explains how to map an object&apos;s properties into an instance of type T </p>
+<pre><code>using Unosquare.Swan
+
+class Example
+{
+    class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
+    static void Main()
+    {
+        var obj = new { Name = &quot;Søren&quot;, Age = 42 };
+
+        var person = Runtime.ObjectMapper.Map&lt;Person>(obj);
+    }
+}</code></pre>
+<p>The following code explains how to explicitly map certain properties using a map.</p>
+<pre><code>using Unosquare.Swan
+
+class Example
+{
+    class User
+    {
+        public string Name { get; set; }
+        public Role Role { get; set; }
+    }
+
+    public class Role
+    {
+        public string Name { get; set; }
+    }
+
+    class UserDto
+    {
+        public string Name { get; set; }
+        public string Role { get; set; }
+    }
+
+    static void Main()
+    {
+        // create a User object
+        var person = 
+            new User { Name = &quot;Phillip&quot;, Role = new Role { Name = &quot;Admin&quot; } };
+
+        // create an Object Mapper
+        var mapper = new ObjectMapper();
+
+        // map the User&apos;s Role.Name to UserDto&apos;s Role
+        mapper.CreateMap&lt;User, UserDto>()
+            .MapProperty(d => d.Role, x => x.Role.Name);
+
+        // apply the previous map and retrieve a UserDto object
+        var destination = mapper.Map&lt;UserDto>(person);
+    }
+}</code></pre>
+
   <h3 id="methods">Methods
   </h3>
   
