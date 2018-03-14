@@ -426,7 +426,7 @@ var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&q
 // Deserializes the specified string in a new instance of the type BasicJson.
 var data = Json.Deserialize&lt;BasicJson&gt;(basicJson);
 </code></pre><h3 id="the-csvwriter-class">The <code>CsvWriter</code> class</h3>
-<p>Many projects require the use of CSV files to export and import data. With <code>CsvWriter</code> you can easily write objects and data to CSV format. It also provides a useful way to save the data to a file.</p>
+<p>Many projects require the use of CSV files to export and import data. With <code>CsvWriter</code> you can easily write objects and data to CSV format. It also provides a useful way to save data into a file.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html">CsvWriter API Doc</a></p>
 <h4 id="example-1-writing-a-list-of-objects">Example 1: Writing a List of objects</h4>
 <p>This is the way to write a list of objects into a CSV format.</p>
@@ -435,7 +435,7 @@ var basicObj = new List&lt;BasicJson&gt;();
 
 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString())))
 {               
-    // The writer of the CSV
+    // The CSV writer
     var reader = new CsvWriter(stream);
 };
 </code></pre><h4 id="example-2-writing-a-list-of-objects-into-a-file">Example 2: Writing a List of objects into a file</h4>
