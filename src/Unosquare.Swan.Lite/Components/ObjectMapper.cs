@@ -34,7 +34,7 @@
     ///     }
     /// }
     /// </code>
-    /// The following code explains how to explicitly map certain properties using a map.
+    /// The following code explains how to explicitly map certain properties.
     /// <code>
     /// using Unosquare.Swan
     /// 
