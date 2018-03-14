@@ -126,6 +126,32 @@ or simply reading the lines of CSV as an array of strings</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class CsvReader : IDisposable</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Formatters_CsvReader_examples"><strong>Examples</strong></h5>
+  <p>This code describes how to load a list of objects from a CSV file</p>
+<pre><code>using Unosquare.Swan.Formatters;
+
+class Example
+{
+    class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
+    static void Main()
+    {
+        // load records from a CSV file
+       var loadedRecords = 
+       CsvReader.LoadRecords&lt;Person>(&quot;C:\\Users\\user\\Documents\\file.csv&quot;);
+
+        // loadedRecords = 
+        //  [
+        //      { Age = 20, Name = &quot;Artyom&quot; }
+        //      { Age = 18, Name = &quot;Aloy&quot; }
+        //  ]
+    }
+}</code></pre>
+
   <h3 id="constructors">Constructors
   </h3>
   

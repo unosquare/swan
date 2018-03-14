@@ -1119,7 +1119,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Formatters.CsvReader.html",
-          "hash": "LGZwDu+4kWa6RuKOUZ8giw=="
+          "hash": "YeYTSMRm7GSm0ZhXbFTSjg=="
         }
       },
       "is_incremental": false,
@@ -1131,7 +1131,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Formatters.CsvWriter.html",
-          "hash": "GinQIOASsZ5suxT6IiRxiA=="
+          "hash": "fQoEnJuBmEXFYDFIN2RrAg=="
         }
       },
       "is_incremental": false,
@@ -1913,11 +1913,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
