@@ -95,7 +95,7 @@ port. Multiple threads may share this single connection, typically
 by cloning the connection object, one for each thread. An
 application may have more than one LdapConnection object, connected
 to the same or different directory servers.</p>
-<p>Base on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a></p>
+<p>Based on <a href="https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard">https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard</a></p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -132,6 +132,72 @@ to the same or different directory servers.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class LdapConnection</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Networking_Ldap_LdapConnection_examples"><strong>Examples</strong></h5>
+  <p>The following code describes how to use the LdapConnection class</p>
+<pre><code>class Example
+{
+    using Unosquare.Swan;
+    using Unosquare.Swan.Networking.Ldap;
+    using System.Threading.Tasks;
+
+    static async Task Main()
+    {
+        // create a LdapConnection object
+        var connection = new LdapConnection();
+
+        // connect to a server
+        await connection.Connect(&quot;ldap.forumsys.com&quot;, 389);
+
+        // set up the credentials 
+        await connection.Bind(&quot;cn=read-only-admin,dc=example,dc=com&quot;, &quot;password&quot;);
+
+        // retrieve all entries that have the specified email using ScopeSub 
+        // which searches all entries at all levels under 
+        // and including the specified base DN
+        var searchResult = await connection
+        .Search(&quot;dc=example,dc=com&quot;, LdapConnection.ScopeSub, &quot;(cn=Isaac Newton)&quot;);
+
+        // if there are more entries remaining keep going
+        while (searchResult.HasMore())
+        {
+            // point to the next entry
+            var entry = searchResult.Next();
+
+            // get all attributes 
+            var entryAttributes = entry.GetAttributeSet();
+
+            // select its name and print it out
+            entryAttributes.GetAttribute(&quot;cn&quot;).StringValue.Info();
+        }
+
+        // modify Tesla and sets its email as tesla@email.com
+        connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;, 
+        new[] { 
+            new LdapModification(LdapModificationOp.Replace,
+                &quot;mail&quot;, &quot;tesla@email.com&quot;) 
+            });
+
+        // delete the listed values from the given attribute
+        connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;, 
+        new[] { 
+            new LdapModification(LdapModificationOp.Delete,
+            &quot;mail&quot;, &quot;tesla@email.com&quot;) 
+            });
+
+        // add back the recently deleted property
+        connection.Modify(&quot;uid=tesla,dc=example,dc=com&quot;, 
+            new[] { 
+                new LdapModification(LdapModificationOp.Add,
+                &quot;mail&quot;, &quot;tesla@email.com&quot;) 
+            });    
+
+        // disconnect from the LDAP server
+        connection.Disconnect();
+
+        Terminal.Flush();
+    }
+}</code></pre>
+
   <h3 id="fields">Fields
   </h3>
   
