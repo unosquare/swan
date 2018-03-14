@@ -123,6 +123,38 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class CsvWriter : IDisposable</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Formatters_CsvWriter_examples"><strong>Examples</strong></h5>
+  <p>This code describes how to save a list of objects into a csv file</p>
+<pre><code>using System.Collections.Generic;
+using Unosquare.Swan.Formatters;
+
+class Example
+{
+    class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
+    static void Main()
+    {
+        // create a list of people 
+        var people = new List&lt;Person>
+        {
+            new Person { Name = &quot;Artyom&quot;, Age = 20 },
+            new Person { Name = &quot;Aloy&quot;, Age = 18 }
+        }
+
+        // write items inside file.csv
+        CsvWriter.SaveRecords(people, &quot;C:\\Users\\user\\Documents\\file.csv&quot;);
+
+        // output
+        // | Name   | Age |
+        // | Artyom | 20  |
+        // | Aloy   | 18  |
+    }
+}</code></pre>
+
   <h3 id="constructors">Constructors
   </h3>
   
