@@ -669,21 +669,21 @@ In many scenarios you need a way to know when something happens to an object, th
 A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.
 
 ``` csharp
-// Using DependencyContainer to create an instance of MessageHub
+// use DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
- // Here we create an instance of the publisher class which has a string as its content
+ // create an instance of the publisher class which has a string as its content
  var message = new MessageHubGenericMessage<string>(this, "SWAN");
  
- // Then this object subscribes to the publisher's event and just prints its content which is a string 
+ // subscribe to the publisher's event and just print its content which is a string 
  // a token is returned which can be used to unsubscribe later on
  var token = messageHub.Subscribe<MessageHubGenericMessage<string>>(m => m.Content.Info());
  
- // We publish a message and SWAN should be printed on the console
+ //publish a message and SWAN should be printed on the console
  messageHub.Publish(message);
  
- // And lastly unsuscribe, we will no longer receive any messages 
- MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
+ // unsuscribe, we will no longer receive any messages 
+ messageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
 
 ### The `LDAPConnection` class
