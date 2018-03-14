@@ -13,6 +13,69 @@
     /// 
     /// The extension methods like CopyPropertiesTo use the default behaviour.
     /// </summary>
+    /// <example>
+    /// The following code explains how to map an object's properties into an instance of type T 
+    /// <code>
+    /// using Unosquare.Swan
+    /// 
+    /// class Example
+    /// {
+    ///     class Person
+    ///     {
+    ///         public string Name { get; set; }
+    ///         public int Age { get; set; }
+    ///     }
+    ///     
+    ///     static void Main()
+    ///     {
+    ///         var obj = new { Name = "Søren", Age = 42 };
+    ///         
+    ///         var person = Runtime.ObjectMapper.Map&lt;Person&gt;(obj);
+    ///     }
+    /// }
+    /// </code>
+    /// The following code explains how to explicitly map certain properties using a map.
+    /// <code>
+    /// using Unosquare.Swan
+    /// 
+    /// class Example
+    /// {
+    ///     class User
+    ///     {
+    ///         public string Name { get; set; }
+    ///         public Role Role { get; set; }
+    ///     }
+    ///     
+    ///     public class Role
+    ///     {
+    ///         public string Name { get; set; }
+    ///     }
+    ///     
+    ///     class UserDto
+    ///     {
+    ///         public string Name { get; set; }
+    ///         public string Role { get; set; }
+    ///     }
+    ///     
+    ///     static void Main()
+    ///     {
+    ///         // create a User object
+    ///         var person = 
+    ///             new User { Name = "Phillip", Role = new Role { Name = "Admin" } };
+    ///         
+    ///         // create an Object Mapper
+    ///         var mapper = new ObjectMapper();
+    ///         
+    ///         // map the User's Role.Name to UserDto's Role
+    ///         mapper.CreateMap&lt;User, UserDto&gt;()
+    ///             .MapProperty(d => d.Role, x => x.Role.Name);
+    ///         
+    ///         // apply the previous map and retrieve a UserDto object
+    ///         var destination = mapper.Map&lt;UserDto&gt;(person);
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class ObjectMapper
     {
         private readonly List<IObjectMap> _maps = new List<IObjectMap>();
