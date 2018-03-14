@@ -443,7 +443,7 @@ using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString()
 <pre><code class="lang-csharp">// The list of objects to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
 // This is where the object is save into a file
-CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
+CsvWriter.SaveRecords(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
 </code></pre><h3 id="the-csvreader-class">The <code>CsvReader</code> class</h3>
 <p>When you need to parse data in CSV files you&#39;ll always need an easy way to read and load their contents into lists and classes that are usable by your application. Swan provides the <code>CsvReader</code> class to read and load CSV files into objects.</p>
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html">CsvReader API Doc</a></p>
@@ -464,7 +464,7 @@ using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
 <pre><code class="lang-csharp">// The list of object to be written as CSV
 var basicObj = new List&lt;BasicJson&gt;();
 // This is where the object is save into a file
-CsvWriter.SaveRecords&lt;BasicJson&gt;(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
+CsvWriter.SaveRecords(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
 // This is how you can load the records of the CSV file
 var loadedRecords = CsvReader.LoadRecords&lt;BasicJson&gt;(&quot;C:/Users/user/Documents/CsvFile&quot;);
 </code></pre><h3 id="the-jsonclient-class">The <code>JsonClient</code> class</h3>
