@@ -274,7 +274,7 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 
 ### The `CsvWriter` class
 
-Many projects require the use of CSV files to export and import data. With `CsvWriter` you can easily write objects and data to CSV format. It also provides a useful way to save the data to a file.
+Many projects require the use of CSV files to export and import data. With `CsvWriter` you can easily write objects and data to CSV format. It also provides a useful way to save data into a file.
 
 [CsvWriter API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
 
@@ -288,7 +288,7 @@ var basicObj = new List<BasicJson>();
 
 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString())))
 {               
-    // The writer of the CSV
+    // The CSV writer
     var reader = new CsvWriter(stream);
 };
 ```
