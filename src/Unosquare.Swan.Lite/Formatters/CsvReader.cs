@@ -14,7 +14,35 @@
     /// transforming CSV lines of text into objects,
     /// or simply reading the lines of CSV as an array of strings
     /// </summary>
-    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="System.IDisposable" /> 
+    /// <example>
+    /// This code describes how to load a list of objects from a CSV file
+    /// <code>
+    /// using Unosquare.Swan.Formatters;
+    ///  
+    /// class Example
+    /// {
+    ///     class Person
+    ///     {
+    ///         public string Name { get; set; }
+    ///         public int Age { get; set; }
+    ///     }
+    ///     
+    ///     static void Main()
+    ///     {
+    ///         // load records from a CSV file
+    ///        var loadedRecords = 
+    ///        CsvReader.LoadRecords&lt;Person&gt;("C:\\Users\\user\\Documents\\file.csv");
+    ///         
+    ///         // loadedRecords = 
+    ///         //  [
+    ///         //      { Age = 20, Name = "Artyom" }
+    ///         //      { Age = 18, Name = "Aloy" }
+    ///         //  ]
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class CsvReader : IDisposable
     {
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();
