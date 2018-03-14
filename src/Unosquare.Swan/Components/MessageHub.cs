@@ -167,6 +167,42 @@ namespace Unosquare.Swan.Components
     #region Hub Implementation
 
     /// <inheritdoc />
+    /// <example>
+    /// The following code describes how to use a MessageHub. Both the
+    /// subscription and the message sending are done in the same place but this is only for explanatory purposes.
+    /// <code>
+    /// class Example
+    /// {
+    ///     static void Main()
+    ///     {
+    ///         // using DependencyContainer to create an instance of MessageHub
+    ///         var messageHub = DependencyContainer
+    ///             .Current
+    ///             .Resolve&lt;IMessageHub&gt;() as MessageHub;
+    ///             
+    ///         // create an instance of the publisher class 
+    ///         // which has a string as its content
+    ///         var message = new MessageHubGenericMessage&lt;string&gt;(new object(), "SWAN");
+    ///         
+    ///         // subscribe to the publisher's event 
+    ///         // and just print out the content which is a string 
+    ///         // a token is returned which can be used to unsubscribe later on
+    ///          var token = messageHub
+    ///             .Subscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(m =&gt; m.Content.Info());
+    ///             
+    ///          // publish the message described above which is
+    ///          // the string 'SWAN'
+    ///          messageHub.Publish(message);
+    ///          
+    ///         // unsuscribe, we will no longer receive any messages 
+    ///         messageHub.Unsubscribe&lt;MessageHubGenericMessage&lt;string&gt;&gt;(token);
+    ///         
+    ///         Terminal.Flush();
+    ///     }
+    ///     
+    /// }
+    /// </code>
+    /// </example>
     public sealed class MessageHub : IMessageHub
     {
         #region Private Types and Interfaces
