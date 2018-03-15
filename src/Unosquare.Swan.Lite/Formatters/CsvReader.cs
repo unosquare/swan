@@ -16,7 +16,7 @@
     /// </summary>
     /// <seealso cref="System.IDisposable" /> 
     /// <example>
-    /// This code describes how to load a list of objects from a CSV file
+    /// The following example describes how to load a list of objects from a CSV file
     /// <code>
     /// using Unosquare.Swan.Formatters;
     ///  
@@ -42,7 +42,7 @@
     ///     }
     /// }
     /// </code>
-    ///  This code explains how to read a CSV formatted string
+    /// The following code explains how to read a CSV formatted string
     /// <code>
     /// using Unosquare.Swan.Formatters;
     /// using System.Text;

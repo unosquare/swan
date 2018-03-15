@@ -13,7 +13,7 @@
     /// A CSV writer useful for exporting a set of objects
     /// </summary>
     /// <example>
-    /// This code describes how to save a list of objects into a CSV file
+    /// The following code describes how to save a list of objects into a CSV file
     /// <code>
     /// using System.Collections.Generic;
     /// using Unosquare.Swan.Formatters;
