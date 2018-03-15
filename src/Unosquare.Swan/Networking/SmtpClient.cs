@@ -19,6 +19,80 @@ namespace Unosquare.Swan.Networking
     /// <summary>
     /// Represents a basic SMTP client that is capable of submitting messages to an SMTP server.
     /// </summary>
+    /// <example>
+    /// The following code explains how to send a simple e-mail
+    /// <code>
+    /// using System.Net.Mail;
+    ///  
+    /// class Example
+    /// {
+    ///     static void Main()
+    ///     {
+    ///         // create a new smtp client using google's smtp server
+    ///         var client = new SmtpClient("smtp.gmail.com", 587);
+    ///         
+    ///         // send an email 
+    ///         client.SendMailAsync(
+    ///         new MailMessage("sender@test.com", "recipient@test.cm", "Subject", "Body"));
+    ///     }
+    /// }
+    /// </code>
+    /// The following code demonstrates how to sent an e-mail using a SmtpSessionState
+    /// <code>
+    /// using System.Net.Mail;
+    ///  
+    /// class Example
+    /// {
+    ///     static void Main()
+    ///     {
+    ///         // create a new smtp client using google's smtp server
+    ///         var client = new SmtpClient("smtp.gmail.com", 587);
+    ///         
+    ///         // create a new session state with a sender address 
+    ///         var session = new SmtpSessionState { SenderAddress = "sender@test.com" };
+    ///         
+    ///         // add a recipient
+    ///         session.Recipients.Add("recipient@test.cm");
+    ///         
+    ///         // send
+    ///         client.SendMailAsync(session);
+    ///     }
+    /// }
+    /// </code>
+    /// The following code shows how to send an e-mail with an attachment
+    /// <code>
+    /// using System.Net.Mail;
+    ///  
+    /// class Example
+    /// {
+    ///     static void Main()
+    ///     {
+    ///         // create a new smtp client using google's smtp server
+    ///         var client = new SmtpClient("smtp.gmail.com", 587);
+    ///         
+    ///         // create a new session state with a sender address 
+    ///         var session = new SmtpSessionState { SenderAddress = "sender@test.com" };
+    ///         
+    ///         // add a recipient
+    ///         session.Recipients.Add("recipient@test.cm");
+    ///         
+    ///         // load a file as an attachment
+    ///         var attachment = new MimePart("image", "gif")
+    ///         {
+    ///             Content = new 
+    ///                 MimeContent(File.OpenRead("meme.gif"), ContentEncoding.Default),
+    ///             ContentDisposition = 
+    ///                 new ContentDisposition(ContentDisposition.Attachment),
+    ///             ContentTransferEncoding = ContentEncoding.Base64,
+    ///             FileName = Path.GetFileName("meme.gif")
+    ///         };
+    ///         
+    ///         // send
+    ///         client.SendMailAsync(session);
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class SmtpClient
     {
         /// <summary>

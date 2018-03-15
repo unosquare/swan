@@ -10,6 +10,103 @@ namespace Unosquare.Swan.Components
     /// Provides methods to parse command line arguments.
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
+    /// <example>
+    /// The following example shows how to parse CLI arguments into objects.
+    /// <code>
+    /// class Example 
+    /// {
+    ///     using System;
+    ///     using Unosquare.Swan;
+    ///     using Unosquare.Swan.Attributes;
+    ///     
+    ///     static void Main(string[] args)
+    ///     {
+    ///         // create an instance of the Options class
+    ///         var options = new Options();
+    ///         
+    ///         // parse the supplied command-line arguments into the options object
+    ///         var res = Runtime.ArgumentParser.ParseArguments(args, options);
+    ///     }
+    ///     
+    ///     class Options
+    ///     {
+    ///         [ArgumentOption('v', "verbose", HelpText = "Set verbose mode.")]
+    ///         public bool Verbose { get; set; }
+    ///
+    ///         [ArgumentOption('u', Required = true, HelpText = "Set user name.")]
+    ///         public string Username { get; set; }
+    ///
+    ///         [ArgumentOption('n', "names", Separator = ',',
+    ///         Required = true, HelpText = "A list of files separated by a comma")]
+    ///         public string[] Files { get; set; }
+    ///         
+    ///         [ArgumentOption('p', "port", DefaultValue = 22, HelpText = "Set port.")]
+    ///         public int Port { get; set; }
+    ///
+    ///         [ArgumentOption("color", DefaultValue = ConsoleColor.Red,
+    ///         HelpText = "Set a color.")]
+    ///         public ConsoleColor Color { get; set; }
+    ///     }
+    /// }
+    /// </code>
+    /// The following code describes how to parse CLI verbs.
+    /// <code>
+    /// class Example2 
+    /// {
+    ///     using Unosquare.Swan;
+    ///     using Unosquare.Swan.Attributes;
+    ///     
+    ///     static void Main(string[] args)
+    ///     {
+    ///         // create an instance of the VerbOptions class
+    ///         var options = new VerbOptions();
+    ///         
+    ///         // parse the supplied command-line arguments into the options object
+    ///         var res = Runtime.ArgumentParser.ParseArguments(args, options);
+    ///         
+    ///         // if there were no errors parsing
+    ///         if (res)
+    ///         {
+    ///             if(options.Run != null)
+    ///             {
+    ///                 // run verb was selected
+    ///             }
+    ///             
+    ///             if(options.Print != null)
+    ///             {
+    ///                 // print verb was selected
+    ///             }
+    ///         }
+    ///         
+    ///         // flush all error messages
+    ///         Terminal.Flush();
+    ///     }
+    ///     
+    ///     class VerbOptions
+    ///     {
+    ///         [VerbOption("run", HelpText = "Run verb.")]
+    ///         public RunVerbOption Run { get; set; }
+    ///         
+    ///         [VerbOption("print", HelpText = "Print verb.")]
+    ///         public PrintVerbOption Print { get; set; }
+    ///     }
+    ///     
+    ///     class RunVerbOption
+    ///     {
+    ///         [ArgumentOption('o', "outdir", HelpText = "Output directory",
+    ///         DefaultValue = "", Required = false)]
+    ///         public string OutDir { get; set; }
+    ///     }
+    ///     
+    ///     class PrintVerbOption
+    ///     {
+    ///         [ArgumentOption('t', "text", HelpText = "Text to print",
+    ///         DefaultValue = "", Required = false)]
+    ///         public string Text { get; set; }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class ArgumentParser
     {
         private const char Dash = '-';

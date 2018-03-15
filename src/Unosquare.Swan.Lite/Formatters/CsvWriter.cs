@@ -12,6 +12,40 @@
     /// <summary>
     /// A CSV writer useful for exporting a set of objects
     /// </summary>
+    /// <example>
+    /// The following code describes how to save a list of objects into a CSV file
+    /// <code>
+    /// using System.Collections.Generic;
+    /// using Unosquare.Swan.Formatters;
+    ///  
+    /// class Example
+    /// {
+    ///     class Person
+    ///     {
+    ///         public string Name { get; set; }
+    ///         public int Age { get; set; }
+    ///     }
+    ///     
+    ///     static void Main()
+    ///     {
+    ///         // create a list of people 
+    ///         var people = new List&lt;Person&gt;
+    ///         {
+    ///             new Person { Name = "Artyom", Age = 20 },
+    ///             new Person { Name = "Aloy", Age = 18 }
+    ///         }
+    ///         
+    ///         // write items inside file.csv
+    ///         CsvWriter.SaveRecords(people, "C:\\Users\\user\\Documents\\file.csv");
+    ///         
+    ///         // output
+    ///         // | Name   | Age |
+    ///         // | Artyom | 20  |
+    ///         // | Aloy   | 18  |
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class CsvWriter : IDisposable
     {
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();

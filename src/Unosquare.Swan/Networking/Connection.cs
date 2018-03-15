@@ -23,6 +23,60 @@ namespace Unosquare.Swan.Networking
     /// Manual Reading Mode: Data reception events are NEVER fired. No background threads are used. Use Read methods to receive data
     /// </summary>
     /// <seealso cref="System.IDisposable" />
+    /// <example>
+    /// The following code explains how to create a TCP server
+    /// <code>
+    /// using System.Text;
+    /// using Unosquare.Swan.Networking;
+    /// 
+    /// class Example
+    /// {
+    ///     static void Main()
+    ///     {
+    ///         // create a new connection listener on a specific port
+    ///         var connectionListener = new ConnectionListener(1337);
+    ///         
+    ///         // handle the OnConnectionAccepting event
+    ///         connectionListener.OnConnectionAccepted += (s, e) =>
+    ///         {
+    ///              // create a new connection 
+    ///              using (var con = new Connection(e.Client))
+    ///              {               
+    ///                 con.WriteLineAsync("Hello world!").Wait();
+    ///              }
+    ///         };
+    ///         
+    ///         connectionListener.Start();
+    ///     }
+    /// }
+    /// </code>
+    /// The following code describes how to create a TCP client
+    /// <code>
+    /// using System.Net.Sockets;
+    /// using System.Text;
+    /// using System.Threading.Tasks;
+    /// using Unosquare.Swan.Networking;
+    /// 
+    /// class Example
+    /// {
+    ///     static async Task Main()
+    ///     {
+    ///         // create a new TcpCLient object
+    ///         var client = new TcpClient();
+    ///         
+    ///         // connect to a specific address and port
+    ///         client.Connect("localhost", 1337);
+    ///         
+    ///         //create a new connection with specific encoding,
+    ///         //new line sequence and continous reading disabled
+    ///         using (var cn = new Connection(client, Encoding.UTF8, "\r\n", true, 0))
+    ///         {               
+    ///            var response = await cn.ReadTextAsync();
+    ///         }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public sealed class Connection : IDisposable
     {
         // New Line definitions for reading. This applies to both, events and read methods

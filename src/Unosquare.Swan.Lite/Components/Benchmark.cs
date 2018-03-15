@@ -9,6 +9,30 @@
     /// <summary>
     /// A simple benchmarking class.
     /// </summary>
+    /// <example>
+    /// The following code demonstrates how to create a simple benchmark.
+    /// <code>
+    /// namespace Examples.Benchmark.Simple
+    /// {
+    ///     using Unosquare.Swan.Components;
+    /// 
+    ///     public class SimpleBenchmark
+    ///     {
+    ///         public static void Main()
+    ///         {
+    ///              using (Benchmark.Start("Test"))
+    ///              {
+    ///                 // do some logic in here
+    ///              }
+    ///              
+    ///             // dump results into a string
+    ///             var results = Benchmark.Dump();
+    ///         }
+    ///     }
+    ///     
+    /// }
+    /// </code>
+    /// </example>
     public static class Benchmark
     {
         private static readonly object SyncLock = new object();

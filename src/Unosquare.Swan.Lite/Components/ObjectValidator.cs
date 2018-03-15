@@ -11,6 +11,65 @@
     /// <summary>
     /// Represents an object validator 
     /// </summary>
+    /// <example>
+    /// The following code describes how to perform a simple object validation
+    /// <code>
+    /// using Unosquare.Swan.Components;
+    /// 
+    /// class Example
+    /// {
+    ///     public static void Main()
+    ///     {
+    ///         // create an instance of ObjectValidator
+    ///         vtor obj = new ObjectValidator();
+    ///         
+    ///         // Add a validation to the 'Simple' class with a custom error message
+    ///         vtor.AddValidator&lt;Simple&gt;(x => 
+    ///             !string.IsNullOrEmpty(x.Name), "Name must not be empty");
+    ///         
+    ///         // check if object is valid
+    ///         var res = vtor.IsValid(new Simple { Name = "Name" });
+    ///     }
+    ///     
+    ///     class Simple
+    ///     {
+    ///         public string Name { get; set; }
+    ///     }
+    /// }
+    /// </code>
+    /// 
+    /// The following code shows of to validate an object with a custom validator and some attributes using the Runtime ObjectValidator singleton
+    /// <code>
+    /// using Unosquare.Swan.Components;
+    /// 
+    /// class Example
+    /// {
+    ///     public static void Main()
+    ///     {
+    ///         // create an instance of ObjectValidator
+    ///         Runtime.ObjectValidator
+    ///         .AddValidator&lt;Simple&gt;(x => 
+    ///             !x.Name.Equals("Name"), "Name must not be 'Name'");
+    ///             
+    ///         // validate object
+    ///         var res =  Runtime.ObjectValidator
+    ///         .Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
+    ///     }
+    ///     
+    ///     class Simple
+    ///     {
+    ///         [NotNull]
+    ///         public string Name { get; set; }
+    ///         
+    ///         [Range(1, 10)]
+    ///         public int Number { get; set; }
+    ///         
+    ///         [Email]
+    ///         public string Email { get; set; }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class ObjectValidator
     {
         private readonly Dictionary<Type, List<Tuple<Delegate, string>>> _predicates =

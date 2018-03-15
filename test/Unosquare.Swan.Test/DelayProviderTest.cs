@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.Swan.Test
 {
     using NUnit.Framework;
-    using Components;
+    using Unosquare.Swan.Components;
 
     [TestFixture]
     public class DelayProviderTest

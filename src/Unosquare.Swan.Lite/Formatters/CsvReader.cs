@@ -14,7 +14,58 @@
     /// transforming CSV lines of text into objects,
     /// or simply reading the lines of CSV as an array of strings
     /// </summary>
-    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="System.IDisposable" /> 
+    /// <example>
+    /// The following example describes how to load a list of objects from a CSV file
+    /// <code>
+    /// using Unosquare.Swan.Formatters;
+    ///  
+    /// class Example
+    /// {
+    ///     class Person
+    ///     {
+    ///         public string Name { get; set; }
+    ///         public int Age { get; set; }
+    ///     }
+    ///     
+    ///     static void Main()
+    ///     {
+    ///         // load records from a CSV file
+    ///        var loadedRecords = 
+    ///        CsvReader.LoadRecords&lt;Person&gt;("C:\\Users\\user\\Documents\\file.csv");
+    ///         
+    ///         // loadedRecords = 
+    ///         //  [
+    ///         //      { Age = 20, Name = "Artyom" }
+    ///         //      { Age = 18, Name = "Aloy" }
+    ///         //  ]
+    ///     }
+    /// }
+    /// </code>
+    /// The following code explains how to read a CSV formatted string
+    /// <code>
+    /// using Unosquare.Swan.Formatters;
+    /// using System.Text;
+    /// using Unosquare.Swan.Formatters;
+    ///  
+    /// class Example
+    /// {
+    ///     static void Main()
+    ///     {
+    ///         // data to be read
+    ///         var data = @"Company,OpenPositions,MainTechnology,Revenue
+    ///         Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",500
+    ///         Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",600";
+    ///         
+    ///         using(var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
+    ///         {
+    ///             // create a CSV reader
+    ///             var reader = new CsvReader(stream, false, Encoding.UTF8);
+    ///         }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class CsvReader : IDisposable
     {
         private static readonly PropertyTypeCache TypeCache = new PropertyTypeCache();

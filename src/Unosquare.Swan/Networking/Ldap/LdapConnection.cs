@@ -25,8 +25,76 @@ namespace Unosquare.Swan.Networking.Ldap
     /// application may have more than one LdapConnection object, connected
     /// to the same or different directory servers.
     /// 
-    /// Base on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
+    /// Based on https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
     /// </summary>
+    /// <example>
+    /// The following code describes how to use the LdapConnection class
+    /// <code>
+    /// class Example
+    /// {
+    ///     using Unosquare.Swan;
+    ///     using Unosquare.Swan.Networking.Ldap;
+    ///     using System.Threading.Tasks;
+    ///     
+    ///     static async Task Main()
+    ///     {
+    ///         // create a LdapConnection object
+    ///         var connection = new LdapConnection();
+    ///         
+    ///         // connect to a server
+    ///         await connection.Connect("ldap.forumsys.com", 389);
+    ///         
+    ///         // set up the credentials 
+    ///         await connection.Bind("cn=read-only-admin,dc=example,dc=com", "password");
+    ///         
+    ///         // retrieve all entries that have the specified email using ScopeSub 
+    ///         // which searches all entries at all levels under 
+    ///         // and including the specified base DN
+    ///         var searchResult = await connection
+    ///         .Search("dc=example,dc=com", LdapConnection.ScopeSub, "(cn=Isaac Newton)");
+    ///         
+    ///         // if there are more entries remaining keep going
+    ///         while (searchResult.HasMore())
+    ///         {
+    ///             // point to the next entry
+    ///             var entry = searchResult.Next();
+    ///             
+    ///             // get all attributes 
+    ///             var entryAttributes = entry.GetAttributeSet();
+    ///             
+    ///             // select its name and print it out
+    ///             entryAttributes.GetAttribute("cn").StringValue.Info();
+    ///         }
+    ///         
+    ///         // modify Tesla and sets its email as tesla@email.com
+    ///         connection.Modify("uid=tesla,dc=example,dc=com", 
+    ///         new[] { 
+    ///             new LdapModification(LdapModificationOp.Replace,
+    ///                 "mail", "tesla@email.com") 
+    ///             });
+    ///             
+    ///         // delete the listed values from the given attribute
+    ///         connection.Modify("uid=tesla,dc=example,dc=com", 
+    ///         new[] { 
+    ///             new LdapModification(LdapModificationOp.Delete,
+    ///             "mail", "tesla@email.com") 
+    ///             });
+    ///         
+    ///         // add back the recently deleted property
+    ///         connection.Modify("uid=tesla,dc=example,dc=com", 
+    ///             new[] { 
+    ///                 new LdapModification(LdapModificationOp.Add,
+    ///                 "mail", "tesla@email.com") 
+    ///             });    
+    /// 
+    ///         // disconnect from the LDAP server
+    ///         connection.Disconnect();
+    ///         
+    ///         Terminal.Flush();
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class LdapConnection
     {
         /// <summary>

@@ -9,6 +9,25 @@
     /// <summary>
     /// Represents logic providing several delay mechanisms
     /// </summary>
+    /// <example>
+    ///  The following example shows how to implement delay mechanisms
+    /// <code>
+    /// using Unosquare.Swan.Components;
+    /// 
+    /// public class Example
+    /// {
+    ///     public static void Main()
+    ///     {
+    ///         // using the ThreadSleep strategy
+    ///         using (var delay = new DelayProvider(DelayProvider.DelayStrategy.ThreadSleep))
+    ///         {
+    ///             // retrieve how much time was delayed
+    ///             var time = delay.WaitOne();
+    ///         }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public sealed class DelayProvider : IDisposable
     {
         private readonly object _syncRoot = new object();

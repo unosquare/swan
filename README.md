@@ -274,7 +274,7 @@ var data = Json.Deserialize<BasicJson>(basicJson);
 
 ### The `CsvWriter` class
 
-Many projects require the use of CSV files to export and import data. With `CsvWriter` you can easily write objects and data to CSV format. It also provides a useful way to save the data to a file.
+Many projects require the use of CSV files to export and import data. With `CsvWriter` you can easily write objects and data to CSV format. It also provides a useful way to save data into a file.
 
 [CsvWriter API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvWriter.html)
 
@@ -288,7 +288,7 @@ var basicObj = new List<BasicJson>();
 
 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(basicObj.ToString())))
 {               
-    // The writer of the CSV
+    // The CSV writer
     var reader = new CsvWriter(stream);
 };
 ```
@@ -301,7 +301,7 @@ You also can write the object into a file or a temporal file.
 // The list of objects to be written as CSV
 var basicObj = new List<BasicJson>();
 // This is where the object is save into a file
-CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
+CsvWriter.SaveRecords(basicObj, "C:/Users/user/Documents/CsvFile");
 ```
 
 ### The `CsvReader` class
@@ -315,14 +315,14 @@ When you need to parse data in CSV files you'll always need an easy way to read 
 This is a way to read CSV formatted string.
 
 ```csharp
- // The data to be readed
+ // The data to be read
 var data = @"Company,OpenPositions,MainTechnology,Revenue
-    Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","500" 
-    Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","600";
+            Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",500 
+            Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",600";
 
 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
 {               
-    // The reader of the CSV
+    // The CSV reader
     var reader = new CsvReader(stream, true, Encoding.UTF8);
 };
 ```
@@ -335,7 +335,7 @@ From a CSV file, you can read and load the information into a generic list.
 // The list of object to be written as CSV
 var basicObj = new List<BasicJson>();
 // This is where the object is save into a file
-CsvWriter.SaveRecords<BasicJson>(basicObj, "C:/Users/user/Documents/CsvFile");
+CsvWriter.SaveRecords(basicObj, "C:/Users/user/Documents/CsvFile");
 // This is how you can load the records of the CSV file
 var loadedRecords = CsvReader.LoadRecords<BasicJson>("C:/Users/user/Documents/CsvFile");
 ``` 
@@ -410,7 +410,7 @@ session.Recipients.Add("recipient@test.cm");
 client.SendMailAsync(session);
 
 ```
-#### Example 3: Adding an attatchment with SMTP session state
+#### Example 3: Adding an attachment with SMTP session state
 When using `SmtpSessionState` you have to deal with raw data manipulation, in order to parse MIME attachments [MimeKit](https://www.nuget.org/packages/MimeKit/) is recommended.
 ```csharp
 // Create a new session state with a sender address
@@ -592,9 +592,9 @@ This time we'll be using both custom validators and attributes
 
 ```csharp
 // using the Runtime's ObjectValidator singleton
-Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+Runtime.ObjectValidator.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
  
-var res =  Runtime.ObjectValidator.Value.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
+var res =  Runtime.ObjectValidator.Validate(new Simple{ Name = "name", Number = 5, Email ="email@mail.com"})
 
 ```
 
@@ -603,7 +603,7 @@ In this example, we'll use the previous `Sample` class to validate an object usi
 
 ```csharp
 // using the Runtime's ObjectValidator singleton
-Runtime.ObjectValidator.Value.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
+Runtime.ObjectValidator.AddValidator<Simple>(x => !x.Name.Equals("Name"), "Name must not be 'Name'");
 
 // using the extension method
 var res = new Simple{ Name = "name", Number = 5, Email ="email@mail.com"}.IsValid();
@@ -662,28 +662,28 @@ A simple [Publisher-Subscriber pattern](https://en.wikipedia.org/wiki/Publish%E2
 
 [MessageHub API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.IMessageHub.html)
 
-In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern, any object can "subscribe" to another object's event if the other object "publishes" a message the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
+In many scenarios you need a way to know when something happens to an object, there are usually two ways of achieving this: constantly checking the object's properties or using the pub-sub pattern. To avoid any problems caused by the former method like a possible modification of the object's properties it is a good practice to use the latter. With the pub-sub pattern, any object can "subscribe" to the publisher's publish event. When a message is "published" the event is triggered and the custom content of the message is sent. Neither the publisher nor the subscriber knows the existence of one another, therefore the publisher does not directly notify its subscribers, instead there is another component called MessageHub which is known by both(subscriber and publisher) and that filters all incoming messages and distributes them accordingly.
 
 #### Example 1: Subscribing to a MessageHub
 
 A simple example using the DependencyContainer discussed above. Keep in mind that in this example both the subscription and the message sending are done in the same place but this is only for explanatory purposes.
 
 ``` csharp
-// Using DependencyContainer to create an instance of MessageHub
+// use DependencyContainer to create an instance of MessageHub
  var messageHub = DependencyContainer.Current.Resolve<IMessageHub>() as MessageHub;
  
- // Here we create an instance of the publisher class which has a string as its content
+ // create an instance of the publisher class which has a string as its content
  var message = new MessageHubGenericMessage<string>(this, "SWAN");
  
- // Then this object subscribes to the publisher's event and just prints its content which is a string 
+ // subscribe to the publisher's event and just print its content which is a string 
  // a token is returned which can be used to unsubscribe later on
  var token = messageHub.Subscribe<MessageHubGenericMessage<string>>(m => m.Content.Info());
  
- // We publish a message and SWAN should be printed on the console
+ //publish a message and SWAN should be printed on the console
  messageHub.Publish(message);
  
- // And lastly unsuscribe, we will no longer receive any messages 
- MessageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
+ // unsuscribe, we will no longer receive any messages 
+ messageHub.Unsubscribe<MessageHubGenericMessage<string>>(token);
 ``` 
 
 ### The `LDAPConnection` class
@@ -775,7 +775,7 @@ An easy way to deal with attributes modification is by calling the Modify method
  connection.Disconnect();
  ```
 ### The `ProcessRunner` class
-A class that provides methods that helps us create external process and capture their output. 
+A class that provides methods that helps us create external processes and capture their output. 
 
 [ProcessRunner API Doc](https://unosquare.github.io/swan/api/Unosquare.Swan.Components.ProcessRunner.html)
 
