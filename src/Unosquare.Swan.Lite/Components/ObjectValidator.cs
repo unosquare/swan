@@ -12,7 +12,7 @@
     /// Represents an object validator 
     /// </summary>
     /// <example>
-    /// This code describes how to perform a simple object validation
+    /// The following code describes how to perform a simple object validation
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
@@ -38,7 +38,7 @@
     /// }
     /// </code>
     /// 
-    /// This code shows of to validate an object with a custom validator and some attributes using the Runtime ObjectValidator singleton
+    /// The following code shows of to validate an object with a custom validator and some attributes using the Runtime ObjectValidator singleton
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
