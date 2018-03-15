@@ -171,7 +171,7 @@ depending on the syntax of the JSON string</p>
     </tbody>
   </table>
   <h5 id="Unosquare_Swan_Formatters_Json_Deserialize_System_String__examples">Examples</h5>
-  <p>This code shows how to deserialize a JSON string into a Dictionary</p>
+  <p>The following code shows how to deserialize a JSON string into a Dictionary</p>
 <pre><code>using Unosquare.Swan.Formatters;
 
 class Example
@@ -307,7 +307,7 @@ Non-public constructors and property setters are ignored.</p>
     </tbody>
   </table>
   <h5 id="Unosquare_Swan_Formatters_Json_Deserialize__1_System_String__examples">Examples</h5>
-  <p>This code shows how to deserialize a JSON string into an object of type T</p>
+  <p>The following code describes how to deserialize a JSON string into an object of type T</p>
 <pre><code>using Unosquare.Swan.Formatters;
 
 class Example
@@ -466,7 +466,7 @@ class Example
     </tbody>
   </table>
   <h5 id="Unosquare_Swan_Formatters_Json_Serialize_System_Object_System_Boolean_System_String_System_Boolean_System_String___System_String____examples">Examples</h5>
-  <p>This code shows how to serialize a simple object</p>
+  <p>The following example describes how to serialize a simple object</p>
 <pre><code>using Unosquare.Swan.Formatters;
 
 class Example
@@ -476,6 +476,29 @@ class Example
         var obj = new { One = &quot;One&quot;, Two = &quot;Two&quot; };
 
         var serial = Json.Serialize(obj); // {&quot;One&quot;: &quot;One&quot;,&quot;Two&quot;: &quot;Two&quot;}
+    }
+}</code></pre>
+<p>The following example details how to serialize an object using the <a class="xref" href="Unosquare.Swan.Attributes.JsonPropertyAttribute.html">JsonPropertyAttribute</a></p>
+<pre><code>using Unosquare.Swan.Attributes;
+using Unosquare.Swan.Formatters;
+
+class Example
+{
+    class JsonPropertyExample
+    {
+        [JsonProperty(&quot;data&quot;)]
+        public string Data { get; set; }
+
+        [JsonProperty(&quot;ignoredData&quot;, true)]
+        public string IgnoredData { get; set; }
+    }
+
+    static void Main()
+    {
+        var obj = new JsonPropertyExample() { Data = &quot;OK&quot;, IgnoredData = &quot;OK&quot; };
+
+        // {&quot;data&quot;: &quot;OK&quot;}
+        var serializedObj = Json.Serialize(obj);
     }
 }</code></pre>
 
@@ -650,7 +673,7 @@ class Example
     </tbody>
   </table>
   <h5 id="Unosquare_Swan_Formatters_Json_SerializeExcluding_System_Object_System_Boolean_System_String____examples">Examples</h5>
-  <p>This code shows how to serialize a simple object exluding the specified properties</p>
+  <p>The following code shows how to serialize a simple object exluding the specified properties</p>
 <pre><code>using Unosquare.Swan.Formatters;
 
 class Example
@@ -728,7 +751,7 @@ class Example
     </tbody>
   </table>
   <h5 id="Unosquare_Swan_Formatters_Json_SerializeOnly_System_Object_System_Boolean_System_String____examples">Examples</h5>
-  <p>This code shows how to serialize a simple object including the specified properties</p>
+  <p>The following example shows how to serialize a simple object including the specified properties</p>
 <pre><code>using Unosquare.Swan.Formatters;
 
 class Example
