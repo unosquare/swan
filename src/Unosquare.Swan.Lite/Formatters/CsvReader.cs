@@ -42,6 +42,29 @@
     ///     }
     /// }
     /// </code>
+    ///  This code explains how to read a CSV formatted string
+    /// <code>
+    /// using Unosquare.Swan.Formatters;
+    /// using System.Text;
+    /// using Unosquare.Swan.Formatters;
+    ///  
+    /// class Example
+    /// {
+    ///     static void Main()
+    ///     {
+    ///         // data to be read
+    ///         var data = @"Company,OpenPositions,MainTechnology,Revenue
+    ///         Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",500
+    ///         Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",600";
+    ///         
+    ///         using(var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
+    ///         {
+    ///             // create a CSV reader
+    ///             var reader = new CsvReader(stream, false, Encoding.UTF8);
+    ///         }
+    ///     }
+    /// }
+    /// </code>
     /// </example>
     public class CsvReader : IDisposable
     {
