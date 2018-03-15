@@ -15,7 +15,7 @@
     /// Represents a provider to save and load settings using a plain JSON file
     /// </summary>
     /// <example>
-    /// This example shows how to save and load settings.
+    /// The following example shows how to save and load settings.
     /// <code>
     /// using Unosquare.Swan.Abstractions;
     /// 
