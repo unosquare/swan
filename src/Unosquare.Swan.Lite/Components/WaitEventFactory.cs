@@ -9,7 +9,7 @@ namespace Unosquare.Swan.Components
     /// Provides a Manual Reset Event factory with a unified API
     /// </summary>
     /// <example>
-    /// This example shows how to use the WaitEventFactory class
+    /// The following example shows how to use the WaitEventFactory class
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
