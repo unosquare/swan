@@ -129,6 +129,56 @@ Manual Reading Mode: Data reception events are NEVER fired. No background thread
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class Connection : IDisposable</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Networking_Connection_examples"><strong>Examples</strong></h5>
+  <p>The following code explains how to create a TCP server</p>
+<pre><code>using System.Text;
+using Unosquare.Swan.Networking;
+
+class Example
+{
+    static void Main()
+    {
+        // create a new connection listener on a specific port
+        var connectionListener = new ConnectionListener(1337);
+
+        // handle the OnConnectionAccepting event
+        connectionListener.OnConnectionAccepted += (s, e) =>
+        {
+             // create a new connection 
+             using (var con = new Connection(e.Client))
+             {               
+                con.WriteLineAsync(&quot;Hello world!&quot;).Wait();
+             }
+        };
+
+        connectionListener.Start();
+    }
+}</code></pre>
+<p>The following code describes how to create a TCP client</p>
+<pre><code>using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using Unosquare.Swan.Networking;
+
+class Example
+{
+    static async Task Main()
+    {
+        // create a new TcpCLient object
+        var client = new TcpClient();
+
+        // connect to a specific address and port
+        client.Connect(&quot;localhost&quot;, 1337);
+
+        //create a new connection with specific encoding,
+        //new line sequence and continous reading disabled
+        using (var cn = new Connection(client, Encoding.UTF8, &quot;\r\n&quot;, true, 0))
+        {               
+           var response = await cn.ReadTextAsync();
+        }
+    }
+}</code></pre>
+
   <h3 id="constructors">Constructors
   </h3>
   
