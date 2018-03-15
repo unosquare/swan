@@ -413,13 +413,27 @@ var basicObject = new { One = &quot;One&quot;, Two = &quot;Two&quot;, Three = &q
 var excludeNames  = new[] { &quot;Two&quot;, &quot;Three&quot; };
 // Serialization Excluding
 var data = Json.SerializeExcluding(basicObject, true, excludeNames);
-</code></pre><h4 id="example-4-deserialize">Example 4: Deserialize</h4>
+</code></pre><h4 id="example-4-serialize-an-object-using-attributes">Example 4: Serialize an object using attributes</h4>
+<p>Serializes the specified object whose properties have a <code>JsonPropertyAttribute</code></p>
+<pre><code class="lang-csharp"> class JsonPropertyExample
+{
+   [JsonProperty(&quot;data&quot;)]
+   public string Data { get; set; }
+
+   [JsonProperty(&quot;ignoredData&quot;, true)]
+   public string IgnoredData { get; set; }
+}
+</code></pre><pre><code class="lang-csharp"> var obj = new JsonPropertyExample() { Data = &quot;OK&quot;, IgnoredData = &quot;OK&quot; };
+
+ // {&quot;data&quot;: &quot;OK&quot;}
+ var serializedObj = Json.Serialize(obj);
+</code></pre><h4 id="example-5-deserialize">Example 5: Deserialize</h4>
 <p>Deserializes the specified JSON <code>string</code> as either a <code>Dictionary&lt;string, object&gt;</code> or as a <code>List&lt;object&gt;</code> depending on the syntax of the JSON <code>string</code>.</p>
 <pre><code class="lang-csharp">// The json to be deserialize
 var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
 // Deserializes the specified json into Dictionary&lt;string, object&gt;.
 var data = Json.Deserialize(basicJson);
-</code></pre><h4 id="example-5-deserialize-a-generic-type-t">Example 5: Deserialize a generic type <code>&lt;T&gt;</code></h4>
+</code></pre><h4 id="example-6-deserialize-a-generic-type-t">Example 6: Deserialize a generic type <code>&lt;T&gt;</code></h4>
 <p>Deserializes the specified JSON <code>string</code> and converts it to the specified object type. Non-public constructors and property setters are ignored.</p>
 <pre><code class="lang-csharp">// The json Type BasicJson to be deserialize
 var basicJson = &quot;{\&quot;One\&quot;:\&quot;One\&quot;,\&quot;Two\&quot;:\&quot;Two\&quot;,\&quot;Three\&quot;:\&quot;Three\&quot;}&quot;;
