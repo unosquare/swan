@@ -123,6 +123,44 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public abstract class AppWorkerBase : IWorker</code></pre>
   </div>
+  <h5 id="Unosquare_Swan_Abstractions_AppWorkerBase_examples"><strong>Examples</strong></h5>
+  <p>This code describes how to implement the <a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a> class</p>
+<pre><code>using System;
+using System.Threading.Tasks;
+using Unosquare.Swan;
+using Unosquare.Swan.Abstractions;
+
+class Worker : AppWorkerBase
+{
+    // an action that will be executed if the worker is stopped
+    public Action OnExit { get; set; }
+
+    // override the base loop method, this is the code that&apos;ll
+    // be run once the worker is started     
+    protected override void WorkerThreadLoop()
+    {
+        // while the worker hasn&apos;t been stopped
+        while (!CancellationToken.IsCancellationRequested)
+        {
+            // delay a second and then proceed
+            Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();
+
+            // just print out this
+            $&quot;Working...&quot;.WriteLine();
+        }
+    }
+
+    // Once the worker is stopped this code will be executed
+    protected override void OnWorkerThreadExit()
+    {
+        // execute the base method
+        base.OnWorkerThreadExit();
+
+        // then if the OnExit Action is not null execute it
+        OnExit?.Invoke();
+    }
+}</code></pre>
+
   <h3 id="constructors">Constructors
   </h3>
   
