@@ -61,7 +61,7 @@
         /// </returns>
         /// <exception cref="ArgumentException">You need to provide an object or array</exception>
         /// <example>
-        /// This code shows how to serialize a simple object
+        /// The following example describes how to serialize a simple object
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
@@ -72,6 +72,31 @@
         ///         var obj = new { One = "One", Two = "Two" };
         ///         
         ///         var serial = Json.Serialize(obj); // {"One": "One","Two": "Two"}
+        ///     }
+        /// }
+        /// </code>
+        /// The following example details how to serialize an object using the <see cref="JsonPropertyAttribute"/>
+        /// <code>
+        /// using Unosquare.Swan.Attributes;
+        /// using Unosquare.Swan.Formatters;
+        /// 
+        /// class Example
+        /// {
+        ///     class JsonPropertyExample
+        ///     {
+        ///         [JsonProperty("data")]
+        ///         public string Data { get; set; }
+        ///         
+        ///         [JsonProperty("ignoredData", true)]
+        ///         public string IgnoredData { get; set; }
+        ///     }
+        ///     
+        ///     static void Main()
+        ///     {
+        ///         var obj = new JsonPropertyExample() { Data = "OK", IgnoredData = "OK" };
+        ///         
+        ///         // {"data": "OK"}
+        ///         var serializedObj = Json.Serialize(obj);
         ///     }
         /// }
         /// </code>
@@ -132,7 +157,7 @@
         /// <param name="includeNames">The include names.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         /// <example>
-        /// This code shows how to serialize a simple object including the specified properties
+        /// The following example shows how to serialize a simple object including the specified properties
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
@@ -166,7 +191,7 @@
         /// <param name="excludeNames">The exclude names.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
         /// <example>
-        /// This code shows how to serialize a simple object exluding the specified properties
+        /// The following code shows how to serialize a simple object exluding the specified properties
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
@@ -200,7 +225,7 @@
         /// <param name="json">The json.</param>
         /// <returns>Type of the current deserializes</returns>
         /// <example>
-        /// This code shows how to deserialize a JSON string into a Dictionary
+        /// The following code shows how to deserialize a JSON string into a Dictionary
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
@@ -228,7 +253,7 @@
         /// <param name="json">The json.</param>
         /// <returns>The deserialized specified type object</returns>
         /// <example>
-        /// This code shows how to deserialize a JSON string into an object of type T
+        /// The following code describes how to deserialize a JSON string into an object of type T
         /// <code>
         /// using Unosquare.Swan.Formatters;
         /// 
