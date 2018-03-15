@@ -11,7 +11,7 @@ namespace Unosquare.Swan.Components
     /// Based on CommandLine (Copyright 2005-2015 Giacomo Stelluti Scala and Contributors.)
     /// </summary>
     /// <example>
-    /// This example shows how to parse CLI arguments into objects.
+    /// The following example shows how to parse CLI arguments into objects.
     /// <code>
     /// class Example 
     /// {
