@@ -315,14 +315,14 @@ When you need to parse data in CSV files you'll always need an easy way to read 
 This is a way to read CSV formatted string.
 
 ```csharp
- // The data to be readed
+ // The data to be read
 var data = @"Company,OpenPositions,MainTechnology,Revenue
-    Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","500" 
-    Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"","600";
+            Co,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",500 
+            Ca,2,""C#, MySQL, JavaScript, HTML5 and CSS3"",600";
 
 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
 {               
-    // The reader of the CSV
+    // The CSV reader
     var reader = new CsvReader(stream, true, Encoding.UTF8);
 };
 ```
