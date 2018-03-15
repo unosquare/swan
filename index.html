@@ -449,14 +449,14 @@ CsvWriter.SaveRecords(basicObj, &quot;C:/Users/user/Documents/CsvFile&quot;);
 <p><a href="https://unosquare.github.io/swan/api/Unosquare.Swan.Formatters.CsvReader.html">CsvReader API Doc</a></p>
 <h4 id="example-1-reading-a-csv-data-string">Example 1: Reading a CSV data string</h4>
 <p>This is a way to read CSV formatted string.</p>
-<pre><code class="lang-csharp"> // The data to be readed
+<pre><code class="lang-csharp"> // The data to be read
 var data = @&quot;Company,OpenPositions,MainTechnology,Revenue
-    Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;500&quot; 
-    Ca,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,&quot;600&quot;;
+            Co,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,500 
+            Ca,2,&quot;&quot;C#, MySQL, JavaScript, HTML5 and CSS3&quot;&quot;,600&quot;;
 
 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
 {               
-    // The reader of the CSV
+    // The CSV reader
     var reader = new CsvReader(stream, true, Encoding.UTF8);
 };
 </code></pre><h4 id="example-2-reading-a-csv-file">Example 2: Reading a CSV file</h4>
