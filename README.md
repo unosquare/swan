@@ -250,7 +250,26 @@ var excludeNames  = new[] { "Two", "Three" };
 // Serialization Excluding
 var data = Json.SerializeExcluding(basicObject, true, excludeNames);
 ``` 
-#### Example 4: Deserialize
+#### Example 4: Serialize an object using attributes
+
+Serializes the specified object whose properties have a `JsonPropertyAttribute`
+```csharp
+ class JsonPropertyExample
+{
+   [JsonProperty("data")]
+   public string Data { get; set; }
+   
+   [JsonProperty("ignoredData", true)]
+   public string IgnoredData { get; set; }
+}
+```
+```csharp
+ var obj = new JsonPropertyExample() { Data = "OK", IgnoredData = "OK" };
+ 
+ // {"data": "OK"}
+ var serializedObj = Json.Serialize(obj);
+```
+#### Example 5: Deserialize
 
 Deserializes the specified JSON `string` as either a `Dictionary<string, object>` or as a `List<object>` depending on the syntax of the JSON `string`.
 
@@ -261,7 +280,7 @@ var basicJson = "{\"One\":\"One\",\"Two\":\"Two\",\"Three\":\"Three\"}";
 var data = Json.Deserialize(basicJson);
 ``` 
 
-#### Example 5: Deserialize a generic type `<T>`
+#### Example 6: Deserialize a generic type `<T>`
 
 Deserializes the specified JSON `string` and converts it to the specified object type. Non-public constructors and property setters are ignored.
 
