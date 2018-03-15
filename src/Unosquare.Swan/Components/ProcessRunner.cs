@@ -34,7 +34,7 @@ namespace Unosquare.Swan.Components
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The type of the result produced by this Task</returns>
         /// <example>
-        /// This code explains how to run an external process using the 
+        /// The following code explains how to run an external process using the 
         /// <see cref="GetProcessOutputAsync(string, string, CancellationToken)"/> method
         /// <code>
         /// class Example
@@ -73,7 +73,7 @@ namespace Unosquare.Swan.Components
         /// </returns>
         /// <exception cref="ArgumentNullException">filename</exception>
         /// <example>
-        /// This code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, CancellationToken)"/> method.
+        /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, CancellationToken)"/> method.
         /// <code>
         /// class Example
         /// {
@@ -132,7 +132,7 @@ namespace Unosquare.Swan.Components
         /// <param name="ct">The ct.</param>
         /// <returns>Value type will be -1 for forceful termination of the process</returns>
         /// <example>
-        /// This code illustrates how to run an external process using the 
+        /// The following example illustrates how to run an external process using the 
         /// <see cref="RunProcessAsync(string, string, ProcessDataReceivedCallback, ProcessDataReceivedCallback, bool, CancellationToken)"/>
         /// method
         /// <code>

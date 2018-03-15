@@ -8,7 +8,7 @@
     /// A base implementation of an Application service containing a worker task that performs background processing.
     /// </summary>
     /// <example>
-    /// This code describes how to implement the <see cref="AppWorkerBase"/> class
+    /// The following code describes how to implement the <see cref="AppWorkerBase"/> class
     /// <code>
     /// using System;
     /// using System.Threading.Tasks;

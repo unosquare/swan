@@ -10,7 +10,7 @@
     /// Represents logic providing several delay mechanisms
     /// </summary>
     /// <example>
-    ///  This example shows how to implement delay mechanisms
+    ///  The following example shows how to implement delay mechanisms
     /// <code>
     /// using Unosquare.Swan.Components;
     /// 
