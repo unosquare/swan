@@ -7,6 +7,46 @@
     /// <summary>
     /// A base implementation of an Application service containing a worker task that performs background processing.
     /// </summary>
+    /// <example>
+    /// This code describes how to implement the <see cref="AppWorkerBase"/> class
+    /// <code>
+    /// using System;
+    /// using System.Threading.Tasks;
+    /// using Unosquare.Swan;
+    /// using Unosquare.Swan.Abstractions;
+    /// 
+    /// class Worker : AppWorkerBase
+    /// {
+    ///     // an action that will be executed if the worker is stopped
+    ///     public Action OnExit { get; set; }
+    ///      
+    ///     // override the base loop method, this is the code that'll
+    ///     // be run once the worker is started     
+    ///     protected override void WorkerThreadLoop()
+    ///     {
+    ///         // while the worker hasn't been stopped
+    ///         while (!CancellationToken.IsCancellationRequested)
+    ///         {
+    ///             // delay a second and then proceed
+    ///             Task.Delay(TimeSpan.FromMilliseconds(1000), CancellationToken).Wait();
+    ///             
+    ///             // just print out this
+    ///             $"Working...".WriteLine();
+    ///         }
+    ///     }
+    ///     
+    ///     // Once the worker is stopped this code will be executed
+    ///     protected override void OnWorkerThreadExit()
+    ///     {
+    ///         // execute the base method
+    ///         base.OnWorkerThreadExit();
+    ///         
+    ///         // then if the OnExit Action is not null execute it
+    ///         OnExit?.Invoke();
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public abstract class AppWorkerBase 
         : IWorker
     {
