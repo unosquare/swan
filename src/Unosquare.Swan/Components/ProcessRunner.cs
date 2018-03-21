@@ -61,19 +61,57 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
+        /// Runs the process asynchronously and if the exit code is 0,
+        /// returns all of the standard output text. If the exit code is something other than 0
+        /// it returns the contents of standard error.
+        /// This method is meant to be used for programs that output a relatively small amount 
+        /// of text using a differente encoder.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// The type of the result produced by this Task
+        /// </returns>
+        public static async Task<string> GetProcessEncodedOutputAsync(string filename, string arguments = "", Encoding encoding = null, CancellationToken ct = default)
+        {
+            var result = await GetProcessResultAsync(filename, arguments, encoding, ct);
+            return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
+        }
+
+        /// <summary>
         /// Executes a process asynchronously and returns the text of the standard output and standard error streams
         /// along with the exit code. This method is meant to be used for programs that output a relatively small
         /// amount of text.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult"/> instance
+        /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance
+        /// </returns>
+        /// <exception cref="ArgumentNullException">filename</exception>
+        public static Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default)
+        {
+            return GetProcessResultAsync(filename, arguments, Definitions.CurrentAnsiEncoding, ct);
+        }
+
+        /// <summary>
+        /// Executes a process asynchronously and returns the text of the standard output and standard error streams
+        /// along with the exit code. This method is meant to be used for programs that output a relatively small
+        /// amount of text.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance
         /// </returns>
         /// <exception cref="ArgumentNullException">filename</exception>
         /// <example>
-        /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, CancellationToken)"/> method.
+        /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, Encoding, CancellationToken)" /> method.
         /// <code>
         /// class Example
         /// {
@@ -82,26 +120,25 @@ namespace Unosquare.Swan.Components
         ///     
         ///     static async Task Main()
         ///     {
-        ///         // Execute a process asynchronously 
-        ///          var data = await ProcessRunner
-        ///          .GetProcessResultAsync("dotnet", "--help");
-        ///     
+        ///         // Execute a process asynchronously
+        ///         var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
+        ///         
         ///         // print out the exit code
         ///         $"{data.ExitCode}".WriteLine();
-        ///         
         ///         // print out the output
         ///         data.StandardOutput.WriteLine();
-        ///         
         ///         // and the error if exists
         ///         data.StandardError.Error();
         ///     }
         /// }
-        /// </code>
-        /// </example>
-        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default)
+        /// </code></example>
+        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", Encoding encoding = null, CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
+
+            if (encoding == null)
+                encoding = Definitions.CurrentAnsiEncoding;
 
             var standardOutputBuilder = new StringBuilder();
             var standardErrorBuilder = new StringBuilder();
@@ -109,8 +146,8 @@ namespace Unosquare.Swan.Components
             var processReturn = await RunProcessAsync(
                                 filename,
                                 arguments,
-                                (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
-                                (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
+                                (data, proc) => { standardOutputBuilder.Append(encoding.GetString(data)); },
+                                (data, proc) => { standardErrorBuilder.Append(encoding.GetString(data)); },
                                 true,
                                 ct);
 
