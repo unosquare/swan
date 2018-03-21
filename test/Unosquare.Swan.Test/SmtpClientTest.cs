@@ -10,7 +10,7 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    
+
     public class SmtpClientTest
     {
         public const string SenderEmail = "test@test.com";
@@ -30,18 +30,18 @@
             {
                 var client = new SmtpClient(Host, 587);
 
-                await client.SendMailAsync((SmtpSessionState) null);
+                await client.SendMailAsync((SmtpSessionState)null);
             });
         }
 
         [Test]
         public void InvalidServer_ThrowsSocketException()
         {
-            Assert.ThrowsAsync<System.Net.Sockets.SocketException >(async () =>
+            Assert.CatchAsync<System.Net.Sockets.SocketException>(async () =>
             {
-                var client = new SmtpClient("invalid.local", 587);
-                
-                await client.SendMailAsync(new SmtpSessionState());
+               var client = new SmtpClient("invalid.local", 587);
+
+               await client.SendMailAsync(new SmtpSessionState());
             });
         }
 
@@ -67,10 +67,10 @@
 
             Assert.IsFalse(File.Exists(filename));
             var email = new SmtpClient(LocalHost, 1030);
-            var session = new SmtpSessionState {SenderAddress = SenderEmail};
+            var session = new SmtpSessionState { SenderAddress = SenderEmail };
 
             session.Recipients.Add(RecipientEmail);
-            session.DataBuffer.AddRange(new byte[] {0x48, 0x48, 0x0A, 0x0C});
+            session.DataBuffer.AddRange(new byte[] { 0x48, 0x48, 0x0A, 0x0C });
 
             await email.SendMailAsync(session);
             await Task.Delay(100);
@@ -122,10 +122,10 @@
             Assert.IsFalse(File.Exists(filename));
             var cts = new CancellationTokenSource();
             var email = new SmtpClient(LocalHost, 1030);
-            var session = new SmtpSessionState {SenderAddress = SenderEmail};
+            var session = new SmtpSessionState { SenderAddress = SenderEmail };
 
             session.Recipients.Add(RecipientEmail);
-            session.DataBuffer.AddRange(new byte[] {0x48, 0x48, 0x0A, 0x0C});
+            session.DataBuffer.AddRange(new byte[] { 0x48, 0x48, 0x0A, 0x0C });
 
 #pragma warning disable 4014
             email.SendMailAsync(session, ct: cts.Token);
