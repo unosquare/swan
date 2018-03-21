@@ -35,6 +35,17 @@
         }
 
         [Test]
+        public void InvalidServer_ThrowsSocketException()
+        {
+            Assert.ThrowsAsync<System.Net.Sockets.SocketException >(async () =>
+            {
+                var client = new SmtpClient("invalid.local", 587);
+                
+                await client.SendMailAsync(new SmtpSessionState());
+            });
+        }
+
+        [Test]
         public void NullStateEnumeration_ThrowsArgumentException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
@@ -43,17 +54,6 @@
                 IEnumerable<SmtpSessionState> sessions = null;
 
                 await client.SendMailAsync(sessions);
-            });
-        }
-
-        [Test]
-        public void TestConnectGmailSmtpException()
-        {
-            Assert.ThrowsAsync<System.Net.Mail.SmtpException>(async () =>
-            {
-                var client = new SmtpClient(Host, 587);
-
-                await client.SendMailAsync(new SmtpSessionState());
             });
         }
 
