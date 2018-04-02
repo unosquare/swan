@@ -349,10 +349,9 @@ namespace Unosquare.Swan.Components
 
                         // Create the buffer to pass to the callback
                         var eventBuffer = swapBuffer.Skip(0).Take(readCount).ToArray();
-                        await Task.Delay(1, ct);
 
                         // Create the data processing callback invocation
-                        var eventTask = Task.Factory.StartNew(() => onDataCallback.Invoke(eventBuffer, process), ct);
+                        var eventTask = Task.Factory.StartNew(() => { onDataCallback.Invoke(eventBuffer, process); }, ct);
 
                         // wait for the event to process before the next read occurs
                         if (syncEvents) eventTask.Wait(ct);
