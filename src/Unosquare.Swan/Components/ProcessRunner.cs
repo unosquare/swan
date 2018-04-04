@@ -148,6 +148,7 @@ namespace Unosquare.Swan.Components
                                 arguments,
                                 (data, proc) => { standardOutputBuilder.Append(encoding.GetString(data)); },
                                 (data, proc) => { standardErrorBuilder.Append(encoding.GetString(data)); },
+                                encoding,
                                 true,
                                 ct);
 
@@ -165,39 +166,13 @@ namespace Unosquare.Swan.Components
         /// <param name="arguments">The arguments.</param>
         /// <param name="onOutputData">The on output data.</param>
         /// <param name="onErrorData">The on error data.</param>
+        /// <param name="encoding">The encoding.</param>
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns>Value type will be -1 for forceful termination of the process</returns>
-        /// <example>
-        /// The following example illustrates how to run an external process using the 
-        /// <see cref="RunProcessAsync(string, string, ProcessDataReceivedCallback, ProcessDataReceivedCallback, bool, CancellationToken)"/>
-        /// method
-        /// <code>
-        /// class Example
-        /// {
-        ///     using System.Diagnostics;
-        ///     using System.Text;
-        ///     using System.Threading.Tasks;
-        ///     using Unosquare.Swan;
-        ///     using Unosquare.Swan.Components;
-        ///     
-        ///     static async Task Main()
-        ///     {
-        ///         // Execute a process asynchronously 
-        ///         var data = await ProcessRunner
-        ///         .RunProcessAsync("dotnet", "--help", Print, Print);
-        ///     
-        ///         // flush all messages
-        ///         Terminal.Flush();
-        ///     }
-        ///     
-        ///     // a callback to print both output or errors
-        ///     static void Print(byte[] data, Process proc) =>
-        ///         Encoding.GetEncoding(0).GetString(data).WriteLine();
-        /// }
-        /// </code>
-        /// </example>
-        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default)
+        /// <returns>
+        /// Value type will be -1 for forceful termination of the process
+        /// </returns>
+        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, Encoding encoding, bool syncEvents = true, CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -214,7 +189,9 @@ namespace Unosquare.Swan.Components
                         CreateNoWindow = true,
                         FileName = filename,
                         RedirectStandardError = true,
+                        StandardErrorEncoding = encoding,
                         RedirectStandardOutput = true,
+                        StandardOutputEncoding = encoding,
                         UseShellExecute = false,
 #if NET452
                         WindowStyle = ProcessWindowStyle.Hidden
@@ -274,6 +251,52 @@ namespace Unosquare.Swan.Components
                 }
             }, ct);
         }
+
+        /// <summary>
+        /// Runs an external process asynchronously, providing callbacks to
+        /// capture binary data from the standard error and standard output streams.
+        /// The callbacks contain a reference to the process so you can respond to output or
+        /// error streams by writing to the process' input stream.
+        /// The exit code (return value) will be -1 for forceful termination of the process
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="onOutputData">The on output data.</param>
+        /// <param name="onErrorData">The on error data.</param>
+        /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>Value type will be -1 for forceful termination of the process</returns>
+        /// <example>
+        /// The following example illustrates how to run an external process using the 
+        /// <see cref="RunProcessAsync(string, string, ProcessDataReceivedCallback, ProcessDataReceivedCallback, bool, CancellationToken)"/>
+        /// method
+        /// <code>
+        /// class Example
+        /// {
+        ///     using System.Diagnostics;
+        ///     using System.Text;
+        ///     using System.Threading.Tasks;
+        ///     using Unosquare.Swan;
+        ///     using Unosquare.Swan.Components;
+        ///     
+        ///     static async Task Main()
+        ///     {
+        ///         // Execute a process asynchronously 
+        ///         var data = await ProcessRunner
+        ///         .RunProcessAsync("dotnet", "--help", Print, Print);
+        ///     
+        ///         // flush all messages
+        ///         Terminal.Flush();
+        ///     }
+        ///     
+        ///     // a callback to print both output or errors
+        ///     static void Print(byte[] data, Process proc) =>
+        ///         Encoding.GetEncoding(0).GetString(data).WriteLine();
+        /// }
+        /// </code>
+        /// </example>
+        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default)
+            => RunProcessAsync(filename, arguments, onOutputData, onErrorData, Definitions.CurrentAnsiEncoding, syncEvents, ct);
 
         /// <summary>
         /// Copies the stream asynchronously.
