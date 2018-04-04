@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IMessageHub
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.33.1.0">
+    <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -101,7 +101,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Publish&lt;TMessage&gt;(TMessage message)where TMessage : class, IMessageHubMessage</code></pre>
+    <pre><code class="lang-csharp hljs">void Publish&lt;TMessage&gt;(TMessage message)
+    where TMessage : class, IMessageHubMessage</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -146,7 +147,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task PublishAsync&lt;TMessage&gt;(TMessage message)where TMessage : class, IMessageHubMessage</code></pre>
+    <pre><code class="lang-csharp hljs">Task PublishAsync&lt;TMessage&gt;(TMessage message)
+    where TMessage : class, IMessageHubMessage</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -209,7 +211,8 @@ Messages will be delivered via the specified proxy.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, bool useStrongReferences, IMessageHubProxy proxy)where TMessage : class, IMessageHubMessage</code></pre>
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, bool useStrongReferences, IMessageHubProxy proxy)
+    where TMessage : class, IMessageHubMessage</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -285,7 +288,8 @@ Only messages that &quot;pass&quot; the filter will be delivered.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, Func&lt;TMessage, bool&gt; messageFilter, bool useStrongReferences, IMessageHubProxy proxy)where TMessage : class, IMessageHubMessage</code></pre>
+    <pre><code class="lang-csharp hljs">MessageHubSubscriptionToken Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; deliveryAction, Func&lt;TMessage, bool&gt; messageFilter, bool useStrongReferences, IMessageHubProxy proxy)
+    where TMessage : class, IMessageHubMessage</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -365,7 +369,8 @@ Only messages that &quot;pass&quot; the filter will be delivered.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Unsubscribe&lt;TMessage&gt;(MessageHubSubscriptionToken subscriptionToken)where TMessage : class, IMessageHubMessage</code></pre>
+    <pre><code class="lang-csharp hljs">void Unsubscribe&lt;TMessage&gt;(MessageHubSubscriptionToken subscriptionToken)
+    where TMessage : class, IMessageHubMessage</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

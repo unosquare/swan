@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class CsvReader
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.33.1.0">
+    <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -515,7 +515,8 @@ This method uses Windows 1252 encoding</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IList&lt;T&gt; LoadRecords&lt;T&gt;(Stream stream)where T : new ()</code></pre>
+    <pre><code class="lang-csharp hljs">public static IList&lt;T&gt; LoadRecords&lt;T&gt;(Stream stream)
+    where T : new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -577,7 +578,8 @@ This method uses Windows 1252 encoding</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IList&lt;T&gt; LoadRecords&lt;T&gt;(string filePath)where T : new ()</code></pre>
+    <pre><code class="lang-csharp hljs">public static IList&lt;T&gt; LoadRecords&lt;T&gt;(string filePath)
+    where T : new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -832,7 +834,8 @@ the property names of the target type match the heading names of the file.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;()where T : new ()</code></pre>
+    <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;()
+    where T : new()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -877,7 +880,8 @@ in the given Type.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;(IDictionary&lt;string, string&gt; map)where T : new ()</code></pre>
+    <pre><code class="lang-csharp hljs">public T ReadObject&lt;T&gt;(IDictionary&lt;string, string&gt; map)
+    where T : new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

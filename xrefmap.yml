@@ -4607,19 +4607,6 @@ references:
   commentId: T:Unosquare.Swan.Components.ProcessRunner
   fullName: Unosquare.Swan.Components.ProcessRunner
   nameWithType: ProcessRunner
-- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  name: GetProcessEncodedOutputAsync(String, String, Encoding, CancellationToken)
-  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessEncodedOutputAsync_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessEncodedOutputAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessEncodedOutputAsync(System.String, System.String, System.Text.Encoding, System.Threading.CancellationToken)
-  nameWithType: ProcessRunner.GetProcessEncodedOutputAsync(String, String, Encoding, CancellationToken)
-- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessEncodedOutputAsync*
-  name: GetProcessEncodedOutputAsync
-  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessEncodedOutputAsync_
-  commentId: Overload:Unosquare.Swan.Components.ProcessRunner.GetProcessEncodedOutputAsync
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessEncodedOutputAsync
-  nameWithType: ProcessRunner.GetProcessEncodedOutputAsync
 - uid: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync(System.String,System.String,System.Threading.CancellationToken)
   name: GetProcessOutputAsync(String, String, CancellationToken)
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessOutputAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -4633,12 +4620,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessOutputAsync
   nameWithType: ProcessRunner.GetProcessOutputAsync
-- uid: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  name: GetProcessResultAsync(String, String, Encoding, CancellationToken)
-  href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Text_Encoding_System_Threading_CancellationToken_
-  commentId: M:Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Text.Encoding,System.Threading.CancellationToken)
-  fullName: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String, System.String, System.Text.Encoding, System.Threading.CancellationToken)
-  nameWithType: ProcessRunner.GetProcessResultAsync(String, String, Encoding, CancellationToken)
 - uid: Unosquare.Swan.Components.ProcessRunner.GetProcessResultAsync(System.String,System.String,System.Threading.CancellationToken)
   name: GetProcessResultAsync(String, String, CancellationToken)
   href: api/Unosquare.Swan.Components.ProcessRunner.html#Unosquare_Swan_Components_ProcessRunner_GetProcessResultAsync_System_String_System_String_System_Threading_CancellationToken_

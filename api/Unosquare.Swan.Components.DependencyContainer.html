@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class DependencyContainer
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.33.1.0">
+    <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -358,7 +358,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -428,7 +429,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters = null, DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -502,7 +504,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options = null)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -886,7 +889,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(TRegister instance, string name = &quot;&quot;)where TRegister : class</code></pre>
+    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(TRegister instance, string name = &quot;&quot;)
+    where TRegister : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -953,7 +957,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, TRegister&gt; factory, string name = &quot;&quot;)where TRegister : class</code></pre>
+    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(Func&lt;DependencyContainer, Dictionary&lt;string, object&gt;, TRegister&gt; factory, string name = &quot;&quot;)
+    where TRegister : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1020,7 +1025,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(string name = &quot;&quot;)where TRegister : class</code></pre>
+    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister&gt;(string name = &quot;&quot;)
+    where TRegister : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1081,7 +1087,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(TRegisterImplementation instance, string name = &quot;&quot;)where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
+    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(TRegisterImplementation instance, string name = &quot;&quot;)
+    where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1153,7 +1160,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(string name = &quot;&quot;)where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
+    <pre><code class="lang-csharp hljs">public DependencyContainer.RegisterOptions Register&lt;TRegister, TRegisterImplementation&gt;(string name = &quot;&quot;)
+    where TRegister : class where TRegisterImplementation : class, TRegister</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1491,7 +1499,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1576,7 +1585,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1667,7 +1677,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name, DependencyContainerResolveOptions options = null)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(string name, DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1750,7 +1761,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options = null)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public TResolveType Resolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options = null)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1878,7 +1890,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;TResolveType&gt; ResolveAll&lt;TResolveType&gt;(bool includeUnnamed = true)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;TResolveType&gt; ResolveAll&lt;TResolveType&gt;(bool includeUnnamed = true)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2419,7 +2432,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2480,7 +2494,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2547,7 +2562,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2620,7 +2636,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2687,7 +2704,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2760,7 +2778,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, Dictionary&lt;string, object&gt; parameters, DependencyContainerResolveOptions options, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2839,7 +2858,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, DependencyContainerResolveOptions options, out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(string name, DependencyContainerResolveOptions options, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -2912,7 +2932,8 @@ All user supplied parameters must exist in at least one resolvable constructor o
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options, out TResolveType resolvedType)where TResolveType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryResolve&lt;TResolveType&gt;(DependencyContainerResolveOptions options, out TResolveType resolvedType)
+    where TResolveType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

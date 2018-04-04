@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ValueTypeExtensions
    | Unosquare SWAN ">
-    <meta name="generator" content="docfx 2.33.1.0">
+    <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -130,7 +130,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T Clamp&lt;T&gt;(this T value, T min, T max)where T : struct, IComparable</code></pre>
+    <pre><code class="lang-csharp hljs">public static T Clamp&lt;T&gt;(this T value, T min, T max)
+    where T : struct, IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -203,7 +204,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsBetween&lt;T&gt;(this T value, T min, T max)where T : struct, IComparable</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool IsBetween&lt;T&gt;(this T value, T min, T max)
+    where T : struct, IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -322,7 +324,8 @@ contained in longBytes</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static byte[] ToBytes&lt;T&gt;(this T obj)where T : struct</code></pre>
+    <pre><code class="lang-csharp hljs">public static byte[] ToBytes&lt;T&gt;(this T obj)
+    where T : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -383,7 +386,8 @@ contained in longBytes</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T ToStruct&lt;T&gt;(this byte[] data)where T : struct</code></pre>
+    <pre><code class="lang-csharp hljs">public static T ToStruct&lt;T&gt;(this byte[] data)
+    where T : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -444,7 +448,8 @@ contained in longBytes</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static T ToStruct&lt;T&gt;(this byte[] data, int offset, int length)where T : struct</code></pre>
+    <pre><code class="lang-csharp hljs">public static T ToStruct&lt;T&gt;(this byte[] data, int offset, int length)
+    where T : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
