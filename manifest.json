@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "CODE_OF_CONDUCT.html",
-          "hash": "YMx/6CqVHw7Gl8aQzGEJLw=="
+          "hash": "0aSj366/ybE9ZhB4QlIJkA=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "yIfY/TOqpJOjPlD2yn70HQ=="
+          "hash": "fbiNs3IsYsz+sNIxCR5CDQ=="
         }
       },
       "is_incremental": false,
@@ -831,7 +831,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.ProcessRunner.html",
-          "hash": "Ns2y9ZHXVnD5NqTdtdxE3g=="
+          "hash": "qLnSZTwk9pjXx2a9KbFiPQ=="
         }
       },
       "is_incremental": false,
@@ -1922,13 +1922,13 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
