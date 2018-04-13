@@ -406,10 +406,16 @@
             private int ExtractStringQuoted(string json, int i)
             {
                 var charCount = 0;
+                var escapeCharFound = false;
                 for (var j = i + 1; j < json.Length; j++)
                 {
-                    if (json[j] == StringQuotedChar && json[j - 1] != StringEscapeChar)
+                    if (json[j] == StringQuotedChar && !escapeCharFound)
                         break;
+
+                    if (json[j] == StringEscapeChar)
+                        escapeCharFound = !escapeCharFound;
+                    else
+                        escapeCharFound = false;
 
                     charCount++;
                 }
