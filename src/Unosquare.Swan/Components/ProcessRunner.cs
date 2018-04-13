@@ -339,7 +339,7 @@ namespace Unosquare.Swan.Components
                                     if (readCount > 0)
                                     {
                                         totalCount += (ulong)readCount;
-                                        onDataCallback?.Invoke(swapBuffer, process);
+                                        onDataCallback?.Invoke(swapBuffer.Skip(0).Take(readCount).ToArray(), process);
                                     }
                                     else
                                     {
