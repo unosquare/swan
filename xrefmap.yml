@@ -12202,6 +12202,22 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.StringExtensions.RemoveControlCharsExcept
   nameWithType: StringExtensions.RemoveControlCharsExcept
+- uid: Unosquare.Swan.StringExtensions.ReplaceAll(System.String,System.String,System.Char[])
+  name: ReplaceAll(String, String, Char[])
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ReplaceAll_System_String_System_String_System_Char___
+  commentId: M:Unosquare.Swan.StringExtensions.ReplaceAll(System.String,System.String,System.Char[])
+  name.vb: ReplaceAll(String, String, Char())
+  fullName: Unosquare.Swan.StringExtensions.ReplaceAll(System.String, System.String, System.Char[])
+  fullName.vb: Unosquare.Swan.StringExtensions.ReplaceAll(System.String, System.String, System.Char())
+  nameWithType: StringExtensions.ReplaceAll(String, String, Char[])
+  nameWithType.vb: StringExtensions.ReplaceAll(String, String, Char())
+- uid: Unosquare.Swan.StringExtensions.ReplaceAll*
+  name: ReplaceAll
+  href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_ReplaceAll_
+  commentId: Overload:Unosquare.Swan.StringExtensions.ReplaceAll
+  isSpec: "True"
+  fullName: Unosquare.Swan.StringExtensions.ReplaceAll
+  nameWithType: StringExtensions.ReplaceAll
 - uid: Unosquare.Swan.StringExtensions.Slice(System.String,System.Int32,System.Int32)
   name: Slice(String, Int32, Int32)
   href: api/Unosquare.Swan.StringExtensions.html#Unosquare_Swan_StringExtensions_Slice_System_String_System_Int32_System_Int32_
