@@ -500,7 +500,19 @@
         {
             return chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
         }
-
+        
+        /// <summary>
+        /// Replaces all chars in a string.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="replaceValue">The replace value.</param>
+        /// <param name="chars">The chars.</param>
+        /// <returns>The string with the characters reppaced</returns>
+        public static string ReplaceAll(this string value, string replaceValue, params char[] chars)
+        {
+            return chars.Aggregate(value, (current, c) => current.Replace(new string(new[] {c}), replaceValue));
+        }
+        
         /// <summary>
         /// Convert hex character to an integer. Return -1 if char is something
         /// other than a hex char.

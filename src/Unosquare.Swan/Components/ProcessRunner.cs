@@ -61,19 +61,57 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
+        /// Runs the process asynchronously and if the exit code is 0,
+        /// returns all of the standard output text. If the exit code is something other than 0
+        /// it returns the contents of standard error.
+        /// This method is meant to be used for programs that output a relatively small amount 
+        /// of text using a differente encoder.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// The type of the result produced by this Task
+        /// </returns>
+        public static async Task<string> GetProcessEncodedOutputAsync(string filename, string arguments = "", Encoding encoding = null, CancellationToken ct = default)
+        {
+            var result = await GetProcessResultAsync(filename, arguments, encoding, ct);
+            return result.ExitCode == 0 ? result.StandardOutput : result.StandardError;
+        }
+
+        /// <summary>
         /// Executes a process asynchronously and returns the text of the standard output and standard error streams
         /// along with the exit code. This method is meant to be used for programs that output a relatively small
         /// amount of text.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="arguments">The arguments.</param>
-        /// <param name="ct">The ct.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns>
-        /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult"/> instance
+        /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance
+        /// </returns>
+        /// <exception cref="ArgumentNullException">filename</exception>
+        public static Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default)
+        {
+            return GetProcessResultAsync(filename, arguments, Definitions.CurrentAnsiEncoding, ct);
+        }
+
+        /// <summary>
+        /// Executes a process asynchronously and returns the text of the standard output and standard error streams
+        /// along with the exit code. This method is meant to be used for programs that output a relatively small
+        /// amount of text.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>
+        /// Text of the standard output and standard error streams along with the exit code as a <see cref="ProcessResult" /> instance
         /// </returns>
         /// <exception cref="ArgumentNullException">filename</exception>
         /// <example>
-        /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, CancellationToken)"/> method.
+        /// The following code describes how to run an external process using the <see cref="GetProcessResultAsync(string, string, Encoding, CancellationToken)" /> method.
         /// <code>
         /// class Example
         /// {
@@ -82,26 +120,25 @@ namespace Unosquare.Swan.Components
         ///     
         ///     static async Task Main()
         ///     {
-        ///         // Execute a process asynchronously 
-        ///          var data = await ProcessRunner
-        ///          .GetProcessResultAsync("dotnet", "--help");
-        ///     
+        ///         // Execute a process asynchronously
+        ///         var data = await ProcessRunner.GetProcessResultAsync("dotnet", "--help");
+        ///         
         ///         // print out the exit code
         ///         $"{data.ExitCode}".WriteLine();
-        ///         
         ///         // print out the output
         ///         data.StandardOutput.WriteLine();
-        ///         
         ///         // and the error if exists
         ///         data.StandardError.Error();
         ///     }
         /// }
-        /// </code>
-        /// </example>
-        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", CancellationToken ct = default)
+        /// </code></example>
+        public static async Task<ProcessResult> GetProcessResultAsync(string filename, string arguments = "", Encoding encoding = null, CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
+
+            if (encoding == null)
+                encoding = Definitions.CurrentAnsiEncoding;
 
             var standardOutputBuilder = new StringBuilder();
             var standardErrorBuilder = new StringBuilder();
@@ -109,8 +146,9 @@ namespace Unosquare.Swan.Components
             var processReturn = await RunProcessAsync(
                                 filename,
                                 arguments,
-                                (data, proc) => { standardOutputBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
-                                (data, proc) => { standardErrorBuilder.Append(Definitions.CurrentAnsiEncoding.GetString(data)); },
+                                (data, proc) => { standardOutputBuilder.Append(encoding.GetString(data)); },
+                                (data, proc) => { standardErrorBuilder.Append(encoding.GetString(data)); },
+                                encoding,
                                 true,
                                 ct);
 
@@ -128,39 +166,13 @@ namespace Unosquare.Swan.Components
         /// <param name="arguments">The arguments.</param>
         /// <param name="onOutputData">The on output data.</param>
         /// <param name="onErrorData">The on error data.</param>
+        /// <param name="encoding">The encoding.</param>
         /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
         /// <param name="ct">The ct.</param>
-        /// <returns>Value type will be -1 for forceful termination of the process</returns>
-        /// <example>
-        /// The following example illustrates how to run an external process using the 
-        /// <see cref="RunProcessAsync(string, string, ProcessDataReceivedCallback, ProcessDataReceivedCallback, bool, CancellationToken)"/>
-        /// method
-        /// <code>
-        /// class Example
-        /// {
-        ///     using System.Diagnostics;
-        ///     using System.Text;
-        ///     using System.Threading.Tasks;
-        ///     using Unosquare.Swan;
-        ///     using Unosquare.Swan.Components;
-        ///     
-        ///     static async Task Main()
-        ///     {
-        ///         // Execute a process asynchronously 
-        ///         var data = await ProcessRunner
-        ///         .RunProcessAsync("dotnet", "--help", Print, Print);
-        ///     
-        ///         // flush all messages
-        ///         Terminal.Flush();
-        ///     }
-        ///     
-        ///     // a callback to print both output or errors
-        ///     static void Print(byte[] data, Process proc) =>
-        ///         Encoding.GetEncoding(0).GetString(data).WriteLine();
-        /// }
-        /// </code>
-        /// </example>
-        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default)
+        /// <returns>
+        /// Value type will be -1 for forceful termination of the process
+        /// </returns>
+        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, Encoding encoding, bool syncEvents = true, CancellationToken ct = default)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -177,7 +189,9 @@ namespace Unosquare.Swan.Components
                         CreateNoWindow = true,
                         FileName = filename,
                         RedirectStandardError = true,
+                        StandardErrorEncoding = encoding,
                         RedirectStandardOutput = true,
+                        StandardOutputEncoding = encoding,
                         UseShellExecute = false,
 #if NET452
                         WindowStyle = ProcessWindowStyle.Hidden
@@ -239,6 +253,52 @@ namespace Unosquare.Swan.Components
         }
 
         /// <summary>
+        /// Runs an external process asynchronously, providing callbacks to
+        /// capture binary data from the standard error and standard output streams.
+        /// The callbacks contain a reference to the process so you can respond to output or
+        /// error streams by writing to the process' input stream.
+        /// The exit code (return value) will be -1 for forceful termination of the process
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="onOutputData">The on output data.</param>
+        /// <param name="onErrorData">The on error data.</param>
+        /// <param name="syncEvents">if set to <c>true</c> the next data callback will wait until the current one completes.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>Value type will be -1 for forceful termination of the process</returns>
+        /// <example>
+        /// The following example illustrates how to run an external process using the 
+        /// <see cref="RunProcessAsync(string, string, ProcessDataReceivedCallback, ProcessDataReceivedCallback, bool, CancellationToken)"/>
+        /// method
+        /// <code>
+        /// class Example
+        /// {
+        ///     using System.Diagnostics;
+        ///     using System.Text;
+        ///     using System.Threading.Tasks;
+        ///     using Unosquare.Swan;
+        ///     using Unosquare.Swan.Components;
+        ///     
+        ///     static async Task Main()
+        ///     {
+        ///         // Execute a process asynchronously 
+        ///         var data = await ProcessRunner
+        ///         .RunProcessAsync("dotnet", "--help", Print, Print);
+        ///     
+        ///         // flush all messages
+        ///         Terminal.Flush();
+        ///     }
+        ///     
+        ///     // a callback to print both output or errors
+        ///     static void Print(byte[] data, Process proc) =>
+        ///         Encoding.GetEncoding(0).GetString(data).WriteLine();
+        /// }
+        /// </code>
+        /// </example>
+        public static Task<int> RunProcessAsync(string filename, string arguments, ProcessDataReceivedCallback onOutputData, ProcessDataReceivedCallback onErrorData, bool syncEvents = true, CancellationToken ct = default)
+            => RunProcessAsync(filename, arguments, onOutputData, onErrorData, Definitions.CurrentAnsiEncoding, syncEvents, ct);
+
+        /// <summary>
         /// Copies the stream asynchronously.
         /// </summary>
         /// <param name="process">The process.</param>
@@ -275,10 +335,11 @@ namespace Unosquare.Swan.Components
                                 try
                                 {
                                     readCount = await baseStream.ReadAsync(swapBuffer, 0, swapBuffer.Length, ct);
+
                                     if (readCount > 0)
                                     {
                                         totalCount += (ulong)readCount;
-                                        onDataCallback?.Invoke(swapBuffer, process);
+                                        onDataCallback?.Invoke(swapBuffer.Skip(0).Take(readCount).ToArray(), process);
                                     }
                                     else
                                     {

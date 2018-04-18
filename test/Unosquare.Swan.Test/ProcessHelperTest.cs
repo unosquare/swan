@@ -25,6 +25,24 @@
     }
 
     [TestFixture]
+    public class GetProcessEncodedOutputAsync
+    {
+        [Test]
+        public void WithInValidParams_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ProcessRunner.GetProcessEncodedOutputAsync(null));
+        }
+
+        [Test]
+        public async Task WithValidParams_ReturnsProcessOutput()
+        {
+            var data = await ProcessRunner.GetProcessEncodedOutputAsync("dotnet", "--help", Encoding.UTF8);
+            Assert.IsNotEmpty(data);
+            Assert.IsTrue(data.StartsWith(".NET Command Line Tools"));
+        }
+    }
+
+    [TestFixture]
     public class RunProcessAsync
     {
         [Test]
