@@ -14,7 +14,7 @@
 
         protected static readonly AdvJson AdvObj = new AdvJson
         {
-            StringData = "string,\r\ndata",
+            StringData = "string,\r\ndata\\",
             IntData = 1,
             NegativeInt = -1,
             DecimalData = 10.33M,
@@ -433,7 +433,7 @@
             var dataSerialized = Json.SerializeOnly(BasicJson.GetDefault(), false, includeNames);
 
             Assert.AreEqual(
-                "{\"StringData\": \"string,\\r\\ndata\",\"IntData\": 1,\"NegativeInt\": -1}",
+                "{\"StringData\": \"string,\\r\\ndata\\\\\",\"IntData\": 1,\"NegativeInt\": -1}",
                 dataSerialized);
         }
 
