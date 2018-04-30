@@ -5090,6 +5090,22 @@ references:
   commentId: T:Unosquare.Swan.DateExtensions
   fullName: Unosquare.Swan.DateExtensions
   nameWithType: DateExtensions
+- uid: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: AsCronCanRun(DateTime, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>)
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_AsCronCanRun_System_DateTime_System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: AsCronCanRun(DateTime, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: DateExtensions.AsCronCanRun(DateTime, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: DateExtensions.AsCronCanRun(DateTime, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32))
+- uid: Unosquare.Swan.DateExtensions.AsCronCanRun*
+  name: AsCronCanRun
+  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_AsCronCanRun_
+  commentId: Overload:Unosquare.Swan.DateExtensions.AsCronCanRun
+  isSpec: "True"
+  fullName: Unosquare.Swan.DateExtensions.AsCronCanRun
+  nameWithType: DateExtensions.AsCronCanRun
 - uid: Unosquare.Swan.DateExtensions.DateRange(System.DateTime,System.DateTime)
   name: DateRange(DateTime, DateTime)
   href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_DateRange_System_DateTime_System_DateTime_
