@@ -127,5 +127,39 @@
         /// <returns>A DateTimeSpan with the Years, Months, Days, Hours, Minutes, Seconds and Milliseconds between the dates</returns>
         public static DateTimeSpan GetDateTimeSpan(this DateTime dateStart, DateTime dateEnd)
             => DateTimeSpan.CompareDates(dateStart, dateEnd);
+
+        /// <summary>
+        /// Compare the Date elements(Months, Days, Hours, Minutes)
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <param name="minute">The minute.</param>
+        /// <param name="hour">The hour.</param>
+        /// <param name="dayOfMonth">The day of month.</param>
+        /// <param name="month">The month.</param>
+        /// <param name="dayOfWeek">The day of week.</param>
+        /// <returns>Returns true if Months, Days, Hours and Minutes match </returns>
+        public static bool AsCronCanRun(this DateTime date, int? minute, int? hour, int? dayOfMonth, int? month, int? dayOfWeek)
+        {
+            if (minute != null && hour != null && dayOfMonth != null && month != null && dayOfWeek != null)
+                return date.Minute == minute && date.Hour == hour && date.Day == dayOfMonth && date.Month == month && (int)date.DayOfWeek == dayOfWeek;
+            else if (minute != null && hour != null && dayOfMonth != null && month != null)
+                return date.Minute == minute && date.Hour == hour && date.Day == dayOfMonth && date.Month == month;
+            else if (minute != null && hour != null && dayOfMonth != null)
+                return date.Minute == minute && date.Hour == hour && date.Day == dayOfMonth;
+            else if (minute != null && hour != null)
+                return date.Minute == minute && date.Hour == hour;
+            else if (dayOfWeek != null)
+                return (int)date.DayOfWeek == dayOfWeek;
+            else if (month != null)
+                return date.Month == month;
+            else if (dayOfMonth != null)
+                return date.Day == dayOfMonth;
+            else if (hour != null)
+                return date.Hour == hour;
+            else if (minute != null)
+                return date.Minute == minute;
+            else
+                return false;
+        }
     }
 }
