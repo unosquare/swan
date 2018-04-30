@@ -559,6 +559,41 @@ references:
   fullName.vb: Unosquare.Swan.Abstractions.AtomicTypeBase(Of T).Value
   nameWithType: AtomicTypeBase<T>.Value
   nameWithType.vb: AtomicTypeBase(Of T).Value
+- uid: Unosquare.Swan.Abstractions.IServiceBase
+  name: IServiceBase
+  href: api/Unosquare.Swan.Abstractions.IServiceBase.html
+  commentId: T:Unosquare.Swan.Abstractions.IServiceBase
+  fullName: Unosquare.Swan.Abstractions.IServiceBase
+  nameWithType: IServiceBase
+- uid: Unosquare.Swan.Abstractions.IServiceBase.OnStart(System.String[])
+  name: OnStart(String[])
+  href: api/Unosquare.Swan.Abstractions.IServiceBase.html#Unosquare_Swan_Abstractions_IServiceBase_OnStart_System_String___
+  commentId: M:Unosquare.Swan.Abstractions.IServiceBase.OnStart(System.String[])
+  name.vb: OnStart(String())
+  fullName: Unosquare.Swan.Abstractions.IServiceBase.OnStart(System.String[])
+  fullName.vb: Unosquare.Swan.Abstractions.IServiceBase.OnStart(System.String())
+  nameWithType: IServiceBase.OnStart(String[])
+  nameWithType.vb: IServiceBase.OnStart(String())
+- uid: Unosquare.Swan.Abstractions.IServiceBase.OnStart*
+  name: OnStart
+  href: api/Unosquare.Swan.Abstractions.IServiceBase.html#Unosquare_Swan_Abstractions_IServiceBase_OnStart_
+  commentId: Overload:Unosquare.Swan.Abstractions.IServiceBase.OnStart
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IServiceBase.OnStart
+  nameWithType: IServiceBase.OnStart
+- uid: Unosquare.Swan.Abstractions.IServiceBase.OnStop
+  name: OnStop()
+  href: api/Unosquare.Swan.Abstractions.IServiceBase.html#Unosquare_Swan_Abstractions_IServiceBase_OnStop
+  commentId: M:Unosquare.Swan.Abstractions.IServiceBase.OnStop
+  fullName: Unosquare.Swan.Abstractions.IServiceBase.OnStop()
+  nameWithType: IServiceBase.OnStop()
+- uid: Unosquare.Swan.Abstractions.IServiceBase.OnStop*
+  name: OnStop
+  href: api/Unosquare.Swan.Abstractions.IServiceBase.html#Unosquare_Swan_Abstractions_IServiceBase_OnStop_
+  commentId: Overload:Unosquare.Swan.Abstractions.IServiceBase.OnStop
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.IServiceBase.OnStop
+  nameWithType: IServiceBase.OnStop
 - uid: Unosquare.Swan.Abstractions.ISyncLocker
   name: ISyncLocker
   href: api/Unosquare.Swan.Abstractions.ISyncLocker.html

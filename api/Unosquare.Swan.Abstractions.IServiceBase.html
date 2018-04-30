@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Unosquare.Swan.Abstractions
+    <title>Interface IServiceBase
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Unosquare.Swan.Abstractions
+    <meta name="title" content="Interface IServiceBase
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.35.2.0">
     
@@ -77,47 +77,62 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.IServiceBase">
   
-  <h1 id="Unosquare_Swan_Abstractions" data-uid="Unosquare.Swan.Abstractions" class="text-break">Namespace Unosquare.Swan.Abstractions
+  
+  <h1 id="Unosquare_Swan_Abstractions_IServiceBase" data-uid="Unosquare.Swan.Abstractions.IServiceBase" class="text-break">Interface IServiceBase
   </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerBase.html">AppWorkerBase</a></h4>
-      <section><p>A base implementation of an Application service containing a worker task that performs background processing.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AppWorkerStateChangedEventArgs.html">AppWorkerStateChangedEventArgs</a></h4>
-      <section><p>Represents event arguments whenever the state of an application service changes</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.AtomicTypeBase-1.html">AtomicTypeBase&lt;T&gt;</a></h4>
-      <section><p>Provides a generic implementation of an Atomic (interlocked) type</p>
-<p>Idea taken from Memory model and .NET operations in article:
-<a href="http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/">http://igoro.com/archive/volatile-keyword-in-c-memory-model-explained/</a></p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SettingsProvider-1.html">SettingsProvider&lt;T&gt;</a></h4>
-      <section><p>Represents a provider to save and load settings using a plain JSON file</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.SingletonBase-1.html">SingletonBase&lt;T&gt;</a></h4>
-      <section><p>Represents a singleton pattern abstract class</p>
-</section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IServiceBase.html">IServiceBase</a></h4>
-      <section><p>Mimic a Windows ServiceBase class. Useful to keep compatibility with applications
+  <div class="markdown level0 summary"><p>Mimic a Windows ServiceBase class. Useful to keep compatibility with applications
 running as services in OS different to Windows.</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.ISyncLocker.html">ISyncLocker</a></h4>
-      <section><p>Defines a generic interface for synchronized locking mechanisms</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWaitEvent.html">IWaitEvent</a></h4>
-      <section><p>Provides a generalized API for ManualResetEvent and ManualResetEventSlim</p>
-</section>
-      <h4><a class="xref" href="Unosquare.Swan.Abstractions.IWorker.html">IWorker</a></h4>
-      <section><p>A simple interface for application workers</p>
-</section>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
+  <h5 id="Unosquare_Swan_Abstractions_IServiceBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IServiceBase</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_IServiceBase_OnStart_" data-uid="Unosquare.Swan.Abstractions.IServiceBase.OnStart*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_IServiceBase_OnStart_System_String___" data-uid="Unosquare.Swan.Abstractions.IServiceBase.OnStart(System.String[])">OnStart(String[])</h4>
+  <div class="markdown level1 summary"><p>When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM) or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OnStart(string[] args)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">args</span></td>
+        <td><p>The arguments.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Abstractions_IServiceBase_OnStop_" data-uid="Unosquare.Swan.Abstractions.IServiceBase.OnStop*"></a>
+  <h4 id="Unosquare_Swan_Abstractions_IServiceBase_OnStop" data-uid="Unosquare.Swan.Abstractions.IServiceBase.OnStop">OnStop()</h4>
+  <div class="markdown level1 summary"><p>When implemented in a derived class, executes when a Stop command is sent to the service by the Service Control Manager (SCM). Specifies actions to take when a service stops running.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OnStop()</code></pre>
+  </div>
 <div id="disqus_thread"></div>
 <script>
 
