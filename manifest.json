@@ -1859,11 +1859,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.WindowsServicesExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.WindowsServicesExtensions.html",
+          "hash": "oP7HI0yaq4stMLzEJFGfSQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "IM+UrHuvwG2sGVs6aOylfg=="
+          "hash": "MV2PnEMQtOaaMNShkVceJQ=="
         }
       },
       "is_incremental": false,
@@ -1875,7 +1887,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "9o9nDPhsHCatkES/cValiA=="
+          "hash": "HXSNs5eFW5em7fzNrJZcWg=="
         }
       },
       "is_incremental": false,
@@ -1934,13 +1946,13 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
