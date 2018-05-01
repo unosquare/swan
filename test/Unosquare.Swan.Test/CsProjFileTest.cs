@@ -13,7 +13,7 @@
         protected string Data = @"<Project Sdk=""Microsoft.NET.Sdk"">
                                   <PropertyGroup>
                                     <Description>Unit Testing project</Description>
-                                    <Copyright>Copyright(c) 2016-2017 - Unosquare</Copyright>
+                                    <Copyright>Copyright(c) 2016-2018 - Unosquare</Copyright>
                                     <AssemblyTitle>Unosquare SWAN Test</AssemblyTitle>
                                     <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
                                     <AssemblyName>Unosquare.Swan.Test</AssemblyName>
@@ -103,6 +103,24 @@
                 var csproj = new CsProjFile<CsMetadataMock>();
                 Directory.SetCurrentDirectory(currentDirectory);
             });
+        }
+
+        [TestCase("sample.fsproj")]
+        [TestCase("sample.csproj")]
+        public void WithTempFileAndValidClass_ReturnsFileAndMetadata(string projectFilename)
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            Directory.SetCurrentDirectory(Path.GetTempPath());
+            File.WriteAllText(Path.Combine(Path.GetTempPath(), projectFilename), Data);
+
+            using (var csproj = new CsProjFile<CsMetadataMock>())
+            {
+                Assert.IsNotNull(csproj);
+                Assert.IsNotNull(csproj.Metadata);
+                Assert.IsNotNull(csproj.Metadata.Copyright);
+            }
+
+            Directory.SetCurrentDirectory(currentDirectory);
         }
     }
 }
