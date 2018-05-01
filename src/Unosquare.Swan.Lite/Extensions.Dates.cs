@@ -129,14 +129,14 @@
             => DateTimeSpan.CompareDates(dateStart, dateEnd);
 
         /// <summary>
-        /// Compare the Date elements(Months, Days, Hours, Minutes)
+        /// Compare the Date elements(Months, Days, Hours, Minutes).
         /// </summary>
         /// <param name="date">The date.</param>
-        /// <param name="minute">The minute.</param>
-        /// <param name="hour">The hour.</param>
-        /// <param name="dayOfMonth">The day of month.</param>
-        /// <param name="month">The month.</param>
-        /// <param name="dayOfWeek">The day of week.</param>
+        /// <param name="minute">The minute (0-59).</param>
+        /// <param name="hour">The hour. (0-23)</param>
+        /// <param name="dayOfMonth">The day of month. (1-31)</param>
+        /// <param name="month">The month. (1-12)</param>
+        /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0)</param>
         /// <returns>Returns true if Months, Days, Hours and Minutes match </returns>
         public static bool AsCronCanRun(this DateTime date, int? minute, int? hour, int? dayOfMonth, int? month, int? dayOfWeek)
         {
@@ -158,6 +158,40 @@
                 return date.Hour == hour;
             else if (minute != null)
                 return date.Minute == minute;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Compare the Date elements(Months, Days, Hours, Minutes).
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <param name="minute">The minute (0-59).</param>
+        /// <param name="hour">The hour. (0-23)</param>
+        /// <param name="dayOfMonth">The day of month. (1-31)</param>
+        /// <param name="month">The month. (1-12)</param>
+        /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0)</param>
+        /// <returns>Returns true if Months, Days, Hours and Minutes match </returns>
+        public static bool AsCronCanRun(this DateTime date, string minute = "", string hour = "", string dayOfMonth = "", string month = "", string dayOfWeek = "")
+        {
+            if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour) && !string.IsNullOrEmpty(dayOfMonth) && !string.IsNullOrEmpty(month) && !string.IsNullOrEmpty(dayOfWeek))
+                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), Convert.ToInt32(dayOfMonth), Convert.ToInt32(month), Convert.ToInt32(dayOfWeek));
+            else if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour) && !string.IsNullOrEmpty(dayOfMonth) && !string.IsNullOrEmpty(month))
+                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), Convert.ToInt32(dayOfMonth), Convert.ToInt32(month), null);
+            else if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour) && !string.IsNullOrEmpty(dayOfMonth))
+                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), Convert.ToInt32(dayOfMonth), null, null);
+            else if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour))
+                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), null, null, null);
+            else if (!string.IsNullOrEmpty(dayOfWeek))
+                return date.AsCronCanRun(null, null, null, null, Convert.ToInt32(dayOfWeek));
+            else if (!string.IsNullOrEmpty(month))
+                return date.AsCronCanRun(null, null, null, Convert.ToInt32(month), null);
+            else if (!string.IsNullOrEmpty(dayOfMonth))
+                return date.AsCronCanRun(null, null, Convert.ToInt32(dayOfMonth), null, null);
+            else if (!string.IsNullOrEmpty(hour))
+                return date.AsCronCanRun(null, Convert.ToInt32(hour), null, null, null);
+            else if (!string.IsNullOrEmpty(minute))
+                return date.AsCronCanRun(Convert.ToInt32(minute), null, null, null, null);
             else
                 return false;
         }
