@@ -1,4 +1,4 @@
-﻿namespace Unosquare.Swan.Lite.Components
+﻿namespace Unosquare.Swan.Components
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,6 @@
 
     public abstract class Tokenizer
     {
-        protected readonly List<Token> Tokens = new List<Token>();
-
         private const char PeriodChar = '.';
         private const char CommaChar = ',';
         private const char StringQuotedChar = '"';
@@ -53,6 +51,14 @@
             Tokenize(input);
         }
 
+        /// <summary>
+        /// Gets the tokens.
+        /// </summary>
+        /// <value>
+        /// The tokens.
+        /// </value>
+        public List<Token> Tokens { get; } = new List<Token>();
+        
         /// <summary>
         /// Validates the input and return the start index for tokenizer.
         /// </summary>
