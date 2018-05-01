@@ -726,6 +726,132 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.IWorker.Stop
   nameWithType: IWorker.Stop
+- uid: Unosquare.Swan.Abstractions.ServiceBase
+  name: ServiceBase
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html
+  commentId: T:Unosquare.Swan.Abstractions.ServiceBase
+  fullName: Unosquare.Swan.Abstractions.ServiceBase
+  nameWithType: ServiceBase
+- uid: Unosquare.Swan.Abstractions.ServiceBase.AutoLog
+  name: AutoLog
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_AutoLog
+  commentId: P:Unosquare.Swan.Abstractions.ServiceBase.AutoLog
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.AutoLog
+  nameWithType: ServiceBase.AutoLog
+- uid: Unosquare.Swan.Abstractions.ServiceBase.AutoLog*
+  name: AutoLog
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_AutoLog_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.AutoLog
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.AutoLog
+  nameWithType: ServiceBase.AutoLog
+- uid: Unosquare.Swan.Abstractions.ServiceBase.CanPauseAndContinue
+  name: CanPauseAndContinue
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_CanPauseAndContinue
+  commentId: P:Unosquare.Swan.Abstractions.ServiceBase.CanPauseAndContinue
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.CanPauseAndContinue
+  nameWithType: ServiceBase.CanPauseAndContinue
+- uid: Unosquare.Swan.Abstractions.ServiceBase.CanPauseAndContinue*
+  name: CanPauseAndContinue
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_CanPauseAndContinue_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.CanPauseAndContinue
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.CanPauseAndContinue
+  nameWithType: ServiceBase.CanPauseAndContinue
+- uid: Unosquare.Swan.Abstractions.ServiceBase.CanShutdown
+  name: CanShutdown
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_CanShutdown
+  commentId: P:Unosquare.Swan.Abstractions.ServiceBase.CanShutdown
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.CanShutdown
+  nameWithType: ServiceBase.CanShutdown
+- uid: Unosquare.Swan.Abstractions.ServiceBase.CanShutdown*
+  name: CanShutdown
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_CanShutdown_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.CanShutdown
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.CanShutdown
+  nameWithType: ServiceBase.CanShutdown
+- uid: Unosquare.Swan.Abstractions.ServiceBase.CanStop
+  name: CanStop
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_CanStop
+  commentId: P:Unosquare.Swan.Abstractions.ServiceBase.CanStop
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.CanStop
+  nameWithType: ServiceBase.CanStop
+- uid: Unosquare.Swan.Abstractions.ServiceBase.CanStop*
+  name: CanStop
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_CanStop_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.CanStop
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.CanStop
+  nameWithType: ServiceBase.CanStop
+- uid: Unosquare.Swan.Abstractions.ServiceBase.ExitCode
+  name: ExitCode
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_ExitCode
+  commentId: P:Unosquare.Swan.Abstractions.ServiceBase.ExitCode
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.ExitCode
+  nameWithType: ServiceBase.ExitCode
+- uid: Unosquare.Swan.Abstractions.ServiceBase.ExitCode*
+  name: ExitCode
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_ExitCode_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.ExitCode
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.ExitCode
+  nameWithType: ServiceBase.ExitCode
+- uid: Unosquare.Swan.Abstractions.ServiceBase.OnStart(System.String[])
+  name: OnStart(String[])
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_OnStart_System_String___
+  commentId: M:Unosquare.Swan.Abstractions.ServiceBase.OnStart(System.String[])
+  name.vb: OnStart(String())
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.OnStart(System.String[])
+  fullName.vb: Unosquare.Swan.Abstractions.ServiceBase.OnStart(System.String())
+  nameWithType: ServiceBase.OnStart(String[])
+  nameWithType.vb: ServiceBase.OnStart(String())
+- uid: Unosquare.Swan.Abstractions.ServiceBase.OnStart*
+  name: OnStart
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_OnStart_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.OnStart
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.OnStart
+  nameWithType: ServiceBase.OnStart
+- uid: Unosquare.Swan.Abstractions.ServiceBase.OnStop
+  name: OnStop()
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_OnStop
+  commentId: M:Unosquare.Swan.Abstractions.ServiceBase.OnStop
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.OnStop()
+  nameWithType: ServiceBase.OnStop()
+- uid: Unosquare.Swan.Abstractions.ServiceBase.OnStop*
+  name: OnStop
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_OnStop_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.OnStop
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.OnStop
+  nameWithType: ServiceBase.OnStop
+- uid: Unosquare.Swan.Abstractions.ServiceBase.ServiceName
+  name: ServiceName
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_ServiceName
+  commentId: P:Unosquare.Swan.Abstractions.ServiceBase.ServiceName
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.ServiceName
+  nameWithType: ServiceBase.ServiceName
+- uid: Unosquare.Swan.Abstractions.ServiceBase.ServiceName*
+  name: ServiceName
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_ServiceName_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.ServiceName
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.ServiceName
+  nameWithType: ServiceBase.ServiceName
+- uid: Unosquare.Swan.Abstractions.ServiceBase.Stop
+  name: Stop()
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_Stop
+  commentId: M:Unosquare.Swan.Abstractions.ServiceBase.Stop
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.Stop()
+  nameWithType: ServiceBase.Stop()
+- uid: Unosquare.Swan.Abstractions.ServiceBase.Stop*
+  name: Stop
+  href: api/Unosquare.Swan.Abstractions.ServiceBase.html#Unosquare_Swan_Abstractions_ServiceBase_Stop_
+  commentId: Overload:Unosquare.Swan.Abstractions.ServiceBase.Stop
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ServiceBase.Stop
+  nameWithType: ServiceBase.Stop
 - uid: Unosquare.Swan.Abstractions.SettingsProvider`1
   name: SettingsProvider<T>
   href: api/Unosquare.Swan.Abstractions.SettingsProvider-1.html
@@ -5090,28 +5216,6 @@ references:
   commentId: T:Unosquare.Swan.DateExtensions
   fullName: Unosquare.Swan.DateExtensions
   nameWithType: DateExtensions
-- uid: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: AsCronCanRun(DateTime, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>)
-  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_AsCronCanRun_System_DateTime_System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: AsCronCanRun(DateTime, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: DateExtensions.AsCronCanRun(DateTime, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: DateExtensions.AsCronCanRun(DateTime, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32))
-- uid: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime,System.String,System.String,System.String,System.String,System.String)
-  name: AsCronCanRun(DateTime, String, String, String, String, String)
-  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_AsCronCanRun_System_DateTime_System_String_System_String_System_String_System_String_System_String_
-  commentId: M:Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime,System.String,System.String,System.String,System.String,System.String)
-  fullName: Unosquare.Swan.DateExtensions.AsCronCanRun(System.DateTime, System.String, System.String, System.String, System.String, System.String)
-  nameWithType: DateExtensions.AsCronCanRun(DateTime, String, String, String, String, String)
-- uid: Unosquare.Swan.DateExtensions.AsCronCanRun*
-  name: AsCronCanRun
-  href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_AsCronCanRun_
-  commentId: Overload:Unosquare.Swan.DateExtensions.AsCronCanRun
-  isSpec: "True"
-  fullName: Unosquare.Swan.DateExtensions.AsCronCanRun
-  nameWithType: DateExtensions.AsCronCanRun
 - uid: Unosquare.Swan.DateExtensions.DateRange(System.DateTime,System.DateTime)
   name: DateRange(DateTime, DateTime)
   href: api/Unosquare.Swan.DateExtensions.html#Unosquare_Swan_DateExtensions_DateRange_System_DateTime_System_DateTime_
@@ -13242,3 +13346,31 @@ references:
   fullName.vb: Unosquare.Swan.ValueTypeExtensions.ToStruct(Of T)(System.Byte(), System.Int32, System.Int32)
   nameWithType: ValueTypeExtensions.ToStruct<T>(Byte[], Int32, Int32)
   nameWithType.vb: ValueTypeExtensions.ToStruct(Of T)(Byte(), Int32, Int32)
+- uid: Unosquare.Swan.WindowsServicesExtensions
+  name: WindowsServicesExtensions
+  href: api/Unosquare.Swan.WindowsServicesExtensions.html
+  commentId: T:Unosquare.Swan.WindowsServicesExtensions
+  fullName: Unosquare.Swan.WindowsServicesExtensions
+  nameWithType: WindowsServicesExtensions
+- uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase)
+  name: RunInConsoleMode(ServiceBase)
+  href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase_
+  commentId: M:Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase)
+  fullName: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase)
+  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase)
+- uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[])
+  name: RunInConsoleMode(ServiceBase[])
+  href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_Unosquare_Swan_Abstractions_ServiceBase___
+  commentId: M:Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[])
+  name.vb: RunInConsoleMode(ServiceBase())
+  fullName: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase[])
+  fullName.vb: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode(Unosquare.Swan.Abstractions.ServiceBase())
+  nameWithType: WindowsServicesExtensions.RunInConsoleMode(ServiceBase[])
+  nameWithType.vb: WindowsServicesExtensions.RunInConsoleMode(ServiceBase())
+- uid: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode*
+  name: RunInConsoleMode
+  href: api/Unosquare.Swan.WindowsServicesExtensions.html#Unosquare_Swan_WindowsServicesExtensions_RunInConsoleMode_
+  commentId: Overload:Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode
+  isSpec: "True"
+  fullName: Unosquare.Swan.WindowsServicesExtensions.RunInConsoleMode
+  nameWithType: WindowsServicesExtensions.RunInConsoleMode
