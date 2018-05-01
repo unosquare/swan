@@ -77,10 +77,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Lite.Components.Tokenizer">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.Tokenizer">
   
   
-  <h1 id="Unosquare_Swan_Lite_Components_Tokenizer" data-uid="Unosquare.Swan.Lite.Components.Tokenizer" class="text-break">Class Tokenizer
+  <h1 id="Unosquare_Swan_Components_Tokenizer" data-uid="Unosquare.Swan.Components.Tokenizer" class="text-break">Class Tokenizer
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
@@ -113,8 +113,8 @@
       <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Lite.Components.html">Unosquare.Swan.Lite.Components</a></h6>
-  <h5 id="Unosquare_Swan_Lite_Components_Tokenizer_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h5 id="Unosquare_Swan_Components_Tokenizer_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public abstract class Tokenizer</code></pre>
   </div>
@@ -122,9 +122,9 @@
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Components_Tokenizer__ctor_" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Components_Tokenizer__ctor_System_String_" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.#ctor(System.String)">Tokenizer(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Components.Tokenizer.html">Tokenizer</a> class.</p>
+  <a id="Unosquare_Swan_Components_Tokenizer__ctor_" data-uid="Unosquare.Swan.Components.Tokenizer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Components_Tokenizer__ctor_System_String_" data-uid="Unosquare.Swan.Components.Tokenizer.#ctor(System.String)">Tokenizer(String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.Tokenizer.html">Tokenizer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -151,9 +151,9 @@
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Components_Tokenizer__ctor_" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Lite_Components_Tokenizer__ctor_System_String_System_Collections_Generic_IEnumerable_Unosquare_Swan_Lite_Components_Operator__" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.#ctor(System.String,System.Collections.Generic.IEnumerable{Unosquare.Swan.Lite.Components.Operator})">Tokenizer(String, IEnumerable&lt;Operator&gt;)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Lite.Components.Tokenizer.html">Tokenizer</a> class.</p>
+  <a id="Unosquare_Swan_Components_Tokenizer__ctor_" data-uid="Unosquare.Swan.Components.Tokenizer.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Components_Tokenizer__ctor_System_String_System_Collections_Generic_IEnumerable_Unosquare_Swan_Components_Operator__" data-uid="Unosquare.Swan.Components.Tokenizer.#ctor(System.String,System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.Operator})">Tokenizer(String, IEnumerable&lt;Operator&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.Tokenizer.html">Tokenizer</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -177,25 +177,27 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Unosquare.Swan.Lite.Components.Operator.html">Operator</a>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Unosquare.Swan.Components.Operator.html">Operator</a>&gt;</td>
         <td><span class="parametername">operators</span></td>
         <td><p>The operators.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="fields">Fields
+  <h3 id="properties">Properties
   </h3>
   
   
-  <h4 id="Unosquare_Swan_Lite_Components_Tokenizer_Tokens" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.Tokens">Tokens</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Unosquare_Swan_Components_Tokenizer_Tokens_" data-uid="Unosquare.Swan.Components.Tokenizer.Tokens*"></a>
+  <h4 id="Unosquare_Swan_Components_Tokenizer_Tokens" data-uid="Unosquare.Swan.Components.Tokenizer.Tokens">Tokens</h4>
+  <div class="markdown level1 summary"><p>Gets the tokens.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected readonly List&lt;Token&gt; Tokens</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;Token&gt; Tokens { get; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -205,8 +207,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Unosquare.Swan.Lite.Components.Token.html">Token</a>&gt;</td>
-        <td></td>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Unosquare.Swan.Components.Token.html">Token</a>&gt;</td>
+        <td><p>The tokens.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -214,8 +217,8 @@
   </h3>
   
   
-  <a id="Unosquare_Swan_Lite_Components_Tokenizer_ResolveFunctionOrMemberType_" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.ResolveFunctionOrMemberType*"></a>
-  <h4 id="Unosquare_Swan_Lite_Components_Tokenizer_ResolveFunctionOrMemberType_System_String_" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.ResolveFunctionOrMemberType(System.String)">ResolveFunctionOrMemberType(String)</h4>
+  <a id="Unosquare_Swan_Components_Tokenizer_ResolveFunctionOrMemberType_" data-uid="Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType*"></a>
+  <h4 id="Unosquare_Swan_Components_Tokenizer_ResolveFunctionOrMemberType_System_String_" data-uid="Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType(System.String)">ResolveFunctionOrMemberType(String)</h4>
   <div class="markdown level1 summary"><p>Resolves the type of the function or member.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -251,7 +254,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.Swan.Lite.Components.TokenType.html">TokenType</a></td>
+        <td><a class="xref" href="Unosquare.Swan.Components.TokenType.html">TokenType</a></td>
         <td><p>The token type</p>
 </td>
       </tr>
@@ -259,8 +262,8 @@
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Components_Tokenizer_ShuntingYard_" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.ShuntingYard*"></a>
-  <h4 id="Unosquare_Swan_Lite_Components_Tokenizer_ShuntingYard" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.ShuntingYard">ShuntingYard()</h4>
+  <a id="Unosquare_Swan_Components_Tokenizer_ShuntingYard_" data-uid="Unosquare.Swan.Components.Tokenizer.ShuntingYard*"></a>
+  <h4 id="Unosquare_Swan_Components_Tokenizer_ShuntingYard" data-uid="Unosquare.Swan.Components.Tokenizer.ShuntingYard">ShuntingYard()</h4>
   <div class="markdown level1 summary"><p>Shuntings the yard.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -278,7 +281,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Unosquare.Swan.Lite.Components.Token.html">Token</a>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Unosquare.Swan.Components.Token.html">Token</a>&gt;</td>
         <td><p>Enumerable of the token in in</p>
 </td>
       </tr>
@@ -304,8 +307,8 @@ Mismatched parenthesis</p>
   </table>
   
   
-  <a id="Unosquare_Swan_Lite_Components_Tokenizer_ValidateInput_" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.ValidateInput*"></a>
-  <h4 id="Unosquare_Swan_Lite_Components_Tokenizer_ValidateInput_System_String_System_Int32__" data-uid="Unosquare.Swan.Lite.Components.Tokenizer.ValidateInput(System.String,System.Int32@)">ValidateInput(String, out Int32)</h4>
+  <a id="Unosquare_Swan_Components_Tokenizer_ValidateInput_" data-uid="Unosquare.Swan.Components.Tokenizer.ValidateInput*"></a>
+  <h4 id="Unosquare_Swan_Components_Tokenizer_ValidateInput_System_String_System_Int32__" data-uid="Unosquare.Swan.Components.Tokenizer.ValidateInput(System.String,System.Int32@)">ValidateInput(String, out Int32)</h4>
   <div class="markdown level1 summary"><p>Validates the input and return the start index for tokenizer.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
