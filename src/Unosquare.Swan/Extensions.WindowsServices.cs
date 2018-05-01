@@ -1,11 +1,15 @@
-﻿#if NET452
+﻿#if !NETSTANDARD1_3 && !UWP
 namespace Unosquare.Swan
 {
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
+#if NET452
     using System.ServiceProcess;
+#else
+    using Abstractions;
+#endif
 
     /// <summary>
     /// Extension methods
@@ -21,7 +25,7 @@ namespace Unosquare.Swan
             if (serviceToRun == null)
                 throw new ArgumentNullException(nameof(serviceToRun));
 
-            RunInConsoleMode(new ServiceBase[] { serviceToRun });
+            RunInConsoleMode(new[] { serviceToRun });
         }
 
         /// <summary>
@@ -32,7 +36,7 @@ namespace Unosquare.Swan
         {
             if (servicesToRun == null)
                 throw new ArgumentNullException(nameof(servicesToRun));
-
+            
             const string onStartMethodName = "OnStart";
             const string onStopMethodName = "OnStop";
 
@@ -40,8 +44,8 @@ namespace Unosquare.Swan
                     BindingFlags.Instance | BindingFlags.NonPublic);
             var onStopMethod = typeof(ServiceBase).GetMethod(onStopMethodName,
                 BindingFlags.Instance | BindingFlags.NonPublic);
-            var serviceThreads = new List<Thread>();
 
+            var serviceThreads = new List<Thread>();
             "Starting services . . .".Info(Runtime.EntryAssemblyName.Name);
 
             foreach (var service in servicesToRun)

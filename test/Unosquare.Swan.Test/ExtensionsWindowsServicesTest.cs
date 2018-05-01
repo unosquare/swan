@@ -1,4 +1,4 @@
-﻿#if NET46
+﻿#if !NETSTANDARD1_3 && !UWP
 namespace Unosquare.Swan.Test
 {
     using NUnit.Framework;
@@ -12,7 +12,7 @@ namespace Unosquare.Swan.Test
         [Test]
         public void RunInConsoleModeTest()
         {
-            Assert.Ignore("Rewrite test");
+            Assert.Ignore("Rewrite test, RunInConsoleMode will not wait for start");
 
             var service = new WinServiceMock();
             
