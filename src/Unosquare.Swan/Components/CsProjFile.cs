@@ -6,9 +6,11 @@
     using System.Xml.Linq;
 
     /// <summary>
-    /// Represents a CsProjFile parser
-    /// Based on https://github.com/maartenba/dotnetcli-init
+    /// Represents a CsProjFile (and FsProjFile) parser.
     /// </summary>
+    /// <remarks>
+    /// Based on https://github.com/maartenba/dotnetcli-init
+    /// </remarks>
     /// <typeparam name="T">The type of <c>CsProjMetadataBase</c></typeparam>
     /// <seealso cref="System.IDisposable" />
     public class CsProjFile<T>
@@ -43,7 +45,7 @@
             _xmlDocument = XDocument.Load(stream);
 
             var projectElement = _xmlDocument.Descendants("Project").FirstOrDefault();
-            var sdkAttribute = projectElement.Attribute("Sdk");
+            var sdkAttribute = projectElement?.Attribute("Sdk");
             var sdk = sdkAttribute?.Value;
             if (sdk != "Microsoft.NET.Sdk" && sdk != "Microsoft.NET.Sdk.Web")
             {
@@ -73,9 +75,7 @@
             _xmlDocument.Save(_stream);
         }
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose()
         {
             if (!_leaveOpen)
@@ -90,6 +90,13 @@
             {
                 filename = Directory
                     .EnumerateFiles(Directory.GetCurrentDirectory(), "*.csproj", SearchOption.TopDirectoryOnly)
+                    .FirstOrDefault();
+            }
+
+            if (filename == null)
+            {
+                filename = Directory
+                    .EnumerateFiles(Directory.GetCurrentDirectory(), "*.fsproj", SearchOption.TopDirectoryOnly)
                     .FirstOrDefault();
             }
 
