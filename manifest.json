@@ -1187,6 +1187,66 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.Operator.html",
+          "hash": "IlqPBrT+SeYPi8a9CIGtBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.Token.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.Token.html",
+          "hash": "6u/23z01kqaNWod9+GQcPA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.TokenType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.TokenType.html",
+          "hash": "86jtu5uq4vqQuuYE7HzGFg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.Tokenizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.Tokenizer.html",
+          "hash": "rm8yfLbHkwaqs0QR5pO/Dw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Lite.Components.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Lite.Components.html",
+          "hash": "kQuZgVArZl41yekdnOMicw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.LogMessageDisplayingEventArgs.yml",
       "output": {
         ".html": {
@@ -1887,7 +1947,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "yBM+hn3mOaSypYU7XtRUPQ=="
+          "hash": "jLEou4rN0qs6n3alEuMnlw=="
         }
       },
       "is_incremental": false,
@@ -1937,22 +1997,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
