@@ -107,18 +107,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.IServiceBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Abstractions.IServiceBase.html",
-          "hash": "V9wubR33FpRyXufv0WdJQg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.ISyncLocker.yml",
       "output": {
         ".html": {
@@ -155,6 +143,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.ServiceBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.ServiceBase.html",
+          "hash": "MXVcZfhL8nWiD+ZbIRERqw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.SettingsProvider-1.yml",
       "output": {
         ".html": {
@@ -183,7 +183,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.html",
-          "hash": "3VCktGAFFjyl1ukoOY8zNQ=="
+          "hash": "NpthMDrt9XZNzq8OZbUd6Q=="
         }
       },
       "is_incremental": false,
@@ -1863,7 +1863,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.WindowsServicesExtensions.html",
-          "hash": "oP7HI0yaq4stMLzEJFGfSQ=="
+          "hash": "10+u+lhAHRsAm+OOL/K85g=="
         }
       },
       "is_incremental": false,
@@ -1887,7 +1887,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "HXSNs5eFW5em7fzNrJZcWg=="
+          "hash": "yBM+hn3mOaSypYU7XtRUPQ=="
         }
       },
       "is_incremental": false,
@@ -1946,13 +1946,13 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
