@@ -202,21 +202,7 @@
         public static async Task<string> GetString(
             string url,
             string authorization = null,
-            CancellationToken ct = default)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentNullException(nameof(url));
-
-            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
-            {
-                var response = await httpClient.GetAsync(url, ct);
-
-                if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException("Error GET JSON", (int)response.StatusCode);
-
-                return await response.Content.ReadAsStringAsync();
-            }
-        }
+            CancellationToken ct = default) => await (await GetHttpContent(url, authorization, ct)).ReadAsStringAsync();
 
         /// <summary>
         /// Gets the specified URL and return the JSON data as object
@@ -250,21 +236,7 @@
         public static async Task<byte[]> GetBinary(
             string url,
             string authorization = null,
-            CancellationToken ct = default)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentNullException(nameof(url));
-
-            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
-            {
-                var response = await httpClient.GetAsync(url, ct);
-
-                if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException("Error GET Binary", (int)response.StatusCode);
-
-                return await response.Content.ReadAsByteArrayAsync();
-            }
-        }
+            CancellationToken ct = default) => await (await GetHttpContent(url, authorization, ct)).ReadAsByteArrayAsync();
 
         /// <summary>
         /// Authenticate against a web server using Bearer Token
@@ -391,6 +363,24 @@
             return httpClient;
         }
 
+        private static async Task<HttpContent> GetHttpContent(
+            string url,
+            string authorization,
+            CancellationToken ct)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentNullException(nameof(url));
+
+            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
+            {
+                var response = await httpClient.GetAsync(url, ct);
+
+                if (response.IsSuccessStatusCode == false)
+                    throw new JsonRequestException("Error GET", (int)response.StatusCode);
+
+                return response.Content;
+            }
+        }
         #endregion
     }
 }
