@@ -8809,6 +8809,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.JsonClient.PutString
   nameWithType: JsonClient.PutString
+- uid: Unosquare.Swan.Networking.JsonClient.SendAsync(HttpMethod,System.String,System.Object,System.String,System.Threading.CancellationToken)
+  name: SendAsync(HttpMethod, String, Object, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_SendAsync_HttpMethod_System_String_System_Object_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.SendAsync(HttpMethod,System.String,System.Object,System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.JsonClient.SendAsync(HttpMethod, System.String, System.Object, System.String, System.Threading.CancellationToken)
+  nameWithType: JsonClient.SendAsync(HttpMethod, String, Object, String, CancellationToken)
+- uid: Unosquare.Swan.Networking.JsonClient.SendAsync*
+  name: SendAsync
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_SendAsync_
+  commentId: Overload:Unosquare.Swan.Networking.JsonClient.SendAsync
+  isSpec: "True"
+  fullName: Unosquare.Swan.Networking.JsonClient.SendAsync
+  nameWithType: JsonClient.SendAsync
 - uid: Unosquare.Swan.Networking.Ldap
   name: Unosquare.Swan.Networking.Ldap
   href: api/Unosquare.Swan.Networking.Ldap.html
