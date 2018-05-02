@@ -174,43 +174,26 @@
         /// <returns>Returns true if Months, Days, Hours and Minutes match </returns>
         public static bool AsCronCanRun(this DateTime date, string minute = "*", string hour = "*", string dayOfMonth = "*", string month = "*", string dayOfWeek = "*")
         {
-            var dateElemetns = GetDateElements(minute, hour, dayOfMonth, month, dayOfWeek);
-            if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours") && dateElemetns.Keys.Contains("daysOfMonth") && dateElemetns.Keys.Contains("months") && dateElemetns.Keys.Contains("daysOfWeek"))
-                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour) && dateElemetns["daysOfMonth"].Contains(date.Day) && dateElemetns["months"].Contains(date.Month) && dateElemetns["daysOfWeek"].Contains((int)date.DayOfWeek);
-            else if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours") && dateElemetns.Keys.Contains("daysOfMonth") && dateElemetns.Keys.Contains("months"))
-                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour) && dateElemetns["daysOfMonth"].Contains(date.Day) && dateElemetns["months"].Contains(date.Month);
-            else if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours") && dateElemetns.Keys.Contains("daysOfMonth"))
-                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour) && dateElemetns["daysOfMonth"].Contains(date.Day);
-            else if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours"))
-                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour);
-            else if (dateElemetns.Keys.Contains("daysOfWeek"))
-                return dateElemetns["daysOfWeek"].Contains((int)date.DayOfWeek);
-            else if (dateElemetns.Keys.Contains("months"))
-                return dateElemetns["months"].Contains(date.Month);
-            else if (dateElemetns.Keys.Contains("daysOfMonth"))
-                return dateElemetns["daysOfMonth"].Contains(date.Day);
-            else if (dateElemetns.Keys.Contains("hours"))
-                return dateElemetns["hours"].Contains(date.Hour);
-            else if (dateElemetns.Keys.Contains("minutes"))
-                return dateElemetns["minutes"].Contains(date.Minute);
+            if (minute != "*" && hour != "*" && dayOfMonth != "*" && month != "*" && dayOfWeek != "*")
+                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour) && GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day) && GetElementParts(month, "month").Contains(date.Month) && GetElementParts(dayOfWeek, "dayOfWeek").Contains((int)date.DayOfWeek);
+            else if (minute != "*" && hour != "*" && dayOfMonth != "*" && month != "*")
+                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour) && GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day) && GetElementParts(month, "month").Contains(date.Month);
+            else if (minute != "*" && hour != "*" && dayOfMonth != "*")
+                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour) && GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day);
+            else if (minute != "*" && hour != "*")
+                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour);
+            else if (dayOfWeek != "*")
+                return GetElementParts(dayOfWeek, "dayOfWeek").Contains((int)date.DayOfWeek);
+            else if (month != "*")
+                return GetElementParts(month, "month").Contains(date.Month);
+            else if (dayOfMonth != "*")
+                return GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day);
+            else if (hour != "*")
+                return GetElementParts(hour, "hour").Contains(date.Hour);
+            else if (minute != "*")
+                return GetElementParts(minute, "minute").Contains(date.Minute);
             else
                 return false;
-        }
-
-        private static Dictionary<string, List<int>> GetDateElements(string minute, string hour, string dayOfMonth, string month, string dayOfWeek)
-        {
-            var result = new Dictionary<string, List<int>>();
-            if (minute != "*")
-                result.Add("minutes", GetElementParts(minute, "minute"));
-            if (hour != "*")
-                result.Add("hours", GetElementParts(hour, "hour"));
-            if (dayOfMonth != "*")
-                result.Add("daysOfMonth", GetElementParts(dayOfMonth, "dayOfMonth"));
-            if (month != "*")
-                result.Add("months", GetElementParts(month, "month"));
-            if (dayOfWeek != "*")
-                result.Add("daysOfWeek", GetElementParts(dayOfWeek, "dayOfWeek"));
-            return result;
         }
 
         private static List<int> GetElementParts(string parts, string type)

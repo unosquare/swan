@@ -199,7 +199,7 @@
         }
 
         [Test]
-        public void WithNonNull_Minute_Hour_DayOfMonth_WithDatOfMonthSeries()
+        public void WithNonNull_Minute_Hour_DayOfMonth_WithDayOfMonthSeries()
         {
             Assert.IsTrue(_date.AsCronCanRun(minute: "25", hour: "11", dayOfMonth: "2,3,4"));
         }
