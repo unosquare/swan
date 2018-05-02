@@ -130,7 +130,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool AsCronCanRun(this DateTime date, int? minute, int? hour, int? dayOfMonth, int? month, int? dayOfWeek)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool AsCronCanRun(this DateTime date, int? minute = default(int? ), int? hour = default(int? ), int? dayOfMonth = default(int? ), int? month = default(int? ), int? dayOfWeek = default(int? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -191,7 +191,7 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>Returns true if Months, Days, Hours and Minutes match </p>
+        <td><p>Returns <code>true</code> if Months, Days, Hours and Minutes match, otherwise <code>false</code></p>
 </td>
       </tr>
     </tbody>
@@ -266,7 +266,7 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>Returns true if Months, Days, Hours and Minutes match </p>
+        <td><p>Returns <code>true</code> if Months, Days, Hours and Minutes match, otherwise <code>false</code></p>
 </td>
       </tr>
     </tbody>
