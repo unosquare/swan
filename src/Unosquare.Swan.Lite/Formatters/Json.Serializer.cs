@@ -205,7 +205,7 @@
 
                 var escapedValue = Escape(Definitions.BasicTypesInfo[targetType].ToStringInvariant(obj));
                 
-                return decimal.TryParse(escapedValue, out var val)
+                return decimal.TryParse(escapedValue, out var _)
                     ? $"{escapedValue}"
                     : $"{StringQuotedChar}{escapedValue}{StringQuotedChar}";
             }

@@ -19,7 +19,7 @@
         private const RegexOptions StandardRegexOptions =
             RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        private static readonly string[] ByteSuffixes = {"B", "KB", "MB", "GB", "TB"};
+        private static readonly string[] ByteSuffixes = { "B", "KB", "MB", "GB", "TB" };
 
         private static readonly Lazy<MD5> Md5Hasher = new Lazy<MD5>(MD5.Create, true);
         private static readonly Lazy<SHA1> SHA1Hasher = new Lazy<SHA1>(SHA1.Create, true);
@@ -88,7 +88,7 @@
                     md5.TransformFinalBlock(buffer, 0, bytesRead);
                 else
                     md5.TransformBlock(buffer, 0, bytesRead, buffer, 0);
-            } 
+            }
             while (readAheadBytesRead != 0);
 
             return md5.Hash;
@@ -109,10 +109,7 @@
         /// <param name="inputString">The input string.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code</returns>
-        public static byte[] ComputeMD5(this string inputString, bool createHasher = false)
-        {
-            return Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
-        }
+        public static byte[] ComputeMD5(this string inputString, bool createHasher = false) => Encoding.UTF8.GetBytes(inputString).ComputeMD5(createHasher);
 
         /// <summary>
         /// Computes the MD5 hash of the given byte array.
@@ -120,10 +117,7 @@
         /// <param name="data">The data.</param>
         /// <param name="createHasher">if set to <c>true</c> [create hasher].</param>
         /// <returns>The computed hash code</returns>
-        public static byte[] ComputeMD5(this byte[] data, bool createHasher = false)
-        {
-            return (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
-        }
+        public static byte[] ComputeMD5(this byte[] data, bool createHasher = false) => (createHasher ? MD5.Create() : Md5Hasher.Value).ComputeHash(data);
 
         /// <summary>
         /// Computes the SHA-1 hash of the given string using UTF8 byte encoding.
@@ -244,10 +238,7 @@
         /// <param name="obj">The object.</param>
         /// <param name="format">if set to <c>true</c> format the output.</param>
         /// <returns>A <see cref="System.String" /> that represents the current object</returns>
-        public static string ToJson(this object obj, bool format = true)
-        {
-            return obj == null ? string.Empty : Json.Serialize(obj, format);
-        }
+        public static string ToJson(this object obj, bool format = true) => obj == null ? string.Empty : Json.Serialize(obj, format);
 
         /// <summary>
         /// Returns text representing the properties of the specified object in a human-readable format.
@@ -321,10 +312,7 @@
         /// An array whose elements contain the substrings from this instance 
         /// that are delimited by one or more characters in separator
         /// </returns>
-        public static string[] ToLines(this string text)
-        {
-            return text == null ? new string[] { } : SplitLinesRegex.Value.Split(text);
-        }
+        public static string[] ToLines(this string text) => text == null ? new string[] { } : SplitLinesRegex.Value.Split(text);
 
         /// <summary>
         /// Humanizes (make more human-readable) an identifier-style string 
@@ -427,7 +415,7 @@
         /// <returns>
         /// The string representation of the current Byte object, formatted as specified by the format parameter
         /// </returns>
-        public static string FormatBytes(this long bytes) => ((ulong) bytes).FormatBytes();
+        public static string FormatBytes(this long bytes) => ((ulong)bytes).FormatBytes();
 
         /// <summary>
         /// Formats a long into the closest bytes string.
@@ -500,7 +488,7 @@
         {
             return chars?.Length == 0 || (!string.IsNullOrEmpty(value) && value.IndexOfAny(chars) > -1);
         }
-        
+
         /// <summary>
         /// Replaces all chars in a string.
         /// </summary>
@@ -510,9 +498,9 @@
         /// <returns>The string with the characters reppaced</returns>
         public static string ReplaceAll(this string value, string replaceValue, params char[] chars)
         {
-            return chars.Aggregate(value, (current, c) => current.Replace(new string(new[] {c}), replaceValue));
+            return chars.Aggregate(value, (current, c) => current.Replace(new string(new[] { c }), replaceValue));
         }
-        
+
         /// <summary>
         /// Convert hex character to an integer. Return -1 if char is something
         /// other than a hex char.
@@ -545,109 +533,108 @@
             var builder = new StringBuilder();
             var indentStr = new string(' ', indent * 4);
 
-            var dictionary = jsonResult as Dictionary<string, object>;
-            var list = jsonResult as List<object>;
-
-            if (dictionary != null)
+            switch (jsonResult)
             {
-                foreach (var kvp in dictionary)
-                {
-                    if (kvp.Value == null) continue;
-
-                    var valueDictionary = kvp.Value as Dictionary<string, object>;
-                    var valueList = kvp.Value as List<object>;
-                    var writeOutput = false;
-
-                    if (valueDictionary != null)
+                case Dictionary<string, object> dictionary:
+                    foreach (var kvp in dictionary)
                     {
-                        if (valueDictionary.Count > 0)
+                        if (kvp.Value == null) continue;
+
+                        var writeOutput = false;
+
+                        switch (kvp.Value)
                         {
-                            writeOutput = true;
-                            builder.Append($"{indentStr}{kvp.Key,-16}: object");
-                            builder.AppendLine();
+                            case Dictionary<string, object> valueDictionary:
+                                if (valueDictionary.Count > 0)
+                                {
+                                    writeOutput = true;
+                                    builder
+                                        .Append($"{indentStr}{kvp.Key,-16}: object")
+                                        .AppendLine();
+                                }
+
+                                break;
+                            case List<object> valueList:
+                                if (valueList.Count > 0)
+                                {
+                                    writeOutput = true;
+                                    builder
+                                        .Append($"{indentStr}{kvp.Key,-16}: array[{valueList.Count}]")
+                                        .AppendLine();
+                                }
+
+                                break;
+                            default:
+                                writeOutput = true;
+                                builder.Append($"{indentStr}{kvp.Key,-16}: ");
+                                break;
                         }
+
+                        if (writeOutput)
+                            builder.AppendLine(HumanizeJson(kvp.Value, indent + 1).TrimEnd());
                     }
-                    else if (valueList != null)
+
+                    break;
+                case List<object> list:
+                    var index = 0;
+                    foreach (var value in list)
                     {
-                        if (valueList.Count > 0)
+                        var writeOutput = false;
+
+                        switch (value)
                         {
-                            writeOutput = true;
-                            builder.Append($"{indentStr}{kvp.Key,-16}: array[{valueList.Count}]");
-                            builder.AppendLine();
+                            case Dictionary<string, object> valueDictionary:
+                                if (valueDictionary.Count > 0)
+                                {
+                                    writeOutput = true;
+                                    builder
+                                        .Append($"{indentStr}[{index}]: object")
+                                        .AppendLine();
+                                }
+
+                                break;
+                            case List<object> valueList:
+                                if (valueList.Count > 0)
+                                {
+                                    writeOutput = true;
+                                    builder
+                                        .Append($"{indentStr}[{index}]: array[{valueList.Count}]")
+                                        .AppendLine();
+                                }
+
+                                break;
+                            default:
+                                writeOutput = true;
+                                builder.Append($"{indentStr}[{index}]: ");
+                                break;
+                        }
+
+                        index++;
+                        if (writeOutput)
+                            builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
+                    }
+
+                    break;
+                default:
+                    var stringValue = jsonResult.ToString();
+
+                    if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 ||
+                        stringValue.IndexOf('\n') >= 0)
+                    {
+                        builder.AppendLine();
+                        var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
+
+                        foreach (var line in stringLines)
+                        {
+                            builder.AppendLine($"{indentStr}{line}");
                         }
                     }
                     else
                     {
-                        writeOutput = true;
-                        builder.Append($"{indentStr}{kvp.Key,-16}: ");
+                        builder.Append($"{stringValue}");
                     }
 
-                    if (writeOutput)
-                        builder.AppendLine(HumanizeJson(kvp.Value, indent + 1).TrimEnd());
-                }
-
-                return builder.ToString().TrimEnd();
-            }
-
-            if (list != null)
-            {
-                var index = 0;
-                foreach (var value in list)
-                {
-                    var valueDictionary = value as Dictionary<string, object>;
-                    var valueList = value as List<object>;
-                    var writeOutput = false;
-
-                    if (valueDictionary != null)
-                    {
-                        if (valueDictionary.Count > 0)
-                        {
-                            writeOutput = true;
-                            builder
-                                .Append($"{indentStr}[{index}]: object")
-                                .AppendLine();
-                        }
-                    }
-                    else if (valueList != null)
-                    {
-                        if (valueList.Count > 0)
-                        {
-                            writeOutput = true;
-                            builder
-                                .Append($"{indentStr}[{index}]: array[{valueList.Count}]")
-                                .AppendLine();
-                        }
-                    }
-                    else
-                    {
-                        writeOutput = true;
-                        builder.Append($"{indentStr}[{index}]: ");
-                    }
-
-                    index++;
-                    if (writeOutput)
-                        builder.AppendLine(HumanizeJson(value, indent + 1).TrimEnd());
-                }
-
-                return builder.ToString().TrimEnd();
-            }
-
-            var stringValue = jsonResult.ToString();
-
-            if (stringValue.Length + indentStr.Length > 96 || stringValue.IndexOf('\r') >= 0 ||
-                stringValue.IndexOf('\n') >= 0)
-            {
-                builder.AppendLine();
-                var stringLines = stringValue.ToLines().Select(l => l.Trim()).ToArray();
-
-                foreach (var line in stringLines)
-                {
-                    builder.AppendLine($"{indentStr}{line}");
-                }
-            }
-            else
-            {
-                builder.Append($"{stringValue}");
+                    break;
             }
 
             return builder.ToString().TrimEnd();

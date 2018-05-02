@@ -111,7 +111,7 @@
         {
             var currentDirectory = Directory.GetCurrentDirectory();
             Directory.SetCurrentDirectory(Path.GetTempPath());
-            File.WriteAllText(Path.Combine(Path.GetTempPath(), projectFilename), Data);
+            File.WriteAllText(Path.Combine(Path.GetTempPath(), $"{DateTime.Now.Minute}_{DateTime.Now.Second}_{projectFilename}"), Data);
 
             using (var csproj = new CsProjFile<CsMetadataMock>())
             {
