@@ -9,6 +9,15 @@
     /// </summary>
     public static class DateExtensions
     {
+        private static readonly Dictionary<string, int> DateRanges = new Dictionary<string, int>()
+        {
+            { "minute", 59},
+            { "hour", 23},
+            { "dayOfMonth", 31},
+            { "month", 11},
+            { "dayOfWeek", 6},
+        };
+
         /// <summary>
         /// Converts the date to a YYYY-MM-DD string
         /// </summary>
@@ -140,24 +149,16 @@
         /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c></returns>
         public static bool AsCronCanRun(this DateTime date, int? minute = null, int? hour = null, int? dayOfMonth = null, int? month = null, int? dayOfWeek = null)
         {
-            if (minute != null && hour != null && dayOfMonth != null && month != null && dayOfWeek != null)
-                return date.Minute == minute && date.Hour == hour && date.Day == dayOfMonth && date.Month == month && (int)date.DayOfWeek == dayOfWeek;
-            if (minute != null && hour != null && dayOfMonth != null && month != null)
-                return date.Minute == minute && date.Hour == hour && date.Day == dayOfMonth && date.Month == month;
-            if (minute != null && hour != null && dayOfMonth != null)
-                return date.Minute == minute && date.Hour == hour && date.Day == dayOfMonth;
-            if (minute != null && hour != null)
-                return date.Minute == minute && date.Hour == hour;
-            if (dayOfWeek != null)
-                return (int)date.DayOfWeek == dayOfWeek;
-            if (month != null)
-                return date.Month == month;
-            if (dayOfMonth != null)
-                return date.Day == dayOfMonth;
-            if (hour != null)
-                return date.Hour == hour;
+            var results = new List<bool?>
+            {
+                GetElementParts(minute, date.Minute),
+                GetElementParts(hour, date.Hour),
+                GetElementParts(dayOfMonth, date.Day),
+                GetElementParts(month, date.Month),
+                GetElementParts(dayOfWeek, (int) date.DayOfWeek)
+            };
 
-            return minute != null && date.Minute == minute;
+            return results.Any(x => x != false);
         }
 
         /// <summary>
@@ -174,15 +175,17 @@
         {
             var results = new List<bool?>
             {
-                GetElementParts(minute, "minute", date.Minute),
-                GetElementParts(hour, "hour", date.Hour),
-                GetElementParts(dayOfMonth, "dayOfMonth", date.Day),
-                GetElementParts(month, "month", date.Month),
-                GetElementParts(dayOfWeek, "dayOfWeek", (int) date.DayOfWeek)
+                GetElementParts(minute, nameof(minute), date.Minute),
+                GetElementParts(hour, nameof(hour), date.Hour),
+                GetElementParts(dayOfMonth, nameof(dayOfMonth), date.Day),
+                GetElementParts(month, nameof(month), date.Month),
+                GetElementParts(dayOfWeek, nameof(dayOfWeek), (int) date.DayOfWeek)
             };
 
             return results.Any(x => x != false);
         }
+
+        private static bool? GetElementParts(int? status, int value) => status.HasValue ? status.Value == value : (bool?) null;
 
         private static bool? GetElementParts(string parts, string type, int value)
         {
@@ -193,26 +196,7 @@
                 return parts.Split(',').Select(int.Parse).Contains(value);
             }
 
-            var stop = 0;
-
-            switch (type)
-            {
-                case "minute":
-                    stop = 59;
-                    break;
-                case "hour":
-                    stop = 23;
-                    break;
-                case "dayOfMonth":
-                    stop = 31;
-                    break;
-                case "month":
-                    stop = 12;
-                    break;
-                case "dayOfWeek":
-                    stop = 6;
-                    break;
-            }
+            var stop = DateRanges[type];
 
             if (parts.Contains("/"))
             {
@@ -230,6 +214,7 @@
                 var range = parts.Split('-');
                 var start = int.Parse(range.First());
                 stop = Math.Max(stop, int.Parse(range.Last()));
+
                 if ((type == "dayOfMonth" || type == "month") && start == 0)
                     start = 1;
 
