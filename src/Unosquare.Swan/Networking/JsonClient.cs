@@ -161,14 +161,7 @@
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default)
-        {
-            var jsonString = await PutString(url, payload, authorization, ct).ConfigureAwait(false);
-
-            return string.IsNullOrEmpty(jsonString)
-                ? default
-                : Json.Deserialize(jsonString) as IDictionary<string, object>;
-        }
+            CancellationToken ct = default) => (await Put<object>(url, payload, authorization, ct)) as IDictionary<string, object>;
 
         /// <summary>
         /// Puts as string.
@@ -219,6 +212,7 @@
             CancellationToken ct = default)
         {
             var jsonString = await GetString(url, authorization, ct);
+
             return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
         }
 

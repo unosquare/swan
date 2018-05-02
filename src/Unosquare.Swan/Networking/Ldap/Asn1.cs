@@ -506,12 +506,7 @@ namespace Unosquare.Swan.Networking.Ldap
             _content = (bool) dec.DecodeBoolean(stream, len);
         }
 
-        /// <summary>
-        /// Encode the current instance into the
-        /// specified output stream using the specified encoder object.
-        /// </summary>
-        /// <param name="enc">Encoder object to use when encoding self.</param>
-        /// <param name="stream">The stream.</param>
+        /// <inheritdoc />
         public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
 
         /// <summary>
@@ -519,13 +514,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// </summary>
         /// <returns>Asn1Boolean as a boolean</returns>
         public bool BooleanValue() => _content;
-
-        /// <summary>
-        /// Returns a String representation of this Asn1Boolean object.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        
         public override string ToString() => base.ToString() + "BOOLEAN: " + _content;
     }
 
@@ -550,16 +539,9 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        /// <summary>
-        /// Call this method to encode the current instance into the
-        /// specified output stream using the specified encoder object.
-        /// </summary>
-        /// <param name="enc">Encoder object to use when encoding self.</param>
-        /// <param name="stream">The stream.</param>
+        /// <inheritdoc />
         public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
 
-        /// <summary> Return a String representation of this Asn1Null object.</summary>
-        /// <returns>Asn1Null string</returns>
         public override string ToString() => base.ToString() + "NULL: \"\"";
     }
 
@@ -750,12 +732,6 @@ namespace Unosquare.Swan.Networking.Ldap
             DecodeStructured(dec, stream, len);
         }
 
-        /// <summary>
-        /// Returns a String representation of this Asn1Set.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
         public override string ToString() => ToString("SET: { ");
     }
 
@@ -797,15 +773,8 @@ namespace Unosquare.Swan.Networking.Ldap
         {
         }
 
-        /// <summary>
-        /// Call this method to encode the current instance into the
-        /// specified output stream using the specified encoder object.
-        /// </summary>
-        /// <param name="enc">Encoder object to use when encoding self.</param>
-        /// <param name="stream">The stream.</param>
         public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
 
-        /// <inheritdoc />
         public override string ToString() => base.ToString() + "INTEGER: " + LongValue();
     }
 
@@ -845,21 +814,9 @@ namespace Unosquare.Swan.Networking.Ldap
             : base(Id, (long) dec.DecodeNumeric(stream, len))
         {
         }
-
-        /// <summary>
-        /// Call this method to encode the current instance into the
-        /// specified output stream using the specified encoder object.
-        /// </summary>
-        /// <param name="enc">Encoder object to use when encoding self.</param>
-        /// <param name="stream">The stream.</param>
+        
         public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
-
-        /// <summary>
-        /// Return a String representation of this Asn1Enumerated.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        
         public override string ToString() => base.ToString() + "ENUMERATED: " + LongValue();
     }
 

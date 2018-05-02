@@ -25,8 +25,8 @@
             await TestTerminalOutputs();
 
 #if !NET46
-            TestLdapModify();
-            TestLdapSearch();
+            await TestLdapModify();
+            await TestLdapSearch();
 #endif
             TestNetworkUtilities();
             //TestContainerAndMessageHub();
