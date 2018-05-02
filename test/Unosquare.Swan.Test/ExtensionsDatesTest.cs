@@ -126,4 +126,103 @@
             Assert.AreEqual(result.Milliseconds, 200);
         }
     }
+
+    [TestFixture]
+    public class AsCronCanRun
+    {
+        private readonly DateTime _date = new DateTime(2018, 7, 3, 11, 25, 0);
+
+        [Test]
+        public void WithNonNull_Minute()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(25));
+        }
+
+        [Test]
+        public void WithNonNull_Minute_EveryMinute()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(minute: "*/5"));
+        }
+
+        [Test]
+        public void WithNonNull_Hour()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(hour: 11));
+        }
+
+        [Test]
+        public void WithNonNull_Hour_InHourRange()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(hour: "10-12"));
+        }
+
+        [Test]
+        public void WithNonNull_DayOfMonth()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(dayOfMonth: 3));
+        }
+
+        [Test]
+        public void WithNonNull_DayOfMonth_InDayMonthSeries()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(dayOfMonth: "3,4,5"));
+        }
+
+        [Test]
+        public void WithNonNull_Month()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(month: 7));
+        }
+
+        [Test]
+        public void WithNonNull_DayOfWeek()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(dayOfWeek: 2));
+        }
+
+        [Test]
+        public void WithNonNull_Minute_Hour()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(25, 11));
+        }
+
+        [Test]
+        public void WithNonNull_Minute_Hour_WithHourRange()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(minute: "25", hour: "10-15"));
+        }
+
+        [Test]
+        public void WithNonNull_Minute_Hour_DayOfMonth()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(25, 11, 3));
+        }
+
+        [Test]
+        public void WithNonNull_Minute_Hour_DayOfMonth_WithDayOfMonthSeries()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(minute: "25", hour: "11", dayOfMonth: "2,3,4"));
+        }
+
+        [Test]
+        public void WithNonNull_Minute_Hour_DayOfMonth_Month()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(25, 11, 3, 7));
+        }
+
+        [Test]
+        public void WithNonNull_Minute_Hour_DayOfMonth_Month_DayOfWeek()
+        {
+            Assert.IsTrue(_date.AsCronCanRun(25, 11, 3, 7, 2));
+        }
+
+        [Test]
+        public void WithWrongParams_Throws_FormatException()
+        {
+            Assert.Throws<FormatException>(() =>
+            {
+                _date.AsCronCanRun(minute: "hello");
+            });
+        }
+    }
 }
