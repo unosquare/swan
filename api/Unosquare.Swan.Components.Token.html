@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class CsProjFile&lt;T&gt;
+    <title>Struct Token
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class CsProjFile&lt;T&gt;
+    <meta name="title" content="Struct Token
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.35.4.0">
     
@@ -77,30 +77,24 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.CsProjFile`1">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.Token">
   
   
-  <h1 id="Unosquare_Swan_Components_CsProjFile_1" data-uid="Unosquare.Swan.Components.CsProjFile`1" class="text-break">Class CsProjFile&lt;T&gt;
+  <h1 id="Unosquare_Swan_Components_Token" data-uid="Unosquare.Swan.Components.Token" class="text-break">Struct Token
   </h1>
-  <div class="markdown level0 summary"><p>Represents a CsProjFile (and FsProjFile) parser.</p>
+  <div class="markdown level0 summary"><p>Represents a Token structure</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">CsProjFile&lt;T&gt;</span></div>
-  </div>
-  <div classs="implements">
-    <h5>Implements</h5>
-    <div><span class="xref">System.IDisposable</span></div>
-  </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <span class="xref">System.ValueType.Equals(System.Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <span class="xref">System.ValueType.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.ValueType.ToString()</span>
     </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
@@ -109,51 +103,26 @@
       <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
       <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
-  <h5 id="Unosquare_Swan_Components_CsProjFile_1_syntax">Syntax</h5>
+  <h5 id="Unosquare_Swan_Components_Token_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CsProjFile&lt;T&gt; : IDisposable where T : CsProjMetadataBase</code></pre>
+    <pre><code class="lang-csharp hljs">public struct Token</code></pre>
   </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The type of <code>CsProjMetadataBase</code></p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unosquare_Swan_Components_CsProjFile_1_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>Based on <a href="https://github.com/maartenba/dotnetcli-init">https://github.com/maartenba/dotnetcli-init</a></p>
-</div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Unosquare_Swan_Components_CsProjFile_1__ctor_" data-uid="Unosquare.Swan.Components.CsProjFile`1.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Components_CsProjFile_1__ctor_System_IO_Stream_System_Boolean_" data-uid="Unosquare.Swan.Components.CsProjFile`1.#ctor(System.IO.Stream,System.Boolean)">CsProjFile(Stream, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.CsProjFile-1.html">CsProjFile&lt;T&gt;</a> class.</p>
+  <a id="Unosquare_Swan_Components_Token__ctor_" data-uid="Unosquare.Swan.Components.Token.#ctor*"></a>
+  <h4 id="Unosquare_Swan_Components_Token__ctor_Unosquare_Swan_Components_TokenType_System_String_" data-uid="Unosquare.Swan.Components.Token.#ctor(Unosquare.Swan.Components.TokenType,System.String)">Token(TokenType, String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.Token.html">Token</a> struct.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CsProjFile(Stream stream, bool leaveOpen = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public Token(TokenType type, string value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -166,60 +135,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.IO.Stream</span></td>
-        <td><span class="parametername">stream</span></td>
-        <td><p>The stream.</p>
+        <td><a class="xref" href="Unosquare.Swan.Components.TokenType.html">TokenType</a></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type.</p>
 </td>
       </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">leaveOpen</span></td>
-        <td><p>if set to <code>true</code> [leave open].</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.ArgumentException</span></td>
-        <td><p>Project file is not of the new .csproj type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_Swan_Components_CsProjFile_1__ctor_" data-uid="Unosquare.Swan.Components.CsProjFile`1.#ctor*"></a>
-  <h4 id="Unosquare_Swan_Components_CsProjFile_1__ctor_System_String_" data-uid="Unosquare.Swan.Components.CsProjFile`1.#ctor(System.String)">CsProjFile(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.Swan.Components.CsProjFile-1.html">CsProjFile&lt;T&gt;</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CsProjFile(string filename = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">filename</span></td>
-        <td><p>The filename.</p>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value.</p>
 </td>
       </tr>
     </tbody>
@@ -228,14 +152,14 @@
   </h3>
   
   
-  <a id="Unosquare_Swan_Components_CsProjFile_1_Metadata_" data-uid="Unosquare.Swan.Components.CsProjFile`1.Metadata*"></a>
-  <h4 id="Unosquare_Swan_Components_CsProjFile_1_Metadata" data-uid="Unosquare.Swan.Components.CsProjFile`1.Metadata">Metadata</h4>
-  <div class="markdown level1 summary"><p>Gets the metadata.</p>
+  <a id="Unosquare_Swan_Components_Token_Type_" data-uid="Unosquare.Swan.Components.Token.Type*"></a>
+  <h4 id="Unosquare_Swan_Components_Token_Type" data-uid="Unosquare.Swan.Components.Token.Type">Type</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T Metadata { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public TokenType Type { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -247,43 +171,39 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">T</span></td>
-        <td><p>The nu get metadata.</p>
+        <td><a class="xref" href="Unosquare.Swan.Components.TokenType.html">TokenType</a></td>
+        <td><p>The type.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
-  </h3>
   
   
-  <a id="Unosquare_Swan_Components_CsProjFile_1_Dispose_" data-uid="Unosquare.Swan.Components.CsProjFile`1.Dispose*"></a>
-  <h4 id="Unosquare_Swan_Components_CsProjFile_1_Dispose" data-uid="Unosquare.Swan.Components.CsProjFile`1.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
-  </div>
-  
-  
-  <a id="Unosquare_Swan_Components_CsProjFile_1_Save_" data-uid="Unosquare.Swan.Components.CsProjFile`1.Save*"></a>
-  <h4 id="Unosquare_Swan_Components_CsProjFile_1_Save" data-uid="Unosquare.Swan.Components.CsProjFile`1.Save">Save()</h4>
-  <div class="markdown level1 summary"><p>Saves this instance.</p>
+  <a id="Unosquare_Swan_Components_Token_Value_" data-uid="Unosquare.Swan.Components.Token.Value*"></a>
+  <h4 id="Unosquare_Swan_Components_Token_Value" data-uid="Unosquare.Swan.Components.Token.Value">Value</h4>
+  <div class="markdown level1 summary"><p>Gets the value.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Save()</code></pre>
+    <pre><code class="lang-csharp hljs">public string Value { get; }</code></pre>
   </div>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <span class="xref">System.IDisposable</span>
-  </div>
-  <h3 id="seealso">See Also</h3>
-  <div class="seealso">
-      <div><span class="xref">System.IDisposable</span></div>
-  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 <div id="disqus_thread"></div>
 <script>
 
