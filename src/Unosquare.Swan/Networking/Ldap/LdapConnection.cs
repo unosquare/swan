@@ -199,7 +199,8 @@ namespace Unosquare.Swan.Networking.Ldap
 
         private LdapControl[] _responseCtls;
         private Connection _conn;
-        
+        private bool _isDisposing;
+
         /// <summary>
         /// Returns the protocol version uses to authenticate.
         /// 0 is returned if no authentication has been performed.
@@ -296,7 +297,14 @@ namespace Unosquare.Swan.Networking.Ldap
         internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
 
         /// <inheritdoc />
-        public void Dispose() => Dispose(true);
+        public void Dispose()
+        {
+            if (_isDisposing) return;
+
+            _isDisposing = true;
+            Disconnect();
+            _cts?.Dispose();
+        }
 
         /// <summary>
         /// Synchronously authenticates to the Ldap server (that the object is
@@ -542,21 +550,6 @@ namespace Unosquare.Swan.Networking.Ldap
             }
 
             // ReSharper disable once FunctionNeverReturns
-        }
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="isDisposing">
-        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
-        /// </param>
-        protected void Dispose(bool isDisposing)
-        {
-            if (isDisposing)
-            {
-                Disconnect();
-                _cts?.Dispose();
-            }
         }
     }
 }

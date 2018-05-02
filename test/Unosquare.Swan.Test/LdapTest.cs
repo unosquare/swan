@@ -29,7 +29,7 @@
         [TearDown]
         public void GlobalTeardown()
         {
-            Connection.Dispose();
+            Connection?.Dispose();
         }
     }
 
