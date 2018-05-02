@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "CODE_OF_CONDUCT.html",
-          "hash": "HgrlP5qWX9+kBj7Uu+XhiA=="
+          "hash": "GiBrvktRW3aSYiiy/getlQ=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "u8oo9otZoXpDmFTJRq16aQ=="
+          "hash": "KO/336zgs8c9WgAMbjhmXg=="
         }
       },
       "is_incremental": false,
@@ -75,7 +75,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.AppWorkerBase.html",
-          "hash": "oiUbOWtrRlMtRZyVNS8/cg=="
+          "hash": "0ACNWPNrHH3/2BUoCyYN3Q=="
         }
       },
       "is_incremental": false,
@@ -143,6 +143,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.ServiceBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.ServiceBase.html",
+          "hash": "Zple2Z7y3Q9XY/nxfTbJ3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.SettingsProvider-1.yml",
       "output": {
         ".html": {
@@ -171,7 +183,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.html",
-          "hash": "hF4PYbsFUzL6dtHECco80w=="
+          "hash": "TKXZEUMq3bC94908mqBl6A=="
         }
       },
       "is_incremental": false,
@@ -459,7 +471,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.CsProjFile-1.html",
-          "hash": "8yrPYGiF7qWLY0yevp73xw=="
+          "hash": "Y5QhVLWcHAHY4iagANSSGg=="
         }
       },
       "is_incremental": false,
@@ -803,6 +815,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.Operator.html",
+          "hash": "zr2V3GAvJn8yjjaMptMJgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Components.ProcessResult.yml",
       "output": {
         ".html": {
@@ -851,6 +875,42 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.Token.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.Token.html",
+          "hash": "Cbh2aIXeT6IwEY7xxLORSQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.TokenType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.TokenType.html",
+          "hash": "bpUwJ9fSRp9Uh6443ECrOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Components.Tokenizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Components.Tokenizer.html",
+          "hash": "s68IxAOhBl5bnK54jJyHBg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Components.WaitEventFactory.yml",
       "output": {
         ".html": {
@@ -867,7 +927,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.html",
-          "hash": "GLJzPNT7xnwsJW7X3Ad6wA=="
+          "hash": "tYf33QoHv0Dgo9kFFor7PQ=="
         }
       },
       "is_incremental": false,
@@ -975,7 +1035,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.DateExtensions.html",
-          "hash": "GXWuvT+9ZhFAtGw7Gq3H3w=="
+          "hash": "nieBdIU7KXAIhJ6eq/G44A=="
         }
       },
       "is_incremental": false,
@@ -1083,7 +1143,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Exceptions.LdapException.html",
-          "hash": "SUqlzbf/aQ9QUu1C19qaUQ=="
+          "hash": "q50SooIKqRn3Dh1uibA+Sg=="
         }
       },
       "is_incremental": false,
@@ -1359,7 +1419,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.JsonClient.html",
-          "hash": "uCX2brCM4TJqTEh7V8DdjA=="
+          "hash": "ItVQSE/LnxFb+BxbH6h36Q=="
         }
       },
       "is_incremental": false,
@@ -1407,7 +1467,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapConnection.html",
-          "hash": "A+47sNcCkFF1O6jUAV8EKQ=="
+          "hash": "VbY1dbhfZEP3rOka8ZARRw=="
         }
       },
       "is_incremental": false,
@@ -1479,7 +1539,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Networking.Ldap.LdapModifyRequest.html",
-          "hash": "0hsijU7uQfMO6TuykB68og=="
+          "hash": "udgLpR6Qi3NMhftdZG5CBA=="
         }
       },
       "is_incremental": false,
@@ -1779,7 +1839,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Runtime.html",
-          "hash": "0+0UhAaa3vgbF7TtxHVyrQ=="
+          "hash": "dRLepwpsbi6bW7DtZ48W7g=="
         }
       },
       "is_incremental": false,
@@ -1847,11 +1907,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.WindowsServicesExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.WindowsServicesExtensions.html",
+          "hash": "/Kv1ujuvokuCFnfMBixVkw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.html",
-          "hash": "tVo5tpOF9EamTd+4cCvTcg=="
+          "hash": "oAD5e3xDqAnlnVGx3P9Sqw=="
         }
       },
       "is_incremental": false,
@@ -1863,7 +1935,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "oAwPbAZnhp+b4hZjyippxQ=="
+          "hash": "+lFaQAvgqshRCbR8jblOlg=="
         }
       },
       "is_incremental": false,
