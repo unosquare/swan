@@ -172,84 +172,74 @@
         /// <returns>Returns <c>true</c> if Months, Days, Hours and Minutes match, otherwise <c>false</c></returns>
         public static bool AsCronCanRun(this DateTime date, string minute = "*", string hour = "*", string dayOfMonth = "*", string month = "*", string dayOfWeek = "*")
         {
-            if (minute != "*" && hour != "*" && dayOfMonth != "*" && month != "*" && dayOfWeek != "*")
-                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour) && GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day) && GetElementParts(month, "month").Contains(date.Month) && GetElementParts(dayOfWeek, "dayOfWeek").Contains((int)date.DayOfWeek);
-            if (minute != "*" && hour != "*" && dayOfMonth != "*" && month != "*")
-                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour) && GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day) && GetElementParts(month, "month").Contains(date.Month);
-            if (minute != "*" && hour != "*" && dayOfMonth != "*")
-                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour) && GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day);
-            if (minute != "*" && hour != "*")
-                return GetElementParts(minute, "minute").Contains(date.Minute) && GetElementParts(hour, "hour").Contains(date.Hour);
-            if (dayOfWeek != "*")
-                return GetElementParts(dayOfWeek, "dayOfWeek").Contains((int)date.DayOfWeek);
-            if (month != "*")
-                return GetElementParts(month, "month").Contains(date.Month);
-            if (dayOfMonth != "*")
-                return GetElementParts(dayOfMonth, "dayOfMonth").Contains(date.Day);
-            if (hour != "*")
-                return GetElementParts(hour, "hour").Contains(date.Hour);
+            var results = new List<bool?>
+            {
+                GetElementParts(minute, "minute", date.Minute),
+                GetElementParts(hour, "hour", date.Hour),
+                GetElementParts(dayOfMonth, "dayOfMonth", date.Day),
+                GetElementParts(month, "month", date.Month),
+                GetElementParts(dayOfWeek, "dayOfWeek", (int) date.DayOfWeek)
+            };
 
-            return minute != "*" && GetElementParts(minute, "minute").Contains(date.Minute);
+            return results.Any(x => x != false);
         }
 
-        private static List<int> GetElementParts(string parts, string type)
+        private static bool? GetElementParts(string parts, string type, int value)
         {
-            var data = new List<int>();
+            if (string.IsNullOrWhiteSpace(parts) || parts == "*") return null;
+            
+            if (parts.Contains(","))
+            {
+                return parts.Split(',').Select(int.Parse).Contains(value);
+            }
+
+            var stop = 0;
+
+            switch (type)
+            {
+                case "minute":
+                    stop = 59;
+                    break;
+                case "hour":
+                    stop = 23;
+                    break;
+                case "dayOfMonth":
+                    stop = 31;
+                    break;
+                case "month":
+                    stop = 12;
+                    break;
+                case "dayOfWeek":
+                    stop = 6;
+                    break;
+            }
+
             if (parts.Contains("/"))
             {
-                var multiple = Convert.ToInt32(parts.Split('/').Last());
-                var stop = 0;
-                switch (type)
-                {
-                    case "minute":
-                        stop = 59;
-                        break;
-                    case "hour":
-                        stop = 23;
-                        break;
-                    case "dayOfMonth":
-                        stop = 31;
-                        break;
-                    case "month":
-                        stop = 12;
-                        break;
-                    case "dayOfWeek":
-                        stop = 6;
-                        break;
-                }
+                var multiple = int.Parse(parts.Split('/').Last());
+                var start = type == "dayOfMonth" || type == "month" ? 1 : 0;
+                
+                for (var i = start; i <= stop; i += multiple)
+                    if (i == value) return true;
 
-                if (type == "dayOfMonth" || type == "month")
-                {
-                    for (var i = 1; i <= stop; i += multiple)
-                        data.Add(i);
-                }
-
-                for (var i = 0; i <= stop; i += multiple)
-                    data.Add(i);
+                return false;
             }
-            else if (parts.Contains(","))
-            {
-                var serie = parts.Split(',');
 
-                data.AddRange(serie.Select(val => Convert.ToInt32(val)));
-            }
-            else if (parts.Contains("-"))
+            if (parts.Contains("-"))
             {
                 var range = parts.Split('-');
-                var start = Convert.ToInt32(range.First());
-                var end = Convert.ToInt32(range.Last());
+                var start = int.Parse(range.First());
+                stop = Math.Max(stop, int.Parse(range.Last()));
                 if ((type == "dayOfMonth" || type == "month") && start == 0)
                     start = 1;
 
-                for (var i = start; i <= end; i++)
-                    data.Add(i);
-            }
-            else
-            {
-                data.Add(Convert.ToInt32(parts));
-            }
+                for (var i = start; i <= stop; i++)
+                    if (i == value) return true;
 
-            return data;
+                return false;
+            }
+            
+            return int.Parse(parts) == value;
         }
     }
 }
