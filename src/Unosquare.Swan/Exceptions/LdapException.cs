@@ -110,13 +110,7 @@ namespace Unosquare.Swan.Exceptions
         /// </summary>
         public override string Message => ResultCode.ToString().Humanize();
 
-        /// <summary>
-        /// Returns a string of information about the exception and the
-        /// the nested exceptions, if any.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        /// <inheritdoc />
         public override string ToString()
         {
             // Craft a string from the resouce file

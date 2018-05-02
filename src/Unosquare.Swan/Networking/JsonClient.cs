@@ -123,27 +123,11 @@
         /// <exception cref="ArgumentNullException">url</exception>
         /// <exception cref="JsonRequestException">Error POST JSON</exception>
         /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error POST Json.</exception>
-        public static async Task<string> PostString(
+        public static Task<string> PostString(
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentNullException(nameof(url));
-
-            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
-            {
-                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
-
-                var response = await httpClient.PostAsync(url, payloadJson, ct);
-
-                if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException("Error POST JSON", (int)response.StatusCode);
-
-                return await response.Content.ReadAsStringAsync();
-            }
-        }
+            CancellationToken ct = default) => SendAsync(HttpMethod.Post, url, payload, authorization, ct);
 
         /// <summary>
         /// Puts the specified URL.
@@ -198,27 +182,11 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">url</exception>
         /// <exception cref="JsonRequestException">Error PUT JSON</exception>
-        public static async Task<string> PutString(
+        public static Task<string> PutString(
             string url,
             object payload,
             string authorization = null,
-            CancellationToken ct = default)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentNullException(nameof(url));
-
-            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
-            {
-                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
-
-                var response = await httpClient.PutAsync(url, payloadJson, ct);
-
-                if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException("Error PUT JSON", (int)response.StatusCode);
-
-                return await response.Content.ReadAsStringAsync();
-            }
-        }
+            CancellationToken ct = default) => SendAsync(HttpMethod.Put, url, payload, authorization, ct);
 
         /// <summary>
         /// Gets as string.
@@ -373,6 +341,37 @@
         public static Task<T> PostFile<T>(string url, byte[] buffer, string fileName, string authorization = null)
         {
             return Post<T>(url, new { Filename = fileName, Data = buffer }, authorization);
+        }
+        
+        /// <summary>
+        /// Sends the asynchronous request.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="payload">The payload.</param>
+        /// <param name="authorization">The authorization.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>A task with a result of the requested string</returns>
+        public static async Task<string> SendAsync(HttpMethod method,
+            string url,
+            object payload,
+            string authorization = null,
+            CancellationToken ct = default)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentNullException(nameof(url));
+
+            using (var httpClient = GetHttpClientWithAuthorizationHeader(authorization))
+            {
+                var payloadJson = new StringContent(Json.Serialize(payload), Encoding.UTF8, JsonMimeType);
+
+                var response = await httpClient.SendAsync(new HttpRequestMessage(method, url) { Content = payloadJson }, ct);
+
+                if (response.IsSuccessStatusCode == false)
+                    throw new JsonRequestException($"Error {method} JSON", (int)response.StatusCode);
+
+                return await response.Content.ReadAsStringAsync();
+            }
         }
 
         #endregion

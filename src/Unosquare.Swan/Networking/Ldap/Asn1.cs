@@ -805,12 +805,7 @@ namespace Unosquare.Swan.Networking.Ldap
         /// <param name="stream">The stream.</param>
         public override void Encode(IAsn1Encoder enc, Stream stream) => enc.Encode(this, stream);
 
-        /// <summary>
-        /// Returns a String representation of this Asn1Integer object.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        /// <inheritdoc />
         public override string ToString() => base.ToString() + "INTEGER: " + LongValue();
     }
 

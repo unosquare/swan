@@ -55,7 +55,7 @@ namespace Unosquare.Swan.Components
     /// </example>
     public static class WaitEventFactory
     {
-#region Factory Methods
+        #region Factory Methods
 
         /// <summary>
         /// Creates a Wait Event backed by a standard ManualResetEvent
@@ -79,9 +79,9 @@ namespace Unosquare.Swan.Components
         /// <returns>The Wait Event</returns>
         public static IWaitEvent Create(bool isCompleted, bool useSlim) => useSlim ? CreateSlim(isCompleted) : Create(isCompleted);
 
-#endregion
+        #endregion
 
-#region Backing Classes
+        #region Backing Classes
 
         /// <summary>
         /// Defines a WaitEvent backed by a ManualResetEvent
@@ -211,7 +211,7 @@ namespace Unosquare.Swan.Components
             public bool Wait(TimeSpan timeout) => _event?.Wait(timeout) ?? true;
         }
 
-#endregion
+        #endregion
     }
 }
 #endif

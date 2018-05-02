@@ -50,7 +50,7 @@ namespace Unosquare.Swan.Networking.Ldap
                     var opSeq = (Asn1Sequence)mods[m];
                     if (opSeq.Size() != 2)
                     {
-                        throw new Exception($"LdapModifyRequest: modification {m} is wrong size:{opSeq.Size()}");
+                        throw new InvalidOperationException($"LdapModifyRequest: modification {m} is wrong size:{opSeq.Size()}");
                     }
 
                     // Contains operation and sequence for the attribute
@@ -78,12 +78,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary>
-        /// Return an Asn1 representation of this modify request
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        /// <inheritdoc />
         public override string ToString() => Asn1Object.ToString();
 
         private static Asn1SequenceOf EncodeModifications(LdapModification[] mods)
