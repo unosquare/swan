@@ -31,8 +31,8 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested type</returns>
         public static async Task<T> Post<T>(
-            string url, 
-            object payload, 
+            string url,
+            object payload,
             string authorization = null,
             CancellationToken ct = default)
         {
@@ -54,9 +54,9 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested type or an error object</returns>
         public static async Task<OkOrError<T, TE>> PostOrError<T, TE>(
-            string url, 
+            string url,
             object payload,
-            int httpStatusError = 500, 
+            int httpStatusError = 500,
             string authorization = null,
             CancellationToken ct = default)
         {
@@ -98,9 +98,9 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result as a collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Post(
-            string url, 
+            string url,
             object payload,
-            string authorization = null, 
+            string authorization = null,
             CancellationToken ct = default)
         {
             var jsonString = await PostString(url, payload, authorization, ct);
@@ -124,8 +124,8 @@
         /// <exception cref="JsonRequestException">Error POST JSON</exception>
         /// <exception cref="Unosquare.Swan.Exceptions.JsonRequestException">Error POST Json.</exception>
         public static async Task<string> PostString(
-            string url, 
-            object payload, 
+            string url,
+            object payload,
             string authorization = null,
             CancellationToken ct = default)
         {
@@ -139,7 +139,7 @@
                 var response = await httpClient.PostAsync(url, payloadJson, ct);
 
                 if (response.IsSuccessStatusCode == false)
-                    throw new JsonRequestException("Error POST JSON", (int) response.StatusCode);
+                    throw new JsonRequestException("Error POST JSON", (int)response.StatusCode);
 
                 return await response.Content.ReadAsStringAsync();
             }
@@ -155,12 +155,12 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested type</returns>
         public static async Task<T> Put<T>(
-            string url, 
-            object payload, 
+            string url,
+            object payload,
             string authorization = null,
             CancellationToken ct = default)
         {
-            var jsonString = await PutString(url, payload, authorization, ct);
+            var jsonString = await PutString(url, payload, authorization, ct).ConfigureAwait(false);
 
             return string.IsNullOrEmpty(jsonString) ? default : Json.Deserialize<T>(jsonString);
         }
@@ -174,12 +174,12 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested collection of key/value pairs</returns>
         public static async Task<IDictionary<string, object>> Put(
-            string url, 
+            string url,
             object payload,
-            string authorization = null, 
+            string authorization = null,
             CancellationToken ct = default)
         {
-            var jsonString = await PutString(url, payload, authorization, ct);
+            var jsonString = await PutString(url, payload, authorization, ct).ConfigureAwait(false);
 
             return string.IsNullOrEmpty(jsonString)
                 ? default
@@ -199,8 +199,8 @@
         /// <exception cref="ArgumentNullException">url</exception>
         /// <exception cref="JsonRequestException">Error PUT JSON</exception>
         public static async Task<string> PutString(
-            string url, 
-            object payload, 
+            string url,
+            object payload,
             string authorization = null,
             CancellationToken ct = default)
         {
@@ -232,7 +232,7 @@
         /// <exception cref="ArgumentNullException">url</exception>
         /// <exception cref="JsonRequestException">Error GET JSON</exception>
         public static async Task<string> GetString(
-            string url, 
+            string url,
             string authorization = null,
             CancellationToken ct = default)
         {
@@ -260,7 +260,7 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A task with a result of the requested type</returns>
         public static async Task<T> Get<T>(
-            string url, 
+            string url,
             string authorization = null,
             CancellationToken ct = default)
         {
@@ -325,7 +325,7 @@
 
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentNullException(nameof(username));
-            
+
             using (var httpClient = new HttpClient())
             {
                 // ignore empty password for now
@@ -353,8 +353,8 @@
         /// <param name="authorization">The authorization.</param>
         /// <returns>A task with a result of the requested string</returns>
         public static Task<string> PostFileString(
-            string url, 
-            byte[] buffer, 
+            string url,
+            byte[] buffer,
             string fileName,
             string authorization = null)
         {

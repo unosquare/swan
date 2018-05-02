@@ -1140,6 +1140,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
             public void Reset()
             {
+                // do nothing
             }
 
             public bool MoveNext() => _hasMore;
