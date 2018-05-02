@@ -172,28 +172,99 @@
         /// <param name="month">The month. (1-12)</param>
         /// <param name="dayOfWeek">The day of week. (0-6)(Sunday = 0)</param>
         /// <returns>Returns true if Months, Days, Hours and Minutes match </returns>
-        public static bool AsCronCanRun(this DateTime date, string minute = "", string hour = "", string dayOfMonth = "", string month = "", string dayOfWeek = "")
+        public static bool AsCronCanRun(this DateTime date, string minute = "*", string hour = "*", string dayOfMonth = "*", string month = "*", string dayOfWeek = "*")
         {
-            if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour) && !string.IsNullOrEmpty(dayOfMonth) && !string.IsNullOrEmpty(month) && !string.IsNullOrEmpty(dayOfWeek))
-                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), Convert.ToInt32(dayOfMonth), Convert.ToInt32(month), Convert.ToInt32(dayOfWeek));
-            else if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour) && !string.IsNullOrEmpty(dayOfMonth) && !string.IsNullOrEmpty(month))
-                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), Convert.ToInt32(dayOfMonth), Convert.ToInt32(month), null);
-            else if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour) && !string.IsNullOrEmpty(dayOfMonth))
-                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), Convert.ToInt32(dayOfMonth), null, null);
-            else if (!string.IsNullOrEmpty(minute) && !string.IsNullOrEmpty(hour))
-                return date.AsCronCanRun(Convert.ToInt32(minute), Convert.ToInt32(hour), null, null, null);
-            else if (!string.IsNullOrEmpty(dayOfWeek))
-                return date.AsCronCanRun(null, null, null, null, Convert.ToInt32(dayOfWeek));
-            else if (!string.IsNullOrEmpty(month))
-                return date.AsCronCanRun(null, null, null, Convert.ToInt32(month), null);
-            else if (!string.IsNullOrEmpty(dayOfMonth))
-                return date.AsCronCanRun(null, null, Convert.ToInt32(dayOfMonth), null, null);
-            else if (!string.IsNullOrEmpty(hour))
-                return date.AsCronCanRun(null, Convert.ToInt32(hour), null, null, null);
-            else if (!string.IsNullOrEmpty(minute))
-                return date.AsCronCanRun(Convert.ToInt32(minute), null, null, null, null);
+            var dateElemetns = GetDateElements(minute, hour, dayOfMonth, month, dayOfWeek);
+            if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours") && dateElemetns.Keys.Contains("daysOfMonth") && dateElemetns.Keys.Contains("months") && dateElemetns.Keys.Contains("daysOfWeek"))
+                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour) && dateElemetns["daysOfMonth"].Contains(date.Day) && dateElemetns["months"].Contains(date.Month) && dateElemetns["daysOfWeek"].Contains((int)date.DayOfWeek);
+            else if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours") && dateElemetns.Keys.Contains("daysOfMonth") && dateElemetns.Keys.Contains("months"))
+                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour) && dateElemetns["daysOfMonth"].Contains(date.Day) && dateElemetns["months"].Contains(date.Month);
+            else if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours") && dateElemetns.Keys.Contains("daysOfMonth"))
+                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour) && dateElemetns["daysOfMonth"].Contains(date.Day);
+            else if (dateElemetns.Keys.Contains("minutes") && dateElemetns.Keys.Contains("hours"))
+                return dateElemetns["minutes"].Contains(date.Minute) && dateElemetns["hours"].Contains(date.Hour);
+            else if (dateElemetns.Keys.Contains("daysOfWeek"))
+                return dateElemetns["daysOfWeek"].Contains((int)date.DayOfWeek);
+            else if (dateElemetns.Keys.Contains("months"))
+                return dateElemetns["months"].Contains(date.Month);
+            else if (dateElemetns.Keys.Contains("daysOfMonth"))
+                return dateElemetns["daysOfMonth"].Contains(date.Day);
+            else if (dateElemetns.Keys.Contains("hours"))
+                return dateElemetns["hours"].Contains(date.Hour);
+            else if (dateElemetns.Keys.Contains("minutes"))
+                return dateElemetns["minutes"].Contains(date.Minute);
             else
                 return false;
+        }
+
+        private static Dictionary<string, List<int>> GetDateElements(string minute, string hour, string dayOfMonth, string month, string dayOfWeek)
+        {
+            var result = new Dictionary<string, List<int>>();
+            if (minute != "*")
+                result.Add("minutes", GetElementParts(minute, "minute"));
+            if (hour != "*")
+                result.Add("hours", GetElementParts(hour, "hour"));
+            if (dayOfMonth != "*")
+                result.Add("daysOfMonth", GetElementParts(dayOfMonth, "dayOfMonth"));
+            if (month != "*")
+                result.Add("months", GetElementParts(month, "month"));
+            if (dayOfWeek != "*")
+                result.Add("daysOfWeek", GetElementParts(dayOfWeek, "dayOfWeek"));
+            return result;
+        }
+
+        private static List<int> GetElementParts(string parts, string type)
+        {
+            var data = new List<int>();
+            if (parts.Contains("/"))
+            {
+                var multiple = Convert.ToInt32(parts.Split('/').Last());
+                var stop = 0;
+                if (type == "minute")
+                    stop = 59;
+                else if (type == "hour")
+                    stop = 23;
+                else if (type == "dayOfMonth")
+                    stop = 31;
+                else if (type == "month")
+                    stop = 12;
+                else if (type == "dayOfWeek")
+                    stop = 6;
+
+                if (type == "dayOfMonth" || type == "month")
+                {
+                    for (int i = 1; i <= stop; i += multiple)
+                        data.Add(i);
+                }
+
+                for (int i = 0; i <= stop; i += multiple)
+                    data.Add(i);
+            }
+            else if (parts.Contains(","))
+            {
+                var serie = parts.Split(',');
+                foreach (var val in serie)
+                {
+                    data.Add(Convert.ToInt32(val));
+                }
+            }
+            else if (parts.Contains("-"))
+            {
+                var range = parts.Split('-');
+                var start = Convert.ToInt32(range.First());
+                var end = Convert.ToInt32(range.Last());
+                if ((type == "dayOfMonth" || type == "month") && start == 0)
+                    start = 1;
+
+                for (int i = start; i <= end; i++)
+                    data.Add(i);
+            }
+            else
+            {
+                data.Add(Convert.ToInt32(parts));
+            }                
+
+            return data;
         }
     }
 }

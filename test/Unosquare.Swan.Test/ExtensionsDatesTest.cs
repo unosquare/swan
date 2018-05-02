@@ -136,21 +136,21 @@
         public void WithNonNull_Minute()
         {
             Assert.IsTrue(_date.AsCronCanRun(25, null, null, null, null));
-            Assert.IsTrue(_date.AsCronCanRun(minute: "25"));
+            Assert.IsTrue(_date.AsCronCanRun(minute: "*/5"));
         }
 
         [Test]
         public void WithNonNull_Hour()
         {
             Assert.IsTrue(_date.AsCronCanRun(null, 11, null, null, null));
-            Assert.IsTrue(_date.AsCronCanRun(hour: "11"));
+            Assert.IsTrue(_date.AsCronCanRun(hour: "10-12"));
         }
 
         [Test]
         public void WithNonNull_DayOfMonth()
         {
             Assert.IsTrue(_date.AsCronCanRun(null, null, 3, null, null));
-            Assert.IsTrue(_date.AsCronCanRun(dayOfMonth: "3"));
+            Assert.IsTrue(_date.AsCronCanRun(dayOfMonth: "3,4,5"));
         }
 
         [Test]
@@ -185,7 +185,7 @@
         public void WithNonNull_Minute_Hour_DayOfMonth_Month()
         {
             Assert.IsTrue(_date.AsCronCanRun(25, 11, 3, 7, null));
-            Assert.IsTrue(_date.AsCronCanRun(minute: "25", hour: "11", dayOfMonth: "3", month: "7"));
+            Assert.IsTrue(_date.AsCronCanRun(minute: "24,25,26", hour: "11", dayOfMonth: "3", month: "7"));
         }
 
         [Test]
