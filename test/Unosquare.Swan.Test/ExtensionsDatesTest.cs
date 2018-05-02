@@ -215,5 +215,14 @@
         {
             Assert.IsTrue(_date.AsCronCanRun(25, 11, 3, 7, 2));
         }
+
+        [Test]
+        public void WithWrongParams_Throws_FormatException()
+        {
+            Assert.Throws<FormatException>(() =>
+            {
+                _date.AsCronCanRun(minute: "hello");
+            });
+        }
     }
 }
