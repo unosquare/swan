@@ -9387,12 +9387,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose()
   nameWithType: LdapConnection.Dispose()
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose(System.Boolean)
-  name: Dispose(Boolean)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose_System_Boolean_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose(System.Boolean)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose(System.Boolean)
-  nameWithType: LdapConnection.Dispose(Boolean)
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose*
   name: Dispose
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose_
