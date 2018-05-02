@@ -14,7 +14,7 @@
             { "minute", 59},
             { "hour", 23},
             { "dayOfMonth", 31},
-            { "month", 11},
+            { "month", 12},
             { "dayOfWeek", 6},
         };
 
