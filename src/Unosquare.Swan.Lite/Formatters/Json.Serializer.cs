@@ -473,20 +473,14 @@
             /// </summary>
             /// <param name="text">The text.</param>
             /// <param name="depth">The depth.</param>
-            private void Append(string text, int depth)
-            {
-                _builder.Append($"{GetIndentString(depth)}{text}");
-            }
+            private void Append(string text, int depth) => _builder.Append($"{GetIndentString(depth)}{text}");
 
             /// <summary>
             /// Appends the specified text to the output StringBuilder.
             /// </summary>
             /// <param name="text">The text.</param>
             /// <param name="depth">The depth.</param>
-            private void Append(char text, int depth)
-            {
-                _builder.Append($"{GetIndentString(depth)}{text}");
-            }
+            private void Append(char text, int depth) => _builder.Append($"{GetIndentString(depth)}{text}");
 
             /// <summary>
             /// Appends a line to the output StringBuilder.

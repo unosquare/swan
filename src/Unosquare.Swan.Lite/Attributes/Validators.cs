@@ -166,22 +166,20 @@
 
             var max = (IComparable)Maximum;
             var min = (IComparable)Minimum;
+
             try
             {
                 var val = (IComparable)Convert.ChangeType(value, OperandType, CultureInfo.InvariantCulture);
                 return min.CompareTo(val) <= 0 && max.CompareTo(val) >= 0;
             }
-            catch (FormatException)
-            {
-                return false;
-            }
-            catch (InvalidCastException)
-            {
-                return false;
-            }
-            catch (NotSupportedException)
-            {
-                return false;
+            catch (Exception ex)            
+            {                
+                if (ex is FormatException || ex is InvalidCastException|| ex is NotSupportedException)
+                {
+                    return false;
+                }
+
+                throw;
             }
         }
     }

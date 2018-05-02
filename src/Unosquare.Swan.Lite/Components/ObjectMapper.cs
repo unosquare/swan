@@ -288,32 +288,8 @@
 
                 try
                 {
-                    var valueType = sourceProperty.Value;
-
-                    if (valueType.Type.GetTypeInfo().IsEnum)
-                    {
-                        targetProperty.SetValue(target,
-                            Enum.ToObject(targetProperty.PropertyType, valueType.Value));
-                        continue;
-                    }
-
-                    if (!valueType.Type.IsValueType() && targetProperty.PropertyType == valueType.Type)
-                    {
-                        targetProperty.SetValue(
-                            target,
-                            valueType.Value != null ? GetValue(valueType.Value, targetProperty.PropertyType) : null);
-
-                        copiedProperties++;
-                        continue;
-                    }
-
-                    // String to target type conversion
-                    if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(),
-                        out var targetValue))
-                    {
-                        targetProperty.SetValue(target, targetValue);
-                        copiedProperties++;
-                    }
+                    SetValue(sourceProperty.Value, target, targetProperty);
+                    copiedProperties++;
                 }
                 catch
                 {
@@ -322,6 +298,32 @@
             }
 
             return copiedProperties;
+        }
+
+        private static void SetValue(TypeValuePair valueType, object target, PropertyInfo targetProperty)
+        {
+            if (valueType.Type.GetTypeInfo().IsEnum)
+            {
+                targetProperty.SetValue(target,
+                    Enum.ToObject(targetProperty.PropertyType, valueType.Value));
+
+                return;
+            }
+
+            if (!valueType.Type.IsValueType() && targetProperty.PropertyType == valueType.Type)
+            {
+                targetProperty.SetValue(target,
+                    valueType.Value != null ? GetValue(valueType.Value, targetProperty.PropertyType) : null);
+
+                return;
+            }
+
+            // String to target type conversion
+            if (targetProperty.PropertyType.TryParseBasicType(valueType.Value.ToStringInvariant(),
+                out var targetValue))
+            {
+                targetProperty.SetValue(target, targetValue);
+            }
         }
 
         private static object GetValue(object source, Type targetType)
