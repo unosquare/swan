@@ -24,17 +24,7 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">bytes</exception>
         public static string ToLowerHex(this byte[] bytes, bool addPrefix = false)
-        {
-            if (bytes == null)
-                throw new ArgumentNullException(nameof(bytes));
-
-            var sb = new StringBuilder(bytes.Length * 2);
-
-            foreach (var item in bytes)
-                sb.Append(item.ToString("x2", CultureInfo.InvariantCulture));
-
-            return $"{(addPrefix ? "0x" : string.Empty)}{sb}";
-        }
+            => ToHex(bytes, addPrefix, "x2");
 
         /// <summary>
         /// Converts an array of bytes to its upper-case, hexadecimal representation
@@ -46,17 +36,7 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">bytes</exception>
         public static string ToUpperHex(this byte[] bytes, bool addPrefix = false)
-        {
-            if (bytes == null)
-                throw new ArgumentNullException(nameof(bytes));
-
-            var sb = new StringBuilder(bytes.Length * 2);
-
-            foreach (var item in bytes)
-                sb.Append(item.ToString("X2", CultureInfo.InvariantCulture));
-
-            return $"{(addPrefix ? "0x" : string.Empty)}{sb}";
-        }
+            => ToHex(bytes, addPrefix, "X2");
 
         /// <summary>
         /// Converts an array of bytes to a sequence of dash-separated, hexadecimal,
@@ -689,6 +669,19 @@
                 target[i] = (sbyte)receiver[i];
 
             return bytesRead;
+        }
+
+        private static string ToHex(byte[] bytes, bool addPrefix, string format)
+        {
+            if (bytes == null)
+                throw new ArgumentNullException(nameof(bytes));
+
+            var sb = new StringBuilder(bytes.Length * 2);
+
+            foreach (var item in bytes)
+                sb.Append(item.ToString(format, CultureInfo.InvariantCulture));
+
+            return $"{(addPrefix ? "0x" : string.Empty)}{sb}";
         }
     }
 }
