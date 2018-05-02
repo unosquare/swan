@@ -95,7 +95,7 @@ namespace Unosquare.Swan.Networking.Ldap
     /// }
     /// </code>
     /// </example>
-    public class LdapConnection
+    public class LdapConnection : IDisposable
     {
         /// <summary>
         /// Used with search to specify that the scope of entrys to search is to
@@ -295,9 +295,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal List<RfcLdapMessage> Messages { get; } = new List<RfcLdapMessage>();
 
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose() => Dispose(true);
 
         /// <summary>
@@ -557,6 +555,7 @@ namespace Unosquare.Swan.Networking.Ldap
             if (isDisposing)
             {
                 Disconnect();
+                _cts?.Dispose();
             }
         }
     }
