@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Components;
+    using Abstractions;
 
     public class RdlTokenizer : Tokenizer
     {

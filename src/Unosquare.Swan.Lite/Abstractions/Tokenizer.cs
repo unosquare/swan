@@ -1,9 +1,12 @@
-﻿namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Represents a generic tokenizer
+    /// </summary>
     public abstract class Tokenizer
     {
         private const char PeriodChar = '.';
@@ -83,7 +86,7 @@
         /// or
         /// Mismatched parenthesis
         /// </exception>
-        public IEnumerable<Token> ShuntingYard()
+        public virtual IEnumerable<Token> ShuntingYard()
         {
             var stack = new Stack<Token>();
 
