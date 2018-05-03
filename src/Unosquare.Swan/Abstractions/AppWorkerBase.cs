@@ -48,7 +48,7 @@
     /// </code>
     /// </example>
     public abstract class AppWorkerBase 
-        : IWorker
+        : IWorker, IDisposable
     {
         #region Property Backing
 
@@ -159,6 +159,12 @@
             "Service stop requested.".Debug(GetType().Name);
             State = AppWorkerState.Stopped;
         }
+        
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            _tokenSource?.Dispose();
+        }
 
         #endregion
 
@@ -219,6 +225,5 @@
         }
 
         #endregion
-
     }
 }

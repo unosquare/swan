@@ -178,7 +178,7 @@
         /// }
         /// </code>
         /// </example>
-    public static string SerializeOnly(object obj, bool format, params string[] includeNames)
+        public static string SerializeOnly(object obj, bool format, params string[] includeNames)
         {
             return Serializer.Serialize(obj, 0, format, null, includeNames, null, true);
         }
@@ -521,7 +521,7 @@
                 return Encoding.UTF8.GetBytes(sourceString);
             } // Get the string bytes in UTF8
         }
-        
+
         private static void PopulateObject(Type targetType, bool includeNonPublic, Dictionary<string, object> sourceProperties, object target)
         {
             var fields = new List<MemberInfo>();
@@ -543,48 +543,67 @@
 
                 if (sourcePropertyValue == null) continue;
 
-                object currentPropertyValue = null;
-
-                if (!targetType.IsValueType() && (targetProperty as PropertyInfo).PropertyType.IsArray == false)
-                {
-                    try
-                    {
-                        currentPropertyValue = (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-
                 try
                 {
-                    if (targetType.IsValueType())
-                    {
-                        var targetPropertyValue = ConvertFromJsonResult(
-                            sourcePropertyValue,
-                            (targetProperty as FieldInfo).FieldType,
-                            ref currentPropertyValue,
-                            includeNonPublic);
-
-                        (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
-                    }
-                    else
-                    {
-                        // Try to write properties to the current property value as a reference to the current property value
-                        var targetPropertyValue = ConvertFromJsonResult(
-                            sourcePropertyValue,
-                            (targetProperty as PropertyInfo).PropertyType,
-                            ref currentPropertyValue,
-                            includeNonPublic);
-
-                        (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic)?.Invoke(target, new[] { targetPropertyValue });
-                    }
+                    SetValue(targetType, includeNonPublic, target, sourcePropertyValue, targetProperty);
                 }
                 catch
                 {
                     // ignored
                 }
+            }
+        }
+
+        private static object GetCurrentPropertyValue(Type targetType, bool includeNonPublic, object target,
+            MemberInfo targetProperty)
+        {
+            object currentPropertyValue = null;
+
+            if (!targetType.IsValueType() && (targetProperty as PropertyInfo).PropertyType.IsArray == false)
+            {
+                try
+                {
+                    currentPropertyValue =
+                        (targetProperty as PropertyInfo).GetGetMethod(includeNonPublic)?.Invoke(target, null);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+            return currentPropertyValue;
+        }
+
+        private static void SetValue(
+            Type targetType, 
+            bool includeNonPublic, 
+            object target, 
+            object sourcePropertyValue,
+            MemberInfo targetProperty)
+        {
+            var currentPropertyValue = GetCurrentPropertyValue(targetType, includeNonPublic, target, targetProperty);
+
+            if (targetType.IsValueType())
+            {
+                var targetPropertyValue = ConvertFromJsonResult(
+                    sourcePropertyValue,
+                    (targetProperty as FieldInfo).FieldType,
+                    ref currentPropertyValue,
+                    includeNonPublic);
+
+                (targetProperty as FieldInfo).SetValue(target, targetPropertyValue);
+            }
+            else
+            {
+                // Try to write properties to the current property value as a reference to the current property value
+                var targetPropertyValue = ConvertFromJsonResult(
+                    sourcePropertyValue,
+                    (targetProperty as PropertyInfo).PropertyType,
+                    ref currentPropertyValue,
+                    includeNonPublic);
+
+                (targetProperty as PropertyInfo).GetSetMethod(includeNonPublic)?.Invoke(target, new[] {targetPropertyValue});
             }
         }
 

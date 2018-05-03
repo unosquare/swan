@@ -22,7 +22,7 @@ before_build:
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE -And $isWindows)
         {
             git checkout $env:APPVEYOR_REPO_BRANCH -q
-            cinst docfx -y
+            cinst docfx -y --no-progress
         }
 - ps: |
         if($isWindows)

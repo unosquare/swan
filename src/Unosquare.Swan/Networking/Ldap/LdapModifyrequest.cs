@@ -47,14 +47,15 @@ namespace Unosquare.Swan.Networking.Ldap
 
                 for (var m = 0; m < mods.Length; m++)
                 {
-                    var opSeq = (Asn1Sequence)mods[m];
-                    if (opSeq.Size() != 2)
+                    var sequence = (Asn1Sequence)mods[m];
+
+                    if (sequence.Size() != 2)
                     {
-                        throw new Exception($"LdapModifyRequest: modification {m} is wrong size:{opSeq.Size()}");
+                        throw new InvalidOperationException($"LdapModifyRequest: modification {m} is wrong size:{sequence.Size()}");
                     }
 
                     // Contains operation and sequence for the attribute
-                    var operators = opSeq.ToArray();
+                    var operators = sequence.ToArray();
                     
                     // get the operation
                     var op = ((Asn1Enumerated)operators[0]).IntValue();
@@ -78,12 +79,7 @@ namespace Unosquare.Swan.Networking.Ldap
             }
         }
 
-        /// <summary>
-        /// Return an Asn1 representation of this modify request
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        /// <inheritdoc />
         public override string ToString() => Asn1Object.ToString();
 
         private static Asn1SequenceOf EncodeModifications(LdapModification[] mods)
@@ -115,12 +111,7 @@ namespace Unosquare.Swan.Networking.Ldap
 
         internal class RfcAttributeTypeAndValues : Asn1Sequence
         {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="RfcAttributeTypeAndValues"/> class.
-            /// </summary>
-            /// <param name="type">The type.</param>
-            /// <param name="vals">The vals.</param>
-            public RfcAttributeTypeAndValues(string type, Asn1SetOf vals)
+            public RfcAttributeTypeAndValues(string type, Asn1Object vals)
                 : base(2)
             {
                 Add(type);

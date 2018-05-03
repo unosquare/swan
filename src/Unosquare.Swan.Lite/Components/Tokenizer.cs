@@ -58,7 +58,7 @@
         /// The tokens.
         /// </value>
         public List<Token> Tokens { get; } = new List<Token>();
-        
+
         /// <summary>
         /// Validates the input and return the start index for tokenizer.
         /// </summary>
@@ -124,7 +124,7 @@
 
                         break;
                     default:
-                        throw new Exception("Wrong token");
+                        throw new InvalidOperationException("Wrong token");
                 }
             }
 
@@ -132,12 +132,12 @@
             {
                 var tok = stack.Pop();
                 if (tok.Type == TokenType.Parenthesis)
-                    throw new Exception("Mismatched parenthesis");
+                    throw new InvalidOperationException("Mismatched parenthesis");
 
                 yield return tok;
             }
         }
-        
+
         private static bool CompareOperators(Operator op1, Operator op2) => op1.RightAssociative
             ? op1.Precedence < op2.Precedence
             : op1.Precedence <= op2.Precedence;
@@ -176,7 +176,7 @@
                 if (input[i] == OpenFuncChar ||
                     input[i] == CloseFuncChar)
                 {
-                    Tokens.Add(new Token(TokenType.Parenthesis, new string(new[] {input[i]})));
+                    Tokens.Add(new Token(TokenType.Parenthesis, new string(new[] { input[i] })));
                     continue;
                 }
 
@@ -185,11 +185,11 @@
         }
 
         private int ExtractData(
-            string input, 
-            int i, 
+            string input,
+            int i,
             Func<string, TokenType> tokenTypeEvaluation,
-            Func<char, bool> evaluation, 
-            int right = 0, 
+            Func<char, bool> evaluation,
+            int right = 0,
             int left = -1)
         {
             var charCount = 0;
@@ -231,16 +231,16 @@
 
             // open string, report issue
             if (length == input.Length && input[length - 1] != StringQuotedChar)
-                throw new Exception("Invalid expression");
+                throw new FormatException($"Parser error (Position {i}): Expected '\"' but got '{input[length - 1]}'.");
 
             return length;
         }
 
-        private bool CompareOperators(string op1, string op2) 
+        private bool CompareOperators(string op1, string op2)
             => CompareOperators(GetOperatorOrDefault(op1), GetOperatorOrDefault(op2));
 
         private Operator GetOperatorOrDefault(string op)
-            => _operators.FirstOrDefault(x => x.Name == op) ?? new Operator {Name = op, Precedence = 0};
+            => _operators.FirstOrDefault(x => x.Name == op) ?? new Operator { Name = op, Precedence = 0 };
     }
 
     /// <summary>
