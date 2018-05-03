@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Represents a Tokenizer base class
+    /// Represents a generic tokenizer
     /// </summary>
     public abstract class Tokenizer
     {

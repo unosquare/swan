@@ -5,7 +5,7 @@
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Represents a Expression Parser base class
+    /// Represents a generic expression parser
     /// </summary>
     public abstract class ExpressionParser
     {
