@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum TokenType
+    <title>Class Operator
    | Unosquare SWAN </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum TokenType
+    <meta name="title" content="Class Operator
    | Unosquare SWAN ">
     <meta name="generator" content="docfx 2.35.4.0">
     
@@ -77,61 +77,131 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Abstractions.TokenType">
+            <article class="content wrap" id="_content" data-uid="Unosquare.Swan.Components.Operator">
   
   
-  <h1 id="Unosquare_Swan_Abstractions_TokenType" data-uid="Unosquare.Swan.Abstractions.TokenType" class="text-break">Enum TokenType
+  <h1 id="Unosquare_Swan_Components_Operator" data-uid="Unosquare.Swan.Components.Operator" class="text-break">Class Operator
   </h1>
-  <div class="markdown level0 summary"><p>Enums the token types</p>
+  <div class="markdown level0 summary"><p>Represents an operator with precedence.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Abstractions.html">Unosquare.Swan.Abstractions</a></h6>
-  <h5 id="Unosquare_Swan_Abstractions_TokenType_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum TokenType</code></pre>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Operator</span></div>
   </div>
-  <h3 id="fields">Fields
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unosquare.Swan.Components.html">Unosquare.Swan.Components</a></h6>
+  <h5 id="Unosquare_Swan_Components_Operator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Operator</code></pre>
+  </div>
+  <h3 id="properties">Properties
   </h3>
+  
+  
+  <a id="Unosquare_Swan_Components_Operator_Name_" data-uid="Unosquare.Swan.Components.Operator.Name*"></a>
+  <h4 id="Unosquare_Swan_Components_Operator_Name" data-uid="Unosquare.Swan.Components.Operator.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Type</th>
         <th>Description</th>
       </tr>
-    <thead>
+    </thead>
     <tbody>
       <tr>
-        <td id="Unosquare_Swan_Abstractions_TokenType_Function">Function</td>
-        <td><p>The function</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_Abstractions_TokenType_Number">Number</td>
-        <td><p>The number</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_Abstractions_TokenType_Operator">Operator</td>
-        <td><p>The operator</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_Abstractions_TokenType_Parenthesis">Parenthesis</td>
-        <td><p>The parenthesis</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_Abstractions_TokenType_String">String</td>
-        <td><p>The string</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Unosquare_Swan_Abstractions_TokenType_Variable">Variable</td>
-        <td><p>The variable</p>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The name.</p>
 </td>
       </tr>
     </tbody>
-  </thead></thead></table>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_Operator_Precedence_" data-uid="Unosquare.Swan.Components.Operator.Precedence*"></a>
+  <h4 id="Unosquare_Swan_Components_Operator_Precedence" data-uid="Unosquare.Swan.Components.Operator.Precedence">Precedence</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the precedence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Precedence { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The precedence.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_Swan_Components_Operator_RightAssociative_" data-uid="Unosquare.Swan.Components.Operator.RightAssociative*"></a>
+  <h4 id="Unosquare_Swan_Components_Operator_RightAssociative" data-uid="Unosquare.Swan.Components.Operator.RightAssociative">RightAssociative</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [right associative].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RightAssociative { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if [right associative]; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 <div id="disqus_thread"></div>
 <script>
 
