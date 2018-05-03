@@ -1,10 +1,13 @@
-﻿namespace Unosquare.Swan.Components
+﻿namespace Unosquare.Swan.Abstractions
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class Tokenizer
+    /// <summary>
+    /// Represents a Tokenizer base class
+    /// </summary>
+    public abstract class TokenizerBase
     {
         private const char PeriodChar = '.';
         private const char CommaChar = ',';
@@ -31,21 +34,21 @@
         private readonly List<Operator> _operators = new List<Operator>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tokenizer"/> class.
+        /// Initializes a new instance of the <see cref="TokenizerBase"/> class.
         /// </summary>
         /// <param name="input">The input.</param>
-        protected Tokenizer(string input)
+        protected TokenizerBase(string input)
             : this(input, DefaultOperators)
         {
             // placeholder
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tokenizer" /> class.
+        /// Initializes a new instance of the <see cref="TokenizerBase" /> class.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="operators">The operators.</param>
-        protected Tokenizer(string input, IEnumerable<Operator> operators)
+        protected TokenizerBase(string input, IEnumerable<Operator> operators)
         {
             _operators.AddRange(operators);
             Tokenize(input);

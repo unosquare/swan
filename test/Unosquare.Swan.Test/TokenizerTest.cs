@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.Swan.Test
 {
-    using Components;
+    using Abstractions;
     using NUnit.Framework;
     using System.Linq;
     using Mocks;

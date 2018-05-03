@@ -1,0 +1,88 @@
+﻿namespace Unosquare.Swan.Test.Mocks
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using Abstractions;
+
+    class ExpressionParserMock : ExpressionParserBase
+    {
+        private static readonly Dictionary<string, Func<Expression[], Expression>> Functions =
+            new Dictionary<string, Func<Expression[], Expression>>
+            {
+                {"rnd", x => Expression.Constant(new Random().Next())},
+                {
+                    "max",
+                    x => Expression.Call(null,
+                        typeof(Math).GetMethod(nameof(Math.Max), new[] {typeof(int), typeof(int)}),
+                        Expression.Convert(x.First(), typeof(int)),
+                        Expression.Convert(x.Last(), typeof(int)))
+                },
+                {
+                    "min",
+                    x => Expression.Call(null,
+                        typeof(Math).GetMethod(nameof(Math.Min), new[] {typeof(int), typeof(int)}),
+                        Expression.Convert(x.First(), typeof(int)),
+                        Expression.Convert(x.Last(), typeof(int)))
+                },
+                {"+", x => Expression.Add(x.First(), x.Last())},
+                {"-", x => Expression.Subtract(x.First(), x.Last())},
+                {"*", x => Expression.Multiply(x.First(), x.Last())},
+                {"/", x => Expression.Divide(x.First(), x.Last())},
+                {"<", x => Expression.LessThan(x.First(), x.Last())},
+                {">", x => Expression.GreaterThan(x.First(), x.Last())},
+                {"=", x => Expression.Equal(x.First(), x.Last())},
+                {"<=", x => Expression.LessThanOrEqual(x.First(), x.Last())},
+                {">=", x => Expression.GreaterThanOrEqual(x.First(), x.Last())},
+                {"<>", x => Expression.NotEqual(x.First(), x.Last())},
+                {"and", x => Expression.And(x.First(), x.Last())},
+                {"or", x => Expression.Or(x.First(), x.Last())},
+                {"xor", x => Expression.ExclusiveOr(x.First(), x.Last())},
+                {"andalso", x => Expression.AndAlso(x.First(), x.Last())},
+                {"orelse", x => Expression.OrElse(x.First(), x.Last())}
+            };
+
+        private readonly Dictionary<string, object> _variables;
+
+        public ExpressionParserMock(Dictionary<string, object> variables)
+        {
+            _variables = variables ?? new Dictionary<string, object>();
+        }
+
+        public static T ResolveExpression<T>(string input, Dictionary<string, object> variables = null) => new ExpressionParserMock(variables).ResolveExpression<T>(GetTokens(input));
+
+        public override void ResolveVariable(string value, Stack<Expression> expressionStack)
+        {
+            if (!_variables.ContainsKey(value))
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            expressionStack.Push(Expression.Constant(_variables[value]));
+        }
+
+        public override void ResolveOperator(string value, Stack<Expression> expressionStack)
+        {
+            ResolveFunctionOrOperator(value, expressionStack, true);
+        }
+
+        public override void ResolveFunction(string value, Stack<Expression> expressionStack)
+        {
+            ResolveFunctionOrOperator(value, expressionStack, false);
+        }
+
+        private static void ResolveFunctionOrOperator(string value, Stack<Expression> expressionStack, bool isOperator)
+        {
+            var capacity = isOperator ? 2 : 10;
+
+            var expressions = new List<Expression>(capacity);
+
+            while (expressionStack.Count > 0 && expressions.Count < capacity)
+                expressions.Add(expressionStack.Pop());
+
+            expressions.Reverse();
+            expressionStack.Push(Functions[value](expressions.ToArray()));
+        }
+
+        private static IEnumerable<Token> GetTokens(string input) => new RdlTokenizer(input).ShuntingYard();
+    }
+}
