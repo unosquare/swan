@@ -11,7 +11,7 @@
         [TestCase("=MAX(1, 2)", 2)]
         [TestCase("=max(1, 2)", 2)]
         [TestCase("=min(5, 2)", 2)]
-        public void FunctionCall_ReturnsValue(string input, int expected)
+        public void FunctionCallExpression_ReturnsValue(string input, int expected)
         {
             var result = ExpressionParserMock.ResolveExpression<int>(input);
 
@@ -34,11 +34,19 @@
         }
 
         [Test]
-        public void GetVariable_ReturnsValue()
+        public void VariableExpression_ReturnsValue()
         {
             var result =
                 ExpressionParserMock.ResolveExpression<string>("=Global!Variable1",
                     new Dictionary<string, object> {{"Global!Variable1", "hola"}});
+
+            Assert.AreEqual("hola", result);
+        }
+
+        [Test]
+        public void StringExpression_ReturnsValue()
+        {
+            var result = ExpressionParserMock.ResolveExpression<string>("=\"hola\"");
 
             Assert.AreEqual("hola", result);
         }
