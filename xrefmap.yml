@@ -45,6 +45,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.AppWorkerBase.CancellationToken
   nameWithType: AppWorkerBase.CancellationToken
+- uid: Unosquare.Swan.Abstractions.AppWorkerBase.Dispose
+  name: Dispose()
+  href: api/Unosquare.Swan.Abstractions.AppWorkerBase.html#Unosquare_Swan_Abstractions_AppWorkerBase_Dispose
+  commentId: M:Unosquare.Swan.Abstractions.AppWorkerBase.Dispose
+  fullName: Unosquare.Swan.Abstractions.AppWorkerBase.Dispose()
+  nameWithType: AppWorkerBase.Dispose()
+- uid: Unosquare.Swan.Abstractions.AppWorkerBase.Dispose*
+  name: Dispose
+  href: api/Unosquare.Swan.Abstractions.AppWorkerBase.html#Unosquare_Swan_Abstractions_AppWorkerBase_Dispose_
+  commentId: Overload:Unosquare.Swan.Abstractions.AppWorkerBase.Dispose
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.AppWorkerBase.Dispose
+  nameWithType: AppWorkerBase.Dispose
 - uid: Unosquare.Swan.Abstractions.AppWorkerBase.Initialize
   name: Initialize()
   href: api/Unosquare.Swan.Abstractions.AppWorkerBase.html#Unosquare_Swan_Abstractions_AppWorkerBase_Initialize
@@ -8818,6 +8831,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Networking.JsonClient.PutString
   nameWithType: JsonClient.PutString
+- uid: Unosquare.Swan.Networking.JsonClient.SendAsync(HttpMethod,System.String,System.Object,System.String,System.Threading.CancellationToken)
+  name: SendAsync(HttpMethod, String, Object, String, CancellationToken)
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_SendAsync_HttpMethod_System_String_System_Object_System_String_System_Threading_CancellationToken_
+  commentId: M:Unosquare.Swan.Networking.JsonClient.SendAsync(HttpMethod,System.String,System.Object,System.String,System.Threading.CancellationToken)
+  fullName: Unosquare.Swan.Networking.JsonClient.SendAsync(HttpMethod, System.String, System.Object, System.String, System.Threading.CancellationToken)
+  nameWithType: JsonClient.SendAsync(HttpMethod, String, Object, String, CancellationToken)
+- uid: Unosquare.Swan.Networking.JsonClient.SendAsync*
+  name: SendAsync
+  href: api/Unosquare.Swan.Networking.JsonClient.html#Unosquare_Swan_Networking_JsonClient_SendAsync_
+  commentId: Overload:Unosquare.Swan.Networking.JsonClient.SendAsync
+  isSpec: "True"
+  fullName: Unosquare.Swan.Networking.JsonClient.SendAsync
+  nameWithType: JsonClient.SendAsync
 - uid: Unosquare.Swan.Networking.Ldap
   name: Unosquare.Swan.Networking.Ldap
   href: api/Unosquare.Swan.Networking.Ldap.html
@@ -9396,12 +9422,6 @@ references:
   commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose
   fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose()
   nameWithType: LdapConnection.Dispose()
-- uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose(System.Boolean)
-  name: Dispose(Boolean)
-  href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose_System_Boolean_
-  commentId: M:Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose(System.Boolean)
-  fullName: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose(System.Boolean)
-  nameWithType: LdapConnection.Dispose(Boolean)
 - uid: Unosquare.Swan.Networking.Ldap.LdapConnection.Dispose*
   name: Dispose
   href: api/Unosquare.Swan.Networking.Ldap.LdapConnection.html#Unosquare_Swan_Networking_Ldap_LdapConnection_Dispose_
@@ -12220,6 +12240,19 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Runtime.EntryAssemblyVersion
   nameWithType: Runtime.EntryAssemblyVersion
+- uid: Unosquare.Swan.Runtime.EnumHelper
+  name: EnumHelper
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_EnumHelper
+  commentId: P:Unosquare.Swan.Runtime.EnumHelper
+  fullName: Unosquare.Swan.Runtime.EnumHelper
+  nameWithType: Runtime.EnumHelper
+- uid: Unosquare.Swan.Runtime.EnumHelper*
+  name: EnumHelper
+  href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_EnumHelper_
+  commentId: Overload:Unosquare.Swan.Runtime.EnumHelper
+  isSpec: "True"
+  fullName: Unosquare.Swan.Runtime.EnumHelper
+  nameWithType: Runtime.EnumHelper
 - uid: Unosquare.Swan.Runtime.FieldTypeCache
   name: FieldTypeCache
   href: api/Unosquare.Swan.Runtime.html#Unosquare_Swan_Runtime_FieldTypeCache
