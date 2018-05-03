@@ -107,6 +107,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.ExpressionParserBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.ExpressionParserBase.html",
+          "hash": "S9nsc4rQskc1LiwM0ArR2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.ISyncLocker.yml",
       "output": {
         ".html": {
@@ -136,6 +148,18 @@
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.IWorker.html",
           "hash": "dZE3B1ssZeYEoNtwUsHwfw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.Operator.html",
+          "hash": "NMjDlR3eJt3dnlQeSC+6gA=="
         }
       },
       "is_incremental": false,
@@ -179,11 +203,47 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.Token.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.Token.html",
+          "hash": "rdDeMP13UWE7oKYCZD5UGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.TokenType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.TokenType.html",
+          "hash": "B6w2F331hD90kL3bXOZTsw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.TokenizerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.Swan.Abstractions.TokenizerBase.html",
+          "hash": "hZKLyc63GzxOPMhcgNVVYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Abstractions.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Abstractions.html",
-          "hash": "TKXZEUMq3bC94908mqBl6A=="
+          "hash": "MSY6ngIYlmywDNAdgYTcVA=="
         }
       },
       "is_incremental": false,
@@ -815,18 +875,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Components.Operator.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Components.Operator.html",
-          "hash": "zr2V3GAvJn8yjjaMptMJgQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Components.ProcessResult.yml",
       "output": {
         ".html": {
@@ -875,42 +923,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Components.Token.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Components.Token.html",
-          "hash": "Cbh2aIXeT6IwEY7xxLORSQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Components.TokenType.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Components.TokenType.html",
-          "hash": "bpUwJ9fSRp9Uh6443ECrOQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.Swan.Components.Tokenizer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.Swan.Components.Tokenizer.html",
-          "hash": "s68IxAOhBl5bnK54jJyHBg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.Swan.Components.WaitEventFactory.yml",
       "output": {
         ".html": {
@@ -927,7 +939,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.Swan.Components.html",
-          "hash": "tYf33QoHv0Dgo9kFFor7PQ=="
+          "hash": "Zll0QpTvnLjVa0nDiPw1Fw=="
         }
       },
       "is_incremental": false,
@@ -1935,7 +1947,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "+lFaQAvgqshRCbR8jblOlg=="
+          "hash": "SPYnFH9HitU2NptXcNEwpw=="
         }
       },
       "is_incremental": false,
@@ -1985,8 +1997,9 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
@@ -1998,9 +2011,8 @@
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

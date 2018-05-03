@@ -572,6 +572,92 @@ references:
   fullName.vb: Unosquare.Swan.Abstractions.AtomicTypeBase(Of T).Value
   nameWithType: AtomicTypeBase<T>.Value
   nameWithType.vb: AtomicTypeBase(Of T).Value
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase
+  name: ExpressionParserBase
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html
+  commentId: T:Unosquare.Swan.Abstractions.ExpressionParserBase
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase
+  nameWithType: ExpressionParserBase
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.Parse(System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Token})
+  name: Parse(IEnumerable<Token>)
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_Parse_System_Collections_Generic_IEnumerable_Unosquare_Swan_Abstractions_Token__
+  commentId: M:Unosquare.Swan.Abstractions.ExpressionParserBase.Parse(System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Token})
+  name.vb: Parse(IEnumerable(Of Token))
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.Parse(System.Collections.Generic.IEnumerable<Unosquare.Swan.Abstractions.Token>)
+  fullName.vb: Unosquare.Swan.Abstractions.ExpressionParserBase.Parse(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Abstractions.Token))
+  nameWithType: ExpressionParserBase.Parse(IEnumerable<Token>)
+  nameWithType.vb: ExpressionParserBase.Parse(IEnumerable(Of Token))
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.Parse*
+  name: Parse
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_Parse_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExpressionParserBase.Parse
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.Parse
+  nameWithType: ExpressionParserBase.Parse
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveExpression*
+  name: ResolveExpression
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveExpression_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveExpression
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveExpression
+  nameWithType: ExpressionParserBase.ResolveExpression
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveExpression``1(System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Token})
+  name: ResolveExpression<T>(IEnumerable<Token>)
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveExpression__1_System_Collections_Generic_IEnumerable_Unosquare_Swan_Abstractions_Token__
+  commentId: M:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveExpression``1(System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Token})
+  name.vb: ResolveExpression(Of T)(IEnumerable(Of Token))
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveExpression<T>(System.Collections.Generic.IEnumerable<Unosquare.Swan.Abstractions.Token>)
+  fullName.vb: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveExpression(Of T)(System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Abstractions.Token))
+  nameWithType: ExpressionParserBase.ResolveExpression<T>(IEnumerable<Token>)
+  nameWithType.vb: ExpressionParserBase.ResolveExpression(Of T)(IEnumerable(Of Token))
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveFunction(System.String,Stack{Expression})
+  name: ResolveFunction(String, Stack<Expression>)
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveFunction_System_String_Stack_Expression__
+  commentId: M:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveFunction(System.String,Stack{Expression})
+  name.vb: ResolveFunction(String, Stack(Of Expression))
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveFunction(System.String, Stack<Expression>)
+  fullName.vb: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveFunction(System.String, Stack(Of Expression))
+  nameWithType: ExpressionParserBase.ResolveFunction(String, Stack<Expression>)
+  nameWithType.vb: ExpressionParserBase.ResolveFunction(String, Stack(Of Expression))
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveFunction*
+  name: ResolveFunction
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveFunction_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveFunction
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveFunction
+  nameWithType: ExpressionParserBase.ResolveFunction
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveOperator(System.String,Stack{Expression})
+  name: ResolveOperator(String, Stack<Expression>)
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveOperator_System_String_Stack_Expression__
+  commentId: M:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveOperator(System.String,Stack{Expression})
+  name.vb: ResolveOperator(String, Stack(Of Expression))
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveOperator(System.String, Stack<Expression>)
+  fullName.vb: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveOperator(System.String, Stack(Of Expression))
+  nameWithType: ExpressionParserBase.ResolveOperator(String, Stack<Expression>)
+  nameWithType.vb: ExpressionParserBase.ResolveOperator(String, Stack(Of Expression))
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveOperator*
+  name: ResolveOperator
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveOperator_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveOperator
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveOperator
+  nameWithType: ExpressionParserBase.ResolveOperator
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveVariable(System.String,Stack{Expression})
+  name: ResolveVariable(String, Stack<Expression>)
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveVariable_System_String_Stack_Expression__
+  commentId: M:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveVariable(System.String,Stack{Expression})
+  name.vb: ResolveVariable(String, Stack(Of Expression))
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveVariable(System.String, Stack<Expression>)
+  fullName.vb: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveVariable(System.String, Stack(Of Expression))
+  nameWithType: ExpressionParserBase.ResolveVariable(String, Stack<Expression>)
+  nameWithType.vb: ExpressionParserBase.ResolveVariable(String, Stack(Of Expression))
+- uid: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveVariable*
+  name: ResolveVariable
+  href: api/Unosquare.Swan.Abstractions.ExpressionParserBase.html#Unosquare_Swan_Abstractions_ExpressionParserBase_ResolveVariable_
+  commentId: Overload:Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveVariable
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.ExpressionParserBase.ResolveVariable
+  nameWithType: ExpressionParserBase.ResolveVariable
 - uid: Unosquare.Swan.Abstractions.ISyncLocker
   name: ISyncLocker
   href: api/Unosquare.Swan.Abstractions.ISyncLocker.html
@@ -739,6 +825,51 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Abstractions.IWorker.Stop
   nameWithType: IWorker.Stop
+- uid: Unosquare.Swan.Abstractions.Operator
+  name: Operator
+  href: api/Unosquare.Swan.Abstractions.Operator.html
+  commentId: T:Unosquare.Swan.Abstractions.Operator
+  fullName: Unosquare.Swan.Abstractions.Operator
+  nameWithType: Operator
+- uid: Unosquare.Swan.Abstractions.Operator.Name
+  name: Name
+  href: api/Unosquare.Swan.Abstractions.Operator.html#Unosquare_Swan_Abstractions_Operator_Name
+  commentId: P:Unosquare.Swan.Abstractions.Operator.Name
+  fullName: Unosquare.Swan.Abstractions.Operator.Name
+  nameWithType: Operator.Name
+- uid: Unosquare.Swan.Abstractions.Operator.Name*
+  name: Name
+  href: api/Unosquare.Swan.Abstractions.Operator.html#Unosquare_Swan_Abstractions_Operator_Name_
+  commentId: Overload:Unosquare.Swan.Abstractions.Operator.Name
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Operator.Name
+  nameWithType: Operator.Name
+- uid: Unosquare.Swan.Abstractions.Operator.Precedence
+  name: Precedence
+  href: api/Unosquare.Swan.Abstractions.Operator.html#Unosquare_Swan_Abstractions_Operator_Precedence
+  commentId: P:Unosquare.Swan.Abstractions.Operator.Precedence
+  fullName: Unosquare.Swan.Abstractions.Operator.Precedence
+  nameWithType: Operator.Precedence
+- uid: Unosquare.Swan.Abstractions.Operator.Precedence*
+  name: Precedence
+  href: api/Unosquare.Swan.Abstractions.Operator.html#Unosquare_Swan_Abstractions_Operator_Precedence_
+  commentId: Overload:Unosquare.Swan.Abstractions.Operator.Precedence
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Operator.Precedence
+  nameWithType: Operator.Precedence
+- uid: Unosquare.Swan.Abstractions.Operator.RightAssociative
+  name: RightAssociative
+  href: api/Unosquare.Swan.Abstractions.Operator.html#Unosquare_Swan_Abstractions_Operator_RightAssociative
+  commentId: P:Unosquare.Swan.Abstractions.Operator.RightAssociative
+  fullName: Unosquare.Swan.Abstractions.Operator.RightAssociative
+  nameWithType: Operator.RightAssociative
+- uid: Unosquare.Swan.Abstractions.Operator.RightAssociative*
+  name: RightAssociative
+  href: api/Unosquare.Swan.Abstractions.Operator.html#Unosquare_Swan_Abstractions_Operator_RightAssociative_
+  commentId: Overload:Unosquare.Swan.Abstractions.Operator.RightAssociative
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Operator.RightAssociative
+  nameWithType: Operator.RightAssociative
 - uid: Unosquare.Swan.Abstractions.ServiceBase
   name: ServiceBase
   href: api/Unosquare.Swan.Abstractions.ServiceBase.html
@@ -1053,6 +1184,176 @@ references:
   fullName.vb: Unosquare.Swan.Abstractions.SingletonBase(Of T).LazyInstance
   nameWithType: SingletonBase<T>.LazyInstance
   nameWithType.vb: SingletonBase(Of T).LazyInstance
+- uid: Unosquare.Swan.Abstractions.Token
+  name: Token
+  href: api/Unosquare.Swan.Abstractions.Token.html
+  commentId: T:Unosquare.Swan.Abstractions.Token
+  fullName: Unosquare.Swan.Abstractions.Token
+  nameWithType: Token
+- uid: Unosquare.Swan.Abstractions.Token.#ctor(Unosquare.Swan.Abstractions.TokenType,System.String)
+  name: Token(TokenType, String)
+  href: api/Unosquare.Swan.Abstractions.Token.html#Unosquare_Swan_Abstractions_Token__ctor_Unosquare_Swan_Abstractions_TokenType_System_String_
+  commentId: M:Unosquare.Swan.Abstractions.Token.#ctor(Unosquare.Swan.Abstractions.TokenType,System.String)
+  fullName: Unosquare.Swan.Abstractions.Token.Token(Unosquare.Swan.Abstractions.TokenType, System.String)
+  nameWithType: Token.Token(TokenType, String)
+- uid: Unosquare.Swan.Abstractions.Token.#ctor*
+  name: Token
+  href: api/Unosquare.Swan.Abstractions.Token.html#Unosquare_Swan_Abstractions_Token__ctor_
+  commentId: Overload:Unosquare.Swan.Abstractions.Token.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Token.Token
+  nameWithType: Token.Token
+- uid: Unosquare.Swan.Abstractions.Token.Type
+  name: Type
+  href: api/Unosquare.Swan.Abstractions.Token.html#Unosquare_Swan_Abstractions_Token_Type
+  commentId: P:Unosquare.Swan.Abstractions.Token.Type
+  fullName: Unosquare.Swan.Abstractions.Token.Type
+  nameWithType: Token.Type
+- uid: Unosquare.Swan.Abstractions.Token.Type*
+  name: Type
+  href: api/Unosquare.Swan.Abstractions.Token.html#Unosquare_Swan_Abstractions_Token_Type_
+  commentId: Overload:Unosquare.Swan.Abstractions.Token.Type
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Token.Type
+  nameWithType: Token.Type
+- uid: Unosquare.Swan.Abstractions.Token.Value
+  name: Value
+  href: api/Unosquare.Swan.Abstractions.Token.html#Unosquare_Swan_Abstractions_Token_Value
+  commentId: P:Unosquare.Swan.Abstractions.Token.Value
+  fullName: Unosquare.Swan.Abstractions.Token.Value
+  nameWithType: Token.Value
+- uid: Unosquare.Swan.Abstractions.Token.Value*
+  name: Value
+  href: api/Unosquare.Swan.Abstractions.Token.html#Unosquare_Swan_Abstractions_Token_Value_
+  commentId: Overload:Unosquare.Swan.Abstractions.Token.Value
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.Token.Value
+  nameWithType: Token.Value
+- uid: Unosquare.Swan.Abstractions.TokenizerBase
+  name: TokenizerBase
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html
+  commentId: T:Unosquare.Swan.Abstractions.TokenizerBase
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase
+  nameWithType: TokenizerBase
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.#ctor(System.String)
+  name: TokenizerBase(String)
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase__ctor_System_String_
+  commentId: M:Unosquare.Swan.Abstractions.TokenizerBase.#ctor(System.String)
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.TokenizerBase(System.String)
+  nameWithType: TokenizerBase.TokenizerBase(String)
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.#ctor(System.String,System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Operator})
+  name: TokenizerBase(String, IEnumerable<Operator>)
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase__ctor_System_String_System_Collections_Generic_IEnumerable_Unosquare_Swan_Abstractions_Operator__
+  commentId: M:Unosquare.Swan.Abstractions.TokenizerBase.#ctor(System.String,System.Collections.Generic.IEnumerable{Unosquare.Swan.Abstractions.Operator})
+  name.vb: TokenizerBase(String, IEnumerable(Of Operator))
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.TokenizerBase(System.String, System.Collections.Generic.IEnumerable<Unosquare.Swan.Abstractions.Operator>)
+  fullName.vb: Unosquare.Swan.Abstractions.TokenizerBase.TokenizerBase(System.String, System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Abstractions.Operator))
+  nameWithType: TokenizerBase.TokenizerBase(String, IEnumerable<Operator>)
+  nameWithType.vb: TokenizerBase.TokenizerBase(String, IEnumerable(Of Operator))
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.#ctor*
+  name: TokenizerBase
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase__ctor_
+  commentId: Overload:Unosquare.Swan.Abstractions.TokenizerBase.#ctor
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.TokenizerBase
+  nameWithType: TokenizerBase.TokenizerBase
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.ResolveFunctionOrMemberType(System.String)
+  name: ResolveFunctionOrMemberType(String)
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_ResolveFunctionOrMemberType_System_String_
+  commentId: M:Unosquare.Swan.Abstractions.TokenizerBase.ResolveFunctionOrMemberType(System.String)
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.ResolveFunctionOrMemberType(System.String)
+  nameWithType: TokenizerBase.ResolveFunctionOrMemberType(String)
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.ResolveFunctionOrMemberType*
+  name: ResolveFunctionOrMemberType
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_ResolveFunctionOrMemberType_
+  commentId: Overload:Unosquare.Swan.Abstractions.TokenizerBase.ResolveFunctionOrMemberType
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.ResolveFunctionOrMemberType
+  nameWithType: TokenizerBase.ResolveFunctionOrMemberType
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.ShuntingYard
+  name: ShuntingYard()
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_ShuntingYard
+  commentId: M:Unosquare.Swan.Abstractions.TokenizerBase.ShuntingYard
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.ShuntingYard()
+  nameWithType: TokenizerBase.ShuntingYard()
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.ShuntingYard*
+  name: ShuntingYard
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_ShuntingYard_
+  commentId: Overload:Unosquare.Swan.Abstractions.TokenizerBase.ShuntingYard
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.ShuntingYard
+  nameWithType: TokenizerBase.ShuntingYard
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.Tokens
+  name: Tokens
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_Tokens
+  commentId: P:Unosquare.Swan.Abstractions.TokenizerBase.Tokens
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.Tokens
+  nameWithType: TokenizerBase.Tokens
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.Tokens*
+  name: Tokens
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_Tokens_
+  commentId: Overload:Unosquare.Swan.Abstractions.TokenizerBase.Tokens
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.Tokens
+  nameWithType: TokenizerBase.Tokens
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.ValidateInput(System.String,System.Int32@)
+  name: ValidateInput(String, out Int32)
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_ValidateInput_System_String_System_Int32__
+  commentId: M:Unosquare.Swan.Abstractions.TokenizerBase.ValidateInput(System.String,System.Int32@)
+  name.vb: ValidateInput(String, ByRef Int32)
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.ValidateInput(System.String, out System.Int32)
+  fullName.vb: Unosquare.Swan.Abstractions.TokenizerBase.ValidateInput(System.String, ByRef System.Int32)
+  nameWithType: TokenizerBase.ValidateInput(String, out Int32)
+  nameWithType.vb: TokenizerBase.ValidateInput(String, ByRef Int32)
+- uid: Unosquare.Swan.Abstractions.TokenizerBase.ValidateInput*
+  name: ValidateInput
+  href: api/Unosquare.Swan.Abstractions.TokenizerBase.html#Unosquare_Swan_Abstractions_TokenizerBase_ValidateInput_
+  commentId: Overload:Unosquare.Swan.Abstractions.TokenizerBase.ValidateInput
+  isSpec: "True"
+  fullName: Unosquare.Swan.Abstractions.TokenizerBase.ValidateInput
+  nameWithType: TokenizerBase.ValidateInput
+- uid: Unosquare.Swan.Abstractions.TokenType
+  name: TokenType
+  href: api/Unosquare.Swan.Abstractions.TokenType.html
+  commentId: T:Unosquare.Swan.Abstractions.TokenType
+  fullName: Unosquare.Swan.Abstractions.TokenType
+  nameWithType: TokenType
+- uid: Unosquare.Swan.Abstractions.TokenType.Function
+  name: Function
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Function
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Function
+  fullName: Unosquare.Swan.Abstractions.TokenType.Function
+  nameWithType: TokenType.Function
+- uid: Unosquare.Swan.Abstractions.TokenType.Number
+  name: Number
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Number
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Number
+  fullName: Unosquare.Swan.Abstractions.TokenType.Number
+  nameWithType: TokenType.Number
+- uid: Unosquare.Swan.Abstractions.TokenType.Operator
+  name: Operator
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Operator
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Operator
+  fullName: Unosquare.Swan.Abstractions.TokenType.Operator
+  nameWithType: TokenType.Operator
+- uid: Unosquare.Swan.Abstractions.TokenType.Parenthesis
+  name: Parenthesis
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Parenthesis
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Parenthesis
+  fullName: Unosquare.Swan.Abstractions.TokenType.Parenthesis
+  nameWithType: TokenType.Parenthesis
+- uid: Unosquare.Swan.Abstractions.TokenType.String
+  name: String
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_String
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.String
+  fullName: Unosquare.Swan.Abstractions.TokenType.String
+  nameWithType: TokenType.String
+- uid: Unosquare.Swan.Abstractions.TokenType.Variable
+  name: Variable
+  href: api/Unosquare.Swan.Abstractions.TokenType.html#Unosquare_Swan_Abstractions_TokenType_Variable
+  commentId: F:Unosquare.Swan.Abstractions.TokenType.Variable
+  fullName: Unosquare.Swan.Abstractions.TokenType.Variable
+  nameWithType: TokenType.Variable
 - uid: Unosquare.Swan.AppWorkerState
   name: AppWorkerState
   href: api/Unosquare.Swan.AppWorkerState.html
@@ -4682,51 +4983,6 @@ references:
   fullName.vb: Unosquare.Swan.Components.ObjectValidator.Validate(Of T)(T)
   nameWithType: ObjectValidator.Validate<T>(T)
   nameWithType.vb: ObjectValidator.Validate(Of T)(T)
-- uid: Unosquare.Swan.Components.Operator
-  name: Operator
-  href: api/Unosquare.Swan.Components.Operator.html
-  commentId: T:Unosquare.Swan.Components.Operator
-  fullName: Unosquare.Swan.Components.Operator
-  nameWithType: Operator
-- uid: Unosquare.Swan.Components.Operator.Name
-  name: Name
-  href: api/Unosquare.Swan.Components.Operator.html#Unosquare_Swan_Components_Operator_Name
-  commentId: P:Unosquare.Swan.Components.Operator.Name
-  fullName: Unosquare.Swan.Components.Operator.Name
-  nameWithType: Operator.Name
-- uid: Unosquare.Swan.Components.Operator.Name*
-  name: Name
-  href: api/Unosquare.Swan.Components.Operator.html#Unosquare_Swan_Components_Operator_Name_
-  commentId: Overload:Unosquare.Swan.Components.Operator.Name
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Operator.Name
-  nameWithType: Operator.Name
-- uid: Unosquare.Swan.Components.Operator.Precedence
-  name: Precedence
-  href: api/Unosquare.Swan.Components.Operator.html#Unosquare_Swan_Components_Operator_Precedence
-  commentId: P:Unosquare.Swan.Components.Operator.Precedence
-  fullName: Unosquare.Swan.Components.Operator.Precedence
-  nameWithType: Operator.Precedence
-- uid: Unosquare.Swan.Components.Operator.Precedence*
-  name: Precedence
-  href: api/Unosquare.Swan.Components.Operator.html#Unosquare_Swan_Components_Operator_Precedence_
-  commentId: Overload:Unosquare.Swan.Components.Operator.Precedence
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Operator.Precedence
-  nameWithType: Operator.Precedence
-- uid: Unosquare.Swan.Components.Operator.RightAssociative
-  name: RightAssociative
-  href: api/Unosquare.Swan.Components.Operator.html#Unosquare_Swan_Components_Operator_RightAssociative
-  commentId: P:Unosquare.Swan.Components.Operator.RightAssociative
-  fullName: Unosquare.Swan.Components.Operator.RightAssociative
-  nameWithType: Operator.RightAssociative
-- uid: Unosquare.Swan.Components.Operator.RightAssociative*
-  name: RightAssociative
-  href: api/Unosquare.Swan.Components.Operator.html#Unosquare_Swan_Components_Operator_RightAssociative_
-  commentId: Overload:Unosquare.Swan.Components.Operator.RightAssociative
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Operator.RightAssociative
-  nameWithType: Operator.RightAssociative
 - uid: Unosquare.Swan.Components.ProcessResult
   name: ProcessResult
   href: api/Unosquare.Swan.Components.ProcessResult.html
@@ -4899,176 +5155,6 @@ references:
   isSpec: "True"
   fullName: Unosquare.Swan.Components.SyncLockerFactory.CreateSlim
   nameWithType: SyncLockerFactory.CreateSlim
-- uid: Unosquare.Swan.Components.Token
-  name: Token
-  href: api/Unosquare.Swan.Components.Token.html
-  commentId: T:Unosquare.Swan.Components.Token
-  fullName: Unosquare.Swan.Components.Token
-  nameWithType: Token
-- uid: Unosquare.Swan.Components.Token.#ctor(Unosquare.Swan.Components.TokenType,System.String)
-  name: Token(TokenType, String)
-  href: api/Unosquare.Swan.Components.Token.html#Unosquare_Swan_Components_Token__ctor_Unosquare_Swan_Components_TokenType_System_String_
-  commentId: M:Unosquare.Swan.Components.Token.#ctor(Unosquare.Swan.Components.TokenType,System.String)
-  fullName: Unosquare.Swan.Components.Token.Token(Unosquare.Swan.Components.TokenType, System.String)
-  nameWithType: Token.Token(TokenType, String)
-- uid: Unosquare.Swan.Components.Token.#ctor*
-  name: Token
-  href: api/Unosquare.Swan.Components.Token.html#Unosquare_Swan_Components_Token__ctor_
-  commentId: Overload:Unosquare.Swan.Components.Token.#ctor
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Token.Token
-  nameWithType: Token.Token
-- uid: Unosquare.Swan.Components.Token.Type
-  name: Type
-  href: api/Unosquare.Swan.Components.Token.html#Unosquare_Swan_Components_Token_Type
-  commentId: P:Unosquare.Swan.Components.Token.Type
-  fullName: Unosquare.Swan.Components.Token.Type
-  nameWithType: Token.Type
-- uid: Unosquare.Swan.Components.Token.Type*
-  name: Type
-  href: api/Unosquare.Swan.Components.Token.html#Unosquare_Swan_Components_Token_Type_
-  commentId: Overload:Unosquare.Swan.Components.Token.Type
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Token.Type
-  nameWithType: Token.Type
-- uid: Unosquare.Swan.Components.Token.Value
-  name: Value
-  href: api/Unosquare.Swan.Components.Token.html#Unosquare_Swan_Components_Token_Value
-  commentId: P:Unosquare.Swan.Components.Token.Value
-  fullName: Unosquare.Swan.Components.Token.Value
-  nameWithType: Token.Value
-- uid: Unosquare.Swan.Components.Token.Value*
-  name: Value
-  href: api/Unosquare.Swan.Components.Token.html#Unosquare_Swan_Components_Token_Value_
-  commentId: Overload:Unosquare.Swan.Components.Token.Value
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Token.Value
-  nameWithType: Token.Value
-- uid: Unosquare.Swan.Components.Tokenizer
-  name: Tokenizer
-  href: api/Unosquare.Swan.Components.Tokenizer.html
-  commentId: T:Unosquare.Swan.Components.Tokenizer
-  fullName: Unosquare.Swan.Components.Tokenizer
-  nameWithType: Tokenizer
-- uid: Unosquare.Swan.Components.Tokenizer.#ctor(System.String)
-  name: Tokenizer(String)
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer__ctor_System_String_
-  commentId: M:Unosquare.Swan.Components.Tokenizer.#ctor(System.String)
-  fullName: Unosquare.Swan.Components.Tokenizer.Tokenizer(System.String)
-  nameWithType: Tokenizer.Tokenizer(String)
-- uid: Unosquare.Swan.Components.Tokenizer.#ctor(System.String,System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.Operator})
-  name: Tokenizer(String, IEnumerable<Operator>)
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer__ctor_System_String_System_Collections_Generic_IEnumerable_Unosquare_Swan_Components_Operator__
-  commentId: M:Unosquare.Swan.Components.Tokenizer.#ctor(System.String,System.Collections.Generic.IEnumerable{Unosquare.Swan.Components.Operator})
-  name.vb: Tokenizer(String, IEnumerable(Of Operator))
-  fullName: Unosquare.Swan.Components.Tokenizer.Tokenizer(System.String, System.Collections.Generic.IEnumerable<Unosquare.Swan.Components.Operator>)
-  fullName.vb: Unosquare.Swan.Components.Tokenizer.Tokenizer(System.String, System.Collections.Generic.IEnumerable(Of Unosquare.Swan.Components.Operator))
-  nameWithType: Tokenizer.Tokenizer(String, IEnumerable<Operator>)
-  nameWithType.vb: Tokenizer.Tokenizer(String, IEnumerable(Of Operator))
-- uid: Unosquare.Swan.Components.Tokenizer.#ctor*
-  name: Tokenizer
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer__ctor_
-  commentId: Overload:Unosquare.Swan.Components.Tokenizer.#ctor
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Tokenizer.Tokenizer
-  nameWithType: Tokenizer.Tokenizer
-- uid: Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType(System.String)
-  name: ResolveFunctionOrMemberType(String)
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_ResolveFunctionOrMemberType_System_String_
-  commentId: M:Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType(System.String)
-  fullName: Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType(System.String)
-  nameWithType: Tokenizer.ResolveFunctionOrMemberType(String)
-- uid: Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType*
-  name: ResolveFunctionOrMemberType
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_ResolveFunctionOrMemberType_
-  commentId: Overload:Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Tokenizer.ResolveFunctionOrMemberType
-  nameWithType: Tokenizer.ResolveFunctionOrMemberType
-- uid: Unosquare.Swan.Components.Tokenizer.ShuntingYard
-  name: ShuntingYard()
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_ShuntingYard
-  commentId: M:Unosquare.Swan.Components.Tokenizer.ShuntingYard
-  fullName: Unosquare.Swan.Components.Tokenizer.ShuntingYard()
-  nameWithType: Tokenizer.ShuntingYard()
-- uid: Unosquare.Swan.Components.Tokenizer.ShuntingYard*
-  name: ShuntingYard
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_ShuntingYard_
-  commentId: Overload:Unosquare.Swan.Components.Tokenizer.ShuntingYard
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Tokenizer.ShuntingYard
-  nameWithType: Tokenizer.ShuntingYard
-- uid: Unosquare.Swan.Components.Tokenizer.Tokens
-  name: Tokens
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_Tokens
-  commentId: P:Unosquare.Swan.Components.Tokenizer.Tokens
-  fullName: Unosquare.Swan.Components.Tokenizer.Tokens
-  nameWithType: Tokenizer.Tokens
-- uid: Unosquare.Swan.Components.Tokenizer.Tokens*
-  name: Tokens
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_Tokens_
-  commentId: Overload:Unosquare.Swan.Components.Tokenizer.Tokens
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Tokenizer.Tokens
-  nameWithType: Tokenizer.Tokens
-- uid: Unosquare.Swan.Components.Tokenizer.ValidateInput(System.String,System.Int32@)
-  name: ValidateInput(String, out Int32)
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_ValidateInput_System_String_System_Int32__
-  commentId: M:Unosquare.Swan.Components.Tokenizer.ValidateInput(System.String,System.Int32@)
-  name.vb: ValidateInput(String, ByRef Int32)
-  fullName: Unosquare.Swan.Components.Tokenizer.ValidateInput(System.String, out System.Int32)
-  fullName.vb: Unosquare.Swan.Components.Tokenizer.ValidateInput(System.String, ByRef System.Int32)
-  nameWithType: Tokenizer.ValidateInput(String, out Int32)
-  nameWithType.vb: Tokenizer.ValidateInput(String, ByRef Int32)
-- uid: Unosquare.Swan.Components.Tokenizer.ValidateInput*
-  name: ValidateInput
-  href: api/Unosquare.Swan.Components.Tokenizer.html#Unosquare_Swan_Components_Tokenizer_ValidateInput_
-  commentId: Overload:Unosquare.Swan.Components.Tokenizer.ValidateInput
-  isSpec: "True"
-  fullName: Unosquare.Swan.Components.Tokenizer.ValidateInput
-  nameWithType: Tokenizer.ValidateInput
-- uid: Unosquare.Swan.Components.TokenType
-  name: TokenType
-  href: api/Unosquare.Swan.Components.TokenType.html
-  commentId: T:Unosquare.Swan.Components.TokenType
-  fullName: Unosquare.Swan.Components.TokenType
-  nameWithType: TokenType
-- uid: Unosquare.Swan.Components.TokenType.Function
-  name: Function
-  href: api/Unosquare.Swan.Components.TokenType.html#Unosquare_Swan_Components_TokenType_Function
-  commentId: F:Unosquare.Swan.Components.TokenType.Function
-  fullName: Unosquare.Swan.Components.TokenType.Function
-  nameWithType: TokenType.Function
-- uid: Unosquare.Swan.Components.TokenType.Number
-  name: Number
-  href: api/Unosquare.Swan.Components.TokenType.html#Unosquare_Swan_Components_TokenType_Number
-  commentId: F:Unosquare.Swan.Components.TokenType.Number
-  fullName: Unosquare.Swan.Components.TokenType.Number
-  nameWithType: TokenType.Number
-- uid: Unosquare.Swan.Components.TokenType.Operator
-  name: Operator
-  href: api/Unosquare.Swan.Components.TokenType.html#Unosquare_Swan_Components_TokenType_Operator
-  commentId: F:Unosquare.Swan.Components.TokenType.Operator
-  fullName: Unosquare.Swan.Components.TokenType.Operator
-  nameWithType: TokenType.Operator
-- uid: Unosquare.Swan.Components.TokenType.Parenthesis
-  name: Parenthesis
-  href: api/Unosquare.Swan.Components.TokenType.html#Unosquare_Swan_Components_TokenType_Parenthesis
-  commentId: F:Unosquare.Swan.Components.TokenType.Parenthesis
-  fullName: Unosquare.Swan.Components.TokenType.Parenthesis
-  nameWithType: TokenType.Parenthesis
-- uid: Unosquare.Swan.Components.TokenType.String
-  name: String
-  href: api/Unosquare.Swan.Components.TokenType.html#Unosquare_Swan_Components_TokenType_String
-  commentId: F:Unosquare.Swan.Components.TokenType.String
-  fullName: Unosquare.Swan.Components.TokenType.String
-  nameWithType: TokenType.String
-- uid: Unosquare.Swan.Components.TokenType.Variable
-  name: Variable
-  href: api/Unosquare.Swan.Components.TokenType.html#Unosquare_Swan_Components_TokenType_Variable
-  commentId: F:Unosquare.Swan.Components.TokenType.Variable
-  fullName: Unosquare.Swan.Components.TokenType.Variable
-  nameWithType: TokenType.Variable
 - uid: Unosquare.Swan.Components.WaitEventFactory
   name: WaitEventFactory
   href: api/Unosquare.Swan.Components.WaitEventFactory.html
